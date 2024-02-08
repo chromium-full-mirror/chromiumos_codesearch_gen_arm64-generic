@@ -948,9 +948,14 @@ export class SettingsInternetDetailPageElement extends SettingsInternetDetailPag
         return this.isConnectedState_(managedProperties) &&
             !this.isRestrictedConnectivity_(managedProperties);
     }
-    showRestrictedConnectivity_(managedProperties) {
+    showRestrictedConnectivity_(managedProperties, deviceState) {
         if (!managedProperties) {
             return false;
+        }
+        // Display carrier locked network as warning
+        if (this.isCellularCarrierLockEnabled_ &&
+            this.isCarrierLockedActiveSim_(managedProperties, deviceState)) {
+            return true;
         }
         // State must be connected and restricted.
         return this.isConnectedState_(managedProperties) &&

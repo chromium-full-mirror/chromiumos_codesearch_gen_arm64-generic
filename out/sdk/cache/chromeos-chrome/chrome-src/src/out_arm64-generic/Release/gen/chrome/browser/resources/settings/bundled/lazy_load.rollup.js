@@ -3431,21 +3431,22 @@ function getTemplate$1k() {
         <div>$i18n{clearBrowsingData}</div>
       </div>
       <div slot="header">
-        <cr-tabs tab-names="[[tabsNames_]]" selected="{{prefs.browser.last_clear_browsing_data_tab.value}}" on-selected-changed="recordTabChange_"></cr-tabs>
+        <cr-tabs tab-names="[[tabsNames_]]" selected="{{selectedTabIndex_}}" on-selected-changed="recordTabChange_">
+        </cr-tabs>
       </div>
       <div slot="body">
-        <iron-pages id="tabs" selected="[[prefs.browser.last_clear_browsing_data_tab.value]]" on-selected-item-changed="updateClearButtonState_">
+        <iron-pages id="tabs" selected="[[selectedTabIndex_]]" on-selected-item-changed="updateClearButtonState_">
           <div id="basic-tab">
             <div class="row time-range-row">
               <span class="time-range-label" aria-hidden="true">
                 $i18n{clearTimeRange}
               </span>
               <template is="dom-if" if="[[!enableCbdTimeframeRequired_]]">
-                <settings-dropdown-menu id="clearFromBasic" class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period_basic}}" menu-options="[[clearFromOptions_]]">
+                <settings-dropdown-menu id="clearFromBasic" no-set-pref class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period_basic}}" menu-options="[[clearFromOptions_]]">
                 </settings-dropdown-menu>
               </template>
               <template is="dom-if" if="[[enableCbdTimeframeRequired_]]">
-                <settings-dropdown-menu id="clearFromBasic" class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period_v2_basic}}" menu-options="[[clearFromOptionsV2_]]">
+                <settings-dropdown-menu id="clearFromBasic" no-set-pref class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period_v2_basic}}" menu-options="[[clearFromOptionsV2_]]">
                 </settings-dropdown-menu>
               </template>
             </div>
@@ -3485,11 +3486,11 @@ function getTemplate$1k() {
                 $i18n{clearTimeRange}
               </span>
               <template is="dom-if" if="[[!enableCbdTimeframeRequired_]]">
-                <settings-dropdown-menu id="clearFrom" class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period}}" menu-options="[[clearFromOptions_]]">
+                <settings-dropdown-menu id="clearFrom" no-set-pref class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period}}" menu-options="[[clearFromOptions_]]">
                 </settings-dropdown-menu>
               </template>
               <template is="dom-if" if="[[enableCbdTimeframeRequired_]]">
-                <settings-dropdown-menu id="clearFrom" class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period_v2}}" menu-options="[[clearFromOptionsV2_]]">
+                <settings-dropdown-menu id="clearFrom" no-set-pref class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period_v2}}" menu-options="[[clearFromOptionsV2_]]">
                 </settings-dropdown-menu>
               </template>
             </div>
@@ -3791,6 +3792,7 @@ class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsingDataDi
                 value: false,
                 computed: 'computeHasOtherError_(syncStatus, isSyncPaused_, hasPassphraseError_)',
             },
+            selectedTabIndex_: Number,
             tabsNames_: {
                 type: Array,
                 value: () => [loadTimeData.getString('basicPageTitle'),
@@ -3814,6 +3816,8 @@ class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsingDataDi
           prefs.browser.clear_data.time_period.value)`,
             `onTimePeriodBasicPrefUpdated_(
           prefs.browser.clear_data.time_period_basic.value)`,
+            `onSelectedTabIndexPrefUpdated_(
+          prefs.browser.last_clear_browsing_data_tab.value)`,
         ];
     }
     ready() {
@@ -3964,9 +3968,15 @@ class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsingDataDi
         else {
             chrome.metricsPrivate.recordUserAction('ClearBrowsingData_AdvancedTab');
         }
+        this.setPrefValue('browser.last_clear_browsing_data_tab', this.selectedTabIndex_);
+        // Dropdown menu and checkbox selections of both tabs should be persisted
+        // independently from the tab on which the user confirmed the deletion.
         this.shadowRoot
             .querySelectorAll('settings-checkbox[no-set-pref]')
             .forEach(checkbox => checkbox.sendPrefChange());
+        this.shadowRoot
+            .querySelectorAll('settings-dropdown-menu[no-set-pref]')
+            .forEach(dropdown => dropdown.sendPrefChange());
         const { showHistoryNotice, showPasswordsNotice } = await this.browserProxy_.clearBrowsingData(dataTypes, timePeriod);
         this.clearingInProgress_ = false;
         getInstance().announce(loadTimeData.getString('clearedData'));
@@ -4005,6 +4015,9 @@ class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsingDataDi
      */
     onPasswordsDeletionDialogClose_() {
         this.showPasswordsDeletionDialog_ = false;
+    }
+    onSelectedTabIndexPrefUpdated_(selectedTabIndex) {
+        this.selectedTabIndex_ = selectedTabIndex;
     }
     /**
      * Records an action when the user changes between the basic and advanced tab.
@@ -4876,34 +4889,36 @@ class SettingsSearchEnginesPageElement extends SettingsSearchEnginesPageElementB
 customElements.define(SettingsSearchEnginesPageElement.is, SettingsSearchEnginesPageElement);
 
 function getTemplate$1e() {
-    return html `<!--_html_template_start_--><style include="settings-shared">.info-container{color:var(--cr-secondary-text-color);display:flex;padding:10px}.info-section{flex:1}.info-header{color:var(--google-blue-600);font-weight:500;padding-block-end:0;padding-block-start:0;padding-inline-start:10px}@media (prefers-color-scheme:dark){.info-header{color:var(--google-blue-300)}}.info-text-container{display:flex;gap:18px;padding:10px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared settings-columned-section">.settings-columned-section{padding-top:4px}</style>
 <settings-toggle-button id="toggleButton" pref="{{pref_}}" no-set-pref label="$i18n{siteSettingsAntiAbuse}" sub-label="$i18n{siteSettingsAntiAbuseDescription}" disabled="[[toggleDisabled_]]" on-settings-boolean-control-change="onToggleChange_">
 </settings-toggle-button>
-<div class="info-container">
-  <div class="info-section">
-    <h2 class="info-header">$i18n{antiAbuseWhenOnHeader}</h2>
-    <div class="info-text-container">
-      <iron-icon icon="settings20:archive" aria-hidden="true"></iron-icon>
-      <div>$i18n{antiAbuseWhenOnSectionOne}</div>
-    </div>
-    <div class="info-text-container">
-      <iron-icon icon="settings20:dashboard" aria-hidden="true">
-      </iron-icon>
-      <div>$i18n{antiAbuseWhenOnSectionTwo}</div>
-    </div>
-    <div class="info-text-container">
-      <iron-icon icon="settings20:timer" aria-hidden="true">
-      </iron-icon>
-      <div>$i18n{antiAbuseWhenOnSectionThree}</div>
-    </div>
+<div class="settings-columned-section">
+  <div class="column">
+    <h2 class="description-header">$i18n{antiAbuseWhenOnHeader}</h2>
+    <ul class="icon-bulleted-list">
+      <li>
+        <iron-icon icon="settings20:archive" aria-hidden="true"></iron-icon>
+        <div class="secondary">$i18n{antiAbuseWhenOnSectionOne}</div>
+      </li>
+      <li>
+        <iron-icon icon="settings20:dashboard" aria-hidden="true"></iron-icon>
+        <div class="secondary">$i18n{antiAbuseWhenOnSectionTwo}</div>
+      </li>
+      <li>
+        <iron-icon icon="settings20:timer" aria-hidden="true"></iron-icon>
+        <div class="secondary">$i18n{antiAbuseWhenOnSectionThree}</div>
+      </li>
+    </ul>
   </div>
-  <div class="info-section">
-    <h2 class="info-header">$i18n{antiAbuseThingsToConsiderHeader}</h2>
-    <div class="info-text-container">
-      <iron-icon icon="settings20:background-replace" aria-hidden="true">
-      </iron-icon>
-      <div>$i18n{antiAbuseThingsToConsiderSectionOne}</div>
-    </div>
+  <div class="column">
+    <h2 class="description-header">$i18n{antiAbuseThingsToConsiderHeader}</h2>
+    <ul class="icon-bulleted-list">
+      <li>
+        <iron-icon icon="settings20:background-replace" aria-hidden="true">
+        </iron-icon>
+        <div class="secondary">$i18n{antiAbuseThingsToConsiderSectionOne}</div>
+      </li>
+    </ul>
   </div>
 </div><!--_html_template_end_-->`;
 }
@@ -5122,7 +5137,7 @@ class PrivacySandboxInterestItemElement extends PrivacySandboxInterestItemElemen
         if (this.interest.topic !== undefined) {
             assert(!this.interest.site);
             return this.i18n(this.interest.removed ?
-                ((loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled')) ?
+                (loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled') ?
                     'unblockTopicButtonTextV2' :
                     'topicsPageAllowTopic') :
                 'topicsPageBlockTopic');
@@ -5136,7 +5151,10 @@ class PrivacySandboxInterestItemElement extends PrivacySandboxInterestItemElemen
     getButtonAriaLabel_() {
         if (this.interest.topic !== undefined) {
             assert(!this.interest.site);
-            return this.i18n(this.interest.removed ? 'topicsPageAllowTopicA11yLabel' :
+            return this.i18n(this.interest.removed ?
+                (loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled') ?
+                    'topicsPageUnblockTopicA11yLabel' :
+                    'topicsPageAllowTopicA11yLabel') :
                 'topicsPageBlockTopicA11yLabel', this.interest.topic.displayString);
         }
         else {
@@ -5596,12 +5614,12 @@ const template$2 = html `<iron-iconset-svg name="firstLevelTopics20" size="20">
 document.head.appendChild(template$2.content);
 
 function getTemplate$19() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">#explanationText{padding:0 var(--cr-section-padding)}.outer-row{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height);--cr-icon-button-margin-end:20px;padding:0 var(--cr-section-padding);width:100%}.topic-toggle{align-items:center;display:flex;width:100%}.icon{margin-inline-end:var(--cr-icon-button-margin-end)}.label-wrapper{padding:var(--cr-section-vertical-padding) 0;margin-inline-end:20px}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">#explanationText{padding:0 var(--cr-section-padding)}.outer-row{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height);--cr-icon-button-margin-end:20px;padding:0 var(--cr-section-padding);width:100%}.topic-toggle-row:hover{background-color:var(--cr-hover-background-color)}.topic-toggle-row{align-items:center;display:flex;width:100%}.icon{margin-inline-end:var(--cr-icon-button-margin-end)}.label-wrapper{padding:var(--cr-section-vertical-padding) 0;margin-inline-end:20px}</style>
 <div id="explanationText">
   $i18nRaw{manageTopicsPageDescription}
 </div>
 <template is="dom-repeat" items="[[firstLevelTopicsList_]]">
-  <div class="topic-toggle">
+  <div class="topic-toggle-row" on-click="onToggleRowClick_" actionable>
     <div class="outer-row">
       <span class="icon">
         <iron-icon slot="icon" icon="[[computeTopicIcon_(item.topic.topicId)]]">
@@ -5613,7 +5631,7 @@ function getTemplate$19() {
           <span class="sub-label-text">[[item.topic.description]]</span>
         </div>
       </div>
-      <cr-toggle id="toggle-[[item.topic.topicId]]" on-change="onToggleChange_" checked="[[!item.removed]]"></cr-toggle>
+      <cr-toggle id="toggle-[[item.topic.topicId]]" on-change="onToggleChange_" checked="[[!item.removed]]" aria-label="[[item.topic.displayString]]" aria-description="[[item.topic.description]]"></cr-toggle>
     </div>
   </div>
 </template>
@@ -5697,7 +5715,6 @@ class SettingsPrivacySandboxManageTopicsSubpageElement extends SettingsPrivacySa
     }
     ready() {
         super.ready();
-        this.$.explanationText.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
         this.privacySandboxBrowserProxy_.getFirstLevelTopics().then(state => this.onFirstLevelTopicsStateChanged_(state));
     }
     currentRouteChanged(newRoute) {
@@ -5725,15 +5742,27 @@ class SettingsPrivacySandboxManageTopicsSubpageElement extends SettingsPrivacySa
             };
         });
     }
+    // When the user clicks anywhere on the toggle row, we click the toggle itself
+    // here to trigger its on-change event.
+    onToggleRowClick_(e) {
+        e.stopPropagation();
+        assert(e.model.item?.topic);
+        const toggleId = `#toggle-${e.model.item.topic.topicId}`;
+        const toggleBeingChanged = this.shadowRoot.querySelector(toggleId);
+        assert(toggleBeingChanged);
+        toggleBeingChanged.click();
+    }
     async onToggleChange_(e) {
+        e.stopPropagation();
         this.topicBeingToggled_ = e.model.item;
         assert(this.topicBeingToggled_);
         assert(this.topicBeingToggled_.topic);
         const toggleId = `#toggle-${this.topicBeingToggled_.topic.topicId}`;
         const toggleBeingChanged = this.shadowRoot.querySelector(toggleId);
         assert(toggleBeingChanged);
-        // If the toggle is checked, then the First Level Topic needs to be
-        // updated to be unblocked.
+        // At this point, the toggle checked state has already changed. If the
+        // toggle is now checked, then the First Level Topic needs to be updated to
+        // be unblocked.
         if (toggleBeingChanged.checked) {
             this.updateTopicState_({ blocked: false });
             return;
@@ -19155,40 +19184,6 @@ function getTemplate$9() {
         <img id="banner" alt="" src="chrome://settings/images/tracking_protection_banner.svg">
       
     </picture>
-    <template is="dom-if" if="[[is3pcdRedesignEnabled_]]">
-      <div id="explanationText" class="secondary">
-        $i18n{trackingProtectionPageDescription}
-      </div>
-      <div>
-        <div class="bullet-row">
-          <iron-icon icon="settings:visibility-off" aria-hidden="true">
-          </iron-icon>
-          <div>
-            $i18n{trackingProtectionBulletOne}
-            <div class="secondary">
-              $i18n{trackingProtectionBulletOneDescription}
-            </div>
-          </div>
-        </div>
-        <div class="bullet-row">
-          <iron-icon icon="settings:domain-verification" aria-hidden="true">
-          </iron-icon>
-          <div>
-            $i18n{trackingProtectionBulletTwo}
-            <div class="secondary">
-              $i18nRaw{trackingProtectionBulletTwoDescription}
-            </div>
-        </div>
-      </div>
-      <h2 id="advancedHeader">$i18n{trackingProtectionAdvancedLabel}</h2>
-      <settings-toggle-button id="blockThirdPartyToggle" pref="{{prefs.tracking_protection.block_all_3pc_toggle_enabled}}" label="$i18n{trackingProtectionThirdPartyCookiesToggleLabel}" sub-label="
-            $i18n{trackingProtectionThirdPartyCookiesToggleSubLabel}" learn-more-url="
-            $i18n{trackingProtectionThirdPartyCookiesLearnMoreUrl}" learn-more-aria-label="
-            $i18n{trackingProtectionThirdPartyCookiesLearnMoreAriaLabel}" on-settings-boolean-control-change="onBlockAll3pcToggleChanged_" icon="settings:visibility-off">
-      </settings-toggle-button>
-      <settings-do-not-track-toggle id="doNotTrack" prefs="{{prefs}}">
-      </settings-do-not-track-toggle>
-    </div></template>
     <template is="dom-if" if="[[!is3pcdRedesignEnabled_]]">
       <div id="rollbackNotice" hidden="[[!showTrackingProtectionRollbackNotice_]]">
         $i18nRaw{trackingProtectionRollbackNotice}
@@ -19197,10 +19192,12 @@ function getTemplate$9() {
         $i18n{thirdPartyCookiesPageDescription}
       </div>
       <div id="generalControls">
-        <h2>$i18n{thirdPartyCookiesPageDefaultBehaviorHeading}</h2>
-        <div class="secondary radio-group-sub-heading">
-          $i18n{thirdPartyCookiesPageDefaultBehaviorDescription}
-        </div>
+        <template is="dom-if" if="[[!isCookieSettingsUiAlignmentEnabled_]]">
+          <h2>$i18n{thirdPartyCookiesPageDefaultBehaviorHeading}</h2>
+          <div class="secondary radio-group-sub-heading">
+            $i18n{thirdPartyCookiesPageDefaultBehaviorDescription}
+          </div>
+        </template>
         <settings-radio-group id="primarySettingGroup" no-set-pref pref="{{prefs.profile.cookie_controls_mode}}" selectable-elements="
                 cr-radio-button, settings-collapse-radio-button" on-change="onCookieControlsModeChanged_">
           <settings-collapse-radio-button id="allowThirdParty" pref="[[prefs.profile.cookie_controls_mode]]" name="[[cookieControlsModeEnum_.OFF]]" label="$i18n{thirdPartyCookiesPageAllowRadioLabel}" expand-aria-label="
@@ -19264,11 +19261,45 @@ function getTemplate$9() {
         </settings-radio-group>
       </div>
     </template>
-    <settings-do-not-track-toggle id="doNotTrack" prefs="{{prefs}}" hidden="[[is3pcdRedesignEnabled_]]">
+    <template is="dom-if" if="[[is3pcdRedesignEnabled_]">
+      <div id="explanationText" class="secondary">
+        $i18n{trackingProtectionPageDescription}
+      </div>
+      <div>
+        <div class="bullet-row">
+          <iron-icon icon="settings:visibility-off" aria-hidden="true">
+          </iron-icon>
+          <div>
+            $i18n{trackingProtectionBulletOne}
+            <div class="secondary">
+              $i18n{trackingProtectionBulletOneDescription}
+            </div>
+          </div>
+        </div>
+        <div class="bullet-row">
+          <iron-icon icon="settings:domain-verification" aria-hidden="true">
+          </iron-icon>
+          <div>
+            $i18n{trackingProtectionBulletTwo}
+            <div class="secondary">
+              $i18nRaw{trackingProtectionBulletTwoDescription}
+            </div>
+        </div>
+      </div>
+    </div></template>
+    <template is="dom-if" if="[[isCookiesUiV2_]">
+      <h2 id="advancedHeader">$i18n{trackingProtectionAdvancedLabel}</h2>
+      <settings-toggle-button id="blockThirdPartyToggle" pref="{{prefs.tracking_protection.block_all_3pc_toggle_enabled}}" label="$i18n{trackingProtectionThirdPartyCookiesToggleLabel}" sub-label="
+            $i18n{trackingProtectionThirdPartyCookiesToggleSubLabel}" learn-more-url="
+            $i18n{trackingProtectionThirdPartyCookiesLearnMoreUrl}" learn-more-aria-label="
+            $i18n{trackingProtectionThirdPartyCookiesLearnMoreAriaLabel}" on-settings-boolean-control-change="onBlockAll3pcToggleChanged_" hidden="[[!is3pcdRedesignEnabled_]]" icon="settings:visibility-off">
+      </settings-toggle-button>
+    </template>
+    <settings-do-not-track-toggle id="doNotTrack" prefs="{{prefs}}">
     </settings-do-not-track-toggle>
     <cr-link-row id="site-data-trigger" class="hr" on-click="onSiteDataClick_" label="$i18n{cookiePageAllSitesLink}" role-description="$i18n{subpageArrowRoleDescription}">
     </cr-link-row>
-    <template is="dom-if" if="[[!is3pcdRedesignEnabled_]]">
+    <template is="dom-if" if="[[!isCookiesUiV2_]]">
       <div id="exceptionHeader">
         <h2>$i18n{thirdPartyCookiesPageCustomizedBehaviorHeading}</h2>
         <div id="exceptionHeaderSubLabel" class="secondary">
@@ -19279,7 +19310,7 @@ function getTemplate$9() {
               $i18n{thirdPartyCookiesPageAllowExceptionsSubHeading}" read-only-list="[[exceptionListsReadOnly_]]" search-filter="[[searchTerm]]" cookies-exception-type="third-party">
       </site-list>
     </template>
-    <template is="dom-if" if="[[is3pcdRedesignEnabled_]]">
+    <template is="dom-if" if="[[isCookiesUiV2_]]">
       <div id="exceptionHeader3pcd">
         <h2>$i18n{trackingProtectionSitesAllowedCookiesTitle}</h2>
       </div>
@@ -19374,6 +19405,15 @@ class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
             is3pcdRedesignEnabled_: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled'),
+            },
+            isCookieSettingsUiAlignmentEnabled_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('isCookieSettingsUiAlignmentEnabled'),
+            },
+            isCookiesUiV2_: {
+                type: Boolean,
+                value: () => (loadTimeData.getBoolean('isCookieSettingsUiAlignmentEnabled') ||
+                    loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled')),
             },
             showTrackingProtectionRollbackNotice_: {
                 type: Boolean,

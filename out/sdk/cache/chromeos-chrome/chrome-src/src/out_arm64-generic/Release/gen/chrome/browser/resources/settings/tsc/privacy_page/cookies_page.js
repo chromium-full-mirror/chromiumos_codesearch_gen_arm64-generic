@@ -101,6 +101,15 @@ export class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled'),
             },
+            isCookieSettingsUiAlignmentEnabled_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('isCookieSettingsUiAlignmentEnabled'),
+            },
+            isCookiesUiV2_: {
+                type: Boolean,
+                value: () => (loadTimeData.getBoolean('isCookieSettingsUiAlignmentEnabled') ||
+                    loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled')),
+            },
             showTrackingProtectionRollbackNotice_: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('showTrackingProtectionSettingsRollbackNotice'),

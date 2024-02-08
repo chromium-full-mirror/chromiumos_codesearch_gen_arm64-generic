@@ -8,7 +8,7 @@
 import '../settings_shared.css.js';
 import 'chrome://resources/ash/common/cr_elements/cr_input/cr_input.js';
 import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
-import { getDeviceName } from 'chrome://resources/ash/common/bluetooth/bluetooth_utils.js';
+import { getDeviceNameUnsafe } from 'chrome://resources/ash/common/bluetooth/bluetooth_utils.js';
 import { getBluetoothConfig } from 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
 import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
@@ -33,6 +33,11 @@ export class SettingsBluetoothChangeDeviceNameDialogElement extends SettingsBlue
                 type: Number,
                 value: MAX_INPUT_LENGTH,
             },
+            /**
+             * WARNING: This string may contain malicious HTML and should not be used
+             * for Polymer bindings in CSS code. For additional information see
+             * b/298724102.
+             */
             deviceName_: {
                 type: String,
                 value: '',
@@ -46,7 +51,7 @@ export class SettingsBluetoothChangeDeviceNameDialogElement extends SettingsBlue
         };
     }
     onDeviceChanged_() {
-        this.deviceName_ = getDeviceName(this.device);
+        this.deviceName_ = getDeviceNameUnsafe(this.device);
     }
     onCancelClick_() {
         this.$.dialog.close();
@@ -84,13 +89,16 @@ export class SettingsBluetoothChangeDeviceNameDialogElement extends SettingsBlue
         this.deviceName_ = this.deviceName_.substring(0, MAX_INPUT_LENGTH);
     }
     isDoneDisabled_() {
-        if (this.deviceName_ === getDeviceName(this.device)) {
+        if (this.deviceName_ === getDeviceNameUnsafe(this.device)) {
             return true;
         }
         if (!this.deviceName_.length) {
             return true;
         }
         return false;
+    }
+    getNameForTest() {
+        return getDeviceNameUnsafe(this.device);
     }
 }
 customElements.define(SettingsBluetoothChangeDeviceNameDialogElement.is, SettingsBluetoothChangeDeviceNameDialogElement);

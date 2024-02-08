@@ -152,7 +152,8 @@ CloneSessionRequest& CloneSessionRequest::operator=(CloneSessionRequest&&) = def
 bool CloneSessionRequest::operator==(const CloneSessionRequest& other) const {
   return ::protozero::internal::gen_helpers::EqualsField(unknown_fields_, other.unknown_fields_)
    && ::protozero::internal::gen_helpers::EqualsField(session_id_, other.session_id_)
-   && ::protozero::internal::gen_helpers::EqualsField(skip_trace_filter_, other.skip_trace_filter_);
+   && ::protozero::internal::gen_helpers::EqualsField(skip_trace_filter_, other.skip_trace_filter_)
+   && ::protozero::internal::gen_helpers::EqualsField(for_bugreport_, other.for_bugreport_);
 }
 
 bool CloneSessionRequest::ParseFromArray(const void* raw, size_t size) {
@@ -170,6 +171,9 @@ bool CloneSessionRequest::ParseFromArray(const void* raw, size_t size) {
         break;
       case 2 /* skip_trace_filter */:
         field.get(&skip_trace_filter_);
+        break;
+      case 3 /* for_bugreport */:
+        field.get(&for_bugreport_);
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -200,6 +204,11 @@ void CloneSessionRequest::Serialize(::protozero::Message* msg) const {
   // Field 2: skip_trace_filter
   if (_has_field_[2]) {
     ::protozero::internal::gen_helpers::SerializeTinyVarInt(2, skip_trace_filter_, msg);
+  }
+
+  // Field 3: for_bugreport
+  if (_has_field_[3]) {
+    ::protozero::internal::gen_helpers::SerializeTinyVarInt(3, for_bugreport_, msg);
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);

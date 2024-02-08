@@ -140,7 +140,7 @@ import*as e from"../../../ui/components/helpers/helpers.js";import*as t from"../
       `,this.#e,{host:this})}))}#X(){if(!this.#y)return t.nothing;return de`
       <${ge.litTagName}
         @togglerawevent=${()=>{this.#P=!this.#P,this.render()}}
-        .data=${{name:"responseHeaders",title:ce(le.responseHeaders),headerCount:this.#y.sortedResponseHeaders.length,checked:this.#y.responseHeadersText?this.#P:void 0,additionalContent:this.#Z(),forceOpen:"Response"===this.#B?.section,loggingContext:"response-headers"}}
+        .data=${{name:"response-headers",title:ce(le.responseHeaders),headerCount:this.#y.sortedResponseHeaders.length,checked:this.#y.responseHeadersText?this.#P:void 0,additionalContent:this.#Z(),forceOpen:"Response"===this.#B?.section,loggingContext:"response-headers"}}
         aria-label=${ce(le.responseHeaders)}
       >
         ${this.#P?this.#ee(this.#y.responseHeadersText,!0):de`
@@ -169,7 +169,7 @@ import*as e from"../../../ui/components/helpers/helpers.js";import*as t from"../
     `}#Y(){if(!this.#y)return o.DevToolsPath.EmptyUrlString;const e=c.NetworkPersistenceManager.NetworkPersistenceManager.instance().fileUrlFromNetworkUrl(this.#y.url(),!0);return e.substring(0,e.lastIndexOf("/"))+"/"+c.NetworkPersistenceManager.HEADERS_FILENAME}#Q(){if(!this.#y)return t.nothing;const e=this.#y.requestHeadersText();return de`
       <${ge.litTagName}
         @togglerawevent=${()=>{this.#M=!this.#M,this.render()}}
-        .data=${{name:"requestHeaders",title:ce(le.requestHeaders),headerCount:this.#y.requestHeaders().length,checked:e?this.#M:void 0,forceOpen:"Request"===this.#B?.section,loggingContext:"request-headers"}}
+        .data=${{name:"request-headers",title:ce(le.requestHeaders),headerCount:this.#y.requestHeaders().length,checked:e?this.#M:void 0,forceOpen:"Request"===this.#B?.section,loggingContext:"request-headers"}}
         aria-label=${ce(le.requestHeaders)}
       >
         ${this.#M&&e?this.#ee(e,!1):de`

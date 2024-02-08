@@ -26,8 +26,6 @@ NOINLINE static const char* RequestTokenStatusToStringHelper(RequestTokenStatus 
   switch(value) {
     case RequestTokenStatus::kSuccess:
       return "kSuccess";
-    case RequestTokenStatus::kApprovalDeclined:
-      return "kApprovalDeclined";
     case RequestTokenStatus::kErrorTooManyRequests:
       return "kErrorTooManyRequests";
     case RequestTokenStatus::kErrorCanceled:

@@ -7,7 +7,7 @@ export const ContentSettingsTypeSpec = { $: mojo.internal.Enum() };
 export var ContentSettingsType;
 (function (ContentSettingsType) {
     ContentSettingsType[ContentSettingsType["MIN_VALUE"] = -1] = "MIN_VALUE";
-    ContentSettingsType[ContentSettingsType["MAX_VALUE"] = 100] = "MAX_VALUE";
+    ContentSettingsType[ContentSettingsType["MAX_VALUE"] = 101] = "MAX_VALUE";
     ContentSettingsType[ContentSettingsType["DEFAULT"] = -1] = "DEFAULT";
     ContentSettingsType[ContentSettingsType["COOKIES"] = 0] = "COOKIES";
     ContentSettingsType[ContentSettingsType["IMAGES"] = 1] = "IMAGES";
@@ -109,5 +109,6 @@ export var ContentSettingsType;
     ContentSettingsType[ContentSettingsType["SMART_CARD_GUARD"] = 97] = "SMART_CARD_GUARD";
     ContentSettingsType[ContentSettingsType["SMART_CARD_DATA"] = 98] = "SMART_CARD_DATA";
     ContentSettingsType[ContentSettingsType["WEB_PRINTING"] = 99] = "WEB_PRINTING";
-    ContentSettingsType[ContentSettingsType["NUM_TYPES"] = 100] = "NUM_TYPES";
+    ContentSettingsType[ContentSettingsType["AUTOMATIC_FULLSCREEN"] = 100] = "AUTOMATIC_FULLSCREEN";
+    ContentSettingsType[ContentSettingsType["NUM_TYPES"] = 101] = "NUM_TYPES";
 })(ContentSettingsType || (ContentSettingsType = {}));

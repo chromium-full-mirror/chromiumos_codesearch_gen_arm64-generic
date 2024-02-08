@@ -1,7 +1,6 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// clang-format off
 import { dedupingMixin } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { PromiseResolver } from 'chrome://resources/js/promise_resolver.js';

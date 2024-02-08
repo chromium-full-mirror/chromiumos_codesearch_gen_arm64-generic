@@ -1212,7 +1212,13 @@ RuleCondition RuleCondition::Clone() const {
       json_schema_compiler::util::AppendToContainer(*out.response_headers, element.Clone());
     }
   }
-  out.excluded_response_headers = excluded_response_headers;
+  if (excluded_response_headers) {
+    out.excluded_response_headers.emplace();
+    out.excluded_response_headers->reserve(excluded_response_headers->size());
+    for (const auto& element : *excluded_response_headers) {
+      json_schema_compiler::util::AppendToContainer(*out.excluded_response_headers, element.Clone());
+    }
+  }
   return out;
 }
 

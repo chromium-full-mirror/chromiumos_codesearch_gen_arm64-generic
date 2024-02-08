@@ -214,8 +214,8 @@ const $$textContent = async (textContent, root) => {
 exports.$$textContent = $$textContent;
 const timeout = (duration) => new Promise(resolve => setTimeout(resolve, duration));
 exports.timeout = timeout;
-const getTextContent = async (selector) => {
-    const text = await (await (0, exports.$)(selector))?.evaluate(node => node.textContent);
+const getTextContent = async (selector, root) => {
+    const text = await (await (0, exports.$)(selector, root))?.evaluate(node => node.textContent);
     return text ?? undefined;
 };
 exports.getTextContent = getTextContent;

@@ -5,16 +5,16 @@ import { isServer, property, LitElement, css, customElement, state, query, html 
 import { loadTimeData as loadTimeData$1 } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import { PortalState, ConnectionStateType, DeviceStateType, NetworkType, OncSource, PolicySource, IPConfigType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
-import { ProfileState } from 'chrome://resources/mojo/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-webui.js';
-import { getESimManagerRemote, observeESimManager } from 'chrome://resources/ash/common/cellular_setup/mojo_interface_provider.js';
 import { TriState, AppTypeSpec, PermissionTypeSpec, PermissionSpec, PermissionType, AppType, PageCallbackRouter as PageCallbackRouter$3, PageHandlerRemote as PageHandlerRemote$3, PageHandlerFactory as PageHandlerFactory$2, InstallReason, InstallSource, WindowMode } from 'chrome://resources/cr_components/app_management/app_management.mojom-webui.js';
 import { ActivationStateType, InhibitReason, SecurityType, VpnType, ProxyMode, AuthenticationType, MatchType, HiddenSsidMode, SubjectAltName_Type, CrosNetworkConfigObserverReceiver, FilterType, NO_LIMIT, ApnAuthenticationType, ApnIpType, ApnType, ApnState } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
 import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network/mojo_interface_provider.js';
+import { getESimManagerRemote, observeESimManager } from 'chrome://resources/ash/common/cellular_setup/mojo_interface_provider.js';
 import { PinFactorEditor, ConfigureResult, AuthFactorConfig, RecoveryFactorEditor } from 'chrome://resources/mojo/chromeos/ash/services/auth_factor_config/public/mojom/auth_factor_config.mojom-webui.js';
 import { Visibility, NearbyShareSettings, NearbyShareSettingsObserverReceiver, DeviceNameValidationResult, ContactManager, DownloadContactsObserverReceiver, DataUsage, FastInitiationNotificationState } from 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_settings.mojom-webui.js';
 import { ShareTargetType, ShareTargetTypeSpec } from 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_target_types.mojom-webui.js';
 import { getBluetoothConfig } from 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
 import { DeviceType, DeviceConnectionState, AudioOutputCapability, BluetoothSystemState } from 'chrome://resources/mojo/chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-webui.js';
+import { ProfileState, ESimOperationResult } from 'chrome://resources/mojo/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-webui.js';
 import { HotspotState } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.mojom-webui.js';
 import 'chrome://resources/mojo/services/network/public/mojom/ip_address.mojom-webui.js';
 
@@ -2072,7 +2072,7 @@ function getSettingIdParameter() {
     return Router.getInstance().getQueryParameters().get(SETTING_ID_URL_PARAM_NAME);
 }
 
-function getTemplate$2i() {
+function getTemplate$2m() {
     return html `<!--_html_template_start_--><iron-pages id="animatedPages" attr-for-selected="route-path" on-iron-select="onIronSelect_">
   <slot></slot>
 </iron-pages>
@@ -2099,7 +2099,7 @@ class OsSettingsAnimatedPagesElement extends OsSettingsAnimatedPagesElementBase 
         return 'os-settings-animated-pages';
     }
     static get template() {
-        return getTemplate$2i();
+        return getTemplate$2m();
     }
     static get properties() {
         return {
@@ -2258,7 +2258,7 @@ part of the polymer project is also subject to an additional IP rights grant
 found at http://polymer.github.io/PATENTS.txt
 */
 
-const template$f = html`
+const template$g = html`
 <custom-style>
   <style is="custom-style">
     html {
@@ -2411,10 +2411,10 @@ const template$f = html`
   </style>
 </custom-style>
 `;
-template$f.setAttribute('style', 'display: none;');
-document.head.appendChild(template$f.content);
+template$g.setAttribute('style', 'display: none;');
+document.head.appendChild(template$g.content);
 
-const template$e = html `
+const template$f = html `
 <style>
 html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-rgb));--google-blue-100-rgb:210,227,252;--google-blue-100:rgb(var(--google-blue-100-rgb));--google-blue-200-rgb:174,203,250;--google-blue-200:rgb(var(--google-blue-200-rgb));--google-blue-300-rgb:138,180,248;--google-blue-300:rgb(var(--google-blue-300-rgb));--google-blue-400-rgb:102,157,246;--google-blue-400:rgb(var(--google-blue-400-rgb));--google-blue-500-rgb:66,133,244;--google-blue-500:rgb(var(--google-blue-500-rgb));--google-blue-600-rgb:26,115,232;--google-blue-600:rgb(var(--google-blue-600-rgb));--google-blue-700-rgb:25,103,210;--google-blue-700:rgb(var(--google-blue-700-rgb));--google-blue-800-rgb:24,90,188;--google-blue-800:rgb(var(--google-blue-800-rgb));--google-blue-900-rgb:23,78,166;--google-blue-900:rgb(var(--google-blue-900-rgb));--google-green-50-rgb:230,244,234;--google-green-50:rgb(var(--google-green-50-rgb));--google-green-200-rgb:168,218,181;--google-green-200:rgb(var(--google-green-200-rgb));--google-green-300-rgb:129,201,149;--google-green-300:rgb(var(--google-green-300-rgb));--google-green-400-rgb:91,185,116;--google-green-400:rgb(var(--google-green-400-rgb));--google-green-500-rgb:52,168,83;--google-green-500:rgb(var(--google-green-500-rgb));--google-green-600-rgb:30,142,62;--google-green-600:rgb(var(--google-green-600-rgb));--google-green-700-rgb:24,128,56;--google-green-700:rgb(var(--google-green-700-rgb));--google-green-800-rgb:19,115,51;--google-green-800:rgb(var(--google-green-800-rgb));--google-green-900-rgb:13,101,45;--google-green-900:rgb(var(--google-green-900-rgb));--google-grey-50-rgb:248,249,250;--google-grey-50:rgb(var(--google-grey-50-rgb));--google-grey-100-rgb:241,243,244;--google-grey-100:rgb(var(--google-grey-100-rgb));--google-grey-200-rgb:232,234,237;--google-grey-200:rgb(var(--google-grey-200-rgb));--google-grey-300-rgb:218,220,224;--google-grey-300:rgb(var(--google-grey-300-rgb));--google-grey-400-rgb:189,193,198;--google-grey-400:rgb(var(--google-grey-400-rgb));--google-grey-500-rgb:154,160,166;--google-grey-500:rgb(var(--google-grey-500-rgb));--google-grey-600-rgb:128,134,139;--google-grey-600:rgb(var(--google-grey-600-rgb));--google-grey-700-rgb:95,99,104;--google-grey-700:rgb(var(--google-grey-700-rgb));--google-grey-800-rgb:60,64,67;--google-grey-800:rgb(var(--google-grey-800-rgb));--google-grey-900-rgb:32,33,36;--google-grey-900:rgb(var(--google-grey-900-rgb));--google-grey-900-white-4-percent:#292a2d;--google-purple-200-rgb:215,174,251;--google-purple-200:rgb(var(--google-purple-200-rgb));--google-purple-900-rgb:104,29,168;--google-purple-900:rgb(var(--google-purple-900-rgb));--google-red-300-rgb:242,139,130;--google-red-300:rgb(var(--google-red-300-rgb));--google-red-500-rgb:234,67,53;--google-red-500:rgb(var(--google-red-500-rgb));--google-red-600-rgb:217,48,37;--google-red-600:rgb(var(--google-red-600-rgb));--google-yellow-50-rgb:254,247,224;--google-yellow-50:rgb(var(--google-yellow-50-rgb));--google-yellow-100-rgb:254,239,195;--google-yellow-100:rgb(var(--google-yellow-100-rgb));--google-yellow-200-rgb:253,226,147;--google-yellow-200:rgb(var(--google-yellow-200-rgb));--google-yellow-300-rgb:253,214,51;--google-yellow-300:rgb(var(--google-yellow-300-rgb));--google-yellow-400-rgb:252,201,52;--google-yellow-400:rgb(var(--google-yellow-400-rgb));--google-yellow-500-rgb:251,188,4;--google-yellow-500:rgb(var(--google-yellow-500-rgb));--cr-primary-text-color:var(--google-grey-900);--cr-secondary-text-color:var(--google-grey-700);--cr-card-background-color:white;--cr-shadow-color:var(--google-grey-800);--cr-shadow-key-color_:color-mix(in srgb, var(--cr-shadow-color) 30%, transparent);--cr-shadow-ambient-color_:color-mix(in srgb, var(--cr-shadow-color) 15%, transparent);--cr-elevation-1:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 1px 3px 1px;--cr-elevation-2:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 2px 6px 2px;--cr-elevation-3:var(--cr-shadow-key-color_) 0 1px 3px 0,var(--cr-shadow-ambient-color_) 0 4px 8px 3px;--cr-elevation-4:var(--cr-shadow-key-color_) 0 2px 3px 0,var(--cr-shadow-ambient-color_) 0 6px 10px 4px;--cr-elevation-5:var(--cr-shadow-key-color_) 0 4px 4px 0,var(--cr-shadow-ambient-color_) 0 8px 12px 6px;--cr-card-shadow:var(--cr-elevation-2);--cr-checked-color:var(--google-blue-600);--cr-focused-item-color:var(--google-grey-300);--cr-form-field-label-color:var(--google-grey-700);--cr-hairline-rgb:0,0,0;--cr-iph-anchor-highlight-color:rgba(var(--google-blue-600-rgb), 0.1);--cr-link-color:var(--google-blue-700);--cr-menu-background-color:white;--cr-menu-background-focus-color:var(--google-grey-400);--cr-menu-shadow:0 2px 6px var(--paper-grey-500);--cr-separator-color:rgba(0, 0, 0, .06);--cr-title-text-color:rgb(90, 90, 90);--cr-toolbar-background-color:white;--cr-hover-background-color:rgba(var(--google-grey-900-rgb), .1);--cr-active-background-color:rgba(var(--google-grey-900-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-600-rgb), .4)}@media (prefers-color-scheme:dark){html{--cr-primary-text-color:var(--google-grey-200);--cr-secondary-text-color:var(--google-grey-500);--cr-card-background-color:var(--google-grey-900-white-4-percent);--cr-card-shadow-color-rgb:0,0,0;--cr-checked-color:var(--google-blue-300);--cr-focused-item-color:var(--google-grey-800);--cr-form-field-label-color:var(--dark-secondary-color);--cr-hairline-rgb:255,255,255;--cr-iph-anchor-highlight-color:rgba(var(--google-grey-100-rgb), 0.1);--cr-link-color:var(--google-blue-300);--cr-menu-background-color:var(--google-grey-900);--cr-menu-background-focus-color:var(--google-grey-700);--cr-menu-background-sheen:rgba(255, 255, 255, .06);--cr-menu-shadow:rgba(0, 0, 0, .3) 0 1px 2px 0,rgba(0, 0, 0, .15) 0 3px 6px 2px;--cr-separator-color:rgba(255, 255, 255, .1);--cr-title-text-color:var(--cr-primary-text-color);--cr-toolbar-background-color:var(--google-grey-900-white-4-percent);--cr-hover-background-color:rgba(255, 255, 255, .1);--cr-active-background-color:rgba(var(--google-grey-200-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-300-rgb), .4)}}@media (forced-colors:active){html{--cr-focus-outline-hcm:2px solid transparent;--cr-border-hcm:2px solid transparent}}html{--cr-button-edge-spacing:12px;--cr-button-height:32px;--cr-controlled-by-spacing:24px;--cr-default-input-max-width:264px;--cr-icon-ripple-size:36px;--cr-icon-ripple-padding:8px;--cr-icon-size:20px;--cr-icon-button-margin-start:16px;--cr-icon-ripple-margin:calc(var(--cr-icon-ripple-padding) * -1);--cr-section-min-height:48px;--cr-section-two-line-min-height:64px;--cr-section-padding:20px;--cr-section-vertical-padding:12px;--cr-section-indent-width:40px;--cr-section-indent-padding:calc(
       var(--cr-section-padding) + var(--cr-section-indent-width));--cr-section-vertical-margin:21px;--cr-centered-card-max-width:680px;--cr-centered-card-width-percentage:0.96;--cr-hairline:1px solid rgba(var(--cr-hairline-rgb), .14);--cr-separator-height:1px;--cr-separator-line:var(--cr-separator-height) solid var(--cr-separator-color);--cr-toolbar-overlay-animation-duration:150ms;--cr-toolbar-height:56px;--cr-container-shadow-height:6px;--cr-container-shadow-margin:calc(-1 * var(--cr-container-shadow-height));--cr-container-shadow-max-opacity:1;--cr-card-border-radius:8px;--cr-disabled-opacity:.38;--cr-form-field-bottom-spacing:16px;--cr-form-field-label-font-size:.625rem;--cr-form-field-label-height:1em;--cr-form-field-label-line-height:1}html[chrome-refresh-2023]{--cr-fallback-color-outline:rgb(116, 119, 117);--cr-fallback-color-primary:rgb(11, 87, 208);--cr-fallback-color-on-primary:rgb(255, 255, 255);--cr-fallback-color-primary-container:rgb(211, 227, 253);--cr-fallback-color-on-primary-container:rgb(4, 30, 73);--cr-fallback-color-secondary-container:rgb(194, 231, 255);--cr-fallback-color-on-secondary-container:rgb(0, 29, 53);--cr-fallback-color-neutral-container:rgb(242, 242, 242);--cr-fallback-color-neutral-outline:rgb(199, 199, 199);--cr-fallback-color-surface:rgb(255, 255, 255);--cr-fallback-color-on-surface-rgb:31,31,31;--cr-fallback-color-on-surface:rgb(var(--cr-fallback-color-on-surface-rgb));--cr-fallback-color-surface-variant:rgb(225, 227, 225);--cr-fallback-color-on-surface-variant:rgb(68, 71, 70);--cr-fallback-color-on-surface-subtle:rgb(71, 71, 71);--cr-fallback-color-inverse-primary:rgb(168, 199, 250);--cr-fallback-color-inverse-surface:rgb(48, 48, 48);--cr-fallback-color-inverse-on-surface:rgb(242, 242, 242);--cr-fallback-color-tonal-container:rgb(211, 227, 253);--cr-fallback-color-on-tonal-container:rgb(4, 30, 73);--cr-fallback-color-tonal-outline:rgb(168, 199, 250);--cr-fallback-color-error:rgb(179, 38, 30);--cr-fallback-color-divider:rgb(211, 227, 253);--cr-fallback-color-state-hover-on-prominent_:rgba(253, 252, 251, .1);--cr-fallback-color-state-on-subtle-rgb_:31,31,31;--cr-fallback-color-state-hover-on-subtle_:rgba(
@@ -2441,7 +2441,7 @@ html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-
         var(--cr-fallback-color-state-on-subtle-rgb_), .16);--cr-fallback-color-state-ripple-primary-rgb_:76,141,246;--cr-fallback-color-base-container:rgba(40, 40, 40, 1)}}@media (forced-colors:active){html[chrome-refresh-2023]{--cr-fallback-color-disabled-background:Canvas;--cr-fallback-color-disabled-foreground:GrayText}}
 </style>
 `;
-document.head.appendChild(template$e.content);
+document.head.appendChild(template$f.content);
 
 /**
 @license
@@ -4006,7 +4006,7 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$2h() {
+function getTemplate$2l() {
     return html `<!--_html_template_start_--><style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
 <div id="icon">
   <div id="maskedImage"></div>
@@ -4066,7 +4066,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$2h();
+        return getTemplate$2l();
     }
     static get properties() {
         return {
@@ -4252,8 +4252,8 @@ styleMod$c.appendChild(html `
 `.content);
 styleMod$c.register('cr-input-style');
 
-function getTemplate$2g() {
-    return html `<!--_html_template_start_--><style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
+function getTemplate$2k() {
+    return html `<!--_html_template_start_--><style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}#input::selection{background-color:var(--cros-sys-highlight_text)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
 <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
   [[label]]
 </div>
@@ -4296,7 +4296,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$2g();
+        return getTemplate$2k();
     }
     static get properties() {
         return {
@@ -4787,7 +4787,7 @@ Polymer({
 
 });
 
-const template$d = html `
+const template$e = html `
 <iron-iconset-svg name="cr20" size="20">
   <svg>
     <defs>
@@ -5052,9 +5052,9 @@ const template$d = html `
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$d.content);
+document.head.appendChild(template$e.content);
 
-function getTemplate$2f() {
+function getTemplate$2j() {
     return html `<!--_html_template_start_--><style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
       var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
 <iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
@@ -5215,7 +5215,7 @@ class CrSearchFieldElement extends CrSearchFieldElementBase {
         return 'cr-search-field';
     }
     static get template() {
-        return getTemplate$2f();
+        return getTemplate$2j();
     }
     static get properties() {
         return {
@@ -5248,7 +5248,7 @@ part of the polymer project is also subject to an additional IP rights grant
 found at http://polymer.github.io/PATENTS.txt
 */
 
-const template$c = html`<dom-module id="paper-spinner-styles">
+const template$d = html`<dom-module id="paper-spinner-styles">
   <template>
     <style>
       /*
@@ -5561,7 +5561,7 @@ const template$c = html`<dom-module id="paper-spinner-styles">
   </template>
 </dom-module>`;
 
-document.head.appendChild(template$c.content);
+document.head.appendChild(template$d.content);
 
 /**
 @license
@@ -5647,7 +5647,7 @@ part of the polymer project is also subject to an additional IP rights grant
 found at http://polymer.github.io/PATENTS.txt
 */
 
-const template$b = html`
+const template$c = html`
   <style include="paper-spinner-styles"></style>
 
   <div id="spinnerContainer" class-name="[[__computeContainerClasses(active, __coolingDown)]]" on-animationend="__reset" on-webkit-animation-end="__reset">
@@ -5661,7 +5661,7 @@ const template$b = html`
     </div>
   </div>
 `;
-template$b.setAttribute('strip-whitespace', '');
+template$c.setAttribute('strip-whitespace', '');
 
 /**
 Material design: [Progress &
@@ -5697,7 +5697,7 @@ Custom property | Description | Default
 @demo demo/index.html
 */
 Polymer({
-  _template: template$b,
+  _template: template$c,
 
   is: 'paper-spinner-lite',
 
@@ -5714,14 +5714,14 @@ styleMod$b.appendChild(html `
 `.content);
 styleMod$b.register('search-highlight-style');
 
-const template$a = html `
+const template$b = html `
 <style>
 html{--settings-error-color:var(--google-red-700);--iron-icon-fill-color:var(--google-grey-700);--iron-icon-height:var(--cr-icon-size);--iron-icon-width:var(--cr-icon-size);--cr-radio-group-item-padding:0;--settings-base-bg-color:var(--cros-sys-app_base_shaded);--settings-menu-width:250px;--settings-menu-item-border-width:2px;--settings-row-min-height:var(--cr-section-min-height);--settings-toolbar-height:var(--cr-toolbar-height);--settings-toolbar-padding-inline-end:10px;--settings-toolbar-padding-inline-start:14px;--settings-toolbar-padding-inline-start-narrow:14px;--settings-toolbar-padding-top:var(--cr-toolbar-padding-top);--settings-toolbar-search-box-height:40px;--settings-toolbar-search-box-width:480px;--settings-toolbar-narrow-search-box-width:680px;--settings-toolbar-search-field-border-radius:20px}html:has(body.revamp-wayfinding-enabled){--settings-base-bg-color:var(--cros-sys-surface3);--settings-menu-item-width:256px;--settings-menu-padding-inline-end:16px;--settings-menu-padding-inline-start:16px;--settings-menu-padding-top:16px;--settings-menu-width:calc(var(--settings-menu-item-width) +
       var(--settings-menu-padding-inline-end) +
       var(--settings-menu-padding-inline-start));--settings-row-min-height:64px;--settings-toolbar-height:72px;--settings-toolbar-padding-inline-end:16px;--settings-toolbar-padding-inline-start:32px;--settings-toolbar-padding-inline-start-narrow:16px;--settings-toolbar-padding-top:0;--settings-toolbar-search-box-height:48px;--settings-toolbar-narrow-search-box-width:512px;--settings-toolbar-search-field-border-radius:24px}@media (prefers-color-scheme:dark){html{--iron-icon-fill-color:var(--google-grey-500);--settings-error-color:var(--google-red-300)}html:has(body.revamp-wayfinding-enabled){--settings-base-bg-color:var(--cros-sys-app_base_shaded)}}
 </style>
 `;
-document.head.appendChild(template$a.content);
+document.head.appendChild(template$b.content);
 
 const styleMod$a = document.createElement('dom-module');
 styleMod$a.appendChild(html `
@@ -5743,7 +5743,7 @@ a[is=action-link]{user-select:none}h2{align-items:center;align-self:flex-start;c
 `.content);
 styleMod$9.register('settings-shared');
 
-function getTemplate$2e() {
+function getTemplate$2i() {
     return html `<!--_html_template_start_--><style>:host{--settings-card-bg-color:var(--cros-sys-app_base);--settings-card-border-radius:var(--cr-card-border-radius);display:flex;flex-direction:column;outline:0;position:relative}:host-context(body.revamp-wayfinding-enabled):host{--settings-card-border-radius:16px;margin-bottom:16px}@media (prefers-color-scheme:dark){:host-context(body.revamp-wayfinding-enabled):host{--settings-card-bg-color:var(--cros-sys-surface1)}}:host-context(body.revamp-wayfinding-enabled) #header{margin:0;padding:8px}:host-context(body:not(.revamp-wayfinding-enabled)) #headerText{color:var(--cr-primary-text-color);font-size:108%;font-weight:400;letter-spacing:.25px;margin-bottom:12px;margin-top:var(--cr-section-vertical-margin);outline:0;padding-bottom:4px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled) #headerText{color:var(--cros-sys-primary);font:var(--cros-button-2-font);margin:0;outline:0;padding:0}#card{background-color:var(--settings-card-bg-color);border-radius:var(--settings-card-border-radius);flex:1;overflow:hidden}:host-context(body:not(.revamp-wayfinding-enabled)) #card{box-shadow:var(--cr-card-shadow)}</style>
 <template is="dom-if" if="[[headerText]]" restamp>
   <div id="header">
@@ -5776,7 +5776,7 @@ class SettingsCardElement extends PolymerElement {
         return 'settings-card';
     }
     static get template() {
-        return getTemplate$2e();
+        return getTemplate$2i();
     }
     static get properties() {
         return {
@@ -6421,7 +6421,7 @@ function hasKeyModifiers(e) {
     return !!(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
 }
 
-function getTemplate$2d() {
+function getTemplate$2h() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{box-sizing:border-box;display:block}:host-context(body:not(.revamp-wayfinding-enabled)):host{background-color:var(--cros-sys-app_base);box-shadow:var(--cr-card-shadow);min-height:calc(100vh - var(--settings-toolbar-height));padding-bottom:60px}#subpageHeader{min-height:40px;padding-bottom:24px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled) #subpageHeader{padding-top:16px;padding-bottom:16px}#subpageTitle{flex:1;font:var(--cros-button-1-font)}:host-context(body.revamp-wayfinding-enabled) #subpageTitle{color:var(--cros-sys-primary)}#titleIcon{height:36px;margin-inline-end:12px;margin-inline-start:2px;width:36px}#backButton{margin-inline-end:10px;margin-inline-start:-10px}:host-context(body.revamp-wayfinding-enabled) #backButton{--cr-icon-button-fill-color:var(--cros-sys-primary)}#cardBody{margin-bottom:0}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}cr-search-field{--cr-search-field-input-width:200px;margin-inline-start:16px}:host-context(body.revamp-wayfinding-enabled) #searchField::part(searchInput){--cr-input-background-color:var(--cros-sys-input_field_on_shaded)}</style>
 <div id="subpageHeader" class="cr-row first">
   <cr-icon-button id="backButton" class="icon-arrow-back" hidden="[[hideBackButton]]" on-click="onBackClick_" aria-label$="[[getBackButtonAriaLabel_(pageTitle)]]" aria-roledescription$="[[getBackButtonAriaRoleDescription_(pageTitle)]]">
@@ -6470,7 +6470,7 @@ class OsSettingsSubpageElement extends OsSettingsSubpageElementBase {
         return 'os-settings-subpage';
     }
     static get template() {
-        return getTemplate$2d();
+        return getTemplate$2h();
     }
     static get properties() {
         return {
@@ -9444,13 +9444,13 @@ function getVMNameForGuestOsType(guestOs) {
     }[guestOs];
 }
 const VM_DEVICE_MICROPHONE = 'microphone';
-let instance$D = null;
+let instance$E = null;
 class GuestOsBrowserProxyImpl {
     static getInstance() {
-        return instance$D || (instance$D = new GuestOsBrowserProxyImpl());
+        return instance$E || (instance$E = new GuestOsBrowserProxyImpl());
     }
     static setInstanceForTesting(obj) {
-        instance$D = obj;
+        instance$E = obj;
     }
     getGuestOsSharedPathsDisplayText(paths) {
         return sendWithPromise$1('getGuestOsSharedPathsDisplayText', paths);
@@ -9466,7 +9466,7 @@ class GuestOsBrowserProxyImpl {
     }
 }
 
-function getTemplate$2c() {
+function getTemplate$2g() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <div class="settings-box first">
   <div role="text">
@@ -9532,7 +9532,7 @@ class SettingsGuestOsSharedPathsElement extends SettingsGuestOsSharedPathsElemen
         return 'settings-guest-os-shared-paths';
     }
     static get template() {
-        return getTemplate$2c();
+        return getTemplate$2g();
     }
     static get properties() {
         return {
@@ -9702,7 +9702,7 @@ class FocusOutlineManager {
     }
 }
 
-function getTemplate$2b() {
+function getTemplate$2f() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                          rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
         var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -9740,7 +9740,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$2b();
+        return getTemplate$2f();
     }
     static get properties() {
         return {
@@ -9914,7 +9914,7 @@ class CrButtonElement extends CrButtonElementBase {
 }
 customElements.define(CrButtonElement.is, CrButtonElement);
 
-function getTemplate$2a() {
+function getTemplate$2e() {
     return html `<!--_html_template_start_--><style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
             var(--cr-fallback-color-primary));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on,
             var(--cr-fallback-color-on-primary));--cr-toggle-unchecked-bar-color:var(--color-toggle-button-track-off,
@@ -9961,7 +9961,7 @@ class CrToggleElement extends CrToggleElementBase {
         return 'cr-toggle';
     }
     static get template() {
-        return getTemplate$2a();
+        return getTemplate$2e();
     }
     static get properties() {
         return {
@@ -10748,7 +10748,7 @@ Polymer({
   }
 });
 
-function getTemplate$29() {
+function getTemplate$2d() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{display:flex}iron-icon{--iron-icon-width:var(--cr-icon-size);--iron-icon-height:var(--cr-icon-size);--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-700))}@media (prefers-color-scheme:dark){iron-icon{--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-500))}}</style>
 <iron-icon id="indicator" tabindex="0" aria-label$="[[iconAriaLabel]]" aria-describedby="tooltip" icon="[[iconClass]]" role="img">
 </iron-icon>
@@ -10767,7 +10767,7 @@ class CrTooltipIconElement extends PolymerElement {
         return 'cr-tooltip-icon';
     }
     static get template() {
-        return getTemplate$29();
+        return getTemplate$2d();
     }
     static get properties() {
         return {
@@ -10787,7 +10787,7 @@ class CrTooltipIconElement extends PolymerElement {
 }
 customElements.define(CrTooltipIconElement.is, CrTooltipIconElement);
 
-function getTemplate$28() {
+function getTemplate$2c() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style"></style>
 <cr-tooltip-icon hidden$="[[!indicatorVisible]]" tooltip-text="[[indicatorTooltip_]]" icon-class="[[indicatorIcon]]" icon-aria-label="[[iconAriaLabel]]">
 </cr-tooltip-icon>
@@ -10936,7 +10936,7 @@ class CrPolicyIndicatorElement extends CrPolicyIndicatorElementBase {
         return 'cr-policy-indicator';
     }
     static get template() {
-        return getTemplate$28();
+        return getTemplate$2c();
     }
     static get properties() {
         return {
@@ -11094,7 +11094,7 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
     return CrContainerShadowMixin;
 });
 
-function getTemplate$27() {
+function getTemplate$2b() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
 <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
 
@@ -11151,7 +11151,7 @@ class CrDialogElement extends CrDialogElementBase {
         return 'cr-dialog';
     }
     static get template() {
-        return getTemplate$27();
+        return getTemplate$2b();
     }
     static get properties() {
         return {
@@ -11399,7 +11399,161 @@ class CrDialogElement extends CrDialogElementBase {
 }
 customElements.define(CrDialogElement.is, CrDialogElement);
 
-function getTemplate$26() {
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview A helper object used by the "Linux Apps" (Crostini) section
+ * to install and uninstall Crostini.
+ */
+// Identifiers for the default Crostini VM and container.
+const DEFAULT_CROSTINI_VM = TERMINA_VM_TYPE;
+const DEFAULT_CROSTINI_CONTAINER = 'penguin';
+const DEFAULT_CROSTINI_GUEST_ID = {
+    vm_name: DEFAULT_CROSTINI_VM,
+    container_name: DEFAULT_CROSTINI_CONTAINER,
+};
+/**
+ * These values should remain consistent with their C++ counterpart
+ * (chrome/browser/ash/crostini/crostini_port_forwarder.h).
+ */
+var CrostiniPortProtocol;
+(function (CrostiniPortProtocol) {
+    CrostiniPortProtocol[CrostiniPortProtocol["TCP"] = 0] = "TCP";
+    CrostiniPortProtocol[CrostiniPortProtocol["UDP"] = 1] = "UDP";
+})(CrostiniPortProtocol || (CrostiniPortProtocol = {}));
+const PortState = {
+    VALID: '',
+    INVALID: loadTimeData.getString('crostiniPortForwardingAddError'),
+    DUPLICATE: loadTimeData.getString('crostiniPortForwardingAddExisting'),
+};
+const MIN_VALID_PORT_NUMBER = 1024; // Minimum 16-bit integer value.
+const MAX_VALID_PORT_NUMBER = 65535; // Maximum 16-bit integer value.
+let instance$D = null;
+class CrostiniBrowserProxyImpl {
+    static getInstance() {
+        return instance$D || (instance$D = new CrostiniBrowserProxyImpl());
+    }
+    static setInstanceForTesting(obj) {
+        instance$D = obj;
+    }
+    requestCrostiniInstallerView() {
+        chrome.send('requestCrostiniInstallerView');
+    }
+    requestRemoveCrostini() {
+        chrome.send('requestRemoveCrostini');
+    }
+    requestCrostiniInstallerStatus() {
+        chrome.send('requestCrostiniInstallerStatus');
+    }
+    requestCrostiniExportImportOperationStatus() {
+        chrome.send('requestCrostiniExportImportOperationStatus');
+    }
+    exportCrostiniContainer(containerId) {
+        chrome.send('exportCrostiniContainer', [containerId]);
+    }
+    importCrostiniContainer(containerId) {
+        chrome.send('importCrostiniContainer', [containerId]);
+    }
+    requestArcAdbSideloadStatus() {
+        chrome.send('requestArcAdbSideloadStatus');
+    }
+    getCanChangeArcAdbSideloading() {
+        chrome.send('getCanChangeArcAdbSideloading');
+    }
+    enableArcAdbSideload() {
+        chrome.send('enableArcAdbSideload');
+    }
+    disableArcAdbSideload() {
+        chrome.send('disableArcAdbSideload');
+    }
+    requestCrostiniContainerUpgradeView() {
+        chrome.send('requestCrostiniContainerUpgradeView');
+    }
+    requestCrostiniUpgraderDialogStatus() {
+        chrome.send('requestCrostiniUpgraderDialogStatus');
+    }
+    requestCrostiniContainerUpgradeAvailable() {
+        chrome.send('requestCrostiniContainerUpgradeAvailable');
+    }
+    getCrostiniDiskInfo(vmName, fullInfo) {
+        return sendWithPromise$1('getCrostiniDiskInfo', vmName, fullInfo);
+    }
+    resizeCrostiniDisk(vmName, newSizeBytes) {
+        return sendWithPromise$1('resizeCrostiniDisk', vmName, newSizeBytes);
+    }
+    checkCrostiniMicSharingStatus(proposedValue) {
+        return sendWithPromise$1('checkCrostiniMicSharingStatus', proposedValue);
+    }
+    addCrostiniPortForward(containerId, portNumber, protocol, label) {
+        return sendWithPromise$1('addCrostiniPortForward', containerId, portNumber, protocol, label);
+    }
+    removeCrostiniPortForward(containerId, portNumber, protocol) {
+        return sendWithPromise$1('removeCrostiniPortForward', containerId, portNumber, protocol);
+    }
+    removeAllCrostiniPortForwards(containerId) {
+        chrome.send('removeAllCrostiniPortForwards', [containerId]);
+    }
+    activateCrostiniPortForward(containerId, portNumber, protocol) {
+        return sendWithPromise$1('activateCrostiniPortForward', containerId, portNumber, protocol);
+    }
+    deactivateCrostiniPortForward(containerId, portNumber, protocol) {
+        return sendWithPromise$1('deactivateCrostiniPortForward', containerId, portNumber, protocol);
+    }
+    getCrostiniActivePorts() {
+        return sendWithPromise$1('getCrostiniActivePorts');
+    }
+    getCrostiniActiveNetworkInfo() {
+        return sendWithPromise$1('getCrostiniActiveNetworkInfo');
+    }
+    checkCrostiniIsRunning() {
+        return sendWithPromise$1('checkCrostiniIsRunning');
+    }
+    shutdownCrostini() {
+        chrome.send('shutdownCrostini');
+    }
+    setCrostiniMicSharingEnabled(enabled) {
+        chrome.send('setCrostiniMicSharingEnabled', [enabled]);
+    }
+    getCrostiniMicSharingEnabled() {
+        return sendWithPromise$1('getCrostiniMicSharingEnabled');
+    }
+    createContainer(containerId, imageServer, imageAlias, containerFile) {
+        chrome.send('createContainer', [containerId, imageServer, imageAlias, containerFile]);
+    }
+    deleteContainer(containerId) {
+        chrome.send('deleteContainer', [containerId]);
+    }
+    requestContainerInfo() {
+        chrome.send('requestContainerInfo');
+    }
+    setContainerBadgeColor(containerId, badgeColor) {
+        chrome.send('setContainerBadgeColor', [containerId, badgeColor]);
+    }
+    stopContainer(containerId) {
+        chrome.send('stopContainer', [containerId]);
+    }
+    openContainerFileSelector() {
+        return sendWithPromise$1('openContainerFileSelector');
+    }
+    requestSharedVmDevices() {
+        chrome.send('requestSharedVmDevices');
+    }
+    isVmDeviceShared(id, device) {
+        return sendWithPromise$1('isVmDeviceShared', id, device);
+    }
+    setVmDeviceShared(id, device, shared) {
+        return sendWithPromise$1('setVmDeviceShared', id, device, shared);
+    }
+    requestBruschettaInstallerView() {
+        chrome.send('requestBruschettaInstallerView');
+    }
+    requestBruschettaUninstallerView() {
+        chrome.send('requestBruschettaUninstallerView');
+    }
+}
+
+function getTemplate$2a() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{--cr-localized-link-display:inline;display:block}:host([link-disabled]){cursor:pointer;opacity:var(--cr-disabled-opacity);pointer-events:none}a{display:var(--cr-localized-link-display)}a[href]{color:var(--cr-link-color)}a[is=action-link]{user-select:none}#container{display:contents}</style>
 
 <div id="container"></div>
@@ -11433,7 +11587,7 @@ class LocalizedLinkElement extends PolymerElement {
         return 'localized-link';
     }
     static get template() {
-        return getTemplate$26();
+        return getTemplate$2a();
     }
     static get properties() {
         return {
@@ -11720,7 +11874,7 @@ styleMod$8.appendChild(html `
 `.content);
 styleMod$8.register('md-select');
 
-function getTemplate$25() {
+function getTemplate$29() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select"></style>
 <label class="cr-form-field-label">Container</label>
 <select id="selectContainer" class="md-select" value="containerLabel_(containerId)" on-change="onSelectContainer_">
@@ -11755,7 +11909,7 @@ class ContainerSelectElement extends PolymerElement {
         return 'settings-guest-os-container-select';
     }
     static get template() {
-        return getTemplate$25();
+        return getTemplate$29();
     }
     static get properties() {
         return {
@@ -12054,7 +12208,7 @@ class FocusRow {
     }
 }
 
-function getTemplate$24() {
+function getTemplate$28() {
     return html `<!--_html_template_start_--><style>:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
         var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
             var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
@@ -12144,7 +12298,7 @@ class CrActionMenuElement extends PolymerElement {
         return 'cr-action-menu';
     }
     static get template() {
-        return getTemplate$24();
+        return getTemplate$28();
     }
     static get properties() {
         return {
@@ -12770,7 +12924,7 @@ Polymer({
   }
 });
 
-function getTemplate$23() {
+function getTemplate$27() {
     return html `<!--_html_template_start_--><style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:568px;min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
         var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
         var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
@@ -12796,7 +12950,7 @@ class CrToastElement extends PolymerElement {
         return 'cr-toast';
     }
     static get template() {
-        return getTemplate$23();
+        return getTemplate$27();
     }
     static get properties() {
         return {
@@ -12873,7 +13027,7 @@ styleMod$7.appendChild(html `
 `.content);
 styleMod$7.register('action-link');
 
-function getTemplate$22() {
+function getTemplate$26() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style"></style>
 <cr-tooltip-icon id="tooltipIcon" hidden$="[[!indicatorVisible]]" tooltip-text="[[indicatorTooltip]]" icon-class="[[indicatorIcon]]" icon-aria-label="[[iconAriaLabel]]" exportparts="tooltip">
 </cr-tooltip-icon>
@@ -12895,7 +13049,7 @@ class CrPolicyPrefIndicatorElement extends CrPolicyPrefIndicatorElementBase {
         return 'cr-policy-pref-indicator';
     }
     static get template() {
-        return getTemplate$22();
+        return getTemplate$26();
     }
     static get properties() {
         return {
@@ -13023,7 +13177,7 @@ The following imports are available:
  - iron-positioning
 */
 
-const template$9 = html`
+const template$a = html`
 /* Most common used flex styles*/
 <dom-module id="iron-flex">
   <template>
@@ -13325,8 +13479,8 @@ const template$9 = html`
   </template>
 </dom-module>
 `;
-template$9.setAttribute('style', 'display: none;');
-document.head.appendChild(template$9.content);
+template$a.setAttribute('style', 'display: none;');
+document.head.appendChild(template$a.content);
 
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -13643,7 +13797,7 @@ const SettingsBooleanControlMixin = dedupingMixin((superClass) => {
     return SettingsBooleanControlMixin;
 });
 
-function getTemplate$21() {
+function getTemplate$25() {
     return html `<!--_html_template_start_--><style include="cr-shared-style cr-actionable-row-style iron-flex action-link cros-color-overrides">:host{--cr-icon-button-margin-end:20px;padding:0 var(--cr-section-padding)}:host([elide-label]),:host([elide-label]) #outerRow,:host([elide-label]) #outerRow>div.flex{min-width:0}:host([elide-label]) .label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#outerRow{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height);width:100%}#outerRow[noSubLabel]{min-height:var(--cr-section-min-height)}#icon{margin-inline-end:var(--cr-icon-button-margin-end)}#labelWrapper{padding:var(--cr-section-vertical-padding) 0}#labelWrapper,::slotted([slot=more-actions]){margin-inline-end:20px!important}cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}a{color:var(--cr-link-color)}</style>
 <div id="outerRow" nosublabel$="[[!subLabel]]">
   <template is="dom-if" if="[[icon]]">
@@ -13702,7 +13856,7 @@ class SettingsToggleButtonElement extends SettingsToggleButtonElementBase {
         return 'settings-toggle-button';
     }
     static get template() {
-        return getTemplate$21();
+        return getTemplate$25();
     }
     static get properties() {
         return {
@@ -13924,7 +14078,7 @@ const PrefsMixin = dedupingMixin((superClass) => {
     return PrefsMixin;
 });
 
-function getTemplate$20() {
+function getTemplate$24() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">#selectDevice{width:100%}.custom-body{padding-bottom:20px}.custom-button-container{float:right}.input-container{padding-bottom:10px}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{guestOsSharedUsbDevicesAddTitle}</div>
@@ -13994,7 +14148,7 @@ class GuestOsSharedUsbDevicesAddDialog extends GuestOsSharedUsbDevicesAddDialogE
         return 'settings-guest-os-shared-usb-devices-add-dialog';
     }
     static get template() {
-        return getTemplate$20();
+        return getTemplate$24();
     }
     static get properties() {
         return {
@@ -14079,7 +14233,7 @@ class GuestOsSharedUsbDevicesAddDialog extends GuestOsSharedUsbDevicesAddDialogE
 }
 customElements.define(GuestOsSharedUsbDevicesAddDialog.is, GuestOsSharedUsbDevicesAddDialog);
 
-function getTemplate$1$() {
+function getTemplate$23() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">.toggle-container{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-between}#selectDevice{width:100%}</style>
 <div class="settings-box first">
   <div class="settings-box-text">
@@ -14180,7 +14334,7 @@ class SettingsGuestOsSharedUsbDevicesElement extends SettingsGuestOsSharedUsbDev
         return 'settings-guest-os-shared-usb-devices';
     }
     static get template() {
-        return getTemplate$1$();
+        return getTemplate$23();
     }
     static get properties() {
         return {
@@ -14331,7 +14485,7 @@ styleMod$6.appendChild(html `
 `.content);
 styleMod$6.register('cr-actionable-row-style');
 
-function getTemplate$1_() {
+function getTemplate$22() {
     return html `<!--_html_template_start_--><style include="cr-actionable-row-style cr-shared-style cr-hidden-style">:host{box-sizing:border-box;flex:1;font-family:inherit;font-size:100%;line-height:154%;min-height:var(--cr-section-min-height);padding:0}:host(:not([embedded])){padding:0 var(--cr-section-padding)}#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
         var(--google-grey-700));display:flex;flex-shrink:0;padding-inline-end:var(--cr-icon-button-margin-start);width:var(--cr-link-row-icon-width,var(--cr-icon-size))}@media (prefers-color-scheme:dark){#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
           var(--google-grey-500))}}#labelWrapper{flex:1;flex-basis:.000000001px;padding-bottom:var(--cr-section-vertical-padding);padding-top:var(--cr-section-vertical-padding);text-align:start}#label,#subLabel{display:flex}#buttonAriaDescription{clip:rect(0,0,0,0);display:block;position:fixed}</style>
@@ -14373,7 +14527,7 @@ class CrLinkRowElement extends PolymerElement {
         return 'cr-link-row';
     }
     static get template() {
-        return getTemplate$1_();
+        return getTemplate$22();
     }
     static get properties() {
         return {
@@ -14436,7 +14590,7 @@ class CrLinkRowElement extends PolymerElement {
 }
 customElements.define(CrLinkRowElement.is, CrLinkRowElement);
 
-function getTemplate$1Z() {
+function getTemplate$21() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style">:host{--cr-slider-active-color:var(--google-blue-600);--cr-slider-container-color:rgba(var(--google-blue-600-rgb), .24);--cr-slider-container-disabled-color:rgba(var(--google-grey-600-rgb), .24);--cr-slider-disabled-color:var(--google-grey-600);--cr-slider-knob-color-rgb:var(--google-blue-600-rgb);--cr-slider-knob-disabled-color:white;--cr-slider-marker-active-color:rgba(255, 255, 255, .54);--cr-slider-marker-color:rgba(26, 115, 232, .54);--cr-slider-marker-disabled-color:rgba(128, 134, 139, .54);--cr-slider-position-transition:80ms ease;--cr-slider-ripple-color:rgba(var(--cr-slider-knob-color-rgb), .25);-webkit-tap-highlight-color:transparent;cursor:default;height:32px;isolation:isolate;outline:0;padding:0 16px;user-select:none}@media (prefers-color-scheme:dark){:host{--cr-slider-active-color:var(--google-blue-300);--cr-slider-container-color:rgba(var(--google-blue-500-rgb), .48);--cr-slider-container-disabled-color:rgba(var(--google-grey-600-rgb), .48);--cr-slider-knob-color-rgb:var(--google-blue-300-rgb);--cr-slider-knob-disabled-color:var(--google-grey-900-white-4-percent);--cr-slider-marker-active-color:var(--google-blue-300);--cr-slider-marker-color:var(--google-blue-300);--cr-slider-marker-disabled-color:rgba(255, 255, 255, .54);--cr-slider-ripple-color:rgba(var(--cr-slider-knob-color-rgb), .4)}}:host,:host>#container{touch-action:none}#bar,#container{border-top-style:solid;border-top-width:2px}#container{border-top-color:var(--cr-slider-container-color);position:relative;top:16px}#container>div{position:absolute}#bar,#markers{top:-2px}#markers{display:flex;flex-direction:row;left:0;pointer-events:none;right:0}.active-marker,.inactive-marker{flex:1}#markers::after,#markers::before,.active-marker::after,.inactive-marker::after{border-radius:50%;content:'';display:block;height:2px;margin-inline-start:-1px;width:2px}#markers::before,.active-marker::after{background-color:var(--cr-slider-marker-active-color)}#markers::after,.inactive-marker::after{background-color:var(--cr-slider-marker-color)}#bar{border-top-color:var(--cr-slider-active-color)}:host([transiting_]) #bar{transition:width var(--cr-slider-position-transition)}#knobAndLabel{top:-1px}:host([transiting_]) #knobAndLabel{transition:margin-inline-start var(--cr-slider-position-transition)}#knob{background-color:rgb(var(--cr-slider-knob-color-rgb));border-radius:50%;box-shadow:0 1px 3px 0 rgba(0,0,0,.4);height:10px;outline:0;position:relative;transform:translate(-50%,-50%);width:10px}:host([is-rtl_]) #knob{transform:translate(50%,-50%)}#label{background:rgb(var(--cr-slider-knob-color-rgb));border-radius:.75em;bottom:22px;color:#fff;font-size:12px;line-height:1.5em;opacity:0;outline:1px transparent solid;padding:0 .67em;position:absolute;transform:translateX(-50%);transition:opacity 80ms ease-in-out;white-space:nowrap}:host([is-rtl_]) #label{transform:translateX(50%)}:host(:hover) #label,:host([show-label_]) #label{opacity:1}paper-ripple{--paper-ripple-opacity:var(--cr-slider-ripple-opacity, 1);color:var(--cr-slider-ripple-color);height:var(--cr-slider-ripple-size,32px);pointer-events:none;transition:color linear 80ms;transform:translate(-50%,-50%);top:50%;left:50%;width:var(--cr-slider-ripple-size,32px);z-index:var(--cr-slider-ripple-z-index,auto)}:host([disabled_]){pointer-events:none}:host([disabled_]) #container{border-top-color:var(--cr-slider-container-disabled-color)}:host([disabled_]) #bar{border-top-color:var(--cr-slider-disabled-color)}:host([disabled_]) #markers::after,:host([disabled_]) .inactive-marker::after{background-color:var(--cr-slider-marker-disabled-color)}:host([disabled_]) #knob{background-color:var(--cr-slider-disabled-color);border:2px solid var(--cr-slider-knob-disabled-color);box-shadow:unset}</style>
 <div id="container" hidden part="container">
   <div id="bar"></div>
@@ -14485,7 +14639,7 @@ class CrSliderElement extends CrSliderElementBase {
         return 'cr-slider';
     }
     static get template() {
-        return getTemplate$1Z();
+        return getTemplate$21();
     }
     static get properties() {
         return {
@@ -14938,6 +15092,192 @@ const RouteOriginMixin = dedupingMixin((superClass) => {
     return RouteOriginMixin;
 });
 
+function getTemplate$20() {
+    return html `<!--_html_template_start_--><style include="settings-shared">#bruschettaRowIcon,:host-context(body.revamp-wayfinding-enabled) #crostiniRowIcon{margin-inline-end:16px;fill:var(--cros-sys-primary)}</style>
+
+<settings-card header-text="$i18n{crostiniPageTitle}">
+  <div id="crostini" class="settings-box two-line first" actionable$="[[prefs.crostini.enabled.value]]" on-click="onSubpageClick_">
+    <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+      <iron-icon id="crostiniRowIcon" icon="os-settings:about-linux">
+      </iron-icon>
+    </template>
+    <div class="start">
+      $i18n{crostiniPageLabel}
+      <div class="secondary" id="secondaryText">
+        <template is="dom-if" if="[[isCrostiniSupported_]]" restamp>
+          <localized-link localized-string="[[i18nAdvanced('crostiniSubtext')]]">
+          </localized-link>
+        </template>
+        <template is="dom-if" if="[[!isCrostiniSupported_]]" restamp>
+          <localized-link localized-string="[[i18nAdvanced(
+              'crostiniSubtextNotSupported')]]">
+          </localized-link>
+        </template>
+      </div>
+    </div>
+    <template is="dom-if" if="[[isCrostiniSupported_]]" restamp>
+      <template is="dom-if" if="[[!isCrostiniAllowed_]]" restamp>
+        <cr-policy-indicator indicator-type="userPolicy">
+        </cr-policy-indicator>
+      </template>
+    </template>
+    <template is="dom-if" if="[[prefs.crostini.enabled.value]]">
+      <cr-icon-button class="subpage-arrow" aria-label="$i18n{crostiniPageTitle}" aria-describedby="secondaryText" aria-roledescription="$i18n{subpageArrowRoleDescription}">
+      </cr-icon-button>
+    </template>
+    <template is="dom-if" if="[[!prefs.crostini.enabled.value]]">
+      <div class="separator"></div>
+        <cr-button id="enableCrostiniButton" disabled$="[[disableCrostiniInstall_]]" on-click="onEnableClick_" aria-describedby="secondaryText" deep-link-focus-id$="[[Setting.kSetUpCrostini]]">
+          $i18n{crostiniEnable}
+        </cr-button>
+    </template>
+  </div>
+
+  <template is="dom-if" if="[[showBruschetta_]]">
+    <div id="bruschetta" class="settings-box two-line" actionable$="[[prefs.bruschetta.installed.value]]" on-click="onBruschettaSubpageClick_">
+      <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+        <iron-icon id="bruschettaRowIcon" icon="os-settings:about-manage-develop-environment">
+        </iron-icon>
+      </template>
+      <div class="start">
+        $i18n{bruschettaPageLabel}
+        <div class="secondary" id="bruschettaSecondaryText">
+          <localized-link localized-string="[[i18nAdvanced('bruschettaSubtext')]]">
+          </localized-link>
+        </div>
+      </div>
+      <cr-policy-indicator indicator-type="userPolicy">
+      </cr-policy-indicator>
+      <template is="dom-if" if="[[prefs.bruschetta.installed.value]]">
+        <cr-icon-button class="subpage-arrow" aria-label="$i18n{bruschettaPageLabel}" aria-describedby="secondaryText" aria-roledescription="$i18n{subpageArrowRoleDescription}">
+        </cr-icon-button>
+      </template>
+      <template is="dom-if" if="[[!prefs.bruschetta.installed.value]]">
+        <div class="separator"></div>
+        <cr-button id="enableBruschettaButton" on-click="onBruschettaEnableClick_" aria-describedby="secondaryText">
+          $i18n{bruschettaEnable}
+        </cr-button>
+      </template>
+    </div>
+  </template>
+</settings-card><!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'crostini-settings-card' is the card element containing crostini settings.
+ */
+const CrostiniSettingsCardElementBase = DeepLinkingMixin(PrefsMixin(RouteOriginMixin(I18nMixin(WebUiListenerMixin(PolymerElement)))));
+class CrostiniSettingsCardElement extends CrostiniSettingsCardElementBase {
+    static get is() {
+        return 'crostini-settings-card';
+    }
+    static get template() {
+        return getTemplate$20();
+    }
+    static get properties() {
+        return {
+            /**
+             * Whether the install option should be enabled.
+             */
+            disableCrostiniInstall_: {
+                type: Boolean,
+            },
+            isCrostiniSupported_: {
+                type: Boolean,
+                value: () => {
+                    return isCrostiniSupported();
+                },
+            },
+            isCrostiniAllowed_: {
+                type: Boolean,
+                value: () => {
+                    return isCrostiniAllowed();
+                },
+            },
+            /**
+             * Used by DeepLinkingMixin to focus this page's deep links.
+             */
+            supportedSettingIds: {
+                type: Object,
+                value: () => new Set([Setting.kSetUpCrostini]),
+            },
+            showBruschetta_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('showBruschetta');
+                },
+            },
+            isRevampWayfindingEnabled_: {
+                type: Boolean,
+                value: () => {
+                    return isRevampWayfindingEnabled();
+                },
+            },
+        };
+    }
+    constructor() {
+        super();
+        /** RouteOriginMixin override */
+        this.route =
+            this.isRevampWayfindingEnabled_ ? routes.ABOUT : routes.CROSTINI;
+        this.browserProxy_ = CrostiniBrowserProxyImpl.getInstance();
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        if (!this.isCrostiniAllowed_) {
+            this.disableCrostiniInstall_ = true;
+            return;
+        }
+        this.addWebUiListener('crostini-installer-status-changed', (installerShowing) => {
+            this.disableCrostiniInstall_ = installerShowing;
+        });
+        this.browserProxy_.requestCrostiniInstallerStatus();
+    }
+    ready() {
+        super.ready();
+        this.addFocusConfig(routes.CROSTINI_DETAILS, '#crostini .subpage-arrow');
+        this.addFocusConfig(routes.BRUSCHETTA_DETAILS, '#bruschetta .subpage-arrow');
+    }
+    currentRouteChanged(newRoute, oldRoute) {
+        super.currentRouteChanged(newRoute, oldRoute);
+        // Does not apply to this page.
+        if (newRoute !== this.route) {
+            return;
+        }
+        this.attemptDeepLink();
+    }
+    onEnableClick_(event) {
+        this.browserProxy_.requestCrostiniInstallerView();
+        event.stopPropagation();
+    }
+    onSubpageClick_(event) {
+        // We do not open the subpage if the click was on a link.
+        if (event.target && event.target.tagName === 'A') {
+            event.stopPropagation();
+            return;
+        }
+        if (this.getPref('crostini.enabled').value) {
+            Router.getInstance().navigateTo(routes.CROSTINI_DETAILS);
+        }
+    }
+    onBruschettaEnableClick_(event) {
+        this.browserProxy_.requestBruschettaInstallerView();
+        // Stop propagation so that onBruschettaSubpageClick_ isn't called.
+        event.stopPropagation();
+    }
+    onBruschettaSubpageClick_() {
+        // This function is called on-click even if actionable=false.
+        if (this.getPref('bruschetta.installed').value) {
+            Router.getInstance().navigateTo(routes.BRUSCHETTA_DETAILS);
+        }
+    }
+}
+customElements.define(CrostiniSettingsCardElement.is, CrostiniSettingsCardElement);
+
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14980,7 +15320,7 @@ function prefToString(pref) {
     }
 }
 
-function getTemplate$1Y() {
+function getTemplate$1$() {
     return html `<!--_html_template_start_--><style include="md-select cros-color-overrides">:host{align-items:center;display:inline-flex}cr-policy-pref-indicator{height:var(--iron-icon-width,24px);margin:0 var(--cr-controlled-by-spacing);order:var(--settings-dropdown-menu-policy-order,0);width:var(--iron-icon-width,24px)}option:disabled{display:none}</style>
 <template is="dom-if" if="[[pref.controlledBy]]" restamp>
   <cr-policy-pref-indicator pref="[[pref]]"></cr-policy-pref-indicator>
@@ -15016,7 +15356,7 @@ class SettingsDropdownMenuElement extends SettingsDropdownMenuElementBase {
         return 'settings-dropdown-menu';
     }
     static get template() {
-        return getTemplate$1Y();
+        return getTemplate$1$();
     }
     static get properties() {
         return {
@@ -15161,7 +15501,7 @@ class TimeZoneBrowserProxyImpl {
     }
 }
 
-function getTemplate$1X() {
+function getTemplate$1_() {
     return html `<!--_html_template_start_--><style include="settings-shared">settings-dropdown-menu{--md-select-width:425px}#systemTimezoneSelector,#userTimeZoneSelector{--settings-dropdown-menu-policy-order:1}</style>
 <template is="dom-if" restamp if="[[!prefs.cros.flags.per_user_timezone_enabled.value]]">
   <settings-dropdown-menu pref="{{prefs.cros.system.timezone}}" label="$i18n{timeZone}" menu-options="[[timeZoneList_]]" disabled="[[prefs.generated.resolve_timezone_by_geolocation_on_off.value ||
@@ -15191,7 +15531,7 @@ class TimezoneSelectorElement extends TimezoneSelectorElementBase {
         return 'timezone-selector';
     }
     static get template() {
-        return getTemplate$1X();
+        return getTemplate$1_();
     }
     static get properties() {
         return {
@@ -15338,7 +15678,7 @@ class TimezoneSelectorElement extends TimezoneSelectorElementBase {
 }
 customElements.define(TimezoneSelectorElement.is, TimezoneSelectorElement);
 
-function getTemplate$1W() {
+function getTemplate$1Z() {
     return html `<!--_html_template_start_--><style include="settings-shared">#timezoneSelectorContainer{padding-block-end:var(--cr-section-vertical-padding);padding-inline-start:var(--cr-section-indent-padding)}:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 <settings-card header-text="$i18n{dateTimePageTitle}">
   <template is="dom-if" if="[[!prefs.cros.flags.fine_grained_time_zone_detection_enabled.value]]" restamp>
@@ -15381,7 +15721,7 @@ class DateTimeSettingsCardElement extends DateTimeSettingsCardElementBase {
         return 'date-time-settings-card';
     }
     static get template() {
-        return getTemplate$1W();
+        return getTemplate$1Z();
     }
     static get properties() {
         return {
@@ -15899,7 +16239,7 @@ Polymer({
 
 });
 
-const template$8 = html `
+const template$9 = html `
 <iron-iconset-svg name="settings20" size="20">
   <svg>
     <defs>
@@ -16088,9 +16428,9 @@ const template$8 = html `
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$8.content);
+document.head.appendChild(template$9.content);
 
-const template$7 = html `
+const template$8 = html `
 
 
 <iron-iconset-svg name="os-settings" size="20">
@@ -16387,7 +16727,7 @@ const template$7 = html `
       <g id="set-date-time" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.563 7.5h10.875V5.562H4.562V7.5Zm0 0V5.562 7.5Zm0 10.667c-.487 0-.896-.167-1.23-.5a1.671 1.671 0 0 1-.5-1.23V5.563c0-.472.167-.875.5-1.208.348-.347.757-.52 1.23-.52H6v-2h1.625v2h4.75v-2H14v2h1.438c.472 0 .874.173 1.208.52.347.333.52.736.52 1.208v4.355a3.444 3.444 0 0 0-.833-.271 6.34 6.34 0 0 0-.895-.146V9H4.562v7.438h5.209c.083.319.194.625.333.916.153.278.327.549.521.813H4.562Zm10.52.833c-1.11 0-2.055-.389-2.833-1.167-.778-.777-1.167-1.722-1.167-2.833 0-1.111.39-2.056 1.167-2.833A3.927 3.927 0 0 1 15.104 11c1.097 0 2.035.389 2.813 1.167.777.777 1.166 1.722 1.166 2.833 0 1.111-.389 2.056-1.166 2.833-.778.778-1.723 1.167-2.834 1.167Zm1.146-2.104.771-.75-1.375-1.375v-1.813h-1.063v2.271l1.667 1.667Z"></path></g>
       <g id="restore" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 9V7H15.1979C14.1609 5.20627 12.2219 4 10 4C6.685 4 4 6.685 4 10C4 13.315 6.685 16 10 16C12.9739 16 15.4407 13.8392 15.9169 11.0011L17.9379 11.0005C17.4451 14.9449 14.0766 18 9.992 18C5.576 18 2 14.416 2 10C2 5.584 5.576 2 9.992 2C12.3857 2 14.5335 3.04926 16.0007 4.71184L16 3H18V9H12ZM10.5 6V10L13 12.5L11.5 14L8.5 11V6H10.5Z"></path></g>
       <g id="restore-revamp" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 11.583a1.53 1.53 0 0 1-1.125-.458A1.575 1.575 0 0 1 8.417 10c0-.43.152-.799.458-1.104.32-.32.694-.48 1.125-.48.43 0 .799.16 1.104.48.32.305.48.673.48 1.104 0 .444-.16.82-.48 1.125a1.505 1.505 0 0 1-1.104.458Zm0 5.584c-1.986 0-3.68-.695-5.083-2.084C3.514 13.694 2.819 12 2.833 10h1.73c.027 1.514.562 2.799 1.604 3.854C7.222 14.91 8.5 15.438 10 15.438c1.514 0 2.799-.528 3.854-1.584 1.056-1.055 1.584-2.34 1.584-3.854 0-1.514-.528-2.799-1.584-3.854C12.8 5.09 11.514 4.563 10 4.563c-.778 0-1.52.166-2.23.5-.707.319-1.326.77-1.853 1.354H8V8H2.875V2.875h1.583V5.5c.68-.847 1.5-1.5 2.459-1.958A6.882 6.882 0 0 1 10 2.833c.986 0 1.917.188 2.792.563a6.996 6.996 0 0 1 2.27 1.542 7.165 7.165 0 0 1 1.521 2.27c.39.861.584 1.792.584 2.792 0 1-.195 1.938-.584 2.813a7.49 7.49 0 0 1-1.52 2.27 7.165 7.165 0 0 1-2.271 1.521 7.012 7.012 0 0 1-2.792.563Z"></path></g>
-      <g id="multitasking" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.5 17q-.625 0-1.062-.437A1.45 1.45 0 0 1 11 15.5v-11q0-.604.438-1.042A1.41 1.41 0 0 1 12.5 3h3q.604 0 1.042.458Q17 3.896 17 4.5v11q0 .624-.458 1.063A1.42 1.42 0 0 1 15.5 17zm-8 0q-.625 0-1.062-.437A1.45 1.45 0 0 1 3 15.5v-11q0-.604.438-1.042A1.41 1.41 0 0 1 4.5 3h3q.604 0 1.042.458Q9 3.896 9 4.5v11q0 .624-.458 1.063A1.42 1.42 0 0 1 7.5 17zm0-12.5v11h3v-11zm3 11h-3z"></path></g>
+      <g id="snap-window-suggestions" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.5 17q-.625 0-1.062-.437A1.45 1.45 0 0 1 11 15.5v-11q0-.604.438-1.042A1.41 1.41 0 0 1 12.5 3h3q.604 0 1.042.458Q17 3.896 17 4.5v11q0 .624-.458 1.063A1.42 1.42 0 0 1 15.5 17zm-8 0q-.625 0-1.062-.437A1.45 1.45 0 0 1 3 15.5v-11q0-.604.438-1.042A1.41 1.41 0 0 1 4.5 3h3q.604 0 1.042.458Q9 3.896 9 4.5v11q0 .624-.458 1.063A1.42 1.42 0 0 1 7.5 17zm0-12.5v11h3v-11zm3 11h-3z"></path></g>
 
       
       <g id="account" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.6 9.8a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm4.8 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2ZM10 2c-4.416 0-8 3.584-8 8s3.584 8 8 8 8-3.584 8-8-3.584-8-8-8Zm0 14.4A6.409 6.409 0 0 1 3.6 10c0-.232.016-.464.04-.688a8.05 8.05 0 0 0 4.168-4.296 7.98 7.98 0 0 0 8.328 3.176c.168.568.264 1.176.264 1.808 0 3.528-2.872 6.4-6.4 6.4Z"/></g>
@@ -16524,9 +16864,9 @@ const template$7 = html `
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$7.content);
+document.head.appendChild(template$8.content);
 
-function getTemplate$1V() {
+function getTemplate$1Y() {
     return html `<!--_html_template_start_--><style>:host{-webkit-tap-highlight-color:transparent;align-items:center;cursor:pointer;display:flex;outline:0;user-select:none;--cr-checkbox-border-size:2px;--cr-checkbox-size:16px;--cr-checkbox-ripple-size:40px;--cr-checkbox-ripple-offset:calc(var(--cr-checkbox-size)/2 -
         var(--cr-checkbox-ripple-size)/2 - var(--cr-checkbox-border-size));--cr-checkbox-checked-box-color:var(--cr-checked-color);--cr-checkbox-ripple-checked-color:var(--cr-checked-color);--cr-checkbox-checked-ripple-opacity:.2;--cr-checkbox-mark-color:white;--cr-checkbox-ripple-unchecked-color:var(--google-grey-900);--cr-checkbox-unchecked-box-color:var(--google-grey-700);--cr-checkbox-unchecked-ripple-opacity:.15}@media (prefers-color-scheme:dark){:host{--cr-checkbox-checked-ripple-opacity:.4;--cr-checkbox-mark-color:var(--google-grey-900);--cr-checkbox-ripple-unchecked-color:var(--google-grey-500);--cr-checkbox-unchecked-box-color:var(--google-grey-500);--cr-checkbox-unchecked-ripple-opacity:.4}}:host-context([chrome-refresh-2023]):host{--cr-checkbox-ripple-size:32px;--cr-checkbox-mark-color:var(--color-checkbox-check,
         var(--cr-fallback-color-on-primary));--cr-checkbox-checked-box-color:var(--color-checkbox-foreground-checked,
@@ -16588,7 +16928,7 @@ class CrCheckboxElement extends CrCheckboxElementBase {
         return 'cr-checkbox';
     }
     static get template() {
-        return getTemplate$1V();
+        return getTemplate$1Y();
     }
     static get properties() {
         return {
@@ -16740,7 +17080,7 @@ function mojoString16ToString(str16) {
     return str;
 }
 
-function getTemplate$1U() {
+function getTemplate$1X() {
     return html `<!--_html_template_start_--><style include="settings-shared">div{color:var(--cr-primary-text-color);margin-top:10px}#providerName{color:var(--cros-text-color-disabled)}</style>
 <div inner-h-t-m-l="[[getItemInnerHtml_(profileProperties_)]]">
 </div>
@@ -16761,7 +17101,7 @@ class OsSettingsPowerwashDialogEsimItemElement extends OsSettingsPowerwashDialog
         return 'os-settings-powerwash-dialog-esim-item';
     }
     static get template() {
-        return getTemplate$1U();
+        return getTemplate$1X();
     }
     static get properties() {
         return {
@@ -17597,6 +17937,8 @@ class OncMojo {
             cellularProperties.signalStrength;
         networkState.typeState.cellular.simLocked =
             cellularProperties.simLocked;
+        networkState.typeState.cellular.simLockType =
+            cellularProperties.simLockType;
         break;
       case NetworkType.kEthernet:
         networkState.typeState.ethernet.authentication =
@@ -17661,6 +18003,7 @@ class OncMojo {
             activationState: ActivationStateType.kUnknown,
             signalStrength: 0,
             simLocked: false,
+            simLockType: '',
             supportNetworkScan: false,
           },
         };
@@ -18280,7 +18623,7 @@ class OncMojo {
  */
 OncMojo.USE_ATTACH_APN_NAME = 'attach';
 
-function getTemplate$1T() {
+function getTemplate$1W() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:400px}:host cr-checkbox{--cr-checkbox-label-color:var(--cr-secondary-text-color);--cr-checkbox-label-padding-start:12px;--cr-checkbox-unchecked-box-color:var(--cros-icon-color-primary)}iron-list{background-color:var(--cros-textfield-background-color);border-radius:4px;margin-top:8px;padding-bottom:8px}os-settings-powerwash-dialog-esim-item{height:32px;padding-inline-end:16px;padding-inline-start:16px}#profilesListContainer{margin-bottom:8px;margin-top:20px}#profilesListTitle{font-size:calc(14 / 13 * 100%)}#checkboxLabel{margin-top:16px}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}" ignore-enter-key>
   <template is="dom-if" if="[[shouldShowESimWarning_]]" restamp>
@@ -18367,7 +18710,7 @@ class OsSettingsPowerwashDialogElement extends PolymerElement {
         return 'os-settings-powerwash-dialog';
     }
     static get template() {
-        return getTemplate$1T();
+        return getTemplate$1W();
     }
     static get properties() {
         return {
@@ -18586,7 +18929,7 @@ class AboutPageBrowserProxyImpl {
     }
 }
 
-function getTemplate$1S() {
+function getTemplate$1V() {
     return html `<!--_html_template_start_--><style>:host{background-color:var(--cr-card-background-color);border-radius:8px;box-shadow:var(--cr-card-shadow);display:flex;padding:16px}.image-container{background-color:var(--cros-illustration-color-1-shade-2);border-radius:50%;display:inline-block;height:40px;margin-inline-end:16px;width:40px}.inner-image{--iron-icon-fill-color:var(--cros-icon-color-prominent);padding:8px}.side-content{flex:1}.eol-offer-title{font-weight:500;margin-bottom:8px}.eol-offer-text{margin-bottom:8px}</style>
 <div class="image-container">
   <iron-icon class="inner-image" icon="os-settings:end-of-life-offer">
@@ -18614,7 +18957,7 @@ class EolOfferSection extends PolymerElement {
         return 'eol-offer-section';
     }
     static get template() {
-        return getTemplate$1S();
+        return getTemplate$1V();
     }
     static get properties() {
         return {
@@ -18640,6 +18983,901 @@ class EolOfferSection extends PolymerElement {
     }
 }
 customElements.define(EolOfferSection.is, EolOfferSection);
+
+function getTemplate$1U() {
+    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+<cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
+  <div slot="title">$i18n{aboutUpdateWarningTitle}</div>
+  <div slot="body">
+    [[warningMessage_]]
+  </div>
+  <div slot="button-container">
+    <cr-button id="cancel" class="cancel-button" on-click="onCancelClick_">$i18n{cancel}</cr-button>
+    <cr-button id="continue" class="action-button" on-click="onContinueClick_">
+      $i18n{continue}
+    </cr-button>
+  </div>
+</cr-dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview 'settings-update-warning-dialog' is a component warning the
+ * user about update over mobile data. By clicking 'Continue', the user
+ * agrees to download update using mobile data.
+ */
+const SettingsUpdateWarningDialogElementBase = I18nMixin(PolymerElement);
+class SettingsUpdateWarningDialogElement extends SettingsUpdateWarningDialogElementBase {
+    static get is() {
+        return 'settings-update-warning-dialog';
+    }
+    static get template() {
+        return getTemplate$1U();
+    }
+    static get properties() {
+        return {
+            updateInfo: {
+                type: Object,
+                observer: 'onUpdateInfoChanged_',
+            },
+            warningMessage_: {
+                type: String,
+                value: '',
+            },
+        };
+    }
+    constructor() {
+        super();
+        this.browserProxy_ = AboutPageBrowserProxyImpl.getInstance();
+    }
+    onCancelClick_() {
+        this.$.dialog.close();
+    }
+    onContinueClick_() {
+        if (!this.updateInfo || !this.updateInfo.version || !this.updateInfo.size) {
+            console.warn('ERROR: requestUpdateOverCellular arguments are undefined');
+            return;
+        }
+        this.browserProxy_.requestUpdateOverCellular(this.updateInfo.version, this.updateInfo.size);
+        this.$.dialog.close();
+    }
+    onUpdateInfoChanged_() {
+        if (!this.updateInfo || this.updateInfo.size === undefined) {
+            console.warn('ERROR: Update size is undefined');
+            return;
+        }
+        this.warningMessage_ = this.i18n('aboutUpdateWarningMessage', 
+        // Convert bytes to megabytes
+        Math.floor(Number(this.updateInfo.size) / (1024 * 1024)));
+    }
+}
+customElements.define(SettingsUpdateWarningDialogElement.is, SettingsUpdateWarningDialogElement);
+
+function getTemplate$1T() {
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--chromeos-logo-width:40px}.info-section{margin-bottom:12px}.padded{padding-bottom:10px;padding-top:10px}#productRow{min-height:auto;padding-bottom:18px;padding-top:18px}#productRow>#productTitle{font:var(--cros-display-7-font);margin:0}#productRow>#productLogo{margin-inline-end:16px;width:var(--chromeos-logo-width)}.icon-container{margin-inline-end:10px;min-width:var(--chromeos-logo-width);text-align:center}:host-context(body.revamp-wayfinding-enabled) #updateRowIcon{margin-inline-end:16px}iron-icon[icon='settings:check-circle']{fill:var(--cros-icon-color-prominent)}iron-icon[icon='cr:error-outline'],iron-icon[icon='cr:warning'],iron-icon[icon='os-settings:end-of-life']{fill:var(--cros-icon-color-alert)}iron-icon[icon='os-settings:about-update-complete']{fill:var(--cros-sys-positive)}iron-icon[icon='os-settings:about-update-warning']{fill:var(--cros-sys-warning)}iron-icon[icon='os-settings:about-update-error']{fill:var(--cros-sys-error)}:host-context(body.revamp-wayfinding-enabled) iron-icon[icon='cr20:domain']{fill:var(--cros-sys-primary)}#firmwareUpdateBadge{--iron-icon-fill-color:var(--cros-icon-color-secondary)}.settings-box .start{overflow-x:auto}cr-button{white-space:nowrap}#regulatoryInfo img{width:330px}@media(prefers-color-scheme:dark){#regulatoryInfo img{filter:invert(1)}}.separator-firmware-updates-badge{margin-inline-end:-4px;margin-inline-start:12px}#deferredUpdateButtons{min-height:unset;padding-bottom:10px}eol-offer-section{margin:6px 3px 16px 3px}:host-context(body:not(.revamp-wayfinding-enabled)) #copyrightCard{margin-top:var(--cr-section-vertical-margin)}</style>
+<iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
+</iron-media-query>
+
+  <os-settings-animated-pages id="pages" section="[[section_]]">
+    <div route-path="default">
+      <settings-card header-text="$i18n{aboutOsPageTitle}">
+        <div id="productRow" class="settings-box first">
+          <img id="productLogo" on-click="onProductLogoClick_" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" alt="$i18n{aboutProductLogoAlt}" role="presentation">
+          <h1 id="productTitle">$i18n{aboutOsProductTitle}</h1>
+        </div>
+        <div class="settings-box two-line">
+          
+          <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]">
+            <div class="icon-container" hidden="[[!shouldShowIcons_(showUpdateStatus_)]]">
+              
+              <iron-icon icon$="[[getUpdateStatusIcon_(
+                      hasEndOfLife_, currentUpdateStatusEvent_)]]" src="[[getThrobberSrcIfUpdating_(
+                      isDarkModeActive_,
+                      hasEndOfLife_,
+                      currentUpdateStatusEvent_)]]">
+              </iron-icon>
+            </div>
+          </template>
+          <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+            <iron-icon id="updateRowIcon" icon$="[[getUpdateStatusIcon_(
+                    hasEndOfLife_, currentUpdateStatusEvent_)]]" src="[[getThrobberSrcIfUpdating_(
+                    isDarkModeActive_,
+                    hasEndOfLife_,
+                    currentUpdateStatusEvent_)]]">
+            </iron-icon>
+          </template>
+          <div class="start padded">
+            <div id="updateStatusMessage" hidden="[[!showUpdateStatus_]]">
+              <div id="updateStatusMessageInner" tabindex="-1" inner-h-t-m-l="[[getUpdateStatusMessage_(
+                  currentUpdateStatusEvent_, targetChannel_)]]"></div>
+              <a hidden$="[[!shouldShowLearnMoreLink_(
+                  currentUpdateStatusEvent_)]]" target="_blank" href="https://support.google.com/chrome?p=update_error">
+                $i18n{learnMore}
+              </a>
+            </div>
+            <template is="dom-if" if="[[showEolIncentive_]]">
+              <eol-offer-section id="endOfLifeOfferContainer" should-show-offer-text="[[shouldShowOfferText_]]">
+              </eol-offer-section>
+            </template>
+            <localized-link id="endOfLifeMessage" hidden="[[!hasEndOfLife_]]" localized-string="$i18n{endOfLifeMessage}">
+            </localized-link>
+            <div class="secondary" hidden="[[!hasDeferredUpdate_]]">
+              $i18n{aboutDeferredUpdate}
+            </div>
+            <div class="secondary">$i18n{aboutBrowserVersion}</div>
+          </div>
+          <div class="separator" hidden="[[!showButtonContainer_]]"></div>
+          <span id="buttonContainer" hidden="[[!showButtonContainer_]]">
+            <cr-button id="relaunchButton" hidden$="[[!showRelaunch_]]" on-click="onRelaunchClick_">
+                [[getRelaunchButtonText_(
+                                currentUpdateStatusEvent_)]]
+            </cr-button>
+            <cr-button id="checkForUpdatesButton" hidden="[[!showCheckUpdates_]]" on-click="onCheckUpdatesClick_" deep-link-focus-id$="[[Setting.kCheckForOsUpdate]]">
+              $i18n{aboutCheckForUpdates}
+            </cr-button>
+          </span>
+        </div>
+        <div id="deferredUpdateButtons" class="settings-box first" hidden="[[!hasDeferredUpdate_]]">
+          <div class="icon-container"></div>
+          <cr-button id="applyDeferredUpdate" on-click="onApplyDeferredUpdateClick_">
+            $i18n{aboutRelaunch}
+          </cr-button>
+          <cr-button id="applyAndSetAutoUpdate" on-click="onApplyAndSetAutoUpdateClick_">
+            $i18n{aboutRelaunchAndAutoUpdate}
+          </cr-button>
+        </div>
+        <cr-link-row id="aboutTPMFirmwareUpdate" class="hr" start-icon="[[rowIcons_.powerWash]]" hidden$="[[!showTPMFirmwareUpdateLineItem_]]" label="$i18n{aboutTPMFirmwareUpdateTitle}" on-click="onTpmFirmwareUpdateClick_">
+          <div slot="sub-label">
+            $i18n{aboutTPMFirmwareUpdateDescription}
+            <a href="$i18n{aboutTPMFirmwareUpdateLearnMoreURL}" target="_blank" on-click="onLearnMoreClick_">
+              $i18n{learnMore}
+            </a>
+          </div>
+        </cr-link-row>
+        <template is="dom-if" if="[[hasInternetConnection_]]">
+          <cr-link-row class="hr" id="releaseNotesOnline" start-icon="[[rowIcons_.releaseNotes]]" on-click="onReleaseNotesClick_" label="$i18n{aboutShowReleaseNotes}" sub-label="[[getShowReleaseNotesSublabel_()]]" external deep-link-focus-id$="[[Setting.kSeeWhatsNew]]">
+          </cr-link-row>
+        </template>
+        <template is="dom-if" if="[[!hasInternetConnection_]]">
+          <cr-link-row class="hr" id="releaseNotesOffline" start-icon="[[rowIcons_.releaseNotes]]" on-click="onReleaseNotesClick_" label="$i18n{aboutShowReleaseNotes}" title="$i18n{aboutReleaseNotesOffline}" external deep-link-focus-id$="[[Setting.kSeeWhatsNew]]">
+          </cr-link-row>
+        </template>
+        <cr-link-row class="hr" id="help" start-icon="[[rowIcons_.help]]" on-click="onHelpClick_" label="$i18n{aboutGetHelpUsingChromeOs}" sub-label="[[getHelpUsingChromeOsSublabel_()]]" external deep-link-focus-id$="[[Setting.kGetHelpWithChromeOs]]">
+        </cr-link-row>
+  
+        <cr-link-row class="hr" id="diagnostics" start-icon="[[rowIcons_.diagnostics]]" on-click="onDiagnosticsClick_" label="$i18n{aboutDiagnostics}" sub-label="[[getDiagnosticsSublabel_()]]" external deep-link-focus-id$="[[Setting.kDiagnostics]]">
+        </cr-link-row>
+        <cr-link-row class="hr" id="firmwareUpdates" start-icon="[[rowIcons_.firmwareUpdates]]" on-click="onFirmwareUpdatesClick_" label="$i18n{aboutFirmwareUpdates}" sub-label="[[getFirmwareSublabel_(firmwareUpdateCount_)]]" external using-slotted-label deep-link-focus-id$="[[Setting.kFirmwareUpdates]]">
+          <iron-icon id="firmwareUpdateBadge" icon$="[[getFirmwareUpdatesIcon_(firmwareUpdateCount_)]]" hidden$="[[!shouldShowFirmwareUpdatesBadge_(
+                firmwareUpdateCount_)]]">
+          </iron-icon>
+          <div id="firmwareUpdateBadgeSeparator" class="separator separator-firmware-updates-badge" hidden$="[[!shouldShowFirmwareUpdatesBadge_(
+                firmwareUpdateCount_)]]">
+          </div>
+        </cr-link-row>
+        <cr-link-row class="hr" id="detailedBuildInfoTrigger" start-icon="[[rowIcons_.additionalDetails]]" on-click="onDetailedBuildInfoClick_" label="$i18n{aboutDetailedBuildInfo}" role-description="$i18n{subpageArrowRoleDescription}">
+        </cr-link-row>
+        <cr-link-row class="hr" on-click="onManagementPageClick_" start-icon="cr:domain" label="$i18n{managementPage}" hidden$="[[!isManaged_]]" external>
+        </cr-link-row>
+      </settings-card>
+
+      <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+        <crostini-settings-card prefs="{{prefs}}"></crostini-settings-card>
+      </template>
+
+      <settings-card id="copyrightCard">
+        <div class="settings-box padded block first">
+          <div class="info-section">
+            <div class="secondary">$i18n{aboutOsProductTitle}</div>
+            <div class="secondary">$i18n{aboutProductCopyright}</div>
+          </div>
+
+          <div class="info-section">
+            <div class="secondary">
+              <span>$i18nRaw{aboutProductLicenseChromium}</span>
+              <localized-link localized-string="$i18nRaw{aboutProductLicenseOther}" on-link-clicked="onProductLicenseOtherClicked_">
+              </localized-link>
+            </div>
+            <div class="secondary" inner-h-t-m-l="[[getAboutProductOsLicense_(
+                    showCrostiniLicense_)]]">
+            </div>
+          </div>
+          
+        </div>
+        <div id="regulatoryInfo" class="settings-box padded block" hidden$="[[!shouldShowRegulatoryOrSafetyInfo_(regulatoryInfo_)]]">
+          
+          <img src="[[regulatoryInfo_.url]]" alt="[[regulatoryInfo_.text]]" hidden$="[[!shouldShowRegulatoryInfo_(regulatoryInfo_)]]">
+        </div>
+      </settings-card>
+    </div>
+
+    <template is="dom-if" route-path="/help/details">
+      <os-settings-subpage page-title="$i18n{aboutDetailedBuildInfo}">
+        <settings-detailed-build-info-subpage eol-message-with-month-and-year="[[eolMessageWithMonthAndYear_]]" prefs="{{prefs}}">
+        </settings-detailed-build-info-subpage>
+      </os-settings-subpage>
+    </template>
+
+    
+    <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+      <template is="dom-if" route-path="/crostini/details">
+        <os-settings-subpage page-title="$i18n{crostiniPageLabel}">
+          <settings-crostini-subpage prefs="{{prefs}}">
+          </settings-crostini-subpage>
+        </os-settings-subpage>
+      </template>
+
+      <template is="dom-if" route-path="/crostini/androidAdb">
+        <os-settings-subpage page-title="$i18n{crostiniArcAdbTitle}">
+          <settings-crostini-arc-adb prefs="{{prefs}}">
+          </settings-crostini-arc-adb>
+        </os-settings-subpage>
+      </template>
+
+      <template is="dom-if" route-path="/crostini/portForwarding">
+        <os-settings-subpage page-title="$i18n{crostiniPortForwarding}">
+          <settings-crostini-port-forwarding prefs="{{prefs}}">
+          </settings-crostini-port-forwarding>
+        </os-settings-subpage>
+      </template>
+
+      <template is="dom-if" route-path="/crostini/exportImport">
+        <os-settings-subpage page-title="$i18n{crostiniExportImportTitle}">
+          <settings-crostini-export-import prefs="{{prefs}}">
+          </settings-crostini-export-import>
+        </os-settings-subpage>
+      </template>
+
+      <template is="dom-if" route-path="/crostini/sharedPaths">
+        <os-settings-subpage page-title="$i18n{guestOsSharedPaths}">
+          <settings-guest-os-shared-paths guest-os-type="crostini" prefs="{{prefs}}">
+          </settings-guest-os-shared-paths>
+        </os-settings-subpage>
+      </template>
+
+      <template is="dom-if" route-path="/crostini/sharedUsbDevices">
+        <os-settings-subpage page-title="$i18n{guestOsSharedUsbDevicesLabel}">
+          <settings-crostini-shared-usb-devices>
+          </settings-crostini-shared-usb-devices>
+        </os-settings-subpage>
+      </template>
+
+      <template is="dom-if" route-path="/crostini/extraContainers">
+        <os-settings-subpage page-title="$i18n{crostiniExtraContainersLabel}">
+          <settings-crostini-extra-containers guest-os-type="crostini">
+          </settings-crostini-extra-containers>
+        </os-settings-subpage>
+      </template>
+
+      <template is="dom-if" route-path="/bruschetta/details">
+        <os-settings-subpage page-title="$i18n{bruschettaPageLabel}">
+          <settings-bruschetta-subpage prefs="{{prefs}}">
+          </settings-bruschetta-subpage>
+        </os-settings-subpage>
+      </template>
+
+      <template is="dom-if" route-path="/bruschetta/sharedUsbDevices">
+        <os-settings-subpage page-title="$i18n{guestOsSharedUsbDevicesLabel}">
+          <settings-guest-os-shared-usb-devices guest-os-type="bruschetta">
+          </settings-guest-os-shared-usb-devices>
+        </os-settings-subpage>
+      </template>
+
+      <template is="dom-if" route-path="/bruschetta/sharedPaths">
+        <os-settings-subpage page-title="$i18n{guestOsSharedPaths}">
+          <settings-guest-os-shared-paths guest-os-type="bruschetta" prefs="{{prefs}}">
+          </settings-guest-os-shared-paths>
+        </os-settings-subpage>
+      </template>
+    </template>
+  </os-settings-animated-pages>
+
+<template is="dom-if" if="[[showUpdateWarningDialog_]]" restamp>
+  <settings-update-warning-dialog update-info="[[updateInfo_]]" on-close="onUpdateWarningDialogClose_">
+  </settings-update-warning-dialog>
+</template>
+<template is="dom-if" if="[[showTPMFirmwareUpdateDialog_]]" restamp>
+  <os-settings-powerwash-dialog request-tpm-firmware-update on-close="onPowerwashDialogClose_">
+  </os-settings-powerwash-dialog>
+</template>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2019 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview 'settings-about-page' contains version and OS related
+ * information.
+ */
+const OsAboutPageBase = DeepLinkingMixin(RouteOriginMixin(I18nMixin(WebUiListenerMixin(PolymerElement))));
+class OsAboutPageElement extends OsAboutPageBase {
+    static get is() {
+        return 'os-about-page';
+    }
+    static get template() {
+        return getTemplate$1T();
+    }
+    static get properties() {
+        return {
+            section_: {
+                type: Number,
+                value: Section.kAboutChromeOs,
+                readOnly: true,
+            },
+            /**
+             * Whether the about page is being rendered in dark mode.
+             */
+            isDarkModeActive_: {
+                type: Boolean,
+                value: false,
+            },
+            currentUpdateStatusEvent_: {
+                type: Object,
+                value: {
+                    message: '',
+                    progress: 0,
+                    rollback: false,
+                    powerwash: false,
+                    status: UpdateStatus.UPDATED,
+                },
+            },
+            /**
+             * Whether the browser/ChromeOS is managed by their organization
+             * through enterprise policies.
+             */
+            isManaged_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('isManaged');
+                },
+            },
+            /**
+             * The domain of the organization managing the device.
+             */
+            deviceManager_: {
+                type: String,
+                value() {
+                    return loadTimeData.getString('deviceManager');
+                },
+            },
+            hasCheckedForUpdates_: {
+                type: Boolean,
+                value: false,
+            },
+            currentChannel_: String,
+            targetChannel_: String,
+            isLts_: {
+                type: Boolean,
+                value: false,
+            },
+            regulatoryInfo_: Object,
+            hasEndOfLife_: {
+                type: Boolean,
+                value: false,
+            },
+            showEolIncentive_: {
+                type: Boolean,
+                value: false,
+            },
+            shouldShowOfferText_: {
+                type: Boolean,
+                value: false,
+            },
+            hasDeferredUpdate_: {
+                type: Boolean,
+                value: false,
+            },
+            eolMessageWithMonthAndYear_: {
+                type: String,
+                value: '',
+            },
+            hasInternetConnection_: {
+                type: Boolean,
+                value: false,
+            },
+            firmwareUpdateCount_: {
+                type: Number,
+                value: 0,
+            },
+            showCrostiniLicense_: {
+                type: Boolean,
+                value: false,
+            },
+            showUpdateStatus_: {
+                type: Boolean,
+                value: false,
+            },
+            showButtonContainer_: Boolean,
+            showRelaunch_: {
+                type: Boolean,
+                value: false,
+                computed: 'computeShowRelaunch_(currentUpdateStatusEvent_)',
+            },
+            showCheckUpdates_: {
+                type: Boolean,
+                computed: 'computeShowCheckUpdates_(' +
+                    'currentUpdateStatusEvent_, hasCheckedForUpdates_, hasEndOfLife_)',
+            },
+            showUpdateWarningDialog_: {
+                type: Boolean,
+                value: false,
+            },
+            showTPMFirmwareUpdateLineItem_: {
+                type: Boolean,
+                value: false,
+            },
+            showTPMFirmwareUpdateDialog_: Boolean,
+            updateInfo_: Object,
+            /**
+             * Whether the deep link to the check for OS update setting was unable
+             * to be shown.
+             */
+            isPendingOsUpdateDeepLink_: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * Used by DeepLinkingMixin to focus this page's deep links.
+             */
+            supportedSettingIds: {
+                type: Object,
+                value: () => new Set([
+                    Setting.kCheckForOsUpdate,
+                    Setting.kSeeWhatsNew,
+                    Setting.kGetHelpWithChromeOs,
+                    Setting.kReportAnIssue,
+                    Setting.kTermsOfService,
+                    Setting.kDiagnostics,
+                    Setting.kFirmwareUpdates,
+                ]),
+            },
+            isRevampWayfindingEnabled_: {
+                type: Boolean,
+                value() {
+                    return isRevampWayfindingEnabled();
+                },
+                readOnly: true,
+            },
+            rowIcons_: {
+                type: Object,
+                value() {
+                    if (isRevampWayfindingEnabled()) {
+                        return {
+                            powerWash: 'os-settings:startup',
+                            releaseNotes: 'os-settings:about-release-notes',
+                            help: 'os-settings:about-help',
+                            feedback: 'os-settings:about-feedback',
+                            diagnostics: 'os-settings:about-diagnostics',
+                            firmwareUpdates: 'os-settings:about-firmware-updates',
+                            additionalDetails: 'os-settings:about-additional-details',
+                        };
+                    }
+                    return {
+                        powerWash: '',
+                        releaseNotes: '',
+                        help: '',
+                        feedback: '',
+                        diagnostics: '',
+                        firmwareUpdates: '',
+                        additionalDetails: '',
+                    };
+                },
+            },
+        };
+    }
+    static get observers() {
+        return [
+            'updateShowUpdateStatus_(hasEndOfLife_, currentUpdateStatusEvent_,' +
+                'hasCheckedForUpdates_)',
+            'updateShowButtonContainer_(showRelaunch_, showCheckUpdates_)',
+            'handleCrostiniEnabledChanged_(prefs.crostini.enabled.value)',
+        ];
+    }
+    constructor() {
+        super();
+        /** RouteOriginMixin override */
+        this.route = routes.ABOUT;
+        this.aboutBrowserProxy_ = AboutPageBrowserProxyImpl.getInstance();
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.aboutBrowserProxy_.pageReady();
+        this.addEventListener('target-channel-changed', (e) => {
+            this.targetChannel_ = e.detail;
+        });
+        this.aboutBrowserProxy_.getChannelInfo().then(info => {
+            this.currentChannel_ = info.currentChannel;
+            this.targetChannel_ = info.targetChannel;
+            this.isLts_ = info.isLts;
+            this.startListening_();
+        });
+        this.aboutBrowserProxy_.getRegulatoryInfo().then(info => {
+            this.regulatoryInfo_ = info;
+        });
+        this.aboutBrowserProxy_.getEndOfLifeInfo().then(result => {
+            this.hasEndOfLife_ = !!result.hasEndOfLife;
+            this.eolMessageWithMonthAndYear_ = result.aboutPageEndOfLifeMessage || '';
+            this.showEolIncentive_ = !!result.shouldShowEndOfLifeIncentive;
+            this.shouldShowOfferText_ = !!result.shouldShowOfferText;
+        });
+        this.aboutBrowserProxy_.checkInternetConnection().then(result => {
+            this.hasInternetConnection_ = result;
+        });
+        this.aboutBrowserProxy_.getFirmwareUpdateCount().then(result => {
+            this.firmwareUpdateCount_ = result;
+        });
+        if (Router.getInstance().getQueryParameters().get('checkForUpdate') ===
+            'true') {
+            this.onCheckUpdatesClick_();
+        }
+    }
+    ready() {
+        super.ready();
+        this.addFocusConfig(routes.ABOUT_DETAILED_BUILD_INFO, '#detailedBuildInfoTrigger');
+    }
+    currentRouteChanged(newRoute, oldRoute) {
+        super.currentRouteChanged(newRoute, oldRoute);
+        // Does not apply to this page.
+        if (newRoute !== this.route) {
+            return;
+        }
+        this.attemptDeepLink().then(result => {
+            if (!result.deepLinkShown && result.pendingSettingId) {
+                // Only the check for OS update is expected to fail deep link when
+                // awaiting the check for update.
+                assert$1(result.pendingSettingId === Setting.kCheckForOsUpdate);
+                this.isPendingOsUpdateDeepLink_ = true;
+            }
+        });
+    }
+    startListening_() {
+        this.addWebUiListener('update-status-changed', this.onUpdateStatusChanged_.bind(this));
+        this.aboutBrowserProxy_.refreshUpdateStatus();
+        this.addWebUiListener('tpm-firmware-update-status-changed', this.onTpmFirmwareUpdateStatusChanged_.bind(this));
+        this.aboutBrowserProxy_.refreshTpmFirmwareUpdateStatus();
+    }
+    onUpdateStatusChanged_(event) {
+        if (event.status === UpdateStatus.CHECKING) {
+            this.hasCheckedForUpdates_ = true;
+        }
+        else if (event.status === UpdateStatus.NEED_PERMISSION_TO_UPDATE) {
+            this.showUpdateWarningDialog_ = true;
+            this.updateInfo_ = { version: event.version, size: event.size };
+        }
+        this.hasDeferredUpdate_ = (event.status === UpdateStatus.DEFERRED);
+        this.currentUpdateStatusEvent_ = event;
+    }
+    onLearnMoreClick_(event) {
+        // Stop the propagation of events, so that clicking on links inside
+        // actionable items won't trigger action.
+        event.stopPropagation();
+    }
+    onProductLicenseOtherClicked_(event) {
+        // Prevent the default link click behavior
+        event.detail.event.preventDefault();
+        // Programmatically open license.
+        this.aboutBrowserProxy_.openProductLicenseOther();
+    }
+    onReleaseNotesClick_() {
+        this.aboutBrowserProxy_.launchReleaseNotes();
+    }
+    onHelpClick_() {
+        this.aboutBrowserProxy_.openOsHelpPage();
+    }
+    onDiagnosticsClick_() {
+        this.aboutBrowserProxy_.openDiagnostics();
+        recordSettingChange(Setting.kDiagnostics);
+    }
+    onFirmwareUpdatesClick_() {
+        this.aboutBrowserProxy_.openFirmwareUpdatesPage();
+        recordSettingChange(Setting.kFirmwareUpdates);
+    }
+    onRelaunchClick_() {
+        recordSettingChange();
+        LifetimeBrowserProxyImpl.getInstance().relaunch();
+    }
+    updateShowUpdateStatus_() {
+        // Do not show the "updated" status or error states from a previous update
+        // attempt if we haven't checked yet or the update warning dialog is shown
+        // to user.
+        if ((this.currentUpdateStatusEvent_.status === UpdateStatus.UPDATED ||
+            this.currentUpdateStatusEvent_.status ===
+                UpdateStatus.FAILED_DOWNLOAD ||
+            this.currentUpdateStatusEvent_.status === UpdateStatus.FAILED_HTTP ||
+            this.currentUpdateStatusEvent_.status ===
+                UpdateStatus.DISABLED_BY_ADMIN) &&
+            (!this.hasCheckedForUpdates_ || this.showUpdateWarningDialog_)) {
+            this.showUpdateStatus_ = false;
+            return;
+        }
+        // Do not show "updated" status if the device is end of life.
+        if (this.hasEndOfLife_) {
+            this.showUpdateStatus_ = false;
+            return;
+        }
+        this.showUpdateStatus_ =
+            this.currentUpdateStatusEvent_.status !== UpdateStatus.DISABLED;
+    }
+    /**
+     * Hide the button container if all buttons are hidden, otherwise the
+     * container displays an unwanted border (see separator class).
+     */
+    updateShowButtonContainer_() {
+        this.showButtonContainer_ = this.showRelaunch_ || this.showCheckUpdates_;
+        // Check if we have yet to focus the check for update button.
+        if (!this.isPendingOsUpdateDeepLink_) {
+            return;
+        }
+        this.showDeepLink(Setting.kCheckForOsUpdate).then(result => {
+            if (result.deepLinkShown) {
+                this.isPendingOsUpdateDeepLink_ = false;
+            }
+        });
+    }
+    computeShowRelaunch_() {
+        return this.checkStatus_(UpdateStatus.NEARLY_UPDATED);
+    }
+    shouldShowLearnMoreLink_() {
+        return this.currentUpdateStatusEvent_.status === UpdateStatus.FAILED;
+    }
+    shouldShowFirmwareUpdatesBadge_() {
+        return this.firmwareUpdateCount_ > 0;
+    }
+    getUpdateStatusMessage_() {
+        switch (this.currentUpdateStatusEvent_.status) {
+            case UpdateStatus.CHECKING:
+            case UpdateStatus.NEED_PERMISSION_TO_UPDATE:
+                return this.i18nAdvanced('aboutUpgradeCheckStarted');
+            case UpdateStatus.NEARLY_UPDATED:
+                if (this.currentChannel_ !== this.targetChannel_) {
+                    return this.i18nAdvanced('aboutUpgradeSuccessChannelSwitch');
+                }
+                if (this.currentUpdateStatusEvent_.rollback) {
+                    return this.i18nAdvanced('aboutRollbackSuccess', {
+                        substitutions: [this.deviceManager_],
+                    });
+                }
+                return this.i18nAdvanced('aboutUpgradeRelaunch');
+            case UpdateStatus.UPDATED:
+                return this.i18nAdvanced('aboutUpgradeUpToDate');
+            case UpdateStatus.UPDATING:
+                assert$1(typeof this.currentUpdateStatusEvent_.progress === 'number');
+                const progressPercent = this.currentUpdateStatusEvent_.progress + '%';
+                if (this.currentChannel_ !== this.targetChannel_) {
+                    return this.i18nAdvanced('aboutUpgradeUpdatingChannelSwitch', {
+                        substitutions: [
+                            this.i18nAdvanced(browserChannelToI18nId(this.targetChannel_, this.isLts_))
+                                .toString(),
+                            progressPercent,
+                        ],
+                    });
+                }
+                if (this.currentUpdateStatusEvent_.rollback) {
+                    return this.i18nAdvanced('aboutRollbackInProgress', {
+                        substitutions: [this.deviceManager_, progressPercent],
+                    });
+                }
+                if (this.currentUpdateStatusEvent_.progress > 0) {
+                    // NOTE(dbeam): some platforms (i.e. Mac) always send 0% while
+                    // updating (they don't support incremental upgrade progress). Though
+                    // it's certainly quite possible to validly end up here with 0% on
+                    // platforms that support incremental progress, nobody really likes
+                    // seeing that they're 0% done with something.
+                    return this.i18nAdvanced('aboutUpgradeUpdatingPercent', {
+                        substitutions: [progressPercent],
+                    });
+                }
+                return this.i18nAdvanced('aboutUpgradeUpdating');
+            case UpdateStatus.FAILED_HTTP:
+                return this.i18nAdvanced('aboutUpgradeTryAgain');
+            case UpdateStatus.FAILED_DOWNLOAD:
+                return this.i18nAdvanced('aboutUpgradeDownloadError');
+            case UpdateStatus.DISABLED_BY_ADMIN:
+                return this.i18nAdvanced('aboutUpgradeAdministrator');
+            case UpdateStatus.UPDATE_TO_ROLLBACK_VERSION_DISALLOWED:
+                return this.i18nAdvanced('aboutUpdateToRollbackVersionDisallowed');
+            case UpdateStatus.DEFERRED:
+                return this.i18nAdvanced('aboutUpgradeNotUpToDate');
+            default:
+                let result = '';
+                const message = this.currentUpdateStatusEvent_.message;
+                if (message) {
+                    result += message;
+                }
+                const connectMessage = this.currentUpdateStatusEvent_.connectionTypes;
+                if (connectMessage) {
+                    result += `<div>${connectMessage}</div>`;
+                }
+                return sanitizeInnerHtml$1(result, { tags: ['br', 'pre'] });
+        }
+    }
+    getUpdateStatusIcon_() {
+        // If Chrome OS has reached end of life, display a special icon and
+        // ignore UpdateStatus.
+        if (this.hasEndOfLife_) {
+            return 'os-settings:end-of-life';
+        }
+        switch (this.currentUpdateStatusEvent_.status) {
+            case UpdateStatus.DISABLED_BY_ADMIN:
+                return 'cr20:domain';
+            case UpdateStatus.FAILED_DOWNLOAD:
+            case UpdateStatus.FAILED_HTTP:
+            case UpdateStatus.FAILED:
+                return this.isRevampWayfindingEnabled_ ?
+                    'os-settings:about-update-error' :
+                    'cr:error-outline';
+            case UpdateStatus.UPDATED:
+            case UpdateStatus.NEARLY_UPDATED:
+                // TODO(crbug.com/986596): Don't use browser icons here. Fork them.
+                return this.isRevampWayfindingEnabled_ ?
+                    'os-settings:about-update-complete' :
+                    'settings:check-circle';
+            case UpdateStatus.DEFERRED:
+            case UpdateStatus.UPDATE_TO_ROLLBACK_VERSION_DISALLOWED:
+                return this.isRevampWayfindingEnabled_ ?
+                    'os-settings:about-update-warning' :
+                    'cr:warning';
+            default:
+                return null;
+        }
+    }
+    getFirmwareUpdatesIcon_() {
+        if (this.firmwareUpdateCount_ === 0) {
+            return '';
+        }
+        const maxBadgeId = 9;
+        // If the number of firmware updates is > 9, then we want to show
+        // the 9 badge.
+        const updateBadgeId = Math.min(this.firmwareUpdateCount_, maxBadgeId);
+        return `os-settings:counter-${updateBadgeId}`;
+    }
+    getThrobberSrcIfUpdating_() {
+        if (this.hasEndOfLife_) {
+            return null;
+        }
+        switch (this.currentUpdateStatusEvent_.status) {
+            case UpdateStatus.CHECKING:
+            case UpdateStatus.UPDATING:
+                return this.isDarkModeActive_ ?
+                    'chrome://resources/images/throbber_small_dark.svg' :
+                    'chrome://resources/images/throbber_small.svg';
+            default:
+                return null;
+        }
+    }
+    checkStatus_(status) {
+        return this.currentUpdateStatusEvent_.status === status;
+    }
+    onManagementPageClick_() {
+        window.open('chrome://management');
+    }
+    isPowerwash_() {
+        return !!this.currentUpdateStatusEvent_.powerwash;
+    }
+    onDetailedBuildInfoClick_() {
+        Router.getInstance().navigateTo(routes.ABOUT_DETAILED_BUILD_INFO);
+    }
+    getRelaunchButtonText_() {
+        if (this.checkStatus_(UpdateStatus.NEARLY_UPDATED)) {
+            return this.i18n(this.isPowerwash_() ? 'aboutRelaunchAndPowerwash' : 'aboutRelaunch');
+        }
+        return '';
+    }
+    onCheckUpdatesClick_() {
+        this.onUpdateStatusChanged_({ status: UpdateStatus.CHECKING });
+        this.aboutBrowserProxy_.requestUpdate();
+        this.$.updateStatusMessageInner.focus();
+    }
+    onApplyDeferredUpdateClick_() {
+        this.aboutBrowserProxy_.applyDeferredUpdate();
+        this.$.updateStatusMessageInner.focus();
+    }
+    onApplyAndSetAutoUpdateClick_() {
+        this.aboutBrowserProxy_.setConsumerAutoUpdate(true);
+        this.onApplyDeferredUpdateClick_();
+    }
+    computeShowCheckUpdates_() {
+        // Disable update button if the device is end of life.
+        if (this.hasEndOfLife_) {
+            return false;
+        }
+        // Enable the update button if we are in a stale 'updated' status or
+        // update has failed. Disable it otherwise.
+        const staleUpdatedStatus = !this.hasCheckedForUpdates_ && this.checkStatus_(UpdateStatus.UPDATED);
+        return staleUpdatedStatus || this.checkStatus_(UpdateStatus.FAILED) ||
+            this.checkStatus_(UpdateStatus.FAILED_HTTP) ||
+            this.checkStatus_(UpdateStatus.FAILED_DOWNLOAD) ||
+            this.checkStatus_(UpdateStatus.DISABLED_BY_ADMIN) ||
+            this.checkStatus_(UpdateStatus.UPDATE_TO_ROLLBACK_VERSION_DISALLOWED);
+    }
+    /**
+     * @param showCrostiniLicense True if Crostini is enabled and
+     * Crostini UI is allowed.
+     */
+    getAboutProductOsLicense_(showCrostiniLicense) {
+        return showCrostiniLicense ?
+            this.i18nAdvanced('aboutProductOsWithLinuxLicense') :
+            this.i18nAdvanced('aboutProductOsLicense');
+    }
+    /**
+     * @param enabled True if Crostini is enabled.
+     */
+    handleCrostiniEnabledChanged_(enabled) {
+        this.showCrostiniLicense_ = enabled && isCrostiniSupported();
+    }
+    shouldShowSafetyInfo_() {
+        return loadTimeData.getBoolean('shouldShowSafetyInfo');
+    }
+    shouldShowRegulatoryInfo_() {
+        return this.regulatoryInfo_ !== null;
+    }
+    shouldShowRegulatoryOrSafetyInfo_() {
+        return this.shouldShowSafetyInfo_() || this.shouldShowRegulatoryInfo_();
+    }
+    onUpdateWarningDialogClose_() {
+        this.showUpdateWarningDialog_ = false;
+        // Shows 'check for updates' button in case that the user cancels the
+        // dialog and then intends to check for update again.
+        this.hasCheckedForUpdates_ = false;
+    }
+    onTpmFirmwareUpdateStatusChanged_(event) {
+        this.showTPMFirmwareUpdateLineItem_ = event.updateAvailable;
+    }
+    onTpmFirmwareUpdateClick_() {
+        this.showTPMFirmwareUpdateDialog_ = true;
+    }
+    onPowerwashDialogClose_() {
+        this.showTPMFirmwareUpdateDialog_ = false;
+    }
+    onProductLogoClick_() {
+        this.$.productLogo.animate({
+            transform: ['none', 'rotate(-10turn)'],
+        }, {
+            duration: 500,
+            easing: 'cubic-bezier(1, 0, 0, 1)',
+        });
+    }
+    // 
+    shouldShowIcons_() {
+        if (this.hasEndOfLife_) {
+            return true;
+        }
+        return this.showUpdateStatus_;
+    }
+    getShowReleaseNotesSublabel_() {
+        return this.isRevampWayfindingEnabled_ ?
+            this.i18n('aboutShowReleaseNotesDescription') :
+            null;
+    }
+    getHelpUsingChromeOsSublabel_() {
+        return this.isRevampWayfindingEnabled_ ?
+            this.i18n('aboutGetHelpDescription') :
+            null;
+    }
+    getReportIssueSublabel_() {
+        return this.isRevampWayfindingEnabled_ ?
+            this.i18n('aboutSendFeedbackDescription') :
+            null;
+    }
+    getDiagnosticsSublabel_() {
+        return this.isRevampWayfindingEnabled_ ?
+            this.i18n('aboutDiagnosticseDescription') :
+            null;
+    }
+    getFirmwareSublabel_() {
+        if (this.isRevampWayfindingEnabled_) {
+            return this.firmwareUpdateCount_ > 0 ?
+                this.i18n('aboutFirmwareUpdateAvailableDescription') :
+                this.i18n('aboutFirmwareUpToDateDescription');
+        }
+        return null;
+    }
+}
+customElements.define(OsAboutPageElement.is, OsAboutPageElement);
 
 /**
 @license
@@ -21723,7 +22961,7 @@ Polymer({
   }
 });
 
-function getTemplate$1R() {
+function getTemplate$1S() {
     return html `<!--_html_template_start_--><style include="cr-shared-style cr-hidden-style">:host(:not([error-message-allowed])) cr-input{--cr-input-error-display:none}:host([opened_]) cr-input{--cr-input-border-radius:4px 4px 0 0}cr-input,iron-dropdown{width:var(--cr-searchable-drop-down-width,472px)}cr-input{--cr-input-padding-start:8px;isolation:auto}iron-dropdown{max-height:270px}iron-dropdown [slot=dropdown-content]{background-color:var(--cr-searchable-drop-down-bg-color,#fff);border-radius:0 0 4px 4px;box-shadow:var(--cr-searchable-drop-down-shadow,0 2px 6px var(--paper-grey-500));min-width:128px;padding:8px 0}#input-overlay{border-radius:4px;height:100%;left:0;overflow:hidden;pointer-events:none;position:absolute;top:0;width:100%}#dropdown-icon{--iron-icon-height:20px;--iron-icon-width:20px;margin-top:-10px;padding-inline-end:6px;position:absolute;right:0;top:50%}:host-context([dir=rtl]) #dropdown-icon{left:0;right:unset}cr-input:focus-within #dropdown-icon{--iron-icon-fill-color:var(--cr-searchable-drop-down-icon-color-focus,
       var(--google-blue-600))}#input-box{height:100%;left:0;pointer-events:none;top:0;width:100%}#dropdown-box{pointer-events:initial;width:100%}#loading-box{align-items:center;box-sizing:border-box;display:flex;height:32px;padding:0 8px;text-align:start;width:100%}#loading-box div{font-size:12px;padding:0 16px}#loading-box paper-spinner-lite{--paper-spinner-color:var(--cr-searchable-drop-down-spinner-color,
       var(--google-blue-600));--paper-spinner-stroke-width:2px;height:16px;width:16px}.list-item{background:0 0;border:none;box-sizing:border-box;color:var(--cr-searchable-drop-down-list-item-color,var(--paper-grey-900));font:inherit;min-height:32px;padding:0 8px;text-align:start;width:100%}.list-item[selected_]{background-color:var(--cr-searchable-drop-down-list-bg-color-selected,rgba(0,0,0,.04));outline:0}.list-item:active{background-color:var(--cr-searchable-drop-down-list-bg-color-active,rgba(0,0,0,.12));outline:0}</style>
@@ -21782,7 +23020,7 @@ class CrSearchableDropDownElement extends PolymerElement {
         return 'cr-searchable-drop-down';
     }
     static get template() {
-        return getTemplate$1R();
+        return getTemplate$1S();
     }
     static get properties() {
         return {
@@ -24407,7 +25645,7 @@ var WebUIListenerBehavior = {
   },
 };
 
-function getTemplate$1Q() {
+function getTemplate$1R() {
   return html`<!--_html_template_start_-->    <style include="cr-shared-style md-select">
       cr-dialog::part(dialog) {
         background-color: var(--cros-sys-dialog_container);
@@ -24743,7 +25981,7 @@ const SMB_SHARE_URL_REGEX =
 Polymer({
   is: 'add-smb-share-dialog',
 
-  _template: getTemplate$1Q(),
+  _template: getTemplate$1R(),
 
   behaviors: [I18nBehavior, WebUIListenerBehavior],
 
@@ -25103,7 +26341,7 @@ Polymer({
   },
 });
 
-function getTemplate$1P() {
+function getTemplate$1Q() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{--justify-margin:8px;align-items:center;display:flex}:host([enforced_]){pointer-events:none}cr-policy-pref-indicator{pointer-events:all}:host(:not([end-justified])) cr-policy-pref-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}:host([end-justified]) cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing);margin-inline-start:calc(var(--cr-controlled-by-spacing) - var(--justify-margin));order:-1}</style>
 
 <cr-button class$="[[actionClass_]]" disabled="[[!buttonEnabled_(enforced_, disabled)]]">
@@ -25126,7 +26364,7 @@ class ControlledButtonElement extends ControlledButtonElementBase {
         return 'controlled-button';
     }
     static get template() {
-        return getTemplate$1P();
+        return getTemplate$1Q();
     }
     static get properties() {
         return {
@@ -25170,7 +26408,7 @@ class ControlledButtonElement extends ControlledButtonElementBase {
 }
 customElements.define(ControlledButtonElement.is, ControlledButtonElement);
 
-function getTemplate$1O() {
+function getTemplate$1P() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) #disconnectGoogleDriveAccountToggle{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}#smbSharesIcon{fill:var(--cros-sys-primary);margin-inline-end:16px}#smbSharesTextContainer{flex:1}</style>
 
 <settings-card header-text="$i18n{filesPageTitle}">
@@ -25403,7 +26641,7 @@ class FilesSettingsCardElement extends FilesSettingsCardElementBase {
         return 'files-settings-card';
     }
     static get template() {
-        return getTemplate$1O();
+        return getTemplate$1P();
     }
     static get properties() {
         return {
@@ -25602,7 +26840,7 @@ class FilesSettingsCardElement extends FilesSettingsCardElementBase {
 }
 customElements.define(FilesSettingsCardElement.is, FilesSettingsCardElement);
 
-function getTemplate$1N() {
+function getTemplate$1O() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 <settings-card header-text="[[getHeaderText_()]]">
@@ -26733,7 +27971,7 @@ class LanguageSettingsCardElement extends LanguageSettingsCardElementBase {
         return 'language-settings-card';
     }
     static get template() {
-        return getTemplate$1N();
+        return getTemplate$1O();
     }
     static get properties() {
         return {
@@ -27344,7 +28582,7 @@ const FocusRowMixin = dedupingMixin((superClass) => {
     return FocusRowMixin;
 });
 
-function getTemplate$1M() {
+function getTemplate$1N() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 <settings-card header-text="$i18n{printingPageTitle}">
@@ -27372,7 +28610,7 @@ class PrintingSettingsCardElement extends PrintingSettingsCardElementBase {
         return 'printing-settings-card';
     }
     static get template() {
-        return getTemplate$1M();
+        return getTemplate$1N();
     }
     static get properties() {
         return {
@@ -27444,7 +28682,7 @@ class PrintingSettingsCardElement extends PrintingSettingsCardElementBase {
 }
 customElements.define(PrintingSettingsCardElement.is, PrintingSettingsCardElement);
 
-function getTemplate$1L() {
+function getTemplate$1M() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:400px}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}" ignore-enter-key>
   <div slot="title">$i18n{sanitizeDialogTitle}</div>
@@ -27485,7 +28723,7 @@ class OsSettingsSanitizeDialogElement extends PolymerElement {
         return 'os-settings-sanitize-dialog';
     }
     static get template() {
-        return getTemplate$1L();
+        return getTemplate$1M();
     }
     static get properties() {
         return {};
@@ -27630,7 +28868,7 @@ async function getESimProfileProperties(iccid) {
     return details.profileProperties;
 }
 
-function getTemplate$1K() {
+function getTemplate$1L() {
     return html `<!--_html_template_start_--><style include="settings-shared">#powerwashIcon{fill:var(--cros-sys-primary);margin-inline-end:16px}</style>
 
 <settings-card header-text="$i18n{resetPageTitle}">
@@ -27688,7 +28926,7 @@ class ResetSettingsCardElement extends ResetSettingsCardElementBase {
         return 'reset-settings-card';
     }
     static get template() {
-        return getTemplate$1K();
+        return getTemplate$1L();
     }
     static get properties() {
         return {
@@ -27901,7 +29139,7 @@ const CrRadioButtonMixin = dedupingMixin((superClass) => {
     return CrRadioButtonMixin;
 });
 
-function getTemplate$1J() {
+function getTemplate$1K() {
     return html `<!--_html_template_start_--><style include="cr-radio-button-style cros-color-overrides">:host([disabled]){opacity:1}:host([disabled]) #labelWrapper,:host([disabled]) .disc-wrapper{opacity:var(--cr-disabled-opacity)}cr-policy-pref-indicator{margin-inline-start:var(--cr-controlled-by-spacing);pointer-events:all}</style>
 
 <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -27933,7 +29171,7 @@ class ControlledRadioButtonElement extends ControlledRadioButtonElementBase {
         return 'controlled-radio-button';
     }
     static get template() {
-        return getTemplate$1J();
+        return getTemplate$1K();
     }
     static get observers() {
         return [
@@ -27973,7 +29211,7 @@ class ControlledRadioButtonElement extends ControlledRadioButtonElementBase {
 }
 customElements.define(ControlledRadioButtonElement.is, ControlledRadioButtonElement);
 
-function getTemplate$1I() {
+function getTemplate$1J() {
     return html `<!--_html_template_start_--><style include="cr-radio-button-style cr-hidden-style"></style>
 
 <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -28002,7 +29240,7 @@ class CrRadioButtonElement extends CrRadioButtonElementBase {
         return 'cr-radio-button';
     }
     static get template() {
-        return getTemplate$1I();
+        return getTemplate$1J();
     }
     // Overridden from CrRadioButtonMixin
     getPaperRipple() {
@@ -28021,7 +29259,7 @@ class CrRadioButtonElement extends CrRadioButtonElementBase {
 }
 customElements.define(CrRadioButtonElement.is, CrRadioButtonElement);
 
-function getTemplate$1H() {
+function getTemplate$1I() {
     return html `<!--_html_template_start_--><style>:host{display:inline-block}:host ::slotted(*){padding:var(--cr-radio-group-item-padding,12px)}:host([disabled]){cursor:initial;pointer-events:none;user-select:none}:host([disabled]) ::slotted(*){opacity:var(--cr-disabled-opacity)}</style>
 <slot></slot>
 <!--_html_template_end_-->`;
@@ -28049,7 +29287,7 @@ class CrRadioGroupElement extends PolymerElement {
         return 'cr-radio-group';
     }
     static get template() {
-        return getTemplate$1H();
+        return getTemplate$1I();
     }
     static get properties() {
         return {
@@ -28252,9 +29490,9 @@ class CrRadioGroupElement extends PolymerElement {
 }
 customElements.define(CrRadioGroupElement.is, CrRadioGroupElement);
 
-function getTemplate$1G() {
+function getTemplate$1H() {
     return html `<!--_html_template_start_--><style>cr-radio-group{width:100%}</style>
-<cr-radio-group selected="[[selected]]" on-selected-changed="onSelectedChanged_" aria-label$="[[groupAriaLabel]]" selectable-elements="[[selectableElements]]">
+<cr-radio-group selected="[[selected]]" on-selected-changed="onSelectedChanged_" aria-label$="[[groupAriaLabel]]" selectable-elements="[[selectableElements]]" disabled="[[disabled]]">
   <slot></slot>
 </cr-radio-group>
 <!--_html_template_end_-->`;
@@ -28279,10 +29517,14 @@ class SettingsRadioGroupElement extends SettingsRadioGroupElementBase {
         return 'settings-radio-group';
     }
     static get template() {
-        return getTemplate$1G();
+        return getTemplate$1H();
     }
     static get properties() {
         return {
+            disabled: {
+                type: Boolean,
+                value: false,
+            },
             groupAriaLabel: String,
             /**
              * If true, do not automatically set the preference value. This allows the
@@ -28681,7 +29923,7 @@ function getAppPermissionProvider() {
     return appPermissionProvider;
 }
 
-function getTemplate$1F() {
+function getTemplate$1G() {
     return html `<!--_html_template_start_--><style include="settings-shared">#container{align-items:center;display:flex;height:48px;width:100%}#container:hover[actionable]{background-color:var(--cr-hover-background-color)}#appData{align-items:center;display:flex;flex-direction:row;width:100%}#appIcon{height:32px;margin-inline-end:20px;width:32px}cr-icon-button,cr-policy-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}</style>
 <div id="container" actionable$="[[!isPermissionManaged_]]">
   <div id="appData">
@@ -28699,7 +29941,7 @@ function getTemplate$1F() {
     <cr-icon-button iron-icon="cr:open-in-new" role="link" aria-label="[[getAriaLabel_()]]" aria-description="[[androidSettingsLinkAriaDescription_]]">
     </cr-icon-button>
   </template>
-  <cr-toggle id="permissionToggle" checked="[[checked_]]" on-change="onToggleChangeByUser_" disabled="[[shouldDisableToggle_]]" aria-label="[[getAriaLabel_()]]" aria-description="[[ariaDescription_]]">
+  <cr-toggle id="permissionToggle" checked="[[checked_]]" on-click="onToggleClick_" on-keydown="onKeydown_" on-keyup="onKeyup_" disabled="[[shouldDisableToggle_]]" aria-label="[[getAriaLabel_()]]" aria-description="[[ariaDescription_]]">
   </cr-toggle>
 </div>
 <!--_html_template_end_-->`;
@@ -28752,7 +29994,7 @@ class SettingsPrivacyHubAppPermissionRow extends SettingsPrivacyHubAppPermission
         return 'settings-privacy-hub-app-permission-row';
     }
     static get template() {
-        return getTemplate$1F();
+        return getTemplate$1G();
     }
     static get properties() {
         return {
@@ -28867,7 +30109,28 @@ class SettingsPrivacyHubAppPermissionRow extends SettingsPrivacyHubAppPermission
         }
         this.togglePermissionState_();
     }
-    onToggleChangeByUser_() {
+    onToggleClick_(e) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        this.togglePermissionState_();
+    }
+    onKeyup_(e) {
+        if (e.key !== ' ') {
+            return;
+        }
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        this.togglePermissionState_();
+    }
+    onKeydown_(e) {
+        if (e.key !== 'Enter') {
+            return;
+        }
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        if (e.repeat) {
+            return;
+        }
         this.togglePermissionState_();
     }
     computeShouldRedirectToAndroidSettings_() {
@@ -28936,7 +30199,7 @@ class PrivacyHubBrowserProxyImpl {
     }
 }
 
-function getTemplate$1E() {
+function getTemplate$1F() {
     return html `<!--_html_template_start_--><style include="settings-shared">.list-item:not(:last-of-type){border-bottom:var(--cr-separator-line)}h2{padding-inline-start:var(--cr-section-padding)}.list-item:not(:last-of-type){border-bottom:var(--cr-separator-line)}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>cr-link-row{padding-inline-end:0;padding-inline-start:0}settings-dropdown-menu{--md-select-width:100%}</style>
 
 
@@ -29032,7 +30295,7 @@ class SettingsPrivacyHubGeolocationSubpage extends SettingsPrivacyHubGeolocation
         return 'settings-privacy-hub-geolocation-subpage';
     }
     static get template() {
-        return getTemplate$1E();
+        return getTemplate$1F();
     }
     static get properties() {
         return {
@@ -29184,6 +30447,11 @@ class SettingsPrivacyHubGeolocationSubpage extends SettingsPrivacyHubGeolocation
         chrome.metricsPrivate.recordEnumerationValue(LOCATION_PERMISSION_CHANGE_FROM_SETTINGS_HISTOGRAM_NAME, accessLevel, GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE);
     }
     geolocationAllowedForSystem_() {
+        if (!this.prefs) {
+            // Won't show blocked services and apps in case that the geolocation pref
+            // is not yet loaded.
+            return true;
+        }
         return this.getPref('ash.user.geolocation_access_level')
             .value !== GeolocationAccessLevel.DISALLOWED;
     }
@@ -29216,7 +30484,7 @@ styleMod$4.appendChild(html `
 `.content);
 styleMod$4.register('input-device-settings-shared');
 
-function getTemplate$1D() {
+function getTemplate$1E() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#mouseSwapToggleButton{border-bottom:var(--cr-separator-line)}#helpSection{align-items:center;background-color:var(--cros-sys-app_base_shaded);border-radius:12px;display:flex;margin:8px;padding:16px 12px}#helpIconSection{--iron-icon-height:48px;--iron-icon-width:48px;flex-basis:48px}#helpSectionText{flex:1;margin-inline-start:12px}.help-title{color:var(--cros-text-color-primary);font:var(--cros-button-1-font);margin-bottom:5px}.secondary{font:var(--cros-body-2-font)}#buttonsSection{border-top:var(--cr-separator-line)}</style>
 <settings-toggle-button id="mouseSwapToggleButton" aria-describedby="description" label="$i18n{mouseSwapButtonsLabel}" pref="{{primaryRightPref_}}">
 </settings-toggle-button>
@@ -31593,7 +32861,7 @@ class SettingsCustomizeMouseButtonsSubpageElement extends SettingsCustomizeMouse
         return 'settings-customize-mouse-buttons-subpage';
     }
     static get template() {
-        return getTemplate$1D();
+        return getTemplate$1E();
     }
     static get properties() {
         return {
@@ -31725,7 +32993,7 @@ class SettingsCustomizeMouseButtonsSubpageElement extends SettingsCustomizeMouse
 }
 customElements.define(SettingsCustomizeMouseButtonsSubpageElement.is, SettingsCustomizeMouseButtonsSubpageElement);
 
-function getTemplate$1C() {
+function getTemplate$1D() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared"></style>
 <customize-buttons-subsection button-remapping-list="{{selectedTablet.settings.penButtonRemappings}}" action-list$="[[buttonActionList_]]" has-launcher-button="[[hasLauncherButton_]]">
 </customize-buttons-subsection>
@@ -31757,7 +33025,7 @@ class SettingsCustomizePenButtonsSubpageElement extends SettingsCustomizePenButt
         return 'settings-customize-pen-buttons-subpage';
     }
     static get template() {
-        return getTemplate$1C();
+        return getTemplate$1D();
     }
     static get properties() {
         return {
@@ -31864,7 +33132,7 @@ class SettingsCustomizePenButtonsSubpageElement extends SettingsCustomizePenButt
 }
 customElements.define(SettingsCustomizePenButtonsSubpageElement.is, SettingsCustomizePenButtonsSubpageElement);
 
-function getTemplate$1B() {
+function getTemplate$1C() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared"></style>
 <customize-buttons-subsection button-remapping-list="{{selectedTablet.settings.tabletButtonRemappings}}" action-list$="[[buttonActionList_]]" has-launcher-button="[[hasLauncherButton_]]">
 </customize-buttons-subsection>
@@ -31895,7 +33163,7 @@ class SettingsCustomizeTabletButtonsSubpageElement extends SettingsCustomizeTabl
         return 'settings-customize-tablet-buttons-subpage';
     }
     static get template() {
-        return getTemplate$1B();
+        return getTemplate$1C();
     }
     static get properties() {
         return {
@@ -32370,7 +33638,7 @@ function getApnDisplayName(i18nFunction, apn) {
   return i18nFunction('apnNameModem');
 }
 
-function getTemplate$1A() {
+function getTemplate$1B() {
     return html `<!--_html_template_start_--><style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
 
 <div id="label" aria-hidden="true"><slot></slot></div>
@@ -32394,7 +33662,7 @@ class CrExpandButtonElement extends PolymerElement {
         return 'cr-expand-button';
     }
     static get template() {
-        return getTemplate$1A();
+        return getTemplate$1B();
     }
     static get properties() {
         return {
@@ -32500,7 +33768,7 @@ class CrExpandButtonElement extends PolymerElement {
 }
 customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);
 
-function getTemplate$1z() {
+function getTemplate$1A() {
   return html`<!--_html_template_start_--><style include="cr-shared-style md-select">
   cr-dialog {
     --cr-dialog-width: 416px;
@@ -32744,7 +34012,7 @@ class ApnDetailDialog extends ApnDetailDialogElementBase {
   }
 
   static get template() {
-    return getTemplate$1z();
+    return getTemplate$1A();
   }
 
   static get properties() {
@@ -33230,7 +34498,7 @@ class ApnDetailDialog extends ApnDetailDialogElementBase {
 
 customElements.define(ApnDetailDialog.is, ApnDetailDialog);
 
-function getTemplate$1y() {
+function getTemplate$1z() {
     return html `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
 
 <div id="messages" role="alert" aria-live="polite" aria-relevant="additions">
@@ -33274,7 +34542,7 @@ class CrA11yAnnouncerElement extends PolymerElement {
         return 'cr-a11y-announcer';
     }
     static get template() {
-        return getTemplate$1y();
+        return getTemplate$1z();
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -33629,7 +34897,7 @@ const CrPolicyNetworkBehaviorMojo = {
   },
 };
 
-function getTemplate$1x() {
+function getTemplate$1y() {
   return html`<!--_html_template_start_--><style include="cr-hidden-style">
   /* CSS variable for controlling the margin of the icon outside the
     * indicator element (i.e. in the element including the indicator). */
@@ -33654,7 +34922,7 @@ function getTemplate$1x() {
 
 
 Polymer({
-  _template: getTemplate$1x(),
+  _template: getTemplate$1y(),
   is: 'cr-policy-network-indicator-mojo',
 
   behaviors: [CrPolicyIndicatorBehavior, CrPolicyNetworkBehaviorMojo],
@@ -33795,8 +35063,16 @@ const NetworkConfigElementBehavior = {
   },
 
   /**
+   * It can be overridden by the elements to implement their extra logic for
+   * prefilled value.
+   */
+  extraSetupForPrefilledValue() {
+    return;
+  },
+
+  /**
    * If the prefilled value is defined, always use the value and mark the input
-   * as readonly/disabled.
+   * as readonly.
    */
   maybeLockByPrefilledValue() {
     if (this.prefilledValue === undefined || this.prefilledValue === null) {
@@ -33807,11 +35083,11 @@ const NetworkConfigElementBehavior = {
     }
     this.value = this.prefilledValue;
     this.readonly = true;
-    this.disabled = true;
+    this.extraSetupForPrefilledValue();
   },
 };
 
-function getTemplate$1w() {
+function getTemplate$1x() {
   return html`<!--_html_template_start_--><style include="network-shared">
   :host {
     cursor: pointer;
@@ -33864,7 +35140,7 @@ function getTemplate$1w() {
 
 
 Polymer({
-  _template: getTemplate$1w(),
+  _template: getTemplate$1x(),
   is: 'network-config-toggle',
 
   behaviors: [
@@ -33919,7 +35195,7 @@ Polymer({
   },
 });
 
-const template$6 = html`<!-- These icons were converted from source .svg files. -->
+const template$7 = html`<!-- These icons were converted from source .svg files. -->
 
 <iron-iconset-svg name="network" size="20">
   <svg>
@@ -33957,9 +35233,9 @@ const template$6 = html`<!-- These icons were converted from source .svg files. 
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$6.content);
+document.head.appendChild(template$7.content);
 
-function getTemplate$1v() {
+function getTemplate$1w() {
   return html`<!--_html_template_start_--><style include="cr-hidden-style">
   :host {
     display: inline-flex;
@@ -34223,7 +35499,7 @@ class NetworkIconElement extends NetworkIconElementBase {
   }
 
   static get template() {
-    return getTemplate$1v();
+    return getTemplate$1w();
   }
 
   static get properties() {
@@ -34602,7 +35878,7 @@ class NetworkIconElement extends NetworkIconElementBase {
 
 customElements.define(NetworkIconElement.is, NetworkIconElement);
 
-function getTemplate$1u() {
+function getTemplate$1v() {
   return html`<!--_html_template_start_--><style include="network-shared">
   :host {
     display: block;
@@ -34674,7 +35950,7 @@ function getTemplate$1u() {
 
 
 Polymer({
-  _template: getTemplate$1u(),
+  _template: getTemplate$1v(),
   is: 'network-password-input',
 
   behaviors: [
@@ -34851,7 +36127,7 @@ Polymer({
   },
 });
 
-function getTemplate$1t() {
+function getTemplate$1u() {
   return html`<!--_html_template_start_--><style>
   #enter-pin-description {
     margin-bottom: 16px;
@@ -35082,7 +36358,7 @@ const PIN_MIN_LENGTH = 4;
 const PUK_MIN_LENGTH = 8;
 
 Polymer({
-  _template: getTemplate$1t(),
+  _template: getTemplate$1u(),
   is: 'sim-lock-dialogs',
 
   behaviors: [I18nBehavior],
@@ -35878,7 +37154,7 @@ class ExtensionControlBrowserProxyImpl {
 }
 let instance$s = null;
 
-function getTemplate$1s() {
+function getTemplate$1t() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{align-items:center;display:flex;margin-inline-start:36px;min-height:var(--cr-section-min-height)}img{margin-inline-end:16px}iron-icon[icon='cr:open-in-new']{fill:var(--text-color);height:var(--cr-icon-size);width:var(--cr-icon-size)}#disable{margin-inline-start:8px}:host>span{flex:1;margin-inline-end:8px}</style>
 <img role="presentation" src="chrome://extension-icon/[[extensionId]]/20/1">
 <span>[[getLabel_(extensionName)]]</span>
@@ -35900,7 +37176,7 @@ class ExtensionControlledIndicatorElement extends PolymerElement {
         return 'extension-controlled-indicator';
     }
     static get template() {
-        return getTemplate$1s();
+        return getTemplate$1t();
     }
     static get properties() {
         return {
@@ -35941,7 +37217,7 @@ class LacrosExtensionControlBrowserProxyImpl {
     }
 }
 
-function getTemplate$1r() {
+function getTemplate$1s() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{align-items:center;display:flex;margin-inline-start:36px;min-height:var(--cr-section-min-height)}img{margin-inline-end:16px}iron-icon[icon='cr:open-in-new']{fill:var(--text-color);height:var(--cr-icon-size);width:var(--cr-icon-size)}#disable{margin-inline-start:8px}:host>span{flex:1;margin-inline-end:8px}</style>
 <img role="presentation" src="chrome://resources/images/extension.svg" width="20" height="20">
 <span>[[getLabel_(extensionName)]]</span>
@@ -35968,7 +37244,7 @@ class LacrosExtensionControlledIndicatorElement extends PolymerElement {
         return 'lacros-extension-controlled-indicator';
     }
     static get template() {
-        return getTemplate$1r();
+        return getTemplate$1s();
     }
     static get properties() {
         return {
@@ -36333,7 +37609,7 @@ let BrowserProxy$1 = class BrowserProxy {
 };
 let instance$n = null;
 
-function getTemplate$1q() {
+function getTemplate$1r() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style cr-input-style cr-shared-style">textarea{display:block;resize:none}#input-container{background-color:var(--cr-input-background-color)}:host([autogrow][has-max-height]) #input-container{box-sizing:content-box;max-height:var(--cr-textarea-autogrow-max-height);min-height:1lh}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}:host-context([chrome-refresh-2023]) #input{padding-bottom:var(--cr-input-padding-bottom);padding-inline-end:var(--cr-input-padding-end);padding-inline-start:var(--cr-input-padding-start);padding-top:var(--cr-input-padding-top)}#footerContainer{border-top:0;display:var(--cr-textarea-footer-display,none);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);justify-content:space-between;line-height:var(--cr-form-field-label-line-height);margin:8px 0;min-height:0;padding:0;white-space:var(--cr-input-error-white-space)}:host([invalid]) #footerContainer,:host([invalid]) #label{color:var(--cr-input-error-color)}#mirror{display:none}:host([autogrow]) #mirror{display:block;visibility:hidden;white-space:pre-wrap;word-wrap:break-word}:host([autogrow]) #mirror,:host([autogrow]) textarea{border:0;box-sizing:border-box;padding-bottom:var(--cr-input-padding-bottom,6px);padding-inline-end:var(--cr-input-padding-end,8px);padding-inline-start:var(--cr-input-padding-start,8px);padding-top:var(--cr-input-padding-top,6px)}:host([autogrow]) textarea{height:100%;left:0;overflow:hidden;position:absolute;resize:none;top:0;width:100%}:host([autogrow][has-max-height]) #mirror,:host([autogrow][has-max-height]) textarea{overflow-x:hidden;overflow-y:auto}:host-context([chrome-refresh-2023]) textarea{position:relative;z-index:1}:host-context([chrome-refresh-2023]):host([autogrow]) textarea{position:absolute}:host-context([chrome-refresh-2023]) #mirror{font-size:12px;line-height:16px}</style>
 <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
   [[label]]
@@ -36372,7 +37648,7 @@ class CrTextareaElement extends PolymerElement {
         return 'cr-textarea';
     }
     static get template() {
-        return getTemplate$1q();
+        return getTemplate$1r();
     }
     static get properties() {
         return {
@@ -36660,7 +37936,7 @@ class ChromeVoxSubpageBrowserProxyImpl {
     }
 }
 
-function getTemplate$1p() {
+function getTemplate$1q() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{display:inline-flex}cr-policy-pref-indicator{align-self:center;margin-inline-start:var(--cr-controlled-by-spacing)}#labels[disabled]{color:var(--cros-sys-disabled)}div.outer{align-items:stretch;display:flex;flex-direction:column;margin:8px 0;min-width:200px}#labels{display:flex;flex-direction:row;justify-content:space-between;margin:-4px 16px 0 16px}#labels>div{font-size:12px}#label-begin{margin-inline-end:4px}#label-end{margin-inline-start:4px}</style>
 <template is="dom-if" if="[[pref.controlledBy]]" restamp>
   <cr-policy-pref-indicator pref="[[pref]]"></cr-policy-pref-indicator>
@@ -36692,7 +37968,7 @@ class SettingsSliderElement extends SettingsSliderElementBase {
         return 'settings-slider';
     }
     static get template() {
-        return getTemplate$1p();
+        return getTemplate$1q();
     }
     static get properties() {
         return {
@@ -37363,7 +38639,7 @@ var SetDeviceNameResult;
     SetDeviceNameResult[SetDeviceNameResult["ERROR_DUE_TO_INVALID_INPUT"] = 3] = "ERROR_DUE_TO_INVALID_INPUT";
 })(SetDeviceNameResult || (SetDeviceNameResult = {}));
 
-function getTemplate$1o() {
+function getTemplate$1p() {
     return html `<!--_html_template_start_--><slot></slot>
 <!--_html_template_end_-->`;
 }
@@ -37404,7 +38680,7 @@ class AppManagementDomSwitchElement extends PolymerElement {
         return 'app-management-dom-switch';
     }
     static get template() {
-        return getTemplate$1o();
+        return getTemplate$1p();
     }
     static get properties() {
         return {
@@ -38080,7 +39356,7 @@ function onAppRemoved(appId) {
 initStoreAndListeners();
 const AppManagementStoreMixin = makeStoreClientMixin(AppManagementStore.getInstance);
 
-function getTemplate$1n() {
+function getTemplate$1o() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style settings-shared">#infoIcon{--paper-tooltip-min-width:max-content;margin-inline-start:3px}#launchIcon{--cr-icon-image:url(chrome://resources/images/open_in_new.svg);--cr-icon-button-fill-color:var(--cr-link-color);border-radius:0;height:var(--help-icon-size);margin-inline-start:3px;width:var(--help-icon-size)}#tooltipText{font-size:10px;line-height:12px;white-space:nowrap}#typeAndSource{display:flex}</style>
 <div class="permission-section-header">
   <localized-link id="heading" class="header-text" localized-string="$i18n{appManagementAppDetailsTitle}">
@@ -38134,7 +39410,7 @@ class AppManagementAppDetailsItem extends AppManagementAppDetailsItemBase {
         return 'app-management-app-details-item';
     }
     static get template() {
-        return getTemplate$1n();
+        return getTemplate$1o();
     }
     static get properties() {
         return {
@@ -38287,7 +39563,7 @@ class AppManagementAppDetailsItem extends AppManagementAppDetailsItemBase {
 }
 customElements.define(AppManagementAppDetailsItem.is, AppManagementAppDetailsItem);
 
-function getTemplate$1m() {
+function getTemplate$1n() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">.permission-heading{padding:var(--cr-section-vertical-padding) 0}.permission-text-row{border-top:none}</style>
 
 <div class="permission-heading">
@@ -38333,7 +39609,7 @@ class AppManagementPermissionHeadingElement extends AppManagementPermissionHeadi
         return 'app-management-permission-heading';
     }
     static get template() {
-        return getTemplate$1m();
+        return getTemplate$1n();
     }
     static get properties() {
         return {
@@ -38377,7 +39653,7 @@ class AppManagementPermissionHeadingElement extends AppManagementPermissionHeadi
 }
 customElements.define(AppManagementPermissionHeadingElement.is, AppManagementPermissionHeadingElement);
 
-function getTemplate$1l() {
+function getTemplate$1m() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">:host{align-items:center;display:flex;flex:1;justify-content:space-between}#icon{padding-inline-end:var(--row-item-icon-padding)}#policyIndicator{padding-inline-end:var(--app-management-controlled-by-spacing)}</style>
 
 <div id="left-content" aria-hidden="true">
@@ -38414,7 +39690,7 @@ class AppManagementToggleRowElement extends PolymerElement {
         return 'app-management-toggle-row';
     }
     static get template() {
-        return getTemplate$1l();
+        return getTemplate$1m();
     }
     static get properties() {
         return {
@@ -38446,7 +39722,7 @@ class AppManagementToggleRowElement extends PolymerElement {
 }
 customElements.define(AppManagementToggleRowElement.is, AppManagementToggleRowElement);
 
-function getTemplate$1k() {
+function getTemplate$1l() {
     return html `<!--_html_template_start_--><style>:host(:not([disabled])){cursor:pointer}</style>
 <app-management-toggle-row id="toggleRow" label="$i18n{appManagementPinToShelfLabel}" managed="[[isManaged_(app)]]" value="[[getValue_(app)]]">
 </app-management-toggle-row>
@@ -38461,7 +39737,7 @@ class AppManagementPinToShelfItemElement extends PolymerElement {
         return 'app-management-pin-to-shelf-item';
     }
     static get template() {
-        return getTemplate$1k();
+        return getTemplate$1l();
     }
     static get properties() {
         return {
@@ -38510,7 +39786,7 @@ class AppManagementPinToShelfItemElement extends PolymerElement {
 }
 customElements.define(AppManagementPinToShelfItemElement.is, AppManagementPinToShelfItemElement);
 
-function getTemplate$1j() {
+function getTemplate$1k() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style settings-shared">.sub-app-row:last-of-type{border-bottom:none}</style>
 <div class="permission-section-header">
   <div class="header-text">[[getListHeadingString_(parentApp)]]</div>
@@ -38536,7 +39812,7 @@ class AppManagementSubAppsItemElement extends AppManagementSubAppsItemElementBas
         return 'app-management-sub-apps-item';
     }
     static get template() {
-        return getTemplate$1j();
+        return getTemplate$1k();
     }
     static get properties() {
         return {
@@ -38566,7 +39842,7 @@ class AppManagementSubAppsItemElement extends AppManagementSubAppsItemElementBas
 }
 customElements.define(AppManagementSubAppsItemElement.is, AppManagementSubAppsItemElement);
 
-function getTemplate$1i() {
+function getTemplate$1j() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">:host(:not([available_])){display:none}#file-handling-item{margin:var(--row-item-vertical-padding) 0;width:100%}#toggle-row:not([disabled_]){cursor:pointer}#dialog-body{user-select:text}</style>
 
 <div id="file-handling-item">
@@ -38604,7 +39880,7 @@ class AppManagementFileHandlingItemElement extends AppManagementFileHandlingItem
         return 'app-management-file-handling-item';
     }
     static get template() {
-        return getTemplate$1i();
+        return getTemplate$1j();
     }
     static get properties() {
         return {
@@ -38704,7 +39980,7 @@ class AppManagementFileHandlingItemElement extends AppManagementFileHandlingItem
 }
 customElements.define(AppManagementFileHandlingItemElement.is, AppManagementFileHandlingItemElement);
 
-const template$5 = html `<iron-iconset-svg name="app-management" size="20">
+const template$6 = html `<iron-iconset-svg name="app-management" size="20">
   <svg>
     
     <defs>
@@ -38719,9 +39995,9 @@ const template$5 = html `<iron-iconset-svg name="app-management" size="20">
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$5.content);
+document.head.appendChild(template$6.content);
 
-function getTemplate$1h() {
+function getTemplate$1i() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">:host{align-items:center;cursor:pointer;display:flex;flex:1;justify-content:space-between}</style>
 <div id="label" aria-hidden="true">
   [[morePermissionsLabel]]
@@ -38741,7 +40017,7 @@ class AppManagementMorePermissionsItemElement extends PolymerElement {
         return 'app-management-more-permissions-item';
     }
     static get template() {
-        return getTemplate$1h();
+        return getTemplate$1i();
     }
     static get properties() {
         return {
@@ -38760,7 +40036,7 @@ class AppManagementMorePermissionsItemElement extends PolymerElement {
 }
 customElements.define(AppManagementMorePermissionsItemElement.is, AppManagementMorePermissionsItemElement);
 
-function getTemplate$1g() {
+function getTemplate$1h() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">:host{align-items:center;display:flex;justify-content:space-between}:host(:not([disabled_])){cursor:pointer}:host(:not([available_])){display:none}</style>
 
 <template is="dom-if" if="[[available_]]">
@@ -38778,7 +40054,7 @@ class AppManagementPermissionItemElement extends PolymerElement {
         return 'app-management-permission-item';
     }
     static get template() {
-        return getTemplate$1g();
+        return getTemplate$1h();
     }
     static get properties() {
         return {
@@ -38964,7 +40240,7 @@ class AppManagementPermissionItemElement extends PolymerElement {
 }
 customElements.define(AppManagementPermissionItemElement.is, AppManagementPermissionItemElement);
 
-function getTemplate$1f() {
+function getTemplate$1g() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">#dialogBody{display:flex;flex-direction:column;height:350px;overflow-y:auto}.list-item{border-bottom:var(--cr-separator-line);align-items:center;display:flex;min-height:36px;padding:0}iron-list{user-select:none}</style>
 <cr-dialog id="dialog" close-text="[[i18n('close')]]" show-on-attach show-close-button>
   <div slot="title">[[i18n('appManagementIntentSettingsDialogTitle')]]</div>
@@ -38990,7 +40266,7 @@ class AppManagementSupportedLinksDialogElement extends AppManagementSupportedLin
         return 'app-management-supported-links-dialog';
     }
     static get template() {
-        return getTemplate$1f();
+        return getTemplate$1g();
     }
     static get properties() {
         return {
@@ -39016,7 +40292,7 @@ class AppManagementSupportedLinksDialogElement extends AppManagementSupportedLin
 }
 customElements.define(AppManagementSupportedLinksDialogElement.is, AppManagementSupportedLinksDialogElement);
 
-function getTemplate$1e() {
+function getTemplate$1f() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style"></style>
 <cr-dialog show-on-attach id="dialog" close-text="close">
   <div slot="title">[[i18n('appManagementIntentOverlapDialogTitle')]]</div>
@@ -39042,7 +40318,7 @@ class AppManagementSupportedLinksOverlappingAppsDialogElement extends AppManagem
         return 'app-management-supported-links-overlapping-apps-dialog';
     }
     static get template() {
-        return getTemplate$1e();
+        return getTemplate$1f();
     }
     static get properties() {
         return {
@@ -39085,7 +40361,7 @@ class AppManagementSupportedLinksOverlappingAppsDialogElement extends AppManagem
 }
 customElements.define(AppManagementSupportedLinksOverlappingAppsDialogElement.is, AppManagementSupportedLinksOverlappingAppsDialogElement);
 
-function getTemplate$1d() {
+function getTemplate$1e() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">#disabledExplanationText{align-items:center;display:flex;flex-direction:row;height:var(--info-text-row-height)}#supportedLinksOption{height:48px}.info-icon{height:var(--help-icon-size);width:var(--help-icon-size)}#overlapWarning{color:var(--secondary-text-color);margin-block-start:-12px;margin-inline-start:36px}.list-frame{display:block;padding-block-end:0;padding-block-start:0;padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}cr-radio-group{width:100%}iron-icon{flex-shrink:0}cr-radio-button{min-height:var(--cr-section-min-height)}</style>
 <div class="permission-section-header">
   <localized-link id="heading" class="header-text" on-link-clicked="launchDialog_" localized-string="[[i18nAdvanced('appManagementIntentSettingsTitle')]]">
@@ -39132,7 +40408,7 @@ class AppManagementSupportedLinksItemElement extends AppManagementSupportedLinks
         return 'app-management-supported-links-item';
     }
     static get template() {
-        return getTemplate$1d();
+        return getTemplate$1e();
     }
     static get properties() {
         return {
@@ -39301,7 +40577,7 @@ class AppManagementSupportedLinksItemElement extends AppManagementSupportedLinks
 }
 customElements.define(AppManagementSupportedLinksItemElement.is, AppManagementSupportedLinksItemElement);
 
-function getTemplate$1c() {
+function getTemplate$1d() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style"></style>
 <div class="permission-list">
   <app-management-pin-to-shelf-item id="pinToShelfSetting" class="permission-card-row separated-row" app="[[app_]]">
@@ -39343,7 +40619,7 @@ class AppManagementPwaDetailViewElement extends AppManagementPwaDetailViewElemen
         return 'app-management-pwa-detail-view';
     }
     static get template() {
-        return getTemplate$1c();
+        return getTemplate$1d();
     }
     static get properties() {
         return {
@@ -39372,7 +40648,7 @@ class AppManagementPwaDetailViewElement extends AppManagementPwaDetailViewElemen
 }
 customElements.define(AppManagementPwaDetailViewElement.is, AppManagementPwaDetailViewElement);
 
-function getTemplate$1b() {
+function getTemplate$1c() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">:host{align-items:center;display:flex;justify-content:space-between}:host(:not([available_])){display:none}#icon{padding-inline-end:var(--row-item-icon-padding)}</style>
 
 <template is="dom-if" if="[[available_]]">
@@ -39403,7 +40679,7 @@ class AppManagementReadOnlyPermissionItemElement extends AppManagementReadOnlyPe
         return 'app-management-read-only-permission-item';
     }
     static get template() {
-        return getTemplate$1b();
+        return getTemplate$1c();
     }
     static get properties() {
         return {
@@ -39467,7 +40743,7 @@ class AppManagementReadOnlyPermissionItemElement extends AppManagementReadOnlyPe
 }
 customElements.define(AppManagementReadOnlyPermissionItemElement.is, AppManagementReadOnlyPermissionItemElement);
 
-function getTemplate$1a() {
+function getTemplate$1b() {
     return html `<!--_html_template_start_--><style>:host{cursor:pointer}</style>
 <app-management-toggle-row id="toggleRow" label="$i18n{appManagementPresetWindowSizesLabel}" value="[[getValue_(app)]]" description="$i18n{appManagementPresetWindowSizesText}">
 </app-management-toggle-row>
@@ -39482,7 +40758,7 @@ class AppManagementResizeLockItemElement extends PolymerElement {
         return 'app-management-resize-lock-item';
     }
     static get template() {
-        return getTemplate$1a();
+        return getTemplate$1b();
     }
     static get properties() {
         return {
@@ -39524,7 +40800,7 @@ class AppManagementResizeLockItemElement extends PolymerElement {
 }
 customElements.define(AppManagementResizeLockItemElement.is, AppManagementResizeLockItemElement);
 
-function getTemplate$19() {
+function getTemplate$1a() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">#noPermissions{border-top:none}#appDetails{padding-bottom:12px}</style>
 <div class="permission-list">
   <app-management-pin-to-shelf-item id="pinToShelfSetting" class="permission-card-row separated-row" app="[[app_]]">
@@ -39581,7 +40857,7 @@ class AppManagementArcDetailViewElement extends AppManagementArcDetailViewElemen
         return 'app-management-arc-detail-view';
     }
     static get template() {
-        return getTemplate$19();
+        return getTemplate$1a();
     }
     static get properties() {
         return {
@@ -39669,7 +40945,7 @@ class AppManagementArcDetailViewElement extends AppManagementArcDetailViewElemen
 }
 customElements.define(AppManagementArcDetailViewElement.is, AppManagementArcDetailViewElement);
 
-function getTemplate$18() {
+function getTemplate$19() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">.permission-text-row:first-of-type{border-top:none}#noPermissions{border-top:none}</style>
 <div>
   <div class="permission-list">
@@ -39718,7 +40994,7 @@ class AppManagementChromeAppDetailViewElement extends AppManagementChromeAppDeta
         return 'app-management-chrome-app-detail-view';
     }
     static get template() {
-        return getTemplate$18();
+        return getTemplate$19();
     }
     static get properties() {
         return {
@@ -39796,7 +41072,7 @@ class PluginVmBrowserProxyImpl {
     }
 }
 
-function getTemplate$17() {
+function getTemplate$18() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style"></style>
 
 <div class="permission-list">
@@ -39861,7 +41137,7 @@ class AppManagementPluginVmDetailViewElement extends AppManagementPluginVmDetail
         return 'app-management-plugin-vm-detail-view';
     }
     static get template() {
-        return getTemplate$17();
+        return getTemplate$18();
     }
     static get properties() {
         return {
@@ -39926,7 +41202,7 @@ class AppManagementPluginVmDetailViewElement extends AppManagementPluginVmDetail
 }
 customElements.define(AppManagementPluginVmDetailViewElement.is, AppManagementPluginVmDetailViewElement);
 
-function getTemplate$16() {
+function getTemplate$17() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">.permission-text-row{border-top:none}iron-icon{--iron-icon-fill-color:var(--secondary-text-color);padding-inline-end:var(--row-item-icon-padding)}localized-link{color:var(--secondary-text-color);white-space:pre-line}</style>
 
 <div class="permission-list">
@@ -39968,7 +41244,7 @@ class AppManagementBorealisDetailViewElement extends AppManagementBorealisDetail
         return 'app-management-borealis-detail-view';
     }
     static get template() {
-        return getTemplate$16();
+        return getTemplate$17();
     }
     static get properties() {
         return {
@@ -39996,7 +41272,7 @@ class AppManagementBorealisDetailViewElement extends AppManagementBorealisDetail
 }
 customElements.define(AppManagementBorealisDetailViewElement.is, AppManagementBorealisDetailViewElement);
 
-function getTemplate$15() {
+function getTemplate$16() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <app-management-dom-switch id="viewSelector" route="[[getSelectedRouteId_(app_)]]">
   <template>
@@ -40024,7 +41300,7 @@ class AppManagementAppDetailViewElement extends AppManagementAppDetailViewElemen
         return 'app-management-app-detail-view';
     }
     static get template() {
-        return getTemplate$15();
+        return getTemplate$16();
     }
     static get properties() {
         return {
@@ -40116,14 +41392,14 @@ class AppManagementAppDetailViewElement extends AppManagementAppDetailViewElemen
 }
 customElements.define(AppManagementAppDetailViewElement.is, AppManagementAppDetailViewElement);
 
-const template$4 = html `
+const template$5 = html `
 <style>
 html{--app-management-controlled-by-spacing:var(--cr-controlled-by-spacing);--app-management-font-size:13px;--app-management-line-height:1.54;--card-max-width:676px;--card-min-width:550px;--card-separator:1px solid var(--cros-separator-color);--expanded-permission-row-height:48px;--header-font-weight:500;--header-text-color:var(--cros-text-color-secondary);--permission-icon-padding:20px;--permission-list-item-height:48px;--permission-list-item-with-description-height:64px;--primary-text-color:var(--cros-text-color-primary);--row-item-icon-padding:12px;--row-item-vertical-padding:16px;--secondary-font-weight:400;--secondary-text-color:var(--cros-text-color-secondary);--text-permission-list-row-height:40px;--help-icon-padding:6px;--info-text-row-height:48px;--help-icon-size:20px}
 </style>
 `;
-document.head.appendChild(template$4.content);
+document.head.appendChild(template$5.content);
 
-function getTemplate$14() {
+function getTemplate$15() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style cr-icons">:host{align-items:center;border-bottom:var(--card-separator);color:var(--cros-text-color-primary);cursor:pointer;display:flex;flex-direction:row;font-weight:400;height:48px}#appTitle{flex:1;overflow:hidden;text-overflow:ellipsis}#appIcon{height:32px;margin-inline-end:20px;margin-inline-start:24px;width:32px}</style>
 <img id="appIcon" src="[[iconUrlFromId_(app)]]" alt="[[app.title]] app icon." aria-hidden="true">
 <div id="appTitle" aria-hidden="true">[[app.title]]</div>
@@ -40140,7 +41416,7 @@ class AppManagementAppItemElement extends AppManagementAppItemElementBase {
         return 'app-management-app-item';
     }
     static get template() {
-        return getTemplate$14();
+        return getTemplate$15();
     }
     static get properties() {
         return {
@@ -40183,7 +41459,7 @@ class AppManagementAppItemElement extends AppManagementAppItemElementBase {
 }
 customElements.define(AppManagementAppItemElement.is, AppManagementAppItemElement);
 
-function getTemplate$13() {
+function getTemplate$14() {
     return html `<!--_html_template_start_--><style include="cr-shared-style app-management-cros-shared-style">.app-management-item-arrow{margin-inline-end:8px}#noAppsLabel{text-align:center}</style>
 
 <div id="appList">
@@ -40212,7 +41488,7 @@ class AppManagementMainViewElement extends AppManagementMainViewElementBase {
         return 'app-management-main-view';
     }
     static get template() {
-        return getTemplate$13();
+        return getTemplate$14();
     }
     static get properties() {
         return {
@@ -40278,7 +41554,7 @@ class AppManagementMainViewElement extends AppManagementMainViewElementBase {
 }
 customElements.define(AppManagementMainViewElement.is, AppManagementMainViewElement);
 
-function getTemplate$12() {
+function getTemplate$13() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <div id="mainContainer">
   <app-management-main-view search-term="[[searchTerm]]">
@@ -40295,7 +41571,7 @@ class SettingsAppManagementPageElement extends PolymerElement {
         return 'settings-app-management-page';
     }
     static get template() {
-        return getTemplate$12();
+        return getTemplate$13();
     }
     static get properties() {
         return {
@@ -40305,7 +41581,7 @@ class SettingsAppManagementPageElement extends PolymerElement {
 }
 customElements.define(SettingsAppManagementPageElement.is, SettingsAppManagementPageElement);
 
-function getTemplate$11() {
+function getTemplate$12() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared md-select"></style>
 
 <cr-link-row id="browserSearchSettingsLink" label="$i18n{osSearchEngineLabel}" sub-label="[[currentSearchEngine_.name]]" on-click="onSearchEngineLinkClick_" external>
@@ -40349,7 +41625,7 @@ class SettingsSearchEngineElement extends SettingsSearchEngineElementBase {
         return 'settings-search-engine';
     }
     static get template() {
-        return getTemplate$11();
+        return getTemplate$12();
     }
     static get properties() {
         return {
@@ -41270,7 +42546,7 @@ class LottieRenderer extends LitElement {
 }
 customElements.define('cros-lottie-renderer', LottieRenderer);
 
-const template$3 = html`<iron-iconset-svg name="pin-keyboard" size="24">
+const template$4 = html`<iron-iconset-svg name="pin-keyboard" size="24">
   <svg>
     <defs>
       <!--
@@ -41289,9 +42565,9 @@ const template$3 = html`<iron-iconset-svg name="pin-keyboard" size="24">
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$3.content);
+document.head.appendChild(template$4.content);
 
-function getTemplate$10() {
+function getTemplate$11() {
   return html`<!--_html_template_start_--><style include="cr-shared-style cros-color-overrides">
   /**
     * It's important that buttons are square (have same height and width) so
@@ -41664,7 +42940,7 @@ class PinKeyboardElement extends PinKeyboardElementBase {
         return 'pin-keyboard';
     }
     static get template() {
-        return getTemplate$10();
+        return getTemplate$11();
     }
     static get properties() {
         return {
@@ -42116,7 +43392,7 @@ function recordLockScreenProgress(currentProgress) {
     ]);
 }
 
-function getTemplate$$() {
+function getTemplate$10() {
   return html`<!--_html_template_start_--><!--
 
 This module is a "pin setup" keyboard + pin display element.
@@ -42246,7 +43522,7 @@ class SetupPinKeyboardElement extends SetupPinKeyboardElementBase {
         return 'setup-pin-keyboard';
     }
     static get template() {
-        return getTemplate$$();
+        return getTemplate$10();
     }
     static get properties() {
         return {
@@ -42530,7 +43806,7 @@ class SetupPinKeyboardElement extends SetupPinKeyboardElementBase {
 }
 customElements.define(SetupPinKeyboardElement.is, SetupPinKeyboardElement);
 
-function getTemplate$_() {
+function getTemplate$$() {
     return html `<!--_html_template_start_--><style include="settings-shared">#pinKeyboardDiv{justify-content:center}</style>
 <cr-dialog id="dialog" on-close="close" close-text="$i18n{close}">
   <div slot="title">[[getTitleMessage_(isConfirmStep_)]]</div>
@@ -42570,7 +43846,7 @@ class SettingsSetupPinDialogElement extends SettingsSetupPinDialogElementBase {
         return 'settings-setup-pin-dialog';
     }
     static get template() {
-        return getTemplate$_();
+        return getTemplate$$();
     }
     static get properties() {
         return {
@@ -43000,7 +44276,7 @@ const MultiDeviceFeatureMixin = dedupingMixin((superClass) => {
     return MultiDeviceFeatureMixinInternal;
 });
 
-function getTemplate$Z() {
+function getTemplate$_() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared"></style>
 <cr-toggle id="toggle" aria-label$="[[getToggleA11yLabel_(feature)]]" checked="{{checked_}}" disabled="[[!isFeatureStateEditable(feature, pageContentData)]]" on-change="toggleFeature">
 </cr-toggle>
@@ -43024,7 +44300,7 @@ class SettingsMultideviceFeatureToggleElement extends SettingsMultideviceFeature
         return 'settings-multidevice-feature-toggle';
     }
     static get template() {
-        return getTemplate$Z();
+        return getTemplate$_();
     }
     static get properties() {
         return {
@@ -43103,7 +44379,7 @@ class SettingsMultideviceFeatureToggleElement extends SettingsMultideviceFeature
 }
 customElements.define(SettingsMultideviceFeatureToggleElement.is, SettingsMultideviceFeatureToggleElement);
 
-function getTemplate$Y() {
+function getTemplate$Z() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host([is-sub-feature]) #feature-icon{display:none}:host([is-sub-feature]) .settings-box .middle{padding-inline-start:64px}#card{border-top:var(--cr-separator-line);border-top-style:var(--feature-item-border-top-style,solid);padding:var(--cr-section-vertical-padding) 0}#feature-icon{padding:2px}cr-policy-indicator{padding:0 var(--cr-controlled-by-spacing)}#help-icon:active{pointer-events:none}</style>
 <div id="card" class="settings-box no-padding">
   <div id="linkWrapper" class="link-wrapper" actionable$="[[isRowClickable_(
@@ -43229,7 +44505,7 @@ class SettingsMultideviceFeatureItemElement extends SettingsMultideviceFeatureIt
         return 'settings-multidevice-feature-item';
     }
     static get template() {
-        return getTemplate$Y();
+        return getTemplate$Z();
     }
     static get properties() {
         return {
@@ -43656,7 +44932,7 @@ class MediaDevicesProxy {
     }
 }
 
-function getTemplate$X() {
+function getTemplate$Y() {
     return html `<!--_html_template_start_--><style include="settings-shared">#container{align-items:center;display:flex;width:100%}#icon{height:32px;margin-inline-end:20px;width:32px}</style>
 <div id="container">
   <img id="icon" src="[[iconSource]]" aria-hidden="true">
@@ -43682,7 +44958,7 @@ class SettingsPrivacyHubSystemServiceRow extends PolymerElement {
         return 'settings-privacy-hub-system-service-row';
     }
     static get template() {
-        return getTemplate$X();
+        return getTemplate$Y();
     }
     static get properties() {
         return {
@@ -43726,7 +45002,7 @@ class MetricsConsentBrowserProxyImpl {
     }
 }
 
-function getTemplate$W() {
+function getTemplate$X() {
     return html `<!--_html_template_start_--><style>:host{display:block}</style>
 <settings-toggle-button id="settingsToggle" pref="[[metricsConsentPref_]]" label="$i18n{enableLogging}" sub-label="$i18n{enableLoggingDesc}" disabled="[[!isMetricsConsentConfigurable_]]" on-settings-boolean-control-change="onMetricsConsentChange_" no-set-pref>
 </settings-toggle-button>
@@ -43747,7 +45023,7 @@ class SettingsMetricsConsentToggleButtonElement extends SettingsMetricsConsentTo
         return 'settings-metrics-consent-toggle-button';
     }
     static get template() {
-        return getTemplate$W();
+        return getTemplate$X();
     }
     static get properties() {
         return {
@@ -43799,7 +45075,7 @@ class SettingsMetricsConsentToggleButtonElement extends SettingsMetricsConsentTo
 }
 customElements.define(SettingsMetricsConsentToggleButtonElement.is, SettingsMetricsConsentToggleButtonElement);
 
-function getTemplate$V() {
+function getTemplate$W() {
     return html `<!--_html_template_start_--><style include="settings-shared">.list-item:not(:last-of-type){border-bottom:var(--cr-separator-line)}.list-frame{padding-bottom:8px;padding-top:8px}.separator{margin:0}</style>
 
 <div id="cameraSection">
@@ -43923,7 +45199,7 @@ class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
         return 'settings-privacy-hub-subpage';
     }
     static get template() {
-        return getTemplate$V();
+        return getTemplate$W();
     }
     static get properties() {
         return {
@@ -44186,7 +45462,7 @@ class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
 }
 customElements.define(SettingsPrivacyHubSubpage.is, SettingsPrivacyHubSubpage);
 
-function getTemplate$U() {
+function getTemplate$V() {
     return html `<!--_html_template_start_--><style>:host ::slotted([slot=view]){bottom:0;display:none;left:0;position:absolute;right:0;top:0}:host ::slotted(.active),:host ::slotted(.closing){display:block}</style>
 <slot name="view"></slot>
 <!--_html_template_end_-->`;
@@ -44251,7 +45527,7 @@ class CrViewManagerElement extends PolymerElement {
         return 'cr-view-manager';
     }
     static get template() {
-        return getTemplate$U();
+        return getTemplate$V();
     }
     exit_(element, animation) {
         const animationFunction = viewAnimations.get(animation);
@@ -44300,7 +45576,7 @@ class CrViewManagerElement extends PolymerElement {
 }
 customElements.define(CrViewManagerElement.is, CrViewManagerElement);
 
-function getTemplate$T() {
+function getTemplate$U() {
     return html `<!--_html_template_start_--><style include="cr-icons cr-shared-style"></style>
 
 <style include="cros-color-overrides"></style>
@@ -44380,7 +45656,7 @@ class NearbyPageTemplateElement extends PolymerElement {
         return 'nearby-page-template';
     }
     static get template() {
-        return getTemplate$T();
+        return getTemplate$U();
     }
     static get properties() {
         return {
@@ -44783,7 +46059,7 @@ function processOnePageOnboardingManageContactsMetrics() {
     ]);
 }
 
-function getTemplate$S() {
+function getTemplate$T() {
     return html `<!--_html_template_start_--><style include="cr-icons cr-shared-style"></style>
 
   <style include="cros-color-overrides"></style>
@@ -44872,7 +46148,7 @@ class NearbyOnboardingOnePageElement extends NearbyOnboardingOnePageElementBase 
         return 'nearby-onboarding-one-page';
     }
     static get template() {
-        return getTemplate$S();
+        return getTemplate$T();
     }
     static get properties() {
         return {
@@ -45061,7 +46337,7 @@ class NearbyOnboardingOnePageElement extends NearbyOnboardingOnePageElementBase 
 }
 customElements.define(NearbyOnboardingOnePageElement.is, NearbyOnboardingOnePageElement);
 
-function getTemplate$R() {
+function getTemplate$S() {
     return html `<!--_html_template_start_--><style include="cr-icons cr-shared-style"></style>
 <style>#center-content{align-items:center;box-sizing:border-box;display:flex;flex-grow:1;justify-content:space-between;margin:0 24px;overflow:hidden}#splash-image-column{height:200px;margin:8px;width:200px}#device-name-column{display:flex;flex-direction:column;margin:8px;position:relative;top:-12px;width:calc(50% - 16px)}#link-row{border:1px solid #d3d3d3;border-radius:5px}#deviceNameHelp{bottom:8px;color:var(--cros-text-color-secondary);font-size:10px;line-height:10px;margin-inline-start:8px;position:absolute}#device-name-group{padding-inline-end:10px;padding-inline-start:10px}cr-input{color:var(--cros-text-color-secondary)}</style>
 <nearby-page-template title="$i18n{nearbyShareOnboardingPageTitle}" sub-title="$i18n{nearbyShareOnboardingPageSubtitle}" action-button-label="$i18n{nearbyShareActionsNext}" action-button-event-name="next" action-disabled="[[hasErrorMessage_(errorMessage)]]" cancel-button-label="$i18n{nearbyShareActionsCancel}" cancel-button-event-name="close">
@@ -45100,7 +46376,7 @@ class NearbyOnboardingPageElement extends NearbyOnboardingPageElementBase {
         return 'nearby-onboarding-page';
     }
     static get template() {
-        return getTemplate$R();
+        return getTemplate$S();
     }
     static get properties() {
         return {
@@ -45204,7 +46480,7 @@ class NearbyOnboardingPageElement extends NearbyOnboardingPageElementBase {
 }
 customElements.define(NearbyOnboardingPageElement.is, NearbyOnboardingPageElement);
 
-function getTemplate$Q() {
+function getTemplate$R() {
     return html `<!--_html_template_start_--><style include="cr-radio-button-style">:host{background-color:var(--cr-card-background-color);border-radius:8px;box-shadow:var(--cr-elevation-1);margin:var(--cr-card-radio-button-margin,8px);width:var(--cr-card-radio-button-width,200px);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04)}@media (prefers-color-scheme:dark){:host{--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-color:rgba(var(--google-blue-300-rgb), .08)}}.disc-wrapper,paper-ripple{border-radius:inherit}paper-ripple{height:var(--paper-ripple-height);left:var(--paper-ripple-left,0);top:var(--paper-ripple-top,0);width:var(--paper-ripple-width)}#button{height:var(--cr-card-radio-button-height,auto);padding:var(--cr-card-radio-button-padding,24px);position:relative;width:100%}:host-context(.focus-outline-visible) #button:focus{box-shadow:0 0 0 2px var(--focus-shadow-color)}#button:hover{background-color:var(--hover-bg-color)}#checkMark{fill:var(--cr-checked-color);left:var(--cr-card-radio-button-checkmark-left,auto);position:absolute;right:var(--cr-card-radio-button-checkmark-right,var(--cr-button-edge-spacing));top:var(--cr-card-radio-button-checkmark-top,var(--cr-button-edge-spacing))}:host-context([dir=rtl]) #checkMark{left:var(--cr-card-radio-button-checkmark-right,var(--cr-button-edge-spacing));right:var(--cr-card-radio-button-checkmark-left,auto)}:host(:not([checked])) #checkMark{display:none}#slottedContent{padding:var(--cr-card-radio-button-slotted-content-padding)}</style>
 <div id="button" role="radio" aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" class="disc-wrapper" tabindex$="[[buttonTabIndex_]]" aria-labelledby="slotted-content" on-keydown="onInputKeydown_">
   <iron-icon id="checkMark" icon="cr:check-circle"></iron-icon>
@@ -45232,7 +46508,7 @@ class CrCardRadioButtonElement extends CrCardRadioButtonElementBase {
         return 'cr-card-radio-button';
     }
     static get template() {
-        return getTemplate$Q();
+        return getTemplate$R();
     }
     // Overridden from CrRadioButtonMixin
     getPaperRipple() {
@@ -45251,7 +46527,7 @@ class CrCardRadioButtonElement extends CrCardRadioButtonElementBase {
 }
 customElements.define(CrCardRadioButtonElement.is, CrCardRadioButtonElement);
 
-const template$2 = html `<iron-iconset-svg name="nearby20" size="20">
+const template$3 = html `<iron-iconset-svg name="nearby20" size="20">
   <svg>
     <defs>
       
@@ -45350,7 +46626,7 @@ const template$2 = html `<iron-iconset-svg name="nearby20" size="20">
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$2.content);
+document.head.appendChild(template$3.content);
 
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -45377,7 +46653,7 @@ function observeContactManager(observer) {
     return receiver;
 }
 
-function getTemplate$P() {
+function getTemplate$Q() {
     return html `<!--_html_template_start_-->
   <style include="cros-color-overrides"></style>
 
@@ -45578,7 +46854,7 @@ class NearbyContactVisibilityElement extends NearbyContactVisibilityElementBase 
         return 'nearby-contact-visibility';
     }
     static get template() {
-        return getTemplate$P();
+        return getTemplate$Q();
     }
     static get properties() {
         return {
@@ -46139,7 +47415,7 @@ class NearbyContactVisibilityElement extends NearbyContactVisibilityElementBase 
 }
 customElements.define(NearbyContactVisibilityElement.is, NearbyContactVisibilityElement);
 
-function getTemplate$O() {
+function getTemplate$P() {
     return html `<!--_html_template_start_--><style include="cr-icons cr-shared-style"></style>
 <style>#center-content{box-sizing:border-box;display:flex;flex-grow:1;justify-content:center;margin-inline-end:24px;margin-inline-start:24px;overflow:hidden}nearby-contact-visibility{width:100%}</style>
 <nearby-page-template title="$i18n{nearbyShareVisibilityPageTitle}" sub-title="$i18n{nearbyShareVisibilityPageSubtitle}" action-button-label="$i18n{nearbyShareActionsConfirm}" action-button-event-name="next" action-disabled="[[!isVisibilitySelected_]]" cancel-button-label="$i18n{nearbyShareActionsCancel}" cancel-button-event-name="close" utility-button-label="$i18n{nearbyShareVisibilityPageManageContacts}" utility-button-open-in-new="true" utility-button-event-name="manage-contacts">
@@ -46168,7 +47444,7 @@ class NearbyVisibilityPageElement extends NearbyVisibilityPageElementBase {
         return 'nearby-visibility-page';
     }
     static get template() {
-        return getTemplate$O();
+        return getTemplate$P();
     }
     static get properties() {
         return {
@@ -46247,7 +47523,7 @@ class NearbyVisibilityPageElement extends NearbyVisibilityPageElementBase {
 }
 customElements.define(NearbyVisibilityPageElement.is, NearbyVisibilityPageElement);
 
-function getTemplate$N() {
+function getTemplate$O() {
     return html `<!--_html_template_start_--><style>canvas{height:100%;width:100%}</style>
 <canvas id="canvas" hidden="[[hidden]]"></canvas>
 <!--_html_template_end_-->`;
@@ -46332,7 +47608,7 @@ class CrLottieElement extends PolymerElement {
         return 'cr-lottie';
     }
     static get template() {
-        return getTemplate$N();
+        return getTemplate$O();
     }
     static get properties() {
         return {
@@ -46722,7 +47998,7 @@ class CrAutoImgElement extends HTMLImageElement {
 }
 customElements.define('cr-auto-img', CrAutoImgElement, { extends: 'img' });
 
-function getTemplate$M() {
+function getTemplate$N() {
     return html `<!--_html_template_start_--><style>:host{background-color:var(--nearby-device-icon-background-color,var(--cros-sys-primary_container,var(--google-blue-50)));border-radius:50%;display:flex}#icon{height:var(--nearby-device-icon-size,24px);margin:auto;width:var(--nearby-device-icon-size,24px)}</style>
 
 <iron-icon id="icon" icon="[[getShareTargetIcon_(shareTarget)]]">
@@ -46743,7 +48019,7 @@ class NearbyDeviceIconElement extends PolymerElement {
         return 'nearby-device-icon';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$N();
     }
     static get properties() {
         return {
@@ -46775,7 +48051,7 @@ class NearbyDeviceIconElement extends PolymerElement {
 }
 customElements.define(NearbyDeviceIconElement.is, NearbyDeviceIconElement);
 
-function getTemplate$L() {
+function getTemplate$M() {
     return html `<!--_html_template_start_--><style>#wrapper{align-items:center;display:flex;border-radius:8px;outline:0;padding-block-end:3px;padding-block-start:3px;padding-inline-end:9px;padding-inline-start:6px;cursor:pointer;margin:3px;height:40px;box-sizing:border-box;overflow:hidden}:host{background-color:var(--cr-card-background-color);border:1px solid var(--cros-button-stroke-color-secondary);border-bottom-style:hidden;align-items:center;display:flex;justify-content:space-between}:host-context(body:not(.jelly-enabled)):host(:focus){outline:0;box-shadow:inset 0 0 0 2px var(--cros-focus-aura-color)}:host-context(body.jelly-enabled):host(:focus){border:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled):host(:hover){background-color:var(--cros-sys-hover_on_subtle)}:host-context(body:not(.jelly-enabled)):host([is-selected]){border-color:var(--cros-button-icon-color-secondary)}:host-context(body.jelly-enabled):host([is-selected]){background-color:var(--cros-sys-primary_container)}:host-context(body:not(.jelly-enabled)):host([is-selected]) #name{color:var(--cros-text-color-prominent)}:host-context(body.jelly-enabled):host([is-selected]) #name{color:var(--cros-sys-primary)}:host-context(body.jelly-enabled):host([is-selected]) #share-target-image{border:1px solid var(--cros-sys-primary)}:host([is-selected]) #checked{display:flex}#checked{display:none;flex-shrink:0;height:20px;padding-top:2px;vertical-align:middle;width:20px;margin-left:auto;padding-left:8px;padding-right:8px}:host-context(body.jelly-enabled) #checked{color:var(--cros-sys-primary)}:host-context(body:not(.jelly-enabled)) #checked{color:var(--cros-icon-color-prominent)}#icon{--nearby-device-icon-size:15px;flex-shrink:0;height:var(--target-image-size);width:var(--target-image-size)}:host-context(body.jelly-enabled) #icon{--nearby-device-icon-color:var(--cros-sys-on_primary_container);--nearby-device-icon-background-color:var(--cros-sys-primary_container)}:host-context(body.jelly-enabled):host([is-selected]) #icon{--nearby-device-icon-color:var(--cros-sys-on_primary);--nearby-device-icon-background-color:var(--cros-sys-primary)}#share-target-image{border-radius:50%;display:none;flex-shrink:0;height:var(--target-image-size);width:var(--target-image-size)}:host-context(body.jelly-enabled) #share-target-image{border:1px solid var(--cr-card-background-color)}#name{flex-grow:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-left:8px}:host-context(body:not(.jelly-enabled)) #name{color:var(--cros-text-color-secondary);font-size:11px;font-weight:500;letter-spacing:.3px}:host-context(body.jelly-enabled) #name{color:var(--cros-sys-secondary);font:var(--cros-button-2-font)}</style>
 
 <div id="wrapper" title="[[shareTarget.name]]">
@@ -46800,7 +48076,7 @@ class NearbyDeviceElement extends PolymerElement {
         return 'nearby-device';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$M();
     }
     static get properties() {
         return {
@@ -46860,7 +48136,7 @@ class NearbyDeviceElement extends PolymerElement {
 }
 customElements.define(NearbyDeviceElement.is, NearbyDeviceElement);
 
-const template$1 = html `<iron-iconset-svg name="nearbysharetype68" size="68">
+const template$2 = html `<iron-iconset-svg name="nearbysharetype68" size="68">
   <svg>
     <defs>
       
@@ -46920,9 +48196,9 @@ const template$1 = html `<iron-iconset-svg name="nearbysharetype68" size="68">
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$1.content);
+document.head.appendChild(template$2.content);
 
-function getTemplate$K() {
+function getTemplate$L() {
     return html `<!--_html_template_start_--><style>iron-icon{display:block;height:68px;margin:12px auto 24px auto;width:68px}iron-icon.disabled{--nearby-preview-color:var(--cros-color-disabled);--nearby-preview-background-color:var(
         --cros-shortcut-background-color)}#title{height:60px;letter-spacing:.2px;overflow:hidden;overflow-wrap:break-word;text-align:center;width:116px}:host-context(body:not(.jelly-enabled)) #title{color:var(--cr-primary-text-color);font-size:13px;line-height:20px}:host-context(body.jelly-enabled) #title{color:var(--cros-sys-on_surface_variant);font:var(--cros-body-2-font)}</style>
 
@@ -46970,7 +48246,7 @@ class NearbyPreviewElement extends NearbyPreviewElementBase {
         return 'nearby-preview';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -47051,7 +48327,7 @@ class NearbyPreviewElement extends NearbyPreviewElementBase {
 }
 customElements.define(NearbyPreviewElement.is, NearbyPreviewElement);
 
-function getTemplate$J() {
+function getTemplate$K() {
     return html `<!--_html_template_start_--><style>#device-name{-webkit-box-orient:vertical;display:-webkit-box;overflow:hidden;overflow-wrap:break-word;text-align:center;width:116px}:host-context(body:not(.jelly-enabled)) #device-name{color:var(--cros-text-color-primary);line-height:154%;letter-spacing:.25px}:host-context(body.jelly-enabled) #device-name{font:var(--cros-body-2-font);color:var(--cros-sys-on_surface_variant)}#icon{height:var(--target-image-size);margin:auto;width:var(--target-image-size)}.has-error #icon{--nearby-device-icon-color:var(--cros-sys-on_error_container, var(--cros-color-disabled));--nearby-device-icon-background-color:var(
       --cros-sys-error_container, var(
         --cros-shortcut-background-color))}#progress-container{display:flex;height:76px;margin:8px auto 20px auto;position:relative;width:76px}#share-target-image{border-radius:50%;display:none;flex-shrink:0;height:var(--target-image-size);margin:4px;width:var(--target-image-size)}#wheel{fill:none;stroke:var(--cros-sys-primary,var(--cros-icon-color-prominent));stroke-dasharray:100;stroke-linecap:round;stroke-width:2px;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .4s ease}.indeterminate-progress #wheel{animation:1.4s ease-in-out infinite both indeterminate-progress-animation;stroke-dasharray:116}.has-error #wheel{animation:none;stroke:var(--cros-sys-error,var(--cros-icon-color-alert));stroke-dashoffset:0}#svg{left:0;position:absolute;top:0}.indeterminate-progress #svg{animation:2s linear infinite svg-animation}.has-error #svg{animation:none}.hidden #svg{display:none}@keyframes indeterminate-progress-animation{0%,25%{stroke-dashoffset:115;transform:rotate(0)}50%,75%{stroke-dashoffset:30;transform:rotate(45deg)}100%{stroke-dashoffset:115;transform:rotate(360deg)}}@keyframes svg-animation{0%{transform:rotateZ(0)}100%{transform:rotateZ(360deg)}}</style>
@@ -47087,7 +48363,7 @@ class NearbyProgressElement extends PolymerElement {
         return 'nearby-progress';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -48148,7 +49424,7 @@ var nearby_share_mojomWebui = /*#__PURE__*/Object.freeze({
   TransferUpdateListener_OnTransferUpdate_ParamsSpec: TransferUpdateListener_OnTransferUpdate_ParamsSpec
 });
 
-function getTemplate$I() {
+function getTemplate$J() {
     return html `<!--_html_template_start_--><style>#centerContent{box-sizing:border-box;display:flex;flex-direction:column;flex-grow:1;margin:0 24px}#connectionToken{color:var(--cros-text-color-disabled);flex-grow:1;font-size:9px;letter-spacing:.3px;line-height:12px;margin-top:46px;padding-top:6px;text-align:center}#animation{bottom:0;height:100%;left:0;pointer-events:none;position:absolute;right:0}#processRow{display:flex;flex-grow:1}#processRowContent{align-self:center;display:flex;flex-grow:1;margin:24px 8px}#errorSection{align-items:flex-start;display:flex;flex-direction:row;padding:8px}#error{align-items:flex-start;display:flex;flex-direction:column;font-size:12px}#errorTitle{color:var(--cros-text-color-alert);font-weight:700;margin-bottom:3px}#errorDescription{color:var(--cros-text-color-secondary);line-height:13px}#errorIcon{fill:var(--cros-icon-color-alert);flex-shrink:0;height:20px;margin-inline-end:12px;width:20px}</style>
 <nearby-page-template title="$i18n{nearbyShareReceiveConfirmPageTitle}" action-button-label="$i18n{nearbyShareActionsAccept}" action-button-event-name="accept" cancel-button-label="$i18n{nearbyShareActionsDecline}" cancel-button-event-name="reject" close-only="[[errorTitle_]]">
   <div id="centerContent" slot="content">
@@ -48204,7 +49480,7 @@ class NearbyShareConfirmPageElement extends NearbyShareConfirmPageElementBase {
         return 'nearby-share-confirm-page';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -48300,7 +49576,7 @@ class NearbyShareConfirmPageElement extends NearbyShareConfirmPageElementBase {
 }
 customElements.define(NearbyShareConfirmPageElement.is, NearbyShareConfirmPageElement);
 
-function getTemplate$H() {
+function getTemplate$I() {
     return html `<!--_html_template_start_--><style>#content{background:linear-gradient(to top,var(--nearby-page-linear-gradient-color-start) 5%,transparent 50%);display:flex;flex-direction:column-reverse;height:100%;position:relative;width:100%}#help{align-items:flex-start;color:var(--cros-sys-secondary);display:flex;flex-direction:row;font:var(--cros-annotation-2-font);margin-inline-end:24px;margin-inline-start:24px;padding:8px}#helpText{margin:auto 0}#infoIcon{flex-shrink:0;height:16px;margin-inline-end:8px;width:16px}.icon-help-state{fill:var(--cros-sys-secondary)}.icon-error-state{fill:var(--cros-sys-error)}#error{align-items:flex-start;display:flex;flex-direction:column}#errorTitle{color:var(--cros-sys-error);font:var(--cros-button-2-font);margin-bottom:3px}#errorDescription{color:var(--cros-sys-secondary);font:var(--cros-annotation-2-font)}#animation{bottom:0;height:100px;left:0;pointer-events:none;position:absolute;right:0}</style>
 <nearby-page-template title="$i18n{nearbyShareFeatureName}" sub-title="[[getSubTitle_(deviceName, remainingTimeInSeconds_)]]" a11y-announced-sub-title="[[getA11yAnnouncedSubTitle_(deviceName,
                               remainingTimeInSeconds_)]]" cancel-button-label="$i18n{cancel}" close-only="[[getErrorTitle_(errorState_)]]">
@@ -48363,7 +49639,7 @@ class NearbyShareHighVisibilityPageElement extends NearbyShareHighVisibilityPage
         return 'nearby-share-high-visibility-page';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -48531,7 +49807,7 @@ class NearbyShareHighVisibilityPageElement extends NearbyShareHighVisibilityPage
 }
 customElements.define(NearbyShareHighVisibilityPageElement.is, NearbyShareHighVisibilityPageElement);
 
-function getTemplate$G() {
+function getTemplate$H() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-dialog::part(dialog){height:420px;width:512px}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div id="content" slot="body" aria-live="polite">
@@ -48609,7 +49885,7 @@ class NearbyShareReceiveDialogElement extends PolymerElement {
         return 'nearby-share-receive-dialog';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -48904,7 +50180,7 @@ class NearbyShareReceiveDialogElement extends PolymerElement {
 }
 customElements.define(NearbyShareReceiveDialogElement.is, NearbyShareReceiveDialogElement);
 
-function getTemplate$F() {
+function getTemplate$G() {
     return html `<!--_html_template_start_--><style include="settings-shared">.title{color:var(--cr-primary-text-color);margin:0;padding-block-end:0;padding-block-start:24px}h3.header{color:var(--cr-secondary-text-color);font-size:inherit;font-weight:inherit;margin:0;padding-block-end:16px;padding-inline-start:20px}#flex{flex:1}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="title" class="title">
@@ -48944,7 +50220,7 @@ class NearbyShareContactVisibilityDialogElement extends PolymerElement {
         return 'nearby-share-contact-visibility-dialog';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -48972,7 +50248,7 @@ class NearbyShareContactVisibilityDialogElement extends PolymerElement {
 }
 customElements.define(NearbyShareContactVisibilityDialogElement.is, NearbyShareContactVisibilityDialogElement);
 
-function getTemplate$E() {
+function getTemplate$F() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:340px}[slot=body]{padding-top:5px}.title{color:var(--cros-primary-text-color);margin:0;padding-block-end:24px;padding-block-start:24px}</style>
 <cr-dialog id="dialog">
   <div slot="title" class="title">$i18n{nearbyShareDeviceNameDialogTitle}</div>
@@ -49006,7 +50282,7 @@ class NearbyShareDeviceNameDialogElement extends NearbyShareDeviceNameDialogElem
         return 'nearby-share-device-name-dialog';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -49079,7 +50355,7 @@ class NearbyShareDeviceNameDialogElement extends NearbyShareDeviceNameDialogElem
 }
 customElements.define(NearbyShareDeviceNameDialogElement.is, NearbyShareDeviceNameDialogElement);
 
-function getTemplate$D() {
+function getTemplate$E() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:340px}.title{color:var(--cros-primary-text-color);margin:0;padding-block-end:0;padding-block-start:24px}cr-radio-group{margin-block-end:12px;margin-inline-start:2px}.data-usage-name{font-weight:600;padding-block-start:20px}#dataUsageDataIcon{--iron-icon-fill-color:var(--cros-icon-color-secondary);height:16px;padding-bottom:2px;width:16px}#dataUsageDataTooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-opacity:1;--paper-tooltip-text-color:var(--cros-tooltip-label-color)}#dataUsageDataTooltip::part(tooltip){margin-inline-end:6px}#dataUsageDataTooltipText{font-size:12px;font-weight:400;line-height:18px}</style>
 <cr-dialog id="dialog">
   <div slot="title" class="title">$i18n{nearbyShareDataUsageDialogTitle}</div>
@@ -49178,7 +50454,7 @@ class NearbyShareDataUsageDialogElement extends NearbyShareDataUsageDialogElemen
         return 'nearby-share-data-usage-dialog';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -49239,7 +50515,7 @@ class NearbyAccountManagerBrowserProxyImpl {
     }
 }
 
-function getTemplate$C() {
+function getTemplate$D() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">#help{flex-direction:row;align-items:flex-start;padding-block-end:12px;padding-block-start:12px}#helpIcon{--iron-icon-fill-color:var(--cr-secondary-text-color);height:16px;margin-inline-end:8px;padding:2px;width:16px}.help-text{flex-direction:column;color:var(--cr-secondary-text-color);font-size:13px;line-height:20px}#helpTopRow{margin-bottom:2.5%}#highVisibilityContainer{border-top:none;padding-inline-start:var(--cr-section-indent-padding);padding-inline-end:var(--cr-section-padding)}.separator{margin:0}#highVisibilityContainer>cr-toggle{margin-inline-start:var(--cr-section-padding)}#setupRow{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height);padding:0 var(--cr-section-padding)}</style>
 
 <template is="dom-if" if="[[prefs]]" restamp>
@@ -49397,7 +50673,7 @@ class SettingsNearbyShareSubpageElement extends SettingsNearbyShareSubpageElemen
         return 'settings-nearby-share-subpage';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$D();
     }
     static get properties() {
         return {
@@ -49717,7 +50993,7 @@ class SettingsNearbyShareSubpageElement extends SettingsNearbyShareSubpageElemen
 }
 customElements.define(SettingsNearbyShareSubpageElement.is, SettingsNearbyShareSubpageElement);
 
-function getTemplate$B() {
+function getTemplate$C() {
     return html `<!--_html_template_start_--><style include="settings-shared shared-style">iron-icon[icon='settings:check-circle']{--iron-icon-fill-color:var(--cros-sys-primary);margin-inline-end:26px}#listItem{min-height:36px;align-items:center;display:flex;justify-content:space-between;flex-direction:row;padding-left:32px;cursor:pointer}</style>
 
 <div id="listItem">
@@ -49742,7 +51018,7 @@ class AppLanguageSelectionItemElement extends PolymerElement {
         return 'app-language-selection-item';
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$C();
     }
     static get properties() {
         return {
@@ -49773,7 +51049,7 @@ class AppLanguageSelectionItemElement extends PolymerElement {
 }
 customElements.define(AppLanguageSelectionItemElement.is, AppLanguageSelectionItemElement);
 
-function getTemplate$A() {
+function getTemplate$B() {
     return html `<!--_html_template_start_--><style include="settings-shared shared-style">[slot=header]{align-items:center;display:flex;flex-direction:row;font-weight:400;height:48px;margin-inline-start:24px}.app-title{flex:1;overflow:hidden;text-overflow:ellipsis}.app-icon{height:36px;width:36px;margin-inline-end:12px}[slot=body]{display:flex;flex-direction:column;height:350px;overflow:auto}cr-search-field{margin-bottom:8px}iron-list>:not([selected]):hover{background-color:var(--cros-menu-item-bg-color-focus)}iron-list>[selected]:not(.no-outline):focus{background-color:transparent}.label{padding-bottom:8px;padding-top:8px}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
@@ -49851,7 +51127,7 @@ class AppLanguageSelectionDialogElement extends AppLanguageSelectionDialogElemen
         return 'app-language-selection-dialog';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$B();
     }
     static get properties() {
         return {
@@ -50020,14 +51296,17 @@ var BatteryType;
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-function getDeviceName(device) {
-    if (!device) {
+/**
+ *  WARNING: The returned string may contain malicious HTML and should not be
+ *  used for Polymer bindings in CSS code. For additional information see
+ *  b/298724102.
+ */
+function getDeviceNameUnsafe(device) {
+    if (!device || (!device.nickname && !device.deviceProperties?.publicName)) {
         return '';
     }
-    if (device.nickname) {
-        return device.nickname;
-    }
-    return mojoString16ToString(device.deviceProperties.publicName);
+    return device.nickname ||
+        mojoString16ToString(device.deviceProperties.publicName);
 }
 /**
  * Returns the battery percentage of the battery type of the device, or
@@ -50105,7 +51384,7 @@ function hasTrueWirelessImages(device) {
     return !!leftBudImageUrl.url && !!rightBudImageUrl.url && !!caseImageUrl.url;
 }
 
-function getTemplate$z() {
+function getTemplate$A() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:320px}[slot=button-container]{display:flex;justify-content:flex-end;margin:40px 0 20px 0;padding-top:0}:host([is-input-invalid_]) #inputInfo{color:var(--cros-text-color-alert)}#inputContainer{margin-top:24px}#changeNameInput{position:relative;z-index:1}#inputInfo{background-color:var(--cros-bg-color-elevation-3);color:var(--cros-text-color-secondary);display:flex;font-size:var(--cr-form-field-label-font-size);font-weight:400;height:30px;line-height:var(--cr-form-field-label-line-height);margin-top:-25px;padding-top:8px;position:relative;width:280px;z-index:2}:host-context([chrome-refresh-2023]) #inputInfo{margin-top:-15px}#inputSubtitle{width:260px}</style>
 
 <cr-dialog id="dialog" show-on-attach>
@@ -50154,7 +51433,7 @@ class SettingsBluetoothChangeDeviceNameDialogElement extends SettingsBluetoothCh
         return 'os-settings-bluetooth-change-device-name-dialog';
     }
     static get template() {
-        return getTemplate$z();
+        return getTemplate$A();
     }
     static get properties() {
         return {
@@ -50167,6 +51446,11 @@ class SettingsBluetoothChangeDeviceNameDialogElement extends SettingsBluetoothCh
                 type: Number,
                 value: MAX_INPUT_LENGTH,
             },
+            /**
+             * WARNING: This string may contain malicious HTML and should not be used
+             * for Polymer bindings in CSS code. For additional information see
+             * b/298724102.
+             */
             deviceName_: {
                 type: String,
                 value: '',
@@ -50180,7 +51464,7 @@ class SettingsBluetoothChangeDeviceNameDialogElement extends SettingsBluetoothCh
         };
     }
     onDeviceChanged_() {
-        this.deviceName_ = getDeviceName(this.device);
+        this.deviceName_ = getDeviceNameUnsafe(this.device);
     }
     onCancelClick_() {
         this.$.dialog.close();
@@ -50218,7 +51502,7 @@ class SettingsBluetoothChangeDeviceNameDialogElement extends SettingsBluetoothCh
         this.deviceName_ = this.deviceName_.substring(0, MAX_INPUT_LENGTH);
     }
     isDoneDisabled_() {
-        if (this.deviceName_ === getDeviceName(this.device)) {
+        if (this.deviceName_ === getDeviceNameUnsafe(this.device)) {
             return true;
         }
         if (!this.deviceName_.length) {
@@ -50226,10 +51510,13 @@ class SettingsBluetoothChangeDeviceNameDialogElement extends SettingsBluetoothCh
         }
         return false;
     }
+    getNameForTest() {
+        return getDeviceNameUnsafe(this.device);
+    }
 }
 customElements.define(SettingsBluetoothChangeDeviceNameDialogElement.is, SettingsBluetoothChangeDeviceNameDialogElement);
 
-const template = html`<iron-iconset-svg name="bluetooth" size="20">
+const template$1 = html`<iron-iconset-svg name="bluetooth" size="20">
   <svg>
     <defs>
       <g id="computer"><path fill-rule="evenodd" clip-rule="evenodd" d="M18 15H19C19.5523 15 20 15.4477 20 16C20 16.5523 19.5523 17 19 17H1C0.447715 17 0 16.5523 0 16C0 15.4477 0.447715 15 1 15H2V4C2 3.44772 2.44772 3 3 3H17C17.2761 3 17.5261 3.11193 17.7071 3.29289C17.8881 3.47386 18 3.72386 18 4V15ZM16 12V5H4V12H16ZM8 14V15H12V14H8Z"></path></g>
@@ -50260,9 +51547,9 @@ const template = html`<iron-iconset-svg name="bluetooth" size="20">
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template.content);
+document.head.appendChild(template$1.content);
 
-function getTemplate$y() {
+function getTemplate$z() {
   return html`<!--_html_template_start_--><style include="cr-shared-style">
   #image {
     height: 24px;
@@ -50291,7 +51578,7 @@ class SettingsBluetoothIconElement extends PolymerElement {
         return 'bluetooth-icon';
     }
     static get template() {
-        return getTemplate$y();
+        return getTemplate$z();
     }
     static get properties() {
         return {
@@ -50338,7 +51625,7 @@ class SettingsBluetoothIconElement extends PolymerElement {
 }
 customElements.define(SettingsBluetoothIconElement.is, SettingsBluetoothIconElement);
 
-function getTemplate$x() {
+function getTemplate$y() {
   return html`<!--_html_template_start_--><style include="cr-shared-style">
   :host([is-low-battery_]) #container {
     --iron-icon-fill-color: var(--cros-icon-color-alert);
@@ -50412,7 +51699,7 @@ class BluetoothBatteryIconPercentageElement extends BluetoothBatteryIconPercenta
         return 'bluetooth-battery-icon-percentage';
     }
     static get template() {
-        return getTemplate$x();
+        return getTemplate$y();
     }
     static get properties() {
         return {
@@ -50499,7 +51786,7 @@ class BluetoothBatteryIconPercentageElement extends BluetoothBatteryIconPercenta
 }
 customElements.define(BluetoothBatteryIconPercentageElement.is, BluetoothBatteryIconPercentageElement);
 
-function getTemplate$w() {
+function getTemplate$x() {
     return html `<!--_html_template_start_--><style include="settings-shared">#container{align-items:center;display:flex;flex-direction:row;gap:100px;justify-content:center;margin:40px 0}.image-wrapper{height:60px;margin-bottom:16px;width:60px}.image-wrapper img{border:1px solid var(--cros-color-primary-dark);border-radius:50%;height:100%;width:100%}.battery-container{align-items:center;display:flex;flex-direction:column;height:124px;justify-content:center}bluetooth-battery-icon-percentage{margin-bottom:8px}#notConnectedLabel{color:gray}</style>
 <div id="container">
   <template is="dom-if" restamp if="[[shouldShowBatteryTypeInfo_(device, BatteryType.LEFT_BUD)]]">
@@ -50572,7 +51859,7 @@ class SettingsBluetoothTrueWirelessImagesElement extends SettingsBluetoothTrueWi
         return 'os-settings-bluetooth-true-wireless-images';
     }
     static get template() {
-        return getTemplate$w();
+        return getTemplate$x();
     }
     static get properties() {
         return {
@@ -50653,7 +51940,7 @@ class SettingsBluetoothTrueWirelessImagesElement extends SettingsBluetoothTrueWi
 }
 customElements.define(SettingsBluetoothTrueWirelessImagesElement.is, SettingsBluetoothTrueWirelessImagesElement);
 
-function getTemplate$v() {
+function getTemplate$w() {
   return html`<!--_html_template_start_--><style include="cr-shared-style">
 </style>
 <template is="dom-if" if="[[!showMultipleBatteries_]]" restamp>
@@ -50713,7 +52000,7 @@ class BluetoothDeviceBatteryInfoElement extends PolymerElement {
         return 'bluetooth-device-battery-info';
     }
     static get template() {
-        return getTemplate$v();
+        return getTemplate$w();
     }
     static get properties() {
         return {
@@ -50788,7 +52075,7 @@ function recordSavedDevicesUiEventMetrics(uiEvent) {
     chrome.metricsPrivate.recordEnumerationValue('Bluetooth.ChromeOS.FastPair.SavedDevices.UiEvent', uiEvent, Object.keys(FastPairSavedDevicesUiEvent).length);
 }
 
-function getTemplate$u() {
+function getTemplate$v() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host([is-device-connected_]) #bluetoothState{color:var(--cros-text-color-positive)}#connectionFailed{color:var(--cros-text-color-alert)}#managedIcon{flex:8}#forgetBtn{margin-inline-end:8px}.bluetooth-middle{align-items:center;flex:auto}.cancel-button{margin-inline-end:0}</style>
 <div id="container">
   <div id="deviceStateSettings" class="settings-box two-line first">
@@ -50839,7 +52126,7 @@ function getTemplate$u() {
     <div id="bluetoothDeviceName" class="bluetooth-middle settings-box-text no-padding" aria-hidden="true">
       $i18n{bluetoothDeviceDetailName}
       <div class="secondary" id="bluetoothDeviceNameLabel">
-        [[getDeviceName_(device_.*)]]
+        [[getDeviceNameUnsafe_(device_.*)]]
       </div>
     </div>
     <cr-button id="changeNameBtn" on-click="onChangeNameClick_" aria-label$="[[getChangeDeviceNameBtnA11yLabel_(device_.*)]]" class="layout end cancel-button">
@@ -50920,7 +52207,7 @@ class SettingsBluetoothDeviceDetailSubpageElement extends SettingsBluetoothDevic
         return 'os-settings-bluetooth-device-detail-subpage';
     }
     static get template() {
-        return getTemplate$u();
+        return getTemplate$v();
     }
     static get properties() {
         return {
@@ -51038,11 +52325,8 @@ class SettingsBluetoothDeviceDetailSubpageElement extends SettingsBluetoothDevic
             this.i18n('bluetoothDeviceDetailConnected') :
             this.i18n('bluetoothDeviceDetailDisconnected');
     }
-    getDeviceName_() {
-        if (!this.device_) {
-            return '';
-        }
-        return getDeviceName(this.device_);
+    getDeviceNameUnsafe_() {
+        return getDeviceNameUnsafe(this.device_);
     }
     shouldShowConnectDisconnectBtn_() {
         if (!this.device_) {
@@ -51059,7 +52343,7 @@ class SettingsBluetoothDeviceDetailSubpageElement extends SettingsBluetoothDevic
             return;
         }
         this.parentNode.pageTitle =
-            getDeviceName(this.device_);
+            getDeviceNameUnsafe(this.device_);
         // Special case a where user is still on detail page and has
         // tried to connect to device but failed. The current |pageState_|
         // is CONNECTION_FAILED, but another device property not
@@ -51113,7 +52397,7 @@ class SettingsBluetoothDeviceDetailSubpageElement extends SettingsBluetoothDevic
         if (!this.device_) {
             return '';
         }
-        return this.i18n('bluetoothDeviceDetailChangeDeviceNameBtnA11yLabel', this.getDeviceName_());
+        return loadTimeData.getStringF('bluetoothDeviceDetailChangeDeviceNameBtnA11yLabel', getDeviceNameUnsafe(this.device_));
     }
     getMultipleBatteryInfoA11yLabel_() {
         assert$1(this.device_);
@@ -51154,14 +52438,14 @@ class SettingsBluetoothDeviceDetailSubpageElement extends SettingsBluetoothDevic
         }
         switch (this.pageState_) {
             case PageState.CONNECTING:
-                return this.i18n('bluetoothDeviceDetailConnectingA11yLabel', this.getDeviceName_());
+                return loadTimeData.getStringF('bluetoothDeviceDetailConnectingA11yLabel', getDeviceNameUnsafe(this.device_));
             case PageState.CONNECTED:
-                return this.i18n('bluetoothDeviceDetailConnectedA11yLabel', this.getDeviceName_());
+                return loadTimeData.getStringF('bluetoothDeviceDetailConnectedA11yLabel', getDeviceNameUnsafe(this.device_));
             case PageState.CONNECTION_FAILED:
-                return this.i18n('bluetoothDeviceDetailConnectionFailureA11yLabel', this.getDeviceName_());
+                return loadTimeData.getStringF('bluetoothDeviceDetailConnectionFailureA11yLabel', getDeviceNameUnsafe(this.device_));
             case PageState.DISCONNECTED:
             case PageState.DISCONNECTING:
-                return this.i18n('bluetoothDeviceDetailDisconnectedA11yLabel', this.getDeviceName_());
+                return loadTimeData.getStringF('bluetoothDeviceDetailDisconnectedA11yLabel', getDeviceNameUnsafe(this.device_));
             default:
                 assertNotReached$1();
         }
@@ -51285,7 +52569,7 @@ class SettingsBluetoothDeviceDetailSubpageElement extends SettingsBluetoothDevic
         }
     }
     getForgetA11yLabel_() {
-        return this.i18n('bluetoothDeviceDetailForgetA11yLabel', this.getDeviceName_());
+        return loadTimeData.getStringF('bluetoothDeviceDetailForgetA11yLabel', getDeviceNameUnsafe(this.device_));
     }
     onForgetButtonClicked_() {
         if (loadTimeData.getBoolean('enableFastPairFlag')) {
@@ -51304,13 +52588,13 @@ class SettingsBluetoothDeviceDetailSubpageElement extends SettingsBluetoothDevic
 }
 customElements.define(SettingsBluetoothDeviceDetailSubpageElement.is, SettingsBluetoothDeviceDetailSubpageElement);
 
-function getTemplate$t() {
+function getTemplate$u() {
     return html `<!--_html_template_start_--><style include="settings-shared">bluetooth-device-battery-info{padding-top:3px}</style>
 <div focus-row-container>
   <div class="list-item" focus-row-control focus-type="rowWrapper" role="button" selectable aria-label="[[getAriaLabel_(device, itemIndex, listSize)]]" on-keydown="onKeydown_" on-click="onSelected_">
     <bluetooth-icon device="[[device.deviceProperties]]"></bluetooth-icon>
     <div class="middle" aria-hidden="true">
-      <div id="deviceName">[[getDeviceName_(device)]]</div>
+      <div id="deviceName">[[getDeviceNameUnsafe_(device)]]</div>
       <template is="dom-if" if="[[shouldShowBatteryInfo_(device)]]" restamp>
         <bluetooth-device-battery-info device="[[device.deviceProperties]]">
         </bluetooth-device-battery-info>
@@ -51346,7 +52630,7 @@ class SettingsPairedBluetoothListItemElement extends SettingsPairedBluetoothList
         return 'os-settings-paired-bluetooth-list-item';
     }
     static get template() {
-        return getTemplate$t();
+        return getTemplate$u();
     }
     static get properties() {
         return {
@@ -51395,8 +52679,8 @@ class SettingsPairedBluetoothListItemElement extends SettingsPairedBluetoothList
         params.append('id', this.device.deviceProperties.id);
         Router.getInstance().navigateTo(routes.BLUETOOTH_DEVICE_DETAIL, params);
     }
-    getDeviceName_(device) {
-        return getDeviceName(device);
+    getDeviceNameUnsafe_(device) {
+        return getDeviceNameUnsafe(device);
     }
     shouldShowBatteryInfo_(device) {
         return getBatteryPercentage(device.deviceProperties, BatteryType.DEFAULT) !== undefined ||
@@ -51434,7 +52718,7 @@ class SettingsPairedBluetoothListItemElement extends SettingsPairedBluetoothList
     getAriaLabel_(device) {
         // Start with the base information of the device name and location within
         // the list of devices with the same connection state.
-        let a11yLabel = this.i18n('bluetoothA11yDeviceName', this.itemIndex + 1, this.listSize, this.getDeviceName_(device));
+        let a11yLabel = loadTimeData.getStringF('bluetoothA11yDeviceName', this.itemIndex + 1, this.listSize, this.getDeviceNameUnsafe_(device));
         // Include the connection status.
         a11yLabel +=
             ' ' + this.i18n(this.getA11yDeviceConnectionStatusTextName_(device));
@@ -51509,7 +52793,7 @@ class SettingsPairedBluetoothListItemElement extends SettingsPairedBluetoothList
 }
 customElements.define(SettingsPairedBluetoothListItemElement.is, SettingsPairedBluetoothListItemElement);
 
-function getTemplate$s() {
+function getTemplate$t() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-section-min-height:64px}iron-list>:not(:first-of-type){border-top:var(--cr-separator-line)}</style>
 <div id="container" class="layout vertical flex" scrollable no-bottom-scroll-border>
   <iron-list items="[[devices]]" scroll-target="container" preserve-focus>
@@ -51538,7 +52822,7 @@ class SettingsPairedBluetoothListElement extends SettingsPairedBluetoothListElem
         return 'os-settings-paired-bluetooth-list';
     }
     static get template() {
-        return getTemplate$s();
+        return getTemplate$t();
     }
     static get properties() {
         return {
@@ -51610,7 +52894,7 @@ class SettingsPairedBluetoothListElement extends SettingsPairedBluetoothListElem
 }
 customElements.define(SettingsPairedBluetoothListElement.is, SettingsPairedBluetoothListElement);
 
-function getTemplate$r() {
+function getTemplate$s() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <settings-toggle-button id="toggle" class="two-line" label="$i18n{enableFastPairLabel}" sub-label="$i18n{enableFastPairSubtitle}" pref="{{prefs.ash.fast_pair.enabled}}">
 </settings-toggle-button><!--_html_template_end_-->`;
@@ -51629,7 +52913,7 @@ class SettingsFastPairToggleElement extends SettingsFastPairToggleElementBase {
         return 'settings-fast-pair-toggle';
     }
     static get template() {
-        return getTemplate$r();
+        return getTemplate$s();
     }
     focus() {
         this.shadowRoot.querySelector('#toggle').focus();
@@ -51672,7 +52956,7 @@ class SettingsFastPairToggleElement extends SettingsFastPairToggleElementBase {
 }
 customElements.define(SettingsFastPairToggleElement.is, SettingsFastPairToggleElement);
 
-function getTemplate$q() {
+function getTemplate$r() {
     return html `<!--_html_template_start_--><style include="settings-shared">#container{padding-inline-end:calc(var(--cr-section-padding) - var(--cr-icon-ripple-padding));padding-inline-start:var(--cr-section-padding)}.device-lists-separator{border-top:var(--cr-separator-line);padding:0}#onOff{font-weight:500}#onOff[on]{color:var(--cros-text-color-prominent)}.device-list{margin-inline-start:32px}</style>
 <div class="settings-box first">
   <div id="onOff" class="start" on$="[[isBluetoothToggleOn_]]" aria-hidden="true">
@@ -51737,7 +53021,7 @@ class SettingsBluetoothDevicesSubpageElement extends SettingsBluetoothDevicesSub
         return 'os-settings-bluetooth-devices-subpage';
     }
     static get template() {
-        return getTemplate$q();
+        return getTemplate$r();
     }
     static get properties() {
         return {
@@ -52120,7 +53404,7 @@ class GoogleDriveBrowserProxy {
 }
 let instance$3 = null;
 
-function getTemplate$p() {
+function getTemplate$q() {
     return html `<!--_html_template_start_--><style include="settings-shared">#driveAccountEmail{font:var(--cros-button-2-font)}</style>
 
 <div class="settings-box two-line first">
@@ -52275,7 +53559,7 @@ class SettingsGoogleDriveSubpageElement extends SettingsGoogleDriveSubpageElemen
         return 'settings-google-drive-subpage';
     }
     static get template() {
-        return getTemplate$p();
+        return getTemplate$q();
     }
     static get properties() {
         return {
@@ -52823,7 +54107,7 @@ class PrivacyPageBrowserProxyImpl {
 }
 let instance$2 = null;
 
-function getTemplate$o() {
+function getTemplate$p() {
     return html `<!--_html_template_start_--><style include="settings-shared">h2{padding-inline-start:var(--cr-section-padding)}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>cr-link-row,.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}</style>
 <template is="dom-if" if="[[hasLauncherKey_]]">
   <div class="settings-box first" id="launcherKey">
@@ -52949,7 +54233,7 @@ class SettingsKeyboardElement extends SettingsKeyboardElementBase {
         return 'settings-keyboard';
     }
     static get template() {
-        return getTemplate$o();
+        return getTemplate$p();
     }
     static get properties() {
         return {
@@ -53125,7 +54409,7 @@ class SettingsKeyboardElement extends SettingsKeyboardElementBase {
 }
 customElements.define(SettingsKeyboardElement.is, SettingsKeyboardElement);
 
-function getTemplate$n() {
+function getTemplate$o() {
     return html `<!--_html_template_start_--><style include="settings-shared">h2{padding-inline-start:var(--cr-section-padding)}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>.settings-box,.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}#enableReverseScrollingToggle{border-top:none;padding-inline-end:0}</style>
 <div id="mouse" hidden$="[[!hasMouse]]">
   
@@ -53242,7 +54526,7 @@ class SettingsPointersElement extends SettingsPointersElementBase {
         return 'settings-pointers';
     }
     static get template() {
-        return getTemplate$n();
+        return getTemplate$o();
     }
     static get properties() {
         return {
@@ -53399,7 +54683,7 @@ class SettingsPointersElement extends SettingsPointersElementBase {
 }
 customElements.define(SettingsPointersElement.is, SettingsPointersElement);
 
-function getTemplate$m() {
+function getTemplate$n() {
     return html `<!--_html_template_start_--><style include="iron-flex cr-shared-style settings-shared md-select">.indented{margin-inline-start:var(--cr-section-indent-padding);padding-inline-start:0}cr-policy-indicator{padding-inline-end:8px}.dropdown-row{--cr-section-min-height:64px}</style>
 <div id="powerSourceRow" class="cr-row first" hidden$="[[!batteryStatus_.present]]">
   <div class="flex cr-padded-text" aria-hidden="true">
@@ -53509,7 +54793,7 @@ class SettingsPowerElement extends SettingsPowerElementBase {
         return 'settings-power';
     }
     static get template() {
-        return getTemplate$m();
+        return getTemplate$n();
     }
     static get properties() {
         return {
@@ -53908,7 +55192,7 @@ class SettingsPowerElement extends SettingsPowerElementBase {
 }
 customElements.define(SettingsPowerElement.is, SettingsPowerElement);
 
-function getTemplate$l() {
+function getTemplate$m() {
     return html `<!--_html_template_start_--><style include="settings-shared">settings-toggle-button{margin-inline-end:var(--cr-section-padding);margin-inline-start:var(--cr-section-indent-padding);padding-inline-end:0;padding-inline-start:0}</style>
 <settings-toggle-button class="hr" pref="{{visiblePref_}}" label="[[label]]" on-settings-boolean-control-change="onVisibleChange_">
 </settings-toggle-button>
@@ -53930,7 +55214,7 @@ class StorageExternalEntryElement extends StorageExternalEntryElementBase {
         return 'storage-external-entry';
     }
     static get template() {
-        return getTemplate$l();
+        return getTemplate$m();
     }
     static get properties() {
         return {
@@ -53984,7 +55268,7 @@ class StorageExternalEntryElement extends StorageExternalEntryElementBase {
 }
 customElements.define(StorageExternalEntryElement.is, StorageExternalEntryElement);
 
-function getTemplate$k() {
+function getTemplate$l() {
     return html `<!--_html_template_start_--><style include="settings-shared">h2{padding-inline-start:var(--cr-section-padding)}#androidAppsExternalDrivesNoteContainer{padding-top:10px;padding-bottom:10px}</style>
 
 <div id="androidAppsExternalDrivesNoteContainer" class="settings-box first">
@@ -54015,7 +55299,7 @@ class SettingsStorageExternalElement extends SettingsStorageExternalElementBase 
         return 'settings-storage-external';
     }
     static get template() {
-        return getTemplate$k();
+        return getTemplate$l();
     }
     static get properties() {
         return {
@@ -54054,7 +55338,7 @@ class SettingsStorageExternalElement extends SettingsStorageExternalElementBase 
 }
 customElements.define(SettingsStorageExternalElement.is, SettingsStorageExternalElement);
 
-function getTemplate$j() {
+function getTemplate$k() {
     return html `<!--_html_template_start_--><style include="settings-shared">progress{-webkit-appearance:none;display:block;height:28px;width:100%}progress::-webkit-progress-bar{background-color:var(--cros-tab-slider-track-color);border-radius:2px}progress::-webkit-progress-value{background-color:var(--cros-icon-color-prominent);border-radius:2px}progress.space-low::-webkit-progress-value{background-color:var(--cros-icon-color-warning)}progress.space-critically-low::-webkit-progress-value{background-color:var(--cros-icon-color-alert)}iron-icon{--iron-icon-fill-color:var(--cros-icon-color-warning);--iron-icon-height:32px;--iron-icon-width:32px}#criticallyLowMessage iron-icon{--iron-icon-fill-color:var(--cros-icon-color-alert)}.storage-size{color:var(--cr-secondary-text-color)}.message-area{background-color:var(--cros-textfield-background-color);border-radius:2px;display:flex;margin:14px 0 16px;padding-bottom:12px;padding-inline-end:48px;padding-inline-start:16px;padding-top:16px;width:100%}.message-area>iron-icon{flex:none;padding-inline-end:16px}.message-title{color:var(--cros-text-color-primary);font-size:115%}.message-description{color:var(--cros-text-color-secondary);font-size:92%;line-height:1.6em;margin:1em 0}#barArea{display:flex;flex-direction:column;margin:24px 0 54px;width:100%}#barLabels{display:flex}.bar-label{display:flex;flex-direction:column}.bar-label .vertical-line{align-self:center;background-color:var(--cros-separator-color);height:8px;margin-bottom:4px;width:1px}.bar-label .wrapper{color:var(--cros-text-color-primary);text-align:center;white-space:nowrap}.end-aligned .wrapper{direction:rtl}:host-context([dir=rtl]) .end-aligned .wrapper{direction:ltr}.end-aligned .wrapper span{direction:initial;unicode-bidi:embed}</style>
 <template is="dom-if" if="[[isSpaceLow_(sizeStat_.spaceState)]]">
   <div class="settings-box first">
@@ -54152,7 +55436,7 @@ class SettingsStorageElement extends SettingsStorageElementBase {
         return 'settings-storage';
     }
     static get template() {
-        return getTemplate$j();
+        return getTemplate$k();
     }
     static get properties() {
         return {
@@ -54426,7 +55710,7 @@ class SettingsStorageElement extends SettingsStorageElementBase {
 }
 customElements.define(SettingsStorageElement.is, SettingsStorageElement);
 
-function getTemplate$i() {
+function getTemplate$j() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">.settings-box>.secondary{align-items:center;display:flex;margin-top:0}paper-spinner-lite{height:var(--cr-icon-size);margin-inline-start:12px;width:var(--cr-icon-size)}cr-policy-indicator{padding:0 var(--cr-controlled-by-spacing)}#selectApp{width:400px}#note-taking-app-lock-screen-settings{padding:0 var(--cr-section-padding)}</style>
 
 <settings-toggle-button id="enableStylusToolsToggle" pref="{{prefs.settings.enable_stylus_tools}}" label="$i18n{stylusEnableStylusTools}" deep-link-focus-id$="[[Setting.kStylusToolsInShelf]]">
@@ -54503,7 +55787,7 @@ class SettingsStylusElement extends SettingsStylusElementBase {
         return 'settings-stylus';
     }
     static get template() {
-        return getTemplate$i();
+        return getTemplate$j();
     }
     static get properties() {
         return {
@@ -54658,6 +55942,160 @@ class SettingsStylusElement extends SettingsStylusElementBase {
     }
 }
 customElements.define(SettingsStylusElement.is, SettingsStylusElement);
+
+const template = html `
+
+<iron-iconset-svg name="cellular-setup" size="20">
+  <svg>
+    <defs>
+        <g id="camera" viewBox="0 0 20 20"><mask id="a" maskUnits="userSpaceOnUse" x="1" y="2" width="18" height="16"><path fill-rule="evenodd" clip-rule="evenodd" d="M16.667 4.167h-2.642L12.5 2.5h-5L5.975 4.167H3.334c-.917 0-1.667.75-1.667 1.666v10c0 .917.75 1.667 1.667 1.667h13.333c.917 0 1.667-.75 1.667-1.667v-10c0-.916-.75-1.666-1.667-1.666zm0 11.666H3.334v-10h13.333v10zm-10-5A3.332 3.332 0 1 1 10 14.166a3.332 3.332 0 0 1-3.333-3.333z" fill="#fff"></path></mask><g mask="url(#a)"><path d="M0 0h20v20H0z"></path></g></g>
+        <g id="checked" viewBox="0 0 20 20"><path d="M13.707 7.293a1 1 0 0 0-1.414 0L9 10.586 7.707 9.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0 0-1.414z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-2a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"></path></g>
+        <g id="error" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M9 10h2V6H9v4zm1-8c-4.416 0-8 3.584-8 8s3.584 8 8 8 8-3.584 8-8-3.584-8-8-8zm0 14c-3.308 0-6-2.693-6-6 0-3.308 2.692-6 6-6 3.307 0 6 2.692 6 6 0 3.307-2.693 6-6 6zm-1-2h2v-2H9v2z"></path></g>
+        <g id="switch-camera" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 9V7H4.802A5.996 5.996 0 0 1 10 4a6 6 0 0 1 5.917 5h2.021c-.491-3.945-3.853-7-7.93-7a7.992 7.992 0 0 0-6.009 2.712L4 3H2v6h5zm5.938 2v2h2.198a5.996 5.996 0 0 1-5.198 3 6 6 0 0 1-5.917-5H2c.492 3.945 3.853 7 7.93 7a7.992 7.992 0 0 0 6.009-2.712V17h2v-6h-5zM10 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></g>
+        <g id="try-again" viewBox="0 0 20 20"><path path fill-rule="evenodd" clip-rule="evenodd" d="M10 3C6.136 3 3 6.136 3 10C3 13.864 6.136 17 10 17C12.1865 17 14.1399 15.9959 15.4239 14.4239L13.9984 12.9984C13.0852 14.2129 11.6325 15 10 15C7.24375 15 5 12.7563 5 10C5 7.24375 7.24375 5 10 5C11.6318 5 13.0839 5.78641 13.9972 7H11V9H17V3H15V5.10253C13.7292 3.80529 11.9581 3 10 3Z"></path></g>
+        <g id="warning" viewBox="0 0 20 20"><path d="M9 12H11V8H9V12Z"></path><path d="M11 15H9V13H11V15Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 2.50386C9.51566 1.83205 10.4844 1.83205 10.8683 2.50386L18.8683 16.5039C19.2492 17.1705 18.7678 18 18 18H2.00001C1.23219 18 0.750823 17.1705 1.13177 16.5039L9.13177 2.50386ZM10 5.01556L3.72321 16H16.2768L10 5.01556Z"></path></g>
+        <g id="info" viewBox="0 0 24 24"><path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"></path></g>
+    </defs>
+  </svg>
+</iron-iconset-svg>
+
+
+<iron-iconset-svg name="cellular-setup-illo" size="200">
+  <svg>
+    <defs>
+      <g id="error" viewBox="0 0 201 200" fill="none">
+        <path d="M122.984 41.38c-25.952 0-46.99 21.015-46.99 46.939s21.038 46.94 46.99 46.94 46.991-21.016 46.991-46.94-21.039-46.94-46.991-46.94Zm0 1.928c24.886 0 45.06 20.152 45.06 45.011s-20.174 45.011-45.06 45.011c-24.886 0-45.06-20.152-45.06-45.011s20.174-45.01 45.06-45.01Z" fill="var(--cros-sys-illo-color1-2)"/><path d="M133.249 89.338h-11.877v11.574h-13.557a.39.39 0 0 1-.272-.668l25.044-24.408a.39.39 0 0 1 .662.28v13.222Zm-1.288 3.1-1.815-1.814-2.691 2.688-2.69-2.688-1.816 1.813 2.691 2.688-2.691 2.688 1.816 1.813 2.69-2.675 2.691 2.675 1.815-1.813-2.677-2.688 2.677-2.688Z" fill="var(--cros-sys-illo-color1-2)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M157.595 158.993c0-13.495-10.951-24.435-24.461-24.435-13.509 0-24.461 10.94-24.461 24.435" fill="var(--cros-sys-illo-secondary)"/><path fill-rule="evenodd" clip-rule="evenodd" d="m48.74 134.835 1.893 2.7a2.532 2.532 0 0 1-.62 3.527l-.002.002-24.851 17.382a2.533 2.533 0 0 1-3.525-.622l-1.893-2.7a2.532 2.532 0 0 1 .62-3.527l.002-.002 24.851-17.382a2.532 2.532 0 0 1 3.525.622Z" fill="var(--cros-sys-illo-color5)"/><path d="M50.548 159.017c4.33.999 8.65-1.697 9.648-6.022.999-4.326-1.702-8.643-6.032-9.642-4.33-1-8.649 1.696-9.647 6.022-.999 4.325 1.701 8.642 6.031 9.642Z" fill="var(--cros-sys-illo-secondary)"/><path d="M68.12 147.061c11.198 0 20.276-9.068 20.276-20.254 0-11.187-9.078-20.255-20.277-20.255-11.198 0-20.276 9.068-20.276 20.255 0 11.186 9.078 20.254 20.276 20.254Z" fill="var(--cros-sys-illo-color3)"/><path d="M69.88 130.279v-.746c0-.617.116-1.14.348-1.569.232-.429.64-.909 1.223-1.44.72-.669 1.296-1.334 1.725-1.994.43-.66.644-1.444.644-2.353 0-.909-.228-1.732-.683-2.469-.454-.738-1.09-1.321-1.905-1.749-.815-.429-1.746-.643-2.794-.643-1.407 0-2.566.394-3.476 1.183-.91.789-1.536 1.697-1.88 2.726l2.473 1.029c.223-.669.57-1.222 1.042-1.659.472-.437 1.095-.656 1.867-.656.807 0 1.442.219 1.906.656.463.437.695.99.695 1.659 0 .549-.133 1.02-.4 1.415-.266.394-.699.857-1.3 1.389-.858.771-1.454 1.448-1.79 2.031-.334.583-.501 1.295-.501 2.135v1.055h2.806Zm-1.416 6.018a1.82 1.82 0 0 0 1.352-.565c.369-.378.553-.832.553-1.364 0-.531-.184-.986-.553-1.363a1.82 1.82 0 0 0-1.352-.566c-.532 0-.987.185-1.364.553a1.846 1.846 0 0 0-.567 1.376c0 .532.189.986.567 1.364.377.377.832.565 1.364.565Z" fill="var(--cros-sys-illo-base)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M62.197 156.996c-.52.906.13 2.039 1.17 2.039H73.98c1.039 0 1.688-1.133 1.169-2.039l-5.308-9.255a1.346 1.346 0 0 0-2.338 0l-5.307 9.255Z" fill="var(--cros-sys-illo-color4)"/><path d="M191.495 159.035a.965.965 0 0 1 .093 1.925l-.093.004H13.831a.965.965 0 0 1-.093-1.924l.093-.005h177.664Z" fill="var(--cros-sys-illo-color1-2)"/><path d="M97.578 158.993c7.638 0 13.83-6.192 13.83-13.83s-6.192-13.83-13.83-13.83-13.83 6.192-13.83 13.83 6.192 13.83 13.83 13.83Z" fill="var(--cros-sys-illo-color1)"/>
+      </g>
+      <g id="final-page-success" viewBox="0 0 201 200" fill="none">
+        <path d="M100.366 109.293c-23.295 0-42.18 18.794-42.18 41.977 0 23.183 18.885 41.976 42.18 41.976 23.295 0 42.179-18.793 42.179-41.976s-18.884-41.977-42.179-41.977Zm0 1.908c22.236 0 40.262 17.939 40.262 40.069 0 22.129-18.026 40.068-40.262 40.068s-40.262-17.939-40.262-40.068c0-22.13 18.026-40.069 40.262-40.069Z" fill="var(--cros-sys-illo-color1-2)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M72.382 80.903c0 15.456 12.528 27.985 27.984 27.985 15.455 0 27.984-12.53 27.984-27.985" fill="var(--cros-sys-illo-color1-2)"/><path d="M100.366 124.705c-14.784 0-26.768 11.984-26.768 26.768 0 14.783 11.984 26.767 26.768 26.767 14.783 0 26.767-11.984 26.767-26.767 0-14.784-11.984-26.768-26.767-26.768Zm0 2.549c13.375 0 24.218 10.843 24.218 24.219 0 13.375-10.843 24.218-24.218 24.218-13.376 0-24.219-10.843-24.219-24.218 0-13.376 10.843-24.219 24.219-24.219Z" fill="var(--cros-sys-illo-color1)"/><path d="M106.609 138.351h4.995v22.475h-4.995v-22.475Zm-17.48 12.486h4.994v9.989h-4.995v-9.989Zm8.74-6.243h4.994v16.232h-4.994v-16.232Z" fill="var(--cros-sys-illo-color1)"/><path fill-rule="evenodd" clip-rule="evenodd" d="m114.565 49.036 1.13 2.792a2.636 2.636 0 0 1-1.455 3.433l-.003.001-27.656 11.155a2.636 2.636 0 0 1-3.43-1.456l-1.13-2.792a2.636 2.636 0 0 1 1.455-3.433h.003l27.656-11.156a2.637 2.637 0 0 1 3.43 1.456Z" fill="var(--cros-sys-illo-color1)"/><path d="M100.366 50.643c8.96 0 16.223-7.264 16.223-16.223 0-8.96-7.263-16.223-16.223-16.223-8.96 0-16.223 7.263-16.223 16.223 0 8.96 7.263 16.223 16.223 16.223Z" fill="var(--cros-sys-illo-color2)"/><path fill-rule="evenodd" clip-rule="evenodd" d="m101.896 61.021 8.657 8.643c.476.475.477 1.245.002 1.72l-.002.002-8.657 8.643a1.216 1.216 0 0 1-1.719 0l-8.658-8.643a1.217 1.217 0 0 1-.002-1.72l.002-.002 8.658-8.643a1.217 1.217 0 0 1 1.719 0Z" fill="var(--cros-sys-illo-color3)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.252 8.37c-.49-.86.123-1.934 1.104-1.934h10.02c.981 0 1.594 1.075 1.103 1.934l-5.01 8.778c-.49.859-1.716.859-2.207 0l-5.01-8.778Z" fill="var(--cros-sys-illo-color6)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M111.439 25.828c.66.5.791 1.44.291 2.1L99.765 43.748a1.5 1.5 0 0 1-2.15.253l-7.03-5.79a1.5 1.5 0 1 1 1.907-2.316l5.824 4.796 11.022-14.57a1.5 1.5 0 0 1 2.101-.292Z" fill="var(--cros-sys-illo-base)"/>
+      </g>
+      <g id="sim-detect-error" viewBox="0 0 200 200" fill="none">
+        <g clip-path="url(#a)"><path d="M250.017 151.141H98.165a6.753 6.753 0 0 1-6.752-6.752V40.862h165.419v103.465a6.764 6.764 0 0 1-1.978 4.837 6.748 6.748 0 0 1-4.837 1.977v0Z" fill="var(--cros-sys-illo-base)" stroke="var(--cros-sys-illo-color1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M149.866 141.888h48.45a2.562 2.562 0 0 0 2.563-2.563v-30.351a2.563 2.563 0 0 0-2.563-2.564h-48.45a2.563 2.563 0 0 0-2.563 2.564v30.351a2.562 2.562 0 0 0 2.563 2.563Z" fill="var(--cros-sys-illo-color1-2)"/><path d="M268.71 44.987H79.473a1.375 1.375 0 0 1-1.376-1.375V40.55a2.688 2.688 0 0 1 2.688-2.688h186.612a2.688 2.688 0 0 1 2.688 2.688v3.063a1.375 1.375 0 0 1-1.375 1.375v0Z" fill="var(--cros-sys-illo-base)" stroke="var(--cros-sys-illo-color1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M246.641 48.515h-145.1c-.587 0-1.063.505-1.063 1.127v45.68c0 .622.476 1.127 1.063 1.127h145.1c.587 0 1.063-.505 1.063-1.127v-45.68c0-.622-.476-1.127-1.063-1.127Z" fill="var(--cros-sys-illo-color1-2)"/><path d="M68.147 97.994H43.285a1.025 1.025 0 0 1-1.025-1.077V78.155a1.025 1.025 0 0 1 1.025-1.025h19.48l6.408 6.202v13.585a1.024 1.024 0 0 1-1.026 1.077Z" fill="var(--cros-sys-illo-color1)"/><path d="M52.65 89.142H46.5c-.615 0-1.113.498-1.113 1.113v3.796c0 .614.498 1.113 1.113 1.113h6.15c.615 0 1.113-.499 1.113-1.113v-3.796c0-.615-.498-1.113-1.113-1.113Z" fill="var(--cros-sys-illo-base)"/><path d="M52.65 89.142H46.5c-.615 0-1.113.498-1.113 1.113v3.796c0 .614.498 1.113 1.113 1.113h6.15c.615 0 1.113-.499 1.113-1.113v-3.796c0-.615-.498-1.113-1.113-1.113Z" fill="var(--cros-sys-illo-color1-2)"/><path d="M35.852 70.568v34.038" stroke="var(--cros-sys-illo-color1)" stroke-width="4" stroke-linecap="square" stroke-linejoin="round"/><path d="M35.852 73.797H71.12a2.307 2.307 0 0 1 2.307 2.307V99.02a2.307 2.307 0 0 1-2.307 2.307H35.85" stroke="var(--cros-sys-illo-color1)" stroke-width="2" stroke-linejoin="round"/><path d="M54.614 129.674c23.386 0 42.343-18.958 42.343-42.343 0-23.386-18.957-42.344-42.343-42.344-23.385 0-42.343 18.958-42.343 42.344 0 23.385 18.958 42.343 42.343 42.343Z" stroke="var(--cros-sys-illo-base)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M54.614 129.674c23.386 0 42.343-18.958 42.343-42.343 0-23.386-18.957-42.344-42.343-42.344-23.385 0-42.343 18.958-42.343 42.344 0 23.385 18.958 42.343 42.343 42.343Z" stroke="var(--cros-sys-illo-color1-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g><defs><clipPath id="a"><path fill="var(--cros-sys-illo-base)" d="M0 0h200v200H0z"/></clipPath></defs>
+      </g>
+      <g id="network-setup" viewBox="0 0 448 268" fill="none">
+        <path fill="var(--cros-sys-illo-color1-2)" d="M161.515 66.264c8.231-8.384 21.739-8.384 29.97 0l2.126 2.165a21 21 0 0 0 18.462 5.999l2.992-.502c11.587-1.945 22.516 5.995 24.247 17.616l.447 3a20.998 20.998 0 0 0 11.409 15.705l2.716 1.353c10.518 5.237 14.692 18.084 9.262 28.504l-1.402 2.69a21 21 0 0 0 0 19.412l1.402 2.69c5.43 10.42 1.256 23.267-9.262 28.504l-2.716 1.353a20.998 20.998 0 0 0-11.409 15.704l-.447 3.001c-1.731 11.621-12.66 19.561-24.247 17.616l-2.992-.502a21 21 0 0 0-18.462 5.999l-2.126 2.165c-8.231 8.384-21.739 8.384-29.97 0l-2.126-2.165a21 21 0 0 0-18.462-5.999l-2.992.502c-11.587 1.945-22.516-5.995-24.247-17.616l-.447-3.001a20.998 20.998 0 0 0-11.409-15.704l-2.716-1.353c-10.518-5.237-14.692-18.085-9.262-28.504l1.402-2.69a21 21 0 0 0 0-19.412l-1.402-2.69c-5.43-10.42-1.256-23.267 9.262-28.504l2.716-1.353a20.998 20.998 0 0 0 11.409-15.704l.447-3c1.731-11.622 12.66-19.562 24.247-17.617l2.992.502a21 21 0 0 0 18.462-5.999l2.126-2.165Z"/><path stroke="var(--cros-sys-illo-color1-1)" stroke-width="2" d="m194.325 67.729-2.126-2.165c-8.623-8.784-22.775-8.784-31.398 0l-2.126 2.165a19.999 19.999 0 0 1-17.582 5.713l-2.992-.503c-12.139-2.037-23.588 6.281-25.402 18.456l-.447 3a20 20 0 0 1-10.866 14.957l-2.716 1.353c-11.018 5.486-15.392 18.946-9.703 29.861l1.403 2.69a20.001 20.001 0 0 1 0 18.488l-1.403 2.69c-5.689 10.915-1.315 24.375 9.703 29.861l2.716 1.353a20 20 0 0 1 10.866 14.956l.447 3.001c1.814 12.175 13.263 20.493 25.402 18.456l2.992-.503a20 20 0 0 1 17.582 5.713l2.126 2.165c8.623 8.784 22.775 8.784 31.398 0l2.126-2.165a20 20 0 0 1 17.582-5.713l2.992.503c12.139 2.037 23.588-6.281 25.402-18.456l.447-3.001a20 20 0 0 1 10.866-14.956l2.716-1.353c11.018-5.486 15.392-18.946 9.703-29.861l-1.403-2.69a20.002 20.002 0 0 1 0-18.488l1.403-2.69c5.689-10.915 1.315-24.375-9.703-29.861l-2.716-1.353a19.999 19.999 0 0 1-10.866-14.956l-.447-3.001c-1.814-12.175-13.263-20.493-25.402-18.456l-2.992.503a19.999 19.999 0 0 1-17.582-5.713Z"/><path fill="var(--cros-sys-illo-base)" fill-rule="evenodd" d="M135.851 231.34c-10.808.761-20.589-6.917-22.219-17.857l-.44-2.954a21 21 0 0 0-11.41-15.705l-2.673-1.331a21.17 21.17 0 0 1-3.062-1.862c.07-.843.127-1.316.127-1.316 10.877-22.149 37.395-36.852 67.662-37.796 2.732 0 5.332-.021 7.818-.04 27.89-.218 41.509-.325 67.279 29.623l18.963-32.618 13.701 6.683c.47.289.961.556 1.47.8l8.601 4.113 7.329 3.575s-18.205 51.582-49.306 51.582c-31.1 0-39.444-23.515-39.444-23.515l-4.778 33.68-41.395 3.185-2.653-1.593-4.776-15.921-5.838-14.859-15.657 12.196 10.701 21.93Z" clip-rule="evenodd"/><path stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m145.631 192.724-20.481 16.688 10.35 20.707m64.746-37.395s8.344 23.515 39.445 23.515 49.306-51.582 49.306-51.582l-31.101-15.171-18.964 32.618c-28.066-32.618-41.72-29.584-75.096-29.584-30.267.945-56.785 15.648-67.662 37.796"/><path stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M140.412 198.033s4.988 8.064 7.761 21.849c2.774 13.785 8.261 8.777 8.261 8.777M201.005 183.621l-5.309 41.909-38.51 3.123"/><path fill="var(--cros-sys-illo-color1-1)" d="M268.928 134.551c-5.748 4.252-9.928 14.351-9.928 14.351L279.379 159l6.271-3.189s17.243 4.252 23.514.532c3.633-2.156 5.904-5.654 4.336-8.843-6.271-2.126.889-2.319-1.723-5.508-1.045-2.657-10.904-2.641-14.631-3.189-6.477-.951-9.406-2.126-9.406-2.126s6.793.532 6.793-3.189c0-3.72-19.857-3.189-25.605 1.063Z"/><path stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M258.73 148.955s2.008-13.6 15.152-16.155c7.572-.927 16.105-2.244 18.401-1.694 2.297.55 3.94 2.576 2.268 4.3-1.672 1.724-8.44 1.265-8.44 1.265s4.536 1.622 10.13 2.273c5.595.651 11.55.373 13.762 1.273 2.212.9 2.924 1.613 2.287 3.457-.636 1.844-9.099 1.048-11.164.725"/><path stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M278.43 158.828s4.321-2.583 6.7-3.038c2.379-.455 11.788 2.857 16.26 2.615 4.472-.242 9.729-.666 8.796-3.608-.933-2.942-8.107-1.68-11.696-2.753-3.59-1.074-6.43-2.284-11.967-4.915-5.538-2.632-11.197-.846-11.197-.846"/><path stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-width="2" d="M292.321 145.572s4.498 2.355 9.958 3.635c5.46 1.28 10.147-.226 10.774 3.006.221 1.139-1.028 1.815-2.83 2.186"/><path stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-width="2" d="M294.33 142.364s2.297 1.175 8.454 2.918c6.158 1.742 12.415.216 11.287 4.5-.176.669-.846.833-1.554 1.275"/><path fill="var(--cros-sys-illo-color1-1)" fill-rule="evenodd" d="M181.206 129.366c-.506-1.269-1.02-2.559-1.396-3.842-2.225-7.594-9.958-12.013-17.271-9.87-7.313 2.143-11.437 10.037-9.211 17.631 1.115 3.807 3.615 6.816 6.752 8.601l2.258 5.268c1.213 2.83.607 4.953.607 4.953h15.011l-1.264-10.112c8.548-2.507 6.603-7.386 4.514-12.629Z" clip-rule="evenodd"/><path fill="var(--cros-sys-illo-color1)" d="m179.81 125.524.96-.281-.96.281Zm1.396 3.842.929-.37-.929.37Zm-18.667-13.712.282.96-.282-.96Zm-9.211 17.631-.96.281.96-.281Zm6.752 8.601.919-.394-.132-.309-.292-.166-.495.869Zm2.258 5.268.919-.394-.919.394Zm.607 4.953-.962-.275-.364 1.275h1.326v-1Zm15.011 0v1h1.133l-.141-1.124-.992.124Zm-1.264-10.112-.282-.959-.816.239.106.844.992-.124Zm2.159-16.19c.391 1.337.924 2.671 1.426 3.931l1.858-.74c-.509-1.277-1.005-2.523-1.365-3.753l-1.919.562Zm-16.03-9.191c6.749-1.978 13.949 2.093 16.03 9.191l1.919-.562c-2.371-8.09-10.635-12.857-18.512-10.549l.563 1.92Zm-8.534 16.39c-2.08-7.099 1.784-14.413 8.534-16.39l-.563-1.92c-7.877 2.309-12.261 10.782-9.89 18.872l1.919-.562Zm6.288 8.013c-2.916-1.659-5.246-4.46-6.288-8.013l-1.919.562c1.19 4.061 3.86 7.279 7.218 9.189l.989-1.738Zm2.682 5.743-2.258-5.268-1.838.788 2.258 5.268 1.838-.788Zm-.312 5.347.961.274.001-.001v-.002l.001-.004.004-.012.008-.032.024-.101c.019-.084.042-.2.064-.344.045-.288.088-.694.088-1.193 0-1-.172-2.375-.839-3.932l-1.838.788c.546 1.273.677 2.375.677 3.144 0 .385-.033.687-.064.885-.015.099-.03.172-.04.215l-.01.043-.001.005.001-.003v-.002l.001-.001v-.001l.962.274Zm15.011-1h-15.011v2h15.011v-2Zm-2.256-8.988 1.263 10.112 1.985-.248-1.264-10.112-1.984.248Zm4.577-12.383c.527 1.323 1.018 2.559 1.344 3.73.325 1.172.459 2.198.327 3.096-.127.866-.508 1.663-1.321 2.398-.836.755-2.162 1.473-4.217 2.076l.563 1.919c2.22-.651 3.856-1.483 4.994-2.511 1.161-1.049 1.766-2.269 1.96-3.592.19-1.291-.019-2.624-.379-3.921-.36-1.296-.895-2.636-1.413-3.935l-1.858.74Z"/><path fill="var(--cros-sys-illo-color1)" d="M175.036 107.905c4.916 2.217 1.328 11.297 1.328 11.297s-5.587.349-9.022 3.184c-3.436 2.836-2.758 8.085-2.758 8.085s-4.141-3.308-6.271-.6c-2.129 2.708 1.309 5.761 3.191 5.535 1.272-.321 2.523 2.332 3.199 4.084.33.855-.036 1.802-.823 2.274l-3.968 2.381s-7.43-3.715-12.737-10.614c-11.751-17.797 10.091-19.091 17.594-23.226 4.722-2.603 5.351-4.616 10.267-2.4Z"/><path stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-width="2" d="M176.976 133.292s.678 1.139 2.566.959c1.887-.179 2.856-1.746 2.856-1.746"/><path fill="var(--cros-sys-illo-color1)" fill-rule="evenodd" d="M199.18 232.461a21.002 21.002 0 0 0-5.739 4.143l-2.092 2.131c-8.231 8.385-21.739 8.385-29.971 0l-2.092-2.131a20.996 20.996 0 0 0-9.043-5.43l.647-2.648 2.654 1.592 3.184-1.592 38.21-3.184 4.242 7.119Z" clip-rule="evenodd"/><path fill="var(--cros-sys-illo-color3)" d="M397.872 86.917c.805.4.716 1.575-.14 1.848L384.813 92.9c-.263.085-.48.275-.599.525l-5.883 12.437c-.391.829-1.599.738-1.861-.14l-3.948-13.18a.998.998 0 0 0-.513-.61l-12.151-6.027c-.805-.4-.716-1.575.139-1.849l12.919-4.134a.998.998 0 0 0 .599-.524l5.883-12.437c.392-.829 1.599-.738 1.862.14l3.947 13.18c.08.265.266.486.514.609l12.151 6.028Z"/><path fill="var(--cros-sys-illo-color1)" fill-rule="evenodd" d="m349.878 93.025-15.257-10.872-19.596 3.29-16.307 22.885a4.698 4.698 0 0 0 1.096 6.532l22.886 16.307c2.097 1.495 5.037 1.001 6.532-1.097l21.742-30.513a4.698 4.698 0 0 0-1.096-6.532Zm-28.419-2.279a1 1 0 0 0-1.394.234l-8.495 11.922a1 1 0 0 0 .234 1.395l1.947 1.387a1 1 0 0 0 1.395-.234l8.495-11.922a1 1 0 0 0-.235-1.395l-1.947-1.387Zm4.565 4.481a1 1 0 0 1 1.395-.234l1.947 1.387a1 1 0 0 1 .234 1.395L315.473 117.6a1 1 0 0 1-1.395.234l-1.947-1.387a1 1 0 0 1-.234-1.395l14.127-19.826Zm-1.283 14.41a1 1 0 0 1 1.395-.234l5.523 3.935a1 1 0 0 1 .234 1.395l-6.885 9.663a1 1 0 0 1-1.395.234l-5.523-3.935a1 1 0 0 1-.234-1.395l6.885-9.663Zm-14.546-3.082a1 1 0 0 0-1.395.234l-2.862 4.017a1 1 0 0 0 .234 1.395l1.947 1.387a1 1 0 0 0 1.395-.234l2.862-4.017a1 1 0 0 0-.234-1.395l-1.947-1.387Zm20.18-4.824a1 1 0 0 1 1.394-.234l5.523 3.935a1 1 0 0 1 .234 1.395l-2.862 4.017a1 1 0 0 1-1.395.234l-5.523-3.935a1.001 1.001 0 0 1-.234-1.395l2.863-4.017Z" clip-rule="evenodd"/><path fill="var(--cros-sys-illo-color2)" d="m357.021 183.351-20.762-16.266c-2.583-1.976-4.285-4.921-4.731-8.188a12.684 12.684 0 0 1 2.349-9.235 12.401 12.401 0 0 1 3.557-3.253 12.118 12.118 0 0 1 4.501-1.625 11.957 11.957 0 0 1 4.757.252 12.012 12.012 0 0 1 4.29 2.09l20.755 16.265c2.585 1.974 4.288 4.919 4.736 8.186a12.684 12.684 0 0 1-2.347 9.237c-1.952 2.646-4.85 4.4-8.058 4.876a11.996 11.996 0 0 1-9.047-2.339Z"/><path fill="var(--cros-sys-illo-color5)" d="m360.216 117.139-9.945 4.986a2.54 2.54 0 0 0-1.132 3.41l4.927 9.827a2.54 2.54 0 0 0 3.41 1.133l9.945-4.986a2.54 2.54 0 0 0 1.132-3.41l-4.927-9.827a2.54 2.54 0 0 0-3.41-1.133Z"/><circle cx="296.5" cy="59.5" r="9.25" stroke="var(--cros-sys-illo-color4)" stroke-width="2.5"/><path stroke="var(--cros-sys-illo-color1-2)" stroke-linecap="round" stroke-width="2" d="M373.354 32c-5.436 21.674-40.031 8.683-44.941 33.385"/>
+      </g>
+    </defs>
+  </svg>
+</iron-iconset-svg>
+`;
+document.head.appendChild(template.content);
+
+function getTemplate$i() {
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:416px}#title{height:15px}#warningMessage{--iron-icon-fill-color:var(--cros-icon-color-disabled);--iron-icon-height:16px;--iron-icon-width:16px;font-size:smaller;margin-top:20px}#warningMessage iron-icon{float:left;padding-inline-end:4px}:host-context([dir=rtl]) #warningMessage iron-icon{float:right}#warningMessage div{overflow:hidden}#cancel{margin-inline-end:8px}#cancel:focus{box-shadow:0 0 0 2px var(--focus-shadow-color)}</style>
+<cr-dialog id="dialog" show-on-attach>
+  <div id="title" slot="title">
+    [[getTitleString_(esimProfileName_)]]
+  </div>
+  <div slot="body">
+    <div id="description">$i18n{eSimRemoveProfileDialogDescription}</div>
+    <div id="warningMessage" hidden$="[[!showCellularDisconnectWarning]]">
+      <iron-icon icon="cr:info-outline"></iron-icon>
+      <div>$i18n{eSimDialogConnectionWarning}</div>
+    </div>
+  </div>
+  <div slot="button-container">
+    <cr-button id="cancel" aria-label="[[getCancelBtnA11yLabel_(esimProfileName_)]]" on-click="onCancelClick_" class="cancel-button">
+      $i18n{eSimRemoveProfileDialogCancel}
+    </cr-button>
+    <cr-button id="remove" aria-label$="[[getRemoveBtnA11yLabel_(esimProfileName_)]]" aria-describedby="description warningMessage" on-click="onRemoveProfileClick_" class="action-button">
+      $i18n{eSimRemoveProfileDialogRemove}
+    </cr-button>
+  </div>
+</cr-dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Polymer element to remove eSIM profile
+ */
+const EsimRemoveProfileDialogElementBase = I18nMixin(PolymerElement);
+class EsimRemoveProfileDialogElement extends EsimRemoveProfileDialogElementBase {
+    static get is() {
+        return 'esim-remove-profile-dialog';
+    }
+    static get template() {
+        return getTemplate$i();
+    }
+    static get properties() {
+        return {
+            networkState: {
+                type: Object,
+                value: null,
+            },
+            showCellularDisconnectWarning: {
+                type: Boolean,
+                value: false,
+            },
+            esimProfileName_: {
+                type: String,
+                value: '',
+            },
+        };
+    }
+    constructor() {
+        super();
+        this.esimProfileRemote_ = null;
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.init_();
+    }
+    async init_() {
+        if (!(this.networkState &&
+            this.networkState.type === NetworkType.kCellular)) {
+            return;
+        }
+        this.esimProfileRemote_ =
+            await getESimProfile(this.networkState.typeState.cellular.iccid);
+        // Fail gracefully if init is incomplete, see crbug/1194729.
+        if (!this.esimProfileRemote_) {
+            this.fireShowErrorToastEvent_();
+            this.$.dialog.close();
+            return;
+        }
+        this.esimProfileName_ = this.networkState.name;
+        this.$.cancel.focus();
+    }
+    getTitleString_() {
+        if (!this.esimProfileName_) {
+            return '';
+        }
+        return this.i18n('esimRemoveProfileDialogTitle', this.esimProfileName_);
+    }
+    onRemoveProfileClick_() {
+        this.esimProfileRemote_.uninstallProfile().then((response) => {
+            if (response.result === ESimOperationResult.kFailure) {
+                this.fireShowErrorToastEvent_();
+            }
+        });
+        this.$.dialog.close();
+        const params = new URLSearchParams();
+        params.append('type', OncMojo.getNetworkTypeString(NetworkType.kCellular));
+        Router.getInstance().setCurrentRoute(routes.INTERNET_NETWORKS, params, /*isPopState=*/ true);
+    }
+    onCancelClick_() {
+        this.$.dialog.close();
+    }
+    getRemoveBtnA11yLabel_(esimProfileName) {
+        return this.i18n('eSimRemoveProfileRemoveA11yLabel', esimProfileName);
+    }
+    getCancelBtnA11yLabel_(esimProfileName) {
+        return this.i18n('eSimRemoveProfileCancelA11yLabel', esimProfileName);
+    }
+    fireShowErrorToastEvent_() {
+        const showErrorToastEvent = new CustomEvent('show-error-toast', {
+            bubbles: true,
+            composed: true,
+            detail: this.i18n('eSimRemoveProfileDialogError'),
+        });
+        this.dispatchEvent(showErrorToastEvent);
+    }
+}
+customElements.define(EsimRemoveProfileDialogElement.is, EsimRemoveProfileDialogElement);
 
 function getTemplate$h() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-button{white-space:nowrap}</style>
@@ -56519,7 +57957,7 @@ function getTemplate$4() {
       <cr-link-row id="appManagementRow" class="settings-box first" start-icon="[[rowIcons_.manageApps]]" label="$i18n{appManagementTitle}" on-click="onClickAppManagement_" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <template is="dom-if" if="[[showAppNotificationsRow_]]">
-        <cr-link-row id="appNotificationsRow" class="settings-box" start-icon="[[rowIcons_.notifications]]" label="$i18n{appNotificationsTitle}" on-click="onClickAppNotifications_" role-description="$i18n{subpageArrowRoleDescription}" sub-label="[[getAppListCountDescription_(
+        <cr-link-row id="appNotificationsRow" class="settings-box" start-icon="[[rowIcons_.notifications]]" label="$i18n{appNotificationsTitle}" on-click="onClickAppNotifications_" role-description="$i18n{subpageArrowRoleDescription}" sub-label="[[getAppNotificationsRowSublabel_(
                 appsWithNotifications_.*, isDndEnabled_)]]">
         </cr-link-row>
       </template>
@@ -56910,9 +58348,12 @@ class OsSettingsAppsPageElement extends OsSettingsAppsPageElementBase {
     onQuietModeChanged(enabled) {
         this.isDndEnabled_ = enabled;
     }
-    getAppListCountDescription_() {
+    getAppNotificationsRowSublabel_() {
+        if (this.isRevampWayfindingEnabled_) {
+            return this.i18n('appNotificationsRowSublabel');
+        }
         return this.isDndEnabled_ ?
-            this.i18n('appNotificationsDoNotDisturbDescription') :
+            this.i18n('appNotificationsDoNotDisturbEnabledDescription') :
             this.i18n('appNotificationsCountDescription', this.appsWithNotifications_.length);
     }
 }
@@ -57062,7 +58503,7 @@ function getTemplate$2() {
       </template>
     </div>
     <div class="middle" aria-hidden="true">
-      <div id="deviceName">[[getDeviceName_(device)]]</div>
+      <div id="deviceName">[[getDeviceNameUnsafe_(device)]]</div>
     </div>
     <div>
       <cr-icon-button class="icon-more-vert" focus-row-control focus-type="subpageButton" tabindex$="[[tabindex]]" on-click="onMenuButtonClick_" aria-label="[[getSubpageButtonA11yLabel_(device)]]">
@@ -57091,7 +58532,7 @@ function getTemplate$2() {
  * Item in <os-saved-devices-list> that displays information for a saved
  * Bluetooth device.
  */
-const SettingsSavedDevicesListItemElementBase = FocusRowMixin(WebUiListenerMixin(I18nMixin(PolymerElement)));
+const SettingsSavedDevicesListItemElementBase = FocusRowMixin(WebUiListenerMixin(PolymerElement));
 class SettingsSavedDevicesListItemElement extends SettingsSavedDevicesListItemElementBase {
     static get is() {
         return 'os-settings-saved-devices-list-item';
@@ -57117,7 +58558,7 @@ class SettingsSavedDevicesListItemElement extends SettingsSavedDevicesListItemEl
             },
         };
     }
-    getDeviceName_(device) {
+    getDeviceNameUnsafe_(device) {
         return device.name;
     }
     getImageSrc_(device) {
@@ -57137,12 +58578,12 @@ class SettingsSavedDevicesListItemElement extends SettingsSavedDevicesListItemEl
         this.shouldShowRemoveSavedDeviceDialog_ = false;
     }
     getAriaLabel_(device) {
-        const deviceName = this.getDeviceName_(device);
-        return this.i18n('savedDeviceItemA11yLabel', this.itemIndex + 1, this.listSize, deviceName);
+        const deviceName = this.getDeviceNameUnsafe_(device);
+        return loadTimeData.getStringF('savedDeviceItemA11yLabel', this.itemIndex + 1, this.listSize, deviceName);
     }
     getSubpageButtonA11yLabel_(device) {
-        const deviceName = this.getDeviceName_(device);
-        return this.i18n('savedDeviceItemButtonA11yLabel', deviceName);
+        const deviceName = this.getDeviceNameUnsafe_(device);
+        return loadTimeData.getStringF('savedDeviceItemButtonA11yLabel', deviceName);
     }
 }
 customElements.define(SettingsSavedDevicesListItemElement.is, SettingsSavedDevicesListItemElement);
@@ -57360,5 +58801,5 @@ class SettingsBluetoothSavedDevicesSubpageElement extends SettingsBluetoothSaved
 }
 customElements.define(SettingsBluetoothSavedDevicesSubpageElement.is, SettingsBluetoothSavedDevicesSubpageElement);
 
-export { assertInstanceof as $, AboutPageBrowserProxyImpl as A, getApnDisplayName as B, CrPolicyIndicatorType$1 as C, DeepLinkingMixin as D, assert as E, FocusRowMixin as F, GeolocationAccessLevel as G, ApnDetailDialogMode as H, I18nMixin as I, processDeviceState as J, getInstance as K, LifetimeBrowserProxyImpl as L, CrPolicyNetworkBehaviorMojo as M, NetworkListenerBehavior as N, OncMojo as O, PrefsMixin as P, FAKE_CREDENTIAL as Q, RouteObserverMixin as R, Setting as S, TERMINA_VM_TYPE as T, UpdateStatus as U, VM_DEVICE_MICROPHONE as V, WebUiListenerMixin as W, isActiveSim as X, InternetPageBrowserProxyImpl as Y, OsSyncBrowserProxyImpl as Z, assertExists$2 as _, assertNotReached$1 as a, FindShortcutMixin as a$, getESimProfileProperties as a0, mojoString16ToString as a1, CellularSetupPageName as a2, ESimManagerListenerMixin as a3, MultiDeviceBrowserProxyImpl as a4, getEuicc as a5, getSimSlotCount as a6, getPendingESimProfiles as a7, MultiDeviceFeatureState as a8, CrToggleElement as a9, CrDialogElement as aA, CrIconButtonElement as aB, CrActionMenuElement as aC, recordLockScreenProgress as aD, LockScreenProgress as aE, PluralStringProxyImpl as aF, SyncBrowserProxyImpl as aG, PageStatus as aH, StatusAction as aI, CrScrollableMixin as aJ, PrivacyHubBrowserProxyImpl as aK, getAppPermissionProvider as aL, MediaDevicesProxy as aM, AppPermissionsObserverReceiver as aN, isPermissionEnabled as aO, CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aP, PrivacyHubSensorSubpageUserAction as aQ, NUMBER_OF_POSSIBLE_USER_ACTIONS as aR, MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aS, AppLanguageSelectionDialogEntryPoint as aT, OneDriveBrowserProxy as aU, AppManagementStoreMixin as aV, getAppIcon as aW, AppManagementBrowserProxy as aX, alphabeticalSort as aY, GlobalScrollTargetMixin as aZ, OsSettingsSubpageElement as a_, BrowserProxy$1 as aa, getImage as ab, ChromeVoxSubpageBrowserProxyImpl as ac, assertExhaustive as ad, DevicePageBrowserProxyImpl as ae, SettingsToggleButtonElement as af, SelectToSpeakSubpageBrowserProxyImpl as ag, LanguagesBrowserProxyImpl as ah, SwitchAccessSubpageBrowserProxyImpl as ai, TextToSpeechSubpageBrowserProxyImpl as aj, TtsVoiceSubpageBrowserProxyImpl as ak, BrowserChannel as al, isTargetChannelMoreStable as am, DeviceNameBrowserProxyImpl as an, SetDeviceNameResult as ao, DeviceNameState as ap, AccountManagerBrowserProxyImpl as aq, ParentalControlsBrowserProxyImpl as ar, assertInstanceof$1 as as, fireAuthTokenInvalidEvent as at, LockStateMixin as au, MultiDeviceFeatureMixin as av, MultiDeviceFeature as aw, MultiDeviceSettingsMode as ax, CrInputElement as ay, CrButtonElement as az, routes as b, AppNotificationRowElement as b$, ACCESSIBILITY_COMMON_IME_ID as b0, IronA11yKeysBehavior as b1, PrivacyPageBrowserProxyImpl as b2, SecureDnsMode as b3, SecureDnsUiManagementMode as b4, StaticShortcutAction as b5, EventTracker as b6, getInputDeviceSettingsProvider as b7, FakeInputDeviceSettingsProvider as b8, ButtonPressObserverReceiver as b9, SettingsMultideviceFeatureToggleElement as bA, SettingsMultideviceSubpageElement as bB, SettingsMultideviceTaskContinuationDisabledLinkElement as bC, SettingsMultideviceTaskContinuationItemElement as bD, SettingsMultideviceWifiSyncDisabledLinkElement as bE, NearbyShareReceiveDialogElement as bF, SettingsNearbyShareSubpageElement as bG, SettingsAndroidAppsSubpageElement as bH, AppManagementAppDetailViewElement as bI, AppManagementAppDetailsItem as bJ, AppManagementAppItemElement as bK, SettingsAppManagementPageElement as bL, AppManagementArcDetailViewElement as bM, AppManagementBorealisDetailViewElement as bN, AppManagementChromeAppDetailViewElement as bO, AppManagementDomSwitchElement as bP, AppManagementMainViewElement as bQ, AppManagementPermissionHeadingElement as bR, AppManagementPermissionItemElement as bS, AppManagementPinToShelfItemElement as bT, AppManagementPluginVmDetailViewElement as bU, AppManagementPwaDetailViewElement as bV, AppManagementResizeLockItemElement as bW, AppManagementSubAppsItemElement as bX, AppManagementSupportedLinksItemElement as bY, AppManagementSupportedLinksOverlappingAppsDialogElement as bZ, AppManagementUninstallButtonElement as b_, buttonsAreEqual as ba, getShortcutInputProvider as bb, keyEventsAreEqual as bc, AudioAndCaptionsPageBrowserProxyImpl as bd, SmbBrowserProxyImpl as be, SmbMountResult as bf, AppLanguageSelectionDialogElement as bg, AppLanguageSelectionItemElement as bh, SettingsRadioGroupElement as bi, DateTimeSettingsCardElement as bj, TimezoneSelectorElement as bk, SettingsCustomizeMouseButtonsSubpageElement as bl, SettingsCustomizePenButtonsSubpageElement as bm, SettingsCustomizeTabletButtonsSubpageElement as bn, SettingsKeyboardElement as bo, SettingsPointersElement as bp, SettingsPowerElement as bq, SettingsStorageElement as br, SettingsStylusElement as bs, CROSTINI_TYPE as bt, GuestOsBrowserProxyImpl as bu, PLUGIN_VM_TYPE as bv, ContainerSelectElement as bw, SettingsGuestOsSharedPathsElement as bx, SettingsMultideviceCombinedSetupItemElement as by, SettingsMultideviceFeatureItemElement as bz, assert$1 as c, GraphicsTabletSettingsObserverReceiver as c$, SettingsAppNotificationsManagerSubpage as c0, AppNotificationsSubpage as c1, SettingsBluetoothChangeDeviceNameDialogElement as c2, SettingsBluetoothDeviceDetailSubpageElement as c3, SettingsBluetoothDevicesSubpageElement as c4, SettingsBluetoothSavedDevicesSubpageElement as c5, SettingsBluetoothTrueWirelessImagesElement as c6, SettingsPairedBluetoothListElement as c7, SettingsPairedBluetoothListItemElement as c8, SettingsSavedDevicesListElement as c9, DATE_AND_TIME_SECTION_PATH as cA, LANGUAGES_AND_INPUT_SECTION_PATH as cB, FILES_SECTION_PATH as cC, PRINTING_SECTION_PATH as cD, CROSTINI_SECTION_PATH as cE, RESET_SECTION_PATH as cF, getDeviceName as cG, KeyboardSettingsObserverReceiver as cH, MouseSettingsObserverReceiver as cI, PointingStickSettingsObserverReceiver as cJ, TouchpadSettingsObserverReceiver as cK, routesMojom as cL, getDisplayApi as cM, IronResizableBehavior as cN, PaperRippleMixin as cO, getDeviceStateChangesToAnnounce as cP, CrLinkRowElement as cQ, Fkey as cR, ExtendedFkeysModifier as cS, TopRowActionKey as cT, MetaKey as cU, ModifierKey$1 as cV, SixPackShortcutModifier as cW, SixPackKey as cX, PolicyStatus as cY, isInputDeviceSettingsSplitEnabled as cZ, isExternalStorageEnabled as c_, FilesSettingsCardElement as ca, SettingsGoogleDriveSubpageElement as cb, LanguageSettingsCardElement as cc, SettingsLanguagesElement as cd, PrintingSettingsCardElement as ce, SettingsPrivacyHubGeolocationSubpage as cf, SettingsPrivacyHubSubpage as cg, OsSettingsPowerwashDialogElement as ch, OsResetBrowserProxyImpl as ci, OsSettingsSanitizeDialogElement as cj, ResetSettingsCardElement as ck, listenOnce as cl, ABOUT_CHROME_OS_SECTION_PATH as cm, isAdvancedRoute as cn, NETWORK_SECTION_PATH as co, BLUETOOTH_SECTION_PATH as cp, MULTI_DEVICE_SECTION_PATH as cq, PEOPLE_SECTION_PATH as cr, KERBEROS_SECTION_PATH as cs, DEVICE_SECTION_PATH as ct, PERSONALIZATION_SECTION_PATH as cu, PRIVACY_AND_SECURITY_SECTION_PATH as cv, APPS_SECTION_PATH as cw, ACCESSIBILITY_SECTION_PATH as cx, SYSTEM_PREFERENCES_SECTION_PATH as cy, SEARCH_AND_ASSISTANT_SECTION_PATH as cz, cast as d, DEFAULT_UNCHECKED_VALUE as d$, Button as d0, ButtonState$1 as d1, hasActiveCellularNetwork as d2, getESimProfile as d3, stringToMojoString16 as d4, NetworkConfigElementBehavior as d5, assertNotReached as d6, htmlEscape as d7, isConnectedToNonCellularNetwork as d8, getNumESimProfiles as d9, isBasicRoute as dA, CrSearchFieldMixin as dB, SectionSpec as dC, SubpageSpec as dD, SettingSpec as dE, OpenWindowProxyImpl as dF, recordSearch as dG, CrContainerShadowMixin as dH, setGlobalScrollTarget as dI, recordPageFocus as dJ, recordPageBlur as dK, recordClick as dL, recordNavigation as dM, getPrefPolicyFields as dN, settingsAreEqual as dO, CustomizationRestriction as dP, SimulateRightClickModifier as dQ, recordSavedDevicesUiEventMetrics as dR, FastPairSavedDevicesUiEvent as dS, ColorChangeUpdater as dT, getContactManager as dU, observeContactManager as dV, setContactManagerForTesting as dW, NearbyProgressElement as dX, nearby_share_mojomWebui as dY, setNearbyShareSettingsForTesting as dZ, DEFAULT_CHECKED_VALUE as d_, LockScreenUnlockType as da, PhoneHubPermissionsSetupFlowScreens as db, PhoneHubPermissionsSetupAction as dc, PhoneHubPermissionsSetupFeatureCombination as dd, getNearbyShareSettings as de, observeNearbyShareSettings as df, PhoneHubFeatureAccessStatus as dg, OsBluetoothDevicesSubpageBrowserProxyImpl as dh, ButtonState as di, ButtonName as dj, DeviceItemState as dk, PairingAuthType as dl, recordBluetoothUiSurfaceMetrics as dm, BluetoothUiSurface as dn, isAccountManagerEnabled as dp, AUTH_TOKEN_INVALID_EVENT_TYPE as dq, PrivacyHubNavigationOrigin as dr, isQuickAnswersSupported as ds, isAssistantAllowed as dt, shouldShowMultitasking as du, isGuest as dv, isPowerwashAllowed as dw, shouldShowStartup as dx, isAboutRoute as dy, AndroidAppsBrowserProxyImpl as dz, equalContainerId as e, observeReceiveManager as e$, ExtensionControlBrowserProxyImpl as e0, CrCheckboxElement as e1, CrCardRadioButtonElement as e2, CrRadioButtonElement as e3, CrRadioGroupElement as e4, CrSearchFieldElement as e5, CrSearchableDropDownElement as e6, CrSliderElement as e7, CrTextareaElement as e8, CrToastElement as e9, StorageSpaceState as eA, fakeGraphicsTabletButtonActions as eB, fakeGraphicsTablets as eC, fakeKeyboards as eD, fakeKeyboards2 as eE, fakeMice as eF, fakeMice2 as eG, fakeMouseButtonActions as eH, fakePointingSticks as eI, fakePointingSticks2 as eJ, fakeStyluses as eK, fakeTouchpads as eL, fakeTouchpads2 as eM, setInputDeviceSettingsProviderForTesting as eN, setupFakeInputDeviceSettingsProvider as eO, Vkey as eP, setUserActionRecorderForTesting as eQ, app_notification_handler_mojomWebui as eR, app_permission_handler_mojomWebui as eS, setting_mojomWebui as eT, user_action_recorder_mojomWebui as eU, PhoneHubFeatureAccessProhibitedReason as eV, PhoneHubPermissionsSetupMode as eW, NearbyAccountManagerBrowserProxyImpl as eX, NearbyShareConfirmPageElement as eY, NearbyShareHighVisibilityPageElement as eZ, getReceiveManager as e_, LocalizedLinkElement as ea, CrPolicyIndicatorElement as eb, CrTooltipIconElement as ec, ApnDetailDialog as ed, SettingsPrefsElement as ee, CrSettingsPrefs as ef, addApp$1 as eg, changeApp$1 as eh, removeApp$1 as ei, updateSelectedAppId$1 as ej, updateSubAppToParentAppId$1 as ek, reduceAction as el, updateApps as em, AppManagementStore as en, resetGlobalScrollTargetForTesting as eo, LacrosExtensionControlBrowserProxyImpl as ep, LacrosExtensionControlledIndicatorElement as eq, ControlledButtonElement as er, ControlledRadioButtonElement as es, ExtensionControlledIndicatorElement as et, SettingsDropdownMenuElement as eu, SettingsSliderElement as ev, IdleBehavior as ew, LidClosedBehavior as ex, NoteAppLockScreenSupport as ey, setDisplayApiForTesting as ez, containerLabel as f, setReceiveManagerForTesting as f0, dataUsageStringToEnum as f1, NearbyShareDataUsage as f2, AppManagementFileHandlingItemElement as f3, PluginVmBrowserProxyImpl as f4, AppManagementToggleRowElement as f5, setAppNotificationProviderForTesting as f6, OsSettingsAppsPageElement as f7, FastPairSavedDevicesOptInStatus as f8, GoogleDriveBrowserProxy as f9, PageCallbackRouter as fa, PageHandlerRemote as fb, PageRemote as fc, Stage as fd, ConfirmationDialogType as fe, PageCallbackRouter$2 as ff, PageHandlerRemote$2 as fg, PageRemote$2 as fh, MetricsConsentBrowserProxyImpl as fi, setAppPermissionProviderForTesting as fj, SettingsPrivacyHubAppPermissionRow as fk, SettingsPrivacyHubSystemServiceRow as fl, SettingsSearchEngineElement as fm, SearchEnginesBrowserProxyImpl as fn, SettingsCardElement as fo, createRouter as fp, Route as fq, SettingsGuestOsSharedUsbDevicesElement as g, castExists$1 as h, RouteOriginMixin as i, Router as j, isCrostiniSupported as k, isCrostiniAllowed as l, isRevampWayfindingEnabled as m, Section as n, browserChannelToI18nId as o, PrinterSetupResult as p, PrintServerResult as q, recordSettingChange as r, sanitizeInnerHtml$1 as s, CupsPrintersBrowserProxyImpl as t, focusWithoutInk as u, LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME as v, GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE as w, TimeZoneBrowserProxyImpl as x, isChild as y, I18nBehavior as z };
+export { assertInstanceof as $, I18nBehavior as A, getApnDisplayName as B, CrostiniBrowserProxyImpl as C, DeepLinkingMixin as D, assert as E, FocusRowMixin as F, GeolocationAccessLevel as G, ApnDetailDialogMode as H, I18nMixin as I, processDeviceState as J, getInstance as K, LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME as L, MIN_VALID_PORT_NUMBER as M, NetworkListenerBehavior as N, OncMojo as O, PortState as P, CrPolicyNetworkBehaviorMojo as Q, RouteObserverMixin as R, Setting as S, TERMINA_VM_TYPE as T, FAKE_CREDENTIAL as U, VM_DEVICE_MICROPHONE as V, WebUiListenerMixin as W, isActiveSim as X, InternetPageBrowserProxyImpl as Y, OsSyncBrowserProxyImpl as Z, assertExists$2 as _, assertNotReached$1 as a, GlobalScrollTargetMixin as a$, getESimProfileProperties as a0, mojoString16ToString as a1, CellularSetupPageName as a2, ESimManagerListenerMixin as a3, MultiDeviceBrowserProxyImpl as a4, getEuicc as a5, getSimSlotCount as a6, getPendingESimProfiles as a7, MultiDeviceFeatureState as a8, CrToggleElement as a9, CrInputElement as aA, CrButtonElement as aB, CrDialogElement as aC, CrIconButtonElement as aD, CrActionMenuElement as aE, recordLockScreenProgress as aF, LockScreenProgress as aG, PluralStringProxyImpl as aH, SyncBrowserProxyImpl as aI, PageStatus as aJ, StatusAction as aK, CrScrollableMixin as aL, PrivacyHubBrowserProxyImpl as aM, getAppPermissionProvider as aN, MediaDevicesProxy as aO, AppPermissionsObserverReceiver as aP, isPermissionEnabled as aQ, CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aR, PrivacyHubSensorSubpageUserAction as aS, NUMBER_OF_POSSIBLE_USER_ACTIONS as aT, MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aU, AppLanguageSelectionDialogEntryPoint as aV, OneDriveBrowserProxy as aW, AppManagementStoreMixin as aX, getAppIcon as aY, AppManagementBrowserProxy as aZ, alphabeticalSort as a_, BrowserProxy$1 as aa, getImage as ab, ChromeVoxSubpageBrowserProxyImpl as ac, assertExhaustive as ad, DevicePageBrowserProxyImpl as ae, SettingsToggleButtonElement as af, SelectToSpeakSubpageBrowserProxyImpl as ag, LanguagesBrowserProxyImpl as ah, SwitchAccessSubpageBrowserProxyImpl as ai, TextToSpeechSubpageBrowserProxyImpl as aj, TtsVoiceSubpageBrowserProxyImpl as ak, BrowserChannel as al, AboutPageBrowserProxyImpl as am, isTargetChannelMoreStable as an, DeviceNameBrowserProxyImpl as ao, SetDeviceNameResult as ap, browserChannelToI18nId as aq, DeviceNameState as ar, AccountManagerBrowserProxyImpl as as, ParentalControlsBrowserProxyImpl as at, assertInstanceof$1 as au, fireAuthTokenInvalidEvent as av, LockStateMixin as aw, MultiDeviceFeatureMixin as ax, MultiDeviceFeature as ay, MultiDeviceSettingsMode as az, routes as b, AppManagementPluginVmDetailViewElement as b$, OsSettingsSubpageElement as b0, FindShortcutMixin as b1, ACCESSIBILITY_COMMON_IME_ID as b2, IronA11yKeysBehavior as b3, LifetimeBrowserProxyImpl as b4, PrivacyPageBrowserProxyImpl as b5, SecureDnsMode as b6, SecureDnsUiManagementMode as b7, sanitizeInnerHtml$1 as b8, StaticShortcutAction as b9, GuestOsBrowserProxyImpl as bA, PLUGIN_VM_TYPE as bB, ContainerSelectElement as bC, SettingsGuestOsSharedPathsElement as bD, EsimRemoveProfileDialogElement as bE, SettingsMultideviceCombinedSetupItemElement as bF, SettingsMultideviceFeatureItemElement as bG, SettingsMultideviceFeatureToggleElement as bH, SettingsMultideviceSubpageElement as bI, SettingsMultideviceTaskContinuationDisabledLinkElement as bJ, SettingsMultideviceTaskContinuationItemElement as bK, SettingsMultideviceWifiSyncDisabledLinkElement as bL, NearbyShareReceiveDialogElement as bM, SettingsNearbyShareSubpageElement as bN, SettingsAndroidAppsSubpageElement as bO, AppManagementAppDetailViewElement as bP, AppManagementAppDetailsItem as bQ, AppManagementAppItemElement as bR, SettingsAppManagementPageElement as bS, AppManagementArcDetailViewElement as bT, AppManagementBorealisDetailViewElement as bU, AppManagementChromeAppDetailViewElement as bV, AppManagementDomSwitchElement as bW, AppManagementMainViewElement as bX, AppManagementPermissionHeadingElement as bY, AppManagementPermissionItemElement as bZ, AppManagementPinToShelfItemElement as b_, EventTracker as ba, getInputDeviceSettingsProvider as bb, FakeInputDeviceSettingsProvider as bc, ButtonPressObserverReceiver as bd, buttonsAreEqual as be, getShortcutInputProvider as bf, keyEventsAreEqual as bg, AudioAndCaptionsPageBrowserProxyImpl as bh, SmbBrowserProxyImpl as bi, SmbMountResult as bj, AppLanguageSelectionDialogElement as bk, AppLanguageSelectionItemElement as bl, SettingsRadioGroupElement as bm, CrostiniPortProtocol as bn, CrostiniSettingsCardElement as bo, DateTimeSettingsCardElement as bp, TimezoneSelectorElement as bq, SettingsCustomizeMouseButtonsSubpageElement as br, SettingsCustomizePenButtonsSubpageElement as bs, SettingsCustomizeTabletButtonsSubpageElement as bt, SettingsKeyboardElement as bu, SettingsPointersElement as bv, SettingsPowerElement as bw, SettingsStorageElement as bx, SettingsStylusElement as by, CROSTINI_TYPE as bz, CrPolicyIndicatorType$1 as c, MetaKey as c$, AppManagementPwaDetailViewElement as c0, AppManagementResizeLockItemElement as c1, AppManagementSubAppsItemElement as c2, AppManagementSupportedLinksItemElement as c3, AppManagementSupportedLinksOverlappingAppsDialogElement as c4, AppManagementUninstallButtonElement as c5, AppNotificationRowElement as c6, SettingsAppNotificationsManagerSubpage as c7, AppNotificationsSubpage as c8, SettingsBluetoothChangeDeviceNameDialogElement as c9, DEVICE_SECTION_PATH as cA, PERSONALIZATION_SECTION_PATH as cB, PRIVACY_AND_SECURITY_SECTION_PATH as cC, APPS_SECTION_PATH as cD, ACCESSIBILITY_SECTION_PATH as cE, SYSTEM_PREFERENCES_SECTION_PATH as cF, SEARCH_AND_ASSISTANT_SECTION_PATH as cG, DATE_AND_TIME_SECTION_PATH as cH, LANGUAGES_AND_INPUT_SECTION_PATH as cI, FILES_SECTION_PATH as cJ, PRINTING_SECTION_PATH as cK, CROSTINI_SECTION_PATH as cL, RESET_SECTION_PATH as cM, getDeviceNameUnsafe as cN, KeyboardSettingsObserverReceiver as cO, MouseSettingsObserverReceiver as cP, PointingStickSettingsObserverReceiver as cQ, TouchpadSettingsObserverReceiver as cR, routesMojom as cS, getDisplayApi as cT, IronResizableBehavior as cU, PaperRippleMixin as cV, getDeviceStateChangesToAnnounce as cW, CrLinkRowElement as cX, Fkey as cY, ExtendedFkeysModifier as cZ, TopRowActionKey as c_, SettingsBluetoothDeviceDetailSubpageElement as ca, SettingsBluetoothDevicesSubpageElement as cb, SettingsBluetoothSavedDevicesSubpageElement as cc, SettingsBluetoothTrueWirelessImagesElement as cd, SettingsPairedBluetoothListElement as ce, SettingsPairedBluetoothListItemElement as cf, SettingsSavedDevicesListElement as cg, FilesSettingsCardElement as ch, SettingsGoogleDriveSubpageElement as ci, LanguageSettingsCardElement as cj, SettingsLanguagesElement as ck, PrintingSettingsCardElement as cl, SettingsPrivacyHubGeolocationSubpage as cm, SettingsPrivacyHubSubpage as cn, OsSettingsPowerwashDialogElement as co, OsResetBrowserProxyImpl as cp, OsSettingsSanitizeDialogElement as cq, ResetSettingsCardElement as cr, listenOnce as cs, ABOUT_CHROME_OS_SECTION_PATH as ct, isAdvancedRoute as cu, NETWORK_SECTION_PATH as cv, BLUETOOTH_SECTION_PATH as cw, MULTI_DEVICE_SECTION_PATH as cx, PEOPLE_SECTION_PATH as cy, KERBEROS_SECTION_PATH as cz, DEFAULT_CROSTINI_GUEST_ID as d, getContactManager as d$, ModifierKey$1 as d0, SixPackShortcutModifier as d1, SixPackKey as d2, PolicyStatus as d3, isInputDeviceSettingsSplitEnabled as d4, isExternalStorageEnabled as d5, GraphicsTabletSettingsObserverReceiver as d6, Button as d7, ButtonState$1 as d8, hasActiveCellularNetwork as d9, isAssistantAllowed as dA, shouldShowMultitasking as dB, isGuest as dC, isPowerwashAllowed as dD, shouldShowStartup as dE, isAboutRoute as dF, AndroidAppsBrowserProxyImpl as dG, isBasicRoute as dH, CrSearchFieldMixin as dI, SectionSpec as dJ, SubpageSpec as dK, SettingSpec as dL, OpenWindowProxyImpl as dM, recordSearch as dN, CrContainerShadowMixin as dO, setGlobalScrollTarget as dP, recordPageFocus as dQ, recordPageBlur as dR, recordClick as dS, recordNavigation as dT, getPrefPolicyFields as dU, settingsAreEqual as dV, CustomizationRestriction as dW, SimulateRightClickModifier as dX, recordSavedDevicesUiEventMetrics as dY, FastPairSavedDevicesUiEvent as dZ, ColorChangeUpdater as d_, getESimProfile as da, stringToMojoString16 as db, NetworkConfigElementBehavior as dc, assertNotReached as dd, htmlEscape as de, isConnectedToNonCellularNetwork as df, getNumESimProfiles as dg, LockScreenUnlockType as dh, PhoneHubPermissionsSetupFlowScreens as di, PhoneHubPermissionsSetupAction as dj, PhoneHubPermissionsSetupFeatureCombination as dk, getNearbyShareSettings as dl, observeNearbyShareSettings as dm, PhoneHubFeatureAccessStatus as dn, OsBluetoothDevicesSubpageBrowserProxyImpl as dp, ButtonState as dq, ButtonName as dr, DeviceItemState as ds, PairingAuthType as dt, recordBluetoothUiSurfaceMetrics as du, BluetoothUiSurface as dv, isAccountManagerEnabled as dw, AUTH_TOKEN_INVALID_EVENT_TYPE as dx, PrivacyHubNavigationOrigin as dy, isQuickAnswersSupported as dz, DEFAULT_CROSTINI_VM as e, user_action_recorder_mojomWebui as e$, observeContactManager as e0, setContactManagerForTesting as e1, NearbyProgressElement as e2, nearby_share_mojomWebui as e3, setNearbyShareSettingsForTesting as e4, DEFAULT_CHECKED_VALUE as e5, DEFAULT_UNCHECKED_VALUE as e6, ExtensionControlBrowserProxyImpl as e7, CrCheckboxElement as e8, CrCardRadioButtonElement as e9, ExtensionControlledIndicatorElement as eA, SettingsDropdownMenuElement as eB, SettingsSliderElement as eC, IdleBehavior as eD, LidClosedBehavior as eE, NoteAppLockScreenSupport as eF, setDisplayApiForTesting as eG, StorageSpaceState as eH, fakeGraphicsTabletButtonActions as eI, fakeGraphicsTablets as eJ, fakeKeyboards as eK, fakeKeyboards2 as eL, fakeMice as eM, fakeMice2 as eN, fakeMouseButtonActions as eO, fakePointingSticks as eP, fakePointingSticks2 as eQ, fakeStyluses as eR, fakeTouchpads as eS, fakeTouchpads2 as eT, setInputDeviceSettingsProviderForTesting as eU, setupFakeInputDeviceSettingsProvider as eV, Vkey as eW, setUserActionRecorderForTesting as eX, app_notification_handler_mojomWebui as eY, app_permission_handler_mojomWebui as eZ, setting_mojomWebui as e_, CrRadioButtonElement as ea, CrRadioGroupElement as eb, CrSearchFieldElement as ec, CrSearchableDropDownElement as ed, CrSliderElement as ee, CrTextareaElement as ef, CrToastElement as eg, LocalizedLinkElement as eh, CrPolicyIndicatorElement as ei, CrTooltipIconElement as ej, ApnDetailDialog as ek, SettingsPrefsElement as el, CrSettingsPrefs as em, addApp$1 as en, changeApp$1 as eo, removeApp$1 as ep, updateSelectedAppId$1 as eq, updateSubAppToParentAppId$1 as er, reduceAction as es, updateApps as et, AppManagementStore as eu, resetGlobalScrollTargetForTesting as ev, LacrosExtensionControlBrowserProxyImpl as ew, LacrosExtensionControlledIndicatorElement as ex, ControlledButtonElement as ey, ControlledRadioButtonElement as ez, equalContainerId as f, PhoneHubFeatureAccessProhibitedReason as f0, PhoneHubPermissionsSetupMode as f1, NearbyAccountManagerBrowserProxyImpl as f2, NearbyShareConfirmPageElement as f3, NearbyShareHighVisibilityPageElement as f4, getReceiveManager as f5, observeReceiveManager as f6, setReceiveManagerForTesting as f7, dataUsageStringToEnum as f8, NearbyShareDataUsage as f9, UpdateStatus as fa, OsAboutPageElement as fb, AppManagementFileHandlingItemElement as fc, PluginVmBrowserProxyImpl as fd, AppManagementToggleRowElement as fe, setAppNotificationProviderForTesting as ff, OsSettingsAppsPageElement as fg, FastPairSavedDevicesOptInStatus as fh, GoogleDriveBrowserProxy as fi, PageCallbackRouter as fj, PageHandlerRemote as fk, PageRemote as fl, Stage as fm, ConfirmationDialogType as fn, PageCallbackRouter$2 as fo, PageHandlerRemote$2 as fp, PageRemote$2 as fq, MetricsConsentBrowserProxyImpl as fr, setAppPermissionProviderForTesting as fs, SettingsPrivacyHubAppPermissionRow as ft, SettingsPrivacyHubSystemServiceRow as fu, SettingsSearchEngineElement as fv, SearchEnginesBrowserProxyImpl as fw, SettingsCardElement as fx, createRouter as fy, Route as fz, DEFAULT_CROSTINI_CONTAINER as g, assert$1 as h, MAX_VALID_PORT_NUMBER as i, cast as j, PrefsMixin as k, containerLabel as l, SettingsGuestOsSharedUsbDevicesElement as m, castExists$1 as n, RouteOriginMixin as o, Router as p, Section as q, recordSettingChange as r, PrinterSetupResult as s, PrintServerResult as t, CupsPrintersBrowserProxyImpl as u, isRevampWayfindingEnabled as v, focusWithoutInk as w, GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE as x, TimeZoneBrowserProxyImpl as y, isChild as z };
 //# sourceMappingURL=shared.rollup.js.map

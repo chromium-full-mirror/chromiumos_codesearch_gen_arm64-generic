@@ -331,7 +331,7 @@ namespace internal {
   using Flags = base::Flags<Flag>; \
   static constexpr int kFlagCount = 1; \
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/scope-info.tq?l=55&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/scope-info.tq?l=56&c=1
 #define DEFINE_TORQUE_GENERATED_SCOPE_FLAGS() \
   using ScopeTypeBits = base::BitField<ScopeType, 0, 4, uint32_t>; \
   using SloppyEvalCanExtendVarsBit = base::BitField<bool, 4, 1, uint32_t>; \
@@ -355,7 +355,7 @@ namespace internal {
   using HasLocalsBlockListBit = base::BitField<bool, 28, 1, uint32_t>; \
   using IsEmptyBit = base::BitField<bool, 29, 1, uint32_t>; \
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/scope-info.tq?l=94&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/scope-info.tq?l=95&c=1
 #define DEFINE_TORQUE_GENERATED_VARIABLE_PROPERTIES() \
   using VariableModeBits = base::BitField<VariableMode, 0, 4, uint32_t>; \
   using InitFlagBit = base::BitField<InitializationFlag, 4, 1, uint32_t>; \

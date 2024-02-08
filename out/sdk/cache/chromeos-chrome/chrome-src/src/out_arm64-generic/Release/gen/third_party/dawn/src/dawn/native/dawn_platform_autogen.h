@@ -4812,7 +4812,7 @@ namespace dawn::native {
     };
     template<>
     struct EnumCount<wgpu::BufferMapAsyncStatus> {
-        static constexpr uint32_t value = 9;
+        static constexpr uint32_t value = 10;
     };
     template<>
     struct EnumCount<wgpu::CallbackMode> {
@@ -4824,11 +4824,11 @@ namespace dawn::native {
     };
     template<>
     struct EnumCount<wgpu::CompilationInfoRequestStatus> {
-        static constexpr uint32_t value = 4;
+        static constexpr uint32_t value = 5;
     };
     template<>
     struct EnumCount<wgpu::CreatePipelineAsyncStatus> {
-        static constexpr uint32_t value = 6;
+        static constexpr uint32_t value = 7;
     };
     template<>
     struct EnumCount<wgpu::CullMode> {
@@ -4876,15 +4876,15 @@ namespace dawn::native {
     };
     template<>
     struct EnumCount<wgpu::QueueWorkDoneStatus> {
-        static constexpr uint32_t value = 4;
+        static constexpr uint32_t value = 5;
     };
     template<>
     struct EnumCount<wgpu::RequestAdapterStatus> {
-        static constexpr uint32_t value = 4;
+        static constexpr uint32_t value = 5;
     };
     template<>
     struct EnumCount<wgpu::RequestDeviceStatus> {
-        static constexpr uint32_t value = 3;
+        static constexpr uint32_t value = 4;
     };
     template<>
     struct EnumCount<wgpu::SamplerBindingType> {

@@ -638,8 +638,8 @@ struct EmbedderConditions FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table
   const ::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>> *response_headers() const {
     return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>> *>(VT_RESPONSE_HEADERS);
   }
-  const ::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>> *excluded_response_headers() const {
-    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>> *>(VT_EXCLUDED_RESPONSE_HEADERS);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>> *excluded_response_headers() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>> *>(VT_EXCLUDED_RESPONSE_HEADERS);
   }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -652,7 +652,7 @@ struct EmbedderConditions FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table
            verifier.VerifyVectorOfTables(response_headers()) &&
            VerifyOffset(verifier, VT_EXCLUDED_RESPONSE_HEADERS) &&
            verifier.VerifyVector(excluded_response_headers()) &&
-           verifier.VerifyVectorOfStrings(excluded_response_headers()) &&
+           verifier.VerifyVectorOfTables(excluded_response_headers()) &&
            verifier.EndTable();
   }
 };
@@ -670,7 +670,7 @@ struct EmbedderConditionsBuilder {
   void add_response_headers(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>>> response_headers) {
     fbb_.AddOffset(EmbedderConditions::VT_RESPONSE_HEADERS, response_headers);
   }
-  void add_excluded_response_headers(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>>> excluded_response_headers) {
+  void add_excluded_response_headers(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>>> excluded_response_headers) {
     fbb_.AddOffset(EmbedderConditions::VT_EXCLUDED_RESPONSE_HEADERS, excluded_response_headers);
   }
   explicit EmbedderConditionsBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
@@ -689,7 +689,7 @@ inline ::flatbuffers::Offset<EmbedderConditions> CreateEmbedderConditions(
     ::flatbuffers::Offset<::flatbuffers::Vector<int32_t>> tab_ids_included = 0,
     ::flatbuffers::Offset<::flatbuffers::Vector<int32_t>> tab_ids_excluded = 0,
     ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>>> response_headers = 0,
-    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>>> excluded_response_headers = 0) {
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>>> excluded_response_headers = 0) {
   EmbedderConditionsBuilder builder_(_fbb);
   builder_.add_excluded_response_headers(excluded_response_headers);
   builder_.add_response_headers(response_headers);
@@ -703,11 +703,11 @@ inline ::flatbuffers::Offset<EmbedderConditions> CreateEmbedderConditionsDirect(
     const std::vector<int32_t> *tab_ids_included = nullptr,
     const std::vector<int32_t> *tab_ids_excluded = nullptr,
     const std::vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>> *response_headers = nullptr,
-    const std::vector<::flatbuffers::Offset<::flatbuffers::String>> *excluded_response_headers = nullptr) {
+    const std::vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>> *excluded_response_headers = nullptr) {
   auto tab_ids_included__ = tab_ids_included ? _fbb.CreateVector<int32_t>(*tab_ids_included) : 0;
   auto tab_ids_excluded__ = tab_ids_excluded ? _fbb.CreateVector<int32_t>(*tab_ids_excluded) : 0;
   auto response_headers__ = response_headers ? _fbb.CreateVector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>>(*response_headers) : 0;
-  auto excluded_response_headers__ = excluded_response_headers ? _fbb.CreateVector<::flatbuffers::Offset<::flatbuffers::String>>(*excluded_response_headers) : 0;
+  auto excluded_response_headers__ = excluded_response_headers ? _fbb.CreateVector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>>(*excluded_response_headers) : 0;
   return extensions::declarative_net_request::flat::CreateEmbedderConditions(
       _fbb,
       tab_ids_included__,

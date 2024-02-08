@@ -15,9 +15,7 @@ import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listen
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { sanitizeInnerHtml } from 'chrome://resources/js/parse_html_subset.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-// clang-format off
 import { ManagementBrowserProxyImpl, ReportingType } from './management_browser_proxy.js';
-// 
 import { DeviceReportingType } from './management_browser_proxy.js';
 // 
 import { getTemplate } from './management_ui.html.js';

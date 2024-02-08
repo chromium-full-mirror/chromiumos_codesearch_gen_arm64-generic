@@ -9,11 +9,12 @@
 
 
 
-
+#include "mojo/public/cpp/bindings/struct_forward.h"
 
 #include "mojo/public/cpp/bindings/deprecated_interface_types_forward.h"
 
 
+#include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
 
 
 
@@ -21,6 +22,11 @@
 
 
 namespace content::mojom {
+class FrameRoutingInfoDataView;
+
+class FrameRoutingInfo;
+using FrameRoutingInfoPtr = mojo::StructPtr<FrameRoutingInfo>;
+
 class RenderMessageFilter;
 
 

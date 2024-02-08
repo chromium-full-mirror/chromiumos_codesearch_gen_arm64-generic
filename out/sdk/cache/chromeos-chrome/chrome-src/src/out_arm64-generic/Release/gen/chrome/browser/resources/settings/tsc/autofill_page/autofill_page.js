@@ -12,6 +12,10 @@ import 'chrome://resources/cr_components/settings_prefs/prefs.js';
 import '../settings_page/settings_animated_pages.js';
 import '../settings_page/settings_subpage.js';
 import '../settings_shared.css.js';
+// 
+// 
+import '../icons.html.js';
+// 
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { OpenWindowProxyImpl } from 'chrome://resources/js/open_window_proxy.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';

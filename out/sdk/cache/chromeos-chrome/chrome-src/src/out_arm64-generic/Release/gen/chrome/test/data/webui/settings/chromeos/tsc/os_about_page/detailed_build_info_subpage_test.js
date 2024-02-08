@@ -10,8 +10,8 @@ import { PromiseResolver } from 'chrome://resources/js/promise_resolver.js';
 import { assertEquals, assertFalse, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { flushTasks, waitAfterNextRender } from 'chrome://webui-test/polymer_test_util.js';
 import { isVisible } from 'chrome://webui-test/test_util.js';
-import { TestAboutPageBrowserProxy } from '../test_about_page_browser_proxy.js';
 import { clearBody } from '../utils.js';
+import { TestAboutPageBrowserProxy } from './test_about_page_browser_proxy.js';
 import { TestDeviceNameBrowserProxy } from './test_device_name_browser_proxy.js';
 suite('<detailed-build-info-subpage>', () => {
     let page;

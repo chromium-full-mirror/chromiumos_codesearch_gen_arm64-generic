@@ -52,6 +52,8 @@ NOINLINE static const char* AcceleratorConfigResultToStringHelper(AcceleratorCon
       return "kSearchWithFunctionKeyNotAllowed";
     case AcceleratorConfigResult::kReservedKeyNotAllowed:
       return "kReservedKeyNotAllowed";
+    case AcceleratorConfigResult::kNonStandardWithSearch:
+      return "kNonStandardWithSearch";
     default:
       return nullptr;
   }

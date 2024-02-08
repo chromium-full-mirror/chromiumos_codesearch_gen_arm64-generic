@@ -2,17 +2,18 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
 <template is="dom-if" if="[[shouldShowUpdateDialog(installationProgress.*,
         isInitiallyInflight)]]" restamp>
   <cr-dialog id="updateDialog" show-on-attach on-close="closeDialog">
-    <div slot="title" id="updateDialogTitle" class="firmware-dialog-title-font" tabindex="0" aria-labelledby="updateDialogTitle">
+    <div slot="title" id="updateDialogTitle" class="firmware-dialog-title-font" aria-labelledby="updateDialogTitle" aria-live="polite">
       [[dialogContent.title]]
     </div>
     <div slot="body" class="firmware-dialog-body-font">
-      <div id="updateDialogBody" aria-hidden="true" tabindex="0">
+      <div id="updateDialogBody" aria-live="[[getDialogBodyAriaLive(installationProgress.*,
+                                              lastDeviceRequestId)]]">
         [[dialogContent.body]]
       </div>
     </div>
     <div slot="footer" hidden$="[[!shouldShowProgressBar(installationProgress.*,
                    isInitiallyInflight, lastDeviceRequestId)]]">
-      <label id="progress" class="firmware-dialog-installing-font" aria-live="polite" tabindex="0">
+      <label id="progress" class="firmware-dialog-installing-font" aria-live="polite">
         [[dialogContent.footer]]
       </label>
       <template is="dom-if" if="[[!isInIndeterminateState(installationProgress.*,

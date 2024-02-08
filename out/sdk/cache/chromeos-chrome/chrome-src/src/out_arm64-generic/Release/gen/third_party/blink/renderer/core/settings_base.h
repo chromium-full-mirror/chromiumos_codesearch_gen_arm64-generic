@@ -150,6 +150,7 @@ class CORE_EXPORT SettingsBase {
   float GetPrintingMaximumShrinkFactor() const { return printing_maximum_shrink_factor_; }
   bool GetReportScreenSizeInPhysicalPixelsQuirk() const { return report_screen_size_in_physical_pixels_quirk_; }
   bool GetRequireTransientActivationForGetDisplayMedia() const { return require_transient_activation_for_get_display_media_; }
+  bool GetRequireTransientActivationForHtmlFullscreen() const { return require_transient_activation_for_html_fullscreen_; }
   bool GetRequireTransientActivationForShowFileOrDirectoryPicker() const { return require_transient_activation_for_show_file_or_directory_picker_; }
   bool GetResizable() const { return resizable_; }
   bool GetRubberBandingOnCompositorThread() const { return rubber_banding_on_compositor_thread_; }
@@ -325,6 +326,7 @@ class CORE_EXPORT SettingsBase {
   void SetPrintingMaximumShrinkFactor(float printing_maximum_shrink_factor);
   void SetReportScreenSizeInPhysicalPixelsQuirk(bool report_screen_size_in_physical_pixels_quirk);
   void SetRequireTransientActivationForGetDisplayMedia(bool require_transient_activation_for_get_display_media);
+  void SetRequireTransientActivationForHtmlFullscreen(bool require_transient_activation_for_html_fullscreen);
   void SetRequireTransientActivationForShowFileOrDirectoryPicker(bool require_transient_activation_for_show_file_or_directory_picker);
   void SetResizable(bool resizable);
   void SetRubberBandingOnCompositorThread(bool rubber_banding_on_compositor_thread);
@@ -529,6 +531,7 @@ class CORE_EXPORT SettingsBase {
   bool presentation_requires_user_gesture_ : 1;
   bool report_screen_size_in_physical_pixels_quirk_ : 1;
   bool require_transient_activation_for_get_display_media_ : 1;
+  bool require_transient_activation_for_html_fullscreen_ : 1;
   bool require_transient_activation_for_show_file_or_directory_picker_ : 1;
   bool resizable_ : 1;
   bool rubber_banding_on_compositor_thread_ : 1;

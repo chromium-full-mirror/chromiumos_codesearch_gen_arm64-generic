@@ -1100,7 +1100,7 @@ nullptr,  // exceptions
 },
 {
 423,  // id
-"Legacy AMD GPUs can't synchronize multiple write streams on SharedImages [b/293613437]",
+"Legacy AMD GPUs can't synchronize multiple write streams on SharedImages [b/293613437, b/300686930]",
 std::size(kFeatureListForWorkaroundsEntry423),  // features size
 kFeatureListForWorkaroundsEntry423,  // features
 0,  // DisabledExtensions size

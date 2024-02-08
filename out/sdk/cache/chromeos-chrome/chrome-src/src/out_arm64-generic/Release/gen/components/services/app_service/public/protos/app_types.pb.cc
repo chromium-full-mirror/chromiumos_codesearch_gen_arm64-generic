@@ -367,13 +367,14 @@ bool ApplicationLaunchSource_IsValid(int value) {
     case 35:
     case 36:
     case 37:
+    case 38:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ApplicationLaunchSource_strings[38] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ApplicationLaunchSource_strings[39] = {};
 
 static const char ApplicationLaunchSource_names[] =
   "APPLICATION_LAUNCH_SOURCE_APP_HOME_PAGE"
@@ -388,6 +389,7 @@ static const char ApplicationLaunchSource_names[] =
   "APPLICATION_LAUNCH_SOURCE_COMMAND_LINE"
   "APPLICATION_LAUNCH_SOURCE_DISCOVER_TAB_NOTIFICATION"
   "APPLICATION_LAUNCH_SOURCE_FILE_MANAGER"
+  "APPLICATION_LAUNCH_SOURCE_FIRST_RUN"
   "APPLICATION_LAUNCH_SOURCE_FULL_RESTORE"
   "APPLICATION_LAUNCH_SOURCE_INSTALLED_NOTIFICATION"
   "APPLICATION_LAUNCH_SOURCE_INSTALLER"
@@ -428,73 +430,75 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ApplicationLaunchSourc
   { {ApplicationLaunchSource_names + 383, 38}, 25 },
   { {ApplicationLaunchSource_names + 421, 51}, 22 },
   { {ApplicationLaunchSource_names + 472, 38}, 8 },
-  { {ApplicationLaunchSource_names + 510, 38}, 20 },
-  { {ApplicationLaunchSource_names + 548, 48}, 15 },
-  { {ApplicationLaunchSource_names + 596, 35}, 37 },
-  { {ApplicationLaunchSource_names + 631, 36}, 28 },
-  { {ApplicationLaunchSource_names + 667, 34}, 12 },
-  { {ApplicationLaunchSource_names + 701, 31}, 24 },
-  { {ApplicationLaunchSource_names + 732, 30}, 9 },
-  { {ApplicationLaunchSource_names + 762, 37}, 32 },
-  { {ApplicationLaunchSource_names + 799, 40}, 23 },
-  { {ApplicationLaunchSource_names + 839, 30}, 14 },
-  { {ApplicationLaunchSource_names + 869, 38}, 27 },
-  { {ApplicationLaunchSource_names + 907, 33}, 10 },
-  { {ApplicationLaunchSource_names + 940, 34}, 29 },
-  { {ApplicationLaunchSource_names + 974, 35}, 13 },
-  { {ApplicationLaunchSource_names + 1009, 43}, 6 },
-  { {ApplicationLaunchSource_names + 1052, 38}, 35 },
-  { {ApplicationLaunchSource_names + 1090, 42}, 30 },
-  { {ApplicationLaunchSource_names + 1132, 52}, 19 },
-  { {ApplicationLaunchSource_names + 1184, 37}, 34 },
-  { {ApplicationLaunchSource_names + 1221, 36}, 18 },
-  { {ApplicationLaunchSource_names + 1257, 31}, 7 },
-  { {ApplicationLaunchSource_names + 1288, 49}, 21 },
-  { {ApplicationLaunchSource_names + 1337, 46}, 36 },
-  { {ApplicationLaunchSource_names + 1383, 30}, 16 },
-  { {ApplicationLaunchSource_names + 1413, 33}, 0 },
-  { {ApplicationLaunchSource_names + 1446, 37}, 31 },
+  { {ApplicationLaunchSource_names + 510, 35}, 38 },
+  { {ApplicationLaunchSource_names + 545, 38}, 20 },
+  { {ApplicationLaunchSource_names + 583, 48}, 15 },
+  { {ApplicationLaunchSource_names + 631, 35}, 37 },
+  { {ApplicationLaunchSource_names + 666, 36}, 28 },
+  { {ApplicationLaunchSource_names + 702, 34}, 12 },
+  { {ApplicationLaunchSource_names + 736, 31}, 24 },
+  { {ApplicationLaunchSource_names + 767, 30}, 9 },
+  { {ApplicationLaunchSource_names + 797, 37}, 32 },
+  { {ApplicationLaunchSource_names + 834, 40}, 23 },
+  { {ApplicationLaunchSource_names + 874, 30}, 14 },
+  { {ApplicationLaunchSource_names + 904, 38}, 27 },
+  { {ApplicationLaunchSource_names + 942, 33}, 10 },
+  { {ApplicationLaunchSource_names + 975, 34}, 29 },
+  { {ApplicationLaunchSource_names + 1009, 35}, 13 },
+  { {ApplicationLaunchSource_names + 1044, 43}, 6 },
+  { {ApplicationLaunchSource_names + 1087, 38}, 35 },
+  { {ApplicationLaunchSource_names + 1125, 42}, 30 },
+  { {ApplicationLaunchSource_names + 1167, 52}, 19 },
+  { {ApplicationLaunchSource_names + 1219, 37}, 34 },
+  { {ApplicationLaunchSource_names + 1256, 36}, 18 },
+  { {ApplicationLaunchSource_names + 1292, 31}, 7 },
+  { {ApplicationLaunchSource_names + 1323, 49}, 21 },
+  { {ApplicationLaunchSource_names + 1372, 46}, 36 },
+  { {ApplicationLaunchSource_names + 1418, 30}, 16 },
+  { {ApplicationLaunchSource_names + 1448, 33}, 0 },
+  { {ApplicationLaunchSource_names + 1481, 37}, 31 },
 };
 
 static const int ApplicationLaunchSource_entries_by_number[] = {
-  36, // 0 -> APPLICATION_LAUNCH_SOURCE_UNKNOWN
+  37, // 0 -> APPLICATION_LAUNCH_SOURCE_UNKNOWN
   1, // 1 -> APPLICATION_LAUNCH_SOURCE_APP_LIST_GRID
   2, // 2 -> APPLICATION_LAUNCH_SOURCE_APP_LIST_GRID_CONTEXT_MENU
   3, // 3 -> APPLICATION_LAUNCH_SOURCE_APP_LIST_QUERY
   4, // 4 -> APPLICATION_LAUNCH_SOURCE_APP_LIST_QUERY_CONTEXT_MENU
   5, // 5 -> APPLICATION_LAUNCH_SOURCE_APP_LIST_RECOMMENDATION
-  26, // 6 -> APPLICATION_LAUNCH_SOURCE_PARENTAL_CONTROLS
-  32, // 7 -> APPLICATION_LAUNCH_SOURCE_SHELF
+  27, // 6 -> APPLICATION_LAUNCH_SOURCE_PARENTAL_CONTROLS
+  33, // 7 -> APPLICATION_LAUNCH_SOURCE_SHELF
   11, // 8 -> APPLICATION_LAUNCH_SOURCE_FILE_MANAGER
-  18, // 9 -> APPLICATION_LAUNCH_SOURCE_LINK
-  23, // 10 -> APPLICATION_LAUNCH_SOURCE_OMNIBOX
+  19, // 9 -> APPLICATION_LAUNCH_SOURCE_LINK
+  24, // 10 -> APPLICATION_LAUNCH_SOURCE_OMNIBOX
   8, // 11 -> APPLICATION_LAUNCH_SOURCE_CHROME_INTERNAL
-  16, // 12 -> APPLICATION_LAUNCH_SOURCE_KEYBOARD
-  25, // 13 -> APPLICATION_LAUNCH_SOURCE_OTHER_APP
-  21, // 14 -> APPLICATION_LAUNCH_SOURCE_MENU
-  13, // 15 -> APPLICATION_LAUNCH_SOURCE_INSTALLED_NOTIFICATION
-  35, // 16 -> APPLICATION_LAUNCH_SOURCE_TEST
+  17, // 12 -> APPLICATION_LAUNCH_SOURCE_KEYBOARD
+  26, // 13 -> APPLICATION_LAUNCH_SOURCE_OTHER_APP
+  22, // 14 -> APPLICATION_LAUNCH_SOURCE_MENU
+  14, // 15 -> APPLICATION_LAUNCH_SOURCE_INSTALLED_NOTIFICATION
+  36, // 16 -> APPLICATION_LAUNCH_SOURCE_TEST
   6, // 17 -> APPLICATION_LAUNCH_SOURCE_ARC
-  31, // 18 -> APPLICATION_LAUNCH_SOURCE_SHARESHEET
-  29, // 19 -> APPLICATION_LAUNCH_SOURCE_RELEASE_NOTES_NOTIFICATION
-  12, // 20 -> APPLICATION_LAUNCH_SOURCE_FULL_RESTORE
-  33, // 21 -> APPLICATION_LAUNCH_SOURCE_SMART_TEXT_CONTEXT_MENU
+  32, // 18 -> APPLICATION_LAUNCH_SOURCE_SHARESHEET
+  30, // 19 -> APPLICATION_LAUNCH_SOURCE_RELEASE_NOTES_NOTIFICATION
+  13, // 20 -> APPLICATION_LAUNCH_SOURCE_FULL_RESTORE
+  34, // 21 -> APPLICATION_LAUNCH_SOURCE_SMART_TEXT_CONTEXT_MENU
   10, // 22 -> APPLICATION_LAUNCH_SOURCE_DISCOVER_TAB_NOTIFICATION
-  20, // 23 -> APPLICATION_LAUNCH_SOURCE_MANAGEMENT_API
-  17, // 24 -> APPLICATION_LAUNCH_SOURCE_KIOSK
+  21, // 23 -> APPLICATION_LAUNCH_SOURCE_MANAGEMENT_API
+  18, // 24 -> APPLICATION_LAUNCH_SOURCE_KIOSK
   9, // 25 -> APPLICATION_LAUNCH_SOURCE_COMMAND_LINE
   7, // 26 -> APPLICATION_LAUNCH_SOURCE_BACKGROUND_MODE
-  22, // 27 -> APPLICATION_LAUNCH_SOURCE_NEW_TAB_PAGE
-  15, // 28 -> APPLICATION_LAUNCH_SOURCE_INTENT_URL
-  24, // 29 -> APPLICATION_LAUNCH_SOURCE_OS_LOGIN
-  28, // 30 -> APPLICATION_LAUNCH_SOURCE_PROTOCOL_HANDLER
-  37, // 31 -> APPLICATION_LAUNCH_SOURCE_URL_HANDLER
-  19, // 32 -> APPLICATION_LAUNCH_SOURCE_LOCK_SCREEN
+  23, // 27 -> APPLICATION_LAUNCH_SOURCE_NEW_TAB_PAGE
+  16, // 28 -> APPLICATION_LAUNCH_SOURCE_INTENT_URL
+  25, // 29 -> APPLICATION_LAUNCH_SOURCE_OS_LOGIN
+  29, // 30 -> APPLICATION_LAUNCH_SOURCE_PROTOCOL_HANDLER
+  38, // 31 -> APPLICATION_LAUNCH_SOURCE_URL_HANDLER
+  20, // 32 -> APPLICATION_LAUNCH_SOURCE_LOCK_SCREEN
   0, // 33 -> APPLICATION_LAUNCH_SOURCE_APP_HOME_PAGE
-  30, // 34 -> APPLICATION_LAUNCH_SOURCE_REPARENTING
-  27, // 35 -> APPLICATION_LAUNCH_SOURCE_PROFILE_MENU
-  34, // 36 -> APPLICATION_LAUNCH_SOURCE_SYSTEM_TRAY_CALENDAR
-  14, // 37 -> APPLICATION_LAUNCH_SOURCE_INSTALLER
+  31, // 34 -> APPLICATION_LAUNCH_SOURCE_REPARENTING
+  28, // 35 -> APPLICATION_LAUNCH_SOURCE_PROFILE_MENU
+  35, // 36 -> APPLICATION_LAUNCH_SOURCE_SYSTEM_TRAY_CALENDAR
+  15, // 37 -> APPLICATION_LAUNCH_SOURCE_INSTALLER
+  12, // 38 -> APPLICATION_LAUNCH_SOURCE_FIRST_RUN
 };
 
 const std::string& ApplicationLaunchSource_Name(
@@ -503,12 +507,12 @@ const std::string& ApplicationLaunchSource_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ApplicationLaunchSource_entries,
           ApplicationLaunchSource_entries_by_number,
-          38, ApplicationLaunchSource_strings);
+          39, ApplicationLaunchSource_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ApplicationLaunchSource_entries,
       ApplicationLaunchSource_entries_by_number,
-      38, value);
+      39, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ApplicationLaunchSource_strings[idx].get();
 }
@@ -516,7 +520,7 @@ bool ApplicationLaunchSource_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ApplicationLaunchSource* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ApplicationLaunchSource_entries, 38, name, &int_value);
+      ApplicationLaunchSource_entries, 39, name, &int_value);
   if (success) {
     *value = static_cast<ApplicationLaunchSource>(int_value);
   }

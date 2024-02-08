@@ -1,10 +1,15 @@
 import{getTrustedHTML}from"//resources/js/static_types.js";export function getTemplate(){return getTrustedHTML`<!--_html_template_start_--><style>.error{border:solid 1px red}button{font-size:125%;font-weight:bolder;border:1px solid var(--action-row-button-border)}select:focus{outline:0}@media only screen and (min-width:711px){:host{display:table-row}div{display:table-cell;padding:3px}[role=cell]>*{width:100%;box-sizing:border-box;background:var(--page-background)}[role=cell]>:not(select){padding:7px}[role=cell]>:not(.error){border:none;color:var(--text-color)}[role=cell]:not(.row-remove-btn-cell){border-right:1px solid var(--table-border)}[role=cell]>select{padding:0}label{display:none}}@media only screen and (max-width:710px){:host{display:block;border:1px solid var(--table-border);margin-bottom:5px}div{display:flex;border:none;padding:1px}input,select{background:var(--page-background);border:1px solid var(--table-border);color:var(--text-color);padding:5px;margin-top:5px;margin-right:5px;overflow:hidden;text-overflow:ellipsis;display:flex;width:75%}button{background:var(--action-row-button-background);border:1px solid var(--action-row-button-border);padding:5px;margin:5px;display:flex}input{box-sizing:border-box}label{margin-left:5px;float:left;width:20%;display:block;overflow:hidden;align-self:center}}</style>
 <div role="cell" class="name-cell">
+  <label>$i18n{testTableNamespace}</label>
+  <select class="namespace" value="chrome">
+    <option value="chrome">Chrome</option>
+  </select>
+</div>
+<div role="cell" class="name-cell">
   <label>$i18n{testTableName}</label>
   <input class="name" list="policy-name-list" autocomplete="off" placeholder="$i18n{testNameSelect}">
   
-  <datalist id="policy-name-list">
-</datalist>
+  <datalist id="policy-name-list"></datalist>
 </div>
 <div role="cell">
   <label>$i18n{testTableValue}</label>
@@ -76,4 +81,5 @@ import{getTrustedHTML}from"//resources/js/static_types.js";export function getTe
 </div>
 <div role="cell" class="row-remove-btn-cell">
   <button class="remove-btn">–</button>
-</div><!--_html_template_end_-->`}
+</div>
+<!--_html_template_end_-->`}

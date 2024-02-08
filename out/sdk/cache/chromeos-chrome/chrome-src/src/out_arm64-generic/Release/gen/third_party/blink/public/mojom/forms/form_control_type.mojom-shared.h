@@ -50,63 +50,65 @@ enum class FormControlType : int32_t {
   
   kButtonSelectList = 3,
   
-  kFieldset = 4,
+  kButtonPopover = 4,
   
-  kInputButton = 5,
+  kFieldset = 5,
   
-  kInputCheckbox = 6,
+  kInputButton = 6,
   
-  kInputColor = 7,
+  kInputCheckbox = 7,
   
-  kInputDate = 8,
+  kInputColor = 8,
   
-  kInputDatetimeLocal = 9,
+  kInputDate = 9,
   
-  kInputEmail = 10,
+  kInputDatetimeLocal = 10,
   
-  kInputFile = 11,
+  kInputEmail = 11,
   
-  kInputHidden = 12,
+  kInputFile = 12,
   
-  kInputImage = 13,
+  kInputHidden = 13,
   
-  kInputMonth = 14,
+  kInputImage = 14,
   
-  kInputNumber = 15,
+  kInputMonth = 15,
   
-  kInputPassword = 16,
+  kInputNumber = 16,
   
-  kInputRadio = 17,
+  kInputPassword = 17,
   
-  kInputRange = 18,
+  kInputRadio = 18,
   
-  kInputReset = 19,
+  kInputRange = 19,
   
-  kInputSearch = 20,
+  kInputReset = 20,
   
-  kInputSubmit = 21,
+  kInputSearch = 21,
   
-  kInputTelephone = 22,
+  kInputSubmit = 22,
   
-  kInputText = 23,
+  kInputTelephone = 23,
   
-  kInputTime = 24,
+  kInputText = 24,
   
-  kInputUrl = 25,
+  kInputTime = 25,
   
-  kInputWeek = 26,
+  kInputUrl = 26,
   
-  kOutput = 27,
+  kInputWeek = 27,
   
-  kSelectOne = 28,
+  kOutput = 28,
   
-  kSelectMultiple = 29,
+  kSelectOne = 29,
   
-  kSelectList = 30,
+  kSelectMultiple = 30,
   
-  kTextArea = 31,
+  kSelectList = 31,
+  
+  kTextArea = 32,
   kMinValue = 0,
-  kMaxValue = 31,
+  kMaxValue = 32,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, FormControlType value);

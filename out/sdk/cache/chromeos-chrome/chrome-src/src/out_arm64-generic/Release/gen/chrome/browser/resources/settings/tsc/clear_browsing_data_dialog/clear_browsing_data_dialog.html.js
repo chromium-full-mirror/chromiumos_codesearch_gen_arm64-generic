@@ -9,21 +9,22 @@ export function getTemplate() {
         <div>$i18n{clearBrowsingData}</div>
       </div>
       <div slot="header">
-        <cr-tabs tab-names="[[tabsNames_]]" selected="{{prefs.browser.last_clear_browsing_data_tab.value}}" on-selected-changed="recordTabChange_"></cr-tabs>
+        <cr-tabs tab-names="[[tabsNames_]]" selected="{{selectedTabIndex_}}" on-selected-changed="recordTabChange_">
+        </cr-tabs>
       </div>
       <div slot="body">
-        <iron-pages id="tabs" selected="[[prefs.browser.last_clear_browsing_data_tab.value]]" on-selected-item-changed="updateClearButtonState_">
+        <iron-pages id="tabs" selected="[[selectedTabIndex_]]" on-selected-item-changed="updateClearButtonState_">
           <div id="basic-tab">
             <div class="row time-range-row">
               <span class="time-range-label" aria-hidden="true">
                 $i18n{clearTimeRange}
               </span>
               <template is="dom-if" if="[[!enableCbdTimeframeRequired_]]">
-                <settings-dropdown-menu id="clearFromBasic" class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period_basic}}" menu-options="[[clearFromOptions_]]">
+                <settings-dropdown-menu id="clearFromBasic" no-set-pref class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period_basic}}" menu-options="[[clearFromOptions_]]">
                 </settings-dropdown-menu>
               </template>
               <template is="dom-if" if="[[enableCbdTimeframeRequired_]]">
-                <settings-dropdown-menu id="clearFromBasic" class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period_v2_basic}}" menu-options="[[clearFromOptionsV2_]]">
+                <settings-dropdown-menu id="clearFromBasic" no-set-pref class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period_v2_basic}}" menu-options="[[clearFromOptionsV2_]]">
                 </settings-dropdown-menu>
               </template>
             </div>
@@ -63,11 +64,11 @@ export function getTemplate() {
                 $i18n{clearTimeRange}
               </span>
               <template is="dom-if" if="[[!enableCbdTimeframeRequired_]]">
-                <settings-dropdown-menu id="clearFrom" class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period}}" menu-options="[[clearFromOptions_]]">
+                <settings-dropdown-menu id="clearFrom" no-set-pref class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period}}" menu-options="[[clearFromOptions_]]">
                 </settings-dropdown-menu>
               </template>
               <template is="dom-if" if="[[enableCbdTimeframeRequired_]]">
-                <settings-dropdown-menu id="clearFrom" class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period_v2}}" menu-options="[[clearFromOptionsV2_]]">
+                <settings-dropdown-menu id="clearFrom" no-set-pref class="time-range-select" label="$i18n{clearTimeRange}" pref="{{prefs.browser.clear_data.time_period_v2}}" menu-options="[[clearFromOptionsV2_]]">
                 </settings-dropdown-menu>
               </template>
             </div>

@@ -25794,6 +25794,7 @@ class ExtensionTelemetryReportRequest final :
     kReportsFieldNumber = 2,
     kCreationTimestampMsecFieldNumber = 1,
     kConfigurationVersionFieldNumber = 3,
+    kDeveloperModeEnabledFieldNumber = 4,
   };
   // repeated .safe_browsing.ExtensionTelemetryReportRequest.Report reports = 2;
   int reports_size() const;
@@ -25839,6 +25840,19 @@ class ExtensionTelemetryReportRequest final :
   void _internal_set_configuration_version(uint32_t value);
   public:
 
+  // optional bool developer_mode_enabled = 4;
+  bool has_developer_mode_enabled() const;
+  private:
+  bool _internal_has_developer_mode_enabled() const;
+  public:
+  void clear_developer_mode_enabled();
+  bool developer_mode_enabled() const;
+  void set_developer_mode_enabled(bool value);
+  private:
+  bool _internal_developer_mode_enabled() const;
+  void _internal_set_developer_mode_enabled(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:safe_browsing.ExtensionTelemetryReportRequest)
  private:
   class _Internal;
@@ -25851,6 +25865,7 @@ class ExtensionTelemetryReportRequest final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::safe_browsing::ExtensionTelemetryReportRequest_Report > reports_;
   int64_t creation_timestamp_msec_;
   uint32_t configuration_version_;
+  bool developer_mode_enabled_;
   friend struct ::TableStruct_components_2fsafe_5fbrowsing_2fcore_2fcommon_2fproto_2fcsd_2eproto;
 };
 // -------------------------------------------------------------------
@@ -51918,6 +51933,34 @@ inline void ExtensionTelemetryReportRequest::_internal_set_configuration_version
 inline void ExtensionTelemetryReportRequest::set_configuration_version(uint32_t value) {
   _internal_set_configuration_version(value);
   // @@protoc_insertion_point(field_set:safe_browsing.ExtensionTelemetryReportRequest.configuration_version)
+}
+
+// optional bool developer_mode_enabled = 4;
+inline bool ExtensionTelemetryReportRequest::_internal_has_developer_mode_enabled() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool ExtensionTelemetryReportRequest::has_developer_mode_enabled() const {
+  return _internal_has_developer_mode_enabled();
+}
+inline void ExtensionTelemetryReportRequest::clear_developer_mode_enabled() {
+  developer_mode_enabled_ = false;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline bool ExtensionTelemetryReportRequest::_internal_developer_mode_enabled() const {
+  return developer_mode_enabled_;
+}
+inline bool ExtensionTelemetryReportRequest::developer_mode_enabled() const {
+  // @@protoc_insertion_point(field_get:safe_browsing.ExtensionTelemetryReportRequest.developer_mode_enabled)
+  return _internal_developer_mode_enabled();
+}
+inline void ExtensionTelemetryReportRequest::_internal_set_developer_mode_enabled(bool value) {
+  _has_bits_[0] |= 0x00000004u;
+  developer_mode_enabled_ = value;
+}
+inline void ExtensionTelemetryReportRequest::set_developer_mode_enabled(bool value) {
+  _internal_set_developer_mode_enabled(value);
+  // @@protoc_insertion_point(field_set:safe_browsing.ExtensionTelemetryReportRequest.developer_mode_enabled)
 }
 
 // -------------------------------------------------------------------

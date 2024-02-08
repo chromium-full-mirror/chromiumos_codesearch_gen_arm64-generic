@@ -13822,6 +13822,22 @@ NewTabPage_HistoryClusters& NewTabPage_HistoryClusters::SetBelongsToBoostedCateg
   return *this;
 }
 
+const char NewTabPage_HistoryClusters::kBelongsToMostSeenCategoryName[] = "BelongsToMostSeenCategory";
+const uint64_t NewTabPage_HistoryClusters::kBelongsToMostSeenCategoryNameHash;
+
+NewTabPage_HistoryClusters& NewTabPage_HistoryClusters::SetBelongsToMostSeenCategory(int64_t value) {
+  SetMetricInternal(kBelongsToMostSeenCategoryNameHash, value);
+  return *this;
+}
+
+const char NewTabPage_HistoryClusters::kBelongsToMostUsedCategoryName[] = "BelongsToMostUsedCategory";
+const uint64_t NewTabPage_HistoryClusters::kBelongsToMostUsedCategoryNameHash;
+
+NewTabPage_HistoryClusters& NewTabPage_HistoryClusters::SetBelongsToMostUsedCategory(int64_t value) {
+  SetMetricInternal(kBelongsToMostUsedCategoryNameHash, value);
+  return *this;
+}
+
 const char NewTabPage_HistoryClusters::kDidDisableModuleName[] = "DidDisableModule";
 const uint64_t NewTabPage_HistoryClusters::kDidDisableModuleNameHash;
 
@@ -13870,11 +13886,35 @@ NewTabPage_HistoryClusters& NewTabPage_HistoryClusters::SetMinutesSinceMostRecen
   return *this;
 }
 
+const char NewTabPage_HistoryClusters::kMostFrequentSeenCategoryCountName[] = "MostFrequentSeenCategoryCount";
+const uint64_t NewTabPage_HistoryClusters::kMostFrequentSeenCategoryCountNameHash;
+
+NewTabPage_HistoryClusters& NewTabPage_HistoryClusters::SetMostFrequentSeenCategoryCount(int64_t value) {
+  SetMetricInternal(kMostFrequentSeenCategoryCountNameHash, value);
+  return *this;
+}
+
+const char NewTabPage_HistoryClusters::kMostFrequentUsedCategoryCountName[] = "MostFrequentUsedCategoryCount";
+const uint64_t NewTabPage_HistoryClusters::kMostFrequentUsedCategoryCountNameHash;
+
+NewTabPage_HistoryClusters& NewTabPage_HistoryClusters::SetMostFrequentUsedCategoryCount(int64_t value) {
+  SetMetricInternal(kMostFrequentUsedCategoryCountNameHash, value);
+  return *this;
+}
+
 const char NewTabPage_HistoryClusters::kNumAbandonedCartsName[] = "NumAbandonedCarts";
 const uint64_t NewTabPage_HistoryClusters::kNumAbandonedCartsNameHash;
 
 NewTabPage_HistoryClusters& NewTabPage_HistoryClusters::SetNumAbandonedCarts(int64_t value) {
   SetMetricInternal(kNumAbandonedCartsNameHash, value);
+  return *this;
+}
+
+const char NewTabPage_HistoryClusters::kNumAssociatedCategoriesName[] = "NumAssociatedCategories";
+const uint64_t NewTabPage_HistoryClusters::kNumAssociatedCategoriesNameHash;
+
+NewTabPage_HistoryClusters& NewTabPage_HistoryClusters::SetNumAssociatedCategories(int64_t value) {
+  SetMetricInternal(kNumAssociatedCategoriesNameHash, value);
   return *this;
 }
 
@@ -21899,45 +21939,6 @@ const uint64_t TabStripOrganization::kTabStripEventIDNameHash;
 
 TabStripOrganization& TabStripOrganization::SetTabStripEventID(int64_t value) {
   SetMetricInternal(kTabStripEventIDNameHash, value);
-  return *this;
-}
-
-
-const char ThirdPartyCookies_BreakageIndicator::kEntryName[] = "ThirdPartyCookies.BreakageIndicator";
-const uint64_t ThirdPartyCookies_BreakageIndicator::kEntryNameHash;
-
-ThirdPartyCookies_BreakageIndicator::ThirdPartyCookies_BreakageIndicator(ukm::SourceId source_id) :
-  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
-}
-
-ThirdPartyCookies_BreakageIndicator::ThirdPartyCookies_BreakageIndicator(ukm::SourceIdObj source_id) :
-  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
-}
-
-ThirdPartyCookies_BreakageIndicator::~ThirdPartyCookies_BreakageIndicator() = default;
-
-
-const char ThirdPartyCookies_BreakageIndicator::kBreakageIndicatorTypeName[] = "BreakageIndicatorType";
-const uint64_t ThirdPartyCookies_BreakageIndicator::kBreakageIndicatorTypeNameHash;
-
-ThirdPartyCookies_BreakageIndicator& ThirdPartyCookies_BreakageIndicator::SetBreakageIndicatorType(int64_t value) {
-  SetMetricInternal(kBreakageIndicatorTypeNameHash, value);
-  return *this;
-}
-
-const char ThirdPartyCookies_BreakageIndicator::kTPCBlockedName[] = "TPCBlocked";
-const uint64_t ThirdPartyCookies_BreakageIndicator::kTPCBlockedNameHash;
-
-ThirdPartyCookies_BreakageIndicator& ThirdPartyCookies_BreakageIndicator::SetTPCBlocked(int64_t value) {
-  SetMetricInternal(kTPCBlockedNameHash, value);
-  return *this;
-}
-
-const char ThirdPartyCookies_BreakageIndicator::kTPCBlockedInSettingsName[] = "TPCBlockedInSettings";
-const uint64_t ThirdPartyCookies_BreakageIndicator::kTPCBlockedInSettingsNameHash;
-
-ThirdPartyCookies_BreakageIndicator& ThirdPartyCookies_BreakageIndicator::SetTPCBlockedInSettings(int64_t value) {
-  SetMetricInternal(kTPCBlockedInSettingsNameHash, value);
   return *this;
 }
 

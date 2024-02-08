@@ -729,6 +729,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_keyboard_accessible_tooltip_enabled_>;
   using ScopedKeyboardFocusableScrollers = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_keyboard_focusable_scrollers_enabled_>;
+  using ScopedLabelEventHandlerCallSuper = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_label_event_handler_call_super_enabled_>;
   using ScopedLangAttributeAwareFormControlUI = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_lang_attribute_aware_form_control_ui_enabled_>;
   using ScopedLayoutAlignForPositioned = ScopedRuntimeEnabledFeature<
@@ -1163,6 +1165,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_shared_storage_api_enabled_>;
   using ScopedSharedStorageAPIM118 = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_shared_storage_api_m_118_enabled_>;
+  using ScopedSharedStorageAPIM123 = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_shared_storage_api_m_123_enabled_>;
   using ScopedSharedWorker = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_shared_worker_enabled_>;
   using ScopedSignatureBasedIntegrity = ScopedRuntimeEnabledFeature<
@@ -2195,6 +2199,8 @@ using ScopedKeyboardAccessibleTooltipForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedKeyboardAccessibleTooltip;
 using ScopedKeyboardFocusableScrollersForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedKeyboardFocusableScrollers;
+using ScopedLabelEventHandlerCallSuperForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedLabelEventHandlerCallSuper;
 using ScopedLangAttributeAwareFormControlUIForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedLangAttributeAwareFormControlUI;
 using ScopedLayoutAlignForPositionedForTest =
@@ -2629,6 +2635,8 @@ using ScopedSharedStorageAPIForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSharedStorageAPI;
 using ScopedSharedStorageAPIM118ForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSharedStorageAPIM118;
+using ScopedSharedStorageAPIM123ForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedSharedStorageAPIM123;
 using ScopedSharedWorkerForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSharedWorker;
 using ScopedSignatureBasedIntegrityForTest =

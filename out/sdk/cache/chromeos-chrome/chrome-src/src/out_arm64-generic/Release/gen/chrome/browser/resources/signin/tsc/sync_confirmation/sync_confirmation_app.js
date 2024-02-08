@@ -19,6 +19,21 @@ import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './sync_confirmation_app.html.js';
 import { SyncConfirmationBrowserProxyImpl } from './sync_confirmation_browser_proxy.js';
+// LINT.IfChange(screen_mode)
+/**
+ * In PENDING mode, the screen should not show consent buttons and indicate that
+ * some loading is pending. In RESTRICTED mode, the button must not be weighted,
+ * and in UNRESTRICTED mode they can be.
+ *
+ * In UNSUPPORTED mode, the client take any behavior.
+ */
+var ScreenMode;
+(function (ScreenMode) {
+    ScreenMode[ScreenMode["UNSUPPORTED"] = 0] = "UNSUPPORTED";
+    ScreenMode[ScreenMode["PENDING"] = 1] = "PENDING";
+    ScreenMode[ScreenMode["RESTRICTED"] = 2] = "RESTRICTED";
+    ScreenMode[ScreenMode["UNRESTRICTED"] = 3] = "UNRESTRICTED";
+})(ScreenMode || (ScreenMode = {}));
 const SyncConfirmationAppElementBase = WebUiListenerMixin(I18nMixin(PolymerElement));
 export class SyncConfirmationAppElement extends SyncConfirmationAppElementBase {
     constructor() {
@@ -69,20 +84,11 @@ export class SyncConfirmationAppElement extends SyncConfirmationAppElementBase {
                     return loadTimeData.getBoolean('useClickableSyncInfoDesc');
                 },
             },
-            /**
-             * Reflects CanShowHistorySyncOptInsWithoutMinorModeRestrictions
-             * capability value.
-             *
-             * True iff the value of the capability was determined to be true before
-             * this screen was requested.
-             * False otherwise, ie.: the value of the capability was false or it was
-             * impossible to read its value before deadline.
-             *
-             */
-            unrestrictedMode_: {
-                type: Boolean,
+            /** Determines the screen mode. */
+            screenMode_: {
+                type: ScreenMode,
                 value() {
-                    return loadTimeData.getBoolean('unrestrictedMode');
+                    return loadTimeData.getInteger('screenMode');
                 },
             },
         };
@@ -91,9 +97,9 @@ export class SyncConfirmationAppElement extends SyncConfirmationAppElementBase {
         super.connectedCallback();
         this.addWebUiListener('account-info-changed', this.handleAccountInfoChanged_.bind(this));
         this.syncConfirmationBrowserProxy_.requestAccountInfo();
-        if (this.unrestrictedMode_) {
-            this.shadowRoot.querySelector('#confirmButton').classList.add('action-button');
-        }
+        setTimeout(() => {
+            this.defaultToRestrictedModeIfStillPending();
+        }, /*delay in ms=*/ 2000);
     }
     onConfirm_(e) {
         this.anyButtonClicked_ = true;
@@ -133,10 +139,30 @@ export class SyncConfirmationAppElement extends SyncConfirmationAppElementBase {
         assert(consentDescription.length);
         return consentDescription;
     }
-    // Called when the account image changes.
+    // Called when the account information changes: it might be either the image
+    // or determined mode of screen restriction (derived from the
+    // canShowHistorySyncOptInsWithoutMinorModeRestriction capability).
     handleAccountInfoChanged_(accountInfo) {
         this.accountImageSrc_ = accountInfo.src;
         this.showEnterpriseBadge_ = accountInfo.showEnterpriseBadge;
+        // Only allow this change once, from PENDING mode to (UN)RESTRICTED.
+        if (this.screenMode_ === ScreenMode.PENDING) {
+            this.screenMode_ = accountInfo.screenMode;
+        }
+    }
+    defaultToRestrictedModeIfStillPending() {
+        if (this.screenMode_ === ScreenMode.PENDING) {
+            this.screenMode_ = ScreenMode.RESTRICTED;
+        }
+    }
+    getConfirmButtonClass_(screenMode) {
+        return screenMode === ScreenMode.UNRESTRICTED ? 'action-button' : '';
+    }
+    isPending_(screenMode) {
+        return screenMode === ScreenMode.PENDING;
+    }
+    shouldHideEnterpriseBadge_(screenMode, showEnterpriseBadge) {
+        return !showEnterpriseBadge || screenMode === ScreenMode.PENDING;
     }
     /**
      * Called when the link to the device's sync settings is clicked.

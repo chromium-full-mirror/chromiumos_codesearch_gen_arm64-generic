@@ -46,6 +46,8 @@
 #include "services/network/public/mojom/devtools_observer.mojom-import-headers.h"
 #include "services/network/public/mojom/restricted_udp_socket.mojom.h"
 #include "services/network/public/mojom/restricted_udp_socket.mojom-import-headers.h"
+#include "services/network/public/mojom/fetch_api.mojom.h"
+#include "services/network/public/mojom/fetch_api.mojom-import-headers.h"
 #include "services/network/public/mojom/first_party_sets_access_delegate.mojom.h"
 #include "services/network/public/mojom/first_party_sets_access_delegate.mojom-import-headers.h"
 #include "services/network/public/mojom/host_resolver.mojom.h"

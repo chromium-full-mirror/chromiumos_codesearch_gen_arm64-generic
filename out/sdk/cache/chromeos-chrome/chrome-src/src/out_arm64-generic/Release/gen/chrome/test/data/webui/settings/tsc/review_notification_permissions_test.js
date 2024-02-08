@@ -336,14 +336,14 @@ suite('CrSettingsReviewNotificationPermissionsTest', function () {
         assertTrue(notificationPermissionList.opened);
         // User collapses the list.
         expandButton.click();
-        flush();
+        await expandButton.updateComplete;
         await assertMetricsInteraction(SafetyCheckNotificationsModuleInteractions.MINIMIZE);
         // Button and list are collapsed.
         assertFalse(expandButton.expanded);
         assertFalse(notificationPermissionList.opened);
         // User expands the list.
         expandButton.click();
-        flush();
+        await expandButton.updateComplete;
         // Button and list are expanded.
         assertTrue(expandButton.expanded);
         assertTrue(notificationPermissionList.opened);

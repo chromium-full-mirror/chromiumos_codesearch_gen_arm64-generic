@@ -64,29 +64,29 @@ suite('CrCollapseRadioButton', function () {
     });
     // When the button is not selected clicking the expand icon should still
     // open the iron collapse.
-    test('openOnExpandHit', function () {
+    test('openOnExpandHit', async function () {
         const collapse = collapseRadioButton.shadowRoot.querySelector('iron-collapse');
         collapseRadioButton.checked = false;
         flush();
         assertFalse(collapse.opened);
-        collapseRadioButton.shadowRoot.querySelector('cr-expand-button').click();
-        flush();
+        collapseRadioButton.$.expandButton.click();
+        await collapseRadioButton.$.expandButton.updateComplete;
         assertTrue(collapse.opened);
     });
     // When the button is selected clicking the expand icon should still close
     // the iron collapse.
-    test('closeOnExpandHitWhenSelected', function () {
+    test('closeOnExpandHitWhenSelected', async function () {
         const collapse = collapseRadioButton.shadowRoot.querySelector('iron-collapse');
         collapseRadioButton.checked = true;
         flush();
         assertTrue(collapse.opened);
-        collapseRadioButton.shadowRoot.querySelector('cr-expand-button').click();
-        flush();
+        collapseRadioButton.$.expandButton.click();
+        await collapseRadioButton.$.expandButton.updateComplete;
         assertFalse(collapse.opened);
     });
     // When the noAutomaticCollapse flag if set, the expand arrow should expand
     // the radio button immediately.
-    test('openOnExpandHitWhenNoAutomaticCollapse', function () {
+    test('openOnExpandHitWhenNoAutomaticCollapse', async function () {
         const collapse = collapseRadioButton.shadowRoot.querySelector('iron-collapse');
         collapseRadioButton.checked = false;
         flush();
@@ -94,13 +94,13 @@ suite('CrCollapseRadioButton', function () {
         collapseRadioButton.noAutomaticCollapse = true;
         flush();
         assertFalse(collapse.opened);
-        collapseRadioButton.shadowRoot.querySelector('cr-expand-button').click();
-        flush();
+        collapseRadioButton.$.expandButton.click();
+        await collapseRadioButton.$.expandButton.updateComplete;
         assertTrue(collapse.opened);
     });
     // When the noAutomaticCollapse flag if set, the expand arrow should collapse
     // the radio button immediately.
-    test('closeOnExpandHitWhenSelectedWhenNoAutomaticCollapse', function () {
+    test('closeOnExpandHitWhenSelectedWhenNoAutomaticCollapse', async function () {
         const collapse = collapseRadioButton.shadowRoot.querySelector('iron-collapse');
         collapseRadioButton.checked = true;
         flush();
@@ -108,8 +108,8 @@ suite('CrCollapseRadioButton', function () {
         collapseRadioButton.noAutomaticCollapse = true;
         flush();
         assertTrue(collapse.opened);
-        collapseRadioButton.shadowRoot.querySelector('cr-expand-button').click();
-        flush();
+        collapseRadioButton.$.expandButton.click();
+        await collapseRadioButton.$.expandButton.updateComplete;
         assertFalse(collapse.opened);
     });
     test('expansionHiddenWhenNoCollapseSet', function () {
@@ -120,14 +120,14 @@ suite('CrCollapseRadioButton', function () {
         assertFalse(isChildVisible(collapseRadioButton, 'cr-expand-button'));
         assertFalse(isChildVisible(collapseRadioButton, '.separator'));
     });
-    test('openOnExpandHitWhenDisabled', function () {
+    test('openOnExpandHitWhenDisabled', async function () {
         collapseRadioButton.checked = false;
         collapseRadioButton.disabled = true;
         const collapse = collapseRadioButton.shadowRoot.querySelector('iron-collapse');
         flush();
         assertFalse(collapse.opened);
-        collapseRadioButton.shadowRoot.querySelector('cr-expand-button').click();
-        flush();
+        collapseRadioButton.$.expandButton.click();
+        await collapseRadioButton.$.expandButton.updateComplete;
         assertTrue(collapse.opened);
     });
     test('respectPreferenceState', function () {

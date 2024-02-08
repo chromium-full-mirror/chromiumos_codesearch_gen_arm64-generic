@@ -1447,8 +1447,10 @@ namespace OnCertificatesRequested {
 
 const char kEventName[] = "certificateProvider.onCertificatesRequested";
 
-base::Value::List Create() {
+base::Value::List Create(base::Value::Dict report_callback) {
   base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append((report_callback).Clone());
 
   return create_results;
 }
@@ -1459,10 +1461,12 @@ namespace OnSignDigestRequested {
 
 const char kEventName[] = "certificateProvider.onSignDigestRequested";
 
-base::Value::List Create(const SignRequest& request) {
+base::Value::List Create(const SignRequest& request, base::Value::Dict report_callback) {
   base::Value::List create_results;
-  create_results.reserve(1);
+  create_results.reserve(2);
   create_results.Append((request).ToValue());
+
+  create_results.Append((report_callback).Clone());
 
   return create_results;
 }

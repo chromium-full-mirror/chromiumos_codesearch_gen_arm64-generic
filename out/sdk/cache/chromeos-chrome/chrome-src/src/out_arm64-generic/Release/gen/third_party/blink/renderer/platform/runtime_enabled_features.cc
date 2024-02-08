@@ -369,6 +369,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_java_script_compile_hints_magic_runtime_enabled_(RuntimeEnabledFeaturesBase::is_java_script_compile_hints_magic_runtime_enabled_),
     is_keyboard_accessible_tooltip_enabled_(RuntimeEnabledFeaturesBase::is_keyboard_accessible_tooltip_enabled_),
     is_keyboard_focusable_scrollers_enabled_(RuntimeEnabledFeaturesBase::is_keyboard_focusable_scrollers_enabled_),
+    is_label_event_handler_call_super_enabled_(RuntimeEnabledFeaturesBase::is_label_event_handler_call_super_enabled_),
     is_lang_attribute_aware_form_control_ui_enabled_(RuntimeEnabledFeaturesBase::is_lang_attribute_aware_form_control_ui_enabled_),
     is_layout_align_for_positioned_enabled_(RuntimeEnabledFeaturesBase::is_layout_align_for_positioned_enabled_),
     is_layout_flex_new_row_algorithm_v_3_enabled_(RuntimeEnabledFeaturesBase::is_layout_flex_new_row_algorithm_v_3_enabled_),
@@ -586,6 +587,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_shared_autofill_enabled_(RuntimeEnabledFeaturesBase::is_shared_autofill_enabled_),
     is_shared_storage_api_enabled_(RuntimeEnabledFeaturesBase::is_shared_storage_api_enabled_),
     is_shared_storage_api_m_118_enabled_(RuntimeEnabledFeaturesBase::is_shared_storage_api_m_118_enabled_),
+    is_shared_storage_api_m_123_enabled_(RuntimeEnabledFeaturesBase::is_shared_storage_api_m_123_enabled_),
     is_shared_worker_enabled_(RuntimeEnabledFeaturesBase::is_shared_worker_enabled_),
     is_signature_based_integrity_enabled_(RuntimeEnabledFeaturesBase::is_signature_based_integrity_enabled_),
     is_site_initiated_mirroring_enabled_(RuntimeEnabledFeaturesBase::is_site_initiated_mirroring_enabled_),
@@ -1103,6 +1105,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_java_script_compile_hints_magic_runtime_enabled_ = is_java_script_compile_hints_magic_runtime_enabled_;
   RuntimeEnabledFeaturesBase::is_keyboard_accessible_tooltip_enabled_ = is_keyboard_accessible_tooltip_enabled_;
   RuntimeEnabledFeaturesBase::is_keyboard_focusable_scrollers_enabled_ = is_keyboard_focusable_scrollers_enabled_;
+  RuntimeEnabledFeaturesBase::is_label_event_handler_call_super_enabled_ = is_label_event_handler_call_super_enabled_;
   RuntimeEnabledFeaturesBase::is_lang_attribute_aware_form_control_ui_enabled_ = is_lang_attribute_aware_form_control_ui_enabled_;
   RuntimeEnabledFeaturesBase::is_layout_align_for_positioned_enabled_ = is_layout_align_for_positioned_enabled_;
   RuntimeEnabledFeaturesBase::is_layout_flex_new_row_algorithm_v_3_enabled_ = is_layout_flex_new_row_algorithm_v_3_enabled_;
@@ -1320,6 +1323,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_shared_autofill_enabled_ = is_shared_autofill_enabled_;
   RuntimeEnabledFeaturesBase::is_shared_storage_api_enabled_ = is_shared_storage_api_enabled_;
   RuntimeEnabledFeaturesBase::is_shared_storage_api_m_118_enabled_ = is_shared_storage_api_m_118_enabled_;
+  RuntimeEnabledFeaturesBase::is_shared_storage_api_m_123_enabled_ = is_shared_storage_api_m_123_enabled_;
   RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = is_shared_worker_enabled_;
   RuntimeEnabledFeaturesBase::is_signature_based_integrity_enabled_ = is_signature_based_integrity_enabled_;
   RuntimeEnabledFeaturesBase::is_site_initiated_mirroring_enabled_ = is_site_initiated_mirroring_enabled_;
@@ -1519,6 +1523,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetCSSDisplayAnimationEnabled(enable);
   SetCssDisplayRubyEnabled(enable);
   SetCSSExponentialFunctionsEnabled(enable);
+  SetCssFieldSizingEnabled(enable);
   SetCSSFirstLetterNoNewLineAsPrecedingCharEnabled(enable);
   SetCSSHexAlphaColorEnabled(enable);
   SetCSSLightDarkColorsEnabled(enable);
@@ -1559,7 +1564,6 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetDispatchHiddenVisibilityTransitionsEnabled(enable);
   SetDocumentBaseURIFixEnabled(enable);
   SetDocumentOpenSandboxInheritanceRemovalEnabled(enable);
-  SetDOMParserUsesHTMLFastPathParserEnabled(enable);
   SetDontFireDblclickOnDisabledFormControlsEnabled(enable);
   SetEditContextEnabled(enable);
   SetElementGetInnerHTMLEnabled(enable);
@@ -1601,6 +1605,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetInterruptComposedScrollbarDisappearanceEnabled(enable);
   SetIntersectionObserverScrollMarginEnabled(enable);
   SetInvisibleSVGAnimationThrottlingEnabled(enable);
+  SetLabelEventHandlerCallSuperEnabled(enable);
   SetLayoutAlignForPositionedEnabled(enable);
   SetLazyLoadScrollMarginEnabled(enable);
   SetLongAnimationFrameTimingEnabled(enable);
@@ -1611,7 +1616,6 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetMediaCapabilitiesDynamicRangeEnabled(enable);
   SetMediaSessionEnabled(enable);
   SetMediaSessionEnterPictureInPictureEnabled(enable);
-  SetMessagePortCloseEventEnabled(enable);
   SetMouseDragFromIframeOnCancelledMouseDownEnabled(enable);
   SetMutationEventsEnabled(enable);
   SetNavigationActivationEnabled(enable);
@@ -1625,6 +1629,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetOffsetMappingUnitVariableEnabled(enable);
   SetOptionElementAlwaysUseLabelEnabled(enable);
   SetOriginIsolationHeaderEnabled(enable);
+  SetPageRevealEventEnabled(enable);
   SetPastingBlocksSVGUseNonLocalHrefsEnabled(enable);
   SetPaymentHandlerMinimalHeaderUXEnabled(enable);
   SetPaymentMethodChangeEventEnabled(enable);
@@ -1637,11 +1642,13 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetPrePaintAncestorsOfMissedOOFEnabled(enable);
   SetPrerender2Enabled(enable);
   SetPresentationEnabled(enable);
+  SetPrettyPrintJSONDocumentEnabled(enable);
   SetPreventReadingSystemAccentColorEnabled(enable);
   SetPrivateAggregationAuctionReportBuyerDebugModeConfigEnabled(enable);
   SetPushMessagingEnabled(enable);
   SetQuickIntensiveWakeUpThrottlingAfterLoadingEnabled(enable);
   SetReadableStreamTeeCloneForBranch2Enabled(enable);
+  SetReduceCookieIPCsEnabled(enable);
   SetReduceUserAgentMinorVersionEnabled(enable);
   SetRemotePlaybackEnabled(enable);
   SetRemoveDanglingMarkupInTargetEnabled(enable);
@@ -1957,7 +1964,6 @@ void RuntimeEnabledFeaturesBase::SetExperimentalFeaturesEnabled(bool enable) {
   SetCSSCrossFadeEnabled(enable);
   SetCSSCustomStateNewSyntaxEnabled(enable);
   SetCSSDynamicRangeLimitEnabled(enable);
-  SetCssFieldSizingEnabled(enable);
   SetCSSFontSizeAdjustEnabled(enable);
   SetCSSLayoutAPIEnabled(enable);
   SetCSSMarkerNestedPseudoElementEnabled(enable);
@@ -2042,7 +2048,6 @@ void RuntimeEnabledFeaturesBase::SetExperimentalFeaturesEnabled(bool enable) {
   SetOffscreenCanvasCommitEnabled(enable);
   SetOriginPolicyEnabled(enable);
   SetOverscrollCustomizationEnabled(enable);
-  SetPageRevealEventEnabled(enable);
   SetPasswordStrongLabelEnabled(enable);
   SetPaymentAppEnabled(enable);
   SetPaymentRequestEnabled(enable);
@@ -2054,7 +2059,6 @@ void RuntimeEnabledFeaturesBase::SetExperimentalFeaturesEnabled(bool enable) {
   SetPermissionElementEnabled(enable);
   SetPermissionsRequestRevokeEnabled(enable);
   SetPrefersReducedDataEnabled(enable);
-  SetPrettyPrintJSONDocumentEnabled(enable);
   SetPrivateNetworkAccessNonSecureContextsAllowedEnabled(enable);
   SetPrivateNetworkAccessNullIpAddressEnabled(enable);
   SetPrivateNetworkAccessPermissionPromptEnabled(enable);
@@ -2233,6 +2237,7 @@ void RuntimeEnabledFeaturesBase::SetTestFeaturesEnabled(bool enable) {
   SetDesktopPWAsAdditionalWindowingControlsEnabled(enable);
   SetDesktopPWAsSubAppsEnabled(enable);
   SetDocumentRenderBlockingEnabled(enable);
+  SetDOMParserUsesHTMLFastPathParserEnabled(enable);
   SetFakeNoAllocDirectCallForTestingEnabled(enable);
   SetFedCmAuthzEnabled(enable);
   SetFedCmButtonModeEnabled(enable);
@@ -2249,6 +2254,7 @@ void RuntimeEnabledFeaturesBase::SetTestFeaturesEnabled(bool enable) {
   SetMediaLatencyHintEnabled(enable);
   SetMediaSessionChapterInformationEnabled(enable);
   SetMediaStreamTrackTransferEnabled(enable);
+  SetMessagePortCloseEventEnabled(enable);
   SetMiddleClickAutoscrollEnabled(enable);
   SetModelExecutionAPIEnabled(enable);
   SetMojoJSEnabled(enable);
@@ -2256,7 +2262,6 @@ void RuntimeEnabledFeaturesBase::SetTestFeaturesEnabled(bool enable) {
   SetNoIdleEncodingForWebTestsEnabled(enable);
   SetPointerEventDeviceIdEnabled(enable);
   SetPrivateStateTokensAlwaysAllowIssuanceEnabled(enable);
-  SetReduceCookieIPCsEnabled(enable);
   SetResourceTimingUseCORSForBodySizesEnabled(enable);
   SetSecurePaymentConfirmationEnabled(enable);
   SetSharedAutofillEnabled(enable);
@@ -2817,6 +2822,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"LCPAnimatedImagesWebExposed", &is_lcp_animated_images_web_exposed_enabled_},
     {"LCPMouseoverHeuristics", &is_lcp_mouseover_heuristics_enabled_},
     {"LCPMultipleUpdatesPerElement", &is_lcp_multiple_updates_per_element_enabled_},
+    {"LabelEventHandlerCallSuper", &is_label_event_handler_call_super_enabled_},
     {"LangAttributeAwareFormControlUI", &is_lang_attribute_aware_form_control_ui_enabled_},
     {"LayoutAlignForPositioned", &is_layout_align_for_positioned_enabled_},
     {"LayoutFlexNewRowAlgorithmV3", &is_layout_flex_new_row_algorithm_v_3_enabled_},
@@ -3031,6 +3037,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"SharedAutofill", &is_shared_autofill_enabled_},
     {"SharedStorageAPI", &is_shared_storage_api_enabled_},
     {"SharedStorageAPIM118", &is_shared_storage_api_m_118_enabled_},
+    {"SharedStorageAPIM123", &is_shared_storage_api_m_123_enabled_},
     {"SharedWorker", &is_shared_worker_enabled_},
     {"SignatureBasedIntegrity", &is_signature_based_integrity_enabled_},
     {"SiteInitiatedMirroring", &is_site_initiated_mirroring_enabled_},
@@ -3585,6 +3592,8 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
     {blink::features::kLCPMouseoverHeuristics, SetLCPMouseoverHeuristicsEnabled,
      false},
     {blink::features::kLCPMultipleUpdatesPerElement, SetLCPMultipleUpdatesPerElementEnabled,
+     false},
+    {blink::features::kLabelEventHandlerCallSuper, SetLabelEventHandlerCallSuperEnabled,
      false},
     {blink::features::kLayoutAlignForPositioned, SetLayoutAlignForPositionedEnabled,
      false},
@@ -4899,7 +4908,7 @@ bool RuntimeEnabledFeaturesBase::is_css_display_ruby_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_css_dynamic_range_limit_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_enumerated_custom_properties_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_exponential_functions_enabled_ = true;
-bool RuntimeEnabledFeaturesBase::is_css_field_sizing_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_css_field_sizing_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_css_first_letter_no_new_line_as_preceding_char_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_css_font_size_adjust_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_hex_alpha_color_enabled_ = true;
@@ -4993,7 +5002,7 @@ bool RuntimeEnabledFeaturesBase::is_document_policy_negotiation_enabled_ = false
 bool RuntimeEnabledFeaturesBase::is_document_policy_sync_xhr_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_document_render_blocking_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_document_write_enabled_ = false;
-bool RuntimeEnabledFeaturesBase::is_dom_parser_uses_html_fast_path_parser_enabled_ = true;
+bool RuntimeEnabledFeaturesBase::is_dom_parser_uses_html_fast_path_parser_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_dom_parts_api_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_dont_fire_dblclick_on_disabled_form_controls_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_dynamic_scroll_cull_rect_expansion_enabled_ = false;
@@ -5104,6 +5113,7 @@ bool RuntimeEnabledFeaturesBase::is_invisible_svg_animation_throttling_enabled_ 
 bool RuntimeEnabledFeaturesBase::is_java_script_compile_hints_magic_runtime_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_keyboard_accessible_tooltip_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_keyboard_focusable_scrollers_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_label_event_handler_call_super_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_lang_attribute_aware_form_control_ui_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_layout_align_for_positioned_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_layout_flex_new_row_algorithm_v_3_enabled_ = false;
@@ -5145,7 +5155,7 @@ bool RuntimeEnabledFeaturesBase::is_media_source_experimental_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_media_source_extensions_for_webcodecs_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_media_source_new_abort_and_duration_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_media_stream_track_transfer_enabled_ = false;
-bool RuntimeEnabledFeaturesBase::is_message_port_close_event_enabled_ = true;
+bool RuntimeEnabledFeaturesBase::is_message_port_close_event_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_middle_click_autoscroll_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_mobile_layout_theme_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_model_execution_api_enabled_ = false;
@@ -5195,7 +5205,7 @@ bool RuntimeEnabledFeaturesBase::is_overscroll_customization_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_page_freeze_opt_in_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_page_freeze_opt_out_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_page_margin_boxes_enabled_ = false;
-bool RuntimeEnabledFeaturesBase::is_page_reveal_event_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_page_reveal_event_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_paint_under_invalidation_checking_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_parakeet_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_partitioned_cookies_enabled_ = false;
@@ -5231,7 +5241,7 @@ bool RuntimeEnabledFeaturesBase::is_prefixed_video_fullscreen_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_pre_paint_ancestors_of_missed_oof_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_prerender_2_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_presentation_enabled_ = true;
-bool RuntimeEnabledFeaturesBase::is_pretty_print_js_on_document_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_pretty_print_js_on_document_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_prevent_reading_system_accent_color_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_privacy_sandbox_ads_api_s_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_private_aggregation_auction_report_buyer_debug_mode_config_enabled_ = true;
@@ -5246,7 +5256,7 @@ bool RuntimeEnabledFeaturesBase::is_quick_intensive_wake_up_throttling_after_loa
 bool RuntimeEnabledFeaturesBase::is_quota_change_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_readable_stream_tee_clone_for_branch_2_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_reduce_accept_language_enabled_ = false;
-bool RuntimeEnabledFeaturesBase::is_reduce_cookie_ip_cs_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_reduce_cookie_ip_cs_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_minor_version_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remove_dangling_markup_in_target_enabled_ = true;
@@ -5305,6 +5315,7 @@ bool RuntimeEnabledFeaturesBase::is_shared_array_buffer_unrestricted_access_allo
 bool RuntimeEnabledFeaturesBase::is_shared_autofill_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_shared_storage_api_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_shared_storage_api_m_118_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_shared_storage_api_m_123_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_signature_based_integrity_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_site_initiated_mirroring_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_skip_ad_enabled_ = false;

@@ -194,6 +194,11 @@ export class SettingsPrivacyHubGeolocationSubpage extends SettingsPrivacyHubGeol
         chrome.metricsPrivate.recordEnumerationValue(LOCATION_PERMISSION_CHANGE_FROM_SETTINGS_HISTOGRAM_NAME, accessLevel, GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE);
     }
     geolocationAllowedForSystem_() {
+        if (!this.prefs) {
+            // Won't show blocked services and apps in case that the geolocation pref
+            // is not yet loaded.
+            return true;
+        }
         return this.getPref('ash.user.geolocation_access_level')
             .value !== GeolocationAccessLevel.DISALLOWED;
     }

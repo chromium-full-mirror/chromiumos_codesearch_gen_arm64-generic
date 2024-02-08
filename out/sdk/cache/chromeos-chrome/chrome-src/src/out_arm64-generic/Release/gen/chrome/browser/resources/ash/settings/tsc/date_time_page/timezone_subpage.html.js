@@ -2,7 +2,7 @@ import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><style include="settings-shared">#timezoneRadioContainer{padding-bottom:var(--cr-section-padding)}settings-dropdown-menu{--md-select-width:425px;--settings-dropdown-menu-policy-order:1}#timeZoneResolveMethodDropdown,#timezoneSelector{padding-inline-start:28px}#warningText{width:425px;padding-inline-start:28px}</style>
 <div id="timezoneRadioContainer" class="settings-box first">
-  <settings-radio-group id="timeZoneRadioGroup" pref="{{prefs.generated.resolve_timezone_by_geolocation_on_off}}" deep-link-focus-id$="[[Setting.kChangeTimeZone]]">
+  <settings-radio-group id="timeZoneRadioGroup" pref="{{prefs.generated.resolve_timezone_by_geolocation_on_off}}" deep-link-focus-id$="[[Setting.kChangeTimeZone]]" disabled="[[isGuest_]]">
     <controlled-radio-button id="timeZoneAutoDetectOn" name="true" pref="[[prefs.generated.resolve_timezone_by_geolocation_on_off]]" label="$i18n{setTimeZoneAutomaticallyOn}" no-extension-indicator>
     </controlled-radio-button>
     <settings-dropdown-menu id="timeZoneResolveMethodDropdown" pref="{{prefs.generated.resolve_timezone_by_geolocation_method_short}}" label="$i18n{selectTimeZoneResolveMethod}" disabled="[[!prefs.generated.resolve_timezone_by_geolocation_on_off.value]]" menu-options="[[getTimeZoneResolveMethodsList_(

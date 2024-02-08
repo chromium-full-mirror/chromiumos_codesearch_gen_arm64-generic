@@ -466,7 +466,7 @@ const KNOWN_SCREENS = [
                 // Show offline error during signin
                 id: 'signin-offline-error',
                 trigger: (screen) => {
-                    screen.setUIState(2); // signin
+                    screen.setUiState(2); // signin
                     screen.setErrorState(2); // offline
                     screen.allowGuestSignin(true);
                     screen.allowOfflineLogin(true);

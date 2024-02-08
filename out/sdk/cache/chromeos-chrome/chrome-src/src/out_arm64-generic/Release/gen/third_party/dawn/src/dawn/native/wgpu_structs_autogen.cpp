@@ -2959,6 +2959,8 @@ namespace dawn::native {
                  "offsetof mismatch for ExternalTextureDescriptor::gamutConversionMatrix");
     static_assert(offsetof(ExternalTextureDescriptor, flipY) == offsetof(WGPUExternalTextureDescriptor, flipY),
                  "offsetof mismatch for ExternalTextureDescriptor::flipY");
+    static_assert(offsetof(ExternalTextureDescriptor, mirrored) == offsetof(WGPUExternalTextureDescriptor, mirrored),
+                 "offsetof mismatch for ExternalTextureDescriptor::mirrored");
     static_assert(offsetof(ExternalTextureDescriptor, rotation) == offsetof(WGPUExternalTextureDescriptor, rotation),
                  "offsetof mismatch for ExternalTextureDescriptor::rotation");
 
@@ -2975,6 +2977,7 @@ namespace dawn::native {
             dstTransferFunctionParameters,
             gamutConversionMatrix,
             flipY,
+            mirrored,
             rotation
         ) == std::tie(
             rhs.label,
@@ -2988,6 +2991,7 @@ namespace dawn::native {
             rhs.dstTransferFunctionParameters,
             rhs.gamutConversionMatrix,
             rhs.flipY,
+            rhs.mirrored,
             rhs.rotation
         );
     }

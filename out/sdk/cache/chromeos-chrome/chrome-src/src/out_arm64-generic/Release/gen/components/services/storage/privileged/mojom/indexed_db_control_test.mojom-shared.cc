@@ -21,32 +21,6 @@
 namespace storage {
 namespace mojom {
 
-NOINLINE static const char* V2SchemaCorruptionStatusToStringHelper(V2SchemaCorruptionStatus value) {
-  // Defined in a helper function to ensure that Clang generates a lookup table.
-  switch(value) {
-    case V2SchemaCorruptionStatus::CORRUPTION_UNKNOWN:
-      return "CORRUPTION_UNKNOWN";
-    case V2SchemaCorruptionStatus::CORRUPTION_NO:
-      return "CORRUPTION_NO";
-    case V2SchemaCorruptionStatus::CORRUPTION_YES:
-      return "CORRUPTION_YES";
-    default:
-      return nullptr;
-  }
-}
-
-std::string V2SchemaCorruptionStatusToString(V2SchemaCorruptionStatus value) {
-  const char *str = V2SchemaCorruptionStatusToStringHelper(value);
-  if (!str) {
-    return base::StringPrintf("Unknown V2SchemaCorruptionStatus value: %i", static_cast<int32_t>(value));
-  }
-  return str;
-}
-
-std::ostream& operator<<(std::ostream& os, V2SchemaCorruptionStatus value) {
-  return os << V2SchemaCorruptionStatusToString(value);
-}
-
 NOINLINE static const char* FailClassToStringHelper(FailClass value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -326,117 +300,6 @@ bool IndexedDBControlTest_ResetCachesForTesting_ResponseParams_Data::Validate(
 }
 
 IndexedDBControlTest_ResetCachesForTesting_ResponseParams_Data::IndexedDBControlTest_ResetCachesForTesting_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data* object =
-      static_cast<const IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->bucket_locator, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->bucket_locator, validation_context))
-    return false;
-
-  return true;
-}
-
-IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data::IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data* object =
-      static_cast<const IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data*>(data);
-
-  return true;
-}
-
-IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data::IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data* object =
-      static_cast<const IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->bucket_locator, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->bucket_locator, validation_context))
-    return false;
-
-  return true;
-}
-
-IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data* object =
-      static_cast<const IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data*>(data);
-
-
-  if (!::storage::mojom::internal::V2SchemaCorruptionStatus_Data
-        ::Validate(object->status, validation_context))
-    return false;
-
-  return true;
-}
-
-IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -928,16 +791,6 @@ IndexedDBControlTest_ForceInitializeFromFilesForTesting_ResponseParams_Data::Ind
 }  // namespace internal
 }  // namespace mojom
 }  // namespace storage
-
-namespace perfetto {
-
-// static
-void TraceFormatTraits<::storage::mojom::V2SchemaCorruptionStatus>::WriteIntoTrace(
-   perfetto::TracedValue context, ::storage::mojom::V2SchemaCorruptionStatus value) {
-  return std::move(context).WriteString(::storage::mojom::V2SchemaCorruptionStatusToString(value));
-}
-
-} // namespace perfetto
 
 namespace perfetto {
 

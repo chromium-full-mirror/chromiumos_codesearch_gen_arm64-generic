@@ -1460,9 +1460,6 @@ mojo.internal.Struct(PageImageServiceHandler_GetPageImageUrl_ResponseParamsSpec.
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview The browser proxy used to access `PageImageService` from WebUI.
- */
 class PageImageServiceBrowserProxy {
     handler;
     constructor(handler) {
@@ -3654,7 +3651,6 @@ Polymer({
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// clang-format off
 class FocusRowMixinDelegate {
     constructor(listItem) {
         this.listItem_ = listItem;
@@ -4438,10 +4434,6 @@ customElements.define(CrA11yAnnouncerElement.is, CrA11yAnnouncerElement);
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Mixin to be used by Polymer elements that want to
- * automatically remove WebUI listeners when detached.
- */
 const WebUiListenerMixin = dedupingMixin((superClass) => {
     class WebUiListenerMixin extends superClass {
         constructor() {

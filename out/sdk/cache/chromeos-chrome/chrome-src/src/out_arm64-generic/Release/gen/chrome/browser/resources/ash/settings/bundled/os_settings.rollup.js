@@ -1,6 +1,6 @@
 import './strings.m.js';
-import { a as assertNotReached, cl as listenOnce, N as NetworkListenerBehavior, W as WebUiListenerMixin, R as RouteObserverMixin, I as I18nMixin, cm as ABOUT_CHROME_OS_SECTION_PATH, m as isRevampWayfindingEnabled, b7 as getInputDeviceSettingsProvider, a4 as MultiDeviceBrowserProxyImpl, j as Router, cn as isAdvancedRoute, co as NETWORK_SECTION_PATH, cp as BLUETOOTH_SECTION_PATH, cq as MULTI_DEVICE_SECTION_PATH, cr as PEOPLE_SECTION_PATH, cs as KERBEROS_SECTION_PATH, ct as DEVICE_SECTION_PATH, cu as PERSONALIZATION_SECTION_PATH, cv as PRIVACY_AND_SECURITY_SECTION_PATH, cw as APPS_SECTION_PATH, cx as ACCESSIBILITY_SECTION_PATH, cy as SYSTEM_PREFERENCES_SECTION_PATH, cz as SEARCH_AND_ASSISTANT_SECTION_PATH, cA as DATE_AND_TIME_SECTION_PATH, cB as LANGUAGES_AND_INPUT_SECTION_PATH, cC as FILES_SECTION_PATH, cD as PRINTING_SECTION_PATH, cE as CROSTINI_SECTION_PATH, cF as RESET_SECTION_PATH, aq as AccountManagerBrowserProxyImpl, _ as assertExists, h as castExists, cG as getDeviceName, ax as MultiDeviceSettingsMode, b8 as FakeInputDeviceSettingsProvider, cH as KeyboardSettingsObserverReceiver, cI as MouseSettingsObserverReceiver, cJ as PointingStickSettingsObserverReceiver, cK as TouchpadSettingsObserverReceiver, cL as routesMojom, O as OncMojo, c as assert, D as DeepLinkingMixin, P as PrefsMixin, S as Setting, bd as AudioAndCaptionsPageBrowserProxyImpl, b as routes, d as cast, cM as getDisplayApi, cN as IronResizableBehavior, ae as DevicePageBrowserProxyImpl, cO as PaperRippleMixin, G as GeolocationAccessLevel, u as focusWithoutInk, cP as getDeviceStateChangesToAnnounce, K as getInstance, cQ as CrLinkRowElement, cR as Fkey, cS as ExtendedFkeysModifier, cT as TopRowActionKey, cU as MetaKey, cV as ModifierKey, cW as SixPackShortcutModifier, cX as SixPackKey, cY as PolicyStatus, i as RouteOriginMixin, n as Section$1, cZ as isInputDeviceSettingsSplitEnabled, c_ as isExternalStorageEnabled, c$ as GraphicsTabletSettingsObserverReceiver, b0 as ACCESSIBILITY_COMMON_IME_ID, d0 as Button, d1 as ButtonState, a1 as mojoString16ToString, a5 as getEuicc, a7 as getPendingESimProfiles, d2 as hasActiveCellularNetwork, a2 as CellularSetupPageName, d3 as getESimProfile, d4 as stringToMojoString16, M as CrPolicyNetworkBehaviorMojo, d5 as NetworkConfigElementBehavior, z as I18nBehavior, d6 as assertNotReached$1, E as assert$1, d7 as htmlEscape, r as recordSettingChange, a3 as ESimManagerListenerMixin, Y as InternetPageBrowserProxyImpl, a6 as getSimSlotCount, d8 as isConnectedToNonCellularNetwork, d9 as getNumESimProfiles, aw as MultiDeviceFeature, au as LockStateMixin, aD as recordLockScreenProgress, aE as LockScreenProgress, da as LockScreenUnlockType, at as fireAuthTokenInvalidEvent, db as PhoneHubPermissionsSetupFlowScreens, dc as PhoneHubPermissionsSetupAction, dd as PhoneHubPermissionsSetupFeatureCombination, de as getNearbyShareSettings, df as observeNearbyShareSettings, av as MultiDeviceFeatureMixin, dg as PhoneHubFeatureAccessStatus, a8 as MultiDeviceFeatureState, dh as OsBluetoothDevicesSubpageBrowserProxyImpl, di as ButtonState$1, dj as ButtonName, F as FocusRowMixin, dk as DeviceItemState, aJ as CrScrollableMixin, dl as PairingAuthType, dm as recordBluetoothUiSurfaceMetrics, dn as BluetoothUiSurface, y as isChild, ar as ParentalControlsBrowserProxyImpl, ab as getImage, as as assertInstanceof, dp as isAccountManagerEnabled, aG as SyncBrowserProxyImpl, dq as AUTH_TOKEN_INVALID_EVENT_TYPE, dr as PrivacyHubNavigationOrigin, ds as isQuickAnswersSupported, dt as isAssistantAllowed, du as shouldShowMultitasking, dv as isGuest, dw as isPowerwashAllowed, dx as shouldShowStartup, dy as isAboutRoute, dz as AndroidAppsBrowserProxyImpl, A as AboutPageBrowserProxyImpl, dA as isBasicRoute, dB as CrSearchFieldMixin, dC as SectionSpec, dD as SubpageSpec, dE as SettingSpec, s as sanitizeInnerHtml, dF as OpenWindowProxyImpl, dG as recordSearch, a$ as FindShortcutMixin, dH as CrContainerShadowMixin, dI as setGlobalScrollTarget, dJ as recordPageFocus, dK as recordPageBlur, dL as recordClick, dM as recordNavigation, dN as getPrefPolicyFields$1, dO as settingsAreEqual, aF as PluralStringProxyImpl, dP as CustomizationRestriction, dQ as SimulateRightClickModifier, dR as recordSavedDevicesUiEventMetrics, dS as FastPairSavedDevicesUiEvent, dT as ColorChangeUpdater } from './shared.rollup.js';
-export { ed as ApnDetailDialog, aT as AppLanguageSelectionDialogEntryPoint, aX as AppManagementBrowserProxy, aa as AppManagementComponentBrowserProxy, f3 as AppManagementFileHandlingItemElement, en as AppManagementStore, aV as AppManagementStoreMixin, bY as AppManagementSupportedLinksItemElement, f5 as AppManagementToggleRowElement, al as BrowserChannel, ac as ChromeVoxSubpageBrowserProxyImpl, fe as ConfirmationDialogType, er as ControlledButtonElement, es as ControlledRadioButtonElement, aC as CrActionMenuElement, az as CrButtonElement, e2 as CrCardRadioButtonElement, e1 as CrCheckboxElement, aA as CrDialogElement, aB as CrIconButtonElement, ay as CrInputElement, eb as CrPolicyIndicatorElement, e3 as CrRadioButtonElement, e4 as CrRadioGroupElement, e5 as CrSearchFieldElement, e6 as CrSearchableDropDownElement, ef as CrSettingsPrefs, e7 as CrSliderElement, e8 as CrTextareaElement, e9 as CrToastElement, a9 as CrToggleElement, ec as CrTooltipIconElement, d_ as DEFAULT_CHECKED_VALUE, d$ as DEFAULT_UNCHECKED_VALUE, an as DeviceNameBrowserProxyImpl, ap as DeviceNameState, e0 as ExtensionControlBrowserProxyImpl, et as ExtensionControlledIndicatorElement, f8 as FastPairSavedDevicesOptInStatus, f9 as GoogleDriveBrowserProxy, fa as GoogleDrivePageCallbackRouter, fb as GoogleDrivePageHandlerRemote, fc as GoogleDrivePageRemote, ew as IdleBehavior, ep as LacrosExtensionControlBrowserProxyImpl, eq as LacrosExtensionControlledIndicatorElement, ex as LidClosedBehavior, L as LifetimeBrowserProxyImpl, ea as LocalizedLinkElement, fi as MetricsConsentBrowserProxyImpl, eX as NearbyAccountManagerBrowserProxyImpl, dX as NearbyProgressElement, eY as NearbyShareConfirmPageElement, f2 as NearbyShareDataUsage, eZ as NearbyShareHighVisibilityPageElement, ey as NoteAppLockScreenSupport, aU as OneDriveBrowserProxy, ff as OneDrivePageCallbackRouter, fg as OneDrivePageHandlerRemote, fh as OneDrivePageRemote, ci as OsResetBrowserProxyImpl, f7 as OsSettingsAppsPageElement, a_ as OsSettingsSubpageElement, aH as PageStatus, eV as PhoneHubFeatureAccessProhibitedReason, eW as PhoneHubPermissionsSetupMode, f4 as PluginVmBrowserProxyImpl, aQ as PrivacyHubSensorSubpageUserAction, b2 as PrivacyPageBrowserProxyImpl, fq as Route, fn as SearchEnginesBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, ag as SelectToSpeakSubpageBrowserProxyImpl, ao as SetDeviceNameResult, fo as SettingsCardElement, eu as SettingsDropdownMenuElement, cb as SettingsGoogleDriveSubpageElement, ee as SettingsPrefsElement, fk as SettingsPrivacyHubAppPermissionRow, fl as SettingsPrivacyHubSystemServiceRow, fm as SettingsSearchEngineElement, ev as SettingsSliderElement, af as SettingsToggleButtonElement, fd as Stage, aI as StatusAction, eA as StorageSpaceState, ai as SwitchAccessSubpageBrowserProxyImpl, aj as TextToSpeechSubpageBrowserProxyImpl, ak as TtsVoiceSubpageBrowserProxyImpl, U as UpdateStatus, eP as Vkey, eg as addApp, eR as appNotificationHandlerMojom, eS as appPermissionHandlerMojom, eh as changeApp, fp as createRouterForTesting, f1 as dataUsageStringToEnum, eB as fakeGraphicsTabletButtonActions, eC as fakeGraphicsTablets, eD as fakeKeyboards, eE as fakeKeyboards2, eF as fakeMice, eG as fakeMice2, eH as fakeMouseButtonActions, eI as fakePointingSticks, eJ as fakePointingSticks2, eK as fakeStyluses, eL as fakeTouchpads, eM as fakeTouchpads2, dU as getContactManager, e_ as getReceiveManager, bb as getShortcutInputProvider, dY as nearbyShareMojom, dV as observeContactManager, e$ as observeReceiveManager, el as reduceAction, ei as removeApp, eo as resetGlobalScrollTargetForTesting, f6 as setAppNotificationProviderForTesting, fj as setAppPermissionProviderForTesting, dW as setContactManagerForTesting, ez as setDisplayApiForTesting, eN as setInputDeviceSettingsProviderForTesting, dZ as setNearbyShareSettingsForTesting, f0 as setReceiveManagerForTesting, eQ as setUserActionRecorderForTesting, eT as settingMojom, eO as setupFakeInputDeviceSettingsProvider, em as updateApps, ej as updateSelectedAppId, ek as updateSubAppToParentAppId, eU as userActionRecorderMojom } from './shared.rollup.js';
+import { a as assertNotReached, cs as listenOnce, N as NetworkListenerBehavior, W as WebUiListenerMixin, R as RouteObserverMixin, I as I18nMixin, ct as ABOUT_CHROME_OS_SECTION_PATH, v as isRevampWayfindingEnabled, bb as getInputDeviceSettingsProvider, a4 as MultiDeviceBrowserProxyImpl, p as Router, cu as isAdvancedRoute, cv as NETWORK_SECTION_PATH, cw as BLUETOOTH_SECTION_PATH, cx as MULTI_DEVICE_SECTION_PATH, cy as PEOPLE_SECTION_PATH, cz as KERBEROS_SECTION_PATH, cA as DEVICE_SECTION_PATH, cB as PERSONALIZATION_SECTION_PATH, cC as PRIVACY_AND_SECURITY_SECTION_PATH, cD as APPS_SECTION_PATH, cE as ACCESSIBILITY_SECTION_PATH, cF as SYSTEM_PREFERENCES_SECTION_PATH, cG as SEARCH_AND_ASSISTANT_SECTION_PATH, cH as DATE_AND_TIME_SECTION_PATH, cI as LANGUAGES_AND_INPUT_SECTION_PATH, cJ as FILES_SECTION_PATH, cK as PRINTING_SECTION_PATH, cL as CROSTINI_SECTION_PATH, cM as RESET_SECTION_PATH, as as AccountManagerBrowserProxyImpl, _ as assertExists, n as castExists, cN as getDeviceNameUnsafe, az as MultiDeviceSettingsMode, bc as FakeInputDeviceSettingsProvider, cO as KeyboardSettingsObserverReceiver, cP as MouseSettingsObserverReceiver, cQ as PointingStickSettingsObserverReceiver, cR as TouchpadSettingsObserverReceiver, cS as routesMojom, O as OncMojo, h as assert, D as DeepLinkingMixin, k as PrefsMixin, S as Setting, bh as AudioAndCaptionsPageBrowserProxyImpl, b as routes, j as cast, cT as getDisplayApi, cU as IronResizableBehavior, ae as DevicePageBrowserProxyImpl, cV as PaperRippleMixin, G as GeolocationAccessLevel, w as focusWithoutInk, cW as getDeviceStateChangesToAnnounce, K as getInstance, cX as CrLinkRowElement, cY as Fkey, cZ as ExtendedFkeysModifier, c_ as TopRowActionKey, c$ as MetaKey, d0 as ModifierKey, d1 as SixPackShortcutModifier, d2 as SixPackKey, d3 as PolicyStatus, o as RouteOriginMixin, q as Section$1, d4 as isInputDeviceSettingsSplitEnabled, d5 as isExternalStorageEnabled, d6 as GraphicsTabletSettingsObserverReceiver, b2 as ACCESSIBILITY_COMMON_IME_ID, d7 as Button, d8 as ButtonState, a1 as mojoString16ToString, a5 as getEuicc, a7 as getPendingESimProfiles, d9 as hasActiveCellularNetwork, a2 as CellularSetupPageName, da as getESimProfile, db as stringToMojoString16, Q as CrPolicyNetworkBehaviorMojo, dc as NetworkConfigElementBehavior, A as I18nBehavior, dd as assertNotReached$1, E as assert$1, de as htmlEscape, r as recordSettingChange, a3 as ESimManagerListenerMixin, Y as InternetPageBrowserProxyImpl, a6 as getSimSlotCount, df as isConnectedToNonCellularNetwork, dg as getNumESimProfiles, ay as MultiDeviceFeature, aw as LockStateMixin, aF as recordLockScreenProgress, aG as LockScreenProgress, dh as LockScreenUnlockType, av as fireAuthTokenInvalidEvent, di as PhoneHubPermissionsSetupFlowScreens, dj as PhoneHubPermissionsSetupAction, dk as PhoneHubPermissionsSetupFeatureCombination, dl as getNearbyShareSettings, dm as observeNearbyShareSettings, ax as MultiDeviceFeatureMixin, dn as PhoneHubFeatureAccessStatus, a8 as MultiDeviceFeatureState, dp as OsBluetoothDevicesSubpageBrowserProxyImpl, dq as ButtonState$1, dr as ButtonName, F as FocusRowMixin, ds as DeviceItemState, aL as CrScrollableMixin, dt as PairingAuthType, du as recordBluetoothUiSurfaceMetrics, dv as BluetoothUiSurface, z as isChild, at as ParentalControlsBrowserProxyImpl, ab as getImage, au as assertInstanceof, dw as isAccountManagerEnabled, aI as SyncBrowserProxyImpl, dx as AUTH_TOKEN_INVALID_EVENT_TYPE, dy as PrivacyHubNavigationOrigin, dz as isQuickAnswersSupported, dA as isAssistantAllowed, dB as shouldShowMultitasking, dC as isGuest, dD as isPowerwashAllowed, dE as shouldShowStartup, dF as isAboutRoute, dG as AndroidAppsBrowserProxyImpl, am as AboutPageBrowserProxyImpl, dH as isBasicRoute, dI as CrSearchFieldMixin, dJ as SectionSpec, dK as SubpageSpec, dL as SettingSpec, b8 as sanitizeInnerHtml, dM as OpenWindowProxyImpl, dN as recordSearch, b1 as FindShortcutMixin, dO as CrContainerShadowMixin, dP as setGlobalScrollTarget, dQ as recordPageFocus, dR as recordPageBlur, dS as recordClick, dT as recordNavigation, dU as getPrefPolicyFields$1, dV as settingsAreEqual, aH as PluralStringProxyImpl, dW as CustomizationRestriction, dX as SimulateRightClickModifier, dY as recordSavedDevicesUiEventMetrics, dZ as FastPairSavedDevicesUiEvent, d_ as ColorChangeUpdater } from './shared.rollup.js';
+export { ek as ApnDetailDialog, aV as AppLanguageSelectionDialogEntryPoint, aZ as AppManagementBrowserProxy, aa as AppManagementComponentBrowserProxy, fc as AppManagementFileHandlingItemElement, eu as AppManagementStore, aX as AppManagementStoreMixin, c3 as AppManagementSupportedLinksItemElement, fe as AppManagementToggleRowElement, al as BrowserChannel, ac as ChromeVoxSubpageBrowserProxyImpl, fn as ConfirmationDialogType, ey as ControlledButtonElement, ez as ControlledRadioButtonElement, aE as CrActionMenuElement, aB as CrButtonElement, e9 as CrCardRadioButtonElement, e8 as CrCheckboxElement, aC as CrDialogElement, aD as CrIconButtonElement, aA as CrInputElement, ei as CrPolicyIndicatorElement, ea as CrRadioButtonElement, eb as CrRadioGroupElement, ec as CrSearchFieldElement, ed as CrSearchableDropDownElement, em as CrSettingsPrefs, ee as CrSliderElement, ef as CrTextareaElement, eg as CrToastElement, a9 as CrToggleElement, ej as CrTooltipIconElement, e5 as DEFAULT_CHECKED_VALUE, e6 as DEFAULT_UNCHECKED_VALUE, ao as DeviceNameBrowserProxyImpl, ar as DeviceNameState, e7 as ExtensionControlBrowserProxyImpl, eA as ExtensionControlledIndicatorElement, fh as FastPairSavedDevicesOptInStatus, fi as GoogleDriveBrowserProxy, fj as GoogleDrivePageCallbackRouter, fk as GoogleDrivePageHandlerRemote, fl as GoogleDrivePageRemote, eD as IdleBehavior, ew as LacrosExtensionControlBrowserProxyImpl, ex as LacrosExtensionControlledIndicatorElement, eE as LidClosedBehavior, b4 as LifetimeBrowserProxyImpl, eh as LocalizedLinkElement, fr as MetricsConsentBrowserProxyImpl, f2 as NearbyAccountManagerBrowserProxyImpl, e2 as NearbyProgressElement, f3 as NearbyShareConfirmPageElement, f9 as NearbyShareDataUsage, f4 as NearbyShareHighVisibilityPageElement, eF as NoteAppLockScreenSupport, aW as OneDriveBrowserProxy, fo as OneDrivePageCallbackRouter, fp as OneDrivePageHandlerRemote, fq as OneDrivePageRemote, fb as OsAboutPageElement, cp as OsResetBrowserProxyImpl, fg as OsSettingsAppsPageElement, b0 as OsSettingsSubpageElement, aJ as PageStatus, f0 as PhoneHubFeatureAccessProhibitedReason, f1 as PhoneHubPermissionsSetupMode, fd as PluginVmBrowserProxyImpl, aS as PrivacyHubSensorSubpageUserAction, b5 as PrivacyPageBrowserProxyImpl, fz as Route, fw as SearchEnginesBrowserProxyImpl, b6 as SecureDnsMode, b7 as SecureDnsUiManagementMode, ag as SelectToSpeakSubpageBrowserProxyImpl, ap as SetDeviceNameResult, fx as SettingsCardElement, eB as SettingsDropdownMenuElement, ci as SettingsGoogleDriveSubpageElement, el as SettingsPrefsElement, ft as SettingsPrivacyHubAppPermissionRow, fu as SettingsPrivacyHubSystemServiceRow, fv as SettingsSearchEngineElement, eC as SettingsSliderElement, af as SettingsToggleButtonElement, fm as Stage, aK as StatusAction, eH as StorageSpaceState, ai as SwitchAccessSubpageBrowserProxyImpl, aj as TextToSpeechSubpageBrowserProxyImpl, ak as TtsVoiceSubpageBrowserProxyImpl, fa as UpdateStatus, eW as Vkey, en as addApp, eY as appNotificationHandlerMojom, eZ as appPermissionHandlerMojom, eo as changeApp, fy as createRouterForTesting, f8 as dataUsageStringToEnum, eI as fakeGraphicsTabletButtonActions, eJ as fakeGraphicsTablets, eK as fakeKeyboards, eL as fakeKeyboards2, eM as fakeMice, eN as fakeMice2, eO as fakeMouseButtonActions, eP as fakePointingSticks, eQ as fakePointingSticks2, eR as fakeStyluses, eS as fakeTouchpads, eT as fakeTouchpads2, d$ as getContactManager, f5 as getReceiveManager, bf as getShortcutInputProvider, e3 as nearbyShareMojom, e0 as observeContactManager, f6 as observeReceiveManager, es as reduceAction, ep as removeApp, ev as resetGlobalScrollTargetForTesting, ff as setAppNotificationProviderForTesting, fs as setAppPermissionProviderForTesting, e1 as setContactManagerForTesting, eG as setDisplayApiForTesting, eU as setInputDeviceSettingsProviderForTesting, e4 as setNearbyShareSettingsForTesting, f7 as setReceiveManagerForTesting, eX as setUserActionRecorderForTesting, e_ as settingMojom, eV as setupFakeInputDeviceSettingsProvider, et as updateApps, eq as updateSelectedAppId, er as updateSubAppToParentAppId, e$ as userActionRecorderMojom } from './shared.rollup.js';
 import { html, PolymerElement, mixinBehaviors, dedupingMixin, flush, afterNextRender, Polymer, beforeNextRender, templatize, microTask, Debouncer, timeOut } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getBluetoothConfig } from 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
 import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network/mojo_interface_provider.js';
@@ -24,8 +24,8 @@ import 'chrome://resources/cr_components/app_management/app_management.mojom-web
 import 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_target_types.mojom-webui.js';
 import 'chrome://resources/mojo/services/network/public/mojom/ip_address.mojom-webui.js';
 
-function getTemplate$1y() {
-    return html `<!--_html_template_start_--><style>:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);font:var(--cr-drawer-header-font,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
+function getTemplate$1x() {
+    return html `<!--_html_template_start_--><style>:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font:var(--cr-drawer-header-font,inherit);font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
 <dialog id="dialog" on-cancel="onDialogCancel_" on-click="onDialogClick_" on-close="onDialogClose_">
   <div id="container" on-click="onContainerClick_">
     <div class="drawer-header">
@@ -51,7 +51,7 @@ class CrDrawerElement extends PolymerElement {
         return 'cr-drawer';
     }
     static get template() {
-        return getTemplate$1y();
+        return getTemplate$1x();
     }
     static get properties() {
         return {
@@ -159,7 +159,7 @@ styleMod.appendChild(html `
 `.content);
 styleMod.register('cr-page-host-style');
 
-function getTemplate$1x() {
+function getTemplate$1w() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--tap-target-padding:3px;align-items:center;background:0 0;border-color:transparent;border-style:solid;border-width:var(--settings-menu-item-border-width);color:var(--cros-text-color-primary);display:flex;flex-direction:row;font:var(--cros-button-1-font);text-decoration:none}:host-context(body:not(.revamp-wayfinding-enabled)):host{border-end-end-radius:20px;border-start-end-radius:20px;border-inline-start-width:0;min-height:32px;padding:var(--tap-target-padding) 0;padding-inline-start:20px}:host-context(body.revamp-wayfinding-enabled):host{border-radius:16px;box-sizing:border-box;height:60px;padding-inline-start:calc(12px - var(--settings-menu-item-border-width));padding-inline-end:calc(12px - var(--settings-menu-item-border-width));width:var(--settings-menu-item-width)}#labelWrapper{flex-grow:1;max-width:200px}#label,#sublabel{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#sublabel{color:var(--cros-sys-on_surface_variant);font:var(--cros-body-2-font)}iron-icon{pointer-events:none}:host-context(body:not(.revamp-wayfinding-enabled)) iron-icon{margin-inline-end:16px}:host-context(body.revamp-wayfinding-enabled) iron-icon{margin-inline-end:12px}:host-context(body.revamp-wayfinding-enabled):host(:not(.iron-selected)) iron-icon{--iron-icon-fill-color:var(--cros-sys-primary)}:host(:not(.iron-selected):hover){background-color:var(--cros-sys-hover_on_subtle)!important}:host-context(.focus-outline-visible):host(:focus){border-color:var(--cros-focus-ring-color)}:host(.iron-selected){background-color:var(--cros-sys-primary)!important;color:var(--cros-sys-on_primary)}:host(.iron-selected)>iron-icon{--iron-icon-fill-color:var(--cros-sys-on_primary)}:host(.iron-selected) #sublabel{color:var(--cros-sys-surface_variant)}</style>
 
 <iron-icon icon="[[icon]]" hidden="[[!icon]]"></iron-icon>
@@ -183,7 +183,7 @@ class OsSettingsMenuItemElement extends PolymerElement {
         return 'os-settings-menu-item';
     }
     static get template() {
-        return getTemplate$1x();
+        return getTemplate$1w();
     }
     static get properties() {
         return {
@@ -228,7 +228,7 @@ class OsSettingsMenuItemElement extends PolymerElement {
 }
 customElements.define(OsSettingsMenuItemElement.is, OsSettingsMenuItemElement);
 
-function getTemplate$1w() {
+function getTemplate$1v() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{box-sizing:border-box;display:block;padding-bottom:2px;padding-top:8px;width:var(--settings-menu-width)}:host-context(body.revamp-wayfinding-enabled):host{padding-inline-end:var(--settings-menu-padding-inline-end);padding-inline-start:var(--settings-menu-padding-inline-start);padding-top:var(--settings-menu-padding-top)}:host *{-webkit-tap-highlight-color:transparent}[selectable]>:focus{background-color:transparent}#advancedButton{--ink-color:var(--cros-text-color-primary);align-items:center;background:0 0;border:none;border-radius:initial;box-shadow:none;color:var(--cros-text-color-primary);display:flex;font:var(--cros-button-1-font);height:unset;margin-inline-end:2px;margin-top:8px;padding-inline-end:0;padding-inline-start:20px;text-transform:none}#advancedButton:focus{outline:0}:host-context(.focus-outline-visible) #advancedButton:focus{border-radius:0 20px 20px 0;outline:var(--settings-menu-item-border-width) solid var(--cros-focus-ring-color)}:host-context([dir=rtl]):host-context(.focus-outline-visible) #advancedButton:focus{border-radius:20px 0 0 20px}#advancedButton>span{flex:1}#advancedButton>iron-icon{height:var(--cr-icon-size);margin-inline-end:14px;width:var(--cr-icon-size)}#menuSeparator{border-bottom:var(--cr-separator-line);margin-bottom:8px;margin-top:8px}#topMenu>os-settings-menu-item{margin-bottom:8px}:host-context(body:not(.revamp-wayfinding-enabled)) #topMenu>os-settings-menu-item{margin-inline-end:2px}:host-context(body:not(.revamp-wayfinding-enabled)) #advancedSubmenu>os-settings-menu-item{margin-bottom:8px;margin-inline-end:2px}#topMenu>os-settings-menu-item:last-of-type{margin-bottom:calc(48px - calc(var(--tap-target-padding) + var(--settings-menu-item-border-width)))}</style>
 <iron-selector id="topMenu" role="navigation" selectable="os-settings-menu-item" attr-for-selected="path" selected="[[selectedItemPath_]]" on-iron-activate="onItemActivated_" on-iron-select="onItemSelected_" on-iron-deselect="onItemDeselected_">
   <template id="topMenuRepeat" is="dom-repeat" items="[[basicMenuItems_]]">
@@ -310,7 +310,7 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
         return 'os-settings-menu';
     }
     static get template() {
-        return getTemplate$1w();
+        return getTemplate$1v();
     }
     static get properties() {
         return {
@@ -746,7 +746,7 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
         }
         if (connectedDevices.length === 1) {
             const device = castExists(connectedDevices[0]);
-            this.bluetoothMenuItemDescription_ = getDeviceName(device);
+            this.bluetoothMenuItemDescription_ = getDeviceNameUnsafe(device);
             return;
         }
         this.bluetoothMenuItemDescription_ = this.i18n('bluetoothMenuItemDescriptionMultipleDevicesConnected', connectedDevices.length);
@@ -932,7 +932,7 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
 }
 customElements.define(OsSettingsMenuElement.is, OsSettingsMenuElement);
 
-function getTemplate$1v() {
+function getTemplate$1u() {
     return html `<!--_html_template_start_-->    <style>:host{align-items:center;border-top:1px solid var(--cr-separator-color);color:var(--cr-secondary-text-color);display:none;font-size:.8125rem;justify-content:center;padding:0 24px}:host([is-managed_]){display:flex}a[href]{color:var(--cr-link-color)}iron-icon{align-self:flex-start;flex-shrink:0;height:20px;padding-inline-end:var(--managed-footnote-icon-padding,8px);width:20px}</style>
 
     <template is="dom-if" if="[[isManaged_]]">
@@ -960,7 +960,7 @@ class ManagedFootnoteElement extends ManagedFootnoteElementBase {
         return 'managed-footnote';
     }
     static get template() {
-        return getTemplate$1v();
+        return getTemplate$1u();
     }
     static get properties() {
         return {
@@ -1370,7 +1370,7 @@ var cros_audio_config_mojomWebui = /*#__PURE__*/Object.freeze({
   MuteStateSpec: MuteStateSpec
 });
 
-function getTemplate$1u() {
+function getTemplate$1t() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">.audio-mute-button{margin-inline-end:8px}.audio-mute-button[disabled]{background-color:transparent;pointer-events:auto}.audio-options-container{align-items:center;display:flex;flex-direction:row}.audio-slider{margin-inline-end:16px;padding:0;width:142px}h2{padding-inline-start:var(--cr-section-padding)}.settings-box:first-of-type{border-top:none}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>.settings-box,.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}:host([is-output-muted_]) #outputVolumeSlider{--cr-slider-active-color:var(--cros-slider-color-inactive);--cr-slider-container-color:var(--cros-slider-track-color-inactive);--cr-slider-knob-color-rgb:var(--cros-color-primary-rgb)}:host([is-output-muted_]) #audioOutputMuteButton{--cr-icon-button-fill-color:var(--cros-color-secondary)}:host(:not([is-output-muted_])) #audioOutputMuteButton{--cr-icon-button-fill-color:var(--cros-color-prominent)}:host([is-input-muted_]) #audioInputGainVolumeSlider{--cr-slider-active-color:var(--cros-slider-color-inactive);--cr-slider-container-color:var(--cros-slider-track-color-inactive);--cr-slider-knob-color-rgb:var(--cros-color-primary-rgb)}:host([is-input-muted_]) #audioInputGainMuteButton{--cr-icon-button-fill-color:var(--cros-color-secondary)}:host(:not([is-input-muted_])) #audioInputGainMuteButton{--cr-icon-button-fill-color:var(--cros-color-prominent)}paper-tooltip{--paper-tooltip-min-width:max-content}</style>
 
 
@@ -1756,7 +1756,7 @@ class SettingsAudioElement extends SettingsAudioElementBase {
         return 'settings-audio';
     }
     static get template() {
-        return getTemplate$1u();
+        return getTemplate$1t();
     }
     static get properties() {
         return {
@@ -2037,7 +2037,7 @@ class SettingsAudioElement extends SettingsAudioElementBase {
 }
 customElements.define(SettingsAudioElement.is, SettingsAudioElement);
 
-function getTemplate$1t() {
+function getTemplate$1s() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-600));border-top-left-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));border-top-right-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0);transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}@media (prefers-color-scheme:dark){.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
 <template is="dom-repeat" items="[[tabNames]]">
   <div role="tab" class$="tab [[getSelectedClass_(index, selected)]]" on-click="onTabClick_" aria-selected$="[[getAriaSelected_(index, selected)]]" tabindex$="[[getTabindex_(index, selected)]]">
@@ -2082,7 +2082,7 @@ class CrTabsElement extends PolymerElement {
         return 'cr-tabs';
     }
     static get template() {
-        return getTemplate$1t();
+        return getTemplate$1s();
     }
     static get properties() {
         return {
@@ -2200,7 +2200,7 @@ part of the polymer project is also subject to an additional IP rights grant
 found at http://polymer.github.io/PATENTS.txt
 */
 
-const template$1 = html`
+const template = html`
 <custom-style>
   <style is="custom-style">
     html {
@@ -2265,10 +2265,10 @@ const template$1 = html`
     }
   </style>
 </custom-style>`;
-template$1.setAttribute('style', 'display: none;');
-document.head.appendChild(template$1.content);
+template.setAttribute('style', 'display: none;');
+document.head.appendChild(template.content);
 
-function getTemplate$1s() {
+function getTemplate$1r() {
     return html `<!--_html_template_start_--><style include="settings-shared">#displayArea{height:100%;overflow:hidden;position:relative;width:100%}.display{align-items:center;background:var(--cros-textfield-background-color);color:var(--cros-text-color-secondary);cursor:default;display:flex;font-size:100%;font-weight:500;justify-content:center;margin:4px;padding:3px;position:absolute;text-align:center}.display[selected]{border:var(--cros-icon-color-prominent) solid 1px}.display.mirror{border:var(--cros-icon-color-prominent) solid 1px}.highlight-left{border-left:var(--cros-icon-color-prominent) solid 1px}.highlight-right{border-right:var(--cros-icon-color-prominent) solid 1px}.highlight-top{border-top:var(--cros-icon-color-prominent) solid 1px}.highlight-bottom{border-bottom:var(--cros-icon-color-prominent) solid 1px}.display.elevate{box-shadow:var(--cr-elevation-3)}</style>
 <div id="displayArea" on-iron-resize="calculateVisualScale_">
   <template is="dom-repeat" items="[[mirroringDestinationIds_]]">
@@ -3146,7 +3146,7 @@ class DisplayLayoutElement extends DisplayLayoutElementBase {
         return 'display-layout';
     }
     static get template() {
-        return getTemplate$1s();
+        return getTemplate$1r();
     }
     static get properties() {
         return {
@@ -3356,7 +3356,7 @@ class DisplayLayoutElement extends DisplayLayoutElementBase {
 }
 customElements.define(DisplayLayoutElement.is, DisplayLayoutElement);
 
-function getTemplate$1r() {
+function getTemplate$1q() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">.subtitle{color:var(--cros-text-color-secondary);margin-top:10px}.instructions{color:var(--cros-text-color-secondary);margin-top:4px}.details{margin:40px}.label{margin-top:15px}iron-icon{--iron-icon-fill-color:var(--cros-icon-color-primary);--iron-icon-height:18px;--iron-icon-width:18px;background:var(--cros-bg-color-dropped-elevation-2);border-radius:2px;margin:5px;padding:4px}#move{align-items:center;display:flex;flex-direction:row}#move>div{color:var(--cros-text-color-secondary);flex:0 0 auto}#move>div:not(:first-child){margin-inline-start:8px}#move>div:not(:last-child){margin-inline-end:8px}#move>div.shift{background:var(--cros-bg-color-dropped-elevation-2);border-radius:2px;color:var(--cros-text-color-primary);font-size:100%;padding:7px 8px}</style>
 <cr-dialog id="dialog" on-close="close" close-text="$i18n{close}">
   <div slot="title">$i18n{displayOverscanPageTitle}</div>
@@ -3414,7 +3414,7 @@ class SettingsDisplayOverscanDialogElement extends PolymerElement {
         return 'settings-display-overscan-dialog';
     }
     static get template() {
-        return getTemplate$1r();
+        return getTemplate$1q();
     }
     static get properties() {
         return {
@@ -3542,7 +3542,7 @@ class SettingsDisplayOverscanDialogElement extends PolymerElement {
 }
 customElements.define(SettingsDisplayOverscanDialogElement.is, SettingsDisplayOverscanDialogElement);
 
-function getTemplate$1q() {
+function getTemplate$1p() {
     return html `<!--_html_template_start_--><style>:host{cursor:default;font-weight:500;text-align:center;user-select:none}#sliderContainer{display:inline-block;position:relative;user-select:none;width:100%}#sliderBar{background-color:rgba(var(--cros-button-background-color-primary-rgb),.24);background-size:100%;display:inline-block;height:2px;position:relative;width:inherit}.knob{height:32px;margin-inline-start:-16px;margin-top:-15px;position:absolute;width:32px;z-index:3}.knob:focus{outline:0}.knob-inner{background:var(--cros-button-background-color-primary);border-radius:6px;height:10px;left:0;margin:11px;position:absolute;width:10px;z-index:3}.knob-inner:focus{outline:0}#progressContainer{height:100%;overflow:hidden;position:absolute;width:100%}.progress{background:var(--cros-button-background-color-primary);height:100%;position:absolute;z-index:1}#labelContainer{height:1.75em}.label{background:var(--cros-button-background-color-primary);border-radius:14px;color:var(--cros-bg-color);font-size:12px;left:0;line-height:1.5em;margin-inline-start:-2.5em;position:absolute;text-align:center;transition:margin-top .2s cubic-bezier(0,0,.2,1);vertical-align:middle;width:5em}.end-label-overlap{margin-top:-2em}#markersContainer{display:flex;height:100%;left:0;position:absolute;width:100%}.active-marker,.inactive-marker{border-radius:50%;display:block;height:100%;margin-inline-start:-1px;padding:0;position:absolute;width:2PX;z-index:2}.active-marker{background-color:rgba(var(--cros-bg-color-rgb),.6)}.inactive-marker{--background-color-opacity:0.6;background-color:rgba(var(--cros-button-background-color-primary-rgb),var(--background-color-opacity))}@media(prefers-color-scheme:dark){.inactive-marker{--background-color-opacity:1}}#legendContainer{height:10px;margin-bottom:40px;position:relative;width:inherit}#legendContainer>div{color:var(--cros-text-color-secondary);font-size:12px;margin-inline-start:-2.5em;position:absolute;text-align:center;top:5px;width:5em}paper-ripple{color:var(--cros-button-background-color-primary)}</style>
 <div id="sliderContainer">
   <div id="labelContainer">
@@ -3628,7 +3628,7 @@ class SettingsSchedulerSliderElement extends SettingsSchedulerSliderElementBase 
         return 'settings-scheduler-slider';
     }
     static get template() {
-        return getTemplate$1q();
+        return getTemplate$1p();
     }
     static get properties() {
         return {
@@ -4570,7 +4570,7 @@ var display_settings_provider_mojomWebui = /*#__PURE__*/Object.freeze({
   TabletModeObserver_OnTabletModeChanged_ParamsSpec: TabletModeObserver_OnTabletModeChanged_ParamsSpec
 });
 
-function getTemplate$1p() {
+function getTemplate$1o() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex
   iron-flex-alignment">.indented{align-self:stretch;margin-inline-start:var(--cr-section-indent-padding);padding:0}#nightLightTemperatureDiv[disabled]{opacity:.38;pointer-events:none}#NightLightLabelDiv{align-self:start}.text-area{margin:10px 0}#nightLightSlider{flex-grow:1;margin-top:20px}#nightLightDropDownDiv{width:200px;text-align:right;margin-top:8px}iron-collapse{width:100%}</style>
 
@@ -4674,7 +4674,7 @@ class SettingsDisplayNightLightElement extends SettingsDisplayNightLightElementB
         return 'settings-display-night-light';
     }
     static get template() {
-        return getTemplate$1p();
+        return getTemplate$1o();
     }
     static get properties() {
         return {
@@ -4795,7 +4795,7 @@ class SettingsDisplayNightLightElement extends SettingsDisplayNightLightElementB
 }
 customElements.define(SettingsDisplayNightLightElement.is, SettingsDisplayNightLightElement);
 
-function getTemplate$1o() {
+function getTemplate$1n() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared md-select iron-flex
   iron-flex-alignment">.indented{align-self:stretch;margin-inline-start:var(--cr-section-indent-padding);padding:0}.display-tabs{width:100%}display-layout{align-self:stretch;flex:1 1 auto;height:300px;margin:10px;min-height:300px}.text-area{margin:10px 0}.settings-box>cr-button:first-child{padding-inline-start:0}.settings-box>cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}.underbar{border-bottom:var(--cr-separator-line)}#controlsDiv>.settings-box:first-of-type{border-top:none}#mirrorDisplayToggleButton{display:flex;align-self:stretch;margin-bottom:20px}</style>
 
@@ -5006,7 +5006,7 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
         return 'settings-display';
     }
     static get template() {
-        return getTemplate$1o();
+        return getTemplate$1n();
     }
     static get properties() {
         return {
@@ -6062,7 +6062,7 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
 }
 customElements.define(SettingsDisplayElement.is, SettingsDisplayElement);
 
-function getTemplate$1n() {
+function getTemplate$1m() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#header{display:flex;height:24px;padding:12px 0}.subsection{margin-bottom:0;margin-top:8px}#description{color:var(--cr-secondary-text-color);margin-inline-start:20px}</style>
 <template is="dom-repeat" items="[[graphicsTablets]]" as="graphicsTablet" index-as="index" restamp>
     <div class="device" data-evdev-id$="[[graphicsTablet.id]]">
@@ -6094,7 +6094,7 @@ class SettingsGraphicsTabletSubpageElement extends SettingsGraphicsTabletSubpage
         return 'settings-graphics-tablet-subpage';
     }
     static get template() {
-        return getTemplate$1n();
+        return getTemplate$1m();
     }
     static get properties() {
         return {
@@ -6143,7 +6143,7 @@ class SettingsGraphicsTabletSubpageElement extends SettingsGraphicsTabletSubpage
 }
 customElements.define(SettingsGraphicsTabletSubpageElement.is, SettingsGraphicsTabletSubpageElement);
 
-function getTemplate$1m() {
+function getTemplate$1l() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared"></style>
 <template is="dom-if" if="[[!hasKeyboards(keyboards.length)]]">
   <div id="noKeyboardsConnectedContainer" class="settings-box start first">
@@ -6234,7 +6234,7 @@ class SettingsPerDeviceKeyboardElement extends SettingsPerDeviceKeyboardElementB
         return 'settings-per-device-keyboard';
     }
     static get template() {
-        return getTemplate$1m();
+        return getTemplate$1l();
     }
     static get properties() {
         return {
@@ -6341,7 +6341,7 @@ class SettingsPerDeviceKeyboardElement extends SettingsPerDeviceKeyboardElementB
 }
 customElements.define(SettingsPerDeviceKeyboardElement.is, SettingsPerDeviceKeyboardElement);
 
-function getTemplate$1l() {
+function getTemplate$1k() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">.settings-box{justify-content:space-between;padding-inline-start:0}</style>
 
 <div class="settings-box" id="fkeyRow">
@@ -6426,7 +6426,7 @@ class FkeyRowElement extends FkeyRowElementBase {
         return 'fkey-row';
     }
     static get template() {
-        return getTemplate$1l();
+        return getTemplate$1k();
     }
     static get properties() {
         return {
@@ -6494,7 +6494,7 @@ class FkeyRowElement extends FkeyRowElementBase {
 }
 customElements.define(FkeyRowElement.is, FkeyRowElement);
 
-function getTemplate$1k() {
+function getTemplate$1j() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#header{display:flex}:host([key-state=default-remapping]) .key-container{background-color:var(--cros-bg-color-dropped-elevation-1);border:none;box-shadow:0 1px 1px var(--cros-bg-color-dropped-elevation-1)}:host([key-state=modifier-remapped]) .key-container{background-color:var(--cros-sys-highlight_shape);border:none;box-shadow:0 1px 1px var(--cros-sys-highlight_shape)}.settings-box{justify-content:space-between;padding-inline-start:0}iron-icon{--iron-icon-fill-color:var(--cros-icon-color-secondary);--iron-icon-height:20px;--iron-icon-width:20px;align-self:center;justify-self:center}:host([remove-top-border]) .settings-box{border-top:none}</style>
 <div class="settings-box">
   <div>
@@ -6583,7 +6583,7 @@ class KeyboardRemapModifierKeyRowElement extends KeyboardRemapModifierKeyRowElem
         this.setUpKeyMapTargets();
     }
     static get template() {
-        return getTemplate$1k();
+        return getTemplate$1j();
     }
     /**
      * Whenever the key remapping is changed, update the keyState to change
@@ -6695,7 +6695,7 @@ class KeyboardRemapModifierKeyRowElement extends KeyboardRemapModifierKeyRowElem
 }
 customElements.define(KeyboardRemapModifierKeyRowElement.is, KeyboardRemapModifierKeyRowElement);
 
-function getTemplate$1j() {
+function getTemplate$1i() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">.settings-box{justify-content:space-between;padding-inline-start:0}</style>
 <div class="settings-box" id="sixPackKeyRow">
   <div>
@@ -6808,7 +6808,7 @@ class KeyboardSixPackKeyRowElement extends PolymerElement {
         return 'keyboard-six-pack-key-row';
     }
     static get template() {
-        return getTemplate$1j();
+        return getTemplate$1i();
     }
     static get properties() {
         return {
@@ -6836,7 +6836,7 @@ class KeyboardSixPackKeyRowElement extends PolymerElement {
 }
 customElements.define(KeyboardSixPackKeyRowElement.is, KeyboardSixPackKeyRowElement);
 
-function getTemplate$1i() {
+function getTemplate$1h() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#header{display:flex;height:24px;margin-top:12px}.subsection{margin-bottom:0}#description{color:var(--cr-secondary-text-color);font:var(--cros-button-2-font);margin-inline-start:20px}.subsection-header{color:var(--cr-secondary-text-color);font:var(--cros-body-2-font);height:24px;margin:12px 0;padding-inline-start:0}#modifierKeysHeader{margin-bottom:0}</style>
 <div id="header">
   <div id="description">[[computeKeyboardKeysDescription(keyboard.*)]]</div>
@@ -6957,7 +6957,7 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
         return 'settings-per-device-keyboard-remap-keys';
     }
     static get template() {
-        return getTemplate$1i();
+        return getTemplate$1h();
     }
     static get properties() {
         return {
@@ -7485,7 +7485,7 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
 }
 customElements.define(SettingsPerDeviceKeyboardRemapKeysElement.is, SettingsPerDeviceKeyboardRemapKeysElement);
 
-function getTemplate$1h() {
+function getTemplate$1g() {
     return html `<!--_html_template_start_--><template is="dom-repeat" items="[[mice]]" as="mouse" index-as="index" restamp>
   <settings-per-device-mouse-subsection mouse="[[mouse]]" mouse-policies="[[mousePolicies]]" mouse-index="[[index]]" is-last-device="[[computeIsLastDevice(index, mice.length)]]">
   </settings-per-device-mouse-subsection>
@@ -7507,7 +7507,7 @@ class SettingsPerDeviceMouseElement extends SettingsPerDeviceMouseElementBase {
         return 'settings-per-device-mouse';
     }
     static get template() {
-        return getTemplate$1h();
+        return getTemplate$1g();
     }
     static get properties() {
         return {
@@ -7541,7 +7541,7 @@ class SettingsPerDeviceMouseElement extends SettingsPerDeviceMouseElementBase {
 }
 customElements.define(SettingsPerDeviceMouseElement.is, SettingsPerDeviceMouseElement);
 
-function getTemplate$1g() {
+function getTemplate$1f() {
     return html `<!--_html_template_start_--><template is="dom-repeat" items="[[pointingSticks]]" as="pointingStick" index-as="index" restamp>
   <settings-per-device-pointing-stick-subsection pointing-stick="[[pointingStick]]" pointing-stick-index="[[index]]" is-last-device="[[computeIsLastDevice(index, pointingSticks.length)]]">
   </settings-per-device-pointing-stick-subsection>
@@ -7563,7 +7563,7 @@ class SettingsPerDevicePointingStickElement extends SettingsPerDevicePointingSti
         return 'settings-per-device-pointing-stick';
     }
     static get template() {
-        return getTemplate$1g();
+        return getTemplate$1f();
     }
     static get properties() {
         return {
@@ -7594,7 +7594,7 @@ class SettingsPerDevicePointingStickElement extends SettingsPerDevicePointingSti
 }
 customElements.define(SettingsPerDevicePointingStickElement.is, SettingsPerDevicePointingStickElement);
 
-function getTemplate$1f() {
+function getTemplate$1e() {
     return html `<!--_html_template_start_--><template is="dom-repeat" items="[[touchpads]]" as="touchpad" index-as="index" restamp>
   <settings-per-device-touchpad-subsection touchpad="[[touchpad]]" touchpad-index="[[index]]" is-last-device="[[computeIsLastDevice(index, touchpads.length)]]">
   </settings-per-device-touchpad-subsection>
@@ -7616,7 +7616,7 @@ class SettingsPerDeviceTouchpadElement extends SettingsPerDeviceTouchpadElementB
         return 'settings-per-device-touchpad';
     }
     static get template() {
-        return getTemplate$1f();
+        return getTemplate$1e();
     }
     static get properties() {
         return {
@@ -7647,7 +7647,7 @@ class SettingsPerDeviceTouchpadElement extends SettingsPerDeviceTouchpadElementB
 }
 customElements.define(SettingsPerDeviceTouchpadElement.is, SettingsPerDeviceTouchpadElement);
 
-function getTemplate$1e() {
+function getTemplate$1d() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-link-row:not(:last-of-type){border-bottom:var(--cr-separator-line)}.restore-defaults-button{border-radius:16px;height:32px;margin-inline:16px}.restore-defaults-icon{--iron-icon-fill-color:currentColor;margin-inline-end:8px}</style>
 
 <os-settings-animated-pages id="pages" section="[[section_]]">
@@ -7875,7 +7875,7 @@ class SettingsDevicePageElement extends SettingsDevicePageElementBase {
         return 'settings-device-page';
     }
     static get template() {
-        return getTemplate$1e();
+        return getTemplate$1d();
     }
     static get properties() {
         return {
@@ -8334,45 +8334,7 @@ class SettingsDevicePageElement extends SettingsDevicePageElementBase {
 }
 customElements.define(SettingsDevicePageElement.is, SettingsDevicePageElement);
 
-const template = html `
-
-<iron-iconset-svg name="cellular-setup" size="20">
-  <svg>
-    <defs>
-        <g id="camera" viewBox="0 0 20 20"><mask id="a" maskUnits="userSpaceOnUse" x="1" y="2" width="18" height="16"><path fill-rule="evenodd" clip-rule="evenodd" d="M16.667 4.167h-2.642L12.5 2.5h-5L5.975 4.167H3.334c-.917 0-1.667.75-1.667 1.666v10c0 .917.75 1.667 1.667 1.667h13.333c.917 0 1.667-.75 1.667-1.667v-10c0-.916-.75-1.666-1.667-1.666zm0 11.666H3.334v-10h13.333v10zm-10-5A3.332 3.332 0 1 1 10 14.166a3.332 3.332 0 0 1-3.333-3.333z" fill="#fff"></path></mask><g mask="url(#a)"><path d="M0 0h20v20H0z"></path></g></g>
-        <g id="checked" viewBox="0 0 20 20"><path d="M13.707 7.293a1 1 0 0 0-1.414 0L9 10.586 7.707 9.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0 0-1.414z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-2a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"></path></g>
-        <g id="error" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M9 10h2V6H9v4zm1-8c-4.416 0-8 3.584-8 8s3.584 8 8 8 8-3.584 8-8-3.584-8-8-8zm0 14c-3.308 0-6-2.693-6-6 0-3.308 2.692-6 6-6 3.307 0 6 2.692 6 6 0 3.307-2.693 6-6 6zm-1-2h2v-2H9v2z"></path></g>
-        <g id="switch-camera" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 9V7H4.802A5.996 5.996 0 0 1 10 4a6 6 0 0 1 5.917 5h2.021c-.491-3.945-3.853-7-7.93-7a7.992 7.992 0 0 0-6.009 2.712L4 3H2v6h5zm5.938 2v2h2.198a5.996 5.996 0 0 1-5.198 3 6 6 0 0 1-5.917-5H2c.492 3.945 3.853 7 7.93 7a7.992 7.992 0 0 0 6.009-2.712V17h2v-6h-5zM10 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></g>
-        <g id="try-again" viewBox="0 0 20 20"><path path fill-rule="evenodd" clip-rule="evenodd" d="M10 3C6.136 3 3 6.136 3 10C3 13.864 6.136 17 10 17C12.1865 17 14.1399 15.9959 15.4239 14.4239L13.9984 12.9984C13.0852 14.2129 11.6325 15 10 15C7.24375 15 5 12.7563 5 10C5 7.24375 7.24375 5 10 5C11.6318 5 13.0839 5.78641 13.9972 7H11V9H17V3H15V5.10253C13.7292 3.80529 11.9581 3 10 3Z"></path></g>
-        <g id="warning" viewBox="0 0 20 20"><path d="M9 12H11V8H9V12Z"></path><path d="M11 15H9V13H11V15Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 2.50386C9.51566 1.83205 10.4844 1.83205 10.8683 2.50386L18.8683 16.5039C19.2492 17.1705 18.7678 18 18 18H2.00001C1.23219 18 0.750823 17.1705 1.13177 16.5039L9.13177 2.50386ZM10 5.01556L3.72321 16H16.2768L10 5.01556Z"></path></g>
-        <g id="info" viewBox="0 0 24 24"><path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"></path></g>
-    </defs>
-  </svg>
-</iron-iconset-svg>
-
-
-<iron-iconset-svg name="cellular-setup-illo" size="200">
-  <svg>
-    <defs>
-      <g id="error" viewBox="0 0 201 200" fill="none">
-        <path d="M122.984 41.38c-25.952 0-46.99 21.015-46.99 46.939s21.038 46.94 46.99 46.94 46.991-21.016 46.991-46.94-21.039-46.94-46.991-46.94Zm0 1.928c24.886 0 45.06 20.152 45.06 45.011s-20.174 45.011-45.06 45.011c-24.886 0-45.06-20.152-45.06-45.011s20.174-45.01 45.06-45.01Z" fill="var(--cros-sys-illo-color1-2)"/><path d="M133.249 89.338h-11.877v11.574h-13.557a.39.39 0 0 1-.272-.668l25.044-24.408a.39.39 0 0 1 .662.28v13.222Zm-1.288 3.1-1.815-1.814-2.691 2.688-2.69-2.688-1.816 1.813 2.691 2.688-2.691 2.688 1.816 1.813 2.69-2.675 2.691 2.675 1.815-1.813-2.677-2.688 2.677-2.688Z" fill="var(--cros-sys-illo-color1-2)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M157.595 158.993c0-13.495-10.951-24.435-24.461-24.435-13.509 0-24.461 10.94-24.461 24.435" fill="var(--cros-sys-illo-secondary)"/><path fill-rule="evenodd" clip-rule="evenodd" d="m48.74 134.835 1.893 2.7a2.532 2.532 0 0 1-.62 3.527l-.002.002-24.851 17.382a2.533 2.533 0 0 1-3.525-.622l-1.893-2.7a2.532 2.532 0 0 1 .62-3.527l.002-.002 24.851-17.382a2.532 2.532 0 0 1 3.525.622Z" fill="var(--cros-sys-illo-color5)"/><path d="M50.548 159.017c4.33.999 8.65-1.697 9.648-6.022.999-4.326-1.702-8.643-6.032-9.642-4.33-1-8.649 1.696-9.647 6.022-.999 4.325 1.701 8.642 6.031 9.642Z" fill="var(--cros-sys-illo-secondary)"/><path d="M68.12 147.061c11.198 0 20.276-9.068 20.276-20.254 0-11.187-9.078-20.255-20.277-20.255-11.198 0-20.276 9.068-20.276 20.255 0 11.186 9.078 20.254 20.276 20.254Z" fill="var(--cros-sys-illo-color3)"/><path d="M69.88 130.279v-.746c0-.617.116-1.14.348-1.569.232-.429.64-.909 1.223-1.44.72-.669 1.296-1.334 1.725-1.994.43-.66.644-1.444.644-2.353 0-.909-.228-1.732-.683-2.469-.454-.738-1.09-1.321-1.905-1.749-.815-.429-1.746-.643-2.794-.643-1.407 0-2.566.394-3.476 1.183-.91.789-1.536 1.697-1.88 2.726l2.473 1.029c.223-.669.57-1.222 1.042-1.659.472-.437 1.095-.656 1.867-.656.807 0 1.442.219 1.906.656.463.437.695.99.695 1.659 0 .549-.133 1.02-.4 1.415-.266.394-.699.857-1.3 1.389-.858.771-1.454 1.448-1.79 2.031-.334.583-.501 1.295-.501 2.135v1.055h2.806Zm-1.416 6.018a1.82 1.82 0 0 0 1.352-.565c.369-.378.553-.832.553-1.364 0-.531-.184-.986-.553-1.363a1.82 1.82 0 0 0-1.352-.566c-.532 0-.987.185-1.364.553a1.846 1.846 0 0 0-.567 1.376c0 .532.189.986.567 1.364.377.377.832.565 1.364.565Z" fill="var(--cros-sys-illo-base)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M62.197 156.996c-.52.906.13 2.039 1.17 2.039H73.98c1.039 0 1.688-1.133 1.169-2.039l-5.308-9.255a1.346 1.346 0 0 0-2.338 0l-5.307 9.255Z" fill="var(--cros-sys-illo-color4)"/><path d="M191.495 159.035a.965.965 0 0 1 .093 1.925l-.093.004H13.831a.965.965 0 0 1-.093-1.924l.093-.005h177.664Z" fill="var(--cros-sys-illo-color1-2)"/><path d="M97.578 158.993c7.638 0 13.83-6.192 13.83-13.83s-6.192-13.83-13.83-13.83-13.83 6.192-13.83 13.83 6.192 13.83 13.83 13.83Z" fill="var(--cros-sys-illo-color1)"/>
-      </g>
-      <g id="final-page-success" viewBox="0 0 201 200" fill="none">
-        <path d="M100.366 109.293c-23.295 0-42.18 18.794-42.18 41.977 0 23.183 18.885 41.976 42.18 41.976 23.295 0 42.179-18.793 42.179-41.976s-18.884-41.977-42.179-41.977Zm0 1.908c22.236 0 40.262 17.939 40.262 40.069 0 22.129-18.026 40.068-40.262 40.068s-40.262-17.939-40.262-40.068c0-22.13 18.026-40.069 40.262-40.069Z" fill="var(--cros-sys-illo-color1-2)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M72.382 80.903c0 15.456 12.528 27.985 27.984 27.985 15.455 0 27.984-12.53 27.984-27.985" fill="var(--cros-sys-illo-color1-2)"/><path d="M100.366 124.705c-14.784 0-26.768 11.984-26.768 26.768 0 14.783 11.984 26.767 26.768 26.767 14.783 0 26.767-11.984 26.767-26.767 0-14.784-11.984-26.768-26.767-26.768Zm0 2.549c13.375 0 24.218 10.843 24.218 24.219 0 13.375-10.843 24.218-24.218 24.218-13.376 0-24.219-10.843-24.219-24.218 0-13.376 10.843-24.219 24.219-24.219Z" fill="var(--cros-sys-illo-color1)"/><path d="M106.609 138.351h4.995v22.475h-4.995v-22.475Zm-17.48 12.486h4.994v9.989h-4.995v-9.989Zm8.74-6.243h4.994v16.232h-4.994v-16.232Z" fill="var(--cros-sys-illo-color1)"/><path fill-rule="evenodd" clip-rule="evenodd" d="m114.565 49.036 1.13 2.792a2.636 2.636 0 0 1-1.455 3.433l-.003.001-27.656 11.155a2.636 2.636 0 0 1-3.43-1.456l-1.13-2.792a2.636 2.636 0 0 1 1.455-3.433h.003l27.656-11.156a2.637 2.637 0 0 1 3.43 1.456Z" fill="var(--cros-sys-illo-color1)"/><path d="M100.366 50.643c8.96 0 16.223-7.264 16.223-16.223 0-8.96-7.263-16.223-16.223-16.223-8.96 0-16.223 7.263-16.223 16.223 0 8.96 7.263 16.223 16.223 16.223Z" fill="var(--cros-sys-illo-color2)"/><path fill-rule="evenodd" clip-rule="evenodd" d="m101.896 61.021 8.657 8.643c.476.475.477 1.245.002 1.72l-.002.002-8.657 8.643a1.216 1.216 0 0 1-1.719 0l-8.658-8.643a1.217 1.217 0 0 1-.002-1.72l.002-.002 8.658-8.643a1.217 1.217 0 0 1 1.719 0Z" fill="var(--cros-sys-illo-color3)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.252 8.37c-.49-.86.123-1.934 1.104-1.934h10.02c.981 0 1.594 1.075 1.103 1.934l-5.01 8.778c-.49.859-1.716.859-2.207 0l-5.01-8.778Z" fill="var(--cros-sys-illo-color6)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M111.439 25.828c.66.5.791 1.44.291 2.1L99.765 43.748a1.5 1.5 0 0 1-2.15.253l-7.03-5.79a1.5 1.5 0 1 1 1.907-2.316l5.824 4.796 11.022-14.57a1.5 1.5 0 0 1 2.101-.292Z" fill="var(--cros-sys-illo-base)"/>
-      </g>
-      <g id="sim-detect-error" viewBox="0 0 200 200" fill="none">
-        <g clip-path="url(#a)"><path d="M250.017 151.141H98.165a6.753 6.753 0 0 1-6.752-6.752V40.862h165.419v103.465a6.764 6.764 0 0 1-1.978 4.837 6.748 6.748 0 0 1-4.837 1.977v0Z" fill="var(--cros-sys-illo-base)" stroke="var(--cros-sys-illo-color1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M149.866 141.888h48.45a2.562 2.562 0 0 0 2.563-2.563v-30.351a2.563 2.563 0 0 0-2.563-2.564h-48.45a2.563 2.563 0 0 0-2.563 2.564v30.351a2.562 2.562 0 0 0 2.563 2.563Z" fill="var(--cros-sys-illo-color1-2)"/><path d="M268.71 44.987H79.473a1.375 1.375 0 0 1-1.376-1.375V40.55a2.688 2.688 0 0 1 2.688-2.688h186.612a2.688 2.688 0 0 1 2.688 2.688v3.063a1.375 1.375 0 0 1-1.375 1.375v0Z" fill="var(--cros-sys-illo-base)" stroke="var(--cros-sys-illo-color1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M246.641 48.515h-145.1c-.587 0-1.063.505-1.063 1.127v45.68c0 .622.476 1.127 1.063 1.127h145.1c.587 0 1.063-.505 1.063-1.127v-45.68c0-.622-.476-1.127-1.063-1.127Z" fill="var(--cros-sys-illo-color1-2)"/><path d="M68.147 97.994H43.285a1.025 1.025 0 0 1-1.025-1.077V78.155a1.025 1.025 0 0 1 1.025-1.025h19.48l6.408 6.202v13.585a1.024 1.024 0 0 1-1.026 1.077Z" fill="var(--cros-sys-illo-color1)"/><path d="M52.65 89.142H46.5c-.615 0-1.113.498-1.113 1.113v3.796c0 .614.498 1.113 1.113 1.113h6.15c.615 0 1.113-.499 1.113-1.113v-3.796c0-.615-.498-1.113-1.113-1.113Z" fill="var(--cros-sys-illo-base)"/><path d="M52.65 89.142H46.5c-.615 0-1.113.498-1.113 1.113v3.796c0 .614.498 1.113 1.113 1.113h6.15c.615 0 1.113-.499 1.113-1.113v-3.796c0-.615-.498-1.113-1.113-1.113Z" fill="var(--cros-sys-illo-color1-2)"/><path d="M35.852 70.568v34.038" stroke="var(--cros-sys-illo-color1)" stroke-width="4" stroke-linecap="square" stroke-linejoin="round"/><path d="M35.852 73.797H71.12a2.307 2.307 0 0 1 2.307 2.307V99.02a2.307 2.307 0 0 1-2.307 2.307H35.85" stroke="var(--cros-sys-illo-color1)" stroke-width="2" stroke-linejoin="round"/><path d="M54.614 129.674c23.386 0 42.343-18.958 42.343-42.343 0-23.386-18.957-42.344-42.343-42.344-23.385 0-42.343 18.958-42.343 42.344 0 23.385 18.958 42.343 42.343 42.343Z" stroke="var(--cros-sys-illo-base)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M54.614 129.674c23.386 0 42.343-18.958 42.343-42.343 0-23.386-18.957-42.344-42.343-42.344-23.385 0-42.343 18.958-42.343 42.344 0 23.385 18.958 42.343 42.343 42.343Z" stroke="var(--cros-sys-illo-color1-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g><defs><clipPath id="a"><path fill="var(--cros-sys-illo-base)" d="M0 0h200v200H0z"/></clipPath></defs>
-      </g>
-      <g id="network-setup" viewBox="0 0 448 268" fill="none">
-        <path fill="var(--cros-sys-illo-color1-2)" d="M161.515 66.264c8.231-8.384 21.739-8.384 29.97 0l2.126 2.165a21 21 0 0 0 18.462 5.999l2.992-.502c11.587-1.945 22.516 5.995 24.247 17.616l.447 3a20.998 20.998 0 0 0 11.409 15.705l2.716 1.353c10.518 5.237 14.692 18.084 9.262 28.504l-1.402 2.69a21 21 0 0 0 0 19.412l1.402 2.69c5.43 10.42 1.256 23.267-9.262 28.504l-2.716 1.353a20.998 20.998 0 0 0-11.409 15.704l-.447 3.001c-1.731 11.621-12.66 19.561-24.247 17.616l-2.992-.502a21 21 0 0 0-18.462 5.999l-2.126 2.165c-8.231 8.384-21.739 8.384-29.97 0l-2.126-2.165a21 21 0 0 0-18.462-5.999l-2.992.502c-11.587 1.945-22.516-5.995-24.247-17.616l-.447-3.001a20.998 20.998 0 0 0-11.409-15.704l-2.716-1.353c-10.518-5.237-14.692-18.085-9.262-28.504l1.402-2.69a21 21 0 0 0 0-19.412l-1.402-2.69c-5.43-10.42-1.256-23.267 9.262-28.504l2.716-1.353a20.998 20.998 0 0 0 11.409-15.704l.447-3c1.731-11.622 12.66-19.562 24.247-17.617l2.992.502a21 21 0 0 0 18.462-5.999l2.126-2.165Z"/><path stroke="var(--cros-sys-illo-color1-1)" stroke-width="2" d="m194.325 67.729-2.126-2.165c-8.623-8.784-22.775-8.784-31.398 0l-2.126 2.165a19.999 19.999 0 0 1-17.582 5.713l-2.992-.503c-12.139-2.037-23.588 6.281-25.402 18.456l-.447 3a20 20 0 0 1-10.866 14.957l-2.716 1.353c-11.018 5.486-15.392 18.946-9.703 29.861l1.403 2.69a20.001 20.001 0 0 1 0 18.488l-1.403 2.69c-5.689 10.915-1.315 24.375 9.703 29.861l2.716 1.353a20 20 0 0 1 10.866 14.956l.447 3.001c1.814 12.175 13.263 20.493 25.402 18.456l2.992-.503a20 20 0 0 1 17.582 5.713l2.126 2.165c8.623 8.784 22.775 8.784 31.398 0l2.126-2.165a20 20 0 0 1 17.582-5.713l2.992.503c12.139 2.037 23.588-6.281 25.402-18.456l.447-3.001a20 20 0 0 1 10.866-14.956l2.716-1.353c11.018-5.486 15.392-18.946 9.703-29.861l-1.403-2.69a20.002 20.002 0 0 1 0-18.488l1.403-2.69c5.689-10.915 1.315-24.375-9.703-29.861l-2.716-1.353a19.999 19.999 0 0 1-10.866-14.956l-.447-3.001c-1.814-12.175-13.263-20.493-25.402-18.456l-2.992.503a19.999 19.999 0 0 1-17.582-5.713Z"/><path fill="var(--cros-sys-illo-base)" fill-rule="evenodd" d="M135.851 231.34c-10.808.761-20.589-6.917-22.219-17.857l-.44-2.954a21 21 0 0 0-11.41-15.705l-2.673-1.331a21.17 21.17 0 0 1-3.062-1.862c.07-.843.127-1.316.127-1.316 10.877-22.149 37.395-36.852 67.662-37.796 2.732 0 5.332-.021 7.818-.04 27.89-.218 41.509-.325 67.279 29.623l18.963-32.618 13.701 6.683c.47.289.961.556 1.47.8l8.601 4.113 7.329 3.575s-18.205 51.582-49.306 51.582c-31.1 0-39.444-23.515-39.444-23.515l-4.778 33.68-41.395 3.185-2.653-1.593-4.776-15.921-5.838-14.859-15.657 12.196 10.701 21.93Z" clip-rule="evenodd"/><path stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m145.631 192.724-20.481 16.688 10.35 20.707m64.746-37.395s8.344 23.515 39.445 23.515 49.306-51.582 49.306-51.582l-31.101-15.171-18.964 32.618c-28.066-32.618-41.72-29.584-75.096-29.584-30.267.945-56.785 15.648-67.662 37.796"/><path stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M140.412 198.033s4.988 8.064 7.761 21.849c2.774 13.785 8.261 8.777 8.261 8.777M201.005 183.621l-5.309 41.909-38.51 3.123"/><path fill="var(--cros-sys-illo-color1-1)" d="M268.928 134.551c-5.748 4.252-9.928 14.351-9.928 14.351L279.379 159l6.271-3.189s17.243 4.252 23.514.532c3.633-2.156 5.904-5.654 4.336-8.843-6.271-2.126.889-2.319-1.723-5.508-1.045-2.657-10.904-2.641-14.631-3.189-6.477-.951-9.406-2.126-9.406-2.126s6.793.532 6.793-3.189c0-3.72-19.857-3.189-25.605 1.063Z"/><path stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M258.73 148.955s2.008-13.6 15.152-16.155c7.572-.927 16.105-2.244 18.401-1.694 2.297.55 3.94 2.576 2.268 4.3-1.672 1.724-8.44 1.265-8.44 1.265s4.536 1.622 10.13 2.273c5.595.651 11.55.373 13.762 1.273 2.212.9 2.924 1.613 2.287 3.457-.636 1.844-9.099 1.048-11.164.725"/><path stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M278.43 158.828s4.321-2.583 6.7-3.038c2.379-.455 11.788 2.857 16.26 2.615 4.472-.242 9.729-.666 8.796-3.608-.933-2.942-8.107-1.68-11.696-2.753-3.59-1.074-6.43-2.284-11.967-4.915-5.538-2.632-11.197-.846-11.197-.846"/><path stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-width="2" d="M292.321 145.572s4.498 2.355 9.958 3.635c5.46 1.28 10.147-.226 10.774 3.006.221 1.139-1.028 1.815-2.83 2.186"/><path stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-width="2" d="M294.33 142.364s2.297 1.175 8.454 2.918c6.158 1.742 12.415.216 11.287 4.5-.176.669-.846.833-1.554 1.275"/><path fill="var(--cros-sys-illo-color1-1)" fill-rule="evenodd" d="M181.206 129.366c-.506-1.269-1.02-2.559-1.396-3.842-2.225-7.594-9.958-12.013-17.271-9.87-7.313 2.143-11.437 10.037-9.211 17.631 1.115 3.807 3.615 6.816 6.752 8.601l2.258 5.268c1.213 2.83.607 4.953.607 4.953h15.011l-1.264-10.112c8.548-2.507 6.603-7.386 4.514-12.629Z" clip-rule="evenodd"/><path fill="var(--cros-sys-illo-color1)" d="m179.81 125.524.96-.281-.96.281Zm1.396 3.842.929-.37-.929.37Zm-18.667-13.712.282.96-.282-.96Zm-9.211 17.631-.96.281.96-.281Zm6.752 8.601.919-.394-.132-.309-.292-.166-.495.869Zm2.258 5.268.919-.394-.919.394Zm.607 4.953-.962-.275-.364 1.275h1.326v-1Zm15.011 0v1h1.133l-.141-1.124-.992.124Zm-1.264-10.112-.282-.959-.816.239.106.844.992-.124Zm2.159-16.19c.391 1.337.924 2.671 1.426 3.931l1.858-.74c-.509-1.277-1.005-2.523-1.365-3.753l-1.919.562Zm-16.03-9.191c6.749-1.978 13.949 2.093 16.03 9.191l1.919-.562c-2.371-8.09-10.635-12.857-18.512-10.549l.563 1.92Zm-8.534 16.39c-2.08-7.099 1.784-14.413 8.534-16.39l-.563-1.92c-7.877 2.309-12.261 10.782-9.89 18.872l1.919-.562Zm6.288 8.013c-2.916-1.659-5.246-4.46-6.288-8.013l-1.919.562c1.19 4.061 3.86 7.279 7.218 9.189l.989-1.738Zm2.682 5.743-2.258-5.268-1.838.788 2.258 5.268 1.838-.788Zm-.312 5.347.961.274.001-.001v-.002l.001-.004.004-.012.008-.032.024-.101c.019-.084.042-.2.064-.344.045-.288.088-.694.088-1.193 0-1-.172-2.375-.839-3.932l-1.838.788c.546 1.273.677 2.375.677 3.144 0 .385-.033.687-.064.885-.015.099-.03.172-.04.215l-.01.043-.001.005.001-.003v-.002l.001-.001v-.001l.962.274Zm15.011-1h-15.011v2h15.011v-2Zm-2.256-8.988 1.263 10.112 1.985-.248-1.264-10.112-1.984.248Zm4.577-12.383c.527 1.323 1.018 2.559 1.344 3.73.325 1.172.459 2.198.327 3.096-.127.866-.508 1.663-1.321 2.398-.836.755-2.162 1.473-4.217 2.076l.563 1.919c2.22-.651 3.856-1.483 4.994-2.511 1.161-1.049 1.766-2.269 1.96-3.592.19-1.291-.019-2.624-.379-3.921-.36-1.296-.895-2.636-1.413-3.935l-1.858.74Z"/><path fill="var(--cros-sys-illo-color1)" d="M175.036 107.905c4.916 2.217 1.328 11.297 1.328 11.297s-5.587.349-9.022 3.184c-3.436 2.836-2.758 8.085-2.758 8.085s-4.141-3.308-6.271-.6c-2.129 2.708 1.309 5.761 3.191 5.535 1.272-.321 2.523 2.332 3.199 4.084.33.855-.036 1.802-.823 2.274l-3.968 2.381s-7.43-3.715-12.737-10.614c-11.751-17.797 10.091-19.091 17.594-23.226 4.722-2.603 5.351-4.616 10.267-2.4Z"/><path stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-width="2" d="M176.976 133.292s.678 1.139 2.566.959c1.887-.179 2.856-1.746 2.856-1.746"/><path fill="var(--cros-sys-illo-color1)" fill-rule="evenodd" d="M199.18 232.461a21.002 21.002 0 0 0-5.739 4.143l-2.092 2.131c-8.231 8.385-21.739 8.385-29.971 0l-2.092-2.131a20.996 20.996 0 0 0-9.043-5.43l.647-2.648 2.654 1.592 3.184-1.592 38.21-3.184 4.242 7.119Z" clip-rule="evenodd"/><path fill="var(--cros-sys-illo-color3)" d="M397.872 86.917c.805.4.716 1.575-.14 1.848L384.813 92.9c-.263.085-.48.275-.599.525l-5.883 12.437c-.391.829-1.599.738-1.861-.14l-3.948-13.18a.998.998 0 0 0-.513-.61l-12.151-6.027c-.805-.4-.716-1.575.139-1.849l12.919-4.134a.998.998 0 0 0 .599-.524l5.883-12.437c.392-.829 1.599-.738 1.862.14l3.947 13.18c.08.265.266.486.514.609l12.151 6.028Z"/><path fill="var(--cros-sys-illo-color1)" fill-rule="evenodd" d="m349.878 93.025-15.257-10.872-19.596 3.29-16.307 22.885a4.698 4.698 0 0 0 1.096 6.532l22.886 16.307c2.097 1.495 5.037 1.001 6.532-1.097l21.742-30.513a4.698 4.698 0 0 0-1.096-6.532Zm-28.419-2.279a1 1 0 0 0-1.394.234l-8.495 11.922a1 1 0 0 0 .234 1.395l1.947 1.387a1 1 0 0 0 1.395-.234l8.495-11.922a1 1 0 0 0-.235-1.395l-1.947-1.387Zm4.565 4.481a1 1 0 0 1 1.395-.234l1.947 1.387a1 1 0 0 1 .234 1.395L315.473 117.6a1 1 0 0 1-1.395.234l-1.947-1.387a1 1 0 0 1-.234-1.395l14.127-19.826Zm-1.283 14.41a1 1 0 0 1 1.395-.234l5.523 3.935a1 1 0 0 1 .234 1.395l-6.885 9.663a1 1 0 0 1-1.395.234l-5.523-3.935a1 1 0 0 1-.234-1.395l6.885-9.663Zm-14.546-3.082a1 1 0 0 0-1.395.234l-2.862 4.017a1 1 0 0 0 .234 1.395l1.947 1.387a1 1 0 0 0 1.395-.234l2.862-4.017a1 1 0 0 0-.234-1.395l-1.947-1.387Zm20.18-4.824a1 1 0 0 1 1.394-.234l5.523 3.935a1 1 0 0 1 .234 1.395l-2.862 4.017a1 1 0 0 1-1.395.234l-5.523-3.935a1.001 1.001 0 0 1-.234-1.395l2.863-4.017Z" clip-rule="evenodd"/><path fill="var(--cros-sys-illo-color2)" d="m357.021 183.351-20.762-16.266c-2.583-1.976-4.285-4.921-4.731-8.188a12.684 12.684 0 0 1 2.349-9.235 12.401 12.401 0 0 1 3.557-3.253 12.118 12.118 0 0 1 4.501-1.625 11.957 11.957 0 0 1 4.757.252 12.012 12.012 0 0 1 4.29 2.09l20.755 16.265c2.585 1.974 4.288 4.919 4.736 8.186a12.684 12.684 0 0 1-2.347 9.237c-1.952 2.646-4.85 4.4-8.058 4.876a11.996 11.996 0 0 1-9.047-2.339Z"/><path fill="var(--cros-sys-illo-color5)" d="m360.216 117.139-9.945 4.986a2.54 2.54 0 0 0-1.132 3.41l4.927 9.827a2.54 2.54 0 0 0 3.41 1.133l9.945-4.986a2.54 2.54 0 0 0 1.132-3.41l-4.927-9.827a2.54 2.54 0 0 0-3.41-1.133Z"/><circle cx="296.5" cy="59.5" r="9.25" stroke="var(--cros-sys-illo-color4)" stroke-width="2.5"/><path stroke="var(--cros-sys-illo-color1-2)" stroke-linecap="round" stroke-width="2" d="M373.354 32c-5.436 21.674-40.031 8.683-44.941 33.385"/>
-      </g>
-    </defs>
-  </svg>
-</iron-iconset-svg>
-`;
-document.head.appendChild(template.content);
-
-function getTemplate$1d() {
+function getTemplate$1c() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{display:flex;justify-content:flex-end;padding:10px 0 20px 0}#forward:focus{box-shadow:0 0 0 2px var(--focus-shadow-color)}#flex{flex:1}</style>
 <cr-button id="backward" class="cancel-button" on-click="onBackwardButtonClicked_" disabled="[[isButtonDisabled_(Button.BACKWARD, buttonState.*)]]" hidden$="[[isButtonHidden_(Button.BACKWARD, buttonState.*)]]">
   [[i18n('back')]]
@@ -8397,7 +8359,7 @@ class ButtonBarElement extends ButtonBarElementBase {
         return 'button-bar';
     }
     static get template() {
-        return getTemplate$1d();
+        return getTemplate$1c();
     }
     static get properties() {
         return {
@@ -8471,7 +8433,7 @@ class ButtonBarElement extends ButtonBarElementBase {
 }
 customElements.define(ButtonBarElement.is, ButtonBarElement);
 
-function getTemplate$1c() {
+function getTemplate$1b() {
     return html `<!--_html_template_start_--><style include="iron-positioning cros-color-overrides">:host{display:flex;flex-direction:column;height:100%}#title{color:var(--cros-text-color-primary);font-weight:400;line-height:24px}#message{height:var(--base-page-message-height,auto);margin-bottom:20px}:host ::slotted([slot=page-body]){display:block;flex:1 1 auto}#message iron-icon{padding-inline-end:4px}</style>
 <template is="dom-if" if="[[isTitleShown_(title)]]" restamp>
   <h3 id="title">[[getTitle_(title)]]</h3>
@@ -8494,7 +8456,7 @@ class BasePageElement extends PolymerElement {
         return 'base-page';
     }
     static get template() {
-        return getTemplate$1c();
+        return getTemplate$1b();
     }
     static get properties() {
         return {
@@ -8527,7 +8489,7 @@ class BasePageElement extends PolymerElement {
 }
 customElements.define(BasePageElement.is, BasePageElement);
 
-function getTemplate$1b() {
+function getTemplate$1a() {
     return html `<!--_html_template_start_--><style include="iron-flex cr-hidden-style">#animationContainer{align-items:flex-end;display:flex;height:216px;justify-content:center;margin-bottom:54px}#simDetectError,#simDetectErrorJelly{height:100%;width:100%}#simDetectError{background-image:url(chrome://resources/ash/common/cellular_setup/sim_detect_error.svg);background-position:center center;background-repeat:no-repeat;background-size:contain}@media(prefers-color-scheme:dark){#simDetectError{background-image:url(chrome://resources/ash/common/cellular_setup/sim_detect_error_dark.svg)}}:host-context(body.jelly-enabled) #simDetectError{display:none}:host-context(body:not(.jelly-enabled)) #simDetectErrorJelly{display:none}#pageBody{height:222px}cros-lottie-renderer{height:85%}base-page{--base-page-message-height:40px}</style>
 <base-page title="[[loadingTitle]]" message="[[loadingMessage]]">
   <div slot="page-body" id="pageBody" class="layout vertical center-center">
@@ -8560,7 +8522,7 @@ class SetupLoadingPageElement extends PolymerElement {
         return 'setup-loading-page';
     }
     static get template() {
-        return getTemplate$1b();
+        return getTemplate$1a();
     }
     static get properties() {
         return {
@@ -8590,7 +8552,7 @@ class SetupLoadingPageElement extends PolymerElement {
 }
 customElements.define(SetupLoadingPageElement.is, SetupLoadingPageElement);
 
-function getTemplate$1a() {
+function getTemplate$19() {
     return html `<!--_html_template_start_--><style include="iron-flex cr-hidden-style">paper-spinner-lite{height:32px;width:32px}#portalContainer{height:100%;width:100%}#errorIllustration,#errorIllustrationJelly{height:100%;width:100%}#errorIllustration{background-image:url(chrome://resources/ash/common/cellular_setup/error.svg);background-position:center center;background-repeat:no-repeat;background-size:contain}@media(prefers-color-scheme:dark){#errorIllustration{background-image:url(chrome://resources/ash/common/cellular_setup/error_dark.svg)}}:host-context(body.jelly-enabled) #errorIllustration{display:none}:host-context(body:not(.jelly-enabled)) #errorIllustrationJelly{display:none}</style>
 <base-page title="[[getPageTitle_(
                         showError, carrierName_, hasCarrierPortalLoaded_)]]" message="[[getPageMessage_(showError)]]">
@@ -8708,7 +8670,7 @@ class ProvisioningPageElement extends ProvisioningPageElementBase {
         return 'provisioning-page';
     }
     static get template() {
-        return getTemplate$1a();
+        return getTemplate$19();
     }
     static get properties() {
         return {
@@ -8857,7 +8819,7 @@ class ProvisioningPageElement extends ProvisioningPageElementBase {
 }
 customElements.define(ProvisioningPageElement.is, ProvisioningPageElement);
 
-function getTemplate$19() {
+function getTemplate$18() {
     return html `<!--_html_template_start_--><style>#illustration{background-image:url(chrome://resources/ash/common/cellular_setup/final_page_success.svg);background-position:center center;background-repeat:no-repeat;background-size:contain}#illustration.error{background-image:url(chrome://resources/ash/common/cellular_setup/error.svg);background-size:contain}@media(prefers-color-scheme:dark){#illustration{background-image:url(chrome://resources/ash/common/cellular_setup/final_page_success_dark.svg)}#illustration.error{background-image:url(chrome://resources/ash/common/cellular_setup/error_dark.svg)}}#illustrationJelly{height:242px;width:242px;align-self:center}:host-context(body.jelly-enabled) #illustration{display:none}:host-context(body:not(.jelly-enabled)) #illustrationJelly{display:none}</style>
 <base-page title="[[getTitle_(showError)]]" message="[[getMessage_(showError)]]">
   <div id="illustration" class$="[[getPageBodyClass_(showError)]]" slot="page-body">
@@ -8882,7 +8844,7 @@ class FinalPageElement extends FinalPageElementBase {
         return 'final-page';
     }
     static get template() {
-        return getTemplate$19();
+        return getTemplate$18();
     }
     static get properties() {
         return {
@@ -8915,7 +8877,7 @@ class FinalPageElement extends FinalPageElementBase {
 }
 customElements.define(FinalPageElement.is, FinalPageElement);
 
-function getTemplate$18() {
+function getTemplate$17() {
     return html `<!--_html_template_start_--><style>:host{display:flex;flex:1 1 auto;flex-direction:column}iron-pages{height:400px}</style>
 <iron-pages attr-for-selected="id" selected="[[selectedPSimPageName_]]" selected-item="{{selectedPage_}}">
   <setup-loading-page id="simDetectPage" loading-title="[[getLoadingTitle_(state_)]]" loading-message="[[getLoadingMessage_(state_)]]" is-sim-detect-error="[[isSimDetectError_(state_)]]">
@@ -9040,7 +9002,7 @@ class PsimFlowUiElement extends PsimFlowUiElementBase {
         return 'psim-flow-ui';
     }
     static get template() {
-        return getTemplate$18();
+        return getTemplate$17();
     }
     static get properties() {
         return {
@@ -9439,7 +9401,7 @@ class PsimFlowUiElement extends PsimFlowUiElementBase {
 }
 customElements.define(PsimFlowUiElement.is, PsimFlowUiElement);
 
-function getTemplate$17() {
+function getTemplate$16() {
     return html `<!--_html_template_start_--><style include="iron-positioning">:host([expanded_]) #pageBody{transition-duration:.2s}:host(:not([expanded_])) #pageBody{transition-duration:150ms}:host([expanded_]) #esimQrCodeDetection{height:190px;transition-duration:.2s}:host(:not([expanded_])) #esimQrCodeDetection{height:140px;transition-duration:150ms}:host cr-button{--ripple-opacity:0}#esimQrCodeDetection{background-color:var(--cros-bg-color-dropped-elevation-1);border-radius:4px;margin:20px 0 15px 0;overflow:hidden;position:relative}paper-spinner-lite{height:20px;margin-inline-end:6px;margin-top:6px;width:20px}cr-button:not(:focus){border:none;box-shadow:none}cr-button:hover{background-color:transparent}cr-button[disabled]{background-color:transparent}cr-button[disabled]>iron-icon{--iron-icon-fill-color:var(--cros-icon-color-disabled)}.animate{transition-property:height;transition-timing-function:cubic-bezier(0,0,.2,1)}.center{left:50%;position:absolute;top:50%;transform:translateY(-50%) translateX(-50%)}.width-92{width:92%}.label{font-weight:500}.button-image{margin-inline-end:8px}.scan-finish-image{position:absolute}.scan-finish-message{padding-inline-end:0;padding-inline-start:30px}.scan-finish-message:hover{cursor:default}.scan-error-header{--iron-icon-fill-color:var(--cros-icon-color-alert)}.scan-error-message{color:var(--cros-text-color-alert)}.blue-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent)}.hidden{visibility:hidden}.visually-hidden{clip:rect(0 0 0 0);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px}#scanSucessHeader{--iron-icon-fill-color:var(--cros-icon-color-positive);margin-bottom:8px}#scanSuccessMessage{color:var(--cros-text-color-positive);font-size:medium}#scanFailureHeader{margin-bottom:4px}#useCameraAgainButton{display:block;font-weight:500;text-align:center}#tryAgainButton{display:block;text-align:center}#switchCameraButton{background-color:var(--cros-tooltip-background-color);border-radius:16px;color:var(--cros-tooltip-label-color);margin:8px;padding:8px;position:absolute;right:0;z-index:2}#switchCameraButton iron-icon{--iron-icon-fill-color:var(--cros-tooltip-icon-color);filter:brightness(2.1)}#inputSubtitle{bottom:0;color:var(--cros-text-color-secondary);font-size:var(--cr-form-field-label-font-size);letter-spacing:.4px;line-height:var(--cr-form-field-label-line-height);margin-top:-16px}#video{height:inherit;transform:rotateY(180deg)}#pageBody{margin-top:-20px}#startScanningButton{max-width:470px;min-width:345px;text-align:center;width:auto}#carrierLockWarningContainer{display:flex;margin-bottom:24px;margin-top:20px}#carrierLockWarningIcon{--iron-icon-fill-color:var(--cros-icon-color-alert);--iron-icon-height:24px;--iron-icon-width:24px;margin-inline-end:4px}</style>
 <base-page>
   <div slot="page-body" id="pageBody" class="animate">
@@ -9447,7 +9409,7 @@ function getTemplate$17() {
       [[getDescription_(cameraCount_, qrCodeDetector_, showNoProfilesFound)]]
     </span>
     <template is="dom-if" if="[[shouldShowCarrierLockWarning_(isDeviceCarrierLocked_)]]" restamp>
-      <div id="carrierLockWarningContainer" aria-live="alert">
+      <div id="carrierLockWarningContainer" aria-live="polite" role="alert">
           <iron-icon id="carrierLockWarningIcon" icon="cellular-setup:warning">
           </iron-icon>
         [[i18n('eSimCarrierLockedDevice')]]
@@ -9577,7 +9539,7 @@ class ActivationCodePageElement extends ActivationCodePageElementBase {
         return 'activation-code-page';
     }
     static get template() {
-        return getTemplate$17();
+        return getTemplate$16();
     }
     static get properties() {
         return {
@@ -10085,7 +10047,7 @@ class ActivationCodePageElement extends ActivationCodePageElementBase {
 }
 customElements.define(ActivationCodePageElement.is, ActivationCodePageElement);
 
-function getTemplate$16() {
+function getTemplate$15() {
     return html `<!--_html_template_start_--><style>#pageBody{height:282px;margin-top:-20px;overflow:hidden}#animationContainer{display:flex;height:216px;margin-bottom:30px;margin-top:24px}cros-lottie-renderer{margin:auto}</style>
 
 <base-page>
@@ -10113,12 +10075,12 @@ class ActivationVerificationPageElement extends ActivationVerificationPageElemen
         return 'activation-verification-page';
     }
     static get template() {
-        return getTemplate$16();
+        return getTemplate$15();
     }
 }
 customElements.define(ActivationVerificationPageElement.is, ActivationVerificationPageElement);
 
-function getTemplate$15() {
+function getTemplate$14() {
     return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex">#pageBody{height:282px;margin-top:-20px;overflow:hidden}#illustration{height:216px;width:448px;align-self:center}</style>
 <base-page>
   <div slot="page-body" id="pageBody">
@@ -10144,7 +10106,7 @@ class ProfileDiscoveryConsentPageElement extends ProfileDiscoveryConsentPageElem
         return 'profile-discovery-consent-page';
     }
     static get template() {
-        return getTemplate$15();
+        return getTemplate$14();
     }
     static get properties() {
         return {
@@ -10167,7 +10129,7 @@ class ProfileDiscoveryConsentPageElement extends ProfileDiscoveryConsentPageElem
 }
 customElements.define(ProfileDiscoveryConsentPageElement.is, ProfileDiscoveryConsentPageElement);
 
-function getTemplate$14() {
+function getTemplate$13() {
     return html `<!--_html_template_start_--><style include="iron-flex iron-positioning">#details{align-items:center;display:flex;flex:auto;min-height:var(--cr-section-two-line-min-height)}#profileImage{margin-inline-end:16px}#profileTitleLabel{color:var(--cros-text-color-primary)}.icon{margin-inline-end:8px;padding-inline-end:var(--cr-section-padding)}#checkmark{--iron-icon-fill-color:var(--cros-icon-color-prominent)}paper-spinner-lite{height:16px;vertical-align:middle;width:16px}</style>
 <div class="two-line no-padding" selectable>
   <div class="flex layout horizontal center link-wrapper">
@@ -10205,7 +10167,7 @@ class ProfileDiscoveryListItemLegacyElement extends PolymerElement {
         return 'profile-discovery-list-item-legacy';
     }
     static get template() {
-        return getTemplate$14();
+        return getTemplate$13();
     }
     static get properties() {
         return {
@@ -10247,7 +10209,7 @@ class ProfileDiscoveryListItemLegacyElement extends PolymerElement {
 }
 customElements.define(ProfileDiscoveryListItemLegacyElement.is, ProfileDiscoveryListItemLegacyElement);
 
-function getTemplate$13() {
+function getTemplate$12() {
     return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex">[slot=page-body]{height:300px;margin-top:-20px}profile-discovery-list-item{height:64px}#container{height:230px;margin-top:20px;overflow-x:hidden;overflow-y:auto}iron-list>:not(:first-of-type){border-top:var(--cr-separator-line)}</style>
 <base-page>
   <div slot="page-body">
@@ -10278,7 +10240,7 @@ class ProfileDiscoveryListPageLegacyElement extends ProfileDiscoveryListPageLega
         return 'profile-discovery-list-page-legacy';
     }
     static get template() {
-        return getTemplate$13();
+        return getTemplate$12();
     }
     static get properties() {
         return {
@@ -10303,7 +10265,7 @@ class ProfileDiscoveryListPageLegacyElement extends ProfileDiscoveryListPageLega
 }
 customElements.define(ProfileDiscoveryListPageLegacyElement.is, ProfileDiscoveryListPageLegacyElement);
 
-function getTemplate$12() {
+function getTemplate$11() {
     return html `<!--_html_template_start_--><style include="iron-flex iron-positioning">#container{background-color:transparent;border-radius:12px;border-width:1px;border:var(--cr-separator-line);box-sizing:border-box;color:var(--cr-secondary-text-color);font:var(--cros-body-2-font);height:64px;margin-bottom:6px;margin-top:6px;padding-inline-start:12px}:host([selected]) #container{color:var(--cros-sys-on_primary_container);background-color:var(--cros-sys-primary_container);border-style:none;font:var(--cros-button-2-font)}:host(:not([selected]):focus) #container{border-width:3px;padding-inline-start:10px}#details{align-items:center;display:flex;flex:auto;min-height:var(--cr-section-two-line-min-height)}#profileTitleLabel{margin-inline-start:8px}#profileImage{margin-inline-end:8px}.icon{padding-inline-end:var(--cr-section-padding)}#checkmark{--iron-icon-fill-color:var(--cros-icon-color-prominent)}</style>
 <div id="container" class="flex layout horizontal center" selectable>
   <div id="details">
@@ -10335,7 +10297,7 @@ class ProfileDiscoveryListItemElement extends PolymerElement {
         return 'profile-discovery-list-item';
     }
     static get template() {
-        return getTemplate$12();
+        return getTemplate$11();
     }
     static get properties() {
         return {
@@ -10363,7 +10325,7 @@ class ProfileDiscoveryListItemElement extends PolymerElement {
 }
 customElements.define(ProfileDiscoveryListItemElement.is, ProfileDiscoveryListItemElement);
 
-function getTemplate$11() {
+function getTemplate$10() {
     return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex">[slot=page-body]{height:282px;margin-top:-20px}#container{height:230px;margin-top:20px;overflow-x:hidden;overflow-y:auto}[scrollable] iron-list>:not(.no-outline):focus{background-color:transparent!important}</style>
   <base-page>
     <div slot="page-body">
@@ -10395,7 +10357,7 @@ class ProfileDiscoveryListPageElement extends ProfileDiscoveryListPageElementBas
         return 'profile-discovery-list-page';
     }
     static get template() {
-        return getTemplate$11();
+        return getTemplate$10();
     }
     static get properties() {
         return {
@@ -10421,7 +10383,7 @@ class ProfileDiscoveryListPageElement extends ProfileDiscoveryListPageElementBas
 }
 customElements.define(ProfileDiscoveryListPageElement.is, ProfileDiscoveryListPageElement);
 
-function getTemplate$10() {
+function getTemplate$$() {
     return html `<!--_html_template_start_--><style include="iron-flex iron-positioning">[slot=page-body]{height:282px;margin-top:-20px}#outerDiv{height:236px}.container{width:472px}#details{align-items:center;color:var(--cros-text-color-primary);display:flex;margin-bottom:40px}#profileImage{margin-inline-end:16px}#confirmationCodeContainer{margin-inline-end:16px}paper-spinner-lite{height:20px;position:absolute;right:16px;top:24px;width:20px}#loadingMessage{bottom:0;color:var(--cros-text-color-disabled);font-size:var(--cr-form-field-label-font-size);letter-spacing:.4px;line-height:var(--cr-form-field-label-line-height);position:absolute}</style>
 <base-page>
   <div slot="page-body">
@@ -10468,7 +10430,7 @@ class ConfirmationCodePageLegacyElement extends ConfirmationCodePageLegacyElemen
         return 'confirmation-code-page-legacy';
     }
     static get template() {
-        return getTemplate$10();
+        return getTemplate$$();
     }
     static get properties() {
         return {
@@ -10533,7 +10495,7 @@ class ConfirmationCodePageLegacyElement extends ConfirmationCodePageLegacyElemen
 }
 customElements.define(ConfirmationCodePageLegacyElement.is, ConfirmationCodePageLegacyElement);
 
-function getTemplate$$() {
+function getTemplate$_() {
     return html `<!--_html_template_start_--><style include="iron-flex iron-positioning">[slot=page-body]{height:282px;margin-top:-20px}#outerDiv{height:236px}.container{width:472px}#details{align-items:center;color:var(--cros-text-color-primary);display:flex;margin-bottom:40px}#confirmationCodeContainer{margin-inline-end:16px}</style>
 <base-page>
   <div slot="page-body">
@@ -10572,7 +10534,7 @@ class ConfirmationCodePageElement extends ConfirmationCodePageElementBase {
         return 'confirmation-code-page';
     }
     static get template() {
-        return getTemplate$$();
+        return getTemplate$_();
     }
     static get properties() {
         return {
@@ -10602,7 +10564,7 @@ class ConfirmationCodePageElement extends ConfirmationCodePageElementBase {
 }
 customElements.define(ConfirmationCodePageElement.is, ConfirmationCodePageElement);
 
-function getTemplate$_() {
+function getTemplate$Z() {
     return html `<!--_html_template_start_--><style include="iron-flex">:host{align-content:space-between;display:flex;flex:1 1 auto;flex-direction:column}</style>
 <iron-pages attr-for-selected="id" selected="[[selectedESimPageName_]]">
   <setup-loading-page id="profileLoadingPage" loading-message="[[getLoadingMessage_(hasHadActiveCellularNetwork_)]]">
@@ -10696,7 +10658,7 @@ class EsimFlowUiElement extends EsimFlowUiElementBase {
         return 'esim-flow-ui';
     }
     static get template() {
-        return getTemplate$_();
+        return getTemplate$Z();
     }
     static get properties() {
         return {
@@ -11415,7 +11377,7 @@ class EsimFlowUiElement extends EsimFlowUiElementBase {
 }
 customElements.define(EsimFlowUiElement.is, EsimFlowUiElement);
 
-function getTemplate$Z() {
+function getTemplate$Y() {
     return html `<!--_html_template_start_--><iron-pages attr-for-selected="id" selected="[[currentPageName]]" selected-item="{{currentPage_}}">
   <template is="dom-if" if="[[shouldShowPsimFlow_(currentPageName)]]" restamp>
     <psim-flow-ui button-state="{{buttonState_}}" name-of-carrier-pending-setup="{{flowPsimBanner}}" delegate="[[delegate]]" id="psim-flow-ui" forward-button-label="{{forwardButtonLabel_}}">
@@ -11443,7 +11405,7 @@ class CellularSetupElement extends PolymerElement {
         return 'cellular-setup';
     }
     static get template() {
-        return getTemplate$Z();
+        return getTemplate$Y();
     }
     static get properties() {
         return {
@@ -11547,7 +11509,7 @@ class CellularSetupElement extends PolymerElement {
 }
 customElements.define(CellularSetupElement.is, CellularSetupElement);
 
-function getTemplate$Y() {
+function getTemplate$X() {
     return html `<!--_html_template_start_--><style include="settings-shared">@media (min-width:640px){:host{--cr-dialog-width:512px}}@media (max-width:640px){:host{--cr-dialog-width:320px}}:host{--cr-dialog-body-padding-horizontal:24px;--cr-dialog-title-slot-padding-bottom:0;--cr-dialog-title-slot-padding-end:0;--cr-dialog-title-slot-padding-start:0;--cr-dialog-title-slot-padding-top:0}#header{padding-bottom:8px;padding-inline-end:24px;padding-inline-start:24px;padding-top:24px}#title{align-items:center;background-color:var(--cros-dialog-title-background-color);display:flex;font-size:x-small;height:32px;justify-content:center}</style>
 
 <cr-dialog id="dialog">
@@ -11592,7 +11554,7 @@ class OsSettingsCellularSetupDialogElement extends OsSettingsCellularSetupDialog
         return 'os-settings-cellular-setup-dialog';
     }
     static get template() {
-        return getTemplate$Y();
+        return getTemplate$X();
     }
     static get properties() {
         return {
@@ -11636,7 +11598,7 @@ class OsSettingsCellularSetupDialogElement extends OsSettingsCellularSetupDialog
 }
 customElements.define(OsSettingsCellularSetupDialogElement.is, OsSettingsCellularSetupDialogElement);
 
-function getTemplate$X() {
+function getTemplate$W() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-positioning">:host{--cr-dialog-width:416px;--cr-dialog-title-slot-padding-bottom:10px}#body{overflow:hidden;padding:0 20px 2px 20px}#warningMessage{--iron-icon-fill-color:var(--cros-icon-color-disabled);--iron-icon-height:16px;--iron-icon-width:16px;font-size:smaller;padding-bottom:12px}#warningMessage iron-icon{float:left;padding-inline-end:4px}:host-context([dir=rtl]) #warningMessage iron-icon{float:right}#warningMessage div{overflow:hidden}#inputContainer{margin-top:12px}#inputInfo{background-color:var(--cros-bg-color);color:var(--cros-text-color-secondary);font-size:var(--cr-form-field-label-font-size);font-weight:400;height:30px;line-height:var(--cr-form-field-label-line-height);padding-top:8px;position:absolute;top:50px;width:100%}@media (prefers-color-scheme:dark){#inputInfo{background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#inputInfo.error{color:var(--cros-text-color-alert)}#inputSubtitle{display:block;width:260px}#inputCount{position:absolute;right:0;top:8px}:host-context([dir=rtl]) #inputCount{left:0;right:auto}#cancel{margin-inline-end:8px}</style>
 <cr-dialog id="profileRenameDialog" show-on-attach>
   <div slot="title">$i18n{eSimRenameProfileDialogLabel}</div>
@@ -11694,7 +11656,7 @@ class EsimRenameDialogElement extends EsimRenameDialogElementBase {
         return 'esim-rename-dialog';
     }
     static get template() {
-        return getTemplate$X();
+        return getTemplate$W();
     }
     static get properties() {
         return {
@@ -11832,122 +11794,6 @@ class EsimRenameDialogElement extends EsimRenameDialogElementBase {
     }
 }
 customElements.define(EsimRenameDialogElement.is, EsimRenameDialogElement);
-
-function getTemplate$W() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:416px}#title{height:15px}#warningMessage{--iron-icon-fill-color:var(--cros-icon-color-disabled);--iron-icon-height:16px;--iron-icon-width:16px;font-size:smaller;margin-top:20px}#warningMessage iron-icon{float:left;padding-inline-end:4px}:host-context([dir=rtl]) #warningMessage iron-icon{float:right}#warningMessage div{overflow:hidden}#cancel{margin-inline-end:8px}#cancel:focus{box-shadow:0 0 0 2px var(--focus-shadow-color)}</style>
-<cr-dialog id="dialog" show-on-attach>
-  <div id="title" slot="title">
-    [[getTitleString_(esimProfileName_)]]
-  </div>
-  <div slot="body">
-    <div id="description">$i18n{eSimRemoveProfileDialogDescription}</div>
-    <div id="warningMessage" hidden$="[[!showCellularDisconnectWarning]]">
-      <iron-icon icon="cr:info-outline"></iron-icon>
-      <div>$i18n{eSimDialogConnectionWarning}</div>
-    </div>
-  </div>
-  <div slot="button-container">
-    <cr-button id="cancel" aria-label="[[getCancelBtnA11yLabel_(esimProfileName_)]]" on-click="onCancelClick_" class="cancel-button">
-      $i18n{eSimRemoveProfileDialogCancel}
-    </cr-button>
-    <cr-button id="remove" aria-label$="[[getRemoveBtnA11yLabel_(esimProfileName_)]]" aria-describedby="description warningMessage" on-click="onRemoveProfileClick_" class="action-button">
-      $i18n{eSimRemoveProfileDialogRemove}
-    </cr-button>
-  </div>
-</cr-dialog>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Polymer element to remove eSIM profile
- */
-const EsimRemoveProfileDialogElementBase = I18nMixin(PolymerElement);
-class EsimRemoveProfileDialogElement extends EsimRemoveProfileDialogElementBase {
-    static get is() {
-        return 'esim-remove-profile-dialog';
-    }
-    static get template() {
-        return getTemplate$W();
-    }
-    static get properties() {
-        return {
-            networkState: {
-                type: Object,
-                value: null,
-            },
-            showCellularDisconnectWarning: {
-                type: Boolean,
-                value: false,
-            },
-            esimProfileName_: {
-                type: String,
-                value: '',
-            },
-        };
-    }
-    constructor() {
-        super();
-        this.esimProfileRemote_ = null;
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        this.init_();
-    }
-    async init_() {
-        if (!(this.networkState &&
-            this.networkState.type === NetworkType.kCellular)) {
-            return;
-        }
-        this.esimProfileRemote_ =
-            await getESimProfile(this.networkState.typeState.cellular.iccid);
-        // Fail gracefully if init is incomplete, see crbug/1194729.
-        if (!this.esimProfileRemote_) {
-            this.fireShowErrorToastEvent_();
-            this.$.dialog.close();
-            return;
-        }
-        this.esimProfileName_ = this.networkState.name;
-        this.$.cancel.focus();
-    }
-    getTitleString_() {
-        if (!this.esimProfileName_) {
-            return '';
-        }
-        return this.i18n('esimRemoveProfileDialogTitle', this.esimProfileName_);
-    }
-    onRemoveProfileClick_() {
-        this.esimProfileRemote_.uninstallProfile().then((response) => {
-            if (response.result === ESimOperationResult.kFailure) {
-                this.fireShowErrorToastEvent_();
-            }
-        });
-        this.$.dialog.close();
-        const params = new URLSearchParams();
-        params.append('type', OncMojo.getNetworkTypeString(NetworkType.kCellular));
-        Router.getInstance().setCurrentRoute(routes.INTERNET_NETWORKS, params, /*isPopState=*/ true);
-    }
-    onCancelClick_() {
-        this.$.dialog.close();
-    }
-    getRemoveBtnA11yLabel_(esimProfileName) {
-        return this.i18n('eSimRemoveProfileRemoveA11yLabel', esimProfileName);
-    }
-    getCancelBtnA11yLabel_(esimProfileName) {
-        return this.i18n('eSimRemoveProfileCancelA11yLabel', esimProfileName);
-    }
-    fireShowErrorToastEvent_() {
-        const showErrorToastEvent = new CustomEvent('show-error-toast', {
-            bubbles: true,
-            composed: true,
-            detail: this.i18n('eSimRemoveProfileDialogError'),
-        });
-        this.dispatchEvent(showErrorToastEvent);
-    }
-}
-customElements.define(EsimRemoveProfileDialogElement.is, EsimRemoveProfileDialogElement);
 
 function getTemplate$V() {
     return html `<!--_html_template_start_--><style include="internet-shared iron-flex">:host{--cr-dialog-width:380px}#subtitle{font-size:.75rem;font-weight:500;height:40px;position:relative;left:20px;top:-10px;width:340px}#warningMessage{--iron-icon-fill-color:var(--cros-icon-color-disabled);--iron-icon-height:16px;--iron-icon-width:16px;font-size:smaller;margin-top:20px}#warningMessage iron-icon{float:left;padding-inline-end:4px}:host-context([dir=rtl]) #warningMessage iron-icon{float:right}#warningMessage div{overflow:hidden}network-config-toggle{color:var(--cr-primary-text-color)}.input-info{font-size:var(--cr-form-field-label-font-size);height:20px;position:relative;top:-16px}.error{color:var(--cros-text-color-alert)}#errorMessage{font-weight:500}</style>
@@ -12449,6 +12295,13 @@ Polymer({
       return false;
     }
     return this.items.includes(this.prefilledValue);
+  },
+
+  /**
+   * Disable the whole item if the prefilled value is used.
+   */
+  extraSetupForPrefilledValue() {
+    this.disabled = true;
   },
 });
 
@@ -20578,20 +20431,20 @@ class SettingsBluetoothSummaryElement extends SettingsBluetoothSummaryElementBas
             return this.i18n('bluetoothSummaryPageOn');
         }
         const isA11yLabel = labelType === LabelType.A11Y;
-        const firstConnectedDeviceName = getDeviceName(connectedDevices[0]);
+        const firstConnectedDeviceName = getDeviceNameUnsafe(connectedDevices[0]);
         if (connectedDevices.length === 1) {
-            return isA11yLabel ? this.i18n('bluetoothSummaryPageConnectedA11yOneDevice', firstConnectedDeviceName) :
+            return isA11yLabel ? loadTimeData.getStringF('bluetoothSummaryPageConnectedA11yOneDevice', firstConnectedDeviceName) :
                 firstConnectedDeviceName;
         }
         if (connectedDevices.length === 2) {
-            const secondConnectedDeviceName = getDeviceName(connectedDevices[1]);
+            const secondConnectedDeviceName = getDeviceNameUnsafe(connectedDevices[1]);
             return isA11yLabel ?
-                this.i18n('bluetoothSummaryPageConnectedA11yTwoDevices', firstConnectedDeviceName, secondConnectedDeviceName) :
-                this.i18n('bluetoothSummaryPageTwoDevicesDescription', firstConnectedDeviceName, secondConnectedDeviceName);
+                loadTimeData.getStringF('bluetoothSummaryPageConnectedA11yTwoDevices', firstConnectedDeviceName, secondConnectedDeviceName) :
+                loadTimeData.getStringF('bluetoothSummaryPageTwoDevicesDescription', firstConnectedDeviceName, secondConnectedDeviceName);
         }
         return isA11yLabel ?
-            this.i18n('bluetoothSummaryPageConnectedA11yTwoOrMoreDevices', firstConnectedDeviceName, connectedDevices.length - 1) :
-            this.i18n('bluetoothSummaryPageTwoOrMoreDevicesDescription', firstConnectedDeviceName, connectedDevices.length - 1);
+            loadTimeData.getStringF('bluetoothSummaryPageConnectedA11yTwoOrMoreDevices', firstConnectedDeviceName, connectedDevices.length - 1) :
+            loadTimeData.getStringF('bluetoothSummaryPageTwoOrMoreDevicesDescription', firstConnectedDeviceName, connectedDevices.length - 1);
     }
     getConnectedDevices_() {
         const pairedDevices = this.systemProperties.pairedDevices;
@@ -22708,8 +22561,8 @@ class SettingsBluetoothPageElement extends SettingsBluetoothPageElementBase {
         this.browserProxy_ =
             OsBluetoothDevicesSubpageBrowserProxyImpl.getInstance();
     }
-    ready() {
-        super.ready();
+    connectedCallback() {
+        super.connectedCallback();
         getBluetoothConfig().observeSystemProperties(this.systemPropertiesObserverReceiver_.$.bindNewPipeAndPassRemote());
     }
     /**
@@ -25398,7 +25251,7 @@ function getTemplate$i() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 
 <settings-card header-text="[[getHeaderText_()]]">
-  <settings-toggle-button id="snapWindowSuggestionsToggle" icon="os-settings:multitasking" pref="{{prefs.ash.snap_window_suggestions.enabled}}" label="[[getLabelText_()]]" sub-label="[[getDescriptionText_()]]" deep-link-focus-id$="[[Setting.kSnapWindowSuggestions]]">
+  <settings-toggle-button id="snapWindowSuggestionsToggle" icon="os-settings:snap-window-suggestions" pref="{{prefs.ash.snap_window_suggestions.enabled}}" label="[[getLabelText_()]]" sub-label="[[getDescriptionText_()]]" deep-link-focus-id$="[[Setting.kSnapWindowSuggestions]]">
   </settings-toggle-button>
 </settings-card><!--_html_template_end_-->`;
 }
@@ -27107,7 +26960,7 @@ function getTemplate$a() {
           --cr-toolbar-search-field-input-icon-color,
           var(--google-grey-500))}}#icon{transition:margin 150ms,opacity .2s}#prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--google-grey-700));opacity:0}@media (prefers-color-scheme:dark){#prompt{color:var(--cr-toolbar-search-field-prompt-color,#fff)}}@media (prefers-color-scheme:dark){#prompt{--cr-toolbar-search-field-prompt-opacity:1;color:var(--cr-secondary-text-color,#fff)}}:host-context([chrome-refresh-2023]) #prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--color-toolbar-search-field-foreground-placeholder,var(--cr-secondary-text-color)))}paper-spinner-lite{--paper-spinner-color:var(--cr-toolbar-search-field-input-icon-color,
             var(--google-grey-700));height:var(--cr-icon-size);margin:var(--cr-toolbar-search-field-paper-spinner-margin,0 6px);opacity:0;padding:6px;position:absolute;width:var(--cr-icon-size)}@media (prefers-color-scheme:dark){paper-spinner-lite{--paper-spinner-color:var(
-          --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-search-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
+          --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}input::selection{background-color:var(--cros-sys-highlight_text)}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-search-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
 <div id="background"></div>
 <div id="stateBackground"></div>
 <div id="content">
@@ -27258,7 +27111,7 @@ const SearchResultIconSpec = { $: mojo.internal.Enum() };
 var SearchResultIcon;
 (function (SearchResultIcon) {
     SearchResultIcon[SearchResultIcon["MIN_VALUE"] = 0] = "MIN_VALUE";
-    SearchResultIcon[SearchResultIcon["MAX_VALUE"] = 69] = "MAX_VALUE";
+    SearchResultIcon[SearchResultIcon["MAX_VALUE"] = 70] = "MAX_VALUE";
     SearchResultIcon[SearchResultIcon["kA11y"] = 0] = "kA11y";
     SearchResultIcon[SearchResultIcon["kAndroid"] = 1] = "kAndroid";
     SearchResultIcon[SearchResultIcon["kAppsGrid"] = 2] = "kAppsGrid";
@@ -27319,16 +27172,17 @@ var SearchResultIcon;
     SearchResultIcon[SearchResultIcon["kSearch"] = 57] = "kSearch";
     SearchResultIcon[SearchResultIcon["kSelectToSpeak"] = 58] = "kSelectToSpeak";
     SearchResultIcon[SearchResultIcon["kShield"] = 59] = "kShield";
-    SearchResultIcon[SearchResultIcon["kStorage"] = 60] = "kStorage";
-    SearchResultIcon[SearchResultIcon["kStylus"] = 61] = "kStylus";
-    SearchResultIcon[SearchResultIcon["kSwitchAccess"] = 62] = "kSwitchAccess";
-    SearchResultIcon[SearchResultIcon["kSync"] = 63] = "kSync";
-    SearchResultIcon[SearchResultIcon["kSystemPreferences"] = 64] = "kSystemPreferences";
-    SearchResultIcon[SearchResultIcon["kTextToSpeech"] = 65] = "kTextToSpeech";
-    SearchResultIcon[SearchResultIcon["kTouchpad"] = 66] = "kTouchpad";
-    SearchResultIcon[SearchResultIcon["kWallpaper"] = 67] = "kWallpaper";
-    SearchResultIcon[SearchResultIcon["kWifi"] = 68] = "kWifi";
-    SearchResultIcon[SearchResultIcon["kZoomIn"] = 69] = "kZoomIn";
+    SearchResultIcon[SearchResultIcon["kSnapWindowSuggestions"] = 60] = "kSnapWindowSuggestions";
+    SearchResultIcon[SearchResultIcon["kStorage"] = 61] = "kStorage";
+    SearchResultIcon[SearchResultIcon["kStylus"] = 62] = "kStylus";
+    SearchResultIcon[SearchResultIcon["kSwitchAccess"] = 63] = "kSwitchAccess";
+    SearchResultIcon[SearchResultIcon["kSync"] = 64] = "kSync";
+    SearchResultIcon[SearchResultIcon["kSystemPreferences"] = 65] = "kSystemPreferences";
+    SearchResultIcon[SearchResultIcon["kTextToSpeech"] = 66] = "kTextToSpeech";
+    SearchResultIcon[SearchResultIcon["kTouchpad"] = 67] = "kTouchpad";
+    SearchResultIcon[SearchResultIcon["kWallpaper"] = 68] = "kWallpaper";
+    SearchResultIcon[SearchResultIcon["kWifi"] = 69] = "kWifi";
+    SearchResultIcon[SearchResultIcon["kZoomIn"] = 70] = "kZoomIn";
 })(SearchResultIcon || (SearchResultIcon = {}));
 
 var search_result_icon_mojomWebui = /*#__PURE__*/Object.freeze({
@@ -28271,6 +28125,8 @@ class OsSearchResultRowElement extends OsSearchResultRowElementBase {
                 return 'os-settings:select-to-speak';
             case SearchResultIcon.kShield:
                 return 'cr:security';
+            case SearchResultIcon.kSnapWindowSuggestions:
+                return 'os-settings:snap-window-suggestions';
             case SearchResultIcon.kStorage:
                 return isRevampEnabled ? 'os-settings:storage' :
                     'os-settings:hard-drive';
@@ -30883,10 +30739,7 @@ class SettingsBluetoothForgetDeviceDialogElement extends SettingsBluetoothForget
         };
     }
     getForgetDeviceDialogBodyText_() {
-        return this.i18n('bluetoothDevicesDialogLabel', this.getDeviceName_(), loadTimeData.getString('primaryUserEmail'));
-    }
-    getDeviceName_() {
-        return getDeviceName(this.device_);
+        return loadTimeData.getStringF('bluetoothDevicesDialogLabel', getDeviceNameUnsafe(this.device_), loadTimeData.getString('primaryUserEmail'));
     }
     onForgetClick_(event) {
         const fireEvent = new CustomEvent('forget-bluetooth-device', { bubbles: true, composed: true });

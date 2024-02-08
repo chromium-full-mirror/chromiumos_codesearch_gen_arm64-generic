@@ -312,7 +312,9 @@ namespace OnInputChanged {
 
 extern const char kEventName[];  // "omnibox.onInputChanged"
 
-base::Value::List Create(const std::string& text);
+// A callback passed to the onInputChanged event used for sending suggestions
+// back to the browser.
+base::Value::List Create(const std::string& text, base::Value::Dict suggest);
 }  // namespace OnInputChanged
 
 namespace OnInputEntered {

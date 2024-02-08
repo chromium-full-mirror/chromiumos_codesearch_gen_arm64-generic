@@ -8807,6 +8807,7 @@ class  ManagedCellularProperties {
       const std::optional<std::string>& min,
       const std::optional<std::string>& model_id,
       const std::optional<std::string>& network_technology,
+      const std::string& sim_lock_type,
       PaymentPortalPropertiesPtr payment_portal,
       const std::optional<std::string>& roaming_state,
       ManagedApnPropertiesPtr selected_apn,
@@ -8939,6 +8940,8 @@ ManagedCellularProperties& operator=(const ManagedCellularProperties&) = delete;
   std::optional<std::string> model_id;
   
   std::optional<std::string> network_technology;
+  
+  std::string sim_lock_type;
   
   PaymentPortalPropertiesPtr payment_portal;
   
@@ -14431,6 +14434,7 @@ ManagedCellularPropertiesPtr ManagedCellularProperties::Clone() const {
       mojo::Clone(min),
       mojo::Clone(model_id),
       mojo::Clone(network_technology),
+      mojo::Clone(sim_lock_type),
       mojo::Clone(payment_portal),
       mojo::Clone(roaming_state),
       mojo::Clone(selected_apn),
@@ -14489,6 +14493,8 @@ bool ManagedCellularProperties::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->model_id, other_struct.model_id))
     return false;
   if (!mojo::Equals(this->network_technology, other_struct.network_technology))
+    return false;
+  if (!mojo::Equals(this->sim_lock_type, other_struct.sim_lock_type))
     return false;
   if (!mojo::Equals(this->payment_portal, other_struct.payment_portal))
     return false;
@@ -14602,6 +14608,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.network_technology < rhs.network_technology)
     return true;
   if (rhs.network_technology < lhs.network_technology)
+    return false;
+  if (lhs.sim_lock_type < rhs.sim_lock_type)
+    return true;
+  if (rhs.sim_lock_type < lhs.sim_lock_type)
     return false;
   if (lhs.payment_portal < rhs.payment_portal)
     return true;
@@ -17956,6 +17966,11 @@ struct  StructTraits<::chromeos::network_config::mojom::ManagedCellularPropertie
   static const decltype(::chromeos::network_config::mojom::ManagedCellularProperties::network_technology)& network_technology(
       const ::chromeos::network_config::mojom::ManagedCellularPropertiesPtr& input) {
     return input->network_technology;
+  }
+
+  static const decltype(::chromeos::network_config::mojom::ManagedCellularProperties::sim_lock_type)& sim_lock_type(
+      const ::chromeos::network_config::mojom::ManagedCellularPropertiesPtr& input) {
+    return input->sim_lock_type;
   }
 
   static const decltype(::chromeos::network_config::mojom::ManagedCellularProperties::payment_portal)& payment_portal(

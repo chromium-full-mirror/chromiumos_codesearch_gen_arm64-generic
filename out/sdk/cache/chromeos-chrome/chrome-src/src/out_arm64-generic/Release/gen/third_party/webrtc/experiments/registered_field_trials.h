@@ -108,6 +108,7 @@ inline constexpr absl::string_view kRegisteredFieldTrials[] = {
     "WebRTC-Audio-MinimizeResamplingOnMobile",
     "WebRTC-Audio-NetEqDecisionLogicConfig",
     "WebRTC-Audio-NetEqDelayManagerConfig",
+    "WebRTC-Audio-NetEqFecDelayAdaptation",
     "WebRTC-Audio-NetEqNackTrackerConfig",
     "WebRTC-Audio-NetEqSmartFlushing",
     "WebRTC-Audio-OpusAvoidNoisePumpingDuringDtx",

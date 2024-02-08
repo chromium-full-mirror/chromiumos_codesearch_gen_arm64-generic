@@ -138,8 +138,22 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         // because there are bugs with window.speechSynthesis.paused and
         // window.speechSynthesis.speaking on some platforms.
         this.paused = true;
+        // Voice and speed changes take effect on the next call of syntch.play(), but
+        // not on .resume(). In order to be responsive to the user's settings changes,
+        // we call synth.cancel() and synth.play(). However, as currently implemented,
+        // synth.cancel() and synth.play() plays from the beginning of the current
+        // utterance, even if parts of it had been spoken already. This can be
+        // disruptive to users who are toggling the play/pause button expecting for
+        // speech to resume from where the speech left off. This flag tracks the
+        // source of the pause to know whether to call synth.cancel()/synth.play() vs
+        // synth.paused()/synth.resume().
+        // TODO(crbug.com/1474951): Remove this when word level callbacks are enabled
+        this.pausedFromPlayClickButton = false;
         this.speechStarted = false;
         this.maxSpeechLength = 175;
+        // The node id of the first text node that should be used by Read Aloud.
+        // -1 if the node is not set.
+        this.firstTextNodeSetForReadAloud = -1;
         this.rate = 1;
         if (chrome.readingMode && chrome.readingMode.isWebUIToolbarVisible) {
             ColorChangeUpdater.forDocument().start();
@@ -242,6 +256,15 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         }
     }
     createTextNode_(nodeId) {
+        // When creating text nodes, save the first text node id. We need this
+        // node id to call InitAXPosition in playSpeech. If it's not saved here,
+        // we have to retrieve it through a DOM search such as createTreeWalker,
+        // which can be computationally expensive.
+        // However, since updateContent may be called after speech starts playing,
+        // don't call InitAXPosition from here to avoid interrupting current speech.
+        if (this.firstTextNodeSetForReadAloud < 0) {
+            this.firstTextNodeSetForReadAloud = nodeId;
+        }
         const textContent = chrome.readingMode.getTextContent(nodeId);
         const textNode = document.createTextNode(textContent);
         this.domNodeToAxNodeIdMap_.set(textNode, nodeId);
@@ -300,6 +323,14 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
     // TODO(crbug.com/1474951): Handle focus changes for speech, including
     // updating speech state.
     updateContent() {
+        // Each time we rebuild the subtree, we should clear the node id of the
+        // first text node.
+        this.firstTextNodeSetForReadAloud = -1;
+        this.refreshContent();
+    }
+    // Refreshes the content. This should only be called from the UI to avoid
+    // clearing state, such as the first text node.
+    refreshContent() {
         const shadowRoot = this.shadowRoot;
         assert(shadowRoot);
         const container = shadowRoot.getElementById('container');
@@ -358,6 +389,7 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
     }
     onSpeechRateChange(rate) {
         this.rate = rate;
+        this.resetSpeechPostSettingChange_();
     }
     getSpeechSynthesisVoice() {
         if (!this.selectedVoice) {
@@ -405,10 +437,9 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
     onPreviewVoice_(event) {
         event.preventDefault();
         event.stopPropagation();
+        this.stopSpeech();
         const defaultUtteranceSettings = this.defaultUtteranceSettings();
         // TODO(crbug.com/1474951): Finalize the default voice preview text.
-        // TODO(crbug.com/1474951): Call this.synth.cancel() to interrupt reading
-        // and reset the play icon.
         const utterance = new SpeechSynthesisUtterance(loadTimeData.getString('readingModeVoicePreviewText'));
         const voice = event.detail.previewVoice;
         utterance.voice = voice;
@@ -425,14 +456,32 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         };
         this.synth.speak(utterance);
     }
-    stopSpeech() {
-        // TODO(crbug.com/1474951): When pausing, can we pause on the previous
-        // word so that speech doesn't resume in the middle of the word?
-        this.synth.pause();
+    onVoiceMenuClose_(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        // TODO(b/323912186) Handle when menu is closed mid-preview and the user
+        // presses play/pause button.
+        if (this.paused && event.detail.voicePlayingWhenMenuOpened) {
+            this.playSpeech();
+        }
+    }
+    stopSpeech(pausedFromPlayClickButton = false) {
+        // TODO(crbug.com/1474951): When pausing, can we pause on a word boundary
+        // and continue playing from the previous word?
         this.paused = true;
-        // Restore links if they're enabled when speech pauses.
-        if (chrome.readingMode.linksEnabled) {
-            this.updateContent();
+        this.pausedFromPlayClickButton = pausedFromPlayClickButton;
+        if (pausedFromPlayClickButton) {
+            this.synth.pause();
+        }
+        else {
+            // Canceling clears all the Utterances that are queued up via synth.play()
+            this.synth.cancel();
+        }
+        // Restore links if they're enabled when speech pauses. Don't restore links
+        // if it's paused from a non-pause button (e.g. voice previews) so the links
+        // don't flash off and on.
+        if (chrome.readingMode.linksEnabled && pausedFromPlayClickButton) {
+            this.refreshContent();
             this.highlightNodes(chrome.readingMode.getCurrentText());
         }
     }
@@ -448,7 +497,7 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
     //  previous granularity.
     playPreviousGranularity() {
         this.synth.cancel();
-        this.resetPreviousHighlight();
+        this.resetPreviousHighlightAndRemoveCurrentHighlight();
         chrome.readingMode.movePositionToPreviousGranularity();
         if (!this.highlightAndPlayMessage()) {
             this.onSpeechFinished();
@@ -460,11 +509,19 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         const container = shadowRoot.getElementById('container');
         assert(container);
         if (this.speechStarted && this.paused) {
-            this.synth.resume();
+            if (this.pausedFromPlayClickButton) {
+                this.synth.resume();
+            }
+            else {
+                this.highlightAndPlayMessage();
+            }
+            const pausedFromPlayClickButton = this.pausedFromPlayClickButton;
             this.paused = false;
-            // Hide links when speech resumes.
-            if (chrome.readingMode.linksEnabled) {
-                this.updateContent();
+            this.pausedFromPlayClickButton = false;
+            // Hide links when speech resumes. We only hide links when the page was
+            // paused from the play/pause button.
+            if (chrome.readingMode.linksEnabled && pausedFromPlayClickButton) {
+                this.refreshContent();
             }
             // If the current read highlight has been cleared from a call to
             // updateContent, such as for links being toggled on or off via a Read
@@ -479,27 +536,15 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         }
         if (container.textContent) {
             this.paused = false;
+            this.pausedFromPlayClickButton = false;
             // Hide links when speech begins playing.
             if (chrome.readingMode.linksEnabled) {
-                this.updateContent();
+                this.refreshContent();
             }
-            // Gather all the messages that can be played. We need nodes, rather
-            // than just text because we need to add a span to the current sentence
-            // in order to use css styling to highlight the text as it's spoken.
-            // Since this modifies the nodes, and we can't do that while we're
-            // iterating over the tree, we gather them first, then speak them.
-            // TODO(crbug.com/1474951): Better handle if a sentence is split across
-            // multiple nodes (e.g. if some text is linked). Right now it will just
-            // sound choppy.
-            const treeRoot = container.firstChild;
-            assert(treeRoot);
-            const treeWalker = document.createTreeWalker(treeRoot, NodeFilter.SHOW_TEXT);
-            treeWalker.nextNode();
-            const axNode = this.domNodeToAxNodeIdMap_.get(treeWalker.currentNode);
             // TODO(crbug.com/1474951): There should be a way to use AXPosition so
             // that this step can be skipped.
-            if (axNode) {
-                chrome.readingMode.initAXPositionWithNode(axNode);
+            if (this.firstTextNodeSetForReadAloud > 0) {
+                chrome.readingMode.initAXPositionWithNode(this.firstTextNodeSetForReadAloud);
                 this.highlightAndPlayMessage();
             }
         }
@@ -703,12 +748,13 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         this.clearReadAloudState();
         // Hide links when speech finishes playing.
         if (chrome.readingMode.linksEnabled) {
-            this.updateContent();
+            this.refreshContent();
         }
     }
     clearReadAloudState() {
         this.speechStarted = false;
         this.paused = true;
+        this.pausedFromPlayClickButton = false;
         this.previousHighlight_ = [];
     }
     onSelectVoice_(event) {
@@ -716,6 +762,20 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         event.stopPropagation();
         this.selectedVoice = event.detail.selectedVoice;
         chrome.readingMode.onVoiceChange(this.selectedVoice.name, this.selectedVoice.lang.split('-')[0]);
+        this.resetSpeechPostSettingChange_();
+    }
+    resetSpeechPostSettingChange_() {
+        // Don't call stopSpeech() if initAXPositionWithNode hasn't been called
+        if (!this.speechStarted) {
+            return;
+        }
+        const playSpeechOnChange = !this.paused;
+        // Cancel the queued up Utterance using the old speech settings
+        this.stopSpeech();
+        // If speech was playing when a setting was changed, continue playing speech
+        if (playSpeechOnChange) {
+            this.playSpeech();
+        }
     }
     // TODO(b/1465029): Once the IsReadAnythingWebUIEnabled flag is removed
     // this should be renamed to just validatedFontName_ and the current
@@ -760,6 +820,13 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
             default:
                 return defaultSelectionColor;
         }
+    }
+    resetPreviousHighlightAndRemoveCurrentHighlight() {
+        const lastElement = this.previousHighlight_.pop();
+        if (lastElement) {
+            lastElement.className = '';
+        }
+        this.resetPreviousHighlight();
     }
     resetPreviousHighlight() {
         this.previousHighlight_.forEach((element) => {

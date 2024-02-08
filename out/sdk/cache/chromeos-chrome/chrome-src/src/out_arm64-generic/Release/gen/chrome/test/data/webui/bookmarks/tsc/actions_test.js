@@ -1,10 +1,6 @@
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Test suite for action creators that depend on the page state
- * and/or have non-trivial logic.
- */
 import { ROOT_NODE_ID, selectFolder, selectItem } from 'chrome://bookmarks/bookmarks.js';
 import { assertDeepEquals, assertEquals } from 'chrome://webui-test/chai_assert.js';
 import { TestStore } from './test_store.js';

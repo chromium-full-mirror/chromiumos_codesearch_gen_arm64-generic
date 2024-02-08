@@ -115,11 +115,35 @@ suite('<settings-privacy-hub-app-permission-row>', () => {
         await fakeHandler.whenCalled('setPermission');
         assertEquals(1, getPermissionChangeCount());
     });
-    test('Pressing Enter when toggle button selected triggers permission change', async () => {
-        assertEquals(0, getPermissionChangeCount());
-        getPermissionToggle().dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-        await fakeHandler.whenCalled('setPermission');
-        assertEquals(1, getPermissionChangeCount());
+    test('Toggle button reacts to Enter and Space keyboard events', async () => {
+        const keyBoardEvents = [
+            {
+                event: new KeyboardEvent('keydown', { key: 'Enter' }),
+                shouldTogglePermission: true,
+            },
+            {
+                event: new KeyboardEvent('keyup', { key: 'Enter' }),
+                shouldTogglePermission: false,
+            },
+            {
+                event: new KeyboardEvent('keydown', { key: ' ' }),
+                shouldTogglePermission: false,
+            },
+            {
+                event: new KeyboardEvent('keyup', { key: ' ' }),
+                shouldTogglePermission: true,
+            },
+        ];
+        let changeCount = 0;
+        for (const e of keyBoardEvents) {
+            assertEquals(changeCount, getPermissionChangeCount());
+            getPermissionToggle().dispatchEvent(e.event);
+            if (e.shouldTogglePermission) {
+                changeCount++;
+            }
+            await flushTasks();
+            assertEquals(changeCount, getPermissionChangeCount());
+        }
     });
     function isPermissionManaged() {
         const permission = app.permissions[PermissionType[permissionType]];

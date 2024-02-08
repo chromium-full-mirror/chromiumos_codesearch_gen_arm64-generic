@@ -13,13 +13,13 @@ import 'chrome://resources/polymer/v3_0/iron-selector/iron-selector.js';
 import '../settings_shared.css.js';
 import '../os_settings_icons.html.js';
 import './menu_item.js';
-import { getDeviceName } from 'chrome://resources/ash/common/bluetooth/bluetooth_utils.js';
+import { getDeviceNameUnsafe } from 'chrome://resources/ash/common/bluetooth/bluetooth_utils.js';
 import { getBluetoothConfig } from 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
+import { WebUiListenerMixin } from 'chrome://resources/ash/common/cr_elements/web_ui_listener_mixin.js';
 import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network/mojo_interface_provider.js';
 import { NetworkListenerBehavior } from 'chrome://resources/ash/common/network/network_listener_behavior.js';
 import { OncMojo } from 'chrome://resources/ash/common/network/onc_mojo.js';
-import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
-import { WebUiListenerMixin } from 'chrome://resources/ash/common/cr_elements/web_ui_listener_mixin.js';
 import { BluetoothSystemState, DeviceConnectionState, SystemPropertiesObserverReceiver as BluetoothPropertiesObserverReceiver } from 'chrome://resources/mojo/chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-webui.js';
 import { FilterType, NO_LIMIT } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
 import { NetworkType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
@@ -514,7 +514,7 @@ export class OsSettingsMenuElement extends OsSettingsMenuElementBase {
         }
         if (connectedDevices.length === 1) {
             const device = castExists(connectedDevices[0]);
-            this.bluetoothMenuItemDescription_ = getDeviceName(device);
+            this.bluetoothMenuItemDescription_ = getDeviceNameUnsafe(device);
             return;
         }
         this.bluetoothMenuItemDescription_ = this.i18n('bluetoothMenuItemDescriptionMultipleDevicesConnected', connectedDevices.length);

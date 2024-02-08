@@ -201,6 +201,7 @@ class PLATFORM_EXPORT WebPreferences {
       AutoplayPolicy autoplay_policy,
       bool require_transient_activation_for_get_display_media,
       bool require_transient_activation_for_show_file_or_directory_picker,
+      bool require_transient_activation_for_html_fullscreen,
       ::blink::mojom::blink::PreferredColorScheme preferred_color_scheme,
       ::blink::mojom::blink::PreferredContrast preferred_contrast,
       EffectiveConnectionType low_priority_iframes_threshold,
@@ -530,6 +531,8 @@ class PLATFORM_EXPORT WebPreferences {
   
   bool require_transient_activation_for_show_file_or_directory_picker;
   
+  bool require_transient_activation_for_html_fullscreen;
+  
   ::blink::mojom::blink::PreferredColorScheme preferred_color_scheme;
   
   ::blink::mojom::blink::PreferredContrast preferred_contrast;
@@ -709,6 +712,7 @@ WebPreferencesPtr WebPreferences::Clone() const {
       mojo::Clone(autoplay_policy),
       mojo::Clone(require_transient_activation_for_get_display_media),
       mojo::Clone(require_transient_activation_for_show_file_or_directory_picker),
+      mojo::Clone(require_transient_activation_for_html_fullscreen),
       mojo::Clone(preferred_color_scheme),
       mojo::Clone(preferred_contrast),
       mojo::Clone(low_priority_iframes_threshold),
@@ -965,6 +969,8 @@ bool WebPreferences::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->require_transient_activation_for_get_display_media, other_struct.require_transient_activation_for_get_display_media))
     return false;
   if (!mojo::Equals(this->require_transient_activation_for_show_file_or_directory_picker, other_struct.require_transient_activation_for_show_file_or_directory_picker))
+    return false;
+  if (!mojo::Equals(this->require_transient_activation_for_html_fullscreen, other_struct.require_transient_activation_for_html_fullscreen))
     return false;
   if (!mojo::Equals(this->preferred_color_scheme, other_struct.preferred_color_scheme))
     return false;
@@ -1474,6 +1480,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.require_transient_activation_for_show_file_or_directory_picker < rhs.require_transient_activation_for_show_file_or_directory_picker)
     return true;
   if (rhs.require_transient_activation_for_show_file_or_directory_picker < lhs.require_transient_activation_for_show_file_or_directory_picker)
+    return false;
+  if (lhs.require_transient_activation_for_html_fullscreen < rhs.require_transient_activation_for_html_fullscreen)
+    return true;
+  if (rhs.require_transient_activation_for_html_fullscreen < lhs.require_transient_activation_for_html_fullscreen)
     return false;
   if (lhs.preferred_color_scheme < rhs.preferred_color_scheme)
     return true;
@@ -2139,6 +2149,11 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::WebPreferences::DataV
   static decltype(::blink::mojom::blink::WebPreferences::require_transient_activation_for_show_file_or_directory_picker) require_transient_activation_for_show_file_or_directory_picker(
       const ::blink::mojom::blink::WebPreferencesPtr& input) {
     return input->require_transient_activation_for_show_file_or_directory_picker;
+  }
+
+  static decltype(::blink::mojom::blink::WebPreferences::require_transient_activation_for_html_fullscreen) require_transient_activation_for_html_fullscreen(
+      const ::blink::mojom::blink::WebPreferencesPtr& input) {
+    return input->require_transient_activation_for_html_fullscreen;
   }
 
   static decltype(::blink::mojom::blink::WebPreferences::preferred_color_scheme) preferred_color_scheme(

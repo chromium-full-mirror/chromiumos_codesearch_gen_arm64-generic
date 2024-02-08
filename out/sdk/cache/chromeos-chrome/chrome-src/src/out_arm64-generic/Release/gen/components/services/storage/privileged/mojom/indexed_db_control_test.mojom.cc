@@ -381,12 +381,6 @@ IndexedDBControlTest::IPCStableHashFunction IndexedDBControlTest::MessageToMetho
     case internal::kIndexedDBControlTest_ResetCachesForTesting_Name: {
       return &IndexedDBControlTest::ResetCachesForTesting_Sym::IPCStableHash;
     }
-    case internal::kIndexedDBControlTest_ForceSchemaDowngradeForTesting_Name: {
-      return &IndexedDBControlTest::ForceSchemaDowngradeForTesting_Sym::IPCStableHash;
-    }
-    case internal::kIndexedDBControlTest_HasV2SchemaCorruptionForTesting_Name: {
-      return &IndexedDBControlTest::HasV2SchemaCorruptionForTesting_Sym::IPCStableHash;
-    }
     case internal::kIndexedDBControlTest_WriteToIndexedDBForTesting_Name: {
       return &IndexedDBControlTest::WriteToIndexedDBForTesting_Sym::IPCStableHash;
     }
@@ -431,10 +425,6 @@ const char* IndexedDBControlTest::MessageToMethodName_(mojo::Message& message) {
             return "Receive storage::mojom::IndexedDBControlTest::GetFilePathForTesting";
       case internal::kIndexedDBControlTest_ResetCachesForTesting_Name:
             return "Receive storage::mojom::IndexedDBControlTest::ResetCachesForTesting";
-      case internal::kIndexedDBControlTest_ForceSchemaDowngradeForTesting_Name:
-            return "Receive storage::mojom::IndexedDBControlTest::ForceSchemaDowngradeForTesting";
-      case internal::kIndexedDBControlTest_HasV2SchemaCorruptionForTesting_Name:
-            return "Receive storage::mojom::IndexedDBControlTest::HasV2SchemaCorruptionForTesting";
       case internal::kIndexedDBControlTest_WriteToIndexedDBForTesting_Name:
             return "Receive storage::mojom::IndexedDBControlTest::WriteToIndexedDBForTesting";
       case internal::kIndexedDBControlTest_GetBlobCountForTesting_Name:
@@ -462,10 +452,6 @@ const char* IndexedDBControlTest::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply storage::mojom::IndexedDBControlTest::GetFilePathForTesting";
       case internal::kIndexedDBControlTest_ResetCachesForTesting_Name:
             return "Receive reply storage::mojom::IndexedDBControlTest::ResetCachesForTesting";
-      case internal::kIndexedDBControlTest_ForceSchemaDowngradeForTesting_Name:
-            return "Receive reply storage::mojom::IndexedDBControlTest::ForceSchemaDowngradeForTesting";
-      case internal::kIndexedDBControlTest_HasV2SchemaCorruptionForTesting_Name:
-            return "Receive reply storage::mojom::IndexedDBControlTest::HasV2SchemaCorruptionForTesting";
       case internal::kIndexedDBControlTest_WriteToIndexedDBForTesting_Name:
             return "Receive reply storage::mojom::IndexedDBControlTest::WriteToIndexedDBForTesting";
       case internal::kIndexedDBControlTest_GetBlobCountForTesting_Name:
@@ -533,32 +519,6 @@ uint32_t IndexedDBControlTest::ResetCachesForTesting_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)storage::mojom::IndexedDBControlTest::ResetCachesForTesting");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t IndexedDBControlTest::ForceSchemaDowngradeForTesting_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)storage::mojom::IndexedDBControlTest::ForceSchemaDowngradeForTesting");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t IndexedDBControlTest::HasV2SchemaCorruptionForTesting_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)storage::mojom::IndexedDBControlTest::HasV2SchemaCorruptionForTesting");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -728,38 +688,6 @@ class IndexedDBControlTest_ResetCachesForTesting_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   IndexedDBControlTest::ResetCachesForTestingCallback callback_;
-};
-
-class IndexedDBControlTest_ForceSchemaDowngradeForTesting_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  IndexedDBControlTest_ForceSchemaDowngradeForTesting_ForwardToCallback(
-      IndexedDBControlTest::ForceSchemaDowngradeForTestingCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  IndexedDBControlTest_ForceSchemaDowngradeForTesting_ForwardToCallback(const IndexedDBControlTest_ForceSchemaDowngradeForTesting_ForwardToCallback&) = delete;
-  IndexedDBControlTest_ForceSchemaDowngradeForTesting_ForwardToCallback& operator=(const IndexedDBControlTest_ForceSchemaDowngradeForTesting_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  IndexedDBControlTest::ForceSchemaDowngradeForTestingCallback callback_;
-};
-
-class IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ForwardToCallback(
-      IndexedDBControlTest::HasV2SchemaCorruptionForTestingCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ForwardToCallback(const IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ForwardToCallback&) = delete;
-  IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ForwardToCallback& operator=(const IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  IndexedDBControlTest::HasV2SchemaCorruptionForTestingCallback callback_;
 };
 
 class IndexedDBControlTest_WriteToIndexedDBForTesting_ForwardToCallback
@@ -1010,110 +938,6 @@ void IndexedDBControlTestProxy::ResetCachesForTesting(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new IndexedDBControlTest_ResetCachesForTesting_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void IndexedDBControlTestProxy::ForceSchemaDowngradeForTesting(
-    const ::storage::BucketLocator& in_bucket_locator, ForceSchemaDowngradeForTestingCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send storage::mojom::IndexedDBControlTest::ForceSchemaDowngradeForTesting", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("bucket_locator"), in_bucket_locator,
-                        "<value of type const ::storage::BucketLocator&>");
-   });
-#endif
-
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kIndexedDBControlTest_ForceSchemaDowngradeForTesting_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->bucket_locator)::BaseType> bucket_locator_fragment(
-          params.message());
-  mojo::internal::Serialize<::storage::mojom::BucketLocatorDataView>(
-      in_bucket_locator, bucket_locator_fragment);
-  params->bucket_locator.Set(
-      bucket_locator_fragment.is_null() ? nullptr : bucket_locator_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->bucket_locator.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null bucket_locator in IndexedDBControlTest.ForceSchemaDowngradeForTesting request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(IndexedDBControlTest::Name_);
-  message.set_method_name("ForceSchemaDowngradeForTesting");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new IndexedDBControlTest_ForceSchemaDowngradeForTesting_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void IndexedDBControlTestProxy::HasV2SchemaCorruptionForTesting(
-    const ::storage::BucketLocator& in_bucket_locator, HasV2SchemaCorruptionForTestingCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send storage::mojom::IndexedDBControlTest::HasV2SchemaCorruptionForTesting", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("bucket_locator"), in_bucket_locator,
-                        "<value of type const ::storage::BucketLocator&>");
-   });
-#endif
-
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kIndexedDBControlTest_HasV2SchemaCorruptionForTesting_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->bucket_locator)::BaseType> bucket_locator_fragment(
-          params.message());
-  mojo::internal::Serialize<::storage::mojom::BucketLocatorDataView>(
-      in_bucket_locator, bucket_locator_fragment);
-  params->bucket_locator.Set(
-      bucket_locator_fragment.is_null() ? nullptr : bucket_locator_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->bucket_locator.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null bucket_locator in IndexedDBControlTest.HasV2SchemaCorruptionForTesting request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(IndexedDBControlTest::Name_);
-  message.set_method_name("HasV2SchemaCorruptionForTesting");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -1936,249 +1760,6 @@ void IndexedDBControlTest_ResetCachesForTesting_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class IndexedDBControlTest_ForceSchemaDowngradeForTesting_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static IndexedDBControlTest::ForceSchemaDowngradeForTestingCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<IndexedDBControlTest_ForceSchemaDowngradeForTesting_ProxyToResponder> proxy(
-        new IndexedDBControlTest_ForceSchemaDowngradeForTesting_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&IndexedDBControlTest_ForceSchemaDowngradeForTesting_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~IndexedDBControlTest_ForceSchemaDowngradeForTesting_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  IndexedDBControlTest_ForceSchemaDowngradeForTesting_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "IndexedDBControlTest::ForceSchemaDowngradeForTestingCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      bool in_downgraded);
-};
-
-bool IndexedDBControlTest_ForceSchemaDowngradeForTesting_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  
-  // Validation for IndexedDBControlTest.3
-  bool success = true;
-  bool p_downgraded{};
-  IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_downgraded = input_data_view.downgraded();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControlTest::Name_, 3, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_downgraded));
-  return true;
-}
-
-void IndexedDBControlTest_ForceSchemaDowngradeForTesting_ProxyToResponder::Run(
-    bool in_downgraded) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply storage::mojom::IndexedDBControlTest::ForceSchemaDowngradeForTesting", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("downgraded"), in_downgraded,
-                        "<value of type bool>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kIndexedDBControlTest_ForceSchemaDowngradeForTesting_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->downgraded = in_downgraded;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(IndexedDBControlTest::Name_);
-  message.set_method_name("ForceSchemaDowngradeForTesting");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static IndexedDBControlTest::HasV2SchemaCorruptionForTestingCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ProxyToResponder> proxy(
-        new IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "IndexedDBControlTest::HasV2SchemaCorruptionForTestingCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      V2SchemaCorruptionStatus in_status);
-};
-
-bool IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  
-  // Validation for IndexedDBControlTest.4
-  bool success = true;
-  V2SchemaCorruptionStatus p_status{};
-  IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadStatus(&p_status))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControlTest::Name_, 4, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_status));
-  return true;
-}
-
-void IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ProxyToResponder::Run(
-    V2SchemaCorruptionStatus in_status) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply storage::mojom::IndexedDBControlTest::HasV2SchemaCorruptionForTesting", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("status"), in_status,
-                        "<value of type V2SchemaCorruptionStatus>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kIndexedDBControlTest_HasV2SchemaCorruptionForTesting_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::storage::mojom::V2SchemaCorruptionStatus>(
-      in_status, &params->status);
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(IndexedDBControlTest::Name_);
-  message.set_method_name("HasV2SchemaCorruptionForTesting");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
 class IndexedDBControlTest_WriteToIndexedDBForTesting_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static IndexedDBControlTest::WriteToIndexedDBForTestingCallback CreateCallback(
@@ -2238,7 +1819,7 @@ bool IndexedDBControlTest_WriteToIndexedDBForTesting_ForwardToCallback::Accept(
               message->mutable_payload());
   
   
-  // Validation for IndexedDBControlTest.5
+  // Validation for IndexedDBControlTest.3
   bool success = true;
   IndexedDBControlTest_WriteToIndexedDBForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -2246,7 +1827,7 @@ bool IndexedDBControlTest_WriteToIndexedDBForTesting_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControlTest::Name_, 5, true);
+        IndexedDBControlTest::Name_, 3, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2347,7 +1928,7 @@ bool IndexedDBControlTest_GetBlobCountForTesting_ForwardToCallback::Accept(
               message->mutable_payload());
   
   
-  // Validation for IndexedDBControlTest.6
+  // Validation for IndexedDBControlTest.4
   bool success = true;
   int64_t p_num_blobs{};
   IndexedDBControlTest_GetBlobCountForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -2358,7 +1939,7 @@ bool IndexedDBControlTest_GetBlobCountForTesting_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControlTest::Name_, 6, true);
+        IndexedDBControlTest::Name_, 4, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2468,7 +2049,7 @@ bool IndexedDBControlTest_GetNextBlobNumberForTesting_ForwardToCallback::Accept(
               message->mutable_payload());
   
   
-  // Validation for IndexedDBControlTest.7
+  // Validation for IndexedDBControlTest.5
   bool success = true;
   int64_t p_next_blob_number{};
   IndexedDBControlTest_GetNextBlobNumberForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -2479,7 +2060,7 @@ bool IndexedDBControlTest_GetNextBlobNumberForTesting_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControlTest::Name_, 7, true);
+        IndexedDBControlTest::Name_, 5, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2589,7 +2170,7 @@ bool IndexedDBControlTest_GetPathForBlobForTesting_ForwardToCallback::Accept(
               message->mutable_payload());
   
   
-  // Validation for IndexedDBControlTest.8
+  // Validation for IndexedDBControlTest.6
   bool success = true;
   ::base::FilePath p_path{};
   IndexedDBControlTest_GetPathForBlobForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -2600,7 +2181,7 @@ bool IndexedDBControlTest_GetPathForBlobForTesting_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControlTest::Name_, 8, true);
+        IndexedDBControlTest::Name_, 6, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2720,7 +2301,7 @@ bool IndexedDBControlTest_CompactBackingStoreForTesting_ForwardToCallback::Accep
               message->mutable_payload());
   
   
-  // Validation for IndexedDBControlTest.9
+  // Validation for IndexedDBControlTest.7
   bool success = true;
   IndexedDBControlTest_CompactBackingStoreForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -2728,7 +2309,7 @@ bool IndexedDBControlTest_CompactBackingStoreForTesting_ForwardToCallback::Accep
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControlTest::Name_, 9, true);
+        IndexedDBControlTest::Name_, 7, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2829,7 +2410,7 @@ bool IndexedDBControlTest_GetUsageForTesting_ForwardToCallback::Accept(
               message->mutable_payload());
   
   
-  // Validation for IndexedDBControlTest.10
+  // Validation for IndexedDBControlTest.8
   bool success = true;
   int64_t p_total_usage{};
   IndexedDBControlTest_GetUsageForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -2840,7 +2421,7 @@ bool IndexedDBControlTest_GetUsageForTesting_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControlTest::Name_, 10, true);
+        IndexedDBControlTest::Name_, 8, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2950,7 +2531,7 @@ bool IndexedDBControlTest_GetDatabaseKeysForTesting_ForwardToCallback::Accept(
               message->mutable_payload());
   
   
-  // Validation for IndexedDBControlTest.12
+  // Validation for IndexedDBControlTest.10
   bool success = true;
   std::string p_schema_version_key{};
   std::string p_data_version_key{};
@@ -2964,7 +2545,7 @@ bool IndexedDBControlTest_GetDatabaseKeysForTesting_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControlTest::Name_, 12, true);
+        IndexedDBControlTest::Name_, 10, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3099,7 +2680,7 @@ bool IndexedDBControlTest_ForceInitializeFromFilesForTesting_ForwardToCallback::
               message->mutable_payload());
   
   
-  // Validation for IndexedDBControlTest.13
+  // Validation for IndexedDBControlTest.11
   bool success = true;
   IndexedDBControlTest_ForceInitializeFromFilesForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -3107,7 +2688,7 @@ bool IndexedDBControlTest_ForceInitializeFromFilesForTesting_ForwardToCallback::
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControlTest::Name_, 13, true);
+        IndexedDBControlTest::Name_, 11, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3164,12 +2745,6 @@ bool IndexedDBControlTestStubDispatch::Accept(
     case internal::kIndexedDBControlTest_ResetCachesForTesting_Name: {
       break;
     }
-    case internal::kIndexedDBControlTest_ForceSchemaDowngradeForTesting_Name: {
-      break;
-    }
-    case internal::kIndexedDBControlTest_HasV2SchemaCorruptionForTesting_Name: {
-      break;
-    }
     case internal::kIndexedDBControlTest_WriteToIndexedDBForTesting_Name: {
       break;
     }
@@ -3196,7 +2771,7 @@ bool IndexedDBControlTestStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for IndexedDBControlTest.11
+      // Validation for IndexedDBControlTest.9
       bool success = true;
       ::mojo::PendingReceiver<MockFailureInjector> p_receiver{};
       IndexedDBControlTest_BindMockFailureSingletonForTesting_ParamsDataView input_data_view(params, message);
@@ -3209,7 +2784,7 @@ bool IndexedDBControlTestStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControlTest::Name_, 11, false);
+            IndexedDBControlTest::Name_, 9, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3322,68 +2897,6 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
       impl->ResetCachesForTesting(std::move(callback));
       return true;
     }
-    case internal::kIndexedDBControlTest_ForceSchemaDowngradeForTesting_Name: {
-
-      internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data* params =
-          reinterpret_cast<
-              internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data*>(
-                  message->mutable_payload());
-      
-      
-      // Validation for IndexedDBControlTest.3
-      bool success = true;
-      ::storage::BucketLocator p_bucket_locator{};
-      IndexedDBControlTest_ForceSchemaDowngradeForTesting_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadBucketLocator(&p_bucket_locator))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControlTest::Name_, 3, false);
-        return false;
-      }
-      IndexedDBControlTest::ForceSchemaDowngradeForTestingCallback callback =
-          IndexedDBControlTest_ForceSchemaDowngradeForTesting_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->ForceSchemaDowngradeForTesting(        
-        std::move(p_bucket_locator), std::move(callback));
-      return true;
-    }
-    case internal::kIndexedDBControlTest_HasV2SchemaCorruptionForTesting_Name: {
-
-      internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data* params =
-          reinterpret_cast<
-              internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data*>(
-                  message->mutable_payload());
-      
-      
-      // Validation for IndexedDBControlTest.4
-      bool success = true;
-      ::storage::BucketLocator p_bucket_locator{};
-      IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadBucketLocator(&p_bucket_locator))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControlTest::Name_, 4, false);
-        return false;
-      }
-      IndexedDBControlTest::HasV2SchemaCorruptionForTestingCallback callback =
-          IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->HasV2SchemaCorruptionForTesting(        
-        std::move(p_bucket_locator), std::move(callback));
-      return true;
-    }
     case internal::kIndexedDBControlTest_WriteToIndexedDBForTesting_Name: {
 
       internal::IndexedDBControlTest_WriteToIndexedDBForTesting_Params_Data* params =
@@ -3392,7 +2905,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       
-      // Validation for IndexedDBControlTest.5
+      // Validation for IndexedDBControlTest.3
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       std::string p_key{};
@@ -3409,7 +2922,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControlTest::Name_, 5, false);
+            IndexedDBControlTest::Name_, 3, false);
         return false;
       }
       IndexedDBControlTest::WriteToIndexedDBForTestingCallback callback =
@@ -3431,7 +2944,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       
-      // Validation for IndexedDBControlTest.6
+      // Validation for IndexedDBControlTest.4
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       IndexedDBControlTest_GetBlobCountForTesting_ParamsDataView input_data_view(params, message);
@@ -3442,7 +2955,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControlTest::Name_, 6, false);
+            IndexedDBControlTest::Name_, 4, false);
         return false;
       }
       IndexedDBControlTest::GetBlobCountForTestingCallback callback =
@@ -3462,7 +2975,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       
-      // Validation for IndexedDBControlTest.7
+      // Validation for IndexedDBControlTest.5
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       int64_t p_database_id{};
@@ -3476,7 +2989,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControlTest::Name_, 7, false);
+            IndexedDBControlTest::Name_, 5, false);
         return false;
       }
       IndexedDBControlTest::GetNextBlobNumberForTestingCallback callback =
@@ -3497,7 +3010,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       
-      // Validation for IndexedDBControlTest.8
+      // Validation for IndexedDBControlTest.6
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       int64_t p_database_id{};
@@ -3514,7 +3027,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControlTest::Name_, 8, false);
+            IndexedDBControlTest::Name_, 6, false);
         return false;
       }
       IndexedDBControlTest::GetPathForBlobForTestingCallback callback =
@@ -3536,7 +3049,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       
-      // Validation for IndexedDBControlTest.9
+      // Validation for IndexedDBControlTest.7
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       IndexedDBControlTest_CompactBackingStoreForTesting_ParamsDataView input_data_view(params, message);
@@ -3547,7 +3060,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControlTest::Name_, 9, false);
+            IndexedDBControlTest::Name_, 7, false);
         return false;
       }
       IndexedDBControlTest::CompactBackingStoreForTestingCallback callback =
@@ -3567,7 +3080,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       
-      // Validation for IndexedDBControlTest.10
+      // Validation for IndexedDBControlTest.8
       bool success = true;
       IndexedDBControlTest_GetUsageForTesting_ParamsDataView input_data_view(params, message);
       
@@ -3575,7 +3088,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControlTest::Name_, 10, false);
+            IndexedDBControlTest::Name_, 8, false);
         return false;
       }
       IndexedDBControlTest::GetUsageForTestingCallback callback =
@@ -3597,7 +3110,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       
-      // Validation for IndexedDBControlTest.12
+      // Validation for IndexedDBControlTest.10
       bool success = true;
       IndexedDBControlTest_GetDatabaseKeysForTesting_ParamsDataView input_data_view(params, message);
       
@@ -3605,7 +3118,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControlTest::Name_, 12, false);
+            IndexedDBControlTest::Name_, 10, false);
         return false;
       }
       IndexedDBControlTest::GetDatabaseKeysForTestingCallback callback =
@@ -3624,7 +3137,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       
-      // Validation for IndexedDBControlTest.13
+      // Validation for IndexedDBControlTest.11
       bool success = true;
       IndexedDBControlTest_ForceInitializeFromFilesForTesting_ParamsDataView input_data_view(params, message);
       
@@ -3632,7 +3145,7 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControlTest::Name_, 13, false);
+            IndexedDBControlTest::Name_, 11, false);
         return false;
       }
       IndexedDBControlTest::ForceInitializeFromFilesForTestingCallback callback =
@@ -3655,10 +3168,6 @@ static const mojo::internal::GenericValidationInfo kIndexedDBControlTestValidati
      &internal::IndexedDBControlTest_GetFilePathForTesting_ResponseParams_Data::Validate},
     { &internal::IndexedDBControlTest_ResetCachesForTesting_Params_Data::Validate,
      &internal::IndexedDBControlTest_ResetCachesForTesting_ResponseParams_Data::Validate},
-    { &internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data::Validate,
-     &internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data::Validate},
-    { &internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data::Validate,
-     &internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data::Validate},
     { &internal::IndexedDBControlTest_WriteToIndexedDBForTesting_Params_Data::Validate,
      &internal::IndexedDBControlTest_WriteToIndexedDBForTesting_ResponseParams_Data::Validate},
     { &internal::IndexedDBControlTest_GetBlobCountForTesting_Params_Data::Validate,
@@ -3738,12 +3247,6 @@ void IndexedDBControlTestInterceptorForTesting::GetFilePathForTesting(const ::st
 }
 void IndexedDBControlTestInterceptorForTesting::ResetCachesForTesting(ResetCachesForTestingCallback callback) {
   GetForwardingInterface()->ResetCachesForTesting(std::move(callback));
-}
-void IndexedDBControlTestInterceptorForTesting::ForceSchemaDowngradeForTesting(const ::storage::BucketLocator& bucket_locator, ForceSchemaDowngradeForTestingCallback callback) {
-  GetForwardingInterface()->ForceSchemaDowngradeForTesting(std::move(bucket_locator), std::move(callback));
-}
-void IndexedDBControlTestInterceptorForTesting::HasV2SchemaCorruptionForTesting(const ::storage::BucketLocator& bucket_locator, HasV2SchemaCorruptionForTestingCallback callback) {
-  GetForwardingInterface()->HasV2SchemaCorruptionForTesting(std::move(bucket_locator), std::move(callback));
 }
 void IndexedDBControlTestInterceptorForTesting::WriteToIndexedDBForTesting(const ::storage::BucketLocator& bucket_locator, const std::string& key, const std::string& value, WriteToIndexedDBForTestingCallback callback) {
   GetForwardingInterface()->WriteToIndexedDBForTesting(std::move(bucket_locator), std::move(key), std::move(value), std::move(callback));
@@ -3836,52 +3339,6 @@ void IndexedDBControlTestAsyncWaiter::ResetCachesForTesting(
 }
 
 
-
-void IndexedDBControlTestAsyncWaiter::ForceSchemaDowngradeForTesting(
-    const ::storage::BucketLocator& bucket_locator, bool* out_downgraded) {
-  base::RunLoop loop;
-  proxy_->ForceSchemaDowngradeForTesting(std::move(bucket_locator),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             bool* out_downgraded
-,
-             bool downgraded) {*out_downgraded = std::move(downgraded);
-            loop->Quit();
-          },
-          &loop,
-          out_downgraded));
-  loop.Run();
-}
-
-bool IndexedDBControlTestAsyncWaiter::ForceSchemaDowngradeForTesting(
-    const ::storage::BucketLocator& bucket_locator) {
-  bool async_wait_result;
-  ForceSchemaDowngradeForTesting(std::move(bucket_locator),&async_wait_result);
-  return async_wait_result;
-}
-
-void IndexedDBControlTestAsyncWaiter::HasV2SchemaCorruptionForTesting(
-    const ::storage::BucketLocator& bucket_locator, V2SchemaCorruptionStatus* out_status) {
-  base::RunLoop loop;
-  proxy_->HasV2SchemaCorruptionForTesting(std::move(bucket_locator),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             V2SchemaCorruptionStatus* out_status
-,
-             V2SchemaCorruptionStatus status) {*out_status = std::move(status);
-            loop->Quit();
-          },
-          &loop,
-          out_status));
-  loop.Run();
-}
-
-V2SchemaCorruptionStatus IndexedDBControlTestAsyncWaiter::HasV2SchemaCorruptionForTesting(
-    const ::storage::BucketLocator& bucket_locator) {
-  V2SchemaCorruptionStatus async_wait_result;
-  HasV2SchemaCorruptionForTesting(std::move(bucket_locator),&async_wait_result);
-  return async_wait_result;
-}
 
 void IndexedDBControlTestAsyncWaiter::WriteToIndexedDBForTesting(
     const ::storage::BucketLocator& bucket_locator, const std::string& key, const std::string& value) {

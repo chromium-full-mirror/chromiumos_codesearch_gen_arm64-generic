@@ -39,8 +39,6 @@ class  IndexedDBControlTestInterceptorForTesting : public IndexedDBControlTest {
   void GetBaseDataPathForTesting(GetBaseDataPathForTestingCallback callback) override;
   void GetFilePathForTesting(const ::storage::BucketLocator& bucket_locator, GetFilePathForTestingCallback callback) override;
   void ResetCachesForTesting(ResetCachesForTestingCallback callback) override;
-  void ForceSchemaDowngradeForTesting(const ::storage::BucketLocator& bucket_locator, ForceSchemaDowngradeForTestingCallback callback) override;
-  void HasV2SchemaCorruptionForTesting(const ::storage::BucketLocator& bucket_locator, HasV2SchemaCorruptionForTestingCallback callback) override;
   void WriteToIndexedDBForTesting(const ::storage::BucketLocator& bucket_locator, const std::string& key, const std::string& value, WriteToIndexedDBForTestingCallback callback) override;
   void GetBlobCountForTesting(const ::storage::BucketLocator& bucket_locator, GetBlobCountForTestingCallback callback) override;
   void GetNextBlobNumberForTesting(const ::storage::BucketLocator& bucket_locator, int64_t database_id, GetNextBlobNumberForTestingCallback callback) override;
@@ -68,12 +66,6 @@ class  IndexedDBControlTestAsyncWaiter {
   void ResetCachesForTesting(
       );
   
-  void ForceSchemaDowngradeForTesting(
-      const ::storage::BucketLocator& bucket_locator, bool* out_downgraded);
-  bool ForceSchemaDowngradeForTesting(const ::storage::BucketLocator& bucket_locator);
-  void HasV2SchemaCorruptionForTesting(
-      const ::storage::BucketLocator& bucket_locator, V2SchemaCorruptionStatus* out_status);
-  V2SchemaCorruptionStatus HasV2SchemaCorruptionForTesting(const ::storage::BucketLocator& bucket_locator);
   void WriteToIndexedDBForTesting(
       const ::storage::BucketLocator& bucket_locator, const std::string& key, const std::string& value);
   

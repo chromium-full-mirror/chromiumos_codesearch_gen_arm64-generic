@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import './policy_test_table.js';
+import { addWebUiListener } from 'chrome://resources/js/cr.js';
 import { getRequiredElement } from 'chrome://resources/js/util.js';
 import { LevelNamesToValues, PolicyLevel, PolicyScope, PolicySource, PolicyTestBrowserProxy, ScopeNamesToValues, SourceNamesToValues } from './policy_test_browser_proxy.js';
 const policyTestBrowserProxy = PolicyTestBrowserProxy.getInstance();
@@ -24,6 +25,14 @@ async function initialize() {
     "profileSeparationSettings": 1,
     "profileSeparationDataMigrationSettings": 2
   }`;
+    addWebUiListener('schema-updated', onSchemaUpdated);
+    policyTestBrowserProxy.listenPoliciesUpdates();
+}
+// Fired from PolicyUIHandler, called when the policy schema changes e.g.
+// because an extension was installed/uninstalled.
+function onSchemaUpdated(schema) {
+    getRequiredElement('policy-test-table')
+        .setSchema(schema);
 }
 function uploadPoliciesFile() {
     const fileInput = getRequiredElement('import-policies-file-input');
@@ -62,19 +71,33 @@ function applyPoliciesFromFile(jsonFile) {
             // object format is used.
             const policies = JSON.parse(reader.result);
             if (policies.constructor === Array) {
-                // Add row for each policy.
+                // Exported from chrome://policy/test. Add row for each policy.
                 policies.forEach((policy) => {
-                    policyTable.addRow(policy);
+                    // Old exports didn't have the 'namespace' property, and only
+                    // support Chrome policies. Populate it with 'chrome' by default,
+                    // for backwards compat.
+                    policyTable.addRow({
+                        namespace: 'chrome',
+                        ...policy,
+                    });
                 });
             }
             else {
-                const policiesObj = policies['policyValues']['chrome']['policies'];
-                // Add row for each policy
-                for (const [key, value] of Object.entries(policiesObj)) {
-                    if (key.startsWith('_')) {
-                        continue;
+                // Exported from chrome://policy.
+                const policiesObj = {
+                    chrome: policies.policyValues.chrome.policies,
+                    ...Object.fromEntries(Object
+                        .entries(policies.policyValues.extensions)
+                        .map(([extensionId, { policies }]) => [extensionId, policies])),
+                };
+                // Add row for each policy.
+                for (const [ns, schema] of Object.entries(policiesObj)) {
+                    for (const [key, value] of Object.entries(schema)) {
+                        if (key.startsWith('_')) {
+                            continue;
+                        }
+                        policyTable.addRow(convertToPolicyInfo(ns, key, value));
                     }
-                    policyTable.addRow(convertToPolicyInfo(key, value));
                 }
             }
             // Reset files
@@ -85,8 +108,9 @@ function applyPoliciesFromFile(jsonFile) {
         }
     }, false);
 }
-function convertToPolicyInfo(policyName, value) {
+function convertToPolicyInfo(policyNamespace, policyName, value) {
     const policy = {
+        namespace: policyNamespace,
         name: policyName,
         source: Number(SourceNamesToValues[value['source']]) ??
             PolicySource.SOURCE_ENTERPRISE_DEFAULT_VAL,
@@ -148,3 +172,5 @@ function restartBrowser() {
     }
 }
 document.addEventListener('DOMContentLoaded', initialize);
+addWebUiListener('schema-updated', onSchemaUpdated);
+policyTestBrowserProxy.listenPoliciesUpdates();

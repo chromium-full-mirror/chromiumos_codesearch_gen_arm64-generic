@@ -6,8 +6,8 @@ import { AboutPageBrowserProxyImpl } from 'chrome://os-settings/os_settings.js';
 import { assertEquals, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { flushTasks } from 'chrome://webui-test/polymer_test_util.js';
 import { eventToPromise } from 'chrome://webui-test/test_util.js';
-import { TestAboutPageBrowserProxy } from '../test_about_page_browser_proxy.js';
 import { clearBody } from '../utils.js';
+import { TestAboutPageBrowserProxy } from './test_about_page_browser_proxy.js';
 suite('<settings-consumer-auto-update-toggle-dialog>', () => {
     let dialog;
     let browserProxy;

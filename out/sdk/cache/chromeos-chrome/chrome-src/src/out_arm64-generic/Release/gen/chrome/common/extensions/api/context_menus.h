@@ -215,6 +215,120 @@ struct OnClickData {
 
 };
 
+// Properties of the new context menu item.
+struct CreateProperties {
+  CreateProperties();
+  ~CreateProperties();
+  CreateProperties(const CreateProperties&) = delete;
+  CreateProperties& operator=(const CreateProperties&) = delete;
+  CreateProperties(CreateProperties&& rhs) noexcept;
+  CreateProperties& operator=(CreateProperties&& rhs) noexcept;
+
+  // Populates a CreateProperties object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, CreateProperties& out);
+
+  // Populates a CreateProperties object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, CreateProperties& out);
+
+  // Creates a deep copy of CreateProperties.
+  CreateProperties Clone() const;
+
+  // Creates a CreateProperties object from a base::Value::Dict, or nullopt on
+  // failure.
+  static std::optional<CreateProperties> FromValue(const base::Value::Dict& value);
+
+  // Creates a CreateProperties object from a base::Value, or nullopt on
+  // failure.
+  static std::optional<CreateProperties> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisCreateProperties object.
+  base::Value::Dict ToValue() const;
+
+  // The ID of a parent menu item; this makes the item a child of a previously
+  // added item.
+  struct ParentId {
+    ParentId();
+    ~ParentId();
+    ParentId(const ParentId&) = delete;
+    ParentId& operator=(const ParentId&) = delete;
+    ParentId(ParentId&& rhs) noexcept;
+    ParentId& operator=(ParentId&& rhs) noexcept;
+
+    // Populates a ParentId object from a base::Value& instance. Returns whether
+    // |out| was successfully populated.
+    static bool Populate(const base::Value& value, ParentId& out);
+
+    // Creates a deep copy of ParentId.
+    ParentId Clone() const;
+
+    // Creates a ParentId object from a base::Value, or nullopt on failure.
+    static std::optional<ParentId> FromValue(const base::Value& value);
+
+    // Returns a new base::Value representing the serialized form of thisParentId
+    // object.
+    base::Value ToValue() const;
+    // Choices:
+    std::optional<int> as_integer;
+    std::optional<std::string> as_string;
+  };
+
+
+  // The type of menu item. Defaults to <code>normal</code>.
+  ItemType type;
+
+  // The unique ID to assign to this item. Mandatory for event pages. Cannot be
+  // the same as another ID for this extension.
+  std::optional<std::string> id;
+
+  // The text to display in the item; this is <em>required</em> unless
+  // <code>type</code> is <code>separator</code>. When the context is
+  // <code>selection</code>, use <code>%s</code> within the string to show the
+  // selected text. For example, if this parameter's value is "Translate '%s' to
+  // Pig Latin" and the user selects the word "cool", the context menu item for
+  // the selection is "Translate 'cool' to Pig Latin".
+  std::optional<std::string> title;
+
+  // The initial state of a checkbox or radio button: <code>true</code> for
+  // selected, <code>false</code> for unselected. Only one radio button can be
+  // selected at a time in a given group.
+  std::optional<bool> checked;
+
+  // List of contexts this menu item will appear in. Defaults to
+  // <code>['page']</code>.
+  std::optional<std::vector<ContextType>> contexts;
+
+  // Whether the item is visible in the menu.
+  std::optional<bool> visible;
+
+  // A function that is called back when the menu item is clicked. This is not
+  // available inside of a service worker; instead, they should register a
+  // listener for $(ref:contextMenus.onClicked).
+  std::optional<base::Value::Dict> onclick;
+
+  // The ID of a parent menu item; this makes the item a child of a previously
+  // added item.
+  std::optional<ParentId> parent_id;
+
+  // Restricts the item to apply only to documents or frames whose URL matches one
+  // of the given patterns. For details on pattern formats, see <a
+  // href='/docs/extensions/develop/concepts/match-patterns'>Match Patterns</a>.
+  std::optional<std::vector<std::string>> document_url_patterns;
+
+  // Similar to <code>documentUrlPatterns</code>, filters based on the
+  // <code>src</code> attribute of <code>img</code>, <code>audio</code>, and
+  // <code>video</code> tags and the <code>href</code> attribute of <code>a</code>
+  // tags.
+  std::optional<std::vector<std::string>> target_url_patterns;
+
+  // Whether this context menu item is enabled or disabled. Defaults to
+  // <code>true</code>.
+  std::optional<bool> enabled;
+
+};
+
 
 //
 // Functions
@@ -229,112 +343,6 @@ struct Params {
   Params(Params&& rhs) noexcept;
   Params& operator=(Params&& rhs) noexcept;
   ~Params();
-
-  struct CreateProperties {
-    CreateProperties();
-    ~CreateProperties();
-    CreateProperties(const CreateProperties&) = delete;
-    CreateProperties& operator=(const CreateProperties&) = delete;
-    CreateProperties(CreateProperties&& rhs) noexcept;
-    CreateProperties& operator=(CreateProperties&& rhs) noexcept;
-
-    // Populates a CreateProperties object from a base::Value& instance. Returns
-    // whether |out| was successfully populated.
-    static bool Populate(const base::Value& value, CreateProperties& out);
-
-    // Populates a CreateProperties object from a Dict& instance. Returns whether
-    // |out| was successfully populated.
-    static bool Populate(const base::Value::Dict& value, CreateProperties& out);
-
-    // Creates a deep copy of CreateProperties.
-    CreateProperties Clone() const;
-
-    // Creates a CreateProperties object from a base::Value::Dict, or nullopt on
-    // failure.
-    static std::optional<CreateProperties> FromValue(const base::Value::Dict& value);
-
-    // Creates a CreateProperties object from a base::Value, or nullopt on
-    // failure.
-    static std::optional<CreateProperties> FromValue(const base::Value& value);
-
-    // The ID of a parent menu item; this makes the item a child of a previously
-    // added item.
-    struct ParentId {
-      ParentId();
-      ~ParentId();
-      ParentId(const ParentId&) = delete;
-      ParentId& operator=(const ParentId&) = delete;
-      ParentId(ParentId&& rhs) noexcept;
-      ParentId& operator=(ParentId&& rhs) noexcept;
-
-      // Populates a ParentId object from a base::Value& instance. Returns whether
-      // |out| was successfully populated.
-      static bool Populate(const base::Value& value, ParentId& out);
-
-      // Creates a deep copy of ParentId.
-      ParentId Clone() const;
-
-      // Creates a ParentId object from a base::Value, or nullopt on failure.
-      static std::optional<ParentId> FromValue(const base::Value& value);
-      // Choices:
-      std::optional<int> as_integer;
-      std::optional<std::string> as_string;
-    };
-
-
-    // The type of menu item. Defaults to <code>normal</code>.
-    ItemType type;
-
-    // The unique ID to assign to this item. Mandatory for event pages. Cannot be
-    // the same as another ID for this extension.
-    std::optional<std::string> id;
-
-    // The text to display in the item; this is <em>required</em> unless
-    // <code>type</code> is <code>separator</code>. When the context is
-    // <code>selection</code>, use <code>%s</code> within the string to show the
-    // selected text. For example, if this parameter's value is "Translate '%s' to
-    // Pig Latin" and the user selects the word "cool", the context menu item for
-    // the selection is "Translate 'cool' to Pig Latin".
-    std::optional<std::string> title;
-
-    // The initial state of a checkbox or radio button: <code>true</code> for
-    // selected, <code>false</code> for unselected. Only one radio button can be
-    // selected at a time in a given group.
-    std::optional<bool> checked;
-
-    // List of contexts this menu item will appear in. Defaults to
-    // <code>['page']</code>.
-    std::optional<std::vector<ContextType>> contexts;
-
-    // Whether the item is visible in the menu.
-    std::optional<bool> visible;
-
-    // A function that is called back when the menu item is clicked. This is not
-    // available inside of a service worker; instead, they should register a
-    // listener for $(ref:contextMenus.onClicked).
-    std::optional<base::Value::Dict> onclick;
-
-    // The ID of a parent menu item; this makes the item a child of a previously
-    // added item.
-    std::optional<ParentId> parent_id;
-
-    // Restricts the item to apply only to documents or frames whose URL matches one
-    // of the given patterns. For details on pattern formats, see <a
-    // href='/docs/extensions/develop/concepts/match-patterns'>Match Patterns</a>.
-    std::optional<std::vector<std::string>> document_url_patterns;
-
-    // Similar to <code>documentUrlPatterns</code>, filters based on the
-    // <code>src</code> attribute of <code>img</code>, <code>audio</code>, and
-    // <code>video</code> tags and the <code>href</code> attribute of <code>a</code>
-    // tags.
-    std::optional<std::vector<std::string>> target_url_patterns;
-
-    // Whether this context menu item is enabled or disabled. Defaults to
-    // <code>true</code>.
-    std::optional<bool> enabled;
-
-  };
-
 
   CreateProperties create_properties;
 

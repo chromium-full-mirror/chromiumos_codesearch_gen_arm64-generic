@@ -65,7 +65,7 @@ async function createRecording(name, selectorAttribute) {
     const input = await (0, helper_js_1.waitForAria)('RECORDING NAME');
     await input.type(name);
     if (selectorAttribute) {
-        const input = await (0, helper_js_1.waitForAria)('SELECTOR ATTRIBUTE https://g.co/devtools/recorder#selector');
+        const input = await (0, helper_js_1.waitForAria)('SELECTOR ATTRIBUTE Learn more');
         await input.type(selectorAttribute);
     }
 }

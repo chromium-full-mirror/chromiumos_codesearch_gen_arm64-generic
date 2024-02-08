@@ -657,7 +657,13 @@ namespace OnCertificatesRequested {
 
 extern const char kEventName[];  // "certificateProvider.onCertificatesRequested"
 
-base::Value::List Create();
+// Call this exactly once with the list of certificates that this extension is
+// providing. The list must only contain certificates for which the extension
+// can sign data using the associated private key. If the list contains invalid
+// certificates, these will be ignored. All valid certificates are still
+// registered for the extension. Chrome will call back with the list of rejected
+// certificates, which might be empty.
+base::Value::List Create(base::Value::Dict report_callback);
 }  // namespace OnCertificatesRequested
 
 namespace OnSignDigestRequested {
@@ -665,7 +671,12 @@ namespace OnSignDigestRequested {
 extern const char kEventName[];  // "certificateProvider.onSignDigestRequested"
 
 // Contains the details about the sign request.
-base::Value::List Create(const SignRequest& request);
+// If no error occurred, this function must be called with the signature of the
+// digest using the private key of the requested certificate. For an RSA key,
+// the signature must be a PKCS#1 signature. The extension is responsible for
+// prepending the DigestInfo prefix and adding PKCS#1 padding. If an error
+// occurred, this callback should be called without signature.
+base::Value::List Create(const SignRequest& request, base::Value::Dict report_callback);
 }  // namespace OnSignDigestRequested
 
 }  // namespace certificate_provider

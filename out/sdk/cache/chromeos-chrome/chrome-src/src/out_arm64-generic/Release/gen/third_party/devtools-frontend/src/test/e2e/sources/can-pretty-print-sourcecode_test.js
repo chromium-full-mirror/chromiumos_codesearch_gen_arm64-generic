@@ -89,7 +89,7 @@ const PRETTY_PRINTED_TOGGLE = 'devtools-text-editor.pretty-printed';
         });
         await (0, helper_js_1.step)('can un-pretty-print a json subtype file', async () => {
             await (0, helper_js_1.click)(PRETTY_PRINT_BUTTON);
-            const expectedNotPrettyLines = '{"Keys": [{"Key1": "Value1","Key2": "Value2","Key3": true},{"Key1": "Value1","Key2": "Value2","Key3": false}]}';
+            const expectedNotPrettyLines = '{"Keys": [{"Key1": "Value1","Key2": "Value2","Key3": true},{"Key1": "Value1","Key2": "Value2","Key3": false}]},';
             const actualNotPrettyText = await (0, sources_helpers_js_1.retrieveCodeMirrorEditorContent)();
             chai_1.assert.strictEqual(expectedNotPrettyLines, actualNotPrettyText.toString());
         });

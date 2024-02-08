@@ -13,6 +13,10 @@ import { getTemplate } from './voice_selection_menu.html.js';
 const VoiceSelectionMenuElementBase = WebUiListenerMixin(PolymerElement);
 // TODO add tests for this component
 export class VoiceSelectionMenuElement extends VoiceSelectionMenuElementBase {
+    constructor() {
+        super(...arguments);
+        this.voicePlayingWhenMenuOpened_ = false;
+    }
     static get is() {
         return 'voice-selection-menu';
     }
@@ -24,6 +28,7 @@ export class VoiceSelectionMenuElement extends VoiceSelectionMenuElementBase {
             selectedVoice: Object,
             availableVoices: Array,
             previewVoicePlaying: Object,
+            paused: Boolean,
             voiceSelectionOptions_: {
                 type: Object,
                 computed: 'computeVoiceDropdown_(selectedVoice, availableVoices, previewVoicePlaying)',
@@ -41,6 +46,7 @@ export class VoiceSelectionMenuElement extends VoiceSelectionMenuElementBase {
     onVoiceSelectionMenuClick_(event) {
         const target = event.target;
         const minY = target.getBoundingClientRect().bottom;
+        this.voicePlayingWhenMenuOpened_ = !this.paused;
         this.$.voiceSelectionMenu.showAt(target, {
             minY: minY,
             left: 0,
@@ -69,6 +75,15 @@ export class VoiceSelectionMenuElement extends VoiceSelectionMenuElementBase {
             composed: true,
             detail: {
                 previewVoice,
+            },
+        }));
+    }
+    onClose_() {
+        this.dispatchEvent(new CustomEvent('voice-menu-close', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                voicePlayingWhenMenuOpened: this.voicePlayingWhenMenuOpened_,
             },
         }));
     }

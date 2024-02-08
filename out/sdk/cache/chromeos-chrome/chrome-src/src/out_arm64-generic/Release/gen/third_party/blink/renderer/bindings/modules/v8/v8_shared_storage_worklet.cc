@@ -11,10 +11,13 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_shared_storage_worklet.h"
 
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-shared.h"
+#include "third_party/blink/renderer/bindings/core/v8/frozen_array.h"
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_shared_storage_run_operation_method_options.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_shared_storage_url_with_metadata.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
 #include "third_party/blink/renderer/core/frame/web_feature.h"
 #include "third_party/blink/renderer/modules/shared_storage/shared_storage_worklet.h"
@@ -47,7 +50,7 @@ return execution_context->IsWindow() && RuntimeEnabledFeatures::SharedStorageAPI
 const WrapperTypeInfo V8SharedStorageWorklet::wrapper_type_info_{
     gin::kEmbedderBlink,
     V8SharedStorageWorklet::InstallInterfaceTemplate,
-    nullptr,
+    V8SharedStorageWorklet::InstallContextDependentProperties,
     "SharedStorageWorklet",
     nullptr,
     WrapperTypeInfo::kWrapperTypeObjectPrototype,
@@ -120,6 +123,126 @@ if (UNLIKELY(exception_state.HadException())) {
 bindings::V8SetReturnValue(info, return_value);
 }
 
+void RunOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SharedStorageWorklet_run");
+BLINK_BINDINGS_TRACE_EVENT("SharedStorageWorklet.run");
+
+// Promise returning function: Convert a TypeError to a reject promise.
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "SharedStorageWorklet";
+const char* const property_name = "run";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8SharedStorageWorklet::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kSharedStorageAPI_Run_Method);
+
+
+
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+ScriptPromise return_value;
+do {  // Dummy loop for use of 'break'.
+  const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+SharedStorageWorklet* blink_receiver = V8SharedStorageWorklet::ToWrappableUnsafe(isolate, v8_receiver);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
+auto&& arg1_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+if (non_undefined_argument_length <= 1) {
+  return_value = blink_receiver->run(script_state, arg1_name, exception_state);
+break;
+}
+auto&& arg2_options = NativeValueTraits<SharedStorageRunOperationMethodOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+return_value = blink_receiver->run(script_state, arg1_name, arg2_options, exception_state);
+} while (false);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value);
+}
+
+void SelectURLOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SharedStorageWorklet_selectURL");
+BLINK_BINDINGS_TRACE_EVENT("SharedStorageWorklet.selectURL");
+
+// Promise returning function: Convert a TypeError to a reject promise.
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "SharedStorageWorklet";
+const char* const property_name = "selectURL";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8SharedStorageWorklet::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kSharedStorageAPI_SelectURL_Method);
+
+
+
+if (UNLIKELY(info.Length() < 2)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(2, info.Length()));
+return;
+}
+
+
+
+ScriptPromise return_value;
+do {  // Dummy loop for use of 'break'.
+  const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+SharedStorageWorklet* blink_receiver = V8SharedStorageWorklet::ToWrappableUnsafe(isolate, v8_receiver);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
+auto&& arg1_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_urls = NativeValueTraits<IDLArray<SharedStorageUrlWithMetadata>>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+if (non_undefined_argument_length <= 2) {
+  return_value = blink_receiver->selectURL(script_state, arg1_name, arg2_urls, exception_state);
+break;
+}
+auto&& arg3_options = NativeValueTraits<SharedStorageRunOperationMethodOptions>::ArgumentValue(isolate, 2, info[2], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+return_value = blink_receiver->selectURL(script_state, arg1_name, arg2_urls, arg3_options, exception_state);
+} while (false);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value);
+}
+
 
 }  // namespace v8_shared_storage_worklet
 
@@ -166,6 +289,28 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 }
 
 
+void V8SharedStorageWorklet::InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
+  using bindings::IDLMemberInstaller;
+
+
+
+
+
+ScriptState* script_state = ScriptState::From(context);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
+if (execution_context->IsWindow() && (feature_selector.IsAll() && RuntimeEnabledFeatures::SharedStorageAPIM123Enabled())) {
+  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"run", RunOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"selectURL", SelectURLOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_object, prototype_object, interface_object, signature, kOperationTable);
+}
+
+
+}
 
 
 }  // namespace blink

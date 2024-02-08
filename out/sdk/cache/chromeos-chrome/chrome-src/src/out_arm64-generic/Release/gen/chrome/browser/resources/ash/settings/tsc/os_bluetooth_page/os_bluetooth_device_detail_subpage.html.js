@@ -50,7 +50,7 @@ export function getTemplate() {
     <div id="bluetoothDeviceName" class="bluetooth-middle settings-box-text no-padding" aria-hidden="true">
       $i18n{bluetoothDeviceDetailName}
       <div class="secondary" id="bluetoothDeviceNameLabel">
-        [[getDeviceName_(device_.*)]]
+        [[getDeviceNameUnsafe_(device_.*)]]
       </div>
     </div>
     <cr-button id="changeNameBtn" on-click="onChangeNameClick_" aria-label$="[[getChangeDeviceNameBtnA11yLabel_(device_.*)]]" class="layout end cancel-button">

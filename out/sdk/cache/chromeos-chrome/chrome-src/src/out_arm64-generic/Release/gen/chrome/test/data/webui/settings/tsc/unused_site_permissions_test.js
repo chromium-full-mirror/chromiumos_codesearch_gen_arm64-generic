@@ -132,7 +132,7 @@ suite('CrSettingsUnusedSitePermissionsTest', function () {
         assertTrue(unusedSitePermissionList.opened);
         // User collapses the list.
         expandButton.click();
-        flush();
+        await expandButton.updateComplete;
         // Button and list are collapsed.
         assertFalse(expandButton.expanded);
         assertFalse(unusedSitePermissionList.opened);
@@ -140,7 +140,7 @@ suite('CrSettingsUnusedSitePermissionsTest', function () {
         assertEquals(SafetyCheckUnusedSitePermissionsModuleInteractions.MINIMIZE, result);
         // User expands the list.
         expandButton.click();
-        flush();
+        await expandButton.updateComplete;
         // Button and list are expanded.
         assertTrue(expandButton.expanded);
         assertTrue(unusedSitePermissionList.opened);

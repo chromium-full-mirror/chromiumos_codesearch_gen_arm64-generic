@@ -3582,6 +3582,7 @@ ManagedCellularProperties::ManagedCellularProperties()
       min(),
       model_id(),
       network_technology(),
+      sim_lock_type(),
       payment_portal(),
       roaming_state(),
       selected_apn(),
@@ -3614,6 +3615,7 @@ ManagedCellularProperties::ManagedCellularProperties(
     const std::optional<std::string>& min_in,
     const std::optional<std::string>& model_id_in,
     const std::optional<std::string>& network_technology_in,
+    const std::string& sim_lock_type_in,
     PaymentPortalPropertiesPtr payment_portal_in,
     const std::optional<std::string>& roaming_state_in,
     ManagedApnPropertiesPtr selected_apn_in,
@@ -3644,6 +3646,7 @@ ManagedCellularProperties::ManagedCellularProperties(
       min(std::move(min_in)),
       model_id(std::move(model_id_in)),
       network_technology(std::move(network_technology_in)),
+      sim_lock_type(std::move(sim_lock_type_in)),
       payment_portal(std::move(payment_portal_in)),
       roaming_state(std::move(roaming_state_in)),
       selected_apn(std::move(selected_apn_in)),
@@ -3868,6 +3871,15 @@ void ManagedCellularProperties::WriteIntoTrace(
       "network_technology"), this->network_technology,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "sim_lock_type"), this->sim_lock_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -14349,6 +14361,8 @@ bool StructTraits<::chromeos::network_config::mojom::ManagedCellularProperties::
       if (success && !input.ReadModelId(&result->model_id))
         success = false;
       if (success && !input.ReadNetworkTechnology(&result->network_technology))
+        success = false;
+      if (success && !input.ReadSimLockType(&result->sim_lock_type))
         success = false;
       if (success && !input.ReadPaymentPortal(&result->payment_portal))
         success = false;

@@ -1,5 +1,6 @@
 {
   "deps": [
+    "../../../../../../chromeos/ash/components/emoji/mojo_bindings.build_metadata",
     "../../../../../../mojo/public/mojom/base/base.build_metadata",
     "../../../../../../ui/gfx/geometry/mojom/mojom.build_metadata",
     "../../../../../../url/mojom/url_mojom_gurl.build_metadata"

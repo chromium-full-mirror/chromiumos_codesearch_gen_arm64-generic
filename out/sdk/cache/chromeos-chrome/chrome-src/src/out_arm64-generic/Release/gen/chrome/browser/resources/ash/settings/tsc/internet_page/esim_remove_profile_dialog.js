@@ -18,7 +18,7 @@ import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_
 import { Router, routes } from '../router.js';
 import { getTemplate } from './esim_remove_profile_dialog.html.js';
 const EsimRemoveProfileDialogElementBase = I18nMixin(PolymerElement);
-class EsimRemoveProfileDialogElement extends EsimRemoveProfileDialogElementBase {
+export class EsimRemoveProfileDialogElement extends EsimRemoveProfileDialogElementBase {
     static get is() {
         return 'esim-remove-profile-dialog';
     }

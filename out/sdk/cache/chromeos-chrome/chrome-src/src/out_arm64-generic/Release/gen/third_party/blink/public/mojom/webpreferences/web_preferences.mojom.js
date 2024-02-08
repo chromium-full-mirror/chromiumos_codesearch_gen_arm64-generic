@@ -397,6 +397,7 @@
     this.doNotUpdateSelectionOnMutatingSelectionRange = false;
     this.requireTransientActivationForGetDisplayMedia = false;
     this.requireTransientActivationForShowFileOrDirectoryPicker = false;
+    this.requireTransientActivationForHtmlFullscreen = false;
     this.pictureInPictureEnabled = false;
     this.translateServiceAvailable = false;
     this.lazyLoadEnabled = false;
@@ -698,6 +699,7 @@
 
 
 
+
     // validate WebPreferences.preferredColorScheme
     err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 232, preferred_color_scheme$.PreferredColorScheme);
     if (err !== validator.validationError.NONE)
@@ -876,17 +878,18 @@
     packed = decoder.readUint8();
     val.requireTransientActivationForGetDisplayMedia = (packed >> 0) & 1 ? true : false;
     val.requireTransientActivationForShowFileOrDirectoryPicker = (packed >> 1) & 1 ? true : false;
-    val.pictureInPictureEnabled = (packed >> 2) & 1 ? true : false;
-    val.translateServiceAvailable = (packed >> 3) & 1 ? true : false;
-    val.lazyLoadEnabled = (packed >> 4) & 1 ? true : false;
-    val.allowMixedContentUpgrades = (packed >> 5) & 1 ? true : false;
-    val.alwaysShowFocus = (packed >> 6) & 1 ? true : false;
-    val.touchDragDropEnabled = (packed >> 7) & 1 ? true : false;
+    val.requireTransientActivationForHtmlFullscreen = (packed >> 2) & 1 ? true : false;
+    val.pictureInPictureEnabled = (packed >> 3) & 1 ? true : false;
+    val.translateServiceAvailable = (packed >> 4) & 1 ? true : false;
+    val.lazyLoadEnabled = (packed >> 5) & 1 ? true : false;
+    val.allowMixedContentUpgrades = (packed >> 6) & 1 ? true : false;
+    val.alwaysShowFocus = (packed >> 7) & 1 ? true : false;
     packed = decoder.readUint8();
-    val.webxrImmersiveArAllowed = (packed >> 0) & 1 ? true : false;
-    val.rendererWideNamedFrameLookup = (packed >> 1) & 1 ? true : false;
-    val.strictMimeTypeCheckForWorkerScriptsEnabled = (packed >> 2) & 1 ? true : false;
-    val.modalContextMenu = (packed >> 3) & 1 ? true : false;
+    val.touchDragDropEnabled = (packed >> 0) & 1 ? true : false;
+    val.webxrImmersiveArAllowed = (packed >> 1) & 1 ? true : false;
+    val.rendererWideNamedFrameLookup = (packed >> 2) & 1 ? true : false;
+    val.strictMimeTypeCheckForWorkerScriptsEnabled = (packed >> 3) & 1 ? true : false;
+    val.modalContextMenu = (packed >> 4) & 1 ? true : false;
     val.v8CacheOptions =
         decoder.decodeStruct(new codec.Enum(v8_cache_options$.V8CacheOptions));
     val.animationPolicy =
@@ -1058,18 +1061,19 @@
     packed = 0;
     packed |= (val.requireTransientActivationForGetDisplayMedia & 1) << 0
     packed |= (val.requireTransientActivationForShowFileOrDirectoryPicker & 1) << 1
-    packed |= (val.pictureInPictureEnabled & 1) << 2
-    packed |= (val.translateServiceAvailable & 1) << 3
-    packed |= (val.lazyLoadEnabled & 1) << 4
-    packed |= (val.allowMixedContentUpgrades & 1) << 5
-    packed |= (val.alwaysShowFocus & 1) << 6
-    packed |= (val.touchDragDropEnabled & 1) << 7
+    packed |= (val.requireTransientActivationForHtmlFullscreen & 1) << 2
+    packed |= (val.pictureInPictureEnabled & 1) << 3
+    packed |= (val.translateServiceAvailable & 1) << 4
+    packed |= (val.lazyLoadEnabled & 1) << 5
+    packed |= (val.allowMixedContentUpgrades & 1) << 6
+    packed |= (val.alwaysShowFocus & 1) << 7
     encoder.writeUint8(packed);
     packed = 0;
-    packed |= (val.webxrImmersiveArAllowed & 1) << 0
-    packed |= (val.rendererWideNamedFrameLookup & 1) << 1
-    packed |= (val.strictMimeTypeCheckForWorkerScriptsEnabled & 1) << 2
-    packed |= (val.modalContextMenu & 1) << 3
+    packed |= (val.touchDragDropEnabled & 1) << 0
+    packed |= (val.webxrImmersiveArAllowed & 1) << 1
+    packed |= (val.rendererWideNamedFrameLookup & 1) << 2
+    packed |= (val.strictMimeTypeCheckForWorkerScriptsEnabled & 1) << 3
+    packed |= (val.modalContextMenu & 1) << 4
     encoder.writeUint8(packed);
     encoder.encodeStruct(codec.Int32, val.v8CacheOptions);
     encoder.encodeStruct(codec.Int32, val.animationPolicy);

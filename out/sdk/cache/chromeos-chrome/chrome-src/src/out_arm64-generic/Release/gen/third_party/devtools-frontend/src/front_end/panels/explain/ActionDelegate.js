@@ -24,12 +24,11 @@ export class ActionDelegate {
                     else if (actionId === 'explain.console-message.hover') {
                         Host.userMetrics.actionTaken(Host.UserMetrics.Action.InsightRequestedViaHoverButton);
                     }
-                    const insight = new ConsoleInsight(new PromptBuilder(consoleViewMessage), new InsightProvider());
-                    if (action) {
-                        insight.actionName = action.title();
-                    }
-                    consoleViewMessage.setInsight(insight);
-                    void insight.update();
+                    const promptBuilder = new PromptBuilder(consoleViewMessage);
+                    const insightProvider = new InsightProvider();
+                    void ConsoleInsight.create(promptBuilder, insightProvider, action?.title()).then(insight => {
+                        consoleViewMessage.setInsight(insight);
+                    });
                     return true;
                 }
                 return false;

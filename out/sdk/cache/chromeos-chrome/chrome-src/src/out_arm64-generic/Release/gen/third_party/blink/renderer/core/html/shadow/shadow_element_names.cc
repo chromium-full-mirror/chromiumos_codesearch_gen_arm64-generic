@@ -47,10 +47,13 @@ const AtomicString& kIdPasswordStrongLabel = reinterpret_cast<AtomicString*>(&na
 const AtomicString& kIdPickerIndicator = reinterpret_cast<AtomicString*>(&names_storage)[25];
 const AtomicString& kIdPlaceholder = reinterpret_cast<AtomicString*>(&names_storage)[26];
 const AtomicString& kIdSearchClearButton = reinterpret_cast<AtomicString*>(&names_storage)[27];
-const AtomicString& kIdSpinButton = reinterpret_cast<AtomicString*>(&names_storage)[28];
-const AtomicString& kIdTextFieldContainer = reinterpret_cast<AtomicString*>(&names_storage)[29];
-const AtomicString& kIdSliderThumb = reinterpret_cast<AtomicString*>(&names_storage)[30];
-const AtomicString& kIdSliderTrack = reinterpret_cast<AtomicString*>(&names_storage)[31];
+const AtomicString& kSelectButton = reinterpret_cast<AtomicString*>(&names_storage)[28];
+const AtomicString& kSelectDatalist = reinterpret_cast<AtomicString*>(&names_storage)[29];
+const AtomicString& kSelectOptions = reinterpret_cast<AtomicString*>(&names_storage)[30];
+const AtomicString& kIdSpinButton = reinterpret_cast<AtomicString*>(&names_storage)[31];
+const AtomicString& kIdTextFieldContainer = reinterpret_cast<AtomicString*>(&names_storage)[32];
+const AtomicString& kIdSliderThumb = reinterpret_cast<AtomicString*>(&names_storage)[33];
+const AtomicString& kIdSliderTrack = reinterpret_cast<AtomicString*>(&names_storage)[34];
 
 void Init() {
   static bool is_loaded = false;
@@ -92,6 +95,9 @@ void Init() {
     { "picker", 11224516, 6 },
     { "placeholder", 6132349, 11 },
     { "search-clear", 12955485, 12 },
+    { "select-button", 13499242, 13 },
+    { "select-datalist", 6233371, 15 },
+    { "select-options", 14525332, 14 },
     { "spin", 13451339, 4 },
     { "text-field-container", 1467182, 20 },
     { "thumb", 14593165, 5 },

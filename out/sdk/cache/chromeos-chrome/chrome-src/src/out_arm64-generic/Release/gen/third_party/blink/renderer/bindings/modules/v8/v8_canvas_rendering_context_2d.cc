@@ -1533,13 +1533,18 @@ void BeginLayerOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info
 BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.beginLayer");
 
 
-
-
-
-
-
-
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kCanvas2DLayers);
+
+
+
+
+
+
 v8::Local<v8::Object> v8_receiver = info.This();
 CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);

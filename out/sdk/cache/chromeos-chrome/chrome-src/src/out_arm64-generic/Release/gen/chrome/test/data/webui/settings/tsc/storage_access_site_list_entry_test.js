@@ -4,7 +4,6 @@
 /** @fileoverview Suite of tests for storage-access-site-list-entry. */
 // clang-format off
 import 'chrome://settings/lazy_load.js';
-import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { ContentSetting, ContentSettingsTypes, SiteSettingsPrefsBrowserProxyImpl } from 'chrome://settings/lazy_load.js';
 import { assertEquals, assertDeepEquals, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { flushTasks } from 'chrome://webui-test/polymer_test_util.js';
@@ -84,6 +83,7 @@ suite('StorageAccessSiteListEntry', function () {
         const expandButton = testElement.shadowRoot.querySelector('#expandButton');
         assertTrue(!!expandButton);
         expandButton.click();
+        await expandButton.updateComplete;
         // Validate the row description when opened.
         assertEquals(storageAccessException.openDescription, secondLine.textContent.trim());
     });
@@ -93,7 +93,7 @@ suite('StorageAccessSiteListEntry', function () {
         const expandButton = testElement.shadowRoot.querySelector('#expandButton');
         assertTrue(!!expandButton);
         expandButton.click();
-        flush();
+        await expandButton.updateComplete;
         // Validate that the nested site entries are created on the collapsible
         // element.
         const siteListEntry = testElement.shadowRoot.querySelectorAll('storage-access-static-site-list-entry');
@@ -171,6 +171,7 @@ suite('StorageAccessSiteListEntry', function () {
         const expectedExpandOpenArialLabel = loadTimeData.getString('storageAccessOpenExpand');
         assertEquals(expectedExpandOpenArialLabel, expandButton.getAttribute('aria-label'));
         expandButton.click();
+        await expandButton.updateComplete;
         // Validate expand button aria-label when opened.
         const expectedExpandCloseArialLabel = loadTimeData.getString('storageAccessCloseExpand');
         assertEquals(expectedExpandCloseArialLabel, expandButton.getAttribute('aria-label'));

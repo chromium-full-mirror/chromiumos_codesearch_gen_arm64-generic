@@ -6123,7 +6123,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'paymentPortal', 184,
+        'simLockType', 184,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'paymentPortal', 192,
         0,
         PaymentPortalPropertiesSpec.$,
         null,
@@ -6131,7 +6139,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'roamingState', 192,
+        'roamingState', 200,
         0,
         mojo.internal.String,
         null,
@@ -6139,7 +6147,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'selectedApn', 200,
+        'selectedApn', 208,
         0,
         ManagedApnPropertiesSpec.$,
         null,
@@ -6147,7 +6155,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'servingOperator', 208,
+        'servingOperator', 216,
         0,
         CellularProviderPropertiesSpec.$,
         null,
@@ -6155,7 +6163,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'signalStrength', 216,
+        'signalStrength', 224,
         0,
         mojo.internal.Int32,
         0,
@@ -6171,7 +6179,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 232],]);
+    [[0, 240],]);
 
 
 
@@ -6228,6 +6236,8 @@ export class ManagedCellularProperties {
     this.modelId;
     /** @type { (string|undefined) } */
     this.networkTechnology;
+    /** @type { !string } */
+    this.simLockType;
     /** @type { (PaymentPortalProperties|undefined) } */
     this.paymentPortal;
     /** @type { (string|undefined) } */

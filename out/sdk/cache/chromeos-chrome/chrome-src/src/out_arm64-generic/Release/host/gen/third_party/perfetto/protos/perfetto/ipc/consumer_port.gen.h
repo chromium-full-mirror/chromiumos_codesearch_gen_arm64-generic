@@ -165,6 +165,7 @@ class PERFETTO_EXPORT_COMPONENT CloneSessionRequest : public ::protozero::CppMes
   enum FieldNumbers {
     kSessionIdFieldNumber = 1,
     kSkipTraceFilterFieldNumber = 2,
+    kForBugreportFieldNumber = 3,
   };
 
   CloneSessionRequest();
@@ -189,15 +190,20 @@ class PERFETTO_EXPORT_COMPONENT CloneSessionRequest : public ::protozero::CppMes
   bool skip_trace_filter() const { return skip_trace_filter_; }
   void set_skip_trace_filter(bool value) { skip_trace_filter_ = value; _has_field_.set(2); }
 
+  bool has_for_bugreport() const { return _has_field_[3]; }
+  bool for_bugreport() const { return for_bugreport_; }
+  void set_for_bugreport(bool value) { for_bugreport_ = value; _has_field_.set(3); }
+
  private:
   uint64_t session_id_{};
   bool skip_trace_filter_{};
+  bool for_bugreport_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<3> _has_field_{};
+  std::bitset<4> _has_field_{};
 };
 
 

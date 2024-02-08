@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0emetadata.proto\x12\rtpcd.metadata\"\x8b\x01\n\rMetadataEntry\x12!\n\x14primary_pattern_spec\x18\x01 \x01(\tH\x00\x88\x01\x01\x12#\n\x16secondary_pattern_spec\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x17\n\x15_primary_pattern_specB\x19\n\x17_secondary_pattern_spec\"B\n\x08Metadata\x12\x36\n\x10metadata_entries\x18\x01 \x03(\x0b\x32\x1c.tpcd.metadata.MetadataEntryB\x02H\x03\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0emetadata.proto\x12\rtpcd.metadata\"\xab\x01\n\rMetadataEntry\x12!\n\x14primary_pattern_spec\x18\x01 \x01(\tH\x00\x88\x01\x01\x12#\n\x16secondary_pattern_spec\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x13\n\x06source\x18\x07 \x01(\tH\x02\x88\x01\x01\x42\x17\n\x15_primary_pattern_specB\x19\n\x17_secondary_pattern_specB\t\n\x07_source\"B\n\x08Metadata\x12\x36\n\x10metadata_entries\x18\x01 \x03(\x0b\x32\x1c.tpcd.metadata.MetadataEntryB\x02H\x03\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'metadata_pb2', globals())
@@ -22,7 +22,7 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'H\003'
   _METADATAENTRY._serialized_start=34
-  _METADATAENTRY._serialized_end=173
-  _METADATA._serialized_start=175
-  _METADATA._serialized_end=241
+  _METADATAENTRY._serialized_end=205
+  _METADATA._serialized_start=207
+  _METADATA._serialized_end=273
 # @@protoc_insertion_point(module_scope)

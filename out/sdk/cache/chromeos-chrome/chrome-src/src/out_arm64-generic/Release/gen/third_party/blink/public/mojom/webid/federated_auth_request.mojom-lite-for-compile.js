@@ -34,12 +34,11 @@ blink.mojom.RequestTokenStatusSpec = { $: mojo.internal.Enum() };
 blink.mojom.RequestTokenStatus = {
   
   kSuccess: 0,
-  kApprovalDeclined: 1,
-  kErrorTooManyRequests: 2,
-  kErrorCanceled: 3,
-  kError: 4,
+  kErrorTooManyRequests: 1,
+  kErrorCanceled: 2,
+  kError: 3,
   MIN_VALUE: 0,
-  MAX_VALUE: 4,
+  MAX_VALUE: 3,
 };
 
 goog.provide('blink.mojom.RequestUserInfoStatus');

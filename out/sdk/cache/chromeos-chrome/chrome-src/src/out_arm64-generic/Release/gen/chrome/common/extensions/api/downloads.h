@@ -1166,7 +1166,7 @@ namespace OnDeterminingFilename {
 
 extern const char kEventName[];  // "downloads.onDeterminingFilename"
 
-base::Value::List Create(const DownloadItem& download_item);
+base::Value::List Create(const DownloadItem& download_item, base::Value::Dict suggest);
 }  // namespace OnDeterminingFilename
 
 }  // namespace downloads

@@ -162,6 +162,9 @@ extern const struct wl_interface zaura_popup_interface;
  * @page page_iface_zaura_output_manager zaura_output_manager
  * @section page_iface_zaura_output_manager_desc Description
  *
+ * [Deprecated] Deprecated since M122. See the zaura_output_manager_v2
+ * interface.
+ *
  * A global responsible for ensuring clients have a complete view of a given
  * output's state immediately following the bind of wl_output, and
  * subsequently as needed.
@@ -174,6 +177,9 @@ extern const struct wl_interface zaura_popup_interface;
  */
 /**
  * @defgroup iface_zaura_output_manager The zaura_output_manager interface
+ *
+ * [Deprecated] Deprecated since M122. See the zaura_output_manager_v2
+ * interface.
  *
  * A global responsible for ensuring clients have a complete view of a given
  * output's state immediately following the bind of wl_output, and
@@ -2141,6 +2147,22 @@ struct zaura_toplevel_listener {
 	void (*overview_change)(void *data,
 				struct zaura_toplevel *zaura_toplevel,
 				uint32_t in_overview);
+	/**
+	 * set the occlusion state during a configure
+	 *
+	 * Sets the occlusion state of this window. This should be called
+	 * during a configure event sequence. This is used when the
+	 * occlusion state needs to be set as a synchronized operation,
+	 * compared to occlusion_state_changed, which is not synchronized.
+	 * For example, this can be used to mark a window as hidden so it
+	 * can discard resources. When making it visible again, it may need
+	 * some time to recreate its buffers, which is why this operation
+	 * needs to be synchronized.
+	 * @since 65
+	 */
+	void (*configure_occlusion_state)(void *data,
+					  struct zaura_toplevel *zaura_toplevel,
+					  uint32_t mode);
 };
 
 /**
@@ -2208,6 +2230,10 @@ zaura_toplevel_add_listener(struct zaura_toplevel *zaura_toplevel,
  * @ingroup iface_zaura_toplevel
  */
 #define ZAURA_TOPLEVEL_OVERVIEW_CHANGE_SINCE_VERSION 62
+/**
+ * @ingroup iface_zaura_toplevel
+ */
+#define ZAURA_TOPLEVEL_CONFIGURE_OCCLUSION_STATE_SINCE_VERSION 65
 
 /**
  * @ingroup iface_zaura_toplevel

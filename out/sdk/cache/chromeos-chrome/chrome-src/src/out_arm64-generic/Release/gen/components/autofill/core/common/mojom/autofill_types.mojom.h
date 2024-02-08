@@ -3347,7 +3347,7 @@ class  PasswordSuggestionRequest {
       uint64_t password_field_index,
       ::base::i18n::TextDirection text_direction,
       const ::std::u16string& typed_username,
-      int32_t options,
+      bool show_webauthn_credentials,
       const ::gfx::RectF& bounds);
 
 
@@ -3440,7 +3440,7 @@ class  PasswordSuggestionRequest {
   
   ::std::u16string typed_username;
   
-  int32_t options;
+  bool show_webauthn_credentials;
   
   ::gfx::RectF bounds;
 
@@ -4750,7 +4750,7 @@ PasswordSuggestionRequestPtr PasswordSuggestionRequest::Clone() const {
       mojo::Clone(password_field_index),
       mojo::Clone(text_direction),
       mojo::Clone(typed_username),
-      mojo::Clone(options),
+      mojo::Clone(show_webauthn_credentials),
       mojo::Clone(bounds)
   );
 }
@@ -4771,7 +4771,7 @@ bool PasswordSuggestionRequest::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->typed_username, other_struct.typed_username))
     return false;
-  if (!mojo::Equals(this->options, other_struct.options))
+  if (!mojo::Equals(this->show_webauthn_credentials, other_struct.show_webauthn_credentials))
     return false;
   if (!mojo::Equals(this->bounds, other_struct.bounds))
     return false;
@@ -4808,9 +4808,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.typed_username < lhs.typed_username)
     return false;
-  if (lhs.options < rhs.options)
+  if (lhs.show_webauthn_credentials < rhs.show_webauthn_credentials)
     return true;
-  if (rhs.options < lhs.options)
+  if (rhs.show_webauthn_credentials < lhs.show_webauthn_credentials)
     return false;
   if (lhs.bounds < rhs.bounds)
     return true;
@@ -5669,9 +5669,9 @@ struct  StructTraits<::autofill::mojom::PasswordSuggestionRequest::DataView,
     return input->typed_username;
   }
 
-  static decltype(::autofill::mojom::PasswordSuggestionRequest::options) options(
+  static decltype(::autofill::mojom::PasswordSuggestionRequest::show_webauthn_credentials) show_webauthn_credentials(
       const ::autofill::mojom::PasswordSuggestionRequestPtr& input) {
-    return input->options;
+    return input->show_webauthn_credentials;
   }
 
   static const decltype(::autofill::mojom::PasswordSuggestionRequest::bounds)& bounds(

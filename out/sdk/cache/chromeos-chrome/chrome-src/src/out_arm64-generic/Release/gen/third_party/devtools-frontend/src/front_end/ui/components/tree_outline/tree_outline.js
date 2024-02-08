@@ -15,7 +15,7 @@ import*as e from"../../../core/platform/platform.js";import*as t from"../../lit-
           @mouseover=${()=>{this.dispatchEvent(new S(e))}}
           @mouseout=${()=>{this.dispatchEvent(new b(e))}}
         >
-          <span class="arrow-icon" @click=${this.#E(e)} jslog=${r.treeItemExpand().track({click:!0})}>
+          <span class="arrow-icon" @click=${this.#E(e)} jslog=${r.expand().track({click:!0})}>
           </span>
           <span class="tree-node-key" data-node-key=${e.treeNodeData}>${f}</span>
         </span>

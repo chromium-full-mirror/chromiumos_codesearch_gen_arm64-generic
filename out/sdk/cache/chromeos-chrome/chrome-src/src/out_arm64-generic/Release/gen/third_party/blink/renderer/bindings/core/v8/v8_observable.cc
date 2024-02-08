@@ -20,6 +20,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_subscribe_callback.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_subscribe_options.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_union_observer_observercallback.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_visitor.h"
 #include "third_party/blink/renderer/core/dom/observable.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
 #include "third_party/blink/renderer/core/frame/web_feature.h"
@@ -117,6 +118,53 @@ if (UNLIKELY(exception_state.HadException())) {
 auto&& return_value = Observable::Create(script_state, arg1_callback);
 v8::Local<v8::Object> v8_wrapper = return_value->AssociateWithWrapper(isolate, V8Observable::GetWrapperTypeInfo(), v8_receiver);
 bindings::V8SetReturnValue(info, v8_wrapper);
+}
+
+void ForEachOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Observable_forEach");
+BLINK_BINDINGS_TRACE_EVENT("Observable.forEach");
+
+// Promise returning function: Convert a TypeError to a reject promise.
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "Observable";
+const char* const property_name = "forEach";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8Observable::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+
+
+
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+Observable* blink_receiver = V8Observable::ToWrappableUnsafe(isolate, v8_receiver);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
+auto&& arg1_callback = NativeValueTraits<V8Visitor>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<SubscribeOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = SubscribeOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<SubscribeOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->forEach(script_state, arg1_callback, arg2_options);
+bindings::V8SetReturnValue(info, return_value);
 }
 
 void SubscribeOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -274,6 +322,7 @@ void V8Observable::InstallUnconditionalProperties(v8::Isolate* isolate, const DO
 
 {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"forEach", ForEachOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"subscribe", SubscribeOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"takeUntil", TakeUntilOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"toArray", ToArrayOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

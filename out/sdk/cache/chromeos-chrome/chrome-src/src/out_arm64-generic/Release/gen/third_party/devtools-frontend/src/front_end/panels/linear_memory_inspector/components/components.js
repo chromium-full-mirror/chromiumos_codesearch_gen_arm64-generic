@@ -67,7 +67,7 @@ import*as e from"../../../core/i18n/i18n.js";import*as t from"../../../ui/compon
           data-mode-settings="true"
           class="chrome-select"
           style="border: none; background-color: transparent; cursor: pointer; color: var(--sys-color-token-subtle);"
-          jslog=${s.toggle("linear-memory-inspector.value-type-mode").track({change:!0})}
+          jslog=${s.dropDown("linear-memory-inspector.value-type-mode").track({change:!0})}
           @change=${this.#T.bind(this,t)}>
             ${O.filter((e=>V(t,e))).map((o=>Z`
                 <option value=${o} .selected=${this.#f.get(t)===o}>${e.i18n.lockedString(o)}
@@ -87,7 +87,7 @@ import*as e from"../../../core/i18n/i18n.js";import*as t from"../../../ui/compon
         ${a}
       </div>
     `}#T(e,t){t.preventDefault();const o=t.target.value;this.dispatchEvent(new te(e,o))}#S(e){const t=this.#f.get(e.type);return q({buffer:this.#y,type:e.type,endianness:this.#m,signed:e.signed||!1,mode:t})}}t.CustomElements.defineComponent("devtools-linear-memory-inspector-interpreter-display",re);var se=Object.freeze({__proto__:null,ValueTypeModeChangedEvent:te,JumpToPointerAddressEvent:oe,ValueInterpreterDisplay:re});const ne=new CSSStyleSheet;ne.replaceSync(":host{flex:auto;display:flex;min-height:20px}.settings{display:flex;flex-wrap:wrap;margin:0 12px 12px;column-gap:45px;row-gap:15px}.value-types-selection{display:flex;flex-direction:column}.group{font-weight:bold;margin-bottom:11px}.type-label{white-space:nowrap}.group + .type-label{margin-top:5px}.type-label input{margin:0 6px 0 0;padding:0}.type-label + .type-label{margin-top:6px}\n/*# sourceURL=valueInterpreterSettings.css */\n");const{render:ie,html:ae}=r,le={otherGroup:"Other"},de=e.i18n.registerUIStrings("panels/linear_memory_inspector/components/ValueInterpreterSettings.ts",le),ce=e.i18n.getLocalizedString.bind(void 0,de),he=new Map([["Integer",["Integer 8-bit","Integer 16-bit","Integer 32-bit","Integer 64-bit"]],["Floating point",["Float 32-bit","Float 64-bit"]],["Other",["Pointer 32-bit","Pointer 64-bit"]]]);class ge extends Event{static eventName="typetoggle";data;constructor(e,t){super(ge.eventName),this.data={type:e,checked:t}}}class pe extends HTMLElement{static litTagName=r.literal`devtools-linear-memory-inspector-interpreter-settings`;#e=this.attachShadow({mode:"open"});#v=new Set;connectedCallback(){this.#e.adoptedStyleSheets=[a.checkboxStyles,ne]}set data(e){this.#v=e.valueTypes,this.#r()}#r(){ie(ae`
-      <div class="settings" jslog=${s.section("settings")}>
+      <div class="settings" jslog=${s.pane("settings")}>
        ${[...he.keys()].map((e=>ae`
           <div class="value-types-selection">
             <span class="group">${function(e){return"Other"===e?ce(le.otherGroup):e}(e)}</span>
@@ -107,7 +107,7 @@ import*as e from"../../../core/i18n/i18n.js";import*as t from"../../../ui/compon
           ${this.#A()}
           <button data-settings="true" class="settings-toolbar-button ${this.#N?"active":""}"
               title=${ve(me.toggleValueTypeSettings)} @click=${this.#C}
-              jslog=${s.action("linear-memory-inspector.toggle-value-settings").track({click:!0})}>
+              jslog=${s.toggleSubpane("linear-memory-inspector.toggle-value-settings").track({click:!0})}>
             <${o.Icon.Icon.litTagName} name=${this.#N?"gear-filled":"gear"}></${o.Icon.Icon.litTagName}>
           </button>
         </div>
@@ -126,7 +126,7 @@ import*as e from"../../../core/i18n/i18n.js";import*as t from"../../../ui/compon
     `,this.#e,{host:this})}#z(e){e.preventDefault();const t=e.target.value;this.dispatchEvent(new we(t))}#A(){const t=this.#z.bind(this);return be`
     <label data-endianness-setting="true" title=${ve(me.changeEndianness)}>
       <select class="chrome-select"
-        jslog=${s.toggle("linear-memory-inspector.endianess").track({change:!0})}
+        jslog=${s.dropDown("linear-memory-inspector.endianess").track({change:!0})}
         style="border: none; background-color: transparent; cursor: pointer;"
         data-endianness="true" @change=${t}>
         ${["Little Endian","Big Endian"].map((t=>be`<option value=${t} .selected=${this.#m===t}>${e.i18n.lockedString(t)}</option>`))}

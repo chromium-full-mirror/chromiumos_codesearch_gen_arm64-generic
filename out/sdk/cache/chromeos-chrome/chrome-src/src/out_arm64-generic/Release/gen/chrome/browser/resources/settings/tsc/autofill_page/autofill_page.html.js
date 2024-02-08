@@ -6,7 +6,7 @@ export function getTemplate() {
         <cr-link-row id="passwordManagerButton" label="$i18n{localPasswordManager}" on-click="onPasswordsClick_" role-description="$i18n{subpageArrowRoleDescription}" start-icon="cr20:password" external>
         </cr-link-row>
         <template is="dom-if" if="[[isPlusAddressSettingEnabled_]]">
-          <cr-link-row id="plusAddressManagerButton" label="$i18n{plusAddressSettings}" on-click="onPlusAddressClick_" role-description="$i18n{subpageArrowRoleDescription}" external>
+          <cr-link-row id="plusAddressManagerButton" label="$i18n{plusAddressSettings}" on-click="onPlusAddressClick_" role-description="$i18n{subpageArrowRoleDescription}" start-icon="settings:email" external>
           </cr-link-row>
         </template>
         <cr-link-row id="paymentManagerButton" start-icon="settings20:credit-card" label="$i18n{creditCards}" on-click="onPaymentsClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>

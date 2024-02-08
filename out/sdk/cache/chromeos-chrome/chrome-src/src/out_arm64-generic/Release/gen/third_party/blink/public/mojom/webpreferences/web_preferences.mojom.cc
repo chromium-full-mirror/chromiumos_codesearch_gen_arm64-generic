@@ -164,6 +164,7 @@ WebPreferences::WebPreferences()
       autoplay_policy(),
       require_transient_activation_for_get_display_media(),
       require_transient_activation_for_show_file_or_directory_picker(),
+      require_transient_activation_for_html_fullscreen(),
       preferred_color_scheme(),
       preferred_contrast(),
       low_priority_iframes_threshold(),
@@ -299,6 +300,7 @@ WebPreferences::WebPreferences(
     AutoplayPolicy autoplay_policy_in,
     bool require_transient_activation_for_get_display_media_in,
     bool require_transient_activation_for_show_file_or_directory_picker_in,
+    bool require_transient_activation_for_html_fullscreen_in,
     ::blink::mojom::PreferredColorScheme preferred_color_scheme_in,
     ::blink::mojom::PreferredContrast preferred_contrast_in,
     EffectiveConnectionType low_priority_iframes_threshold_in,
@@ -432,6 +434,7 @@ WebPreferences::WebPreferences(
       autoplay_policy(std::move(autoplay_policy_in)),
       require_transient_activation_for_get_display_media(std::move(require_transient_activation_for_get_display_media_in)),
       require_transient_activation_for_show_file_or_directory_picker(std::move(require_transient_activation_for_show_file_or_directory_picker_in)),
+      require_transient_activation_for_html_fullscreen(std::move(require_transient_activation_for_html_fullscreen_in)),
       preferred_color_scheme(std::move(preferred_color_scheme_in)),
       preferred_contrast(std::move(preferred_contrast_in)),
       low_priority_iframes_threshold(std::move(low_priority_iframes_threshold_in)),
@@ -1525,6 +1528,15 @@ void WebPreferences::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
+      "require_transient_activation_for_html_fullscreen"), this->require_transient_activation_for_html_fullscreen,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
       "preferred_color_scheme"), this->preferred_color_scheme,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::blink::mojom::PreferredColorScheme>"
@@ -1909,6 +1921,8 @@ bool StructTraits<::blink::mojom::WebPreferences::DataView, ::blink::mojom::WebP
         result->require_transient_activation_for_get_display_media = input.require_transient_activation_for_get_display_media();
       if (success)
         result->require_transient_activation_for_show_file_or_directory_picker = input.require_transient_activation_for_show_file_or_directory_picker();
+      if (success)
+        result->require_transient_activation_for_html_fullscreen = input.require_transient_activation_for_html_fullscreen();
       if (success && !input.ReadPreferredColorScheme(&result->preferred_color_scheme))
         success = false;
       if (success && !input.ReadPreferredContrast(&result->preferred_contrast))

@@ -1709,6 +1709,54 @@ Impression& Impression::SetSessionId(const int64_t value) {
   return *this;
 }
 
+Impression& Impression::SetWidth(const int64_t value) {
+  AddMetric("Width", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Impression& Impression::SetHeight(const int64_t value) {
+  AddMetric("Height", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Resize::Resize() :
+  ::metrics::structured::Event("DevTools",
+                               "Resize",
+                               false) {}
+Resize::~Resize() = default;
+
+Resize& Resize::SetVeId(const int64_t value) {
+  AddMetric("VeId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Resize& Resize::SetTimeSinceSessionStart(const int64_t value) {
+  AddMetric("TimeSinceSessionStart", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Resize& Resize::SetSessionId(const int64_t value) {
+  AddMetric("SessionId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Resize& Resize::SetWidth(const int64_t value) {
+  AddMetric("Width", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Resize& Resize::SetHeight(const int64_t value) {
+  AddMetric("Height", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
 Click::Click() :
   ::metrics::structured::Event("DevTools",
                                "Click",

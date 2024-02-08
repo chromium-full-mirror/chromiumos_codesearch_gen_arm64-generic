@@ -7003,7 +7003,23 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'dictionaryUrl', 8,
+        'matchDest', 8,
+        0,
+        mojo.internal.Array(network.mojom.RequestDestinationSpec.$, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'id', 16,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'dictionaryUrl', 24,
         0,
         url.mojom.UrlSpec.$,
         null,
@@ -7011,7 +7027,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'responseTime', 16,
+        'responseTime', 32,
         0,
         mojoBase.mojom.TimeSpec.$,
         null,
@@ -7019,7 +7035,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'expiration', 24,
+        'expiration', 40,
         0,
         mojoBase.mojom.TimeDeltaSpec.$,
         null,
@@ -7027,7 +7043,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'lastUsedTime', 32,
+        'lastUsedTime', 48,
         0,
         mojoBase.mojom.TimeSpec.$,
         null,
@@ -7035,7 +7051,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'size', 40,
+        'size', 56,
         0,
         mojo.internal.Uint64,
         BigInt(0),
@@ -7043,7 +7059,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'hash', 48,
+        'hash', 64,
         0,
         network.mojom.SHA256HashValueSpec.$,
         null,
@@ -7051,7 +7067,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 64],]);
+    [[0, 80],]);
 
 
 
@@ -7062,6 +7078,10 @@ network.mojom.SharedDictionaryInfo = class {
   constructor() {
     /** @export { !string } */
     this.match;
+    /** @export { !Array<!network.mojom.RequestDestination> } */
+    this.matchDest;
+    /** @export { !string } */
+    this.id;
     /** @export { !url.mojom.Url } */
     this.dictionaryUrl;
     /** @export { !mojoBase.mojom.Time } */

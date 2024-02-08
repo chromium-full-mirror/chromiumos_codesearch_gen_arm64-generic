@@ -24,8 +24,8 @@ home/chrome-bot/chrome_root/src/chrome/test/data/webui/settings/chromeos/os_peop
 home/chrome-bot/chrome_root/src/chrome/test/data/webui/settings/chromeos/os_people_page/pin_settings_api.test-mojom
 home/chrome-bot/chrome_root/src/chrome/test/data/webui/settings/chromeos/os_people_page/set_local_password_input_api.test-mojom
 home/chrome-bot/chrome_root/src/chrome/test/data/webui/settings/chromeos/test_api.test-mojom
-home/chrome-bot/chrome_root/src/chrome/test/data/webui/settings/chromeos/os_people_page/pin_settings_api.test-mojom
-home/chrome-bot/chrome_root/src/chrome/test/data/webui/settings/chromeos/test_api.test-mojom
-home/chrome-bot/chrome_root/src/chrome/test/data/webui/settings/chromeos/os_people_page/password_settings_api.test-mojom
-home/chrome-bot/chrome_root/src/chrome/test/data/webui/settings/chromeos/os_people_page/set_local_password_input_api.test-mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/test/data/webui/settings/chromeos/test_api_mojom.build_metadata
+home/chrome-bot/chrome_root/src/chrome/test/data/webui/settings/chromeos/os_people_page/password_settings_api.test-mojom
+home/chrome-bot/chrome_root/src/chrome/test/data/webui/settings/chromeos/test_api.test-mojom
+home/chrome-bot/chrome_root/src/chrome/test/data/webui/settings/chromeos/os_people_page/set_local_password_input_api.test-mojom
+home/chrome-bot/chrome_root/src/chrome/test/data/webui/settings/chromeos/os_people_page/pin_settings_api.test-mojom

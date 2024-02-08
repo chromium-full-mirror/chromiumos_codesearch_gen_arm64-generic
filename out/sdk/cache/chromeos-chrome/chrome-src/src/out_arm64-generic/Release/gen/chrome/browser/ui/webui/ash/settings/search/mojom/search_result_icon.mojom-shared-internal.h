@@ -97,6 +97,7 @@ struct SearchResultIcon_Data {
       case 67:
       case 68:
       case 69:
+      case 70:
         return true;
     }
     return false;

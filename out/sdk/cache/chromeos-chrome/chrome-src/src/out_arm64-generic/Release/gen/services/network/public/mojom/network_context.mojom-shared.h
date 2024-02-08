@@ -44,6 +44,7 @@
 #include "services/network/public/mojom/default_credentials.mojom-shared.h"
 #include "services/network/public/mojom/devtools_observer.mojom-shared.h"
 #include "services/network/public/mojom/restricted_udp_socket.mojom-shared.h"
+#include "services/network/public/mojom/fetch_api.mojom-shared.h"
 #include "services/network/public/mojom/first_party_sets_access_delegate.mojom-shared.h"
 #include "services/network/public/mojom/host_resolver.mojom-shared.h"
 #include "services/network/public/mojom/http_cache_backend_file_operations.mojom-shared.h"
@@ -1267,6 +1268,26 @@ class SharedDictionaryInfoDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetMatchDestDataView(
+      mojo::ArrayDataView<::network::mojom::RequestDestination>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMatchDest(UserType* output) {
+    
+    auto* pointer = data_->match_dest.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::network::mojom::RequestDestination>>(
+        pointer, output, message_);
+  }
+  inline void GetIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadId(UserType* output) {
+    
+    auto* pointer = data_->id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
   inline void GetDictionaryUrlDataView(
       ::url::mojom::UrlDataView* output);
 
@@ -2486,6 +2507,32 @@ struct Serializer<::network::mojom::SharedDictionaryInfoDataView, MaybeConstUser
         fragment->match.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null match in SharedDictionaryInfo struct");
+    decltype(Traits::match_dest(input)) in_match_dest = Traits::match_dest(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->match_dest)::BaseType>
+        match_dest_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& match_dest_validate_params =
+        mojo::internal::GetArrayOfEnumsValidator<0, ::network::mojom::internal::RequestDestination_Data::Validate>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::network::mojom::RequestDestination>>(
+        in_match_dest, match_dest_fragment, &match_dest_validate_params);
+    fragment->match_dest.Set(
+        match_dest_fragment.is_null() ? nullptr : match_dest_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->match_dest.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null match_dest in SharedDictionaryInfo struct");
+    decltype(Traits::id(input)) in_id = Traits::id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->id)::BaseType> id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_id, id_fragment);
+    fragment->id.Set(
+        id_fragment.is_null() ? nullptr : id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null id in SharedDictionaryInfo struct");
     decltype(Traits::dictionary_url(input)) in_dictionary_url = Traits::dictionary_url(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->dictionary_url)::BaseType> dictionary_url_fragment(
@@ -3112,6 +3159,16 @@ inline void NetworkConditionsDataView::GetLatencyDataView(
 inline void SharedDictionaryInfoDataView::GetMatchDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->match.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void SharedDictionaryInfoDataView::GetMatchDestDataView(
+    mojo::ArrayDataView<::network::mojom::RequestDestination>* output) {
+  auto pointer = data_->match_dest.Get();
+  *output = mojo::ArrayDataView<::network::mojom::RequestDestination>(pointer, message_);
+}
+inline void SharedDictionaryInfoDataView::GetIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void SharedDictionaryInfoDataView::GetDictionaryUrlDataView(

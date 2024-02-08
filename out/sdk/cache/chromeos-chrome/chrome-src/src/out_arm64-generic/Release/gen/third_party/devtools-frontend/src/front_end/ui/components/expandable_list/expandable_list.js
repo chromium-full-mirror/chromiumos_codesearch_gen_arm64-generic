@@ -4,7 +4,7 @@ import*as e from"../helpers/helpers.js";import*as t from"../../lit-html/lit-html
           ${this.#i.length>1?t.html`
               <button title='${this.#n}' aria-label='${this.#n}' aria-expanded=${this.#t?"true":"false"} @click=${()=>this.#a()} class="arrow-icon-button">
                 <span class="arrow-icon ${this.#t?"expanded":""}"
-                jslog=${i.treeItemExpand().track({click:!0})}></span>
+                jslog=${i.expand().track({click:!0})}></span>
               </button>
             `:t.nothing}
         </div>

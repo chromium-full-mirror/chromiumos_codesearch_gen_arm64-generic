@@ -2837,13 +2837,14 @@ mojo.internal.Struct(ManagedCellularPropertiesSpec.$, 'ManagedCellularProperties
     mojo.internal.StructField('min', 160, 0, mojo.internal.String, null, true /* nullable */, 0),
     mojo.internal.StructField('modelId', 168, 0, mojo.internal.String, null, true /* nullable */, 0),
     mojo.internal.StructField('networkTechnology', 176, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('paymentPortal', 184, 0, PaymentPortalPropertiesSpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('roamingState', 192, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('selectedApn', 200, 0, ManagedApnPropertiesSpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('servingOperator', 208, 0, CellularProviderPropertiesSpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('signalStrength', 216, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('simLockType', 184, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('paymentPortal', 192, 0, PaymentPortalPropertiesSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('roamingState', 200, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('selectedApn', 208, 0, ManagedApnPropertiesSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('servingOperator', 216, 0, CellularProviderPropertiesSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('signalStrength', 224, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
     mojo.internal.StructField('supportNetworkScan', 4, 1, mojo.internal.Bool, false, false /* nullable */, 0),
-], [[0, 232],]);
+], [[0, 240],]);
 /**
  * @record
  */
@@ -2897,6 +2898,8 @@ export class ManagedCellularProperties {
         this.modelId;
         /** @type { (string|undefined) } */
         this.networkTechnology;
+        /** @type { !string } */
+        this.simLockType;
         /** @type { (PaymentPortalProperties|undefined) } */
         this.paymentPortal;
         /** @type { (string|undefined) } */

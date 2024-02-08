@@ -149,72 +149,6 @@ class  IndexedDBControlTest_ResetCachesForTesting_ResponseParams_Data {
 };
 static_assert(sizeof(IndexedDBControlTest_ResetCachesForTesting_ResponseParams_Data) == 8,
               "Bad sizeof(IndexedDBControlTest_ResetCachesForTesting_ResponseParams_Data)");
-class  IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::storage::mojom::internal::BucketLocator_Data> bucket_locator;
-
- private:
-  friend class mojo::internal::MessageFragment<IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data>;
-
-  IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data();
-  ~IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data() = delete;
-};
-static_assert(sizeof(IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data) == 16,
-              "Bad sizeof(IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data)");
-class  IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint8_t downgraded : 1;
-  uint8_t padfinal_[7];
-
- private:
-  friend class mojo::internal::MessageFragment<IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data>;
-
-  IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data();
-  ~IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data) == 16,
-              "Bad sizeof(IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data)");
-class  IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::storage::mojom::internal::BucketLocator_Data> bucket_locator;
-
- private:
-  friend class mojo::internal::MessageFragment<IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data>;
-
-  IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data();
-  ~IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data() = delete;
-};
-static_assert(sizeof(IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data) == 16,
-              "Bad sizeof(IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data)");
-class  IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  int32_t status;
-  uint8_t padfinal_[4];
-
- private:
-  friend class mojo::internal::MessageFragment<IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data>;
-
-  IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data();
-  ~IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data) == 16,
-              "Bad sizeof(IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data)");
 class  IndexedDBControlTest_WriteToIndexedDBForTesting_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -671,101 +605,6 @@ class IndexedDBControlTest_ResetCachesForTesting_ResponseParamsDataView {
 };
 
 
-class IndexedDBControlTest_ForceSchemaDowngradeForTesting_ParamsDataView {
- public:
-  IndexedDBControlTest_ForceSchemaDowngradeForTesting_ParamsDataView() = default;
-
-  IndexedDBControlTest_ForceSchemaDowngradeForTesting_ParamsDataView(
-      internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetBucketLocatorDataView(
-      ::storage::mojom::BucketLocatorDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadBucketLocator(UserType* output) {
-    
-    auto* pointer = data_->bucket_locator.Get();
-    return mojo::internal::Deserialize<::storage::mojom::BucketLocatorDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParamsDataView {
- public:
-  IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParamsDataView() = default;
-
-  IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParamsDataView(
-      internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  bool downgraded() const {
-    return data_->downgraded;
-  }
- private:
-  internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data* data_ = nullptr;
-};
-
-
-class IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ParamsDataView {
- public:
-  IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ParamsDataView() = default;
-
-  IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ParamsDataView(
-      internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetBucketLocatorDataView(
-      ::storage::mojom::BucketLocatorDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadBucketLocator(UserType* output) {
-    
-    auto* pointer = data_->bucket_locator.Get();
-    return mojo::internal::Deserialize<::storage::mojom::BucketLocatorDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParamsDataView {
- public:
-  IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParamsDataView() = default;
-
-  IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParamsDataView(
-      internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  template <typename UserType>
-  [[nodiscard]] bool ReadStatus(UserType* output) const {
-    auto data_value = data_->status;
-    return mojo::internal::Deserialize<::storage::mojom::V2SchemaCorruptionStatus>(
-        data_value, output);
-  }
-  V2SchemaCorruptionStatus status() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::storage::mojom::V2SchemaCorruptionStatus>(data_->status));
-  }
- private:
-  internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data* data_ = nullptr;
-};
-
-
 class IndexedDBControlTest_WriteToIndexedDBForTesting_ParamsDataView {
  public:
   IndexedDBControlTest_WriteToIndexedDBForTesting_ParamsDataView() = default;
@@ -1182,24 +1021,6 @@ inline void IndexedDBControlTest_GetFilePathForTesting_ResponseParamsDataView::G
 }
 
 
-
-
-
-
-inline void IndexedDBControlTest_ForceSchemaDowngradeForTesting_ParamsDataView::GetBucketLocatorDataView(
-    ::storage::mojom::BucketLocatorDataView* output) {
-  auto pointer = data_->bucket_locator.Get();
-  *output = ::storage::mojom::BucketLocatorDataView(pointer, message_);
-}
-
-
-
-
-inline void IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ParamsDataView::GetBucketLocatorDataView(
-    ::storage::mojom::BucketLocatorDataView* output) {
-  auto pointer = data_->bucket_locator.Get();
-  *output = ::storage::mojom::BucketLocatorDataView(pointer, message_);
-}
 
 
 

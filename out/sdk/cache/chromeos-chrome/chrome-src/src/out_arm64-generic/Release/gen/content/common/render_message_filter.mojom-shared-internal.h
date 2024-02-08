@@ -27,8 +27,61 @@ class ValidationContext;
 
 namespace content::mojom {
 namespace internal {
+class FrameRoutingInfo_Data;
 
 #pragma pack(push, 1)
+class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) FrameRoutingInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t routing_id;
+  uint8_t pad0_[4];
+  mojo::internal::Pointer<::blink::mojom::internal::LocalFrameToken_Data> frame_token;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> devtools_frame_token;
+  mojo::internal::Pointer<::blink::mojom::internal::DocumentToken_Data> document_token;
+
+ private:
+  friend class mojo::internal::MessageFragment<FrameRoutingInfo_Data>;
+
+  FrameRoutingInfo_Data();
+  ~FrameRoutingInfo_Data() = delete;
+};
+static_assert(sizeof(FrameRoutingInfo_Data) == 40,
+              "Bad sizeof(FrameRoutingInfo_Data)");
+// Used by FrameRoutingInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct FrameRoutingInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  FrameRoutingInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~FrameRoutingInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<FrameRoutingInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    FrameRoutingInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

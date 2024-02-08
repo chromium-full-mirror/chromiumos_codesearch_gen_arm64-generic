@@ -239,6 +239,8 @@ class BLINK_PLATFORM_EXPORT WebRuntimeFeaturesBase {
   static bool IsSharedStorageAPIEnabled();
   static void EnableSharedStorageAPIM118(bool);
   static bool IsSharedStorageAPIM118Enabled();
+  static void EnableSharedStorageAPIM123(bool);
+  static bool IsSharedStorageAPIM123Enabled();
   static void EnableSharedWorker(bool);
   static bool IsSharedWorkerEnabled();
   static void EnableSmartZoom(bool);

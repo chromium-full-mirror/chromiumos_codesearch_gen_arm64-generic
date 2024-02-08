@@ -39,6 +39,7 @@ class  CrosCameraServiceObserverInterceptorForTesting : public CrosCameraService
   void CameraDeviceActivityChange(int32_t camera_id, bool opened, CameraClientType type) override;
   void CameraPrivacySwitchStateChange(CameraPrivacySwitchState state, int32_t camera_id) override;
   void CameraSWPrivacySwitchStateChange(CameraPrivacySwitchState state) override;
+  void CameraEffectChange(::cros::mojom::EffectsConfigPtr config) override;
 };
 class  CrosCameraServiceObserverAsyncWaiter {
  public:

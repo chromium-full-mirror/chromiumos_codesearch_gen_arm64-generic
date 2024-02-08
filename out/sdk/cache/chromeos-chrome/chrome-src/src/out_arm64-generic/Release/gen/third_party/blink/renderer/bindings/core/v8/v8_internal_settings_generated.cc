@@ -3106,6 +3106,36 @@ blink_receiver->setRequireTransientActivationForGetDisplayMedia(arg1_require_tra
 
 }
 
+void SetRequireTransientActivationForHtmlFullscreenOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setRequireTransientActivationForHtmlFullscreen");
+BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setRequireTransientActivationForHtmlFullscreen");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "InternalSettingsGenerated";
+const char* const property_name = "setRequireTransientActivationForHtmlFullscreen";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_require_transient_activation_for_html_fullscreen = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setRequireTransientActivationForHtmlFullscreen(arg1_require_transient_activation_for_html_fullscreen);
+
+}
+
 void SetRequireTransientActivationForShowFileOrDirectoryPickerOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setRequireTransientActivationForShowFileOrDirectoryPicker");
 BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setRequireTransientActivationForShowFileOrDirectoryPicker");
@@ -4950,6 +4980,7 @@ void V8InternalSettingsGenerated::InstallUnconditionalProperties(v8::Isolate* is
 {"setPresentationRequiresUserGesture", SetPresentationRequiresUserGestureOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setReportScreenSizeInPhysicalPixelsQuirk", SetReportScreenSizeInPhysicalPixelsQuirkOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setRequireTransientActivationForGetDisplayMedia", SetRequireTransientActivationForGetDisplayMediaOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setRequireTransientActivationForHtmlFullscreen", SetRequireTransientActivationForHtmlFullscreenOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setRequireTransientActivationForShowFileOrDirectoryPicker", SetRequireTransientActivationForShowFileOrDirectoryPickerOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setResizable", SetResizableOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setRubberBandingOnCompositorThread", SetRubberBandingOnCompositorThreadOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

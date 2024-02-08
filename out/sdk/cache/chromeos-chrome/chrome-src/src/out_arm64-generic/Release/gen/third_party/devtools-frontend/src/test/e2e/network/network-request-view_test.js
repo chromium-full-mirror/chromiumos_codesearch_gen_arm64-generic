@@ -148,6 +148,89 @@ const configureAndCheckHeaderOverrides = async () => {
         const color = await p.evaluate(e => getComputedStyle(e).color);
         chai_1.assert.deepEqual(color, 'rgb(255, 0, 0)');
     });
+    const navigateToEventStreamMessages = async () => {
+        await (0, network_helpers_js_1.navigateToNetworkTab)('eventstream.html');
+        await (0, network_helpers_js_1.waitForSomeRequestsToAppear)(2);
+        await (0, network_helpers_js_1.selectRequestByName)('event-stream.rawresponse');
+        const networkView = await (0, helper_js_1.waitFor)('.network-item-view');
+        await (0, helper_js_1.click)('[aria-label=EventStream][role=tab]', {
+            root: networkView,
+        });
+        await (0, helper_js_1.waitFor)('[aria-label=EventStream][role=tab][aria-selected=true]', networkView);
+        return (0, helper_js_1.waitFor)('.event-source-messages-view');
+    };
+    const waitForMessages = async (messagesView, count) => {
+        return (0, helper_js_1.waitForFunction)(async () => {
+            const messages = await (0, helper_js_1.$$)('.data-grid-data-grid-node', messagesView);
+            if (messages.length !== count) {
+                return undefined;
+            }
+            return Promise.all(messages.map(message => {
+                return new Promise(async (resolve) => {
+                    const [id, type, data] = await Promise.all([
+                        (0, helper_js_1.getTextContent)('.id-column', message),
+                        (0, helper_js_1.getTextContent)('.type-column', message),
+                        (0, helper_js_1.getTextContent)('.data-column', message),
+                    ]);
+                    resolve({
+                        id,
+                        type,
+                        data,
+                    });
+                });
+            }));
+        });
+    };
+    const knownMessages = [
+        { id: '1', type: 'custom-one', data: '{"one": "value-one"}' },
+        { id: '2', type: 'message', data: '{"two": "value-two"}' },
+        { id: '3', type: 'message', data: '{"three": "value-three"}' },
+    ];
+    const assertMessage = (actualMessage, expectedMessage) => {
+        chai_1.assert.deepEqual(actualMessage.id, expectedMessage.id);
+        chai_1.assert.deepEqual(actualMessage.type, expectedMessage.type);
+        chai_1.assert.deepEqual(actualMessage.data, expectedMessage.data);
+    };
+    const assertBaseState = async (messagesView) => {
+        const messages = await waitForMessages(messagesView, 3);
+        assertMessage(messages[0], knownMessages[0]);
+        assertMessage(messages[1], knownMessages[1]);
+        assertMessage(messages[2], knownMessages[2]);
+    };
+    (0, mocha_extensions_js_1.it)('stores EventSource filter', async () => {
+        const messagesView = await navigateToEventStreamMessages();
+        let messages = await waitForMessages(messagesView, 3);
+        await assertBaseState(messagesView);
+        const inputSelector = '[aria-placeholder="Enter regex, for example: https?';
+        const filterInput = await (0, helper_js_1.waitFor)(inputSelector, messagesView);
+        // "one"
+        await filterInput.focus();
+        await (0, helper_js_1.typeText)('one');
+        messages = await waitForMessages(messagesView, 1);
+        assertMessage(messages[0], knownMessages[0]);
+        // clear
+        await (0, helper_js_1.click)('[title="Clear input"]', {
+            root: messagesView,
+        });
+        await assertBaseState(messagesView);
+        // "two"
+        await filterInput.focus();
+        await (0, helper_js_1.typeText)('two');
+        messages = await waitForMessages(messagesView, 1);
+        assertMessage(messages[0], knownMessages[1]);
+        // invalid regex
+        await filterInput.focus();
+        await (0, helper_js_1.typeText)('invalid(');
+        messages = await waitForMessages(messagesView, 0);
+    });
+    (0, mocha_extensions_js_1.it)('handles EventSource clear', async () => {
+        const messagesView = await navigateToEventStreamMessages();
+        await assertBaseState(messagesView);
+        await (0, helper_js_1.click)('[aria-label="Clear all"]', {
+            root: messagesView,
+        });
+        await waitForMessages(messagesView, 0);
+    });
     (0, mocha_extensions_js_1.it)('stores websocket filter', async () => {
         const navigateToWebsocketMessages = async () => {
             await (0, network_helpers_js_1.navigateToNetworkTab)('websocket.html');

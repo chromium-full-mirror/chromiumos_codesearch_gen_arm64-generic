@@ -1,9 +1,9 @@
 // Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 import { assertEquals, assertFalse, assertLT, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { eventToPromise } from 'chrome://webui-test/test_util.js';
-import { getRequiredElement } from 'chrome://resources/js/util.js';
 /**
  * Find the first tree item (in the certificate fields tree) with a value.
  * @param tree Certificate fields subtree to search.

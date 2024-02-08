@@ -88,6 +88,9 @@ suite('FirmwareUpdateDialogTest', () => {
         // Correct text is shown.
         assertEquals(getTextContent('#updateDialogTitle'), loadTimeData.getStringF('restartingTitleText', mojoString16ToString(updateDialogElement.update.deviceName)));
         assertEquals(getTextContent('#updateDialogBody'), loadTimeData.getString('restartingBodyText'));
+        // Body text should not have an aria-live value for non-requests.
+        assertEquals(strictQuery('#updateDialogBody', updateDialogElement.shadowRoot, HTMLDivElement)
+            .ariaLive, '');
         assertEquals(getTextContent('#progress'), loadTimeData.getString('restartingFooterText'));
         // Check that the indeterminate progress is shown.
         assertTrue(isVisible(updateDialogElement.shadowRoot.querySelector('#indeterminateProgressBar')));
@@ -147,6 +150,9 @@ suite('FirmwareUpdateDialogTest', () => {
         // restarting when the state is kWaitingForUser.
         assertEquals(getTextContent('#updateDialogTitle'), loadTimeData.getStringF('restartingTitleText', mojoString16ToString(updateDialogElement.update.deviceName)));
         assertEquals(getTextContent('#updateDialogBody'), loadTimeData.getString('restartingBodyText'));
+        // Body text should not have an aria-live value for non-requests.
+        assertEquals(strictQuery('#updateDialogBody', updateDialogElement.shadowRoot, HTMLDivElement)
+            .ariaLive, '');
         assertEquals(getTextContent('#progress'), loadTimeData.getString('restartingFooterText'));
         // Check that the indeterminate progress is shown.
         assertTrue(isVisible(updateDialogElement.shadowRoot.querySelector('#indeterminateProgressBar')));
@@ -241,6 +247,11 @@ suite('FirmwareUpdateDialogTest', () => {
             assertEquals(getTextContent('#updateDialogTitle'), loadTimeData.getStringF('updating', mojoString16ToString(updateDialogElement.update.deviceName)));
             // Body of dialog should correspond to the type of request.
             assertEquals(getTextContent('#updateDialogBody'), loadTimeData.getString(expectedString));
+            assert(updateDialogElement?.shadowRoot);
+            // For user requests, the dialog body should be an assertive aria-live
+            // region.
+            assertEquals(strictQuery('#updateDialogBody', updateDialogElement.shadowRoot, HTMLDivElement)
+                .ariaLive, 'assertive');
             assertEquals(getTextContent('#progress'), loadTimeData.getStringF('waitingFooterText', 70));
             // Percentage progress should be shown when waiting for user action, but
             // the bar should be disabled.

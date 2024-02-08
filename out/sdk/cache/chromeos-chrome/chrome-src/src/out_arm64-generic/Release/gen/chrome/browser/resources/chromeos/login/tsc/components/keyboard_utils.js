@@ -3,20 +3,20 @@
 // found in the LICENSE file.
 /**
  * Enum for setting the focus direction.
- * @enum {string}
  */
-const FocusDirection = {
-    Forward: 'forwardFocus',
-    Backward: 'backwardFocus',
-};
+var FocusDirection;
+(function (FocusDirection) {
+    FocusDirection["FORWARD"] = "forwardFocus";
+    FocusDirection["BACKWARD"] = "backwardFocus";
+})(FocusDirection || (FocusDirection = {}));
 export class KeyboardUtils {
     /**
      * Initializes event handling for arrow keys driven focus flow.
      */
     initializeKeyboardFlow() {
-        document.addEventListener('keydown', this.onKeyDown_.bind(this), true);
-        document.addEventListener('keypress', this.onKeyIgnore_.bind(this), true);
-        document.addEventListener('keyup', this.onKeyIgnore_.bind(this), true);
+        document.addEventListener('keydown', this.onKeyDown.bind(this), true);
+        document.addEventListener('keypress', this.onKeyIgnore.bind(this), true);
+        document.addEventListener('keyup', this.onKeyIgnore.bind(this), true);
     }
     /**
      * This method is called by the Enterprise Enrollment screen when it is
@@ -28,27 +28,25 @@ export class KeyboardUtils {
     }
     handleMessageFromInjectedKeyboardUtils(event) {
         const focusDir = event.data;
-        if (focusDir == FocusDirection.Forward ||
-            focusDir == FocusDirection.Backward) {
+        if (focusDir == FocusDirection.FORWARD ||
+            focusDir == FocusDirection.BACKWARD) {
             this.onAdvanceFocus(focusDir);
         }
     }
     /**
      * Handles the actual focus advancing by raising tab/shift-tab key events
      * on C++ side.
-     * @param {FocusDirection} focusDir The direction to change focus to.
+     * @param focusDir The direction to change focus to.
      */
     onAdvanceFocus(focusDir) {
-        const reverse = focusDir === FocusDirection.Backward;
+        const reverse = focusDir === FocusDirection.BACKWARD;
         chrome.send('raiseTabKeyEvent', [reverse]);
     }
     /**
      * Swallows keypress and keyup events of arrow keys.
-     * @param {!Event} event Raised event.
-     * @private
+     * @param event Raised event.
      */
-    onKeyIgnore_(event) {
-        event = /** @type {!KeyboardEvent} */ (event);
+    onKeyIgnore(event) {
         if (event.ctrlKey || event.shiftKey || event.altKey || event.metaKey) {
             return;
         }
@@ -60,11 +58,9 @@ export class KeyboardUtils {
     }
     /**
      * Handles arrow key events.
-     * @param {!Event} event Raised event.
-     * @private
+     * @param event Raised event.
      */
-    onKeyDown_(event) {
-        event = /** @type {!KeyboardEvent} */ (event);
+    onKeyDown(event) {
         if (event.ctrlKey || event.shiftKey || event.altKey || event.metaKey) {
             return;
         }
@@ -73,7 +69,7 @@ export class KeyboardUtils {
         // See crbug.com/1083145
         if (document.activeElement ===
             document.getElementById('network-selection') &&
-            document.activeElement.shadowRoot.activeElement.tagName ==
+            document.activeElement?.shadowRoot?.activeElement?.tagName ==
                 'NETWORK-SELECT-LOGIN' &&
             (event.key == 'ArrowUp' || event.key == 'ArrowDown')) {
             return;
@@ -85,12 +81,12 @@ export class KeyboardUtils {
             event.stopPropagation();
             // Do not map arrow key events to tab events if the user is currently
             // focusing an input element and presses on the left or right arrows.
-            if (document.activeElement.tagName == 'INPUT' &&
+            if (document.activeElement?.tagName == 'INPUT' &&
                 (event.key == 'ArrowLeft' || event.key == 'ArrowRight')) {
                 // Default event handling will occur.
                 return;
             }
-            this.onAdvanceFocus(arrowBackwards ? FocusDirection.Backward : FocusDirection.Forward);
+            this.onAdvanceFocus(arrowBackwards ? FocusDirection.BACKWARD : FocusDirection.FORWARD);
             event.preventDefault();
         }
     }
@@ -116,29 +112,26 @@ export class InjectedKeyboardUtils extends KeyboardUtils {
     /**
      * Initializes event handling for arrow keys driven focus flow in the base
      * class and listens for 'message' events that come from OOBE.
-     * @override
      */
     initializeKeyboardFlow() {
         super.initializeKeyboardFlow();
-        window.addEventListener('message', this.onInitMessage_.bind(this));
+        window.addEventListener('message', this.onInitMessage.bind(this));
     }
     /**
      * Send a message to OOBE to advance the focus forwards, or backwards.
-     * @param {FocusDirection} focusDir The direction to change focus to.
-     * @override
+     * @param focusDir The direction to change focus to.
      */
     onAdvanceFocus(focusDir) {
-        if (this.hostWindow) {
+        if (this.hostWindow && this.hostOrigin) {
             this.hostWindow.postMessage(focusDir, this.hostOrigin);
         }
     }
     /**
      * Handles the initial messaging posted from webview, where this script is
      * injected.
-     * @param {Event} event Message event posted from webview.
-     * @private
+     * @param event Message event posted from webview.
      */
-    onInitMessage_(event) {
+    onInitMessage(event) {
         if (event.data == InjectedKeyboardUtils.INITIAL_MSG &&
             event.origin == 'chrome://oobe') {
             this.hostWindow = event.source;

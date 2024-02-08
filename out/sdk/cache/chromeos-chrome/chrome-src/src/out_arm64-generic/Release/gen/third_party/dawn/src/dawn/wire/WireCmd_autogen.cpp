@@ -5931,6 +5931,7 @@ struct WGPUExternalTextureDescriptorTransfer {
     WGPUBool doYuvToRgbConversionOnly;
     bool has_yuvToRgbConversionMatrix;
     WGPUBool flipY;
+    WGPUBool mirrored;
     WGPUExternalTextureRotation rotation;
 };
 
@@ -6000,6 +6001,7 @@ DAWN_DECLARE_UNUSED WireResult WGPUExternalTextureDescriptorSerialize(
     WIRE_TRY(WGPUExtent2DSerialize(record.visibleSize, &transfer->visibleSize, buffer));
     transfer->doYuvToRgbConversionOnly = record.doYuvToRgbConversionOnly;
     transfer->flipY = record.flipY;
+    transfer->mirrored = record.mirrored;
     transfer->rotation = record.rotation;
     bool has_label = record.label != nullptr;
     transfer->has_label = has_label;
@@ -6080,6 +6082,8 @@ DAWN_DECLARE_UNUSED WireResult WGPUExternalTextureDescriptorDeserialize(
     record->doYuvToRgbConversionOnly = transfer->doYuvToRgbConversionOnly;
     static_assert(sizeof(record->flipY) >= sizeof(transfer->flipY), "Deserialize assignment may not narrow.");
     record->flipY = transfer->flipY;
+    static_assert(sizeof(record->mirrored) >= sizeof(transfer->mirrored), "Deserialize assignment may not narrow.");
+    record->mirrored = transfer->mirrored;
     static_assert(sizeof(record->rotation) >= sizeof(transfer->rotation), "Deserialize assignment may not narrow.");
     record->rotation = transfer->rotation;
     bool has_label = transfer->has_label;

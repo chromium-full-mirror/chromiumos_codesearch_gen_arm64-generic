@@ -352,8 +352,7 @@ async function parametrizedPrivacyHubSubpageTestsuite(privacyHubVersion, enforce
     });
     test('Toggle camera button', async () => {
         const fakeMetricsPrivate = new FakeMetricsPrivate();
-        chrome.metricsPrivate =
-            fakeMetricsPrivate;
+        chrome.metricsPrivate = fakeMetricsPrivate;
         flush();
         mediaDevices.addDevice('videoinput', 'Fake Camera');
         await waitAfterNextRender(privacyHubSubpage);
@@ -383,8 +382,7 @@ async function parametrizedPrivacyHubSubpageTestsuite(privacyHubVersion, enforce
     });
     test('Toggle microphone button', async () => {
         const fakeMetricsPrivate = new FakeMetricsPrivate();
-        chrome.metricsPrivate =
-            fakeMetricsPrivate;
+        chrome.metricsPrivate = fakeMetricsPrivate;
         flush();
         mediaDevices.addDevice('audioinput', 'Fake Mic');
         await waitAfterNextRender(privacyHubSubpage);

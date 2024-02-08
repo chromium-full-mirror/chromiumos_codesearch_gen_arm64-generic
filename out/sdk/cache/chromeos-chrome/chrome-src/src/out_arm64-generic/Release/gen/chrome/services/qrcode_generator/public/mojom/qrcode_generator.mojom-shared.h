@@ -134,17 +134,6 @@ inline bool IsKnownEnumValue(CenterImage value) {
   return internal::CenterImage_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
-// Interface base classes. They are used for type safety check.
-class QRCodeGeneratorServiceInterfaceBase {};
-
-using QRCodeGeneratorServicePtrDataView =
-    mojo::InterfacePtrDataView<QRCodeGeneratorServiceInterfaceBase>;
-using QRCodeGeneratorServiceRequestDataView =
-    mojo::InterfaceRequestDataView<QRCodeGeneratorServiceInterfaceBase>;
-using QRCodeGeneratorServiceAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<QRCodeGeneratorServiceInterfaceBase>;
-using QRCodeGeneratorServiceAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<QRCodeGeneratorServiceInterfaceBase>;
 
 
 class GenerateQRCodeRequestDataView {

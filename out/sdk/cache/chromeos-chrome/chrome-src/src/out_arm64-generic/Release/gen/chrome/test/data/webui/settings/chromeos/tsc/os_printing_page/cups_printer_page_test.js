@@ -112,8 +112,7 @@ suite('<settings-cups-printers>', () => {
     // Verify clicking the add printer manually button is recorded to metrics.
     test('RecordUserActionMetric', async () => {
         const fakeMetricsPrivate = new FakeMetricsPrivate();
-        chrome.metricsPrivate =
-            fakeMetricsPrivate;
+        chrome.metricsPrivate = fakeMetricsPrivate;
         // Enable the add printer manually button.
         page.prefs = {
             native_printing: {

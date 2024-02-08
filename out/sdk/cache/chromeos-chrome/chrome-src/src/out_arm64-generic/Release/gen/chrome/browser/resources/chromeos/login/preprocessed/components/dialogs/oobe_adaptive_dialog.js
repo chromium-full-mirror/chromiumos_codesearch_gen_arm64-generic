@@ -506,23 +506,9 @@ found in the LICENSE file.
     el.scrollTop = el.scrollHeight;
   }
 
-  /**
-   * @private
-   * Focuses the element. As cr-input uses focusInput() instead of focus() due
-   * to bug, we have to handle this separately.
-   * TODO(crbug.com/882612): Replace this with focus() in show().
-   */
-  focusElement_(element) {
-    if (element.focusInput) {
-      element.focusInput();
-      return;
-    }
-    element.focus();
-  }
-
   /** @private */
   focusOnShow_() {
-    const focusedElements = this.getElementsByClassName('focus-on-show');
+    const focusedElements = this.querySelectorAll('.focus-on-show');
     let focused = false;
     for (let i = 0; i < focusedElements.length; ++i) {
       if (focusedElements[i].hidden) {
@@ -530,11 +516,11 @@ found in the LICENSE file.
       }
 
       focused = true;
-      afterNextRender(this, () => this.focusElement_(focusedElements[i]));
+      afterNextRender(this, () => focusedElements[i].focus());
       break;
     }
     if (!focused && focusedElements.length > 0) {
-      afterNextRender(this, () => this.focusElement_(focusedElements[0]));
+      afterNextRender(this, () => focusedElements[0].focus());
     }
   }
 
@@ -560,10 +546,8 @@ found in the LICENSE file.
     contentContainer.setAttribute('read-more-content', true);
     this.showReadMoreButton_ = true;
 
-    afterNextRender(this, () => {
-      const readMoreButton = this.shadowRoot.querySelector('#readMoreButton');
-      this.focusElement_(readMoreButton);
-    });
+    afterNextRender(
+        this, () => this.shadowRoot.querySelector('#readMoreButton').focus());
 
     // Once a tab reaches an element outside of the visible area, call
     // maybeUpgradeReadMoreState_ to apply changes.

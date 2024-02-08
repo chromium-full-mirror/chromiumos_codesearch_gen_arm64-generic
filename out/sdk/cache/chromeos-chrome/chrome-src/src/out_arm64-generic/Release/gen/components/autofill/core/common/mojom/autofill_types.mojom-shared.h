@@ -2061,8 +2061,8 @@ class PasswordSuggestionRequestDataView {
     return mojo::internal::Deserialize<::mojo_base::mojom::String16DataView>(
         pointer, output, message_);
   }
-  int32_t options() const {
-    return data_->options;
+  bool show_webauthn_credentials() const {
+    return data_->show_webauthn_credentials;
   }
   inline void GetBoundsDataView(
       ::gfx::mojom::RectFDataView* output);
@@ -4118,7 +4118,7 @@ struct Serializer<::autofill::mojom::PasswordSuggestionRequestDataView, MaybeCon
         fragment->typed_username.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null typed_username in PasswordSuggestionRequest struct");
-    fragment->options = Traits::options(input);
+    fragment->show_webauthn_credentials = Traits::show_webauthn_credentials(input);
     decltype(Traits::bounds(input)) in_bounds = Traits::bounds(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->bounds)::BaseType> bounds_fragment(

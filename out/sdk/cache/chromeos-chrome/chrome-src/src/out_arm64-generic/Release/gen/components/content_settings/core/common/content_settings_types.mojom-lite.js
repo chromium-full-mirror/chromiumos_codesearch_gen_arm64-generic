@@ -129,9 +129,10 @@ contentSettings.mojom.ContentSettingsType = {
   SMART_CARD_GUARD: 97,
   SMART_CARD_DATA: 98,
   WEB_PRINTING: 99,
-  NUM_TYPES: 100,
+  AUTOMATIC_FULLSCREEN: 100,
+  NUM_TYPES: 101,
   MIN_VALUE: -1,
-  MAX_VALUE: 100,
+  MAX_VALUE: 101,
 };
 
 

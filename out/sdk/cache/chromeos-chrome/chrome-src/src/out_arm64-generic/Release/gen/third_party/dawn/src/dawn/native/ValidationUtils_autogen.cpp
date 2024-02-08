@@ -173,6 +173,8 @@ namespace dawn::native {
         switch (value) {
             case wgpu::BufferMapAsyncStatus::Success:
                 return {};
+            case wgpu::BufferMapAsyncStatus::InstanceDropped:
+                return {};
             case wgpu::BufferMapAsyncStatus::ValidationError:
                 return {};
             case wgpu::BufferMapAsyncStatus::Unknown:
@@ -249,6 +251,8 @@ namespace dawn::native {
         switch (value) {
             case wgpu::CompilationInfoRequestStatus::Success:
                 return {};
+            case wgpu::CompilationInfoRequestStatus::InstanceDropped:
+                return {};
             case wgpu::CompilationInfoRequestStatus::Error:
                 return {};
             case wgpu::CompilationInfoRequestStatus::DeviceLost:
@@ -276,6 +280,8 @@ namespace dawn::native {
     MaybeError ValidateCreatePipelineAsyncStatus(wgpu::CreatePipelineAsyncStatus value) {
         switch (value) {
             case wgpu::CreatePipelineAsyncStatus::Success:
+                return {};
+            case wgpu::CreatePipelineAsyncStatus::InstanceDropped:
                 return {};
             case wgpu::CreatePipelineAsyncStatus::ValidationError:
                 return {};
@@ -612,6 +618,8 @@ namespace dawn::native {
         switch (value) {
             case wgpu::QueueWorkDoneStatus::Success:
                 return {};
+            case wgpu::QueueWorkDoneStatus::InstanceDropped:
+                return {};
             case wgpu::QueueWorkDoneStatus::Error:
                 return {};
             case wgpu::QueueWorkDoneStatus::Unknown:
@@ -627,6 +635,8 @@ namespace dawn::native {
         switch (value) {
             case wgpu::RequestAdapterStatus::Success:
                 return {};
+            case wgpu::RequestAdapterStatus::InstanceDropped:
+                return {};
             case wgpu::RequestAdapterStatus::Unavailable:
                 return {};
             case wgpu::RequestAdapterStatus::Error:
@@ -641,6 +651,8 @@ namespace dawn::native {
     MaybeError ValidateRequestDeviceStatus(wgpu::RequestDeviceStatus value) {
         switch (value) {
             case wgpu::RequestDeviceStatus::Success:
+                return {};
+            case wgpu::RequestDeviceStatus::InstanceDropped:
                 return {};
             case wgpu::RequestDeviceStatus::Error:
                 return {};

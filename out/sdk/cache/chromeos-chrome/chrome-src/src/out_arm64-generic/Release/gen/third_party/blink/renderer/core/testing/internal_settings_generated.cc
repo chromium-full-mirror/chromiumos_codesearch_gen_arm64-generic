@@ -247,6 +247,8 @@ InternalSettingsGenerated::InternalSettingsGenerated(Page& page)
       GetSettings().GetReportScreenSizeInPhysicalPixelsQuirk());
   backup_.SetRequireTransientActivationForGetDisplayMedia(
       GetSettings().GetRequireTransientActivationForGetDisplayMedia());
+  backup_.SetRequireTransientActivationForHtmlFullscreen(
+      GetSettings().GetRequireTransientActivationForHtmlFullscreen());
   backup_.SetRequireTransientActivationForShowFileOrDirectoryPicker(
       GetSettings().GetRequireTransientActivationForShowFileOrDirectoryPicker());
   backup_.SetResizable(
@@ -600,6 +602,8 @@ void InternalSettingsGenerated::ResetToConsistentState() {
       backup_.GetReportScreenSizeInPhysicalPixelsQuirk());
   GetSettings().SetRequireTransientActivationForGetDisplayMedia(
       backup_.GetRequireTransientActivationForGetDisplayMedia());
+  GetSettings().SetRequireTransientActivationForHtmlFullscreen(
+      backup_.GetRequireTransientActivationForHtmlFullscreen());
   GetSettings().SetRequireTransientActivationForShowFileOrDirectoryPicker(
       backup_.GetRequireTransientActivationForShowFileOrDirectoryPicker());
   GetSettings().SetResizable(
@@ -1223,6 +1227,11 @@ void InternalSettingsGenerated::setReportScreenSizeInPhysicalPixelsQuirk(
 void InternalSettingsGenerated::setRequireTransientActivationForGetDisplayMedia(
     bool requireTransientActivationForGetDisplayMedia) {
   GetSettings().SetRequireTransientActivationForGetDisplayMedia(requireTransientActivationForGetDisplayMedia);
+}
+
+void InternalSettingsGenerated::setRequireTransientActivationForHtmlFullscreen(
+    bool requireTransientActivationForHtmlFullscreen) {
+  GetSettings().SetRequireTransientActivationForHtmlFullscreen(requireTransientActivationForHtmlFullscreen);
 }
 
 void InternalSettingsGenerated::setRequireTransientActivationForShowFileOrDirectoryPicker(

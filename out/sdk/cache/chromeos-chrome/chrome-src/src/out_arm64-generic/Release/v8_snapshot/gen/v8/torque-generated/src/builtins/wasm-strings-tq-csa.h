@@ -12,7 +12,7 @@ void Trap_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, Mess
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/wasm-strings.tq?l=24&c=10
 TNode<BoolT> Is_String_JSAny_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o);
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/wasm-strings.tq?l=120&c=12
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/wasm-strings.tq?l=130&c=12
 TNode<Smi> SmiTag_char16_0(compiler::CodeAssemblerState* state_, TNode<Uint16T> p_value);
 
 } // namespace internal

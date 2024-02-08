@@ -14,7 +14,8 @@ namespace content::mojom {
 namespace internal {
 
 
-constexpr uint32_t kRenderMessageFilter_GenerateFrameRoutingID_Name = 0;
+constexpr uint32_t kRenderMessageFilter_GenerateSingleFrameRoutingInfo_Name = 0;
+constexpr uint32_t kRenderMessageFilter_GenerateFrameRoutingInfos_Name = 1;
 
 }  // namespace internal
 

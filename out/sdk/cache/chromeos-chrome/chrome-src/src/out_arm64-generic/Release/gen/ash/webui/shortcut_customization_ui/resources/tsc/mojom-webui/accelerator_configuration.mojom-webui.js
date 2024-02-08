@@ -7,7 +7,7 @@ export const AcceleratorConfigResultSpec = { $: mojo.internal.Enum() };
 export var AcceleratorConfigResult;
 (function (AcceleratorConfigResult) {
     AcceleratorConfigResult[AcceleratorConfigResult["MIN_VALUE"] = 0] = "MIN_VALUE";
-    AcceleratorConfigResult[AcceleratorConfigResult["MAX_VALUE"] = 13] = "MAX_VALUE";
+    AcceleratorConfigResult[AcceleratorConfigResult["MAX_VALUE"] = 14] = "MAX_VALUE";
     AcceleratorConfigResult[AcceleratorConfigResult["kSuccess"] = 0] = "kSuccess";
     AcceleratorConfigResult[AcceleratorConfigResult["kActionLocked"] = 1] = "kActionLocked";
     AcceleratorConfigResult[AcceleratorConfigResult["kAcceleratorLocked"] = 2] = "kAcceleratorLocked";
@@ -22,4 +22,5 @@ export var AcceleratorConfigResult;
     AcceleratorConfigResult[AcceleratorConfigResult["kNonSearchAcceleratorWarning"] = 11] = "kNonSearchAcceleratorWarning";
     AcceleratorConfigResult[AcceleratorConfigResult["kSearchWithFunctionKeyNotAllowed"] = 12] = "kSearchWithFunctionKeyNotAllowed";
     AcceleratorConfigResult[AcceleratorConfigResult["kReservedKeyNotAllowed"] = 13] = "kReservedKeyNotAllowed";
+    AcceleratorConfigResult[AcceleratorConfigResult["kNonStandardWithSearch"] = 14] = "kNonStandardWithSearch";
 })(AcceleratorConfigResult || (AcceleratorConfigResult = {}));

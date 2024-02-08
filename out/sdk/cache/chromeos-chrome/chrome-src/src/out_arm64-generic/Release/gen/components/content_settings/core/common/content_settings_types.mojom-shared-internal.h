@@ -129,6 +129,7 @@ struct ContentSettingsType_Data {
       case 98:
       case 99:
       case 100:
+      case 101:
         return true;
     }
     return false;

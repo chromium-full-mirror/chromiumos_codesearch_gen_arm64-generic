@@ -52,22 +52,16 @@ suite('CookiesPageTest', function () {
         Router.getInstance().resetRouteForTesting();
     });
     test('ElementVisibility', async function () {
-        // TODO(): Remove assertFalse checks after the feature is launched.
         await flushTasks();
         assertTrue(isChildVisible(page, '#explanationText'));
         assertTrue(isChildVisible(page, '#generalControls'));
         assertTrue(isChildVisible(page, '#exceptionHeader'));
         assertTrue(isChildVisible(page, '#allowExceptionsList'));
-        assertFalse(isChildVisible(page, '#sessionOnlyExceptionsList'));
-        assertFalse(isChildVisible(page, '#blockExceptionsList'));
-        assertFalse(isChildVisible(page, '#clearOnExit'));
         assertFalse(isChildVisible(page, '#rollbackNotice'));
         assertTrue(isChildVisible(page, '#doNotTrack'));
         assertTrue(isChildVisible(page, '#allowThirdParty'));
         assertTrue(isChildVisible(page, '#blockThirdParty'));
         assertTrue(isChildVisible(page, '#blockThirdPartyIncognito'));
-        assertFalse(isChildVisible(page, '#allowAll'));
-        assertFalse(isChildVisible(page, '#blockAll'));
     });
     test('ThirdPartyCookiesRadioClicksRecorded', async function () {
         blockThirdParty().click();
@@ -170,6 +164,43 @@ suite('CookiesPageTest', function () {
         const cookiesPageBlockThirdPartyIncognitoBulTwoLabel = page.shadowRoot
             .querySelector('#blockThirdPartyIncognitoBulTwo').innerText.trim();
         assertEquals(loadTimeData.getString('cookiePageBlockThirdIncognitoBulTwoFps'), cookiesPageBlockThirdPartyIncognitoBulTwoLabel);
+    });
+});
+suite('CookieSettingsUiAlignmentTest', function () {
+    let page;
+    let settingsPrefs;
+    suiteSetup(function () {
+        // This test is for the V2 UI of the pre-3PCD cookies page.
+        loadTimeData.overrideValues({
+            is3pcdCookieSettingsRedesignEnabled: false,
+            isCookieSettingsUiAlignmentEnabled: true,
+        });
+        settingsPrefs = document.createElement('settings-prefs');
+        return CrSettingsPrefs.initialized;
+    });
+    setup(function () {
+        document.body.innerHTML = window.trustedTypes.emptyHTML;
+        page = document.createElement('settings-cookies-page');
+        page.prefs = settingsPrefs.prefs;
+        document.body.appendChild(page);
+        flush();
+    });
+    test('ElementVisibility', async function () {
+        // Headers
+        assertTrue(isChildVisible(page, '#explanationText'));
+        assertTrue(isChildVisible(page, '#generalControls'));
+        assertTrue(isChildVisible(page, '#advancedHeader'));
+        assertTrue(isChildVisible(page, '#exceptionHeader3pcd'));
+        assertTrue(isChildVisible(page, '#allowExceptionsList'));
+        // To be removed with old UI.
+        assertFalse(isChildVisible(page, '#exceptionHeader'));
+        assertFalse(isChildVisible(page, '#exceptionHeaderSubLabel'));
+        // Settings
+        assertTrue(isChildVisible(page, '#doNotTrack'));
+        assertTrue(isChildVisible(page, '#allowThirdParty'));
+        assertTrue(isChildVisible(page, '#blockThirdParty'));
+        assertTrue(isChildVisible(page, '#blockThirdPartyIncognito'));
+        assertFalse(isChildVisible(page, '#blockThirdPartyToggle'));
     });
 });
 suite('ExceptionsList', function () {

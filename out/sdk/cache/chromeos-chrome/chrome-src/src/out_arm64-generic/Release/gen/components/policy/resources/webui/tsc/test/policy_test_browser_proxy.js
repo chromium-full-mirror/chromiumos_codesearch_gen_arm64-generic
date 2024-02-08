@@ -58,6 +58,9 @@ export class PolicyTestBrowserProxy {
     applyTestPolicies(policies, profileSeparationResponse) {
         return sendWithPromise('setLocalTestPolicies', policies, profileSeparationResponse);
     }
+    listenPoliciesUpdates() {
+        return sendWithPromise('listenPoliciesUpdates');
+    }
     revertTestPolicies() {
         return sendWithPromise('revertLocalTestPolicies');
     }

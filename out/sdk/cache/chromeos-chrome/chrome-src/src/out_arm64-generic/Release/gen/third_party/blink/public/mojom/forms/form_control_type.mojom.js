@@ -26,36 +26,37 @@
   FormControlType.kButtonSubmit = 1;
   FormControlType.kButtonReset = 2;
   FormControlType.kButtonSelectList = 3;
-  FormControlType.kFieldset = 4;
-  FormControlType.kInputButton = 5;
-  FormControlType.kInputCheckbox = 6;
-  FormControlType.kInputColor = 7;
-  FormControlType.kInputDate = 8;
-  FormControlType.kInputDatetimeLocal = 9;
-  FormControlType.kInputEmail = 10;
-  FormControlType.kInputFile = 11;
-  FormControlType.kInputHidden = 12;
-  FormControlType.kInputImage = 13;
-  FormControlType.kInputMonth = 14;
-  FormControlType.kInputNumber = 15;
-  FormControlType.kInputPassword = 16;
-  FormControlType.kInputRadio = 17;
-  FormControlType.kInputRange = 18;
-  FormControlType.kInputReset = 19;
-  FormControlType.kInputSearch = 20;
-  FormControlType.kInputSubmit = 21;
-  FormControlType.kInputTelephone = 22;
-  FormControlType.kInputText = 23;
-  FormControlType.kInputTime = 24;
-  FormControlType.kInputUrl = 25;
-  FormControlType.kInputWeek = 26;
-  FormControlType.kOutput = 27;
-  FormControlType.kSelectOne = 28;
-  FormControlType.kSelectMultiple = 29;
-  FormControlType.kSelectList = 30;
-  FormControlType.kTextArea = 31;
+  FormControlType.kButtonPopover = 4;
+  FormControlType.kFieldset = 5;
+  FormControlType.kInputButton = 6;
+  FormControlType.kInputCheckbox = 7;
+  FormControlType.kInputColor = 8;
+  FormControlType.kInputDate = 9;
+  FormControlType.kInputDatetimeLocal = 10;
+  FormControlType.kInputEmail = 11;
+  FormControlType.kInputFile = 12;
+  FormControlType.kInputHidden = 13;
+  FormControlType.kInputImage = 14;
+  FormControlType.kInputMonth = 15;
+  FormControlType.kInputNumber = 16;
+  FormControlType.kInputPassword = 17;
+  FormControlType.kInputRadio = 18;
+  FormControlType.kInputRange = 19;
+  FormControlType.kInputReset = 20;
+  FormControlType.kInputSearch = 21;
+  FormControlType.kInputSubmit = 22;
+  FormControlType.kInputTelephone = 23;
+  FormControlType.kInputText = 24;
+  FormControlType.kInputTime = 25;
+  FormControlType.kInputUrl = 26;
+  FormControlType.kInputWeek = 27;
+  FormControlType.kOutput = 28;
+  FormControlType.kSelectOne = 29;
+  FormControlType.kSelectMultiple = 30;
+  FormControlType.kSelectList = 31;
+  FormControlType.kTextArea = 32;
   FormControlType.MIN_VALUE = 0;
-  FormControlType.MAX_VALUE = 31;
+  FormControlType.MAX_VALUE = 32;
 
   FormControlType.isKnownEnumValue = function(value) {
     switch (value) {
@@ -91,6 +92,7 @@
     case 29:
     case 30:
     case 31:
+    case 32:
       return true;
     }
     return false;

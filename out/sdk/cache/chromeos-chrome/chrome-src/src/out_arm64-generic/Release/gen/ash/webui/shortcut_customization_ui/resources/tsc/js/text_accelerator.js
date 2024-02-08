@@ -52,6 +52,11 @@ export class TextAcceleratorElement extends PolymerElement {
                 // can be updated.
                 observer: TextAcceleratorElement.prototype.parseAndDisplayTextParts,
             },
+            // If this property is true, lock icon should be hidden.
+            displayLockIcon: {
+                type: Boolean,
+                value: false,
+            },
             action: {
                 type: Number,
                 value: 0,
@@ -117,7 +122,8 @@ export class TextAcceleratorElement extends PolymerElement {
         if (!isCustomizationAllowed()) {
             return false;
         }
-        return !this.lookupManager.isSubcategoryLocked(this.lookupManager.getAcceleratorSubcategory(this.source, this.action));
+        return !this.displayLockIcon &&
+            !this.lookupManager.isSubcategoryLocked(this.lookupManager.getAcceleratorSubcategory(this.source, this.action));
     }
     areAllPartsTextParts() {
         return this.parts.every(part => part.type === TextAcceleratorPartType.kPlainText);

@@ -579,142 +579,100 @@ class MessagePipe {
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
 /**
  * @fileoverview
  * Message definitions passed over the HelpApp privileged/unprivileged pipe.
  */
-
-/**
- * Enum for message types.
- * @enum {string}
- */
-const Message = {
-  OPEN_FEEDBACK_DIALOG: 'open-feedback-dialog',
-  SHOW_PARENTAL_CONTROLS: 'show-parental-controls',
-  TRIGGER_WELCOME_TIP_CALL_TO_ACTION: 'trigger-welcome-tip-call-to-action',
-  ADD_OR_UPDATE_SEARCH_INDEX: 'add-or-update-search-index',
-  CLEAR_SEARCH_INDEX: 'clear-search-index',
-  FIND_IN_SEARCH_INDEX: 'find-in-search-index',
-  CLOSE_BACKGROUND_PAGE: 'close-background-page',
-  UPDATE_LAUNCHER_SEARCH_INDEX: 'update-launcher-search-index',
-  LAUNCH_MICROSOFT_365_SETUP: 'launch-microsoft-365-setup',
-  MAYBE_SHOW_DISCOVER_NOTIFICATION: 'maybe-show-discover-notification',
-  MAYBE_SHOW_RELEASE_NOTES_NOTIFICATION:
-      'maybe-show-release-notes-notification',
-  GET_DEVICE_INFO: 'get-device-info',
-  OPEN_URL_IN_BROWSER_AND_TRIGGER_INSTALL_DIALOG:
-      'open-url-in-browser-and-trigger-install-dialog',
-};
+/** Enum for message types. */
+var Message;
+(function (Message) {
+    Message["OPEN_FEEDBACK_DIALOG"] = "open-feedback-dialog";
+    Message["SHOW_PARENTAL_CONTROLS"] = "show-parental-controls";
+    Message["TRIGGER_WELCOME_TIP_CALL_TO_ACTION"] = "trigger-welcome-tip-call-to-action";
+    Message["ADD_OR_UPDATE_SEARCH_INDEX"] = "add-or-update-search-index";
+    Message["CLEAR_SEARCH_INDEX"] = "clear-search-index";
+    Message["FIND_IN_SEARCH_INDEX"] = "find-in-search-index";
+    Message["CLOSE_BACKGROUND_PAGE"] = "close-background-page";
+    Message["UPDATE_LAUNCHER_SEARCH_INDEX"] = "update-launcher-search-index";
+    Message["LAUNCH_MICROSOFT_365_SETUP"] = "launch-microsoft-365-setup";
+    Message["MAYBE_SHOW_DISCOVER_NOTIFICATION"] = "maybe-show-discover-notification";
+    Message["MAYBE_SHOW_RELEASE_NOTES_NOTIFICATION"] = "maybe-show-release-notes-notification";
+    Message["GET_DEVICE_INFO"] = "get-device-info";
+    Message["OPEN_URL_IN_BROWSER_AND_TRIGGER_INSTALL_DIALOG"] = "open-url-in-browser-and-trigger-install-dialog";
+})(Message || (Message = {}));
 
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
+/**
+ * @fileoverview
+ * A script for the app inside the iframe. Implements a delegate.
+ */
 /** A pipe through which we can send messages to the parent frame. */
 const parentMessagePipe = new MessagePipe('chrome://help-app', window.parent);
-
 /**
  * A delegate which exposes privileged WebUI functionality to the help
  * app.
- * @type {!helpApp.ClientApiDelegate}
  */
 const DELEGATE = {
-  async openFeedbackDialog() {
-    const response =
-        await parentMessagePipe.sendMessage(Message.OPEN_FEEDBACK_DIALOG);
-    return /** @type {?string} */ (response['errorMessage']);
-  },
-  async showParentalControls() {
-    await parentMessagePipe.sendMessage(Message.SHOW_PARENTAL_CONTROLS);
-  },
-  async triggerWelcomeTipCallToAction(actionTypeId) {
-    await parentMessagePipe.sendMessage(
-        Message.TRIGGER_WELCOME_TIP_CALL_TO_ACTION, actionTypeId);
-  },
-  /**
-   * @override
-   * @param {!Array<!helpApp.SearchableItem>} data
-   */
-  async addOrUpdateSearchIndex(data) {
-    await parentMessagePipe.sendMessage(
-        Message.ADD_OR_UPDATE_SEARCH_INDEX, data);
-  },
-  async clearSearchIndex() {
-    await parentMessagePipe.sendMessage(Message.CLEAR_SEARCH_INDEX);
-  },
-  /**
-   * @override
-   * @param {string} query
-   * @param {number=} maxResults Maximum number of search results. Default 50.
-   * @return {!Promise<!helpApp.FindResponse>}
-   */
-  findInSearchIndex(query, maxResults) {
-    return /** @type {!Promise<!helpApp.FindResponse>} */ (
-        parentMessagePipe.sendMessage(
-            Message.FIND_IN_SEARCH_INDEX, {query, maxResults}));
-  },
-  closeBackgroundPage() {
-    parentMessagePipe.sendMessage(Message.CLOSE_BACKGROUND_PAGE);
-  },
-  /**
-   * @override
-   * @param {!Array<!helpApp.LauncherSearchableItem>} data
-   */
-  async updateLauncherSearchIndex(data) {
-    await parentMessagePipe.sendMessage(
-        Message.UPDATE_LAUNCHER_SEARCH_INDEX, data);
-  },
-  async launchMicrosoft365Setup() {
-    await parentMessagePipe.sendMessage(Message.LAUNCH_MICROSOFT_365_SETUP);
-  },
-  async maybeShowDiscoverNotification() {
-    await parentMessagePipe.sendMessage(
-        Message.MAYBE_SHOW_DISCOVER_NOTIFICATION);
-  },
-  async maybeShowReleaseNotesNotification() {
-    await parentMessagePipe.sendMessage(
-        Message.MAYBE_SHOW_RELEASE_NOTES_NOTIFICATION);
-  },
-  getDeviceInfo() {
-    return /** @type {!Promise<!helpApp.DeviceInfo>} */ (
-        parentMessagePipe.sendMessage(Message.GET_DEVICE_INFO));
-  },
-  /**
-   * @override
-   * @param {string} url
-   */
-  async openUrlInBrowserAndTriggerInstallDialog(url) {
-    await parentMessagePipe.sendMessage(
-        Message.OPEN_URL_IN_BROWSER_AND_TRIGGER_INSTALL_DIALOG, url);
-  },
+    async openFeedbackDialog() {
+        const response = await parentMessagePipe.sendMessage(Message.OPEN_FEEDBACK_DIALOG);
+        return response['errorMessage'];
+    },
+    showParentalControls() {
+        return parentMessagePipe.sendMessage(Message.SHOW_PARENTAL_CONTROLS);
+    },
+    triggerWelcomeTipCallToAction(actionTypeId) {
+        return parentMessagePipe.sendMessage(Message.TRIGGER_WELCOME_TIP_CALL_TO_ACTION, actionTypeId);
+    },
+    addOrUpdateSearchIndex(data) {
+        return parentMessagePipe.sendMessage(Message.ADD_OR_UPDATE_SEARCH_INDEX, data);
+    },
+    clearSearchIndex() {
+        return parentMessagePipe.sendMessage(Message.CLEAR_SEARCH_INDEX);
+    },
+    findInSearchIndex(query, maxResults = 50) {
+        return parentMessagePipe.sendMessage(Message.FIND_IN_SEARCH_INDEX, { query, maxResults });
+    },
+    closeBackgroundPage() {
+        parentMessagePipe.sendMessage(Message.CLOSE_BACKGROUND_PAGE);
+    },
+    updateLauncherSearchIndex(data) {
+        return parentMessagePipe.sendMessage(Message.UPDATE_LAUNCHER_SEARCH_INDEX, data);
+    },
+    launchMicrosoft365Setup() {
+        return parentMessagePipe.sendMessage(Message.LAUNCH_MICROSOFT_365_SETUP);
+    },
+    maybeShowDiscoverNotification() {
+        return parentMessagePipe.sendMessage(Message.MAYBE_SHOW_DISCOVER_NOTIFICATION);
+    },
+    maybeShowReleaseNotesNotification() {
+        return parentMessagePipe.sendMessage(Message.MAYBE_SHOW_RELEASE_NOTES_NOTIFICATION);
+    },
+    getDeviceInfo() {
+        return parentMessagePipe.sendMessage(Message.GET_DEVICE_INFO);
+    },
+    openUrlInBrowserAndTriggerInstallDialog(url) {
+        return parentMessagePipe.sendMessage(Message.OPEN_URL_IN_BROWSER_AND_TRIGGER_INSTALL_DIALOG, url);
+    },
 };
-
 window.customLaunchData = {
-  delegate: DELEGATE,
+    delegate: DELEGATE,
 };
-
-window.addEventListener(
-    'DOMContentLoaded', /** @suppress {checkTypes} */ function() {
-      // Start listening to color change events. These events get picked up by
-      // logic in ts_helpers.ts on the google3 side.
-      ColorChangeUpdater.forDocument().start();
-    });
+window.addEventListener('DOMContentLoaded', function () {
+    // Start listening to color change events. These events get picked up by
+    // logic in ts_helpers.ts on the google3 side.
+    ColorChangeUpdater.forDocument().start();
+});
 // Expose functions to bind to color change events to window so they can be
 // automatically picked up by installColors(). See ts_helpers.ts in google3.
-window['addColorChangeListener'] =
-    /** @suppress {checkTypes} */ function(listener) {
-      ColorChangeUpdater.forDocument().eventTarget.addEventListener(
-          COLOR_PROVIDER_CHANGED, listener);
-    };
-window['removeColorChangeListener'] =
-    /** @suppress {checkTypes} */ function(listener) {
-      ColorChangeUpdater.forDocument().eventTarget.removeEventListener(
-          COLOR_PROVIDER_CHANGED, listener);
-    };
-
-const TEST_ONLY = {parentMessagePipe};
+window.addColorChangeListener = function (listener) {
+    ColorChangeUpdater.forDocument().eventTarget.addEventListener(COLOR_PROVIDER_CHANGED, listener);
+};
+window.removeColorChangeListener = function (listener) {
+    ColorChangeUpdater.forDocument().eventTarget.removeEventListener(COLOR_PROVIDER_CHANGED, listener);
+};
+const TEST_ONLY = { parentMessagePipe };
 
 export { TEST_ONLY };
 //# sourceMappingURL=receiver.rollup.js.map

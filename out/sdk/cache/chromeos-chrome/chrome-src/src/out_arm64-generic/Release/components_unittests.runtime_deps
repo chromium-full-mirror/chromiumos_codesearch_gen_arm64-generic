@@ -3282,6 +3282,7 @@ gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/li
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/ConnectOptions.js
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/ConnectionTransport.js
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/ConsoleMessage.js
+gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/Cookie.js
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/CustomQueryHandler.js
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/Debug.js
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/Device.js
@@ -3308,7 +3309,6 @@ gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/li
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/WaitTask.js
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/XPathQueryHandler.js
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/common.js
-gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/fetch.js
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/types.js
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/util.js
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/environment.js
@@ -3540,6 +3540,8 @@ gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/li
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/ConnectionTransport.js.map
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/ConsoleMessage.d.ts.map
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/ConsoleMessage.js.map
+gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/Cookie.d.ts.map
+gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/Cookie.js.map
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/CustomQueryHandler.d.ts.map
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/CustomQueryHandler.js.map
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/Debug.d.ts.map
@@ -3592,8 +3594,6 @@ gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/li
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/XPathQueryHandler.js.map
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/common.d.ts.map
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/common.js.map
-gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/fetch.d.ts.map
-gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/fetch.js.map
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/types.d.ts.map
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/types.js.map
 gen/third_party/devtools-frontend/src/front_end/third_party/puppeteer/package/lib/esm/puppeteer/common/util.d.ts.map
@@ -5857,6 +5857,7 @@ puffin_app_v2.crx3
 ../../../../../../../home/chrome-bot/chrome_root/src/components/query_tiles/components_unittests.filter
 ../../../../../../../home/chrome-bot/chrome_root/src/components/services/storage/test_data/
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/hunspell_dictionaries/
+./chrome_crashpad_handler
 ../../../../../../../home/chrome-bot/chrome_root/src/tools/metrics/histograms/enums.xml
 ../../../../../../../home/chrome-bot/chrome_root/src/components/feedback/redaction_tool/test_data/test_logs.txt
 ../../../../../../../home/chrome-bot/chrome_root/src/components/feedback/redaction_tool/test_data/test_logs_redacted.txt

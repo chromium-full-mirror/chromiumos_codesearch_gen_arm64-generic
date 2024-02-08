@@ -122,8 +122,6 @@ class IndexedDBControlTest
     kGetBaseDataPathForTestingMinVersion = 0,
     kGetFilePathForTestingMinVersion = 0,
     kResetCachesForTestingMinVersion = 0,
-    kForceSchemaDowngradeForTestingMinVersion = 0,
-    kHasV2SchemaCorruptionForTestingMinVersion = 0,
     kWriteToIndexedDBForTestingMinVersion = 0,
     kGetBlobCountForTestingMinVersion = 0,
     kGetNextBlobNumberForTestingMinVersion = 0,
@@ -145,12 +143,6 @@ class IndexedDBControlTest
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ResetCachesForTesting_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct ForceSchemaDowngradeForTesting_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct HasV2SchemaCorruptionForTesting_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct WriteToIndexedDBForTesting_Sym {
@@ -197,16 +189,6 @@ class IndexedDBControlTest
   using ResetCachesForTestingCallback = base::OnceCallback<void()>;
   
   virtual void ResetCachesForTesting(ResetCachesForTestingCallback callback) = 0;
-
-
-  using ForceSchemaDowngradeForTestingCallback = base::OnceCallback<void(bool)>;
-  
-  virtual void ForceSchemaDowngradeForTesting(const ::storage::BucketLocator& bucket_locator, ForceSchemaDowngradeForTestingCallback callback) = 0;
-
-
-  using HasV2SchemaCorruptionForTestingCallback = base::OnceCallback<void(V2SchemaCorruptionStatus)>;
-  
-  virtual void HasV2SchemaCorruptionForTesting(const ::storage::BucketLocator& bucket_locator, HasV2SchemaCorruptionForTestingCallback callback) = 0;
 
 
   using WriteToIndexedDBForTestingCallback = base::OnceCallback<void()>;
@@ -281,10 +263,6 @@ class  IndexedDBControlTestProxy
   void GetFilePathForTesting(const ::storage::BucketLocator& bucket_locator, GetFilePathForTestingCallback callback) final;
   
   void ResetCachesForTesting(ResetCachesForTestingCallback callback) final;
-  
-  void ForceSchemaDowngradeForTesting(const ::storage::BucketLocator& bucket_locator, ForceSchemaDowngradeForTestingCallback callback) final;
-  
-  void HasV2SchemaCorruptionForTesting(const ::storage::BucketLocator& bucket_locator, HasV2SchemaCorruptionForTestingCallback callback) final;
   
   void WriteToIndexedDBForTesting(const ::storage::BucketLocator& bucket_locator, const std::string& key, const std::string& value, WriteToIndexedDBForTestingCallback callback) final;
   

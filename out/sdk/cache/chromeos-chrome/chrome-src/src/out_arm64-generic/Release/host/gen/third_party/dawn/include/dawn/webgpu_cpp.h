@@ -114,14 +114,15 @@ namespace wgpu {
 
     enum class BufferMapAsyncStatus : uint32_t {
         Success = 0x00000000,
-        ValidationError = 0x00000001,
-        Unknown = 0x00000002,
-        DeviceLost = 0x00000003,
-        DestroyedBeforeCallback = 0x00000004,
-        UnmappedBeforeCallback = 0x00000005,
-        MappingAlreadyPending = 0x00000006,
-        OffsetOutOfRange = 0x00000007,
-        SizeOutOfRange = 0x00000008,
+        InstanceDropped = 0x00000001,
+        ValidationError = 0x00000002,
+        Unknown = 0x00000003,
+        DeviceLost = 0x00000004,
+        DestroyedBeforeCallback = 0x00000005,
+        UnmappedBeforeCallback = 0x00000006,
+        MappingAlreadyPending = 0x00000007,
+        OffsetOutOfRange = 0x00000008,
+        SizeOutOfRange = 0x00000009,
     };
 
     enum class BufferMapState : uint32_t {
@@ -150,9 +151,10 @@ namespace wgpu {
 
     enum class CompilationInfoRequestStatus : uint32_t {
         Success = 0x00000000,
-        Error = 0x00000001,
-        DeviceLost = 0x00000002,
-        Unknown = 0x00000003,
+        InstanceDropped = 0x00000001,
+        Error = 0x00000002,
+        DeviceLost = 0x00000003,
+        Unknown = 0x00000004,
     };
 
     enum class CompilationMessageType : uint32_t {
@@ -163,11 +165,12 @@ namespace wgpu {
 
     enum class CreatePipelineAsyncStatus : uint32_t {
         Success = 0x00000000,
-        ValidationError = 0x00000001,
-        InternalError = 0x00000002,
-        DeviceLost = 0x00000003,
-        DeviceDestroyed = 0x00000004,
-        Unknown = 0x00000005,
+        InstanceDropped = 0x00000001,
+        ValidationError = 0x00000002,
+        InternalError = 0x00000003,
+        DeviceLost = 0x00000004,
+        DeviceDestroyed = 0x00000005,
+        Unknown = 0x00000006,
     };
 
     enum class CullMode : uint32_t {
@@ -323,22 +326,25 @@ namespace wgpu {
 
     enum class QueueWorkDoneStatus : uint32_t {
         Success = 0x00000000,
-        Error = 0x00000001,
-        Unknown = 0x00000002,
-        DeviceLost = 0x00000003,
+        InstanceDropped = 0x00000001,
+        Error = 0x00000002,
+        Unknown = 0x00000003,
+        DeviceLost = 0x00000004,
     };
 
     enum class RequestAdapterStatus : uint32_t {
         Success = 0x00000000,
-        Unavailable = 0x00000001,
-        Error = 0x00000002,
-        Unknown = 0x00000003,
+        InstanceDropped = 0x00000001,
+        Unavailable = 0x00000002,
+        Error = 0x00000003,
+        Unknown = 0x00000004,
     };
 
     enum class RequestDeviceStatus : uint32_t {
         Success = 0x00000000,
-        Error = 0x00000001,
-        Unknown = 0x00000002,
+        InstanceDropped = 0x00000001,
+        Error = 0x00000002,
+        Unknown = 0x00000003,
     };
 
     enum class SType : uint32_t {
@@ -974,6 +980,7 @@ namespace wgpu {
 
 
 
+
     class Adapter : public ObjectBase<Adapter, WGPUAdapter> {
       public:
         using ObjectBase::ObjectBase;
@@ -987,6 +994,7 @@ namespace wgpu {
         Bool HasFeature(FeatureName feature) const;
         void RequestDevice(DeviceDescriptor const * descriptor, RequestDeviceCallback callback, void * userdata) const;
         Future RequestDeviceF(DeviceDescriptor const * options, RequestDeviceCallbackInfo callbackInfo) const;
+        Future RequestDevice(DeviceDescriptor const * options, RequestDeviceCallbackInfo callbackInfo) const;
 
       private:
         friend ObjectBase<Adapter, WGPUAdapter>;
@@ -1033,6 +1041,7 @@ namespace wgpu {
         BufferUsage GetUsage() const;
         void MapAsync(MapMode mode, size_t offset, size_t size, BufferMapCallback callback, void * userdata) const;
         Future MapAsyncF(MapMode mode, size_t offset, size_t size, BufferMapCallbackInfo callbackInfo) const;
+        Future MapAsync(MapMode mode, size_t offset, size_t size, BufferMapCallbackInfo callbackInfo) const;
         void SetLabel(char const * label) const;
         void Unmap() const;
 
@@ -1131,6 +1140,7 @@ namespace wgpu {
         ComputePipeline CreateComputePipeline(ComputePipelineDescriptor const * descriptor) const;
         void CreateComputePipelineAsync(ComputePipelineDescriptor const * descriptor, CreateComputePipelineAsyncCallback callback, void * userdata) const;
         Future CreateComputePipelineAsyncF(ComputePipelineDescriptor const * descriptor, CreateComputePipelineAsyncCallbackInfo callbackInfo) const;
+        Future CreateComputePipelineAsync(ComputePipelineDescriptor const * descriptor, CreateComputePipelineAsyncCallbackInfo callbackInfo) const;
         Buffer CreateErrorBuffer(BufferDescriptor const * descriptor) const;
         ExternalTexture CreateErrorExternalTexture() const;
         ShaderModule CreateErrorShaderModule(ShaderModuleDescriptor const * descriptor, char const * errorMessage) const;
@@ -1142,6 +1152,7 @@ namespace wgpu {
         RenderPipeline CreateRenderPipeline(RenderPipelineDescriptor const * descriptor) const;
         void CreateRenderPipelineAsync(RenderPipelineDescriptor const * descriptor, CreateRenderPipelineAsyncCallback callback, void * userdata) const;
         Future CreateRenderPipelineAsyncF(RenderPipelineDescriptor const * descriptor, CreateRenderPipelineAsyncCallbackInfo callbackInfo) const;
+        Future CreateRenderPipelineAsync(RenderPipelineDescriptor const * descriptor, CreateRenderPipelineAsyncCallbackInfo callbackInfo) const;
         Sampler CreateSampler(SamplerDescriptor const * descriptor = nullptr) const;
         ShaderModule CreateShaderModule(ShaderModuleDescriptor const * descriptor) const;
         SwapChain CreateSwapChain(Surface const& surface, SwapChainDescriptor const * descriptor) const;
@@ -1199,6 +1210,7 @@ namespace wgpu {
         void ProcessEvents() const;
         void RequestAdapter(RequestAdapterOptions const * options, RequestAdapterCallback callback, void * userdata) const;
         Future RequestAdapterF(RequestAdapterOptions const * options, RequestAdapterCallbackInfo callbackInfo) const;
+        Future RequestAdapter(RequestAdapterOptions const * options, RequestAdapterCallbackInfo callbackInfo) const;
         WaitStatus WaitAny(size_t futureCount, FutureWaitInfo * futures, uint64_t timeoutNS) const;
 
       private:
@@ -1245,6 +1257,7 @@ namespace wgpu {
         void CopyTextureForBrowser(ImageCopyTexture const * source, ImageCopyTexture const * destination, Extent3D const * copySize, CopyTextureForBrowserOptions const * options) const;
         void OnSubmittedWorkDone(QueueWorkDoneCallback callback, void * userdata) const;
         Future OnSubmittedWorkDoneF(QueueWorkDoneCallbackInfo callbackInfo) const;
+        Future OnSubmittedWorkDone(QueueWorkDoneCallbackInfo callbackInfo) const;
         void SetLabel(char const * label) const;
         void Submit(size_t commandCount, CommandBuffer const * commands) const;
         void WriteBuffer(Buffer const& buffer, uint64_t bufferOffset, void const * data, size_t size) const;
@@ -2448,6 +2461,7 @@ namespace wgpu {
         float const * dstTransferFunctionParameters;
         float const * gamutConversionMatrix;
         Bool flipY = false;
+        Bool mirrored = false;
         ExternalTextureRotation rotation = ExternalTextureRotation::Rotate0Degrees;
     };
 

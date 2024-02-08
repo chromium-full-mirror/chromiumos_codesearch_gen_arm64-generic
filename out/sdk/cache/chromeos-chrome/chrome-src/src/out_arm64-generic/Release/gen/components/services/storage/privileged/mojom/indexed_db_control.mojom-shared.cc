@@ -32,8 +32,6 @@ NOINLINE static const char* ForceCloseReasonToStringHelper(ForceCloseReason valu
       return "FORCE_CLOSE_INTERNALS_PAGE";
     case ForceCloseReason::FORCE_CLOSE_COPY_ORIGIN:
       return "FORCE_CLOSE_COPY_ORIGIN";
-    case ForceCloseReason::FORCE_SCHEMA_DOWNGRADE_INTERNALS_PAGE:
-      return "FORCE_SCHEMA_DOWNGRADE_INTERNALS_PAGE";
     default:
       return nullptr;
   }

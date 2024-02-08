@@ -503,6 +503,62 @@
     encoder.skip(1);
     encoder.skip(1);
   };
+  function CrosCameraServiceObserver_CameraEffectChange_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosCameraServiceObserver_CameraEffectChange_Params.prototype.initDefaults_ = function() {
+    this.config = null;
+  };
+  CrosCameraServiceObserver_CameraEffectChange_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosCameraServiceObserver_CameraEffectChange_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate CrosCameraServiceObserver_CameraEffectChange_Params.config
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, effects_pipeline$.EffectsConfig, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CrosCameraServiceObserver_CameraEffectChange_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  CrosCameraServiceObserver_CameraEffectChange_Params.decode = function(decoder) {
+    var packed;
+    var val = new CrosCameraServiceObserver_CameraEffectChange_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.config =
+        decoder.decodeStructPointer(effects_pipeline$.EffectsConfig);
+    return val;
+  };
+
+  CrosCameraServiceObserver_CameraEffectChange_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosCameraServiceObserver_CameraEffectChange_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(effects_pipeline$.EffectsConfig, val.config);
+  };
   function CrosCameraService_GetCameraModule_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -1347,6 +1403,7 @@
   var kCrosCameraServiceObserver_CameraDeviceActivityChange_Name = 0;
   var kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name = 1;
   var kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name = 2;
+  var kCrosCameraServiceObserver_CameraEffectChange_Name = 3;
 
   function CrosCameraServiceObserverPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(CrosCameraServiceObserver,
@@ -1414,6 +1471,21 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  CrosCameraServiceObserverPtr.prototype.cameraEffectChange = function() {
+    return CrosCameraServiceObserverProxy.prototype.cameraEffectChange
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CrosCameraServiceObserverProxy.prototype.cameraEffectChange = function(config) {
+    var params_ = new CrosCameraServiceObserver_CameraEffectChange_Params();
+    params_.config = config;
+    var builder = new codec.MessageV0Builder(
+        kCrosCameraServiceObserver_CameraEffectChange_Name,
+        codec.align(CrosCameraServiceObserver_CameraEffectChange_Params.encodedSize));
+    builder.encodeStruct(CrosCameraServiceObserver_CameraEffectChange_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
 
   function CrosCameraServiceObserverStub(delegate) {
     this.delegate_ = delegate;
@@ -1426,6 +1498,9 @@
   }
   CrosCameraServiceObserverStub.prototype.cameraSWPrivacySwitchStateChange = function(state) {
     return this.delegate_ && this.delegate_.cameraSWPrivacySwitchStateChange && this.delegate_.cameraSWPrivacySwitchStateChange(state);
+  }
+  CrosCameraServiceObserverStub.prototype.cameraEffectChange = function(config) {
+    return this.delegate_ && this.delegate_.cameraEffectChange && this.delegate_.cameraEffectChange(config);
   }
 
   CrosCameraServiceObserverStub.prototype.accept = function(message) {
@@ -1442,6 +1517,10 @@
     case kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name:
       var params = reader.decodeStruct(CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params);
       this.cameraSWPrivacySwitchStateChange(params.state);
+      return true;
+    case kCrosCameraServiceObserver_CameraEffectChange_Name:
+      var params = reader.decodeStruct(CrosCameraServiceObserver_CameraEffectChange_Params);
+      this.cameraEffectChange(params.config);
       return true;
     default:
       return false;
@@ -1473,6 +1552,10 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params;
       break;
+      case kCrosCameraServiceObserver_CameraEffectChange_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = CrosCameraServiceObserver_CameraEffectChange_Params;
+      break;
     }
     if (paramsClass === null)
       return validator.validationError.NONE;
@@ -1485,7 +1568,7 @@
 
   var CrosCameraServiceObserver = {
     name: 'cros.mojom.CrosCameraServiceObserver',
-    kVersion: 0,
+    kVersion: 14,
     ptrClass: CrosCameraServiceObserverPtr,
     proxyClass: CrosCameraServiceObserverProxy,
     stubClass: CrosCameraServiceObserverStub,

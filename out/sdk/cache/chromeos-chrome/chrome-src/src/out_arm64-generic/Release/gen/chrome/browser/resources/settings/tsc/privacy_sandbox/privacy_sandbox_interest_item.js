@@ -40,7 +40,7 @@ export class PrivacySandboxInterestItemElement extends PrivacySandboxInterestIte
         if (this.interest.topic !== undefined) {
             assert(!this.interest.site);
             return this.i18n(this.interest.removed ?
-                ((loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled')) ?
+                (loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled') ?
                     'unblockTopicButtonTextV2' :
                     'topicsPageAllowTopic') :
                 'topicsPageBlockTopic');
@@ -54,7 +54,10 @@ export class PrivacySandboxInterestItemElement extends PrivacySandboxInterestIte
     getButtonAriaLabel_() {
         if (this.interest.topic !== undefined) {
             assert(!this.interest.site);
-            return this.i18n(this.interest.removed ? 'topicsPageAllowTopicA11yLabel' :
+            return this.i18n(this.interest.removed ?
+                (loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled') ?
+                    'topicsPageUnblockTopicA11yLabel' :
+                    'topicsPageAllowTopicA11yLabel') :
                 'topicsPageBlockTopicA11yLabel', this.interest.topic.displayString);
         }
         else {

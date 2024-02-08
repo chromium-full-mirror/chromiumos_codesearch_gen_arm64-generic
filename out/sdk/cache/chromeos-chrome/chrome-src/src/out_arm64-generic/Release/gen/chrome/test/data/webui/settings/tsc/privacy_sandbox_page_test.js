@@ -783,11 +783,11 @@ suite('TopicsSubpageWithProactiveTopicsBlockingEnabled', function () {
         // When the parent topic was blocked, the child topic does not get moved
         // to the blocked items list which is why we only have 3 blocked topics
         assertEquals(3, blockedItems.length);
-        const allowButton = blockedItems[0].shadowRoot.querySelector('cr-button');
-        assert(allowButton);
-        assertEquals(page.i18n('unblockTopicButtonTextV2'), allowButton.innerText);
-        assertEquals(page.i18n('topicsPageAllowTopicA11yLabel', 'test-topic-1'), allowButton.getAttribute('aria-label'));
-        allowButton.click();
+        const unblockButton = blockedItems[0].shadowRoot.querySelector('cr-button');
+        assert(unblockButton);
+        assertEquals('Unblock', unblockButton.innerText);
+        assertEquals('Unblock test-topic-1', unblockButton.getAttribute('aria-label'));
+        unblockButton.click();
         await testPrivacySandboxBrowserProxy.whenCalled('setTopicAllowed');
         assertEquals('Settings.PrivacySandbox.Topics.TopicAdded', await metricsBrowserProxy.whenCalled('recordAction'));
         metricsBrowserProxy.resetResolver('recordAction');
@@ -935,13 +935,12 @@ suite('ManageTopics', function () {
         assertTrue(isVisible(manageTopicsExplanationText));
         const links = page.shadowRoot.querySelectorAll('#explanationText a[href]');
         assertEquals(links.length, 1, 'Explanation text should have one Learn more link');
-        links.forEach(link => assertEquals(link.getAttribute('aria-description'), loadTimeData.getString('opensInNewTab'), 'the link should indicate that it will be opened in a new tab'));
-        const hrefs = Array.from(links).map(link => link.href);
-        const expectedLinks = ['https://support.google.com/chrome?p=ad_privacy'];
-        assertDeepEquals(expectedLinks, hrefs);
+        assertEquals(links[0].getAttribute('aria-description'), loadTimeData.getString('opensInNewTab'), 'the link should indicate that it will be opened in a new tab');
+        assertEquals(links[0].getAttribute('aria-label'), 'Learn more about managing your ad privacy in Chrome.');
+        assertEquals('https://support.google.com/chrome?p=ad_privacy', links[0].href);
     });
     test('ManageTopicsPageTestLabelsAndSubLabels', async function () {
-        const firstLevelTopics = page.shadowRoot.querySelectorAll('.topic-toggle');
+        const firstLevelTopics = page.shadowRoot.querySelectorAll('.topic-toggle-row');
         assertEquals(2, firstLevelTopics.length);
         const labels = Array.from(page.shadowRoot.querySelectorAll('.label'))
             .map(label => label.textContent);
@@ -953,6 +952,10 @@ suite('ManageTopics', function () {
     test('ManageTopicsPageTestToggles', async function () {
         const toggles = page.shadowRoot.querySelectorAll('cr-toggle');
         assertEquals(2, toggles.length);
+        const toggleAriaLabels = Array.from(toggles).map(toggle => toggle.getAttribute('aria-label'));
+        assertDeepEquals(['test-topic-1', 'test-topic-4'], toggleAriaLabels);
+        const toggleAriaDescriptions = Array.from(toggles).map(toggle => toggle.getAttribute('aria-description'));
+        assertDeepEquals(['test-topic-1-description', 'test-topic-4-description'], toggleAriaDescriptions);
         const toggleIds = Array.from(toggles).map(topicToggle => topicToggle.id);
         assertDeepEquals(['toggle-1', 'toggle-4'], toggleIds);
         // Toggle 1 (topic 1) is also blocked so it is toggled OFF.
@@ -967,14 +970,14 @@ suite('ManageTopics', function () {
                 displayString: 'test-topic-3',
                 description: '',
             }]);
+        // Unblocking topic 1, toggle should now be checked meaning it's unblocked.
         const toggles = page.shadowRoot.querySelectorAll('cr-toggle');
         assertEquals(2, toggles.length);
         toggles[0].click();
         assertTrue(toggles[0].checked);
         // Attempting to block topic 1, causes a dialog to open due to
-        // getChildTopicsCurrentlyAssigned returning a non empty
-        // list of child topics that would be blocked
-        // if they choose to continue.
+        // getChildTopicsCurrentlyAssigned returning a non empty list of
+        // child topics that would be blocked if they chose to continue.
         toggles[0].click();
         await flushTasks();
         let blockTopicDialog = page.shadowRoot.querySelector('#blockTopicDialog');
@@ -1004,6 +1007,54 @@ suite('ManageTopics', function () {
         // that are currently assigned which is why the
         // dialog does not appear and the toggle is turned OFF.
         toggles[1].click();
+        await flushTasks();
+        assertFalse(toggles[1].checked);
+    });
+    test('ManageTopicsPageClickOnToggleRow', async function () {
+        testPrivacySandboxBrowserProxy.setChildTopics([{
+                topicId: 3,
+                taxonomyVersion: 1,
+                displayString: 'test-topic-3',
+                description: '',
+            }]);
+        // Unblocking topic 1, toggle should now be checked meaning it's unblocked.
+        const topicToggleRows = page.shadowRoot.querySelectorAll('.topic-toggle-row');
+        const toggles = page.shadowRoot.querySelectorAll('cr-toggle');
+        assertEquals(2, topicToggleRows.length);
+        assertEquals(2, toggles.length);
+        topicToggleRows[0].click();
+        assertTrue(toggles[0].checked);
+        // Attempting to block topic 1, causes a dialog to open due to
+        // getChildTopicsCurrentlyAssigned returning a non empty list of child
+        // topics that would be blocked if they choose to continue.
+        topicToggleRows[0].click();
+        await flushTasks();
+        let blockTopicDialog = page.shadowRoot.querySelector('#blockTopicDialog');
+        assertTrue(!!blockTopicDialog);
+        await (whenAttributeIs(blockTopicDialog.$.dialog, 'open', ''));
+        blockTopicDialog.$.cancel.click();
+        await eventToPromise('close', blockTopicDialog);
+        await flushTasks();
+        // After closing the dialog and choosing to not block it, the toggle is
+        // turned back ON.
+        assertTrue(toggles[0].checked);
+        // Attempt to block topic 1 again
+        topicToggleRows[0].click();
+        await flushTasks();
+        blockTopicDialog =
+            page.shadowRoot.querySelector('#blockTopicDialog');
+        assertTrue(!!blockTopicDialog);
+        await (whenAttributeIs(blockTopicDialog.$.dialog, 'open', ''));
+        blockTopicDialog.$.confirm.click();
+        await eventToPromise('close', blockTopicDialog);
+        await flushTasks();
+        // The block button blocks the topic and changes the toggle to be turned
+        // OFF.
+        assertFalse(toggles[0].checked);
+        testPrivacySandboxBrowserProxy.setChildTopics([]);
+        // Toggle 2 (topic 4) has no child topics that are currently assigned which
+        // is why the dialog does not appear and the toggle is turned OFF.
+        topicToggleRows[1].click();
         await flushTasks();
         assertFalse(toggles[1].checked);
     });

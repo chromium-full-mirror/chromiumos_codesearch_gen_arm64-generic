@@ -7,8 +7,8 @@ import { CrSettingsPrefs } from 'chrome://os-settings/os_settings.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertEquals, assertFalse, assertNotEquals, assertTrue } from 'chrome://webui-test/chai_assert.js';
+import { FakeSettingsPrivate } from 'chrome://webui-test/fake_settings_private.js';
 import { FakeLanguageSettingsPrivate } from '../fake_language_settings_private.js';
-import { FakeSettingsPrivate } from '../fake_settings_private.js';
 import { TestLanguagesBrowserProxy } from './test_os_languages_browser_proxy.js';
 suite('<os-settings-edit-dictionary-page>', () => {
     function getFakePrefs() {

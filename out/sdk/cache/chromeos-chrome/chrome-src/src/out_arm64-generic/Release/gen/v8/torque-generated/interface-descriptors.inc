@@ -1769,6 +1769,13 @@ class WasmStringEncodeWtf8ArrayDescriptor : public StaticCallInterfaceDescriptor
   DECLARE_DEFAULT_DESCRIPTOR(WasmStringEncodeWtf8ArrayDescriptor)
 };
 
+class WasmStringToUtf8ArrayDescriptor : public StaticCallInterfaceDescriptor<WasmStringToUtf8ArrayDescriptor> {
+ public:
+  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kString)
+  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::TaggedPointer(), MachineType::TaggedPointer())
+  DECLARE_DEFAULT_DESCRIPTOR(WasmStringToUtf8ArrayDescriptor)
+};
+
 class WasmStringEncodeWtf16Descriptor : public StaticCallInterfaceDescriptor<WasmStringEncodeWtf16Descriptor> {
  public:
   DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kString, kOffset, kMemory)

@@ -123,9 +123,10 @@
   ContentSettingsType.SMART_CARD_GUARD = 97;
   ContentSettingsType.SMART_CARD_DATA = 98;
   ContentSettingsType.WEB_PRINTING = 99;
-  ContentSettingsType.NUM_TYPES = 100;
+  ContentSettingsType.AUTOMATIC_FULLSCREEN = 100;
+  ContentSettingsType.NUM_TYPES = 101;
   ContentSettingsType.MIN_VALUE = -1;
-  ContentSettingsType.MAX_VALUE = 100;
+  ContentSettingsType.MAX_VALUE = 101;
 
   ContentSettingsType.isKnownEnumValue = function(value) {
     switch (value) {
@@ -231,6 +232,7 @@
     case 98:
     case 99:
     case 100:
+    case 101:
       return true;
     }
     return false;

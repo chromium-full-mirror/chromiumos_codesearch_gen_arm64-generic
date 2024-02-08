@@ -1,8 +1,8 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { Store } from 'chrome://resources/js/store.js';
 import { PromiseResolver } from 'chrome://resources/js/promise_resolver.js';
+import { Store } from 'chrome://resources/js/store.js';
 import { assertTrue } from './chai_assert.js';
 /**
  * This is a generic test store, designed to replace a real Store instance

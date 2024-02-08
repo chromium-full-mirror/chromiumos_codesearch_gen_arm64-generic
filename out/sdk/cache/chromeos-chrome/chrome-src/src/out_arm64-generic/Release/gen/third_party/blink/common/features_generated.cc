@@ -315,7 +315,7 @@ BASE_FEATURE(kCSSExponentialFunctions,
 
 BASE_FEATURE(kCssFieldSizing,
     "CssFieldSizing",
-    base::FEATURE_DISABLED_BY_DEFAULT
+    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kCSSFirstLetterNoNewLineAsPrecedingChar,
@@ -670,7 +670,7 @@ BASE_FEATURE(kDocumentPictureInPictureAPI,
 
 BASE_FEATURE(kDOMParserUsesHTMLFastPathParser,
     "DOMParserUsesHTMLFastPathParser",
-    base::FEATURE_ENABLED_BY_DEFAULT
+    base::FEATURE_DISABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kDOMPartsAPI,
@@ -1103,6 +1103,11 @@ BASE_FEATURE(kKeyboardFocusableScrollers,
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kLabelEventHandlerCallSuper,
+    "LabelEventHandlerCallSuper",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kLayoutAlignForPositioned,
     "LayoutAlignForPositioned",
     base::FEATURE_ENABLED_BY_DEFAULT
@@ -1195,7 +1200,7 @@ BASE_FEATURE(kMediaSessionEnterPictureInPicture,
 
 BASE_FEATURE(kMessagePortCloseEvent,
     "MessagePortCloseEvent",
-    base::FEATURE_ENABLED_BY_DEFAULT
+    base::FEATURE_DISABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kEnableModelExecutionAPI,
@@ -1300,7 +1305,7 @@ BASE_FEATURE(kPageMarginBoxes,
 
 BASE_FEATURE(kPageRevealEvent,
     "PageRevealEvent",
-    base::FEATURE_DISABLED_BY_DEFAULT
+    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kParakeet,
@@ -1365,7 +1370,7 @@ BASE_FEATURE(kPrerender2,
 
 BASE_FEATURE(kPrettyPrintJSONDocument,
     "PrettyPrintJSONDocument",
-    base::FEATURE_DISABLED_BY_DEFAULT
+    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kPreventReadingSystemAccentColor,
@@ -1390,7 +1395,7 @@ BASE_FEATURE(kReadableStreamTeeCloneForBranch2,
 
 BASE_FEATURE(kReduceCookieIPCs,
     "ReduceCookieIPCs",
-    base::FEATURE_DISABLED_BY_DEFAULT
+    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kReduceUserAgentAndroidVersionDeviceModel,

@@ -621,8 +621,10 @@ enum class LaunchSource : int32_t {
   kFromSysTrayCalendar = 30,
   
   kFromInstaller = 31,
+  
+  kFromFirstRun = 32,
   kMinValue = 0,
-  kMaxValue = 31,
+  kMaxValue = 32,
   kDefaultValue = 0
 };
 

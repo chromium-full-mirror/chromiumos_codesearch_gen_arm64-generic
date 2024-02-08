@@ -16,7 +16,8 @@ namespace content::mojom {
 
 class CONTENT_EXPORT RenderMessageFilterInterceptorForTesting : public RenderMessageFilter {
   virtual RenderMessageFilter* GetForwardingInterface() = 0;
-  void GenerateFrameRoutingID(GenerateFrameRoutingIDCallback callback) override;
+  void GenerateSingleFrameRoutingInfo(GenerateSingleFrameRoutingInfoCallback callback) override;
+  void GenerateFrameRoutingInfos(GenerateFrameRoutingInfosCallback callback) override;
 };
 class CONTENT_EXPORT RenderMessageFilterAsyncWaiter {
  public:
@@ -26,9 +27,12 @@ class CONTENT_EXPORT RenderMessageFilterAsyncWaiter {
   RenderMessageFilterAsyncWaiter& operator=(const RenderMessageFilterAsyncWaiter&) = delete;
 
   ~RenderMessageFilterAsyncWaiter();
-  void GenerateFrameRoutingID(
-      int32_t* out_routing_id, ::blink::LocalFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token, ::blink::DocumentToken* out_document_token);
-  
+  void GenerateSingleFrameRoutingInfo(
+      FrameRoutingInfoPtr* out_info);
+  FrameRoutingInfoPtr GenerateSingleFrameRoutingInfo();
+  void GenerateFrameRoutingInfos(
+      std::vector<FrameRoutingInfoPtr>* out_info_array);
+  std::vector<FrameRoutingInfoPtr> GenerateFrameRoutingInfos();
 
  private:
   RenderMessageFilter* const proxy_;

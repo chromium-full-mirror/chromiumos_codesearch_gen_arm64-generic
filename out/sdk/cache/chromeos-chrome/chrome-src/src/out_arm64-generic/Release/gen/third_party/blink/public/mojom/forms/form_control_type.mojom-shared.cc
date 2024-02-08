@@ -32,6 +32,8 @@ NOINLINE static const char* FormControlTypeToStringHelper(FormControlType value)
       return "kButtonReset";
     case FormControlType::kButtonSelectList:
       return "kButtonSelectList";
+    case FormControlType::kButtonPopover:
+      return "kButtonPopover";
     case FormControlType::kFieldset:
       return "kFieldset";
     case FormControlType::kInputButton:

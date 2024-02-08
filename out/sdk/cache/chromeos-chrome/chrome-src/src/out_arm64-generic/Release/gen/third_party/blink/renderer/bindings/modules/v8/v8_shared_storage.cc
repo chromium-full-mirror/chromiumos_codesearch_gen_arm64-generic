@@ -217,6 +217,52 @@ if (UNLIKELY(exception_state.HadException())) {
 bindings::V8SetReturnValue(info, return_value);
 }
 
+void CreateWorkletOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SharedStorage_createWorklet");
+BLINK_BINDINGS_TRACE_EVENT("SharedStorage.createWorklet");
+
+// Promise returning function: Convert a TypeError to a reject promise.
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "SharedStorage";
+const char* const property_name = "createWorklet";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8SharedStorage::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kSharedStorageAPI_CreateWorklet_Method);
+
+
+
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+SharedStorage* blink_receiver = V8SharedStorage::ToWrappableUnsafe(isolate, v8_receiver);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
+auto&& arg1_module_url = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->createWorklet(script_state, arg1_module_url, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value);
+}
+
 void DeleteOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SharedStorage_delete");
 BLINK_BINDINGS_TRACE_EVENT("SharedStorage.delete");
@@ -656,6 +702,7 @@ bindings::SetupIDLInterfaceTemplate(isolate, wrapper_type_info, instance_object_
 v8::Local<v8::Template> instance_template = instance_object_template;
 v8::Local<v8::Template> prototype_template = prototype_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
+InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8SharedStorage::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
@@ -681,6 +728,24 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 
 }
 
+void V8SharedStorage::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
+  using bindings::IDLMemberInstaller;
+
+
+
+
+
+if (RuntimeEnabledFeatures::SharedStorageAPIM123Enabled()) {
+  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"createWorklet", CreateWorkletOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+}
+
+
+}
 
 void V8SharedStorage::InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
   using bindings::IDLMemberInstaller;

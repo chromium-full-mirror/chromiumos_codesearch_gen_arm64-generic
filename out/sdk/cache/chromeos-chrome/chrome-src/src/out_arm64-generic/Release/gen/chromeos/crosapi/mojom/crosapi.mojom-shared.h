@@ -1934,6 +1934,11 @@ static_assert(
       return bool{};
     return data_->should_disable_chrome_compose_on_chromeos;
   }
+  uint64_t limited_entropy_synthetic_trial_seed() const {
+    if (data_->header_.version < 76)
+      return uint64_t{};
+    return data_->limited_entropy_synthetic_trial_seed;
+  }
  private:
   internal::BrowserInitParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -3146,6 +3151,7 @@ struct Serializer<::crosapi::mojom::BrowserInitParamsDataView, MaybeConstUserTyp
         entropy_source_fragment.is_null() ? nullptr : entropy_source_fragment.data());
     fragment->is_cros_shortstand_enabled = Traits::is_cros_shortstand_enabled(input);
     fragment->should_disable_chrome_compose_on_chromeos = Traits::should_disable_chrome_compose_on_chromeos(input);
+    fragment->limited_entropy_synthetic_trial_seed = Traits::limited_entropy_synthetic_trial_seed(input);
   }
 
   static bool Deserialize(::crosapi::mojom::internal::BrowserInitParams_Data* input,

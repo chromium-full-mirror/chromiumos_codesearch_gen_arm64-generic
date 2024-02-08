@@ -768,6 +768,9 @@ class WebPreferencesDataView {
   bool require_transient_activation_for_show_file_or_directory_picker() const {
     return data_->require_transient_activation_for_show_file_or_directory_picker;
   }
+  bool require_transient_activation_for_html_fullscreen() const {
+    return data_->require_transient_activation_for_html_fullscreen;
+  }
   template <typename UserType>
   [[nodiscard]] bool ReadPreferredColorScheme(UserType* output) const {
     auto data_value = data_->preferred_color_scheme;
@@ -1397,6 +1400,7 @@ struct Serializer<::blink::mojom::WebPreferencesDataView, MaybeConstUserType> {
         Traits::autoplay_policy(input), &fragment->autoplay_policy);
     fragment->require_transient_activation_for_get_display_media = Traits::require_transient_activation_for_get_display_media(input);
     fragment->require_transient_activation_for_show_file_or_directory_picker = Traits::require_transient_activation_for_show_file_or_directory_picker(input);
+    fragment->require_transient_activation_for_html_fullscreen = Traits::require_transient_activation_for_html_fullscreen(input);
     mojo::internal::Serialize<::blink::mojom::PreferredColorScheme>(
         Traits::preferred_color_scheme(input), &fragment->preferred_color_scheme);
     mojo::internal::Serialize<::blink::mojom::PreferredContrast>(

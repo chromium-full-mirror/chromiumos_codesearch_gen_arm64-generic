@@ -265,7 +265,7 @@ describeWithMockConnection('InterceptedRequest', () => {
         await checkRequestOverride(target, networkRequest, requestId, responseCode, headersFromServer, responseBody, {
             requestId,
             responseCode,
-            body: responseBody,
+            body: btoa(responseBody),
             responseHeaders: expectedOverriddenHeaders,
         }, expectedPersistedSetCookieHeaders);
     }
@@ -439,7 +439,7 @@ describeWithMockConnection('InterceptedRequest', () => {
         }, requestId, responseCode, [{ name: 'content-type', value: 'text/html; charset=utf-8' }], responseBody, {
             requestId,
             responseCode,
-            body: responseBody,
+            body: btoa(responseBody),
             responseHeaders: [
                 { name: 'css-only', value: 'only added to css files' },
                 { name: 'age', value: 'overridden' },
@@ -555,7 +555,7 @@ describeWithMockConnection('InterceptedRequest', () => {
         }, requestId, responseCode, [{ name: 'content-type', value: 'text/html; charset=utf-8' }], responseBody, {
             requestId,
             responseCode,
-            body: 'interceptedRequest content',
+            body: btoa(responseBody),
             responseHeaders: [
                 { name: 'age', value: 'overridden' },
                 { name: 'content-type', value: 'text/html; charset=utf-8' },
@@ -613,7 +613,7 @@ describeWithMockConnection('InterceptedRequest', () => {
         ], responseBody, {
             requestId,
             responseCode,
-            body: responseBody,
+            body: btoa(responseBody),
             responseHeaders: [
                 { name: 'age', value: 'overridden' },
                 { name: 'content-type', value: 'text/html; charset=utf-8' },
@@ -654,7 +654,7 @@ describeWithMockConnection('InterceptedRequest', () => {
         ], responseBody, {
             requestId,
             responseCode,
-            body: responseBody,
+            body: btoa(responseBody),
             responseHeaders: [
                 { name: 'long-file-url-header', value: 'long file url header value' },
                 { name: 'age', value: 'overridden' },
@@ -694,13 +694,13 @@ describeWithMockConnection('InterceptedRequest', () => {
         await checkRequestOverride(target, request, requestId1, responseCode, originalResponseHeaders, body, {
             requestId: requestId1,
             responseCode,
-            body,
+            body: btoa(body),
             responseHeaders,
         });
         await checkRequestOverride(target, request, requestId2, responseCode, originalResponseHeaders, body, {
             requestId: requestId2,
             responseCode,
-            body,
+            body: btoa(body),
             responseHeaders,
         });
         assert.isTrue(networkManager.dispatcher.requestForId(requestId1)?.wasIntercepted());

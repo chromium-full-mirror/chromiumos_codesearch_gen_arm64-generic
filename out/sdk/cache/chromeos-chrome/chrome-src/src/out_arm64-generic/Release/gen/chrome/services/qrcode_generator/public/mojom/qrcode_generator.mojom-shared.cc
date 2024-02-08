@@ -210,66 +210,6 @@ bool GenerateQRCodeResponse_Data::Validate(
 GenerateQRCodeResponse_Data::GenerateQRCodeResponse_Data()
     : header_({sizeof(*this), 0}) {}
 
-
-// static
-bool QRCodeGeneratorService_GenerateQRCode_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const QRCodeGeneratorService_GenerateQRCode_Params_Data* object =
-      static_cast<const QRCodeGeneratorService_GenerateQRCode_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->request, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->request, validation_context))
-    return false;
-
-  return true;
-}
-
-QRCodeGeneratorService_GenerateQRCode_Params_Data::QRCodeGeneratorService_GenerateQRCode_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool QRCodeGeneratorService_GenerateQRCode_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const QRCodeGeneratorService_GenerateQRCode_ResponseParams_Data* object =
-      static_cast<const QRCodeGeneratorService_GenerateQRCode_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->response, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->response, validation_context))
-    return false;
-
-  return true;
-}
-
-QRCodeGeneratorService_GenerateQRCode_ResponseParams_Data::QRCodeGeneratorService_GenerateQRCode_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
 }  // namespace internal
 }  // namespace mojom
 }  // namespace qrcode_generator

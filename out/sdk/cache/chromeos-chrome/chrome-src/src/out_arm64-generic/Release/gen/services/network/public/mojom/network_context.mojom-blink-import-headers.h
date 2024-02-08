@@ -46,6 +46,8 @@
 #include "services/network/public/mojom/devtools_observer.mojom-blink-import-headers.h"
 #include "services/network/public/mojom/restricted_udp_socket.mojom-blink.h"
 #include "services/network/public/mojom/restricted_udp_socket.mojom-blink-import-headers.h"
+#include "services/network/public/mojom/fetch_api.mojom-blink.h"
+#include "services/network/public/mojom/fetch_api.mojom-blink-import-headers.h"
 #include "services/network/public/mojom/first_party_sets_access_delegate.mojom-blink.h"
 #include "services/network/public/mojom/first_party_sets_access_delegate.mojom-blink-import-headers.h"
 #include "services/network/public/mojom/host_resolver.mojom-blink.h"

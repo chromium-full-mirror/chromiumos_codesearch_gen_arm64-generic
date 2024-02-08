@@ -19,7 +19,6 @@ import 'chrome://resources/cr_components/settings_prefs/prefs.js';
 import '../controls/settings_toggle_button.js';
 import './secure_dns_input.js';
 // 
-import 'chrome://resources/cr_elements/chromeos/cros_color_overrides.css.js';
 import './secure_dns_dialog.js';
 import { PrivacyPageBrowserProxyImpl, SecureDnsMode, SecureDnsUiManagementMode } from '/shared/settings/privacy_page/privacy_page_browser_proxy.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';

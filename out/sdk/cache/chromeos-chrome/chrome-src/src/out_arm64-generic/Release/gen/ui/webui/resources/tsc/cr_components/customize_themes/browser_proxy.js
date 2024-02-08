@@ -1,10 +1,6 @@
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview A helper object used by the customize-themes component to
- * interact with the browser.
- */
 import { CustomizeThemesClientCallbackRouter, CustomizeThemesHandlerFactory, CustomizeThemesHandlerRemote } from './customize_themes.mojom-webui.js';
 export class CustomizeThemesBrowserProxyImpl {
     constructor() {

@@ -534,20 +534,13 @@ base::Value::Dict OnClickData::ToValue() const {
 }
 
 
-
-//
-// Functions
-//
-
-namespace Create {
-
-Params::CreateProperties::ParentId::ParentId()
+CreateProperties::ParentId::ParentId()
  {}
 
-Params::CreateProperties::ParentId::~ParentId() = default;
-Params::CreateProperties::ParentId::ParentId(ParentId&& rhs) noexcept = default;
-Params::CreateProperties::ParentId& Params::CreateProperties::ParentId::operator=(ParentId&& rhs) noexcept = default;
-Params::CreateProperties::ParentId Params::CreateProperties::ParentId::Clone() const {
+CreateProperties::ParentId::~ParentId() = default;
+CreateProperties::ParentId::ParentId(ParentId&& rhs) noexcept = default;
+CreateProperties::ParentId& CreateProperties::ParentId::operator=(ParentId&& rhs) noexcept = default;
+CreateProperties::ParentId CreateProperties::ParentId::Clone() const {
   ParentId out;
   out.as_integer = as_integer;
   out.as_string = as_string;
@@ -555,7 +548,7 @@ Params::CreateProperties::ParentId Params::CreateProperties::ParentId::Clone() c
 }
 
 // static
-bool Params::CreateProperties::ParentId::Populate(
+bool CreateProperties::ParentId::Populate(
     const base::Value& value, ParentId& out) {
   if (value.type() == base::Value::Type::INTEGER) {
     {
@@ -583,7 +576,7 @@ bool Params::CreateProperties::ParentId::Populate(
 }
 
 // static
-std::optional<Params::CreateProperties::ParentId> Params::CreateProperties::ParentId::FromValue(const base::Value& value) {
+std::optional<CreateProperties::ParentId> CreateProperties::ParentId::FromValue(const base::Value& value) {
   ParentId out;
   bool result = Populate(value, out);
   if (!result) {
@@ -592,15 +585,31 @@ std::optional<Params::CreateProperties::ParentId> Params::CreateProperties::Pare
   return out;
 }
 
+base::Value CreateProperties::ParentId::ToValue() const {
+  base::Value result;
+  if (as_integer) {
+    DCHECK(result.is_none()) << "Cannot set multiple choices for parent_id";
+    result = base::Value(*as_integer);
+
+  }
+  if (as_string) {
+    DCHECK(result.is_none()) << "Cannot set multiple choices for parent_id";
+    result = base::Value(*as_string);
+
+  }
+  DCHECK(!result.is_none()) << "Must set at least one choice for parent_id";
+  return result;
+}
 
 
-Params::CreateProperties::CreateProperties()
+
+CreateProperties::CreateProperties()
 : type() {}
 
-Params::CreateProperties::~CreateProperties() = default;
-Params::CreateProperties::CreateProperties(CreateProperties&& rhs) noexcept = default;
-Params::CreateProperties& Params::CreateProperties::operator=(CreateProperties&& rhs) noexcept = default;
-Params::CreateProperties Params::CreateProperties::Clone() const {
+CreateProperties::~CreateProperties() = default;
+CreateProperties::CreateProperties(CreateProperties&& rhs) noexcept = default;
+CreateProperties& CreateProperties::operator=(CreateProperties&& rhs) noexcept = default;
+CreateProperties CreateProperties::Clone() const {
   CreateProperties out;
   out.type = type;
   out.id = id;
@@ -621,7 +630,7 @@ Params::CreateProperties Params::CreateProperties::Clone() const {
 }
 
 // static
-bool Params::CreateProperties::Populate(
+bool CreateProperties::Populate(
     const base::Value::Dict& dict, CreateProperties& out) {
   out.type = ItemType();
   const base::Value* type_value = dict.Find("type");
@@ -773,7 +782,7 @@ bool Params::CreateProperties::Populate(
 }
 
 // static
-bool Params::CreateProperties::Populate(
+bool CreateProperties::Populate(
     const base::Value& value, CreateProperties& out) {
   if (!value.is_dict()) {
     return false;
@@ -782,7 +791,7 @@ bool Params::CreateProperties::Populate(
 }
 
 // static
-std::optional<Params::CreateProperties> Params::CreateProperties::FromValue(const base::Value::Dict& value) {
+std::optional<CreateProperties> CreateProperties::FromValue(const base::Value::Dict& value) {
   CreateProperties out;
   bool result = Populate(value, out);
   if (!result) {
@@ -792,7 +801,7 @@ std::optional<Params::CreateProperties> Params::CreateProperties::FromValue(cons
 }
 
 // static
-std::optional<Params::CreateProperties> Params::CreateProperties::FromValue(const base::Value& value) {
+std::optional<CreateProperties> CreateProperties::FromValue(const base::Value& value) {
   CreateProperties out;
   bool result = Populate(value, out);
   if (!result) {
@@ -801,6 +810,70 @@ std::optional<Params::CreateProperties> Params::CreateProperties::FromValue(cons
   return out;
 }
 
+base::Value::Dict CreateProperties::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  if (this->type != ItemType()) {
+    to_value_result.Set("type", context_menus::ToString(this->type));
+
+  }
+  if (this->id) {
+    to_value_result.Set("id", *this->id);
+
+  }
+  if (this->title) {
+    to_value_result.Set("title", *this->title);
+
+  }
+  if (this->checked) {
+    to_value_result.Set("checked", *this->checked);
+
+  }
+  if (this->contexts) {
+    {
+      std::vector<std::string> contexts_list;
+      for (const auto& it : *(this->contexts)) {
+        contexts_list.emplace_back(context_menus::ToString(it));
+      }
+      to_value_result.Set("contexts", json_schema_compiler::util::CreateValueFromArray(contexts_list));
+    }
+
+  }
+  if (this->visible) {
+    to_value_result.Set("visible", *this->visible);
+
+  }
+  if (this->onclick) {
+    to_value_result.Set("onclick", (this->onclick)->Clone());
+
+  }
+  if (this->parent_id) {
+    to_value_result.Set("parentId", (this->parent_id)->ToValue());
+
+  }
+  if (this->document_url_patterns) {
+    to_value_result.Set("documentUrlPatterns", json_schema_compiler::util::CreateValueFromArray(*this->document_url_patterns));
+
+  }
+  if (this->target_url_patterns) {
+    to_value_result.Set("targetUrlPatterns", json_schema_compiler::util::CreateValueFromArray(*this->target_url_patterns));
+
+  }
+  if (this->enabled) {
+    to_value_result.Set("enabled", *this->enabled);
+
+  }
+
+  return to_value_result;
+}
+
+
+
+//
+// Functions
+//
+
+namespace Create {
 
 Params::Params() = default;
 Params::~Params() = default;

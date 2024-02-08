@@ -2,16 +2,39 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import './policy_test_row.js';
+import { assert } from 'chrome://resources/js/assert.js';
 import { CustomElement } from 'chrome://resources/js/custom_element.js';
+import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { getTemplate } from './policy_test_table.html.js';
 export class PolicyTestTableElement extends CustomElement {
+    schema_;
     static get template() {
         return getTemplate();
     }
     constructor() {
         super();
+        this.setSchema(JSON.parse(loadTimeData.getString('initialSchema')));
         this.getRequiredElement('#add-policy-btn')
             .addEventListener('click', this.addEmptyRow.bind(this));
+    }
+    setSchema(schema) {
+        const hadSchema = !!this.schema_;
+        this.schema_ = schema;
+        for (const row of this.shadowRoot.querySelectorAll('policy-test-row')) {
+            if (!(row.getNamespace() in schema)) {
+                // This was a policy for a now-uninstalled extension, so completely
+                // delete the row.
+                row.remove();
+            }
+            else {
+                // Update the namespace dropdown, etc.
+                row.setSchema(schema);
+            }
+        }
+        if (!hadSchema && !this.shadowRoot.querySelector('policy-test-row')) {
+            // On startup, add a single empty row.
+            this.addEmptyRow();
+        }
     }
     clearRows() {
         const table = this.getRequiredElement('.table');
@@ -22,13 +45,15 @@ export class PolicyTestTableElement extends CustomElement {
     // Event listener function that adds a new PolicyTestRowElement to the table
     // when the Add Policy button is clicked.
     addEmptyRow() {
+        assert(this.schema_);
         const newRow = document.createElement('policy-test-row');
-        // If there is a row before this one, copy its source, scope, level and
-        // preset values.
+        newRow.setSchema(this.schema_);
+        // If there is a row before this one, copy its namespace, source, scope,
+        // level and preset values.
         const rows = this.shadowRoot.querySelectorAll('policy-test-row');
         if (rows.length > 0) {
             const lastRow = rows[rows.length - 1];
-            const attributesToCopy = ['.source', '.scope', '.level', '.preset'];
+            const attributesToCopy = ['.namespace', '.source', '.scope', '.level', '.preset'];
             attributesToCopy.forEach((attribute) => {
                 const currSelectElement = newRow.getRequiredElement(attribute);
                 const prevSelectElement = lastRow.getRequiredElement(attribute);
@@ -36,11 +61,14 @@ export class PolicyTestTableElement extends CustomElement {
                 currSelectElement.disabled = prevSelectElement.disabled;
             });
         }
+        newRow.updatePolicyNames();
         this.getRequiredElement('.table').appendChild(newRow);
     }
     // Method for adding a row with the initial values in initialValues.
     addRow(initialValues) {
+        assert(this.schema_);
         const row = this.getRequiredElement('.table').appendChild(document.createElement('policy-test-row'));
+        row.setSchema(this.schema_);
         row.setInitialValues(initialValues);
     }
     // Class method for creating and returning a JSON string containing the policy
@@ -49,6 +77,7 @@ export class PolicyTestTableElement extends CustomElement {
     getTestPoliciesJsonString() {
         const policyRowArray = Array.from(this.shadowRoot.querySelectorAll('policy-test-row'));
         const policyInfoArray = policyRowArray.map((row) => ({
+            namespace: row.getPolicyNamespace(),
             name: row.getPolicyName(),
             source: Number.parseInt(row.getPolicyAttribute('source')),
             scope: Number.parseInt(row.getPolicyAttribute('scope')),

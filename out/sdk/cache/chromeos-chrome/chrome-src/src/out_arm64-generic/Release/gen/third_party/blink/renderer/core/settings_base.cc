@@ -149,6 +149,7 @@ SettingsBase::SettingsBase()
     , presentation_requires_user_gesture_(true)
     , report_screen_size_in_physical_pixels_quirk_(false)
     , require_transient_activation_for_get_display_media_(true)
+    , require_transient_activation_for_html_fullscreen_(true)
     , require_transient_activation_for_show_file_or_directory_picker_(true)
     , resizable_(true)
     , rubber_banding_on_compositor_thread_(false)
@@ -925,6 +926,12 @@ void SettingsBase::SetRequireTransientActivationForGetDisplayMedia(bool require_
   if (require_transient_activation_for_get_display_media_ == require_transient_activation_for_get_display_media)
     return;
   require_transient_activation_for_get_display_media_ = require_transient_activation_for_get_display_media;
+}
+
+void SettingsBase::SetRequireTransientActivationForHtmlFullscreen(bool require_transient_activation_for_html_fullscreen) {
+  if (require_transient_activation_for_html_fullscreen_ == require_transient_activation_for_html_fullscreen)
+    return;
+  require_transient_activation_for_html_fullscreen_ = require_transient_activation_for_html_fullscreen;
 }
 
 void SettingsBase::SetRequireTransientActivationForShowFileOrDirectoryPicker(bool require_transient_activation_for_show_file_or_directory_picker) {
@@ -1752,6 +1759,10 @@ void SettingsBase::SetFromStrings(const String& name, const String& value) {
   }
   if (name == "requireTransientActivationForGetDisplayMedia") {
     SetRequireTransientActivationForGetDisplayMedia(FromString<bool>()(value));
+    return;
+  }
+  if (name == "requireTransientActivationForHtmlFullscreen") {
+    SetRequireTransientActivationForHtmlFullscreen(FromString<bool>()(value));
     return;
   }
   if (name == "requireTransientActivationForShowFileOrDirectoryPicker") {

@@ -4745,6 +4745,7 @@
     this.min = null;
     this.modelId = null;
     this.networkTechnology = null;
+    this.simLockType = null;
     this.paymentPortal = null;
     this.roamingState = null;
     this.selectedApn = null;
@@ -4765,7 +4766,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 232}
+      {version: 0, numBytes: 240}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -4911,26 +4912,32 @@
         return err;
 
 
+    // validate ManagedCellularProperties.simLockType
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 184, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate ManagedCellularProperties.paymentPortal
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 184, PaymentPortalProperties, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 192, PaymentPortalProperties, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate ManagedCellularProperties.roamingState
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 192, true)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 200, true)
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate ManagedCellularProperties.selectedApn
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 200, ManagedApnProperties, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 208, ManagedApnProperties, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate ManagedCellularProperties.servingOperator
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 208, CellularProviderProperties, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 216, CellularProviderProperties, true);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -4939,7 +4946,7 @@
     return validator.validationError.NONE;
   };
 
-  ManagedCellularProperties.encodedSize = codec.kStructHeaderSize + 224;
+  ManagedCellularProperties.encodedSize = codec.kStructHeaderSize + 232;
 
   ManagedCellularProperties.decode = function(decoder) {
     var packed;
@@ -4998,6 +5005,8 @@
         decoder.decodeStruct(codec.NullableString);
     val.networkTechnology =
         decoder.decodeStruct(codec.NullableString);
+    val.simLockType =
+        decoder.decodeStruct(codec.String);
     val.paymentPortal =
         decoder.decodeStructPointer(PaymentPortalProperties);
     val.roamingState =
@@ -5049,6 +5058,7 @@
     encoder.encodeStruct(codec.NullableString, val.min);
     encoder.encodeStruct(codec.NullableString, val.modelId);
     encoder.encodeStruct(codec.NullableString, val.networkTechnology);
+    encoder.encodeStruct(codec.String, val.simLockType);
     encoder.encodeStructPointer(PaymentPortalProperties, val.paymentPortal);
     encoder.encodeStruct(codec.NullableString, val.roamingState);
     encoder.encodeStructPointer(ManagedApnProperties, val.selectedApn);

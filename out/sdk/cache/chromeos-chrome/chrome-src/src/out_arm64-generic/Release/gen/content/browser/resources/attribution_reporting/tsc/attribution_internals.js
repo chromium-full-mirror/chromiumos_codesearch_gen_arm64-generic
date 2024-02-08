@@ -37,6 +37,17 @@ function undefinedFirst(f) {
         return f(a, b);
     };
 }
+function compareLexicographic(f) {
+    return (a, b) => {
+        for (let i = 0; i < a.length && i < b.length; ++i) {
+            const r = f(a[i], b[i]);
+            if (r !== 0) {
+                return r;
+            }
+        }
+        return compareDefault(a.length, b.length);
+    };
+}
 function bigintReplacer(_key, value) {
     return typeof value === 'bigint' ? value.toString() : value;
 }
@@ -99,10 +110,15 @@ class CodeColumn extends ValueColumn {
 class ListColumn extends ValueColumn {
     renderItem;
     tdClass;
-    constructor(header, getValue, renderItem = setInnerText, tdClass) {
+    compare;
+    constructor(header, getValue, renderItem = setInnerText, tdClass, compareValues) {
         super(header, getValue);
         this.renderItem = renderItem;
         this.tdClass = tdClass;
+        if (compareValues) {
+            const cmp = compareLexicographic(compareValues);
+            this.compare = (a, b) => cmp(this.getValue(a), this.getValue(b));
+        }
     }
     render(td, row) {
         const values = this.getValue(row);
@@ -278,7 +294,8 @@ class SourceTableModel extends ArrayTableModel {
             numberColumn('Source Event ID', (e) => e.sourceEventId),
             stringOrBoolColumn('Status', (e) => e.status),
             urlColumn('Source Origin', (e) => e.sourceOrigin),
-            new ListColumn('Destinations', (e) => e.destinations, renderUrl),
+            new ListColumn('Destinations', (e) => e.destinations, renderUrl, 
+            /*tdClass=*/ undefined, compareDefault),
             urlColumn('Reporting Origin', (e) => e.reportingOrigin),
             dateColumn('Registration Time', (e) => e.sourceTime),
             dateColumn('Expiry Time', (e) => e.expiryTime),

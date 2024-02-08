@@ -226,6 +226,10 @@ export class SettingsSecurityPageElement extends SettingsSecurityPageElementBase
      */
     currentRouteChanged(route) {
         if (route !== routes.SECURITY) {
+            // If the user navigates to other settings page from security page, call
+            // onBeforeUnload_ method to check if the security page survey should be
+            // shown.
+            this.onBeforeUnload_();
             this.isRouteSecurity_ = false;
             this.eventTracker_.removeAll();
             return;
@@ -304,6 +308,8 @@ export class SettingsSecurityPageElement extends SettingsSecurityPageElementBase
             this.recordInteractionHistogramOnRadioChange_(selected);
             this.recordActionOnRadioChange_(selected);
             this.interactedWithPage_(selected);
+            this.setPrefValue('safebrowsing.esb_opt_in_with_friendlier_settings', selected === SafeBrowsingSetting.ENHANCED &&
+                this.enableFriendlierSafeBrowsingSettings_);
         }
         if (selected === SafeBrowsingSetting.DISABLED) {
             this.showDisableSafebrowsingDialog_ = true;

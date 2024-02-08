@@ -1165,6 +1165,14 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
+        'requireTransientActivationForHtmlFullscreen', 126,
+        2,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
         'preferredColorScheme', 232,
         0,
         blink.mojom.PreferredColorSchemeSpec.$,
@@ -1190,7 +1198,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'pictureInPictureEnabled', 126,
-        2,
+        3,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -1198,7 +1206,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'translateServiceAvailable', 126,
-        3,
+        4,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -1214,14 +1222,6 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'lazyLoadEnabled', 126,
-        4,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'allowMixedContentUpgrades', 126,
         5,
         mojo.internal.Bool,
         false,
@@ -1229,7 +1229,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'alwaysShowFocus', 126,
+        'allowMixedContentUpgrades', 126,
         6,
         mojo.internal.Bool,
         false,
@@ -1237,7 +1237,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'touchDragDropEnabled', 126,
+        'alwaysShowFocus', 126,
         7,
         mojo.internal.Bool,
         false,
@@ -1245,7 +1245,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'webxrImmersiveArAllowed', 127,
+        'touchDragDropEnabled', 127,
         0,
         mojo.internal.Bool,
         false,
@@ -1253,7 +1253,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'rendererWideNamedFrameLookup', 127,
+        'webxrImmersiveArAllowed', 127,
         1,
         mojo.internal.Bool,
         false,
@@ -1261,8 +1261,16 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'strictMimeTypeCheckForWorkerScriptsEnabled', 127,
+        'rendererWideNamedFrameLookup', 127,
         2,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'strictMimeTypeCheckForWorkerScriptsEnabled', 127,
+        3,
         mojo.internal.Bool,
         true,
         false, /* nullable */
@@ -1270,7 +1278,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'modalContextMenu', 127,
-        3,
+        4,
         mojo.internal.Bool,
         true,
         false, /* nullable */
@@ -1524,6 +1532,8 @@ blink.mojom.WebPreferences = class {
     this.requireTransientActivationForGetDisplayMedia;
     /** @export { !boolean } */
     this.requireTransientActivationForShowFileOrDirectoryPicker;
+    /** @export { !boolean } */
+    this.requireTransientActivationForHtmlFullscreen;
     /** @export { !blink.mojom.PreferredColorScheme } */
     this.preferredColorScheme;
     /** @export { !blink.mojom.PreferredContrast } */

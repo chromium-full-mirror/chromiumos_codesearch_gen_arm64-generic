@@ -397,6 +397,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_java_script_compile_hints_magic_runtime_enabled_;
     bool is_keyboard_accessible_tooltip_enabled_;
     bool is_keyboard_focusable_scrollers_enabled_;
+    bool is_label_event_handler_call_super_enabled_;
     bool is_lang_attribute_aware_form_control_ui_enabled_;
     bool is_layout_align_for_positioned_enabled_;
     bool is_layout_flex_new_row_algorithm_v_3_enabled_;
@@ -614,6 +615,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_shared_autofill_enabled_;
     bool is_shared_storage_api_enabled_;
     bool is_shared_storage_api_m_118_enabled_;
+    bool is_shared_storage_api_m_123_enabled_;
     bool is_shared_worker_enabled_;
     bool is_signature_based_integrity_enabled_;
     bool is_site_initiated_mirroring_enabled_;
@@ -2733,6 +2735,12 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
 
   static bool KeyboardFocusableScrollersEnabled(const FeatureContext*) { return KeyboardFocusableScrollersEnabled(); }
 
+  static bool LabelEventHandlerCallSuperEnabled() {
+    return is_label_event_handler_call_super_enabled_;
+  }
+
+  static bool LabelEventHandlerCallSuperEnabled(const FeatureContext*) { return LabelEventHandlerCallSuperEnabled(); }
+
   static bool LangAttributeAwareFormControlUIEnabled() {
     return is_lang_attribute_aware_form_control_ui_enabled_;
   }
@@ -3800,6 +3808,12 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   }
 
   static bool SharedStorageAPIM118Enabled(const FeatureContext*) { return SharedStorageAPIM118Enabled(); }
+
+  static bool SharedStorageAPIM123Enabled() {
+    return is_shared_storage_api_m_123_enabled_;
+  }
+
+  static bool SharedStorageAPIM123Enabled(const FeatureContext*) { return SharedStorageAPIM123Enabled(); }
 
   static bool SharedWorkerEnabled() {
     return is_shared_worker_enabled_;
@@ -5349,6 +5363,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetJavaScriptCompileHintsMagicRuntimeEnabled(bool enabled) { is_java_script_compile_hints_magic_runtime_enabled_ = enabled; }
   static void SetKeyboardAccessibleTooltipEnabled(bool enabled) { is_keyboard_accessible_tooltip_enabled_ = enabled; }
   static void SetKeyboardFocusableScrollersEnabled(bool enabled) { is_keyboard_focusable_scrollers_enabled_ = enabled; }
+  static void SetLabelEventHandlerCallSuperEnabled(bool enabled) { is_label_event_handler_call_super_enabled_ = enabled; }
   static void SetLangAttributeAwareFormControlUIEnabled(bool enabled) { is_lang_attribute_aware_form_control_ui_enabled_ = enabled; }
   static void SetLayoutAlignForPositionedEnabled(bool enabled) { is_layout_align_for_positioned_enabled_ = enabled; }
   static void SetLayoutFlexNewRowAlgorithmV3Enabled(bool enabled) { is_layout_flex_new_row_algorithm_v_3_enabled_ = enabled; }
@@ -5566,6 +5581,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetSharedAutofillEnabled(bool enabled) { is_shared_autofill_enabled_ = enabled; }
   static void SetSharedStorageAPIEnabled(bool enabled) { is_shared_storage_api_enabled_ = enabled; }
   static void SetSharedStorageAPIM118Enabled(bool enabled) { is_shared_storage_api_m_118_enabled_ = enabled; }
+  static void SetSharedStorageAPIM123Enabled(bool enabled) { is_shared_storage_api_m_123_enabled_ = enabled; }
   static void SetSharedWorkerEnabled(bool enabled) { is_shared_worker_enabled_ = enabled; }
   static void SetSignatureBasedIntegrityEnabled(bool enabled) { is_signature_based_integrity_enabled_ = enabled; }
   static void SetSiteInitiatedMirroringEnabled(bool enabled) { is_site_initiated_mirroring_enabled_ = enabled; }
@@ -6085,6 +6101,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_java_script_compile_hints_magic_runtime_enabled_;
   static bool is_keyboard_accessible_tooltip_enabled_;
   static bool is_keyboard_focusable_scrollers_enabled_;
+  static bool is_label_event_handler_call_super_enabled_;
   static bool is_lang_attribute_aware_form_control_ui_enabled_;
   static bool is_layout_align_for_positioned_enabled_;
   static bool is_layout_flex_new_row_algorithm_v_3_enabled_;
@@ -6302,6 +6319,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_shared_autofill_enabled_;
   static bool is_shared_storage_api_enabled_;
   static bool is_shared_storage_api_m_118_enabled_;
+  static bool is_shared_storage_api_m_123_enabled_;
   static bool is_shared_worker_enabled_;
   static bool is_signature_based_integrity_enabled_;
   static bool is_site_initiated_mirroring_enabled_;

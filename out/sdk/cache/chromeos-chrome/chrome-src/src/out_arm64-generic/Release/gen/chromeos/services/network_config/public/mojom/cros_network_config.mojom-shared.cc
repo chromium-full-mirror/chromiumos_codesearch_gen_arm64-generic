@@ -2758,7 +2758,7 @@ bool ManagedCellularProperties_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 232, validation_context)) {
+          data, 240, validation_context)) {
     return false;
   }
 
@@ -2895,6 +2895,17 @@ bool ManagedCellularProperties_Data::Validate(
       mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->network_technology, validation_context,
                                          &network_technology_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->sim_lock_type, 25, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& sim_lock_type_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->sim_lock_type, validation_context,
+                                         &sim_lock_type_validate_params)) {
     return false;
   }
 

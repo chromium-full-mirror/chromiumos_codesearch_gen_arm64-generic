@@ -18,17 +18,15 @@ constexpr uint32_t kMockFailureInjector_FailOperation_Name = 0;
 constexpr uint32_t kIndexedDBControlTest_GetBaseDataPathForTesting_Name = 0;
 constexpr uint32_t kIndexedDBControlTest_GetFilePathForTesting_Name = 1;
 constexpr uint32_t kIndexedDBControlTest_ResetCachesForTesting_Name = 2;
-constexpr uint32_t kIndexedDBControlTest_ForceSchemaDowngradeForTesting_Name = 3;
-constexpr uint32_t kIndexedDBControlTest_HasV2SchemaCorruptionForTesting_Name = 4;
-constexpr uint32_t kIndexedDBControlTest_WriteToIndexedDBForTesting_Name = 5;
-constexpr uint32_t kIndexedDBControlTest_GetBlobCountForTesting_Name = 6;
-constexpr uint32_t kIndexedDBControlTest_GetNextBlobNumberForTesting_Name = 7;
-constexpr uint32_t kIndexedDBControlTest_GetPathForBlobForTesting_Name = 8;
-constexpr uint32_t kIndexedDBControlTest_CompactBackingStoreForTesting_Name = 9;
-constexpr uint32_t kIndexedDBControlTest_GetUsageForTesting_Name = 10;
-constexpr uint32_t kIndexedDBControlTest_BindMockFailureSingletonForTesting_Name = 11;
-constexpr uint32_t kIndexedDBControlTest_GetDatabaseKeysForTesting_Name = 12;
-constexpr uint32_t kIndexedDBControlTest_ForceInitializeFromFilesForTesting_Name = 13;
+constexpr uint32_t kIndexedDBControlTest_WriteToIndexedDBForTesting_Name = 3;
+constexpr uint32_t kIndexedDBControlTest_GetBlobCountForTesting_Name = 4;
+constexpr uint32_t kIndexedDBControlTest_GetNextBlobNumberForTesting_Name = 5;
+constexpr uint32_t kIndexedDBControlTest_GetPathForBlobForTesting_Name = 6;
+constexpr uint32_t kIndexedDBControlTest_CompactBackingStoreForTesting_Name = 7;
+constexpr uint32_t kIndexedDBControlTest_GetUsageForTesting_Name = 8;
+constexpr uint32_t kIndexedDBControlTest_BindMockFailureSingletonForTesting_Name = 9;
+constexpr uint32_t kIndexedDBControlTest_GetDatabaseKeysForTesting_Name = 10;
+constexpr uint32_t kIndexedDBControlTest_ForceInitializeFromFilesForTesting_Name = 11;
 
 }  // namespace internal
 

@@ -49,8 +49,11 @@ CORE_EXPORT extern const WTF::AtomicString& kPseudoSliderThumb;
 CORE_EXPORT extern const WTF::AtomicString& kPseudoSliderTrack;
 CORE_EXPORT extern const WTF::AtomicString& kPseudoTextFieldDecorationContainer;
 CORE_EXPORT extern const WTF::AtomicString& kPseudoWebKitDetailsMarker;
+CORE_EXPORT extern const WTF::AtomicString& kSelectButton;
+CORE_EXPORT extern const WTF::AtomicString& kSelectDatalist;
+CORE_EXPORT extern const WTF::AtomicString& kSelectOptions;
 
-constexpr unsigned kNamesCount = 32;
+constexpr unsigned kNamesCount = 35;
 
 CORE_EXPORT void Init();
 

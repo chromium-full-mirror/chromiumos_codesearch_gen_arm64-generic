@@ -44,6 +44,12 @@ export class TimezoneSubpageElement extends TimezoneSubpageElementBase {
                 type: String,
                 notify: true,
             },
+            isGuest_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('isGuest');
+                },
+            },
             /**
              * Used by DeepLinkingMixin to focus this page's deep links.
              */

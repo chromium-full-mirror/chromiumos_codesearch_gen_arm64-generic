@@ -599,7 +599,7 @@ export class CookiesTable extends UI.Widget.VBox {
     }
     isValidCookieData(data) {
         return (Boolean(data.name) || Boolean(data.value)) && this.isValidDomain(data.domain) &&
-            this.isValidPath(data.path) && this.isValidDate(data.expires);
+            this.isValidPath(data.path) && this.isValidDate(data.expires) && this.isValidPartitionKey(data.partitionKey);
     }
     isValidDomain(domain) {
         if (!domain) {
@@ -614,6 +614,13 @@ export class CookiesTable extends UI.Widget.VBox {
     }
     isValidDate(date) {
         return date === '' || date === expiresSessionValue() || !isNaN(Date.parse(date));
+    }
+    isValidPartitionKey(partitionKey) {
+        if (!partitionKey) {
+            return true;
+        }
+        const parsedURL = Common.ParsedURL.ParsedURL.fromString(partitionKey);
+        return parsedURL !== null;
     }
     refresh() {
         if (this.refreshCallback) {

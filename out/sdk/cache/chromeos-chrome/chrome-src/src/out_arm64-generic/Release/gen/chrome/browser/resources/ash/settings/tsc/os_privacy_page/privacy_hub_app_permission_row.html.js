@@ -17,7 +17,7 @@ export function getTemplate() {
     <cr-icon-button iron-icon="cr:open-in-new" role="link" aria-label="[[getAriaLabel_()]]" aria-description="[[androidSettingsLinkAriaDescription_]]">
     </cr-icon-button>
   </template>
-  <cr-toggle id="permissionToggle" checked="[[checked_]]" on-change="onToggleChangeByUser_" disabled="[[shouldDisableToggle_]]" aria-label="[[getAriaLabel_()]]" aria-description="[[ariaDescription_]]">
+  <cr-toggle id="permissionToggle" checked="[[checked_]]" on-click="onToggleClick_" on-keydown="onKeydown_" on-keyup="onKeyup_" disabled="[[shouldDisableToggle_]]" aria-label="[[getAriaLabel_()]]" aria-description="[[ariaDescription_]]">
   </cr-toggle>
 </div>
 <!--_html_template_end_-->`;

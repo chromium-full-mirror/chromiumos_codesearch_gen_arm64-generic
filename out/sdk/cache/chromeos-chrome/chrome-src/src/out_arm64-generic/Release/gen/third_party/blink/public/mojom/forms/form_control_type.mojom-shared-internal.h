@@ -60,6 +60,7 @@ struct FormControlType_Data {
       case 29:
       case 30:
       case 31:
+      case 32:
         return true;
     }
     return false;

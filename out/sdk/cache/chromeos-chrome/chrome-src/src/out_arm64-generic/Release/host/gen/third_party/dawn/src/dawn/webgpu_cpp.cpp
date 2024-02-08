@@ -122,6 +122,7 @@ namespace wgpu {
     static_assert(alignof(BufferMapAsyncStatus) == alignof(WGPUBufferMapAsyncStatus), "alignof mismatch for BufferMapAsyncStatus");
 
     static_assert(static_cast<uint32_t>(BufferMapAsyncStatus::Success) == WGPUBufferMapAsyncStatus_Success, "value mismatch for BufferMapAsyncStatus::Success");
+    static_assert(static_cast<uint32_t>(BufferMapAsyncStatus::InstanceDropped) == WGPUBufferMapAsyncStatus_InstanceDropped, "value mismatch for BufferMapAsyncStatus::InstanceDropped");
     static_assert(static_cast<uint32_t>(BufferMapAsyncStatus::ValidationError) == WGPUBufferMapAsyncStatus_ValidationError, "value mismatch for BufferMapAsyncStatus::ValidationError");
     static_assert(static_cast<uint32_t>(BufferMapAsyncStatus::Unknown) == WGPUBufferMapAsyncStatus_Unknown, "value mismatch for BufferMapAsyncStatus::Unknown");
     static_assert(static_cast<uint32_t>(BufferMapAsyncStatus::DeviceLost) == WGPUBufferMapAsyncStatus_DeviceLost, "value mismatch for BufferMapAsyncStatus::DeviceLost");
@@ -170,6 +171,7 @@ namespace wgpu {
     static_assert(alignof(CompilationInfoRequestStatus) == alignof(WGPUCompilationInfoRequestStatus), "alignof mismatch for CompilationInfoRequestStatus");
 
     static_assert(static_cast<uint32_t>(CompilationInfoRequestStatus::Success) == WGPUCompilationInfoRequestStatus_Success, "value mismatch for CompilationInfoRequestStatus::Success");
+    static_assert(static_cast<uint32_t>(CompilationInfoRequestStatus::InstanceDropped) == WGPUCompilationInfoRequestStatus_InstanceDropped, "value mismatch for CompilationInfoRequestStatus::InstanceDropped");
     static_assert(static_cast<uint32_t>(CompilationInfoRequestStatus::Error) == WGPUCompilationInfoRequestStatus_Error, "value mismatch for CompilationInfoRequestStatus::Error");
     static_assert(static_cast<uint32_t>(CompilationInfoRequestStatus::DeviceLost) == WGPUCompilationInfoRequestStatus_DeviceLost, "value mismatch for CompilationInfoRequestStatus::DeviceLost");
     static_assert(static_cast<uint32_t>(CompilationInfoRequestStatus::Unknown) == WGPUCompilationInfoRequestStatus_Unknown, "value mismatch for CompilationInfoRequestStatus::Unknown");
@@ -189,6 +191,7 @@ namespace wgpu {
     static_assert(alignof(CreatePipelineAsyncStatus) == alignof(WGPUCreatePipelineAsyncStatus), "alignof mismatch for CreatePipelineAsyncStatus");
 
     static_assert(static_cast<uint32_t>(CreatePipelineAsyncStatus::Success) == WGPUCreatePipelineAsyncStatus_Success, "value mismatch for CreatePipelineAsyncStatus::Success");
+    static_assert(static_cast<uint32_t>(CreatePipelineAsyncStatus::InstanceDropped) == WGPUCreatePipelineAsyncStatus_InstanceDropped, "value mismatch for CreatePipelineAsyncStatus::InstanceDropped");
     static_assert(static_cast<uint32_t>(CreatePipelineAsyncStatus::ValidationError) == WGPUCreatePipelineAsyncStatus_ValidationError, "value mismatch for CreatePipelineAsyncStatus::ValidationError");
     static_assert(static_cast<uint32_t>(CreatePipelineAsyncStatus::InternalError) == WGPUCreatePipelineAsyncStatus_InternalError, "value mismatch for CreatePipelineAsyncStatus::InternalError");
     static_assert(static_cast<uint32_t>(CreatePipelineAsyncStatus::DeviceLost) == WGPUCreatePipelineAsyncStatus_DeviceLost, "value mismatch for CreatePipelineAsyncStatus::DeviceLost");
@@ -400,6 +403,7 @@ namespace wgpu {
     static_assert(alignof(QueueWorkDoneStatus) == alignof(WGPUQueueWorkDoneStatus), "alignof mismatch for QueueWorkDoneStatus");
 
     static_assert(static_cast<uint32_t>(QueueWorkDoneStatus::Success) == WGPUQueueWorkDoneStatus_Success, "value mismatch for QueueWorkDoneStatus::Success");
+    static_assert(static_cast<uint32_t>(QueueWorkDoneStatus::InstanceDropped) == WGPUQueueWorkDoneStatus_InstanceDropped, "value mismatch for QueueWorkDoneStatus::InstanceDropped");
     static_assert(static_cast<uint32_t>(QueueWorkDoneStatus::Error) == WGPUQueueWorkDoneStatus_Error, "value mismatch for QueueWorkDoneStatus::Error");
     static_assert(static_cast<uint32_t>(QueueWorkDoneStatus::Unknown) == WGPUQueueWorkDoneStatus_Unknown, "value mismatch for QueueWorkDoneStatus::Unknown");
     static_assert(static_cast<uint32_t>(QueueWorkDoneStatus::DeviceLost) == WGPUQueueWorkDoneStatus_DeviceLost, "value mismatch for QueueWorkDoneStatus::DeviceLost");
@@ -410,6 +414,7 @@ namespace wgpu {
     static_assert(alignof(RequestAdapterStatus) == alignof(WGPURequestAdapterStatus), "alignof mismatch for RequestAdapterStatus");
 
     static_assert(static_cast<uint32_t>(RequestAdapterStatus::Success) == WGPURequestAdapterStatus_Success, "value mismatch for RequestAdapterStatus::Success");
+    static_assert(static_cast<uint32_t>(RequestAdapterStatus::InstanceDropped) == WGPURequestAdapterStatus_InstanceDropped, "value mismatch for RequestAdapterStatus::InstanceDropped");
     static_assert(static_cast<uint32_t>(RequestAdapterStatus::Unavailable) == WGPURequestAdapterStatus_Unavailable, "value mismatch for RequestAdapterStatus::Unavailable");
     static_assert(static_cast<uint32_t>(RequestAdapterStatus::Error) == WGPURequestAdapterStatus_Error, "value mismatch for RequestAdapterStatus::Error");
     static_assert(static_cast<uint32_t>(RequestAdapterStatus::Unknown) == WGPURequestAdapterStatus_Unknown, "value mismatch for RequestAdapterStatus::Unknown");
@@ -420,6 +425,7 @@ namespace wgpu {
     static_assert(alignof(RequestDeviceStatus) == alignof(WGPURequestDeviceStatus), "alignof mismatch for RequestDeviceStatus");
 
     static_assert(static_cast<uint32_t>(RequestDeviceStatus::Success) == WGPURequestDeviceStatus_Success, "value mismatch for RequestDeviceStatus::Success");
+    static_assert(static_cast<uint32_t>(RequestDeviceStatus::InstanceDropped) == WGPURequestDeviceStatus_InstanceDropped, "value mismatch for RequestDeviceStatus::InstanceDropped");
     static_assert(static_cast<uint32_t>(RequestDeviceStatus::Error) == WGPURequestDeviceStatus_Error, "value mismatch for RequestDeviceStatus::Error");
     static_assert(static_cast<uint32_t>(RequestDeviceStatus::Unknown) == WGPURequestDeviceStatus_Unknown, "value mismatch for RequestDeviceStatus::Unknown");
 
@@ -2265,6 +2271,8 @@ namespace wgpu {
             "offsetof mismatch for ExternalTextureDescriptor::gamutConversionMatrix");
     static_assert(offsetof(ExternalTextureDescriptor, flipY) == offsetof(WGPUExternalTextureDescriptor, flipY),
             "offsetof mismatch for ExternalTextureDescriptor::flipY");
+    static_assert(offsetof(ExternalTextureDescriptor, mirrored) == offsetof(WGPUExternalTextureDescriptor, mirrored),
+            "offsetof mismatch for ExternalTextureDescriptor::mirrored");
     static_assert(offsetof(ExternalTextureDescriptor, rotation) == offsetof(WGPUExternalTextureDescriptor, rotation),
             "offsetof mismatch for ExternalTextureDescriptor::rotation");
 
@@ -2820,6 +2828,9 @@ template <typename T>
             result.id
         };
     }
+    Future Adapter::RequestDevice(DeviceDescriptor const * options, RequestDeviceCallbackInfo callbackInfo) const {
+        return RequestDeviceF(options, callbackInfo);
+    }
     void Adapter::WGPUReference(WGPUAdapter handle) {
         if (handle != nullptr) {
             wgpuAdapterReference(handle);
@@ -2905,6 +2916,9 @@ template <typename T>
         return Future {
             result.id
         };
+    }
+    Future Buffer::MapAsync(MapMode mode, size_t offset, size_t size, BufferMapCallbackInfo callbackInfo) const {
+        return MapAsyncF(mode, offset, size, callbackInfo);
     }
     void Buffer::SetLabel(char const * label) const {
         wgpuBufferSetLabel(Get(), reinterpret_cast<char const * >(label));
@@ -3112,6 +3126,9 @@ template <typename T>
             result.id
         };
     }
+    Future Device::CreateComputePipelineAsync(ComputePipelineDescriptor const * descriptor, CreateComputePipelineAsyncCallbackInfo callbackInfo) const {
+        return CreateComputePipelineAsyncF(descriptor, callbackInfo);
+    }
     Buffer Device::CreateErrorBuffer(BufferDescriptor const * descriptor) const {
         auto result = wgpuDeviceCreateErrorBuffer(Get(), reinterpret_cast<WGPUBufferDescriptor const * >(descriptor));
         return Buffer::Acquire(result);
@@ -3156,6 +3173,9 @@ template <typename T>
         return Future {
             result.id
         };
+    }
+    Future Device::CreateRenderPipelineAsync(RenderPipelineDescriptor const * descriptor, CreateRenderPipelineAsyncCallbackInfo callbackInfo) const {
+        return CreateRenderPipelineAsyncF(descriptor, callbackInfo);
     }
     Sampler Device::CreateSampler(SamplerDescriptor const * descriptor) const {
         auto result = wgpuDeviceCreateSampler(Get(), reinterpret_cast<WGPUSamplerDescriptor const * >(descriptor));
@@ -3306,6 +3326,9 @@ template <typename T>
             result.id
         };
     }
+    Future Instance::RequestAdapter(RequestAdapterOptions const * options, RequestAdapterCallbackInfo callbackInfo) const {
+        return RequestAdapterF(options, callbackInfo);
+    }
     WaitStatus Instance::WaitAny(size_t futureCount, FutureWaitInfo * futures, uint64_t timeoutNS) const {
         auto result = wgpuInstanceWaitAny(Get(), futureCount, reinterpret_cast<WGPUFutureWaitInfo * >(futures), timeoutNS);
         return static_cast<WaitStatus>(result);
@@ -3389,6 +3412,9 @@ template <typename T>
         return Future {
             result.id
         };
+    }
+    Future Queue::OnSubmittedWorkDone(QueueWorkDoneCallbackInfo callbackInfo) const {
+        return OnSubmittedWorkDoneF(callbackInfo);
     }
     void Queue::SetLabel(char const * label) const {
         wgpuQueueSetLabel(Get(), reinterpret_cast<char const * >(label));

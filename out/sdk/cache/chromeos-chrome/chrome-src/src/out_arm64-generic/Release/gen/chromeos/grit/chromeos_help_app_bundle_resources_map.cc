@@ -9,7 +9,7 @@
 #include "chromeos_help_app_bundle_resources.h"
 
 const webui::ResourcePath kChromeosHelpAppBundleResources[] = {
-  {"app_bin.js", IDR_HELP_APP_APP_BIN_JS},
+  {"app_bin/js", IDR_HELP_APP_APP_BIN_JS},
 };
 
 const size_t kChromeosHelpAppBundleResourcesSize = std::size(kChromeosHelpAppBundleResources);

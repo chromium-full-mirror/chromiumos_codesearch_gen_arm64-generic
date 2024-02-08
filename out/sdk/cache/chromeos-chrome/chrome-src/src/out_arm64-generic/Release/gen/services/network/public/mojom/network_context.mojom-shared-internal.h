@@ -30,6 +30,7 @@
 #include "services/network/public/mojom/default_credentials.mojom-shared-internal.h"
 #include "services/network/public/mojom/devtools_observer.mojom-shared-internal.h"
 #include "services/network/public/mojom/restricted_udp_socket.mojom-shared-internal.h"
+#include "services/network/public/mojom/fetch_api.mojom-shared-internal.h"
 #include "services/network/public/mojom/first_party_sets_access_delegate.mojom-shared-internal.h"
 #include "services/network/public/mojom/host_resolver.mojom-shared-internal.h"
 #include "services/network/public/mojom/http_cache_backend_file_operations.mojom-shared-internal.h"
@@ -624,6 +625,8 @@ class  SharedDictionaryInfo_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> match;
+  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> match_dest;
+  mojo::internal::Pointer<mojo::internal::String_Data> id;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> dictionary_url;
   mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> response_time;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> expiration;
@@ -637,7 +640,7 @@ class  SharedDictionaryInfo_Data {
   SharedDictionaryInfo_Data();
   ~SharedDictionaryInfo_Data() = delete;
 };
-static_assert(sizeof(SharedDictionaryInfo_Data) == 64,
+static_assert(sizeof(SharedDictionaryInfo_Data) == 80,
               "Bad sizeof(SharedDictionaryInfo_Data)");
 // Used by SharedDictionaryInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

@@ -19,6 +19,7 @@ function pagePrefs() {
         profile: { password_manager_leak_detection: { value: false } },
         safebrowsing: {
             scout_reporting_enabled: { value: true },
+            esb_opt_in_with_friendlier_settings: { value: false },
         },
         generated: {
             safe_browsing: {
@@ -136,12 +137,28 @@ suite('SecurityPageHappinessTrackingSurveys', function () {
         page = document.createElement('settings-security-page');
         page.prefs = settingsPrefs.prefs;
         document.body.appendChild(page);
+        testHatsBrowserProxy.reset();
         Router.getInstance().navigateTo(routes.SECURITY);
         return flushTasks();
     });
     teardown(function () {
         page.remove();
         Router.getInstance().navigateTo(routes.BASIC);
+    });
+    test('SecurityPageSwitchRouteCallsHatsProxy', async function () {
+        const t1 = 10000;
+        testHatsBrowserProxy.setNow(t1);
+        window.dispatchEvent(new Event('focus'));
+        const t2 = 20000;
+        testHatsBrowserProxy.setNow(t2);
+        window.dispatchEvent(new Event('blur'));
+        // Switch tabs within the settings page.
+        Router.getInstance().navigateTo(routes.PRIVACY);
+        const args = await testHatsBrowserProxy.whenCalled('securityPageHatsRequest');
+        // Verify that the method securityPageHatsRequest was called and the time
+        // the user spent on the security page was logged correctly.
+        const expectedTotalTimeInFocus = t2 - t1;
+        assertEquals(expectedTotalTimeInFocus, args[2]);
     });
     test('SecurityPageBeforeUnloadCallsHatsProxy', async function () {
         // Interact with the security page.
@@ -354,7 +371,7 @@ suite('SafeBrowsing', function () {
         assertFalse(safeBrowsingReportingToggle.disabled);
         assertTrue(safeBrowsingReportingToggle.checked);
     });
-    test('SafeBrowsingRadio_ManuallyExpandedRemainExpandedOnRepeatSelection', function () {
+    test('SafeBrowsingRadio_ManuallyExpandedRemainExpandedOnRepeatSelection', async function () {
         page.$.safeBrowsingStandard.click();
         flush();
         assertEquals(SafeBrowsingSetting.STANDARD, page.prefs.generated.safe_browsing.value);
@@ -363,7 +380,7 @@ suite('SafeBrowsing', function () {
         // Expanding another radio button should not collapse already expanded
         // option.
         page.$.safeBrowsingEnhanced.$.expandButton.click();
-        flush();
+        await page.$.safeBrowsingEnhanced.$.expandButton.updateComplete;
         assertTrue(page.$.safeBrowsingStandard.expanded);
         assertTrue(page.$.safeBrowsingEnhanced.expanded);
         // Clicking on already selected button should not collapse manually
@@ -378,7 +395,7 @@ suite('SafeBrowsing', function () {
         flush();
         assertEquals(SafeBrowsingSetting.STANDARD, page.prefs.generated.safe_browsing.value);
         page.$.safeBrowsingEnhanced.$.expandButton.click();
-        flush();
+        await page.$.safeBrowsingEnhanced.$.expandButton.updateComplete;
         assertTrue(page.$.safeBrowsingStandard.expanded);
         assertTrue(page.$.safeBrowsingEnhanced.expanded);
         page.$.safeBrowsingDisabled.click();
@@ -656,4 +673,24 @@ suite('SafeBrowsing', function () {
         assertEquals(subLabel, standardProtection.subLabel);
     });
     // 
+    test('FriendlierSettingsPopulatedOnEsbOptIn', async function () {
+        loadTimeData.overrideValues({
+            enableFriendlierSafeBrowsingSettings: false,
+        });
+        resetPage();
+        page.$.safeBrowsingEnhanced.click();
+        assertFalse(page.getPref('safebrowsing.esb_opt_in_with_friendlier_settings').value);
+        loadTimeData.overrideValues({
+            enableFriendlierSafeBrowsingSettings: true,
+        });
+        resetPage();
+        page.$.safeBrowsingEnhanced.click();
+        assertTrue(page.getPref('safebrowsing.esb_opt_in_with_friendlier_settings').value);
+    });
+    test('FriendlierSettingsClearedOnEsbOptOut', async function () {
+        page.$.safeBrowsingEnhanced.click();
+        page.setPrefValue('safebrowsing.esb_opt_in_with_friendlier_settings', true);
+        page.$.safeBrowsingStandard.click();
+        assertFalse(page.getPref('safebrowsing.esb_opt_in_with_friendlier_settings').value);
+    });
 });

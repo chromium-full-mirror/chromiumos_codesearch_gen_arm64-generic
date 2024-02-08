@@ -157,6 +157,7 @@ export class FlameChart extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox) 
     totalTime;
     #font;
     #groupTreeRoot;
+    #searchResultEntryIndex;
     constructor(dataProvider, flameChartDelegate, groupExpansionSetting) {
         super(true);
         this.#font = `${DEFAULT_FONT_SIZE} ${getFontFamilyForCanvas()}`;
@@ -208,6 +209,7 @@ export class FlameChart extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox) 
         this.highlightedMarkerIndex = -1;
         this.highlightedEntryIndex = -1;
         this.selectedEntryIndex = -1;
+        this.#searchResultEntryIndex = -1;
         this.rawTimelineDataLength = 0;
         this.markerPositions = new Map();
         this.lastMouseOffsetX = 0;
@@ -251,7 +253,9 @@ export class FlameChart extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox) 
         this.dispatchEventToListeners("EntryHighlighted" /* Events.EntryHighlighted */, entryIndex);
     }
     hideHighlight() {
-        this.entryInfo.removeChildren();
+        if (this.#searchResultEntryIndex === -1) {
+            this.entryInfo.removeChildren();
+        }
         if (this.highlightedEntryIndex === -1) {
             return;
         }
@@ -353,6 +357,7 @@ export class FlameChart extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox) 
         this.updateHighlight();
     }
     onMouseMove(event) {
+        this.#searchResultEntryIndex = -1;
         const mouseEvent = event;
         this.lastMouseOffsetX = mouseEvent.offsetX;
         this.lastMouseOffsetY = mouseEvent.offsetY;
@@ -398,6 +403,10 @@ export class FlameChart extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox) 
         this.lastMouseOffsetY = -1;
         this.hideHighlight();
     }
+    showPopoverForSearchResult(selectedSearchResult) {
+        this.#searchResultEntryIndex = selectedSearchResult;
+        this.updatePopover(selectedSearchResult);
+    }
     updatePopover(entryIndex) {
         this.entryInfo.removeChildren();
         const data = this.timelineData();
@@ -416,8 +425,15 @@ export class FlameChart extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox) 
         }
     }
     updatePopoverOffset() {
-        const mouseX = this.lastMouseOffsetX;
-        const mouseY = this.lastMouseOffsetY;
+        let mouseX = this.lastMouseOffsetX;
+        let mouseY = this.lastMouseOffsetY;
+        // If the popover is being updated from a search, we calculate the coordinates manually
+        if (this.#searchResultEntryIndex !== -1) {
+            const coordinate = this.entryIndexToCoordinates(this.selectedEntryIndex);
+            const { x: canvasViewportOffsetX, y: canvasViewportOffsetY } = this.canvas.getBoundingClientRect();
+            mouseX = coordinate?.x ? coordinate.x - canvasViewportOffsetX : mouseX;
+            mouseY = coordinate?.y ? coordinate.y - canvasViewportOffsetY : mouseY;
+        }
         const parentWidth = this.entryInfo.parentElement ? this.entryInfo.parentElement.clientWidth : 0;
         const parentHeight = this.entryInfo.parentElement ? this.entryInfo.parentElement.clientHeight : 0;
         const infoWidth = this.entryInfo.clientWidth;
@@ -725,7 +741,7 @@ export class FlameChart extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox) 
             });
             item.setShortcut('R');
         }
-        if (this.entryHasDecoration(this.selectedEntryIndex, "HIDDEN_DESCENDANTS_ARROW" /* FlameChartDecorationType.HIDDEN_DESCENDANTS_ARROW */)) {
+        if (possibleActions?.["RESET_CHILDREN" /* TraceEngine.EntriesFilter.FilterAction.RESET_CHILDREN */]) {
             const item = this.contextMenu.defaultSection().appendItem(i18nString(UIStrings.resetChildren), () => {
                 this.modifyTree("RESET_CHILDREN" /* TraceEngine.EntriesFilter.FilterAction.RESET_CHILDREN */, this.selectedEntryIndex);
             });
@@ -1265,6 +1281,9 @@ export class FlameChart extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox) 
         }
         this.updateElementPosition(this.highlightElement, this.highlightedEntryIndex);
         this.updateElementPosition(this.selectedElement, this.selectedEntryIndex);
+        if (this.#searchResultEntryIndex !== -1) {
+            this.showPopoverForSearchResult(this.#searchResultEntryIndex);
+        }
         this.updateMarkerHighlight();
     }
     /**

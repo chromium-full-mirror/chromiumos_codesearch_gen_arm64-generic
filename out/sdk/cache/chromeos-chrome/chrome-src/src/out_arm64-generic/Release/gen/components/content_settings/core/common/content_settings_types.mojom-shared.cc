@@ -226,6 +226,8 @@ NOINLINE static const char* ContentSettingsTypeToStringHelper(ContentSettingsTyp
       return "SMART_CARD_DATA";
     case ContentSettingsType::WEB_PRINTING:
       return "WEB_PRINTING";
+    case ContentSettingsType::AUTOMATIC_FULLSCREEN:
+      return "AUTOMATIC_FULLSCREEN";
     case ContentSettingsType::NUM_TYPES:
       return "NUM_TYPES";
     default:

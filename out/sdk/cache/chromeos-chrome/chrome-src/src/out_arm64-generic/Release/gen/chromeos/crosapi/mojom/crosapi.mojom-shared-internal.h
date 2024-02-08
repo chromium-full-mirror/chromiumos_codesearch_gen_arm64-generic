@@ -858,6 +858,7 @@ class  BrowserInitParams_Data {
   mojo::internal::Pointer<::crosapi::mojom::internal::ExtensionKeepList_Data> extension_keep_list;
   mojo::internal::Pointer<::crosapi::mojom::internal::StandaloneBrowserAppServiceBlockList_Data> standalone_browser_app_service_blocklist;
   mojo::internal::Pointer<internal::EntropySource_Data> entropy_source;
+  uint64_t limited_entropy_synthetic_trial_seed;
 
  private:
   friend class mojo::internal::MessageFragment<BrowserInitParams_Data>;
@@ -865,7 +866,7 @@ class  BrowserInitParams_Data {
   BrowserInitParams_Data();
   ~BrowserInitParams_Data() = delete;
 };
-static_assert(sizeof(BrowserInitParams_Data) == 248,
+static_assert(sizeof(BrowserInitParams_Data) == 256,
               "Bad sizeof(BrowserInitParams_Data)");
 // Used by BrowserInitParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

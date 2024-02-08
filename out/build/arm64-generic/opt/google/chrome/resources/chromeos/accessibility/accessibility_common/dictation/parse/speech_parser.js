@@ -1,28 +1,21 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Handles speech parsing for dictation.
- */
-import { InputController } from '../input_controller.js';
-import { LocaleInfo } from '../locale_info.js';
-import { Macro } from '../macros/macro.js';
 import { MetricsUtils } from '../metrics_utils.js';
 import { InputTextStrategy } from './input_text_strategy.js';
-import { ParseStrategy } from './parse_strategy.js';
 import { PumpkinParseStrategy } from './pumpkin_parse_strategy.js';
 import { SimpleParseStrategy } from './simple_parse_strategy.js';
 /** SpeechParser handles parsing spoken transcripts into Macros. */
 export class SpeechParser {
-    /** @param {!InputController} inputController to interact with the IME. */
+    inputController_;
+    inputTextStrategy_;
+    simpleParseStrategy_;
+    pumpkinParseStrategy_;
+    /** @param inputController to interact with the IME. */
     constructor(inputController) {
-        /** @private {!InputController} */
         this.inputController_ = inputController;
-        /** @private {!ParseStrategy} */
         this.inputTextStrategy_ = new InputTextStrategy(this.inputController_);
-        /** @private {!ParseStrategy} */
         this.simpleParseStrategy_ = new SimpleParseStrategy(this.inputController_);
-        /** @private {!ParseStrategy} */
         this.pumpkinParseStrategy_ =
             new PumpkinParseStrategy(this.inputController_);
     }
@@ -35,8 +28,7 @@ export class SpeechParser {
     }
     /**
      * Parses user text to produce a macro command.
-     * @param {string} text The text to parse.
-     * @return {!Promise<!Macro>}
+     * @param text The text to parse.
      */
     async parse(text) {
         if (this.pumpkinParseStrategy_.isEnabled()) {
@@ -52,11 +44,11 @@ export class SpeechParser {
         // Try using `simpleParseStrategy_` as a fall-back.
         if (this.simpleParseStrategy_.isEnabled()) {
             MetricsUtils.recordPumpkinUsed(false);
-            return await /** @type {!Promise<!Macro>} */ (this.simpleParseStrategy_.parse(text));
+            return await this.simpleParseStrategy_.parse(text);
         }
         // Input text as-is as a catch-all.
         MetricsUtils.recordPumpkinUsed(false);
-        return await /** @type {!Promise<!Macro>} */ (this.inputTextStrategy_.parse(text));
+        return await this.inputTextStrategy_.parse(text);
     }
     /** For testing purposes only. */
     disablePumpkinForTesting() {

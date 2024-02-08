@@ -144,15 +144,13 @@ enum class RequestTokenStatus : int32_t {
   
   kSuccess = 0,
   
-  kApprovalDeclined = 1,
+  kErrorTooManyRequests = 1,
   
-  kErrorTooManyRequests = 2,
+  kErrorCanceled = 2,
   
-  kErrorCanceled = 3,
-  
-  kError = 4,
+  kError = 3,
   kMinValue = 0,
-  kMaxValue = 4,
+  kMaxValue = 3,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, RequestTokenStatus value);

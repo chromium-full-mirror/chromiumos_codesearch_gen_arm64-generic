@@ -120,6 +120,11 @@ import {
 } from './dhcp_wpad_url_client.mojom.m.js';
 
 import {
+  RequestDestination as network_mojom_RequestDestination,
+  RequestDestinationSpec as network_mojom_RequestDestinationSpec
+} from './fetch_api.mojom.m.js';
+
+import {
   FirstPartySetsAccessDelegateRemote as network_mojom_FirstPartySetsAccessDelegateRemote,
   FirstPartySetsAccessDelegatePendingReceiver as network_mojom_FirstPartySetsAccessDelegatePendingReceiver,
   FirstPartySetsAccessDelegateParams as network_mojom_FirstPartySetsAccessDelegateParams,
@@ -7716,7 +7721,23 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'dictionaryUrl', 8,
+        'matchDest', 8,
+        0,
+        mojo.internal.Array(network_mojom_RequestDestinationSpec.$, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'id', 16,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'dictionaryUrl', 24,
         0,
         url_mojom_UrlSpec.$,
         null,
@@ -7724,7 +7745,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'responseTime', 16,
+        'responseTime', 32,
         0,
         mojoBase_mojom_TimeSpec.$,
         null,
@@ -7732,7 +7753,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'expiration', 24,
+        'expiration', 40,
         0,
         mojoBase_mojom_TimeDeltaSpec.$,
         null,
@@ -7740,7 +7761,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'lastUsedTime', 32,
+        'lastUsedTime', 48,
         0,
         mojoBase_mojom_TimeSpec.$,
         null,
@@ -7748,7 +7769,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'size', 40,
+        'size', 56,
         0,
         mojo.internal.Uint64,
         BigInt(0),
@@ -7756,7 +7777,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'hash', 48,
+        'hash', 64,
         0,
         network_mojom_SHA256HashValueSpec.$,
         null,
@@ -7764,7 +7785,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 64],]);
+    [[0, 80],]);
 
 
 
@@ -7775,6 +7796,10 @@ export class SharedDictionaryInfo {
   constructor() {
     /** @type { !string } */
     this.match;
+    /** @type { !Array<!network_mojom_RequestDestination> } */
+    this.matchDest;
+    /** @type { !string } */
+    this.id;
     /** @type { !url_mojom_Url } */
     this.dictionaryUrl;
     /** @type { !mojoBase_mojom_Time } */

@@ -84,7 +84,6 @@ export class SettingsPrivacySandboxManageTopicsSubpageElement extends SettingsPr
     }
     ready() {
         super.ready();
-        this.$.explanationText.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
         this.privacySandboxBrowserProxy_.getFirstLevelTopics().then(state => this.onFirstLevelTopicsStateChanged_(state));
     }
     currentRouteChanged(newRoute) {
@@ -112,15 +111,27 @@ export class SettingsPrivacySandboxManageTopicsSubpageElement extends SettingsPr
             };
         });
     }
+    // When the user clicks anywhere on the toggle row, we click the toggle itself
+    // here to trigger its on-change event.
+    onToggleRowClick_(e) {
+        e.stopPropagation();
+        assert(e.model.item?.topic);
+        const toggleId = `#toggle-${e.model.item.topic.topicId}`;
+        const toggleBeingChanged = this.shadowRoot.querySelector(toggleId);
+        assert(toggleBeingChanged);
+        toggleBeingChanged.click();
+    }
     async onToggleChange_(e) {
+        e.stopPropagation();
         this.topicBeingToggled_ = e.model.item;
         assert(this.topicBeingToggled_);
         assert(this.topicBeingToggled_.topic);
         const toggleId = `#toggle-${this.topicBeingToggled_.topic.topicId}`;
         const toggleBeingChanged = this.shadowRoot.querySelector(toggleId);
         assert(toggleBeingChanged);
-        // If the toggle is checked, then the First Level Topic needs to be
-        // updated to be unblocked.
+        // At this point, the toggle checked state has already changed. If the
+        // toggle is now checked, then the First Level Topic needs to be updated to
+        // be unblocked.
         if (toggleBeingChanged.checked) {
             this.updateTopicState_({ blocked: false });
             return;

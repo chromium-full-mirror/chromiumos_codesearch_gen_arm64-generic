@@ -101,7 +101,7 @@ const LINEAR_MEMORY_INSPECTOR_TAB_TITLE_SELECTOR = '.tabbed-pane-header-tab-titl
             // Wait until we pause in the other worker.
             await (0, helper_js_1.waitFor)(sources_helpers_js_1.PAUSE_INDICATOR_SELECTOR);
             const scriptLocation = await (0, sources_helpers_js_1.retrieveTopCallFrameWithoutResuming)();
-            chai_1.assert.deepEqual(scriptLocation, 'memory-worker1.rawresponse:1');
+            chai_1.assert.deepEqual(scriptLocation, 'memory-worker1.rawresponse:10');
         });
         await (0, helper_js_1.step)('open other buffer in other worker', async () => {
             await (0, sources_helpers_js_1.inspectMemory)('memory1');

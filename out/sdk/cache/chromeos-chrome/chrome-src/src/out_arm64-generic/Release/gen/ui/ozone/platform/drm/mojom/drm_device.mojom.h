@@ -93,10 +93,7 @@ class DrmDevice
     kGetHDCPStateMinVersion = 0,
     kSetHDCPStateMinVersion = 0,
     kSetColorTemperatureAdjustmentMinVersion = 0,
-    kSetColorCalibrationMinVersion = 0,
     kSetGammaAdjustmentMinVersion = 0,
-    kSetColorMatrixMinVersion = 0,
-    kSetGammaCorrectionMinVersion = 0,
     kSetPrivacyScreenMinVersion = 0,
     kGetDeviceCursorMinVersion = 0,
   };
@@ -146,16 +143,7 @@ class DrmDevice
   struct SetColorTemperatureAdjustment_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct SetColorCalibration_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct SetGammaAdjustment_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct SetColorMatrix_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct SetGammaCorrection_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetPrivacyScreen_Sym {
@@ -226,16 +214,7 @@ class DrmDevice
   virtual void SetColorTemperatureAdjustment(int64_t display_id, const ::display::ColorTemperatureAdjustment& cta) = 0;
 
   
-  virtual void SetColorCalibration(int64_t display_id, const ::display::ColorCalibration& calibration) = 0;
-
-  
   virtual void SetGammaAdjustment(int64_t display_id, const ::display::GammaAdjustment& adjustment) = 0;
-
-  
-  virtual void SetColorMatrix(int64_t display_id, const std::vector<float>& color_matrix) = 0;
-
-  
-  virtual void SetGammaCorrection(int64_t display_id, const ::display::GammaCurve& degamma, const ::display::GammaCurve& gamma) = 0;
 
 
   using SetPrivacyScreenCallback = base::OnceCallback<void(bool)>;
@@ -283,13 +262,7 @@ class  DrmDeviceProxy
   
   void SetColorTemperatureAdjustment(int64_t display_id, const ::display::ColorTemperatureAdjustment& cta) final;
   
-  void SetColorCalibration(int64_t display_id, const ::display::ColorCalibration& calibration) final;
-  
   void SetGammaAdjustment(int64_t display_id, const ::display::GammaAdjustment& adjustment) final;
-  
-  void SetColorMatrix(int64_t display_id, const std::vector<float>& color_matrix) final;
-  
-  void SetGammaCorrection(int64_t display_id, const ::display::GammaCurve& degamma, const ::display::GammaCurve& gamma) final;
   
   void SetPrivacyScreen(int64_t display_id, bool enabled, SetPrivacyScreenCallback callback) final;
   

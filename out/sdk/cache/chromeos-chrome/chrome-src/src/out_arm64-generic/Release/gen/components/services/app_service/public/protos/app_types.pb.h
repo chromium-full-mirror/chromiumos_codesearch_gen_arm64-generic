@@ -185,11 +185,12 @@ enum ApplicationLaunchSource : int {
   APPLICATION_LAUNCH_SOURCE_REPARENTING = 34,
   APPLICATION_LAUNCH_SOURCE_PROFILE_MENU = 35,
   APPLICATION_LAUNCH_SOURCE_SYSTEM_TRAY_CALENDAR = 36,
-  APPLICATION_LAUNCH_SOURCE_INSTALLER = 37
+  APPLICATION_LAUNCH_SOURCE_INSTALLER = 37,
+  APPLICATION_LAUNCH_SOURCE_FIRST_RUN = 38
 };
 bool ApplicationLaunchSource_IsValid(int value);
 constexpr ApplicationLaunchSource ApplicationLaunchSource_MIN = APPLICATION_LAUNCH_SOURCE_UNKNOWN;
-constexpr ApplicationLaunchSource ApplicationLaunchSource_MAX = APPLICATION_LAUNCH_SOURCE_INSTALLER;
+constexpr ApplicationLaunchSource ApplicationLaunchSource_MAX = APPLICATION_LAUNCH_SOURCE_FIRST_RUN;
 constexpr int ApplicationLaunchSource_ARRAYSIZE = ApplicationLaunchSource_MAX + 1;
 
 const std::string& ApplicationLaunchSource_Name(ApplicationLaunchSource value);

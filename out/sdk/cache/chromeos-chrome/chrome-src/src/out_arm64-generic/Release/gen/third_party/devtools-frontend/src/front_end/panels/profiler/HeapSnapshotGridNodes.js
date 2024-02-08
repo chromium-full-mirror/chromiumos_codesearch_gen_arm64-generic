@@ -451,6 +451,7 @@ export class HeapSnapshotGenericObjectNode extends HeapSnapshotGridNode {
         return this.snapshotNodeIndex === undefined ? null : {
             snapshot: this.dataGridInternal.snapshot,
             snapshotNodeIndex: this.snapshotNodeIndex,
+            snapshotNodeId: this.snapshotNodeId,
         };
     }
     createCell(columnId) {
@@ -615,8 +616,9 @@ export class HeapSnapshotObjectNode extends HeapSnapshotGenericObjectNode {
         data['sizeDelta'] = '';
     }
     retainersDataSource() {
-        return this.snapshotNodeIndex === undefined ? null :
-            { snapshot: this.snapshot, snapshotNodeIndex: this.snapshotNodeIndex };
+        return this.snapshotNodeIndex === undefined ?
+            null :
+            { snapshot: this.snapshot, snapshotNodeIndex: this.snapshotNodeIndex, snapshotNodeId: this.snapshotNodeId };
     }
     createProvider() {
         if (this.snapshotNodeIndex === undefined) {
@@ -675,7 +677,7 @@ export class HeapSnapshotObjectNode extends HeapSnapshotGenericObjectNode {
                 break;
         }
         if (this.cycledWithAncestorGridNode) {
-            div.classList.add('cycled-ancessor-node');
+            div.classList.add('cycled-ancestor-node');
         }
         div.prepend(UI.Fragment.html `<span class="property-name ${nameClass}">${name}</span>
   <span class="grayed">${this.edgeNodeSeparator()}</span>`);
@@ -748,9 +750,11 @@ export class HeapSnapshotInstanceNode extends HeapSnapshotGenericObjectNode {
         }
     }
     retainersDataSource() {
-        return this.snapshotNodeIndex === undefined ?
-            null :
-            { snapshot: this.baseSnapshotOrSnapshot, snapshotNodeIndex: this.snapshotNodeIndex };
+        return this.snapshotNodeIndex === undefined ? null : {
+            snapshot: this.baseSnapshotOrSnapshot,
+            snapshotNodeIndex: this.snapshotNodeIndex,
+            snapshotNodeId: this.snapshotNodeId,
+        };
     }
     createProvider() {
         if (this.snapshotNodeIndex === undefined) {

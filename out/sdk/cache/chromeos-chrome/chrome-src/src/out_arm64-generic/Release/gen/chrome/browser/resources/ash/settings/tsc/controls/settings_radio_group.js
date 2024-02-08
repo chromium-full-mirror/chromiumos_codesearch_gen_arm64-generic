@@ -27,6 +27,10 @@ export class SettingsRadioGroupElement extends SettingsRadioGroupElementBase {
     }
     static get properties() {
         return {
+            disabled: {
+                type: Boolean,
+                value: false,
+            },
             groupAriaLabel: String,
             /**
              * If true, do not automatically set the preference value. This allows the

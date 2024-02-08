@@ -40,7 +40,7 @@ import { Router, routes } from '../router.js';
 import { AboutPageBrowserProxyImpl, browserChannelToI18nId, UpdateStatus } from './about_page_browser_proxy.js';
 import { getTemplate } from './os_about_page.html.js';
 const OsAboutPageBase = DeepLinkingMixin(RouteOriginMixin(I18nMixin(WebUiListenerMixin(PolymerElement))));
-class OsAboutPageElement extends OsAboutPageBase {
+export class OsAboutPageElement extends OsAboutPageBase {
     static get is() {
         return 'os-about-page';
     }

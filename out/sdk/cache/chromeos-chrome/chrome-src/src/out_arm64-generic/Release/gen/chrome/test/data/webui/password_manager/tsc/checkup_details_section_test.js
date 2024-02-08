@@ -203,6 +203,7 @@ suite('CheckupDetailsSectionTest', function () {
         assertTrue(!!listItemElements[0]);
         assertFalse(isVisible(listItemElements[0]));
         dismissedButton.click();
+        await dismissedButton.updateComplete;
         assertTrue(isVisible(listItemElements[0]));
     });
     test('Reused issues shown correctly', async function () {

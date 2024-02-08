@@ -255,6 +255,9 @@ namespace wgpu {
       case BufferMapAsyncStatus::Success:
         o << "BufferMapAsyncStatus::Success";
         break;
+      case BufferMapAsyncStatus::InstanceDropped:
+        o << "BufferMapAsyncStatus::InstanceDropped";
+        break;
       case BufferMapAsyncStatus::ValidationError:
         o << "BufferMapAsyncStatus::ValidationError";
         break;
@@ -359,6 +362,9 @@ namespace wgpu {
       case CompilationInfoRequestStatus::Success:
         o << "CompilationInfoRequestStatus::Success";
         break;
+      case CompilationInfoRequestStatus::InstanceDropped:
+        o << "CompilationInfoRequestStatus::InstanceDropped";
+        break;
       case CompilationInfoRequestStatus::Error:
         o << "CompilationInfoRequestStatus::Error";
         break;
@@ -395,6 +401,9 @@ namespace wgpu {
       switch (value) {
       case CreatePipelineAsyncStatus::Success:
         o << "CreatePipelineAsyncStatus::Success";
+        break;
+      case CreatePipelineAsyncStatus::InstanceDropped:
+        o << "CreatePipelineAsyncStatus::InstanceDropped";
         break;
       case CreatePipelineAsyncStatus::ValidationError:
         o << "CreatePipelineAsyncStatus::ValidationError";
@@ -859,6 +868,9 @@ namespace wgpu {
       case QueueWorkDoneStatus::Success:
         o << "QueueWorkDoneStatus::Success";
         break;
+      case QueueWorkDoneStatus::InstanceDropped:
+        o << "QueueWorkDoneStatus::InstanceDropped";
+        break;
       case QueueWorkDoneStatus::Error:
         o << "QueueWorkDoneStatus::Error";
         break;
@@ -879,6 +891,9 @@ namespace wgpu {
       case RequestAdapterStatus::Success:
         o << "RequestAdapterStatus::Success";
         break;
+      case RequestAdapterStatus::InstanceDropped:
+        o << "RequestAdapterStatus::InstanceDropped";
+        break;
       case RequestAdapterStatus::Unavailable:
         o << "RequestAdapterStatus::Unavailable";
         break;
@@ -898,6 +913,9 @@ namespace wgpu {
       switch (value) {
       case RequestDeviceStatus::Success:
         o << "RequestDeviceStatus::Success";
+        break;
+      case RequestDeviceStatus::InstanceDropped:
+        o << "RequestDeviceStatus::InstanceDropped";
         break;
       case RequestDeviceStatus::Error:
         o << "RequestDeviceStatus::Error";

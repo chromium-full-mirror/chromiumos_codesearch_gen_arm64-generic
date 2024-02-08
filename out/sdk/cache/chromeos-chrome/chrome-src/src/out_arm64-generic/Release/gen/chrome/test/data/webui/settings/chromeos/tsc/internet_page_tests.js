@@ -742,22 +742,19 @@ suite('InternetPage', function () {
         assertFalse(getApnButton().disabled);
         let properties = OncMojo.getDefaultManagedProperties(NetworkType.kCellular, 'cellular1', 'cellular');
         // We're setting the list of APNs to the max number
-        properties.typeProperties.cellular = {
-            customApnList: Array.apply(null, { length: MAX_NUM_CUSTOM_APNS }).map(_ => {
+        properties.typeProperties.cellular.customApnList =
+            Array.apply(null, { length: MAX_NUM_CUSTOM_APNS }).map(_ => {
                 return {
                     accessPointName: 'apn',
                 };
-            }),
-        };
+            });
         mojoApi_.setManagedPropertiesForTest(properties);
         await flushAsync();
         assertTrue(!!getApnTooltip());
         assertTrue(getApnButton().disabled);
         assertTrue(getApnTooltip().innerHTML.includes(internetPage.i18n('customApnLimitReached')));
         properties = OncMojo.getDefaultManagedProperties(NetworkType.kCellular, 'cellular1', 'cellular');
-        properties.typeProperties.cellular = {
-            customApnList: [],
-        };
+        properties.typeProperties.cellular.customApnList = [];
         mojoApi_.setManagedPropertiesForTest(properties);
         await flushAsync();
         assertFalse(!!getApnTooltip());

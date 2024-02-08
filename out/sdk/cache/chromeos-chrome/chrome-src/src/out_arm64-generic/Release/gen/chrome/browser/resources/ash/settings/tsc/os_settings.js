@@ -192,6 +192,7 @@ export { TtsVoiceSubpageBrowserProxyImpl } from './os_a11y_page/tts_voice_subpag
 export { AboutPageBrowserProxyImpl, BrowserChannel, UpdateStatus } from './os_about_page/about_page_browser_proxy.js';
 export { DeviceNameBrowserProxyImpl } from './os_about_page/device_name_browser_proxy.js';
 export { DeviceNameState, SetDeviceNameResult } from './os_about_page/device_name_util.js';
+export { OsAboutPageElement } from './os_about_page/os_about_page.js';
 export { AndroidAppsBrowserProxyImpl } from './os_apps_page/android_apps_browser_proxy.js';
 export { AppManagementFileHandlingItemElement } from './os_apps_page/app_management_page/file_handling_item.js';
 export { PluginVmBrowserProxyImpl } from './os_apps_page/app_management_page/plugin_vm_page/plugin_vm_browser_proxy.js';

@@ -346,6 +346,13 @@ export class AcceleratorViewElement extends AcceleratorViewElementBase {
                 this.makeA11yAnnouncement(this.statusMessage);
                 return;
             }
+            // TODO(b/286268215): Localize this string.
+            case AcceleratorConfigResult.kNonStandardWithSearch: {
+                this.statusMessage = this.i18n('nonStandardNotAllowedWithSearchMessage', this.lastPendingKeyEvent.keyDisplay, this.getMetaKeyDisplay());
+                this.hasError = true;
+                this.makeA11yAnnouncement(this.statusMessage);
+                return;
+            }
             case AcceleratorConfigResult.kSuccess: {
                 this.fireEditCompletedActionEvent(this.editAction);
                 getShortcutProvider().recordAddOrEditSubactions(this.viewState === ViewState.ADD, this.recordedError ? Subactions.kErrorSuccess :

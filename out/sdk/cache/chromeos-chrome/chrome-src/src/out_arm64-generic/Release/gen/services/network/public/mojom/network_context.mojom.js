@@ -139,6 +139,12 @@
     mojo.internal.loadMojomIfNecessary(
         'services/network/public/mojom/restricted_udp_socket.mojom', 'restricted_udp_socket.mojom.js');
   }
+  var fetch_api$ =
+      mojo.internal.exposeNamespace('network.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'services/network/public/mojom/fetch_api.mojom', 'fetch_api.mojom.js');
+  }
   var first_party_sets_access_delegate$ =
       mojo.internal.exposeNamespace('network.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -1539,6 +1545,8 @@
 
   SharedDictionaryInfo.prototype.initDefaults_ = function() {
     this.match = null;
+    this.matchDest = null;
+    this.id = null;
     this.dictionaryUrl = null;
     this.responseTime = null;
     this.expiration = null;
@@ -1560,7 +1568,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 64}
+      {version: 0, numBytes: 80}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -1573,40 +1581,52 @@
         return err;
 
 
+    // validate SharedDictionaryInfo.matchDest
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 4, new codec.Enum(fetch_api$.RequestDestination), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate SharedDictionaryInfo.id
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate SharedDictionaryInfo.dictionaryUrl
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, url$.Url, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, url$.Url, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate SharedDictionaryInfo.responseTime
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 16, time$.Time, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, time$.Time, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate SharedDictionaryInfo.expiration
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, time$.TimeDelta, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 40, time$.TimeDelta, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate SharedDictionaryInfo.lastUsedTime
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, time$.Time, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 48, time$.Time, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate SharedDictionaryInfo.hash
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 48, hash_value$.SHA256HashValue, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 64, hash_value$.SHA256HashValue, false);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  SharedDictionaryInfo.encodedSize = codec.kStructHeaderSize + 56;
+  SharedDictionaryInfo.encodedSize = codec.kStructHeaderSize + 72;
 
   SharedDictionaryInfo.decode = function(decoder) {
     var packed;
@@ -1614,6 +1634,10 @@
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.match =
+        decoder.decodeStruct(codec.String);
+    val.matchDest =
+        decoder.decodeArrayPointer(new codec.Enum(fetch_api$.RequestDestination));
+    val.id =
         decoder.decodeStruct(codec.String);
     val.dictionaryUrl =
         decoder.decodeStructPointer(url$.Url);
@@ -1635,6 +1659,8 @@
     encoder.writeUint32(SharedDictionaryInfo.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.String, val.match);
+    encoder.encodeArrayPointer(new codec.Enum(fetch_api$.RequestDestination), val.matchDest);
+    encoder.encodeStruct(codec.String, val.id);
     encoder.encodeStructPointer(url$.Url, val.dictionaryUrl);
     encoder.encodeStructPointer(time$.Time, val.responseTime);
     encoder.encodeStructPointer(time$.TimeDelta, val.expiration);

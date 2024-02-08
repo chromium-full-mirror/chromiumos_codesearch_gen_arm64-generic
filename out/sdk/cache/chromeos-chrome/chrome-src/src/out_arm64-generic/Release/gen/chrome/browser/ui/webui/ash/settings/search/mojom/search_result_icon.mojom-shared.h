@@ -161,27 +161,29 @@ enum class SearchResultIcon : int32_t {
   
   kShield = 59,
   
-  kStorage = 60,
+  kSnapWindowSuggestions = 60,
   
-  kStylus = 61,
+  kStorage = 61,
   
-  kSwitchAccess = 62,
+  kStylus = 62,
   
-  kSync = 63,
+  kSwitchAccess = 63,
   
-  kSystemPreferences = 64,
+  kSync = 64,
   
-  kTextToSpeech = 65,
+  kSystemPreferences = 65,
   
-  kTouchpad = 66,
+  kTextToSpeech = 66,
   
-  kWallpaper = 67,
+  kTouchpad = 67,
   
-  kWifi = 68,
+  kWallpaper = 68,
   
-  kZoomIn = 69,
+  kWifi = 69,
+  
+  kZoomIn = 70,
   kMinValue = 0,
-  kMaxValue = 69,
+  kMaxValue = 70,
 };
 
  std::ostream& operator<<(std::ostream& os, SearchResultIcon value);

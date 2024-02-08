@@ -1108,6 +1108,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   bool keyboardFocusableScrollersEnabled() {
     return RuntimeEnabledFeatures::KeyboardFocusableScrollersEnabled();
   }
+  bool labelEventHandlerCallSuperEnabled() {
+    return RuntimeEnabledFeatures::LabelEventHandlerCallSuperEnabled();
+  }
   bool langAttributeAwareFormControlUIEnabled() {
     return RuntimeEnabledFeatures::LangAttributeAwareFormControlUIEnabled();
   }
@@ -1758,6 +1761,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool sharedStorageAPIM118Enabled() {
     return RuntimeEnabledFeatures::SharedStorageAPIM118Enabled();
+  }
+  bool sharedStorageAPIM123Enabled() {
+    return RuntimeEnabledFeatures::SharedStorageAPIM123Enabled();
   }
   bool sharedWorkerEnabled() {
     return RuntimeEnabledFeatures::SharedWorkerEnabled();

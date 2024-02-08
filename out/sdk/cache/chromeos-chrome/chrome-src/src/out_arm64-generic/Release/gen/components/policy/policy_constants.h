@@ -69,6 +69,7 @@ extern const char kAllowScreenWakeLocks[];
 extern const char kAllowWakeLocks[];
 extern const char kAllowWebAuthnWithBrokenTlsCerts[];
 extern const char kAllowedDomainsForApps[];
+extern const char kAllowedDomainsForAppsList[];
 extern const char kAllowedInputMethods[];
 extern const char kAllowedLanguages[];
 extern const char kAlternateErrorPagesEnabled[];
@@ -753,6 +754,7 @@ extern const char kSchedulerConfiguration[];
 extern const char kScreenBrightnessPercent[];
 extern const char kScreenCaptureAllowed[];
 extern const char kScreenCaptureAllowedByOrigins[];
+extern const char kScreenCaptureLocation[];
 extern const char kScreenCaptureWithoutGestureAllowedForOrigins[];
 extern const char kScreenDimDelayAC[];
 extern const char kScreenDimDelayBattery[];
@@ -1006,7 +1008,7 @@ struct StringPolicyAccess {
       const em::CloudPolicySettings& policy);
   const StringPolicyType type;
 };
-extern const std::array<StringPolicyAccess, 118> kStringPolicyAccess;
+extern const std::array<StringPolicyAccess, 119> kStringPolicyAccess;
 
 // Read access to the protobufs of all supported stringlist user policies.
 struct StringListPolicyAccess {
@@ -1016,7 +1018,7 @@ struct StringListPolicyAccess {
   const em::StringListPolicyProto& (*get_proto)(
       const em::CloudPolicySettings& policy);
 };
-extern const std::array<StringListPolicyAccess, 125> kStringListPolicyAccess;
+extern const std::array<StringListPolicyAccess, 126> kStringListPolicyAccess;
 
 constexpr int64_t kDevicePolicyExternalDataResourceCacheSize = 24068672;
 

@@ -1,12 +1,12 @@
 import './strings.m.js';
-import { T as TERMINA_VM_TYPE, r as recordSettingChange, a as assertNotReached, D as DeepLinkingMixin, R as RouteObserverMixin, W as WebUiListenerMixin, I as I18nMixin, S as Setting, b as routes, C as CrPolicyIndicatorType, e as equalContainerId, V as VM_DEVICE_MICROPHONE, c as assert, d as cast, P as PrefsMixin, f as containerLabel, g as SettingsGuestOsSharedUsbDevicesElement, h as castExists, i as RouteOriginMixin, j as Router, k as isCrostiniSupported, l as isCrostiniAllowed, m as isRevampWayfindingEnabled, n as Section, A as AboutPageBrowserProxyImpl, U as UpdateStatus, L as LifetimeBrowserProxyImpl, s as sanitizeInnerHtml, o as browserChannelToI18nId, p as PrinterSetupResult, q as PrintServerResult, N as NetworkListenerBehavior, t as CupsPrintersBrowserProxyImpl, O as OncMojo, F as FocusRowMixin, u as focusWithoutInk$1, G as GeolocationAccessLevel, v as LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME, w as GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE, x as TimeZoneBrowserProxyImpl, y as isChild, z as I18nBehavior, B as getApnDisplayName, E as assert$1, H as ApnDetailDialogMode, J as processDeviceState, K as getInstance, M as CrPolicyNetworkBehaviorMojo, Q as FAKE_CREDENTIAL, X as isActiveSim, Y as InternetPageBrowserProxyImpl, Z as OsSyncBrowserProxyImpl, _ as assertExists, $ as assertInstanceof, a0 as getESimProfileProperties, a1 as mojoString16ToString, a2 as CellularSetupPageName, a3 as ESimManagerListenerMixin, a4 as MultiDeviceBrowserProxyImpl, a5 as getEuicc, a6 as getSimSlotCount, a7 as getPendingESimProfiles, a8 as MultiDeviceFeatureState, a9 as CrToggleElement, aa as BrowserProxy, ab as getImage, ac as ChromeVoxSubpageBrowserProxyImpl, ad as assertExhaustive, ae as DevicePageBrowserProxyImpl, af as SettingsToggleButtonElement, ag as SelectToSpeakSubpageBrowserProxyImpl, ah as LanguagesBrowserProxyImpl, ai as SwitchAccessSubpageBrowserProxyImpl, aj as TextToSpeechSubpageBrowserProxyImpl, ak as TtsVoiceSubpageBrowserProxyImpl, al as BrowserChannel, am as isTargetChannelMoreStable, an as DeviceNameBrowserProxyImpl, ao as SetDeviceNameResult, ap as DeviceNameState, aq as AccountManagerBrowserProxyImpl, ar as ParentalControlsBrowserProxyImpl, as as assertInstanceof$1, at as fireAuthTokenInvalidEvent, au as LockStateMixin, av as MultiDeviceFeatureMixin, aw as MultiDeviceFeature, ax as MultiDeviceSettingsMode, ay as CrInputElement, az as CrButtonElement, aA as CrDialogElement, aB as CrIconButtonElement, aC as CrActionMenuElement, aD as recordLockScreenProgress, aE as LockScreenProgress, aF as PluralStringProxyImpl, aG as SyncBrowserProxyImpl, aH as PageStatus, aI as StatusAction, aJ as CrScrollableMixin, aK as PrivacyHubBrowserProxyImpl, aL as getAppPermissionProvider, aM as MediaDevicesProxy, aN as AppPermissionsObserverReceiver, aO as isPermissionEnabled, aP as CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, aQ as PrivacyHubSensorSubpageUserAction, aR as NUMBER_OF_POSSIBLE_USER_ACTIONS, aS as MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, aT as AppLanguageSelectionDialogEntryPoint, aU as OneDriveBrowserProxy, aV as AppManagementStoreMixin, aW as getAppIcon, aX as AppManagementBrowserProxy, aY as alphabeticalSort$1, aZ as GlobalScrollTargetMixin, a_ as OsSettingsSubpageElement, a$ as FindShortcutMixin, b0 as ACCESSIBILITY_COMMON_IME_ID, b1 as IronA11yKeysBehavior, b2 as PrivacyPageBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, b5 as StaticShortcutAction$1, b6 as EventTracker$1, b7 as getInputDeviceSettingsProvider, b8 as FakeInputDeviceSettingsProvider, b9 as ButtonPressObserverReceiver, ba as buttonsAreEqual, bb as getShortcutInputProvider, bc as keyEventsAreEqual, bd as AudioAndCaptionsPageBrowserProxyImpl } from './shared.rollup.js';
-export { bg as AppLanguageSelectionDialogElement, bh as AppLanguageSelectionItemElement, bI as AppManagementAppDetailViewElement, bJ as AppManagementAppDetailsItem, bK as AppManagementAppItemElement, bM as AppManagementArcDetailViewElement, bN as AppManagementBorealisDetailViewElement, bO as AppManagementChromeAppDetailViewElement, bP as AppManagementDomSwitchElement, bQ as AppManagementMainViewElement, bR as AppManagementPermissionHeadingElement, bS as AppManagementPermissionItemElement, bT as AppManagementPinToShelfItemElement, bU as AppManagementPluginVmDetailViewElement, bV as AppManagementPwaDetailViewElement, bW as AppManagementResizeLockItemElement, bX as AppManagementSubAppsItemElement, bY as AppManagementSupportedLinksItemElement, bZ as AppManagementSupportedLinksOverlappingAppsDialogElement, b_ as AppManagementUninstallButtonElement, b$ as AppNotificationRowElement, c1 as AppNotificationsSubpage, bt as CROSTINI_TYPE, bw as ContainerSelectElement, bj as DateTimeSettingsCardElement, ca as FilesSettingsCardElement, bu as GuestOsBrowserProxyImpl, cc as LanguageSettingsCardElement, bF as NearbyShareReceiveDialogElement, ci as OsResetBrowserProxyImpl, ch as OsSettingsPowerwashDialogElement, cj as OsSettingsSanitizeDialogElement, bv as PLUGIN_VM_TYPE, ce as PrintingSettingsCardElement, ck as ResetSettingsCardElement, bH as SettingsAndroidAppsSubpageElement, bL as SettingsAppManagementPageElement, c0 as SettingsAppNotificationsManagerSubpage, c2 as SettingsBluetoothChangeDeviceNameDialogElement, c3 as SettingsBluetoothDeviceDetailSubpageElement, c4 as SettingsBluetoothDevicesSubpageElement, c5 as SettingsBluetoothSavedDevicesSubpageElement, c6 as SettingsBluetoothTrueWirelessImagesElement, bl as SettingsCustomizeMouseButtonsSubpageElement, bm as SettingsCustomizePenButtonsSubpageElement, bn as SettingsCustomizeTabletButtonsSubpageElement, cb as SettingsGoogleDriveSubpageElement, bx as SettingsGuestOsSharedPathsElement, bo as SettingsKeyboardElement, cd as SettingsLanguagesElement, by as SettingsMultideviceCombinedSetupItemElement, bz as SettingsMultideviceFeatureItemElement, bA as SettingsMultideviceFeatureToggleElement, bB as SettingsMultideviceSubpageElement, bC as SettingsMultideviceTaskContinuationDisabledLinkElement, bD as SettingsMultideviceTaskContinuationItemElement, bE as SettingsMultideviceWifiSyncDisabledLinkElement, bG as SettingsNearbyShareSubpageElement, c7 as SettingsPairedBluetoothListElement, c8 as SettingsPairedBluetoothListItemElement, bp as SettingsPointersElement, bq as SettingsPowerElement, cf as SettingsPrivacyHubGeolocationSubpage, cg as SettingsPrivacyHubSubpage, bi as SettingsRadioGroupElement, c9 as SettingsSavedDevicesListElement, br as SettingsStorageElement, bs as SettingsStylusElement, be as SmbBrowserProxyImpl, bf as SmbMountResult, bk as TimezoneSelectorElement } from './shared.rollup.js';
+import { C as CrostiniBrowserProxyImpl, r as recordSettingChange, a as assertNotReached, D as DeepLinkingMixin, R as RouteObserverMixin, W as WebUiListenerMixin, I as I18nMixin, S as Setting, b as routes, c as CrPolicyIndicatorType, d as DEFAULT_CROSTINI_GUEST_ID, e as DEFAULT_CROSTINI_VM, f as equalContainerId, g as DEFAULT_CROSTINI_CONTAINER, V as VM_DEVICE_MICROPHONE, h as assert, P as PortState, M as MIN_VALID_PORT_NUMBER, i as MAX_VALID_PORT_NUMBER, j as cast, k as PrefsMixin, l as containerLabel, m as SettingsGuestOsSharedUsbDevicesElement, T as TERMINA_VM_TYPE, n as castExists, o as RouteOriginMixin, p as Router, q as Section, s as PrinterSetupResult, t as PrintServerResult, N as NetworkListenerBehavior, u as CupsPrintersBrowserProxyImpl, O as OncMojo, F as FocusRowMixin, v as isRevampWayfindingEnabled, w as focusWithoutInk$1, G as GeolocationAccessLevel, L as LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME, x as GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE, y as TimeZoneBrowserProxyImpl, z as isChild, A as I18nBehavior, B as getApnDisplayName, E as assert$1, H as ApnDetailDialogMode, J as processDeviceState, K as getInstance, Q as CrPolicyNetworkBehaviorMojo, U as FAKE_CREDENTIAL, X as isActiveSim, Y as InternetPageBrowserProxyImpl, Z as OsSyncBrowserProxyImpl, _ as assertExists, $ as assertInstanceof, a0 as getESimProfileProperties, a1 as mojoString16ToString, a2 as CellularSetupPageName, a3 as ESimManagerListenerMixin, a4 as MultiDeviceBrowserProxyImpl, a5 as getEuicc, a6 as getSimSlotCount, a7 as getPendingESimProfiles, a8 as MultiDeviceFeatureState, a9 as CrToggleElement, aa as BrowserProxy, ab as getImage, ac as ChromeVoxSubpageBrowserProxyImpl, ad as assertExhaustive, ae as DevicePageBrowserProxyImpl, af as SettingsToggleButtonElement, ag as SelectToSpeakSubpageBrowserProxyImpl, ah as LanguagesBrowserProxyImpl, ai as SwitchAccessSubpageBrowserProxyImpl, aj as TextToSpeechSubpageBrowserProxyImpl, ak as TtsVoiceSubpageBrowserProxyImpl, al as BrowserChannel, am as AboutPageBrowserProxyImpl, an as isTargetChannelMoreStable, ao as DeviceNameBrowserProxyImpl, ap as SetDeviceNameResult, aq as browserChannelToI18nId, ar as DeviceNameState, as as AccountManagerBrowserProxyImpl, at as ParentalControlsBrowserProxyImpl, au as assertInstanceof$1, av as fireAuthTokenInvalidEvent, aw as LockStateMixin, ax as MultiDeviceFeatureMixin, ay as MultiDeviceFeature, az as MultiDeviceSettingsMode, aA as CrInputElement, aB as CrButtonElement, aC as CrDialogElement, aD as CrIconButtonElement, aE as CrActionMenuElement, aF as recordLockScreenProgress, aG as LockScreenProgress, aH as PluralStringProxyImpl, aI as SyncBrowserProxyImpl, aJ as PageStatus, aK as StatusAction, aL as CrScrollableMixin, aM as PrivacyHubBrowserProxyImpl, aN as getAppPermissionProvider, aO as MediaDevicesProxy, aP as AppPermissionsObserverReceiver, aQ as isPermissionEnabled, aR as CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, aS as PrivacyHubSensorSubpageUserAction, aT as NUMBER_OF_POSSIBLE_USER_ACTIONS, aU as MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, aV as AppLanguageSelectionDialogEntryPoint, aW as OneDriveBrowserProxy, aX as AppManagementStoreMixin, aY as getAppIcon, aZ as AppManagementBrowserProxy, a_ as alphabeticalSort$1, a$ as GlobalScrollTargetMixin, b0 as OsSettingsSubpageElement, b1 as FindShortcutMixin, b2 as ACCESSIBILITY_COMMON_IME_ID, b3 as IronA11yKeysBehavior, b4 as LifetimeBrowserProxyImpl, b5 as PrivacyPageBrowserProxyImpl, b6 as SecureDnsMode, b7 as SecureDnsUiManagementMode, b8 as sanitizeInnerHtml, b9 as StaticShortcutAction$1, ba as EventTracker$1, bb as getInputDeviceSettingsProvider, bc as FakeInputDeviceSettingsProvider, bd as ButtonPressObserverReceiver, be as buttonsAreEqual, bf as getShortcutInputProvider, bg as keyEventsAreEqual, bh as AudioAndCaptionsPageBrowserProxyImpl } from './shared.rollup.js';
+export { bk as AppLanguageSelectionDialogElement, bl as AppLanguageSelectionItemElement, bP as AppManagementAppDetailViewElement, bQ as AppManagementAppDetailsItem, bR as AppManagementAppItemElement, bT as AppManagementArcDetailViewElement, bU as AppManagementBorealisDetailViewElement, bV as AppManagementChromeAppDetailViewElement, bW as AppManagementDomSwitchElement, bX as AppManagementMainViewElement, bY as AppManagementPermissionHeadingElement, bZ as AppManagementPermissionItemElement, b_ as AppManagementPinToShelfItemElement, b$ as AppManagementPluginVmDetailViewElement, c0 as AppManagementPwaDetailViewElement, c1 as AppManagementResizeLockItemElement, c2 as AppManagementSubAppsItemElement, c3 as AppManagementSupportedLinksItemElement, c4 as AppManagementSupportedLinksOverlappingAppsDialogElement, c5 as AppManagementUninstallButtonElement, c6 as AppNotificationRowElement, c8 as AppNotificationsSubpage, bz as CROSTINI_TYPE, bC as ContainerSelectElement, bn as CrostiniPortProtocol, bo as CrostiniSettingsCardElement, bp as DateTimeSettingsCardElement, bE as EsimRemoveProfileDialogElement, ch as FilesSettingsCardElement, bA as GuestOsBrowserProxyImpl, cj as LanguageSettingsCardElement, bM as NearbyShareReceiveDialogElement, cp as OsResetBrowserProxyImpl, co as OsSettingsPowerwashDialogElement, cq as OsSettingsSanitizeDialogElement, bB as PLUGIN_VM_TYPE, cl as PrintingSettingsCardElement, cr as ResetSettingsCardElement, bO as SettingsAndroidAppsSubpageElement, bS as SettingsAppManagementPageElement, c7 as SettingsAppNotificationsManagerSubpage, c9 as SettingsBluetoothChangeDeviceNameDialogElement, ca as SettingsBluetoothDeviceDetailSubpageElement, cb as SettingsBluetoothDevicesSubpageElement, cc as SettingsBluetoothSavedDevicesSubpageElement, cd as SettingsBluetoothTrueWirelessImagesElement, br as SettingsCustomizeMouseButtonsSubpageElement, bs as SettingsCustomizePenButtonsSubpageElement, bt as SettingsCustomizeTabletButtonsSubpageElement, ci as SettingsGoogleDriveSubpageElement, bD as SettingsGuestOsSharedPathsElement, bu as SettingsKeyboardElement, ck as SettingsLanguagesElement, bF as SettingsMultideviceCombinedSetupItemElement, bG as SettingsMultideviceFeatureItemElement, bH as SettingsMultideviceFeatureToggleElement, bI as SettingsMultideviceSubpageElement, bJ as SettingsMultideviceTaskContinuationDisabledLinkElement, bK as SettingsMultideviceTaskContinuationItemElement, bL as SettingsMultideviceWifiSyncDisabledLinkElement, bN as SettingsNearbyShareSubpageElement, ce as SettingsPairedBluetoothListElement, cf as SettingsPairedBluetoothListItemElement, bv as SettingsPointersElement, bw as SettingsPowerElement, cm as SettingsPrivacyHubGeolocationSubpage, cn as SettingsPrivacyHubSubpage, bm as SettingsRadioGroupElement, cg as SettingsSavedDevicesListElement, bx as SettingsStorageElement, by as SettingsStylusElement, bi as SmbBrowserProxyImpl, bj as SmbMountResult, bq as TimezoneSelectorElement } from './shared.rollup.js';
 import { html, PolymerElement, microTask, mixinBehaviors, dedupingMixin, calculateSplices, afterNextRender, Polymer, flush, beforeNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { sendWithPromise, addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network/mojo_interface_provider.js';
 import { FilterType, NO_LIMIT, ApnState, ApnType, MAX_NUM_CUSTOM_APNS, ApnAuthenticationType, ApnIpType, NO_ROUTING_PREFIX, HiddenSsidMode, VpnType, ActivationStateType, SecurityType, MatchType, InhibitReason, AlwaysOnVpnMode } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
 import { NetworkType, ConnectionStateType, PortalState, OncSource, PolicySource, IPConfigType, DeviceStateType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
+import { addWebUiListener, removeWebUiListener, sendWithPromise } from 'chrome://resources/js/cr.js';
 import { getHotspotConfig } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.js';
 import { HotspotState, HotspotAllowStatus, SetHotspotConfigResult } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.mojom-webui.js';
 import { loadTimeData as loadTimeData$1 } from 'chrome://resources/ash/common/load_time_data.m.js';
@@ -24,7 +24,7 @@ import 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
 import 'chrome://resources/mojo/chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-webui.js';
 import 'chrome://resources/mojo/services/network/public/mojom/ip_address.mojom-webui.js';
 
-function getTemplate$2i() {
+function getTemplate$2f() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title" hidden="[[!isEnabling_(action)]]">
@@ -55,160 +55,6 @@ function getTemplate$2i() {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview A helper object used by the "Linux Apps" (Crostini) section
- * to install and uninstall Crostini.
- */
-// Identifiers for the default Crostini VM and container.
-const DEFAULT_CROSTINI_VM = TERMINA_VM_TYPE;
-const DEFAULT_CROSTINI_CONTAINER = 'penguin';
-const DEFAULT_CROSTINI_GUEST_ID = {
-    vm_name: DEFAULT_CROSTINI_VM,
-    container_name: DEFAULT_CROSTINI_CONTAINER,
-};
-/**
- * These values should remain consistent with their C++ counterpart
- * (chrome/browser/ash/crostini/crostini_port_forwarder.h).
- */
-var CrostiniPortProtocol;
-(function (CrostiniPortProtocol) {
-    CrostiniPortProtocol[CrostiniPortProtocol["TCP"] = 0] = "TCP";
-    CrostiniPortProtocol[CrostiniPortProtocol["UDP"] = 1] = "UDP";
-})(CrostiniPortProtocol || (CrostiniPortProtocol = {}));
-const PortState = {
-    VALID: '',
-    INVALID: loadTimeData.getString('crostiniPortForwardingAddError'),
-    DUPLICATE: loadTimeData.getString('crostiniPortForwardingAddExisting'),
-};
-const MIN_VALID_PORT_NUMBER = 1024; // Minimum 16-bit integer value.
-const MAX_VALID_PORT_NUMBER = 65535; // Maximum 16-bit integer value.
-let instance$9 = null;
-class CrostiniBrowserProxyImpl {
-    static getInstance() {
-        return instance$9 || (instance$9 = new CrostiniBrowserProxyImpl());
-    }
-    static setInstanceForTesting(obj) {
-        instance$9 = obj;
-    }
-    requestCrostiniInstallerView() {
-        chrome.send('requestCrostiniInstallerView');
-    }
-    requestRemoveCrostini() {
-        chrome.send('requestRemoveCrostini');
-    }
-    requestCrostiniInstallerStatus() {
-        chrome.send('requestCrostiniInstallerStatus');
-    }
-    requestCrostiniExportImportOperationStatus() {
-        chrome.send('requestCrostiniExportImportOperationStatus');
-    }
-    exportCrostiniContainer(containerId) {
-        chrome.send('exportCrostiniContainer', [containerId]);
-    }
-    importCrostiniContainer(containerId) {
-        chrome.send('importCrostiniContainer', [containerId]);
-    }
-    requestArcAdbSideloadStatus() {
-        chrome.send('requestArcAdbSideloadStatus');
-    }
-    getCanChangeArcAdbSideloading() {
-        chrome.send('getCanChangeArcAdbSideloading');
-    }
-    enableArcAdbSideload() {
-        chrome.send('enableArcAdbSideload');
-    }
-    disableArcAdbSideload() {
-        chrome.send('disableArcAdbSideload');
-    }
-    requestCrostiniContainerUpgradeView() {
-        chrome.send('requestCrostiniContainerUpgradeView');
-    }
-    requestCrostiniUpgraderDialogStatus() {
-        chrome.send('requestCrostiniUpgraderDialogStatus');
-    }
-    requestCrostiniContainerUpgradeAvailable() {
-        chrome.send('requestCrostiniContainerUpgradeAvailable');
-    }
-    getCrostiniDiskInfo(vmName, fullInfo) {
-        return sendWithPromise('getCrostiniDiskInfo', vmName, fullInfo);
-    }
-    resizeCrostiniDisk(vmName, newSizeBytes) {
-        return sendWithPromise('resizeCrostiniDisk', vmName, newSizeBytes);
-    }
-    checkCrostiniMicSharingStatus(proposedValue) {
-        return sendWithPromise('checkCrostiniMicSharingStatus', proposedValue);
-    }
-    addCrostiniPortForward(containerId, portNumber, protocol, label) {
-        return sendWithPromise('addCrostiniPortForward', containerId, portNumber, protocol, label);
-    }
-    removeCrostiniPortForward(containerId, portNumber, protocol) {
-        return sendWithPromise('removeCrostiniPortForward', containerId, portNumber, protocol);
-    }
-    removeAllCrostiniPortForwards(containerId) {
-        chrome.send('removeAllCrostiniPortForwards', [containerId]);
-    }
-    activateCrostiniPortForward(containerId, portNumber, protocol) {
-        return sendWithPromise('activateCrostiniPortForward', containerId, portNumber, protocol);
-    }
-    deactivateCrostiniPortForward(containerId, portNumber, protocol) {
-        return sendWithPromise('deactivateCrostiniPortForward', containerId, portNumber, protocol);
-    }
-    getCrostiniActivePorts() {
-        return sendWithPromise('getCrostiniActivePorts');
-    }
-    getCrostiniActiveNetworkInfo() {
-        return sendWithPromise('getCrostiniActiveNetworkInfo');
-    }
-    checkCrostiniIsRunning() {
-        return sendWithPromise('checkCrostiniIsRunning');
-    }
-    shutdownCrostini() {
-        chrome.send('shutdownCrostini');
-    }
-    setCrostiniMicSharingEnabled(enabled) {
-        chrome.send('setCrostiniMicSharingEnabled', [enabled]);
-    }
-    getCrostiniMicSharingEnabled() {
-        return sendWithPromise('getCrostiniMicSharingEnabled');
-    }
-    createContainer(containerId, imageServer, imageAlias, containerFile) {
-        chrome.send('createContainer', [containerId, imageServer, imageAlias, containerFile]);
-    }
-    deleteContainer(containerId) {
-        chrome.send('deleteContainer', [containerId]);
-    }
-    requestContainerInfo() {
-        chrome.send('requestContainerInfo');
-    }
-    setContainerBadgeColor(containerId, badgeColor) {
-        chrome.send('setContainerBadgeColor', [containerId, badgeColor]);
-    }
-    stopContainer(containerId) {
-        chrome.send('stopContainer', [containerId]);
-    }
-    openContainerFileSelector() {
-        return sendWithPromise('openContainerFileSelector');
-    }
-    requestSharedVmDevices() {
-        chrome.send('requestSharedVmDevices');
-    }
-    isVmDeviceShared(id, device) {
-        return sendWithPromise('isVmDeviceShared', id, device);
-    }
-    setVmDeviceShared(id, device, shared) {
-        return sendWithPromise('setVmDeviceShared', id, device, shared);
-    }
-    requestBruschettaInstallerView() {
-        chrome.send('requestBruschettaInstallerView');
-    }
-    requestBruschettaUninstallerView() {
-        chrome.send('requestBruschettaUninstallerView');
-    }
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
  * @fileoverview 'settings-crostini-arc-adb-confirmation-dialog' is a component
  * to confirm for enabling or disabling adb sideloading. After the confirmation,
  * reboot will happens.
@@ -218,7 +64,7 @@ class SettingsCrostiniArcAdbConfirmationDialogElement extends PolymerElement {
         return 'settings-crostini-arc-adb-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$2i();
+        return getTemplate$2f();
     }
     static get properties() {
         return {
@@ -261,7 +107,7 @@ class SettingsCrostiniArcAdbConfirmationDialogElement extends PolymerElement {
 }
 customElements.define(SettingsCrostiniArcAdbConfirmationDialogElement.is, SettingsCrostiniArcAdbConfirmationDialogElement);
 
-function getTemplate$2h() {
+function getTemplate$2e() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{padding:0 var(--cr-controlled-by-spacing)}</style>
 <div class="settings-box first">
   <div class="settings-box-text">
@@ -305,7 +151,7 @@ class SettingsCrostiniArcAdbElement extends SettingsCrostiniArcAdbElementBase {
         return 'settings-crostini-arc-adb';
     }
     static get template() {
-        return getTemplate$2h();
+        return getTemplate$2e();
     }
     static get properties() {
         return {
@@ -423,7 +269,7 @@ class SettingsCrostiniArcAdbElement extends SettingsCrostiniArcAdbElementBase {
 }
 customElements.define(SettingsCrostiniArcAdbElement.is, SettingsCrostiniArcAdbElement);
 
-function getTemplate$2g() {
+function getTemplate$2d() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{crostiniImportConfirmationDialogTitle}</div>
@@ -451,7 +297,7 @@ class SettingsCrostiniImportConfirmationDialogElement extends PolymerElement {
         return 'settings-crostini-import-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$2g();
+        return getTemplate$2d();
     }
     static get properties() {
         return {
@@ -478,7 +324,7 @@ class SettingsCrostiniImportConfirmationDialogElement extends PolymerElement {
 }
 customElements.define(SettingsCrostiniImportConfirmationDialogElement.is, SettingsCrostiniImportConfirmationDialogElement);
 
-function getTemplate$2f() {
+function getTemplate$2c() {
     return html `<!--_html_template_start_--><style include="settings-shared">.container-select{padding:0 8px}.two-line-settings-box{min-height:80px}#secondaryText{padding:3px 0}</style>
 <div id="export" class$="settings-box first [[getSettingsBoxClass_(allContainers_)]]">
   <div id="exportCrostiniLabel" class="start">
@@ -531,7 +377,7 @@ class SettingsCrostiniExportImportElement extends SettingsCrostiniExportImportEl
         return 'settings-crostini-export-import';
     }
     static get template() {
-        return getTemplate$2f();
+        return getTemplate$2c();
     }
     static get properties() {
         return {
@@ -664,7 +510,7 @@ class SettingsCrostiniExportImportElement extends SettingsCrostiniExportImportEl
 }
 customElements.define(SettingsCrostiniExportImportElement.is, SettingsCrostiniExportImportElement);
 
-function getTemplate$2e() {
+function getTemplate$2b() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">.custom-button-container{float:right}.input-container{display:flex;flex-direction:row;justify-content:space-between}.advanced-section{display:flex;flex-direction:column;justify-content:space-between;padding-bottom:12px;padding-inline-start:20px}.custom-body{padding-bottom:20px}#advancedToggle{--ink-color:var(--cros-text-color-primary);background:0 0;border:none;box-shadow:none;color:var(--cros-text-color-primary);font-weight:400;margin-bottom:12px;min-height:32px;padding-inline-start:0}#containerFileField{display:flex;flex-direction:row}#containerFileInput{width:100%}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{crostiniExtraContainersCreateDialogTitle}</div>
@@ -722,7 +568,7 @@ class ExtraContainersCreateDialog extends PolymerElement {
         return 'settings-crostini-create-container-dialog';
     }
     static get template() {
-        return getTemplate$2e();
+        return getTemplate$2b();
     }
     static get properties() {
         return {
@@ -869,7 +715,7 @@ function hexColorToSkColor(hexColor) {
     return { value: 0xff000000 + (r << 16) + (g << 8) + b };
 }
 
-function getTemplate$2d() {
+function getTemplate$2a() {
     return html `<!--_html_template_start_--><style include="settings-shared">.container-details-list{padding-inline-start:var(--cr-section-indent-padding)}.detail-content{color:var(--cros-text-color-primary);flex:auto}.detail-heading{color:var(--cr-secondary-text-color);flex:auto}.vm-column{flex:1;flex-grow:3;word-break:break-all}#createExtraContainer{padding-top:10px}cr-expand-button{--cr-section-vertical-padding:0;flex:auto}</style>
 <div class="settings-box first">
   <div id="extraContainersDescription" class="start">
@@ -974,7 +820,7 @@ class ExtraContainersElement extends ExtraContainersElementBase {
         return 'settings-crostini-extra-containers';
     }
     static get template() {
-        return getTemplate$2d();
+        return getTemplate$2a();
     }
     static get properties() {
         return {
@@ -1203,7 +1049,7 @@ class ExtraContainersElement extends ExtraContainersElementBase {
 }
 customElements.define(ExtraContainersElement.is, ExtraContainersElement);
 
-function getTemplate$2c() {
+function getTemplate$29() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">#portNumberInput{padding-inline-end:20px;width:376px}#portLabelInput{padding-top:20px;width:472px}#selectProtocol{max-width:96px}.custom-body{padding-bottom:20px}.custom-button-container{float:right}.input-container{display:flex;flex-direction:row;justify-content:space-between}.placeholder-label{visibility:hidden}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{crostiniPortForwardingAddPortDialogTitle}</div>
@@ -1259,7 +1105,7 @@ class CrostiniPortForwardingAddPortDialog extends PolymerElement {
         return 'settings-crostini-add-port-dialog';
     }
     static get template() {
-        return getTemplate$2c();
+        return getTemplate$29();
     }
     static get properties() {
         return {
@@ -1397,7 +1243,7 @@ class CrostiniPortForwardingAddPortDialog extends PolymerElement {
 }
 customElements.define(CrostiniPortForwardingAddPortDialog.is, CrostiniPortForwardingAddPortDialog);
 
-function getTemplate$2b() {
+function getTemplate$28() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-toggle-margin-inline-start:16px;--cr-toggle-width:34px}cr-toggle{margin-inline-start:var(--cr-toggle-margin-inline-start);width:var(--cr-toggle-width)}.column-title{color:var(--cr-secondary-text-color)}.label-column{align-items:center;display:flex;flex:1;flex-grow:3}.label-text{flex-grow:3;word-break:break-all}.no-ports-text{padding-inline-start:24px}.interface-ip{padding-inline-start:24px}#addPort{padding-top:10px}#errorIcon{display:inline-block;margin-inline-end:8px}#protocolText{color:var(--cros-text-color-disabled);margin-inline-start:8px}#portForwardingListContainerId{border-top:var(--cr-separator-line)}#portForwardingDescription{flex-grow:3}</style>
 <div id="addPort" class="settings-box first">
   <div id="portForwardingDescription">
@@ -1502,7 +1348,7 @@ class CrostiniPortForwardingElement extends CrostiniPortForwardingBase {
         return 'settings-crostini-port-forwarding';
     }
     static get template() {
-        return getTemplate$2b();
+        return getTemplate$28();
     }
     static get properties() {
         return {
@@ -1714,7 +1560,7 @@ class CrostiniSharedUsbDevicesElement extends SettingsGuestOsSharedUsbDevicesEle
 }
 customElements.define(CrostiniSharedUsbDevicesElement.is, CrostiniSharedUsbDevicesElement);
 
-function getTemplate$2a() {
+function getTemplate$27() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" show-on-attach close-text="$i18n{close}" on-cancel="onDialogCancel_" on-close="onDialogClose_">
   
@@ -1749,7 +1595,7 @@ class SettingsCrostiniConfirmationDialogElement extends PolymerElement {
         return 'settings-crostini-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$2a();
+        return getTemplate$27();
     }
     static get properties() {
         return {
@@ -1781,7 +1627,7 @@ class SettingsCrostiniConfirmationDialogElement extends PolymerElement {
 }
 customElements.define(SettingsCrostiniConfirmationDialogElement.is, SettingsCrostiniConfirmationDialogElement);
 
-function getTemplate$29() {
+function getTemplate$26() {
     return html `<!--_html_template_start_--><style include="settings-shared">#disk-labels{display:flex;justify-content:space-between}#resize-block{align-items:stretch;margin-inline-end:10px;margin-inline-start:10px}.error{color:var(--cros-text-color-alert)}#errorIcon{--iron-icon-fill-color:var(--cros-icon-color-alert);display:inline-block}#warningIcon{--iron-icon-fill-color:var(--cros-icon-color-warning)}#message{margin-inline-end:auto}</style>
 <cr-dialog id="diskResizeDialog" close-text="$i18n{close}">
   
@@ -1884,7 +1730,7 @@ class SettingsCrostiniDiskResizeDialogElement extends PolymerElement {
         return 'settings-crostini-disk-resize-dialog';
     }
     static get template() {
-        return getTemplate$29();
+        return getTemplate$26();
     }
     static get properties() {
         return {
@@ -2006,7 +1852,7 @@ class SettingsCrostiniDiskResizeDialogElement extends PolymerElement {
 }
 customElements.define(SettingsCrostiniDiskResizeDialogElement.is, SettingsCrostiniDiskResizeDialogElement);
 
-function getTemplate$28() {
+function getTemplate$25() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{crostiniDiskResizeConfirmationDialogTitle}</div>
@@ -2034,7 +1880,7 @@ class SettingsCrostiniDiskResizeConfirmationDialogElement extends PolymerElement
         return 'settings-crostini-disk-resize-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$28();
+        return getTemplate$25();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -2052,7 +1898,7 @@ class SettingsCrostiniDiskResizeConfirmationDialogElement extends PolymerElement
 }
 customElements.define(SettingsCrostiniDiskResizeConfirmationDialogElement.is, SettingsCrostiniDiskResizeConfirmationDialogElement);
 
-function getTemplate$27() {
+function getTemplate$24() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <template is="dom-if" if="[[showCrostiniContainerUpgrade_]]">
   <div id="container-upgrade" class="settings-box first">
@@ -2152,7 +1998,7 @@ class SettingsCrostiniSubpageElement extends SettingsCrostiniSubpageElementBase 
         return 'settings-crostini-subpage';
     }
     static get template() {
-        return getTemplate$27();
+        return getTemplate$24();
     }
     static get properties() {
         return {
@@ -2456,7 +2302,7 @@ class SettingsCrostiniSubpageElement extends SettingsCrostiniSubpageElementBase 
 }
 customElements.define(SettingsCrostiniSubpageElement.is, SettingsCrostiniSubpageElement);
 
-function getTemplate$26() {
+function getTemplate$23() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-link-row class="hr" label="$i18n{guestOsSharedUsbDevicesLabel}" id="bruschettaSharedUsbDevicesRow" on-click="onSharedUsbDevicesClick_" role-description="$i18n{subpageArrowRoleDescription}">
 </cr-link-row>
@@ -2489,7 +2335,7 @@ class BruschettaSubpageElement extends BruschettaSubpageElementBase {
         return 'settings-bruschetta-subpage';
     }
     static get template() {
-        return getTemplate$26();
+        return getTemplate$23();
     }
     static get observers() {
         return [
@@ -2528,193 +2374,7 @@ class BruschettaSubpageElement extends BruschettaSubpageElementBase {
 }
 customElements.define(BruschettaSubpageElement.is, BruschettaSubpageElement);
 
-function getTemplate$25() {
-    return html `<!--_html_template_start_--><style include="settings-shared">#bruschettaRowIcon,:host-context(body.revamp-wayfinding-enabled) #crostiniRowIcon{margin-inline-end:16px;fill:var(--cros-sys-primary)}</style>
-
-<settings-card header-text="$i18n{crostiniPageTitle}">
-  <div id="crostini" class="settings-box two-line first" actionable$="[[prefs.crostini.enabled.value]]" on-click="onSubpageClick_">
-    <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-      <iron-icon id="crostiniRowIcon" icon="os-settings:about-linux">
-      </iron-icon>
-    </template>
-    <div class="start">
-      $i18n{crostiniPageLabel}
-      <div class="secondary" id="secondaryText">
-        <template is="dom-if" if="[[isCrostiniSupported_]]" restamp>
-          <localized-link localized-string="[[i18nAdvanced('crostiniSubtext')]]">
-          </localized-link>
-        </template>
-        <template is="dom-if" if="[[!isCrostiniSupported_]]" restamp>
-          <localized-link localized-string="[[i18nAdvanced(
-              'crostiniSubtextNotSupported')]]">
-          </localized-link>
-        </template>
-      </div>
-    </div>
-    <template is="dom-if" if="[[isCrostiniSupported_]]" restamp>
-      <template is="dom-if" if="[[!isCrostiniAllowed_]]" restamp>
-        <cr-policy-indicator indicator-type="userPolicy">
-        </cr-policy-indicator>
-      </template>
-    </template>
-    <template is="dom-if" if="[[prefs.crostini.enabled.value]]">
-      <cr-icon-button class="subpage-arrow" aria-label="$i18n{crostiniPageTitle}" aria-describedby="secondaryText" aria-roledescription="$i18n{subpageArrowRoleDescription}">
-      </cr-icon-button>
-    </template>
-    <template is="dom-if" if="[[!prefs.crostini.enabled.value]]">
-      <div class="separator"></div>
-        <cr-button id="enableCrostiniButton" disabled$="[[disableCrostiniInstall_]]" on-click="onEnableClick_" aria-describedby="secondaryText" deep-link-focus-id$="[[Setting.kSetUpCrostini]]">
-          $i18n{crostiniEnable}
-        </cr-button>
-    </template>
-  </div>
-
-  <template is="dom-if" if="[[showBruschetta_]]">
-    <div id="bruschetta" class="settings-box two-line" actionable$="[[prefs.bruschetta.installed.value]]" on-click="onBruschettaSubpageClick_">
-      <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-        <iron-icon id="bruschettaRowIcon" icon="os-settings:about-manage-develop-environment">
-        </iron-icon>
-      </template>
-      <div class="start">
-        $i18n{bruschettaPageLabel}
-        <div class="secondary" id="bruschettaSecondaryText">
-          <localized-link localized-string="[[i18nAdvanced('bruschettaSubtext')]]">
-          </localized-link>
-        </div>
-      </div>
-      <cr-policy-indicator indicator-type="userPolicy">
-      </cr-policy-indicator>
-      <template is="dom-if" if="[[prefs.bruschetta.installed.value]]">
-        <cr-icon-button class="subpage-arrow" aria-label="$i18n{bruschettaPageLabel}" aria-describedby="secondaryText" aria-roledescription="$i18n{subpageArrowRoleDescription}">
-        </cr-icon-button>
-      </template>
-      <template is="dom-if" if="[[!prefs.bruschetta.installed.value]]">
-        <div class="separator"></div>
-        <cr-button id="enableBruschettaButton" on-click="onBruschettaEnableClick_" aria-describedby="secondaryText">
-          $i18n{bruschettaEnable}
-        </cr-button>
-      </template>
-    </div>
-  </template>
-</settings-card><!--_html_template_end_-->`;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * 'crostini-settings-card' is the card element containing crostini settings.
- */
-const CrostiniSettingsCardElementBase = DeepLinkingMixin(PrefsMixin(RouteOriginMixin(I18nMixin(WebUiListenerMixin(PolymerElement)))));
-class CrostiniSettingsCardElement extends CrostiniSettingsCardElementBase {
-    static get is() {
-        return 'crostini-settings-card';
-    }
-    static get template() {
-        return getTemplate$25();
-    }
-    static get properties() {
-        return {
-            /**
-             * Whether the install option should be enabled.
-             */
-            disableCrostiniInstall_: {
-                type: Boolean,
-            },
-            isCrostiniSupported_: {
-                type: Boolean,
-                value: () => {
-                    return isCrostiniSupported();
-                },
-            },
-            isCrostiniAllowed_: {
-                type: Boolean,
-                value: () => {
-                    return isCrostiniAllowed();
-                },
-            },
-            /**
-             * Used by DeepLinkingMixin to focus this page's deep links.
-             */
-            supportedSettingIds: {
-                type: Object,
-                value: () => new Set([Setting.kSetUpCrostini]),
-            },
-            showBruschetta_: {
-                type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('showBruschetta');
-                },
-            },
-            isRevampWayfindingEnabled_: {
-                type: Boolean,
-                value: () => {
-                    return isRevampWayfindingEnabled();
-                },
-            },
-        };
-    }
-    constructor() {
-        super();
-        /** RouteOriginMixin override */
-        this.route =
-            this.isRevampWayfindingEnabled_ ? routes.ABOUT : routes.CROSTINI;
-        this.browserProxy_ = CrostiniBrowserProxyImpl.getInstance();
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        if (!this.isCrostiniAllowed_) {
-            this.disableCrostiniInstall_ = true;
-            return;
-        }
-        this.addWebUiListener('crostini-installer-status-changed', (installerShowing) => {
-            this.disableCrostiniInstall_ = installerShowing;
-        });
-        this.browserProxy_.requestCrostiniInstallerStatus();
-    }
-    ready() {
-        super.ready();
-        this.addFocusConfig(routes.CROSTINI_DETAILS, '#crostini .subpage-arrow');
-        this.addFocusConfig(routes.BRUSCHETTA_DETAILS, '#bruschetta .subpage-arrow');
-    }
-    currentRouteChanged(newRoute, oldRoute) {
-        super.currentRouteChanged(newRoute, oldRoute);
-        // Does not apply to this page.
-        if (newRoute !== this.route) {
-            return;
-        }
-        this.attemptDeepLink();
-    }
-    onEnableClick_(event) {
-        this.browserProxy_.requestCrostiniInstallerView();
-        event.stopPropagation();
-    }
-    onSubpageClick_(event) {
-        // We do not open the subpage if the click was on a link.
-        if (event.target && event.target.tagName === 'A') {
-            event.stopPropagation();
-            return;
-        }
-        if (this.getPref('crostini.enabled').value) {
-            Router.getInstance().navigateTo(routes.CROSTINI_DETAILS);
-        }
-    }
-    onBruschettaEnableClick_(event) {
-        this.browserProxy_.requestBruschettaInstallerView();
-        // Stop propagation so that onBruschettaSubpageClick_ isn't called.
-        event.stopPropagation();
-    }
-    onBruschettaSubpageClick_() {
-        // This function is called on-click even if actionable=false.
-        if (this.getPref('bruschetta.installed').value) {
-            Router.getInstance().navigateTo(routes.BRUSCHETTA_DETAILS);
-        }
-    }
-}
-customElements.define(CrostiniSettingsCardElement.is, CrostiniSettingsCardElement);
-
-function getTemplate$24() {
+function getTemplate$22() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 <os-settings-animated-pages id="pages" section="[[section_]]">
@@ -2809,7 +2469,7 @@ class SettingsCrostiniPageElement extends PolymerElement {
         return 'settings-crostini-page';
     }
     static get template() {
-        return getTemplate$24();
+        return getTemplate$22();
     }
     static get properties() {
         return {
@@ -2844,7 +2504,7 @@ var TimeZoneAutoDetectMethod;
     TimeZoneAutoDetectMethod[TimeZoneAutoDetectMethod["SEND_ALL_LOCATION_INFO"] = 3] = "SEND_ALL_LOCATION_INFO";
 })(TimeZoneAutoDetectMethod || (TimeZoneAutoDetectMethod = {}));
 
-function getTemplate$23() {
+function getTemplate$21() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 <os-settings-animated-pages section="[[section_]]">
@@ -2876,7 +2536,7 @@ class SettingsDateTimePageElement extends PolymerElement {
         return 'settings-date-time-page';
     }
     static get template() {
-        return getTemplate$23();
+        return getTemplate$21();
     }
     static get properties() {
         return {
@@ -2901,901 +2561,6 @@ class SettingsDateTimePageElement extends PolymerElement {
     }
 }
 customElements.define(SettingsDateTimePageElement.is, SettingsDateTimePageElement);
-
-function getTemplate$22() {
-    return html `<!--_html_template_start_--><style include="settings-shared"></style>
-<cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
-  <div slot="title">$i18n{aboutUpdateWarningTitle}</div>
-  <div slot="body">
-    [[warningMessage_]]
-  </div>
-  <div slot="button-container">
-    <cr-button id="cancel" class="cancel-button" on-click="onCancelClick_">$i18n{cancel}</cr-button>
-    <cr-button id="continue" class="action-button" on-click="onContinueClick_">
-      $i18n{continue}
-    </cr-button>
-  </div>
-</cr-dialog>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2017 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview 'settings-update-warning-dialog' is a component warning the
- * user about update over mobile data. By clicking 'Continue', the user
- * agrees to download update using mobile data.
- */
-const SettingsUpdateWarningDialogElementBase = I18nMixin(PolymerElement);
-class SettingsUpdateWarningDialogElement extends SettingsUpdateWarningDialogElementBase {
-    static get is() {
-        return 'settings-update-warning-dialog';
-    }
-    static get template() {
-        return getTemplate$22();
-    }
-    static get properties() {
-        return {
-            updateInfo: {
-                type: Object,
-                observer: 'onUpdateInfoChanged_',
-            },
-            warningMessage_: {
-                type: String,
-                value: '',
-            },
-        };
-    }
-    constructor() {
-        super();
-        this.browserProxy_ = AboutPageBrowserProxyImpl.getInstance();
-    }
-    onCancelClick_() {
-        this.$.dialog.close();
-    }
-    onContinueClick_() {
-        if (!this.updateInfo || !this.updateInfo.version || !this.updateInfo.size) {
-            console.warn('ERROR: requestUpdateOverCellular arguments are undefined');
-            return;
-        }
-        this.browserProxy_.requestUpdateOverCellular(this.updateInfo.version, this.updateInfo.size);
-        this.$.dialog.close();
-    }
-    onUpdateInfoChanged_() {
-        if (!this.updateInfo || this.updateInfo.size === undefined) {
-            console.warn('ERROR: Update size is undefined');
-            return;
-        }
-        this.warningMessage_ = this.i18n('aboutUpdateWarningMessage', 
-        // Convert bytes to megabytes
-        Math.floor(Number(this.updateInfo.size) / (1024 * 1024)));
-    }
-}
-customElements.define(SettingsUpdateWarningDialogElement.is, SettingsUpdateWarningDialogElement);
-
-function getTemplate$21() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--chromeos-logo-width:40px}.info-section{margin-bottom:12px}.padded{padding-bottom:10px;padding-top:10px}#productRow{min-height:auto;padding-bottom:18px;padding-top:18px}#productRow>#productTitle{font:var(--cros-display-7-font);margin:0}#productRow>#productLogo{margin-inline-end:16px;width:var(--chromeos-logo-width)}.icon-container{margin-inline-end:10px;min-width:var(--chromeos-logo-width);text-align:center}:host-context(body.revamp-wayfinding-enabled) #updateRowIcon{margin-inline-end:16px}iron-icon[icon='settings:check-circle']{fill:var(--cros-icon-color-prominent)}iron-icon[icon='cr:error-outline'],iron-icon[icon='cr:warning'],iron-icon[icon='os-settings:end-of-life']{fill:var(--cros-icon-color-alert)}iron-icon[icon='os-settings:about-update-complete']{fill:var(--cros-sys-positive)}iron-icon[icon='os-settings:about-update-warning']{fill:var(--cros-sys-warning)}iron-icon[icon='os-settings:about-update-error']{fill:var(--cros-sys-error)}:host-context(body.revamp-wayfinding-enabled) iron-icon[icon='cr20:domain']{fill:var(--cros-sys-primary)}#firmwareUpdateBadge{--iron-icon-fill-color:var(--cros-icon-color-secondary)}.settings-box .start{overflow-x:auto}cr-button{white-space:nowrap}#regulatoryInfo img{width:330px}@media(prefers-color-scheme:dark){#regulatoryInfo img{filter:invert(1)}}.separator-firmware-updates-badge{margin-inline-end:-4px;margin-inline-start:12px}#deferredUpdateButtons{min-height:unset;padding-bottom:10px}eol-offer-section{margin:6px 3px 16px 3px}:host-context(body:not(.revamp-wayfinding-enabled)) #copyrightCard{margin-top:var(--cr-section-vertical-margin)}</style>
-<iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
-</iron-media-query>
-
-  <os-settings-animated-pages id="pages" section="[[section_]]">
-    <div route-path="default">
-      <settings-card header-text="$i18n{aboutOsPageTitle}">
-        <div id="productRow" class="settings-box first">
-          <img id="productLogo" on-click="onProductLogoClick_" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" alt="$i18n{aboutProductLogoAlt}" role="presentation">
-          <h1 id="productTitle">$i18n{aboutOsProductTitle}</h1>
-        </div>
-        <div class="settings-box two-line">
-          
-          <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]">
-            <div class="icon-container" hidden="[[!shouldShowIcons_(showUpdateStatus_)]]">
-              
-              <iron-icon icon$="[[getUpdateStatusIcon_(
-                      hasEndOfLife_, currentUpdateStatusEvent_)]]" src="[[getThrobberSrcIfUpdating_(
-                      isDarkModeActive_,
-                      hasEndOfLife_,
-                      currentUpdateStatusEvent_)]]">
-              </iron-icon>
-            </div>
-          </template>
-          <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-            <iron-icon id="updateRowIcon" icon$="[[getUpdateStatusIcon_(
-                    hasEndOfLife_, currentUpdateStatusEvent_)]]" src="[[getThrobberSrcIfUpdating_(
-                    isDarkModeActive_,
-                    hasEndOfLife_,
-                    currentUpdateStatusEvent_)]]">
-            </iron-icon>
-          </template>
-          <div class="start padded">
-            <div id="updateStatusMessage" hidden="[[!showUpdateStatus_]]">
-              <div id="updateStatusMessageInner" tabindex="-1" inner-h-t-m-l="[[getUpdateStatusMessage_(
-                  currentUpdateStatusEvent_, targetChannel_)]]"></div>
-              <a hidden$="[[!shouldShowLearnMoreLink_(
-                  currentUpdateStatusEvent_)]]" target="_blank" href="https://support.google.com/chrome?p=update_error">
-                $i18n{learnMore}
-              </a>
-            </div>
-            <template is="dom-if" if="[[showEolIncentive_]]">
-              <eol-offer-section id="endOfLifeOfferContainer" should-show-offer-text="[[shouldShowOfferText_]]">
-              </eol-offer-section>
-            </template>
-            <localized-link id="endOfLifeMessageContainer" hidden="[[!hasEndOfLife_]]" localized-string="$i18n{endOfLifeMessage}">
-            </localized-link>
-            <div class="secondary" hidden="[[!hasDeferredUpdate_]]">
-              $i18n{aboutDeferredUpdate}
-            </div>
-            <div class="secondary">$i18n{aboutBrowserVersion}</div>
-          </div>
-          <div class="separator" hidden="[[!showButtonContainer_]]"></div>
-          <span id="buttonContainer" hidden="[[!showButtonContainer_]]">
-            <cr-button id="relaunch" hidden$="[[!showRelaunch_]]" on-click="onRelaunchClick_">
-                [[getRelaunchButtonText_(
-                                currentUpdateStatusEvent_)]]
-            </cr-button>
-            <cr-button id="checkForUpdates" hidden="[[!showCheckUpdates_]]" on-click="onCheckUpdatesClick_" deep-link-focus-id$="[[Setting.kCheckForOsUpdate]]">
-              $i18n{aboutCheckForUpdates}
-            </cr-button>
-          </span>
-        </div>
-        <div id="deferredUpdateButtons" class="settings-box first" hidden="[[!hasDeferredUpdate_]]">
-          <div class="icon-container"></div>
-          <cr-button id="applyDeferredUpdate" on-click="onApplyDeferredUpdateClick_">
-            $i18n{aboutRelaunch}
-          </cr-button>
-          <cr-button id="applyAndSetAutoUpdate" on-click="onApplyAndSetAutoUpdateClick_">
-            $i18n{aboutRelaunchAndAutoUpdate}
-          </cr-button>
-        </div>
-        <cr-link-row id="aboutTPMFirmwareUpdate" class="hr" start-icon="[[rowIcons_.powerWash]]" hidden$="[[!showTPMFirmwareUpdateLineItem_]]" label="$i18n{aboutTPMFirmwareUpdateTitle}" on-click="onTpmFirmwareUpdateClick_">
-          <div slot="sub-label">
-            $i18n{aboutTPMFirmwareUpdateDescription}
-            <a href="$i18n{aboutTPMFirmwareUpdateLearnMoreURL}" target="_blank" on-click="onLearnMoreClick_">
-              $i18n{learnMore}
-            </a>
-          </div>
-        </cr-link-row>
-        <template is="dom-if" if="[[hasInternetConnection_]]">
-          <cr-link-row class="hr" id="releaseNotesOnline" start-icon="[[rowIcons_.releaseNotes]]" on-click="onReleaseNotesClick_" label="$i18n{aboutShowReleaseNotes}" sub-label="[[getShowReleaseNotesSublabel_()]]" external deep-link-focus-id$="[[Setting.kSeeWhatsNew]]">
-          </cr-link-row>
-        </template>
-        <template is="dom-if" if="[[!hasInternetConnection_]]">
-          <cr-link-row class="hr" id="releaseNotesOffline" start-icon="[[rowIcons_.releaseNotes]]" on-click="onReleaseNotesClick_" label="$i18n{aboutShowReleaseNotes}" title="$i18n{aboutReleaseNotesOffline}" external deep-link-focus-id$="[[Setting.kSeeWhatsNew]]">
-          </cr-link-row>
-        </template>
-        <cr-link-row class="hr" id="help" start-icon="[[rowIcons_.help]]" on-click="onHelpClick_" label="$i18n{aboutGetHelpUsingChromeOs}" sub-label="[[getHelpUsingChromeOsSublabel_()]]" external deep-link-focus-id$="[[Setting.kGetHelpWithChromeOs]]">
-        </cr-link-row>
-  
-        <cr-link-row class="hr" id="diagnostics" start-icon="[[rowIcons_.diagnostics]]" on-click="onDiagnosticsClick_" label="$i18n{aboutDiagnostics}" sub-label="[[getDiagnosticsSublabel_()]]" external deep-link-focus-id$="[[Setting.kDiagnostics]]">
-        </cr-link-row>
-        <cr-link-row class="hr" id="firmwareUpdates" start-icon="[[rowIcons_.firmwareUpdates]]" on-click="onFirmwareUpdatesClick_" label="$i18n{aboutFirmwareUpdates}" sub-label="[[getFirmwareSublabel_(firmwareUpdateCount_)]]" external using-slotted-label deep-link-focus-id$="[[Setting.kFirmwareUpdates]]">
-          <iron-icon id="firmwareUpdateBadge" icon$="[[getFirmwareUpdatesIcon_(firmwareUpdateCount_)]]" hidden$="[[!shouldShowFirmwareUpdatesBadge_(
-                firmwareUpdateCount_)]]">
-          </iron-icon>
-          <div id="firmwareUpdateBadgeSeparator" class="separator separator-firmware-updates-badge" hidden$="[[!shouldShowFirmwareUpdatesBadge_(
-                firmwareUpdateCount_)]]">
-          </div>
-        </cr-link-row>
-        <cr-link-row class="hr" id="detailedBuildInfoTrigger" start-icon="[[rowIcons_.additionalDetails]]" on-click="onDetailedBuildInfoClick_" label="$i18n{aboutDetailedBuildInfo}" role-description="$i18n{subpageArrowRoleDescription}">
-        </cr-link-row>
-        <cr-link-row class="hr" on-click="onManagementPageClick_" start-icon="cr:domain" label="$i18n{managementPage}" hidden$="[[!isManaged_]]" external>
-        </cr-link-row>
-      </settings-card>
-
-      <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-        <crostini-settings-card prefs="{{prefs}}"></crostini-settings-card>
-      </template>
-
-      <settings-card id="copyrightCard">
-        <div class="settings-box padded block first">
-          <div class="info-section">
-            <div class="secondary">$i18n{aboutOsProductTitle}</div>
-            <div class="secondary">$i18n{aboutProductCopyright}</div>
-          </div>
-
-          <div class="info-section">
-            <div class="secondary">
-              <span>$i18nRaw{aboutProductLicenseChromium}</span>
-              <localized-link localized-string="$i18nRaw{aboutProductLicenseOther}" on-link-clicked="onProductLicenseOtherClicked_">
-              </localized-link>
-            </div>
-            <div class="secondary" inner-h-t-m-l="[[getAboutProductOsLicense_(
-                    showCrostiniLicense_)]]">
-            </div>
-          </div>
-          
-        </div>
-        <div class="settings-box padded block" id="regulatoryInfo" hidden$="[[!shouldShowRegulatoryOrSafetyInfo_(regulatoryInfo_)]]">
-          
-          <img src="[[regulatoryInfo_.url]]" alt="[[regulatoryInfo_.text]]" hidden$="[[!shouldShowRegulatoryInfo_(regulatoryInfo_)]]">
-        </div>
-      </settings-card>
-    </div>
-
-    <template is="dom-if" route-path="/help/details">
-      <os-settings-subpage page-title="$i18n{aboutDetailedBuildInfo}">
-        <settings-detailed-build-info-subpage eol-message-with-month-and-year="[[eolMessageWithMonthAndYear_]]" prefs="{{prefs}}">
-        </settings-detailed-build-info-subpage>
-      </os-settings-subpage>
-    </template>
-
-    
-    <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-      <template is="dom-if" route-path="/crostini/details">
-        <os-settings-subpage page-title="$i18n{crostiniPageLabel}">
-          <settings-crostini-subpage prefs="{{prefs}}">
-          </settings-crostini-subpage>
-        </os-settings-subpage>
-      </template>
-
-      <template is="dom-if" route-path="/crostini/androidAdb">
-        <os-settings-subpage page-title="$i18n{crostiniArcAdbTitle}">
-          <settings-crostini-arc-adb prefs="{{prefs}}">
-          </settings-crostini-arc-adb>
-        </os-settings-subpage>
-      </template>
-
-      <template is="dom-if" route-path="/crostini/portForwarding">
-        <os-settings-subpage page-title="$i18n{crostiniPortForwarding}">
-          <settings-crostini-port-forwarding prefs="{{prefs}}">
-          </settings-crostini-port-forwarding>
-        </os-settings-subpage>
-      </template>
-
-      <template is="dom-if" route-path="/crostini/exportImport">
-        <os-settings-subpage page-title="$i18n{crostiniExportImportTitle}">
-          <settings-crostini-export-import prefs="{{prefs}}">
-          </settings-crostini-export-import>
-        </os-settings-subpage>
-      </template>
-
-      <template is="dom-if" route-path="/crostini/sharedPaths">
-        <os-settings-subpage page-title="$i18n{guestOsSharedPaths}">
-          <settings-guest-os-shared-paths guest-os-type="crostini" prefs="{{prefs}}">
-          </settings-guest-os-shared-paths>
-        </os-settings-subpage>
-      </template>
-
-      <template is="dom-if" route-path="/crostini/sharedUsbDevices">
-        <os-settings-subpage page-title="$i18n{guestOsSharedUsbDevicesLabel}">
-          <settings-crostini-shared-usb-devices>
-          </settings-crostini-shared-usb-devices>
-        </os-settings-subpage>
-      </template>
-
-      <template is="dom-if" route-path="/crostini/extraContainers">
-        <os-settings-subpage page-title="$i18n{crostiniExtraContainersLabel}">
-          <settings-crostini-extra-containers guest-os-type="crostini">
-          </settings-crostini-extra-containers>
-        </os-settings-subpage>
-      </template>
-
-      <template is="dom-if" route-path="/bruschetta/details">
-        <os-settings-subpage page-title="$i18n{bruschettaPageLabel}">
-          <settings-bruschetta-subpage prefs="{{prefs}}">
-          </settings-bruschetta-subpage>
-        </os-settings-subpage>
-      </template>
-
-      <template is="dom-if" route-path="/bruschetta/sharedUsbDevices">
-        <os-settings-subpage page-title="$i18n{guestOsSharedUsbDevicesLabel}">
-          <settings-guest-os-shared-usb-devices guest-os-type="bruschetta">
-          </settings-guest-os-shared-usb-devices>
-        </os-settings-subpage>
-      </template>
-
-      <template is="dom-if" route-path="/bruschetta/sharedPaths">
-        <os-settings-subpage page-title="$i18n{guestOsSharedPaths}">
-          <settings-guest-os-shared-paths guest-os-type="bruschetta" prefs="{{prefs}}">
-          </settings-guest-os-shared-paths>
-        </os-settings-subpage>
-      </template>
-    </template>
-  </os-settings-animated-pages>
-
-<template is="dom-if" if="[[showUpdateWarningDialog_]]" restamp>
-  <settings-update-warning-dialog update-info="[[updateInfo_]]" on-close="onUpdateWarningDialogClose_">
-  </settings-update-warning-dialog>
-</template>
-<template is="dom-if" if="[[showTPMFirmwareUpdateDialog_]]" restamp>
-  <os-settings-powerwash-dialog request-tpm-firmware-update on-close="onPowerwashDialogClose_">
-  </os-settings-powerwash-dialog>
-</template>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2019 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview 'settings-about-page' contains version and OS related
- * information.
- */
-const OsAboutPageBase = DeepLinkingMixin(RouteOriginMixin(I18nMixin(WebUiListenerMixin(PolymerElement))));
-class OsAboutPageElement extends OsAboutPageBase {
-    static get is() {
-        return 'os-about-page';
-    }
-    static get template() {
-        return getTemplate$21();
-    }
-    static get properties() {
-        return {
-            section_: {
-                type: Number,
-                value: Section.kAboutChromeOs,
-                readOnly: true,
-            },
-            /**
-             * Whether the about page is being rendered in dark mode.
-             */
-            isDarkModeActive_: {
-                type: Boolean,
-                value: false,
-            },
-            currentUpdateStatusEvent_: {
-                type: Object,
-                value: {
-                    message: '',
-                    progress: 0,
-                    rollback: false,
-                    powerwash: false,
-                    status: UpdateStatus.UPDATED,
-                },
-            },
-            /**
-             * Whether the browser/ChromeOS is managed by their organization
-             * through enterprise policies.
-             */
-            isManaged_: {
-                type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('isManaged');
-                },
-            },
-            /**
-             * The domain of the organization managing the device.
-             */
-            deviceManager_: {
-                type: String,
-                value() {
-                    return loadTimeData.getString('deviceManager');
-                },
-            },
-            hasCheckedForUpdates_: {
-                type: Boolean,
-                value: false,
-            },
-            currentChannel_: String,
-            targetChannel_: String,
-            isLts_: {
-                type: Boolean,
-                value: false,
-            },
-            regulatoryInfo_: Object,
-            hasEndOfLife_: {
-                type: Boolean,
-                value: false,
-            },
-            showEolIncentive_: {
-                type: Boolean,
-                value: false,
-            },
-            shouldShowOfferText_: {
-                type: Boolean,
-                value: false,
-            },
-            hasDeferredUpdate_: {
-                type: Boolean,
-                value: false,
-            },
-            eolMessageWithMonthAndYear_: {
-                type: String,
-                value: '',
-            },
-            hasInternetConnection_: {
-                type: Boolean,
-                value: false,
-            },
-            firmwareUpdateCount_: {
-                type: Number,
-                value: 0,
-            },
-            showCrostiniLicense_: {
-                type: Boolean,
-                value: false,
-            },
-            showUpdateStatus_: {
-                type: Boolean,
-                value: false,
-            },
-            showButtonContainer_: Boolean,
-            showRelaunch_: {
-                type: Boolean,
-                value: false,
-                computed: 'computeShowRelaunch_(currentUpdateStatusEvent_)',
-            },
-            showCheckUpdates_: {
-                type: Boolean,
-                computed: 'computeShowCheckUpdates_(' +
-                    'currentUpdateStatusEvent_, hasCheckedForUpdates_, hasEndOfLife_)',
-            },
-            showUpdateWarningDialog_: {
-                type: Boolean,
-                value: false,
-            },
-            showTPMFirmwareUpdateLineItem_: {
-                type: Boolean,
-                value: false,
-            },
-            showTPMFirmwareUpdateDialog_: Boolean,
-            updateInfo_: Object,
-            /**
-             * Whether the deep link to the check for OS update setting was unable
-             * to be shown.
-             */
-            isPendingOsUpdateDeepLink_: {
-                type: Boolean,
-                value: false,
-            },
-            /**
-             * Used by DeepLinkingMixin to focus this page's deep links.
-             */
-            supportedSettingIds: {
-                type: Object,
-                value: () => new Set([
-                    Setting.kCheckForOsUpdate,
-                    Setting.kSeeWhatsNew,
-                    Setting.kGetHelpWithChromeOs,
-                    Setting.kReportAnIssue,
-                    Setting.kTermsOfService,
-                    Setting.kDiagnostics,
-                    Setting.kFirmwareUpdates,
-                ]),
-            },
-            isRevampWayfindingEnabled_: {
-                type: Boolean,
-                value() {
-                    return isRevampWayfindingEnabled();
-                },
-                readOnly: true,
-            },
-            rowIcons_: {
-                type: Object,
-                value() {
-                    if (isRevampWayfindingEnabled()) {
-                        return {
-                            powerWash: 'os-settings:startup',
-                            releaseNotes: 'os-settings:about-release-notes',
-                            help: 'os-settings:about-help',
-                            feedback: 'os-settings:about-feedback',
-                            diagnostics: 'os-settings:about-diagnostics',
-                            firmwareUpdates: 'os-settings:about-firmware-updates',
-                            additionalDetails: 'os-settings:about-additional-details',
-                        };
-                    }
-                    return {
-                        powerWash: '',
-                        releaseNotes: '',
-                        help: '',
-                        feedback: '',
-                        diagnostics: '',
-                        firmwareUpdates: '',
-                        additionalDetails: '',
-                    };
-                },
-            },
-        };
-    }
-    static get observers() {
-        return [
-            'updateShowUpdateStatus_(hasEndOfLife_, currentUpdateStatusEvent_,' +
-                'hasCheckedForUpdates_)',
-            'updateShowButtonContainer_(showRelaunch_, showCheckUpdates_)',
-            'handleCrostiniEnabledChanged_(prefs.crostini.enabled.value)',
-        ];
-    }
-    constructor() {
-        super();
-        /** RouteOriginMixin override */
-        this.route = routes.ABOUT;
-        this.aboutBrowserProxy_ = AboutPageBrowserProxyImpl.getInstance();
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        this.aboutBrowserProxy_.pageReady();
-        this.addEventListener('target-channel-changed', (e) => {
-            this.targetChannel_ = e.detail;
-        });
-        this.aboutBrowserProxy_.getChannelInfo().then(info => {
-            this.currentChannel_ = info.currentChannel;
-            this.targetChannel_ = info.targetChannel;
-            this.isLts_ = info.isLts;
-            this.startListening_();
-        });
-        this.aboutBrowserProxy_.getRegulatoryInfo().then(info => {
-            this.regulatoryInfo_ = info;
-        });
-        this.aboutBrowserProxy_.getEndOfLifeInfo().then(result => {
-            this.hasEndOfLife_ = !!result.hasEndOfLife;
-            this.eolMessageWithMonthAndYear_ = result.aboutPageEndOfLifeMessage || '';
-            this.showEolIncentive_ = !!result.shouldShowEndOfLifeIncentive;
-            this.shouldShowOfferText_ = !!result.shouldShowOfferText;
-        });
-        this.aboutBrowserProxy_.checkInternetConnection().then(result => {
-            this.hasInternetConnection_ = result;
-        });
-        this.aboutBrowserProxy_.getFirmwareUpdateCount().then(result => {
-            this.firmwareUpdateCount_ = result;
-        });
-        if (Router.getInstance().getQueryParameters().get('checkForUpdate') ===
-            'true') {
-            this.onCheckUpdatesClick_();
-        }
-    }
-    ready() {
-        super.ready();
-        this.addFocusConfig(routes.ABOUT_DETAILED_BUILD_INFO, '#detailedBuildInfoTrigger');
-    }
-    currentRouteChanged(newRoute, oldRoute) {
-        super.currentRouteChanged(newRoute, oldRoute);
-        // Does not apply to this page.
-        if (newRoute !== this.route) {
-            return;
-        }
-        this.attemptDeepLink().then(result => {
-            if (!result.deepLinkShown && result.pendingSettingId) {
-                // Only the check for OS update is expected to fail deep link when
-                // awaiting the check for update.
-                assert(result.pendingSettingId === Setting.kCheckForOsUpdate);
-                this.isPendingOsUpdateDeepLink_ = true;
-            }
-        });
-    }
-    startListening_() {
-        this.addWebUiListener('update-status-changed', this.onUpdateStatusChanged_.bind(this));
-        this.aboutBrowserProxy_.refreshUpdateStatus();
-        this.addWebUiListener('tpm-firmware-update-status-changed', this.onTpmFirmwareUpdateStatusChanged_.bind(this));
-        this.aboutBrowserProxy_.refreshTpmFirmwareUpdateStatus();
-    }
-    onUpdateStatusChanged_(event) {
-        if (event.status === UpdateStatus.CHECKING) {
-            this.hasCheckedForUpdates_ = true;
-        }
-        else if (event.status === UpdateStatus.NEED_PERMISSION_TO_UPDATE) {
-            this.showUpdateWarningDialog_ = true;
-            this.updateInfo_ = { version: event.version, size: event.size };
-        }
-        this.hasDeferredUpdate_ = (event.status === UpdateStatus.DEFERRED);
-        this.currentUpdateStatusEvent_ = event;
-    }
-    onLearnMoreClick_(event) {
-        // Stop the propagation of events, so that clicking on links inside
-        // actionable items won't trigger action.
-        event.stopPropagation();
-    }
-    onProductLicenseOtherClicked_(event) {
-        // Prevent the default link click behavior
-        event.detail.event.preventDefault();
-        // Programmatically open license.
-        this.aboutBrowserProxy_.openProductLicenseOther();
-    }
-    onReleaseNotesClick_() {
-        this.aboutBrowserProxy_.launchReleaseNotes();
-    }
-    onHelpClick_() {
-        this.aboutBrowserProxy_.openOsHelpPage();
-    }
-    onDiagnosticsClick_() {
-        this.aboutBrowserProxy_.openDiagnostics();
-        recordSettingChange(Setting.kDiagnostics);
-    }
-    onFirmwareUpdatesClick_() {
-        this.aboutBrowserProxy_.openFirmwareUpdatesPage();
-        recordSettingChange(Setting.kFirmwareUpdates);
-    }
-    onRelaunchClick_() {
-        recordSettingChange();
-        LifetimeBrowserProxyImpl.getInstance().relaunch();
-    }
-    updateShowUpdateStatus_() {
-        // Do not show the "updated" status or error states from a previous update
-        // attempt if we haven't checked yet or the update warning dialog is shown
-        // to user.
-        if ((this.currentUpdateStatusEvent_.status === UpdateStatus.UPDATED ||
-            this.currentUpdateStatusEvent_.status ===
-                UpdateStatus.FAILED_DOWNLOAD ||
-            this.currentUpdateStatusEvent_.status === UpdateStatus.FAILED_HTTP ||
-            this.currentUpdateStatusEvent_.status ===
-                UpdateStatus.DISABLED_BY_ADMIN) &&
-            (!this.hasCheckedForUpdates_ || this.showUpdateWarningDialog_)) {
-            this.showUpdateStatus_ = false;
-            return;
-        }
-        // Do not show "updated" status if the device is end of life.
-        if (this.hasEndOfLife_) {
-            this.showUpdateStatus_ = false;
-            return;
-        }
-        this.showUpdateStatus_ =
-            this.currentUpdateStatusEvent_.status !== UpdateStatus.DISABLED;
-    }
-    /**
-     * Hide the button container if all buttons are hidden, otherwise the
-     * container displays an unwanted border (see separator class).
-     */
-    updateShowButtonContainer_() {
-        this.showButtonContainer_ = this.showRelaunch_ || this.showCheckUpdates_;
-        // Check if we have yet to focus the check for update button.
-        if (!this.isPendingOsUpdateDeepLink_) {
-            return;
-        }
-        this.showDeepLink(Setting.kCheckForOsUpdate).then(result => {
-            if (result.deepLinkShown) {
-                this.isPendingOsUpdateDeepLink_ = false;
-            }
-        });
-    }
-    computeShowRelaunch_() {
-        return this.checkStatus_(UpdateStatus.NEARLY_UPDATED);
-    }
-    shouldShowLearnMoreLink_() {
-        return this.currentUpdateStatusEvent_.status === UpdateStatus.FAILED;
-    }
-    shouldShowFirmwareUpdatesBadge_() {
-        return this.firmwareUpdateCount_ > 0;
-    }
-    getUpdateStatusMessage_() {
-        switch (this.currentUpdateStatusEvent_.status) {
-            case UpdateStatus.CHECKING:
-            case UpdateStatus.NEED_PERMISSION_TO_UPDATE:
-                return this.i18nAdvanced('aboutUpgradeCheckStarted');
-            case UpdateStatus.NEARLY_UPDATED:
-                if (this.currentChannel_ !== this.targetChannel_) {
-                    return this.i18nAdvanced('aboutUpgradeSuccessChannelSwitch');
-                }
-                if (this.currentUpdateStatusEvent_.rollback) {
-                    return this.i18nAdvanced('aboutRollbackSuccess', {
-                        substitutions: [this.deviceManager_],
-                    });
-                }
-                return this.i18nAdvanced('aboutUpgradeRelaunch');
-            case UpdateStatus.UPDATED:
-                return this.i18nAdvanced('aboutUpgradeUpToDate');
-            case UpdateStatus.UPDATING:
-                assert(typeof this.currentUpdateStatusEvent_.progress === 'number');
-                const progressPercent = this.currentUpdateStatusEvent_.progress + '%';
-                if (this.currentChannel_ !== this.targetChannel_) {
-                    return this.i18nAdvanced('aboutUpgradeUpdatingChannelSwitch', {
-                        substitutions: [
-                            this.i18nAdvanced(browserChannelToI18nId(this.targetChannel_, this.isLts_))
-                                .toString(),
-                            progressPercent,
-                        ],
-                    });
-                }
-                if (this.currentUpdateStatusEvent_.rollback) {
-                    return this.i18nAdvanced('aboutRollbackInProgress', {
-                        substitutions: [this.deviceManager_, progressPercent],
-                    });
-                }
-                if (this.currentUpdateStatusEvent_.progress > 0) {
-                    // NOTE(dbeam): some platforms (i.e. Mac) always send 0% while
-                    // updating (they don't support incremental upgrade progress). Though
-                    // it's certainly quite possible to validly end up here with 0% on
-                    // platforms that support incremental progress, nobody really likes
-                    // seeing that they're 0% done with something.
-                    return this.i18nAdvanced('aboutUpgradeUpdatingPercent', {
-                        substitutions: [progressPercent],
-                    });
-                }
-                return this.i18nAdvanced('aboutUpgradeUpdating');
-            case UpdateStatus.FAILED_HTTP:
-                return this.i18nAdvanced('aboutUpgradeTryAgain');
-            case UpdateStatus.FAILED_DOWNLOAD:
-                return this.i18nAdvanced('aboutUpgradeDownloadError');
-            case UpdateStatus.DISABLED_BY_ADMIN:
-                return this.i18nAdvanced('aboutUpgradeAdministrator');
-            case UpdateStatus.UPDATE_TO_ROLLBACK_VERSION_DISALLOWED:
-                return this.i18nAdvanced('aboutUpdateToRollbackVersionDisallowed');
-            case UpdateStatus.DEFERRED:
-                return this.i18nAdvanced('aboutUpgradeNotUpToDate');
-            default:
-                let result = '';
-                const message = this.currentUpdateStatusEvent_.message;
-                if (message) {
-                    result += message;
-                }
-                const connectMessage = this.currentUpdateStatusEvent_.connectionTypes;
-                if (connectMessage) {
-                    result += `<div>${connectMessage}</div>`;
-                }
-                return sanitizeInnerHtml(result, { tags: ['br', 'pre'] });
-        }
-    }
-    getUpdateStatusIcon_() {
-        // If Chrome OS has reached end of life, display a special icon and
-        // ignore UpdateStatus.
-        if (this.hasEndOfLife_) {
-            return 'os-settings:end-of-life';
-        }
-        switch (this.currentUpdateStatusEvent_.status) {
-            case UpdateStatus.DISABLED_BY_ADMIN:
-                return 'cr20:domain';
-            case UpdateStatus.FAILED_DOWNLOAD:
-            case UpdateStatus.FAILED_HTTP:
-            case UpdateStatus.FAILED:
-                return this.isRevampWayfindingEnabled_ ?
-                    'os-settings:about-update-error' :
-                    'cr:error-outline';
-            case UpdateStatus.UPDATED:
-            case UpdateStatus.NEARLY_UPDATED:
-                // TODO(crbug.com/986596): Don't use browser icons here. Fork them.
-                return this.isRevampWayfindingEnabled_ ?
-                    'os-settings:about-update-complete' :
-                    'settings:check-circle';
-            case UpdateStatus.DEFERRED:
-            case UpdateStatus.UPDATE_TO_ROLLBACK_VERSION_DISALLOWED:
-                return this.isRevampWayfindingEnabled_ ?
-                    'os-settings:about-update-warning' :
-                    'cr:warning';
-            default:
-                return null;
-        }
-    }
-    getFirmwareUpdatesIcon_() {
-        if (this.firmwareUpdateCount_ === 0) {
-            return '';
-        }
-        const maxBadgeId = 9;
-        // If the number of firmware updates is > 9, then we want to show
-        // the 9 badge.
-        const updateBadgeId = Math.min(this.firmwareUpdateCount_, maxBadgeId);
-        return `os-settings:counter-${updateBadgeId}`;
-    }
-    getThrobberSrcIfUpdating_() {
-        if (this.hasEndOfLife_) {
-            return null;
-        }
-        switch (this.currentUpdateStatusEvent_.status) {
-            case UpdateStatus.CHECKING:
-            case UpdateStatus.UPDATING:
-                return this.isDarkModeActive_ ?
-                    'chrome://resources/images/throbber_small_dark.svg' :
-                    'chrome://resources/images/throbber_small.svg';
-            default:
-                return null;
-        }
-    }
-    checkStatus_(status) {
-        return this.currentUpdateStatusEvent_.status === status;
-    }
-    onManagementPageClick_() {
-        window.open('chrome://management');
-    }
-    isPowerwash_() {
-        return !!this.currentUpdateStatusEvent_.powerwash;
-    }
-    onDetailedBuildInfoClick_() {
-        Router.getInstance().navigateTo(routes.ABOUT_DETAILED_BUILD_INFO);
-    }
-    getRelaunchButtonText_() {
-        if (this.checkStatus_(UpdateStatus.NEARLY_UPDATED)) {
-            return this.i18n(this.isPowerwash_() ? 'aboutRelaunchAndPowerwash' : 'aboutRelaunch');
-        }
-        return '';
-    }
-    onCheckUpdatesClick_() {
-        this.onUpdateStatusChanged_({ status: UpdateStatus.CHECKING });
-        this.aboutBrowserProxy_.requestUpdate();
-        this.$.updateStatusMessageInner.focus();
-    }
-    onApplyDeferredUpdateClick_() {
-        this.aboutBrowserProxy_.applyDeferredUpdate();
-        this.$.updateStatusMessageInner.focus();
-    }
-    onApplyAndSetAutoUpdateClick_() {
-        this.aboutBrowserProxy_.setConsumerAutoUpdate(true);
-        this.onApplyDeferredUpdateClick_();
-    }
-    computeShowCheckUpdates_() {
-        // Disable update button if the device is end of life.
-        if (this.hasEndOfLife_) {
-            return false;
-        }
-        // Enable the update button if we are in a stale 'updated' status or
-        // update has failed. Disable it otherwise.
-        const staleUpdatedStatus = !this.hasCheckedForUpdates_ && this.checkStatus_(UpdateStatus.UPDATED);
-        return staleUpdatedStatus || this.checkStatus_(UpdateStatus.FAILED) ||
-            this.checkStatus_(UpdateStatus.FAILED_HTTP) ||
-            this.checkStatus_(UpdateStatus.FAILED_DOWNLOAD) ||
-            this.checkStatus_(UpdateStatus.DISABLED_BY_ADMIN) ||
-            this.checkStatus_(UpdateStatus.UPDATE_TO_ROLLBACK_VERSION_DISALLOWED);
-    }
-    /**
-     * @param showCrostiniLicense True if Crostini is enabled and
-     * Crostini UI is allowed.
-     */
-    getAboutProductOsLicense_(showCrostiniLicense) {
-        return showCrostiniLicense ?
-            this.i18nAdvanced('aboutProductOsWithLinuxLicense') :
-            this.i18nAdvanced('aboutProductOsLicense');
-    }
-    /**
-     * @param enabled True if Crostini is enabled.
-     */
-    handleCrostiniEnabledChanged_(enabled) {
-        this.showCrostiniLicense_ = enabled && isCrostiniSupported();
-    }
-    shouldShowSafetyInfo_() {
-        return loadTimeData.getBoolean('shouldShowSafetyInfo');
-    }
-    shouldShowRegulatoryInfo_() {
-        return this.regulatoryInfo_ !== null;
-    }
-    shouldShowRegulatoryOrSafetyInfo_() {
-        return this.shouldShowSafetyInfo_() || this.shouldShowRegulatoryInfo_();
-    }
-    onUpdateWarningDialogClose_() {
-        this.showUpdateWarningDialog_ = false;
-        // Shows 'check for updates' button in case that the user cancels the
-        // dialog and then intends to check for update again.
-        this.hasCheckedForUpdates_ = false;
-    }
-    onTpmFirmwareUpdateStatusChanged_(event) {
-        this.showTPMFirmwareUpdateLineItem_ = event.updateAvailable;
-    }
-    onTpmFirmwareUpdateClick_() {
-        this.showTPMFirmwareUpdateDialog_ = true;
-    }
-    onPowerwashDialogClose_() {
-        this.showTPMFirmwareUpdateDialog_ = false;
-    }
-    onProductLogoClick_() {
-        this.$.productLogo.animate({
-            transform: ['none', 'rotate(-10turn)'],
-        }, {
-            duration: 500,
-            easing: 'cubic-bezier(1, 0, 0, 1)',
-        });
-    }
-    // 
-    shouldShowIcons_() {
-        if (this.hasEndOfLife_) {
-            return true;
-        }
-        return this.showUpdateStatus_;
-    }
-    getShowReleaseNotesSublabel_() {
-        return this.isRevampWayfindingEnabled_ ?
-            this.i18n('aboutShowReleaseNotesDescription') :
-            null;
-    }
-    getHelpUsingChromeOsSublabel_() {
-        return this.isRevampWayfindingEnabled_ ?
-            this.i18n('aboutGetHelpDescription') :
-            null;
-    }
-    getReportIssueSublabel_() {
-        return this.isRevampWayfindingEnabled_ ?
-            this.i18n('aboutSendFeedbackDescription') :
-            null;
-    }
-    getDiagnosticsSublabel_() {
-        return this.isRevampWayfindingEnabled_ ?
-            this.i18n('aboutDiagnosticseDescription') :
-            null;
-    }
-    getFirmwareSublabel_() {
-        if (this.isRevampWayfindingEnabled_) {
-            return this.firmwareUpdateCount_ > 0 ?
-                this.i18n('aboutFirmwareUpdateAvailableDescription') :
-                this.i18n('aboutFirmwareUpToDateDescription');
-        }
-        return null;
-    }
-}
-customElements.define(OsAboutPageElement.is, OsAboutPageElement);
 
 function getTemplate$20() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
@@ -7657,7 +6422,7 @@ customElements.define(PrivacyHubGeolocationWarningText.is, PrivacyHubGeolocation
 function getTemplate$1L() {
     return html `<!--_html_template_start_--><style include="settings-shared">#timezoneRadioContainer{padding-bottom:var(--cr-section-padding)}settings-dropdown-menu{--md-select-width:425px;--settings-dropdown-menu-policy-order:1}#timeZoneResolveMethodDropdown,#timezoneSelector{padding-inline-start:28px}#warningText{width:425px;padding-inline-start:28px}</style>
 <div id="timezoneRadioContainer" class="settings-box first">
-  <settings-radio-group id="timeZoneRadioGroup" pref="{{prefs.generated.resolve_timezone_by_geolocation_on_off}}" deep-link-focus-id$="[[Setting.kChangeTimeZone]]">
+  <settings-radio-group id="timeZoneRadioGroup" pref="{{prefs.generated.resolve_timezone_by_geolocation_on_off}}" deep-link-focus-id$="[[Setting.kChangeTimeZone]]" disabled="[[isGuest_]]">
     <controlled-radio-button id="timeZoneAutoDetectOn" name="true" pref="[[prefs.generated.resolve_timezone_by_geolocation_on_off]]" label="$i18n{setTimeZoneAutomaticallyOn}" no-extension-indicator>
     </controlled-radio-button>
     <settings-dropdown-menu id="timeZoneResolveMethodDropdown" pref="{{prefs.generated.resolve_timezone_by_geolocation_method_short}}" label="$i18n{selectTimeZoneResolveMethod}" disabled="[[!prefs.generated.resolve_timezone_by_geolocation_on_off.value]]" menu-options="[[getTimeZoneResolveMethodsList_(
@@ -7704,6 +6469,12 @@ class TimezoneSubpageElement extends TimezoneSubpageElementBase {
             activeTimeZoneDisplayName: {
                 type: String,
                 notify: true,
+            },
+            isGuest_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('isGuest');
+                },
             },
             /**
              * Used by DeepLinkingMixin to focus this page's deep links.
@@ -13881,7 +12652,8 @@ function getTemplate$1r() {
   <div class="start layout horizontal center">
     <network-icon show-technology-badge="[[showTechnologyBadge_]]" network-state="[[getNetworkState_(managedProperties_)]]">
     </network-icon>
-    <div id="networkState" class="title settings-box-text" connected$="[[showConnectedState_(managedProperties_)]]" warning$="[[showRestrictedConnectivity_(managedProperties_)]]" error$="[[isOutOfRangeOrNotEnabled_(outOfRange_, deviceState_)]]">
+    <div id="networkState" class="title settings-box-text" connected$="[[showConnectedState_(managedProperties_)]]" warning$="[[showRestrictedConnectivity_(managedProperties_,
+                           deviceState_)]]" error$="[[isOutOfRangeOrNotEnabled_(outOfRange_, deviceState_)]]">
       [[getStateText_(managedProperties_, propertiesReceived_,
           outOfRange_, deviceState_)]]
     </div>
@@ -14060,7 +12832,8 @@ function getTemplate$1r() {
   <template is="dom-if" if="[[showConfigurableSections_]]" restamp>
     <template is="dom-if" if="[[shouldShowApnRow_(managedProperties_,
         isApnRevampEnabled_)]]">
-      <cr-link-row id="apnSubpageButton" class="hr" label="$i18n{internetApnPageTitle}" sub-label="[[getApnRowSubLabel_(managedProperties_)]]" on-click="onApnRowClicked_" role-description="$i18n{subpageArrowRoleDescription}" warning$="[[showRestrictedConnectivity_(managedProperties_)]]">
+      <cr-link-row id="apnSubpageButton" class="hr" label="$i18n{internetApnPageTitle}" sub-label="[[getApnRowSubLabel_(managedProperties_)]]" on-click="onApnRowClicked_" role-description="$i18n{subpageArrowRoleDescription}" warning$="[[showRestrictedConnectivity_(managedProperties_,
+              deviceState_)]]">
       </cr-link-row>
     </template>
   </template>
@@ -15125,9 +13898,14 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
         return this.isConnectedState_(managedProperties) &&
             !this.isRestrictedConnectivity_(managedProperties);
     }
-    showRestrictedConnectivity_(managedProperties) {
+    showRestrictedConnectivity_(managedProperties, deviceState) {
         if (!managedProperties) {
             return false;
+        }
+        // Display carrier locked network as warning
+        if (this.isCellularCarrierLockEnabled_ &&
+            this.isCarrierLockedActiveSim_(managedProperties, deviceState)) {
+            return true;
         }
         // State must be connected and restricted.
         return this.isConnectedState_(managedProperties) &&
@@ -43455,5 +42233,5 @@ class ManageIsolatedWebAppsSubpageElement extends ManageIsolatedWebAppsSubpageBa
 }
 customElements.define(ManageIsolatedWebAppsSubpageElement.is, ManageIsolatedWebAppsSubpageElement);
 
-export { AccountManagerBrowserProxyImpl, AddPrintServerDialogElement, AddPrinterManuallyDialogElement, AddPrinterManufacturerModelDialogElement, ApnSubpageElement, AppManagementAppLanguageItemElement, BluetoothBrailleDisplayManager, BluetoothBrailleDisplayUiElement, BruschettaSubpageElement, CellularNetworksListElement, CellularRoamingToggleButtonElement, ChangeDictationLocaleDialog, ConsentStatus, CrCheckboxWithPolicyElement, CrostiniBrowserProxyImpl, CrostiniPortForwardingElement, CrostiniPortProtocol, CrostiniSettingsCardElement, CrostiniSharedUsbDevicesElement, CupsPrintersBrowserProxyImpl, CupsPrintersEntryManager, CustomizeButtonDropdownItemElement, CustomizeButtonRowElement, CustomizeButtonSelectElement, CustomizeButtonsSubsectionElement, DragAndDropManager, DspHotwordState, EditHostnameDialogElement, EsimInstallErrorDialogElement, ExtraContainersCreateDialog, ExtraContainersElement, FingerprintBrowserProxyImpl, FingerprintResultType, FingerprintSetupStep, GoogleAssistantBrowserProxyImpl, InputsShortcutReminderState, KerberosAccountsBrowserProxyImpl, KerberosAddAccountDialogElement, KerberosConfigErrorCode, KerberosErrorType, KeyCombinationInputDialogElement, KeyboardShortcutBanner, LanguagesBrowserProxyImpl, LanguagesMetricsProxyImpl, LanguagesPageInteraction, LifetimeBrowserProxyImpl, ManageIsolatedWebAppsSubpageElement, MediaDevicesProxy, NetworkAlwaysOnVpnElement, NetworkDeviceInfoDialogElement, NetworkProxySectionElement, OsSettingsAddItemsDialogElement, OsSettingsAppLanguagesPageElement, OsSettingsChangeDeviceLanguageDialogElement, OsSettingsClearPersonalizedDataDialogElement, OsSettingsEditDictionaryPageElement, OsSettingsFilesPageElement, OsSettingsInputPageElement, OsSettingsLanguagesPageV2Element, OsSettingsPersonalizationOptionsElement, OsSettingsPrintingPageElement, OsSettingsResetPageElement, OsSettingsSubpageElement, OsSyncBrowserProxyImpl, OsSyncControlsSubpageElement, PasspointRemoveDialogElement, PdfOcrUserSelection, PrintServerResult, PrinterDialogErrorElement, PrinterSettingsUserAction, PrinterSetupResult, PrinterState, PrinterStatusReason, PrinterStatusSeverity, PrinterType, PrivacyHubBrowserProxyImpl, ScreenAiInstallStatus, SecureDnsInputElement, SecureDnsResolverType, SettingsAccountManagerSubpageElement, SettingsAudioAndCaptionsPageElement, SettingsChannelSwitcherDialogElement, SettingsChromeVoxSubpageElement, SettingsConsumerAutoUpdateToggleDialogElement, SettingsCrostiniArcAdbElement, SettingsCrostiniConfirmationDialogElement, SettingsCrostiniDiskResizeDialogElement, SettingsCrostiniExportImportElement, SettingsCrostiniPageElement, SettingsCrostiniSubpageElement, SettingsCupsAddPrinterDialogElement, SettingsCupsEditPrinterDialogElement, SettingsCupsEnterprisePrintersElement, SettingsCupsNearbyPrintersElement, SettingsCupsPrintersElement, SettingsCupsPrintersEntryElement, SettingsCupsSavedPrintersElement, SettingsCursorAndTouchpadPageElement, SettingsDateTimePageElement, SettingsDetailedBuildInfoSubpageElement, SettingsDisplayAndMagnificationSubpageElement, SettingsFaceGazeCursorSubpageElement, SettingsFaceGazeFacialExpressionSubpageElement, SettingsFingerprintListSubpageElement, SettingsGoogleAssistantSubpageElement, SettingsGuestOsSharedUsbDevicesElement, SettingsHotspotSubpageElement, SettingsInputMethodOptionsPageElement, SettingsInternetDetailPageElement, SettingsInternetKnownNetworksPageElement, SettingsInternetSubpageElement, SettingsInternetSubpageMenuElement, SettingsKerberosAccountsSubpageElement, SettingsKeyboardAndTextInputPageElement, SettingsLockScreenElement, SettingsManageUsersSubpageElement, SettingsMultideviceSmartlockItemElement, SettingsOfficePageElement, SettingsOneDriveSubpageElement, SettingsPasspointSubpageElement, SettingsPrivacyHubCameraSubpage, SettingsPrivacyHubGeolocationAdvancedSubpage, SettingsPrivacyHubMicrophoneSubpage, SettingsSearchSubpageElement, SettingsSecureDnsDialogElement, SettingsSecureDnsElement, SettingsSelectToSpeakSubpageElement, SettingsSetupFingerprintDialogElement, SettingsSmartPrivacySubpage, SettingsSmbSharesPageElement, SettingsSwitchAccessActionAssignmentDialogElement, SettingsSwitchAccessActionAssignmentPaneElement, SettingsSwitchAccessSetupGuideDialogElement, SettingsSwitchAccessSubpageElement, SettingsTextToSpeechSubpageElement, SettingsTrafficCountersElement, SettingsTtsVoiceSubpageElement, SettingsUserListElement, SettingsUsersAddUserDialogElement, SwitchAccessCommand, TetherConnectionDialogElement, TimeZoneAutoDetectMethod, TimeZoneBrowserProxyImpl, TimezoneSubpageElement, computePrinterState, getDataTransferOriginIndex, getStatusReasonFromPrinterStatus, sanitizeInnerHtml, setDataTransferOriginIndex };
+export { AccountManagerBrowserProxyImpl, AddPrintServerDialogElement, AddPrinterManuallyDialogElement, AddPrinterManufacturerModelDialogElement, ApnSubpageElement, AppManagementAppLanguageItemElement, BluetoothBrailleDisplayManager, BluetoothBrailleDisplayUiElement, BruschettaSubpageElement, CellularNetworksListElement, CellularRoamingToggleButtonElement, ChangeDictationLocaleDialog, ConsentStatus, CrCheckboxWithPolicyElement, CrostiniBrowserProxyImpl, CrostiniPortForwardingElement, CrostiniSharedUsbDevicesElement, CupsPrintersBrowserProxyImpl, CupsPrintersEntryManager, CustomizeButtonDropdownItemElement, CustomizeButtonRowElement, CustomizeButtonSelectElement, CustomizeButtonsSubsectionElement, DragAndDropManager, DspHotwordState, EditHostnameDialogElement, EsimInstallErrorDialogElement, ExtraContainersCreateDialog, ExtraContainersElement, FingerprintBrowserProxyImpl, FingerprintResultType, FingerprintSetupStep, GoogleAssistantBrowserProxyImpl, InputsShortcutReminderState, KerberosAccountsBrowserProxyImpl, KerberosAddAccountDialogElement, KerberosConfigErrorCode, KerberosErrorType, KeyCombinationInputDialogElement, KeyboardShortcutBanner, LanguagesBrowserProxyImpl, LanguagesMetricsProxyImpl, LanguagesPageInteraction, LifetimeBrowserProxyImpl, ManageIsolatedWebAppsSubpageElement, MediaDevicesProxy, NetworkAlwaysOnVpnElement, NetworkDeviceInfoDialogElement, NetworkProxySectionElement, OsSettingsAddItemsDialogElement, OsSettingsAppLanguagesPageElement, OsSettingsChangeDeviceLanguageDialogElement, OsSettingsClearPersonalizedDataDialogElement, OsSettingsEditDictionaryPageElement, OsSettingsFilesPageElement, OsSettingsInputPageElement, OsSettingsLanguagesPageV2Element, OsSettingsPersonalizationOptionsElement, OsSettingsPrintingPageElement, OsSettingsResetPageElement, OsSettingsSubpageElement, OsSyncBrowserProxyImpl, OsSyncControlsSubpageElement, PasspointRemoveDialogElement, PdfOcrUserSelection, PrintServerResult, PrinterDialogErrorElement, PrinterSettingsUserAction, PrinterSetupResult, PrinterState, PrinterStatusReason, PrinterStatusSeverity, PrinterType, PrivacyHubBrowserProxyImpl, ScreenAiInstallStatus, SecureDnsInputElement, SecureDnsResolverType, SettingsAccountManagerSubpageElement, SettingsAudioAndCaptionsPageElement, SettingsChannelSwitcherDialogElement, SettingsChromeVoxSubpageElement, SettingsConsumerAutoUpdateToggleDialogElement, SettingsCrostiniArcAdbElement, SettingsCrostiniConfirmationDialogElement, SettingsCrostiniDiskResizeDialogElement, SettingsCrostiniExportImportElement, SettingsCrostiniPageElement, SettingsCrostiniSubpageElement, SettingsCupsAddPrinterDialogElement, SettingsCupsEditPrinterDialogElement, SettingsCupsEnterprisePrintersElement, SettingsCupsNearbyPrintersElement, SettingsCupsPrintersElement, SettingsCupsPrintersEntryElement, SettingsCupsSavedPrintersElement, SettingsCursorAndTouchpadPageElement, SettingsDateTimePageElement, SettingsDetailedBuildInfoSubpageElement, SettingsDisplayAndMagnificationSubpageElement, SettingsFaceGazeCursorSubpageElement, SettingsFaceGazeFacialExpressionSubpageElement, SettingsFingerprintListSubpageElement, SettingsGoogleAssistantSubpageElement, SettingsGuestOsSharedUsbDevicesElement, SettingsHotspotSubpageElement, SettingsInputMethodOptionsPageElement, SettingsInternetDetailPageElement, SettingsInternetKnownNetworksPageElement, SettingsInternetSubpageElement, SettingsInternetSubpageMenuElement, SettingsKerberosAccountsSubpageElement, SettingsKeyboardAndTextInputPageElement, SettingsLockScreenElement, SettingsManageUsersSubpageElement, SettingsMultideviceSmartlockItemElement, SettingsOfficePageElement, SettingsOneDriveSubpageElement, SettingsPasspointSubpageElement, SettingsPrivacyHubCameraSubpage, SettingsPrivacyHubGeolocationAdvancedSubpage, SettingsPrivacyHubMicrophoneSubpage, SettingsSearchSubpageElement, SettingsSecureDnsDialogElement, SettingsSecureDnsElement, SettingsSelectToSpeakSubpageElement, SettingsSetupFingerprintDialogElement, SettingsSmartPrivacySubpage, SettingsSmbSharesPageElement, SettingsSwitchAccessActionAssignmentDialogElement, SettingsSwitchAccessActionAssignmentPaneElement, SettingsSwitchAccessSetupGuideDialogElement, SettingsSwitchAccessSubpageElement, SettingsTextToSpeechSubpageElement, SettingsTrafficCountersElement, SettingsTtsVoiceSubpageElement, SettingsUserListElement, SettingsUsersAddUserDialogElement, SwitchAccessCommand, TetherConnectionDialogElement, TimeZoneAutoDetectMethod, TimeZoneBrowserProxyImpl, TimezoneSubpageElement, computePrinterState, getDataTransferOriginIndex, getStatusReasonFromPrinterStatus, sanitizeInnerHtml, setDataTransferOriginIndex };
 //# sourceMappingURL=lazy_load.rollup.js.map

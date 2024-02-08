@@ -83,6 +83,7 @@
     "preprocessed/icons.html.ts",
     "preprocessed/emoji_picker.mojom-webui.ts",
     "preprocessed/new_window_proxy.mojom-webui.ts",
+    "preprocessed/emoji_search.mojom-webui.ts",
     "preprocessed/fuse.d.ts"
   ],
   "references": [

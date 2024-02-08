@@ -8,7 +8,7 @@ export function getTemplate() {
       <cr-link-row id="appManagementRow" class="settings-box first" start-icon="[[rowIcons_.manageApps]]" label="$i18n{appManagementTitle}" on-click="onClickAppManagement_" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <template is="dom-if" if="[[showAppNotificationsRow_]]">
-        <cr-link-row id="appNotificationsRow" class="settings-box" start-icon="[[rowIcons_.notifications]]" label="$i18n{appNotificationsTitle}" on-click="onClickAppNotifications_" role-description="$i18n{subpageArrowRoleDescription}" sub-label="[[getAppListCountDescription_(
+        <cr-link-row id="appNotificationsRow" class="settings-box" start-icon="[[rowIcons_.notifications]]" label="$i18n{appNotificationsTitle}" on-click="onClickAppNotifications_" role-description="$i18n{subpageArrowRoleDescription}" sub-label="[[getAppNotificationsRowSublabel_(
                 appsWithNotifications_.*, isDndEnabled_)]]">
         </cr-link-row>
       </template>

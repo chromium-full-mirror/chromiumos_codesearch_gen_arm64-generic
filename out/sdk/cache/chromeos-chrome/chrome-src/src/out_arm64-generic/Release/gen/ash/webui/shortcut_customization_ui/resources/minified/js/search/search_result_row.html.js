@@ -23,7 +23,7 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
           </template>
         </template>
         <template is="dom-if" if="[[isTextLayout(searchResult)]]">
-          <text-accelerator parts="[[getTextAcceleratorParts(searchResult)]]" highlighted="[[selected]]" narrow>
+          <text-accelerator parts="[[getTextAcceleratorParts(searchResult)]]" highlighted="[[selected]]" narrow display-lock-icon>
           </text-accelerator>
         </template>
         <template is="dom-if" if="[[isNoShortcutAssigned(searchResult)]]">

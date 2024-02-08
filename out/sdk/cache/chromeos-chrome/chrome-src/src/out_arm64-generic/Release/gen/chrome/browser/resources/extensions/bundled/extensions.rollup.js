@@ -1,5 +1,5 @@
 import { html, PolymerElement, templatize, Polymer, Base, dom, dedupingMixin, useShadow, dashToCamelCase, Templatizer, OptionalMutableDataBehavior, animationFrame, microTask, idlePeriod, flush, Debouncer, enqueueDebouncer, matches, translate, afterNextRender, timeOut } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { css, html as html$1, nothing, CrLitElement } from 'chrome://resources/lit/v3_0/lit.rollup.js';
+import { css, html as html$1, CrLitElement, nothing } from 'chrome://resources/lit/v3_0/lit.rollup.js';
 import './strings.m.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { addWebUiListener, removeWebUiListener, sendWithPromise } from 'chrome://resources/js/cr.js';
@@ -293,52 +293,58 @@ function hasKeyModifiers(e) {
     return !!(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
 }
 
-function getTemplate$Q() {
-    return html `<!--_html_template_start_-->    <style>:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);font:var(--cr-drawer-header-font,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
-    <dialog id="dialog" on-cancel="onDialogCancel_" on-click="onDialogClick_" on-close="onDialogClose_">
-      <div id="container" on-click="onContainerClick_">
-        <div class="drawer-header">
-          <slot name="header-icon">
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="//resources/images/chrome_logo_dark.svg">
-              <img id="product-logo" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" role="presentation">
-            </picture>
-          </slot>
-          <div id="heading" tabindex="-1">[[heading]]</div>
-        </div>
-        <slot name="body"></slot>
-      </div>
-    </dialog>
+function getCss$6() {
+    return css `:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}`;
+}
+
+function getHtml$3() {
+    return html$1 `<!--_html_template_start_--><dialog id="dialog" @cancel="${this.onDialogCancel_}" @click="${this.onDialogClick_}" @close="${this.onDialogClose_}">
+  <div id="container" @click="${this.onContainerClick_}">
+    <div class="drawer-header">
+      <slot name="header-icon">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="//resources/images/chrome_logo_dark.svg">
+          <img id="product-logo" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" role="presentation">
+        </picture>
+      </slot>
+      <div id="heading" tabindex="-1">${this.heading}</div>
+    </div>
+    <slot name="body"></slot>
+  </div>
+</dialog>
 <!--_html_template_end_-->`;
 }
 
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-class CrDrawerElement extends PolymerElement {
+class CrDrawerElement extends CrLitElement {
+    constructor() {
+        super(...arguments);
+        this.align = 'ltr';
+    }
     static get is() {
         return 'cr-drawer';
     }
-    static get template() {
-        return getTemplate$Q();
+    static get styles() {
+        return getCss$6();
+    }
+    render() {
+        return getHtml$3.bind(this)();
     }
     static get properties() {
         return {
-            heading: String,
+            heading: { type: String },
             show_: {
                 type: Boolean,
-                reflectToAttribute: true,
+                reflect: true,
             },
             /** The alignment of the drawer on the screen ('ltr' or 'rtl'). */
             align: {
                 type: String,
-                value: 'ltr',
-                reflectToAttribute: true,
+                reflect: true,
             },
         };
-    }
-    fire_(eventName, detail) {
-        this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
     }
     get open() {
         return this.$.dialog.open;
@@ -356,15 +362,16 @@ class CrDrawerElement extends PolymerElement {
         }
     }
     /** Shows drawer and slides it into view. */
-    openDrawer() {
+    async openDrawer() {
         if (this.open) {
             return;
         }
         this.$.dialog.showModal();
         this.show_ = true;
-        this.fire_('cr-drawer-opening');
+        await this.updateComplete;
+        this.fire('cr-drawer-opening');
         listenOnce(this.$.dialog, 'transitionend', () => {
-            this.fire_('cr-drawer-opened');
+            this.fire('cr-drawer-opened');
         });
     }
     /**
@@ -372,7 +379,7 @@ class CrDrawerElement extends PolymerElement {
      * is up to the owner of this component to differentiate between close and
      * cancel.
      */
-    dismiss_(cancel) {
+    async dismiss_(cancel) {
         if (!this.open) {
             return;
         }
@@ -413,7 +420,7 @@ class CrDrawerElement extends PolymerElement {
     onDialogClose_() {
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.fire_('close');
+        this.fire('close');
     }
 }
 customElements.define(CrDrawerElement.is, CrDrawerElement);
@@ -497,7 +504,7 @@ styleMod$9.appendChild(html `
 `.content);
 styleMod$9.register('cr-hidden-style');
 
-function getTemplate$P() {
+function getTemplate$O() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:var(--cr-toast-max-width,568px);min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
             var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
             var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
@@ -521,7 +528,7 @@ class CrToastElement extends PolymerElement {
         return 'cr-toast';
     }
     static get template() {
-        return getTemplate$P();
+        return getTemplate$O();
     }
     static get properties() {
         return {
@@ -588,7 +595,7 @@ class CrToastElement extends PolymerElement {
 }
 customElements.define(CrToastElement.is, CrToastElement);
 
-function getTemplate$O() {
+function getTemplate$N() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">#content{display:flex;flex:1}.collapsible{overflow:hidden;text-overflow:ellipsis}span{white-space:pre}.elided-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}</style>
     <cr-toast id="toast" duration="[[duration]]">
       <div id="content" class="elided-text"></div>
@@ -615,7 +622,7 @@ class CrToastManagerElement extends PolymerElement {
         return 'cr-toast-manager';
     }
     static get template() {
-        return getTemplate$O();
+        return getTemplate$N();
     }
     static get properties() {
         return {
@@ -2136,7 +2143,7 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$N() {
+function getTemplate$M() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -2194,7 +2201,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$N();
+        return getTemplate$M();
     }
     static get properties() {
         return {
@@ -3598,7 +3605,7 @@ const CrSearchFieldMixin = dedupingMixin((superClass) => {
     return CrSearchFieldMixin;
 });
 
-function getTemplate$M() {
+function getTemplate$L() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{--cr-toolbar-search-field-hover-background:var(--color-toolbar-search-field-background-hover,
                 var(--cr-hover-background-color));isolation:isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
             var(--color-toolbar-search-field-icon,
@@ -3640,7 +3647,7 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
         return 'cr-toolbar-search-field';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -3743,7 +3750,7 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
 }
 customElements.define(CrToolbarSearchFieldElement.is, CrToolbarSearchFieldElement);
 
-function getTemplate$L() {
+function getTemplate$K() {
     return html `<!--_html_template_start_-->    <style include="cr-icons cr-hidden-style">:host{align-items:center;background-color:var(--cr-toolbar-background-color);color:var(--google-grey-900);display:flex;height:var(--cr-toolbar-height)}@media (prefers-color-scheme:dark){:host{border-bottom:var(--cr-separator-line);box-sizing:border-box;color:var(--cr-secondary-text-color)}:host-context([chrome-refresh-2023]):host{background-color:transparent;border-bottom:none}}h1{flex:1;font-size:170%;font-weight:var(--cr-toolbar-header-font-weight,500);letter-spacing:.25px;line-height:normal;margin-inline-start:6px;padding-inline-end:12px;white-space:var(--cr-toolbar-header-white-space,normal)}@media (prefers-color-scheme:dark){h1{color:var(--cr-primary-text-color)}}#leftContent{position:relative;transition:opacity .1s}#leftSpacer{align-items:center;box-sizing:border-box;display:flex;padding-inline-start:calc(12px + 6px);width:var(--cr-toolbar-left-spacer-width,auto)}cr-icon-button{--cr-icon-button-size:32px;min-width:32px}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-focus-outline-color:var(--cr-focus-outline-color)}}#centeredContent{display:flex;flex:1 1 0;justify-content:center}#rightSpacer{padding-inline-end:12px}:host([narrow]) #centeredContent{justify-content:flex-end}:host([has-overlay]){transition:visibility var(--cr-toolbar-overlay-animation-duration);visibility:hidden}:host([narrow][showing-search_]) #leftContent{opacity:0;position:absolute}:host(:not([narrow])) #leftContent{flex:1 1 var(--cr-toolbar-field-margin,0)}:host(:not([narrow])) #centeredContent{flex-basis:var(--cr-toolbar-center-basis,0)}:host(:not([narrow])[disable-right-content-grow]) #centeredContent{justify-content:start;padding-inline-start:12px}:host(:not([narrow])) #rightContent{flex:1 1 0;text-align:end}:host(:not([narrow])[disable-right-content-grow]) #rightContent{flex:0 1 0}picture{display:none}#menuButton{margin-inline-end:9px}#menuButton~h1{margin-inline-start:0}:host(:not([narrow])) picture,:host([always-show-logo]) picture{display:initial;margin-inline-end:16px}:host(:not([narrow])) #leftSpacer,:host([always-show-logo]) #leftSpacer{padding-inline-start:calc(12px + 9px)}:host(:not([narrow])) :is(picture,#product-logo),:host([always-show-logo]) :is(picture,#product-logo){height:24px;width:24px}</style>
     <div id="leftContent">
       <div id="leftSpacer">
@@ -3784,7 +3791,7 @@ class CrToolbarElement extends PolymerElement {
         return 'cr-toolbar';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -3858,7 +3865,7 @@ class CrToolbarElement extends PolymerElement {
 }
 customElements.define(CrToolbarElement.is, CrToolbarElement);
 
-function getTemplate$K() {
+function getTemplate$J() {
     return html `<!--_html_template_start_-->    <style>:host ::slotted([slot=view]){bottom:0;display:none;left:0;position:absolute;right:0;top:0}:host ::slotted(.active),:host ::slotted(.closing){display:block}</style>
     <slot name="view"></slot>
 <!--_html_template_end_-->`;
@@ -3921,7 +3928,7 @@ class CrViewManagerElement extends PolymerElement {
         return 'cr-view-manager';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$J();
     }
     exit_(element, animation) {
         const animationFunction = viewAnimations.get(animation);
@@ -3970,7 +3977,7 @@ class CrViewManagerElement extends PolymerElement {
 }
 customElements.define(CrViewManagerElement.is, CrViewManagerElement);
 
-function getTemplate$J() {
+function getTemplate$I() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator,.tab-indicator-background{bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0)}.tab-indicator{border-top-left-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));border-top-right-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));opacity:0;transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}.tab-indicator-background{background:var(--cr-tabs-unselected-color,var(--google-blue-600));opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);z-index:-1}@media (prefers-color-scheme:dark){.tab-indicator-background{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
 
     <template is="dom-repeat" items="[[tabNames]]">
@@ -4015,7 +4022,7 @@ class CrTabsElement extends PolymerElement {
         return 'cr-tabs';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -5036,7 +5043,7 @@ class FocusOutlineManager {
     }
 }
 
-function getTemplate$I() {
+function getTemplate$H() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -5072,7 +5079,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -5266,7 +5273,7 @@ styleMod$6.appendChild(html `
 `.content);
 styleMod$6.register('cr-input-style');
 
-function getTemplate$H() {
+function getTemplate$G() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -5309,7 +5316,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -5535,7 +5542,7 @@ class CrInputElement extends PolymerElement {
 }
 customElements.define(CrInputElement.is, CrInputElement);
 
-function getTemplate$G() {
+function getTemplate$F() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
           var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
     <iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
@@ -5561,7 +5568,7 @@ class CrSearchFieldElement extends CrSearchFieldElementBase {
         return 'cr-search-field';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -7890,15 +7897,9 @@ a[href]{color:var(--cr-link-color)}.activity-message{color:var(--md-loading-mess
 `.content);
 styleMod$5.register('shared-style');
 
-const styleMod$4 = document.createElement('dom-module');
-styleMod$4.appendChild(html `
-  <template>
-    <style>
-:host{align-items:center;align-self:stretch;display:flex;margin:0;outline:0}:host(:not([effectively-disabled_])){cursor:pointer}:host(:not([no-hover],[effectively-disabled_]):hover){background-color:var(--cr-hover-background-color)}:host(:not([no-hover],[effectively-disabled_]):active){background-color:var(--cr-active-background-color)}:host(:not([no-hover],[effectively-disabled_])) cr-icon-button{--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}
-    </style>
-  </template>
-`.content);
-styleMod$4.register('cr-actionable-row-style');
+function getCss$5() {
+    return css `:host{align-items:center;align-self:stretch;display:flex;margin:0;outline:0}:host(:not([effectively-disabled_])){cursor:pointer}:host(:not([no-hover],[effectively-disabled_]):hover){background-color:var(--cr-hover-background-color)}:host(:not([no-hover],[effectively-disabled_]):active){background-color:var(--cr-active-background-color)}:host(:not([no-hover],[effectively-disabled_])) cr-icon-button{--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}`;
+}
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -7956,12 +7957,14 @@ function focusWithoutInk(toFocus) {
     toFocusWithNoInk.noink = noink;
 }
 
-function getTemplate$F() {
-    return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
+function getCss$4() {
+    return css `:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}`;
+}
 
-    <div id="label" aria-hidden="true"><slot></slot></div>
-    <cr-icon-button id="icon" aria-labelledby="label" aria-expanded="[[getAriaExpanded_(expanded)]]" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon" iron-icon="[[icon_]]">
-    </cr-icon-button>
+function getHtml$2() {
+    return html$1 `<!--_html_template_start_--><div id="label" aria-hidden="true"><slot></slot></div>
+<cr-icon-button id="icon" aria-labelledby="label" ?disabled="${this.disabled}" aria-expanded="${this.ariaExpanded_}" tabindex="${this.tabIndex}" part="icon" iron-icon="${this.icon_}">
+</cr-icon-button>
 <!--_html_template_end_-->`;
 }
 
@@ -7973,12 +7976,28 @@ function getTemplate$F() {
  * 'cr-expand-button' is a chrome-specific wrapper around a button that toggles
  * between an opened (expanded) and closed state.
  */
-class CrExpandButtonElement extends PolymerElement {
+class CrExpandButtonElement extends CrLitElement {
+    constructor() {
+        super(...arguments);
+        this.expanded = false;
+        this.disabled = false;
+        this.ariaExpanded_ = 'false';
+        this.expandIcon = 'cr:expand-more';
+        this.collapseIcon = 'cr:expand-less';
+        this.tabIndex = 0;
+        this.icon_ = '';
+    }
     static get is() {
         return 'cr-expand-button';
     }
-    static get template() {
-        return getTemplate$F();
+    static get styles() {
+        return [
+            getCss$5(),
+            getCss$4(),
+        ];
+    }
+    render() {
+        return getHtml$2.bind(this)();
     }
     static get properties() {
         return {
@@ -7989,7 +8008,6 @@ class CrExpandButtonElement extends PolymerElement {
              */
             expanded: {
                 type: Boolean,
-                value: false,
                 notify: true,
             },
             /**
@@ -7997,50 +8015,43 @@ class CrExpandButtonElement extends PolymerElement {
              */
             disabled: {
                 type: Boolean,
-                value: false,
-                reflectToAttribute: true,
+                reflect: true,
             },
             /** A11y text descriptor for this control. */
-            ariaLabel: {
-                type: String,
-                observer: 'onAriaLabelChange_',
-            },
-            tabIndex: {
-                type: Number,
-                value: 0,
-            },
-            expandIcon: {
-                type: String,
-                value: 'cr:expand-more',
-            },
-            collapseIcon: {
-                type: String,
-                value: 'cr:expand-less',
-            },
-            icon_: String,
-            expandTitle: String,
-            collapseTitle: String,
-            tooltipText_: {
-                type: String,
-                computed: 'computeTooltipText_(expandTitle, collapseTitle, expanded)',
-                observer: 'onTooltipTextChange_',
-            },
+            ariaLabel: { type: String },
+            ariaExpanded_: { type: String },
+            tabIndex: { type: Number },
+            expandIcon: { type: String },
+            collapseIcon: { type: String },
+            expandTitle: { type: String },
+            collapseTitle: { type: String },
+            icon_: { type: String },
         };
     }
-    static get observers() {
-        return [
-            'updateIcon_(collapseIcon, expandIcon, expanded)',
-        ];
-    }
-    ready() {
-        super.ready();
+    firstUpdated() {
         this.addEventListener('click', this.toggleExpand_);
     }
-    computeTooltipText_() {
-        return this.expanded ? this.collapseTitle : this.expandTitle;
+    willUpdate(changedProperties) {
+        super.willUpdate(changedProperties);
+        if (changedProperties.has('expanded') ||
+            changedProperties.has('expandIcon') ||
+            changedProperties.has('collapseIcon')) {
+            this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
+        }
+        if (changedProperties.has('expanded') ||
+            changedProperties.has('collapseTitle') ||
+            changedProperties.has('expandTitle')) {
+            this.title = this.expanded ? this.collapseTitle : this.expandTitle;
+        }
+        if (changedProperties.has('expanded')) {
+            this.ariaExpanded_ = this.expanded ? 'true' : 'false';
+        }
     }
-    onTooltipTextChange_() {
-        this.title = this.tooltipText_;
+    updated(changedProperties) {
+        super.updated(changedProperties);
+        if (changedProperties.has('ariaLabel')) {
+            this.onAriaLabelChange_();
+        }
     }
     focus() {
         this.$.icon.focus();
@@ -8055,9 +8066,6 @@ class CrExpandButtonElement extends PolymerElement {
             this.$.icon.setAttribute('aria-labelledby', 'label');
         }
     }
-    updateIcon_() {
-        this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
-    }
     toggleExpand_(event) {
         // Prevent |click| event from bubbling. It can cause parents of this
         // elements to erroneously re-toggle this control.
@@ -8066,9 +8074,6 @@ class CrExpandButtonElement extends PolymerElement {
         this.scrollIntoViewIfNeeded();
         this.expanded = !this.expanded;
         focusWithoutInk(this.$.icon);
-    }
-    getAriaExpanded_() {
-        return this.expanded ? 'true' : 'false';
     }
 }
 customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);
@@ -10158,6 +10163,16 @@ class ExtensionsActivityLogElement extends ExtensionsActivityLogElementBase {
     }
 }
 customElements.define(ExtensionsActivityLogElement.is, ExtensionsActivityLogElement);
+
+const styleMod$4 = document.createElement('dom-module');
+styleMod$4.appendChild(html `
+  <template>
+    <style>
+:host{align-items:center;align-self:stretch;display:flex;margin:0;outline:0}:host(:not([effectively-disabled_])){cursor:pointer}:host(:not([no-hover],[effectively-disabled_]):hover){background-color:var(--cr-hover-background-color)}:host(:not([no-hover],[effectively-disabled_]):active){background-color:var(--cr-active-background-color)}:host(:not([no-hover],[effectively-disabled_])) cr-icon-button{--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}
+    </style>
+  </template>
+`.content);
+styleMod$4.register('cr-actionable-row-style');
 
 function getTemplate$z() {
     return html `<!--_html_template_start_--><style include="cr-actionable-row-style cr-shared-style cr-hidden-style">:host{box-sizing:border-box;flex:1;font-family:inherit;font-size:100%;line-height:154%;min-height:var(--cr-section-min-height);padding:0}:host(:not([embedded])){padding:0 var(--cr-section-padding)}#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
@@ -13141,10 +13156,6 @@ function getTemplate$r() {
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Mixin for cr-radio-button-like elements.
- */
-// clang-format off
 const CrRadioButtonMixin = dedupingMixin((superClass) => {
     class CrRadioButtonMixin extends superClass {
         static get properties() {
@@ -15899,10 +15910,6 @@ customElements.define(ExtensionsInstallWarningsDialogElement.is, ExtensionsInsta
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Mixin to be used by Polymer elements that want to
- * automatically remove WebUI listeners when detached.
- */
 const WebUiListenerMixin = dedupingMixin((superClass) => {
     class WebUiListenerMixin extends superClass {
         constructor() {

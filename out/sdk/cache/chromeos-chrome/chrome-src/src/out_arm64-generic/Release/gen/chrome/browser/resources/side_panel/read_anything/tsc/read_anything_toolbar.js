@@ -526,7 +526,7 @@ export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
             this.contentPage.playSpeech();
         }
         else {
-            this.contentPage.stopSpeech();
+            this.contentPage.stopSpeech(/* pausedFromPlayClickButton = */ true);
         }
     }
     onToolbarKeyDown_(e) {

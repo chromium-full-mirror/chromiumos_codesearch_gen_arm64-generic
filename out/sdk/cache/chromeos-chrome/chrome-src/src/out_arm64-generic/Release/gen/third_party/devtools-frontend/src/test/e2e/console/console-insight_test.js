@@ -7,29 +7,29 @@ const chai_1 = require("chai");
 const helper_js_1 = require("../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../shared/mocha-extensions.js");
 const console_helpers_js_1 = require("../helpers/console-helpers.js");
+const settings_helpers_js_1 = require("../helpers/settings-helpers.js");
 (0, mocha_extensions_js_1.describe)('ConsoleInsight', async function () {
     const CLICK_TARGET_SELECTOR = '.console-message-text';
     const EXPLAIN_LABEL = 'Explain this error';
-    async function mockAida(response) {
+    async function setupMocks(aidaResponse) {
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
         await frontend.bringToFront();
         await frontend.evaluateOnNewDocument(`
       globalThis.doAidaConversationForTesting = (data, cb) => {
-        cb({"response": JSON.stringify(${JSON.stringify(response)})});
+        cb({"response": JSON.stringify(${JSON.stringify(aidaResponse)})});
+      }
+      globalThis.getSyncInformation = (cb) => {
+        cb({"isSyncActive": true, "accountEmail": "some-email"});
       }
     `);
         await frontend.goto(frontend.url() + '&enableAida=true', {
             waitUntil: 'networkidle0',
         });
-        await frontend.evaluate(`(async () => {
-      const Root = await import('./core/root/root.js');
-      Root.Runtime.experiments.setEnabled('consoleInsights', true);
-    })()`);
-        await frontend.goto(frontend.url() + '&enableAida=true');
+        await (0, settings_helpers_js_1.togglePreferenceInSettingsTab)('Enable Console Insights');
     }
     (0, mocha_extensions_js_1.it)('shows an insight for a console message', async () => {
         const { target } = (0, helper_js_1.getBrowserAndPages)();
-        await mockAida([
+        await setupMocks([
             { 'textChunk': { 'text': 'test' } },
         ]);
         await (0, helper_js_1.click)(console_helpers_js_1.CONSOLE_TAB_SELECTOR);
@@ -41,7 +41,7 @@ const console_helpers_js_1 = require("../helpers/console-helpers.js");
     });
     (0, mocha_extensions_js_1.it)('does not show context menu if AIDA is not available', async () => {
         const { target } = (0, helper_js_1.getBrowserAndPages)();
-        await mockAida(null);
+        await setupMocks(null);
         await (0, helper_js_1.click)(console_helpers_js_1.CONSOLE_TAB_SELECTOR);
         await target.evaluate(() => {
             console.error(new Error('Unexpected error'));
@@ -146,7 +146,8 @@ const console_helpers_js_1 = require("../helpers/console-helpers.js");
             const consoleViewMessage = consoleModule.ConsoleViewMessage.getMessageForElement(consoleElement);
             const message = consoleViewMessage?.toMessageTextString() || '';
             // Replace dynamic line and column numbers in stacktraces with ':1:1'.
-            return message.replace(/:\d+:\d+/gi, ':1:1');
+            // Ignore stacktrace added by Puppeteer.
+            return message.replace(/:\d+:\d+/gi, ':1:1').replaceAll(/\n    at pptr:;CdpFrame\.%3Can….js%3A\d+%3A\d+\):1:1/gi, '');
         };
         const consoleModule = (await frontend.evaluateHandle('import(\'./panels/console/console.js\')'));
         for (let testIdx = 0; testIdx < messages.length; testIdx++) {

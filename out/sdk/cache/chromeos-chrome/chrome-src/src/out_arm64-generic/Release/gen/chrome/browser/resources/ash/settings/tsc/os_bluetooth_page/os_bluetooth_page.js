@@ -58,8 +58,8 @@ export class SettingsBluetoothPageElement extends SettingsBluetoothPageElementBa
         this.browserProxy_ =
             OsBluetoothDevicesSubpageBrowserProxyImpl.getInstance();
     }
-    ready() {
-        super.ready();
+    connectedCallback() {
+        super.connectedCallback();
         getBluetoothConfig().observeSystemProperties(this.systemPropertiesObserverReceiver_.$.bindNewPipeAndPassRemote());
     }
     /**

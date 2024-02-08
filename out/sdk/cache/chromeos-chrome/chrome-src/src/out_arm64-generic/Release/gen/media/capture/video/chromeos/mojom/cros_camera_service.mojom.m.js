@@ -308,6 +308,12 @@ export class CrosCameraServiceObserverInterface {
    */
 
   cameraSWPrivacySwitchStateChange(state) {}
+  
+  /**
+   * @param { !cros_mojom_EffectsConfig } config
+   */
+
+  cameraEffectChange(config) {}
 }
 
 /**
@@ -389,6 +395,22 @@ export class CrosCameraServiceObserverRemote {
           state
         ]);
   }
+
+  
+  /**
+   * @param { !cros_mojom_EffectsConfig } config
+   */
+
+  cameraEffectChange(
+      config) {
+    this.proxy.sendMessage(
+        3,
+        CrosCameraServiceObserver_CameraEffectChange_ParamsSpec.$,
+        null,
+        [
+          config
+        ]);
+  }
 }
 
 /**
@@ -426,6 +448,11 @@ export class CrosCameraServiceObserverReceiver {
         CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsSpec.$,
         null,
         impl.cameraSWPrivacySwitchStateChange.bind(impl));
+    this.helper_internal_.registerHandler(
+        3,
+        CrosCameraServiceObserver_CameraEffectChange_ParamsSpec.$,
+        null,
+        impl.cameraEffectChange.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -508,6 +535,18 @@ export class CrosCameraServiceObserverCallbackRouter {
         CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsSpec.$,
         null,
         this.cameraSWPrivacySwitchStateChange.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.cameraEffectChange =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        3,
+        CrosCameraServiceObserver_CameraEffectChange_ParamsSpec.$,
+        null,
+        this.cameraEffectChange.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1009,6 +1048,12 @@ export const CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsSp
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
+export const CrosCameraServiceObserver_CameraEffectChange_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
 export const CrosCameraService_GetCameraModule_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -1271,6 +1316,35 @@ export class CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params {
   constructor() {
     /** @type { !CameraPrivacySwitchState } */
     this.state;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CrosCameraServiceObserver_CameraEffectChange_ParamsSpec.$,
+    'CrosCameraServiceObserver_CameraEffectChange_Params',
+    [
+      mojo.internal.StructField(
+        'config', 0,
+        0,
+        cros_mojom_EffectsConfigSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class CrosCameraServiceObserver_CameraEffectChange_Params {
+  constructor() {
+    /** @type { !cros_mojom_EffectsConfig } */
+    this.config;
   }
 }
 

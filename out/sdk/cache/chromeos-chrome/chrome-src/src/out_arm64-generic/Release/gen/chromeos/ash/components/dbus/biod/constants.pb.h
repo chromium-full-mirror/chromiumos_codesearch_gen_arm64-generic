@@ -79,11 +79,11 @@ enum ScanResult : int {
   SCAN_RESULT_TOO_FAST = 5,
   SCAN_RESULT_IMMOBILE = 6,
   SCAN_RESULT_NO_MATCH = 10000,
-  SCAN_RESULT_MAX = 10001
+  SCAN_RESULT_POWER_BUTTON_PRESSED = 10001
 };
 bool ScanResult_IsValid(int value);
 constexpr ScanResult ScanResult_MIN = SCAN_RESULT_SUCCESS;
-constexpr ScanResult ScanResult_MAX = SCAN_RESULT_MAX;
+constexpr ScanResult ScanResult_MAX = SCAN_RESULT_POWER_BUTTON_PRESSED;
 constexpr int ScanResult_ARRAYSIZE = ScanResult_MAX + 1;
 
 const std::string& ScanResult_Name(ScanResult value);

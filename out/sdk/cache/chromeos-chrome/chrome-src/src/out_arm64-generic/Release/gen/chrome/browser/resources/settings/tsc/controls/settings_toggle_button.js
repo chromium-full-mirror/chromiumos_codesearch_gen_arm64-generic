@@ -12,8 +12,6 @@ import '//resources/cr_elements/cr_toggle/cr_toggle.js';
 import '//resources/cr_elements/policy/cr_policy_pref_indicator.js';
 import '//resources/polymer/v3_0/iron-icon/iron-icon.js';
 import '//resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
-// 
-import '//resources/cr_elements/chromeos/cros_color_overrides.css.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { SettingsBooleanControlMixin } from '/shared/settings/controls/settings_boolean_control_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';

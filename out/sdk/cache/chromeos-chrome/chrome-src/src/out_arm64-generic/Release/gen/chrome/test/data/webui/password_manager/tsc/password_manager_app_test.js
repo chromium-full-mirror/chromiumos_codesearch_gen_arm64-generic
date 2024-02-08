@@ -4,7 +4,6 @@
 import 'chrome://password-manager/password_manager.js';
 import { OpenWindowProxyImpl, Page, PasswordManagerImpl, Router, UrlParam } from 'chrome://password-manager/password_manager.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
-import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertEquals, assertFalse, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { flushTasks } from 'chrome://webui-test/polymer_test_util.js';
 import { TestOpenWindowProxy } from 'chrome://webui-test/test_open_window_proxy.js';
@@ -56,11 +55,10 @@ suite('PasswordManagerAppTest', function () {
         assertFalse(!!app.$.drawer.open);
         const drawerOpened = eventToPromise('cr-drawer-opened', app.$.drawer);
         app.$.drawer.openDrawer();
-        flush();
+        await drawerOpened;
         // Validate that dialog is open and menu is shown so it will animate.
         assertTrue(app.$.drawer.open);
         assertTrue(!!app.shadowRoot.querySelector('#drawerSidebar'));
-        await drawerOpened;
         const drawerClosed = eventToPromise('close', app.$.drawer);
         app.$.drawer.cancel();
         await drawerClosed;
@@ -75,11 +73,10 @@ suite('PasswordManagerAppTest', function () {
         assertFalse(!!app.$.drawer.open);
         const drawerOpened = eventToPromise('cr-drawer-opened', app.$.drawer);
         app.$.drawer.openDrawer();
-        flush();
+        await drawerOpened;
         // Validate that dialog is open and menu is shown so it will animate.
         assertTrue(app.$.drawer.open);
         assertTrue(!!app.shadowRoot.querySelector('#drawerSidebar'));
-        await drawerOpened;
         const drawerClosed = eventToPromise('close', app.$.drawer);
         app.setNarrowForTesting(false);
         await drawerClosed;

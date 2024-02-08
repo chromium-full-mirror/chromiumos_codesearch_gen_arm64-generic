@@ -796,6 +796,7 @@ bool BrowserInitParams_Data::Validate(
     { 73, 248 },
     { 74, 248 },
     { 75, 248 },
+    { 76, 256 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -1041,7 +1042,7 @@ bool BrowserInitParams_Data::Validate(
 }
 
 BrowserInitParams_Data::BrowserInitParams_Data()
-    : header_({sizeof(*this), 75}) {}
+    : header_({sizeof(*this), 76}) {}
 
 
 // static

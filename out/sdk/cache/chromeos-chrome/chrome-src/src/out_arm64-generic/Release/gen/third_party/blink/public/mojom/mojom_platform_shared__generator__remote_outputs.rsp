@@ -1043,6 +1043,11 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_par
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webdatabase/web_database.mojom-shared-internal.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webdatabase/web_database.mojom-shared.cc
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webdatabase/web_database.mojom-shared.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webid/digital_identity_request.mojom-features.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webid/digital_identity_request.mojom-params-data.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webid/digital_identity_request.mojom-shared-internal.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webid/digital_identity_request.mojom-shared.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webid/digital_identity_request.mojom-shared.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webid/federated_auth_request.mojom-features.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webid/federated_auth_request.mojom-params-data.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webid/federated_auth_request.mojom-shared-internal.h

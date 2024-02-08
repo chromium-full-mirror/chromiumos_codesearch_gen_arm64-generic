@@ -144,6 +144,7 @@
     "preprocessed/mwb_shared_icons.html.ts",
     "preprocessed/action_link.css.ts",
     "preprocessed/cr_actionable_row_style.css.ts",
+    "preprocessed/cr_actionable_row_style_lit.css.ts",
     "preprocessed/cr_hidden_style.css.ts",
     "preprocessed/cr_hidden_style_lit.css.ts",
     "preprocessed/cr_icons.css.ts",
@@ -161,8 +162,9 @@
     "preprocessed/search_highlight_style.css.ts",
     "preprocessed/cr_action_menu/cr_action_menu.css.ts",
     "preprocessed/cr_dialog/cr_dialog.css.ts",
+    "preprocessed/cr_drawer/cr_drawer.css.ts",
+    "preprocessed/cr_expand_button/cr_expand_button.css.ts",
     "preprocessed/cr_input/cr_input_style.css.ts",
-    "preprocessed/chromeos/cros_color_overrides.css.ts",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/pending.d.ts",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/settings_private.d.ts"
   ],

@@ -5,7 +5,7 @@
     "page": "enhanced_network_tts/background.html"
   },
   "name": "__MSG_ENHANCED_NETWORK_TTS_NAME__",
-  "version": "123.0.6283.0",
+  "version": "123.0.6288.0",
   "description": "__MSG_ENHANCED_NETWORK_TTS_DESCRIPTION__",
   "permissions": [
     "ttsEngine"

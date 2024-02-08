@@ -2406,144 +2406,6 @@
     encoder.skip(1);
     encoder.skip(1);
   };
-  function MediaStreamDispatcherHost_GetZoomLevel_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  MediaStreamDispatcherHost_GetZoomLevel_Params.prototype.initDefaults_ = function() {
-    this.deviceId = null;
-  };
-  MediaStreamDispatcherHost_GetZoomLevel_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  MediaStreamDispatcherHost_GetZoomLevel_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate MediaStreamDispatcherHost_GetZoomLevel_Params.deviceId
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, unguessable_token$.UnguessableToken, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  MediaStreamDispatcherHost_GetZoomLevel_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  MediaStreamDispatcherHost_GetZoomLevel_Params.decode = function(decoder) {
-    var packed;
-    var val = new MediaStreamDispatcherHost_GetZoomLevel_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.deviceId =
-        decoder.decodeStructPointer(unguessable_token$.UnguessableToken);
-    return val;
-  };
-
-  MediaStreamDispatcherHost_GetZoomLevel_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(MediaStreamDispatcherHost_GetZoomLevel_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStructPointer(unguessable_token$.UnguessableToken, val.deviceId);
-  };
-  function MediaStreamDispatcherHost_GetZoomLevel_ResponseParams(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  MediaStreamDispatcherHost_GetZoomLevel_ResponseParams.prototype.initDefaults_ = function() {
-    this.zoom_level_$flag = false;
-    this.zoom_level_$value = 0;
-    this.result = 0;
-  };
-  MediaStreamDispatcherHost_GetZoomLevel_ResponseParams.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  MediaStreamDispatcherHost_GetZoomLevel_ResponseParams.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 24}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-
-
-    // validate MediaStreamDispatcherHost_GetZoomLevel_ResponseParams.result
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 8, CapturedSurfaceControlResult);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  MediaStreamDispatcherHost_GetZoomLevel_ResponseParams.encodedSize = codec.kStructHeaderSize + 16;
-
-  MediaStreamDispatcherHost_GetZoomLevel_ResponseParams.decode = function(decoder) {
-    var packed;
-    var val = new MediaStreamDispatcherHost_GetZoomLevel_ResponseParams();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    packed = decoder.readUint8();
-    val.zoom_level_$flag = (packed >> 0) & 1 ? true : false;
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    val.zoom_level_$value =
-        decoder.decodeStruct(codec.Int32);
-    val.result =
-        decoder.decodeStruct(new codec.Enum(CapturedSurfaceControlResult));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  MediaStreamDispatcherHost_GetZoomLevel_ResponseParams.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(MediaStreamDispatcherHost_GetZoomLevel_ResponseParams.encodedSize);
-    encoder.writeUint32(0);
-    packed = 0;
-    packed |= (val.zoom_level_$flag & 1) << 0
-    encoder.writeUint8(packed);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.encodeStruct(codec.Int32, val.zoom_level_$value);
-    encoder.encodeStruct(codec.Int32, val.result);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
   function MediaStreamDispatcherHost_SetZoomLevel_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -3337,10 +3199,9 @@
   var kMediaStreamDispatcherHost_OnStreamStarted_Name = 7;
   var kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name = 8;
   var kMediaStreamDispatcherHost_SendWheel_Name = 9;
-  var kMediaStreamDispatcherHost_GetZoomLevel_Name = 10;
-  var kMediaStreamDispatcherHost_SetZoomLevel_Name = 11;
-  var kMediaStreamDispatcherHost_GetOpenDevice_Name = 12;
-  var kMediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Name = 13;
+  var kMediaStreamDispatcherHost_SetZoomLevel_Name = 10;
+  var kMediaStreamDispatcherHost_GetOpenDevice_Name = 11;
+  var kMediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Name = 12;
 
   function MediaStreamDispatcherHostPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(MediaStreamDispatcherHost,
@@ -3563,31 +3424,6 @@
       });
     }.bind(this));
   };
-  MediaStreamDispatcherHostPtr.prototype.getZoomLevel = function() {
-    return MediaStreamDispatcherHostProxy.prototype.getZoomLevel
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  MediaStreamDispatcherHostProxy.prototype.getZoomLevel = function(deviceId) {
-    var params_ = new MediaStreamDispatcherHost_GetZoomLevel_Params();
-    params_.deviceId = deviceId;
-    return new Promise(function(resolve, reject) {
-      var builder = new codec.MessageV1Builder(
-          kMediaStreamDispatcherHost_GetZoomLevel_Name,
-          codec.align(MediaStreamDispatcherHost_GetZoomLevel_Params.encodedSize),
-          codec.kMessageExpectsResponse, 0);
-      builder.encodeStruct(MediaStreamDispatcherHost_GetZoomLevel_Params, params_);
-      var message = builder.finish();
-      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
-        var reader = new codec.MessageReader(message);
-        var responseParams =
-            reader.decodeStruct(MediaStreamDispatcherHost_GetZoomLevel_ResponseParams);
-        resolve(responseParams);
-      }).catch(function(result) {
-        reject(Error("Connection error: " + result));
-      });
-    }.bind(this));
-  };
   MediaStreamDispatcherHostPtr.prototype.setZoomLevel = function() {
     return MediaStreamDispatcherHostProxy.prototype.setZoomLevel
         .apply(this.ptr.getProxy(), arguments);
@@ -3700,9 +3536,6 @@
   }
   MediaStreamDispatcherHostStub.prototype.sendWheel = function(deviceId, action) {
     return this.delegate_ && this.delegate_.sendWheel && this.delegate_.sendWheel(deviceId, action);
-  }
-  MediaStreamDispatcherHostStub.prototype.getZoomLevel = function(deviceId) {
-    return this.delegate_ && this.delegate_.getZoomLevel && this.delegate_.getZoomLevel(deviceId);
   }
   MediaStreamDispatcherHostStub.prototype.setZoomLevel = function(deviceId, zoomLevel) {
     return this.delegate_ && this.delegate_.setZoomLevel && this.delegate_.setZoomLevel(deviceId, zoomLevel);
@@ -3819,23 +3652,6 @@
         responder.accept(message);
       });
       return true;
-    case kMediaStreamDispatcherHost_GetZoomLevel_Name:
-      var params = reader.decodeStruct(MediaStreamDispatcherHost_GetZoomLevel_Params);
-      this.getZoomLevel(params.deviceId).then(function(response) {
-        var responseParams =
-            new MediaStreamDispatcherHost_GetZoomLevel_ResponseParams();
-        responseParams.zoomLevel = response.zoomLevel;
-        responseParams.result = response.result;
-        var builder = new codec.MessageV1Builder(
-            kMediaStreamDispatcherHost_GetZoomLevel_Name,
-            codec.align(MediaStreamDispatcherHost_GetZoomLevel_ResponseParams.encodedSize),
-            codec.kMessageIsResponse, reader.requestID);
-        builder.encodeStruct(MediaStreamDispatcherHost_GetZoomLevel_ResponseParams,
-                             responseParams);
-        var message = builder.finish();
-        responder.accept(message);
-      });
-      return true;
     case kMediaStreamDispatcherHost_SetZoomLevel_Name:
       var params = reader.decodeStruct(MediaStreamDispatcherHost_SetZoomLevel_Params);
       this.setZoomLevel(params.deviceId, params.zoomLevel).then(function(response) {
@@ -3934,10 +3750,6 @@
         if (message.expectsResponse())
           paramsClass = MediaStreamDispatcherHost_SendWheel_Params;
       break;
-      case kMediaStreamDispatcherHost_GetZoomLevel_Name:
-        if (message.expectsResponse())
-          paramsClass = MediaStreamDispatcherHost_GetZoomLevel_Params;
-      break;
       case kMediaStreamDispatcherHost_SetZoomLevel_Name:
         if (message.expectsResponse())
           paramsClass = MediaStreamDispatcherHost_SetZoomLevel_Params;
@@ -3975,10 +3787,6 @@
       case kMediaStreamDispatcherHost_SendWheel_Name:
         if (message.isResponse())
           paramsClass = MediaStreamDispatcherHost_SendWheel_ResponseParams;
-        break;
-      case kMediaStreamDispatcherHost_GetZoomLevel_Name:
-        if (message.isResponse())
-          paramsClass = MediaStreamDispatcherHost_GetZoomLevel_ResponseParams;
         break;
       case kMediaStreamDispatcherHost_SetZoomLevel_Name:
         if (message.isResponse())

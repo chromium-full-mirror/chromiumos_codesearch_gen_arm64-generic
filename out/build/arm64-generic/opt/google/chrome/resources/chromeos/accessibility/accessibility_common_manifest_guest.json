@@ -5,7 +5,7 @@
     "page": "accessibility_common/background.html"
   },
   "name": "Accessibility Common",
-  "version": "123.0.6283.0",
+  "version": "123.0.6288.0",
   "description": "Accessibility Common extension to communicate with the Automation API",
   "incognito": "split",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",

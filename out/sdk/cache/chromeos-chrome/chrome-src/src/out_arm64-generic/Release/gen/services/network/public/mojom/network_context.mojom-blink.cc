@@ -1138,6 +1138,8 @@ bool NetworkConditions::Validate(
 }
 SharedDictionaryInfo::SharedDictionaryInfo()
     : match(),
+      match_dest(),
+      id(),
       dictionary_url(),
       response_time(),
       expiration(),
@@ -1147,6 +1149,8 @@ SharedDictionaryInfo::SharedDictionaryInfo()
 
 SharedDictionaryInfo::SharedDictionaryInfo(
     const WTF::String& match_in,
+    WTF::Vector<::network::mojom::blink::RequestDestination> match_dest_in,
+    const WTF::String& id_in,
     const ::blink::KURL& dictionary_url_in,
     ::base::Time response_time_in,
     ::base::TimeDelta expiration_in,
@@ -1154,6 +1158,8 @@ SharedDictionaryInfo::SharedDictionaryInfo(
     uint64_t size_in,
     ::network::mojom::blink::SHA256HashValuePtr hash_in)
     : match(std::move(match_in)),
+      match_dest(std::move(match_dest_in)),
+      id(std::move(id_in)),
       dictionary_url(std::move(dictionary_url_in)),
       response_time(std::move(response_time_in)),
       expiration(std::move(expiration_in)),
@@ -1169,6 +1175,24 @@ void SharedDictionaryInfo::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "match"), this->match,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::String&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "match_dest"), this->match_dest,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::Vector<::network::mojom::blink::RequestDestination>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const WTF::String&>"
 #else
@@ -21300,6 +21324,10 @@ bool StructTraits<::network::mojom::blink::SharedDictionaryInfo::DataView, ::net
   ::network::mojom::blink::SharedDictionaryInfoPtr result(::network::mojom::blink::SharedDictionaryInfo::New());
   
       if (success && !input.ReadMatch(&result->match))
+        success = false;
+      if (success && !input.ReadMatchDest(&result->match_dest))
+        success = false;
+      if (success && !input.ReadId(&result->id))
         success = false;
       if (success && !input.ReadDictionaryUrl(&result->dictionary_url))
         success = false;

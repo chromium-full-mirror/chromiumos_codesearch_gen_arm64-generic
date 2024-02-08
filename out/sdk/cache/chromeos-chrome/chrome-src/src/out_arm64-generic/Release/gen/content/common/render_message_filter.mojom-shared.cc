@@ -25,30 +25,7 @@ namespace internal {
 
 
 // static
-bool RenderMessageFilter_GenerateFrameRoutingID_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const RenderMessageFilter_GenerateFrameRoutingID_Params_Data* object =
-      static_cast<const RenderMessageFilter_GenerateFrameRoutingID_Params_Data*>(data);
-
-  return true;
-}
-
-RenderMessageFilter_GenerateFrameRoutingID_Params_Data::RenderMessageFilter_GenerateFrameRoutingID_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data::Validate(
+bool FrameRoutingInfo_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -60,8 +37,8 @@ bool RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data* object =
-      static_cast<const RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data*>(data);
+  [[maybe_unused]] const FrameRoutingInfo_Data* object =
+      static_cast<const FrameRoutingInfo_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->frame_token, 2, validation_context)) {
@@ -87,7 +64,117 @@ bool RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data::Validate(
   return true;
 }
 
-RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data::RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data()
+FrameRoutingInfo_Data::FrameRoutingInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RenderMessageFilter_GenerateSingleFrameRoutingInfo_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RenderMessageFilter_GenerateSingleFrameRoutingInfo_Params_Data* object =
+      static_cast<const RenderMessageFilter_GenerateSingleFrameRoutingInfo_Params_Data*>(data);
+
+  return true;
+}
+
+RenderMessageFilter_GenerateSingleFrameRoutingInfo_Params_Data::RenderMessageFilter_GenerateSingleFrameRoutingInfo_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParams_Data* object =
+      static_cast<const RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->info, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->info, validation_context))
+    return false;
+
+  return true;
+}
+
+RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParams_Data::RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RenderMessageFilter_GenerateFrameRoutingInfos_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RenderMessageFilter_GenerateFrameRoutingInfos_Params_Data* object =
+      static_cast<const RenderMessageFilter_GenerateFrameRoutingInfos_Params_Data*>(data);
+
+  return true;
+}
+
+RenderMessageFilter_GenerateFrameRoutingInfos_Params_Data::RenderMessageFilter_GenerateFrameRoutingInfos_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParams_Data* object =
+      static_cast<const RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->info_array, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& info_array_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->info_array, validation_context,
+                                         &info_array_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParams_Data::RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

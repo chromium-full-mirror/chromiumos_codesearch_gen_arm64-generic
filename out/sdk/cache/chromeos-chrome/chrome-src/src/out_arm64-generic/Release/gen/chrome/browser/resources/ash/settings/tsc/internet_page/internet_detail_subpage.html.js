@@ -6,7 +6,8 @@ export function getTemplate() {
   <div class="start layout horizontal center">
     <network-icon show-technology-badge="[[showTechnologyBadge_]]" network-state="[[getNetworkState_(managedProperties_)]]">
     </network-icon>
-    <div id="networkState" class="title settings-box-text" connected$="[[showConnectedState_(managedProperties_)]]" warning$="[[showRestrictedConnectivity_(managedProperties_)]]" error$="[[isOutOfRangeOrNotEnabled_(outOfRange_, deviceState_)]]">
+    <div id="networkState" class="title settings-box-text" connected$="[[showConnectedState_(managedProperties_)]]" warning$="[[showRestrictedConnectivity_(managedProperties_,
+                           deviceState_)]]" error$="[[isOutOfRangeOrNotEnabled_(outOfRange_, deviceState_)]]">
       [[getStateText_(managedProperties_, propertiesReceived_,
           outOfRange_, deviceState_)]]
     </div>
@@ -185,7 +186,8 @@ export function getTemplate() {
   <template is="dom-if" if="[[showConfigurableSections_]]" restamp>
     <template is="dom-if" if="[[shouldShowApnRow_(managedProperties_,
         isApnRevampEnabled_)]]">
-      <cr-link-row id="apnSubpageButton" class="hr" label="$i18n{internetApnPageTitle}" sub-label="[[getApnRowSubLabel_(managedProperties_)]]" on-click="onApnRowClicked_" role-description="$i18n{subpageArrowRoleDescription}" warning$="[[showRestrictedConnectivity_(managedProperties_)]]">
+      <cr-link-row id="apnSubpageButton" class="hr" label="$i18n{internetApnPageTitle}" sub-label="[[getApnRowSubLabel_(managedProperties_)]]" on-click="onApnRowClicked_" role-description="$i18n{subpageArrowRoleDescription}" warning$="[[showRestrictedConnectivity_(managedProperties_,
+              deviceState_)]]">
       </cr-link-row>
     </template>
   </template>

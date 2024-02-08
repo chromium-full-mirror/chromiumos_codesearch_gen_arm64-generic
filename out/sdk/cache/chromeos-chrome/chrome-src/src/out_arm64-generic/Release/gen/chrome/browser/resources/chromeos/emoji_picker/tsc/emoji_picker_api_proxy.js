@@ -1,4 +1,5 @@
 import { PageHandlerFactory, PageHandlerRemote, Status } from './emoji_picker.mojom-webui.js';
+import { EmojiSearch } from './emoji_search.mojom-webui.js';
 import { NewWindowProxy } from './new_window_proxy.mojom-webui.js';
 const HELP_CENTRE_URL = 'https://support.google.com/chrome?p=palette';
 export class EmojiPickerApiProxyImpl {
@@ -6,6 +7,8 @@ export class EmojiPickerApiProxyImpl {
     constructor() {
         this.handler = new PageHandlerRemote();
         this.newWindowProxy = NewWindowProxy.getRemote();
+        // TODO(b/309343774): Once search is always on, remove function wrapper.
+        this.searchProxy = () => EmojiSearch.getRemote();
         const factory = PageHandlerFactory.getRemote();
         factory.createPageHandler(this.handler.$.bindNewPipeAndPassReceiver());
     }
@@ -71,6 +74,9 @@ export class EmojiPickerApiProxyImpl {
             });
         }
         return this.handler.searchGifs(query, pos || null);
+    }
+    searchEmoji(query) {
+        return this.searchProxy().searchEmoji(query);
     }
     /** @override */
     getGifsByIds(ids) {

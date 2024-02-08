@@ -68,8 +68,10 @@ enum class AcceleratorConfigResult : int32_t {
   kSearchWithFunctionKeyNotAllowed = 12,
   
   kReservedKeyNotAllowed = 13,
+  
+  kNonStandardWithSearch = 14,
   kMinValue = 0,
-  kMaxValue = 13,
+  kMaxValue = 14,
 };
 
  std::ostream& operator<<(std::ostream& os, AcceleratorConfigResult value);

@@ -9,7 +9,7 @@ import '//resources/cr_elements/cr_icons.css.js';
 import { loadTimeData } from '//resources/js/load_time_data.js';
 import { MetricsReporterImpl } from '//resources/js/metrics_reporter/metrics_reporter.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { SelectionLineState, SideType } from './omnibox.mojom-webui.js';
+import { RenderType, SelectionLineState, SideType } from './omnibox.mojom-webui.js';
 import { RealboxBrowserProxy } from './realbox_browser_proxy.js';
 import { getTemplate } from './realbox_dropdown.html.js';
 import { decodeString16, renderTypeToClass, sideTypeToClass } from './utils.js';
@@ -237,9 +237,8 @@ export class RealboxDropdownElement extends PolymerElement {
         return sideTypeToClass(side);
     }
     classForGroupRenderType_(groupId) {
-        return this.result?.suggestionGroupsMap[groupId] ?
-            renderTypeToClass(this.result?.suggestionGroupsMap[groupId].renderType) :
-            '';
+        return renderTypeToClass(this.result?.suggestionGroupsMap[groupId]?.renderType ??
+            RenderType.kDefaultVertical);
     }
     computeHasSecondarySide_() {
         const hasSecondarySide = !!this.groupIdsForSideType_(SideType.kSecondary).length;

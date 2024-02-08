@@ -1,59 +1,65 @@
 import { a as assertNotReached, l as listenOnce, C as CrSearchFieldMixin, I as I18nMixin, W as WebUiListenerMixin, b as assert, R as RelaunchMixin, c as RestartType, P as PrefsMixin, i as isMac, d as IronResizableBehavior, e as RouteObserverMixin, E as EventTracker, f as Router, g as focusWithoutInk, h as CrPolicyPrefMixin, j as PrefControlMixin, B as BaseMixin, r as routes, M as MetricsBrowserProxyImpl, k as PrivacyGuideInteractions, m as PrivacyGuideAvailabilityMixin, n as PrivacyPageBrowserProxyImpl, S as SiteSettingsPrefsBrowserProxyImpl, o as SafetyHubBrowserProxyImpl, p as SettingsState, q as ContentSettingsTypes, s as ContentSetting, t as ChooserType, u as SafetyHubEvent, v as SafetyHubEntryPoint, w as PluralStringProxyImpl, H as HatsBrowserProxyImpl, T as TrustSafetyInteraction, x as CookieControlsMode, y as sanitizeInnerHtml, z as SafetyCheckInteractions, O as OpenWindowProxyImpl, A as PasswordManagerImpl, D as PasswordCheckReferrer, F as PasswordManagerPage, G as getInstance, J as getTrustedScriptURL, K as FocusRowMixin, L as SyncBrowserProxyImpl, N as isChromeOS, Q as getImage, U as ListPropertyUpdateMixin, V as TooltipMixin, X as NetworkPredictionOptions, Y as CrSettingsPrefs, Z as ResetBrowserProxyImpl, _ as SearchEnginesBrowserProxyImpl, $ as ChoiceMadeLocation, a0 as PromiseResolver, a1 as IronSelectableBehavior, a2 as FocusOutlineManager, a3 as pageVisibility, a4 as setGlobalScrollTarget, a5 as resetGlobalScrollTargetForTesting } from './shared.rollup.js';
 export { as as ControlledRadioButtonElement, ak as CrActionMenuElement, al as CrButtonElement, am as CrDialogElement, an as CrLinkRowElement, ao as CrRadioButtonElement, ap as CrRadioGroupElement, aq as CrToggleElement, ax as CvcDeletionUserAction, a7 as DEFAULT_CHECKED_VALUE, a8 as DEFAULT_UNCHECKED_VALUE, ay as DeleteBrowsingDataAction, a9 as ExtensionControlBrowserProxyImpl, a6 as ExtensionControlledIndicatorElement, aa as LifetimeBrowserProxyImpl, aJ as MAX_SIGNIN_PROMO_IMPRESSION, ab as PageStatus, az as PrivacyElementInteractions, aA as PrivacyGuideSettingsStates, aB as PrivacyGuideStepsEligibleAndReached, aL as PrivacySandboxBrowserProxyImpl, aN as Route, aC as SafeBrowsingInteractions, av as SafeBrowsingSetting, aD as SafetyCheckNotificationsModuleInteractions, aE as SafetyCheckUnusedSitePermissionsModuleInteractions, aF as SafetyHubCardState, aG as SafetyHubModuleType, aH as SafetyHubSurfaces, aO as SearchEnginesInteractions, af as SecureDnsMode, ag as SecureDnsUiManagementMode, aw as SecurityPageInteraction, at as SettingsDropdownMenuElement, aj as SettingsPrefsElement, aK as SettingsSyncAccountControlElement, au as SettingsToggleButtonElement, aP as SiteFaviconElement, ac as StatusAction, ae as TrustedVaultBannerState, aM as buildRouter, ar as getTrustedHTML, ah as prefToString, aI as setPageVisibilityForTesting, ai as stringToPrefValue, ad as syncPrefsIndividualDataTypes } from './shared.rollup.js';
-import { html, PolymerElement, dedupingMixin, mixinBehaviors, afterNextRender, flush, templatize, beforeNextRender, microTask, DomIf } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { css, html, CrLitElement } from 'chrome://resources/lit/v3_0/lit.rollup.js';
+import { html as html$1, PolymerElement, dedupingMixin, mixinBehaviors, afterNextRender, flush, templatize, beforeNextRender, microTask, DomIf } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 export { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import './strings.m.js';
 import { sendWithPromise } from 'chrome://resources/js/cr.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
-import 'chrome://resources/lit/v3_0/lit.rollup.js';
 
-function getTemplate$K() {
-    return html `<!--_html_template_start_-->    <style>:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);font:var(--cr-drawer-header-font,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
-    <dialog id="dialog" on-cancel="onDialogCancel_" on-click="onDialogClick_" on-close="onDialogClose_">
-      <div id="container" on-click="onContainerClick_">
-        <div class="drawer-header">
-          <slot name="header-icon">
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="//resources/images/chrome_logo_dark.svg">
-              <img id="product-logo" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" role="presentation">
-            </picture>
-          </slot>
-          <div id="heading" tabindex="-1">[[heading]]</div>
-        </div>
-        <slot name="body"></slot>
-      </div>
-    </dialog>
+function getCss() {
+    return css `:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}`;
+}
+
+function getHtml() {
+    return html `<!--_html_template_start_--><dialog id="dialog" @cancel="${this.onDialogCancel_}" @click="${this.onDialogClick_}" @close="${this.onDialogClose_}">
+  <div id="container" @click="${this.onContainerClick_}">
+    <div class="drawer-header">
+      <slot name="header-icon">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="//resources/images/chrome_logo_dark.svg">
+          <img id="product-logo" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" role="presentation">
+        </picture>
+      </slot>
+      <div id="heading" tabindex="-1">${this.heading}</div>
+    </div>
+    <slot name="body"></slot>
+  </div>
+</dialog>
 <!--_html_template_end_-->`;
 }
 
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-class CrDrawerElement extends PolymerElement {
+class CrDrawerElement extends CrLitElement {
+    constructor() {
+        super(...arguments);
+        this.align = 'ltr';
+    }
     static get is() {
         return 'cr-drawer';
     }
-    static get template() {
-        return getTemplate$K();
+    static get styles() {
+        return getCss();
+    }
+    render() {
+        return getHtml.bind(this)();
     }
     static get properties() {
         return {
-            heading: String,
+            heading: { type: String },
             show_: {
                 type: Boolean,
-                reflectToAttribute: true,
+                reflect: true,
             },
             /** The alignment of the drawer on the screen ('ltr' or 'rtl'). */
             align: {
                 type: String,
-                value: 'ltr',
-                reflectToAttribute: true,
+                reflect: true,
             },
         };
-    }
-    fire_(eventName, detail) {
-        this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
     }
     get open() {
         return this.$.dialog.open;
@@ -71,15 +77,16 @@ class CrDrawerElement extends PolymerElement {
         }
     }
     /** Shows drawer and slides it into view. */
-    openDrawer() {
+    async openDrawer() {
         if (this.open) {
             return;
         }
         this.$.dialog.showModal();
         this.show_ = true;
-        this.fire_('cr-drawer-opening');
+        await this.updateComplete;
+        this.fire('cr-drawer-opening');
         listenOnce(this.$.dialog, 'transitionend', () => {
-            this.fire_('cr-drawer-opened');
+            this.fire('cr-drawer-opened');
         });
     }
     /**
@@ -87,7 +94,7 @@ class CrDrawerElement extends PolymerElement {
      * is up to the owner of this component to differentiate between close and
      * cancel.
      */
-    dismiss_(cancel) {
+    async dismiss_(cancel) {
         if (!this.open) {
             return;
         }
@@ -128,13 +135,13 @@ class CrDrawerElement extends PolymerElement {
     onDialogClose_() {
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.fire_('close');
+        this.fire('close');
     }
 }
 customElements.define(CrDrawerElement.is, CrDrawerElement);
 
 function getTemplate$J() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{--cr-toolbar-search-field-hover-background:var(--color-toolbar-search-field-background-hover,
+    return html$1 `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{--cr-toolbar-search-field-hover-background:var(--color-toolbar-search-field-background-hover,
                 var(--cr-hover-background-color));isolation:isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
             var(--color-toolbar-search-field-icon,
             var(--cr-secondary-text-color)));--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 28px);--cr-icon-button-icon-size:20px;margin:var(--cr-toolbar-icon-margin,0)}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:var(
@@ -279,7 +286,7 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
 customElements.define(CrToolbarSearchFieldElement.is, CrToolbarSearchFieldElement);
 
 function getTemplate$I() {
-    return html `<!--_html_template_start_-->    <style include="cr-icons cr-hidden-style">:host{align-items:center;background-color:var(--cr-toolbar-background-color);color:var(--google-grey-900);display:flex;height:var(--cr-toolbar-height)}@media (prefers-color-scheme:dark){:host{border-bottom:var(--cr-separator-line);box-sizing:border-box;color:var(--cr-secondary-text-color)}:host-context([chrome-refresh-2023]):host{background-color:transparent;border-bottom:none}}h1{flex:1;font-size:170%;font-weight:var(--cr-toolbar-header-font-weight,500);letter-spacing:.25px;line-height:normal;margin-inline-start:6px;padding-inline-end:12px;white-space:var(--cr-toolbar-header-white-space,normal)}@media (prefers-color-scheme:dark){h1{color:var(--cr-primary-text-color)}}#leftContent{position:relative;transition:opacity .1s}#leftSpacer{align-items:center;box-sizing:border-box;display:flex;padding-inline-start:calc(12px + 6px);width:var(--cr-toolbar-left-spacer-width,auto)}cr-icon-button{--cr-icon-button-size:32px;min-width:32px}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-focus-outline-color:var(--cr-focus-outline-color)}}#centeredContent{display:flex;flex:1 1 0;justify-content:center}#rightSpacer{padding-inline-end:12px}:host([narrow]) #centeredContent{justify-content:flex-end}:host([has-overlay]){transition:visibility var(--cr-toolbar-overlay-animation-duration);visibility:hidden}:host([narrow][showing-search_]) #leftContent{opacity:0;position:absolute}:host(:not([narrow])) #leftContent{flex:1 1 var(--cr-toolbar-field-margin,0)}:host(:not([narrow])) #centeredContent{flex-basis:var(--cr-toolbar-center-basis,0)}:host(:not([narrow])[disable-right-content-grow]) #centeredContent{justify-content:start;padding-inline-start:12px}:host(:not([narrow])) #rightContent{flex:1 1 0;text-align:end}:host(:not([narrow])[disable-right-content-grow]) #rightContent{flex:0 1 0}picture{display:none}#menuButton{margin-inline-end:9px}#menuButton~h1{margin-inline-start:0}:host(:not([narrow])) picture,:host([always-show-logo]) picture{display:initial;margin-inline-end:16px}:host(:not([narrow])) #leftSpacer,:host([always-show-logo]) #leftSpacer{padding-inline-start:calc(12px + 9px)}:host(:not([narrow])) :is(picture,#product-logo),:host([always-show-logo]) :is(picture,#product-logo){height:24px;width:24px}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="cr-icons cr-hidden-style">:host{align-items:center;background-color:var(--cr-toolbar-background-color);color:var(--google-grey-900);display:flex;height:var(--cr-toolbar-height)}@media (prefers-color-scheme:dark){:host{border-bottom:var(--cr-separator-line);box-sizing:border-box;color:var(--cr-secondary-text-color)}:host-context([chrome-refresh-2023]):host{background-color:transparent;border-bottom:none}}h1{flex:1;font-size:170%;font-weight:var(--cr-toolbar-header-font-weight,500);letter-spacing:.25px;line-height:normal;margin-inline-start:6px;padding-inline-end:12px;white-space:var(--cr-toolbar-header-white-space,normal)}@media (prefers-color-scheme:dark){h1{color:var(--cr-primary-text-color)}}#leftContent{position:relative;transition:opacity .1s}#leftSpacer{align-items:center;box-sizing:border-box;display:flex;padding-inline-start:calc(12px + 6px);width:var(--cr-toolbar-left-spacer-width,auto)}cr-icon-button{--cr-icon-button-size:32px;min-width:32px}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-focus-outline-color:var(--cr-focus-outline-color)}}#centeredContent{display:flex;flex:1 1 0;justify-content:center}#rightSpacer{padding-inline-end:12px}:host([narrow]) #centeredContent{justify-content:flex-end}:host([has-overlay]){transition:visibility var(--cr-toolbar-overlay-animation-duration);visibility:hidden}:host([narrow][showing-search_]) #leftContent{opacity:0;position:absolute}:host(:not([narrow])) #leftContent{flex:1 1 var(--cr-toolbar-field-margin,0)}:host(:not([narrow])) #centeredContent{flex-basis:var(--cr-toolbar-center-basis,0)}:host(:not([narrow])[disable-right-content-grow]) #centeredContent{justify-content:start;padding-inline-start:12px}:host(:not([narrow])) #rightContent{flex:1 1 0;text-align:end}:host(:not([narrow])[disable-right-content-grow]) #rightContent{flex:0 1 0}picture{display:none}#menuButton{margin-inline-end:9px}#menuButton~h1{margin-inline-start:0}:host(:not([narrow])) picture,:host([always-show-logo]) picture{display:initial;margin-inline-end:16px}:host(:not([narrow])) #leftSpacer,:host([always-show-logo]) #leftSpacer{padding-inline-start:calc(12px + 9px)}:host(:not([narrow])) :is(picture,#product-logo),:host([always-show-logo]) :is(picture,#product-logo){height:24px;width:24px}</style>
     <div id="leftContent">
       <div id="leftSpacer">
         <template is="dom-if" if="[[showMenu]]" restamp>
@@ -394,7 +401,7 @@ class CrToolbarElement extends PolymerElement {
 customElements.define(CrToolbarElement.is, CrToolbarElement);
 
 const styleMod$2 = document.createElement('dom-module');
-styleMod$2.appendChild(html `
+styleMod$2.appendChild(html$1 `
   <template>
     <style>
 :host{color:var(--cr-primary-text-color);line-height:154%;overflow:hidden;user-select:text}
@@ -404,7 +411,7 @@ styleMod$2.appendChild(html `
 styleMod$2.register('cr-page-host-style');
 
 function getTemplate$H() {
-    return html `<!--_html_template_start_-->    <style>:host{align-items:center;border-top:1px solid var(--cr-separator-color);color:var(--cr-secondary-text-color);display:none;font-size:.8125rem;justify-content:center;padding:0 24px}:host([is-managed_]){display:flex}a[href]{color:var(--cr-link-color)}iron-icon{align-self:flex-start;flex-shrink:0;height:20px;padding-inline-end:var(--managed-footnote-icon-padding,8px);width:20px}</style>
+    return html$1 `<!--_html_template_start_-->    <style>:host{align-items:center;border-top:1px solid var(--cr-separator-color);color:var(--cr-secondary-text-color);display:none;font-size:.8125rem;justify-content:center;padding:0 24px}:host([is-managed_]){display:flex}a[href]{color:var(--cr-link-color)}iron-icon{align-self:flex-start;flex-shrink:0;height:20px;padding-inline-end:var(--managed-footnote-icon-padding,8px);width:20px}</style>
 
     <template is="dom-if" if="[[isManaged_]]">
       <iron-icon icon="[[managedByIcon_]]"></iron-icon>
@@ -634,7 +641,7 @@ function stripDiacritics(text) {
 }
 
 function getTemplate$G() {
-    return html `<!--_html_template_start_-->    <style>:host{display:flex;flex-direction:column;outline:0;position:relative}#header{display:flex;justify-content:space-between;padding-inline-end:var(--cr-section-padding)}#header .title{color:var(--cr-primary-text-color);font-size:108%;font-weight:400;letter-spacing:.25px;margin-bottom:12px;margin-top:var(--cr-section-vertical-margin);outline:0;padding-bottom:4px;padding-top:8px}#feedback{margin-top:var(--cr-section-vertical-margin)}:host(:not(.expanded)) #card{background-color:var(--cr-card-background-color);border-radius:var(--cr-card-border-radius);box-shadow:var(--cr-card-shadow);flex:1;overflow:hidden}@media (forced-colors:active){:host(:not(.expanded)) #card{border:var(--cr-border-hcm)}}:host(.expanded) #header,:host([hidden-by-search]){display:none}</style>
+    return html$1 `<!--_html_template_start_-->    <style>:host{display:flex;flex-direction:column;outline:0;position:relative}#header{display:flex;justify-content:space-between;padding-inline-end:var(--cr-section-padding)}#header .title{color:var(--cr-primary-text-color);font-size:108%;font-weight:400;letter-spacing:.25px;margin-bottom:12px;margin-top:var(--cr-section-vertical-margin);outline:0;padding-bottom:4px;padding-top:8px}#feedback{margin-top:var(--cr-section-vertical-margin)}:host(:not(.expanded)) #card{background-color:var(--cr-card-background-color);border-radius:var(--cr-card-border-radius);box-shadow:var(--cr-card-shadow);flex:1;overflow:hidden}@media (forced-colors:active){:host(:not(.expanded)) #card{border:var(--cr-border-hcm)}}:host(.expanded) #header,:host([hidden-by-search]){display:none}</style>
     <div id="header">
       <h2 id="title" class="title" tabindex="-1" aria-hidden$="[[getTitleHiddenStatus_(pageTitle)]]">[[pageTitle]]</h2>
       <template is="dom-if" if="[[showSendFeedbackButton]]">
@@ -726,7 +733,7 @@ class SettingsSectionElement extends PolymerElement {
 customElements.define(SettingsSectionElement.is, SettingsSectionElement);
 
 const styleMod$1 = document.createElement('dom-module');
-styleMod$1.appendChild(html `
+styleMod$1.appendChild(html$1 `
   <template>
     <style>
 :host(.showing-subpage) settings-section:not(.expanded){display:none}:host>div>:not(.expanded){margin-bottom:3px}.expanded{min-height:100%}
@@ -736,7 +743,7 @@ styleMod$1.appendChild(html `
 styleMod$1.register('settings-page-styles');
 
 function getTemplate$F() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared settings-page-styles iron-flex">:host{--about-page-image-space:10px}.info-sections{padding:var(--cr-section-vertical-padding) var(--cr-section-padding)}.info-section{margin-bottom:12px}.product-title{font-size:153.85%;font-weight:400;margin-bottom:auto;margin-top:auto}img{margin-inline-end:var(--about-page-image-space)}.icon-container{margin-inline-end:var(--about-page-image-space);min-width:32px;text-align:center}iron-icon[icon='settings:check-circle']{fill:var(--cr-checked-color)}iron-icon[icon='cr:error']{fill:var(--settings-error-color)}cr-button{white-space:nowrap}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared settings-page-styles iron-flex">:host{--about-page-image-space:10px}.info-sections{padding:var(--cr-section-vertical-padding) var(--cr-section-padding)}.info-section{margin-bottom:12px}.product-title{font-size:153.85%;font-weight:400;margin-bottom:auto;margin-top:auto}img{margin-inline-end:var(--about-page-image-space)}.icon-container{margin-inline-end:var(--about-page-image-space);min-width:32px;text-align:center}iron-icon[icon='settings:check-circle']{fill:var(--cr-checked-color)}iron-icon[icon='cr:error']{fill:var(--settings-error-color)}cr-button{white-space:nowrap}</style>
     <settings-section page-title="$i18n{aboutPageTitle}" section="about">
       <div class="cr-row two-line first">
         <img id="product-logo" on-click="onProductLogoClick_" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" alt="$i18n{aboutProductLogoAlt}" role="presentation">
@@ -925,7 +932,7 @@ class SettingsAboutPageElement extends SettingsAboutPageElementBase {
 customElements.define(SettingsAboutPageElement.is, SettingsAboutPageElement);
 
 function getTemplate$E() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.list-frame{padding-inline-end:0}.list-frame settings-toggle-button{padding-inline-start:0}</style>
+    return html$1 `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.list-frame{padding-inline-end:0}.list-frame settings-toggle-button{padding-inline-start:0}</style>
 
 <settings-toggle-button pref="{{prefs.optimization_guide.model_execution_main_toggle_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{aiPageMainLabel}" sub-label="$i18n{aiPageMainSublabel}">
 </settings-toggle-button>
@@ -1017,7 +1024,7 @@ class SettingsAiPageElement extends SettingsAiPageElementBase {
 customElements.define(SettingsAiPageElement.is, SettingsAiPageElement);
 
 function getTemplate$D() {
-    return html `<!--_html_template_start_--><style>iron-icon{--iron-icon-height:var(--cr-icon-size);--iron-icon-width:var(--cr-icon-size);padding-inline-end:10px}cr-dialog::part(body-container){padding-inline-start:35px}</style>
+    return html$1 `<!--_html_template_start_--><style>iron-icon{--iron-icon-height:var(--cr-icon-size);--iron-icon-width:var(--cr-icon-size);padding-inline-end:10px}cr-dialog::part(body-container){padding-inline-start:35px}</style>
 
 <cr-dialog id="dialog" close-text="[[i18n('close')]]" show-on-attach>
   <div slot="title">
@@ -1249,7 +1256,7 @@ const FindShortcutMixin = dedupingMixin((superClass) => {
 });
 
 function getTemplate$C() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">:host{box-sizing:border-box;display:block;left:0;min-height:calc(100vh - var(--cr-toolbar-height) - var(--cr-toolbar-padding-top,0px));padding-bottom:60px;position:absolute;right:0;top:0}:host(:not(.multi-card)){background-color:var(--cr-card-background-color);box-shadow:var(--cr-card-shadow)}@media (forced-colors:active){:host(:not(.multi-card)){border-inline-end:var(--cr-border-hcm);border-inline-start:var(--cr-border-hcm)}}#headerLine{min-height:40px;padding-bottom:24px;padding-top:8px}#learnMore{align-items:center;display:flex;height:var(--cr-icon-ripple-size);justify-content:center;margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);position:relative;width:var(--cr-icon-ripple-size)}#title-icon{height:36px;width:36px}#favicon,#title-icon{margin-inline-end:12px;margin-inline-start:2px}#closeButton{margin-inline-end:10px;margin-inline-start:-10px}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}h1{flex:1}cr-search-field{margin-inline-start:16px}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">:host{box-sizing:border-box;display:block;left:0;min-height:calc(100vh - var(--cr-toolbar-height) - var(--cr-toolbar-padding-top,0px));padding-bottom:60px;position:absolute;right:0;top:0}:host(:not(.multi-card)){background-color:var(--cr-card-background-color);box-shadow:var(--cr-card-shadow)}@media (forced-colors:active){:host(:not(.multi-card)){border-inline-end:var(--cr-border-hcm);border-inline-start:var(--cr-border-hcm)}}#headerLine{min-height:40px;padding-bottom:24px;padding-top:8px}#learnMore{align-items:center;display:flex;height:var(--cr-icon-ripple-size);justify-content:center;margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);position:relative;width:var(--cr-icon-ripple-size)}#title-icon{height:36px;width:36px}#favicon,#title-icon{margin-inline-end:12px;margin-inline-start:2px}#closeButton{margin-inline-end:10px;margin-inline-start:-10px}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}h1{flex:1}cr-search-field{margin-inline-start:16px}</style>
     <div class="cr-row first" id="headerLine">
       <cr-icon-button class="icon-arrow-back" id="closeButton" hidden="[[hideCloseButton]]" on-click="onBackClick_" aria-label$="[[getBackButtonAriaLabel_(pageTitle)]]" aria-roledescription$="[[getBackButtonAriaRoleDescription_(pageTitle)]]">
       </cr-icon-button>
@@ -1536,7 +1543,7 @@ class AppearanceBrowserProxyImpl {
 let instance$b = null;
 
 function getTemplate$B() {
-    return html `<!--_html_template_start_-->    <style>:host{cursor:auto;display:block;width:100%}cr-input{width:100%;--cr-input-width:50%}cr-input::part(row-container){justify-content:normal}</style>
+    return html$1 `<!--_html_template_start_-->    <style>:host{cursor:auto;display:block;width:100%}cr-input{width:100%;--cr-input-width:50%}cr-input::part(row-container){justify-content:normal}</style>
     
     <cr-input id="input" value="{{value}}" error-message="$i18n{notValid}" placeholder="$i18n{enterCustomWebAddress}" maxlength="102400" on-change="onChange_" on-keydown="onKeydown_" on-input="validate_" invalid="{{invalid}}" input-tabindex="[[getTabindex_(canTab)]]" disabled="[[isDisabled_(disabled, pref.*)]]" spellcheck="false" on-keyup="stopKeyEventPropagation_" on-keypress="stopKeyEventPropagation_">
       <template is="dom-if" if="[[hasPrefPolicyIndicator(pref.*)]]">
@@ -1830,7 +1837,7 @@ class CustomizeColorSchemeModeBrowserProxy {
 }
 
 function getTemplate$A() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared md-select iron-flex">#custom-input{--cr-radio-button-disc-margin-block-start:calc(
+    return html$1 `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared md-select iron-flex">#custom-input{--cr-radio-button-disc-margin-block-start:calc(
             (1.54em + 12px) / 2 - 8px);align-items:start}#themeRow cr-button{margin-inline-end:20px}#themeRow .separator{margin-inline-start:0}</style>
     <settings-animated-pages id="pages" section="appearance" focus-config="[[focusConfig_]]">
       <div route-path="default">
@@ -2230,7 +2237,7 @@ class SettingsAppearancePageElement extends SettingsAppearancePageElementBase {
 customElements.define(SettingsAppearancePageElement.is, SettingsAppearancePageElement);
 
 function getTemplate$z() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#wrapper{align-items:center;display:flex;justify-content:space-between;padding:0 20px}#controlsColumn{margin-top:4px}h2{color:var(--cr-primary-text-color);font-size:22px;padding-top:0}#title{font-weight:400}#bodyText{padding-block-end:16px}#startButton{margin-bottom:4px;margin-inline-end:16px}</style>
+    return html$1 `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#wrapper{align-items:center;display:flex;justify-content:space-between;padding:0 20px}#controlsColumn{margin-top:4px}h2{color:var(--cr-primary-text-color);font-size:22px;padding-top:0}#title{font-weight:400}#bodyText{padding-block-end:16px}#startButton{margin-bottom:4px;margin-inline-end:16px}</style>
 <div id="wrapper">
   <div id="controlsColumn">
     <h2 id="title">$i18n{privacyGuidePromoHeader}</h2>
@@ -2295,7 +2302,7 @@ class PrivacyGuidePromoElement extends PrivacyGuidePromoElementBase {
 customElements.define(PrivacyGuidePromoElement.is, PrivacyGuidePromoElement);
 
 function getTemplate$y() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-hidden-style settings-shared iron-flex">.content-settings-header,.radio-group{padding:0 var(--cr-section-padding)}.radio-group-sub-heading{padding-bottom:10px}.padded-radio-section{padding-inline-start:50px}settings-collapse-radio-button{--settings-collapse-toggle-min-height:var(--cr-section-min-height)}settings-collapse-radio-button.two-line{--settings-collapse-toggle-min-height:var(--cr-section-two-line-min-height)}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="cr-shared-style cr-hidden-style settings-shared iron-flex">.content-settings-header,.radio-group{padding:0 var(--cr-section-padding)}.radio-group-sub-heading{padding-bottom:10px}.padded-radio-section{padding-inline-start:50px}settings-collapse-radio-button{--settings-collapse-toggle-min-height:var(--cr-section-min-height)}settings-collapse-radio-button.two-line{--settings-collapse-toggle-min-height:var(--cr-section-two-line-min-height)}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}</style>
     <template is="dom-if" if="[[showClearBrowsingDataDialog_]]" restamp>
       <settings-clear-browsing-data-dialog prefs="{{prefs}}" on-close="onCbdDialogClosed_">
       </settings-clear-browsing-data-dialog>
@@ -2328,7 +2335,7 @@ function getTemplate$y() {
                   isPrivacySandboxRestrictedNoticeEnabled_)]]" on-click="onPrivacySandboxClick_" role-description="$i18n{subpageArrowRoleDescription}">
           </cr-link-row>
         </template>
-        <cr-link-row id="securityLinkRow" start-icon="cr:security" class="hr" label="$i18n{securityPageTitle}" sub-label="$i18n{securityPageDescription}" on-click="onSecurityPageClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
+        <cr-link-row id="securityLinkRow" start-icon="settings:lock-outline" class="hr" label="$i18n{securityPageTitle}" sub-label="$i18n{securityPageDescription}" on-click="onSecurityPageClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
         <cr-link-row id="permissionsLinkRow" start-icon="settings:permissions" class="hr" label="$i18n{siteSettings}" sub-label="$i18n{permissionsPageDescription}" on-click="onPermissionsPageClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
       </div>
 
@@ -3545,7 +3552,7 @@ class SafetyCheckBrowserProxyImpl {
 let instance$9 = null;
 
 function getTemplate$x() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex cr-actionable-row-style">:host{border-top:var(--cr-separator-line);padding:0 var(--cr-section-padding)}:host([row-clickable]) #managedIcon{padding-inline-end:0}iron-icon{display:flex;flex-shrink:0;padding-inline-end:var(--cr-icon-button-margin-start);width:var(--cr-link-row-icon-width,var(--cr-icon-size))}.button-icon{padding-inline-end:0}.icon-blue{fill:var(--google-blue-600)}.icon-red{fill:var(--google-red-600)}@media (prefers-color-scheme:dark){.icon-blue{fill:var(--google-blue-300)}.icon-red{fill:var(--google-red-300)}}</style>
+    return html$1 `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex cr-actionable-row-style">:host{border-top:var(--cr-separator-line);padding:0 var(--cr-section-padding)}:host([row-clickable]) #managedIcon{padding-inline-end:0}iron-icon{display:flex;flex-shrink:0;padding-inline-end:var(--cr-icon-button-margin-start);width:var(--cr-link-row-icon-width,var(--cr-icon-size))}.button-icon{padding-inline-end:0}.icon-blue{fill:var(--google-blue-600)}.icon-red{fill:var(--google-red-600)}@media (prefers-color-scheme:dark){.icon-blue{fill:var(--google-blue-300)}.icon-red{fill:var(--google-red-300)}}</style>
 <iron-icon id="statusIcon" icon="[[getStatusIcon_(iconStatus)]]" src="[[getStatusIconSrc_(iconStatus)]]" class$="[[getStatusIconClass_(iconStatus)]]" role="img" aria-label="[[getStatusIconAriaLabel_(iconStatus)]]">
 </iron-icon>
 <div class="flex cr-padded-text">
@@ -3739,7 +3746,7 @@ class SettingsSafetyCheckChildElement extends SettingsSafetyCheckChildElementBas
 customElements.define(SettingsSafetyCheckChildElement.is, SettingsSafetyCheckChildElement);
 
 function getTemplate$w() {
-    return html `<!--_html_template_start_--><settings-safety-check-child id="safetyCheckChild" icon-status="[[getIconStatus_(status_)]]" label="$i18n{safetyCheckExtensionsPrimaryLabel}" sub-label="[[displayString_]]" button-label="[[getButtonLabel_(status_)]]" button-aria-label="$i18n{safetyCheckExtensionsButtonAriaLabel}" button-class="action-button" on-button-click="onButtonClick_" on-click="onRowClick_" row-clickable="[[isRowClickable_(status_)]]" external managed-icon="[[getManagedIcon_(status_)]]" role="presentation">
+    return html$1 `<!--_html_template_start_--><settings-safety-check-child id="safetyCheckChild" icon-status="[[getIconStatus_(status_)]]" label="$i18n{safetyCheckExtensionsPrimaryLabel}" sub-label="[[displayString_]]" button-label="[[getButtonLabel_(status_)]]" button-aria-label="$i18n{safetyCheckExtensionsButtonAriaLabel}" button-class="action-button" on-button-click="onButtonClick_" on-click="onRowClick_" row-clickable="[[isRowClickable_(status_)]]" external managed-icon="[[getManagedIcon_(status_)]]" role="presentation">
 </settings-safety-check-child>
 <!--_html_template_end_-->`;
 }
@@ -3859,7 +3866,7 @@ class SettingsSafetyCheckExtensionsChildElement extends SettingsSafetyCheckExten
 customElements.define(SettingsSafetyCheckExtensionsChildElement.is, SettingsSafetyCheckExtensionsChildElement);
 
 function getTemplate$v() {
-    return html `<!--_html_template_start_--><settings-safety-check-child id="safetyCheckChild" icon-status="[[getIconStatus_(status_)]]" label="$i18n{passwords}" sub-label="[[displayString_]]" button-label="[[getButtonLabel_(status_)]]" button-aria-label="$i18n{safetyCheckPasswordsButtonAriaLabel}" button-class="action-button" on-button-click="onButtonClick_" on-click="onRowClick_" row-clickable="[[isRowClickable_(status_)]]" role="presentation">
+    return html$1 `<!--_html_template_start_--><settings-safety-check-child id="safetyCheckChild" icon-status="[[getIconStatus_(status_)]]" label="$i18n{passwords}" sub-label="[[displayString_]]" button-label="[[getButtonLabel_(status_)]]" button-aria-label="$i18n{safetyCheckPasswordsButtonAriaLabel}" button-class="action-button" on-button-click="onButtonClick_" on-click="onRowClick_" row-clickable="[[isRowClickable_(status_)]]" role="presentation">
 </settings-safety-check-child>
 <!--_html_template_end_-->`;
 }
@@ -3980,7 +3987,7 @@ class SettingsSafetyCheckPasswordsChildElement extends SettingsSafetyCheckPasswo
 customElements.define(SettingsSafetyCheckPasswordsChildElement.is, SettingsSafetyCheckPasswordsChildElement);
 
 function getTemplate$u() {
-    return html `<!--_html_template_start_--><settings-safety-check-child id="safetyCheckChild" icon-status="[[getIconStatus_(status_)]]" label="$i18n{safeBrowsingSectionLabel}" sub-label="[[displayString_]]" button-label="[[getButtonLabel_(status_)]]" button-aria-label="$i18n{safetyCheckSafeBrowsingButtonAriaLabel}" button-class="action-button" on-button-click="onButtonClick_" on-click="onRowClick_" row-clickable="[[isRowClickable_(status_)]]" managed-icon="[[getManagedIcon_(status_)]]" role="presentation">
+    return html$1 `<!--_html_template_start_--><settings-safety-check-child id="safetyCheckChild" icon-status="[[getIconStatus_(status_)]]" label="$i18n{safeBrowsingSectionLabel}" sub-label="[[displayString_]]" button-label="[[getButtonLabel_(status_)]]" button-aria-label="$i18n{safetyCheckSafeBrowsingButtonAriaLabel}" button-class="action-button" on-button-click="onButtonClick_" on-click="onRowClick_" row-clickable="[[isRowClickable_(status_)]]" managed-icon="[[getManagedIcon_(status_)]]" role="presentation">
 </settings-safety-check-child>
 <!--_html_template_end_-->`;
 }
@@ -4106,7 +4113,7 @@ class SettingsSafetyCheckSafeBrowsingChildElement extends SettingsSafetyCheckSaf
 customElements.define(SettingsSafetyCheckSafeBrowsingChildElement.is, SettingsSafetyCheckSafeBrowsingChildElement);
 
 function getTemplate$t() {
-    return html `<!--_html_template_start_--><settings-safety-check-child id="safetyCheckChild" icon-status="[[getIconStatus_(status_)]]" label="$i18n{safetyCheckUpdatesPrimaryLabel}" sub-label="[[displayString_]]" button-label="[[getButtonLabel_(status_)]]" button-aria-label="$i18n{safetyCheckUpdatesButtonAriaLabel}" button-class="action-button" on-button-click="onButtonClick_" managed-icon="[[getManagedIcon_(status_)]]" role="presentation">
+    return html$1 `<!--_html_template_start_--><settings-safety-check-child id="safetyCheckChild" icon-status="[[getIconStatus_(status_)]]" label="$i18n{safetyCheckUpdatesPrimaryLabel}" sub-label="[[displayString_]]" button-label="[[getButtonLabel_(status_)]]" button-aria-label="$i18n{safetyCheckUpdatesButtonAriaLabel}" button-class="action-button" on-button-click="onButtonClick_" managed-icon="[[getManagedIcon_(status_)]]" role="presentation">
 </settings-safety-check-child>
 
 <!--_html_template_end_-->`;
@@ -4218,7 +4225,7 @@ class SafetyCheckExtensionsBrowserProxyImpl {
 let instance$8 = null;
 
 function getTemplate$s() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex">#safetyCheckCollapse .list-item.selected{min-height:var(--cr-section-two-line-min-height)}iron-icon{display:flex;flex-shrink:0;padding-inline-end:var(--cr-icon-button-margin-start);width:var(--cr-link-row-icon-width,var(--cr-icon-size))}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex">#safetyCheckCollapse .list-item.selected{min-height:var(--cr-section-two-line-min-height)}iron-icon{display:flex;flex-shrink:0;padding-inline-end:var(--cr-icon-button-margin-start);width:var(--cr-link-row-icon-width,var(--cr-icon-size))}</style>
     <div id="safetyCheckParent" class="cr-row first two-line">
       <iron-icon icon="settings20:safety-check" aria-hidden="true">
       </iron-icon>
@@ -4442,13 +4449,13 @@ class SettingsSafetyCheckPageElement extends SettingsSafetyCheckPageElementBase 
 customElements.define(SettingsSafetyCheckPageElement.is, SettingsSafetyCheckPageElement);
 
 function getTemplate$r() {
-    return html `<!--_html_template_start_-->    <style include="settings-shared">cr-link-row{--cr-icon-button-margin-start:20px}cr-link-row:not([hidden])~cr-link-row{border-top:var(--cr-separator-line)}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="settings-shared">cr-link-row{--cr-icon-button-margin-start:20px}cr-link-row:not([hidden])~cr-link-row{border-top:var(--cr-separator-line)}</style>
     <settings-animated-pages id="pages" section="autofill" focus-config="[[focusConfig_]]">
       <div route-path="default">
         <cr-link-row id="passwordManagerButton" label="$i18n{localPasswordManager}" on-click="onPasswordsClick_" role-description="$i18n{subpageArrowRoleDescription}" start-icon="cr20:password" external>
         </cr-link-row>
         <template is="dom-if" if="[[isPlusAddressSettingEnabled_]]">
-          <cr-link-row id="plusAddressManagerButton" label="$i18n{plusAddressSettings}" on-click="onPlusAddressClick_" role-description="$i18n{subpageArrowRoleDescription}" external>
+          <cr-link-row id="plusAddressManagerButton" label="$i18n{plusAddressSettings}" on-click="onPlusAddressClick_" role-description="$i18n{subpageArrowRoleDescription}" start-icon="settings:email" external>
           </cr-link-row>
         </template>
         <cr-link-row id="paymentManagerButton" start-icon="settings20:credit-card" label="$i18n{creditCards}" on-click="onPaymentsClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
@@ -4587,7 +4594,7 @@ class SettingsIdleLoadElement extends PolymerElement {
         return 'settings-idle-load';
     }
     static get template() {
-        return html `<slot></slot>`;
+        return html$1 `<slot></slot>`;
     }
     connectedCallback() {
         super.connectedCallback();
@@ -4643,7 +4650,7 @@ class SettingsIdleLoadElement extends PolymerElement {
 customElements.define(SettingsIdleLoadElement.is, SettingsIdleLoadElement);
 
 function getTemplate$q() {
-    return html `<!--_html_template_start_-->    <style include="settings-shared"></style>
+    return html$1 `<!--_html_template_start_-->    <style include="settings-shared"></style>
     <cr-dialog id="dialog" close-text="$i18n{close}">
       <div slot="title">[[dialogTitle_]]</div>
       <div slot="body">
@@ -4795,38 +4802,6 @@ customElements.define(SettingsStartupUrlDialogElement.is, SettingsStartupUrlDial
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Mixin for scrollable containers with <iron-list>.
- *
- * Any containers with the 'scrollable' attribute set will have the following
- * classes toggled appropriately: can-scroll, is-scrolled, scrolled-to-bottom.
- * These classes are used to style the container div and list elements
- * appropriately, see cr_shared_style.css.
- *
- * The associated HTML should look something like:
- *   <div id="container" scrollable>
- *     <iron-list items="[[items]]" scroll-target="container">
- *       <template>
- *         <my-element item="[[item]] tabindex$="[[tabIndex]]"></my-element>
- *       </template>
- *     </iron-list>
- *   </div>
- *
- * In order to get correct keyboard focus (tab) behavior within the list,
- * any elements with tabbable sub-elements also need to set tabindex, e.g:
- *
- * <dom-module id="my-element>
- *   <template>
- *     ...
- *     <paper-icon-button toggles active="{{opened}}" tabindex$="[[tabindex]]">
- *   </template>
- * </dom-module>
- *
- * NOTE: If 'container' is not fixed size, it is important to call
- * updateScrollableContents() when [[items]] changes, otherwise the container
- * will not be sized correctly.
- */
-// clang-format off
 const CrScrollableMixin = dedupingMixin((superClass) => {
     class CrScrollableMixin extends superClass {
         constructor(...args) {
@@ -4965,7 +4940,7 @@ const CrScrollableMixin = dedupingMixin((superClass) => {
 });
 
 function getTemplate$p() {
-    return html `<!--_html_template_start_-->    <style include="settings-shared">.hide-overflow{overflow:hidden}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="settings-shared">.hide-overflow{overflow:hidden}</style>
     <div class="list-item" focus-row-container>
       <site-favicon url="[[model.url]]"></site-favicon>
       <div class="middle hide-overflow">
@@ -5049,7 +5024,7 @@ class SettingsStartupUrlEntryElement extends SettingsStartupUrlEntryElementBase 
 customElements.define(SettingsStartupUrlEntryElement.is, SettingsStartupUrlEntryElement);
 
 function getTemplate$o() {
-    return html `<!--_html_template_start_-->    <style include="settings-shared action-link iron-flex">#editOptions>div{border-top:var(--cr-separator-line)}#outer{max-height:355px}#container settings-startup-url-entry{cursor:default}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="settings-shared action-link iron-flex">#editOptions>div{border-top:var(--cr-separator-line)}#outer{max-height:355px}#container settings-startup-url-entry{cursor:default}</style>
     <div id="outer" class="layout vertical flex list-frame">
       <div id="container" class="scroll-container" scrollable>
         <iron-list items="[[startupPages_]]" scroll-target="container" preserve-focus risk-selection class="cr-separators">
@@ -5190,7 +5165,7 @@ class OnStartupBrowserProxyImpl {
 let instance$6 = null;
 
 function getTemplate$n() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex">.block{display:block}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex">.block{display:block}</style>
     <div class="cr-row first">
       <settings-radio-group id="onStartupRadioGroup" class="flex" pref="{{prefs.session.restore_on_startup}}" group-aria-label="$i18n{onStartup}">
         <controlled-radio-button name="[[getName_(prefValues_.OPEN_NEW_TAB)]]" pref="[[prefs.session.restore_on_startup]]" label="$i18n{onStartupOpenNewTab}" no-extension-indicator>
@@ -5821,7 +5796,7 @@ class AccountManagerBrowserProxyImpl {
 let instance$4 = null;
 
 function getTemplate$m() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex">.sync-row{align-items:center;flex:auto}#profile-icon{background:center/cover no-repeat;border-radius:20px;flex-shrink:0;height:40px;width:40px}#sync-setup{--cr-secondary-text-color:var(--settings-error-color)}cr-link-row{--cr-link-row-icon-width:40px;border-top:var(--cr-separator-line)}.icon-container{display:flex;flex-shrink:0;justify-content:center;width:40px}#toast{left:0;z-index:1}:host-context([dir=rtl]) #toast{left:auto;right:0}settings-sync-account-control[showing-promo]::part(banner){border-top-left-radius:var(--cr-card-border-radius);border-top-right-radius:var(--cr-card-border-radius)}settings-sync-account-control[showing-promo]::part(title){font-size:1.1rem;line-height:1.625rem}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex">.sync-row{align-items:center;flex:auto}#profile-icon{background:center/cover no-repeat;border-radius:20px;flex-shrink:0;height:40px;width:40px}#sync-setup{--cr-secondary-text-color:var(--settings-error-color)}cr-link-row{--cr-link-row-icon-width:40px;border-top:var(--cr-separator-line)}.icon-container{display:flex;flex-shrink:0;justify-content:center;width:40px}#toast{left:0;z-index:1}:host-context([dir=rtl]) #toast{left:auto;right:0}settings-sync-account-control[showing-promo]::part(banner){border-top-left-radius:var(--cr-card-border-radius);border-top-right-radius:var(--cr-card-border-radius)}settings-sync-account-control[showing-promo]::part(title){font-size:1.1rem;line-height:1.625rem}</style>
     <settings-animated-pages id="pages" section="people" focus-config="[[focusConfig_]]">
       <div route-path="default">
         <template is="dom-if" if="[[shouldShowSyncAccountControl_(
@@ -6131,7 +6106,7 @@ class SettingsPeoplePageElement extends SettingsPeoplePageElementBase {
 customElements.define(SettingsPeoplePageElement.is, SettingsPeoplePageElement);
 
 function getTemplate$l() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.battery-saver-radio-group{padding-block-end:var(--cr-section-vertical-padding)}</style>
+    return html$1 `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.battery-saver-radio-group{padding-block-end:var(--cr-section-vertical-padding)}</style>
 <template is="dom-if" if="[[isBatterySaverModeManagedByOS_]]">
   <cr-link-row id="batterySaverOSSettingsLinkRow" label="$i18n{batterySaverModeLabel}" sub-label="$i18n{batterySaverModeLinkOsDescription}" on-click="openOsPowerSettings_" external>
   </cr-link-row>
@@ -6280,7 +6255,7 @@ function convertDateToWindowsEpoch(date = Date.now()) {
 }
 
 function getTemplate$k() {
-    return html `<!--_html_template_start_--><cr-input id="input" label="$i18n{addSite}" aria-label$="$i18n{addSiteTitle}" placeholder="example.com" value="{{rule}}" on-input="validate" error-message="[[errorMessage]]" invalid="[[inputInvalid]]" spellcheck="false" autofocus>
+    return html$1 `<!--_html_template_start_--><cr-input id="input" label="$i18n{addSite}" aria-label$="$i18n{addSiteTitle}" placeholder="example.com" value="{{rule}}" on-input="validate" error-message="[[errorMessage]]" invalid="[[inputInvalid]]" spellcheck="false" autofocus>
 </cr-input>
 <!--_html_template_end_-->`;
 }
@@ -6387,7 +6362,7 @@ class ExceptionAddInputElement extends ExceptionAddInputElementBase {
 customElements.define(ExceptionAddInputElement.is, ExceptionAddInputElement);
 
 function getTemplate$j() {
-    return html `<!--_html_template_start_--><cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
+    return html$1 `<!--_html_template_start_--><cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
   <div slot="title">$i18n{addSiteTitle}</div>
   <div slot="body">
     <tab-discard-exception-add-input id="input" prefs="{{prefs}}" submit-disabled="{{submitDisabled}}">
@@ -6427,7 +6402,7 @@ class ExceptionAddDialogElement extends ExceptionAddDialogElementBase {
 customElements.define(ExceptionAddDialogElement.is, ExceptionAddDialogElement);
 
 function getTemplate$i() {
-    return html `<!--_html_template_start_--><cr-input id="input" label="$i18n{addSite}" aria-label$="$i18n{editSiteTitle}" placeholder="example.com" value="{{rule}}" on-input="validate" error-message="[[errorMessage]]" invalid="[[inputInvalid]]" spellcheck="false" autofocus>
+    return html$1 `<!--_html_template_start_--><cr-input id="input" label="$i18n{addSite}" aria-label$="$i18n{editSiteTitle}" placeholder="example.com" value="{{rule}}" on-input="validate" error-message="[[errorMessage]]" invalid="[[inputInvalid]]" spellcheck="false" autofocus>
 </cr-input>
 <!--_html_template_end_-->`;
 }
@@ -6477,7 +6452,7 @@ class ExceptionEditInputElement extends ExceptionEditInputElementBase {
 customElements.define(ExceptionEditInputElement.is, ExceptionEditInputElement);
 
 function getTemplate$h() {
-    return html `<!--_html_template_start_--><cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
+    return html$1 `<!--_html_template_start_--><cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
   <div slot="title">$i18n{editSiteTitle}</div>
   <div slot="body">
     <tab-discard-exception-edit-input id="input" prefs="{{prefs}}" rule-to-edit="[[ruleToEdit]]" submit-disabled="{{submitDisabled}}">
@@ -6526,7 +6501,7 @@ class ExceptionEditDialogElement extends ExceptionEditDialogElementBase {
 customElements.define(ExceptionEditDialogElement.is, ExceptionEditDialogElement);
 
 function getTemplate$g() {
-    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-pref-indicator::part(tooltip){clip:rect(0 0 0 0);height:1px;overflow:hidden;width:1px}cr-policy-pref-indicator{padding-inline-end:8px}</style>
+    return html$1 `<!--_html_template_start_--><style include="settings-shared">cr-policy-pref-indicator::part(tooltip){clip:rect(0 0 0 0);height:1px;overflow:hidden;width:1px}cr-policy-pref-indicator{padding-inline-end:8px}</style>
 <div class="list-item">
   <div class="start text-elide">[[entry.site]]</div>
   <template is="dom-if" if="[[entry.managed]]">
@@ -6569,7 +6544,7 @@ class ExceptionEntryElement extends ExceptionEntryElementBase {
 customElements.define(ExceptionEntryElement.is, ExceptionEntryElement);
 
 function getTemplate$f() {
-    return html `<!--_html_template_start_--><style include="settings-shared">.ripple-padding{padding-inline-start:20px;padding-inline-end:20px}cr-checkbox::part(label-container){min-width:0}</style>
+    return html$1 `<!--_html_template_start_--><style include="settings-shared">.ripple-padding{padding-inline-start:20px;padding-inline-end:20px}cr-checkbox::part(label-container){min-width:0}</style>
 <cr-checkbox id="checkbox" class="list-item no-outline ripple-padding" tab-index="-1" checked="{{checked}}" part="checkbox">
   <slot></slot>
 </cr-checkbox>
@@ -6679,7 +6654,7 @@ class SettingsCheckboxListEntryElement extends PolymerElement {
 customElements.define(SettingsCheckboxListEntryElement.is, SettingsCheckboxListEntryElement);
 
 function getTemplate$e() {
-    return html `<!--_html_template_start_--><style include="settings-shared">#container{height:calc(5 * var(--cr-section-min-height))}#emptyText{padding-inline-end:20px;padding-inline-start:20px;padding-top:20px}.label-slot{align-items:center;display:flex}.checkbox-label{margin-inline-start:10px}</style>
+    return html$1 `<!--_html_template_start_--><style include="settings-shared">#container{height:calc(5 * var(--cr-section-min-height))}#emptyText{padding-inline-end:20px;padding-inline-start:20px;padding-top:20px}.label-slot{align-items:center;display:flex}.checkbox-label{margin-inline-start:10px}</style>
 <div id="container" scrollable>
   <iron-list id="list" scroll-target="container" role="listbox" items="[[currentSites_]]" hidden$="[[!currentSites_.length]]">
     <template>
@@ -6828,7 +6803,7 @@ class ExceptionCurrentSitesListElement extends ExceptionCurrentSitesListElementB
 customElements.define(ExceptionCurrentSitesListElement.is, ExceptionCurrentSitesListElement);
 
 function getTemplate$d() {
-    return html `<!--_html_template_start_--><style>cr-tabs{--cr-tabs-font-size:100%;--cr-tabs-height:40px}#dialog{--border-top-color:var(--google-grey-300);--cr-dialog-body-border-top:1px solid var(--border-top-color)}@media (prefers-color-scheme:dark){#dialog{--border-top-color:var(--cr-separator-color)}}#dialog::part(wrapper){overflow:hidden}#dialog [slot=title]{padding-bottom:8px}#dialog::part(body-container){height:calc(5 * var(--cr-section-min-height) + 2px)}#body{padding-inline-end:0;padding-inline-start:0}#helpText{padding-bottom:20px}#inputPage{padding-inline-end:20px;padding-inline-start:20px;padding-top:20px}</style>
+    return html$1 `<!--_html_template_start_--><style>cr-tabs{--cr-tabs-font-size:100%;--cr-tabs-height:40px}#dialog{--border-top-color:var(--google-grey-300);--cr-dialog-body-border-top:1px solid var(--border-top-color)}@media (prefers-color-scheme:dark){#dialog{--border-top-color:var(--cr-separator-color)}}#dialog::part(wrapper){overflow:hidden}#dialog [slot=title]{padding-bottom:8px}#dialog::part(body-container){height:calc(5 * var(--cr-section-min-height) + 2px)}#body{padding-inline-end:0;padding-inline-start:0}#helpText{padding-bottom:20px}#inputPage{padding-inline-end:20px;padding-inline-start:20px;padding-top:20px}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{addSitesTitle}</div>
   <div slot="header">
@@ -6925,7 +6900,7 @@ class ExceptionTabbedAddDialogElement extends ExceptionTabbedAddDialogElementBas
 customElements.define(ExceptionTabbedAddDialogElement.is, ExceptionTabbedAddDialogElement);
 
 function getTemplate$c() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">.cr-padded-text{flex:1}.list-frame{padding-inline-start:var(--cr-section-indent-width)}#outer>tab-discard-exception-entry:not(:first-of-type){border-top:var(--cr-separator-line)}#expandButton{padding-inline-end:0;padding-inline-start:0;--cr-icon-button-margin-end:0}</style>
+    return html$1 `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">.cr-padded-text{flex:1}.list-frame{padding-inline-start:var(--cr-section-indent-width)}#outer>tab-discard-exception-entry:not(:first-of-type){border-top:var(--cr-separator-line)}#expandButton{padding-inline-end:0;padding-inline-start:0;--cr-icon-button-margin-end:0}</style>
 <div class="cr-row">
   <div class="cr-padded-text">
     $i18n{tabDiscardingExceptionsHeader}
@@ -7171,7 +7146,7 @@ function getDiscardTimerOptions() {
 }
 
 function getTemplate$b() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.high-efficiency-radio-group{display:flex;flex-direction:column;padding:0 var(--cr-section-padding)}.badge{align-items:center;background:var(--google-grey-600);border-radius:4px;color:#fff;display:inline-flex;font-size:10px;height:15px;margin-inline-start:15px;padding:0 4px}@media (prefers-color-scheme:dark){.badge{background:var(--google-grey-500);color:var(--google-grey-900)}}#enabledOnTimerButton::part(labelWrapper){align-items:center;display:flex;justify-content:space-between}</style>
+    return html$1 `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.high-efficiency-radio-group{display:flex;flex-direction:column;padding:0 var(--cr-section-padding)}.badge{align-items:center;background:var(--google-grey-600);border-radius:4px;color:#fff;display:inline-flex;font-size:10px;height:15px;margin-inline-start:15px;padding:0 4px}@media (prefers-color-scheme:dark){.badge{background:var(--google-grey-500);color:var(--google-grey-900)}}#enabledOnTimerButton::part(labelWrapper){align-items:center;display:flex;justify-content:space-between}</style>
 <settings-toggle-button id="toggleButton" on-change="onChange_" pref="{{prefs.performance_tuning.high_efficiency_mode.state}}" label="$i18n{memorySaverModeLabel}" sub-label="$i18n{memorySaverModeDescription}" learn-more-url="$i18n{memorySaverLearnMoreUrl}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[toggleButtonCheckedValue_(
         isMemorySaverMultistateModeEnabled_)]]">
 </settings-toggle-button>
@@ -7271,7 +7246,7 @@ class SettingsPerformancePageElement extends SettingsPerformancePageElementBase 
 customElements.define(SettingsPerformancePageElement.is, SettingsPerformancePageElement);
 
 function getTemplate$a() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared settings-columned-section">.settings-section-bottom-padding{padding-block-end:var(--cr-section-vertical-padding)}settings-collapse-radio-button[hidden]+settings-collapse-radio-button{--settings-collapse-separator-line:0}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}</style>
+    return html$1 `<!--_html_template_start_--><style include="cr-shared-style settings-shared settings-columned-section">.settings-section-bottom-padding{padding-block-end:var(--cr-section-vertical-padding)}settings-collapse-radio-button[hidden]+settings-collapse-radio-button{--settings-collapse-separator-line:0}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}</style>
 <settings-toggle-button id="preloadingToggle" pref="{{prefs.net.network_prediction_options}}" label="$i18n{preloadingPageTitle}" sub-label="$i18n{preloadingToggleSummary}" learn-more-url="$i18n{preloadingLearnMoreUrl}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[networkPredictionOptionsEnum_.STANDARD]]" on-change="onPreloadingStateChange_">
 </settings-toggle-button>
 <iron-collapse opened="[[isPreloadingEnabled_(
@@ -7391,7 +7366,7 @@ class SpeedPageElement extends SpeedPageElementBase {
 customElements.define(SpeedPageElement.is, SpeedPageElement);
 
 function getTemplate$9() {
-    return html `<!--_html_template_start_-->    <style include="settings-shared"></style>
+    return html$1 `<!--_html_template_start_-->    <style include="settings-shared"></style>
     <cr-dialog id="dialog" close-text="$i18n{close}" ignore-popstate on-cancel="onCancel_">
       <div slot="title">$i18n{resetAutomatedDialogTitle}</div>
       <div slot="body">
@@ -7445,7 +7420,7 @@ class SettingsResetProfileBannerElement extends PolymerElement {
 customElements.define(SettingsResetProfileBannerElement.is, SettingsResetProfileBannerElement);
 
 function getTemplate$8() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex settings-shared md-select">:host{--favicon-size:0}#search-wrapper{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.default-search-engine .cr-row{--cr-section-min-height:55px;gap:12px;padding:0}.default-search-engine{padding-top:var(--cr-section-vertical-padding)}.search-engine-name{margin-inline-end:auto}site-favicon{--site-favicon-border-radius:4px;--site-favicon-height:var(--favicon-size);--site-favicon-width:var(--favicon-size)}settings-search-engine-list-dialog{--search-engine-icon-size:var(--favicon-size)}</style>
+    return html$1 `<!--_html_template_start_--><style include="cr-shared-style iron-flex settings-shared md-select">:host{--favicon-size:0}#search-wrapper{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.default-search-engine .cr-row{--cr-section-min-height:55px;gap:12px;padding:0}.default-search-engine{padding-top:var(--cr-section-vertical-padding)}.search-engine-name{margin-inline-end:auto}site-favicon{--site-favicon-border-radius:4px;--site-favicon-height:var(--favicon-size);--site-favicon-width:var(--favicon-size)}settings-search-engine-list-dialog{--search-engine-icon-size:var(--favicon-size)}</style>
 <settings-animated-pages id="pages" section="search" focus-config="[[focusConfig_]]">
   <div route-path="default">
     
@@ -8469,7 +8444,7 @@ const MainPageMixin = dedupingMixin((superClass) => {
 });
 
 function getTemplate$7() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-page-styles cr-hidden-style iron-flex">:host([is-subpage-animating]){overflow:hidden}:host(:not([in-search-mode])) settings-section:not([active]){display:none}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="cr-shared-style settings-page-styles cr-hidden-style iron-flex">:host([is-subpage-animating]){overflow:hidden}:host(:not([in-search-mode])) settings-section:not([active]){display:none}</style>
     <template is="dom-if" if="[[showBasicPage_(currentRoute_, inSearchMode)]]" restamp>
       <div id="basicPage">
         <template is="dom-if" if="[[showResetProfileBanner_]]" restamp>
@@ -8822,7 +8797,7 @@ class SettingsBasicPageElement extends SettingsBasicPageElementBase {
 customElements.define(SettingsBasicPageElement.is, SettingsBasicPageElement);
 
 function getTemplate$6() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-hidden-style settings-shared">#noSearchResults{margin-top:80px;text-align:center}#noSearchResults div:first-child{font-size:123%;margin-bottom:10px}managed-footnote{border-top:none;margin-bottom:calc(-21px - 8px);padding-bottom:16px;padding-top:12px;position:relative;z-index:1}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="cr-shared-style cr-hidden-style settings-shared">#noSearchResults{margin-top:80px;text-align:center}#noSearchResults div:first-child{font-size:123%;margin-bottom:10px}managed-footnote{border-top:none;margin-bottom:calc(-21px - 8px);padding-bottom:16px;padding-top:12px;position:relative;z-index:1}</style>
     <div id="noSearchResults" hidden$="[[!showNoResultsFound_]]">
       <div>$i18n{searchNoResults}</div>
       <div>$i18nRaw{searchNoResultsHelp}</div>
@@ -9041,7 +9016,7 @@ class CrMenuSelector extends CrMenuSelectorBase {
 customElements.define(CrMenuSelector.is, CrMenuSelector);
 
 const styleMod = document.createElement('dom-module');
-styleMod.appendChild(html `
+styleMod.appendChild(html$1 `
   <template>
     <style>
 .cr-nav-menu-item{--iron-icon-fill-color:var(--google-grey-700);--iron-icon-height:20px;--iron-icon-width:20px;--cr-icon-ripple-size:20px;align-items:center;border-end-end-radius:100px;border-start-end-radius:100px;box-sizing:border-box;color:var(--google-grey-900);display:flex;font-size:14px;font-weight:500;line-height:14px;margin-inline-end:2px;margin-inline-start:1px;min-height:40px;overflow:hidden;padding-block-end:10px;padding-block-start:10px;padding-inline-start:23px;position:relative;text-decoration:none}:host-context(cr-drawer) .cr-nav-menu-item{margin-inline-end:8px}.cr-nav-menu-item:hover{background:var(--google-grey-200)}.cr-nav-menu-item[selected]{--iron-icon-fill-color:var(--google-blue-600);background:var(--google-blue-50);color:var(--google-blue-700)}@media (prefers-color-scheme:dark){.cr-nav-menu-item{--iron-icon-fill-color:var(--google-grey-500);color:#fff}.cr-nav-menu-item:hover{--iron-icon-fill-color:white;background:var(--google-grey-800)}.cr-nav-menu-item[selected]{--iron-icon-fill-color:black;background:var(--google-blue-300);color:var(--google-grey-900)}}.cr-nav-menu-item:focus{outline:auto 5px -webkit-focus-ring-color;z-index:1}.cr-nav-menu-item:focus:not([selected]):not(:hover){background:0 0}.cr-nav-menu-item iron-icon{flex-shrink:0;margin-inline-end:20px;pointer-events:none;vertical-align:top}
@@ -9051,7 +9026,7 @@ styleMod.appendChild(html `
 styleMod.register('cr-nav-menu-item-style');
 
 function getTemplate$5() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons cr-nav-menu-item-style">:host{box-sizing:border-box;display:block;padding-bottom:5px;padding-top:8px}:host *{-webkit-tap-highlight-color:transparent}#menu{color:var(--google-grey-700);display:flex;flex-direction:column;min-width:fit-content}#extensionsLink>.cr-icon{height:var(--cr-icon-size);margin-inline-end:14px;width:var(--cr-icon-size)}.menu-separator{border-bottom:1px solid rgba(0,0,0,.08);margin-bottom:8px;margin-top:8px}#aboutIcon{--cr-icon-image:url(//resources/images/chrome_logo_dark.svg);-webkit-mask-size:18px;background-color:var(--iron-icon-fill-color);display:block;height:var(--cr-icon-size);margin-inline-end:20px;margin-inline-start:0;width:var(--cr-icon-size)}@media (forced-colors:active){#aboutIcon{background-color:ButtonText}}@media (prefers-color-scheme:dark){#menu{color:var(--cr-primary-text-color)}.menu-separator{border-bottom:var(--cr-separator-line)}}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons cr-nav-menu-item-style">:host{box-sizing:border-box;display:block;padding-bottom:5px;padding-top:8px}:host *{-webkit-tap-highlight-color:transparent}#menu{color:var(--google-grey-700);display:flex;flex-direction:column;min-width:fit-content}#extensionsLink>.cr-icon{height:var(--cr-icon-size);margin-inline-end:14px;width:var(--cr-icon-size)}.menu-separator{border-bottom:1px solid rgba(0,0,0,.08);margin-bottom:8px;margin-top:8px}#aboutIcon{--cr-icon-image:url(//resources/images/chrome_logo_dark.svg);-webkit-mask-size:18px;background-color:var(--iron-icon-fill-color);display:block;height:var(--cr-icon-size);margin-inline-end:20px;margin-inline-start:0;width:var(--cr-icon-size)}@media (forced-colors:active){#aboutIcon{background-color:ButtonText}}@media (prefers-color-scheme:dark){#menu{color:var(--cr-primary-text-color)}.menu-separator{border-bottom:var(--cr-separator-line)}}</style>
 
     <div role="navigation">
       <cr-menu-selector id="menu" selectable="a:not(#extensionsLink)" attr-for-selected="href" on-iron-activate="onSelectorActivate_" on-click="onLinkClick_" selected-attribute="selected">
@@ -9354,7 +9329,7 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
 });
 
 function getTemplate$4() {
-    return html `<!--_html_template_start_-->    <style include="cr-page-host-style settings-shared">:host{display:flex;flex-direction:column;height:100%;--settings-menu-width:250px;--settings-main-basis:calc(var(--cr-centered-card-max-width) /
+    return html$1 `<!--_html_template_start_-->    <style include="cr-page-host-style settings-shared">:host{display:flex;flex-direction:column;height:100%;--settings-menu-width:250px;--settings-main-basis:calc(var(--cr-centered-card-max-width) /
             var(--cr-centered-card-width-percentage))}cr-toolbar{min-height:56px;--cr-toolbar-center-basis:var(--settings-main-basis)}cr-toolbar:not([narrow]){--cr-toolbar-left-spacer-width:var(--settings-menu-width)}@media (prefers-color-scheme:light){cr-toolbar{--iron-icon-fill-color:white}}#cr-container-shadow-top{z-index:2}#container{align-items:flex-start;display:flex;flex:1;overflow:overlay;position:relative}#left,#main,#right{flex:1 1 0}#left{height:100%;position:sticky;top:0}#left settings-menu{max-height:100%;overflow:auto;overscroll-behavior:contain;width:var(--settings-menu-width)}#main{flex-basis:var(--settings-main-basis)}@media (max-width:980px){#main{min-width:auto;padding:0 3px}}</style>
     <settings-prefs id="prefs" prefs="{{prefs}}"></settings-prefs>
     <cr-toolbar id="toolbar" page-name="$i18n{settings}" clear-label="$i18n{clearSearch}" autofocus search-prompt="$i18n{searchPrompt}" on-cr-toolbar-menu-click="onMenuButtonClick_" spinner-active="[[toolbarSpinnerActive_]]" menu-label="$i18n{menuButtonLabel}" on-search-changed="onSearchChanged_" role="banner" narrow="{{narrow_}}" narrow-threshold="980" show-menu="[[narrow_]]">
@@ -9591,7 +9566,7 @@ class SettingsUiElement extends SettingsUiElementBase {
 customElements.define(SettingsUiElement.is, SettingsUiElement);
 
 function getTemplate$3() {
-    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+    return html$1 `<!--_html_template_start_--><style include="settings-shared"></style>
 <settings-safety-check-child id="safetyCheckChild" icon-status="[[safetyCheckIconEnum_.EXTENSIONS_REVIEW]]" label="[[displayString_]]" button-label="$i18n{safetyCheckReview}" button-aria-label="$i18n{safetyCheckExtensionsButtonAriaLabel}" on-button-click="onButtonClick_" role="presentation" button-icon="cr:open-in-new" class="two-line">
 </settings-safety-check-child>
 <!--_html_template_end_-->`;
@@ -9643,7 +9618,7 @@ class SafetyCheckExtensionsElement extends SafetyCheckExtensionsElementBase {
 customElements.define(SafetyCheckExtensionsElement.is, SafetyCheckExtensionsElement);
 
 function getTemplate$2() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared"></style>
+    return html$1 `<!--_html_template_start_--><style include="cr-shared-style settings-shared"></style>
 <settings-safety-check-child id="safetyCheckChild" icon-status="[[iconStatus_]]" label="[[headerString_]]" button-label="$i18n{safetyCheckReview}" button-aria-label="$i18n{safetyCheckNotificationPermissionReviewButtonAriaLabel}" on-button-click="onButtonClick_" role="presentation" class="two-line">
 </settings-safety-check-child><!--_html_template_end_-->`;
 }
@@ -9698,7 +9673,7 @@ class SettingsSafetyCheckNotificationPermissionsElement extends SettingsSafetyCh
 customElements.define(SettingsSafetyCheckNotificationPermissionsElement.is, SettingsSafetyCheckNotificationPermissionsElement);
 
 function getTemplate$1() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared"></style>
+    return html$1 `<!--_html_template_start_--><style include="cr-shared-style settings-shared"></style>
 <settings-safety-check-child id="safetyCheckChild" icon-status="[[iconStatus_]]" label="[[headerString_]]" button-label="$i18n{safetyCheckReview}" button-aria-label="$i18n{safetyCheckUnusedSitePermissionsHeaderAriaLabel}" on-button-click="onButtonClick_" role="presentation" class="two-line">
 </settings-safety-check-child><!--_html_template_end_-->`;
 }
@@ -9760,7 +9735,7 @@ class SettingsSafetyCheckUnusedSitePermissionsElement extends SettingsSafetyChec
 customElements.define(SettingsSafetyCheckUnusedSitePermissionsElement.is, SettingsSafetyCheckUnusedSitePermissionsElement);
 
 function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{--icon-size:var(--search-engine-icon-size, 24px)}.subtitle{font-size:.75rem;line-height:22px}.title{margin:0 0 16px}.dialog-body{color:var(--cr-primary-text-color)}.search-engine{align-items:center;display:flex;flex-direction:row;gap:16px}site-favicon{--site-favicon-border-radius:4px;--site-favicon-height:var(--icon-size);--site-favicon-width:var(--icon-size)}#setAsDefaultButton{margin-inline-start:12px}cr-dialog{--cr-dialog-body-padding-horizontal:16px;--cr-dialog-button-container-padding-horizontal:24px;--cr-dialog-button-container-padding-bottom:24px;--cr-dialog-button-container-padding-top:24px;--cr-dialog-title-slot-padding-bottom:16px;--cr-dialog-title-slot-padding-end:16px;--cr-dialog-title-slot-padding-start:16px;--cr-dialog-title-slot-padding-top:16px}cr-dialog::part(body-container){max-height:360px}cr-radio-button{--cr-radio-button-size:20px;margin:0 16px}</style>
+    return html$1 `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{--icon-size:var(--search-engine-icon-size, 24px)}.subtitle{font-size:.75rem;line-height:22px}.title{margin:0 0 16px}.dialog-body{color:var(--cr-primary-text-color)}.search-engine{align-items:center;display:flex;flex-direction:row;gap:16px}site-favicon{--site-favicon-border-radius:4px;--site-favicon-height:var(--icon-size);--site-favicon-width:var(--icon-size)}#setAsDefaultButton{margin-inline-start:12px}cr-dialog{--cr-dialog-body-padding-horizontal:16px;--cr-dialog-button-container-padding-horizontal:24px;--cr-dialog-button-container-padding-bottom:24px;--cr-dialog-button-container-padding-top:24px;--cr-dialog-title-slot-padding-bottom:16px;--cr-dialog-title-slot-padding-end:16px;--cr-dialog-title-slot-padding-start:16px;--cr-dialog-title-slot-padding-top:16px}cr-dialog::part(body-container){max-height:360px}cr-radio-button{--cr-radio-button-size:20px;margin:0 16px}</style>
 
 <cr-dialog id="dialog" on-cancel="onCancelClick_" show-on-attach>
   <div slot="title">

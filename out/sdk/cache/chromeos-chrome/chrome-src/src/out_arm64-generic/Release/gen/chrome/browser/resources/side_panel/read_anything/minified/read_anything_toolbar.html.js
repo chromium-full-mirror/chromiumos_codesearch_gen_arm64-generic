@@ -13,7 +13,7 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
     </span>
     <cr-icon-button class="toolbar-button" id="rate" tabindex="-1" aria-label="$i18n{voiceSpeedLabel}" aria-haspopup="menu" iron-icon="voice-rate:1" on-click="onShowRateMenuClick_">
     </cr-icon-button>
-    <voice-selection-menu id="voiceSelectionMenu" selected-voice="[[selectedVoice]]" available-voices="[[availableVoices]]" preview-voice-playing="[[previewVoicePlaying]]">
+    <voice-selection-menu id="voiceSelectionMenu" selected-voice="[[selectedVoice]]" available-voices="[[availableVoices]]" paused="[[paused]]" preview-voice-playing="[[previewVoicePlaying]]">
     </voice-selection-menu>
     <cr-icon-button class="toolbar-button" id="highlight" tabindex="-1" iron-icon="read-anything:highlight-on" title="$i18n{turnHighlightOff}" on-click="onHighlightClick_">
     </cr-icon-button>

@@ -22,8 +22,6 @@
 
 namespace storage::mojom {
 
-enum class V2SchemaCorruptionStatus : int32_t;
-
 enum class FailClass : int32_t;
 
 enum class FailMethod : int32_t;

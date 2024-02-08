@@ -46,6 +46,7 @@
 #include "services/network/public/mojom/default_credentials.mojom.h"
 #include "services/network/public/mojom/devtools_observer.mojom-forward.h"
 #include "services/network/public/mojom/restricted_udp_socket.mojom-forward.h"
+#include "services/network/public/mojom/fetch_api.mojom-forward.h"
 #include "services/network/public/mojom/first_party_sets_access_delegate.mojom.h"
 #include "services/network/public/mojom/host_resolver.mojom.h"
 #include "services/network/public/mojom/http_cache_backend_file_operations.mojom-forward.h"
@@ -3127,6 +3128,8 @@ class  SharedDictionaryInfo {
 
   SharedDictionaryInfo(
       const std::string& match,
+      std::vector<::network::mojom::RequestDestination> match_dest,
+      const std::string& id,
       const ::GURL& dictionary_url,
       ::base::Time response_time,
       ::base::TimeDelta expiration,
@@ -3211,6 +3214,10 @@ class  SharedDictionaryInfo {
 
   
   std::string match;
+  
+  std::vector<::network::mojom::RequestDestination> match_dest;
+  
+  std::string id;
   
   ::GURL dictionary_url;
   
@@ -4594,6 +4601,8 @@ template <typename StructPtrType>
 SharedDictionaryInfoPtr SharedDictionaryInfo::Clone() const {
   return New(
       mojo::Clone(match),
+      mojo::Clone(match_dest),
+      mojo::Clone(id),
       mojo::Clone(dictionary_url),
       mojo::Clone(response_time),
       mojo::Clone(expiration),
@@ -4606,6 +4615,10 @@ SharedDictionaryInfoPtr SharedDictionaryInfo::Clone() const {
 template <typename T, SharedDictionaryInfo::EnableIfSame<T>*>
 bool SharedDictionaryInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->match, other_struct.match))
+    return false;
+  if (!mojo::Equals(this->match_dest, other_struct.match_dest))
+    return false;
+  if (!mojo::Equals(this->id, other_struct.id))
     return false;
   if (!mojo::Equals(this->dictionary_url, other_struct.dictionary_url))
     return false;
@@ -4627,6 +4640,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.match < rhs.match)
     return true;
   if (rhs.match < lhs.match)
+    return false;
+  if (lhs.match_dest < rhs.match_dest)
+    return true;
+  if (rhs.match_dest < lhs.match_dest)
+    return false;
+  if (lhs.id < rhs.id)
+    return true;
+  if (rhs.id < lhs.id)
     return false;
   if (lhs.dictionary_url < rhs.dictionary_url)
     return true;
@@ -5492,6 +5513,16 @@ struct  StructTraits<::network::mojom::SharedDictionaryInfo::DataView,
   static const decltype(::network::mojom::SharedDictionaryInfo::match)& match(
       const ::network::mojom::SharedDictionaryInfoPtr& input) {
     return input->match;
+  }
+
+  static const decltype(::network::mojom::SharedDictionaryInfo::match_dest)& match_dest(
+      const ::network::mojom::SharedDictionaryInfoPtr& input) {
+    return input->match_dest;
+  }
+
+  static const decltype(::network::mojom::SharedDictionaryInfo::id)& id(
+      const ::network::mojom::SharedDictionaryInfoPtr& input) {
+    return input->id;
   }
 
   static const decltype(::network::mojom::SharedDictionaryInfo::dictionary_url)& dictionary_url(

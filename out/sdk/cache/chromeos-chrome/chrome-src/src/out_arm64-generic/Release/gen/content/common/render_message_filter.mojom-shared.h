@@ -36,12 +36,21 @@
 
 
 namespace content::mojom {
+class FrameRoutingInfoDataView;
+
 
 
 }  // content::mojom
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::content::mojom::FrameRoutingInfoDataView> {
+  using Data = ::content::mojom::internal::FrameRoutingInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 }  // namespace internal
 }  // namespace mojo
@@ -61,6 +70,55 @@ using RenderMessageFilterAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<RenderMessageFilterInterfaceBase>;
 
 
+class FrameRoutingInfoDataView {
+ public:
+  FrameRoutingInfoDataView() = default;
+
+  FrameRoutingInfoDataView(
+      internal::FrameRoutingInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  int32_t routing_id() const {
+    return data_->routing_id;
+  }
+  inline void GetFrameTokenDataView(
+      ::blink::mojom::LocalFrameTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFrameToken(UserType* output) {
+    
+    auto* pointer = data_->frame_token.Get();
+    return mojo::internal::Deserialize<::blink::mojom::LocalFrameTokenDataView>(
+        pointer, output, message_);
+  }
+  inline void GetDevtoolsFrameTokenDataView(
+      ::mojo_base::mojom::UnguessableTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDevtoolsFrameToken(UserType* output) {
+    
+    auto* pointer = data_->devtools_frame_token.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::UnguessableTokenDataView>(
+        pointer, output, message_);
+  }
+  inline void GetDocumentTokenDataView(
+      ::blink::mojom::DocumentTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDocumentToken(UserType* output) {
+    
+    auto* pointer = data_->document_token.Get();
+    return mojo::internal::Deserialize<::blink::mojom::DocumentTokenDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::FrameRoutingInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 }  // content::mojom
 
 namespace std {
@@ -69,10 +127,93 @@ namespace std {
 
 namespace mojo {
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::content::mojom::FrameRoutingInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::content::mojom::FrameRoutingInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::content::mojom::internal::FrameRoutingInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->routing_id = Traits::routing_id(input);
+    decltype(Traits::frame_token(input)) in_frame_token = Traits::frame_token(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->frame_token)::BaseType> frame_token_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::LocalFrameTokenDataView>(
+        in_frame_token, frame_token_fragment);
+    fragment->frame_token.Set(
+        frame_token_fragment.is_null() ? nullptr : frame_token_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->frame_token.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null frame_token in FrameRoutingInfo struct");
+    decltype(Traits::devtools_frame_token(input)) in_devtools_frame_token = Traits::devtools_frame_token(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->devtools_frame_token)::BaseType> devtools_frame_token_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::UnguessableTokenDataView>(
+        in_devtools_frame_token, devtools_frame_token_fragment);
+    fragment->devtools_frame_token.Set(
+        devtools_frame_token_fragment.is_null() ? nullptr : devtools_frame_token_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->devtools_frame_token.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null devtools_frame_token in FrameRoutingInfo struct");
+    decltype(Traits::document_token(input)) in_document_token = Traits::document_token(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->document_token)::BaseType> document_token_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::DocumentTokenDataView>(
+        in_document_token, document_token_fragment);
+    fragment->document_token.Set(
+        document_token_fragment.is_null() ? nullptr : document_token_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->document_token.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null document_token in FrameRoutingInfo struct");
+  }
+
+  static bool Deserialize(::content::mojom::internal::FrameRoutingInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::content::mojom::FrameRoutingInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
 namespace content::mojom {
+
+inline void FrameRoutingInfoDataView::GetFrameTokenDataView(
+    ::blink::mojom::LocalFrameTokenDataView* output) {
+  auto pointer = data_->frame_token.Get();
+  *output = ::blink::mojom::LocalFrameTokenDataView(pointer, message_);
+}
+inline void FrameRoutingInfoDataView::GetDevtoolsFrameTokenDataView(
+    ::mojo_base::mojom::UnguessableTokenDataView* output) {
+  auto pointer = data_->devtools_frame_token.Get();
+  *output = ::mojo_base::mojom::UnguessableTokenDataView(pointer, message_);
+}
+inline void FrameRoutingInfoDataView::GetDocumentTokenDataView(
+    ::blink::mojom::DocumentTokenDataView* output) {
+  auto pointer = data_->document_token.Get();
+  *output = ::blink::mojom::DocumentTokenDataView(pointer, message_);
+}
+
 
 
 }  // content::mojom

@@ -237,6 +237,46 @@ struct DeleteCredentialReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeleteCredentialReplyDefaultTypeInternal _DeleteCredentialReply_default_instance_;
+PROTOBUF_CONSTEXPR EnrollLegacyTemplateRequest::EnrollLegacyTemplateRequest(
+    ::_pbi::ConstantInitialized)
+  : legacy_record_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , gsc_nonce_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , encrypted_label_seed_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , iv_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct EnrollLegacyTemplateRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR EnrollLegacyTemplateRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~EnrollLegacyTemplateRequestDefaultTypeInternal() {}
+  union {
+    EnrollLegacyTemplateRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnrollLegacyTemplateRequestDefaultTypeInternal _EnrollLegacyTemplateRequest_default_instance_;
+PROTOBUF_CONSTEXPR LegacyRecord::LegacyRecord(
+    ::_pbi::ConstantInitialized)
+  : legacy_record_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct LegacyRecordDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR LegacyRecordDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~LegacyRecordDefaultTypeInternal() {}
+  union {
+    LegacyRecord _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LegacyRecordDefaultTypeInternal _LegacyRecord_default_instance_;
+PROTOBUF_CONSTEXPR ListLegacyRecordsReply::ListLegacyRecordsReply(
+    ::_pbi::ConstantInitialized)
+  : legacy_records_(){}
+struct ListLegacyRecordsReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ListLegacyRecordsReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ListLegacyRecordsReplyDefaultTypeInternal() {}
+  union {
+    ListLegacyRecordsReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ListLegacyRecordsReplyDefaultTypeInternal _ListLegacyRecordsReply_default_instance_;
 }  // namespace biod
 namespace biod {
 bool CreateCredentialReply_CreateCredentialStatus_IsValid(int value) {
@@ -4574,6 +4614,789 @@ std::string DeleteCredentialReply::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class EnrollLegacyTemplateRequest::_Internal {
+ public:
+  using HasBits = decltype(std::declval<EnrollLegacyTemplateRequest>()._has_bits_);
+  static void set_has_legacy_record_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_gsc_nonce(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_encrypted_label_seed(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_iv(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+};
+
+EnrollLegacyTemplateRequest::EnrollLegacyTemplateRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:biod.EnrollLegacyTemplateRequest)
+}
+EnrollLegacyTemplateRequest::EnrollLegacyTemplateRequest(const EnrollLegacyTemplateRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  legacy_record_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    legacy_record_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_legacy_record_id()) {
+    legacy_record_id_.Set(from._internal_legacy_record_id(), 
+      GetArenaForAllocation());
+  }
+  gsc_nonce_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    gsc_nonce_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_gsc_nonce()) {
+    gsc_nonce_.Set(from._internal_gsc_nonce(), 
+      GetArenaForAllocation());
+  }
+  encrypted_label_seed_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    encrypted_label_seed_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_encrypted_label_seed()) {
+    encrypted_label_seed_.Set(from._internal_encrypted_label_seed(), 
+      GetArenaForAllocation());
+  }
+  iv_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    iv_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_iv()) {
+    iv_.Set(from._internal_iv(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:biod.EnrollLegacyTemplateRequest)
+}
+
+inline void EnrollLegacyTemplateRequest::SharedCtor() {
+legacy_record_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  legacy_record_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+gsc_nonce_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  gsc_nonce_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+encrypted_label_seed_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  encrypted_label_seed_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+iv_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  iv_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+EnrollLegacyTemplateRequest::~EnrollLegacyTemplateRequest() {
+  // @@protoc_insertion_point(destructor:biod.EnrollLegacyTemplateRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void EnrollLegacyTemplateRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  legacy_record_id_.Destroy();
+  gsc_nonce_.Destroy();
+  encrypted_label_seed_.Destroy();
+  iv_.Destroy();
+}
+
+void EnrollLegacyTemplateRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void EnrollLegacyTemplateRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:biod.EnrollLegacyTemplateRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    if (cached_has_bits & 0x00000001u) {
+      legacy_record_id_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      gsc_nonce_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      encrypted_label_seed_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000008u) {
+      iv_.ClearNonDefaultToEmpty();
+    }
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* EnrollLegacyTemplateRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional bytes legacy_record_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_legacy_record_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bytes gsc_nonce = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_gsc_nonce();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bytes encrypted_label_seed = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_encrypted_label_seed();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bytes iv = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_iv();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* EnrollLegacyTemplateRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:biod.EnrollLegacyTemplateRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional bytes legacy_record_id = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_legacy_record_id(), target);
+  }
+
+  // optional bytes gsc_nonce = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_gsc_nonce(), target);
+  }
+
+  // optional bytes encrypted_label_seed = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteBytesMaybeAliased(
+        3, this->_internal_encrypted_label_seed(), target);
+  }
+
+  // optional bytes iv = 4;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->WriteBytesMaybeAliased(
+        4, this->_internal_iv(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:biod.EnrollLegacyTemplateRequest)
+  return target;
+}
+
+size_t EnrollLegacyTemplateRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:biod.EnrollLegacyTemplateRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    // optional bytes legacy_record_id = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_legacy_record_id());
+    }
+
+    // optional bytes gsc_nonce = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_gsc_nonce());
+    }
+
+    // optional bytes encrypted_label_seed = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_encrypted_label_seed());
+    }
+
+    // optional bytes iv = 4;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_iv());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void EnrollLegacyTemplateRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const EnrollLegacyTemplateRequest*>(
+      &from));
+}
+
+void EnrollLegacyTemplateRequest::MergeFrom(const EnrollLegacyTemplateRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:biod.EnrollLegacyTemplateRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_legacy_record_id(from._internal_legacy_record_id());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_gsc_nonce(from._internal_gsc_nonce());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _internal_set_encrypted_label_seed(from._internal_encrypted_label_seed());
+    }
+    if (cached_has_bits & 0x00000008u) {
+      _internal_set_iv(from._internal_iv());
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void EnrollLegacyTemplateRequest::CopyFrom(const EnrollLegacyTemplateRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:biod.EnrollLegacyTemplateRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool EnrollLegacyTemplateRequest::IsInitialized() const {
+  return true;
+}
+
+void EnrollLegacyTemplateRequest::InternalSwap(EnrollLegacyTemplateRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &legacy_record_id_, lhs_arena,
+      &other->legacy_record_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &gsc_nonce_, lhs_arena,
+      &other->gsc_nonce_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &encrypted_label_seed_, lhs_arena,
+      &other->encrypted_label_seed_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &iv_, lhs_arena,
+      &other->iv_, rhs_arena
+  );
+}
+
+std::string EnrollLegacyTemplateRequest::GetTypeName() const {
+  return "biod.EnrollLegacyTemplateRequest";
+}
+
+
+// ===================================================================
+
+class LegacyRecord::_Internal {
+ public:
+  using HasBits = decltype(std::declval<LegacyRecord>()._has_bits_);
+  static void set_has_legacy_record_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_label(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+LegacyRecord::LegacyRecord(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:biod.LegacyRecord)
+}
+LegacyRecord::LegacyRecord(const LegacyRecord& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  legacy_record_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    legacy_record_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_legacy_record_id()) {
+    legacy_record_id_.Set(from._internal_legacy_record_id(), 
+      GetArenaForAllocation());
+  }
+  label_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    label_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_label()) {
+    label_.Set(from._internal_label(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:biod.LegacyRecord)
+}
+
+inline void LegacyRecord::SharedCtor() {
+legacy_record_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  legacy_record_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+label_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  label_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+LegacyRecord::~LegacyRecord() {
+  // @@protoc_insertion_point(destructor:biod.LegacyRecord)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void LegacyRecord::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  legacy_record_id_.Destroy();
+  label_.Destroy();
+}
+
+void LegacyRecord::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void LegacyRecord::Clear() {
+// @@protoc_insertion_point(message_clear_start:biod.LegacyRecord)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      legacy_record_id_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      label_.ClearNonDefaultToEmpty();
+    }
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* LegacyRecord::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string legacy_record_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_legacy_record_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string label = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_label();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* LegacyRecord::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:biod.LegacyRecord)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string legacy_record_id = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_legacy_record_id(), target);
+  }
+
+  // optional string label = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_label(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:biod.LegacyRecord)
+  return target;
+}
+
+size_t LegacyRecord::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:biod.LegacyRecord)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional string legacy_record_id = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_legacy_record_id());
+    }
+
+    // optional string label = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_label());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void LegacyRecord::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const LegacyRecord*>(
+      &from));
+}
+
+void LegacyRecord::MergeFrom(const LegacyRecord& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:biod.LegacyRecord)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_legacy_record_id(from._internal_legacy_record_id());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_label(from._internal_label());
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void LegacyRecord::CopyFrom(const LegacyRecord& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:biod.LegacyRecord)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool LegacyRecord::IsInitialized() const {
+  return true;
+}
+
+void LegacyRecord::InternalSwap(LegacyRecord* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &legacy_record_id_, lhs_arena,
+      &other->legacy_record_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &label_, lhs_arena,
+      &other->label_, rhs_arena
+  );
+}
+
+std::string LegacyRecord::GetTypeName() const {
+  return "biod.LegacyRecord";
+}
+
+
+// ===================================================================
+
+class ListLegacyRecordsReply::_Internal {
+ public:
+};
+
+ListLegacyRecordsReply::ListLegacyRecordsReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  legacy_records_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:biod.ListLegacyRecordsReply)
+}
+ListLegacyRecordsReply::ListLegacyRecordsReply(const ListLegacyRecordsReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      legacy_records_(from.legacy_records_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:biod.ListLegacyRecordsReply)
+}
+
+inline void ListLegacyRecordsReply::SharedCtor() {
+}
+
+ListLegacyRecordsReply::~ListLegacyRecordsReply() {
+  // @@protoc_insertion_point(destructor:biod.ListLegacyRecordsReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ListLegacyRecordsReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ListLegacyRecordsReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ListLegacyRecordsReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:biod.ListLegacyRecordsReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  legacy_records_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ListLegacyRecordsReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .biod.LegacyRecord legacy_records = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_legacy_records(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ListLegacyRecordsReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:biod.ListLegacyRecordsReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .biod.LegacyRecord legacy_records = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_legacy_records_size()); i < n; i++) {
+    const auto& repfield = this->_internal_legacy_records(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:biod.ListLegacyRecordsReply)
+  return target;
+}
+
+size_t ListLegacyRecordsReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:biod.ListLegacyRecordsReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .biod.LegacyRecord legacy_records = 1;
+  total_size += 1UL * this->_internal_legacy_records_size();
+  for (const auto& msg : this->legacy_records_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ListLegacyRecordsReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ListLegacyRecordsReply*>(
+      &from));
+}
+
+void ListLegacyRecordsReply::MergeFrom(const ListLegacyRecordsReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:biod.ListLegacyRecordsReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  legacy_records_.MergeFrom(from.legacy_records_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ListLegacyRecordsReply::CopyFrom(const ListLegacyRecordsReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:biod.ListLegacyRecordsReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ListLegacyRecordsReply::IsInitialized() const {
+  return true;
+}
+
+void ListLegacyRecordsReply::InternalSwap(ListLegacyRecordsReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  legacy_records_.InternalSwap(&other->legacy_records_);
+}
+
+std::string ListLegacyRecordsReply::GetTypeName() const {
+  return "biod.ListLegacyRecordsReply";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace biod
 PROTOBUF_NAMESPACE_OPEN
@@ -4640,6 +5463,18 @@ Arena::CreateMaybeMessage< ::biod::DeleteCredentialRequest >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::biod::DeleteCredentialReply*
 Arena::CreateMaybeMessage< ::biod::DeleteCredentialReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::biod::DeleteCredentialReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::biod::EnrollLegacyTemplateRequest*
+Arena::CreateMaybeMessage< ::biod::EnrollLegacyTemplateRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::biod::EnrollLegacyTemplateRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::biod::LegacyRecord*
+Arena::CreateMaybeMessage< ::biod::LegacyRecord >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::biod::LegacyRecord >(arena);
+}
+template<> PROTOBUF_NOINLINE ::biod::ListLegacyRecordsReply*
+Arena::CreateMaybeMessage< ::biod::ListLegacyRecordsReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::biod::ListLegacyRecordsReply >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

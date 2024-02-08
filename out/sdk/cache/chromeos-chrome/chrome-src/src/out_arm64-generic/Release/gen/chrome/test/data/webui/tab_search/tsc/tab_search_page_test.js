@@ -559,19 +559,23 @@ suite('TabSearchAppTest', () => {
             recentlyClosedTabs: SAMPLE_RECENTLY_CLOSED_DATA,
             recentlyClosedSectionExpanded: true,
         }));
+        assertEquals(1, testProxy.getCallCount('saveRecentlyClosedExpandedPref'));
         assertEquals(3, queryRows().length);
         const recentlyClosedTitleItem = queryListTitle()[1];
         assertTrue(!!recentlyClosedTitleItem);
         const recentlyClosedTitleExpandButton = recentlyClosedTitleItem.querySelector('cr-expand-button');
         assertTrue(!!recentlyClosedTitleExpandButton);
         // Collapse the `Recently Closed` section and assert item count.
+        testProxy.resetResolver('saveRecentlyClosedExpandedPref');
         recentlyClosedTitleExpandButton.click();
-        const [expanded] = await testProxy.whenCalled('saveRecentlyClosedExpandedPref');
+        let [expanded] = await testProxy.whenCalled('saveRecentlyClosedExpandedPref');
         assertFalse(expanded);
         assertEquals(1, queryRows().length);
         // Expand the `Recently Closed` section and assert item count.
+        testProxy.resetResolver('saveRecentlyClosedExpandedPref');
         recentlyClosedTitleExpandButton.click();
-        assertEquals(2, testProxy.getCallCount('saveRecentlyClosedExpandedPref'));
+        [expanded] = await testProxy.whenCalled('saveRecentlyClosedExpandedPref');
+        assertTrue(expanded);
         assertEquals(3, queryRows().length);
     });
     [true, false].forEach((windowActive) => {

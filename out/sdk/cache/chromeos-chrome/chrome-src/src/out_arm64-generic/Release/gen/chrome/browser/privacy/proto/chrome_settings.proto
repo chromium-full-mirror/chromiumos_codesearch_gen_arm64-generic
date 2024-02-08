@@ -639,6 +639,34 @@ message AllowWebAuthnWithBrokenTlsCertsProto {
 
 // Define domains allowed to access Google Workspace
 //
+// This policy is deprecated since Google Chrome version 122, please use the
+// AllowedDomainsForAppsList policy instead.
+//
+// Setting the policy turns on Chrome's restricted sign-in feature in Google
+// Workspace and prevents users from changing this setting. Users can only
+// access Google tools using accounts from the specified domains (to allow gmail
+// or googlemail accounts, add consumer_accounts to the list of domains). This
+// setting prevents users from signing in and adding a Secondary Account on a
+// managed device that requires Google authentication, if that account doesn't
+// belong to one of the explicitly allowed domains.
+//
+// Leaving this setting empty or unset means users can access Google Workspace
+// with any account.
+//
+// Users cannot change or override this setting.
+//
+// Note: This policy causes the X-GoogApps-Allowed-Domains header to be appended
+// to all HTTP and HTTPS requests to all google.com domains, as described in
+// https://support.google.com/a/answer/1668854.
+//
+// Supported on: android, chrome_os, linux, mac, win
+message AllowedDomainsForAppsProto {
+  optional PolicyOptions policy_options = 1;
+  optional string AllowedDomainsForApps = 2;
+}
+
+// Define domains allowed to access Google Workspace
+//
 // Setting the policy turns on Chrome's restricted sign-in feature in Google
 // Workspace and prevents users from changing this setting. Users can only
 // access Google tools using accounts from the specified domains (to allow gmail
@@ -657,9 +685,9 @@ message AllowWebAuthnWithBrokenTlsCertsProto {
 // https://support.google.com/a/answer/1668854.
 //
 // Supported on: android, chrome_os, fuchsia, linux, mac, win
-message AllowedDomainsForAppsProto {
+message AllowedDomainsForAppsListProto {
   optional PolicyOptions policy_options = 1;
-  optional string AllowedDomainsForApps = 2;
+  optional StringList AllowedDomainsForAppsList = 2;
 }
 
 // Configure the allowed input methods in a user session
@@ -3291,6 +3319,27 @@ message ChromeCleanupEnabledProto {
 message ChromeCleanupReportingEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool ChromeCleanupReportingEnabled = 2;
+}
+
+// Allow Chrome for Testing
+//
+// Controls whether users may use Chrome for Testing.
+//
+// If this policy is set to Enabled or not set, users may install and run Chrome
+// for Testing.
+//
+// If this policy is set to Disabled, users are not allowed to run Chrome for
+// Testing. Users will still be able to install Chrome for Testing, however it
+// will not run with the profiles where this policy is set to Disabled.
+//
+// Valid values:
+//   True: Allow use of the Chrome for Testing
+//   False: Do not allow use of the Chrome for Testing
+//
+// Supported on: linux, mac, win
+message ChromeForTestingAllowedProto {
+  optional PolicyOptions policy_options = 1;
+  optional bool ChromeForTestingAllowed = 2;
 }
 
 // Allow Google Chrome Frame to handle the listed content types
@@ -20227,6 +20276,33 @@ message ScreenCaptureAllowedByOriginsProto {
   optional StringList ScreenCaptureAllowedByOrigins = 2;
 }
 
+// Set location to store screen captures
+//
+// Sets the directory where Screen Captures (both screenshot and screen
+// recordings) are being saved.
+// If the policy is set as recommended, the value will be used by default, but
+// user will be able to change it.
+// Otherwise the user can't change it and the captures are always saved to the
+// defined directory.
+//
+// The policy uses same format as DownloadDirectory policy
+// The location could be set to either local filesystem or Google Drive (with
+// '${google_drive}' prefix) or Microsoft OneDrive (with '${onedrive}' prefix).
+// If the policy is set to empty string, it'll force the screen captures to be
+// stored in the local "Downloads" directory.
+// See a list of variables you can use (
+// https://www.chromium.org/administrators/policy-list-3/user-data-directory-
+// variables ).
+//
+// Leaving the policy unset means Google ChromeOS uses the default "Downloads"
+// directory to store screen captures, and users can change it.
+//
+// Supported on: chrome_os
+message ScreenCaptureLocationProto {
+  optional PolicyOptions policy_options = 1;
+  optional string ScreenCaptureLocation = 2;
+}
+
 // Allow screen capture without prior user gesture
 //
 // For security reasons, the
@@ -20473,28 +20549,6 @@ message ScreenOffDelayACProto {
 message ScreenOffDelayBatteryProto {
   optional PolicyOptions policy_options = 1;
   optional int64 ScreenOffDelayBattery = 2;
-}
-
-// Enable Screen Time for websites
-//
-// This policy enables Google Chrome to participate in the macOS Screen Time
-// feature.
-//
-// If the policy is Enabled or not set, visited origins will be reported to the
-// OS, and origins that have been blocked in Screen Time settings will display a
-// blocking screen.
-// If the policy is Disabled, visited origins will not be reported to the OS,
-// and origins that have been blocked in Screen Time settings will be
-// accessible.
-//
-// Valid values:
-//   True: Enable Screen Time for websites
-//   False: Disable Screen Time for websites
-//
-// Supported on: mac
-message ScreenTimeEnabledProto {
-  optional PolicyOptions policy_options = 1;
-  optional bool ScreenTimeEnabled = 2;
 }
 
 // User screensaver lock screen enabled.
@@ -25205,6 +25259,7 @@ message ChromeSettingsProto {
   optional AllowWakeLocksProto AllowWakeLocks = 493;
   optional AllowWebAuthnWithBrokenTlsCertsProto AllowWebAuthnWithBrokenTlsCerts = 1031;
   optional AllowedDomainsForAppsProto AllowedDomainsForApps = 333;
+  optional AllowedDomainsForAppsListProto AllowedDomainsForAppsList = 1214;
   optional AllowedInputMethodsProto AllowedInputMethods = 458;
   optional AllowedLanguagesProto AllowedLanguages = 446;
   optional AlternateErrorPagesEnabledProto AlternateErrorPagesEnabled = 7;
@@ -25311,6 +25366,7 @@ message ChromeSettingsProto {
   optional ChromeAppsWebViewPermissiveBehaviorAllowedProto ChromeAppsWebViewPermissiveBehaviorAllowed = 1075;
   optional ChromeCleanupEnabledProto ChromeCleanupEnabled = 443;
   optional ChromeCleanupReportingEnabledProto ChromeCleanupReportingEnabled = 444;
+  optional ChromeForTestingAllowedProto ChromeForTestingAllowed = 1215;
   optional ChromeFrameContentTypesProto ChromeFrameContentTypes = 62;
   optional ChromeFrameRendererSettingsProto ChromeFrameRendererSettings = 59;
   optional ChromeOsLockOnIdleSuspendProto ChromeOsLockOnIdleSuspend = 63;
@@ -25926,6 +25982,7 @@ message ChromeSettingsProto {
   optional ScreenBrightnessPercentProto ScreenBrightnessPercent = 494;
   optional ScreenCaptureAllowedProto ScreenCaptureAllowed = 668;
   optional ScreenCaptureAllowedByOriginsProto ScreenCaptureAllowedByOrigins = 883;
+  optional ScreenCaptureLocationProto ScreenCaptureLocation = 1213;
   optional ScreenCaptureWithoutGestureAllowedForOriginsProto ScreenCaptureWithoutGestureAllowedForOrigins = 1094;
   optional ScreenDimDelayACProto ScreenDimDelayAC = 174;
   optional ScreenDimDelayBatteryProto ScreenDimDelayBattery = 178;
@@ -25935,7 +25992,6 @@ message ChromeSettingsProto {
   optional ScreenMagnifierTypeProto ScreenMagnifierType = 216;
   optional ScreenOffDelayACProto ScreenOffDelayAC = 175;
   optional ScreenOffDelayBatteryProto ScreenOffDelayBattery = 179;
-  optional ScreenTimeEnabledProto ScreenTimeEnabled = 984;
   optional ScreensaverLockScreenEnabledProto ScreensaverLockScreenEnabled = 1061;
   optional ScreensaverLockScreenIdleTimeoutSecondsProto ScreensaverLockScreenIdleTimeoutSeconds = 1062;
   optional ScreensaverLockScreenImageDisplayIntervalSecondsProto ScreensaverLockScreenImageDisplayIntervalSeconds = 1063;

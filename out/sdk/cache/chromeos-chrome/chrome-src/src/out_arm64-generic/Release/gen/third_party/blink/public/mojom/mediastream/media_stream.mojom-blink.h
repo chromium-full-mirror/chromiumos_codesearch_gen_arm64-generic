@@ -152,7 +152,7 @@ class PLATFORM_EXPORT MediaStreamDispatcherHost
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static inline constexpr uint32_t kSyncMethodOrdinals[] = {
-    12
+    11
   };
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -175,7 +175,6 @@ class PLATFORM_EXPORT MediaStreamDispatcherHost
     kOnStreamStartedMinVersion = 0,
     kApplySubCaptureTargetMinVersion = 0,
     kSendWheelMinVersion = 0,
-    kGetZoomLevelMinVersion = 0,
     kSetZoomLevelMinVersion = 0,
     kGetOpenDeviceMinVersion = 0,
     kKeepDeviceAliveForTransferMinVersion = 0,
@@ -212,9 +211,6 @@ class PLATFORM_EXPORT MediaStreamDispatcherHost
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SendWheel_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetZoomLevel_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetZoomLevel_Sym {
@@ -266,11 +262,6 @@ class PLATFORM_EXPORT MediaStreamDispatcherHost
   using SendWheelCallback = base::OnceCallback<void(CapturedSurfaceControlResult)>;
   
   virtual void SendWheel(const ::base::UnguessableToken& device_id, CapturedWheelActionPtr action, SendWheelCallback callback) = 0;
-
-
-  using GetZoomLevelCallback = base::OnceCallback<void(std::optional<int32_t>, CapturedSurfaceControlResult)>;
-  
-  virtual void GetZoomLevel(const ::base::UnguessableToken& device_id, GetZoomLevelCallback callback) = 0;
 
 
   using SetZoomLevelCallback = base::OnceCallback<void(CapturedSurfaceControlResult)>;
@@ -397,8 +388,6 @@ class PLATFORM_EXPORT MediaStreamDispatcherHostProxy
   void ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::media::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ApplySubCaptureTargetCallback callback) final;
   
   void SendWheel(const ::base::UnguessableToken& device_id, CapturedWheelActionPtr action, SendWheelCallback callback) final;
-  
-  void GetZoomLevel(const ::base::UnguessableToken& device_id, GetZoomLevelCallback callback) final;
   
   void SetZoomLevel(const ::base::UnguessableToken& device_id, int32_t zoom_level, SetZoomLevelCallback callback) final;
   

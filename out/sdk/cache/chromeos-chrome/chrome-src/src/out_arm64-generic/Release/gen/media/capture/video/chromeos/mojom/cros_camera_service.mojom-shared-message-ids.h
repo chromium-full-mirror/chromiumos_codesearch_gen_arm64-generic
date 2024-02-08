@@ -18,6 +18,7 @@ constexpr uint32_t kCameraHalDispatcher_RegisterClientWithToken_Name = 5;
 constexpr uint32_t kCrosCameraServiceObserver_CameraDeviceActivityChange_Name = 0;
 constexpr uint32_t kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name = 1;
 constexpr uint32_t kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name = 2;
+constexpr uint32_t kCrosCameraServiceObserver_CameraEffectChange_Name = 3;
 constexpr uint32_t kCrosCameraService_GetCameraModule_Name = 0;
 constexpr uint32_t kCrosCameraService_SetTracingEnabled_Name = 1;
 constexpr uint32_t kCrosCameraService_SetAutoFramingState_Name = 2;

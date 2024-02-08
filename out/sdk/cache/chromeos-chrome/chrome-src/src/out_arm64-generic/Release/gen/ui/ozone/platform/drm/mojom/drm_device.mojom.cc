@@ -91,17 +91,8 @@ DrmDevice::IPCStableHashFunction DrmDevice::MessageToMethodInfo_(mojo::Message& 
     case internal::kDrmDevice_SetColorTemperatureAdjustment_Name: {
       return &DrmDevice::SetColorTemperatureAdjustment_Sym::IPCStableHash;
     }
-    case internal::kDrmDevice_SetColorCalibration_Name: {
-      return &DrmDevice::SetColorCalibration_Sym::IPCStableHash;
-    }
     case internal::kDrmDevice_SetGammaAdjustment_Name: {
       return &DrmDevice::SetGammaAdjustment_Sym::IPCStableHash;
-    }
-    case internal::kDrmDevice_SetColorMatrix_Name: {
-      return &DrmDevice::SetColorMatrix_Sym::IPCStableHash;
-    }
-    case internal::kDrmDevice_SetGammaCorrection_Name: {
-      return &DrmDevice::SetGammaCorrection_Sym::IPCStableHash;
     }
     case internal::kDrmDevice_SetPrivacyScreen_Name: {
       return &DrmDevice::SetPrivacyScreen_Sym::IPCStableHash;
@@ -148,14 +139,8 @@ const char* DrmDevice::MessageToMethodName_(mojo::Message& message) {
             return "Receive ui::ozone::mojom::DrmDevice::SetHDCPState";
       case internal::kDrmDevice_SetColorTemperatureAdjustment_Name:
             return "Receive ui::ozone::mojom::DrmDevice::SetColorTemperatureAdjustment";
-      case internal::kDrmDevice_SetColorCalibration_Name:
-            return "Receive ui::ozone::mojom::DrmDevice::SetColorCalibration";
       case internal::kDrmDevice_SetGammaAdjustment_Name:
             return "Receive ui::ozone::mojom::DrmDevice::SetGammaAdjustment";
-      case internal::kDrmDevice_SetColorMatrix_Name:
-            return "Receive ui::ozone::mojom::DrmDevice::SetColorMatrix";
-      case internal::kDrmDevice_SetGammaCorrection_Name:
-            return "Receive ui::ozone::mojom::DrmDevice::SetGammaCorrection";
       case internal::kDrmDevice_SetPrivacyScreen_Name:
             return "Receive ui::ozone::mojom::DrmDevice::SetPrivacyScreen";
       case internal::kDrmDevice_GetDeviceCursor_Name:
@@ -191,14 +176,8 @@ const char* DrmDevice::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ui::ozone::mojom::DrmDevice::SetHDCPState";
       case internal::kDrmDevice_SetColorTemperatureAdjustment_Name:
             return "Receive reply ui::ozone::mojom::DrmDevice::SetColorTemperatureAdjustment";
-      case internal::kDrmDevice_SetColorCalibration_Name:
-            return "Receive reply ui::ozone::mojom::DrmDevice::SetColorCalibration";
       case internal::kDrmDevice_SetGammaAdjustment_Name:
             return "Receive reply ui::ozone::mojom::DrmDevice::SetGammaAdjustment";
-      case internal::kDrmDevice_SetColorMatrix_Name:
-            return "Receive reply ui::ozone::mojom::DrmDevice::SetColorMatrix";
-      case internal::kDrmDevice_SetGammaCorrection_Name:
-            return "Receive reply ui::ozone::mojom::DrmDevice::SetGammaCorrection";
       case internal::kDrmDevice_SetPrivacyScreen_Name:
             return "Receive reply ui::ozone::mojom::DrmDevice::SetPrivacyScreen";
       case internal::kDrmDevice_GetDeviceCursor_Name:
@@ -399,19 +378,6 @@ uint32_t DrmDevice::SetColorTemperatureAdjustment_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t DrmDevice::SetColorCalibration_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ui::ozone::mojom::DrmDevice::SetColorCalibration");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t DrmDevice::SetGammaAdjustment_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -421,32 +387,6 @@ uint32_t DrmDevice::SetGammaAdjustment_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ui::ozone::mojom::DrmDevice::SetGammaAdjustment");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t DrmDevice::SetColorMatrix_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ui::ozone::mojom::DrmDevice::SetColorMatrix");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t DrmDevice::SetGammaCorrection_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ui::ozone::mojom::DrmDevice::SetGammaCorrection");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1338,61 +1278,6 @@ void DrmDeviceProxy::SetColorTemperatureAdjustment(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void DrmDeviceProxy::SetColorCalibration(
-    int64_t in_display_id, const ::display::ColorCalibration& in_calibration) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send ui::ozone::mojom::DrmDevice::SetColorCalibration", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("display_id"), in_display_id,
-                        "<value of type int64_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("calibration"), in_calibration,
-                        "<value of type const ::display::ColorCalibration&>");
-   });
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kDrmDevice_SetColorCalibration_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::ui::ozone::mojom::internal::DrmDevice_SetColorCalibration_Params_Data> params(
-          message);
-  params.Allocate();
-  params->display_id = in_display_id;
-  mojo::internal::MessageFragment<
-      typename decltype(params->calibration)::BaseType> calibration_fragment(
-          params.message());
-  mojo::internal::Serialize<::display::mojom::ColorCalibrationDataView>(
-      in_calibration, calibration_fragment);
-  params->calibration.Set(
-      calibration_fragment.is_null() ? nullptr : calibration_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->calibration.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null calibration in DrmDevice.SetColorCalibration request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(DrmDevice::Name_);
-  message.set_method_name("SetColorCalibration");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
 void DrmDeviceProxy::SetGammaAdjustment(
     int64_t in_display_id, const ::display::GammaAdjustment& in_adjustment) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1442,132 +1327,6 @@ void DrmDeviceProxy::SetGammaAdjustment(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(DrmDevice::Name_);
   message.set_method_name("SetGammaAdjustment");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void DrmDeviceProxy::SetColorMatrix(
-    int64_t in_display_id, const std::vector<float>& in_color_matrix) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send ui::ozone::mojom::DrmDevice::SetColorMatrix", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("display_id"), in_display_id,
-                        "<value of type int64_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("color_matrix"), in_color_matrix,
-                        "<value of type const std::vector<float>&>");
-   });
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kDrmDevice_SetColorMatrix_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::ui::ozone::mojom::internal::DrmDevice_SetColorMatrix_Params_Data> params(
-          message);
-  params.Allocate();
-  params->display_id = in_display_id;
-  mojo::internal::MessageFragment<
-      typename decltype(params->color_matrix)::BaseType>
-      color_matrix_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& color_matrix_validate_params =
-      mojo::internal::GetArrayValidator<9, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<float>>(
-      in_color_matrix, color_matrix_fragment, &color_matrix_validate_params);
-  params->color_matrix.Set(
-      color_matrix_fragment.is_null() ? nullptr : color_matrix_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->color_matrix.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null color_matrix in DrmDevice.SetColorMatrix request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(DrmDevice::Name_);
-  message.set_method_name("SetColorMatrix");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void DrmDeviceProxy::SetGammaCorrection(
-    int64_t in_display_id, const ::display::GammaCurve& in_degamma, const ::display::GammaCurve& in_gamma) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send ui::ozone::mojom::DrmDevice::SetGammaCorrection", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("display_id"), in_display_id,
-                        "<value of type int64_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("degamma"), in_degamma,
-                        "<value of type const ::display::GammaCurve&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("gamma"), in_gamma,
-                        "<value of type const ::display::GammaCurve&>");
-   });
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kDrmDevice_SetGammaCorrection_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::ui::ozone::mojom::internal::DrmDevice_SetGammaCorrection_Params_Data> params(
-          message);
-  params.Allocate();
-  params->display_id = in_display_id;
-  mojo::internal::MessageFragment<
-      typename decltype(params->degamma)::BaseType> degamma_fragment(
-          params.message());
-  mojo::internal::Serialize<::display::mojom::GammaCurveDataView>(
-      in_degamma, degamma_fragment);
-  params->degamma.Set(
-      degamma_fragment.is_null() ? nullptr : degamma_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->degamma.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null degamma in DrmDevice.SetGammaCorrection request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->gamma)::BaseType> gamma_fragment(
-          params.message());
-  mojo::internal::Serialize<::display::mojom::GammaCurveDataView>(
-      in_gamma, gamma_fragment);
-  params->gamma.Set(
-      gamma_fragment.is_null() ? nullptr : gamma_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->gamma.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null gamma in DrmDevice.SetGammaCorrection request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(DrmDevice::Name_);
-  message.set_method_name("SetGammaCorrection");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2746,7 +2505,7 @@ bool DrmDevice_SetPrivacyScreen_ForwardToCallback::Accept(
               message->mutable_payload());
   
   
-  // Validation for DrmDevice.18
+  // Validation for DrmDevice.15
   bool success = true;
   bool p_success{};
   DrmDevice_SetPrivacyScreen_ResponseParamsDataView input_data_view(params, message);
@@ -2757,7 +2516,7 @@ bool DrmDevice_SetPrivacyScreen_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        DrmDevice::Name_, 18, true);
+        DrmDevice::Name_, 15, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3022,38 +2781,6 @@ bool DrmDeviceStubDispatch::Accept(
         std::move(p_cta));
       return true;
     }
-    case internal::kDrmDevice_SetColorCalibration_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::DrmDevice_SetColorCalibration_Params_Data* params =
-          reinterpret_cast<internal::DrmDevice_SetColorCalibration_Params_Data*>(
-              message->mutable_payload());
-      
-      
-      // Validation for DrmDevice.14
-      bool success = true;
-      int64_t p_display_id{};
-      ::display::ColorCalibration p_calibration{};
-      DrmDevice_SetColorCalibration_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_display_id = input_data_view.display_id();
-      if (success && !input_data_view.ReadCalibration(&p_calibration))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DrmDevice::Name_, 14, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetColorCalibration(        
-        std::move(p_display_id), 
-        std::move(p_calibration));
-      return true;
-    }
     case internal::kDrmDevice_SetGammaAdjustment_Name: {
 
       DCHECK(message->is_serialized());
@@ -3062,7 +2789,7 @@ bool DrmDeviceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DrmDevice.15
+      // Validation for DrmDevice.14
       bool success = true;
       int64_t p_display_id{};
       ::display::GammaAdjustment p_adjustment{};
@@ -3076,7 +2803,7 @@ bool DrmDeviceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DrmDevice::Name_, 15, false);
+            DrmDevice::Name_, 14, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3084,74 +2811,6 @@ bool DrmDeviceStubDispatch::Accept(
       impl->SetGammaAdjustment(        
         std::move(p_display_id), 
         std::move(p_adjustment));
-      return true;
-    }
-    case internal::kDrmDevice_SetColorMatrix_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::DrmDevice_SetColorMatrix_Params_Data* params =
-          reinterpret_cast<internal::DrmDevice_SetColorMatrix_Params_Data*>(
-              message->mutable_payload());
-      
-      
-      // Validation for DrmDevice.16
-      bool success = true;
-      int64_t p_display_id{};
-      std::vector<float> p_color_matrix{};
-      DrmDevice_SetColorMatrix_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_display_id = input_data_view.display_id();
-      if (success && !input_data_view.ReadColorMatrix(&p_color_matrix))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DrmDevice::Name_, 16, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetColorMatrix(        
-        std::move(p_display_id), 
-        std::move(p_color_matrix));
-      return true;
-    }
-    case internal::kDrmDevice_SetGammaCorrection_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::DrmDevice_SetGammaCorrection_Params_Data* params =
-          reinterpret_cast<internal::DrmDevice_SetGammaCorrection_Params_Data*>(
-              message->mutable_payload());
-      
-      
-      // Validation for DrmDevice.17
-      bool success = true;
-      int64_t p_display_id{};
-      ::display::GammaCurve p_degamma{};
-      ::display::GammaCurve p_gamma{};
-      DrmDevice_SetGammaCorrection_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_display_id = input_data_view.display_id();
-      if (success && !input_data_view.ReadDegamma(&p_degamma))
-        success = false;
-      if (success && !input_data_view.ReadGamma(&p_gamma))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DrmDevice::Name_, 17, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetGammaCorrection(        
-        std::move(p_display_id), 
-        std::move(p_degamma), 
-        std::move(p_gamma));
       return true;
     }
     case internal::kDrmDevice_SetPrivacyScreen_Name: {
@@ -3165,7 +2824,7 @@ bool DrmDeviceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DrmDevice.19
+      // Validation for DrmDevice.16
       bool success = true;
       ::mojo::PendingAssociatedReceiver<::ui::ozone::mojom::DeviceCursor> p_cursor{};
       DrmDevice_GetDeviceCursor_ParamsDataView input_data_view(params, message);
@@ -3178,7 +2837,7 @@ bool DrmDeviceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DrmDevice::Name_, 19, false);
+            DrmDevice::Name_, 16, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3470,16 +3129,7 @@ bool DrmDeviceStubDispatch::AcceptWithResponder(
     case internal::kDrmDevice_SetColorTemperatureAdjustment_Name: {
       break;
     }
-    case internal::kDrmDevice_SetColorCalibration_Name: {
-      break;
-    }
     case internal::kDrmDevice_SetGammaAdjustment_Name: {
-      break;
-    }
-    case internal::kDrmDevice_SetColorMatrix_Name: {
-      break;
-    }
-    case internal::kDrmDevice_SetGammaCorrection_Name: {
       break;
     }
     case internal::kDrmDevice_SetPrivacyScreen_Name: {
@@ -3490,7 +3140,7 @@ bool DrmDeviceStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       
-      // Validation for DrmDevice.18
+      // Validation for DrmDevice.15
       bool success = true;
       int64_t p_display_id{};
       bool p_enabled{};
@@ -3504,7 +3154,7 @@ bool DrmDeviceStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DrmDevice::Name_, 18, false);
+            DrmDevice::Name_, 15, false);
         return false;
       }
       DrmDevice::SetPrivacyScreenCallback callback =
@@ -3554,13 +3204,7 @@ static const mojo::internal::GenericValidationInfo kDrmDeviceValidationInfo[] = 
      &internal::DrmDevice_SetHDCPState_ResponseParams_Data::Validate},
     { &internal::DrmDevice_SetColorTemperatureAdjustment_Params_Data::Validate,
      nullptr /* no response */},
-    { &internal::DrmDevice_SetColorCalibration_Params_Data::Validate,
-     nullptr /* no response */},
     { &internal::DrmDevice_SetGammaAdjustment_Params_Data::Validate,
-     nullptr /* no response */},
-    { &internal::DrmDevice_SetColorMatrix_Params_Data::Validate,
-     nullptr /* no response */},
-    { &internal::DrmDevice_SetGammaCorrection_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::DrmDevice_SetPrivacyScreen_Params_Data::Validate,
      &internal::DrmDevice_SetPrivacyScreen_ResponseParams_Data::Validate},
@@ -3636,17 +3280,8 @@ void DrmDeviceInterceptorForTesting::SetHDCPState(int64_t display_id, ::display:
 void DrmDeviceInterceptorForTesting::SetColorTemperatureAdjustment(int64_t display_id, const ::display::ColorTemperatureAdjustment& cta) {
   GetForwardingInterface()->SetColorTemperatureAdjustment(std::move(display_id), std::move(cta));
 }
-void DrmDeviceInterceptorForTesting::SetColorCalibration(int64_t display_id, const ::display::ColorCalibration& calibration) {
-  GetForwardingInterface()->SetColorCalibration(std::move(display_id), std::move(calibration));
-}
 void DrmDeviceInterceptorForTesting::SetGammaAdjustment(int64_t display_id, const ::display::GammaAdjustment& adjustment) {
   GetForwardingInterface()->SetGammaAdjustment(std::move(display_id), std::move(adjustment));
-}
-void DrmDeviceInterceptorForTesting::SetColorMatrix(int64_t display_id, const std::vector<float>& color_matrix) {
-  GetForwardingInterface()->SetColorMatrix(std::move(display_id), std::move(color_matrix));
-}
-void DrmDeviceInterceptorForTesting::SetGammaCorrection(int64_t display_id, const ::display::GammaCurve& degamma, const ::display::GammaCurve& gamma) {
-  GetForwardingInterface()->SetGammaCorrection(std::move(display_id), std::move(degamma), std::move(gamma));
 }
 void DrmDeviceInterceptorForTesting::SetPrivacyScreen(int64_t display_id, bool enabled, SetPrivacyScreenCallback callback) {
   GetForwardingInterface()->SetPrivacyScreen(std::move(display_id), std::move(enabled), std::move(callback));

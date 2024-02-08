@@ -1727,7 +1727,7 @@ PasswordSuggestionRequest::PasswordSuggestionRequest()
       password_field_index(),
       text_direction(),
       typed_username(),
-      options(),
+      show_webauthn_credentials(),
       bounds() {}
 
 PasswordSuggestionRequest::PasswordSuggestionRequest(
@@ -1738,7 +1738,7 @@ PasswordSuggestionRequest::PasswordSuggestionRequest(
     uint64_t password_field_index_in,
     ::base::i18n::TextDirection text_direction_in,
     const ::std::u16string& typed_username_in,
-    int32_t options_in,
+    bool show_webauthn_credentials_in,
     const ::gfx::RectF& bounds_in)
     : element_id(std::move(element_id_in)),
       form_data(std::move(form_data_in)),
@@ -1747,7 +1747,7 @@ PasswordSuggestionRequest::PasswordSuggestionRequest(
       password_field_index(std::move(password_field_index_in)),
       text_direction(std::move(text_direction_in)),
       typed_username(std::move(typed_username_in)),
-      options(std::move(options_in)),
+      show_webauthn_credentials(std::move(show_webauthn_credentials_in)),
       bounds(std::move(bounds_in)) {}
 
 PasswordSuggestionRequest::~PasswordSuggestionRequest() = default;
@@ -1820,9 +1820,9 @@ void PasswordSuggestionRequest::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "options"), this->options,
+      "show_webauthn_credentials"), this->show_webauthn_credentials,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type int32_t>"
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2463,7 +2463,7 @@ bool StructTraits<::autofill::mojom::PasswordSuggestionRequest::DataView, ::auto
       if (success && !input.ReadTypedUsername(&result->typed_username))
         success = false;
       if (success)
-        result->options = input.options();
+        result->show_webauthn_credentials = input.show_webauthn_credentials();
       if (success && !input.ReadBounds(&result->bounds))
         success = false;
   *output = std::move(result);

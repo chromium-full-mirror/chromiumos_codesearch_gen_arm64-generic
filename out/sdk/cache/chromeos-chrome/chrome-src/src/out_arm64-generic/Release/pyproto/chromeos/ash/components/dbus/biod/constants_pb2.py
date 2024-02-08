@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0f\x63onstants.proto\x12\x04\x62iod*\xcc\x01\n\x10\x46ingerprintError\x12\x18\n\x14\x45RROR_HW_UNAVAILABLE\x10\x01\x12\x1b\n\x17\x45RROR_UNABLE_TO_PROCESS\x10\x02\x12\x11\n\rERROR_TIMEOUT\x10\x03\x12\x12\n\x0e\x45RROR_NO_SPACE\x10\x04\x12\x12\n\x0e\x45RROR_CANCELED\x10\x05\x12\x1a\n\x16\x45RROR_UNABLE_TO_REMOVE\x10\x06\x12\x11\n\rERROR_LOCKOUT\x10\x07\x12\x17\n\x12\x45RROR_NO_TEMPLATES\x10\x90N*\xf9\x01\n\nScanResult\x12\x17\n\x13SCAN_RESULT_SUCCESS\x10\x00\x12\x17\n\x13SCAN_RESULT_PARTIAL\x10\x01\x12\x1c\n\x18SCAN_RESULT_INSUFFICIENT\x10\x02\x12\x1c\n\x18SCAN_RESULT_SENSOR_DIRTY\x10\x03\x12\x18\n\x14SCAN_RESULT_TOO_SLOW\x10\x04\x12\x18\n\x14SCAN_RESULT_TOO_FAST\x10\x05\x12\x18\n\x14SCAN_RESULT_IMMOBILE\x10\x06\x12\x19\n\x14SCAN_RESULT_NO_MATCH\x10\x90N\x12\x14\n\x0fSCAN_RESULT_MAX\x10\x91N**\n\x17\x42iometricsManagerStatus\x12\x0f\n\x0bINITIALIZED\x10\x01\x42-H\x03Z)chromiumos/system_api/biod_messages_proto')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0f\x63onstants.proto\x12\x04\x62iod*\xcc\x01\n\x10\x46ingerprintError\x12\x18\n\x14\x45RROR_HW_UNAVAILABLE\x10\x01\x12\x1b\n\x17\x45RROR_UNABLE_TO_PROCESS\x10\x02\x12\x11\n\rERROR_TIMEOUT\x10\x03\x12\x12\n\x0e\x45RROR_NO_SPACE\x10\x04\x12\x12\n\x0e\x45RROR_CANCELED\x10\x05\x12\x1a\n\x16\x45RROR_UNABLE_TO_REMOVE\x10\x06\x12\x11\n\rERROR_LOCKOUT\x10\x07\x12\x17\n\x12\x45RROR_NO_TEMPLATES\x10\x90N*\x8a\x02\n\nScanResult\x12\x17\n\x13SCAN_RESULT_SUCCESS\x10\x00\x12\x17\n\x13SCAN_RESULT_PARTIAL\x10\x01\x12\x1c\n\x18SCAN_RESULT_INSUFFICIENT\x10\x02\x12\x1c\n\x18SCAN_RESULT_SENSOR_DIRTY\x10\x03\x12\x18\n\x14SCAN_RESULT_TOO_SLOW\x10\x04\x12\x18\n\x14SCAN_RESULT_TOO_FAST\x10\x05\x12\x18\n\x14SCAN_RESULT_IMMOBILE\x10\x06\x12\x19\n\x14SCAN_RESULT_NO_MATCH\x10\x90N\x12%\n SCAN_RESULT_POWER_BUTTON_PRESSED\x10\x91N**\n\x17\x42iometricsManagerStatus\x12\x0f\n\x0bINITIALIZED\x10\x01\x42-H\x03Z)chromiumos/system_api/biod_messages_proto')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'constants_pb2', globals())
@@ -24,7 +24,7 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _FINGERPRINTERROR._serialized_start=26
   _FINGERPRINTERROR._serialized_end=230
   _SCANRESULT._serialized_start=233
-  _SCANRESULT._serialized_end=482
-  _BIOMETRICSMANAGERSTATUS._serialized_start=484
-  _BIOMETRICSMANAGERSTATUS._serialized_end=526
+  _SCANRESULT._serialized_end=499
+  _BIOMETRICSMANAGERSTATUS._serialized_start=501
+  _BIOMETRICSMANAGERSTATUS._serialized_end=543
 # @@protoc_insertion_point(module_scope)

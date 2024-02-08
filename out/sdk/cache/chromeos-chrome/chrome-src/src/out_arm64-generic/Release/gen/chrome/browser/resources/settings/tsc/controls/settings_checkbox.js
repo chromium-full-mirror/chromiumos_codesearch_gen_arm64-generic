@@ -9,9 +9,6 @@ import 'chrome://resources/cr_elements/cr_checkbox/cr_checkbox.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
 import 'chrome://resources/cr_elements/policy/cr_policy_pref_indicator.js';
-// 
-import '//resources/cr_elements/chromeos/cros_color_overrides.css.js';
-// 
 import { SettingsBooleanControlMixin } from '/shared/settings/controls/settings_boolean_control_mixin.js';
 import { sanitizeInnerHtml } from 'chrome://resources/js/parse_html_subset.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';

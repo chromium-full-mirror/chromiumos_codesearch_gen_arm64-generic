@@ -11,6 +11,18 @@
       "chrome://resources/ash/common/*": [
         "./../../../../../ash/webui/common/resources/preprocessed/*"
       ],
+      "//resources/ash/common/cr_elements/*": [
+        "./../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
+      ],
+      "chrome://resources/ash/common/cr_elements/*": [
+        "./../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
+      ],
+      "//resources/cros_components/*": [
+        "./../../../../../ui/webui/resources/tsc/cros_components/to_be_rewritten/*"
+      ],
+      "chrome://resources/cros_components/*": [
+        "./../../../../../ui/webui/resources/tsc/cros_components/to_be_rewritten/*"
+      ],
       "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
         "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
       ],
@@ -28,12 +40,6 @@
       ],
       "chrome://resources/cr_components/color_change_listener/*": [
         "./../../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
-      ],
-      "//resources/ash/common/cr_elements/*": [
-        "./../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
-      ],
-      "chrome://resources/ash/common/cr_elements/*": [
-        "./../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
       ],
       "//resources/js/*": [
         "./../../../../../ui/webui/resources/tsc/js/*"
@@ -73,10 +79,8 @@
     "preprocessed/components/oobe_vars/oobe_shared_vars.css.js",
     "preprocessed/components/api_keys_notice.js",
     "preprocessed/components/hd_iron_icon.js",
-    "preprocessed/components/notification_card.js",
     "preprocessed/components/oobe_a11y_option.js",
     "preprocessed/components/oobe_carousel.js",
-    "preprocessed/components/oobe_cr_lottie.js",
     "preprocessed/components/oobe_display_size_selector.js",
     "preprocessed/components/oobe_icons.html.js",
     "preprocessed/components/oobe_illo_icons.html.js",
@@ -84,10 +88,6 @@
     "preprocessed/components/oobe_network_icons.html.js",
     "preprocessed/components/oobe_screens_list.js",
     "preprocessed/components/oobe_slide.js",
-    "preprocessed/components/progress_list_item.js",
-    "preprocessed/components/quick_start_entry_point.js",
-    "preprocessed/components/quick_start_pin.js",
-    "preprocessed/components/security_token_pin.js",
     "preprocessed/screens/oobe/auto_enrollment_check.ts",
     "preprocessed/screens/oobe/consumer_update.ts",
     "preprocessed/screens/oobe/demo_preferences.ts",
@@ -124,7 +124,7 @@
     "preprocessed/screens/common/display_size.ts",
     "preprocessed/screens/common/drive_pinning.ts",
     "preprocessed/screens/common/enable_kiosk.ts",
-    "preprocessed/screens/common/error_message.js",
+    "preprocessed/screens/common/error_message.ts",
     "preprocessed/screens/common/family_link_notice.ts",
     "preprocessed/screens/common/gaia_info.ts",
     "preprocessed/screens/common/gaia_signin.ts",
@@ -136,7 +136,7 @@
     "preprocessed/screens/common/managed_terms_of_service.ts",
     "preprocessed/screens/common/marketing_opt_in.ts",
     "preprocessed/screens/common/multidevice_setup.ts",
-    "preprocessed/screens/common/offline_ad_login.js",
+    "preprocessed/screens/common/offline_ad_login.ts",
     "preprocessed/screens/common/online_authentication_screen.js",
     "preprocessed/screens/common/oobe_reset.ts",
     "preprocessed/screens/common/os_install.ts",
@@ -252,22 +252,34 @@
     "preprocessed/components/gaia_button.ts",
     "preprocessed/components/gaia_dialog.ts",
     "preprocessed/components/network_select_login.ts",
+    "preprocessed/components/notification_card.ts",
     "preprocessed/components/oobe_apps_list.ts",
+    "preprocessed/components/progress_list_item.ts",
+    "preprocessed/components/security_token_pin.ts",
+    "preprocessed/components/oobe_cr_lottie.ts",
     "preprocessed/components/throbber_notice.ts",
+    "preprocessed/components/quick_start_pin.ts",
+    "preprocessed/components/quick_start_entry_point.ts",
+    "preprocessed/components/keyboard_utils.ts",
+    "preprocessed/components/keyboard_utils_oobe.ts",
+    "preprocessed/components/long_touch_detector.ts",
     "preprocessed/components/web_view_helper.ts",
+    "preprocessed/components/qr_code_canvas.ts",
+    "preprocessed/components/web_view_loader.ts",
     "preprocessed/components/gaia_button.html.ts",
     "preprocessed/components/gaia_dialog.html.ts",
     "preprocessed/components/network_select_login.html.ts",
+    "preprocessed/components/notification_card.html.ts",
     "preprocessed/components/oobe_apps_list.html.ts",
+    "preprocessed/components/progress_list_item.html.ts",
+    "preprocessed/components/security_token_pin.html.ts",
+    "preprocessed/components/oobe_cr_lottie.html.ts",
     "preprocessed/components/throbber_notice.html.ts",
+    "preprocessed/components/quick_start_pin.html.ts",
+    "preprocessed/components/quick_start_entry_point.html.ts",
     "preprocessed/components/display_manager_types.js",
-    "preprocessed/components/keyboard_utils.js",
-    "preprocessed/components/keyboard_utils_oobe.js",
-    "preprocessed/components/long_touch_detector.js",
     "preprocessed/components/oobe_select.js",
     "preprocessed/components/oobe_types.js",
-    "preprocessed/components/qr_code_canvas.js",
-    "preprocessed/components/web_view_loader.js",
     "preprocessed/cr_ui.js",
     "preprocessed/display_manager.js",
     "preprocessed/install_oobe_error_store.js",
@@ -292,6 +304,7 @@
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/context_menus.d.ts",
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/extension_types.d.ts",
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/quick_unlock_private.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/runtime.d.ts",
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/tabs.d.ts",
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/webview_tag.d.ts",
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/web_request.d.ts",
@@ -302,13 +315,16 @@
       "path": "../../../../../ash/webui/common/resources/tsconfig_build_ts.json"
     },
     {
+      "path": "../../../../../ash/webui/common/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../third_party/cros-components/tsconfig_cros_components_ts.json"
+    },
+    {
       "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
     },
     {
       "path": "../../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
-    },
-    {
-      "path": "../../../../../ash/webui/common/resources/cr_elements/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../ui/webui/resources/js/tsconfig_build_ts.json"

@@ -68,6 +68,9 @@ extern DeleteCredentialReplyDefaultTypeInternal _DeleteCredentialReply_default_i
 class DeleteCredentialRequest;
 struct DeleteCredentialRequestDefaultTypeInternal;
 extern DeleteCredentialRequestDefaultTypeInternal _DeleteCredentialRequest_default_instance_;
+class EnrollLegacyTemplateRequest;
+struct EnrollLegacyTemplateRequestDefaultTypeInternal;
+extern EnrollLegacyTemplateRequestDefaultTypeInternal _EnrollLegacyTemplateRequest_default_instance_;
 class EnrollScanDone;
 struct EnrollScanDoneDefaultTypeInternal;
 extern EnrollScanDoneDefaultTypeInternal _EnrollScanDone_default_instance_;
@@ -80,6 +83,12 @@ extern FpPublicKeyDefaultTypeInternal _FpPublicKey_default_instance_;
 class GetNonceReply;
 struct GetNonceReplyDefaultTypeInternal;
 extern GetNonceReplyDefaultTypeInternal _GetNonceReply_default_instance_;
+class LegacyRecord;
+struct LegacyRecordDefaultTypeInternal;
+extern LegacyRecordDefaultTypeInternal _LegacyRecord_default_instance_;
+class ListLegacyRecordsReply;
+struct ListLegacyRecordsReplyDefaultTypeInternal;
+extern ListLegacyRecordsReplyDefaultTypeInternal _ListLegacyRecordsReply_default_instance_;
 class StartAuthSessionReply;
 struct StartAuthSessionReplyDefaultTypeInternal;
 extern StartAuthSessionReplyDefaultTypeInternal _StartAuthSessionReply_default_instance_;
@@ -102,10 +111,13 @@ template<> ::biod::CreateCredentialReply* Arena::CreateMaybeMessage<::biod::Crea
 template<> ::biod::CreateCredentialRequest* Arena::CreateMaybeMessage<::biod::CreateCredentialRequest>(Arena*);
 template<> ::biod::DeleteCredentialReply* Arena::CreateMaybeMessage<::biod::DeleteCredentialReply>(Arena*);
 template<> ::biod::DeleteCredentialRequest* Arena::CreateMaybeMessage<::biod::DeleteCredentialRequest>(Arena*);
+template<> ::biod::EnrollLegacyTemplateRequest* Arena::CreateMaybeMessage<::biod::EnrollLegacyTemplateRequest>(Arena*);
 template<> ::biod::EnrollScanDone* Arena::CreateMaybeMessage<::biod::EnrollScanDone>(Arena*);
 template<> ::biod::FingerprintMessage* Arena::CreateMaybeMessage<::biod::FingerprintMessage>(Arena*);
 template<> ::biod::FpPublicKey* Arena::CreateMaybeMessage<::biod::FpPublicKey>(Arena*);
 template<> ::biod::GetNonceReply* Arena::CreateMaybeMessage<::biod::GetNonceReply>(Arena*);
+template<> ::biod::LegacyRecord* Arena::CreateMaybeMessage<::biod::LegacyRecord>(Arena*);
+template<> ::biod::ListLegacyRecordsReply* Arena::CreateMaybeMessage<::biod::ListLegacyRecordsReply>(Arena*);
 template<> ::biod::StartAuthSessionReply* Arena::CreateMaybeMessage<::biod::StartAuthSessionReply>(Arena*);
 template<> ::biod::StartAuthSessionRequest* Arena::CreateMaybeMessage<::biod::StartAuthSessionRequest>(Arena*);
 template<> ::biod::StartEnrollSessionReply* Arena::CreateMaybeMessage<::biod::StartEnrollSessionReply>(Arena*);
@@ -2952,6 +2964,517 @@ class DeleteCredentialReply final :
   int status_;
   friend struct ::TableStruct_messages_2eproto;
 };
+// -------------------------------------------------------------------
+
+class EnrollLegacyTemplateRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:biod.EnrollLegacyTemplateRequest) */ {
+ public:
+  inline EnrollLegacyTemplateRequest() : EnrollLegacyTemplateRequest(nullptr) {}
+  ~EnrollLegacyTemplateRequest() override;
+  explicit PROTOBUF_CONSTEXPR EnrollLegacyTemplateRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  EnrollLegacyTemplateRequest(const EnrollLegacyTemplateRequest& from);
+  EnrollLegacyTemplateRequest(EnrollLegacyTemplateRequest&& from) noexcept
+    : EnrollLegacyTemplateRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline EnrollLegacyTemplateRequest& operator=(const EnrollLegacyTemplateRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline EnrollLegacyTemplateRequest& operator=(EnrollLegacyTemplateRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const EnrollLegacyTemplateRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const EnrollLegacyTemplateRequest* internal_default_instance() {
+    return reinterpret_cast<const EnrollLegacyTemplateRequest*>(
+               &_EnrollLegacyTemplateRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    16;
+
+  friend void swap(EnrollLegacyTemplateRequest& a, EnrollLegacyTemplateRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(EnrollLegacyTemplateRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(EnrollLegacyTemplateRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  EnrollLegacyTemplateRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<EnrollLegacyTemplateRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const EnrollLegacyTemplateRequest& from);
+  void MergeFrom(const EnrollLegacyTemplateRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(EnrollLegacyTemplateRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "biod.EnrollLegacyTemplateRequest";
+  }
+  protected:
+  explicit EnrollLegacyTemplateRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLegacyRecordIdFieldNumber = 1,
+    kGscNonceFieldNumber = 2,
+    kEncryptedLabelSeedFieldNumber = 3,
+    kIvFieldNumber = 4,
+  };
+  // optional bytes legacy_record_id = 1;
+  bool has_legacy_record_id() const;
+  private:
+  bool _internal_has_legacy_record_id() const;
+  public:
+  void clear_legacy_record_id();
+  const std::string& legacy_record_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_legacy_record_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_legacy_record_id();
+  PROTOBUF_NODISCARD std::string* release_legacy_record_id();
+  void set_allocated_legacy_record_id(std::string* legacy_record_id);
+  private:
+  const std::string& _internal_legacy_record_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_legacy_record_id(const std::string& value);
+  std::string* _internal_mutable_legacy_record_id();
+  public:
+
+  // optional bytes gsc_nonce = 2;
+  bool has_gsc_nonce() const;
+  private:
+  bool _internal_has_gsc_nonce() const;
+  public:
+  void clear_gsc_nonce();
+  const std::string& gsc_nonce() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_gsc_nonce(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_gsc_nonce();
+  PROTOBUF_NODISCARD std::string* release_gsc_nonce();
+  void set_allocated_gsc_nonce(std::string* gsc_nonce);
+  private:
+  const std::string& _internal_gsc_nonce() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_gsc_nonce(const std::string& value);
+  std::string* _internal_mutable_gsc_nonce();
+  public:
+
+  // optional bytes encrypted_label_seed = 3;
+  bool has_encrypted_label_seed() const;
+  private:
+  bool _internal_has_encrypted_label_seed() const;
+  public:
+  void clear_encrypted_label_seed();
+  const std::string& encrypted_label_seed() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_encrypted_label_seed(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_encrypted_label_seed();
+  PROTOBUF_NODISCARD std::string* release_encrypted_label_seed();
+  void set_allocated_encrypted_label_seed(std::string* encrypted_label_seed);
+  private:
+  const std::string& _internal_encrypted_label_seed() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_encrypted_label_seed(const std::string& value);
+  std::string* _internal_mutable_encrypted_label_seed();
+  public:
+
+  // optional bytes iv = 4;
+  bool has_iv() const;
+  private:
+  bool _internal_has_iv() const;
+  public:
+  void clear_iv();
+  const std::string& iv() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_iv(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_iv();
+  PROTOBUF_NODISCARD std::string* release_iv();
+  void set_allocated_iv(std::string* iv);
+  private:
+  const std::string& _internal_iv() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_iv(const std::string& value);
+  std::string* _internal_mutable_iv();
+  public:
+
+  // @@protoc_insertion_point(class_scope:biod.EnrollLegacyTemplateRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr legacy_record_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr gsc_nonce_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr encrypted_label_seed_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr iv_;
+  friend struct ::TableStruct_messages_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LegacyRecord final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:biod.LegacyRecord) */ {
+ public:
+  inline LegacyRecord() : LegacyRecord(nullptr) {}
+  ~LegacyRecord() override;
+  explicit PROTOBUF_CONSTEXPR LegacyRecord(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  LegacyRecord(const LegacyRecord& from);
+  LegacyRecord(LegacyRecord&& from) noexcept
+    : LegacyRecord() {
+    *this = ::std::move(from);
+  }
+
+  inline LegacyRecord& operator=(const LegacyRecord& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline LegacyRecord& operator=(LegacyRecord&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const LegacyRecord& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const LegacyRecord* internal_default_instance() {
+    return reinterpret_cast<const LegacyRecord*>(
+               &_LegacyRecord_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    17;
+
+  friend void swap(LegacyRecord& a, LegacyRecord& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(LegacyRecord* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(LegacyRecord* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  LegacyRecord* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<LegacyRecord>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const LegacyRecord& from);
+  void MergeFrom(const LegacyRecord& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(LegacyRecord* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "biod.LegacyRecord";
+  }
+  protected:
+  explicit LegacyRecord(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLegacyRecordIdFieldNumber = 1,
+    kLabelFieldNumber = 2,
+  };
+  // optional string legacy_record_id = 1;
+  bool has_legacy_record_id() const;
+  private:
+  bool _internal_has_legacy_record_id() const;
+  public:
+  void clear_legacy_record_id();
+  const std::string& legacy_record_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_legacy_record_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_legacy_record_id();
+  PROTOBUF_NODISCARD std::string* release_legacy_record_id();
+  void set_allocated_legacy_record_id(std::string* legacy_record_id);
+  private:
+  const std::string& _internal_legacy_record_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_legacy_record_id(const std::string& value);
+  std::string* _internal_mutable_legacy_record_id();
+  public:
+
+  // optional string label = 2;
+  bool has_label() const;
+  private:
+  bool _internal_has_label() const;
+  public:
+  void clear_label();
+  const std::string& label() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_label(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_label();
+  PROTOBUF_NODISCARD std::string* release_label();
+  void set_allocated_label(std::string* label);
+  private:
+  const std::string& _internal_label() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_label(const std::string& value);
+  std::string* _internal_mutable_label();
+  public:
+
+  // @@protoc_insertion_point(class_scope:biod.LegacyRecord)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr legacy_record_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr label_;
+  friend struct ::TableStruct_messages_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ListLegacyRecordsReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:biod.ListLegacyRecordsReply) */ {
+ public:
+  inline ListLegacyRecordsReply() : ListLegacyRecordsReply(nullptr) {}
+  ~ListLegacyRecordsReply() override;
+  explicit PROTOBUF_CONSTEXPR ListLegacyRecordsReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ListLegacyRecordsReply(const ListLegacyRecordsReply& from);
+  ListLegacyRecordsReply(ListLegacyRecordsReply&& from) noexcept
+    : ListLegacyRecordsReply() {
+    *this = ::std::move(from);
+  }
+
+  inline ListLegacyRecordsReply& operator=(const ListLegacyRecordsReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ListLegacyRecordsReply& operator=(ListLegacyRecordsReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ListLegacyRecordsReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ListLegacyRecordsReply* internal_default_instance() {
+    return reinterpret_cast<const ListLegacyRecordsReply*>(
+               &_ListLegacyRecordsReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    18;
+
+  friend void swap(ListLegacyRecordsReply& a, ListLegacyRecordsReply& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ListLegacyRecordsReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ListLegacyRecordsReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ListLegacyRecordsReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ListLegacyRecordsReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ListLegacyRecordsReply& from);
+  void MergeFrom(const ListLegacyRecordsReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ListLegacyRecordsReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "biod.ListLegacyRecordsReply";
+  }
+  protected:
+  explicit ListLegacyRecordsReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLegacyRecordsFieldNumber = 1,
+  };
+  // repeated .biod.LegacyRecord legacy_records = 1;
+  int legacy_records_size() const;
+  private:
+  int _internal_legacy_records_size() const;
+  public:
+  void clear_legacy_records();
+  ::biod::LegacyRecord* mutable_legacy_records(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::biod::LegacyRecord >*
+      mutable_legacy_records();
+  private:
+  const ::biod::LegacyRecord& _internal_legacy_records(int index) const;
+  ::biod::LegacyRecord* _internal_add_legacy_records();
+  public:
+  const ::biod::LegacyRecord& legacy_records(int index) const;
+  ::biod::LegacyRecord* add_legacy_records();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::biod::LegacyRecord >&
+      legacy_records() const;
+
+  // @@protoc_insertion_point(class_scope:biod.ListLegacyRecordsReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::biod::LegacyRecord > legacy_records_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_messages_2eproto;
+};
 // ===================================================================
 
 
@@ -5118,9 +5641,475 @@ inline void DeleteCredentialReply::set_status(::biod::DeleteCredentialReply_Dele
   // @@protoc_insertion_point(field_set:biod.DeleteCredentialReply.status)
 }
 
+// -------------------------------------------------------------------
+
+// EnrollLegacyTemplateRequest
+
+// optional bytes legacy_record_id = 1;
+inline bool EnrollLegacyTemplateRequest::_internal_has_legacy_record_id() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool EnrollLegacyTemplateRequest::has_legacy_record_id() const {
+  return _internal_has_legacy_record_id();
+}
+inline void EnrollLegacyTemplateRequest::clear_legacy_record_id() {
+  legacy_record_id_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& EnrollLegacyTemplateRequest::legacy_record_id() const {
+  // @@protoc_insertion_point(field_get:biod.EnrollLegacyTemplateRequest.legacy_record_id)
+  return _internal_legacy_record_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void EnrollLegacyTemplateRequest::set_legacy_record_id(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ legacy_record_id_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:biod.EnrollLegacyTemplateRequest.legacy_record_id)
+}
+inline std::string* EnrollLegacyTemplateRequest::mutable_legacy_record_id() {
+  std::string* _s = _internal_mutable_legacy_record_id();
+  // @@protoc_insertion_point(field_mutable:biod.EnrollLegacyTemplateRequest.legacy_record_id)
+  return _s;
+}
+inline const std::string& EnrollLegacyTemplateRequest::_internal_legacy_record_id() const {
+  return legacy_record_id_.Get();
+}
+inline void EnrollLegacyTemplateRequest::_internal_set_legacy_record_id(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  legacy_record_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* EnrollLegacyTemplateRequest::_internal_mutable_legacy_record_id() {
+  _has_bits_[0] |= 0x00000001u;
+  return legacy_record_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* EnrollLegacyTemplateRequest::release_legacy_record_id() {
+  // @@protoc_insertion_point(field_release:biod.EnrollLegacyTemplateRequest.legacy_record_id)
+  if (!_internal_has_legacy_record_id()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = legacy_record_id_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (legacy_record_id_.IsDefault()) {
+    legacy_record_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void EnrollLegacyTemplateRequest::set_allocated_legacy_record_id(std::string* legacy_record_id) {
+  if (legacy_record_id != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  legacy_record_id_.SetAllocated(legacy_record_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (legacy_record_id_.IsDefault()) {
+    legacy_record_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:biod.EnrollLegacyTemplateRequest.legacy_record_id)
+}
+
+// optional bytes gsc_nonce = 2;
+inline bool EnrollLegacyTemplateRequest::_internal_has_gsc_nonce() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool EnrollLegacyTemplateRequest::has_gsc_nonce() const {
+  return _internal_has_gsc_nonce();
+}
+inline void EnrollLegacyTemplateRequest::clear_gsc_nonce() {
+  gsc_nonce_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& EnrollLegacyTemplateRequest::gsc_nonce() const {
+  // @@protoc_insertion_point(field_get:biod.EnrollLegacyTemplateRequest.gsc_nonce)
+  return _internal_gsc_nonce();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void EnrollLegacyTemplateRequest::set_gsc_nonce(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ gsc_nonce_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:biod.EnrollLegacyTemplateRequest.gsc_nonce)
+}
+inline std::string* EnrollLegacyTemplateRequest::mutable_gsc_nonce() {
+  std::string* _s = _internal_mutable_gsc_nonce();
+  // @@protoc_insertion_point(field_mutable:biod.EnrollLegacyTemplateRequest.gsc_nonce)
+  return _s;
+}
+inline const std::string& EnrollLegacyTemplateRequest::_internal_gsc_nonce() const {
+  return gsc_nonce_.Get();
+}
+inline void EnrollLegacyTemplateRequest::_internal_set_gsc_nonce(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  gsc_nonce_.Set(value, GetArenaForAllocation());
+}
+inline std::string* EnrollLegacyTemplateRequest::_internal_mutable_gsc_nonce() {
+  _has_bits_[0] |= 0x00000002u;
+  return gsc_nonce_.Mutable(GetArenaForAllocation());
+}
+inline std::string* EnrollLegacyTemplateRequest::release_gsc_nonce() {
+  // @@protoc_insertion_point(field_release:biod.EnrollLegacyTemplateRequest.gsc_nonce)
+  if (!_internal_has_gsc_nonce()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = gsc_nonce_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (gsc_nonce_.IsDefault()) {
+    gsc_nonce_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void EnrollLegacyTemplateRequest::set_allocated_gsc_nonce(std::string* gsc_nonce) {
+  if (gsc_nonce != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  gsc_nonce_.SetAllocated(gsc_nonce, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (gsc_nonce_.IsDefault()) {
+    gsc_nonce_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:biod.EnrollLegacyTemplateRequest.gsc_nonce)
+}
+
+// optional bytes encrypted_label_seed = 3;
+inline bool EnrollLegacyTemplateRequest::_internal_has_encrypted_label_seed() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool EnrollLegacyTemplateRequest::has_encrypted_label_seed() const {
+  return _internal_has_encrypted_label_seed();
+}
+inline void EnrollLegacyTemplateRequest::clear_encrypted_label_seed() {
+  encrypted_label_seed_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& EnrollLegacyTemplateRequest::encrypted_label_seed() const {
+  // @@protoc_insertion_point(field_get:biod.EnrollLegacyTemplateRequest.encrypted_label_seed)
+  return _internal_encrypted_label_seed();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void EnrollLegacyTemplateRequest::set_encrypted_label_seed(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000004u;
+ encrypted_label_seed_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:biod.EnrollLegacyTemplateRequest.encrypted_label_seed)
+}
+inline std::string* EnrollLegacyTemplateRequest::mutable_encrypted_label_seed() {
+  std::string* _s = _internal_mutable_encrypted_label_seed();
+  // @@protoc_insertion_point(field_mutable:biod.EnrollLegacyTemplateRequest.encrypted_label_seed)
+  return _s;
+}
+inline const std::string& EnrollLegacyTemplateRequest::_internal_encrypted_label_seed() const {
+  return encrypted_label_seed_.Get();
+}
+inline void EnrollLegacyTemplateRequest::_internal_set_encrypted_label_seed(const std::string& value) {
+  _has_bits_[0] |= 0x00000004u;
+  encrypted_label_seed_.Set(value, GetArenaForAllocation());
+}
+inline std::string* EnrollLegacyTemplateRequest::_internal_mutable_encrypted_label_seed() {
+  _has_bits_[0] |= 0x00000004u;
+  return encrypted_label_seed_.Mutable(GetArenaForAllocation());
+}
+inline std::string* EnrollLegacyTemplateRequest::release_encrypted_label_seed() {
+  // @@protoc_insertion_point(field_release:biod.EnrollLegacyTemplateRequest.encrypted_label_seed)
+  if (!_internal_has_encrypted_label_seed()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000004u;
+  auto* p = encrypted_label_seed_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (encrypted_label_seed_.IsDefault()) {
+    encrypted_label_seed_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void EnrollLegacyTemplateRequest::set_allocated_encrypted_label_seed(std::string* encrypted_label_seed) {
+  if (encrypted_label_seed != nullptr) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  encrypted_label_seed_.SetAllocated(encrypted_label_seed, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (encrypted_label_seed_.IsDefault()) {
+    encrypted_label_seed_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:biod.EnrollLegacyTemplateRequest.encrypted_label_seed)
+}
+
+// optional bytes iv = 4;
+inline bool EnrollLegacyTemplateRequest::_internal_has_iv() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool EnrollLegacyTemplateRequest::has_iv() const {
+  return _internal_has_iv();
+}
+inline void EnrollLegacyTemplateRequest::clear_iv() {
+  iv_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline const std::string& EnrollLegacyTemplateRequest::iv() const {
+  // @@protoc_insertion_point(field_get:biod.EnrollLegacyTemplateRequest.iv)
+  return _internal_iv();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void EnrollLegacyTemplateRequest::set_iv(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000008u;
+ iv_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:biod.EnrollLegacyTemplateRequest.iv)
+}
+inline std::string* EnrollLegacyTemplateRequest::mutable_iv() {
+  std::string* _s = _internal_mutable_iv();
+  // @@protoc_insertion_point(field_mutable:biod.EnrollLegacyTemplateRequest.iv)
+  return _s;
+}
+inline const std::string& EnrollLegacyTemplateRequest::_internal_iv() const {
+  return iv_.Get();
+}
+inline void EnrollLegacyTemplateRequest::_internal_set_iv(const std::string& value) {
+  _has_bits_[0] |= 0x00000008u;
+  iv_.Set(value, GetArenaForAllocation());
+}
+inline std::string* EnrollLegacyTemplateRequest::_internal_mutable_iv() {
+  _has_bits_[0] |= 0x00000008u;
+  return iv_.Mutable(GetArenaForAllocation());
+}
+inline std::string* EnrollLegacyTemplateRequest::release_iv() {
+  // @@protoc_insertion_point(field_release:biod.EnrollLegacyTemplateRequest.iv)
+  if (!_internal_has_iv()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000008u;
+  auto* p = iv_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (iv_.IsDefault()) {
+    iv_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void EnrollLegacyTemplateRequest::set_allocated_iv(std::string* iv) {
+  if (iv != nullptr) {
+    _has_bits_[0] |= 0x00000008u;
+  } else {
+    _has_bits_[0] &= ~0x00000008u;
+  }
+  iv_.SetAllocated(iv, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (iv_.IsDefault()) {
+    iv_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:biod.EnrollLegacyTemplateRequest.iv)
+}
+
+// -------------------------------------------------------------------
+
+// LegacyRecord
+
+// optional string legacy_record_id = 1;
+inline bool LegacyRecord::_internal_has_legacy_record_id() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool LegacyRecord::has_legacy_record_id() const {
+  return _internal_has_legacy_record_id();
+}
+inline void LegacyRecord::clear_legacy_record_id() {
+  legacy_record_id_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& LegacyRecord::legacy_record_id() const {
+  // @@protoc_insertion_point(field_get:biod.LegacyRecord.legacy_record_id)
+  return _internal_legacy_record_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void LegacyRecord::set_legacy_record_id(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ legacy_record_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:biod.LegacyRecord.legacy_record_id)
+}
+inline std::string* LegacyRecord::mutable_legacy_record_id() {
+  std::string* _s = _internal_mutable_legacy_record_id();
+  // @@protoc_insertion_point(field_mutable:biod.LegacyRecord.legacy_record_id)
+  return _s;
+}
+inline const std::string& LegacyRecord::_internal_legacy_record_id() const {
+  return legacy_record_id_.Get();
+}
+inline void LegacyRecord::_internal_set_legacy_record_id(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  legacy_record_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* LegacyRecord::_internal_mutable_legacy_record_id() {
+  _has_bits_[0] |= 0x00000001u;
+  return legacy_record_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* LegacyRecord::release_legacy_record_id() {
+  // @@protoc_insertion_point(field_release:biod.LegacyRecord.legacy_record_id)
+  if (!_internal_has_legacy_record_id()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = legacy_record_id_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (legacy_record_id_.IsDefault()) {
+    legacy_record_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void LegacyRecord::set_allocated_legacy_record_id(std::string* legacy_record_id) {
+  if (legacy_record_id != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  legacy_record_id_.SetAllocated(legacy_record_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (legacy_record_id_.IsDefault()) {
+    legacy_record_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:biod.LegacyRecord.legacy_record_id)
+}
+
+// optional string label = 2;
+inline bool LegacyRecord::_internal_has_label() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool LegacyRecord::has_label() const {
+  return _internal_has_label();
+}
+inline void LegacyRecord::clear_label() {
+  label_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& LegacyRecord::label() const {
+  // @@protoc_insertion_point(field_get:biod.LegacyRecord.label)
+  return _internal_label();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void LegacyRecord::set_label(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ label_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:biod.LegacyRecord.label)
+}
+inline std::string* LegacyRecord::mutable_label() {
+  std::string* _s = _internal_mutable_label();
+  // @@protoc_insertion_point(field_mutable:biod.LegacyRecord.label)
+  return _s;
+}
+inline const std::string& LegacyRecord::_internal_label() const {
+  return label_.Get();
+}
+inline void LegacyRecord::_internal_set_label(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  label_.Set(value, GetArenaForAllocation());
+}
+inline std::string* LegacyRecord::_internal_mutable_label() {
+  _has_bits_[0] |= 0x00000002u;
+  return label_.Mutable(GetArenaForAllocation());
+}
+inline std::string* LegacyRecord::release_label() {
+  // @@protoc_insertion_point(field_release:biod.LegacyRecord.label)
+  if (!_internal_has_label()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = label_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (label_.IsDefault()) {
+    label_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void LegacyRecord::set_allocated_label(std::string* label) {
+  if (label != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  label_.SetAllocated(label, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (label_.IsDefault()) {
+    label_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:biod.LegacyRecord.label)
+}
+
+// -------------------------------------------------------------------
+
+// ListLegacyRecordsReply
+
+// repeated .biod.LegacyRecord legacy_records = 1;
+inline int ListLegacyRecordsReply::_internal_legacy_records_size() const {
+  return legacy_records_.size();
+}
+inline int ListLegacyRecordsReply::legacy_records_size() const {
+  return _internal_legacy_records_size();
+}
+inline void ListLegacyRecordsReply::clear_legacy_records() {
+  legacy_records_.Clear();
+}
+inline ::biod::LegacyRecord* ListLegacyRecordsReply::mutable_legacy_records(int index) {
+  // @@protoc_insertion_point(field_mutable:biod.ListLegacyRecordsReply.legacy_records)
+  return legacy_records_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::biod::LegacyRecord >*
+ListLegacyRecordsReply::mutable_legacy_records() {
+  // @@protoc_insertion_point(field_mutable_list:biod.ListLegacyRecordsReply.legacy_records)
+  return &legacy_records_;
+}
+inline const ::biod::LegacyRecord& ListLegacyRecordsReply::_internal_legacy_records(int index) const {
+  return legacy_records_.Get(index);
+}
+inline const ::biod::LegacyRecord& ListLegacyRecordsReply::legacy_records(int index) const {
+  // @@protoc_insertion_point(field_get:biod.ListLegacyRecordsReply.legacy_records)
+  return _internal_legacy_records(index);
+}
+inline ::biod::LegacyRecord* ListLegacyRecordsReply::_internal_add_legacy_records() {
+  return legacy_records_.Add();
+}
+inline ::biod::LegacyRecord* ListLegacyRecordsReply::add_legacy_records() {
+  ::biod::LegacyRecord* _add = _internal_add_legacy_records();
+  // @@protoc_insertion_point(field_add:biod.ListLegacyRecordsReply.legacy_records)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::biod::LegacyRecord >&
+ListLegacyRecordsReply::legacy_records() const {
+  // @@protoc_insertion_point(field_list:biod.ListLegacyRecordsReply.legacy_records)
+  return legacy_records_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

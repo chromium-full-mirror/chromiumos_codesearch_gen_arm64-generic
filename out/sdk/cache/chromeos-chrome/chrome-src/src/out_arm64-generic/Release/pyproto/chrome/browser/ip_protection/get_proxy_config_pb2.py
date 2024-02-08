@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16get_proxy_config.proto\x12\rip_protection\"-\n\x15GetProxyConfigRequest\x12\x14\n\x0cservice_type\x18\x01 \x01(\t\"\xc8\x01\n\x16GetProxyConfigResponse\x12\x1f\n\x13\x66irst_hop_hostnames\x18\x01 \x03(\tB\x02\x18\x01\x12\x45\n\x0bproxy_chain\x18\x03 \x03(\x0b\x32\x30.ip_protection.GetProxyConfigResponse.ProxyChain\x1a@\n\nProxyChain\x12\x0f\n\x07proxy_a\x18\x01 \x01(\t\x12\x0f\n\x07proxy_b\x18\x02 \x01(\t\x12\x10\n\x08\x63hain_id\x18\x03 \x01(\x05J\x04\x08\x02\x10\x03\x42\x02H\x03\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16get_proxy_config.proto\x12\rip_protection\"-\n\x15GetProxyConfigRequest\x12\x14\n\x0cservice_type\x18\x01 \x01(\t\"\xad\x01\n\x16GetProxyConfigResponse\x12\x45\n\x0bproxy_chain\x18\x03 \x03(\x0b\x32\x30.ip_protection.GetProxyConfigResponse.ProxyChain\x1a@\n\nProxyChain\x12\x0f\n\x07proxy_a\x18\x01 \x01(\t\x12\x0f\n\x07proxy_b\x18\x02 \x01(\t\x12\x10\n\x08\x63hain_id\x18\x03 \x01(\x05J\x04\x08\x01\x10\x02J\x04\x08\x02\x10\x03\x42\x02H\x03\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'get_proxy_config_pb2', globals())
@@ -21,12 +21,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'H\003'
-  _GETPROXYCONFIGRESPONSE.fields_by_name['first_hop_hostnames']._options = None
-  _GETPROXYCONFIGRESPONSE.fields_by_name['first_hop_hostnames']._serialized_options = b'\030\001'
   _GETPROXYCONFIGREQUEST._serialized_start=41
   _GETPROXYCONFIGREQUEST._serialized_end=86
   _GETPROXYCONFIGRESPONSE._serialized_start=89
-  _GETPROXYCONFIGRESPONSE._serialized_end=289
-  _GETPROXYCONFIGRESPONSE_PROXYCHAIN._serialized_start=219
-  _GETPROXYCONFIGRESPONSE_PROXYCHAIN._serialized_end=283
+  _GETPROXYCONFIGRESPONSE._serialized_end=262
+  _GETPROXYCONFIGRESPONSE_PROXYCHAIN._serialized_start=186
+  _GETPROXYCONFIGRESPONSE_PROXYCHAIN._serialized_end=250
 # @@protoc_insertion_point(module_scope)

@@ -1135,6 +1135,8 @@ bool NetworkConditions::Validate(
 }
 SharedDictionaryInfo::SharedDictionaryInfo()
     : match(),
+      match_dest(),
+      id(),
       dictionary_url(),
       response_time(),
       expiration(),
@@ -1144,6 +1146,8 @@ SharedDictionaryInfo::SharedDictionaryInfo()
 
 SharedDictionaryInfo::SharedDictionaryInfo(
     const std::string& match_in,
+    std::vector<::network::mojom::RequestDestination> match_dest_in,
+    const std::string& id_in,
     const ::GURL& dictionary_url_in,
     ::base::Time response_time_in,
     ::base::TimeDelta expiration_in,
@@ -1151,6 +1155,8 @@ SharedDictionaryInfo::SharedDictionaryInfo(
     uint64_t size_in,
     const ::net::SHA256HashValue& hash_in)
     : match(std::move(match_in)),
+      match_dest(std::move(match_dest_in)),
+      id(std::move(id_in)),
       dictionary_url(std::move(dictionary_url_in)),
       response_time(std::move(response_time_in)),
       expiration(std::move(expiration_in)),
@@ -1166,6 +1172,24 @@ void SharedDictionaryInfo::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "match"), this->match,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "match_dest"), this->match_dest,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<::network::mojom::RequestDestination>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
 #else
@@ -21297,6 +21321,10 @@ bool StructTraits<::network::mojom::SharedDictionaryInfo::DataView, ::network::m
   ::network::mojom::SharedDictionaryInfoPtr result(::network::mojom::SharedDictionaryInfo::New());
   
       if (success && !input.ReadMatch(&result->match))
+        success = false;
+      if (success && !input.ReadMatchDest(&result->match_dest))
+        success = false;
+      if (success && !input.ReadId(&result->id))
         success = false;
       if (success && !input.ReadDictionaryUrl(&result->dictionary_url))
         success = false;

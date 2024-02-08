@@ -455,15 +455,16 @@ struct HeaderInfo {
   // thisHeaderInfo object.
   base::Value::Dict ToValue() const;
 
-  // The name of the header.
+  // The name of the header. This HeaderInfo condition matches on the name only if
+  // both `values` and `excludedValues` are not specified.
   std::string header;
 
-  // If specified, match this rule if the header's value contains at least one
-  // element in this list.
+  // If specified, this HeaderInfo condition is matched if the header's value
+  // contains at least one element in this list.
   std::optional<std::vector<std::string>> values;
 
-  // If specified, the rule is not matched if the header exists but its value
-  // contains at least one element in this list.
+  // If specified, this HeaderInfo condition is not matched if the header exists
+  // but its value contains at least one element in this list.
   std::optional<std::vector<std::string>> excluded_values;
 
 };
@@ -504,10 +505,10 @@ struct RuleCondition {
   // characters.</p><p><b>'|'</b>  : Left/right anchor: If used at either end of
   // the pattern,               specifies the beginning/end of the url
   // respectively.</p><p><b>'||'</b> : Domain name anchor: If used at the
-  // beginning of the pattern,               specifies the start of a (sub-)domain
+  // beginning of the               pattern, specifies the start of a (sub-)domain
   // of the URL.</p><p><b>'^'</b>  : Separator character: This matches anything
-  // except a letter, a               digit or one of the following: _ - . %. This
-  // can also match               the end of the URL.</p><p>Therefore
+  // except a letter,               a digit or one of the following: _ - . %. This
+  // can also               match the end of the URL.</p><p>Therefore
   // <code>urlFilter</code> is composed of the following parts: (optional
   // Left/Domain name anchor) + pattern + (optional Right anchor).</p><p>If
   // omitted, all urls are matched. An empty string is not allowed.</p><p>A
@@ -621,14 +622,16 @@ struct RuleCondition {
   // Only supported for session-scoped rules.
   std::optional<std::vector<int>> excluded_tab_ids;
 
-  // Rule matches if the request matches any response header in this list (if
-  // specified). TODO(crbug,com/1141166): Add documentation once feature is
-  // complete.
+  // Rule matches if the request matches any response header condition in this
+  // list (if specified). TODO(crbug.com/1141166): Add documentation once feature
+  // is complete.
   std::optional<std::vector<HeaderInfo>> response_headers;
 
-  // Rule does not match if the request has any of the specified headers.
-  // TODO(crbug,com/1141166): Add documentation once feature is complete.
-  std::optional<std::vector<std::string>> excluded_response_headers;
+  // Rule does not match if the request matches any response header condition in
+  // this list (if specified). If both `excludedResponseHeaders` and
+  // `responseHeaders` are specified, `excludedResponseHeaders` takes precedence.
+  // TODO(crbug.com/1141166): Add documentation once feature is complete.
+  std::optional<std::vector<HeaderInfo>> excluded_response_headers;
 
 };
 

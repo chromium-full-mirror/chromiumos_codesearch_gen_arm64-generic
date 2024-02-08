@@ -96,7 +96,7 @@ DCHECK_EQ(properties.size(), kTotalPropertyCount);
 void MediaPositionState::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
   CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasDuration()) {
-  values[0] = ToV8Traits<IDLDouble>::ToV8(script_state, member_duration_);
+  values[0] = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_duration_);
 DCHECK(!values[0].IsEmpty());
 }
 if (hasPlaybackRate()) {
@@ -127,7 +127,7 @@ constexpr bool is_optional = false;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 v8::TryCatch try_block(isolate);
-if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_duration_, member_duration_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUnrestrictedDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_duration_, member_duration_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("playbackRate");

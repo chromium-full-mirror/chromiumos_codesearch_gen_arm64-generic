@@ -1,7 +1,7 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { assert } from '//resources/ash/common/assert.js';
+import { assert } from '//resources/js/assert.js';
 import { KeyboardUtils } from './keyboard_utils.js';
 // This global instance of KeyboardUtils is initialized by `display_manager`
 // when OOBE has keyboard navigation enabled. It seems that this is only useful
@@ -15,10 +15,6 @@ export const globalOobeKeyboard = new KeyboardUtils();
 export const KEYBOARD_UTILS_FOR_INJECTION = {
     DATA: '',
 };
-/**
- *
- * @param {string} sourceCode
- */
 function prepareKeyboardUtilsForInjection(sourceCode) {
     // The closure compiler version is outdated.
     // TODO(b:260015147) Remove during TS migration.
@@ -41,8 +37,8 @@ function fetchKeyboardUtilsSource() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 /* DONE */) {
             assert(200 === xhr.status);
-            assert(typeof xhr.response == 'string');
-            prepareKeyboardUtilsForInjection(xhr.response);
+            assert(xhr.responseType === 'text');
+            prepareKeyboardUtilsForInjection(xhr.responseText);
         }
     };
     xhr.open('GET', keyboardUtilsUrl, true);

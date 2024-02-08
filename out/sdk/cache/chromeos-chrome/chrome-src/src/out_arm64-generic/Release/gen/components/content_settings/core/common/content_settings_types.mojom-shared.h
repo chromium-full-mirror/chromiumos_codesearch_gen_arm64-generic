@@ -243,9 +243,11 @@ enum class ContentSettingsType : int32_t {
   
   WEB_PRINTING = 99,
   
-  NUM_TYPES = 100,
+  AUTOMATIC_FULLSCREEN = 100,
+  
+  NUM_TYPES = 101,
   kMinValue = -1,
-  kMaxValue = 100,
+  kMaxValue = 101,
 };
 
  std::ostream& operator<<(std::ostream& os, ContentSettingsType value);

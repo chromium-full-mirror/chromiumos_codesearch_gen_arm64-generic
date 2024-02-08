@@ -11,7 +11,7 @@
 
 #include "mojo/public/cpp/bindings/struct_forward.h"
 
-#include "mojo/public/cpp/bindings/deprecated_interface_types_forward.h"
+
 
 
 #include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
@@ -39,8 +39,6 @@ using GenerateQRCodeRequestPtr = mojo::InlinedStructPtr<GenerateQRCodeRequest>;
 
 class GenerateQRCodeResponse;
 using GenerateQRCodeResponsePtr = mojo::StructPtr<GenerateQRCodeResponse>;
-
-class QRCodeGeneratorService;
 
 
 

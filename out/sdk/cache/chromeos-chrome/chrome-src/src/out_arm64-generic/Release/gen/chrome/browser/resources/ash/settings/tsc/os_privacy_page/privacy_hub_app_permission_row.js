@@ -143,7 +143,28 @@ export class SettingsPrivacyHubAppPermissionRow extends SettingsPrivacyHubAppPer
         }
         this.togglePermissionState_();
     }
-    onToggleChangeByUser_() {
+    onToggleClick_(e) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        this.togglePermissionState_();
+    }
+    onKeyup_(e) {
+        if (e.key !== ' ') {
+            return;
+        }
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        this.togglePermissionState_();
+    }
+    onKeydown_(e) {
+        if (e.key !== 'Enter') {
+            return;
+        }
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        if (e.repeat) {
+            return;
+        }
         this.togglePermissionState_();
     }
     computeShouldRedirectToAndroidSettings_() {

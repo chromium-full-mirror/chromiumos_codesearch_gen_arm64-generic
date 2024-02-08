@@ -165,6 +165,9 @@ extern const struct wl_interface zaura_popup_interface;
  * @page page_iface_zaura_output_manager zaura_output_manager
  * @section page_iface_zaura_output_manager_desc Description
  *
+ * [Deprecated] Deprecated since M122. See the zaura_output_manager_v2
+ * interface.
+ *
  * A global responsible for ensuring clients have a complete view of a given
  * output's state immediately following the bind of wl_output, and
  * subsequently as needed.
@@ -177,6 +180,9 @@ extern const struct wl_interface zaura_popup_interface;
  */
 /**
  * @defgroup iface_zaura_output_manager The zaura_output_manager interface
+ *
+ * [Deprecated] Deprecated since M122. See the zaura_output_manager_v2
+ * interface.
  *
  * A global responsible for ensuring clients have a complete view of a given
  * output's state immediately following the bind of wl_output, and
@@ -2242,6 +2248,7 @@ struct zaura_toplevel_interface {
 #define ZAURA_TOPLEVEL_CONFIGURE_RASTER_SCALE 2
 #define ZAURA_TOPLEVEL_ROTATE_FOCUS 3
 #define ZAURA_TOPLEVEL_OVERVIEW_CHANGE 4
+#define ZAURA_TOPLEVEL_CONFIGURE_OCCLUSION_STATE 5
 
 /**
  * @ingroup iface_zaura_toplevel
@@ -2263,6 +2270,10 @@ struct zaura_toplevel_interface {
  * @ingroup iface_zaura_toplevel
  */
 #define ZAURA_TOPLEVEL_OVERVIEW_CHANGE_SINCE_VERSION 62
+/**
+ * @ingroup iface_zaura_toplevel
+ */
+#define ZAURA_TOPLEVEL_CONFIGURE_OCCLUSION_STATE_SINCE_VERSION 65
 
 /**
  * @ingroup iface_zaura_toplevel
@@ -2455,6 +2466,17 @@ static inline void
 zaura_toplevel_send_overview_change(struct wl_resource *resource_, uint32_t in_overview)
 {
 	wl_resource_post_event(resource_, ZAURA_TOPLEVEL_OVERVIEW_CHANGE, in_overview);
+}
+
+/**
+ * @ingroup iface_zaura_toplevel
+ * Sends an configure_occlusion_state event to the client owning the resource.
+ * @param resource_ The client's resource
+ */
+static inline void
+zaura_toplevel_send_configure_occlusion_state(struct wl_resource *resource_, uint32_t mode)
+{
+	wl_resource_post_event(resource_, ZAURA_TOPLEVEL_CONFIGURE_OCCLUSION_STATE, mode);
 }
 
 #ifndef ZAURA_POPUP_DECORATION_TYPE_ENUM

@@ -22,7 +22,7 @@ class ValidationContext;
 
 namespace content::mojom {
 namespace internal {
-class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RenderMessageFilter_GenerateFrameRoutingID_Params_Data {
+class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RenderMessageFilter_GenerateSingleFrameRoutingInfo_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -30,116 +30,160 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RenderMessageFilter_Generate
   mojo::internal::StructHeader header_;
 
  private:
-  friend class mojo::internal::MessageFragment<RenderMessageFilter_GenerateFrameRoutingID_Params_Data>;
+  friend class mojo::internal::MessageFragment<RenderMessageFilter_GenerateSingleFrameRoutingInfo_Params_Data>;
 
-  RenderMessageFilter_GenerateFrameRoutingID_Params_Data();
-  ~RenderMessageFilter_GenerateFrameRoutingID_Params_Data() = delete;
+  RenderMessageFilter_GenerateSingleFrameRoutingInfo_Params_Data();
+  ~RenderMessageFilter_GenerateSingleFrameRoutingInfo_Params_Data() = delete;
 };
-static_assert(sizeof(RenderMessageFilter_GenerateFrameRoutingID_Params_Data) == 8,
-              "Bad sizeof(RenderMessageFilter_GenerateFrameRoutingID_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data {
+static_assert(sizeof(RenderMessageFilter_GenerateSingleFrameRoutingInfo_Params_Data) == 8,
+              "Bad sizeof(RenderMessageFilter_GenerateSingleFrameRoutingInfo_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t routing_id;
-  uint8_t pad0_[4];
-  mojo::internal::Pointer<::blink::mojom::internal::LocalFrameToken_Data> frame_token;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> devtools_frame_token;
-  mojo::internal::Pointer<::blink::mojom::internal::DocumentToken_Data> document_token;
+  mojo::internal::Pointer<internal::FrameRoutingInfo_Data> info;
 
  private:
-  friend class mojo::internal::MessageFragment<RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParams_Data>;
 
-  RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data();
-  ~RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data() = delete;
+  RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParams_Data();
+  ~RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data) == 40,
-              "Bad sizeof(RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data)");
+static_assert(sizeof(RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParams_Data) == 16,
+              "Bad sizeof(RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParams_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RenderMessageFilter_GenerateFrameRoutingInfos_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<RenderMessageFilter_GenerateFrameRoutingInfos_Params_Data>;
+
+  RenderMessageFilter_GenerateFrameRoutingInfos_Params_Data();
+  ~RenderMessageFilter_GenerateFrameRoutingInfos_Params_Data() = delete;
+};
+static_assert(sizeof(RenderMessageFilter_GenerateFrameRoutingInfos_Params_Data) == 8,
+              "Bad sizeof(RenderMessageFilter_GenerateFrameRoutingInfos_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::FrameRoutingInfo_Data>>> info_array;
+
+ private:
+  friend class mojo::internal::MessageFragment<RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParams_Data>;
+
+  RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParams_Data();
+  ~RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParams_Data) == 16,
+              "Bad sizeof(RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParams_Data)");
 
 }  // namespace internal
 
 
-class RenderMessageFilter_GenerateFrameRoutingID_ParamsDataView {
+class RenderMessageFilter_GenerateSingleFrameRoutingInfo_ParamsDataView {
  public:
-  RenderMessageFilter_GenerateFrameRoutingID_ParamsDataView() = default;
+  RenderMessageFilter_GenerateSingleFrameRoutingInfo_ParamsDataView() = default;
 
-  RenderMessageFilter_GenerateFrameRoutingID_ParamsDataView(
-      internal::RenderMessageFilter_GenerateFrameRoutingID_Params_Data* data,
+  RenderMessageFilter_GenerateSingleFrameRoutingInfo_ParamsDataView(
+      internal::RenderMessageFilter_GenerateSingleFrameRoutingInfo_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
  private:
-  internal::RenderMessageFilter_GenerateFrameRoutingID_Params_Data* data_ = nullptr;
+  internal::RenderMessageFilter_GenerateSingleFrameRoutingInfo_Params_Data* data_ = nullptr;
 };
 
 
-class RenderMessageFilter_GenerateFrameRoutingID_ResponseParamsDataView {
+class RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParamsDataView {
  public:
-  RenderMessageFilter_GenerateFrameRoutingID_ResponseParamsDataView() = default;
+  RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParamsDataView() = default;
 
-  RenderMessageFilter_GenerateFrameRoutingID_ResponseParamsDataView(
-      internal::RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data* data,
+  RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParamsDataView(
+      internal::RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  int32_t routing_id() const {
-    return data_->routing_id;
-  }
-  inline void GetFrameTokenDataView(
-      ::blink::mojom::LocalFrameTokenDataView* output);
+  inline void GetInfoDataView(
+      FrameRoutingInfoDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadFrameToken(UserType* output) {
+  [[nodiscard]] bool ReadInfo(UserType* output) {
     
-    auto* pointer = data_->frame_token.Get();
-    return mojo::internal::Deserialize<::blink::mojom::LocalFrameTokenDataView>(
-        pointer, output, message_);
-  }
-  inline void GetDevtoolsFrameTokenDataView(
-      ::mojo_base::mojom::UnguessableTokenDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadDevtoolsFrameToken(UserType* output) {
-    
-    auto* pointer = data_->devtools_frame_token.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::UnguessableTokenDataView>(
-        pointer, output, message_);
-  }
-  inline void GetDocumentTokenDataView(
-      ::blink::mojom::DocumentTokenDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadDocumentToken(UserType* output) {
-    
-    auto* pointer = data_->document_token.Get();
-    return mojo::internal::Deserialize<::blink::mojom::DocumentTokenDataView>(
+    auto* pointer = data_->info.Get();
+    return mojo::internal::Deserialize<::content::mojom::FrameRoutingInfoDataView>(
         pointer, output, message_);
   }
  private:
-  internal::RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data* data_ = nullptr;
+  internal::RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class RenderMessageFilter_GenerateFrameRoutingInfos_ParamsDataView {
+ public:
+  RenderMessageFilter_GenerateFrameRoutingInfos_ParamsDataView() = default;
+
+  RenderMessageFilter_GenerateFrameRoutingInfos_ParamsDataView(
+      internal::RenderMessageFilter_GenerateFrameRoutingInfos_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::RenderMessageFilter_GenerateFrameRoutingInfos_Params_Data* data_ = nullptr;
+};
+
+
+class RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParamsDataView {
+ public:
+  RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParamsDataView() = default;
+
+  RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParamsDataView(
+      internal::RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetInfoArrayDataView(
+      mojo::ArrayDataView<FrameRoutingInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInfoArray(UserType* output) {
+    
+    auto* pointer = data_->info_array.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::content::mojom::FrameRoutingInfoDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
 
-inline void RenderMessageFilter_GenerateFrameRoutingID_ResponseParamsDataView::GetFrameTokenDataView(
-    ::blink::mojom::LocalFrameTokenDataView* output) {
-  auto pointer = data_->frame_token.Get();
-  *output = ::blink::mojom::LocalFrameTokenDataView(pointer, message_);
+inline void RenderMessageFilter_GenerateSingleFrameRoutingInfo_ResponseParamsDataView::GetInfoDataView(
+    FrameRoutingInfoDataView* output) {
+  auto pointer = data_->info.Get();
+  *output = FrameRoutingInfoDataView(pointer, message_);
 }
-inline void RenderMessageFilter_GenerateFrameRoutingID_ResponseParamsDataView::GetDevtoolsFrameTokenDataView(
-    ::mojo_base::mojom::UnguessableTokenDataView* output) {
-  auto pointer = data_->devtools_frame_token.Get();
-  *output = ::mojo_base::mojom::UnguessableTokenDataView(pointer, message_);
-}
-inline void RenderMessageFilter_GenerateFrameRoutingID_ResponseParamsDataView::GetDocumentTokenDataView(
-    ::blink::mojom::DocumentTokenDataView* output) {
-  auto pointer = data_->document_token.Get();
-  *output = ::blink::mojom::DocumentTokenDataView(pointer, message_);
+
+
+
+
+inline void RenderMessageFilter_GenerateFrameRoutingInfos_ResponseParamsDataView::GetInfoArrayDataView(
+    mojo::ArrayDataView<FrameRoutingInfoDataView>* output) {
+  auto pointer = data_->info_array.Get();
+  *output = mojo::ArrayDataView<FrameRoutingInfoDataView>(pointer, message_);
 }
 
 

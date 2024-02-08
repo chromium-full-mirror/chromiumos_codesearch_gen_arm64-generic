@@ -457,33 +457,8 @@ class GetProxyConfigResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kFirstHopHostnamesFieldNumber = 1,
     kProxyChainFieldNumber = 3,
   };
-  // repeated string first_hop_hostnames = 1 [deprecated = true];
-  PROTOBUF_DEPRECATED int first_hop_hostnames_size() const;
-  private:
-  int _internal_first_hop_hostnames_size() const;
-  public:
-  PROTOBUF_DEPRECATED void clear_first_hop_hostnames();
-  PROTOBUF_DEPRECATED const std::string& first_hop_hostnames(int index) const;
-  PROTOBUF_DEPRECATED std::string* mutable_first_hop_hostnames(int index);
-  PROTOBUF_DEPRECATED void set_first_hop_hostnames(int index, const std::string& value);
-  PROTOBUF_DEPRECATED void set_first_hop_hostnames(int index, std::string&& value);
-  PROTOBUF_DEPRECATED void set_first_hop_hostnames(int index, const char* value);
-  PROTOBUF_DEPRECATED void set_first_hop_hostnames(int index, const char* value, size_t size);
-  PROTOBUF_DEPRECATED std::string* add_first_hop_hostnames();
-  PROTOBUF_DEPRECATED void add_first_hop_hostnames(const std::string& value);
-  PROTOBUF_DEPRECATED void add_first_hop_hostnames(std::string&& value);
-  PROTOBUF_DEPRECATED void add_first_hop_hostnames(const char* value);
-  PROTOBUF_DEPRECATED void add_first_hop_hostnames(const char* value, size_t size);
-  PROTOBUF_DEPRECATED const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& first_hop_hostnames() const;
-  PROTOBUF_DEPRECATED ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_first_hop_hostnames();
-  private:
-  const std::string& _internal_first_hop_hostnames(int index) const;
-  std::string* _internal_add_first_hop_hostnames();
-  public:
-
   // repeated .ip_protection.GetProxyConfigResponse.ProxyChain proxy_chain = 3;
   int proxy_chain_size() const;
   private:
@@ -509,7 +484,6 @@ class GetProxyConfigResponse final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> first_hop_hostnames_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ip_protection::GetProxyConfigResponse_ProxyChain > proxy_chain_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_get_5fproxy_5fconfig_2eproto;
@@ -702,81 +676,6 @@ inline void GetProxyConfigResponse_ProxyChain::set_chain_id(int32_t value) {
 // -------------------------------------------------------------------
 
 // GetProxyConfigResponse
-
-// repeated string first_hop_hostnames = 1 [deprecated = true];
-inline int GetProxyConfigResponse::_internal_first_hop_hostnames_size() const {
-  return first_hop_hostnames_.size();
-}
-inline int GetProxyConfigResponse::first_hop_hostnames_size() const {
-  return _internal_first_hop_hostnames_size();
-}
-inline void GetProxyConfigResponse::clear_first_hop_hostnames() {
-  first_hop_hostnames_.Clear();
-}
-inline std::string* GetProxyConfigResponse::add_first_hop_hostnames() {
-  std::string* _s = _internal_add_first_hop_hostnames();
-  // @@protoc_insertion_point(field_add_mutable:ip_protection.GetProxyConfigResponse.first_hop_hostnames)
-  return _s;
-}
-inline const std::string& GetProxyConfigResponse::_internal_first_hop_hostnames(int index) const {
-  return first_hop_hostnames_.Get(index);
-}
-inline const std::string& GetProxyConfigResponse::first_hop_hostnames(int index) const {
-  // @@protoc_insertion_point(field_get:ip_protection.GetProxyConfigResponse.first_hop_hostnames)
-  return _internal_first_hop_hostnames(index);
-}
-inline std::string* GetProxyConfigResponse::mutable_first_hop_hostnames(int index) {
-  // @@protoc_insertion_point(field_mutable:ip_protection.GetProxyConfigResponse.first_hop_hostnames)
-  return first_hop_hostnames_.Mutable(index);
-}
-inline void GetProxyConfigResponse::set_first_hop_hostnames(int index, const std::string& value) {
-  first_hop_hostnames_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set:ip_protection.GetProxyConfigResponse.first_hop_hostnames)
-}
-inline void GetProxyConfigResponse::set_first_hop_hostnames(int index, std::string&& value) {
-  first_hop_hostnames_.Mutable(index)->assign(std::move(value));
-  // @@protoc_insertion_point(field_set:ip_protection.GetProxyConfigResponse.first_hop_hostnames)
-}
-inline void GetProxyConfigResponse::set_first_hop_hostnames(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  first_hop_hostnames_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:ip_protection.GetProxyConfigResponse.first_hop_hostnames)
-}
-inline void GetProxyConfigResponse::set_first_hop_hostnames(int index, const char* value, size_t size) {
-  first_hop_hostnames_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:ip_protection.GetProxyConfigResponse.first_hop_hostnames)
-}
-inline std::string* GetProxyConfigResponse::_internal_add_first_hop_hostnames() {
-  return first_hop_hostnames_.Add();
-}
-inline void GetProxyConfigResponse::add_first_hop_hostnames(const std::string& value) {
-  first_hop_hostnames_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:ip_protection.GetProxyConfigResponse.first_hop_hostnames)
-}
-inline void GetProxyConfigResponse::add_first_hop_hostnames(std::string&& value) {
-  first_hop_hostnames_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:ip_protection.GetProxyConfigResponse.first_hop_hostnames)
-}
-inline void GetProxyConfigResponse::add_first_hop_hostnames(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  first_hop_hostnames_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:ip_protection.GetProxyConfigResponse.first_hop_hostnames)
-}
-inline void GetProxyConfigResponse::add_first_hop_hostnames(const char* value, size_t size) {
-  first_hop_hostnames_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:ip_protection.GetProxyConfigResponse.first_hop_hostnames)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-GetProxyConfigResponse::first_hop_hostnames() const {
-  // @@protoc_insertion_point(field_list:ip_protection.GetProxyConfigResponse.first_hop_hostnames)
-  return first_hop_hostnames_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-GetProxyConfigResponse::mutable_first_hop_hostnames() {
-  // @@protoc_insertion_point(field_mutable_list:ip_protection.GetProxyConfigResponse.first_hop_hostnames)
-  return &first_hop_hostnames_;
-}
 
 // repeated .ip_protection.GetProxyConfigResponse.ProxyChain proxy_chain = 3;
 inline int GetProxyConfigResponse::_internal_proxy_chain_size() const {

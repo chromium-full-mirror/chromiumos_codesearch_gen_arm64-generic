@@ -394,8 +394,7 @@ suite('<os-settings-privacy-page>', () => {
         const privacyHubBrowserProxy = new TestPrivacyHubBrowserProxy();
         PrivacyHubBrowserProxyImpl.setInstanceForTesting(privacyHubBrowserProxy);
         const fakeMetricsPrivate = new FakeMetricsPrivate();
-        chrome.metricsPrivate =
-            fakeMetricsPrivate;
+        chrome.metricsPrivate = fakeMetricsPrivate;
         privacyPage = document.createElement('os-settings-privacy-page');
         privacyPage.prefs = Object.assign({}, PRIVACY_PAGE_PREFS);
         document.body.appendChild(privacyPage);

@@ -31,6 +31,7 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_layer_normalization_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_leaky_relu_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_linear_options.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_ml_lstm_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_operand.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_operand_data_type.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_operand_descriptor.h"
@@ -1605,6 +1606,48 @@ if (UNLIKELY(exception_state.HadException())) {
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 
+void L2Pool2dOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_l2Pool2d");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.l2Pool2d");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "l2Pool2d";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLPool2dOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLPool2dOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLPool2dOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->l2Pool2d(arg1_input, arg2_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
 void LayerNormalizationOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_layerNormalization");
 BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.layerNormalization");
@@ -2001,6 +2044,67 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void LstmOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_lstm");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.lstm");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "lstm";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 5)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(5, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_weight = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg3_recurrent_weight = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 2, info[2], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg4_steps = NativeValueTraits<IDLUnsignedLongEnforceRange>::ArgumentValue(isolate, 3, info[3], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg5_hidden_size = NativeValueTraits<IDLUnsignedLongEnforceRange>::ArgumentValue(isolate, 4, info[4], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLLstmOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg6_options;
+if (info[5]->IsUndefined()) {
+  arg6_options = MLLstmOptions::Create();
+} else {
+  arg6_options = NativeValueTraits<MLLstmOptions>::ArgumentValue(isolate, 5, info[5], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->lstm(arg1_input, arg2_weight, arg3_recurrent_weight, arg4_steps, arg5_hidden_size, arg6_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<MLOperand>>::ToV8(script_state, return_value);
+bindings::V8SetReturnValue(info, v8_return_value);
 }
 
 void MatmulOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -3779,6 +3883,7 @@ void V8MLGraphBuilder::InstallUnconditionalProperties(v8::Isolate* isolate, cons
 {"identity", IdentityOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"input", InputOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"instanceNormalization", InstanceNormalizationOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"l2Pool2d", L2Pool2dOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"layerNormalization", LayerNormalizationOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"leakyRelu", LeakyReluOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"lesser", LesserOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
@@ -3786,6 +3891,7 @@ void V8MLGraphBuilder::InstallUnconditionalProperties(v8::Isolate* isolate, cons
 {"linear", LinearOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"log", LogOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"logicalNot", LogicalNotOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"lstm", LstmOperationCallback, 5, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"matmul", MatmulOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"max", MaxOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"maxPool2d", MaxPool2dOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

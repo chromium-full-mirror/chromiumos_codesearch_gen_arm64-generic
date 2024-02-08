@@ -424,8 +424,10 @@ namespace OnGetPrintersRequested {
 
 const char kEventName[] = "printerProvider.onGetPrintersRequested";
 
-base::Value::List Create() {
+base::Value::List Create(base::Value::Dict result_callback) {
   base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append((result_callback).Clone());
 
   return create_results;
 }
@@ -436,10 +438,12 @@ namespace OnGetUsbPrinterInfoRequested {
 
 const char kEventName[] = "printerProvider.onGetUsbPrinterInfoRequested";
 
-base::Value::List Create(const extensions::api::usb::Device& device) {
+base::Value::List Create(const extensions::api::usb::Device& device, base::Value::Dict result_callback) {
   base::Value::List create_results;
-  create_results.reserve(1);
+  create_results.reserve(2);
   create_results.Append((device).ToValue());
+
+  create_results.Append((result_callback).Clone());
 
   return create_results;
 }
@@ -450,10 +454,12 @@ namespace OnGetCapabilityRequested {
 
 const char kEventName[] = "printerProvider.onGetCapabilityRequested";
 
-base::Value::List Create(const std::string& printer_id) {
+base::Value::List Create(const std::string& printer_id, base::Value::Dict result_callback) {
   base::Value::List create_results;
-  create_results.reserve(1);
+  create_results.reserve(2);
   create_results.Append(printer_id);
+
+  create_results.Append((result_callback).Clone());
 
   return create_results;
 }
@@ -464,10 +470,12 @@ namespace OnPrintRequested {
 
 const char kEventName[] = "printerProvider.onPrintRequested";
 
-base::Value::List Create(const PrintJob& print_job) {
+base::Value::List Create(const PrintJob& print_job, base::Value::Dict result_callback) {
   base::Value::List create_results;
-  create_results.reserve(1);
+  create_results.reserve(2);
   create_results.Append((print_job).ToValue());
+
+  create_results.Append((result_callback).Clone());
 
   return create_results;
 }

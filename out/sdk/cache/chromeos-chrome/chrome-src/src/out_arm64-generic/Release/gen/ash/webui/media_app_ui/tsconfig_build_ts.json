@@ -44,7 +44,7 @@
     "stage_ts/piex_module_loader.ts",
     "stage_ts/receiver.ts",
     "stage_ts/mojo_api_bootstrap.js",
-    "stage_ts/piex_loader.js",
+    "stage_ts/piex_loader.ts",
     "stage_ts/media_app_ui_untrusted.mojom-webui.ts",
     "stage_ts/extra_types.d.ts",
     "stage_ts/media_app.d.ts",

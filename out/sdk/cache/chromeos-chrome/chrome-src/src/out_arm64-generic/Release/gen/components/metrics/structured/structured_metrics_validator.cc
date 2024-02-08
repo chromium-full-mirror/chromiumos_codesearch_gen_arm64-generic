@@ -1939,7 +1939,9 @@ void ImpressionEventValidator::Initialize() {
   {"VeParent", { Event::MetricType::kLong, UINT64_C(16136417644891610031)}},
   {"VeContext", { Event::MetricType::kLong, UINT64_C(15142575525071682906)}},
   {"TimeSinceSessionStart", { Event::MetricType::kLong, UINT64_C(16337824081306684483)}},
-  {"SessionId", { Event::MetricType::kLong, UINT64_C(4297293875635157131)}}
+  {"SessionId", { Event::MetricType::kLong, UINT64_C(4297293875635157131)}},
+  {"Width", { Event::MetricType::kLong, UINT64_C(3644896802912593514)}},
+  {"Height", { Event::MetricType::kLong, UINT64_C(17205655745617698527)}}
    };
 
 
@@ -1949,7 +1951,48 @@ void ImpressionEventValidator::Initialize() {
   { UINT64_C(16136417644891610031), "VeParent" },
   { UINT64_C(15142575525071682906), "VeContext" },
   { UINT64_C(16337824081306684483), "TimeSinceSessionStart" },
-  { UINT64_C(4297293875635157131), "SessionId" }
+  { UINT64_C(4297293875635157131), "SessionId" },
+  { UINT64_C(3644896802912593514), "Width" },
+  { UINT64_C(17205655745617698527), "Height" }
+  };
+}
+
+class ResizeEventValidator final :
+    public ::metrics::structured::EventValidator {
+  public:
+    ResizeEventValidator();
+    ~ResizeEventValidator();
+
+    void Initialize();
+
+    static constexpr uint64_t kEventNameHash = UINT64_C(15727676286859240);
+};
+
+ResizeEventValidator::ResizeEventValidator() :
+  ::metrics::structured::EventValidator(ResizeEventValidator::kEventNameHash,
+                                        false)
+  {
+  Initialize();
+}
+
+ResizeEventValidator::~ResizeEventValidator() = default;
+
+void ResizeEventValidator::Initialize() {
+  metric_metadata_ = {
+    {"VeId", { Event::MetricType::kLong, UINT64_C(15328103879772752934)}},
+  {"TimeSinceSessionStart", { Event::MetricType::kLong, UINT64_C(16337824081306684483)}},
+  {"SessionId", { Event::MetricType::kLong, UINT64_C(4297293875635157131)}},
+  {"Width", { Event::MetricType::kLong, UINT64_C(3644896802912593514)}},
+  {"Height", { Event::MetricType::kLong, UINT64_C(17205655745617698527)}}
+   };
+
+
+  metrics_name_map_ = {
+    { UINT64_C(15328103879772752934), "VeId" },
+  { UINT64_C(16337824081306684483), "TimeSinceSessionStart" },
+  { UINT64_C(4297293875635157131), "SessionId" },
+  { UINT64_C(3644896802912593514), "Width" },
+  { UINT64_C(17205655745617698527), "Height" }
   };
 }
 
@@ -2793,6 +2836,7 @@ void DevToolsProjectValidator::Initialize() {
   event_validators_.emplace("SessionStart", std::make_unique<SessionStartEventValidator>());
   event_validators_.emplace("SessionEnd", std::make_unique<SessionEndEventValidator>());
   event_validators_.emplace("Impression", std::make_unique<ImpressionEventValidator>());
+  event_validators_.emplace("Resize", std::make_unique<ResizeEventValidator>());
   event_validators_.emplace("Click", std::make_unique<ClickEventValidator>());
   event_validators_.emplace("Hover", std::make_unique<HoverEventValidator>());
   event_validators_.emplace("Drag", std::make_unique<DragEventValidator>());
@@ -2802,6 +2846,7 @@ void DevToolsProjectValidator::Initialize() {
   event_name_map_.emplace(UINT64_C(13744243518034680300), "SessionStart");
   event_name_map_.emplace(UINT64_C(3262187048172162891), "SessionEnd");
   event_name_map_.emplace(UINT64_C(4398047322841981703), "Impression");
+  event_name_map_.emplace(UINT64_C(15727676286859240), "Resize");
   event_name_map_.emplace(UINT64_C(5980286229304309245), "Click");
   event_name_map_.emplace(UINT64_C(4890306395588587268), "Hover");
   event_name_map_.emplace(UINT64_C(17504965937910711994), "Drag");

@@ -1,10 +1,6 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Mixin to be used by Polymer elements that want to
- * automatically remove WebUI listeners when detached.
- */
 import { addWebUiListener, removeWebUiListener } from '//resources/js/cr.js';
 import { dedupingMixin } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export const WebUiListenerMixin = dedupingMixin((superClass) => {

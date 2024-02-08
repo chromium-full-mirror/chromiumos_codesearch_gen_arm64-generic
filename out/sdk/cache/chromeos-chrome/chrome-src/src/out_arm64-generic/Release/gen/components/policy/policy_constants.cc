@@ -62,7 +62,9 @@ namespace policy {
   // AllowWebAuthnWithBrokenTlsCerts
   { false,        false,    false,           1029,                     0, { RISK_TAG_SYSTEM_SECURITY, RISK_TAG_NONE, RISK_TAG_NONE } },
   // AllowedDomainsForApps
-  { false,        false,    false,            331,                     0, { RISK_TAG_FILTERING, RISK_TAG_NONE, RISK_TAG_NONE } },
+  { true,         false,    false,            331,                     0, { RISK_TAG_FILTERING, RISK_TAG_NONE, RISK_TAG_NONE } },
+  // AllowedDomainsForAppsList
+  { false,        false,    false,           1212,                     0, { RISK_TAG_FILTERING, RISK_TAG_NONE, RISK_TAG_NONE } },
   // AllowedInputMethods
   { false,        false,    false,            456,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // AllowedLanguages
@@ -1441,6 +1443,8 @@ namespace policy {
   { false,        false,    false,            666,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // ScreenCaptureAllowedByOrigins
   { false,        false,    false,            881,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
+  // ScreenCaptureLocation
+  { false,        true,     false,           1211,                     0, { RISK_TAG_LOCAL_DATA_ACCESS, RISK_TAG_NONE, RISK_TAG_NONE } },
   // ScreenCaptureWithoutGestureAllowedForOrigins
   { false,        false,    false,           1092,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // ScreenDimDelayAC
@@ -1508,7 +1512,7 @@ namespace policy {
   // ShoppingListEnabled
   { false,        false,    false,           1018,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // ShortcutCustomizationAllowed
-  { false,        true,     false,           1147,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
+  { false,        false,    false,           1147,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // ShowAccessibilityOptionsInSystemTrayMenu
   { false,        false,    false,            188,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // ShowCastIconInToolbar
@@ -2920,6 +2924,7 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kAllowWakeLocks,                                                 1 },
   { key::kAllowWebAuthnWithBrokenTlsCerts,                                1 },
   { key::kAllowedDomainsForApps,                                          4 },
+  { key::kAllowedDomainsForAppsList,                                      5 },
   { key::kAllowedInputMethods,                                            5 },
   { key::kAllowedLanguages,                                               5 },
   { key::kAlternateErrorPagesEnabled,                                     1 },
@@ -3604,6 +3609,7 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kScreenBrightnessPercent,                                      396 },
   { key::kScreenCaptureAllowed,                                           1 },
   { key::kScreenCaptureAllowedByOrigins,                                  5 },
+  { key::kScreenCaptureLocation,                                          4 },
   { key::kScreenCaptureWithoutGestureAllowedForOrigins,                   5 },
   { key::kScreenDimDelayAC,                                               2 },
   { key::kScreenDimDelayBattery,                                          2 },
@@ -3982,19 +3988,19 @@ const internal::PropertiesNode kProperties[] = {
   {   554,   556,   556,    93,         95,    -1 },  // urls
   {   556,   558,   558,    95,         95,    -1 },  // items of devices
   {   558,   560,   560,    95,         97,    -1 },  // urls
-  {   560,  1407,  1407,    97,         97,    -1 },  // root node
-  {  1407,  1411,  1411,    97,         97,    -1 },  // ISSUER
-  {  1411,  1415,  1415,    97,         97,    -1 },  // SUBJECT
-  {  1415,  1417,  1417,    97,         97,    -1 },  // filter
-  {  1417,  1419,  1419,    97,         97,    -1 },  // items of AutoSelectCertificateForUrls
-  {  1419,  1422,  1422,    97,         97,    -1 },  // DefaultPrinterSelection
-  {  1422,  1426,  1426,    97,         97,    -1 },  // ISSUER
-  {  1426,  1430,  1430,    97,         97,    -1 },  // SUBJECT
-  {  1430,  1432,  1432,    97,         97,    -1 },  // filter
-  {  1432,  1434,  1434,    97,         97,    -1 },  // items of DeviceLoginScreenAutoSelectCertificateForUrls
-  {  1434,  1436,  1436,    97,         97,    -1 },  // ppd_resource
-  {  1436,  1443,  1443,    97,         97,    -1 },  // items of Printers
-  {  1443,  1447,  1447,    97,         97,    -1 },  // validation_schema root node
+  {   560,  1409,  1409,    97,         97,    -1 },  // root node
+  {  1409,  1413,  1413,    97,         97,    -1 },  // ISSUER
+  {  1413,  1417,  1417,    97,         97,    -1 },  // SUBJECT
+  {  1417,  1419,  1419,    97,         97,    -1 },  // filter
+  {  1419,  1421,  1421,    97,         97,    -1 },  // items of AutoSelectCertificateForUrls
+  {  1421,  1424,  1424,    97,         97,    -1 },  // DefaultPrinterSelection
+  {  1424,  1428,  1428,    97,         97,    -1 },  // ISSUER
+  {  1428,  1432,  1432,    97,         97,    -1 },  // SUBJECT
+  {  1432,  1434,  1434,    97,         97,    -1 },  // filter
+  {  1434,  1436,  1436,    97,         97,    -1 },  // items of DeviceLoginScreenAutoSelectCertificateForUrls
+  {  1436,  1438,  1438,    97,         97,    -1 },  // ppd_resource
+  {  1438,  1445,  1445,    97,         97,    -1 },  // items of Printers
+  {  1445,  1449,  1449,    97,         97,    -1 },  // validation_schema root node
 };
 
 const internal::RestrictionNode kRestrictionNodes[] = {
@@ -5343,7 +5349,7 @@ const PolicyDetails* GetChromePolicyDetails(const std::string& policy) {
   // First index in kPropertyNodes of the Chrome policies.
   static constexpr int begin_index = 560;
   // One-past-the-end of the Chrome policies in kPropertyNodes.
-  static constexpr int end_index = 1407;
+  static constexpr int end_index = 1409;
   const internal::PropertyNode* begin =
      kPropertyNodes + begin_index;
   const internal::PropertyNode* end = kPropertyNodes + end_index;
@@ -5388,6 +5394,7 @@ const char kAllowScreenWakeLocks[] = "AllowScreenWakeLocks";
 const char kAllowWakeLocks[] = "AllowWakeLocks";
 const char kAllowWebAuthnWithBrokenTlsCerts[] = "AllowWebAuthnWithBrokenTlsCerts";
 const char kAllowedDomainsForApps[] = "AllowedDomainsForApps";
+const char kAllowedDomainsForAppsList[] = "AllowedDomainsForAppsList";
 const char kAllowedInputMethods[] = "AllowedInputMethods";
 const char kAllowedLanguages[] = "AllowedLanguages";
 const char kAlternateErrorPagesEnabled[] = "AlternateErrorPagesEnabled";
@@ -6072,6 +6079,7 @@ const char kSchedulerConfiguration[] = "SchedulerConfiguration";
 const char kScreenBrightnessPercent[] = "ScreenBrightnessPercent";
 const char kScreenCaptureAllowed[] = "ScreenCaptureAllowed";
 const char kScreenCaptureAllowedByOrigins[] = "ScreenCaptureAllowedByOrigins";
+const char kScreenCaptureLocation[] = "ScreenCaptureLocation";
 const char kScreenCaptureWithoutGestureAllowedForOrigins[] = "ScreenCaptureWithoutGestureAllowedForOrigins";
 const char kScreenDimDelayAC[] = "ScreenDimDelayAC";
 const char kScreenDimDelayBattery[] = "ScreenDimDelayBattery";
@@ -10410,7 +10418,7 @@ const std::array<IntegerPolicyAccess, 105> kIntegerPolicyAccess {{
   },
 }};
 
-const std::array<StringPolicyAccess, 118> kStringPolicyAccess {{
+const std::array<StringPolicyAccess, 119> kStringPolicyAccess {{
   {key::kAllowedDomainsForApps,
    true,
    [](const em::CloudPolicySettings& policy) {
@@ -11499,6 +11507,18 @@ const std::array<StringPolicyAccess, 118> kStringPolicyAccess {{
    },
    StringPolicyType::JSON
   },
+  {key::kScreenCaptureLocation,
+   false,
+   [](const em::CloudPolicySettings& policy) {
+     return policy.has_subproto1() &&
+              policy.subproto1().has_screencapturelocation();
+   },
+   [](const em::CloudPolicySettings& policy)
+       -> const em::StringPolicyProto& {
+     return policy.subproto1().screencapturelocation();
+   },
+   StringPolicyType::STRING
+  },
   {key::kScreenLockDelays,
    false,
    [](const em::CloudPolicySettings& policy) {
@@ -11722,7 +11742,7 @@ const std::array<StringPolicyAccess, 118> kStringPolicyAccess {{
   },
 }};
 
-const std::array<StringListPolicyAccess, 125> kStringListPolicyAccess {{
+const std::array<StringListPolicyAccess, 126> kStringListPolicyAccess {{
   {key::kAllHttpAuthSchemesAllowedForOrigins,
    false,
    [](const em::CloudPolicySettings& policy) {
@@ -11731,6 +11751,17 @@ const std::array<StringListPolicyAccess, 125> kStringListPolicyAccess {{
    [](const em::CloudPolicySettings& policy)
        -> const em::StringListPolicyProto& {
      return policy.allhttpauthschemesallowedfororigins();
+   }
+  },
+  {key::kAllowedDomainsForAppsList,
+   true,
+   [](const em::CloudPolicySettings& policy) {
+     return policy.has_subproto1() &&
+              policy.subproto1().has_alloweddomainsforappslist();
+   },
+   [](const em::CloudPolicySettings& policy)
+       -> const em::StringListPolicyProto& {
+     return policy.subproto1().alloweddomainsforappslist();
    }
   },
   {key::kAllowedInputMethods,

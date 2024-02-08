@@ -41,12 +41,11 @@
 
   var RequestTokenStatus = {};
   RequestTokenStatus.kSuccess = 0;
-  RequestTokenStatus.kApprovalDeclined = 1;
-  RequestTokenStatus.kErrorTooManyRequests = 2;
-  RequestTokenStatus.kErrorCanceled = 3;
-  RequestTokenStatus.kError = 4;
+  RequestTokenStatus.kErrorTooManyRequests = 1;
+  RequestTokenStatus.kErrorCanceled = 2;
+  RequestTokenStatus.kError = 3;
   RequestTokenStatus.MIN_VALUE = 0;
-  RequestTokenStatus.MAX_VALUE = 4;
+  RequestTokenStatus.MAX_VALUE = 3;
 
   RequestTokenStatus.isKnownEnumValue = function(value) {
     switch (value) {
@@ -54,7 +53,6 @@
     case 1:
     case 2:
     case 3:
-    case 4:
       return true;
     }
     return false;

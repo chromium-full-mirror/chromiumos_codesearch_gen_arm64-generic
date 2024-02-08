@@ -26,9 +26,7 @@ namespace perfetto {
 namespace trace_processor {
 namespace prelude::tables_views {
 
-const char kTables[] = R"_d3l1m1t3r_(CREATE TABLE perfetto_tables(name STRING);
-
-CREATE TABLE trace_bounds AS
+const char kTables[] = R"_d3l1m1t3r_(CREATE TABLE trace_bounds AS
 SELECT 0 AS start_ts, 0 AS end_ts;
 
 CREATE TABLE power_profile(

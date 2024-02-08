@@ -4,6 +4,7 @@
 import { AutomationPredicate } from '/common/automation_predicate.js';
 import { AutomationUtil } from '/common/automation_util.js';
 import { constants } from '/common/constants.js';
+import { FlagName, Flags } from '/common/flags.js';
 import { NodeNavigationUtils } from '/common/node_navigation_utils.js';
 import { NodeUtils } from '/common/node_utils.js';
 import { ParagraphUtils } from '/common/paragraph_utils.js';
@@ -134,7 +135,7 @@ export class SelectToSpeak {
         this.onLoadDesktopCallbackForTest_ = null;
         this.init_();
     }
-    init_() {
+    async init_() {
         chrome.automation.getDesktop(desktop => {
             this.desktop_ = desktop;
             // After the user selects a region of the screen, we do a hit test at
@@ -149,13 +150,25 @@ export class SelectToSpeak {
         this.prefsManager_.initPreferences();
         this.runContentScripts_();
         this.setUpEventListeners_();
-        chrome.contextMenus.create({
+        await Flags.init();
+        const createArgs = {
             title: chrome.i18n.getMessage('select_to_speak_listen_context_menu_option_text'),
             contexts: [chrome.contextMenus.ContextType.SELECTION],
-            onclick: () => {
+            id: 'select_to_speak',
+        };
+        if (Flags.isEnabled(FlagName.MANIFEST_V3)) {
+            chrome.contextMenus.onClicked.addListener(() => {
                 this.getFocusedNodeAndSpeakSelectedText_();
-            },
-        });
+            });
+        }
+        else {
+            createArgs['onclick'] = () => {
+                this.getFocusedNodeAndSpeakSelectedText_();
+            };
+        }
+        // Install the context menu in the Ash browser.
+        await chrome.contextMenus.create(createArgs);
+        // Listen for context menu clicks from other contexts (like Lacros).
         chrome.accessibilityPrivate.onSelectToSpeakContextMenuClicked.addListener(() => {
             this.getFocusedNodeAndSpeakSelectedText_();
         });

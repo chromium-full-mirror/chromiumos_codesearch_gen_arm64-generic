@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import { LruCache } from 'chrome://file-manager/common/js/lru_cache.js';
 import { LoadImageRequest, LoadImageResponse, LoadImageResponseStatus } from './load_image_request.js';
+let instance = null;
 /**
  * Client used to connect to the remote ImageLoader extension. Client class runs
  * in the extension, where the client.js is included (eg. Files app).
@@ -13,89 +14,39 @@ import { LoadImageRequest, LoadImageResponse, LoadImageResponseStatus } from './
  */
 export class ImageLoaderClient {
     constructor() {
-        /**
-         * @type {number}
-         * @private
-         */
         this.lastTaskId_ = 0;
         /**
          * LRU cache for images.
-         * @type {!LruCache.<{
-         *   timestamp: ?number,
-         *   width: number,
-         *   height: number,
-         *   ifd: ?string,
-         *   data: string
-         * }>}
-         * @private
          */
         this.cache_ = new LruCache(CACHE_MEMORY_LIMIT);
     }
     /**
      * Returns a singleton instance.
-     * @return {ImageLoaderClient} Client instance.
      */
     static getInstance() {
-        // @ts-ignore: error TS2339: Property 'instance_' does not exist on type
-        // 'typeof ImageLoaderClient'.
-        if (!ImageLoaderClient.instance_) {
-            // @ts-ignore: error TS2339: Property 'instance_' does not exist on type
-            // 'typeof ImageLoaderClient'.
-            ImageLoaderClient.instance_ = new ImageLoaderClient();
+        if (!instance) {
+            instance = new ImageLoaderClient();
         }
-        // @ts-ignore: error TS2339: Property 'instance_' does not exist on type
-        // 'typeof ImageLoaderClient'.
-        return ImageLoaderClient.instance_;
-    }
-    /**
-     * Records binary metrics. Counts for true and false are stored as a
-     * histogram.
-     * @param {string} name Histogram's name.
-     * @param {boolean} value True or false.
-     */
-    static recordBinary(name, value) {
-        chrome.metricsPrivate.recordValue({
-            metricName: 'ImageLoader.Client.' + name,
-            type: chrome.metricsPrivate.MetricTypeType.HISTOGRAM_LINEAR,
-            min: 1, // According to histogram.h, this should be 1 for enums.
-            max: 2, // Maximum should be exclusive.
-            buckets: 3,
-        }, // Number of buckets: 0, 1 and overflowing 2.
-        value ? 1 : 0);
-    }
-    /**
-     * Records percent metrics, stored as a histogram.
-     * @param {string} name Histogram's name.
-     * @param {number} value Value (0..100).
-     */
-    static recordPercentage(name, value) {
-        chrome.metricsPrivate.recordPercentage('ImageLoader.Client.' + name, Math.round(value));
+        return instance;
     }
     /**
      * Sends a message to the Image Loader extension.
-     * @param {!LoadImageRequest} request The image request.
-     * @param {!function(!LoadImageResponse)=} callback Response handling
-     *     callback. The response is passed as a hash array.
-     * @private
+     * @param request The image request.
+     * @param callback Response handling callback. The response is passed as a
+     *     hash array.
      */
     static sendMessage_(request, callback) {
-        // @ts-ignore: error TS2339: Property 'sendMessage' does not exist on type
-        // 'typeof runtime'.
         chrome.runtime.sendMessage(EXTENSION_ID, request, callback);
     }
     /**
      * Loads and resizes and image.
      *
-     * @param {!LoadImageRequest} request
-     * @param {!function(!LoadImageResponse)=} callback Response handling
-     *     callback.
-     * @return {?number} Remote task id or null if loaded from cache.
+     * @param callback Response handling callback.
+     * @return Remote task id or null if loaded from cache.
      */
     load(request, callback) {
-        // Record cache usage.
-        ImageLoaderClient.recordPercentage('Cache.Usage', this.cache_.size() / CACHE_MEMORY_LIMIT * 100.0);
         // Replace the client origin with the image loader extension origin.
-        // @ts-ignore: error TS18048: 'request.url' is possibly 'undefined'.
+        request.url = request.url ?? '';
         request.url = request.url.replace(CLIENT_URL_REGEX, IMAGE_LOADER_URL);
         request.url = request.url.replace(CLIENT_SWA_REGEX, IMAGE_LOADER_URL);
         // Try to load from cache, if available.
@@ -103,7 +54,6 @@ export class ImageLoaderClient {
         if (cacheKey) {
             if (request.cache) {
                 // Load from cache.
-                ImageLoaderClient.recordBinary('Cached', true);
                 let cachedValue = this.cache_.get(cacheKey);
                 // Check if the image in cache is up to date. If not, then remove it.
                 // It relies on comparing `null` equals to `undefined`.
@@ -114,9 +64,6 @@ export class ImageLoaderClient {
                 }
                 if (cachedValue && cachedValue.data && cachedValue.width &&
                     cachedValue.height) {
-                    ImageLoaderClient.recordBinary('Cache.HitMiss', true);
-                    // @ts-ignore: error TS2722: Cannot invoke an object which is possibly
-                    // 'undefined'.
                     callback(new LoadImageResponse(LoadImageResponseStatus.SUCCESS, null, {
                         width: cachedValue.width,
                         height: cachedValue.height,
@@ -125,30 +72,22 @@ export class ImageLoaderClient {
                     }));
                     return null;
                 }
-                else {
-                    ImageLoaderClient.recordBinary('Cache.HitMiss', false);
-                }
             }
             else {
                 // Remove from cache.
-                ImageLoaderClient.recordBinary('Cached', false);
                 this.cache_.remove(cacheKey);
             }
         }
         // Not available in cache, performing a request to a remote extension.
         this.lastTaskId_++;
         request.taskId = this.lastTaskId_;
-        ImageLoaderClient.sendMessage_(request, (result_data) => {
+        ImageLoaderClient.sendMessage_(request, (resultData) => {
             if (chrome.runtime.lastError) {
                 console.warn(chrome.runtime.lastError.message);
-                // @ts-ignore: error TS2722: Cannot invoke an object which is possibly
-                // 'undefined'.
-                callback(new LoadImageResponse(LoadImageResponseStatus.ERROR, 
-                /** @type {number} */ (request.taskId)));
+                callback(new LoadImageResponse(LoadImageResponseStatus.ERROR, request.taskId));
                 return;
             }
-            // TODO(tapted): Move to a prototype for better type checking.
-            const result = /** @type {!LoadImageResponse} */ (result_data);
+            const result = resultData;
             // Save to cache.
             if (cacheKey && request.cache) {
                 const value = LoadImageResponse.cacheValue(result, request.timestamp);
@@ -156,8 +95,6 @@ export class ImageLoaderClient {
                     this.cache_.put(cacheKey, value, value.data.length);
                 }
             }
-            // @ts-ignore: error TS2722: Cannot invoke an object which is possibly
-            // 'undefined'.
             callback(result);
         });
         return request.taskId;
@@ -165,7 +102,7 @@ export class ImageLoaderClient {
     /**
      * Cancels the request. Note the original callback may still be invoked if
      * this message doesn't reach the ImageLoader before it starts processing.
-     * @param {number} taskId Task id returned by ImageLoaderClient.load().
+     * @param taskId Task id returned by ImageLoaderClient.load().
      */
     cancel(taskId) {
         ImageLoaderClient.sendMessage_(LoadImageRequest.createCancel(taskId), (_result) => { });
@@ -174,16 +111,12 @@ export class ImageLoaderClient {
     /**
      * Loads and resizes and image.
      *
-     * @param {!LoadImageRequest} request
-     * @param {HTMLImageElement} image Image node to load the requested picture
-     *     into.
-     * @param {VoidCallback} onSuccess Callback for success.
-     * @param {VoidCallback} onError Callback for failure.
-     * @return {?number} Remote task id or null if loaded from cache.
+     * @param image Image node to load the requested picture into.
+     * @param onSuccess Callback for success.
+     * @param onError Callback for failure.
+     * @return Remote task id or null if loaded from cache.
      */
     static loadToImage(request, image, onSuccess, onError) {
-        // @ts-ignore: error TS7006: Parameter 'result' implicitly has an 'any'
-        // type.
         const callback = (result) => {
             if (!result || result.status === LoadImageResponseStatus.ERROR) {
                 onError();
@@ -197,31 +130,23 @@ export class ImageLoaderClient {
 }
 /**
  * Image loader's extension id.
- * @const
- * @type {string}
  */
 const EXTENSION_ID = 'pmfjbimdmchhbnneeidfognadeopoehp';
 /**
  * Image loader client extension request URL matcher.
- * @const {!RegExp}
  */
 const CLIENT_URL_REGEX = /filesystem:chrome-extension:\/\/[a-z]+/;
 /**
  * Image loader client chrome://file-manager request URL matcher.
- * @const {!RegExp}
  */
 const CLIENT_SWA_REGEX = /filesystem:chrome:\/\/file-manager/;
 /**
  * All client request URL match CLIENT_URL_REGEX and all are
  * rewritten: the client extension id part of the request URL is replaced with
  * the image loader extension id.
- * @const {string}
  */
 const IMAGE_LOADER_URL = 'filesystem:chrome-extension://' + EXTENSION_ID;
 /**
  * Memory limit for images data in bytes.
- *
- * @const
- * @type {number}
  */
 const CACHE_MEMORY_LIMIT = 20 * 1024 * 1024; // 20 MB.

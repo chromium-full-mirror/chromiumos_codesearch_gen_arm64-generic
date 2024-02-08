@@ -1690,8 +1690,8 @@ class  PasswordSuggestionRequest_Data {
   uint64_t username_field_index;
   uint64_t password_field_index;
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> typed_username;
-  int32_t options;
-  uint8_t pad7_[4];
+  uint8_t show_webauthn_credentials : 1;
+  uint8_t pad7_[7];
   mojo::internal::Pointer<::gfx::mojom::internal::RectF_Data> bounds;
 
  private:

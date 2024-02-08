@@ -96,7 +96,7 @@ build nacl_helper_arm32/obj/base/anchor_functions_buildflags.stamp: nacl_helper_
 subninja nacl_helper_arm32/obj/base/base.ninja
 subninja nacl_helper_arm32/obj/base/base_static.ninja
 rule __base_build_date___build_toolchain_cros_nacl_helper_arm32__rule
-  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/base/write_build_date_header.py nacl_helper_arm32/gen/base/generated_build_date.h 1707149128
+  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/base/write_build_date_header.py nacl_helper_arm32/gen/base/generated_build_date.h 1707365071
   description = ACTION //base:build_date(//build/toolchain/cros:nacl_helper_arm32)
   restat = 1
   pool = build_toolchain_action_pool
@@ -633,7 +633,7 @@ subninja nacl_helper_arm32/obj/components/nacl/loader/sandbox_linux/sandbox_linu
 subninja nacl_helper_arm32/obj/components/power_monitor/power_monitor.ninja
 rule __components_services_screen_ai_buildflags_buildflags___build_toolchain_cros_nacl_helper_arm32__rule
   rspfile = __components_services_screen_ai_buildflags_buildflags___build_toolchain_cros_nacl_helper_arm32__rule.rsp
-  rspfile_content = --flags ENABLE_SCREEN_AI_SERVICE=true
+  rspfile_content = --flags ENABLE_SCREEN_AI_BROWSERTESTS=false ENABLE_SCREEN_AI_SERVICE=true USE_FAKE_SCREEN_AI=false
   command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/build/write_buildflag_header.py --output components/services/screen_ai/buildflags/buildflags.h --rulename //components/services/screen_ai/buildflags$:buildflags --gen-dir nacl_helper_arm32/gen --definitions ${rspfile}
   description = ACTION //components/services/screen_ai/buildflags:buildflags(//build/toolchain/cros:nacl_helper_arm32)
   restat = 1

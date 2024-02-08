@@ -84,7 +84,7 @@ function launchChrome() {
         '--enable-blink-features=CSSContainerQueries,HighlightInheritance', // TODO(crbug.com/1218390) Remove globally enabled flags and conditionally enable them
     ];
     const opts = {
-        headless: headless ? 'new' : false,
+        headless,
         executablePath: envChromeBinary,
         dumpio: !headless || Boolean(process.env['LUCI_CONTEXT']),
         slowMo: envSlowMo,

@@ -1,11 +1,6 @@
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Suite of tests for extension-manager unit tests. Unlike
- * extension_manager_test.js, these tests are not interacting with the real
- * chrome.developerPrivate API.
- */
 import { KioskBrowserProxyImpl, Service } from 'chrome://extensions/extensions.js';
 import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertFalse, assertTrue } from 'chrome://webui-test/chai_assert.js';

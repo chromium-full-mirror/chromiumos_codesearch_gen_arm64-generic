@@ -131,6 +131,7 @@ class InternalSettingsGenerated : public ScriptWrappable,
   void setPresentationRequiresUserGesture(bool presentationRequiresUserGesture);
   void setReportScreenSizeInPhysicalPixelsQuirk(bool reportScreenSizeInPhysicalPixelsQuirk);
   void setRequireTransientActivationForGetDisplayMedia(bool requireTransientActivationForGetDisplayMedia);
+  void setRequireTransientActivationForHtmlFullscreen(bool requireTransientActivationForHtmlFullscreen);
   void setRequireTransientActivationForShowFileOrDirectoryPicker(bool requireTransientActivationForShowFileOrDirectoryPicker);
   void setResizable(bool resizable);
   void setRubberBandingOnCompositorThread(bool rubberBandingOnCompositorThread);

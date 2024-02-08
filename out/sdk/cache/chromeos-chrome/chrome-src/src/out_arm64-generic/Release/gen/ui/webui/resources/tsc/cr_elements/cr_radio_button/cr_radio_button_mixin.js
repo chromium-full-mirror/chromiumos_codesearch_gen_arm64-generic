@@ -1,10 +1,6 @@
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Mixin for cr-radio-button-like elements.
- */
-// clang-format off
 import { dedupingMixin } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assert, assertNotReached } from '//resources/js/assert.js';
 export const CrRadioButtonMixin = dedupingMixin((superClass) => {

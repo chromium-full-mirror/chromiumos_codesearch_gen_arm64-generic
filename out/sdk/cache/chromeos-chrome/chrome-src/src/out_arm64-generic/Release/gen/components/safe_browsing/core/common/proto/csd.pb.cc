@@ -1762,7 +1762,8 @@ PROTOBUF_CONSTEXPR ExtensionTelemetryReportRequest::ExtensionTelemetryReportRequ
     ::_pbi::ConstantInitialized)
   : reports_()
   , creation_timestamp_msec_(int64_t{0})
-  , configuration_version_(0u){}
+  , configuration_version_(0u)
+  , developer_mode_enabled_(false){}
 struct ExtensionTelemetryReportRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ExtensionTelemetryReportRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -41671,6 +41672,9 @@ class ExtensionTelemetryReportRequest::_Internal {
   static void set_has_configuration_version(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
+  static void set_has_developer_mode_enabled(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 ExtensionTelemetryReportRequest::ExtensionTelemetryReportRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -41686,16 +41690,16 @@ ExtensionTelemetryReportRequest::ExtensionTelemetryReportRequest(const Extension
       reports_(from.reports_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&creation_timestamp_msec_, &from.creation_timestamp_msec_,
-    static_cast<size_t>(reinterpret_cast<char*>(&configuration_version_) -
-    reinterpret_cast<char*>(&creation_timestamp_msec_)) + sizeof(configuration_version_));
+    static_cast<size_t>(reinterpret_cast<char*>(&developer_mode_enabled_) -
+    reinterpret_cast<char*>(&creation_timestamp_msec_)) + sizeof(developer_mode_enabled_));
   // @@protoc_insertion_point(copy_constructor:safe_browsing.ExtensionTelemetryReportRequest)
 }
 
 inline void ExtensionTelemetryReportRequest::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&creation_timestamp_msec_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&configuration_version_) -
-    reinterpret_cast<char*>(&creation_timestamp_msec_)) + sizeof(configuration_version_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&developer_mode_enabled_) -
+    reinterpret_cast<char*>(&creation_timestamp_msec_)) + sizeof(developer_mode_enabled_));
 }
 
 ExtensionTelemetryReportRequest::~ExtensionTelemetryReportRequest() {
@@ -41723,10 +41727,10 @@ void ExtensionTelemetryReportRequest::Clear() {
 
   reports_.Clear();
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     ::memset(&creation_timestamp_msec_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&configuration_version_) -
-        reinterpret_cast<char*>(&creation_timestamp_msec_)) + sizeof(configuration_version_));
+        reinterpret_cast<char*>(&developer_mode_enabled_) -
+        reinterpret_cast<char*>(&creation_timestamp_msec_)) + sizeof(developer_mode_enabled_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -41766,6 +41770,15 @@ const char* ExtensionTelemetryReportRequest::_InternalParse(const char* ptr, ::_
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_configuration_version(&has_bits);
           configuration_version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool developer_mode_enabled = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _Internal::set_has_developer_mode_enabled(&has_bits);
+          developer_mode_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -41821,6 +41834,12 @@ uint8_t* ExtensionTelemetryReportRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_configuration_version(), target);
   }
 
+  // optional bool developer_mode_enabled = 4;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_developer_mode_enabled(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -41845,7 +41864,7 @@ size_t ExtensionTelemetryReportRequest::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     // optional int64 creation_timestamp_msec = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_creation_timestamp_msec());
@@ -41854,6 +41873,11 @@ size_t ExtensionTelemetryReportRequest::ByteSizeLong() const {
     // optional uint32 configuration_version = 3;
     if (cached_has_bits & 0x00000002u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_configuration_version());
+    }
+
+    // optional bool developer_mode_enabled = 4;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 + 1;
     }
 
   }
@@ -41879,12 +41903,15 @@ void ExtensionTelemetryReportRequest::MergeFrom(const ExtensionTelemetryReportRe
 
   reports_.MergeFrom(from.reports_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       creation_timestamp_msec_ = from.creation_timestamp_msec_;
     }
     if (cached_has_bits & 0x00000002u) {
       configuration_version_ = from.configuration_version_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      developer_mode_enabled_ = from.developer_mode_enabled_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -41908,8 +41935,8 @@ void ExtensionTelemetryReportRequest::InternalSwap(ExtensionTelemetryReportReque
   swap(_has_bits_[0], other->_has_bits_[0]);
   reports_.InternalSwap(&other->reports_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ExtensionTelemetryReportRequest, configuration_version_)
-      + sizeof(ExtensionTelemetryReportRequest::configuration_version_)
+      PROTOBUF_FIELD_OFFSET(ExtensionTelemetryReportRequest, developer_mode_enabled_)
+      + sizeof(ExtensionTelemetryReportRequest::developer_mode_enabled_)
       - PROTOBUF_FIELD_OFFSET(ExtensionTelemetryReportRequest, creation_timestamp_msec_)>(
           reinterpret_cast<char*>(&creation_timestamp_msec_),
           reinterpret_cast<char*>(&other->creation_timestamp_msec_));

@@ -5,7 +5,7 @@
     "page": "chromevox/background/background.html"
   },
   "name": "__MSG_CHROMEVOX_NAME__",
-  "version": "123.0.6283.0",
+  "version": "123.0.6288.0",
   "description": "__MSG_CHROMEVOX_DESCRIPTION__",
   "incognito": "split",
   "bluetooth": {},

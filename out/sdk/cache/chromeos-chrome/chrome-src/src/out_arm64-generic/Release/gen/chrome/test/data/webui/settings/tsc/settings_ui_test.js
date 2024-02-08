@@ -34,11 +34,10 @@ suite('SettingsUIToolbarAndDrawer', function () {
         assertFalse(!!drawer.open);
         const drawerOpened = eventToPromise('cr-drawer-opened', drawer);
         drawer.openDrawer();
-        flush();
+        await drawerOpened;
         // Validate that dialog is open and menu is shown so it will animate.
         assertTrue(drawer.open);
         assertTrue(!!ui.shadowRoot.querySelector('cr-drawer settings-menu'));
-        await drawerOpened;
         const drawerClosed = eventToPromise('close', drawer);
         drawer.cancel();
         await drawerClosed;

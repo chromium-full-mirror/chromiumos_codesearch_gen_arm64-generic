@@ -165,6 +165,7 @@ class MetadataEntry final :
   enum : int {
     kPrimaryPatternSpecFieldNumber = 1,
     kSecondaryPatternSpecFieldNumber = 2,
+    kSourceFieldNumber = 7,
   };
   // optional string primary_pattern_spec = 1;
   bool has_primary_pattern_spec() const;
@@ -202,6 +203,24 @@ class MetadataEntry final :
   std::string* _internal_mutable_secondary_pattern_spec();
   public:
 
+  // optional string source = 7;
+  bool has_source() const;
+  private:
+  bool _internal_has_source() const;
+  public:
+  void clear_source();
+  const std::string& source() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_source(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_source();
+  PROTOBUF_NODISCARD std::string* release_source();
+  void set_allocated_source(std::string* source);
+  private:
+  const std::string& _internal_source() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_source(const std::string& value);
+  std::string* _internal_mutable_source();
+  public:
+
   // @@protoc_insertion_point(class_scope:tpcd.metadata.MetadataEntry)
  private:
   class _Internal;
@@ -213,6 +232,7 @@ class MetadataEntry final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr primary_pattern_spec_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr secondary_pattern_spec_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr source_;
   friend struct ::TableStruct_metadata_2eproto;
 };
 // -------------------------------------------------------------------
@@ -496,6 +516,74 @@ inline void MetadataEntry::set_allocated_secondary_pattern_spec(std::string* sec
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:tpcd.metadata.MetadataEntry.secondary_pattern_spec)
+}
+
+// optional string source = 7;
+inline bool MetadataEntry::_internal_has_source() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool MetadataEntry::has_source() const {
+  return _internal_has_source();
+}
+inline void MetadataEntry::clear_source() {
+  source_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& MetadataEntry::source() const {
+  // @@protoc_insertion_point(field_get:tpcd.metadata.MetadataEntry.source)
+  return _internal_source();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void MetadataEntry::set_source(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000004u;
+ source_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:tpcd.metadata.MetadataEntry.source)
+}
+inline std::string* MetadataEntry::mutable_source() {
+  std::string* _s = _internal_mutable_source();
+  // @@protoc_insertion_point(field_mutable:tpcd.metadata.MetadataEntry.source)
+  return _s;
+}
+inline const std::string& MetadataEntry::_internal_source() const {
+  return source_.Get();
+}
+inline void MetadataEntry::_internal_set_source(const std::string& value) {
+  _has_bits_[0] |= 0x00000004u;
+  source_.Set(value, GetArenaForAllocation());
+}
+inline std::string* MetadataEntry::_internal_mutable_source() {
+  _has_bits_[0] |= 0x00000004u;
+  return source_.Mutable(GetArenaForAllocation());
+}
+inline std::string* MetadataEntry::release_source() {
+  // @@protoc_insertion_point(field_release:tpcd.metadata.MetadataEntry.source)
+  if (!_internal_has_source()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000004u;
+  auto* p = source_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (source_.IsDefault()) {
+    source_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void MetadataEntry::set_allocated_source(std::string* source) {
+  if (source != nullptr) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  source_.SetAllocated(source, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (source_.IsDefault()) {
+    source_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:tpcd.metadata.MetadataEntry.source)
 }
 
 // -------------------------------------------------------------------

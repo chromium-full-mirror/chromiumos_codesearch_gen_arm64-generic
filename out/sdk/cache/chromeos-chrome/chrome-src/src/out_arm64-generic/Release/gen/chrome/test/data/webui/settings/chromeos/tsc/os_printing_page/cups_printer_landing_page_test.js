@@ -830,8 +830,7 @@ suite('CupsSavedPrintersTests', () => {
     });
     test('RecordUserActionMetric', async () => {
         const fakeMetricsPrivate = new FakeMetricsPrivate();
-        chrome.metricsPrivate =
-            fakeMetricsPrivate;
+        chrome.metricsPrivate = fakeMetricsPrivate;
         createCupsPrinterPage([
             createCupsPrinterInfo('test1', '1', 'id1'),
             createCupsPrinterInfo('test2', '2', 'id2'),

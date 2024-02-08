@@ -43,8 +43,10 @@ suite('SitePermissionsSiteGroupElement', function () {
         assertEquals(PERMITTED_TEXT, element.$.etldOrSiteSubtext.innerText);
         const sitesList = element.shadowRoot.querySelector('#sites-list');
         assertFalse(isVisible(sitesList));
-        element.shadowRoot.querySelector('cr-expand-button').click();
-        flush();
+        const expandButton = element.shadowRoot.querySelector('cr-expand-button');
+        assertTrue(!!expandButton);
+        expandButton.click();
+        await expandButton.updateComplete;
         assertTrue(isVisible(sitesList));
         const expandedSites = element.shadowRoot.querySelectorAll('#sites-list .site');
         const expandedIncludesSubdomains = element.shadowRoot.querySelectorAll('#sites-list .includes-subdomains');
@@ -77,8 +79,10 @@ suite('SitePermissionsSiteGroupElement', function () {
         flush();
         assertEquals('google.ca', element.$.etldOrSite.innerText);
         assertEquals('', element.$.etldOrSiteSubtext.innerText);
-        element.shadowRoot.querySelector('cr-expand-button').click();
-        flush();
+        const expandButton = element.shadowRoot.querySelector('cr-expand-button');
+        assertTrue(!!expandButton);
+        expandButton.click();
+        await expandButton.updateComplete;
         assertTrue(isVisible(element.shadowRoot.querySelector('#sites-list')));
         const expandedSites = element.shadowRoot.querySelectorAll('#sites-list .site-subtext');
         // The subtext for each expanded site should show which set it's from.

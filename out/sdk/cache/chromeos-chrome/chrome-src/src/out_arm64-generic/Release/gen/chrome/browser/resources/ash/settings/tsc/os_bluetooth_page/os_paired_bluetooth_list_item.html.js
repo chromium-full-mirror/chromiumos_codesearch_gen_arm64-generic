@@ -5,7 +5,7 @@ export function getTemplate() {
   <div class="list-item" focus-row-control focus-type="rowWrapper" role="button" selectable aria-label="[[getAriaLabel_(device, itemIndex, listSize)]]" on-keydown="onKeydown_" on-click="onSelected_">
     <bluetooth-icon device="[[device.deviceProperties]]"></bluetooth-icon>
     <div class="middle" aria-hidden="true">
-      <div id="deviceName">[[getDeviceName_(device)]]</div>
+      <div id="deviceName">[[getDeviceNameUnsafe_(device)]]</div>
       <template is="dom-if" if="[[shouldShowBatteryInfo_(device)]]" restamp>
         <bluetooth-device-battery-info device="[[device.deviceProperties]]">
         </bluetooth-device-battery-info>

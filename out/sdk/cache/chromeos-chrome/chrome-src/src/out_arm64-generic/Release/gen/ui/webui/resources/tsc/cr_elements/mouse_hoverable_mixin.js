@@ -1,11 +1,6 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview This file provides a mixin to manage a `hovered` style on mouse
- * events. Relies on listening for pointer events as touch devices may fire
- * mouse events too.
- */
 import { dedupingMixin } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 const HOVERED_STYLE = 'hovered';
 export const MouseHoverableMixin = dedupingMixin((superClass) => {

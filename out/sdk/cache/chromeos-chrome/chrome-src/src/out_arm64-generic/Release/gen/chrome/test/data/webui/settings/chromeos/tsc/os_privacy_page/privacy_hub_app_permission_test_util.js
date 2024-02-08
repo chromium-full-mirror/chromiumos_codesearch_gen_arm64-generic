@@ -11,10 +11,10 @@ export function createApp(id, name, permissionType, permissionValue) {
     return app;
 }
 export function createFakeMetricsPrivate() {
-    const metrics = new FakeMetricsPrivate();
-    chrome.metricsPrivate = metrics;
+    const fakeMetricsPrivate = new FakeMetricsPrivate();
+    chrome.metricsPrivate = fakeMetricsPrivate;
     flush();
-    return metrics;
+    return fakeMetricsPrivate;
 }
 export function getSystemServicesFromSubpage(subpage) {
     return subpage.shadowRoot.querySelectorAll('settings-privacy-hub-system-service-row');

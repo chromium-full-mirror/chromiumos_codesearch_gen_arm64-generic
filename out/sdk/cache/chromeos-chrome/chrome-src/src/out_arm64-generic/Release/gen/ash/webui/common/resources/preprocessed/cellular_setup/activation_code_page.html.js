@@ -7,7 +7,7 @@ export function getTemplate() {
       [[getDescription_(cameraCount_, qrCodeDetector_, showNoProfilesFound)]]
     </span>
     <template is="dom-if" if="[[shouldShowCarrierLockWarning_(isDeviceCarrierLocked_)]]" restamp>
-      <div id="carrierLockWarningContainer" aria-live="alert">
+      <div id="carrierLockWarningContainer" aria-live="polite" role="alert">
           <iron-icon id="carrierLockWarningIcon" icon="cellular-setup:warning">
           </iron-icon>
         [[i18n('eSimCarrierLockedDevice')]]

@@ -1305,64 +1305,6 @@ MediaStreamDispatcherHost_SendWheel_ResponseParams_Data::MediaStreamDispatcherHo
 
 
 // static
-bool MediaStreamDispatcherHost_GetZoomLevel_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const MediaStreamDispatcherHost_GetZoomLevel_Params_Data* object =
-      static_cast<const MediaStreamDispatcherHost_GetZoomLevel_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->device_id, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->device_id, validation_context))
-    return false;
-
-  return true;
-}
-
-MediaStreamDispatcherHost_GetZoomLevel_Params_Data::MediaStreamDispatcherHost_GetZoomLevel_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data* object =
-      static_cast<const MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data*>(data);
-
-
-  if (!::blink::mojom::internal::CapturedSurfaceControlResult_Data
-        ::Validate(object->result, validation_context))
-    return false;
-
-  return true;
-}
-
-MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data::MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool MediaStreamDispatcherHost_SetZoomLevel_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

@@ -16,67 +16,38 @@ import '../../components/buttons/oobe_next_button.js';
 import '../../components/buttons/oobe_text_button.js';
 import '../../components/common_styles/oobe_common_styles.css.js';
 import '../../components/common_styles/oobe_dialog_host_styles.css.js';
-import { I18nBehavior } from '//resources/ash/common/i18n_behavior.js';
+import { CrDialogElement } from '//resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
+import { CrInputElement } from '//resources/ash/common/cr_elements/cr_input/cr_input.js';
 import { loadTimeData } from '//resources/ash/common/load_time_data.m.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
-import { MultiStepBehavior, MultiStepBehaviorInterface } from '../../components/behaviors/multi_step_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { assert } from '//resources/js/assert.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
+import { MultiStepBehavior } from '../../components/behaviors/multi_step_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { OobeAdaptiveDialog } from '../../components/dialogs/oobe_adaptive_dialog.js';
-import { OobeA11yOption } from '../../components/oobe_a11y_option.js';
-import { getSelectedTitle, getSelectedValue, SelectListType, setupSelect } from '../../components/oobe_select.js';
+import { GaiaButton } from '../../components/gaia_button.js';
+import { getSelectedValue, setupSelect } from '../../components/oobe_select.js';
 import { getTemplate } from './offline_ad_login.html.js';
-// The definitions below (JoinConfigType, ActiveDirectoryErrorState) are
-// used in enterprise_enrollment.js as well.
-/**
- * @typedef {{name: string, ad_username: ?string, ad_password: ?string,
- *             computer_ou: ?string, encryption_types: ?string,
- *             computer_name_validation_regex: ?string}}
- */
-export let JoinConfigType;
 // Possible error states of the screen. Must be in the same order as
 // ActiveDirectoryErrorState enum values. Used in enterprise_enrollment
-/**
- * @enum {number}
- */
-export const ActiveDirectoryErrorState = {
-    NONE: 0,
-    MACHINE_NAME_INVALID: 1,
-    MACHINE_NAME_TOO_LONG: 2,
-    BAD_USERNAME: 3,
-    BAD_AUTH_PASSWORD: 4,
-    BAD_UNLOCK_PASSWORD: 5,
-};
+export var ActiveDirectoryErrorState;
+(function (ActiveDirectoryErrorState) {
+    ActiveDirectoryErrorState[ActiveDirectoryErrorState["NONE"] = 0] = "NONE";
+    ActiveDirectoryErrorState[ActiveDirectoryErrorState["MACHINE_NAME_INVALID"] = 1] = "MACHINE_NAME_INVALID";
+    ActiveDirectoryErrorState[ActiveDirectoryErrorState["MACHINE_NAME_TOO_LONG"] = 2] = "MACHINE_NAME_TOO_LONG";
+    ActiveDirectoryErrorState[ActiveDirectoryErrorState["BAD_USERNAME"] = 3] = "BAD_USERNAME";
+    ActiveDirectoryErrorState[ActiveDirectoryErrorState["BAD_AUTH_PASSWORD"] = 4] = "BAD_AUTH_PASSWORD";
+    ActiveDirectoryErrorState[ActiveDirectoryErrorState["BAD_UNLOCK_PASSWORD"] = 5] = "BAD_UNLOCK_PASSWORD";
+})(ActiveDirectoryErrorState || (ActiveDirectoryErrorState = {}));
 // Used by enterprise_enrollment.js
-export const ADLoginStep = {
-    UNLOCK: 'unlock',
-    CREDS: 'creds',
-};
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export var ADLoginStep;
+(function (ADLoginStep) {
+    ADLoginStep["UNLOCK"] = "unlock";
+    ADLoginStep["CREDS"] = "creds";
+})(ADLoginStep || (ADLoginStep = {}));
 const DEFAULT_ENCRYPTION_TYPES = 'strong';
-/**
- * @typedef {Iterable<{value: string, title: string, selected: boolean,
- *                      subtitle: string}>}
- */
-let EncryptionSelectListType;
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {MultiStepBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- */
 const OfflineAdLoginBase = mixinBehaviors([OobeI18nBehavior, LoginScreenBehavior, MultiStepBehavior], PolymerElement);
-/**
- * @typedef {{
- *   marketingOptInOverviewDialog:  OobeAdaptiveDialog,
- *   chromebookUpdatesOption:  CrToggleElement,
- *   a11yNavButtonToggle:  OobeA11yOption,
- * }}
- */
-OfflineAdLoginBase.$;
-/**
- * @polymer
- */
 export class OfflineAdLogin extends OfflineAdLoginBase {
     static get is() {
         return 'offline-ad-login-element';
@@ -89,7 +60,7 @@ export class OfflineAdLogin extends OfflineAdLoginBase {
             /**
              * Whether the UI disabled.
              */
-            disabled: { type: Boolean, value: false, observer: 'disabledObserver_' },
+            disabled: { type: Boolean, value: false, observer: 'disabledObserver' },
             /**
              * Whether the loading UI shown.
              */
@@ -113,7 +84,7 @@ export class OfflineAdLogin extends OfflineAdLoginBase {
             /**
              * Predefined user name.
              */
-            userName: { type: String, value: '', observer: 'userNameObserver_' },
+            userName: { type: String, value: '', observer: 'userNameObserver' },
             /**
              * Label for the user input.
              */
@@ -132,7 +103,7 @@ export class OfflineAdLogin extends OfflineAdLoginBase {
             errorState: {
                 type: Number,
                 value: ActiveDirectoryErrorState.NONE,
-                observer: 'errorStateObserver_',
+                observer: 'errorStateObserver',
             },
             /**
              * Whether machine name input should be invalid.
@@ -140,19 +111,19 @@ export class OfflineAdLogin extends OfflineAdLoginBase {
             machineNameInvalid: {
                 type: Boolean,
                 value: false,
-                observer: 'machineNameInvalidObserver_',
+                observer: 'machineNameInvalidObserver',
             },
             /**
              * Whether username input should be invalid.
              */
-            userInvalid: { type: Boolean, value: false, observer: 'userInvalidObserver_' },
+            userInvalid: { type: Boolean, value: false, observer: 'userInvalidObserver' },
             /**
              * Whether user password input should be invalid.
              */
             authPasswordInvalid: {
                 type: Boolean,
                 value: false,
-                observer: 'authPasswordInvalidObserver_',
+                observer: 'authPasswordInvalidObserver',
             },
             /**
              * Whether unlock password input should be invalid.
@@ -160,77 +131,66 @@ export class OfflineAdLogin extends OfflineAdLoginBase {
             unlockPasswordInvalid: {
                 type: Boolean,
                 value: false,
-                observer: 'unlockPasswordInvalidObserver_',
+                observer: 'unlockPasswordInvalidObserver',
             },
             /**
              * Selected domain join configuration option.
-             * @private {!JoinConfigType|undefined}
              */
-            selectedConfigOption_: { type: Object, value: {} },
+            selectedConfigOption: { type: Object, value: {} },
             /**
              * Verification pattern for the machine name input.
-             * @private {string}
              */
-            machineNameInputPattern_: {
+            machineNameInputPattern: {
                 type: String,
-                computed: 'getMachineNameInputPattern_(selectedConfigOption_)',
+                computed: 'getmachineNameInputPattern(selectedConfigOption)',
             },
-            encryptionValue_: String,
+            encryptionValue: String,
         };
     }
     static get observers() {
-        return ['calculateUserInputValue_(selectedConfigOption_)'];
+        return ['calculateUserInputValue(selectedConfigOption)'];
     }
     constructor() {
         super();
         this.machineName = '';
         /**
          * Used for 'More options' dialog.
-         * @private {string}
          */
-        this.storedOrgUnit_ = '';
+        this.storedOrgUnit = '';
         /**
          * Used for 'More options' dialog.
-         * @private {string}
          */
-        this.storedEncryption_ = '';
+        this.storedEncryption = '';
         /**
          * Previous selected domain join configuration option.
-         * @private {!JoinConfigType|undefined}
          */
-        this.previousSelectedConfigOption_ = undefined;
+        this.previousselectedConfigOption = undefined;
         /**
          * Maps encryption value to subtitle message.
-         * @private {Object<string,string>}
-         * */
+         */
         this.encryptionValueToSubtitleMap = {};
         /**
          * Contains preselected default encryption. Does not show the warning sign
          * for that one.
-         * @private {string}
-         * */
+         */
         this.defaultEncryption = '';
         /**
          * List of domain join configuration options.
-         * @private {!Array<JoinConfigType>|undefined}
          */
-        this.joinConfigOptions_ = undefined;
+        this.joinConfigOptions = undefined;
         /**
          * Mutex on errorState. True when errorState is being updated from the C++
          * side.
-         * @private {boolean}
          */
-        this.errorStateLocked_ = false;
+        this.errorStateLocked = false;
         /**
          * True when we skip unlock step and show back button option.
-         * @private {boolean}
          */
-        this.backToUnlockButtonVisible_ = false;
+        this.backToUnlockButtonVisible = false;
         /**
          * True when join configurations are visible.
-         * @private {boolean}
          */
-        this.joinConfigVisible_ = false;
+        this.joinConfigVisible = false;
     }
     get EXTERNAL_API() {
         return ['reset', 'setErrorState'];
@@ -238,10 +198,10 @@ export class OfflineAdLogin extends OfflineAdLoginBase {
     get UI_STEPS() {
         return ADLoginStep;
     }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultUIStep() {
         return ADLoginStep.CREDS;
     }
-    /** @override */
     ready() {
         super.ready();
         if (this.isDomainJoin) {
@@ -252,7 +212,10 @@ export class OfflineAdLogin extends OfflineAdLoginBase {
         }
     }
     onBeforeShow(data) {
-        if (data) {
+        if (!data) {
+            return;
+        }
+        if ('realm' in data) {
             this.realm = data['realm'];
             if ('emailDomain' in data) {
                 this.userRealm = '@' + data['emailDomain'];
@@ -260,54 +223,50 @@ export class OfflineAdLogin extends OfflineAdLoginBase {
         }
         this.focus();
     }
-    /**
-     * @param {string} username
-     * @param {ActiveDirectoryErrorState} errorState
-     */
     setErrorState(username, errorState) {
         this.userName = username;
         this.errorState = errorState;
         this.loading = false;
     }
     reset() {
-        this.$.userInput.value = '';
-        this.$.passwordInput.value = '';
+        this.getUserInput().value = '';
+        this.getPasswordInput().value = '';
         this.errorState = ActiveDirectoryErrorState.NONE;
     }
     setupEncList() {
-        let list = /** @type {!EncryptionSelectListType}>} */ (loadTimeData.getValue('encryptionTypesList'));
+        let list = loadTimeData.getValue('encryptionTypesList');
         for (const item of list) {
             this.encryptionValueToSubtitleMap[item.value] = item.subtitle;
             delete item.subtitle;
         }
-        list = /** @type {!SelectListType} */ (list);
-        setupSelect(this.$.encryptionList, list, this.onEncryptionSelected_.bind(this));
-        this.defaultEncryption = /** @type {!string} */ (getSelectedValue(list));
-        this.encryptionValue_ = this.defaultEncryption;
+        list = list;
+        setupSelect(this.getEncryptionList(), list, this.onEncryptionSelected.bind(this));
+        this.defaultEncryption = getSelectedValue(list);
+        this.encryptionValue = this.defaultEncryption;
         this.machineNameError =
             loadTimeData.getString('adJoinErrorMachineNameInvalid');
     }
     focus() {
         if (this.uiStep === ADLoginStep.UNLOCK) {
-            this.$.unlockPasswordInput.focus();
+            this.getUnlockPasswordInput().focus();
         }
-        else if (this.isDomainJoin && !this.$.machineNameInput.value) {
-            this.$.machineNameInput.focus();
+        else if (this.isDomainJoin && !this.getMachineNameInput().value) {
+            this.getMachineNameInput().focus();
         }
-        else if (!this.$.userInput.value) {
-            this.$.userInput.focus();
+        else if (!this.getUserInput().value) {
+            this.getUserInput().focus();
         }
         else {
-            this.$.passwordInput.focus();
+            this.getPasswordInput().focus();
         }
     }
-    errorStateObserver_() {
-        if (this.errorStateLocked_) {
+    errorStateObserver() {
+        if (this.errorStateLocked) {
             return;
         }
         // Prevent updateErrorStateOnInputInvalidStateChange_ from changing
         // errorState.
-        this.errorStateLocked_ = true;
+        this.errorStateLocked = true;
         this.machineNameInvalid =
             this.errorState == ActiveDirectoryErrorState.MACHINE_NAME_INVALID ||
                 this.errorState == ActiveDirectoryErrorState.MACHINE_NAME_TOO_LONG;
@@ -319,65 +278,61 @@ export class OfflineAdLogin extends OfflineAdLoginBase {
             this.errorState == ActiveDirectoryErrorState.BAD_UNLOCK_PASSWORD;
         // Clear password.
         if (this.errorState == ActiveDirectoryErrorState.NONE) {
-            this.$.passwordInput.value = '';
+            this.getPasswordInput().value = '';
         }
-        this.errorStateLocked_ = false;
+        this.errorStateLocked = false;
     }
-    encryptionSubtitle_() {
-        return this.encryptionValueToSubtitleMap[this.encryptionValue_];
+    encryptionSubtitle() {
+        return this.encryptionValueToSubtitleMap[this.encryptionValue];
     }
-    isEncryptionStrong_() {
-        return this.encryptionValue_ == this.defaultEncryption;
+    isEncryptionStrong() {
+        return this.encryptionValue == this.defaultEncryption;
     }
-    /**
-     * @param {Array<JoinConfigType>} options
-     */
     setJoinConfigurationOptions(options) {
-        this.backToUnlockButtonVisible_ = false;
+        this.backToUnlockButtonVisible = false;
         if (!options || options.length < 1) {
-            this.joinConfigVisible_ = false;
+            this.joinConfigVisible = false;
             return;
         }
-        this.joinConfigOptions_ = options;
+        this.joinConfigOptions = options;
         const selectList = [];
         for (let i = 0; i < options.length; ++i) {
             selectList.push({ title: options[i].name, value: i });
         }
-        setupSelect(this.$.joinConfigSelect, selectList, this.onJoinConfigSelected_.bind(this));
-        this.onJoinConfigSelected_(this.$.joinConfigSelect.value);
-        this.joinConfigVisible_ = true;
+        setupSelect(this.getJoinConfigSelect(), selectList, this.onJoinConfigSelected.bind(this));
+        this.onJoinConfigSelected(this.getJoinConfigSelect().value);
+        this.joinConfigVisible = true;
     }
-    /** @private */
-    onSubmit_() {
+    onSubmit() {
         if (this.disabled) {
             return;
         }
         if (this.isDomainJoin) {
-            this.machineNameInvalid = !this.$.machineNameInput.validate();
+            this.machineNameInvalid = !this.getMachineNameInput().validate();
             if (this.machineNameInvalid) {
                 return;
             }
         }
-        this.userInvalid = !this.$.userInput.validate();
+        this.userInvalid = !this.getUserInput().validate();
         if (this.userInvalid) {
             return;
         }
-        this.authPasswordInvalid = !this.$.passwordInput.validate();
+        this.authPasswordInvalid = !this.getPasswordInput().validate();
         if (this.authPasswordInvalid) {
             return;
         }
-        let user = /** @type {string} */ (this.$.userInput.value);
-        const password = /** @type {string} / */ (this.$.passwordInput.value);
+        let user = /** @type {string} */ (this.getUserInput().value);
+        const password = /** @type {string} / */ (this.getPasswordInput().value);
         if (!user.includes('@') && this.userRealm) {
             user += this.userRealm;
         }
         if (this.isDomainJoin) {
             const msg = {
-                'distinguished_name': this.storedOrgUnit_,
+                'distinguished_name': this.storedOrgUnit,
                 'username': user,
                 'password': password,
-                'machine_name': this.$.machineNameInput.value,
-                'encryption_types': this.storedEncryption_,
+                'machine_name': this.getMachineNameInput().value,
+                'encryption_types': this.storedEncryption,
             };
             this.dispatchEvent(new CustomEvent('authCompletedAd', { bubbles: true, composed: true, detail: msg }));
         }
@@ -386,230 +341,252 @@ export class OfflineAdLogin extends OfflineAdLoginBase {
             this.userActed(['completeAdAuthentication', user, password]);
         }
     }
-    /** @private */
-    onBackButton_() {
+    onBackButton() {
         this.userActed('cancel');
     }
-    /** @private */
-    onMoreOptionsClicked_() {
+    onMoreOptionsClicked() {
         this.disabled = true;
         this.dispatchEvent(new CustomEvent('dialogShown', { bubbles: true, composed: true }));
-        this.$.moreOptionsDlg.showModal();
-        this.$.orgUnitInput.focus();
+        this.getMoreOptionsDialog().showModal();
+        this.getOrgUnitInput().focus();
     }
-    /** @private */
-    onMoreOptionsConfirmTap_() {
-        this.storedOrgUnit_ = this.$.orgUnitInput.value;
-        this.storedEncryption_ = this.$.encryptionList.value;
-        this.$.moreOptionsDlg.close();
+    onMoreOptionsConfirmTapped() {
+        this.storedOrgUnit = this.getOrgUnitInput().value;
+        this.storedEncryption = this.getEncryptionList().value;
+        this.getMoreOptionsDialog().close();
     }
-    /** @private */
-    onMoreOptionsCancelTap_() {
+    onMoreOptionsCancelTapped() {
         // Restore previous values
-        this.$.orgUnitInput.value = this.storedOrgUnit_;
-        this.$.encryptionList.value = this.storedEncryption_;
-        this.$.moreOptionsDlg.close();
+        this.getOrgUnitInput().value = this.storedOrgUnit;
+        this.getEncryptionList().value = this.storedEncryption;
+        this.getMoreOptionsDialog().close();
     }
-    /** @private */
-    onMoreOptionsClosed_() {
+    onMoreOptionsClosed() {
         this.dispatchEvent(new CustomEvent('dialogHidden', { bubbles: true, composed: true }));
         this.disabled = false;
-        this.$.moreOptionsBtn.focus();
+        const moreOptionsBtn = this.shadowRoot?.querySelector('#moreOptionsBtn');
+        assert(moreOptionsBtn instanceof GaiaButton);
+        moreOptionsBtn.focus();
     }
-    /** @private */
-    onUnlockPasswordEntered_() {
+    onUnlockPasswordEntered() {
         const msg = {
-            'unlock_password': this.$.unlockPasswordInput.value,
+            'unlock_password': this.getUnlockPasswordInput().value,
         };
         this.dispatchEvent(new CustomEvent('unlockPasswordEntered', { bubbles: true, composed: true, detail: msg }));
     }
-    /** @private */
-    onSkipClicked_() {
-        this.backToUnlockButtonVisible_ = true;
+    onSkipClicked() {
+        this.backToUnlockButtonVisible = true;
         this.setUIStep(ADLoginStep.CREDS);
         this.focus();
     }
-    // TODO(b/314761865): Remove this method once this file is migrated to TS.
-    setUIStep(step) {
-        super.setUIStep(step);
-    }
-    /** @private */
-    onBackToUnlock_() {
+    onBackToUnlock() {
         if (this.disabled) {
             return;
         }
         this.setUIStep(ADLoginStep.UNLOCK);
         this.focus();
     }
-    /**
-     * @private
-     * @param {!string} value
-     * */
-    onEncryptionSelected_(value) {
-        this.encryptionValue_ = value;
+    onEncryptionSelected(value) {
+        this.encryptionValue = value;
     }
-    /** @private */
-    onJoinConfigSelected_(value) {
-        if (this.selectedConfigOption_ == this.joinConfigOptions_[value]) {
+    onJoinConfigSelected(value) {
+        if (this.selectedConfigOption == this.joinConfigOptions[value]) {
             return;
         }
         this.errorState = ActiveDirectoryErrorState.NONE;
-        this.previousSelectedConfigOption_ = this.selectedConfigOption_;
-        this.selectedConfigOption_ = this.joinConfigOptions_[value];
-        const option = this.selectedConfigOption_;
+        this.previousselectedConfigOption = this.selectedConfigOption;
+        this.selectedConfigOption = this.joinConfigOptions[value];
+        const option = this.selectedConfigOption;
         let encryptionTypes = option['encryption_types'] || DEFAULT_ENCRYPTION_TYPES;
         if (!(encryptionTypes in this.encryptionValueToSubtitleMap)) {
             encryptionTypes = DEFAULT_ENCRYPTION_TYPES;
         }
-        this.encryptionValue_ = encryptionTypes;
+        this.encryptionValue = encryptionTypes;
         this.focus();
     }
     /**
      * Returns pattern for checking machine name input.
      *
-     * @param {Object} option Value of this.selectedConfigOption_.
-     * @return {string} Regular expression.
-     * @private
+     * @param option Value of this.selectedConfigOption.
+     * @return Regular expression.
      */
-    getMachineNameInputPattern_(option) {
+    getmachineNameInputPattern(option) {
         return option['computer_name_validation_regex'];
     }
     /**
      * Sets username according to |option|.
-     * @param {!JoinConfigType} option Value of this.selectedConfigOption_;
-     * @private
+     * @param option Value of this.selectedConfigOption;
      */
-    calculateUserInputValue_(option) {
+    calculateUserInputValue(option) {
         this.userName =
-            this.calculateInputValue_('userInput', 'ad_username', option);
+            this.calculateInputValue('userInput', 'ad_username', option);
     }
     /**
      * Returns new input value when selected config option is changed.
      *
-     * @param {string} inputElementId Id of the input element.
-     * @param {string} key Input element key
-     * @param {!JoinConfigType} option Value of this.selectedConfigOption_;
-     * @return {string} New input value.
-     * @private
+     * @param inputElementId Id of the input element.
+     * @param key Input element key
+     * @param option Value of this.selectedConfigOption;
+     * @return New input value.
      */
-    calculateInputValue_(inputElementId, key, option) {
+    calculateInputValue(inputElementId, key, option) {
         if (option && key in option) {
             return option[key];
         }
-        if (this.previousSelectedConfigOption_ &&
-            key in this.previousSelectedConfigOption_) {
+        if (this.previousselectedConfigOption &&
+            key in this.previousselectedConfigOption) {
+            return '';
+        }
+        if (!this.shadowRoot) {
             return '';
         }
         // No changes.
-        return this.$[inputElementId].value;
+        return this.getInputElementById(inputElementId).value;
     }
     /**
      * Returns true if input with the given key should be disabled.
      *
-     * @param {boolean} disabledAll Value of this.disabled.
-     * @param {string} key Input key.
-     * @param {Object} option Value of this.selectedConfigOption_;
-     * @private
+     * @param disabledAll Value of this.disabled.
+     * @param key Input key.
+     * @param option Value of this.selectedConfigOption;
      */
-    isInputDisabled_(key, option, disabledAll) {
+    isInputDisabled(key, option, disabledAll) {
         return disabledAll || (key in option);
     }
     /**
      * Returns true if "Machine name is invalid" error should be displayed.
-     * @param {ActiveDirectoryErrorState} errorState
      */
-    isMachineNameInvalid_(errorState) {
+    isMachineNameInvalid(errorState) {
         return errorState != ActiveDirectoryErrorState.MACHINE_NAME_TOO_LONG;
     }
-    getMachineNameError_(locale, errorState) {
+    getMachineNameError(locale, errorState) {
         if (errorState == ActiveDirectoryErrorState.MACHINE_NAME_TOO_LONG) {
-            return this.i18n('adJoinErrorMachineNameTooLong');
+            return this.i18nDynamic(locale, 'adJoinErrorMachineNameTooLong');
         }
         if (errorState == ActiveDirectoryErrorState.MACHINE_NAME_INVALID) {
-            if (this.machineNameInputPattern_) {
-                return this.i18n('adJoinErrorMachineNameInvalidFormat');
+            if (this.machineNameInputPattern) {
+                return this.i18nDynamic(locale, 'adJoinErrorMachineNameInvalidFormat');
             }
         }
-        return this.i18n('adJoinErrorMachineNameInvalid');
+        return this.i18nDynamic(locale, 'adJoinErrorMachineNameInvalid');
     }
-    onKeydownUnlockPassword_(e) {
+    onKeydownUnlockPassword(e) {
         if (e.key == 'Enter') {
-            if (this.$.unlockPasswordInput.value.length == 0) {
-                this.onSkipClicked_();
+            if (this.getUnlockPasswordInput().value.length == 0) {
+                this.onSkipClicked();
             }
             else {
-                this.onUnlockPasswordEntered_();
+                this.onUnlockPasswordEntered();
             }
         }
         this.errorState = ActiveDirectoryErrorState.NONE;
     }
-    onKeydownMachineNameInput_(e) {
+    onKeydownMachineNameInput(e) {
         this.errorState = ActiveDirectoryErrorState.NONE;
         if (e.key == 'Enter') {
-            this.switchTo_('userInput') || this.switchTo_('passwordInput') ||
-                this.onSubmit_();
+            this.switchTo('userInput') || this.switchTo('passwordInput') ||
+                this.onSubmit();
         }
     }
-    onKeydownUserInput_(e) {
+    onKeydownUserInput(e) {
         this.errorState = ActiveDirectoryErrorState.NONE;
         if (e.key == 'Enter') {
-            this.switchTo_('passwordInput') || this.onSubmit_();
+            this.switchTo('passwordInput') || this.onSubmit();
         }
     }
-    userNameObserver_() {
+    userNameObserver() {
         if (this.userRealm && this.userName &&
             this.userName.endsWith(this.userRealm)) {
             this.userName = this.userName.replace(this.userRealm, '');
         }
     }
     domainHidden(userRealm, userName) {
-        return !userRealm || (userName && userName.includes('@'));
+        return !userRealm || (userName.length > 0 && userName.includes('@'));
     }
-    onKeydownAuthPasswordInput_(e) {
+    onKeydownAuthPasswordInput(e) {
         this.errorState = ActiveDirectoryErrorState.NONE;
         if (e.key == 'Enter') {
-            this.onSubmit_();
+            this.onSubmit();
         }
     }
-    switchTo_(inputId) {
-        if (!this.$[inputId].disabled && this.$[inputId].value.length == 0) {
-            this.$[inputId].focus();
+    switchTo(inputId) {
+        const inputElement = this.getInputElementById(inputId);
+        if (!inputElement.disabled && inputElement.value.length == 0) {
+            inputElement.focus();
             return true;
         }
         return false;
     }
-    machineNameInvalidObserver_(isInvalid) {
-        this.setErrorState_(isInvalid, ActiveDirectoryErrorState.MACHINE_NAME_INVALID);
+    machineNameInvalidObserver(isInvalid) {
+        this.setErrorStateActiveDirectory(isInvalid, ActiveDirectoryErrorState.MACHINE_NAME_INVALID);
     }
-    userInvalidObserver_(isInvalid) {
-        this.setErrorState_(isInvalid, ActiveDirectoryErrorState.BAD_USERNAME);
+    userInvalidObserver(isInvalid) {
+        this.setErrorStateActiveDirectory(isInvalid, ActiveDirectoryErrorState.BAD_USERNAME);
     }
-    authPasswordInvalidObserver_(isInvalid) {
-        this.setErrorState_(isInvalid, ActiveDirectoryErrorState.BAD_AUTH_PASSWORD);
+    authPasswordInvalidObserver(isInvalid) {
+        this.setErrorStateActiveDirectory(isInvalid, ActiveDirectoryErrorState.BAD_AUTH_PASSWORD);
     }
-    unlockPasswordInvalidObserver_(isInvalid) {
-        this.setErrorState_(isInvalid, ActiveDirectoryErrorState.BAD_UNLOCK_PASSWORD);
+    unlockPasswordInvalidObserver(isInvalid) {
+        this.setErrorStateActiveDirectory(isInvalid, ActiveDirectoryErrorState.BAD_UNLOCK_PASSWORD);
     }
-    setErrorState_(isInvalid, error) {
-        if (this.errorStateLocked_) {
+    setErrorStateActiveDirectory(isInvalid, error) {
+        if (this.errorStateLocked) {
             return;
         }
-        this.errorStateLocked_ = true;
+        this.errorStateLocked = true;
         if (isInvalid) {
             this.errorState = error;
         }
         else {
             this.errorState = ActiveDirectoryErrorState.NONE;
         }
-        this.errorStateLocked_ = false;
+        this.errorStateLocked = false;
     }
-    disabledObserver_(disabled) {
+    disabledObserver(disabled) {
+        const credsStep = this.shadowRoot?.querySelector('#credsStep');
+        assert(credsStep instanceof OobeAdaptiveDialog);
         if (disabled) {
-            this.$.credsStep.classList.add('full-disabled');
+            credsStep.classList.add('full-disabled');
         }
         else {
-            this.$.credsStep.classList.remove('full-disabled');
+            credsStep.classList.remove('full-disabled');
         }
+    }
+    getInputElementById(inputId) {
+        const input = this.shadowRoot?.querySelector('#' + inputId);
+        assert(input instanceof CrInputElement);
+        return input;
+    }
+    getUserInput() {
+        return this.getInputElementById('userInput');
+    }
+    getPasswordInput() {
+        return this.getInputElementById('passwordInput');
+    }
+    getUnlockPasswordInput() {
+        return this.getInputElementById('unlockPasswordInput');
+    }
+    getMachineNameInput() {
+        return this.getInputElementById('machineNameInput');
+    }
+    getOrgUnitInput() {
+        return this.getInputElementById('orgUnitInput');
+    }
+    getSelectElementById(selectId) {
+        const selectElement = this.shadowRoot?.querySelector('#' + selectId);
+        assert(selectElement instanceof HTMLSelectElement);
+        return selectElement;
+    }
+    getEncryptionList() {
+        return this.getSelectElementById('encryptionList');
+    }
+    getJoinConfigSelect() {
+        return this.getSelectElementById('joinConfigSelect');
+    }
+    getMoreOptionsDialog() {
+        const moreOptionsDialog = this.shadowRoot?.querySelector('#moreOptionsDlg');
+        assert(moreOptionsDialog instanceof CrDialogElement);
+        return moreOptionsDialog;
     }
 }
 customElements.define(OfflineAdLogin.is, OfflineAdLogin);

@@ -2815,6 +2815,7 @@ class  ManagedCellularProperties_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> min;
   mojo::internal::Pointer<mojo::internal::String_Data> model_id;
   mojo::internal::Pointer<mojo::internal::String_Data> network_technology;
+  mojo::internal::Pointer<mojo::internal::String_Data> sim_lock_type;
   mojo::internal::Pointer<internal::PaymentPortalProperties_Data> payment_portal;
   mojo::internal::Pointer<mojo::internal::String_Data> roaming_state;
   mojo::internal::Pointer<internal::ManagedApnProperties_Data> selected_apn;
@@ -2828,7 +2829,7 @@ class  ManagedCellularProperties_Data {
   ManagedCellularProperties_Data();
   ~ManagedCellularProperties_Data() = delete;
 };
-static_assert(sizeof(ManagedCellularProperties_Data) == 232,
+static_assert(sizeof(ManagedCellularProperties_Data) == 240,
               "Bad sizeof(ManagedCellularProperties_Data)");
 // Used by ManagedCellularProperties::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

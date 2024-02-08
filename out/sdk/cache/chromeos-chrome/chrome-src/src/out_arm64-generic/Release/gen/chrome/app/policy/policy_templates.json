@@ -31,6 +31,7 @@
     669,
     822,
     872,
+    982,
     1040,
     1084,
     1088,
@@ -272,7 +273,7 @@
     "VirtualMachinesAllowed": "virtual_machines_allowed.virtual_machines_allowed"
   },
   "highest_atomic_group_id_currently_used": 50,
-  "highest_id_currently_used": 1210,
+  "highest_id_currently_used": 1213,
   "legacy_device_policy_proto_map": [
     [
       "",
@@ -14699,16 +14700,14 @@
     },
     {
       "caption": "Define domains allowed to access <ph name=\"GOOGLE_WORKSPACE_PRODUCT_NAME\">Google Workspace</ph>",
-      "desc": "Setting the policy turns on Chrome's restricted sign-in feature in <ph name=\"GOOGLE_WORKSPACE_PRODUCT_NAME\">Google Workspace</ph> and prevents users from changing this setting. Users can only access Google tools using accounts from the specified domains (to allow gmail or googlemail accounts, add consumer_accounts to the list of domains). This setting prevents users from signing in and adding a Secondary Account on a managed device that requires Google authentication, if that account doesn't belong to one of the explicitly allowed domains.\n\n      Leaving this setting empty or unset means users can access <ph name=\"GOOGLE_WORKSPACE_PRODUCT_NAME\">Google Workspace</ph> with any account.\n\n      Users cannot change or override this setting.\n\n      Note: This policy causes the X-GoogApps-Allowed-Domains header to be appended to all HTTP and HTTPS requests to all google.com domains, as described in https://support.google.com/a/answer/1668854.",
+      "deprecated": true,
+      "desc": "This policy is deprecated since <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph> version 122, please use the AllowedDomainsForAppsList policy instead.\n\n      Setting the policy turns on Chrome's restricted sign-in feature in <ph name=\"GOOGLE_WORKSPACE_PRODUCT_NAME\">Google Workspace</ph> and prevents users from changing this setting. Users can only access Google tools using accounts from the specified domains (to allow gmail or googlemail accounts, add consumer_accounts to the list of domains). This setting prevents users from signing in and adding a Secondary Account on a managed device that requires Google authentication, if that account doesn't belong to one of the explicitly allowed domains.\n\n      Leaving this setting empty or unset means users can access <ph name=\"GOOGLE_WORKSPACE_PRODUCT_NAME\">Google Workspace</ph> with any account.\n\n      Users cannot change or override this setting.\n\n      Note: This policy causes the X-GoogApps-Allowed-Domains header to be appended to all HTTP and HTTPS requests to all google.com domains, as described in https://support.google.com/a/answer/1668854.",
       "example_value": "managedchrome.com,example.com",
       "features": {
         "can_be_recommended": false,
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 331,
       "name": "AllowedDomainsForApps",
       "owners": [
@@ -14727,6 +14726,43 @@
         "filtering"
       ],
       "type": "string"
+    },
+    {
+      "caption": "Define domains allowed to access <ph name=\"GOOGLE_WORKSPACE_PRODUCT_NAME\">Google Workspace</ph>",
+      "desc": "Setting the policy turns on Chrome's restricted sign-in feature in <ph name=\"GOOGLE_WORKSPACE_PRODUCT_NAME\">Google Workspace</ph> and prevents users from changing this setting. Users can only access Google tools using accounts from the specified domains (to allow gmail or googlemail accounts, add consumer_accounts to the list of domains). This setting prevents users from signing in and adding a Secondary Account on a managed device that requires Google authentication, if that account doesn't belong to one of the explicitly allowed domains.\n\n      Leaving this setting empty or unset means users can access <ph name=\"GOOGLE_WORKSPACE_PRODUCT_NAME\">Google Workspace</ph> with any account.\n\n      Users cannot change or override this setting.\n\n      Note: This policy causes the X-GoogApps-Allowed-Domains header to be appended to all HTTP and HTTPS requests to all google.com domains, as described in https://support.google.com/a/answer/1668854.",
+      "example_value": [
+        "managedchrome.com",
+        "example.com"
+      ],
+      "features": {
+        "can_be_recommended": false,
+        "dynamic_refresh": true,
+        "per_profile": true
+      },
+      "future_on": [
+        "fuchsia"
+      ],
+      "id": 1212,
+      "name": "AllowedDomainsForAppsList",
+      "owners": [
+        "igorcov@chromium.org",
+        "pastarmovj@chromium.org"
+      ],
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "supported_on": [
+        "chrome.*:123-",
+        "chrome_os:123-",
+        "android:123-"
+      ],
+      "tags": [
+        "filtering"
+      ],
+      "type": "list"
     },
     {
       "caption": "Configure the allowed input methods in a user session",
@@ -17030,6 +17066,39 @@
       "tags": [
         "system-security"
       ],
+      "type": "main"
+    },
+    {
+      "caption": "Allow Chrome for Testing",
+      "default": true,
+      "desc": "Controls whether users may use Chrome for Testing.\n\n      If this policy is set to Enabled or not set, users may install and run Chrome for Testing.\n\n      If this policy is set to Disabled, users are not allowed to run Chrome for Testing. Users will still be able to install Chrome for Testing, however it will not run with the profiles where this policy is set to Disabled.",
+      "example_value": true,
+      "features": {
+        "dynamic_refresh": false,
+        "per_profile": false
+      },
+      "id": 1213,
+      "items": [
+        {
+          "caption": "Allow use of the Chrome for Testing",
+          "value": true
+        },
+        {
+          "caption": "Do not allow use of the Chrome for Testing",
+          "value": false
+        }
+      ],
+      "name": "ChromeForTestingAllowed",
+      "owners": [
+        "file://components/policy/OWNERS"
+      ],
+      "schema": {
+        "type": "boolean"
+      },
+      "supported_on": [
+        "chrome.*:123-"
+      ],
+      "tags": [],
       "type": "main"
     },
     {
@@ -32018,6 +32087,32 @@
       "type": "string-enum"
     },
     {
+      "caption": "Set location to store screen captures",
+      "desc": "Sets the directory where Screen Captures (both screenshot and screen recordings) are being saved.\nIf the policy is set as recommended, the value will be used by default, but user will be able to change it.\nOtherwise the user can't change it and the captures are always saved to the defined directory.\n\nThe policy uses same format as <ph name=\"DOWNLOAD_DIRECTORY_POLICY_NAME\">DownloadDirectory</ph> policy\nThe location could be set to either local filesystem or <ph name=\"GOOGLE_DRIVE_NAME\">Google Drive</ph> (with '${google_drive}' prefix) or <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> (with '${onedrive}' prefix).\nIf the policy is set to empty string, it'll force the screen captures to be stored in the local \"Downloads\" directory.\nSee a list of variables you can use ( https://www.chromium.org/administrators/policy-list-3/user-data-directory-variables ).\n\nLeaving the policy unset means <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> uses the default \"Downloads\" directory to store screen captures, and users can change it.",
+      "example_value": "${google_drive}/ScreenCapture",
+      "features": {
+        "can_be_recommended": true,
+        "dynamic_refresh": true,
+        "per_profile": false
+      },
+      "future_on": [
+        "chrome_os"
+      ],
+      "id": 1211,
+      "name": "ScreenCaptureLocation",
+      "owners": [
+        "file://components/policy/OWNERS",
+        "poromov@chromium.org"
+      ],
+      "schema": {
+        "type": "string"
+      },
+      "tags": [
+        "local-data-access"
+      ],
+      "type": "string"
+    },
+    {
       "caption": "Allow screen capture without prior user gesture",
       "desc": "For security reasons, the\n<ph name=\"GET_DISPLAY_MEDIA_API_NAME\">getDisplayMedia()</ph> web API requires\na prior user gesture (\"transient activation\") to be called or will otherwise\nfail.\n\nWith this policy set, admins can specify origins on which this API can be\ncalled without prior user gesture.\n\nFor detailed information on valid url patterns, please see\nhttps://cloud.google.com/docs/chrome-enterprise/policies/url-patterns. * is\nnot an accepted value for this policy.\n\nIf this policy is unset, all origins will require a prior user gesture to call\nthis API.",
       "example_value": [
@@ -32049,42 +32144,6 @@
       ],
       "tags": [],
       "type": "list"
-    },
-    {
-      "caption": "Enable Screen Time for websites",
-      "default": true,
-      "desc": "This policy enables <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph> to participate in the <ph name=\"MAC_OS_NAME\">macOS</ph> Screen Time feature.\n\n      If the policy is Enabled or not set, visited origins will be reported to the OS, and origins that have been blocked in Screen Time settings will display a blocking screen.\n      If the policy is Disabled, visited origins will not be reported to the OS, and origins that have been blocked in Screen Time settings will be accessible.",
-      "example_value": true,
-      "features": {
-        "dynamic_refresh": true,
-        "per_profile": true
-      },
-      "future_on": [
-        "chrome.mac"
-      ],
-      "id": 982,
-      "items": [
-        {
-          "caption": "Enable Screen Time for websites",
-          "value": true
-        },
-        {
-          "caption": "Disable Screen Time for websites",
-          "value": false
-        }
-      ],
-      "name": "ScreenTimeEnabled",
-      "owners": [
-        "lgrey@chromium.org",
-        "chrome-mac-dev@google.com"
-      ],
-      "schema": {
-        "type": "boolean"
-      },
-      "tags": [
-        "local-data-access"
-      ],
-      "type": "main"
     },
     {
       "caption": "Enable scrolling to text specified in URL fragments",
@@ -32695,9 +32754,6 @@
         "dynamic_refresh": true,
         "per_profile": false
       },
-      "future_on": [
-        "chrome_os"
-      ],
       "id": 1147,
       "items": [
         {
@@ -32718,6 +32774,9 @@
       "schema": {
         "type": "boolean"
       },
+      "supported_on": [
+        "chrome_os:123-"
+      ],
       "tags": [],
       "type": "main"
     },
@@ -49792,6 +49851,7 @@
         "AllowSystemNotifications",
         "AllowWebAuthnWithBrokenTlsCerts",
         "AllowedDomainsForApps",
+        "AllowedDomainsForAppsList",
         "AllowedInputMethods",
         "AllowedLanguages",
         "AlternateErrorPagesEnabled",
@@ -49850,6 +49910,7 @@
         "ChromeAppsEnabled",
         "ChromeCleanupEnabled",
         "ChromeCleanupReportingEnabled",
+        "ChromeForTestingAllowed",
         "ChromeOsLockOnIdleSuspend",
         "ChromeOsMultiProfileUserBehavior",
         "ChromeRootStoreEnabled",
@@ -50190,8 +50251,8 @@
         "SandboxExternalProtocolBlocked",
         "SavingBrowserHistoryDisabled",
         "SchedulerConfiguration",
+        "ScreenCaptureLocation",
         "ScreenCaptureWithoutGestureAllowedForOrigins",
-        "ScreenTimeEnabled",
         "ScrollToTextFragmentEnabled",
         "SearchSuggestEnabled",
         "SecondaryGoogleAccountSigninAllowed",

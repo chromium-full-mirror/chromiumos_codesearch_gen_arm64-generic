@@ -800,26 +800,6 @@ blink.mojom.MediaStreamDispatcherHostRemote = class {
   
   /**
    * @param { !mojoBase.mojom.UnguessableToken } deviceId
-   * @return {!Promise<{
-        zoomLevel: ?number,
-        result: !blink.mojom.CapturedSurfaceControlResult,
-   *  }>}
-   */
-
-  getZoomLevel(
-      deviceId) {
-    return this.proxy.sendMessage(
-        10,
-        blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec.$,
-        blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec.$,
-        [
-          deviceId
-        ]);
-  }
-
-  
-  /**
-   * @param { !mojoBase.mojom.UnguessableToken } deviceId
    * @param { !number } zoomLevel
    * @return {!Promise<{
         result: !blink.mojom.CapturedSurfaceControlResult,
@@ -830,7 +810,7 @@ blink.mojom.MediaStreamDispatcherHostRemote = class {
       deviceId,
       zoomLevel) {
     return this.proxy.sendMessage(
-        11,
+        10,
         blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsSpec.$,
         [
@@ -855,7 +835,7 @@ blink.mojom.MediaStreamDispatcherHostRemote = class {
       sessionId,
       transferId) {
     return this.proxy.sendMessage(
-        12,
+        11,
         blink.mojom.MediaStreamDispatcherHost_GetOpenDevice_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_GetOpenDevice_ResponseParamsSpec.$,
         [
@@ -878,7 +858,7 @@ blink.mojom.MediaStreamDispatcherHostRemote = class {
       sessionId,
       transferId) {
     return this.proxy.sendMessage(
-        13,
+        12,
         blink.mojom.MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ResponseParamsSpec.$,
         [
@@ -962,21 +942,16 @@ blink.mojom.MediaStreamDispatcherHostReceiver = class {
         impl.sendWheel.bind(impl));
     this.helper_internal_.registerHandler(
         10,
-        blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec.$,
-        blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec.$,
-        impl.getZoomLevel.bind(impl));
-    this.helper_internal_.registerHandler(
-        11,
         blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsSpec.$,
         impl.setZoomLevel.bind(impl));
     this.helper_internal_.registerHandler(
-        12,
+        11,
         blink.mojom.MediaStreamDispatcherHost_GetOpenDevice_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_GetOpenDevice_ResponseParamsSpec.$,
         impl.getOpenDevice.bind(impl));
     this.helper_internal_.registerHandler(
-        13,
+        12,
         blink.mojom.MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ResponseParamsSpec.$,
         impl.keepDeviceAliveForTransfer.bind(impl));
@@ -1155,24 +1130,12 @@ blink.mojom.MediaStreamDispatcherHostCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.getZoomLevel =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        10,
-        blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec.$,
-        blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec.$,
-        this.getZoomLevel.createReceiverHandler(true /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
     this.setZoomLevel =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
-        11,
+        10,
         blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsSpec.$,
         this.setZoomLevel.createReceiverHandler(true /* expectsResponse */));
@@ -1184,7 +1147,7 @@ blink.mojom.MediaStreamDispatcherHostCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        12,
+        11,
         blink.mojom.MediaStreamDispatcherHost_GetOpenDevice_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_GetOpenDevice_ResponseParamsSpec.$,
         this.getOpenDevice.createReceiverHandler(true /* expectsResponse */));
@@ -1196,7 +1159,7 @@ blink.mojom.MediaStreamDispatcherHostCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        13,
+        12,
         blink.mojom.MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ResponseParamsSpec.$,
         this.keepDeviceAliveForTransfer.createReceiverHandler(true /* expectsResponse */));
@@ -1649,22 +1612,6 @@ blink.mojom.MediaStreamDispatcherHost_SendWheel_ParamsSpec =
  * @export
  */
 blink.mojom.MediaStreamDispatcherHost_SendWheel_ResponseParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -3089,91 +3036,6 @@ mojo.internal.Struct(
 /** @record */
 blink.mojom.MediaStreamDispatcherHost_SendWheel_ResponseParams = class {
   constructor() {
-    /** @export { !blink.mojom.CapturedSurfaceControlResult } */
-    this.result;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec.$,
-    'MediaStreamDispatcherHost_GetZoomLevel_Params',
-    [
-      mojo.internal.StructField(
-        'deviceId', 0,
-        0,
-        mojoBase.mojom.UnguessableTokenSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_Params = class {
-  constructor() {
-    /** @export { !mojoBase.mojom.UnguessableToken } */
-    this.deviceId;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec.$,
-    'MediaStreamDispatcherHost_GetZoomLevel_ResponseParams',
-    [
-      mojo.internal.StructField(
-        'zoom_level_$flag', 0,
-        0,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-        {
-          isPrimary: true,
-          linkedValueFieldName: "zoom_level_$value",
-          originalFieldName: "zoomLevel",
-        }
-      ),
-      mojo.internal.StructField(
-        'zoom_level_$value', 4,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-        {
-          isPrimary: false,
-          originalFieldName: "zoomLevel",
-        }
-      ),
-      mojo.internal.StructField(
-        'result', 8,
-        0,
-        blink.mojom.CapturedSurfaceControlResultSpec.$,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-
-
-/** @record */
-blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ResponseParams = class {
-  constructor() {
-    /** @export { (number|undefined) } */
-    this.zoomLevel;
     /** @export { !blink.mojom.CapturedSurfaceControlResult } */
     this.result;
   }

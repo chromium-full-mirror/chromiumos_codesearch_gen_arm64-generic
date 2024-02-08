@@ -49,24 +49,6 @@ namespace internal {
 namespace storage::mojom {
 
 
-enum class V2SchemaCorruptionStatus : int32_t {
-  
-  CORRUPTION_UNKNOWN = 0,
-  
-  CORRUPTION_NO = 1,
-  
-  CORRUPTION_YES = 2,
-  kMinValue = 0,
-  kMaxValue = 2,
-};
-
- std::ostream& operator<<(std::ostream& os, V2SchemaCorruptionStatus value);
-inline bool IsKnownEnumValue(V2SchemaCorruptionStatus value) {
-  return internal::V2SchemaCorruptionStatus_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
-
-
 enum class FailClass : int32_t {
   
   NOTHING = 0,
@@ -141,10 +123,6 @@ using IndexedDBControlTestAssociatedRequestDataView =
 namespace std {
 
 template <>
-struct hash<::storage::mojom::V2SchemaCorruptionStatus>
-    : public mojo::internal::EnumHashImpl<::storage::mojom::V2SchemaCorruptionStatus> {};
-
-template <>
 struct hash<::storage::mojom::FailClass>
     : public mojo::internal::EnumHashImpl<::storage::mojom::FailClass> {};
 
@@ -155,26 +133,6 @@ struct hash<::storage::mojom::FailMethod>
 }  // namespace std
 
 namespace mojo {
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::storage::mojom::V2SchemaCorruptionStatus, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::storage::mojom::V2SchemaCorruptionStatus, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::storage::mojom::V2SchemaCorruptionStatus>(input)), output);
-  }
-};
-
-}  // namespace internal
 
 
 namespace internal {
@@ -226,15 +184,6 @@ namespace storage::mojom {
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
-
-namespace perfetto {
-
-template <>
-struct  TraceFormatTraits<::storage::mojom::V2SchemaCorruptionStatus> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::storage::mojom::V2SchemaCorruptionStatus value);
-};
-
-} // namespace perfetto
 
 namespace perfetto {
 

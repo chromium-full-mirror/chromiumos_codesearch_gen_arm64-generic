@@ -250,6 +250,7 @@ export class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsin
                 value: false,
                 computed: 'computeHasOtherError_(syncStatus, isSyncPaused_, hasPassphraseError_)',
             },
+            selectedTabIndex_: Number,
             tabsNames_: {
                 type: Array,
                 value: () => [loadTimeData.getString('basicPageTitle'),
@@ -273,6 +274,8 @@ export class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsin
           prefs.browser.clear_data.time_period.value)`,
             `onTimePeriodBasicPrefUpdated_(
           prefs.browser.clear_data.time_period_basic.value)`,
+            `onSelectedTabIndexPrefUpdated_(
+          prefs.browser.last_clear_browsing_data_tab.value)`,
         ];
     }
     ready() {
@@ -423,9 +426,15 @@ export class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsin
         else {
             chrome.metricsPrivate.recordUserAction('ClearBrowsingData_AdvancedTab');
         }
+        this.setPrefValue('browser.last_clear_browsing_data_tab', this.selectedTabIndex_);
+        // Dropdown menu and checkbox selections of both tabs should be persisted
+        // independently from the tab on which the user confirmed the deletion.
         this.shadowRoot
             .querySelectorAll('settings-checkbox[no-set-pref]')
             .forEach(checkbox => checkbox.sendPrefChange());
+        this.shadowRoot
+            .querySelectorAll('settings-dropdown-menu[no-set-pref]')
+            .forEach(dropdown => dropdown.sendPrefChange());
         const { showHistoryNotice, showPasswordsNotice } = await this.browserProxy_.clearBrowsingData(dataTypes, timePeriod);
         this.clearingInProgress_ = false;
         getAnnouncerInstance().announce(loadTimeData.getString('clearedData'));
@@ -464,6 +473,9 @@ export class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsin
      */
     onPasswordsDeletionDialogClose_() {
         this.showPasswordsDeletionDialog_ = false;
+    }
+    onSelectedTabIndexPrefUpdated_(selectedTabIndex) {
+        this.selectedTabIndex_ = selectedTabIndex;
     }
     /**
      * Records an action when the user changes between the basic and advanced tab.

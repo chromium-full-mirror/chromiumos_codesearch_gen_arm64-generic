@@ -9,12 +9,13 @@ export const FeatureSpec = { $: mojo.internal.Enum() };
 export var Feature;
 (function (Feature) {
     Feature[Feature["MIN_VALUE"] = 0] = "MIN_VALUE";
-    Feature[Feature["MAX_VALUE"] = 5] = "MAX_VALUE";
+    Feature[Feature["MAX_VALUE"] = 6] = "MAX_VALUE";
     Feature[Feature["EMOJI_PICKER_EXTENSION"] = 0] = "EMOJI_PICKER_EXTENSION";
     Feature[Feature["EMOJI_PICKER_SEARCH_EXTENSION"] = 1] = "EMOJI_PICKER_SEARCH_EXTENSION";
     Feature[Feature["EMOJI_PICKER_GIF_SUPPORT"] = 2] = "EMOJI_PICKER_GIF_SUPPORT";
     Feature[Feature["EMOJI_PICKER_SEAL_SUPPORT"] = 4] = "EMOJI_PICKER_SEAL_SUPPORT";
     Feature[Feature["EMOJI_PICKER_VARIANT_GROUPING_SUPPORT"] = 5] = "EMOJI_PICKER_VARIANT_GROUPING_SUPPORT";
+    Feature[Feature["EMOJI_PICKER_MOJO_SEARCH"] = 6] = "EMOJI_PICKER_MOJO_SEARCH";
 })(Feature || (Feature = {}));
 export const StatusSpec = { $: mojo.internal.Enum() };
 export var Status;

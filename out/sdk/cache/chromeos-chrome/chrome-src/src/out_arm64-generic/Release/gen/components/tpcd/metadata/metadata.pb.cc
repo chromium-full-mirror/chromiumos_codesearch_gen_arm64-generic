@@ -22,7 +22,8 @@ namespace metadata {
 PROTOBUF_CONSTEXPR MetadataEntry::MetadataEntry(
     ::_pbi::ConstantInitialized)
   : primary_pattern_spec_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , secondary_pattern_spec_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+  , secondary_pattern_spec_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , source_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
 struct MetadataEntryDefaultTypeInternal {
   PROTOBUF_CONSTEXPR MetadataEntryDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -60,6 +61,9 @@ class MetadataEntry::_Internal {
   static void set_has_secondary_pattern_spec(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
+  static void set_has_source(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 MetadataEntry::MetadataEntry(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -88,6 +92,14 @@ MetadataEntry::MetadataEntry(const MetadataEntry& from)
     secondary_pattern_spec_.Set(from._internal_secondary_pattern_spec(), 
       GetArenaForAllocation());
   }
+  source_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    source_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_source()) {
+    source_.Set(from._internal_source(), 
+      GetArenaForAllocation());
+  }
   // @@protoc_insertion_point(copy_constructor:tpcd.metadata.MetadataEntry)
 }
 
@@ -99,6 +111,10 @@ primary_pattern_spec_.InitDefault();
 secondary_pattern_spec_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   secondary_pattern_spec_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+source_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  source_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -115,6 +131,7 @@ inline void MetadataEntry::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   primary_pattern_spec_.Destroy();
   secondary_pattern_spec_.Destroy();
+  source_.Destroy();
 }
 
 void MetadataEntry::SetCachedSize(int size) const {
@@ -128,12 +145,15 @@ void MetadataEntry::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       primary_pattern_spec_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
       secondary_pattern_spec_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      source_.ClearNonDefaultToEmpty();
     }
   }
   _has_bits_.Clear();
@@ -161,6 +181,16 @@ const char* MetadataEntry::_InternalParse(const char* ptr, ::_pbi::ParseContext*
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_secondary_pattern_spec();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string source = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          auto str = _internal_mutable_source();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
@@ -217,6 +247,16 @@ uint8_t* MetadataEntry::_InternalSerialize(
         2, this->_internal_secondary_pattern_spec(), target);
   }
 
+  // optional string source = 7;
+  if (_internal_has_source()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_source().data(), static_cast<int>(this->_internal_source().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "tpcd.metadata.MetadataEntry.source");
+    target = stream->WriteStringMaybeAliased(
+        7, this->_internal_source(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -234,7 +274,7 @@ size_t MetadataEntry::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     // optional string primary_pattern_spec = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -247,6 +287,13 @@ size_t MetadataEntry::ByteSizeLong() const {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
           this->_internal_secondary_pattern_spec());
+    }
+
+    // optional string source = 7;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_source());
     }
 
   }
@@ -271,12 +318,15 @@ void MetadataEntry::MergeFrom(const MetadataEntry& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_primary_pattern_spec(from._internal_primary_pattern_spec());
     }
     if (cached_has_bits & 0x00000002u) {
       _internal_set_secondary_pattern_spec(from._internal_secondary_pattern_spec());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _internal_set_source(from._internal_source());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -306,6 +356,10 @@ void MetadataEntry::InternalSwap(MetadataEntry* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &secondary_pattern_spec_, lhs_arena,
       &other->secondary_pattern_spec_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &source_, lhs_arena,
+      &other->source_, rhs_arena
   );
 }
 

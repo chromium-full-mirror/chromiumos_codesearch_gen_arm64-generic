@@ -5,15 +5,15 @@ import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { css, html as html$1, nothing, CrLitElement } from 'chrome://resources/lit/v3_0/lit.rollup.js';
 import { pdfCreateOutOfProcessPlugin } from 'chrome://print/pdf/pdf_scripting_api.js';
 
-const styleMod$b = document.createElement('dom-module');
-styleMod$b.appendChild(html `
+const styleMod$a = document.createElement('dom-module');
+styleMod$a.appendChild(html `
   <template>
     <style>
 :host([hidden]),[hidden]{display:none!important}
     </style>
   </template>
 `.content);
-styleMod$b.register('cr-hidden-style');
+styleMod$a.register('cr-hidden-style');
 
 /**
 @license
@@ -1448,7 +1448,7 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$F() {
+function getTemplate$E() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -1484,7 +1484,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -1658,7 +1658,7 @@ class CrButtonElement extends CrButtonElementBase {
 }
 customElements.define(CrButtonElement.is, CrButtonElement);
 
-function getTemplate$E() {
+function getTemplate$D() {
     return html `<!--_html_template_start_-->    <style>:host{-webkit-tap-highlight-color:transparent;align-items:center;cursor:pointer;display:flex;outline:0;user-select:none;--cr-checkbox-border-size:2px;--cr-checkbox-size:16px;--cr-checkbox-ripple-size:40px;--cr-checkbox-ripple-offset:calc(var(--cr-checkbox-size)/2 -
             var(--cr-checkbox-ripple-size)/2 - var(--cr-checkbox-border-size));--cr-checkbox-checked-box-color:var(--cr-checked-color);--cr-checkbox-ripple-checked-color:var(--cr-checked-color);--cr-checkbox-checked-ripple-opacity:.2;--cr-checkbox-mark-color:white;--cr-checkbox-ripple-unchecked-color:var(--google-grey-900);--cr-checkbox-unchecked-box-color:var(--google-grey-700);--cr-checkbox-unchecked-ripple-opacity:.15}@media (prefers-color-scheme:dark){:host{--cr-checkbox-checked-ripple-opacity:.4;--cr-checkbox-mark-color:var(--google-grey-900);--cr-checkbox-ripple-unchecked-color:var(--google-grey-500);--cr-checkbox-unchecked-box-color:var(--google-grey-500);--cr-checkbox-unchecked-ripple-opacity:.4}}:host-context([chrome-refresh-2023]):host{--cr-checkbox-ripple-size:32px;--cr-checkbox-mark-color:var(--color-checkbox-check,
             var(--cr-fallback-color-on-primary));--cr-checkbox-checked-box-color:var(--color-checkbox-foreground-checked,
@@ -1717,7 +1717,7 @@ class CrCheckboxElement extends CrCheckboxElementBase {
         return 'cr-checkbox';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$D();
     }
     static get properties() {
         return {
@@ -2242,7 +2242,7 @@ Polymer({
   }
 });
 
-function getTemplate$D() {
+function getTemplate$C() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -2300,7 +2300,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$C();
     }
     static get properties() {
         return {
@@ -6654,19 +6654,19 @@ const CrContainerShadowMixinLit = (superClass) => {
     return CrContainerShadowMixinLit;
 };
 
-function getCss$2() {
+function getCss$4() {
     return css `:host([hidden]),[hidden]{display:none!important}`;
 }
 
-function getCss$1() {
+function getCss$3() {
     return css `.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}`;
 }
 
-function getCss() {
+function getCss$2() {
     return css `dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}`;
 }
 
-function getHtml() {
+function getHtml$1() {
     return html$1 `<!--_html_template_start_-->
 <dialog id="dialog" @close="${this.onNativeDialogClose_}" @cancel="${this.onNativeDialogCancel_}" part="dialog" aria-labelledby="title" aria-description="${this.ariaDescriptionText || nothing}">
 
@@ -6729,13 +6729,13 @@ class CrDialogElement extends CrDialogElementBase {
     }
     static get styles() {
         return [
+            getCss$4(),
+            getCss$3(),
             getCss$2(),
-            getCss$1(),
-            getCss(),
         ];
     }
     render() {
-        return getHtml.bind(this)();
+        return getHtml$1.bind(this)();
     }
     static get properties() {
         return {
@@ -6965,28 +6965,28 @@ class CrDialogElement extends CrDialogElementBase {
 }
 customElements.define(CrDialogElement.is, CrDialogElement);
 
-const styleMod$a = document.createElement('dom-module');
-styleMod$a.appendChild(html `
+const styleMod$9 = document.createElement('dom-module');
+styleMod$9.appendChild(html `
   <template>
     <style>
 .icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
     </style>
   </template>
 `.content);
-styleMod$a.register('cr-icons');
+styleMod$9.register('cr-icons');
 
-const styleMod$9 = document.createElement('dom-module');
-styleMod$9.appendChild(html `
+const styleMod$8 = document.createElement('dom-module');
+styleMod$8.appendChild(html `
   <template>
     <style include="cr-hidden-style cr-icons">
 :host,html{--scrollable-border-color:var(--google-grey-300)}@media (prefers-color-scheme:dark){:host,html{--scrollable-border-color:var(--google-grey-700)}}[actionable]{cursor:pointer}.hr{border-top:var(--cr-separator-line)}iron-list.cr-separators>:not([first]){border-top:var(--cr-separator-line)}[scrollable]{border-color:transparent;border-style:solid;border-width:1px 0;overflow-y:auto}[scrollable].is-scrolled{border-top-color:var(--scrollable-border-color)}[scrollable].can-scroll:not(.scrolled-to-bottom){border-bottom-color:var(--scrollable-border-color)}[scrollable] iron-list>:not(.no-outline):focus,[selectable]:focus,[selectable]>:focus{background-color:var(--cr-focused-item-color);outline:0}.scroll-container{display:flex;flex-direction:column;min-height:1px}[selectable]>*{cursor:pointer}.cr-centered-card-container{box-sizing:border-box;display:block;height:inherit;margin:0 auto;max-width:var(--cr-centered-card-max-width);min-width:550px;position:relative;width:calc(100% * var(--cr-centered-card-width-percentage))}.cr-container-shadow{box-shadow:inset 0 5px 6px -3px rgba(0,0,0,.4);height:var(--cr-container-shadow-height);left:0;margin:0 0 var(--cr-container-shadow-margin);opacity:0;pointer-events:none;position:relative;right:0;top:0;transition:opacity .5s;z-index:1}#cr-container-shadow-bottom{margin-bottom:0;margin-top:var(--cr-container-shadow-margin);transform:scaleY(-1)}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{opacity:var(--cr-container-shadow-max-opacity)}.cr-row{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--cr-section-min-height);padding:0 var(--cr-section-padding)}.cr-row.continuation,.cr-row.first{border-top:none}.cr-row-gap{padding-inline-start:16px}.cr-button-gap{margin-inline-start:8px}paper-tooltip::part(tooltip){border-radius:var(--paper-tooltip-border-radius,2px);font-size:92.31%;font-weight:500;max-width:330px;min-width:var(--paper-tooltip-min-width,200px);padding:var(--paper-tooltip-padding,10px 8px)}.cr-padded-text{padding-block-end:var(--cr-section-vertical-padding);padding-block-start:var(--cr-section-vertical-padding)}.cr-title-text{color:var(--cr-title-text-color);font-size:107.6923%;font-weight:500}.cr-secondary-text{color:var(--cr-secondary-text-color);font-weight:400}.cr-form-field-label{color:var(--cr-form-field-label-color);display:block;font-size:var(--cr-form-field-label-font-size);font-weight:500;letter-spacing:.4px;line-height:var(--cr-form-field-label-line-height);margin-bottom:8px}.cr-vertical-tab{align-items:center;display:flex}.cr-vertical-tab::before{border-radius:0 3px 3px 0;content:'';display:block;flex-shrink:0;height:var(--cr-vertical-tab-height,100%);width:4px}.cr-vertical-tab.selected::before{background:var(--cr-vertical-tab-selected-color,var(--cr-checked-color))}:host-context([dir=rtl]) .cr-vertical-tab::before{transform:scaleX(-1)}.iph-anchor-highlight{background-color:var(--cr-iph-anchor-highlight-color)}
     </style>
   </template>
 `.content);
-styleMod$9.register('cr-shared-style');
+styleMod$8.register('cr-shared-style');
 
-const styleMod$8 = document.createElement('dom-module');
-styleMod$8.appendChild(html `
+const styleMod$7 = document.createElement('dom-module');
+styleMod$7.appendChild(html `
   <template>
     <style>
 :host{--cr-input-background-color:var(--google-grey-100);--cr-input-color:var(--cr-primary-text-color);--cr-input-error-color:var(--google-red-600);--cr-input-focus-color:var(--google-blue-600);display:block;outline:0}:host-context([chrome-refresh-2023]):host{--cr-input-background-color:var(--color-textfield-filled-background,
@@ -7003,9 +7003,9 @@ styleMod$8.appendChild(html `
     </style>
   </template>
 `.content);
-styleMod$8.register('cr-input-style');
+styleMod$7.register('cr-input-style');
 
-function getTemplate$C() {
+function getTemplate$B() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -7048,7 +7048,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$B();
     }
     static get properties() {
         return {
@@ -7274,25 +7274,25 @@ class CrInputElement extends PolymerElement {
 }
 customElements.define(CrInputElement.is, CrInputElement);
 
-const styleMod$7 = document.createElement('dom-module');
-styleMod$7.appendChild(html `
+const styleMod$6 = document.createElement('dom-module');
+styleMod$6.appendChild(html `
   <template>
     <style>
 .search-bubble{--search-bubble-color:var(--paper-yellow-500);position:absolute;z-index:1}.search-bubble-innards{align-items:center;background-color:var(--search-bubble-color);border-radius:2px;color:var(--google-grey-900);max-width:100px;min-width:64px;overflow:hidden;padding:4px 10px;text-align:center;text-overflow:ellipsis;white-space:nowrap}.search-bubble-innards::after{background-color:var(--search-bubble-color);content:'';height:10px;left:calc(50% - 5px);position:absolute;top:-5px;transform:rotate(-45deg);width:10px;z-index:-1}.search-bubble-innards.above::after{bottom:-5px;top:auto;transform:rotate(-135deg)}
     </style>
   </template>
 `.content);
-styleMod$7.register('search-highlight-style');
+styleMod$6.register('search-highlight-style');
 
-const styleMod$6 = document.createElement('dom-module');
-styleMod$6.appendChild(html `
+const styleMod$5 = document.createElement('dom-module');
+styleMod$5.appendChild(html `
   <template>
     <style>
 .md-select{--md-arrow-width:10px;--md-select-bg-color:var(--google-grey-100);--md-select-focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--md-select-option-bg-color:white;--md-select-side-padding:8px;--md-select-text-color:var(--cr-primary-text-color);-webkit-appearance:none;background:url(//resources/images/arrow_down.svg) calc(100% - var(--md-select-side-padding)) center no-repeat;background-color:var(--md-select-bg-color);background-size:var(--md-arrow-width);border:none;border-radius:4px;color:var(--md-select-text-color);cursor:pointer;font-family:inherit;font-size:inherit;line-height:inherit;max-width:100%;outline:0;padding-bottom:6px;padding-inline-end:calc(var(--md-select-side-padding) + var(--md-arrow-width) + 3px);padding-inline-start:var(--md-select-side-padding);padding-top:6px;width:var(--md-select-width,200px)}@media (prefers-color-scheme:dark){.md-select{--md-select-bg-color:rgba(0, 0, 0, .3);--md-select-focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--md-select-option-bg-color:var(--google-grey-900-white-4-percent);background-image:url(//resources/images/dark/arrow_down.svg)}}:host-context([chrome-refresh-2023]) .md-select{--md-select-bg-color:transparent;--md-arrow-width:7px;--md-select-side-padding:10px;--md-select-text-color:inherit;border:solid 1px var(--color-combobox-container-outline,var(--cr-fallback-color-neutral-outline));border-radius:8px;box-sizing:border-box;font-size:12px;height:36px;line-height:36px;padding-bottom:0;padding-top:0}:host-context([chrome-refresh-2023]) .md-select:hover{background-color:var(--color-comboxbox-ink-drop-hovered,var(--cr-hover-on-subtle-background-color))}.md-select :-webkit-any(option,optgroup){background-color:var(--md-select-option-bg-color)}.md-select[disabled]{opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]) .md-select[disabled]{background-color:var(--color-combobox-background-disabled,var(--cr-fallback-color-disabled-background));border-color:transparent;color:var(--color-textfield-foreground-disabled,var(--cr-fallback-color-disabled-foreground));opacity:1}.md-select:focus{box-shadow:0 0 0 2px var(--md-select-focus-shadow-color)}:host-context([chrome-refresh-2023]) .md-select:focus{box-shadow:none;outline:solid 2px var(--cr-focus-outline-color);outline-offset:-1px}@media (forced-colors:active){.md-select:focus{outline:var(--cr-focus-outline-hcm)}}.md-select:active{box-shadow:none}:host-context([dir=rtl]) .md-select{background-position-x:var(--md-select-side-padding)}
     </style>
   </template>
 `.content);
-styleMod$6.register('md-select');
+styleMod$5.register('md-select');
 
 const template$4 = html `
 <style>
@@ -7303,17 +7303,17 @@ html{--print-preview-row-height:38px;--print-preview-sidebar-width:384px;--print
 `;
 document.head.appendChild(template$4.content);
 
-const styleMod$5 = document.createElement('dom-module');
-styleMod$5.appendChild(html `
+const styleMod$4 = document.createElement('dom-module');
+styleMod$4.appendChild(html `
   <template>
     <style include="cr-shared-style">
 select.md-select{margin-bottom:2px;margin-top:2px;min-height:32px;padding-bottom:1px;padding-inline-end:32px;padding-top:1px;user-select:none;--md-select-width:calc(100% - 2 * var(--print-preview-sidebar-margin))}.checkbox cr-checkbox{min-height:var(--print-preview-row-height)}:host-context(html:not([chrome-refresh-2023])) .checkbox cr-checkbox{--cr-checkbox-ripple-size:var(--print-preview-row-height)}.checkbox cr-checkbox::part(label-container){overflow:hidden;padding-inline-start:16px}cr-input{line-height:20px}cr-input::part(row-container){min-height:var(--print-preview-row-height)}print-preview-settings-section [slot=controls]>*{margin:0 var(--print-preview-sidebar-margin)}cr-dialog::part(wrapper){max-height:calc(100vh - 68px);max-width:100%;width:calc(100vw - 68px)}cr-dialog [slot=body]{box-sizing:border-box}#dialog div[slot=title]{padding-bottom:8px}#dialog div[slot=button-container]{align-items:center;box-shadow:0 -1px 1px 0 var(--cr-separator-color);min-height:64px;padding-bottom:0;padding-top:0}
     </style>
   </template>
 `.content);
-styleMod$5.register('print-preview-shared');
+styleMod$4.register('print-preview-shared');
 
-function getTemplate$B() {
+function getTemplate$A() {
     return html `<!--_html_template_start_--><style include="print-preview-shared md-select search-highlight-style
     cr-hidden-style">:host{display:flex;min-height:54px;position:relative}:host>*{overflow:hidden;text-overflow:ellipsis;vertical-align:middle}.label,.value{align-self:center;color:var(--cr-primary-text-color);overflow:hidden}.label{flex:1;min-width:96px;opacity:.87}.value{flex:0;min-width:239px;text-overflow:ellipsis;white-space:nowrap}.value>*{display:flex;margin-inline-start:10px}cr-input{width:239px;--cr-input-error-display:none}select.md-select{font-size:1em}</style>
 <label class="label searchable">[[getDisplayName_(capability)]]</label>
@@ -7569,7 +7569,7 @@ class PrintPreviewAdvancedSettingsItemElement extends PrintPreviewAdvancedSettin
         return 'print-preview-advanced-settings-item';
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$A();
     }
     static get properties() {
         return {
@@ -7848,10 +7848,6 @@ const CrSearchFieldMixin = dedupingMixin((superClass) => {
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Mixin to be used by Polymer elements that want to
- * automatically remove WebUI listeners when detached.
- */
 const WebUiListenerMixin = dedupingMixin((superClass) => {
     class WebUiListenerMixin extends superClass {
         constructor() {
@@ -7884,7 +7880,7 @@ const WebUiListenerMixin = dedupingMixin((superClass) => {
     return WebUiListenerMixin;
 });
 
-function getTemplate$A() {
+function getTemplate$z() {
     return html `<!--_html_template_start_--><style include="print-preview-shared cr-input-style">:host{display:flex;--cr-input-error-display:none}cr-input::part(row-container){min-height:32px}#clearSearch,#icon{margin-inline-end:0;margin-inline-start:0}#icon{height:var(--search-icon-size);width:var(--search-icon-size)}#clearSearch{--clear-icon-size:28px;--cr-icon-button-size:var(--clear-icon-size);--cr-icon-button-icon-size:20px;height:var(--clear-icon-size);position:absolute;right:0;width:var(--clear-icon-size)}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}:host([has-search-text]) cr-input{--cr-input-padding-end:24px}.search-box-input{width:100%}.search-box-input::-webkit-search-cancel-button{-webkit-appearance:none}</style>
 <cr-input type="search" id="searchInput" class="search-box-input" on-search="onSearchTermSearch" on-input="onSearchTermInput" aria-label$="[[label]]" placeholder="[[label]]" autofocus="[[autofocus]]" spellcheck="false">
   <div slot="inline-prefix" id="icon" class="cr-icon icon-search" alt=""></div>
@@ -7908,7 +7904,7 @@ class PrintPreviewSearchBoxElement extends PrintPreviewSearchBoxElementBase {
         return 'print-preview-search-box';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$z();
     }
     static get properties() {
         return {
@@ -8317,7 +8313,7 @@ class MetricsContext {
     }
 }
 
-function getTemplate$z() {
+function getTemplate$y() {
     return html `<!--_html_template_start_--><style include="print-preview-shared cr-hidden-style">#dialog::part(dialog){height:-webkit-fit-content;max-height:calc(100vh - 2 * var(--print-preview-dialog-margin));max-width:calc(100vw - 2 * var(--print-preview-dialog-margin))}#dialog::part(wrapper){height:calc(100vh - 2 * var(--print-preview-dialog-margin))}#dialog::part(body-container){flex:1}print-preview-search-box{margin-bottom:8px;margin-top:16px}cr-dialog [slot=body]{display:flex;flex-direction:column;height:100%}#itemList{flex:1;overflow-x:hidden;overflow-y:overlay}#itemList.searching{padding-bottom:20px;padding-top:20px}</style>
 <cr-dialog id="dialog" on-close="onCloseOrCancel_">
   <div slot="title">
@@ -8364,7 +8360,7 @@ class PrintPreviewAdvancedSettingsDialogElement extends PrintPreviewAdvancedSett
         return 'print-preview-advanced-settings-dialog';
     }
     static get template() {
-        return getTemplate$z();
+        return getTemplate$y();
     }
     static get properties() {
         return {
@@ -9189,7 +9185,7 @@ Polymer({
   }
 });
 
-function getTemplate$y() {
+function getTemplate$x() {
     return html `<!--_html_template_start_--><style include="print-preview-shared">:host{display:flex;padding-inline-start:var(--print-preview-sidebar-margin)}::slotted([slot=controls]),::slotted([slot=title]){display:flex;flex-direction:column;justify-content:center;min-height:var(--print-preview-row-height);word-break:break-word}::slotted([slot=controls]){flex:1;overflow:hidden}::slotted([slot=title]){color:var(--cr-primary-text-color);flex:none;font-size:1em;line-height:calc(20/13 * 1em);width:var(--print-preview-title-width)}</style>
 <slot name="title"></slot>
 <slot name="controls"></slot>
@@ -9204,12 +9200,12 @@ class PrintPreviewSettingsSectionElement extends PolymerElement {
         return 'print-preview-settings-section';
     }
     static get template() {
-        return getTemplate$y();
+        return getTemplate$x();
     }
 }
 customElements.define(PrintPreviewSettingsSectionElement.is, PrintPreviewSettingsSectionElement);
 
-function getTemplate$x() {
+function getTemplate$w() {
     return html `<!--_html_template_start_--><style include="print-preview-shared">cr-button{height:fit-content;min-height:32px;text-align:center;width:calc(100% - 2 * var(--print-preview-sidebar-margin))}</style>
 <print-preview-settings-section>
   <span slot="title"></span>
@@ -9234,7 +9230,7 @@ class PrintPreviewAdvancedOptionsSettingsElement extends PolymerElement {
         return 'print-preview-advanced-options-settings';
     }
     static get template() {
-        return getTemplate$x();
+        return getTemplate$w();
     }
     static get properties() {
         return {
@@ -9377,7 +9373,7 @@ IronA11yAnnouncer.requestAvailability = function() {
   }
 };
 
-function getTemplate$w() {
+function getTemplate$v() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style">:host .controls{align-items:center;display:flex;flex-direction:row;justify-content:flex-end;padding-bottom:16px;padding-inline-end:16px;padding-top:16px}:host-context([chrome-refresh-2023]):host .controls{padding-bottom:var(--print-preview-sidebar-margin);padding-inline-end:var(--print-preview-sidebar-margin)}@media (prefers-color-scheme:light){:host{background-color:#fff}}:host cr-button:not(:last-child){margin-inline-end:8px}:host cr-button:last-child{margin-inline-end:0}.error-message{color:red;margin:16px 16px 0;text-align:start}</style>
 
 <div class="error-message" hidden="[[!showSheetsError_(destination.id, maxSheets, sheetCount)]]">
@@ -9412,7 +9408,7 @@ class PrintPreviewButtonStripElement extends PolymerElement {
         return 'print-preview-button-strip';
     }
     static get template() {
-        return getTemplate$w();
+        return getTemplate$v();
     }
     static get properties() {
         return {
@@ -9538,7 +9534,7 @@ class PrintPreviewButtonStripElement extends PolymerElement {
 }
 customElements.define(PrintPreviewButtonStripElement.is, PrintPreviewButtonStripElement);
 
-function getTemplate$v() {
+function getTemplate$u() {
     return html `<!--_html_template_start_--><style include="print-preview-shared md-select"></style>
 <print-preview-settings-section>
   <span id="color-label" slot="title">$i18n{optionColor}</span>
@@ -9595,7 +9591,7 @@ class PrintPreviewColorSettingsElement extends PrintPreviewColorSettingsElementB
         return 'print-preview-color-settings';
     }
     static get template() {
-        return getTemplate$v();
+        return getTemplate$u();
     }
     static get properties() {
         return {
@@ -9707,7 +9703,7 @@ const InputMixin = dedupingMixin((superClass) => {
     return InputMixin;
 });
 
-function getTemplate$u() {
+function getTemplate$t() {
     return html `<!--_html_template_start_--><style include="print-preview-shared">:host{--cr-input-width:calc(4em + 16px)}#sectionTitle{align-self:baseline}cr-input{margin-inline-end:16px;min-height:var(--print-preview-row-height);overflow:hidden}.input-wrapper{align-items:center;display:flex}:host([input-valid]) cr-input{--cr-input-error-display:none}span[slot=suffix]{max-width:calc(100% - 5em);min-height:var(--print-preview-row-height);overflow:hidden;word-wrap:break-word}</style>
 <print-preview-settings-section>
   <span slot="title" id="sectionTitle">[[inputLabel]]</span>
@@ -9733,7 +9729,7 @@ class PrintPreviewNumberSettingsSectionElement extends PrintPreviewNumberSetting
         return 'print-preview-number-settings-section';
     }
     static get template() {
-        return getTemplate$u();
+        return getTemplate$t();
     }
     static get properties() {
         return {
@@ -9826,7 +9822,7 @@ class PrintPreviewNumberSettingsSectionElement extends PrintPreviewNumberSetting
 }
 customElements.define(PrintPreviewNumberSettingsSectionElement.is, PrintPreviewNumberSettingsSectionElement);
 
-function getTemplate$t() {
+function getTemplate$s() {
     return html `<!--_html_template_start_--><style include="print-preview-shared">#collate{margin-inline-start:16px}</style>
 <print-preview-number-settings-section max-value="[[copiesMax_]]" min-value="1" default-value="1" input-label="$i18n{copiesLabel}" input-aria-label="$i18n{copiesLabel}" disabled="[[disabled]]" current-value="{{currentValue_}}" input-valid="{{inputValid_}}" hint-message="[[getHintMessage_(copiesMax_)]]">
   <div slot="opt-inside-content" class="checkbox" aria-live="polite" hidden$="[[collateHidden_(
@@ -9853,7 +9849,7 @@ class PrintPreviewCopiesSettingsElement extends PrintPreviewCopiesSettingsElemen
         return 'print-preview-copies-settings';
     }
     static get template() {
-        return getTemplate$t();
+        return getTemplate$s();
     }
     static get properties() {
         return {
@@ -9921,7 +9917,7 @@ class PrintPreviewCopiesSettingsElement extends PrintPreviewCopiesSettingsElemen
 }
 customElements.define(PrintPreviewCopiesSettingsElement.is, PrintPreviewCopiesSettingsElement);
 
-function getTemplate$s() {
+function getTemplate$r() {
     return html `<!--_html_template_start_--><style include="print-preview-shared md-select">select.md-select{margin:2px;--md-select-width:calc(100% - 4px)}</style>
 <select class="md-select" disabled$="[[disabled]]" aria-label$="[[ariaLabel]]" value="{{selectedValue::change}}">
   <template is="dom-repeat" items="[[capability.option]]">
@@ -9942,7 +9938,7 @@ class PrintPreviewSettingsSelectElement extends PrintPreviewSettingsSelectElemen
         return 'print-preview-settings-select';
     }
     static get template() {
-        return getTemplate$s();
+        return getTemplate$r();
     }
     static get properties() {
         return {
@@ -9997,7 +9993,7 @@ class PrintPreviewSettingsSelectElement extends PrintPreviewSettingsSelectElemen
 }
 customElements.define(PrintPreviewSettingsSelectElement.is, PrintPreviewSettingsSelectElement);
 
-function getTemplate$r() {
+function getTemplate$q() {
     return html `<!--_html_template_start_--><style include="print-preview-shared">:host print-preview-settings-select{margin:0 calc(var(--print-preview-sidebar-margin) - 2px)}</style>
 <print-preview-settings-section>
   <span id="dpi-label" slot="title">$i18n{dpiLabel}</span>
@@ -10018,7 +10014,7 @@ class PrintPreviewDpiSettingsElement extends PrintPreviewDpiSettingsElementBase 
         return 'print-preview-dpi-settings';
     }
     static get template() {
-        return getTemplate$r();
+        return getTemplate$q();
     }
     static get properties() {
         return {
@@ -10450,7 +10446,7 @@ const template$3 = html `<iron-iconset-svg name="print-preview" size="24">
 `;
 document.head.appendChild(template$3.content);
 
-function getTemplate$q() {
+function getTemplate$p() {
     return html `<!--_html_template_start_--><style include="print-preview-shared cr-hidden-style md-select">:host{--duplex-icon-side-padding:8px;--duplex-icon-size:16px}.md-select{background-position:var(--duplex-icon-side-padding) center,calc(100% - var(--md-select-side-padding)) center;background-size:var(--duplex-icon-size),var(--md-arrow-width);padding-inline-start:32px}:host-context([dir=rtl]) .md-select{background-position-x:calc(100% - var(--duplex-icon-side-padding)),var(--md-select-side-padding)}</style>
 <print-preview-settings-section hidden$="[[!settings.duplex.available]]">
   <div slot="title">
@@ -10491,7 +10487,7 @@ class PrintPreviewDuplexSettingsElement extends PrintPreviewDuplexSettingsElemen
         return 'print-preview-duplex-settings';
     }
     static get template() {
-        return getTemplate$q();
+        return getTemplate$p();
     }
     static get properties() {
         return {
@@ -10557,7 +10553,7 @@ class PrintPreviewDuplexSettingsElement extends PrintPreviewDuplexSettingsElemen
 }
 customElements.define(PrintPreviewDuplexSettingsElement.is, PrintPreviewDuplexSettingsElement);
 
-function getTemplate$p() {
+function getTemplate$o() {
     return html `<!--_html_template_start_--><style>:host{align-items:center;display:flex;justify-content:space-between;padding:20px var(--print-preview-sidebar-margin) 12px}:host-context([chrome-refresh-2023]):host{padding-top:var(--print-preview-sidebar-margin)}@media (prefers-color-scheme:light){:host{background-color:#fff}}#headerContainer{align-items:center;display:flex}.summary,.title{color:var(--cr-primary-text-color);line-height:calc(20/13 * 1em);margin:0}.title{font-size:calc(16/13 * 1em);font-weight:400}.summary{font-weight:500}iron-icon{align-self:center;fill:var(--cr-secondary-text-color);height:16px;margin-inline-start:8px;width:16px}</style>
 <div id="headerContainer">
   <h1 class="title">$i18n{title}</h1>
@@ -10577,7 +10573,7 @@ class PrintPreviewHeaderElement extends PrintPreviewHeaderElementBase {
         return 'print-preview-header';
     }
     static get template() {
-        return getTemplate$p();
+        return getTemplate$o();
     }
     static get properties() {
         return {
@@ -10641,7 +10637,7 @@ class PrintPreviewHeaderElement extends PrintPreviewHeaderElementBase {
 }
 customElements.define(PrintPreviewHeaderElement.is, PrintPreviewHeaderElement);
 
-function getTemplate$o() {
+function getTemplate$n() {
     return html `<!--_html_template_start_--><style include="print-preview-shared md-select"></style>
 <print-preview-settings-section>
   <span id="layout-label" slot="title">$i18n{layoutLabel}</span>
@@ -10664,7 +10660,7 @@ class PrintPreviewLayoutSettingsElement extends PrintPreviewLayoutSettingsElemen
         return 'print-preview-layout-settings';
     }
     static get template() {
-        return getTemplate$o();
+        return getTemplate$n();
     }
     static get properties() {
         return {
@@ -10683,7 +10679,7 @@ class PrintPreviewLayoutSettingsElement extends PrintPreviewLayoutSettingsElemen
 }
 customElements.define(PrintPreviewLayoutSettingsElement.is, PrintPreviewLayoutSettingsElement);
 
-function getTemplate$n() {
+function getTemplate$m() {
     return html `<!--_html_template_start_--><style include="print-preview-shared">:host print-preview-settings-select{margin:0 calc(var(--print-preview-sidebar-margin) - 2px)}</style>
 <print-preview-settings-section>
   <span id="media-size-label" slot="title">$i18n{mediaSizeLabel}</span>
@@ -10715,7 +10711,7 @@ class PrintPreviewMediaSizeSettingsElement extends PrintPreviewMediaSizeSettings
         return 'print-preview-media-size-settings';
     }
     static get template() {
-        return getTemplate$n();
+        return getTemplate$m();
     }
     static get properties() {
         return {
@@ -10783,7 +10779,7 @@ class PrintPreviewMediaSizeSettingsElement extends PrintPreviewMediaSizeSettings
 }
 customElements.define(PrintPreviewMediaSizeSettingsElement.is, PrintPreviewMediaSizeSettingsElement);
 
-function getTemplate$m() {
+function getTemplate$l() {
     return html `<!--_html_template_start_--><style include="print-preview-shared">:host print-preview-settings-select{margin:0 calc(var(--print-preview-sidebar-margin) - 2px)}</style>
 <print-preview-settings-section>
   <span id="media-type-label" slot="title">$i18n{mediaTypeLabel}</span>
@@ -10804,7 +10800,7 @@ class PrintPreviewMediaTypeSettingsElement extends PrintPreviewMediaTypeSettings
         return 'print-preview-media-type-settings';
     }
     static get template() {
-        return getTemplate$m();
+        return getTemplate$l();
     }
     static get properties() {
         return {
@@ -10836,7 +10832,7 @@ class PrintPreviewMediaTypeSettingsElement extends PrintPreviewMediaTypeSettings
 }
 customElements.define(PrintPreviewMediaTypeSettingsElement.is, PrintPreviewMediaTypeSettingsElement);
 
-function getTemplate$l() {
+function getTemplate$k() {
     return html `<!--_html_template_start_--><style include="print-preview-shared md-select"></style>
 <print-preview-settings-section>
   <span id="margins-label" slot="title">$i18n{marginsLabel}</span>
@@ -10874,7 +10870,7 @@ class PrintPreviewMarginsSettingsElement extends PrintPreviewMarginsSettingsElem
         return 'print-preview-margins-settings';
     }
     static get template() {
-        return getTemplate$l();
+        return getTemplate$k();
     }
     static get properties() {
         return {
@@ -10936,15 +10932,9 @@ class PrintPreviewMarginsSettingsElement extends PrintPreviewMarginsSettingsElem
 }
 customElements.define(PrintPreviewMarginsSettingsElement.is, PrintPreviewMarginsSettingsElement);
 
-const styleMod$4 = document.createElement('dom-module');
-styleMod$4.appendChild(html `
-  <template>
-    <style>
-:host{align-items:center;align-self:stretch;display:flex;margin:0;outline:0}:host(:not([effectively-disabled_])){cursor:pointer}:host(:not([no-hover],[effectively-disabled_]):hover){background-color:var(--cr-hover-background-color)}:host(:not([no-hover],[effectively-disabled_]):active){background-color:var(--cr-active-background-color)}:host(:not([no-hover],[effectively-disabled_])) cr-icon-button{--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}
-    </style>
-  </template>
-`.content);
-styleMod$4.register('cr-actionable-row-style');
+function getCss$1() {
+    return css `:host{align-items:center;align-self:stretch;display:flex;margin:0;outline:0}:host(:not([effectively-disabled_])){cursor:pointer}:host(:not([no-hover],[effectively-disabled_]):hover){background-color:var(--cr-hover-background-color)}:host(:not([no-hover],[effectively-disabled_]):active){background-color:var(--cr-active-background-color)}:host(:not([no-hover],[effectively-disabled_])) cr-icon-button{--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}`;
+}
 
 const template$2 = html `
 <iron-iconset-svg name="cr20" size="20">
@@ -11259,12 +11249,14 @@ function focusWithoutInk(toFocus) {
     toFocusWithNoInk.noink = noink;
 }
 
-function getTemplate$k() {
-    return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
+function getCss() {
+    return css `:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}`;
+}
 
-    <div id="label" aria-hidden="true"><slot></slot></div>
-    <cr-icon-button id="icon" aria-labelledby="label" aria-expanded="[[getAriaExpanded_(expanded)]]" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon" iron-icon="[[icon_]]">
-    </cr-icon-button>
+function getHtml() {
+    return html$1 `<!--_html_template_start_--><div id="label" aria-hidden="true"><slot></slot></div>
+<cr-icon-button id="icon" aria-labelledby="label" ?disabled="${this.disabled}" aria-expanded="${this.ariaExpanded_}" tabindex="${this.tabIndex}" part="icon" iron-icon="${this.icon_}">
+</cr-icon-button>
 <!--_html_template_end_-->`;
 }
 
@@ -11276,12 +11268,28 @@ function getTemplate$k() {
  * 'cr-expand-button' is a chrome-specific wrapper around a button that toggles
  * between an opened (expanded) and closed state.
  */
-class CrExpandButtonElement extends PolymerElement {
+class CrExpandButtonElement extends CrLitElement {
+    constructor() {
+        super(...arguments);
+        this.expanded = false;
+        this.disabled = false;
+        this.ariaExpanded_ = 'false';
+        this.expandIcon = 'cr:expand-more';
+        this.collapseIcon = 'cr:expand-less';
+        this.tabIndex = 0;
+        this.icon_ = '';
+    }
     static get is() {
         return 'cr-expand-button';
     }
-    static get template() {
-        return getTemplate$k();
+    static get styles() {
+        return [
+            getCss$1(),
+            getCss(),
+        ];
+    }
+    render() {
+        return getHtml.bind(this)();
     }
     static get properties() {
         return {
@@ -11292,7 +11300,6 @@ class CrExpandButtonElement extends PolymerElement {
              */
             expanded: {
                 type: Boolean,
-                value: false,
                 notify: true,
             },
             /**
@@ -11300,50 +11307,43 @@ class CrExpandButtonElement extends PolymerElement {
              */
             disabled: {
                 type: Boolean,
-                value: false,
-                reflectToAttribute: true,
+                reflect: true,
             },
             /** A11y text descriptor for this control. */
-            ariaLabel: {
-                type: String,
-                observer: 'onAriaLabelChange_',
-            },
-            tabIndex: {
-                type: Number,
-                value: 0,
-            },
-            expandIcon: {
-                type: String,
-                value: 'cr:expand-more',
-            },
-            collapseIcon: {
-                type: String,
-                value: 'cr:expand-less',
-            },
-            icon_: String,
-            expandTitle: String,
-            collapseTitle: String,
-            tooltipText_: {
-                type: String,
-                computed: 'computeTooltipText_(expandTitle, collapseTitle, expanded)',
-                observer: 'onTooltipTextChange_',
-            },
+            ariaLabel: { type: String },
+            ariaExpanded_: { type: String },
+            tabIndex: { type: Number },
+            expandIcon: { type: String },
+            collapseIcon: { type: String },
+            expandTitle: { type: String },
+            collapseTitle: { type: String },
+            icon_: { type: String },
         };
     }
-    static get observers() {
-        return [
-            'updateIcon_(collapseIcon, expandIcon, expanded)',
-        ];
-    }
-    ready() {
-        super.ready();
+    firstUpdated() {
         this.addEventListener('click', this.toggleExpand_);
     }
-    computeTooltipText_() {
-        return this.expanded ? this.collapseTitle : this.expandTitle;
+    willUpdate(changedProperties) {
+        super.willUpdate(changedProperties);
+        if (changedProperties.has('expanded') ||
+            changedProperties.has('expandIcon') ||
+            changedProperties.has('collapseIcon')) {
+            this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
+        }
+        if (changedProperties.has('expanded') ||
+            changedProperties.has('collapseTitle') ||
+            changedProperties.has('expandTitle')) {
+            this.title = this.expanded ? this.collapseTitle : this.expandTitle;
+        }
+        if (changedProperties.has('expanded')) {
+            this.ariaExpanded_ = this.expanded ? 'true' : 'false';
+        }
     }
-    onTooltipTextChange_() {
-        this.title = this.tooltipText_;
+    updated(changedProperties) {
+        super.updated(changedProperties);
+        if (changedProperties.has('ariaLabel')) {
+            this.onAriaLabelChange_();
+        }
     }
     focus() {
         this.$.icon.focus();
@@ -11358,9 +11358,6 @@ class CrExpandButtonElement extends PolymerElement {
             this.$.icon.setAttribute('aria-labelledby', 'label');
         }
     }
-    updateIcon_() {
-        this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
-    }
     toggleExpand_(event) {
         // Prevent |click| event from bubbling. It can cause parents of this
         // elements to erroneously re-toggle this control.
@@ -11369,9 +11366,6 @@ class CrExpandButtonElement extends PolymerElement {
         this.scrollIntoViewIfNeeded();
         this.expanded = !this.expanded;
         focusWithoutInk(this.$.icon);
-    }
-    getAriaExpanded_() {
-        return this.expanded ? 'true' : 'false';
     }
 }
 customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);
@@ -19477,18 +19471,6 @@ customElements.define(PrintPreviewDestinationListItemElement.is, PrintPreviewDes
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview |ListPropertyUpdateMixin| is used to update an existing
- * polymer list property given the list after all the edits were made while
- * maintaining the reference to the original list. This allows
- * dom-repeat/iron-list elements bound to this list property to not fully
- * re-rendered from scratch.
- *
- * The minimal splices needed to transform the original list to the edited list
- * are calculated using |Polymer.ArraySplice.calculateSplices|. All the edits
- * are then applied to the original list. Once completed, a single notification
- * containing information about all the edits is sent to the polyer object.
- */
 const ListPropertyUpdateMixin = dedupingMixin((superClass) => {
     class ListPropertyUpdateMixin extends superClass {
         updateList(propertyPath, identityGetter, updatedList, identityBasedUpdate = false) {

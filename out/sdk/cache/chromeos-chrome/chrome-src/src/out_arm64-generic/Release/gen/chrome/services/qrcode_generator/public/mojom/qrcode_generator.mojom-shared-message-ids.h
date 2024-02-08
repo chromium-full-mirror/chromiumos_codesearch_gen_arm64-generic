@@ -14,7 +14,6 @@ namespace qrcode_generator::mojom {
 namespace internal {
 
 
-constexpr uint32_t kQRCodeGeneratorService_GenerateQRCode_Name = 0;
 
 }  // namespace internal
 

@@ -3,7 +3,7 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
 <cr-icon-button id="voice-selection" on-click="onVoiceSelectionMenuClick_" class="toolbar-button" tabindex="-1" aria-label="$i18n{voiceSelectionLabel}" aria-haspopup="menu" iron-icon="read-anything:voice-selection">
 </cr-icon-button>
 
-<cr-action-menu id="voiceSelectionMenu">
+<cr-action-menu id="voiceSelectionMenu" on-close="onClose_">
   <template is="dom-repeat" items="[[voiceSelectionOptions_]]">
     
     <button class="dropdown-item dropdown-voice-selection" on-click="onVoiceSelectClick_">

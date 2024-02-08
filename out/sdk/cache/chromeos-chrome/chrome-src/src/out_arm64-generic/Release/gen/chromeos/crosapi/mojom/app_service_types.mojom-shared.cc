@@ -406,6 +406,8 @@ NOINLINE static const char* LaunchSourceToStringHelper(LaunchSource value) {
       return "kFromSysTrayCalendar";
     case LaunchSource::kFromInstaller:
       return "kFromInstaller";
+    case LaunchSource::kFromFirstRun:
+      return "kFromFirstRun";
     default:
       return nullptr;
   }

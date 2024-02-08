@@ -2,4 +2,4 @@
 
 #pragma once
 
-#define IDR_INSPECT_TOOL_MAIN_JS 53500
+#define IDR_INSPECT_TOOL_MAIN_JS 53530

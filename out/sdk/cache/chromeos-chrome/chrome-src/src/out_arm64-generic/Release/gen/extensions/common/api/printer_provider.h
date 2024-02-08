@@ -220,7 +220,9 @@ namespace OnGetPrintersRequested {
 
 extern const char kEventName[];  // "printerProvider.onGetPrintersRequested"
 
-base::Value::List Create();
+// Callback to return printer list. Every listener must call callback exactly
+// once.
+base::Value::List Create(base::Value::Dict result_callback);
 }  // namespace OnGetPrintersRequested
 
 namespace OnGetUsbPrinterInfoRequested {
@@ -228,7 +230,10 @@ namespace OnGetUsbPrinterInfoRequested {
 extern const char kEventName[];  // "printerProvider.onGetUsbPrinterInfoRequested"
 
 // The USB device.
-base::Value::List Create(const extensions::api::usb::Device& device);
+// Callback to return printer info. The receiving listener must call callback
+// exactly once. If the parameter to this callback is undefined that indicates
+// that the application has determined that the device is not supported.
+base::Value::List Create(const extensions::api::usb::Device& device, base::Value::Dict result_callback);
 }  // namespace OnGetUsbPrinterInfoRequested
 
 namespace OnGetCapabilityRequested {
@@ -236,7 +241,10 @@ namespace OnGetCapabilityRequested {
 extern const char kEventName[];  // "printerProvider.onGetCapabilityRequested"
 
 // Unique ID of the printer whose capabilities are requested.
-base::Value::List Create(const std::string& printer_id);
+// Callback to return device capabilities in <a
+// href="https://developers.google.com/cloud-print/docs/cdd#cdd">CDD format</a>.
+// The receiving listener must call callback exectly once.
+base::Value::List Create(const std::string& printer_id, base::Value::Dict result_callback);
 }  // namespace OnGetCapabilityRequested
 
 namespace OnPrintRequested {
@@ -244,7 +252,8 @@ namespace OnPrintRequested {
 extern const char kEventName[];  // "printerProvider.onPrintRequested"
 
 // The printing request parameters.
-base::Value::List Create(const PrintJob& print_job);
+// Callback that should be called when the printing request is completed.
+base::Value::List Create(const PrintJob& print_job, base::Value::Dict result_callback);
 }  // namespace OnPrintRequested
 
 }  // namespace printer_provider

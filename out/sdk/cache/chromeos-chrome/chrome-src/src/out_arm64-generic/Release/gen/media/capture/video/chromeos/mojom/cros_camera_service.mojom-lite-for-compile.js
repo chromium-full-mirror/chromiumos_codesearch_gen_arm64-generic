@@ -344,6 +344,12 @@ cros.mojom.CrosCameraServiceObserverInterface = class {
    */
 
   cameraSWPrivacySwitchStateChange(state) {}
+  
+  /**
+   * @param { !cros.mojom.EffectsConfig } config
+   */
+
+  cameraEffectChange(config) {}
 };
 
 /**
@@ -426,6 +432,22 @@ cros.mojom.CrosCameraServiceObserverRemote = class {
           state
         ]);
   }
+
+  
+  /**
+   * @param { !cros.mojom.EffectsConfig } config
+   */
+
+  cameraEffectChange(
+      config) {
+    this.proxy.sendMessage(
+        3,
+        cros.mojom.CrosCameraServiceObserver_CameraEffectChange_ParamsSpec.$,
+        null,
+        [
+          config
+        ]);
+  }
 };
 
 /**
@@ -465,6 +487,11 @@ cros.mojom.CrosCameraServiceObserverReceiver = class {
         cros.mojom.CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsSpec.$,
         null,
         impl.cameraSWPrivacySwitchStateChange.bind(impl));
+    this.helper_internal_.registerHandler(
+        3,
+        cros.mojom.CrosCameraServiceObserver_CameraEffectChange_ParamsSpec.$,
+        null,
+        impl.cameraEffectChange.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -553,6 +580,18 @@ cros.mojom.CrosCameraServiceObserverCallbackRouter = class {
         cros.mojom.CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsSpec.$,
         null,
         this.cameraSWPrivacySwitchStateChange.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.cameraEffectChange =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        3,
+        cros.mojom.CrosCameraServiceObserver_CameraEffectChange_ParamsSpec.$,
+        null,
+        this.cameraEffectChange.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1084,6 +1123,14 @@ goog.provide('cros.mojom.CrosCameraServiceObserver_CameraSWPrivacySwitchStateCha
 cros.mojom.CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+goog.provide('cros.mojom.CrosCameraServiceObserver_CameraEffectChange_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+cros.mojom.CrosCameraServiceObserver_CameraEffectChange_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
 goog.provide('cros.mojom.CrosCameraService_GetCameraModule_ParamsSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -1373,6 +1420,35 @@ cros.mojom.CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params = c
   constructor() {
     /** @export { !cros.mojom.CameraPrivacySwitchState } */
     this.state;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    cros.mojom.CrosCameraServiceObserver_CameraEffectChange_ParamsSpec.$,
+    'CrosCameraServiceObserver_CameraEffectChange_Params',
+    [
+      mojo.internal.StructField(
+        'config', 0,
+        0,
+        cros.mojom.EffectsConfigSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('cros.mojom.CrosCameraServiceObserver_CameraEffectChange_Params');
+
+/** @record */
+cros.mojom.CrosCameraServiceObserver_CameraEffectChange_Params = class {
+  constructor() {
+    /** @export { !cros.mojom.EffectsConfig } */
+    this.config;
   }
 };
 

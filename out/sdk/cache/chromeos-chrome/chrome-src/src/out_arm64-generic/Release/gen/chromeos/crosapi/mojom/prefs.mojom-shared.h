@@ -112,7 +112,7 @@ enum class PrefPath : int32_t {
   
   kSharedStorage = 30,
   
-  kProtectedContentDefault = 31,
+  kProtectedContentDefaultDeprecated = 31,
   
   kDnsOverHttpsTemplatesWithIdentifiers = 32,
   

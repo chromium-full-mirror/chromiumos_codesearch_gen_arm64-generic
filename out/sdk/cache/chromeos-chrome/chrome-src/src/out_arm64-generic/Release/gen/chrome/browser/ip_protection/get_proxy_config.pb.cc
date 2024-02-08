@@ -46,8 +46,7 @@ struct GetProxyConfigResponse_ProxyChainDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetProxyConfigResponse_ProxyChainDefaultTypeInternal _GetProxyConfigResponse_ProxyChain_default_instance_;
 PROTOBUF_CONSTEXPR GetProxyConfigResponse::GetProxyConfigResponse(
     ::_pbi::ConstantInitialized)
-  : first_hop_hostnames_()
-  , proxy_chain_(){}
+  : proxy_chain_(){}
 struct GetProxyConfigResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetProxyConfigResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -527,14 +526,12 @@ class GetProxyConfigResponse::_Internal {
 GetProxyConfigResponse::GetProxyConfigResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  first_hop_hostnames_(arena),
   proxy_chain_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:ip_protection.GetProxyConfigResponse)
 }
 GetProxyConfigResponse::GetProxyConfigResponse(const GetProxyConfigResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      first_hop_hostnames_(from.first_hop_hostnames_),
       proxy_chain_(from.proxy_chain_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:ip_protection.GetProxyConfigResponse)
@@ -566,7 +563,6 @@ void GetProxyConfigResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  first_hop_hostnames_.Clear();
   proxy_chain_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -577,21 +573,6 @@ const char* GetProxyConfigResponse::_InternalParse(const char* ptr, ::_pbi::Pars
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // repeated string first_hop_hostnames = 1 [deprecated = true];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            auto str = _internal_add_first_hop_hostnames();
-            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(ptr);
-            CHK_(::_pbi::VerifyUTF8(str, nullptr));
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
       // repeated .ip_protection.GetProxyConfigResponse.ProxyChain proxy_chain = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
@@ -634,16 +615,6 @@ uint8_t* GetProxyConfigResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated string first_hop_hostnames = 1 [deprecated = true];
-  for (int i = 0, n = this->_internal_first_hop_hostnames_size(); i < n; i++) {
-    const auto& s = this->_internal_first_hop_hostnames(i);
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      s.data(), static_cast<int>(s.length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "ip_protection.GetProxyConfigResponse.first_hop_hostnames");
-    target = stream->WriteString(1, s, target);
-  }
-
   // repeated .ip_protection.GetProxyConfigResponse.ProxyChain proxy_chain = 3;
   for (unsigned i = 0,
       n = static_cast<unsigned>(this->_internal_proxy_chain_size()); i < n; i++) {
@@ -667,14 +638,6 @@ size_t GetProxyConfigResponse::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // repeated string first_hop_hostnames = 1 [deprecated = true];
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(first_hop_hostnames_.size());
-  for (int i = 0, n = first_hop_hostnames_.size(); i < n; i++) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      first_hop_hostnames_.Get(i));
-  }
 
   // repeated .ip_protection.GetProxyConfigResponse.ProxyChain proxy_chain = 3;
   total_size += 1UL * this->_internal_proxy_chain_size();
@@ -703,7 +666,6 @@ void GetProxyConfigResponse::MergeFrom(const GetProxyConfigResponse& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  first_hop_hostnames_.MergeFrom(from.first_hop_hostnames_);
   proxy_chain_.MergeFrom(from.proxy_chain_);
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -722,7 +684,6 @@ bool GetProxyConfigResponse::IsInitialized() const {
 void GetProxyConfigResponse::InternalSwap(GetProxyConfigResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  first_hop_hostnames_.InternalSwap(&other->first_hop_hostnames_);
   proxy_chain_.InternalSwap(&other->proxy_chain_);
 }
 

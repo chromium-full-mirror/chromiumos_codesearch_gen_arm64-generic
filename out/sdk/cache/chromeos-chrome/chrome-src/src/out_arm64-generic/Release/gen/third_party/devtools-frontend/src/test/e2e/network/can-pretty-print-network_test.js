@@ -50,7 +50,7 @@ describe('The Network Tab', function () {
         await (0, helper_js_1.click)(PRETTY_PRINT_BUTTON);
         await (0, helper_js_1.step)('can un-pretty-print a json subtype', async () => {
             const actualNotPrettyText = await (0, sources_helpers_js_1.retrieveCodeMirrorEditorContent)();
-            const expectedNotPrettyText = '{"Keys": [{"Key1": "Value1","Key2": "Value2","Key3": true},{"Key1": "Value1","Key2": "Value2","Key3": false}]}';
+            const expectedNotPrettyText = '{"Keys": [{"Key1": "Value1","Key2": "Value2","Key3": true},{"Key1": "Value1","Key2": "Value2","Key3": false}]},';
             chai_1.assert.strictEqual(expectedNotPrettyText, actualNotPrettyText.toString());
         });
         await (0, helper_js_1.step)('can highlight the un-pretty-printed text', async () => {

@@ -135,7 +135,7 @@ static const struct wl_message zaura_shell_events[] = {
 };
 
 WL_PRIVATE const struct wl_interface zaura_shell_interface = {
-	"zaura_shell", 64,
+	"zaura_shell", 65,
 	6, zaura_shell_requests,
 	10, zaura_shell_events,
 };
@@ -254,12 +254,13 @@ static const struct wl_message zaura_toplevel_events[] = {
 	{ "configure_raster_scale", "50u", aura_shell_types + 0 },
 	{ "rotate_focus", "56uuu", aura_shell_types + 0 },
 	{ "overview_change", "62u", aura_shell_types + 0 },
+	{ "configure_occlusion_state", "65u", aura_shell_types + 0 },
 };
 
 WL_PRIVATE const struct wl_interface zaura_toplevel_interface = {
-	"zaura_toplevel", 64,
+	"zaura_toplevel", 65,
 	33, zaura_toplevel_requests,
-	5, zaura_toplevel_events,
+	6, zaura_toplevel_events,
 };
 
 static const struct wl_message zaura_popup_requests[] = {

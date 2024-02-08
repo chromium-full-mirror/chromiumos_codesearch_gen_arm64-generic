@@ -14,6 +14,12 @@
       "chrome://resources/ash/common/*": [
         "./../../../ash/webui/common/resources/preprocessed/*"
       ],
+      "//resources/js/*": [
+        "./../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../ui/webui/resources/tsc/js/*"
+      ],
       "/tools/typescript/definitions/*": [
         "./../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
       ],
@@ -23,26 +29,28 @@
     }
   },
   "files": [
-    "preprocessed/image_loader/image_loader.js",
-    "preprocessed/image_loader/image_loader_client.js",
     "preprocessed/image_loader/image_loader_util.js",
     "preprocessed/image_loader/image_request_task.js",
     "preprocessed/image_loader/load_image_request.js",
-    "preprocessed/image_loader/piex_loader.js",
     "preprocessed/image_loader/background.ts",
     "preprocessed/image_loader/cache.ts",
+    "preprocessed/image_loader/image_loader.ts",
+    "preprocessed/image_loader/image_loader_client.ts",
     "preprocessed/image_loader/image_orientation.ts",
+    "preprocessed/image_loader/piex_loader.ts",
     "preprocessed/image_loader/scheduler.ts",
     "preprocessed/file_manager/common/js/file_types_data.js",
     "preprocessed/file_manager/common/js/file_types_base.ts",
     "preprocessed/file_manager/common/js/lru_cache.ts",
     "../../../../../../../../../../../home/chrome-bot/chrome_root/src/ui/file_manager/image_loader/image_loader_private.d.ts",
-    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/metrics_private.d.ts",
     "../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/runtime.d.ts"
   ],
   "references": [
     {
       "path": "../../../ash/webui/common/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../webui/resources/js/tsconfig_build_ts.json"
     }
   ]
 }

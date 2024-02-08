@@ -1774,7 +1774,7 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$M() {
+function getTemplate$L() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -1832,7 +1832,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -1969,25 +1969,25 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
 }
 customElements.define(CrIconButtonElement.is, CrIconButtonElement);
 
-const styleMod$c = document.createElement('dom-module');
-styleMod$c.appendChild(html `
+const styleMod$b = document.createElement('dom-module');
+styleMod$b.appendChild(html `
   <template>
     <style>
 .icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
     </style>
   </template>
 `.content);
-styleMod$c.register('cr-icons');
+styleMod$b.register('cr-icons');
 
-const styleMod$b = document.createElement('dom-module');
-styleMod$b.appendChild(html `
+const styleMod$a = document.createElement('dom-module');
+styleMod$a.appendChild(html `
   <template>
     <style>
 :host([hidden]),[hidden]{display:none!important}
     </style>
   </template>
 `.content);
-styleMod$b.register('cr-hidden-style');
+styleMod$a.register('cr-hidden-style');
 
 /**
 @license
@@ -2640,15 +2640,15 @@ Polymer({
 
 });
 
-const styleMod$a = document.createElement('dom-module');
-styleMod$a.appendChild(html `
+const styleMod$9 = document.createElement('dom-module');
+styleMod$9.appendChild(html `
   <template>
     <style include="cr-hidden-style cr-icons">
 :host,html{--scrollable-border-color:var(--google-grey-300)}@media (prefers-color-scheme:dark){:host,html{--scrollable-border-color:var(--google-grey-700)}}[actionable]{cursor:pointer}.hr{border-top:var(--cr-separator-line)}iron-list.cr-separators>:not([first]){border-top:var(--cr-separator-line)}[scrollable]{border-color:transparent;border-style:solid;border-width:1px 0;overflow-y:auto}[scrollable].is-scrolled{border-top-color:var(--scrollable-border-color)}[scrollable].can-scroll:not(.scrolled-to-bottom){border-bottom-color:var(--scrollable-border-color)}[scrollable] iron-list>:not(.no-outline):focus,[selectable]:focus,[selectable]>:focus{background-color:var(--cr-focused-item-color);outline:0}.scroll-container{display:flex;flex-direction:column;min-height:1px}[selectable]>*{cursor:pointer}.cr-centered-card-container{box-sizing:border-box;display:block;height:inherit;margin:0 auto;max-width:var(--cr-centered-card-max-width);min-width:550px;position:relative;width:calc(100% * var(--cr-centered-card-width-percentage))}.cr-container-shadow{box-shadow:inset 0 5px 6px -3px rgba(0,0,0,.4);height:var(--cr-container-shadow-height);left:0;margin:0 0 var(--cr-container-shadow-margin);opacity:0;pointer-events:none;position:relative;right:0;top:0;transition:opacity .5s;z-index:1}#cr-container-shadow-bottom{margin-bottom:0;margin-top:var(--cr-container-shadow-margin);transform:scaleY(-1)}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{opacity:var(--cr-container-shadow-max-opacity)}.cr-row{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--cr-section-min-height);padding:0 var(--cr-section-padding)}.cr-row.continuation,.cr-row.first{border-top:none}.cr-row-gap{padding-inline-start:16px}.cr-button-gap{margin-inline-start:8px}paper-tooltip::part(tooltip){border-radius:var(--paper-tooltip-border-radius,2px);font-size:92.31%;font-weight:500;max-width:330px;min-width:var(--paper-tooltip-min-width,200px);padding:var(--paper-tooltip-padding,10px 8px)}.cr-padded-text{padding-block-end:var(--cr-section-vertical-padding);padding-block-start:var(--cr-section-vertical-padding)}.cr-title-text{color:var(--cr-title-text-color);font-size:107.6923%;font-weight:500}.cr-secondary-text{color:var(--cr-secondary-text-color);font-weight:400}.cr-form-field-label{color:var(--cr-form-field-label-color);display:block;font-size:var(--cr-form-field-label-font-size);font-weight:500;letter-spacing:.4px;line-height:var(--cr-form-field-label-line-height);margin-bottom:8px}.cr-vertical-tab{align-items:center;display:flex}.cr-vertical-tab::before{border-radius:0 3px 3px 0;content:'';display:block;flex-shrink:0;height:var(--cr-vertical-tab-height,100%);width:4px}.cr-vertical-tab.selected::before{background:var(--cr-vertical-tab-selected-color,var(--cr-checked-color))}:host-context([dir=rtl]) .cr-vertical-tab::before{transform:scaleX(-1)}.iph-anchor-highlight{background-color:var(--cr-iph-anchor-highlight-color)}
     </style>
   </template>
 `.content);
-styleMod$a.register('cr-shared-style');
+styleMod$9.register('cr-shared-style');
 
 /**
 @license
@@ -3410,6 +3410,7 @@ const template$3 = html `
       <g id="database-off"><path d="M2.80002 2.7998L1.40002 4.2L19.8 22.5998L21.2 21.2L2.80002 2.7998Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M4.66998 4.67007C3.55666 5.34598 3 6.12263 3 7C3 8.1 3.875 9.04167 5.625 9.825C7.13125 10.4992 8.91531 10.8833 10.9772 10.9772L4.66998 4.67007ZM13.7325 10.9325L6.59428 3.79422C8.14271 3.26474 9.94462 3 12 3C14.5 3 16.625 3.39167 18.375 4.175C20.125 4.95833 21 5.9 21 7C21 8.1 20.125 9.04167 18.375 9.825C17.0443 10.4206 15.4968 10.7898 13.7325 10.9325ZM13.4265 13.4265C12.8898 13.4755 12.4143 13.5 12 13.5C11.3167 13.5 10.4583 13.4333 9.425 13.3C8.40833 13.15 7.425 12.9167 6.475 12.6C5.525 12.2833 4.70833 11.875 4.025 11.375C3.34167 10.8583 3 10.2333 3 9.5V12C3 13.1 3.875 14.0417 5.625 14.825C7.375 15.6083 9.5 16 12 16C13.3286 16 14.5514 15.8894 15.6682 15.6681L13.4265 13.4265ZM17.8456 15.0456L15.8602 13.0602C16.4286 12.9339 16.9836 12.7805 17.525 12.6C18.475 12.2833 19.2917 11.875 19.975 11.375C20.6583 10.8583 21 10.2333 21 9.5V12C21 13.1 20.125 14.0417 18.375 14.825C18.2022 14.9024 18.0257 14.9759 17.8456 15.0456ZM17.5812 17.5811C17.5625 17.5875 17.5438 17.5937 17.525 17.6C16.575 17.9167 15.5833 18.15 14.55 18.3C13.5333 18.4333 12.6833 18.5 12 18.5C11.3167 18.5 10.4583 18.4333 9.425 18.3C8.40833 18.15 7.425 17.9167 6.475 17.6C5.525 17.2833 4.70833 16.875 4.025 16.375C3.34167 15.8583 3 15.2333 3 14.5V17C3 18.1 3.875 19.0417 5.625 19.825C7.375 20.6083 9.5 21 12 21C14.5 21 16.625 20.6083 18.375 19.825C18.7292 19.6665 19.0475 19.5014 19.33 19.3299L17.5812 17.5811ZM20.758 17.9581L19.4966 16.6967C19.6627 16.594 19.8222 16.4868 19.975 16.375C20.6583 15.8583 21 15.2333 21 14.5V17C21 17.334 20.9193 17.6533 20.758 17.9581Z"></path></g>
       <g id="devices"><path d="M5 6h16V4H5c-1.1 0-2 .9-2 2v11H1v3h11v-3H5V6zm16 2h-6c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1zm-1 9h-4v-7h4v7z"></path></g>
       <g id="devices-off"><path d="M22 9V19L20 17V10H16V13L14 11V9C14 8.45 14.45 8 15 8H21C21.55 8 22 8.45 22 9ZM21 6V4H7L9 6H21ZM17.2 17L16 15.8L14 13.8L6.2 6L4.33 4.13L2.6 2.4L1.2 3.8L3.06 5.66C3.03 5.77 3 5.88 3 6V17H1V20H12V17H5V7.6L14 16.6V19C14 19.55 14.45 20 15 20H17.4L20.4 23L21.8 21.6L20.2 20L17.2 17Z"></path></g>
+      <g id="email"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></g>
       <g id="exit-to-app"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path></g>
       <g id="federated-identity-api"><path d="M5.85,17.1q1.275,-0.975 2.85,-1.538Q10.275,15 12,15q1.725,0 3.3,0.563 1.575,0.562 2.85,1.537 0.875,-1.025 1.363,-2.325Q20,13.475 20,12q0,-3.325 -2.337,-5.662Q15.325,4 12,4T6.338,6.338Q4,8.675 4,12q0,1.475 0.487,2.775 0.488,1.3 1.363,2.325zM12,13q-1.475,0 -2.488,-1.012Q8.5,10.975 8.5,9.5t1.012,-2.487Q10.525,6 12,6t2.488,1.013Q15.5,8.024 15.5,9.5t-1.012,2.488Q13.475,13 12,13zM12,22q-2.075,0 -3.9,-0.788 -1.825,-0.787 -3.175,-2.137 -1.35,-1.35 -2.137,-3.175Q2,14.075 2,12t0.788,-3.9q0.787,-1.825 2.137,-3.175 1.35,-1.35 3.175,-2.137Q9.925,2 12,2t3.9,0.788q1.825,0.787 3.175,2.137 1.35,1.35 2.137,3.175Q22,9.925 22,12t-0.788,3.9q-0.787,1.825 -2.137,3.175 -1.35,1.35 -3.175,2.137Q14.075,22 12,22zM12,20q1.325,0 2.5,-0.387 1.175,-0.388 2.15,-1.113 -0.975,-0.725 -2.15,-1.113Q13.325,17 12,17t-2.5,0.387q-1.175,0.388 -2.15,1.113 0.975,0.725 2.15,1.113Q10.675,20 12,20zM12,11q0.65,0 1.075,-0.425 0.425,-0.425 0.425,-1.075 0,-0.65 -0.425,-1.075Q12.65,8 12,8q-0.65,0 -1.075,0.425Q10.5,8.85 10.5,9.5q0,0.65 0.425,1.075Q11.35,11 12,11zM12,9.5zM12,18.5z"></path></g>
       <g id="federated-identity-api-off"><path d="M14.41 9.41l.97.97s.12.02.12-.88C15.5 7.56 13.94 6 12 6c-.89 0-.88.12-.88.12l.47.47 2.82 2.82zM19.99 18c1.26-1.67 2.01-3.75 2.01-6 0-5.52-4.48-10-10-10-2.25 0-4.32.75-5.99 2.01-.01 0-.02.01-.02.01-.25.19-.49.39-.73.61-.01.01-.03.02-.04.04-.23.21-.45.43-.66.67-.01.01-.02.01-.03.02C2.96 7.13 2 9.45 2 12c0 5.52 4.48 10 10 10 2.55 0 4.87-.96 6.64-2.53l.03-.03c.23-.21.45-.43.66-.65.01-.02.03-.03.04-.05.21-.23.41-.47.6-.72l.02-.02zM12 4c4.41 0 8 3.59 8 8 0 1.7-.55 3.27-1.45 4.56l-3.72-3.72-.63-.63L9.3 7.3l-.13-.13-1.73-1.73C8.73 4.53 10.3 4 12 4zm0 16c-1.86 0-3.57-.64-4.93-1.72.43-.9 3.05-1.78 4.93-1.78s4.51.88 4.93 1.78C15.57 19.36 13.86 20 12 20zm0-5.5c-1.46 0-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-1.99.74-3.82 1.95-5.22l2.56 2.56c0 .05-.02.1-.02.15 0 1.94 1.56 3.5 3.5 3.5.05 0 .1-.01.15-.02l1.72 1.72c-.72-.12-1.4-.19-1.86-.19z"></path></g>
@@ -3755,10 +3756,6 @@ const I18nMixin = dedupingMixin((superClass) => {
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Mixin to be used by Polymer elements that want to
- * automatically remove WebUI listeners when detached.
- */
 const WebUiListenerMixin = dedupingMixin((superClass) => {
     class WebUiListenerMixin extends superClass {
         constructor() {
@@ -4162,15 +4159,15 @@ class SettingsPrefsElement extends PolymerElement {
 }
 customElements.define(SettingsPrefsElement.is, SettingsPrefsElement);
 
-const styleMod$9 = document.createElement('dom-module');
-styleMod$9.appendChild(html `
+const styleMod$8 = document.createElement('dom-module');
+styleMod$8.appendChild(html `
   <template>
     <style>
 .search-bubble{--search-bubble-color:var(--paper-yellow-500);position:absolute;z-index:1}.search-bubble-innards{align-items:center;background-color:var(--search-bubble-color);border-radius:2px;color:var(--google-grey-900);max-width:100px;min-width:64px;overflow:hidden;padding:4px 10px;text-align:center;text-overflow:ellipsis;white-space:nowrap}.search-bubble-innards::after{background-color:var(--search-bubble-color);content:'';height:10px;left:calc(50% - 5px);position:absolute;top:-5px;transform:rotate(-45deg);width:10px;z-index:-1}.search-bubble-innards.above::after{bottom:-5px;top:auto;transform:rotate(-135deg)}
     </style>
   </template>
 `.content);
-styleMod$9.register('search-highlight-style');
+styleMod$8.register('search-highlight-style');
 
 const template$2 = html `
 <style>
@@ -4179,20 +4176,10 @@ html{--settings-error-color:var(--google-red-700);--iron-icon-fill-color:var(--g
 `;
 document.head.appendChild(template$2.content);
 
-const styleMod$8 = document.createElement('dom-module');
-styleMod$8.appendChild(html `
-  <template>
-    <style>
-:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput),:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down::part(input){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down,:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}:host-context([cros][chrome-refresh-2023]) cr-policy-indicator,:host-context([cros][chrome-refresh-2023]) cr-policy-pref-indicator,:host-context([cros][chrome-refresh-2023]) cr-tooltip-icon::part(tooltip),:host-context(body.jelly-enabled) cr-policy-indicator,:host-context(body.jelly-enabled) cr-policy-pref-indicator,:host-context(body.jelly-enabled) cr-tooltip-icon::part(tooltip){--paper-tooltip-background:var(--cros-sys-on_surface);--paper-tooltip-padding:5px 8px;--paper-tooltip-text-color:var(--cros-sys-inverse_on_surface);font:var(--cros-annotation-1-font)}
-    </style>
-  </template>
-`.content);
-styleMod$8.register('cros-color-overrides');
-
 const styleMod$7 = document.createElement('dom-module');
 styleMod$7.appendChild(html `
   <template>
-    <style include="cr-shared-style search-highlight-style cros-color-overrides">
+    <style include="cr-shared-style search-highlight-style">
 a[is=action-link]{user-select:none}h2{align-items:center;align-self:flex-start;color:var(--cr-secondary-text-color);display:flex;font-size:inherit;font-weight:500;margin:0;padding-bottom:12px;padding-top:32px}iron-icon{flex-shrink:0}iron-icon.policy{margin-inline-end:var(--cr-controlled-by-spacing)}iron-list{user-select:none}iron-list[risk-selection]{user-select:text}.separator+cr-icon-button{margin-inline-start:var(--cr-icon-ripple-margin)}.settings-box settings-toggle-button cr-button:last-of-type{margin-inline-end:16px}.settings-box controlled-button+controlled-button,.settings-box controlled-button+cr-button,.settings-box cr-button+controlled-button,.settings-box cr-button+cr-button{margin-inline-start:8px}a[href]{color:var(--cr-link-color)}.inherit-color{color:inherit!important}collapse-radio-button,controlled-radio-button,cr-radio-button{min-height:var(--cr-section-min-height)}cr-radio-group{width:100%}.text-elide{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.no-min-width{min-width:0}.header-aligned-button{margin-top:12px}.link-wrapper{align-items:center;display:flex;flex-grow:1}.list-frame{display:block;padding-block-end:0;padding-block-start:0;padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.list-item{align-items:center;display:flex;min-height:var(--cr-section-min-height);padding:0}.list-item.underbar{border-bottom:var(--cr-separator-line)}.list-item.selected{font-weight:500}.list-item .middle{flex:1;margin:8px 16px}.list-item>.start{flex:1}.list-button[is=action-link]{align-items:center;display:flex;flex:1;font-weight:500;min-height:inherit}:host-context(html:not(.focus-outline-visible)) .list-button[is=action-link]{outline:0}.two-line{min-height:var(--cr-section-two-line-min-height)}.settings-box{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--cr-section-min-height);padding:0 var(--cr-section-padding)}.settings-box.no-padding{padding:0}.settings-box.no-padding .margin-matches-padding{margin:0 var(--cr-section-padding)}.settings-box.no-padding>.link-wrapper{padding:0 var(--cr-section-padding)}.settings-box.two-line{min-height:var(--cr-section-two-line-min-height)}.settings-box-text{box-sizing:border-box;padding-bottom:var(--cr-section-vertical-padding);padding-top:var(--cr-section-vertical-padding)}.settings-box.continuation,.settings-box.first{border-top:none}h2.first{padding-top:0}.settings-box.block{display:block}.single-column{align-items:flex-start;flex-direction:column;justify-content:center}.settings-box.line-only{min-height:0}.settings-box.embedded{padding-inline-start:var(--cr-section-indent-padding)}.secondary{color:var(--cr-secondary-text-color);font-weight:400}.secondary:empty{margin:0}.settings-box .middle{align-items:center;flex:auto;padding-inline-start:16px}.settings-box .middle.two-line,.settings-box .start.two-line{display:flex}.settings-box .start{align-items:center;flex:auto}.settings-row{align-items:center;display:flex;flex-direction:row;max-width:100%;min-width:0}.no-outline{background:0 0;outline:0}.list-item,[scrollable],iron-list{--cr-icon-button-margin-end:0}.vertical-list>:not(:first-of-type){border-top:var(--cr-separator-line)}.separator{border-inline-start:var(--cr-separator-line);flex-shrink:0;height:32px;margin:0 16px}.settings-box.no-padding>.link-wrapper~.separator{margin:0}.column-header{color:var(--cr-secondary-text-color);font-size:inherit;font-weight:400}.error-message{color:#fff;font:13px;padding-bottom:15px;padding-top:15px;text-align:center;white-space:normal}.url-directionality{direction:ltr;unicode-bidi:embed}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-title-1-font)}
     </style>
   </template>
@@ -4274,7 +4261,7 @@ class FocusOutlineManager {
     }
 }
 
-function getTemplate$L() {
+function getTemplate$K() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -4310,7 +4297,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -4494,7 +4481,7 @@ styleMod$6.appendChild(html `
 `.content);
 styleMod$6.register('cr-actionable-row-style');
 
-function getTemplate$K() {
+function getTemplate$J() {
     return html `<!--_html_template_start_--><style include="cr-actionable-row-style cr-shared-style cr-hidden-style">:host{box-sizing:border-box;flex:1;font-family:inherit;font-size:100%;line-height:154%;min-height:var(--cr-section-min-height);padding:0}:host(:not([embedded])){padding:0 var(--cr-section-padding)}#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
         var(--google-grey-700));display:flex;flex-shrink:0;padding-inline-end:var(--cr-icon-button-margin-start);width:var(--cr-link-row-icon-width,var(--cr-icon-size))}@media (prefers-color-scheme:dark){#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
           var(--google-grey-500))}}#labelWrapper{flex:1;flex-basis:.000000001px;padding-bottom:var(--cr-section-vertical-padding);padding-top:var(--cr-section-vertical-padding);text-align:start}#label,#subLabel{display:flex}#buttonAriaDescription{clip:rect(0,0,0,0);display:block;position:fixed}</style>
@@ -4534,7 +4521,7 @@ class CrLinkRowElement extends PolymerElement {
         return 'cr-link-row';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -5046,7 +5033,7 @@ styleMod$5.appendChild(html `
 `.content);
 styleMod$5.register('action-link');
 
-function getTemplate$J() {
+function getTemplate$I() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
                 var(--cr-fallback-color-primary));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on,
                 var(--cr-fallback-color-on-primary));--cr-toggle-unchecked-bar-color:var(--color-toggle-button-track-off,
@@ -5093,7 +5080,7 @@ class CrToggleElement extends CrToggleElementBase {
         return 'cr-toggle';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -5880,7 +5867,7 @@ Polymer({
   }
 });
 
-function getTemplate$I() {
+function getTemplate$H() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style">:host{display:flex}iron-icon{--iron-icon-width:var(--cr-icon-size);--iron-icon-height:var(--cr-icon-size);--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-700))}@media (prefers-color-scheme:dark){iron-icon{--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-500))}}</style>
     <iron-icon id="indicator" tabindex="0" aria-label$="[[iconAriaLabel]]" aria-describedby="tooltip" icon="[[iconClass]]" role="img"></iron-icon>
     <paper-tooltip id="tooltip" for="indicator" position="[[tooltipPosition]]" fit-to-visible-bounds part="tooltip">
@@ -5897,7 +5884,7 @@ class CrTooltipIconElement extends PolymerElement {
         return 'cr-tooltip-icon';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -6045,7 +6032,7 @@ const CrPolicyIndicatorMixin = dedupingMixin((superClass) => {
     return CrPolicyIndicatorMixin;
 });
 
-function getTemplate$H() {
+function getTemplate$G() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style"></style>
     <cr-tooltip-icon id="tooltipIcon" hidden$="[[!indicatorVisible]]" tooltip-text="[[indicatorTooltip]]" icon-class="[[indicatorIcon]]" icon-aria-label="[[iconAriaLabel]]" exportparts="tooltip">
     </cr-tooltip-icon>
@@ -6065,7 +6052,7 @@ class CrPolicyPrefIndicatorElement extends CrPolicyPrefIndicatorElementBase {
         return 'cr-policy-pref-indicator';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -6390,7 +6377,7 @@ const SettingsBooleanControlMixin = dedupingMixin((superClass) => {
     return SettingsBooleanControlMixin;
 });
 
-function getTemplate$G() {
+function getTemplate$F() {
     return html `<!--_html_template_start_--><style include="cr-shared-style cr-actionable-row-style iron-flex action-link cros-color-overrides">:host{--cr-icon-button-margin-end:20px;padding:0 var(--cr-section-padding)}:host([elide-label]),:host([elide-label]) #outerRow,:host([elide-label]) #outerRow>div.flex{min-width:0}:host([elide-label]) .label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#outerRow{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height);width:100%}#outerRow[noSubLabel]{min-height:var(--cr-section-min-height)}#icon{margin-inline-end:var(--cr-icon-button-margin-end)}#labelWrapper{padding:var(--cr-section-vertical-padding) 0}#labelWrapper,::slotted([slot=more-actions]){margin-inline-end:20px!important}cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}a{color:var(--cr-link-color)}</style>
 <div id="outerRow" nosublabel$="[[!subLabel]]">
   <template is="dom-if" if="[[icon]]">
@@ -6449,7 +6436,7 @@ class SettingsToggleButtonElement extends SettingsToggleButtonElementBase {
         return 'settings-toggle-button';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -7345,19 +7332,19 @@ const CrContainerShadowMixinLit = (superClass) => {
     return CrContainerShadowMixinLit;
 };
 
-function getCss$3() {
+function getCss$5() {
     return css `:host([hidden]),[hidden]{display:none!important}`;
 }
 
-function getCss$2() {
+function getCss$4() {
     return css `.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}`;
 }
 
-function getCss$1() {
+function getCss$3() {
     return css `dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}`;
 }
 
-function getHtml$1() {
+function getHtml$2() {
     return html$1 `<!--_html_template_start_-->
 <dialog id="dialog" @close="${this.onNativeDialogClose_}" @cancel="${this.onNativeDialogCancel_}" part="dialog" aria-labelledby="title" aria-description="${this.ariaDescriptionText || nothing}">
 
@@ -7420,13 +7407,13 @@ class CrDialogElement extends CrDialogElementBase {
     }
     static get styles() {
         return [
+            getCss$5(),
+            getCss$4(),
             getCss$3(),
-            getCss$2(),
-            getCss$1(),
         ];
     }
     render() {
-        return getHtml$1.bind(this)();
+        return getHtml$2.bind(this)();
     }
     static get properties() {
         return {
@@ -7684,10 +7671,6 @@ styleMod$3.register('cr-radio-button-style');
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Mixin for cr-radio-button-like elements.
- */
-// clang-format off
 const CrRadioButtonMixin = dedupingMixin((superClass) => {
     class CrRadioButtonMixin extends superClass {
         static get properties() {
@@ -7836,7 +7819,7 @@ function prefToString(pref) {
     }
 }
 
-function getTemplate$F() {
+function getTemplate$E() {
     return html `<!--_html_template_start_--><style include="cr-radio-button-style cros-color-overrides">:host([disabled]){opacity:1}:host([disabled]) #labelWrapper,:host([disabled]) .disc-wrapper{opacity:var(--cr-disabled-opacity)}cr-policy-pref-indicator{margin-inline-start:var(--cr-controlled-by-spacing);pointer-events:all}</style>
 
 <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -7868,7 +7851,7 @@ class ControlledRadioButtonElement extends ControlledRadioButtonElementBase {
         return 'controlled-radio-button';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$E();
     }
     static get observers() {
         return [
@@ -7943,7 +7926,7 @@ class ExtensionControlBrowserProxyImpl {
 }
 let instance$d = null;
 
-function getTemplate$E() {
+function getTemplate$D() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{align-items:center;display:flex;margin-inline-start:36px;min-height:var(--cr-section-min-height)}img{margin-inline-end:16px}iron-icon[icon='cr:open-in-new']{fill:var(--text-color);height:var(--cr-icon-size);width:var(--cr-icon-size)}#disable{margin-inline-start:8px}:host>span{flex:1;margin-inline-end:8px}</style>
 <img role="presentation" src="chrome://extension-icon/[[extensionId]]/20/1">
 <span>[[getLabel_(extensionName)]]</span>
@@ -7965,7 +7948,7 @@ class ExtensionControlledIndicatorElement extends PolymerElement {
         return 'extension-controlled-indicator';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$D();
     }
     static get properties() {
         return {
@@ -7989,7 +7972,7 @@ class ExtensionControlledIndicatorElement extends PolymerElement {
 }
 customElements.define(ExtensionControlledIndicatorElement.is, ExtensionControlledIndicatorElement);
 
-function getTemplate$D() {
+function getTemplate$C() {
     return html `<!--_html_template_start_-->    <style include="cr-radio-button-style cr-hidden-style"></style>
 
     <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -8016,7 +7999,7 @@ class CrRadioButtonElement extends CrRadioButtonElementBase {
         return 'cr-radio-button';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$C();
     }
     // Overridden from CrRadioButtonMixin
     getPaperRipple() {
@@ -8097,7 +8080,7 @@ class EventTracker {
     }
 }
 
-function getTemplate$C() {
+function getTemplate$B() {
     return html `<!--_html_template_start_-->    <style>:host{display:inline-block}:host ::slotted(*){padding:var(--cr-radio-group-item-padding,12px)}:host([disabled]){cursor:initial;pointer-events:none;user-select:none}:host([disabled]) ::slotted(*){opacity:var(--cr-disabled-opacity)}</style>
     <slot></slot>
 <!--_html_template_end_-->`;
@@ -8123,7 +8106,7 @@ class CrRadioGroupElement extends PolymerElement {
         return 'cr-radio-group';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$B();
     }
     static get properties() {
         return {
@@ -8326,7 +8309,7 @@ class CrRadioGroupElement extends PolymerElement {
 }
 customElements.define(CrRadioGroupElement.is, CrRadioGroupElement);
 
-function getTemplate$B() {
+function getTemplate$A() {
     return html `<!--_html_template_start_--><style>cr-radio-group{width:100%}</style>
 <cr-radio-group selected="[[selected]]" on-selected-changed="onSelectedChanged_" aria-label$="[[groupAriaLabel]]" selectable-elements="[[selectableElements]]">
   <slot></slot>
@@ -8353,7 +8336,7 @@ class SettingsRadioGroupElement extends SettingsRadioGroupElementBase {
         return 'settings-radio-group';
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$A();
     }
     static get properties() {
         return {
@@ -9332,7 +9315,7 @@ const RouteObserverMixin = dedupingMixin((superClass) => {
     return RouteObserverMixin;
 });
 
-function getTemplate$A() {
+function getTemplate$z() {
     return html `<!--_html_template_start_-->    <iron-pages id="animatedPages" attr-for-selected="route-path" on-iron-select="onIronSelect_">
       <slot></slot>
     </iron-pages>
@@ -9359,7 +9342,7 @@ class SettingsAnimatedPagesElement extends SettingsAnimatedPagesElementBase {
         return 'settings-animated-pages';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$z();
     }
     static get properties() {
         return {
@@ -9555,7 +9538,7 @@ styleMod$2.appendChild(html `
 `.content);
 styleMod$2.register('cr-input-style');
 
-function getTemplate$z() {
+function getTemplate$y() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -9598,7 +9581,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$z();
+        return getTemplate$y();
     }
     static get properties() {
         return {
@@ -9824,7 +9807,7 @@ class CrInputElement extends PolymerElement {
 }
 customElements.define(CrInputElement.is, CrInputElement);
 
-function getTemplate$y() {
+function getTemplate$x() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
           var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
     <iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
@@ -9850,7 +9833,7 @@ class CrSearchFieldElement extends CrSearchFieldElementBase {
         return 'cr-search-field';
     }
     static get template() {
-        return getTemplate$y();
+        return getTemplate$x();
     }
     static get properties() {
         return {
@@ -10005,7 +9988,7 @@ function getFaviconForPageURL(url, isSyncedUrlForHistoryUi, remoteIconUrlForUma 
     return getImageSet(faviconUrl.toString());
 }
 
-function getTemplate$x() {
+function getTemplate$w() {
     return html `<!--_html_template_start_-->    <style>#favicon{background-repeat:no-repeat;background-size:contain;border-radius:var(--site-favicon-border-radius,inherit);display:block;height:var(--site-favicon-height,16px);width:var(--site-favicon-width,16px)}</style>
     <div id="favicon" style="background-image:[[getBackgroundImage_(faviconUrl,url,iconPath) ]]">
     </div>
@@ -10024,7 +10007,7 @@ class SiteFaviconElement extends PolymerElement {
         return 'site-favicon';
     }
     static get template() {
-        return getTemplate$x();
+        return getTemplate$w();
     }
     static get properties() {
         return {
@@ -10085,7 +10068,7 @@ class SiteFaviconElement extends PolymerElement {
 }
 customElements.define(SiteFaviconElement.is, SiteFaviconElement);
 
-function getTemplate$w() {
+function getTemplate$v() {
     return html `<!--_html_template_start_--><style include="md-select cros-color-overrides">:host{align-items:center;display:inline-flex}cr-policy-pref-indicator{height:var(--iron-icon-width,24px);margin:0 var(--cr-controlled-by-spacing);order:var(--settings-dropdown-menu-policy-order,0);width:var(--iron-icon-width,24px)}option:disabled{display:none}</style>
 <template is="dom-if" if="[[pref.controlledBy]]" restamp>
   <cr-policy-pref-indicator pref="[[pref]]"></cr-policy-pref-indicator>
@@ -10121,7 +10104,7 @@ class SettingsDropdownMenuElement extends SettingsDropdownMenuElementBase {
         return 'settings-dropdown-menu';
     }
     static get template() {
-        return getTemplate$w();
+        return getTemplate$v();
     }
     static get properties() {
         return {
@@ -11075,7 +11058,7 @@ const TooltipMixin = dedupingMixin((superClass) => {
     return TooltipMixin;
 });
 
-function getTemplate$v() {
+function getTemplate$u() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{display:block;--separator-line-height:16px;--cr-icon-button-margin-end:0}#header-wrapper{align-items:center;display:flex;flex:1}#header-text-wrapper{flex-direction:column;flex:1;margin-inline-end:24px}#header,#subheader,.display-name{font-size:.8125rem}#header{font-weight:500}#header-wrapper{min-height:calc(2em * 1.54)}iron-icon{--iron-icon-height:20px;--iron-icon-width:20px}iron-icon.green{--iron-icon-fill-color:var(--google-green-700)}iron-icon.blue{--iron-icon-fill-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){iron-icon.green{--iron-icon-fill-color:var(--google-green-300)}iron-icon.blue{--iron-icon-fill-color:var(--google-blue-300)}}.list-item{clip-path:polygon(0 0,0 100%,100% 100%,100% 0)}.display-name{flex:1;max-width:100%}#header-icon,.item-icon,site-favicon{padding-inline-end:16px}#line{box-sizing:border-box;height:var(--separator-line-height);border-bottom:1px solid var(--cr-separator-color);flex:1}paper-tooltip{--paper-tooltip-min-width:max-content}</style>
 
 <template is="dom-if" if="[[animated]]">
@@ -11151,7 +11134,7 @@ class SettingsSafetyHubModuleElement extends SettingsSafetyHubModuleElementBase 
         return 'settings-safety-hub-module';
     }
     static get template() {
-        return getTemplate$v();
+        return getTemplate$u();
     }
     static get properties() {
         return {
@@ -11369,12 +11352,18 @@ class SettingsSafetyHubModuleElement extends SettingsSafetyHubModuleElementBase 
 }
 customElements.define(SettingsSafetyHubModuleElement.is, SettingsSafetyHubModuleElement);
 
-function getTemplate$u() {
-    return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
+function getCss$2() {
+    return css `:host{align-items:center;align-self:stretch;display:flex;margin:0;outline:0}:host(:not([effectively-disabled_])){cursor:pointer}:host(:not([no-hover],[effectively-disabled_]):hover){background-color:var(--cr-hover-background-color)}:host(:not([no-hover],[effectively-disabled_]):active){background-color:var(--cr-active-background-color)}:host(:not([no-hover],[effectively-disabled_])) cr-icon-button{--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}`;
+}
 
-    <div id="label" aria-hidden="true"><slot></slot></div>
-    <cr-icon-button id="icon" aria-labelledby="label" aria-expanded="[[getAriaExpanded_(expanded)]]" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon" iron-icon="[[icon_]]">
-    </cr-icon-button>
+function getCss$1() {
+    return css `:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}`;
+}
+
+function getHtml$1() {
+    return html$1 `<!--_html_template_start_--><div id="label" aria-hidden="true"><slot></slot></div>
+<cr-icon-button id="icon" aria-labelledby="label" ?disabled="${this.disabled}" aria-expanded="${this.ariaExpanded_}" tabindex="${this.tabIndex}" part="icon" iron-icon="${this.icon_}">
+</cr-icon-button>
 <!--_html_template_end_-->`;
 }
 
@@ -11386,12 +11375,28 @@ function getTemplate$u() {
  * 'cr-expand-button' is a chrome-specific wrapper around a button that toggles
  * between an opened (expanded) and closed state.
  */
-class CrExpandButtonElement extends PolymerElement {
+class CrExpandButtonElement extends CrLitElement {
+    constructor() {
+        super(...arguments);
+        this.expanded = false;
+        this.disabled = false;
+        this.ariaExpanded_ = 'false';
+        this.expandIcon = 'cr:expand-more';
+        this.collapseIcon = 'cr:expand-less';
+        this.tabIndex = 0;
+        this.icon_ = '';
+    }
     static get is() {
         return 'cr-expand-button';
     }
-    static get template() {
-        return getTemplate$u();
+    static get styles() {
+        return [
+            getCss$2(),
+            getCss$1(),
+        ];
+    }
+    render() {
+        return getHtml$1.bind(this)();
     }
     static get properties() {
         return {
@@ -11402,7 +11407,6 @@ class CrExpandButtonElement extends PolymerElement {
              */
             expanded: {
                 type: Boolean,
-                value: false,
                 notify: true,
             },
             /**
@@ -11410,50 +11414,43 @@ class CrExpandButtonElement extends PolymerElement {
              */
             disabled: {
                 type: Boolean,
-                value: false,
-                reflectToAttribute: true,
+                reflect: true,
             },
             /** A11y text descriptor for this control. */
-            ariaLabel: {
-                type: String,
-                observer: 'onAriaLabelChange_',
-            },
-            tabIndex: {
-                type: Number,
-                value: 0,
-            },
-            expandIcon: {
-                type: String,
-                value: 'cr:expand-more',
-            },
-            collapseIcon: {
-                type: String,
-                value: 'cr:expand-less',
-            },
-            icon_: String,
-            expandTitle: String,
-            collapseTitle: String,
-            tooltipText_: {
-                type: String,
-                computed: 'computeTooltipText_(expandTitle, collapseTitle, expanded)',
-                observer: 'onTooltipTextChange_',
-            },
+            ariaLabel: { type: String },
+            ariaExpanded_: { type: String },
+            tabIndex: { type: Number },
+            expandIcon: { type: String },
+            collapseIcon: { type: String },
+            expandTitle: { type: String },
+            collapseTitle: { type: String },
+            icon_: { type: String },
         };
     }
-    static get observers() {
-        return [
-            'updateIcon_(collapseIcon, expandIcon, expanded)',
-        ];
-    }
-    ready() {
-        super.ready();
+    firstUpdated() {
         this.addEventListener('click', this.toggleExpand_);
     }
-    computeTooltipText_() {
-        return this.expanded ? this.collapseTitle : this.expandTitle;
+    willUpdate(changedProperties) {
+        super.willUpdate(changedProperties);
+        if (changedProperties.has('expanded') ||
+            changedProperties.has('expandIcon') ||
+            changedProperties.has('collapseIcon')) {
+            this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
+        }
+        if (changedProperties.has('expanded') ||
+            changedProperties.has('collapseTitle') ||
+            changedProperties.has('expandTitle')) {
+            this.title = this.expanded ? this.collapseTitle : this.expandTitle;
+        }
+        if (changedProperties.has('expanded')) {
+            this.ariaExpanded_ = this.expanded ? 'true' : 'false';
+        }
     }
-    onTooltipTextChange_() {
-        this.title = this.tooltipText_;
+    updated(changedProperties) {
+        super.updated(changedProperties);
+        if (changedProperties.has('ariaLabel')) {
+            this.onAriaLabelChange_();
+        }
     }
     focus() {
         this.$.icon.focus();
@@ -11468,9 +11465,6 @@ class CrExpandButtonElement extends PolymerElement {
             this.$.icon.setAttribute('aria-labelledby', 'label');
         }
     }
-    updateIcon_() {
-        this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
-    }
     toggleExpand_(event) {
         // Prevent |click| event from bubbling. It can cause parents of this
         // elements to erroneously re-toggle this control.
@@ -11479,9 +11473,6 @@ class CrExpandButtonElement extends PolymerElement {
         this.scrollIntoViewIfNeeded();
         this.expanded = !this.expanded;
         focusWithoutInk(this.$.icon);
-    }
-    getAriaExpanded_() {
-        return this.expanded ? 'true' : 'false';
     }
 }
 customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);
@@ -15943,7 +15934,7 @@ class HatsBrowserProxyImpl {
 let instance$6 = null;
 
 function getTemplate$e() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">img{width:100%}#safeBrowsingSection{padding:0 var(--cr-section-padding)}#httpsOnlyModeToggle{padding:0 var(--cr-section-padding)}.bullet-line{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.bullet-line>div{padding-inline-start:var(--cr-radio-button-size)}#enhancedProtectionDescContainer{display:flex}#learnMoreLabelContainer{padding-top:10px}#thingsToConsiderContainer{padding-left:10px}#whenOnContainer{padding-right:5px}:is(#whenOnContainer,#thingsToConsiderContainer)>.bullet-line{padding-top:10px;align-items:flex-start;min-height:30px}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}settings-collapse-radio-button[hidden]+settings-collapse-radio-button{--settings-collapse-separator-line:0}settings-collapse-radio-button .bullet-line:last-child{padding-bottom:12px}settings-toggle-button{padding-inline-end:0;padding-inline-start:0}settings-toggle-button:not([disabled]){pointer-events:all}#safeBrowsingEnhanced .bullet-line:last-of-type{padding-bottom:12px}#safeBrowsingEnhanced{--cr-radio-button-unchecked-ripple-color:var(--cr-radio-button-checked-ripple-color)}#httpsFirstModeSettingHeader .cr-padded-text{padding-block-end:0}#httpsFirstModeRadioGroup .list-item{padding-block-start:var(--cr-section-vertical-padding);padding-block-end:var(--cr-section-vertical-padding)}</style>
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared settings-columned-section">img{width:100%}#safeBrowsingSection{padding:0 var(--cr-section-padding)}#httpsOnlyModeToggle{padding:0 var(--cr-section-padding)}.bullet-line{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.bullet-line>div{padding-inline-start:var(--cr-radio-button-size)}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}settings-collapse-radio-button[hidden]+settings-collapse-radio-button{--settings-collapse-separator-line:0}settings-collapse-radio-button .bullet-line:last-child{padding-bottom:12px}settings-toggle-button{padding-inline-end:0;padding-inline-start:0}settings-toggle-button:not([disabled]){pointer-events:all}#safeBrowsingEnhanced .bullet-line:last-of-type{padding-bottom:12px}#safeBrowsingEnhanced{--cr-radio-button-unchecked-ripple-color:var(--cr-radio-button-checked-ripple-color)}#httpsFirstModeSettingHeader .cr-padded-text{padding-block-end:0}#httpsFirstModeRadioGroup .list-item{padding-block-start:var(--cr-section-vertical-padding);padding-block-end:var(--cr-section-vertical-padding)}</style>
     <picture>
       <source srcset="chrome://settings/images/safe_browsing_banner_dark.svg" media="(prefers-color-scheme: dark)">
       <img id="banner" alt="" src="chrome://settings/images/safe_browsing_banner.svg">
@@ -15988,60 +15979,73 @@ function getTemplate$e() {
             </div>
           </template>
           <template is="dom-if" if="[[enableFriendlierSafeBrowsingSettings_]]">
-            <div id="enhancedProtectionDescContainer" slot="collapse">
-              <div id="whenOnContainer">
-                <div class="">$i18n{safeBrowsingEnhancedWhenOnLabel}</div>
-                <div class="bullet-line">
-                  <iron-icon icon="settings20:data"></iron-icon>
-                  <div class="cr-secondary-text">
-                    $i18n{safeBrowsingEnhancedWhenOnBulOne}
-                  </div>
-                </div>
-                <div class="bullet-line">
-                  <iron-icon icon="settings20:download"></iron-icon>
-                  <div class="cr-secondary-text">
-                    $i18n{safeBrowsingEnhancedWhenOnBulTwo}
-                  </div>
-                </div>
-                <div class="bullet-line">
-                  <iron-icon icon="settings20:gshield"></iron-icon>
-                  <div class="cr-secondary-text">
-                    $i18n{safeBrowsingEnhancedWhenOnBulThree}
-                  </div>
-                </div>
-                <div class="bullet-line">
-                  <iron-icon icon="settings:language"></iron-icon>
-                  <div class="cr-secondary-text">
-                    $i18n{safeBrowsingEnhancedWhenOnBulFour}
-                  </div>
-                </div>
-                <div class="bullet-line last-collapse-item">
-                  <iron-icon icon="settings20:vpn-key-new"></iron-icon>
-                  <div class="cr-secondary-text">
-                    $i18n{safeBrowsingEnhancedWhenOnBulFive}
-                  </div>
-                </div>
+            <div id="enhancedProtectionDescContainer" slot="collapse" class="settings-columned-section">
+              <div class="column">
+                <h3 class="description-header">
+                  $i18n{safeBrowsingEnhancedWhenOnLabel}
+                </h3>
+                <ul class="icon-bulleted-list">
+                  <li>
+                    <iron-icon icon="settings20:data" aria-hidden="true">
+                    </iron-icon>
+                    <div class="secondary">
+                      $i18n{safeBrowsingEnhancedWhenOnBulOne}
+                    </div>
+                  </li>
+                  <li>
+                    <iron-icon icon="settings20:download" aria-hidden="true">
+                    </iron-icon>
+                    <div class="secondary">
+                      $i18n{safeBrowsingEnhancedWhenOnBulTwo}
+                    </div>
+                  </li>
+                  <li>
+                    <iron-icon icon="settings20:gshield" aria-hidden="true">
+                    </iron-icon>
+                    <div class="secondary">
+                      $i18n{safeBrowsingEnhancedWhenOnBulThree}
+                    </div>
+                  </li>
+                  <li>
+                    <iron-icon icon="settings:language" aria-hidden="true">
+                    </iron-icon>
+                    <div class="secondary">
+                      $i18n{safeBrowsingEnhancedWhenOnBulFour}
+                    </div>
+                  </li>
+                  <li>
+                    <iron-icon icon="settings20:vpn-key-new" aria-hidden="true">
+                    </iron-icon>
+                    <div class="secondary">
+                      $i18n{safeBrowsingEnhancedWhenOnBulFive}
+                    </div>
+                  </li>
+                </ul>
               </div>
-              <div id="thingsToConsiderContainer">
-                <div>$i18n{safeBrowsingEnhancedThingsToConsiderLabel}</div>
-                <div class="bullet-line">
-                  <iron-icon icon="settings20:link"></iron-icon>
-                  <div class="cr-secondary-text">
-                    $i18n{safeBrowsingEnhancedThingsToConsiderBulOne}
-                  </div>
-                </div>
-                <div class="bullet-line">
-                  <iron-icon icon="settings20:account-circle"></iron-icon>
-                  <div class="cr-secondary-text">
-                    $i18n{safeBrowsingEnhancedThingsToConsiderBulTwo}
-                  </div>
-                </div>
-                <div class="bullet-line last-collapse-item">
-                  <iron-icon icon="settings:performance"></iron-icon>
-                  <div class="cr-secondary-text">
-                    $i18n{safeBrowsingEnhancedThingsToConsiderBulThree}
-                  </div>
-                </div>
+              <div class="column">
+                <h3 class="description-header">
+                  $i18n{safeBrowsingEnhancedThingsToConsiderLabel}
+                </h3>
+                <ul class="icon-bulleted-list">
+                  <li>
+                    <iron-icon icon="settings20:link"></iron-icon>
+                    <div class="cr-secondary-text">
+                      $i18n{safeBrowsingEnhancedThingsToConsiderBulOne}
+                    </div>
+                  </li>
+                  <li>
+                    <iron-icon icon="settings20:account-circle"></iron-icon>
+                    <div class="cr-secondary-text">
+                      $i18n{safeBrowsingEnhancedThingsToConsiderBulTwo}
+                    </div>
+                  </li>
+                  <li>
+                    <iron-icon icon="settings:performance"></iron-icon>
+                    <div class="cr-secondary-text">
+                      $i18n{safeBrowsingEnhancedThingsToConsiderBulThree}
+                    </div>
+                  </li>
+                </ul>
                 <div id="learnMoreLabelContainer" class="cr-secondary-text">
                   $i18nRaw{enhancedProtectionLearnMoreLabel}
                 </div>
@@ -16353,6 +16357,10 @@ class SettingsSecurityPageElement extends SettingsSecurityPageElementBase {
      */
     currentRouteChanged(route) {
         if (route !== routes.SECURITY) {
+            // If the user navigates to other settings page from security page, call
+            // onBeforeUnload_ method to check if the security page survey should be
+            // shown.
+            this.onBeforeUnload_();
             this.isRouteSecurity_ = false;
             this.eventTracker_.removeAll();
             return;
@@ -16431,6 +16439,8 @@ class SettingsSecurityPageElement extends SettingsSecurityPageElementBase {
             this.recordInteractionHistogramOnRadioChange_(selected);
             this.recordActionOnRadioChange_(selected);
             this.interactedWithPage_(selected);
+            this.setPrefValue('safebrowsing.esb_opt_in_with_friendlier_settings', selected === SafeBrowsingSetting.ENHANCED &&
+                this.enableFriendlierSafeBrowsingSettings_);
         }
         if (selected === SafeBrowsingSetting.DISABLED) {
             this.showDisableSafebrowsingDialog_ = true;
@@ -21379,7 +21389,6 @@ customElements.define(CrLazyRenderElement.is, CrLazyRenderElement);
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// clang-format off
 class FocusRowMixinDelegate {
     constructor(listItem) {
         this.listItem_ = listItem;
@@ -22303,18 +22312,6 @@ customElements.define(SettingsSyncAccountControlElement.is, SettingsSyncAccountC
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview |ListPropertyUpdateMixin| is used to update an existing
- * polymer list property given the list after all the edits were made while
- * maintaining the reference to the original list. This allows
- * dom-repeat/iron-list elements bound to this list property to not fully
- * re-rendered from scratch.
- *
- * The minimal splices needed to transform the original list to the edited list
- * are calculated using |Polymer.ArraySplice.calculateSplices|. All the edits
- * are then applied to the original list. Once completed, a single notification
- * containing information about all the edits is sent to the polyer object.
- */
 const ListPropertyUpdateMixin = dedupingMixin((superClass) => {
     class ListPropertyUpdateMixin extends superClass {
         updateList(propertyPath, identityGetter, updatedList, identityBasedUpdate = false) {

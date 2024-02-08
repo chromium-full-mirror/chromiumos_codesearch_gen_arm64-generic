@@ -1,0 +1,1 @@
+{"base_dir": "gen/ash/webui/help_app_ui/resources/stage_rollup", "files": ["message_pipe.js", "help_app_ui.mojom-webui.js", "search.mojom-webui.js", "index.mojom-webui.js", "types.mojom-webui.js", "mojo_type_util.js", "browser_proxy.js", "message_types.js", "receiver.js"]}

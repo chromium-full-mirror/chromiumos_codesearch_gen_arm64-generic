@@ -5,18 +5,22 @@
 import { assertEquals, assertNotEquals } from './chai_assert.js';
 import { TestBrowserProxy } from './test_browser_proxy.js';
 import { FakeChromeEvent } from './fake_chrome_event.js';
-// clang-format on
-/** @fileoverview Fake implementation of chrome.settingsPrivate for testing. */
 /**
  * Fake of chrome.settingsPrivate API. Use by setting
  * CrSettingsPrefs.deferInitialization to true, then passing a
  * FakeSettingsPrivate to settings-prefs#initialize().
  */
 export class FakeSettingsPrivate extends TestBrowserProxy {
-    disallowSetPref_ = false;
-    failNextSetPref_ = false;
+    // Mirroring chrome.settingsPrivate API members.
+    /* eslint-disable @typescript-eslint/naming-convention */
+    PrefType = chrome.settingsPrivate.PrefType;
+    ControlledBy = chrome.settingsPrivate.ControlledBy;
+    Enforcement = chrome.settingsPrivate.Enforcement;
+    /* eslint-enable @typescript-eslint/naming-convention */
     prefs = {};
     onPrefsChanged = new FakeChromeEvent();
+    disallowSetPref_ = false;
+    failNextSetPref_ = false;
     constructor(initialPrefs) {
         super([
             'setPref',
@@ -88,7 +92,9 @@ export class FakeSettingsPrivate extends TestBrowserProxy {
         }
         this.onPrefsChanged.callListeners(prefs);
     }
-    getDefaultZoom() { }
+    getDefaultZoom() {
+        return Promise.resolve(100);
+    }
     setDefaultZoom() { }
     // Private methods for use by the fake API.
     addPref_(type, key, value) {

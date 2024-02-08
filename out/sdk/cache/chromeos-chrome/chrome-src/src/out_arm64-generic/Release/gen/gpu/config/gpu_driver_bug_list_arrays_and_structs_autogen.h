@@ -1007,8 +1007,9 @@ const int kFeatureListForWorkaroundsEntry423[1] = {
 DISABLE_WEBGPU_SHARED_IMAGES,
 };
 
-const GpuControlList::Device kDevicesForWorkaroundsEntry423[1] = {
+const GpuControlList::Device kDevicesForWorkaroundsEntry423[2] = {
 {0x9802, 0x0},
+{0x9834, 0x0},
 };
 
 const GpuControlList::More kMoreForEntry423_619971032 = {

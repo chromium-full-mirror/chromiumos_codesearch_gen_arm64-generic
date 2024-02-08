@@ -958,6 +958,11 @@ suite('<settings-internet-detail-subpage>', () => {
             const carrierLockedText = internetDetailPage.shadowRoot.querySelector('#carrierLockedNoticeLink');
             assertTrue(!!carrierLockedText);
             assertEquals(internetDetailPage.i18nAdvanced('networkCarrierLocked').toString(), carrierLockedText.localizedString.toString());
+            // Verify network state
+            const networkStateText = internetDetailPage.shadowRoot.querySelector('#networkState');
+            assertTrue(!!networkStateText);
+            assertTrue(networkStateText.hasAttribute('warning'));
+            assertEquals(internetDetailPage.i18n('networkMobileProviderLocked'), networkStateText.textContent.trim());
         });
         test('carrier locked subtext not displayed when carrier lock disabled', async () => {
             const TEST_ICCID = '11111111111111111';

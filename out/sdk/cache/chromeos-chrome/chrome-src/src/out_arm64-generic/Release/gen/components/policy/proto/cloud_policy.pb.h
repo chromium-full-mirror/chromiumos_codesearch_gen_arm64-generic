@@ -276,6 +276,8 @@ kDeleteKeyModifierFieldNumber = 164,
 kHomeAndEndKeysModifierFieldNumber = 165,
 kPageUpAndPageDownKeysModifierFieldNumber = 166,
 kInsertKeyModifierFieldNumber = 167,
+kScreenCaptureLocationFieldNumber = 171,
+kAllowedDomainsForAppsListFieldNumber = 172,
 };
 // optional .enterprise_management.BooleanPolicyProto NewBaseUrlInheritanceBehaviorAllowed = 1;
 bool has_newbaseurlinheritancebehaviorallowed() const;
@@ -2203,6 +2205,42 @@ void unsafe_arena_set_allocated_insertkeymodifier(
 ::enterprise_management::IntegerPolicyProto* insertkeymodifier);
 ::enterprise_management::IntegerPolicyProto* unsafe_arena_release_insertkeymodifier();
 
+// optional .enterprise_management.StringPolicyProto ScreenCaptureLocation = 171;
+bool has_screencapturelocation() const;
+private:
+bool _internal_has_screencapturelocation() const;
+public:
+void clear_screencapturelocation();
+const ::enterprise_management::StringPolicyProto& screencapturelocation() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringPolicyProto* release_screencapturelocation();
+::enterprise_management::StringPolicyProto* mutable_screencapturelocation();
+void set_allocated_screencapturelocation(::enterprise_management::StringPolicyProto* screencapturelocation);
+private:
+const ::enterprise_management::StringPolicyProto& _internal_screencapturelocation() const;
+::enterprise_management::StringPolicyProto* _internal_mutable_screencapturelocation();
+public:
+void unsafe_arena_set_allocated_screencapturelocation(
+::enterprise_management::StringPolicyProto* screencapturelocation);
+::enterprise_management::StringPolicyProto* unsafe_arena_release_screencapturelocation();
+
+// optional .enterprise_management.StringListPolicyProto AllowedDomainsForAppsList = 172;
+bool has_alloweddomainsforappslist() const;
+private:
+bool _internal_has_alloweddomainsforappslist() const;
+public:
+void clear_alloweddomainsforappslist();
+const ::enterprise_management::StringListPolicyProto& alloweddomainsforappslist() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_alloweddomainsforappslist();
+::enterprise_management::StringListPolicyProto* mutable_alloweddomainsforappslist();
+void set_allocated_alloweddomainsforappslist(::enterprise_management::StringListPolicyProto* alloweddomainsforappslist);
+private:
+const ::enterprise_management::StringListPolicyProto& _internal_alloweddomainsforappslist() const;
+::enterprise_management::StringListPolicyProto* _internal_mutable_alloweddomainsforappslist();
+public:
+void unsafe_arena_set_allocated_alloweddomainsforappslist(
+::enterprise_management::StringListPolicyProto* alloweddomainsforappslist);
+::enterprise_management::StringListPolicyProto* unsafe_arena_release_alloweddomainsforappslist();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -2319,6 +2357,8 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::IntegerPolicyProto* homeandendkeysmodifier_;
 ::enterprise_management::IntegerPolicyProto* pageupandpagedownkeysmodifier_;
 ::enterprise_management::IntegerPolicyProto* insertkeymodifier_;
+::enterprise_management::StringPolicyProto* screencapturelocation_;
+::enterprise_management::StringListPolicyProto* alloweddomainsforappslist_;
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
@@ -15686,6 +15726,93 @@ allowbackforwardcacheforcachecontrolnostorepageenabled_ = allowbackforwardcachef
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.AllowBackForwardCacheForCacheControlNoStorePageEnabled)
 }
 
+// optional .enterprise_management.StringListPolicyProto AllowedDomainsForAppsList = 172;
+inline bool CloudPolicySubProto1::_internal_has_alloweddomainsforappslist() const {
+bool value = (_has_bits_[3] & 0x00001000u) != 0;
+PROTOBUF_ASSUME(!value || alloweddomainsforappslist_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_alloweddomainsforappslist() const {
+return _internal_has_alloweddomainsforappslist();
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::_internal_alloweddomainsforappslist() const {
+const ::enterprise_management::StringListPolicyProto* p = alloweddomainsforappslist_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::alloweddomainsforappslist() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.AllowedDomainsForAppsList)
+return _internal_alloweddomainsforappslist();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_alloweddomainsforappslist(
+::enterprise_management::StringListPolicyProto* alloweddomainsforappslist) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(alloweddomainsforappslist_);
+}
+alloweddomainsforappslist_ = alloweddomainsforappslist;
+if (alloweddomainsforappslist) {
+_has_bits_[3] |= 0x00001000u;
+} else {
+_has_bits_[3] &= ~0x00001000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.AllowedDomainsForAppsList)
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::release_alloweddomainsforappslist() {
+_has_bits_[3] &= ~0x00001000u;
+::enterprise_management::StringListPolicyProto* temp = alloweddomainsforappslist_;
+alloweddomainsforappslist_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::unsafe_arena_release_alloweddomainsforappslist() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.AllowedDomainsForAppsList)
+_has_bits_[3] &= ~0x00001000u;
+::enterprise_management::StringListPolicyProto* temp = alloweddomainsforappslist_;
+alloweddomainsforappslist_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::_internal_mutable_alloweddomainsforappslist() {
+_has_bits_[3] |= 0x00001000u;
+if (alloweddomainsforappslist_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+alloweddomainsforappslist_ = p;
+}
+return alloweddomainsforappslist_;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::mutable_alloweddomainsforappslist() {
+::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_alloweddomainsforappslist();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.AllowedDomainsForAppsList)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_alloweddomainsforappslist(::enterprise_management::StringListPolicyProto* alloweddomainsforappslist) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(alloweddomainsforappslist_);
+}
+if (alloweddomainsforappslist) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(alloweddomainsforappslist));
+if (message_arena != submessage_arena) {
+alloweddomainsforappslist = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, alloweddomainsforappslist, submessage_arena);
+}
+_has_bits_[3] |= 0x00001000u;
+} else {
+_has_bits_[3] &= ~0x00001000u;
+}
+alloweddomainsforappslist_ = alloweddomainsforappslist;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.AllowedDomainsForAppsList)
+}
+
 // optional .enterprise_management.StringListPolicyProto AlwaysOnVpnPreConnectUrlAllowlist = 150;
 inline bool CloudPolicySubProto1::_internal_has_alwaysonvpnpreconnecturlallowlist() const {
 bool value = (_has_bits_[3] & 0x00000001u) != 0;
@@ -18642,6 +18769,93 @@ _has_bits_[1] &= ~0x00002000u;
 }
 rsakeyusageforlocalanchorsenabled_ = rsakeyusageforlocalanchorsenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.RSAKeyUsageForLocalAnchorsEnabled)
+}
+
+// optional .enterprise_management.StringPolicyProto ScreenCaptureLocation = 171;
+inline bool CloudPolicySubProto1::_internal_has_screencapturelocation() const {
+bool value = (_has_bits_[3] & 0x00000800u) != 0;
+PROTOBUF_ASSUME(!value || screencapturelocation_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_screencapturelocation() const {
+return _internal_has_screencapturelocation();
+}
+inline const ::enterprise_management::StringPolicyProto& CloudPolicySubProto1::_internal_screencapturelocation() const {
+const ::enterprise_management::StringPolicyProto* p = screencapturelocation_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringPolicyProto&>(
+::enterprise_management::_StringPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringPolicyProto& CloudPolicySubProto1::screencapturelocation() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.ScreenCaptureLocation)
+return _internal_screencapturelocation();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_screencapturelocation(
+::enterprise_management::StringPolicyProto* screencapturelocation) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(screencapturelocation_);
+}
+screencapturelocation_ = screencapturelocation;
+if (screencapturelocation) {
+_has_bits_[3] |= 0x00000800u;
+} else {
+_has_bits_[3] &= ~0x00000800u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.ScreenCaptureLocation)
+}
+inline ::enterprise_management::StringPolicyProto* CloudPolicySubProto1::release_screencapturelocation() {
+_has_bits_[3] &= ~0x00000800u;
+::enterprise_management::StringPolicyProto* temp = screencapturelocation_;
+screencapturelocation_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringPolicyProto* CloudPolicySubProto1::unsafe_arena_release_screencapturelocation() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.ScreenCaptureLocation)
+_has_bits_[3] &= ~0x00000800u;
+::enterprise_management::StringPolicyProto* temp = screencapturelocation_;
+screencapturelocation_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringPolicyProto* CloudPolicySubProto1::_internal_mutable_screencapturelocation() {
+_has_bits_[3] |= 0x00000800u;
+if (screencapturelocation_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
+screencapturelocation_ = p;
+}
+return screencapturelocation_;
+}
+inline ::enterprise_management::StringPolicyProto* CloudPolicySubProto1::mutable_screencapturelocation() {
+::enterprise_management::StringPolicyProto* _msg = _internal_mutable_screencapturelocation();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.ScreenCaptureLocation)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_screencapturelocation(::enterprise_management::StringPolicyProto* screencapturelocation) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(screencapturelocation_);
+}
+if (screencapturelocation) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(screencapturelocation));
+if (message_arena != submessage_arena) {
+screencapturelocation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, screencapturelocation, submessage_arena);
+}
+_has_bits_[3] |= 0x00000800u;
+} else {
+_has_bits_[3] &= ~0x00000800u;
+}
+screencapturelocation_ = screencapturelocation;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.ScreenCaptureLocation)
 }
 
 // optional .enterprise_management.StringListPolicyProto ScreenCaptureWithoutGestureAllowedForOrigins = 52;

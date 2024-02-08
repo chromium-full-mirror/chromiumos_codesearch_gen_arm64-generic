@@ -3033,10 +3033,12 @@ namespace OnDeterminingFilename {
 
 const char kEventName[] = "downloads.onDeterminingFilename";
 
-base::Value::List Create(const DownloadItem& download_item) {
+base::Value::List Create(const DownloadItem& download_item, base::Value::Dict suggest) {
   base::Value::List create_results;
-  create_results.reserve(1);
+  create_results.reserve(2);
   create_results.Append((download_item).ToValue());
+
+  create_results.Append((suggest).Clone());
 
   return create_results;
 }

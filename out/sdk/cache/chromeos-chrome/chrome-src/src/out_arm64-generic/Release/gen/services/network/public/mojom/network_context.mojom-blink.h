@@ -46,6 +46,7 @@
 #include "services/network/public/mojom/default_credentials.mojom-blink-forward.h"
 #include "services/network/public/mojom/devtools_observer.mojom-blink-forward.h"
 #include "services/network/public/mojom/restricted_udp_socket.mojom-blink-forward.h"
+#include "services/network/public/mojom/fetch_api.mojom-blink-forward.h"
 #include "services/network/public/mojom/first_party_sets_access_delegate.mojom-blink.h"
 #include "services/network/public/mojom/host_resolver.mojom-blink-forward.h"
 #include "services/network/public/mojom/http_cache_backend_file_operations.mojom-blink-forward.h"
@@ -3134,6 +3135,8 @@ class BLINK_PLATFORM_EXPORT SharedDictionaryInfo {
 
   SharedDictionaryInfo(
       const WTF::String& match,
+      WTF::Vector<::network::mojom::blink::RequestDestination> match_dest,
+      const WTF::String& id,
       const ::blink::KURL& dictionary_url,
       ::base::Time response_time,
       ::base::TimeDelta expiration,
@@ -3220,6 +3223,10 @@ SharedDictionaryInfo& operator=(const SharedDictionaryInfo&) = delete;
 
   
   WTF::String match;
+  
+  WTF::Vector<::network::mojom::blink::RequestDestination> match_dest;
+  
+  WTF::String id;
   
   ::blink::KURL dictionary_url;
   
@@ -4603,6 +4610,8 @@ template <typename StructPtrType>
 SharedDictionaryInfoPtr SharedDictionaryInfo::Clone() const {
   return New(
       mojo::Clone(match),
+      mojo::Clone(match_dest),
+      mojo::Clone(id),
       mojo::Clone(dictionary_url),
       mojo::Clone(response_time),
       mojo::Clone(expiration),
@@ -4615,6 +4624,10 @@ SharedDictionaryInfoPtr SharedDictionaryInfo::Clone() const {
 template <typename T, SharedDictionaryInfo::EnableIfSame<T>*>
 bool SharedDictionaryInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->match, other_struct.match))
+    return false;
+  if (!mojo::Equals(this->match_dest, other_struct.match_dest))
+    return false;
+  if (!mojo::Equals(this->id, other_struct.id))
     return false;
   if (!mojo::Equals(this->dictionary_url, other_struct.dictionary_url))
     return false;
@@ -4636,6 +4649,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.match < rhs.match)
     return true;
   if (rhs.match < lhs.match)
+    return false;
+  if (lhs.match_dest < rhs.match_dest)
+    return true;
+  if (rhs.match_dest < lhs.match_dest)
+    return false;
+  if (lhs.id < rhs.id)
+    return true;
+  if (rhs.id < lhs.id)
     return false;
   if (lhs.dictionary_url < rhs.dictionary_url)
     return true;
@@ -5501,6 +5522,16 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::SharedDiction
   static const decltype(::network::mojom::blink::SharedDictionaryInfo::match)& match(
       const ::network::mojom::blink::SharedDictionaryInfoPtr& input) {
     return input->match;
+  }
+
+  static const decltype(::network::mojom::blink::SharedDictionaryInfo::match_dest)& match_dest(
+      const ::network::mojom::blink::SharedDictionaryInfoPtr& input) {
+    return input->match_dest;
+  }
+
+  static const decltype(::network::mojom::blink::SharedDictionaryInfo::id)& id(
+      const ::network::mojom::blink::SharedDictionaryInfoPtr& input) {
+    return input->id;
   }
 
   static const decltype(::network::mojom::blink::SharedDictionaryInfo::dictionary_url)& dictionary_url(

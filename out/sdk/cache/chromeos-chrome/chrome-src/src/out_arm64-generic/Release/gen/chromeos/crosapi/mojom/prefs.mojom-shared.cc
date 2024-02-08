@@ -86,8 +86,8 @@ NOINLINE static const char* PrefPathToStringHelper(PrefPath value) {
       return "kApplicationLocale";
     case PrefPath::kSharedStorage:
       return "kSharedStorage";
-    case PrefPath::kProtectedContentDefault:
-      return "kProtectedContentDefault";
+    case PrefPath::kProtectedContentDefaultDeprecated:
+      return "kProtectedContentDefaultDeprecated";
     case PrefPath::kDnsOverHttpsTemplatesWithIdentifiers:
       return "kDnsOverHttpsTemplatesWithIdentifiers";
     case PrefPath::kDnsOverHttpsSalt:

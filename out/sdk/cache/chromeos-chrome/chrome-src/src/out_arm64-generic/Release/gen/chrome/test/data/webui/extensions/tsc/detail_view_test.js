@@ -1,7 +1,6 @@
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/** @fileoverview Suite of tests for extensions-detail-view. */
 import { navigation, Page } from 'chrome://extensions/extensions.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';

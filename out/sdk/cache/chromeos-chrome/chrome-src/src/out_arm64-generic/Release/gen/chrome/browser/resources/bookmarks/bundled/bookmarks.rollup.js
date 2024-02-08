@@ -1464,10 +1464,6 @@ const I18nMixin = dedupingMixin((superClass) => {
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Mixin to be used by Polymer elements that want to
- * automatically remove WebUI listeners when detached.
- */
 const WebUiListenerMixin = dedupingMixin((superClass) => {
     class WebUiListenerMixin extends superClass {
         constructor() {
@@ -10896,18 +10892,6 @@ customElements.define(CrA11yAnnouncerElement.is, CrA11yAnnouncerElement);
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview |ListPropertyUpdateMixin| is used to update an existing
- * polymer list property given the list after all the edits were made while
- * maintaining the reference to the original list. This allows
- * dom-repeat/iron-list elements bound to this list property to not fully
- * re-rendered from scratch.
- *
- * The minimal splices needed to transform the original list to the edited list
- * are calculated using |Polymer.ArraySplice.calculateSplices|. All the edits
- * are then applied to the original list. Once completed, a single notification
- * containing information about all the edits is sent to the polyer object.
- */
 const ListPropertyUpdateMixin = dedupingMixin((superClass) => {
     class ListPropertyUpdateMixin extends superClass {
         updateList(propertyPath, identityGetter, updatedList, identityBasedUpdate = false) {

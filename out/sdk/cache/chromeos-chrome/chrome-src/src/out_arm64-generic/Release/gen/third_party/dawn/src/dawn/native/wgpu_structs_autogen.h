@@ -1394,6 +1394,7 @@ namespace dawn::native {
         float const * dstTransferFunctionParameters;
         float const * gamutConversionMatrix;
         wgpu::Bool flipY = false;
+        wgpu::Bool mirrored = false;
         wgpu::ExternalTextureRotation rotation = wgpu::ExternalTextureRotation::Rotate0Degrees;
 
         // Equality operators, mostly for testing. Note that this tests

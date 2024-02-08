@@ -346,6 +346,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPreferences_Data {
   uint8_t do_not_update_selection_on_mutating_selection_range : 1;
   uint8_t require_transient_activation_for_get_display_media : 1;
   uint8_t require_transient_activation_for_show_file_or_directory_picker : 1;
+  uint8_t require_transient_activation_for_html_fullscreen : 1;
   uint8_t picture_in_picture_enabled : 1;
   uint8_t translate_service_available : 1;
   uint8_t lazy_load_enabled : 1;

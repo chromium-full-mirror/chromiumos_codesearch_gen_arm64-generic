@@ -855,6 +855,9 @@ namespace wgpu {
             case BufferMapAsyncStatus::Success:
                 s->Append("Success");
                 break;
+            case BufferMapAsyncStatus::InstanceDropped:
+                s->Append("InstanceDropped");
+                break;
             case BufferMapAsyncStatus::ValidationError:
                 s->Append("ValidationError");
                 break;
@@ -979,6 +982,9 @@ namespace wgpu {
             case CompilationInfoRequestStatus::Success:
                 s->Append("Success");
                 break;
+            case CompilationInfoRequestStatus::InstanceDropped:
+                s->Append("InstanceDropped");
+                break;
             case CompilationInfoRequestStatus::Error:
                 s->Append("Error");
                 break;
@@ -1025,6 +1031,9 @@ namespace wgpu {
             switch (value) {
             case CreatePipelineAsyncStatus::Success:
                 s->Append("Success");
+                break;
+            case CreatePipelineAsyncStatus::InstanceDropped:
+                s->Append("InstanceDropped");
                 break;
             case CreatePipelineAsyncStatus::ValidationError:
                 s->Append("ValidationError");
@@ -1574,6 +1583,9 @@ namespace wgpu {
             case QueueWorkDoneStatus::Success:
                 s->Append("Success");
                 break;
+            case QueueWorkDoneStatus::InstanceDropped:
+                s->Append("InstanceDropped");
+                break;
             case QueueWorkDoneStatus::Error:
                 s->Append("Error");
                 break;
@@ -1599,6 +1611,9 @@ namespace wgpu {
             case RequestAdapterStatus::Success:
                 s->Append("Success");
                 break;
+            case RequestAdapterStatus::InstanceDropped:
+                s->Append("InstanceDropped");
+                break;
             case RequestAdapterStatus::Unavailable:
                 s->Append("Unavailable");
                 break;
@@ -1623,6 +1638,9 @@ namespace wgpu {
             switch (value) {
             case RequestDeviceStatus::Success:
                 s->Append("Success");
+                break;
+            case RequestDeviceStatus::InstanceDropped:
+                s->Append("InstanceDropped");
                 break;
             case RequestDeviceStatus::Error:
                 s->Append("Error");

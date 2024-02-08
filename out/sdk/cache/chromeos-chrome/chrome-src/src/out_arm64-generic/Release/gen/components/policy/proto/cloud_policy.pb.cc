@@ -126,7 +126,9 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , deletekeymodifier_(nullptr)
   , homeandendkeysmodifier_(nullptr)
   , pageupandpagedownkeysmodifier_(nullptr)
-  , insertkeymodifier_(nullptr){}
+  , insertkeymodifier_(nullptr)
+  , screencapturelocation_(nullptr)
+  , alloweddomainsforappslist_(nullptr){}
 struct CloudPolicySubProto1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR CloudPolicySubProto1DefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -806,6 +808,10 @@ class CloudPolicySubProto1::_Internal {
   static void set_has_allowbackforwardcacheforcachecontrolnostorepageenabled(HasBits* has_bits) {
     (*has_bits)[1] |= 131072u;
   }
+  static const ::enterprise_management::StringListPolicyProto& alloweddomainsforappslist(const CloudPolicySubProto1* msg);
+  static void set_has_alloweddomainsforappslist(HasBits* has_bits) {
+    (*has_bits)[3] |= 4096u;
+  }
   static const ::enterprise_management::StringListPolicyProto& alwaysonvpnpreconnecturlallowlist(const CloudPolicySubProto1* msg);
   static void set_has_alwaysonvpnpreconnecturlallowlist(HasBits* has_bits) {
     (*has_bits)[3] |= 1u;
@@ -941,6 +947,10 @@ class CloudPolicySubProto1::_Internal {
   static const ::enterprise_management::BooleanPolicyProto& rsakeyusageforlocalanchorsenabled(const CloudPolicySubProto1* msg);
   static void set_has_rsakeyusageforlocalanchorsenabled(HasBits* has_bits) {
     (*has_bits)[1] |= 8192u;
+  }
+  static const ::enterprise_management::StringPolicyProto& screencapturelocation(const CloudPolicySubProto1* msg);
+  static void set_has_screencapturelocation(HasBits* has_bits) {
+    (*has_bits)[3] |= 2048u;
   }
   static const ::enterprise_management::StringListPolicyProto& screencapturewithoutgestureallowedfororigins(const CloudPolicySubProto1* msg);
   static void set_has_screencapturewithoutgestureallowedfororigins(HasBits* has_bits) {
@@ -1237,6 +1247,10 @@ CloudPolicySubProto1::_Internal::allowbackforwardcacheforcachecontrolnostorepage
   return *msg->allowbackforwardcacheforcachecontrolnostorepageenabled_;
 }
 const ::enterprise_management::StringListPolicyProto&
+CloudPolicySubProto1::_Internal::alloweddomainsforappslist(const CloudPolicySubProto1* msg) {
+  return *msg->alloweddomainsforappslist_;
+}
+const ::enterprise_management::StringListPolicyProto&
 CloudPolicySubProto1::_Internal::alwaysonvpnpreconnecturlallowlist(const CloudPolicySubProto1* msg) {
   return *msg->alwaysonvpnpreconnecturlallowlist_;
 }
@@ -1371,6 +1385,10 @@ CloudPolicySubProto1::_Internal::quickofficeforcefiledownloadenabled(const Cloud
 const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::rsakeyusageforlocalanchorsenabled(const CloudPolicySubProto1* msg) {
   return *msg->rsakeyusageforlocalanchorsenabled_;
+}
+const ::enterprise_management::StringPolicyProto&
+CloudPolicySubProto1::_Internal::screencapturelocation(const CloudPolicySubProto1* msg) {
+  return *msg->screencapturelocation_;
 }
 const ::enterprise_management::StringListPolicyProto&
 CloudPolicySubProto1::_Internal::screencapturewithoutgestureallowedfororigins(const CloudPolicySubProto1* msg) {
@@ -1664,6 +1682,10 @@ void CloudPolicySubProto1::clear_allowbackforwardcacheforcachecontrolnostorepage
   if (allowbackforwardcacheforcachecontrolnostorepageenabled_ != nullptr) allowbackforwardcacheforcachecontrolnostorepageenabled_->Clear();
   _has_bits_[1] &= ~0x00020000u;
 }
+void CloudPolicySubProto1::clear_alloweddomainsforappslist() {
+  if (alloweddomainsforappslist_ != nullptr) alloweddomainsforappslist_->Clear();
+  _has_bits_[3] &= ~0x00001000u;
+}
 void CloudPolicySubProto1::clear_alwaysonvpnpreconnecturlallowlist() {
   if (alwaysonvpnpreconnecturlallowlist_ != nullptr) alwaysonvpnpreconnecturlallowlist_->Clear();
   _has_bits_[3] &= ~0x00000001u;
@@ -1799,6 +1821,10 @@ void CloudPolicySubProto1::clear_quickofficeforcefiledownloadenabled() {
 void CloudPolicySubProto1::clear_rsakeyusageforlocalanchorsenabled() {
   if (rsakeyusageforlocalanchorsenabled_ != nullptr) rsakeyusageforlocalanchorsenabled_->Clear();
   _has_bits_[1] &= ~0x00002000u;
+}
+void CloudPolicySubProto1::clear_screencapturelocation() {
+  if (screencapturelocation_ != nullptr) screencapturelocation_->Clear();
+  _has_bits_[3] &= ~0x00000800u;
 }
 void CloudPolicySubProto1::clear_screencapturewithoutgestureallowedfororigins() {
   if (screencapturewithoutgestureallowedfororigins_ != nullptr) screencapturewithoutgestureallowedfororigins_->Clear();
@@ -2517,14 +2543,24 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
   } else {
     insertkeymodifier_ = nullptr;
   }
+  if (from._internal_has_screencapturelocation()) {
+    screencapturelocation_ = new ::enterprise_management::StringPolicyProto(*from.screencapturelocation_);
+  } else {
+    screencapturelocation_ = nullptr;
+  }
+  if (from._internal_has_alloweddomainsforappslist()) {
+    alloweddomainsforappslist_ = new ::enterprise_management::StringListPolicyProto(*from.alloweddomainsforappslist_);
+  } else {
+    alloweddomainsforappslist_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CloudPolicySubProto1)
 }
 
 inline void CloudPolicySubProto1::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&insertkeymodifier_) -
-    reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_)) + sizeof(insertkeymodifier_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&alloweddomainsforappslist_) -
+    reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_)) + sizeof(alloweddomainsforappslist_));
 }
 
 CloudPolicySubProto1::~CloudPolicySubProto1() {
@@ -2645,6 +2681,8 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete homeandendkeysmodifier_;
   if (this != internal_default_instance()) delete pageupandpagedownkeysmodifier_;
   if (this != internal_default_instance()) delete insertkeymodifier_;
+  if (this != internal_default_instance()) delete screencapturelocation_;
+  if (this != internal_default_instance()) delete alloweddomainsforappslist_;
 }
 
 void CloudPolicySubProto1::SetCachedSize(int size) const {
@@ -3103,7 +3141,7 @@ void CloudPolicySubProto1::Clear() {
       deletekeymodifier_->Clear();
     }
   }
-  if (cached_has_bits & 0x00000700u) {
+  if (cached_has_bits & 0x00001f00u) {
     if (cached_has_bits & 0x00000100u) {
       GOOGLE_DCHECK(homeandendkeysmodifier_ != nullptr);
       homeandendkeysmodifier_->Clear();
@@ -3115,6 +3153,14 @@ void CloudPolicySubProto1::Clear() {
     if (cached_has_bits & 0x00000400u) {
       GOOGLE_DCHECK(insertkeymodifier_ != nullptr);
       insertkeymodifier_->Clear();
+    }
+    if (cached_has_bits & 0x00000800u) {
+      GOOGLE_DCHECK(screencapturelocation_ != nullptr);
+      screencapturelocation_->Clear();
+    }
+    if (cached_has_bits & 0x00001000u) {
+      GOOGLE_DCHECK(alloweddomainsforappslist_ != nullptr);
+      alloweddomainsforappslist_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -3983,6 +4029,22 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.StringPolicyProto ScreenCaptureLocation = 171;
+      case 171:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+          ptr = ctx->ParseMessage(_internal_mutable_screencapturelocation(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.StringListPolicyProto AllowedDomainsForAppsList = 172;
+      case 172:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+          ptr = ctx->ParseMessage(_internal_mutable_alloweddomainsforappslist(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -4765,6 +4827,20 @@ uint8_t* CloudPolicySubProto1::_InternalSerialize(
         _Internal::insertkeymodifier(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.StringPolicyProto ScreenCaptureLocation = 171;
+  if (cached_has_bits & 0x00000800u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(171, _Internal::screencapturelocation(this),
+        _Internal::screencapturelocation(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.StringListPolicyProto AllowedDomainsForAppsList = 172;
+  if (cached_has_bits & 0x00001000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(172, _Internal::alloweddomainsforappslist(this),
+        _Internal::alloweddomainsforappslist(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -5539,7 +5615,7 @@ size_t CloudPolicySubProto1::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00000700u) {
+  if (cached_has_bits & 0x00001f00u) {
     // optional .enterprise_management.IntegerPolicyProto HomeAndEndKeysModifier = 165;
     if (cached_has_bits & 0x00000100u) {
       total_size += 2 +
@@ -5559,6 +5635,20 @@ size_t CloudPolicySubProto1::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *insertkeymodifier_);
+    }
+
+    // optional .enterprise_management.StringPolicyProto ScreenCaptureLocation = 171;
+    if (cached_has_bits & 0x00000800u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *screencapturelocation_);
+    }
+
+    // optional .enterprise_management.StringListPolicyProto AllowedDomainsForAppsList = 172;
+    if (cached_has_bits & 0x00001000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *alloweddomainsforappslist_);
     }
 
   }
@@ -5924,7 +6014,7 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
       _internal_mutable_deletekeymodifier()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_deletekeymodifier());
     }
   }
-  if (cached_has_bits & 0x00000700u) {
+  if (cached_has_bits & 0x00001f00u) {
     if (cached_has_bits & 0x00000100u) {
       _internal_mutable_homeandendkeysmodifier()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_homeandendkeysmodifier());
     }
@@ -5933,6 +6023,12 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
     }
     if (cached_has_bits & 0x00000400u) {
       _internal_mutable_insertkeymodifier()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_insertkeymodifier());
+    }
+    if (cached_has_bits & 0x00000800u) {
+      _internal_mutable_screencapturelocation()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_screencapturelocation());
+    }
+    if (cached_has_bits & 0x00001000u) {
+      _internal_mutable_alloweddomainsforappslist()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_alloweddomainsforappslist());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -5957,8 +6053,8 @@ void CloudPolicySubProto1::InternalSwap(CloudPolicySubProto1* other) {
   swap(_has_bits_[2], other->_has_bits_[2]);
   swap(_has_bits_[3], other->_has_bits_[3]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, insertkeymodifier_)
-      + sizeof(CloudPolicySubProto1::insertkeymodifier_)
+      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, alloweddomainsforappslist_)
+      + sizeof(CloudPolicySubProto1::alloweddomainsforappslist_)
       - PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, newbaseurlinheritancebehaviorallowed_)>(
           reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_),
           reinterpret_cast<char*>(&other->newbaseurlinheritancebehaviorallowed_));

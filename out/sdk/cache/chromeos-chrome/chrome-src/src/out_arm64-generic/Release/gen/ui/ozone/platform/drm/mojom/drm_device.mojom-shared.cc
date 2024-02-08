@@ -661,36 +661,6 @@ DrmDevice_SetColorTemperatureAdjustment_Params_Data::DrmDevice_SetColorTemperatu
 
 
 // static
-bool DrmDevice_SetColorCalibration_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const DrmDevice_SetColorCalibration_Params_Data* object =
-      static_cast<const DrmDevice_SetColorCalibration_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->calibration, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->calibration, validation_context))
-    return false;
-
-  return true;
-}
-
-DrmDevice_SetColorCalibration_Params_Data::DrmDevice_SetColorCalibration_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool DrmDevice_SetGammaAdjustment_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -717,77 +687,6 @@ bool DrmDevice_SetGammaAdjustment_Params_Data::Validate(
 }
 
 DrmDevice_SetGammaAdjustment_Params_Data::DrmDevice_SetGammaAdjustment_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool DrmDevice_SetColorMatrix_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const DrmDevice_SetColorMatrix_Params_Data* object =
-      static_cast<const DrmDevice_SetColorMatrix_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->color_matrix, 2, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& color_matrix_validate_params =
-      mojo::internal::GetArrayValidator<9, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->color_matrix, validation_context,
-                                         &color_matrix_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-DrmDevice_SetColorMatrix_Params_Data::DrmDevice_SetColorMatrix_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool DrmDevice_SetGammaCorrection_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const DrmDevice_SetGammaCorrection_Params_Data* object =
-      static_cast<const DrmDevice_SetGammaCorrection_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->degamma, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->degamma, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->gamma, 3, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->gamma, validation_context))
-    return false;
-
-  return true;
-}
-
-DrmDevice_SetGammaCorrection_Params_Data::DrmDevice_SetGammaCorrection_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

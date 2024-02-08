@@ -1,89 +1,17 @@
-// Copyright 2013 The Chromium Authors
+// Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
 /**
- * @fileoverview Assertion support.
+ * Verify |value| is truthy.
+ * @param value A value to check for truthiness. Note that this
+ *     may be used to test whether |value| is defined or not, and we don't want
+ *     to force a cast to boolean.
  */
-
-/**
- * Note: This method is deprecated. Use the equvalent method in assert_ts.ts
- * instead.
- * Verify |condition| is truthy and return |condition| if so.
- * @template T
- * @param {T} condition A condition to check for truthiness.  Note that this
- *     may be used to test whether a value is defined or not, and we don't want
- *     to force a cast to Boolean.
- * @param {string=} opt_message A message to show on failure.
- * @return {T} A non-null |condition|.
- * @closurePrimitive {asserts.truthy}
- * @suppress {reportUnknownTypes} because T is not sufficiently constrained.
- */
-function assert(condition, opt_message) {
-  if (!condition) {
-    let message = 'Assertion failed';
-    if (opt_message) {
-      message = message + ': ' + opt_message;
+function assert$1(value, message) {
+    if (value) {
+        return;
     }
-    const error = new Error(message);
-    const global = function() {
-      const thisOrSelf = this || self;
-      /** @type {boolean} */
-      thisOrSelf.traceAssertionsForTesting;
-      return thisOrSelf;
-    }();
-    if (global.traceAssertionsForTesting) {
-      console.warn(error.stack);
-    }
-    throw error;
-  }
-  return condition;
-}
-
-/**
- * Note: This method is deprecated. Use the equvalent method in assert_ts.ts
- * instead.
- * Call this from places in the code that should never be reached.
- *
- * For example, handling all the values of enum with a switch() like this:
- *
- *   function getValueFromEnum(enum) {
- *     switch (enum) {
- *       case ENUM_FIRST_OF_TWO:
- *         return first
- *       case ENUM_LAST_OF_TWO:
- *         return last;
- *     }
- *     assertNotReached();
- *     return document;
- *   }
- *
- * This code should only be hit in the case of serious programmer error or
- * unexpected input.
- *
- * @param {string=} message A message to show when this is hit.
- * @closurePrimitive {asserts.fail}
- */
-function assertNotReached(message) {
-  assert(false, message || 'Unreachable code hit');
-}
-
-/**
- * @param {*} value The value to check.
- * @param {function(new: T, ...)} type A user-defined constructor.
- * @param {string=} message A message to show when this is hit.
- * @return {T}
- * @template T
- */
-function assertInstanceof(value, type, message) {
-  // We don't use assert immediately here so that we avoid constructing an error
-  // message if we don't have to.
-  if (!(value instanceof type)) {
-    assertNotReached(
-        message ||
-        'Value ' + value + ' is not a[n] ' + (type.name || typeof type));
-  }
-  return value;
+    throw new Error('Assertion failed' + (message ? `: ${message}` : ''));
 }
 
 // Copyright 2013 The Chromium Authors
@@ -1751,6 +1679,94 @@ function getFileTypeForName(name) {
     };
 }
 
+// Copyright 2013 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+/**
+ * @fileoverview Assertion support.
+ */
+
+/**
+ * Note: This method is deprecated. Use the equvalent method in assert_ts.ts
+ * instead.
+ * Verify |condition| is truthy and return |condition| if so.
+ * @template T
+ * @param {T} condition A condition to check for truthiness.  Note that this
+ *     may be used to test whether a value is defined or not, and we don't want
+ *     to force a cast to Boolean.
+ * @param {string=} opt_message A message to show on failure.
+ * @return {T} A non-null |condition|.
+ * @closurePrimitive {asserts.truthy}
+ * @suppress {reportUnknownTypes} because T is not sufficiently constrained.
+ */
+function assert(condition, opt_message) {
+  if (!condition) {
+    let message = 'Assertion failed';
+    if (opt_message) {
+      message = message + ': ' + opt_message;
+    }
+    const error = new Error(message);
+    const global = function() {
+      const thisOrSelf = this || self;
+      /** @type {boolean} */
+      thisOrSelf.traceAssertionsForTesting;
+      return thisOrSelf;
+    }();
+    if (global.traceAssertionsForTesting) {
+      console.warn(error.stack);
+    }
+    throw error;
+  }
+  return condition;
+}
+
+/**
+ * Note: This method is deprecated. Use the equvalent method in assert_ts.ts
+ * instead.
+ * Call this from places in the code that should never be reached.
+ *
+ * For example, handling all the values of enum with a switch() like this:
+ *
+ *   function getValueFromEnum(enum) {
+ *     switch (enum) {
+ *       case ENUM_FIRST_OF_TWO:
+ *         return first
+ *       case ENUM_LAST_OF_TWO:
+ *         return last;
+ *     }
+ *     assertNotReached();
+ *     return document;
+ *   }
+ *
+ * This code should only be hit in the case of serious programmer error or
+ * unexpected input.
+ *
+ * @param {string=} message A message to show when this is hit.
+ * @closurePrimitive {asserts.fail}
+ */
+function assertNotReached(message) {
+  assert(false, message || 'Unreachable code hit');
+}
+
+/**
+ * @param {*} value The value to check.
+ * @param {function(new: T, ...)} type A user-defined constructor.
+ * @param {string=} message A message to show when this is hit.
+ * @return {T}
+ * @template T
+ */
+function assertInstanceof(value, type, message) {
+  // We don't use assert immediately here so that we avoid constructing an error
+  // message if we don't have to.
+  if (!(value instanceof type)) {
+    assertNotReached(
+        message ||
+        'Value ' + value + ' is not a[n] ' + (type.name || typeof type));
+  }
+  return value;
+}
+
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -2118,38 +2134,16 @@ ImageLoaderUtil.calculateCopyParameters = function (source, request) {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * Declares the piex-wasm Module interface. The Module has many interfaces
- * but only declare the parts required for PIEX work.
- *
- * @typedef {{
- *  calledRun: boolean,
- *  HEAP8: !Uint8Array,
- *  _malloc: function(number):number,
- *  _free: function(number):undefined,
- *  image: function(number, number):!PiexWasmImageResult
- * }}
- */
-// @ts-ignore: error TS7005: Variable 'PiexWasmModule' implicitly has an 'any'
-// type.
-/**
  * Module defined by 'piex.js.wasm' script upon initialization.
- * @type {!PiexWasmModule}
  */
 let PiexModule;
 /**
  * Module constructor defined by 'piex.js.wasm' script.
- * @type {function(!ModuleInitParams): !Promise<!PiexWasmModule>}
  */
-const initPiexModule = 
-/** @type {function(!ModuleInitParams): !Promise<!PiexWasmModule>} */ (
-// @ts-ignore: error TS7053: Element implicitly has an 'any' type
-// because expression of type '"createPiexModule"' can't be used to
-// index type 'typeof globalThis'.
-globalThis['createPiexModule']);
+const initPiexModule = globalThis.createPiexModule;
 console.log(`[PiexLoader] available [init=${typeof initPiexModule}]`);
 /**
  * Set true if the Module.onAbort() handler is called.
- * @type {boolean}
  */
 let piexFailed = false;
 const MODULE_SETTINGS = {
@@ -2157,7 +2151,6 @@ const MODULE_SETTINGS = {
      * Installs an (Emscripten) Module.onAbort handler. Record that the
      * Module has failed in piexFailed and re-throw the error.
      *
-     * @param {!Error|string} error
      * @throws {!Error|string}
      */
     onAbort: (error) => {
@@ -2165,12 +2158,10 @@ const MODULE_SETTINGS = {
         throw error;
     },
 };
-/** @type {?Promise<void>} */
 let initPiexModulePromise = null;
 /**
  * Returns a promise that resolves once initialization is complete. PiexModule
  * may be undefined before this promise resolves.
- * @return {!Promise<void>}
  */
 function piexModuleInitialized() {
     if (!initPiexModulePromise) {
@@ -2193,7 +2184,6 @@ function piexModuleInitialized() {
  * Module state. Log the error, and return true to tell caller to initiate
  * failure recovery steps.
  *
- * @return {boolean}
  */
 function piexModuleFailed() {
     if (piexFailed || !PiexModule.calledRun) {
@@ -2202,48 +2192,27 @@ function piexModuleFailed() {
     }
     return false;
 }
-/**
- * @struct
- */
 class PiexLoaderResponse {
+    thumbnail;
+    mimeType;
+    /** JEITA EXIF image orientation being an integer in [1..8].  */
+    orientation;
+    /** JEITA EXIF image color space: 'sRgb' or 'adobeRgb'.  */
+    colorSpace;
+    /** JSON encoded RAW image photographic details.  */
+    ifd;
     /**
-     * @param {!PiexPreviewImageData} data The extracted preview image data.
+     * @param data The extracted preview image data.
      */
     constructor(data) {
-        /**
-         * @type {!ArrayBuffer}
-         * @const
-         */
         this.thumbnail = data.thumbnail;
-        /**
-         * @type {string}
-         * @const
-         */
         this.mimeType = data.mimeType || 'image/jpeg';
-        /**
-         * JEITA EXIF image orientation being an integer in [1..8].
-         * @type {number}
-         * @const
-         */
         this.orientation = data.orientation;
-        /**
-         * JEITA EXIF image color space: 'sRgb' or 'adobeRgb'.
-         * @type {string}
-         * @const
-         */
         this.colorSpace = data.colorSpace;
-        /**
-         * JSON encoded RAW image photographic details.
-         * @type {?string}
-         * @const
-         */
         this.ifd = data.ifd || null;
     }
 }
-/**
- * JFIF APP2 ICC_PROFILE segment containing an AdobeRGB1998 Color Profile.
- * @const {!Uint8Array}
- */
+/** JFIF APP2 ICC_PROFILE segment containing an AdobeRGB1998 Color Profile. */
 const adobeProfile = new Uint8Array([
     // clang-format off
     // APP2 ICC_PROFILE\0 segment header.
@@ -2303,31 +2272,20 @@ const adobeProfile = new Uint8Array([
  * Preview Image EXtractor (PIEX).
  */
 class ImageBuffer {
+    source;
+    length;
+    memory = 0;
     /**
-     * @param {!ArrayBuffer} buffer - RAW image source data.
+     * @param buffer - RAW image source data.
      */
     constructor(buffer) {
-        /**
-         * @const {!Uint8Array}
-         * @private
-         */
         this.source = new Uint8Array(buffer);
-        /**
-         * @const {number}
-         * @private
-         */
         this.length = buffer.byteLength;
-        /**
-         * @type {number}
-         * @private
-         */
-        this.memory = 0;
     }
     /**
      * Calls Module.image() to process |this.source| and return the result.
      *
      * @throws {!Error} Memory allocation error.
-     * @return {!PiexWasmImageResult}
      */
     process() {
         this.memory = PiexModule._malloc(this.length);
@@ -2345,9 +2303,7 @@ class ImageBuffer {
      * Returns the preview image data. If no preview image was found, returns
      * the thumbnail image.
      *
-     * @param {!PiexWasmImageResult} result
      * @throws {!Error} Data access security error.
-     * @return {!PiexPreviewImageData}
      */
     preview(result) {
         const preview = result.preview;
@@ -2372,10 +2328,7 @@ class ImageBuffer {
      * Returns the thumbnail image. If no thumbnail image was found, returns
      * an empty thumbnail image.
      *
-     * @private
-     * @param {!PiexWasmImageResult} result
      * @throws {!Error} Data access security error.
-     * @return {!PiexPreviewImageData}
      */
     thumbnail_(result) {
         const thumbnail = result.thumbnail;
@@ -2408,10 +2361,7 @@ class ImageBuffer {
      * Returns the RGB thumbnail. If no RGB thumbnail was found, returns
      * an empty thumbnail image.
      *
-     * @private
-     * @param {!PiexWasmImageResult} result
      * @throws {!Error} Data access security error.
-     * @return {!PiexPreviewImageData}
      */
     rgb_(result) {
         const thumbnail = result.thumbnail;
@@ -2554,14 +2504,8 @@ class ImageBuffer {
                     break;
             }
             for (let x = 0; x <= w; ++x, input += 3, output += dx) {
-                // @ts-ignore: error TS2345: Argument of type 'number | undefined' is
-                // not assignable to parameter of type 'number'.
                 bitmap.setUint8(output + 0, view[input + 2]); // B
-                // @ts-ignore: error TS2345: Argument of type 'number | undefined' is
-                // not assignable to parameter of type 'number'.
                 bitmap.setUint8(output + 1, view[input + 1]); // G
-                // @ts-ignore: error TS2345: Argument of type 'number | undefined' is
-                // not assignable to parameter of type 'number'.
                 bitmap.setUint8(output + 2, view[input + 0]); // R
             }
         }
@@ -2571,15 +2515,18 @@ class ImageBuffer {
             for (let y = 0; y < height; ++y) {
                 let output = paddingOffset;
                 switch (rowPad) {
-                    case 3:
-                        bitmap.setUint8(output++, 0);
-                    // Fallthrough
-                    case 2:
-                        bitmap.setUint8(output++, 0);
-                    // Fallthrough
                     case 1:
                         bitmap.setUint8(output++, 0);
-                    // Fallthrough
+                        break;
+                    case 2:
+                        bitmap.setUint8(output++, 0);
+                        bitmap.setUint8(output++, 0);
+                        break;
+                    case 3:
+                        bitmap.setUint8(output++, 0);
+                        bitmap.setUint8(output++, 0);
+                        bitmap.setUint8(output++, 0);
+                        break;
                 }
                 paddingOffset += rowStride;
             }
@@ -2597,10 +2544,6 @@ class ImageBuffer {
      * AdobeRGB1998 ICC Color Profile in that data if the preview is JPEG and
      * it has 'adodeRgb' color space.
      *
-     * @private
-     * @param {!PiexWasmPreviewImageMetadata} preview
-     * @param {!Uint8Array} view
-     * @return {!Uint8Array}
      */
     createImageDataArray_(view, preview) {
         const jpeg = view.byteLength > 2 && view[0] === 0xff && view[1] === 0xd8;
@@ -2618,35 +2561,23 @@ class ImageBuffer {
      * Only number and string values are retained, and they are formatted for
      * presentation to the user.
      *
-     * @private
-     * @param {!PiexWasmImageResult} result
-     * @param {number} orientation - image EXIF orientation
-     * @return {?string}
+     * @param orientation - image EXIF orientation
      */
     details_(result, orientation) {
         const details = result.details;
         if (!details) {
             return null;
         }
-        /** @type {!Object<string|number, number|string>} */
         const format = {};
-        /** @type {!Array<!Array<string|number>>} */
-        const entries = Object.entries(details);
-        for (const [key, value] of entries) {
+        for (const [key, value] of Object.entries(details)) {
             if (typeof value === 'string') {
-                // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
-                // type.
                 format[key] = value.replace(/\0+$/, '').trim();
             }
             else if (typeof value === 'number') {
                 if (!Number.isInteger(value)) {
-                    // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an
-                    // index type.
                     format[key] = Number(value.toFixed(3).replace(/0+$/, ''));
                 }
                 else {
-                    // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an
-                    // index type.
                     format[key] = value;
                 }
             }
@@ -2673,46 +2604,42 @@ class ImageBuffer {
 /**
  * PiexLoader: is a namespace.
  */
-const PiexLoader = {};
-/**
- * Loads a RAW image. Returns the image metadata and the image thumbnail in a
- * PiexLoaderResponse.
- *
- * piexModuleFailed() returns true if the Module is in an unrecoverable error
- * state. This is rare, but possible, and the only reliable way to recover is
- * to reload the page. Callback |onPiexModuleFailed| is used to indicate that
- * the caller should initiate failure recovery steps.
- *
- * @param {!ArrayBuffer} buffer
- * @param {VoidCallback} onPiexModuleFailed
- * @return {!Promise<!PiexLoaderResponse>}
- */
-PiexLoader.load = function (buffer, onPiexModuleFailed) {
-    /** @type {?ImageBuffer} */
-    let imageBuffer;
-    return piexModuleInitialized()
-        .then(() => {
-        if (piexModuleFailed()) {
-            throw new Error('piex wasm module failed');
-        }
-        imageBuffer = new ImageBuffer(buffer);
-        return imageBuffer.process();
-    })
-        .then((/** !PiexWasmImageResult */ result) => {
-        const buffer = /** @type {!ImageBuffer} */ (imageBuffer);
-        return new PiexLoaderResponse(buffer.preview(result));
-    })
-        .catch((error) => {
-        if (piexModuleFailed()) {
-            setTimeout(onPiexModuleFailed, 0);
-            return Promise.reject('piex wasm module failed');
-        }
-        console.warn('[PiexLoader] ' + error);
-        return Promise.reject(error);
-    })
-        .finally(() => {
-        imageBuffer && imageBuffer.close();
-    });
+const PiexLoader = {
+    /**
+     * Loads a RAW image. Returns the image metadata and the image thumbnail in a
+     * PiexLoaderResponse.
+     *
+     * piexModuleFailed() returns true if the Module is in an unrecoverable error
+     * state. This is rare, but possible, and the only reliable way to recover is
+     * to reload the page. Callback |onPiexModuleFailed| is used to indicate that
+     * the caller should initiate failure recovery steps.
+     *
+     */
+    load(buffer, onPiexModuleFailed) {
+        let imageBuffer;
+        return piexModuleInitialized()
+            .then(() => {
+            if (piexModuleFailed()) {
+                throw new Error('piex wasm module failed');
+            }
+            imageBuffer = new ImageBuffer(buffer);
+            return imageBuffer.process();
+        })
+            .then((result) => {
+            return new PiexLoaderResponse(imageBuffer.preview(result));
+        })
+            .catch((error) => {
+            if (piexModuleFailed()) {
+                setTimeout(onPiexModuleFailed, 0);
+                return Promise.reject('piex wasm module failed');
+            }
+            console.warn('[PiexLoader] ' + error);
+            return Promise.reject(error);
+        })
+            .finally(() => {
+            imageBuffer && imageBuffer.close();
+        });
+    },
 };
 
 // Copyright 2013 The Chromium Authors
@@ -3495,23 +3422,20 @@ class Scheduler {
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+let instance = null;
 /**
  * Loads and resizes an image.
  */
 class ImageLoader {
+    /**
+     * Persistent cache object.
+     */
+    cache_ = new ImageCache();
+    /**
+     * Manages pending requests and runs them in order of priorities.
+     */
+    scheduler_ = new Scheduler();
     constructor() {
-        /**
-         * Persistent cache object.
-         * @type {ImageCache}
-         * @private
-         */
-        this.cache_ = new ImageCache();
-        /**
-         * Manages pending requests and runs them in order of priorities.
-         * @type {Scheduler}
-         * @private
-         */
-        this.scheduler_ = new Scheduler();
         // Initialize the cache and then start the scheduler.
         this.cache_.initialize(() => this.scheduler_.start());
         // Listen for incoming requests.
@@ -3524,14 +3448,13 @@ class ImageLoader {
             }
             this.onIncomingRequest_(msg, sender.origin, sendResponse);
         });
-        // @ts-ignore: error TS7006: Parameter 'port' implicitly has an 'any' type.
-        chrome.runtime.onConnectNative.addListener((port) => {
+        chrome.runtime.onConnectNative.addListener(port => {
+            assert$1(port.sender);
             if (port.sender.nativeApplication !== 'com.google.ash_thumbnail_loader') {
                 port.disconnect();
                 return;
             }
-            // @ts-ignore: error TS7006: Parameter 'msg' implicitly has an 'any' type.
-            port.onMessage.addListener((msg) => {
+            port.onMessage.addListener(msg => {
                 // Each connection is expected to handle a single request only.
                 const started = this.onIncomingRequest_(msg, port.sender.nativeApplication, response => {
                     port.postMessage(response);
@@ -3545,17 +3468,10 @@ class ImageLoader {
     }
     /**
      * Handler for incoming requests.
-     *
-     * @param {*} request_data A LoadImageRequest (received untyped).
-     * @param {!string} senderOrigin
-     * @param {function(*): void} sendResponse
      */
-    onIncomingRequest_(request_data, senderOrigin, sendResponse) {
-        const request = /** @type {!LoadImageRequest} */ (request_data);
+    onIncomingRequest_(request, senderOrigin, sendResponse) {
         // Sending a response may fail if the receiver already went offline.
         // This is not an error, but a normal and quite common situation.
-        // @ts-ignore: error TS7006: Parameter 'response' implicitly has an 'any'
-        // type.
         const failSafeSendResponse = function (response) {
             try {
                 sendResponse(response);
@@ -3565,14 +3481,10 @@ class ImageLoader {
             }
         };
         // Incoming requests won't have the full type.
-        assert(!(request.orientation instanceof ImageOrientation));
-        assert(!(typeof request.orientation === 'number'));
+        assert$1(!(request.orientation instanceof ImageOrientation));
+        assert$1(typeof request.orientation !== 'number');
         if (request.orientation) {
-            request.orientation =
-                // @ts-ignore: error TS2345: Argument of type 'ImageTransformParam |
-                // ImageOrientation' is not assignable to parameter of type
-                // 'ImageTransformParam'.
-                ImageOrientation.fromRotationAndScale(request.orientation);
+            request.orientation = ImageOrientation.fromRotationAndScale(request.orientation);
         }
         else {
             request.orientation = new ImageOrientation(1, 0, 0, 1);
@@ -3582,14 +3494,8 @@ class ImageLoader {
     /**
      * Handles a request. Depending on type of the request, starts or stops
      * an image task.
-     *
-     * @param {string} senderOrigin Sender's origin.
-     * @param {!LoadImageRequest} request Pre-processed request.
-     * @param {(r: LoadImageResponse) => void} callback Callback to be called to
-     *     return response.
-     * @return {boolean} True if the message channel should stay alive until the
+     * @return True if the message channel should stay alive until the
      *     callback is called.
-     * @private
      */
     onMessage_(senderOrigin, request, callback) {
         const requestId = senderOrigin + ':' + request.taskId;
@@ -3598,35 +3504,23 @@ class ImageLoader {
             this.scheduler_.remove(requestId);
             return false; // No callback calls.
         }
-        else {
-            // Create a request task and add it to the scheduler (queue).
-            const requestTask = new ImageRequestTask(requestId, this.cache_, request, callback);
-            this.scheduler_.add(requestTask);
-            return true; // Request will call the callback.
-        }
+        // Create a request task and add it to the scheduler (queue).
+        const requestTask = new ImageRequestTask(requestId, this.cache_, request, callback);
+        this.scheduler_.add(requestTask);
+        return true; // Request will call the callback.
     }
     /**
-     * Returns the singleton instance.
-     * @return {ImageLoader} ImageLoader object.
+     * Returns a singleton instance.
      */
     static getInstance() {
-        // @ts-ignore: error TS2339: Property 'instance_' does not exist on type
-        // 'typeof ImageLoader'.
-        if (!ImageLoader.instance_) {
-            // @ts-ignore: error TS2339: Property 'instance_' does not exist on type
-            // 'typeof ImageLoader'.
-            ImageLoader.instance_ = new ImageLoader();
+        if (!instance) {
+            instance = new ImageLoader();
         }
-        // @ts-ignore: error TS2339: Property 'instance_' does not exist on type
-        // 'typeof ImageLoader'.
-        return ImageLoader.instance_;
+        return instance;
     }
 }
 /**
  * List of extensions allowed to perform image requests.
- *
- * @const
- * @type {Array<string>}
  */
 const ALLOWED_CLIENT_ORIGINS = [
     'chrome://file-manager', // File Manager SWA

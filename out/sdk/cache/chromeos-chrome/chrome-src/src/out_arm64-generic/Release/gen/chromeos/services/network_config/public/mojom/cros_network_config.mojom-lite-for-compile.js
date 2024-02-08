@@ -6477,7 +6477,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'paymentPortal', 184,
+        'simLockType', 184,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'paymentPortal', 192,
         0,
         chromeos.networkConfig.mojom.PaymentPortalPropertiesSpec.$,
         null,
@@ -6485,7 +6493,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'roamingState', 192,
+        'roamingState', 200,
         0,
         mojo.internal.String,
         null,
@@ -6493,7 +6501,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'selectedApn', 200,
+        'selectedApn', 208,
         0,
         chromeos.networkConfig.mojom.ManagedApnPropertiesSpec.$,
         null,
@@ -6501,7 +6509,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'servingOperator', 208,
+        'servingOperator', 216,
         0,
         chromeos.networkConfig.mojom.CellularProviderPropertiesSpec.$,
         null,
@@ -6509,7 +6517,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'signalStrength', 216,
+        'signalStrength', 224,
         0,
         mojo.internal.Int32,
         0,
@@ -6525,7 +6533,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 232],]);
+    [[0, 240],]);
 
 
 
@@ -6582,6 +6590,8 @@ chromeos.networkConfig.mojom.ManagedCellularProperties = class {
     this.modelId;
     /** @export { (string|undefined) } */
     this.networkTechnology;
+    /** @export { !string } */
+    this.simLockType;
     /** @export { (chromeos.networkConfig.mojom.PaymentPortalProperties|undefined) } */
     this.paymentPortal;
     /** @export { (string|undefined) } */

@@ -31,12 +31,17 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
         <template is="dom-if" if="[[shouldShowWallpaperInfoDialog_(index, currentShowWallpaperInfoDialog_)]]" restamp>
           <cr-dialog id="wallpaperInfoDialog" data-id$="[[index]]" on-close="onCloseDialog_" show-on-attach>
             <div slot="body">
-              <h2>Wallpaper Info</h2>
-              <p>[[getWallpaperInfoMessage_(image, recentImageData_, recentImageDataLoading_)]]</p>
+              <h2>[[i18n('seaPenAboutDialogTitle')]]</h2>
+              <p>
+                [[getWallpaperInfoPromptMessage_(image, recentImageData_, recentImageDataLoading_)]]
+              </p>
+              <p>
+                [[getWallpaperInfoDateMessage_(image, recentImageData_, recentImageDataLoading_)]]
+              </p>
             </div>
             <div slot="button-container">
               <cr-button id="wallpaperInfoCloseButton" class="action-button primary" on-click="onCloseDialog_">
-                Close
+                [[i18n('seaPenAboutDialogClose')]]
               </cr-button>
             </div>
           </cr-dialog>

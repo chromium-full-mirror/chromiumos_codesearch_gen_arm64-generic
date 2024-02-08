@@ -288,9 +288,12 @@ export class OsSettingsAppsPageElement extends OsSettingsAppsPageElementBase {
     onQuietModeChanged(enabled) {
         this.isDndEnabled_ = enabled;
     }
-    getAppListCountDescription_() {
+    getAppNotificationsRowSublabel_() {
+        if (this.isRevampWayfindingEnabled_) {
+            return this.i18n('appNotificationsRowSublabel');
+        }
         return this.isDndEnabled_ ?
-            this.i18n('appNotificationsDoNotDisturbDescription') :
+            this.i18n('appNotificationsDoNotDisturbEnabledDescription') :
             this.i18n('appNotificationsCountDescription', this.appsWithNotifications_.length);
     }
 }

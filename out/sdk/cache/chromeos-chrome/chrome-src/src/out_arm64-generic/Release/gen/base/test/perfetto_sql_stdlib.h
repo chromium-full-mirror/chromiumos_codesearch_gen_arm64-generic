@@ -489,7 +489,7 @@ R"_d3l1m1t3r_(    'and LayoutUpdate) are updatedon the Renderer Main thread ' ||
   ('ReceiveCompositorFrameToStartDraw',
     'Interval between the first frame received to when all frames (or ' ||
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    'timeouts have occured) and we start drawing. It can be blocked by ' ||
+R"_d3l1m1t3r_(    'timeouts have occurred) and we start drawing. It can be blocked by ' ||
     'other processes (e.g to draw a toolbar it waiting for information from ' ||
     'the Browser) as it waits for timeouts or frames to be provided. This ' ||
     'is the tree of dependencies that the GPU VizCompositor is waiting for ' ||
@@ -3188,7 +3188,7 @@ const char kScrollJankUtils[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Aut
 -- (1ns) divided by maximum value in denominator, giving 1e-9.
 
 -- Function : function takes scroll ids of frames to verify it's from
--- the same scroll, and makes sure the frame ts occured within the scroll
+-- the same scroll, and makes sure the frame ts occurred within the scroll
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(-- timestamp of the neighbour and computes whether the frame was janky or not.
 CREATE PERFETTO FUNCTION _is_janky_frame(cur_gesture_id LONG,

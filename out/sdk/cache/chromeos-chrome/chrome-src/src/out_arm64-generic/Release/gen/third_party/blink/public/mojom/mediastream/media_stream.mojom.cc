@@ -1483,9 +1483,6 @@ MediaStreamDispatcherHost::IPCStableHashFunction MediaStreamDispatcherHost::Mess
     case internal::kMediaStreamDispatcherHost_SendWheel_Name: {
       return &MediaStreamDispatcherHost::SendWheel_Sym::IPCStableHash;
     }
-    case internal::kMediaStreamDispatcherHost_GetZoomLevel_Name: {
-      return &MediaStreamDispatcherHost::GetZoomLevel_Sym::IPCStableHash;
-    }
     case internal::kMediaStreamDispatcherHost_SetZoomLevel_Name: {
       return &MediaStreamDispatcherHost::SetZoomLevel_Sym::IPCStableHash;
     }
@@ -1526,8 +1523,6 @@ const char* MediaStreamDispatcherHost::MessageToMethodName_(mojo::Message& messa
             return "Receive blink::mojom::MediaStreamDispatcherHost::ApplySubCaptureTarget";
       case internal::kMediaStreamDispatcherHost_SendWheel_Name:
             return "Receive blink::mojom::MediaStreamDispatcherHost::SendWheel";
-      case internal::kMediaStreamDispatcherHost_GetZoomLevel_Name:
-            return "Receive blink::mojom::MediaStreamDispatcherHost::GetZoomLevel";
       case internal::kMediaStreamDispatcherHost_SetZoomLevel_Name:
             return "Receive blink::mojom::MediaStreamDispatcherHost::SetZoomLevel";
       case internal::kMediaStreamDispatcherHost_GetOpenDevice_Name:
@@ -1557,8 +1552,6 @@ const char* MediaStreamDispatcherHost::MessageToMethodName_(mojo::Message& messa
             return "Receive reply blink::mojom::MediaStreamDispatcherHost::ApplySubCaptureTarget";
       case internal::kMediaStreamDispatcherHost_SendWheel_Name:
             return "Receive reply blink::mojom::MediaStreamDispatcherHost::SendWheel";
-      case internal::kMediaStreamDispatcherHost_GetZoomLevel_Name:
-            return "Receive reply blink::mojom::MediaStreamDispatcherHost::GetZoomLevel";
       case internal::kMediaStreamDispatcherHost_SetZoomLevel_Name:
             return "Receive reply blink::mojom::MediaStreamDispatcherHost::SetZoomLevel";
       case internal::kMediaStreamDispatcherHost_GetOpenDevice_Name:
@@ -1709,19 +1702,6 @@ uint32_t MediaStreamDispatcherHost::SendWheel_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t MediaStreamDispatcherHost::GetZoomLevel_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::MediaStreamDispatcherHost::GetZoomLevel");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t MediaStreamDispatcherHost::SetZoomLevel_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -1829,22 +1809,6 @@ class MediaStreamDispatcherHost_SendWheel_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   MediaStreamDispatcherHost::SendWheelCallback callback_;
-};
-
-class MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback(
-      MediaStreamDispatcherHost::GetZoomLevelCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback(const MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback&) = delete;
-  MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback& operator=(const MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  MediaStreamDispatcherHost::GetZoomLevelCallback callback_;
 };
 
 class MediaStreamDispatcherHost_SetZoomLevel_ForwardToCallback
@@ -2503,58 +2467,6 @@ void MediaStreamDispatcherHostProxy::SendWheel(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new MediaStreamDispatcherHost_SendWheel_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void MediaStreamDispatcherHostProxy::GetZoomLevel(
-    const ::base::UnguessableToken& in_device_id, GetZoomLevelCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send blink::mojom::MediaStreamDispatcherHost::GetZoomLevel", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("device_id"), in_device_id,
-                        "<value of type const ::base::UnguessableToken&>");
-   });
-#endif
-
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kMediaStreamDispatcherHost_GetZoomLevel_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::MediaStreamDispatcherHost_GetZoomLevel_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->device_id)::BaseType> device_id_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::UnguessableTokenDataView>(
-      in_device_id, device_id_fragment);
-  params->device_id.Set(
-      device_id_fragment.is_null() ? nullptr : device_id_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->device_id.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null device_id in MediaStreamDispatcherHost.GetZoomLevel request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(MediaStreamDispatcherHost::Name_);
-  message.set_method_name("GetZoomLevel");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -3401,140 +3313,6 @@ void MediaStreamDispatcherHost_SendWheel_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static MediaStreamDispatcherHost::GetZoomLevelCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder> proxy(
-        new MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "MediaStreamDispatcherHost::GetZoomLevelCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      std::optional<int32_t> in_zoom_level, CapturedSurfaceControlResult in_result);
-};
-
-bool MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  
-  // Validation for MediaStreamDispatcherHost.10
-  bool success = true;
-  std::optional<int32_t> p_zoom_level{};
-  CapturedSurfaceControlResult p_result{};
-  MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success) {
-    p_zoom_level = input_data_view.zoom_level();
-  }
-  if (success && !input_data_view.ReadResult(&p_result))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        MediaStreamDispatcherHost::Name_, 10, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_zoom_level), 
-std::move(p_result));
-  return true;
-}
-
-void MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder::Run(
-    std::optional<int32_t> in_zoom_level, CapturedSurfaceControlResult in_result) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply blink::mojom::MediaStreamDispatcherHost::GetZoomLevel", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("zoom_level"), in_zoom_level,
-                        "<value of type std::optional<int32_t>>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("result"), in_result,
-                        "<value of type CapturedSurfaceControlResult>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kMediaStreamDispatcherHost_GetZoomLevel_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->zoom_level_$flag = in_zoom_level.has_value();
-  if (in_zoom_level.has_value()) {
-    params->zoom_level_$value = in_zoom_level.value();
-  }
-  mojo::internal::Serialize<::blink::mojom::CapturedSurfaceControlResult>(
-      in_result, &params->result);
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(MediaStreamDispatcherHost::Name_);
-  message.set_method_name("GetZoomLevel");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
 class MediaStreamDispatcherHost_SetZoomLevel_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static MediaStreamDispatcherHost::SetZoomLevelCallback CreateCallback(
@@ -3594,7 +3372,7 @@ bool MediaStreamDispatcherHost_SetZoomLevel_ForwardToCallback::Accept(
               message->mutable_payload());
   
   
-  // Validation for MediaStreamDispatcherHost.11
+  // Validation for MediaStreamDispatcherHost.10
   bool success = true;
   CapturedSurfaceControlResult p_result{};
   MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsDataView input_data_view(params, message);
@@ -3605,7 +3383,7 @@ bool MediaStreamDispatcherHost_SetZoomLevel_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        MediaStreamDispatcherHost::Name_, 11, true);
+        MediaStreamDispatcherHost::Name_, 10, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3716,7 +3494,7 @@ bool MediaStreamDispatcherHost_GetOpenDevice_ForwardToCallback::Accept(
               message->mutable_payload());
   
   
-  // Validation for MediaStreamDispatcherHost.12
+  // Validation for MediaStreamDispatcherHost.11
   bool success = true;
   MediaStreamRequestResult p_result{};
   GetOpenDeviceResponsePtr p_response{};
@@ -3730,7 +3508,7 @@ bool MediaStreamDispatcherHost_GetOpenDevice_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        MediaStreamDispatcherHost::Name_, 12, true);
+        MediaStreamDispatcherHost::Name_, 11, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3802,7 +3580,7 @@ bool MediaStreamDispatcherHost_GetOpenDevice_HandleSyncResponse::Accept(
           message->mutable_payload());
   
   
-  // Validation for MediaStreamDispatcherHost.12
+  // Validation for MediaStreamDispatcherHost.11
   bool success = true;
   MediaStreamRequestResult p_result{};
   GetOpenDeviceResponsePtr p_response{};
@@ -3816,7 +3594,7 @@ bool MediaStreamDispatcherHost_GetOpenDevice_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        MediaStreamDispatcherHost::Name_, 12, true);
+        MediaStreamDispatcherHost::Name_, 11, true);
     return false;
   }
   *out_result_ = std::move(p_result);
@@ -3883,7 +3661,7 @@ bool MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ForwardToCallback::Acc
               message->mutable_payload());
   
   
-  // Validation for MediaStreamDispatcherHost.13
+  // Validation for MediaStreamDispatcherHost.12
   bool success = true;
   bool p_device_found{};
   MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ResponseParamsDataView input_data_view(params, message);
@@ -3894,7 +3672,7 @@ bool MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ForwardToCallback::Acc
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        MediaStreamDispatcherHost::Name_, 13, true);
+        MediaStreamDispatcherHost::Name_, 12, true);
     return false;
   }
   if (!callback_.is_null())
@@ -4147,9 +3925,6 @@ bool MediaStreamDispatcherHostStubDispatch::Accept(
     case internal::kMediaStreamDispatcherHost_SendWheel_Name: {
       break;
     }
-    case internal::kMediaStreamDispatcherHost_GetZoomLevel_Name: {
-      break;
-    }
     case internal::kMediaStreamDispatcherHost_SetZoomLevel_Name: {
       break;
     }
@@ -4350,37 +4125,6 @@ bool MediaStreamDispatcherHostStubDispatch::AcceptWithResponder(
         std::move(p_action), std::move(callback));
       return true;
     }
-    case internal::kMediaStreamDispatcherHost_GetZoomLevel_Name: {
-
-      internal::MediaStreamDispatcherHost_GetZoomLevel_Params_Data* params =
-          reinterpret_cast<
-              internal::MediaStreamDispatcherHost_GetZoomLevel_Params_Data*>(
-                  message->mutable_payload());
-      
-      
-      // Validation for MediaStreamDispatcherHost.10
-      bool success = true;
-      ::base::UnguessableToken p_device_id{};
-      MediaStreamDispatcherHost_GetZoomLevel_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadDeviceId(&p_device_id))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaStreamDispatcherHost::Name_, 10, false);
-        return false;
-      }
-      MediaStreamDispatcherHost::GetZoomLevelCallback callback =
-          MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetZoomLevel(        
-        std::move(p_device_id), std::move(callback));
-      return true;
-    }
     case internal::kMediaStreamDispatcherHost_SetZoomLevel_Name: {
 
       internal::MediaStreamDispatcherHost_SetZoomLevel_Params_Data* params =
@@ -4389,7 +4133,7 @@ bool MediaStreamDispatcherHostStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       
-      // Validation for MediaStreamDispatcherHost.11
+      // Validation for MediaStreamDispatcherHost.10
       bool success = true;
       ::base::UnguessableToken p_device_id{};
       int32_t p_zoom_level{};
@@ -4403,7 +4147,7 @@ bool MediaStreamDispatcherHostStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaStreamDispatcherHost::Name_, 11, false);
+            MediaStreamDispatcherHost::Name_, 10, false);
         return false;
       }
       MediaStreamDispatcherHost::SetZoomLevelCallback callback =
@@ -4424,7 +4168,7 @@ bool MediaStreamDispatcherHostStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       
-      // Validation for MediaStreamDispatcherHost.12
+      // Validation for MediaStreamDispatcherHost.11
       bool success = true;
       int32_t p_request_id{};
       ::base::UnguessableToken p_session_id{};
@@ -4441,7 +4185,7 @@ bool MediaStreamDispatcherHostStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaStreamDispatcherHost::Name_, 12, false);
+            MediaStreamDispatcherHost::Name_, 11, false);
         return false;
       }
       MediaStreamDispatcherHost::GetOpenDeviceCallback callback =
@@ -4463,7 +4207,7 @@ bool MediaStreamDispatcherHostStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       
-      // Validation for MediaStreamDispatcherHost.13
+      // Validation for MediaStreamDispatcherHost.12
       bool success = true;
       ::base::UnguessableToken p_session_id{};
       ::base::UnguessableToken p_transfer_id{};
@@ -4477,7 +4221,7 @@ bool MediaStreamDispatcherHostStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaStreamDispatcherHost::Name_, 13, false);
+            MediaStreamDispatcherHost::Name_, 12, false);
         return false;
       }
       MediaStreamDispatcherHost::KeepDeviceAliveForTransferCallback callback =
@@ -4516,8 +4260,6 @@ static const mojo::internal::GenericValidationInfo kMediaStreamDispatcherHostVal
      &internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data::Validate},
     { &internal::MediaStreamDispatcherHost_SendWheel_Params_Data::Validate,
      &internal::MediaStreamDispatcherHost_SendWheel_ResponseParams_Data::Validate},
-    { &internal::MediaStreamDispatcherHost_GetZoomLevel_Params_Data::Validate,
-     &internal::MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data::Validate},
     { &internal::MediaStreamDispatcherHost_SetZoomLevel_Params_Data::Validate,
      &internal::MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data::Validate},
     { &internal::MediaStreamDispatcherHost_GetOpenDevice_Params_Data::Validate,
@@ -5050,9 +4792,6 @@ void MediaStreamDispatcherHostInterceptorForTesting::ApplySubCaptureTarget(const
 void MediaStreamDispatcherHostInterceptorForTesting::SendWheel(const ::base::UnguessableToken& device_id, CapturedWheelActionPtr action, SendWheelCallback callback) {
   GetForwardingInterface()->SendWheel(std::move(device_id), std::move(action), std::move(callback));
 }
-void MediaStreamDispatcherHostInterceptorForTesting::GetZoomLevel(const ::base::UnguessableToken& device_id, GetZoomLevelCallback callback) {
-  GetForwardingInterface()->GetZoomLevel(std::move(device_id), std::move(callback));
-}
 void MediaStreamDispatcherHostInterceptorForTesting::SetZoomLevel(const ::base::UnguessableToken& device_id, int32_t zoom_level, SetZoomLevelCallback callback) {
   GetForwardingInterface()->SetZoomLevel(std::move(device_id), std::move(zoom_level), std::move(callback));
 }
@@ -5168,28 +4907,6 @@ CapturedSurfaceControlResult MediaStreamDispatcherHostAsyncWaiter::SendWheel(
   SendWheel(std::move(device_id),std::move(action),&async_wait_result);
   return async_wait_result;
 }
-
-void MediaStreamDispatcherHostAsyncWaiter::GetZoomLevel(
-    const ::base::UnguessableToken& device_id, std::optional<int32_t>* out_zoom_level, CapturedSurfaceControlResult* out_result) {
-  base::RunLoop loop;
-  proxy_->GetZoomLevel(std::move(device_id),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             std::optional<int32_t>* out_zoom_level
-,
-             CapturedSurfaceControlResult* out_result
-,
-             std::optional<int32_t> zoom_level,
-             CapturedSurfaceControlResult result) {*out_zoom_level = std::move(zoom_level);*out_result = std::move(result);
-            loop->Quit();
-          },
-          &loop,
-          out_zoom_level,
-          out_result));
-  loop.Run();
-}
-
-
 
 void MediaStreamDispatcherHostAsyncWaiter::SetZoomLevel(
     const ::base::UnguessableToken& device_id, int32_t zoom_level, CapturedSurfaceControlResult* out_result) {

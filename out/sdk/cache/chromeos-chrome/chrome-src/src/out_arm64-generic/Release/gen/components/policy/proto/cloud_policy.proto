@@ -46,6 +46,7 @@ message CloudPolicySubProto1 {
   optional BooleanPolicyProto KerberosUseCustomPrefilledConfig = 13;
   optional BooleanPolicyProto KioskTroubleshootingToolsEnabled = 16;
   optional BooleanPolicyProto AllowBackForwardCacheForCacheControlNoStorePageEnabled = 74;
+  optional StringListPolicyProto AllowedDomainsForAppsList = 172;
   optional StringListPolicyProto AlwaysOnVpnPreConnectUrlAllowlist = 150;
   optional StringPolicyProto AppLaunchAutomation = 54;
   optional IntegerPolicyProto ArcVmDataMigrationStrategy = 85;
@@ -80,6 +81,7 @@ message CloudPolicySubProto1 {
   optional BooleanPolicyProto PostQuantumKeyAgreementEnabled = 77;
   optional BooleanPolicyProto QuickOfficeForceFileDownloadEnabled = 111;
   optional BooleanPolicyProto RSAKeyUsageForLocalAnchorsEnabled = 70;
+  optional StringPolicyProto ScreenCaptureLocation = 171;
   optional StringListPolicyProto ScreenCaptureWithoutGestureAllowedForOrigins = 52;
   optional BooleanPolicyProto ShortcutCustomizationAllowed = 107;
   optional BooleanPolicyProto ShowDisplaySizeScreenEnabled = 59;

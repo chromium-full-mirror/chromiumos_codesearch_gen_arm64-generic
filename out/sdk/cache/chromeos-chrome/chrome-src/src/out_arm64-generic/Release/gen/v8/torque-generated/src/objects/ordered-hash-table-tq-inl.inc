@@ -34,7 +34,7 @@ inline std::tuple<Tagged<Object>, intptr_t, intptr_t> TqRuntimeFieldSliceSmallOr
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/ordered-hash-table.tq?l=114&c=3
 inline std::tuple<Tagged<Object>, intptr_t, intptr_t> TqRuntimeFieldSliceSmallOrderedNameDictionaryChainTable(Tagged<SmallOrderedNameDictionary> p_o);
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=610&c=47
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=611&c=47
 inline intptr_t TqRuntimeConvert_intptr_constexpr_IntegerLiteral_0(IntegerLiteral p_i);
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/convert.tq?l=8&c=1
@@ -469,7 +469,7 @@ std::tuple<Tagged<Object>, intptr_t, intptr_t> TqRuntimeFieldSliceSmallOrderedNa
 #ifndef V8_INTERNAL_DEFINED_TqRuntimeConvert_intptr_constexpr_IntegerLiteral_0
 #define V8_INTERNAL_DEFINED_TqRuntimeConvert_intptr_constexpr_IntegerLiteral_0
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=610&c=47
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=611&c=47
 intptr_t TqRuntimeConvert_intptr_constexpr_IntegerLiteral_0(IntegerLiteral p_i) {
   DisallowGarbageCollection no_gc;
   intptr_t tmp0{}; USE(tmp0);

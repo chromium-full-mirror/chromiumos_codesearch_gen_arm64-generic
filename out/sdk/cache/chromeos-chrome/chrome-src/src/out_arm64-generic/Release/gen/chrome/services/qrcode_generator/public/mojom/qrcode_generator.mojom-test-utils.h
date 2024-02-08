@@ -13,27 +13,6 @@
 namespace qrcode_generator::mojom {
 
 
-class  QRCodeGeneratorServiceInterceptorForTesting : public QRCodeGeneratorService {
-  virtual QRCodeGeneratorService* GetForwardingInterface() = 0;
-  void GenerateQRCode(GenerateQRCodeRequestPtr request, GenerateQRCodeCallback callback) override;
-};
-class  QRCodeGeneratorServiceAsyncWaiter {
- public:
-  explicit QRCodeGeneratorServiceAsyncWaiter(QRCodeGeneratorService* proxy);
-
-  QRCodeGeneratorServiceAsyncWaiter(const QRCodeGeneratorServiceAsyncWaiter&) = delete;
-  QRCodeGeneratorServiceAsyncWaiter& operator=(const QRCodeGeneratorServiceAsyncWaiter&) = delete;
-
-  ~QRCodeGeneratorServiceAsyncWaiter();
-  void GenerateQRCode(
-      GenerateQRCodeRequestPtr request, GenerateQRCodeResponsePtr* out_response);
-  GenerateQRCodeResponsePtr GenerateQRCode(GenerateQRCodeRequestPtr request);
-
- private:
-  QRCodeGeneratorService* const proxy_;
-};
-
-
 
 
 }  // qrcode_generator::mojom

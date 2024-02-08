@@ -13,9 +13,6 @@
 import '//resources/cr_elements/cr_shared_vars.css.js';
 import '//resources/cr_elements/md_select.css.js';
 import '//resources/cr_elements/policy/cr_policy_pref_indicator.js';
-// 
-import '//resources/cr_elements/chromeos/cros_color_overrides.css.js';
-// 
 import { assert } from '//resources/js/assert.js';
 import { microTask, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { CrPolicyPrefMixin } from '/shared/settings/controls/cr_policy_pref_mixin.js';

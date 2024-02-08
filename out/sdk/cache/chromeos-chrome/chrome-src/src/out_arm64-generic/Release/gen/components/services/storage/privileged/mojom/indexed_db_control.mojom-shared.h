@@ -69,10 +69,8 @@ enum class ForceCloseReason : int32_t {
   FORCE_CLOSE_INTERNALS_PAGE = 2,
   
   FORCE_CLOSE_COPY_ORIGIN = 3,
-  
-  FORCE_SCHEMA_DOWNGRADE_INTERNALS_PAGE = 4,
   kMinValue = 0,
-  kMaxValue = 4,
+  kMaxValue = 3,
 };
 
  std::ostream& operator<<(std::ostream& os, ForceCloseReason value);

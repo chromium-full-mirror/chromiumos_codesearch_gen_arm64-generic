@@ -1,38 +1,6 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Mixin for scrollable containers with <iron-list>.
- *
- * Any containers with the 'scrollable' attribute set will have the following
- * classes toggled appropriately: can-scroll, is-scrolled, scrolled-to-bottom.
- * These classes are used to style the container div and list elements
- * appropriately, see cr_shared_style.css.
- *
- * The associated HTML should look something like:
- *   <div id="container" scrollable>
- *     <iron-list items="[[items]]" scroll-target="container">
- *       <template>
- *         <my-element item="[[item]] tabindex$="[[tabIndex]]"></my-element>
- *       </template>
- *     </iron-list>
- *   </div>
- *
- * In order to get correct keyboard focus (tab) behavior within the list,
- * any elements with tabbable sub-elements also need to set tabindex, e.g:
- *
- * <dom-module id="my-element>
- *   <template>
- *     ...
- *     <paper-icon-button toggles active="{{opened}}" tabindex$="[[tabindex]]">
- *   </template>
- * </dom-module>
- *
- * NOTE: If 'container' is not fixed size, it is important to call
- * updateScrollableContents() when [[items]] changes, otherwise the container
- * will not be sized correctly.
- */
-// clang-format off
 import { beforeNextRender, dedupingMixin, microTask } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export const CrScrollableMixin = dedupingMixin((superClass) => {
     class CrScrollableMixin extends superClass {

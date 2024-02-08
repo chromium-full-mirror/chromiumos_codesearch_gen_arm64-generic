@@ -29,7 +29,6 @@ const OobeWelcomeDialogBase = mixinBehaviors([OobeI18nBehavior, OobeDialogHostBe
  * @typedef {{
  *   title:  HTMLAnchorElement,
  *   chromeVoxHint:  OobeModalDialog,
- *   welcomeAnimation:  OobeCrLottie,
  * }}
  */
 OobeWelcomeDialogBase.$;
@@ -99,9 +98,6 @@ export class OobeWelcomeDialog extends OobeWelcomeDialogBase {
         super();
         this.currentLanguage = '';
         this.timezoneButtonVisible = false;
-        /**
-         * @private {LongTouchDetector}
-         */
         this.titleLongTouchDetector_ = null;
         /**
          * This is stored ID of currently focused element to restore id on returns

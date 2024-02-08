@@ -574,6 +574,7 @@ TFC(WasmStringMeasureUtf8, WasmStringMeasureUtf8) \
 TFC(WasmStringMeasureWtf8, WasmStringMeasureWtf8) \
 TFC(WasmStringEncodeWtf8, WasmStringEncodeWtf8) \
 TFC(WasmStringEncodeWtf8Array, WasmStringEncodeWtf8Array) \
+TFC(WasmStringToUtf8Array, WasmStringToUtf8Array) \
 TFC(WasmStringEncodeWtf16, WasmStringEncodeWtf16) \
 TFC(WasmStringEncodeWtf16Array, WasmStringEncodeWtf16Array) \
 TFC(ThrowToLowerCaseCalledOnNull, ThrowToLowerCaseCalledOnNull) \
@@ -607,6 +608,7 @@ TFJ(WebAssemblyStringTest, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringFromWtf16Array, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringFromUtf8Array, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringIntoUtf8Array, kDontAdaptArgumentsSentinel) \
+TFJ(WebAssemblyStringToUtf8Array, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringToWtf16Array, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringFromCharCode, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringFromCodePoint, kDontAdaptArgumentsSentinel) \

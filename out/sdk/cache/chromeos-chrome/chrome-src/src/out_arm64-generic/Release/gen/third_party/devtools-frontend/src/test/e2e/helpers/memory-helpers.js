@@ -3,7 +3,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDistanceFromCategoryRow = exports.getSizesFromSelectedRow = exports.expandFocusedRow = exports.focusTableRow = exports.changeAllocationSampleViewViaDropdown = exports.changeViewViaDropdown = exports.waitForRetainerChain = exports.appearsInOrder = exports.waitUntilRetainerChainSatisfies = exports.assertRetainerChainSatisfies = exports.findSearchResult = exports.waitForSearchResultNumber = exports.setSearchFilter = exports.triggerLocalFindDialog = exports.setClassFilter = exports.getDataGridRows = exports.waitForNonEmptyHeapSnapshotData = exports.waitForHeapSnapshotData = exports.takeHeapSnapshot = exports.takeAllocationTimelineProfile = exports.takeAllocationProfile = exports.navigateToMemoryTab = exports.MEMORY_TAB_ID = void 0;
+exports.getDistanceFromCategoryRow = exports.getSizesFromCategoryRow = exports.getSizesFromSelectedRow = exports.expandFocusedRow = exports.focusTableRow = exports.changeAllocationSampleViewViaDropdown = exports.changeViewViaDropdown = exports.waitForRetainerChain = exports.appearsInOrder = exports.waitUntilRetainerChainSatisfies = exports.assertRetainerChainSatisfies = exports.findSearchResult = exports.waitForSearchResultNumber = exports.setSearchFilter = exports.triggerLocalFindDialog = exports.setClassFilter = exports.getDataGridRows = exports.waitForNonEmptyHeapSnapshotData = exports.waitForHeapSnapshotData = exports.takeHeapSnapshot = exports.takeAllocationTimelineProfile = exports.takeAllocationProfile = exports.navigateToMemoryTab = exports.MEMORY_TAB_ID = void 0;
 const chai_1 = require("chai");
 const helper_js_1 = require("../../shared/helper.js");
 const NEW_HEAP_SNAPSHOT_BUTTON = 'button[aria-label="Take heap snapshot"]';
@@ -268,8 +268,7 @@ async function expandFocusedRow() {
     await (0, helper_js_1.waitFor)('.selected.data-grid-data-grid-node.expanded');
 }
 exports.expandFocusedRow = expandFocusedRow;
-async function getSizesFromSelectedRow() {
-    const row = await (0, helper_js_1.waitFor)('.selected.data-grid-data-grid-node');
+async function getSizesFromRow(row) {
     const numericData = await (0, helper_js_1.$$)('.numeric-column>.profile-multiple-values>span', row);
     chai_1.assert.strictEqual(numericData.length, 4);
     function readNumber(e) {
@@ -280,9 +279,21 @@ async function getSizesFromSelectedRow() {
     chai_1.assert.isTrue(retainedSize >= shallowSize);
     return { shallowSize, retainedSize };
 }
+async function getSizesFromSelectedRow() {
+    const row = await (0, helper_js_1.waitFor)('.selected.data-grid-data-grid-node');
+    return await getSizesFromRow(row);
+}
 exports.getSizesFromSelectedRow = getSizesFromSelectedRow;
+async function getCategoryRow(text) {
+    return await (0, helper_js_1.waitFor)(`//td[text()="${text}"]/ancestor::tr`, undefined, undefined, 'xpath');
+}
+async function getSizesFromCategoryRow(text) {
+    const row = await getCategoryRow(text);
+    return await getSizesFromRow(row);
+}
+exports.getSizesFromCategoryRow = getSizesFromCategoryRow;
 async function getDistanceFromCategoryRow(text) {
-    const row = await (0, helper_js_1.waitFor)(`//td[text()="${text}"]/ancestor::tr`, undefined, undefined, 'xpath');
+    const row = await getCategoryRow(text);
     const numericColumns = await (0, helper_js_1.$$)('.numeric-column', row);
     return await numericColumns[0].evaluate(e => parseInt(e.textContent, 10));
 }

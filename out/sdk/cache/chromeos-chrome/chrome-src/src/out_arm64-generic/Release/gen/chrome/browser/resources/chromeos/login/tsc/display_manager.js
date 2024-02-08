@@ -144,6 +144,8 @@ export class DisplayManager {
     }
     /**
      * Forces keyboard based OOBE navigation.
+     * TODO(b/322301624): Remove suppress once during TS migration.
+     * @suppress {missingProperties} keyboard_utils_oobe is now migrated to TS.
      * @param {boolean} value True if keyboard navigation flow is forced.
      */
     set forceKeyboardFlow(value) {

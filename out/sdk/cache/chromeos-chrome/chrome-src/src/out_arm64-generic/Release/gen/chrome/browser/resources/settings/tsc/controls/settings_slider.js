@@ -9,8 +9,6 @@
  */
 import '//resources/cr_elements/cr_shared_vars.css.js';
 import '//resources/cr_elements/cr_slider/cr_slider.js';
-// 
-import '//resources/cr_elements/chromeos/cros_color_overrides.css.js';
 import { assert } from '//resources/js/assert.js';
 import { loadTimeData } from '//resources/js/load_time_data.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';

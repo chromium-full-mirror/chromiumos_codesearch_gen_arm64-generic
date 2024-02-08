@@ -201,47 +201,47 @@ html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-
 `;
 document.head.appendChild(template$7.content);
 
-const styleMod$a = document.createElement('dom-module');
-styleMod$a.appendChild(html `
+const styleMod$9 = document.createElement('dom-module');
+styleMod$9.appendChild(html `
   <template>
     <style>
 :host{color:var(--cr-primary-text-color);line-height:154%;overflow:hidden;user-select:text}
     </style>
   </template>
 `.content);
-styleMod$a.register('cr-page-host-style');
+styleMod$9.register('cr-page-host-style');
 
-const styleMod$9 = document.createElement('dom-module');
-styleMod$9.appendChild(html `
+const styleMod$8 = document.createElement('dom-module');
+styleMod$8.appendChild(html `
   <template>
     <style>
 :host([hidden]),[hidden]{display:none!important}
     </style>
   </template>
 `.content);
-styleMod$9.register('cr-hidden-style');
+styleMod$8.register('cr-hidden-style');
 
-const styleMod$8 = document.createElement('dom-module');
-styleMod$8.appendChild(html `
+const styleMod$7 = document.createElement('dom-module');
+styleMod$7.appendChild(html `
   <template>
     <style>
 .icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
     </style>
   </template>
 `.content);
-styleMod$8.register('cr-icons');
+styleMod$7.register('cr-icons');
 
-const styleMod$7 = document.createElement('dom-module');
-styleMod$7.appendChild(html `
+const styleMod$6 = document.createElement('dom-module');
+styleMod$6.appendChild(html `
   <template>
     <style include="cr-hidden-style cr-icons">
 :host,html{--scrollable-border-color:var(--google-grey-300)}@media (prefers-color-scheme:dark){:host,html{--scrollable-border-color:var(--google-grey-700)}}[actionable]{cursor:pointer}.hr{border-top:var(--cr-separator-line)}iron-list.cr-separators>:not([first]){border-top:var(--cr-separator-line)}[scrollable]{border-color:transparent;border-style:solid;border-width:1px 0;overflow-y:auto}[scrollable].is-scrolled{border-top-color:var(--scrollable-border-color)}[scrollable].can-scroll:not(.scrolled-to-bottom){border-bottom-color:var(--scrollable-border-color)}[scrollable] iron-list>:not(.no-outline):focus,[selectable]:focus,[selectable]>:focus{background-color:var(--cr-focused-item-color);outline:0}.scroll-container{display:flex;flex-direction:column;min-height:1px}[selectable]>*{cursor:pointer}.cr-centered-card-container{box-sizing:border-box;display:block;height:inherit;margin:0 auto;max-width:var(--cr-centered-card-max-width);min-width:550px;position:relative;width:calc(100% * var(--cr-centered-card-width-percentage))}.cr-container-shadow{box-shadow:inset 0 5px 6px -3px rgba(0,0,0,.4);height:var(--cr-container-shadow-height);left:0;margin:0 0 var(--cr-container-shadow-margin);opacity:0;pointer-events:none;position:relative;right:0;top:0;transition:opacity .5s;z-index:1}#cr-container-shadow-bottom{margin-bottom:0;margin-top:var(--cr-container-shadow-margin);transform:scaleY(-1)}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{opacity:var(--cr-container-shadow-max-opacity)}.cr-row{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--cr-section-min-height);padding:0 var(--cr-section-padding)}.cr-row.continuation,.cr-row.first{border-top:none}.cr-row-gap{padding-inline-start:16px}.cr-button-gap{margin-inline-start:8px}paper-tooltip::part(tooltip){border-radius:var(--paper-tooltip-border-radius,2px);font-size:92.31%;font-weight:500;max-width:330px;min-width:var(--paper-tooltip-min-width,200px);padding:var(--paper-tooltip-padding,10px 8px)}.cr-padded-text{padding-block-end:var(--cr-section-vertical-padding);padding-block-start:var(--cr-section-vertical-padding)}.cr-title-text{color:var(--cr-title-text-color);font-size:107.6923%;font-weight:500}.cr-secondary-text{color:var(--cr-secondary-text-color);font-weight:400}.cr-form-field-label{color:var(--cr-form-field-label-color);display:block;font-size:var(--cr-form-field-label-font-size);font-weight:500;letter-spacing:.4px;line-height:var(--cr-form-field-label-line-height);margin-bottom:8px}.cr-vertical-tab{align-items:center;display:flex}.cr-vertical-tab::before{border-radius:0 3px 3px 0;content:'';display:block;flex-shrink:0;height:var(--cr-vertical-tab-height,100%);width:4px}.cr-vertical-tab.selected::before{background:var(--cr-vertical-tab-selected-color,var(--cr-checked-color))}:host-context([dir=rtl]) .cr-vertical-tab::before{transform:scaleX(-1)}.iph-anchor-highlight{background-color:var(--cr-iph-anchor-highlight-color)}
     </style>
   </template>
 `.content);
-styleMod$7.register('cr-shared-style');
+styleMod$6.register('cr-shared-style');
 
-function getTemplate$U() {
+function getTemplate$S() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:var(--cr-toast-max-width,568px);min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
             var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
             var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
@@ -265,7 +265,7 @@ class CrToastElement extends PolymerElement {
         return 'cr-toast';
     }
     static get template() {
-        return getTemplate$U();
+        return getTemplate$S();
     }
     static get properties() {
         return {
@@ -2828,7 +2828,7 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$T() {
+function getTemplate$R() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -2864,7 +2864,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$T();
+        return getTemplate$R();
     }
     static get properties() {
         return {
@@ -3038,15 +3038,15 @@ class CrButtonElement extends CrButtonElementBase {
 }
 customElements.define(CrButtonElement.is, CrButtonElement);
 
-const styleMod$6 = document.createElement('dom-module');
-styleMod$6.appendChild(html `
+const styleMod$5 = document.createElement('dom-module');
+styleMod$5.appendChild(html `
   <template>
     <style>
 :host{align-items:center;align-self:stretch;display:flex;margin:0;outline:0}:host(:not([effectively-disabled_])){cursor:pointer}:host(:not([no-hover],[effectively-disabled_]):hover){background-color:var(--cr-hover-background-color)}:host(:not([no-hover],[effectively-disabled_]):active){background-color:var(--cr-active-background-color)}:host(:not([no-hover],[effectively-disabled_])) cr-icon-button{--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}
     </style>
   </template>
 `.content);
-styleMod$6.register('cr-actionable-row-style');
+styleMod$5.register('cr-actionable-row-style');
 
 /**
 @license
@@ -3449,7 +3449,7 @@ Polymer({
   }
 });
 
-function getTemplate$S() {
+function getTemplate$Q() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -3507,7 +3507,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$S();
+        return getTemplate$Q();
     }
     static get properties() {
         return {
@@ -4187,7 +4187,7 @@ const template$6 = html `
 `;
 document.head.appendChild(template$6.content);
 
-function getTemplate$R() {
+function getTemplate$P() {
     return html `<!--_html_template_start_--><style include="cr-actionable-row-style cr-shared-style cr-hidden-style">:host{box-sizing:border-box;flex:1;font-family:inherit;font-size:100%;line-height:154%;min-height:var(--cr-section-min-height);padding:0}:host(:not([embedded])){padding:0 var(--cr-section-padding)}#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
         var(--google-grey-700));display:flex;flex-shrink:0;padding-inline-end:var(--cr-icon-button-margin-start);width:var(--cr-link-row-icon-width,var(--cr-icon-size))}@media (prefers-color-scheme:dark){#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
           var(--google-grey-500))}}#labelWrapper{flex:1;flex-basis:.000000001px;padding-bottom:var(--cr-section-vertical-padding);padding-top:var(--cr-section-vertical-padding);text-align:start}#label,#subLabel{display:flex}#buttonAriaDescription{clip:rect(0,0,0,0);display:block;position:fixed}</style>
@@ -4227,7 +4227,7 @@ class CrLinkRowElement extends PolymerElement {
         return 'cr-link-row';
     }
     static get template() {
-        return getTemplate$R();
+        return getTemplate$P();
     }
     static get properties() {
         return {
@@ -4765,15 +4765,15 @@ html{--card-max-width:960px;--side-bar-width:300px;--toolbar-height:56px;--passw
 `;
 document.head.appendChild(template$3.content);
 
-const styleMod$5 = document.createElement('dom-module');
-styleMod$5.appendChild(html `
+const styleMod$4 = document.createElement('dom-module');
+styleMod$4.appendChild(html `
   <template>
     <style>
 .card{background-color:var(--cr-card-background-color);border-radius:var(--cr-card-border-radius);box-shadow:var(--cr-card-shadow)}cr-link-row[non-clickable]{background-color:var(--cr-card-background-color);cursor:default}.page-title{font-weight:400}.label{min-height:20px}.single-line-label{min-height:var(--section-min-height)}.flex-centered{align-items:center;display:flex}.elide-left{direction:rtl}.elide-left>a{direction:ltr;unicode-bidi:bidi-override}.dialog-title{color:var(--cr-primary-text-color);font-size:15px;font-weight:400;line-height:22px;margin:0;padding-block-end:16px;padding-block-start:16px}.settings-cr-link-row{--cr-icon-button-margin-start:0px}.site-link{color:var(--cr-primary-text-color);display:block;height:auto;line-height:154%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.text-elide{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}cr-input.password-input::part(input),input.password-input{font-family:'DejaVu Sans Mono',monospace}.input-field{margin-inline-end:34px;--cr-input-padding-start:20px;--cr-input-min-height:40px;--cr-input-error-display:none;--cr-input-border-radius:10px;--cr-icon-button-margin-start:0;--cr-icon-button-margin-end:0}
     </style>
   </template>
 `.content);
-styleMod$5.register('shared-style');
+styleMod$4.register('shared-style');
 
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -4864,7 +4864,7 @@ function getTrustedHTML(literal) {
     return staticPolicy.createHTML('', literal);
 }
 
-function getTemplate$Q() {
+function getTemplate$O() {
     return getTrustedHTML `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
 
 <div id="messages" role="alert" aria-live="polite" aria-relevant="additions">
@@ -4908,7 +4908,7 @@ class CrA11yAnnouncerElement extends CustomElement {
         return 'cr-a11y-announcer';
     }
     static get template() {
-        return getTemplate$Q();
+        return getTemplate$O();
     }
     disconnectedCallback() {
         if (this.currentTimeout_ !== null) {
@@ -5295,7 +5295,7 @@ class PluralStringProxyImpl {
 }
 let instance$6 = null;
 
-function getTemplate$P() {
+function getTemplate$N() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#checkupContent{margin-top:16px}#checkupStatus{align-items:center;display:flex;min-height:72px}#illustartion{align-items:center;background-color:var(--google-grey-50);border-top-left-radius:inherit;border-top-right-radius:inherit;display:flex;height:120px;justify-content:center}@media (prefers-color-scheme:dark){#illustartion{background-color:#1f1f1f}}#bannerImage{height:96px}#spinner{--paper-spinner-stroke-width:2px;height:16px;line-height:100%;margin-inline-start:20px;width:16px}#labelWrapper{flex:1;margin-inline-end:var(--control-label-spacing);margin-inline-start:20px}#refreshButton{margin-inline-end:10px}#retryButton{margin-inline-end:20px}cr-link-row[non-clickable]::part(icon){display:none}cr-link-row{--cr-link-row-start-icon-color:var(--google-green-700);--cr-link-row-icon-width:16px}cr-link-row[show-yellow-icon]{--cr-link-row-start-icon-color:var(--google-yellow-700)}cr-link-row[show-red-icon]{--cr-link-row-start-icon-color:var(--google-red-600)}@media (prefers-color-scheme:dark){cr-link-row{--cr-link-row-start-icon-color:var(--google-green-300)}cr-link-row[show-yellow-icon]{--cr-link-row-start-icon-color:var(--google-yellow-300)}cr-link-row[show-red-icon]{--cr-link-row-start-icon-color:var(--google-red-300)}}#checkupResult,#weakRow{border-bottom-left-radius:inherit;border-bottom-right-radius:inherit}</style>
 <h2 class="page-title">$i18n{checkupTitle}</h2>
 <div id="checkupContent" class="card">
@@ -5756,7 +5756,7 @@ class CheckupSectionElement extends CheckupSectionElementBase {
         return 'checkup-section';
     }
     static get template() {
-        return getTemplate$P();
+        return getTemplate$N();
     }
     static get properties() {
         return {
@@ -6494,7 +6494,7 @@ class FocusRow {
     }
 }
 
-function getCss$3() {
+function getCss$6() {
     return css `:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
       var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
           var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
@@ -6502,7 +6502,7 @@ function getCss$3() {
       var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}`;
 }
 
-function getHtml$1() {
+function getHtml$3() {
     return html$1 `<!--_html_template_start_-->
 <dialog id="dialog" part="dialog" @close="${this.onNativeDialogClose_}" role="application" aria-roledescription="${this.roleDescription || nothing}">
   <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label="${this.accessibilityLabel || nothing}">
@@ -6589,10 +6589,10 @@ class CrActionMenuElement extends CrLitElement {
         return 'cr-action-menu';
     }
     static get styles() {
-        return getCss$3();
+        return getCss$6();
     }
     render() {
-        return getHtml$1.bind(this)();
+        return getHtml$3.bind(this)();
     }
     static get properties() {
         return {
@@ -6873,12 +6873,18 @@ class CrActionMenuElement extends CrLitElement {
 }
 customElements.define(CrActionMenuElement.is, CrActionMenuElement);
 
-function getTemplate$O() {
-    return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
+function getCss$5() {
+    return css `:host{align-items:center;align-self:stretch;display:flex;margin:0;outline:0}:host(:not([effectively-disabled_])){cursor:pointer}:host(:not([no-hover],[effectively-disabled_]):hover){background-color:var(--cr-hover-background-color)}:host(:not([no-hover],[effectively-disabled_]):active){background-color:var(--cr-active-background-color)}:host(:not([no-hover],[effectively-disabled_])) cr-icon-button{--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}`;
+}
 
-    <div id="label" aria-hidden="true"><slot></slot></div>
-    <cr-icon-button id="icon" aria-labelledby="label" aria-expanded="[[getAriaExpanded_(expanded)]]" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon" iron-icon="[[icon_]]">
-    </cr-icon-button>
+function getCss$4() {
+    return css `:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}`;
+}
+
+function getHtml$2() {
+    return html$1 `<!--_html_template_start_--><div id="label" aria-hidden="true"><slot></slot></div>
+<cr-icon-button id="icon" aria-labelledby="label" ?disabled="${this.disabled}" aria-expanded="${this.ariaExpanded_}" tabindex="${this.tabIndex}" part="icon" iron-icon="${this.icon_}">
+</cr-icon-button>
 <!--_html_template_end_-->`;
 }
 
@@ -6890,12 +6896,28 @@ function getTemplate$O() {
  * 'cr-expand-button' is a chrome-specific wrapper around a button that toggles
  * between an opened (expanded) and closed state.
  */
-class CrExpandButtonElement extends PolymerElement {
+class CrExpandButtonElement extends CrLitElement {
+    constructor() {
+        super(...arguments);
+        this.expanded = false;
+        this.disabled = false;
+        this.ariaExpanded_ = 'false';
+        this.expandIcon = 'cr:expand-more';
+        this.collapseIcon = 'cr:expand-less';
+        this.tabIndex = 0;
+        this.icon_ = '';
+    }
     static get is() {
         return 'cr-expand-button';
     }
-    static get template() {
-        return getTemplate$O();
+    static get styles() {
+        return [
+            getCss$5(),
+            getCss$4(),
+        ];
+    }
+    render() {
+        return getHtml$2.bind(this)();
     }
     static get properties() {
         return {
@@ -6906,7 +6928,6 @@ class CrExpandButtonElement extends PolymerElement {
              */
             expanded: {
                 type: Boolean,
-                value: false,
                 notify: true,
             },
             /**
@@ -6914,50 +6935,43 @@ class CrExpandButtonElement extends PolymerElement {
              */
             disabled: {
                 type: Boolean,
-                value: false,
-                reflectToAttribute: true,
+                reflect: true,
             },
             /** A11y text descriptor for this control. */
-            ariaLabel: {
-                type: String,
-                observer: 'onAriaLabelChange_',
-            },
-            tabIndex: {
-                type: Number,
-                value: 0,
-            },
-            expandIcon: {
-                type: String,
-                value: 'cr:expand-more',
-            },
-            collapseIcon: {
-                type: String,
-                value: 'cr:expand-less',
-            },
-            icon_: String,
-            expandTitle: String,
-            collapseTitle: String,
-            tooltipText_: {
-                type: String,
-                computed: 'computeTooltipText_(expandTitle, collapseTitle, expanded)',
-                observer: 'onTooltipTextChange_',
-            },
+            ariaLabel: { type: String },
+            ariaExpanded_: { type: String },
+            tabIndex: { type: Number },
+            expandIcon: { type: String },
+            collapseIcon: { type: String },
+            expandTitle: { type: String },
+            collapseTitle: { type: String },
+            icon_: { type: String },
         };
     }
-    static get observers() {
-        return [
-            'updateIcon_(collapseIcon, expandIcon, expanded)',
-        ];
-    }
-    ready() {
-        super.ready();
+    firstUpdated() {
         this.addEventListener('click', this.toggleExpand_);
     }
-    computeTooltipText_() {
-        return this.expanded ? this.collapseTitle : this.expandTitle;
+    willUpdate(changedProperties) {
+        super.willUpdate(changedProperties);
+        if (changedProperties.has('expanded') ||
+            changedProperties.has('expandIcon') ||
+            changedProperties.has('collapseIcon')) {
+            this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
+        }
+        if (changedProperties.has('expanded') ||
+            changedProperties.has('collapseTitle') ||
+            changedProperties.has('expandTitle')) {
+            this.title = this.expanded ? this.collapseTitle : this.expandTitle;
+        }
+        if (changedProperties.has('expanded')) {
+            this.ariaExpanded_ = this.expanded ? 'true' : 'false';
+        }
     }
-    onTooltipTextChange_() {
-        this.title = this.tooltipText_;
+    updated(changedProperties) {
+        super.updated(changedProperties);
+        if (changedProperties.has('ariaLabel')) {
+            this.onAriaLabelChange_();
+        }
     }
     focus() {
         this.$.icon.focus();
@@ -6972,9 +6986,6 @@ class CrExpandButtonElement extends PolymerElement {
             this.$.icon.setAttribute('aria-labelledby', 'label');
         }
     }
-    updateIcon_() {
-        this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
-    }
     toggleExpand_(event) {
         // Prevent |click| event from bubbling. It can cause parents of this
         // elements to erroneously re-toggle this control.
@@ -6983,9 +6994,6 @@ class CrExpandButtonElement extends PolymerElement {
         this.scrollIntoViewIfNeeded();
         this.expanded = !this.expanded;
         focusWithoutInk(this.$.icon);
-    }
-    getAriaExpanded_() {
-        return this.expanded ? 'true' : 'false';
     }
 }
 customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);
@@ -7394,19 +7402,19 @@ const CrContainerShadowMixinLit = (superClass) => {
     return CrContainerShadowMixinLit;
 };
 
-function getCss$2() {
+function getCss$3() {
     return css `:host([hidden]),[hidden]{display:none!important}`;
 }
 
-function getCss$1() {
+function getCss$2() {
     return css `.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}`;
 }
 
-function getCss() {
+function getCss$1() {
     return css `dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}`;
 }
 
-function getHtml() {
+function getHtml$1() {
     return html$1 `<!--_html_template_start_-->
 <dialog id="dialog" @close="${this.onNativeDialogClose_}" @cancel="${this.onNativeDialogCancel_}" part="dialog" aria-labelledby="title" aria-description="${this.ariaDescriptionText || nothing}">
 
@@ -7469,13 +7477,13 @@ class CrDialogElement extends CrDialogElementBase {
     }
     static get styles() {
         return [
+            getCss$3(),
             getCss$2(),
             getCss$1(),
-            getCss(),
         ];
     }
     render() {
-        return getHtml.bind(this)();
+        return getHtml$1.bind(this)();
     }
     static get properties() {
         return {
@@ -7705,8 +7713,8 @@ class CrDialogElement extends CrDialogElementBase {
 }
 customElements.define(CrDialogElement.is, CrDialogElement);
 
-const styleMod$4 = document.createElement('dom-module');
-styleMod$4.appendChild(html `
+const styleMod$3 = document.createElement('dom-module');
+styleMod$3.appendChild(html `
   <template>
     <style>
 :host{--cr-input-background-color:var(--google-grey-100);--cr-input-color:var(--cr-primary-text-color);--cr-input-error-color:var(--google-red-600);--cr-input-focus-color:var(--google-blue-600);display:block;outline:0}:host-context([chrome-refresh-2023]):host{--cr-input-background-color:var(--color-textfield-filled-background,
@@ -7723,9 +7731,9 @@ styleMod$4.appendChild(html `
     </style>
   </template>
 `.content);
-styleMod$4.register('cr-input-style');
+styleMod$3.register('cr-input-style');
 
-function getTemplate$N() {
+function getTemplate$M() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -7768,7 +7776,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$N();
+        return getTemplate$M();
     }
     static get properties() {
         return {
@@ -7994,7 +8002,7 @@ class CrInputElement extends PolymerElement {
 }
 customElements.define(CrInputElement.is, CrInputElement);
 
-function getTemplate$M() {
+function getTemplate$L() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style cr-input-style cr-shared-style">textarea{display:block;resize:none}#input-container{background-color:var(--cr-input-background-color)}:host([autogrow][has-max-height]) #input-container{box-sizing:content-box;max-height:var(--cr-textarea-autogrow-max-height);min-height:1lh}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}:host-context([chrome-refresh-2023]) #input{padding-bottom:var(--cr-input-padding-bottom);padding-inline-end:var(--cr-input-padding-end);padding-inline-start:var(--cr-input-padding-start);padding-top:var(--cr-input-padding-top)}#footerContainer{border-top:0;display:var(--cr-textarea-footer-display,none);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);justify-content:space-between;line-height:var(--cr-form-field-label-line-height);margin:8px 0;min-height:0;padding:0;white-space:var(--cr-input-error-white-space)}:host([invalid]) #footerContainer,:host([invalid]) #label{color:var(--cr-input-error-color)}#mirror{display:none}:host([autogrow]) #mirror{display:block;visibility:hidden;white-space:pre-wrap;word-wrap:break-word}:host([autogrow]) #mirror,:host([autogrow]) textarea{border:0;box-sizing:border-box;padding-bottom:var(--cr-input-padding-bottom,6px);padding-inline-end:var(--cr-input-padding-end,8px);padding-inline-start:var(--cr-input-padding-start,8px);padding-top:var(--cr-input-padding-top,6px)}:host([autogrow]) textarea{height:100%;left:0;overflow:hidden;position:absolute;resize:none;top:0;width:100%}:host([autogrow][has-max-height]) #mirror,:host([autogrow][has-max-height]) textarea{overflow-x:hidden;overflow-y:auto}:host-context([chrome-refresh-2023]) textarea{position:relative;z-index:1}:host-context([chrome-refresh-2023]):host([autogrow]) textarea{position:absolute}:host-context([chrome-refresh-2023]) #mirror{font-size:12px;line-height:16px}</style>
 <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
   [[label]]
@@ -8031,7 +8039,7 @@ class CrTextareaElement extends PolymerElement {
         return 'cr-textarea';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -8178,15 +8186,15 @@ class CrTextareaElement extends PolymerElement {
 }
 customElements.define(CrTextareaElement.is, CrTextareaElement);
 
-const styleMod$3 = document.createElement('dom-module');
-styleMod$3.appendChild(html `
+const styleMod$2 = document.createElement('dom-module');
+styleMod$2.appendChild(html `
   <template>
     <style>
 .md-select{--md-arrow-width:10px;--md-select-bg-color:var(--google-grey-100);--md-select-focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--md-select-option-bg-color:white;--md-select-side-padding:8px;--md-select-text-color:var(--cr-primary-text-color);-webkit-appearance:none;background:url(//resources/images/arrow_down.svg) calc(100% - var(--md-select-side-padding)) center no-repeat;background-color:var(--md-select-bg-color);background-size:var(--md-arrow-width);border:none;border-radius:4px;color:var(--md-select-text-color);cursor:pointer;font-family:inherit;font-size:inherit;line-height:inherit;max-width:100%;outline:0;padding-bottom:6px;padding-inline-end:calc(var(--md-select-side-padding) + var(--md-arrow-width) + 3px);padding-inline-start:var(--md-select-side-padding);padding-top:6px;width:var(--md-select-width,200px)}@media (prefers-color-scheme:dark){.md-select{--md-select-bg-color:rgba(0, 0, 0, .3);--md-select-focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--md-select-option-bg-color:var(--google-grey-900-white-4-percent);background-image:url(//resources/images/dark/arrow_down.svg)}}:host-context([chrome-refresh-2023]) .md-select{--md-select-bg-color:transparent;--md-arrow-width:7px;--md-select-side-padding:10px;--md-select-text-color:inherit;border:solid 1px var(--color-combobox-container-outline,var(--cr-fallback-color-neutral-outline));border-radius:8px;box-sizing:border-box;font-size:12px;height:36px;line-height:36px;padding-bottom:0;padding-top:0}:host-context([chrome-refresh-2023]) .md-select:hover{background-color:var(--color-comboxbox-ink-drop-hovered,var(--cr-hover-on-subtle-background-color))}.md-select :-webkit-any(option,optgroup){background-color:var(--md-select-option-bg-color)}.md-select[disabled]{opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]) .md-select[disabled]{background-color:var(--color-combobox-background-disabled,var(--cr-fallback-color-disabled-background));border-color:transparent;color:var(--color-textfield-foreground-disabled,var(--cr-fallback-color-disabled-foreground));opacity:1}.md-select:focus{box-shadow:0 0 0 2px var(--md-select-focus-shadow-color)}:host-context([chrome-refresh-2023]) .md-select:focus{box-shadow:none;outline:solid 2px var(--cr-focus-outline-color);outline-offset:-1px}@media (forced-colors:active){.md-select:focus{outline:var(--cr-focus-outline-hcm)}}.md-select:active{box-shadow:none}:host-context([dir=rtl]) .md-select{background-position-x:var(--md-select-side-padding)}
     </style>
   </template>
 `.content);
-styleMod$3.register('md-select');
+styleMod$2.register('md-select');
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -8230,10 +8238,6 @@ const ShowPasswordMixin = dedupingMixin((superClass) => {
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Mixin to be used by Polymer elements that want to
- * automatically remove WebUI listeners when detached.
- */
 const WebUiListenerMixin = dedupingMixin((superClass) => {
     class WebUiListenerMixin extends superClass {
         constructor() {
@@ -8402,7 +8406,7 @@ const UserUtilMixin = dedupingMixin((superClass) => {
     return UserUtilMixin;
 });
 
-function getTemplate$L() {
+function getTemplate$K() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style md-select">cr-input:not(:first-of-type){margin-top:var(--cr-form-field-bottom-spacing)}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-size:32px;--cr-icon-button-margin-start:0;--cr-icon-button-margin-end:0}cr-input{--cr-input-error-display:none}cr-textarea{--settings-textarea-footer-display:flex}.md-select{--md-select-width:100%;margin-bottom:var(--cr-form-field-bottom-spacing);margin-top:2px}#websiteInput[show-error-message]{--cr-input-error-display:block}#usernameInput[invalid]{--cr-input-error-display:block}#viewExistingPasswordLink{color:var(--cr-link-color);display:block;font-size:var(--cr-form-field-label-font-size);line-height:1;width:fit-content}#footnote{margin-inline-start:2px;margin-top:16px}.divider{border-top:var(--cr-separator-line);margin:var(--cr-form-field-bottom-spacing) 0}cr-textarea{--cr-textarea-footer-display:flex;--cr-textarea-autogrow-max-height:20lh}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="title" id="title" class="dialog-title">
@@ -8531,7 +8535,7 @@ class AddPasswordDialogElement extends AddPasswordDialogElementBase {
         return 'add-password-dialog';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -8737,7 +8741,7 @@ class AddPasswordDialogElement extends AddPasswordDialogElementBase {
 }
 customElements.define(AddPasswordDialogElement.is, AddPasswordDialogElement);
 
-function getTemplate$K() {
+function getTemplate$J() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">cr-input:not(:first-of-type){margin-top:var(--cr-form-field-bottom-spacing)}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-size:32px;--cr-icon-button-margin-start:0;--cr-icon-button-margin-end:0}cr-input{--cr-input-error-display:none}cr-textarea{--cr-textarea-footer-display:flex;--cr-textarea-autogrow-max-height:20lh}#usernameInput[invalid]{--cr-input-error-display:block}#passwordNote,#usernameInput{margin-top:var(--cr-form-field-bottom-spacing)}#viewExistingPasswordLink{color:var(--cr-link-color);display:block;font-size:var(--cr-form-field-label-font-size);line-height:1;width:fit-content}#footnote{margin-inline-start:2px;margin-top:16px}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="title" id="title" class="dialog-title">
@@ -8813,7 +8817,7 @@ class EditPasswordDialogElement extends EditPasswordDialogElementBase {
         return 'edit-password-dialog';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -8952,7 +8956,7 @@ class EditPasswordDialogElement extends EditPasswordDialogElementBase {
 }
 customElements.define(EditPasswordDialogElement.is, EditPasswordDialogElement);
 
-function getTemplate$J() {
+function getTemplate$I() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">a[href]{color:var(--cr-link-color)}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}" ignore-popstate ignore-enter-key>
   <div slot="title" class="dialog-title">
@@ -8990,7 +8994,7 @@ class DeletePasswordDisclaimerDialogElement extends DeletePasswordDisclaimerDial
         return 'delete-password-disclaimer-dialog';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -9042,7 +9046,7 @@ class DeletePasswordDisclaimerDialogElement extends DeletePasswordDisclaimerDial
 }
 customElements.define(DeletePasswordDisclaimerDialogElement.is, DeletePasswordDisclaimerDialogElement);
 
-function getTemplate$I() {
+function getTemplate$H() {
     return html `<!--_html_template_start_--><cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">[[getDisclaimerTitle_(origin)]]</div>
   <div slot="body">[[getDisclaimerDescription_()]]</div>
@@ -9067,7 +9071,7 @@ class EditPasswordDisclaimerDialogElement extends EditPasswordDisclaimerDialogEl
         return 'edit-password-disclaimer-dialog';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -9366,7 +9370,7 @@ function getFaviconForPageURL(url, isSyncedUrlForHistoryUi, remoteIconUrlForUma 
     return getImageSet(faviconUrl.toString());
 }
 
-function getTemplate$H() {
+function getTemplate$G() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style">:host{--site-favicon-height:16px;--site-favicon-width:16px;overflow:hidden}#downloadedFavicon,#favicon{background-size:contain;height:var(--site-favicon-height);width:var(--site-favicon-width)}#downloadedFavicon{display:block}</style>
 <div id="favicon" style="background-image:[[getBackgroundImage_(domain) ]]" hidden="[[showDownloadedIcon_]]">
 </div>
@@ -9395,7 +9399,7 @@ class SiteFaviconElement extends PolymerElement {
         return 'site-favicon';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -9457,7 +9461,7 @@ class OpenWindowProxyImpl {
 }
 let instance$3 = null;
 
-function getTemplate$G() {
+function getTemplate$F() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">:host{display:flex;flex-direction:column}site-favicon{padding-inline-end:20px}#list-item{align-items:center;display:flex;padding:16px 20px}#credentialInfo{display:grid;flex:2}#insecurePassword{background-color:transparent;border:none;color:var(--cr-secondary-text-color);font-size:inherit;margin-bottom:2px;margin-inline-start:4px;max-width:10ch}#usernameContainer{display:flex}#username{max-width:200px}#changeButton{align-items:flex-end;display:flex;flex-direction:column;margin-inline-start:var(--cr-icon-button-margin-start)}#change-password-link-icon{--iron-icon-width:16px;margin-inline-start:10px}#separator{margin-inline-start:56px}#alreadyChanged{color:var(--cr-link-color);flex:1;margin-top:8px;text-align:end}#changePasswordButton{height:auto;padding:3px 16px}</style>
 <div id="separator" class="hr" hidden="[[first]]"></div>
 <div id="list-item" focus-row-container>
@@ -9522,7 +9526,7 @@ class CheckupListItemElement extends CheckupListItemElementBase {
         return 'checkup-list-item';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -9741,7 +9745,7 @@ const PrefsMixin = dedupingMixin((superClass) => {
     return PrefsMixin;
 });
 
-function getTemplate$F() {
+function getTemplate$E() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">:host(:not(.multi-card)){background-color:var(--cr-card-background-color);box-shadow:var(--cr-card-shadow);height:100%}#header{align-items:center;display:flex;padding-top:28px}#title{font-family:Roboto;font-size:14px;font-style:normal;font-weight:500;line-height:20px}#body{margin-top:40px;padding-inline-end:20px;padding-inline-start:20px}#expandMutedCompromisedCredentialsButton,#subtitle{color:var(--cr-secondary-text-color);font-weight:500}#description{margin-top:12px}#backButton{--cr-icon-button-margin-end:6px;--cr-icon-button-margin-start:0px}#insecureCredentials{margin-top:24px}.reuse-title{margin-inline-start:20px;margin-top:24px}iron-icon.policy-disabled{margin-inline-start:var(--cr-controlled-by-spacing)}</style>
 <div id="header">
   <cr-icon-button class="icon-arrow-back" id="backButton" on-click="navigateBack_" aria-label="$i18n{backToCheckup}">
@@ -9829,7 +9833,7 @@ class CheckupDetailsSectionElement extends CheckupDetailsSectionElementBase {
         return 'checkup-details-section';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -10649,7 +10653,7 @@ Polymer({
   }
 });
 
-function getTemplate$E() {
+function getTemplate$D() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style">:host{display:flex}iron-icon{--iron-icon-width:var(--cr-icon-size);--iron-icon-height:var(--cr-icon-size);--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-700))}@media (prefers-color-scheme:dark){iron-icon{--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-500))}}</style>
     <iron-icon id="indicator" tabindex="0" aria-label$="[[iconAriaLabel]]" aria-describedby="tooltip" icon="[[iconClass]]" role="img"></iron-icon>
     <paper-tooltip id="tooltip" for="indicator" position="[[tooltipPosition]]" fit-to-visible-bounds part="tooltip">
@@ -10666,7 +10670,7 @@ class CrTooltipIconElement extends PolymerElement {
         return 'cr-tooltip-icon';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$D();
     }
     static get properties() {
         return {
@@ -10686,17 +10690,17 @@ class CrTooltipIconElement extends PolymerElement {
 }
 customElements.define(CrTooltipIconElement.is, CrTooltipIconElement);
 
-const styleMod$2 = document.createElement('dom-module');
-styleMod$2.appendChild(html `
+const styleMod$1 = document.createElement('dom-module');
+styleMod$1.appendChild(html `
   <template>
     <style>
 .card{margin-bottom:44px}.credential-container{padding:12px var(--cr-form-field-bottom-spacing) var(--cr-section-padding)}.row-container{display:flex;margin-top:16px}.column-container{flex:50%;max-width:50%}.button-container{border-top:var(--cr-separator-line);display:flex;margin-top:12px;padding:var(--cr-form-field-bottom-spacing) var(--cr-section-padding)}a.site-link{max-width:324px}.cr-form-field-label{margin-bottom:8px}.card-title{color:var(--cr-secondary-text-color);margin:5px 0}.edit-button{margin-inline-end:var(--cr-button-edge-spacing)}:host-context([chrome-refresh-2023]) #domainLabel{color:var(--cr-input-label-color);font-size:11px;line-height:16px}
     </style>
   </template>
 `.content);
-styleMod$2.register('credential-details-card');
+styleMod$1.register('credential-details-card');
 
-function getTemplate$D() {
+function getTemplate$C() {
     return html `<!--_html_template_start_-->    <style>:host{-webkit-tap-highlight-color:transparent;align-items:center;cursor:pointer;display:flex;outline:0;user-select:none;--cr-checkbox-border-size:2px;--cr-checkbox-size:16px;--cr-checkbox-ripple-size:40px;--cr-checkbox-ripple-offset:calc(var(--cr-checkbox-size)/2 -
             var(--cr-checkbox-ripple-size)/2 - var(--cr-checkbox-border-size));--cr-checkbox-checked-box-color:var(--cr-checked-color);--cr-checkbox-ripple-checked-color:var(--cr-checked-color);--cr-checkbox-checked-ripple-opacity:.2;--cr-checkbox-mark-color:white;--cr-checkbox-ripple-unchecked-color:var(--google-grey-900);--cr-checkbox-unchecked-box-color:var(--google-grey-700);--cr-checkbox-unchecked-ripple-opacity:.15}@media (prefers-color-scheme:dark){:host{--cr-checkbox-checked-ripple-opacity:.4;--cr-checkbox-mark-color:var(--google-grey-900);--cr-checkbox-ripple-unchecked-color:var(--google-grey-500);--cr-checkbox-unchecked-box-color:var(--google-grey-500);--cr-checkbox-unchecked-ripple-opacity:.4}}:host-context([chrome-refresh-2023]):host{--cr-checkbox-ripple-size:32px;--cr-checkbox-mark-color:var(--color-checkbox-check,
             var(--cr-fallback-color-on-primary));--cr-checkbox-checked-box-color:var(--color-checkbox-foreground-checked,
@@ -10755,7 +10759,7 @@ class CrCheckboxElement extends CrCheckboxElementBase {
         return 'cr-checkbox';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$C();
     }
     static get properties() {
         return {
@@ -10879,7 +10883,7 @@ class CrCheckboxElement extends CrCheckboxElementBase {
 }
 customElements.define(CrCheckboxElement.is, CrCheckboxElement);
 
-function getTemplate$C() {
+function getTemplate$B() {
     return html `<!--_html_template_start_--><style include="cr-shared-style shared-style">cr-checkbox{display:flex;padding:10px 8px}#avatar{border-radius:50%;height:20px;margin-inline-end:16px;width:20px}.cr-row{padding:0}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title" class="dialog-title">
@@ -10931,7 +10935,7 @@ class MultiStoreDeletePasswordDialogElement extends MultiStoreDeletePasswordDial
         return 'multi-store-delete-password-dialog';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$B();
     }
     static get properties() {
         return {
@@ -11035,7 +11039,7 @@ function recordPasswordSharingInteraction(interaction) {
     chrome.metricsPrivate.recordEnumerationValue('PasswordManager.PasswordSharingDesktop.UserAction', interaction, PasswordSharingActions.COUNT);
 }
 
-function getTemplate$B() {
+function getTemplate$A() {
     return html `<!--_html_template_start_--><style include="shared-style">:host{align-items:center;display:grid;grid-template-columns:1fr auto;line-height:normal}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-size:20px;--cr-icon-button-margin-start:0;--cr-icon-button-margin-end:0}</style>
 
 <span class="text-elide">
@@ -11054,7 +11058,7 @@ class SharePasswordDialogHeaderElement extends PolymerElement {
         return 'share-password-dialog-header';
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$A();
     }
     static get properties() {
         return {
@@ -11075,7 +11079,7 @@ class SharePasswordDialogHeaderElement extends PolymerElement {
 }
 customElements.define(SharePasswordDialogHeaderElement.is, SharePasswordDialogHeaderElement);
 
-function getTemplate$A() {
+function getTemplate$z() {
     return html `<!--_html_template_start_--><style include="shared-style">:host{margin-top:8px;padding:8px 24px 8px 8px;border:.5px solid var(--cr-separator-color);border-radius:25px;display:grid;grid-template-columns:auto min-content;column-gap:12px;cursor:pointer}:host([disabled]){cursor:initial}:host([disabled])>.content{opacity:var(--cr-disabled-opacity)}:host(:not([disabled]):not([selected]):is(:hover,:focus)){background:var(--google-grey-100)}:host([selected]){border-color:var(--google-blue-300);background:var(--google-blue-50)}#checkbox{opacity:0;margin:auto;--cr-checkbox-ripple-size:36px}:host(:not([disabled]):is(:hover,:focus)) #checkbox,:host([selected]) #checkbox{opacity:100}:host(:not([disabled]):is(:hover,:focus)) #avatar,:host([selected]) #avatar{opacity:0}.content{display:grid;grid-template-columns:32px auto;column-gap:12px}#avatar{position:absolute;border-radius:50%;height:32px;margin-inline-end:8px;width:32px}.user-data{margin-block:auto}#name{font-size:100%;color:var(--cr-primary-text-color);line-height:normal}#email{font-size:85%;color:var(--cr-secondary-text-color);line-height:normal}.disabled-info{margin-inline-start:auto}#notAvailable{font-size:85%;margin-top:.15rem;white-space:nowrap}cr-tooltip-icon{--cr-icon-size:16px;margin-inline-end:4px}.avatar-checkbox{position:relative;width:32px;height:32px;margin-block:auto}cr-checkbox::part(label-container){clip:rect(0,0,0,0);display:block;position:fixed}@media (prefers-color-scheme:dark){:host(:not([disabled]):not([selected]):is(:hover,:focus)){background:var(--google-grey-900)}:host([selected]){background:#004a77;border-color:var(--google-blue-600)}}</style>
 
 <div class="content">
@@ -11108,7 +11112,7 @@ class SharePasswordRecipientElement extends PolymerElement {
         return 'share-password-recipient';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$z();
     }
     static get properties() {
         return {
@@ -11155,7 +11159,7 @@ class SharePasswordRecipientElement extends PolymerElement {
 }
 customElements.define(SharePasswordRecipientElement.is, SharePasswordRecipientElement);
 
-function getTemplate$z() {
+function getTemplate$y() {
     return html `<!--_html_template_start_--><style include="shared-style">a[href]{color:var(--cr-link-color)}#avatar{border-radius:50%;height:32px;margin-inline-end:8px;width:32px}#userAccount{color:var(--cr-secondary-text-color)}#description{padding-bottom:8px}div[slot=footer]{background:var(--google-grey-100);border-top:none;padding:8px 16px}@media (prefers-color-scheme:dark){div[slot=footer]{background:var(--google-grey-900)}}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
@@ -11204,7 +11208,7 @@ class SharePasswordFamilyPickerDialogElement extends UserUtilMixin(I18nMixin(Pol
         return 'share-password-family-picker-dialog';
     }
     static get template() {
-        return getTemplate$z();
+        return getTemplate$y();
     }
     static get properties() {
         return {
@@ -11278,7 +11282,7 @@ class SharePasswordFamilyPickerDialogElement extends UserUtilMixin(I18nMixin(Pol
 }
 customElements.define(SharePasswordFamilyPickerDialogElement.is, SharePasswordFamilyPickerDialogElement);
 
-function getTemplate$y() {
+function getTemplate$x() {
     return html `<!--_html_template_start_--><style include="shared-style">paper-spinner-lite{display:flex;margin-inline:auto;margin-block:40px 56px}</style>
 
 <cr-dialog close-text="$i18n{close}" show-on-attach>
@@ -11298,7 +11302,7 @@ class SharePasswordLoadingDialogElement extends PolymerElement {
         return 'share-password-loading-dialog';
     }
     static get template() {
-        return getTemplate$y();
+        return getTemplate$x();
     }
     static get properties() {
         return { dialogTitle: { type: String } };
@@ -11306,7 +11310,7 @@ class SharePasswordLoadingDialogElement extends PolymerElement {
 }
 customElements.define(SharePasswordLoadingDialogElement.is, SharePasswordLoadingDialogElement);
 
-function getTemplate$x() {
+function getTemplate$w() {
     return html `<!--_html_template_start_--><cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
   <div slot="title">
     <share-password-dialog-header id="header" is-error>
@@ -11336,7 +11340,7 @@ class SharePasswordErrorDialogElement extends I18nMixin(PolymerElement) {
         return 'share-password-error-dialog';
     }
     static get template() {
-        return getTemplate$x();
+        return getTemplate$w();
     }
     onClickCancel_() {
         recordPasswordSharingInteraction(PasswordSharingActions.ERROR_DIALOG_CANCELED);
@@ -11349,7 +11353,7 @@ class SharePasswordErrorDialogElement extends I18nMixin(PolymerElement) {
 }
 customElements.define(SharePasswordErrorDialogElement.is, SharePasswordErrorDialogElement);
 
-function getTemplate$w() {
+function getTemplate$v() {
     return html `<!--_html_template_start_--><style>#description{margin-top:16px}a[href]{color:var(--cr-link-color)}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
@@ -11383,7 +11387,7 @@ class SharePasswordNoOtherFamilyMembersDialogElement extends I18nMixin(PolymerEl
         return 'share-password-no-other-family-members-dialog';
     }
     static get template() {
-        return getTemplate$w();
+        return getTemplate$v();
     }
     static get properties() {
         return {
@@ -11403,7 +11407,7 @@ class SharePasswordNoOtherFamilyMembersDialogElement extends I18nMixin(PolymerEl
 }
 customElements.define(SharePasswordNoOtherFamilyMembersDialogElement.is, SharePasswordNoOtherFamilyMembersDialogElement);
 
-function getTemplate$v() {
+function getTemplate$u() {
     return html `<!--_html_template_start_--><style>#description{margin-top:16px}a[href]{color:var(--cr-link-color)}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
@@ -11437,7 +11441,7 @@ class SharePasswordNotFamilyMemberDialogElement extends I18nMixin(PolymerElement
         return 'share-password-not-family-member-dialog';
     }
     static get template() {
-        return getTemplate$v();
+        return getTemplate$u();
     }
     static get properties() {
         return {
@@ -11457,7 +11461,7 @@ class SharePasswordNotFamilyMemberDialogElement extends I18nMixin(PolymerElement
 }
 customElements.define(SharePasswordNotFamilyMemberDialogElement.is, SharePasswordNotFamilyMemberDialogElement);
 
-function getTemplate$u() {
+function getTemplate$t() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{--divider-thickness_:2px;--group-size_:60px;border-radius:50%;overflow:hidden;height:var(--group-size_);width:var(--group-size_);display:flex;gap:var(--divider-thickness_);background-color:#fff}.inner-container{display:flex;flex-direction:column;gap:var(--divider-thickness_);flex:1}#more,img{overflow:hidden;object-fit:cover;flex:1;width:100%;background-color:var(--google-grey-800);color:#fff;display:flex}#more>span{cursor:default;user-select:none;margin-inline-start:5px;margin-block-start:4px}@media (prefers-color-scheme:dark){:host{background-color:var(--google-grey-900)}}</style>
 
 <div class="inner-container" hidden="[[isMembersCountLessThan_(2, members)]]">
@@ -11487,7 +11491,7 @@ class SharePasswordGroupAvatarElement extends PolymerElement {
         return 'share-password-group-avatar';
     }
     static get template() {
-        return getTemplate$u();
+        return getTemplate$t();
     }
     static get properties() {
         return {
@@ -11509,7 +11513,7 @@ class SharePasswordGroupAvatarElement extends PolymerElement {
 }
 customElements.define(SharePasswordGroupAvatarElement.is, SharePasswordGroupAvatarElement);
 
-function getTemplate$t() {
+function getTemplate$s() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style">a[href]{color:var(--cr-link-color)}cr-dialog{--cr-dialog-width:320px;--cr-dialog-body-padding-horizontal:16px}.animation-container{height:95px;position:relative;--avatar-radius:30px;--avatar-size_:calc(var(--avatar-radius) * 2)}#favicon,#lock,#progress,#recipientAvatar,#senderAvatar{position:absolute}#recipientAvatar,#senderAvatar{top:50%;right:50%;transform:translate(50%,-50%);transition:right .5s cubic-bezier(.7,0,.45,1.45)}#senderAvatar{border-radius:50%;height:var(--avatar-size_);width:var(--avatar-size_);z-index:1}#recipientAvatar{z-index:2}#lock{z-index:3;background-color:var(--cr-dialog-background-color,#fff);top:50%;right:50%;width:24px;height:24px;opacity:0;transform:translate(50%,-50%) scale(.5);transition:opacity .15s ease-in .5s,transform .15s ease-in .5s}#favicon{--site-favicon-height:22px;--site-favicon-width:22px;background:#fff;z-index:3;border:4px solid #fff;border-radius:7px;top:calc(50% + var(--avatar-radius) - 10px);right:50%;opacity:0;transform:translate(50%,0) scale(0);transition:opacity .15s ease-in .5s,transform .15s ease-in .5s}#progress{z-index:0;display:flex;overflow:hidden;top:50%;left:calc(50% - 47px);width:0;transition:all 4.1s linear .5s,opacity .15s ease-in .5s}.loading #senderAvatar{right:calc(50% + 78px)}.loading #recipientAvatar{right:calc(50% - 78px)}.loading #progress{opacity:1;width:95px}.loading #lock{opacity:1;transform:translate(50%,-50%) scale(1)}[success] #senderAvatar{right:calc(50% + var(--avatar-radius) - 4px);z-index:2}[success] #recipientAvatar{z-index:1;right:calc(50% - var(--avatar-radius) + 4px)}[success] #lock,[success] #progress{opacity:0;transition-delay:0s}[success] #favicon{opacity:1;transform:translate(50%,0) scale(1)}[canceled] #progress{opacity:0;transition:none}[canceled] #senderAvatar{z-index:2}[canceled] #recipientAvatar{z-index:1}[canceled] #lock,[canceled] #recipientAvatar,[canceled] #senderAvatar{transition-property:transform,opacity,right;transition-timing-function:cubic-bezier(.7,-.45,.45,1);transition-duration:.5s;transition-delay:0s}#description{margin-top:16px;overflow:hidden;text-overflow:ellipsis}div[slot=footer]{background:var(--google-grey-100);border-top:none;padding:8px 16px}#footerDescription{color:var(--cr-secondary-text-color);overflow:hidden;text-overflow:ellipsis}@media (prefers-color-scheme:dark){#lock{background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}div[slot=footer]{background:var(--google-grey-900)}#favicon{border-color:var(--google-grey-900);background:var(--google-grey-900)}}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach no-cancel>
@@ -11571,7 +11575,7 @@ class SharePasswordConfirmationDialogElement extends SharePasswordConfirmationDi
         return 'share-password-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$t();
+        return getTemplate$s();
     }
     static get properties() {
         return {
@@ -11686,7 +11690,7 @@ class SharePasswordConfirmationDialogElement extends SharePasswordConfirmationDi
 }
 customElements.define(SharePasswordConfirmationDialogElement.is, SharePasswordConfirmationDialogElement);
 
-function getTemplate$s() {
+function getTemplate$r() {
     return html `<!--_html_template_start_--><template is="dom-if" if="[[isState_(flowStateEnum_.FETCHING, flowState)]]" restamp>
   <share-password-loading-dialog on-close="onDialogClose_" dialog-title="[[getShareDialogTitle_(passwordName)]]">
   </share-password-loading-dialog>
@@ -11747,7 +11751,7 @@ class SharePasswordFlowElement extends SharePasswordFlowElementBase {
         return 'share-password-flow';
     }
     static get template() {
-        return getTemplate$s();
+        return getTemplate$r();
     }
     static get properties() {
         return {
@@ -11811,7 +11815,7 @@ class SharePasswordFlowElement extends SharePasswordFlowElementBase {
 }
 customElements.define(SharePasswordFlowElement.is, SharePasswordFlowElement);
 
-function getTemplate$r() {
+function getTemplate$q() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#checkbox{--cr-checkbox-size:14px;--cr-checkbox-border-size:1px;--cr-checkbox-ripple-size:36px;flex-grow:0;margin-inline-end:8px}site-favicon{height:16px;padding-inline-end:8px;width:16px}#container{align-items:center;display:grid;flex-grow:1;grid-template-columns:auto 125px;padding-inline-end:8px;width:100%}.url-username-group{column-gap:16px;display:grid;grid-template-columns:fit-content(50%) 1fr;padding-inline-end:16px;width:100%}#website{color:var(--cr-primary-text-color)}#password{background-color:transparent;border:none;color:var(--cr-secondary-text-color)}#password:disabled{flex:none;font-family:inherit;margin-inline-start:auto;text-overflow:clip;width:50px}cr-icon-button{--cr-icon-button-margin-start:8px}cr-checkbox::part(label-container){clip:rect(0,0,0,0);display:block;position:fixed}</style>
 <div class="flex-centered">
   <cr-checkbox id="checkbox" checked="{{checked}}">
@@ -11848,7 +11852,7 @@ class PasswordPreviewItemElement extends PasswordPreviewItemElementBase {
         return 'password-preview-item';
     }
     static get template() {
-        return getTemplate$r();
+        return getTemplate$q();
     }
     static get properties() {
         return {
@@ -11876,7 +11880,7 @@ class PasswordPreviewItemElement extends PasswordPreviewItemElementBase {
 }
 customElements.define(PasswordPreviewItemElement.is, PasswordPreviewItemElement);
 
-function getTemplate$q() {
+function getTemplate$p() {
     return html `<!--_html_template_start_--><style include="shared-style">#avatar{border-radius:50%;height:16px;margin-inline-end:10px;width:16px}#passwords{margin-bottom:4px;margin-top:16px}div[slot=body]{max-height:60vh}</style>
 <cr-dialog id="dialog">
   <div slot="title" class="dialog-title">$i18n{movePasswordsTitle}</div>
@@ -11934,7 +11938,7 @@ class MovePasswordsDialogElement extends MovePasswordsDialogElementBase$1 {
         return 'move-passwords-dialog';
     }
     static get template() {
-        return getTemplate$q();
+        return getTemplate$p();
     }
     static get properties() {
         return {
@@ -11993,7 +11997,7 @@ class MovePasswordsDialogElement extends MovePasswordsDialogElementBase$1 {
 }
 customElements.define(MovePasswordsDialogElement.is, MovePasswordsDialogElement);
 
-function getTemplate$p() {
+function getTemplate$o() {
     return html `<!--_html_template_start_--><style include="shared-style">#avatar{border-radius:50%;height:16px;margin-inline-end:10px;width:16px}div[slot=body]{max-height:60vh}</style>
 <cr-dialog id="dialog">
   <div id="title" slot="title" class="dialog-title">
@@ -12027,7 +12031,7 @@ class MoveSinglePasswordDialogElement extends MovePasswordsDialogElementBase {
         return 'move-single-password-dialog';
     }
     static get template() {
-        return getTemplate$p();
+        return getTemplate$o();
     }
     static get properties() {
         return {
@@ -12085,7 +12089,7 @@ const template$2 = html `<iron-iconset-svg name="iph" size="24">
 `;
 document.head.appendChild(template$2.content);
 
-function getTemplate$o() {
+function getTemplate$n() {
     return html `<!--_html_template_start_--><link rel="stylesheet" href="chrome://theme/colors.css?sets=ui,chrome&shadow_host=true">
 <style include="cr-hidden-style">:host{--help-bubble-background:var(--color-feature-promo-bubble-background,
         var(--google-blue-700));--help-bubble-foreground:var(--color-feature-promo-bubble-foreground,
@@ -12566,7 +12570,7 @@ class HelpBubbleElement extends PolymerElement {
         return 'help-bubble';
     }
     static get template() {
-        return getTemplate$o();
+        return getTemplate$n();
     }
     static get properties() {
         return {
@@ -13678,7 +13682,7 @@ function clampPadding(n = 0) {
     return Math.max(0, Math.min(20, n));
 }
 
-function getTemplate$n() {
+function getTemplate$m() {
     return html `<!--_html_template_start_--><style include="shared-style cr-input-style cr-shared-style
                 credential-details-card cr-icons">.share-button-container{margin-inline-start:auto;display:flex}cr-tooltip-icon{margin-block:auto;margin-inline-end:16px}#uploadSinglePassword{width:16px;height:16px;vertical-align:text-bottom;margin-inline-end:8px}.move-password-container{display:flex;margin-top:4px;margin-bottom:10px;padding:0 var(--cr-form-field-bottom-spacing);align-items:center}</style>
 <div class="card" aria-label="[[getAriaLabelForPasswordCard_(password)]]" role="region">
@@ -13774,7 +13778,7 @@ class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
         return 'password-details-card';
     }
     static get template() {
-        return getTemplate$n();
+        return getTemplate$m();
     }
     static get properties() {
         return {
@@ -13957,7 +13961,7 @@ class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
 }
 customElements.define(PasswordDetailsCardElement.is, PasswordDetailsCardElement);
 
-function getTemplate$m() {
+function getTemplate$l() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">cr-input:not(:first-of-type){margin-top:var(--cr-form-field-bottom-spacing)}cr-input{--cr-input-error-display:none}#usernameInput[invalid]{--cr-input-error-display:block}#displayNameInput{margin-top:var(--cr-form-field-bottom-spacing)}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="title" id="title" class="dialog-title">
@@ -13998,7 +14002,7 @@ class EditPasskeyDialogElement extends EditPasskeyDialogElementBase {
         return 'edit-passkey-dialog';
     }
     static get template() {
-        return getTemplate$m();
+        return getTemplate$l();
     }
     static get properties() {
         return {
@@ -14028,7 +14032,7 @@ class EditPasskeyDialogElement extends EditPasskeyDialogElementBase {
 }
 customElements.define(EditPasskeyDialogElement.is, EditPasskeyDialogElement);
 
-function getTemplate$l() {
+function getTemplate$k() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">a[href]{color:var(--cr-link-color)}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}" ignore-enter-key show-on-attach>
   <div slot="title" class="dialog-title">
@@ -14058,7 +14062,7 @@ class DeletePasskeyDialogElement extends DeletePasskeyDialogElementBase {
         return 'delete-passkey-dialog';
     }
     static get template() {
-        return getTemplate$l();
+        return getTemplate$k();
     }
     static get properties() {
         return {
@@ -14093,7 +14097,7 @@ class DeletePasskeyDialogElement extends DeletePasskeyDialogElementBase {
 }
 customElements.define(DeletePasskeyDialogElement.is, DeletePasskeyDialogElement);
 
-function getTemplate$k() {
+function getTemplate$j() {
     return html `<!--_html_template_start_--><style include="shared-style cr-input-style cr-shared-style
                 credential-details-card cr-icons"></style>
 <div class="card" aria-label="[[getAriaLabelForPasswordCard_(passkey)]]" role="region">
@@ -14159,7 +14163,7 @@ class PasskeyDetailsCardElement extends PasskeyDetailsCardElementBase {
         return 'passkey-details-card';
     }
     static get template() {
-        return getTemplate$k();
+        return getTemplate$j();
     }
     static get properties() {
         return {
@@ -14218,7 +14222,7 @@ class PasskeyDetailsCardElement extends PasskeyDetailsCardElementBase {
 }
 customElements.define(PasskeyDetailsCardElement.is, PasskeyDetailsCardElement);
 
-function getTemplate$j() {
+function getTemplate$i() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#header{align-items:center;display:grid;grid-template-columns:auto auto 1fr;margin-bottom:28px}#backButton{--cr-icon-button-margin-end:6px;--cr-icon-button-margin-start:0px}#favicon{min-width:20px;padding-inline-end:12px;--site-favicon-height:20px;--site-favicon-width:20px}#title{line-height:normal}</style>
 <div id="header">
   <cr-icon-button class="icon-arrow-back" id="backButton" on-click="navigateBack_" aria-label="$i18n{backToPasswords}">
@@ -14255,7 +14259,7 @@ class PasswordDetailsSectionElement extends PasswordDetailsSectionElementBase {
         return 'password-details-section';
     }
     static get template() {
-        return getTemplate$j();
+        return getTemplate$i();
     }
     static get properties() {
         return {
@@ -14415,7 +14419,7 @@ class PasswordDetailsSectionElement extends PasswordDetailsSectionElementBase {
 }
 customElements.define(PasswordDetailsSectionElement.is, PasswordDetailsSectionElement);
 
-function getTemplate$i() {
+function getTemplate$h() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style iron-flex">#tryAgainButton{margin-inline-start:8px}cr-link-row[hide-icon]::part(icon){display:none}#exportPasswordsButton{height:auto;margin-inline-start:16px;padding:3px 16px}</style>
 
 <cr-link-row class="cr-row" non-clickable label="$i18n{exportPasswords}" sub-label="$i18n{exportPasswordsDescription}" hide-icon>
@@ -14476,7 +14480,7 @@ class PasswordsExporterElement extends PasswordsExporterElementBase {
         return 'passwords-exporter';
     }
     static get template() {
-        return getTemplate$i();
+        return getTemplate$h();
     }
     static get properties() {
         return {
@@ -17270,7 +17274,7 @@ class SearchableLabelElement extends PolymerElement {
 }
 customElements.define(SearchableLabelElement.is, SearchableLabelElement);
 
-function getTemplate$h() {
+function getTemplate$g() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#container:hover{background-color:var(--cr-hover-background-color);border-radius:inherit;cursor:pointer;--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}#borderPart{display:grid;flex:1;grid-template-columns:auto 1fr;min-height:var(--section-min-height)}#favicon{margin-inline-end:20px;margin-inline-start:20px}.label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#numberOfAccounts{margin-inline-start:8px}#endIcons{--cr-icon-button-margin-start:0px;--cr-icon-button-margin-end:10px;justify-self:end}paper-tooltip{overflow:hidden;white-space:nowrap}span{color:var(--cr-secondary-text-color)}</style>
 <div id="container" class="flex-centered">
   
@@ -17305,7 +17309,7 @@ class PasswordListItemElement extends PasswordListItemElementBase {
         return 'password-list-item';
     }
     static get template() {
-        return getTemplate$h();
+        return getTemplate$g();
     }
     static get properties() {
         return {
@@ -17412,7 +17416,7 @@ class PasswordListItemElement extends PasswordListItemElementBase {
 }
 customElements.define(PasswordListItemElement.is, PasswordListItemElement);
 
-function getTemplate$g() {
+function getTemplate$f() {
     return html `<!--_html_template_start_--><cr-dialog id="dialog">
   <div slot="title" class="dialog-title">[[getTitle_()]]</div>
   <div slot="body">
@@ -17436,7 +17440,7 @@ class AuthTimedOutDialogElement extends AuthTimedOutDialogElementBase {
         return 'auth-timed-out-dialog';
     }
     static get template() {
-        return getTemplate$g();
+        return getTemplate$f();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -17451,7 +17455,7 @@ class AuthTimedOutDialogElement extends AuthTimedOutDialogElementBase {
 }
 customElements.define(AuthTimedOutDialogElement.is, AuthTimedOutDialogElement);
 
-function getTemplate$f() {
+function getTemplate$e() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">:host{align-items:center;display:flex}#image{height:120px;width:248px}a[href]{color:var(--cr-link-color)}#promoContent{display:flex;flex:1;flex-direction:column;justify-content:center;margin-block:10px;margin-inline-end:6px;margin-inline-start:24px}#actionButton{margin-top:6px;width:fit-content}#closeButton{margin-top:10px;margin-right:10px;margin-bottom:auto}</style>
 <picture id="image">
   
@@ -17531,7 +17535,7 @@ class PromoCardElement extends PolymerElement {
         return 'promo-card';
     }
     static get template() {
-        return getTemplate$f();
+        return getTemplate$e();
     }
     static get properties() {
         return {
@@ -17591,7 +17595,7 @@ class PromoCardElement extends PolymerElement {
 }
 customElements.define(PromoCardElement.is, PromoCardElement);
 
-function getTemplate$e() {
+function getTemplate$d() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style iron-flex">#header{align-items:center;display:flex}a[href]{color:var(--cr-link-color)}#addPasswordButton{height:auto;padding:3px 16px}#passwords{margin-top:20px}promo-card{margin-bottom:24px;margin-top:24px}password-list-item:first-of-type{border-top-left-radius:inherit;border-top-right-radius:inherit}password-list-item:last-of-type{border-bottom-left-radius:inherit;border-bottom-right-radius:inherit}</style>
 <template is="dom-if" if="[[shouldShowPromoCard_]]" restamp>
   <promo-card id="promoCard" class="card" promo-card="[[promoCard_]]" on-promo-closed="onPromoClosed_" on-move-passwords-clicked="onMovePasswordsClicked_">
@@ -17647,7 +17651,7 @@ class PasswordsSectionElement extends PasswordsSectionElementBase {
         return 'passwords-section';
     }
     static get template() {
-        return getTemplate$e();
+        return getTemplate$d();
     }
     static get properties() {
         return {
@@ -17933,7 +17937,7 @@ class PasswordsSectionElement extends PasswordsSectionElementBase {
 }
 customElements.define(PasswordsSectionElement.is, PasswordsSectionElement);
 
-function getTemplate$d() {
+function getTemplate$c() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
                 var(--cr-fallback-color-primary));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on,
                 var(--cr-fallback-color-on-primary));--cr-toggle-unchecked-bar-color:var(--color-toggle-button-track-off,
@@ -17980,7 +17984,7 @@ class CrToggleElement extends CrToggleElementBase {
         return 'cr-toggle';
     }
     static get template() {
-        return getTemplate$d();
+        return getTemplate$c();
     }
     static get properties() {
         return {
@@ -18264,7 +18268,7 @@ const CrPolicyIndicatorMixin = dedupingMixin((superClass) => {
     return CrPolicyIndicatorMixin;
 });
 
-function getTemplate$c() {
+function getTemplate$b() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style"></style>
     <cr-tooltip-icon id="tooltipIcon" hidden$="[[!indicatorVisible]]" tooltip-text="[[indicatorTooltip]]" icon-class="[[indicatorIcon]]" icon-aria-label="[[iconAriaLabel]]" exportparts="tooltip">
     </cr-tooltip-icon>
@@ -18284,7 +18288,7 @@ class CrPolicyPrefIndicatorElement extends CrPolicyPrefIndicatorElementBase {
         return 'cr-policy-pref-indicator';
     }
     static get template() {
-        return getTemplate$c();
+        return getTemplate$b();
     }
     static get properties() {
         return {
@@ -18374,7 +18378,7 @@ class CrPolicyPrefIndicatorElement extends CrPolicyPrefIndicatorElementBase {
 }
 customElements.define(CrPolicyPrefIndicatorElement.is, CrPolicyPrefIndicatorElement);
 
-function getTemplate$b() {
+function getTemplate$a() {
     return html `<!--_html_template_start_--><style include="cr-actionable-row-style iron-flex cr-shared-style shared-style">:host{--cr-icon-button-margin-end:20px;padding:0 var(--cr-section-padding)}#outerRow{align-items:center;display:flex;min-height:var(--two-line-section-min-height);width:100%}#outerRow[noSubLabel]{min-height:var(--section-min-height)}#labelWrapper{margin-inline-end:var(--control-label-spacing);padding:var(--cr-section-vertical-padding) 0}cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}</style>
 <div id="outerRow" nosublabel$="[[!subLabel]]">
   <div class="flex" id="labelWrapper">
@@ -18407,7 +18411,7 @@ class PrefToggleButtonElement extends PolymerElement {
         return 'pref-toggle-button';
     }
     static get template() {
-        return getTemplate$b();
+        return getTemplate$a();
     }
     static get properties() {
         return {
@@ -18527,16 +18531,6 @@ class PrefToggleButtonElement extends PolymerElement {
 }
 customElements.define(PrefToggleButtonElement.is, PrefToggleButtonElement);
 
-const styleMod$1 = document.createElement('dom-module');
-styleMod$1.appendChild(html `
-  <template>
-    <style>
-:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput),:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down::part(input){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down,:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}:host-context([cros][chrome-refresh-2023]) cr-policy-indicator,:host-context([cros][chrome-refresh-2023]) cr-policy-pref-indicator,:host-context([cros][chrome-refresh-2023]) cr-tooltip-icon::part(tooltip),:host-context(body.jelly-enabled) cr-policy-indicator,:host-context(body.jelly-enabled) cr-policy-pref-indicator,:host-context(body.jelly-enabled) cr-tooltip-icon::part(tooltip){--paper-tooltip-background:var(--cros-sys-on_surface);--paper-tooltip-padding:5px 8px;--paper-tooltip-text-color:var(--cros-sys-inverse_on_surface);font:var(--cros-annotation-1-font)}
-    </style>
-  </template>
-`.content);
-styleMod$1.register('cros-color-overrides');
-
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -18556,7 +18550,7 @@ class ExtensionControlBrowserProxyImpl {
 }
 let instance = null;
 
-function getTemplate$a() {
+function getTemplate$9() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{align-items:center;display:flex;margin-inline-start:36px;min-height:var(--cr-section-min-height)}img{margin-inline-end:16px}iron-icon[icon='cr:open-in-new']{fill:var(--text-color);height:var(--cr-icon-size);width:var(--cr-icon-size)}#disable{margin-inline-start:8px}:host>span{flex:1;margin-inline-end:8px}</style>
 <img role="presentation" src="chrome://extension-icon/[[extensionId]]/20/1">
 <span>[[getLabel_(extensionName)]]</span>
@@ -18578,7 +18572,7 @@ class ExtensionControlledIndicatorElement extends PolymerElement {
         return 'extension-controlled-indicator';
     }
     static get template() {
-        return getTemplate$a();
+        return getTemplate$9();
     }
     static get properties() {
         return {
@@ -18602,7 +18596,7 @@ class ExtensionControlledIndicatorElement extends PolymerElement {
 }
 customElements.define(ExtensionControlledIndicatorElement.is, ExtensionControlledIndicatorElement);
 
-function getTemplate$9() {
+function getTemplate$8() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#blockedSitesTitle{margin-top:28px}.blocked-site-content{border-top:var(--cr-separator-line);flex:1;min-height:var(--section-min-height)}.blocked-site-content[first]{border-top:none}#blockedSitesHeader,.favicon{margin-inline-end:20px;margin-inline-start:20px}.site-url{flex:1}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-margin-start:0px;--cr-icon-button-margin-end:10px}@media all and (display-mode:standalone){#addShortcutBanner{display:none}}pref-toggle-button:first-of-type{border-top-left-radius:inherit;border-top-right-radius:inherit}cr-link-row:last-of-type{border-bottom-left-radius:inherit;border-bottom-right-radius:inherit}cr-link-row[hide-icon]::part(icon){display:none}</style>
 <h2 class="page-title">$i18n{settings}</h2>
 <div class="card">
@@ -18692,7 +18686,7 @@ class SettingsSectionElement extends SettingsSectionElementBase {
         return 'settings-section';
     }
     static get template() {
-        return getTemplate$9();
+        return getTemplate$8();
     }
     static get properties() {
         return {
@@ -19015,7 +19009,7 @@ const template = html `<iron-iconset-svg name="passwords-icon" size="20">
 `;
 document.head.appendChild(template.content);
 
-function getTemplate$8() {
+function getTemplate$7() {
     return html `<!--_html_template_start_--><style include="cr-nav-menu-item-style">cr-menu-selector{box-sizing:border-box;display:block;height:100%;overflow:auto;overscroll-behavior:contain;padding-top:8px;width:250px}#compromisedPasswords{margin-inline-end:20px;margin-inline-start:auto}</style>
 <div role="navigation">
   <cr-menu-selector id="menu" attr-for-selected="path" selected-attribute="selected" on-iron-activate="onSelectorActivate_" selected="[[getSelectedPage_(selectedPage_)]]">
@@ -19073,7 +19067,7 @@ class PasswordManagerSideBarElement extends PasswordManagerSideBarElementBase {
         return 'password-manager-side-bar';
     }
     static get template() {
-        return getTemplate$8();
+        return getTemplate$7();
     }
     static get properties() {
         return {
@@ -19150,52 +19144,58 @@ class PasswordManagerSideBarElement extends PasswordManagerSideBarElementBase {
 }
 customElements.define(PasswordManagerSideBarElement.is, PasswordManagerSideBarElement);
 
-function getTemplate$7() {
-    return html `<!--_html_template_start_-->    <style>:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);font:var(--cr-drawer-header-font,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
-    <dialog id="dialog" on-cancel="onDialogCancel_" on-click="onDialogClick_" on-close="onDialogClose_">
-      <div id="container" on-click="onContainerClick_">
-        <div class="drawer-header">
-          <slot name="header-icon">
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="//resources/images/chrome_logo_dark.svg">
-              <img id="product-logo" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" role="presentation">
-            </picture>
-          </slot>
-          <div id="heading" tabindex="-1">[[heading]]</div>
-        </div>
-        <slot name="body"></slot>
-      </div>
-    </dialog>
+function getCss() {
+    return css `:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}`;
+}
+
+function getHtml() {
+    return html$1 `<!--_html_template_start_--><dialog id="dialog" @cancel="${this.onDialogCancel_}" @click="${this.onDialogClick_}" @close="${this.onDialogClose_}">
+  <div id="container" @click="${this.onContainerClick_}">
+    <div class="drawer-header">
+      <slot name="header-icon">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="//resources/images/chrome_logo_dark.svg">
+          <img id="product-logo" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" role="presentation">
+        </picture>
+      </slot>
+      <div id="heading" tabindex="-1">${this.heading}</div>
+    </div>
+    <slot name="body"></slot>
+  </div>
+</dialog>
 <!--_html_template_end_-->`;
 }
 
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-class CrDrawerElement extends PolymerElement {
+class CrDrawerElement extends CrLitElement {
+    constructor() {
+        super(...arguments);
+        this.align = 'ltr';
+    }
     static get is() {
         return 'cr-drawer';
     }
-    static get template() {
-        return getTemplate$7();
+    static get styles() {
+        return getCss();
+    }
+    render() {
+        return getHtml.bind(this)();
     }
     static get properties() {
         return {
-            heading: String,
+            heading: { type: String },
             show_: {
                 type: Boolean,
-                reflectToAttribute: true,
+                reflect: true,
             },
             /** The alignment of the drawer on the screen ('ltr' or 'rtl'). */
             align: {
                 type: String,
-                value: 'ltr',
-                reflectToAttribute: true,
+                reflect: true,
             },
         };
-    }
-    fire_(eventName, detail) {
-        this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
     }
     get open() {
         return this.$.dialog.open;
@@ -19213,15 +19213,16 @@ class CrDrawerElement extends PolymerElement {
         }
     }
     /** Shows drawer and slides it into view. */
-    openDrawer() {
+    async openDrawer() {
         if (this.open) {
             return;
         }
         this.$.dialog.showModal();
         this.show_ = true;
-        this.fire_('cr-drawer-opening');
+        await this.updateComplete;
+        this.fire('cr-drawer-opening');
         listenOnce(this.$.dialog, 'transitionend', () => {
-            this.fire_('cr-drawer-opened');
+            this.fire('cr-drawer-opened');
         });
     }
     /**
@@ -19229,7 +19230,7 @@ class CrDrawerElement extends PolymerElement {
      * is up to the owner of this component to differentiate between close and
      * cancel.
      */
-    dismiss_(cancel) {
+    async dismiss_(cancel) {
         if (!this.open) {
             return;
         }
@@ -19270,7 +19271,7 @@ class CrDrawerElement extends PolymerElement {
     onDialogClose_() {
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.fire_('close');
+        this.fire('close');
     }
 }
 customElements.define(CrDrawerElement.is, CrDrawerElement);

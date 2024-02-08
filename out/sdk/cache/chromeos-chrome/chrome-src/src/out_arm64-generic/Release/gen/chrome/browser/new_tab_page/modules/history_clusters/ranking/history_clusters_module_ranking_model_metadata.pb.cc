@@ -48,19 +48,29 @@ bool HistoryClustersModuleRankingModelSignals_IsValid(int value) {
     case 6:
     case 7:
     case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> HistoryClustersModuleRankingModelSignals_strings[9] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> HistoryClustersModuleRankingModelSignals_strings[14] = {};
 
 static const char HistoryClustersModuleRankingModelSignals_names[] =
   "HISTORY_CLUSTERS_MODULE_RANKING_BELONGS_TO_BOOSTED_CATEGORY"
+  "HISTORY_CLUSTERS_MODULE_RANKING_BELONGS_TO_MOST_SEEN_CATEGORY"
+  "HISTORY_CLUSTERS_MODULE_RANKING_BELONGS_TO_MOST_USED_CATEGORY"
   "HISTORY_CLUSTERS_MODULE_RANKING_MINUTES_SINCE_MOST_RECENT_VISIT"
   "HISTORY_CLUSTERS_MODULE_RANKING_MODEL_SIGNALS_UNKNOWN"
+  "HISTORY_CLUSTERS_MODULE_RANKING_MOST_FREQUENT_SEEN_CATEGORY_COUNT"
+  "HISTORY_CLUSTERS_MODULE_RANKING_MOST_FREQUENT_USED_CATEGORY_COUNT"
   "HISTORY_CLUSTERS_MODULE_RANKING_NUM_ABANDONED_CARTS"
+  "HISTORY_CLUSTERS_MODULE_RANKING_NUM_ASSOCIATED_CATEGORIES"
   "HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_SEEN"
   "HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_USED"
   "HISTORY_CLUSTERS_MODULE_RANKING_NUM_TOTAL_VISITS"
@@ -69,26 +79,36 @@ static const char HistoryClustersModuleRankingModelSignals_names[] =
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry HistoryClustersModuleRankingModelSignals_entries[] = {
   { {HistoryClustersModuleRankingModelSignals_names + 0, 59}, 2 },
-  { {HistoryClustersModuleRankingModelSignals_names + 59, 63}, 1 },
-  { {HistoryClustersModuleRankingModelSignals_names + 122, 53}, 0 },
-  { {HistoryClustersModuleRankingModelSignals_names + 175, 51}, 6 },
-  { {HistoryClustersModuleRankingModelSignals_names + 226, 46}, 7 },
-  { {HistoryClustersModuleRankingModelSignals_names + 272, 46}, 8 },
-  { {HistoryClustersModuleRankingModelSignals_names + 318, 48}, 4 },
-  { {HistoryClustersModuleRankingModelSignals_names + 366, 48}, 5 },
-  { {HistoryClustersModuleRankingModelSignals_names + 414, 53}, 3 },
+  { {HistoryClustersModuleRankingModelSignals_names + 59, 61}, 10 },
+  { {HistoryClustersModuleRankingModelSignals_names + 120, 61}, 11 },
+  { {HistoryClustersModuleRankingModelSignals_names + 181, 63}, 1 },
+  { {HistoryClustersModuleRankingModelSignals_names + 244, 53}, 0 },
+  { {HistoryClustersModuleRankingModelSignals_names + 297, 65}, 12 },
+  { {HistoryClustersModuleRankingModelSignals_names + 362, 65}, 13 },
+  { {HistoryClustersModuleRankingModelSignals_names + 427, 51}, 6 },
+  { {HistoryClustersModuleRankingModelSignals_names + 478, 57}, 9 },
+  { {HistoryClustersModuleRankingModelSignals_names + 535, 46}, 7 },
+  { {HistoryClustersModuleRankingModelSignals_names + 581, 46}, 8 },
+  { {HistoryClustersModuleRankingModelSignals_names + 627, 48}, 4 },
+  { {HistoryClustersModuleRankingModelSignals_names + 675, 48}, 5 },
+  { {HistoryClustersModuleRankingModelSignals_names + 723, 53}, 3 },
 };
 
 static const int HistoryClustersModuleRankingModelSignals_entries_by_number[] = {
-  2, // 0 -> HISTORY_CLUSTERS_MODULE_RANKING_MODEL_SIGNALS_UNKNOWN
-  1, // 1 -> HISTORY_CLUSTERS_MODULE_RANKING_MINUTES_SINCE_MOST_RECENT_VISIT
+  4, // 0 -> HISTORY_CLUSTERS_MODULE_RANKING_MODEL_SIGNALS_UNKNOWN
+  3, // 1 -> HISTORY_CLUSTERS_MODULE_RANKING_MINUTES_SINCE_MOST_RECENT_VISIT
   0, // 2 -> HISTORY_CLUSTERS_MODULE_RANKING_BELONGS_TO_BOOSTED_CATEGORY
-  8, // 3 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_VISITS_WITH_IMAGE
-  6, // 4 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_TOTAL_VISITS
-  7, // 5 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_UNIQUE_HOSTS
-  3, // 6 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_ABANDONED_CARTS
-  4, // 7 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_SEEN
-  5, // 8 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_USED
+  13, // 3 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_VISITS_WITH_IMAGE
+  11, // 4 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_TOTAL_VISITS
+  12, // 5 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_UNIQUE_HOSTS
+  7, // 6 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_ABANDONED_CARTS
+  9, // 7 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_SEEN
+  10, // 8 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_USED
+  8, // 9 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_ASSOCIATED_CATEGORIES
+  1, // 10 -> HISTORY_CLUSTERS_MODULE_RANKING_BELONGS_TO_MOST_SEEN_CATEGORY
+  2, // 11 -> HISTORY_CLUSTERS_MODULE_RANKING_BELONGS_TO_MOST_USED_CATEGORY
+  5, // 12 -> HISTORY_CLUSTERS_MODULE_RANKING_MOST_FREQUENT_SEEN_CATEGORY_COUNT
+  6, // 13 -> HISTORY_CLUSTERS_MODULE_RANKING_MOST_FREQUENT_USED_CATEGORY_COUNT
 };
 
 const std::string& HistoryClustersModuleRankingModelSignals_Name(
@@ -97,12 +117,12 @@ const std::string& HistoryClustersModuleRankingModelSignals_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           HistoryClustersModuleRankingModelSignals_entries,
           HistoryClustersModuleRankingModelSignals_entries_by_number,
-          9, HistoryClustersModuleRankingModelSignals_strings);
+          14, HistoryClustersModuleRankingModelSignals_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       HistoryClustersModuleRankingModelSignals_entries,
       HistoryClustersModuleRankingModelSignals_entries_by_number,
-      9, value);
+      14, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      HistoryClustersModuleRankingModelSignals_strings[idx].get();
 }
@@ -110,7 +130,7 @@ bool HistoryClustersModuleRankingModelSignals_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, HistoryClustersModuleRankingModelSignals* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      HistoryClustersModuleRankingModelSignals_entries, 9, name, &int_value);
+      HistoryClustersModuleRankingModelSignals_entries, 14, name, &int_value);
   if (success) {
     *value = static_cast<HistoryClustersModuleRankingModelSignals>(int_value);
   }

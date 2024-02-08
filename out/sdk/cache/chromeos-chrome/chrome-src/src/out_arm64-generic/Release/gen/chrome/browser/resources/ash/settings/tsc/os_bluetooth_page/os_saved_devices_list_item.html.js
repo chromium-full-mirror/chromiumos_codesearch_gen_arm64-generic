@@ -13,7 +13,7 @@ export function getTemplate() {
       </template>
     </div>
     <div class="middle" aria-hidden="true">
-      <div id="deviceName">[[getDeviceName_(device)]]</div>
+      <div id="deviceName">[[getDeviceNameUnsafe_(device)]]</div>
     </div>
     <div>
       <cr-icon-button class="icon-more-vert" focus-row-control focus-type="subpageButton" tabindex$="[[tabindex]]" on-click="onMenuButtonClick_" aria-label="[[getSubpageButtonA11yLabel_(device)]]">

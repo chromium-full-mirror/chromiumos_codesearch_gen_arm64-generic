@@ -7859,6 +7859,14 @@ class NewTabPage_HistoryClusters final : public ::ukm::internal::UkmEntryBuilder
   static constexpr uint64_t kBelongsToBoostedCategoryNameHash = UINT64_C(6874253816197336447);
   NewTabPage_HistoryClusters& SetBelongsToBoostedCategory(int64_t value);
 
+  static const char kBelongsToMostSeenCategoryName[];
+  static constexpr uint64_t kBelongsToMostSeenCategoryNameHash = UINT64_C(15531857510265195394);
+  NewTabPage_HistoryClusters& SetBelongsToMostSeenCategory(int64_t value);
+
+  static const char kBelongsToMostUsedCategoryName[];
+  static constexpr uint64_t kBelongsToMostUsedCategoryNameHash = UINT64_C(14714135004412625994);
+  NewTabPage_HistoryClusters& SetBelongsToMostUsedCategory(int64_t value);
+
   static const char kDidDisableModuleName[];
   static constexpr uint64_t kDidDisableModuleNameHash = UINT64_C(15403329243198520632);
   NewTabPage_HistoryClusters& SetDidDisableModule(int64_t value);
@@ -7883,9 +7891,21 @@ class NewTabPage_HistoryClusters final : public ::ukm::internal::UkmEntryBuilder
   static constexpr uint64_t kMinutesSinceMostRecentVisitNameHash = UINT64_C(5470557138815706688);
   NewTabPage_HistoryClusters& SetMinutesSinceMostRecentVisit(int64_t value);
 
+  static const char kMostFrequentSeenCategoryCountName[];
+  static constexpr uint64_t kMostFrequentSeenCategoryCountNameHash = UINT64_C(7074471831935571788);
+  NewTabPage_HistoryClusters& SetMostFrequentSeenCategoryCount(int64_t value);
+
+  static const char kMostFrequentUsedCategoryCountName[];
+  static constexpr uint64_t kMostFrequentUsedCategoryCountNameHash = UINT64_C(394832121280293663);
+  NewTabPage_HistoryClusters& SetMostFrequentUsedCategoryCount(int64_t value);
+
   static const char kNumAbandonedCartsName[];
   static constexpr uint64_t kNumAbandonedCartsNameHash = UINT64_C(9479945921710286606);
   NewTabPage_HistoryClusters& SetNumAbandonedCarts(int64_t value);
+
+  static const char kNumAssociatedCategoriesName[];
+  static constexpr uint64_t kNumAssociatedCategoriesNameHash = UINT64_C(11556687425927079138);
+  NewTabPage_HistoryClusters& SetNumAssociatedCategories(int64_t value);
 
   static const char kNumTimesSeenLast24hName[];
   static constexpr uint64_t kNumTimesSeenLast24hNameHash = UINT64_C(8736705493520202236);
@@ -12474,30 +12494,6 @@ class TabStripOrganization final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kTabStripEventIDName[];
   static constexpr uint64_t kTabStripEventIDNameHash = UINT64_C(4765518592756464902);
   TabStripOrganization& SetTabStripEventID(int64_t value);
-
-};
-
-class ThirdPartyCookies_BreakageIndicator final : public ::ukm::internal::UkmEntryBuilderBase {
- public:
-  explicit ThirdPartyCookies_BreakageIndicator(ukm::SourceId source_id);
-  explicit ThirdPartyCookies_BreakageIndicator(ukm::SourceIdObj source_id);
-  ~ThirdPartyCookies_BreakageIndicator() override;
-
-  static const char kEntryName[];
-  static constexpr uint64_t kEntryNameHash = UINT64_C(889342027174953553);
-
-
-  static const char kBreakageIndicatorTypeName[];
-  static constexpr uint64_t kBreakageIndicatorTypeNameHash = UINT64_C(8786295986226515630);
-  ThirdPartyCookies_BreakageIndicator& SetBreakageIndicatorType(int64_t value);
-
-  static const char kTPCBlockedName[];
-  static constexpr uint64_t kTPCBlockedNameHash = UINT64_C(5869361073952519652);
-  ThirdPartyCookies_BreakageIndicator& SetTPCBlocked(int64_t value);
-
-  static const char kTPCBlockedInSettingsName[];
-  static constexpr uint64_t kTPCBlockedInSettingsNameHash = UINT64_C(6655776299050811376);
-  ThirdPartyCookies_BreakageIndicator& SetTPCBlockedInSettings(int64_t value);
 
 };
 

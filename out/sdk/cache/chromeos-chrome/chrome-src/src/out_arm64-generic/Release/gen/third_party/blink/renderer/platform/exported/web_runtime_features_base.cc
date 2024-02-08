@@ -1125,6 +1125,16 @@ bool WebRuntimeFeaturesBase::IsSharedStorageAPIM118Enabled() {
 }
 
 // static
+void WebRuntimeFeaturesBase::EnableSharedStorageAPIM123(bool enable) {
+  RuntimeEnabledFeatures::SetSharedStorageAPIM123Enabled(enable);
+}
+
+// static
+bool WebRuntimeFeaturesBase::IsSharedStorageAPIM123Enabled() {
+  return RuntimeEnabledFeatures::SharedStorageAPIM123Enabled();
+}
+
+// static
 void WebRuntimeFeaturesBase::EnableSharedWorker(bool enable) {
   RuntimeEnabledFeatures::SetSharedWorkerEnabled(enable);
 }

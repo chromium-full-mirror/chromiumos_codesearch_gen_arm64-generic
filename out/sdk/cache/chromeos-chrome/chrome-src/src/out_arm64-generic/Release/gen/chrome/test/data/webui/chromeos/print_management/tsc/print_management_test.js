@@ -6,7 +6,6 @@ import 'chrome://webui-test/chromeos/mojo_webui_test_support.js';
 import { setMetadataProviderForTesting, setPrintManagementHandlerForTesting } from 'chrome://print-management/mojo_interface_provider.js';
 import { PrinterSetupInfoElement } from 'chrome://print-management/printer_setup_info.js';
 import { ActivePrintJobState, LaunchSource, PrinterErrorCode, PrintJobCompletionStatus } from 'chrome://print-management/printing_manager.mojom-webui.js';
-import { assert } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PromiseResolver } from 'chrome://resources/js/promise_resolver.js';
 import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
@@ -648,32 +647,6 @@ suite('PrintManagementTest', () => {
         // TODO(crbug/1093527): Show error message to user after UX guidance.
         assertTrue(!querySelector(page, '#ongoingList'));
         verifyPrintJobs(expectedHistoryList, getHistoryPrintJobEntries(page));
-    });
-    test('IsJellyEnabledForPrintManagementUpdatesCSS', async () => {
-        const disabledUrl = 'chrome://resources/chromeos/colors/cros_styles.css';
-        const linkEl = document.createElement('link');
-        linkEl.href = disabledUrl;
-        document.head.appendChild(linkEl);
-        // Setup for disabled test.
-        loadTimeData.overrideValues({
-            isJellyEnabledForPrintManagement: false,
-        });
-        await initializePrintManagementApp([]);
-        assertTrue(linkEl.href.includes(disabledUrl));
-        // Clean up element.
-        page?.remove();
-        page = null;
-        assert(window.trustedTypes);
-        document.body.innerHTML = window.trustedTypes.emptyHTML;
-        // Setup for enabled test.
-        loadTimeData.overrideValues({
-            isJellyEnabledForPrintManagement: true,
-        });
-        await initializePrintManagementApp([]);
-        const enabledUrl = 'chrome://theme/colors.css';
-        assertTrue(linkEl.href.includes(enabledUrl));
-        // Clean up test element.
-        document.head.removeChild(linkEl);
     });
     // Verify 'manage printers' button in header does not show when setup
     // assistance flag is off.

@@ -4767,6 +4767,10 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
           
     {NewTabPage_HistoryClusters::kBelongsToBoostedCategoryNameHash, NewTabPage_HistoryClusters::kBelongsToBoostedCategoryName},
 
+    {NewTabPage_HistoryClusters::kBelongsToMostSeenCategoryNameHash, NewTabPage_HistoryClusters::kBelongsToMostSeenCategoryName},
+
+    {NewTabPage_HistoryClusters::kBelongsToMostUsedCategoryNameHash, NewTabPage_HistoryClusters::kBelongsToMostUsedCategoryName},
+
     {NewTabPage_HistoryClusters::kDidDisableModuleNameHash, NewTabPage_HistoryClusters::kDidDisableModuleName},
 
     {NewTabPage_HistoryClusters::kDidDismissModuleNameHash, NewTabPage_HistoryClusters::kDidDismissModuleName},
@@ -4779,7 +4783,13 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {NewTabPage_HistoryClusters::kMinutesSinceMostRecentVisitNameHash, NewTabPage_HistoryClusters::kMinutesSinceMostRecentVisitName},
 
+    {NewTabPage_HistoryClusters::kMostFrequentSeenCategoryCountNameHash, NewTabPage_HistoryClusters::kMostFrequentSeenCategoryCountName},
+
+    {NewTabPage_HistoryClusters::kMostFrequentUsedCategoryCountNameHash, NewTabPage_HistoryClusters::kMostFrequentUsedCategoryCountName},
+
     {NewTabPage_HistoryClusters::kNumAbandonedCartsNameHash, NewTabPage_HistoryClusters::kNumAbandonedCartsName},
+
+    {NewTabPage_HistoryClusters::kNumAssociatedCategoriesNameHash, NewTabPage_HistoryClusters::kNumAssociatedCategoriesName},
 
     {NewTabPage_HistoryClusters::kNumTimesSeenLast24hNameHash, NewTabPage_HistoryClusters::kNumTimesSeenLast24hName},
 
@@ -7586,22 +7596,6 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     {TabStripOrganization::kTabGroupIDNameHash, TabStripOrganization::kTabGroupIDName},
 
     {TabStripOrganization::kTabStripEventIDNameHash, TabStripOrganization::kTabStripEventIDName},
-
-        }
-      }
-    },
-
-    {
-      UINT64_C(889342027174953553),
-      {
-        ThirdPartyCookies_BreakageIndicator::kEntryName,
-        {
-          
-    {ThirdPartyCookies_BreakageIndicator::kBreakageIndicatorTypeNameHash, ThirdPartyCookies_BreakageIndicator::kBreakageIndicatorTypeName},
-
-    {ThirdPartyCookies_BreakageIndicator::kTPCBlockedNameHash, ThirdPartyCookies_BreakageIndicator::kTPCBlockedName},
-
-    {ThirdPartyCookies_BreakageIndicator::kTPCBlockedInSettingsNameHash, ThirdPartyCookies_BreakageIndicator::kTPCBlockedInSettingsName},
 
         }
       }

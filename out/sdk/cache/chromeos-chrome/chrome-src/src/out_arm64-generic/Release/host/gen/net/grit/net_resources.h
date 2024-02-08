@@ -2,4 +2,4 @@
 
 #pragma once
 
-#define IDR_DIR_HEADER_HTML 43950
+#define IDR_DIR_HEADER_HTML 43970

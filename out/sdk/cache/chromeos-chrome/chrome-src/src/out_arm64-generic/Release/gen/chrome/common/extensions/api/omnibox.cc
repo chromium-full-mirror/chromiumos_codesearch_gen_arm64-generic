@@ -596,10 +596,12 @@ namespace OnInputChanged {
 
 const char kEventName[] = "omnibox.onInputChanged";
 
-base::Value::List Create(const std::string& text) {
+base::Value::List Create(const std::string& text, base::Value::Dict suggest) {
   base::Value::List create_results;
-  create_results.reserve(1);
+  create_results.reserve(2);
   create_results.Append(text);
+
+  create_results.Append((suggest).Clone());
 
   return create_results;
 }

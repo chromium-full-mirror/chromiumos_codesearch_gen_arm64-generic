@@ -45,7 +45,7 @@ export function getTemplate() {
               <eol-offer-section id="endOfLifeOfferContainer" should-show-offer-text="[[shouldShowOfferText_]]">
               </eol-offer-section>
             </template>
-            <localized-link id="endOfLifeMessageContainer" hidden="[[!hasEndOfLife_]]" localized-string="$i18n{endOfLifeMessage}">
+            <localized-link id="endOfLifeMessage" hidden="[[!hasEndOfLife_]]" localized-string="$i18n{endOfLifeMessage}">
             </localized-link>
             <div class="secondary" hidden="[[!hasDeferredUpdate_]]">
               $i18n{aboutDeferredUpdate}
@@ -54,11 +54,11 @@ export function getTemplate() {
           </div>
           <div class="separator" hidden="[[!showButtonContainer_]]"></div>
           <span id="buttonContainer" hidden="[[!showButtonContainer_]]">
-            <cr-button id="relaunch" hidden$="[[!showRelaunch_]]" on-click="onRelaunchClick_">
+            <cr-button id="relaunchButton" hidden$="[[!showRelaunch_]]" on-click="onRelaunchClick_">
                 [[getRelaunchButtonText_(
                                 currentUpdateStatusEvent_)]]
             </cr-button>
-            <cr-button id="checkForUpdates" hidden="[[!showCheckUpdates_]]" on-click="onCheckUpdatesClick_" deep-link-focus-id$="[[Setting.kCheckForOsUpdate]]">
+            <cr-button id="checkForUpdatesButton" hidden="[[!showCheckUpdates_]]" on-click="onCheckUpdatesClick_" deep-link-focus-id$="[[Setting.kCheckForOsUpdate]]">
               $i18n{aboutCheckForUpdates}
             </cr-button>
           </span>
@@ -130,7 +130,7 @@ export function getTemplate() {
           </div>
           
         </div>
-        <div class="settings-box padded block" id="regulatoryInfo" hidden$="[[!shouldShowRegulatoryOrSafetyInfo_(regulatoryInfo_)]]">
+        <div id="regulatoryInfo" class="settings-box padded block" hidden$="[[!shouldShowRegulatoryOrSafetyInfo_(regulatoryInfo_)]]">
           
           <img src="[[regulatoryInfo_.url]]" alt="[[regulatoryInfo_.text]]" hidden$="[[!shouldShowRegulatoryInfo_(regulatoryInfo_)]]">
         </div>

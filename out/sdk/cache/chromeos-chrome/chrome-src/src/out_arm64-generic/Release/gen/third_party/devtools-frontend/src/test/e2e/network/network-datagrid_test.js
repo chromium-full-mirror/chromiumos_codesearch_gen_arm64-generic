@@ -114,7 +114,7 @@ async function getRequestRowInfo(frontend, name) {
         // Open the raw response HTML
         await (0, helper_js_1.click)('[aria-label="Response"]');
         // Disable pretty printing
-        await (0, helper_js_1.waitFor)('[aria-label="Pretty print"][aria-pressed="true"]');
+        await (0, helper_js_1.waitFor)('[aria-label="Pretty print"]');
         await Promise.all([
             (0, helper_js_1.click)('[aria-label="Pretty print"]'),
             (0, helper_js_1.waitFor)('[aria-label="Pretty print"][aria-pressed="true"]'),
@@ -122,7 +122,7 @@ async function getRequestRowInfo(frontend, name) {
         // Wait for the raw response editor to show up
         const codeMirrorEditor = await (0, helper_js_1.waitFor)('[aria-label="Code editor"]');
         const htmlRawResponse = await codeMirrorEditor.evaluate(editor => editor.textContent);
-        chai_1.assert.strictEqual(htmlRawResponse, '<html><body>The following word is written using cyrillic letters and should look like "SUCCESS": SU\u0421\u0421\u0415SS.</body></html>');
+        chai_1.assert.strictEqual(htmlRawResponse, '<html>    <body>The following word is written using cyrillic letters and should look like "SUCCESS": SU\u0421\u0421\u0415SS.</body></html>');
     });
     (0, mocha_extensions_js_1.it)('the correct MIME type when resources came from HTTP cache', async () => {
         const { target, frontend } = (0, helper_js_1.getBrowserAndPages)();
@@ -335,7 +335,7 @@ async function getRequestRowInfo(frontend, name) {
             }),
         ];
         await (0, network_helpers_js_1.navigateToNetworkTab)('service-worker.html');
-        await target.waitForXPath('//div[@id="content" and text()="pong"]');
+        await target.waitForSelector('xpath///div[@id="content" and text()="pong"]');
         await Promise.all(promises);
     });
 });

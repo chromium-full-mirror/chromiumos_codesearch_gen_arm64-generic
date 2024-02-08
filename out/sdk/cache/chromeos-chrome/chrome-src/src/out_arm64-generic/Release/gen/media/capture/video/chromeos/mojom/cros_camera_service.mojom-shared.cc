@@ -262,6 +262,36 @@ CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data::CrosCame
 
 
 // static
+bool CrosCameraServiceObserver_CameraEffectChange_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosCameraServiceObserver_CameraEffectChange_Params_Data* object =
+      static_cast<const CrosCameraServiceObserver_CameraEffectChange_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->config, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->config, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosCameraServiceObserver_CameraEffectChange_Params_Data::CrosCameraServiceObserver_CameraEffectChange_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CrosCameraService_GetCameraModule_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

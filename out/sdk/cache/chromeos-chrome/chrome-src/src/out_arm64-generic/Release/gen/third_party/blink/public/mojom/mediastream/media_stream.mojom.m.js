@@ -680,16 +680,6 @@ export class MediaStreamDispatcherHostInterface {
   
   /**
    * @param { !mojoBase_mojom_UnguessableToken } deviceId
-   * @return {!Promise<{
-        zoomLevel: ?number,
-        result: !CapturedSurfaceControlResult,
-   *  }>}
-   */
-
-  getZoomLevel(deviceId) {}
-  
-  /**
-   * @param { !mojoBase_mojom_UnguessableToken } deviceId
    * @param { !number } zoomLevel
    * @return {!Promise<{
         result: !CapturedSurfaceControlResult,
@@ -963,26 +953,6 @@ export class MediaStreamDispatcherHostRemote {
   
   /**
    * @param { !mojoBase_mojom_UnguessableToken } deviceId
-   * @return {!Promise<{
-        zoomLevel: ?number,
-        result: !CapturedSurfaceControlResult,
-   *  }>}
-   */
-
-  getZoomLevel(
-      deviceId) {
-    return this.proxy.sendMessage(
-        10,
-        MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec.$,
-        MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec.$,
-        [
-          deviceId
-        ]);
-  }
-
-  
-  /**
-   * @param { !mojoBase_mojom_UnguessableToken } deviceId
    * @param { !number } zoomLevel
    * @return {!Promise<{
         result: !CapturedSurfaceControlResult,
@@ -993,7 +963,7 @@ export class MediaStreamDispatcherHostRemote {
       deviceId,
       zoomLevel) {
     return this.proxy.sendMessage(
-        11,
+        10,
         MediaStreamDispatcherHost_SetZoomLevel_ParamsSpec.$,
         MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsSpec.$,
         [
@@ -1018,7 +988,7 @@ export class MediaStreamDispatcherHostRemote {
       sessionId,
       transferId) {
     return this.proxy.sendMessage(
-        12,
+        11,
         MediaStreamDispatcherHost_GetOpenDevice_ParamsSpec.$,
         MediaStreamDispatcherHost_GetOpenDevice_ResponseParamsSpec.$,
         [
@@ -1041,7 +1011,7 @@ export class MediaStreamDispatcherHostRemote {
       sessionId,
       transferId) {
     return this.proxy.sendMessage(
-        13,
+        12,
         MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ParamsSpec.$,
         MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ResponseParamsSpec.$,
         [
@@ -1123,21 +1093,16 @@ export class MediaStreamDispatcherHostReceiver {
         impl.sendWheel.bind(impl));
     this.helper_internal_.registerHandler(
         10,
-        MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec.$,
-        MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec.$,
-        impl.getZoomLevel.bind(impl));
-    this.helper_internal_.registerHandler(
-        11,
         MediaStreamDispatcherHost_SetZoomLevel_ParamsSpec.$,
         MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsSpec.$,
         impl.setZoomLevel.bind(impl));
     this.helper_internal_.registerHandler(
-        12,
+        11,
         MediaStreamDispatcherHost_GetOpenDevice_ParamsSpec.$,
         MediaStreamDispatcherHost_GetOpenDevice_ResponseParamsSpec.$,
         impl.getOpenDevice.bind(impl));
     this.helper_internal_.registerHandler(
-        13,
+        12,
         MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ParamsSpec.$,
         MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ResponseParamsSpec.$,
         impl.keepDeviceAliveForTransfer.bind(impl));
@@ -1310,24 +1275,12 @@ export class MediaStreamDispatcherHostCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.getZoomLevel =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        10,
-        MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec.$,
-        MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec.$,
-        this.getZoomLevel.createReceiverHandler(true /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
     this.setZoomLevel =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
-        11,
+        10,
         MediaStreamDispatcherHost_SetZoomLevel_ParamsSpec.$,
         MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsSpec.$,
         this.setZoomLevel.createReceiverHandler(true /* expectsResponse */));
@@ -1339,7 +1292,7 @@ export class MediaStreamDispatcherHostCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        12,
+        11,
         MediaStreamDispatcherHost_GetOpenDevice_ParamsSpec.$,
         MediaStreamDispatcherHost_GetOpenDevice_ResponseParamsSpec.$,
         this.getOpenDevice.createReceiverHandler(true /* expectsResponse */));
@@ -1351,7 +1304,7 @@ export class MediaStreamDispatcherHostCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        13,
+        12,
         MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ParamsSpec.$,
         MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ResponseParamsSpec.$,
         this.keepDeviceAliveForTransfer.createReceiverHandler(true /* expectsResponse */));
@@ -1747,18 +1700,6 @@ export const MediaStreamDispatcherHost_SendWheel_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const MediaStreamDispatcherHost_SendWheel_ResponseParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -3167,91 +3108,6 @@ mojo.internal.Struct(
  */
 export class MediaStreamDispatcherHost_SendWheel_ResponseParams {
   constructor() {
-    /** @type { !CapturedSurfaceControlResult } */
-    this.result;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec.$,
-    'MediaStreamDispatcherHost_GetZoomLevel_Params',
-    [
-      mojo.internal.StructField(
-        'deviceId', 0,
-        0,
-        mojoBase_mojom_UnguessableTokenSpec.$,
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class MediaStreamDispatcherHost_GetZoomLevel_Params {
-  constructor() {
-    /** @type { !mojoBase_mojom_UnguessableToken } */
-    this.deviceId;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec.$,
-    'MediaStreamDispatcherHost_GetZoomLevel_ResponseParams',
-    [
-      mojo.internal.StructField(
-        'zoom_level_$flag', 0,
-        0,
-        mojo.internal.Bool,
-        false,
-        false /* nullable */,
-        0,
-        {
-          isPrimary: true,
-          linkedValueFieldName: "zoom_level_$value",
-          originalFieldName: "zoomLevel",
-        }
-      ),
-      mojo.internal.StructField(
-        'zoom_level_$value', 4,
-        0,
-        mojo.internal.Int32,
-        0,
-        false /* nullable */,
-        0,
-        {
-          isPrimary: false,
-          originalFieldName: "zoomLevel",
-        }
-      ),
-      mojo.internal.StructField(
-        'result', 8,
-        0,
-        CapturedSurfaceControlResultSpec.$,
-        0,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-/**
- * @record
- */
-export class MediaStreamDispatcherHost_GetZoomLevel_ResponseParams {
-  constructor() {
-    /** @type { (number|undefined) } */
-    this.zoomLevel;
     /** @type { !CapturedSurfaceControlResult } */
     this.result;
   }

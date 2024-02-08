@@ -1,11 +1,11 @@
 import { P as PaperRippleMixin, b as assertNotReached, q as listenOnce } from './shared.rollup.js';
 import { html, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import 'chrome://resources/lit/v3_0/lit.rollup.js';
+import { css, html as html$1, CrLitElement } from 'chrome://resources/lit/v3_0/lit.rollup.js';
 import './strings.m.js';
 import 'chrome://resources/js/load_time_data.js';
 import 'chrome://resources/js/cr.js';
 
-function getTemplate$1() {
+function getTemplate() {
     return html `<!--_html_template_start_-->    <style>:host{-webkit-tap-highlight-color:transparent;align-items:center;cursor:pointer;display:flex;outline:0;user-select:none;--cr-checkbox-border-size:2px;--cr-checkbox-size:16px;--cr-checkbox-ripple-size:40px;--cr-checkbox-ripple-offset:calc(var(--cr-checkbox-size)/2 -
             var(--cr-checkbox-ripple-size)/2 - var(--cr-checkbox-border-size));--cr-checkbox-checked-box-color:var(--cr-checked-color);--cr-checkbox-ripple-checked-color:var(--cr-checked-color);--cr-checkbox-checked-ripple-opacity:.2;--cr-checkbox-mark-color:white;--cr-checkbox-ripple-unchecked-color:var(--google-grey-900);--cr-checkbox-unchecked-box-color:var(--google-grey-700);--cr-checkbox-unchecked-ripple-opacity:.15}@media (prefers-color-scheme:dark){:host{--cr-checkbox-checked-ripple-opacity:.4;--cr-checkbox-mark-color:var(--google-grey-900);--cr-checkbox-ripple-unchecked-color:var(--google-grey-500);--cr-checkbox-unchecked-box-color:var(--google-grey-500);--cr-checkbox-unchecked-ripple-opacity:.4}}:host-context([chrome-refresh-2023]):host{--cr-checkbox-ripple-size:32px;--cr-checkbox-mark-color:var(--color-checkbox-check,
             var(--cr-fallback-color-on-primary));--cr-checkbox-checked-box-color:var(--color-checkbox-foreground-checked,
@@ -64,7 +64,7 @@ class CrCheckboxElement extends CrCheckboxElementBase {
         return 'cr-checkbox';
     }
     static get template() {
-        return getTemplate$1();
+        return getTemplate();
     }
     static get properties() {
         return {
@@ -188,52 +188,58 @@ class CrCheckboxElement extends CrCheckboxElementBase {
 }
 customElements.define(CrCheckboxElement.is, CrCheckboxElement);
 
-function getTemplate() {
-    return html `<!--_html_template_start_-->    <style>:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);font:var(--cr-drawer-header-font,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
-    <dialog id="dialog" on-cancel="onDialogCancel_" on-click="onDialogClick_" on-close="onDialogClose_">
-      <div id="container" on-click="onContainerClick_">
-        <div class="drawer-header">
-          <slot name="header-icon">
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="//resources/images/chrome_logo_dark.svg">
-              <img id="product-logo" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" role="presentation">
-            </picture>
-          </slot>
-          <div id="heading" tabindex="-1">[[heading]]</div>
-        </div>
-        <slot name="body"></slot>
-      </div>
-    </dialog>
+function getCss() {
+    return css `:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}`;
+}
+
+function getHtml() {
+    return html$1 `<!--_html_template_start_--><dialog id="dialog" @cancel="${this.onDialogCancel_}" @click="${this.onDialogClick_}" @close="${this.onDialogClose_}">
+  <div id="container" @click="${this.onContainerClick_}">
+    <div class="drawer-header">
+      <slot name="header-icon">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="//resources/images/chrome_logo_dark.svg">
+          <img id="product-logo" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" role="presentation">
+        </picture>
+      </slot>
+      <div id="heading" tabindex="-1">${this.heading}</div>
+    </div>
+    <slot name="body"></slot>
+  </div>
+</dialog>
 <!--_html_template_end_-->`;
 }
 
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-class CrDrawerElement extends PolymerElement {
+class CrDrawerElement extends CrLitElement {
+    constructor() {
+        super(...arguments);
+        this.align = 'ltr';
+    }
     static get is() {
         return 'cr-drawer';
     }
-    static get template() {
-        return getTemplate();
+    static get styles() {
+        return getCss();
+    }
+    render() {
+        return getHtml.bind(this)();
     }
     static get properties() {
         return {
-            heading: String,
+            heading: { type: String },
             show_: {
                 type: Boolean,
-                reflectToAttribute: true,
+                reflect: true,
             },
             /** The alignment of the drawer on the screen ('ltr' or 'rtl'). */
             align: {
                 type: String,
-                value: 'ltr',
-                reflectToAttribute: true,
+                reflect: true,
             },
         };
-    }
-    fire_(eventName, detail) {
-        this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
     }
     get open() {
         return this.$.dialog.open;
@@ -251,15 +257,16 @@ class CrDrawerElement extends PolymerElement {
         }
     }
     /** Shows drawer and slides it into view. */
-    openDrawer() {
+    async openDrawer() {
         if (this.open) {
             return;
         }
         this.$.dialog.showModal();
         this.show_ = true;
-        this.fire_('cr-drawer-opening');
+        await this.updateComplete;
+        this.fire('cr-drawer-opening');
         listenOnce(this.$.dialog, 'transitionend', () => {
-            this.fire_('cr-drawer-opened');
+            this.fire('cr-drawer-opened');
         });
     }
     /**
@@ -267,7 +274,7 @@ class CrDrawerElement extends PolymerElement {
      * is up to the owner of this component to differentiate between close and
      * cancel.
      */
-    dismiss_(cancel) {
+    async dismiss_(cancel) {
         if (!this.open) {
             return;
         }
@@ -308,7 +315,7 @@ class CrDrawerElement extends PolymerElement {
     onDialogClose_() {
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.fire_('close');
+        this.fire('close');
     }
 }
 customElements.define(CrDrawerElement.is, CrDrawerElement);

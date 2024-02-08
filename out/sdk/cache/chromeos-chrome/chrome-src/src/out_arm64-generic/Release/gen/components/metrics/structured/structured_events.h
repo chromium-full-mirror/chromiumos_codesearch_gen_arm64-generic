@@ -635,6 +635,20 @@ class Impression final : public ::metrics::structured::Event {
   Impression& SetVeContext(const int64_t value);
   Impression& SetTimeSinceSessionStart(const int64_t value);
   Impression& SetSessionId(const int64_t value);
+  Impression& SetWidth(const int64_t value);
+  Impression& SetHeight(const int64_t value);
+};
+
+class Resize final : public ::metrics::structured::Event {
+ public:
+  Resize();
+  ~Resize() override;
+
+    Resize& SetVeId(const int64_t value);
+  Resize& SetTimeSinceSessionStart(const int64_t value);
+  Resize& SetSessionId(const int64_t value);
+  Resize& SetWidth(const int64_t value);
+  Resize& SetHeight(const int64_t value);
 };
 
 class Click final : public ::metrics::structured::Event {

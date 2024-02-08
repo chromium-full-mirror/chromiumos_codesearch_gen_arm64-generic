@@ -6,18 +6,19 @@ import { TimeTicksSpec, TimeSpec } from 'chrome://resources/mojo/mojo/public/moj
 import { TokenSpec } from 'chrome://resources/mojo/mojo/public/mojom/base/token.mojom-webui.js';
 import { UrlSpec } from 'chrome://resources/mojo/url/mojom/url.mojom-webui.js';
 import { addWebUiListener, removeWebUiListener, sendWithPromise } from 'chrome://resources/js/cr.js';
+import { css, html as html$1, CrLitElement } from 'chrome://resources/lit/v3_0/lit.rollup.js';
 import { MetricsReporterImpl } from 'chrome://resources/js/metrics_reporter/metrics_reporter.js';
 import Fuse from './fuse.js';
 
-const styleMod$7 = document.createElement('dom-module');
-styleMod$7.appendChild(html `
+const styleMod$6 = document.createElement('dom-module');
+styleMod$6.appendChild(html `
   <template>
     <style>
 :host([hidden]),[hidden]{display:none!important}
     </style>
   </template>
 `.content);
-styleMod$7.register('cr-hidden-style');
+styleMod$6.register('cr-hidden-style');
 
 /**
 @license
@@ -1350,7 +1351,7 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$h() {
+function getTemplate$g() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -1386,7 +1387,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$h();
+        return getTemplate$g();
     }
     static get properties() {
         return {
@@ -1560,15 +1561,15 @@ class CrButtonElement extends CrButtonElementBase {
 }
 customElements.define(CrButtonElement.is, CrButtonElement);
 
-const styleMod$6 = document.createElement('dom-module');
-styleMod$6.appendChild(html `
+const styleMod$5 = document.createElement('dom-module');
+styleMod$5.appendChild(html `
   <template>
     <style>
 .icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
     </style>
   </template>
 `.content);
-styleMod$6.register('cr-icons');
+styleMod$5.register('cr-icons');
 
 const template$3 = html `
 <style>
@@ -1577,27 +1578,27 @@ html{--mwb-background-color:white;--mwb-icon-button-fill-color:var(--google-grey
 `;
 document.head.appendChild(template$3.content);
 
-const styleMod$5 = document.createElement('dom-module');
-styleMod$5.appendChild(html `
+const styleMod$4 = document.createElement('dom-module');
+styleMod$4.appendChild(html `
   <template>
     <style>
 ::-webkit-scrollbar-thumb{background-color:var(--mwb-scrollbar-thumb-color)}::-webkit-scrollbar-thumb:hover{background-color:var(--mwb-scrollbar-thumb-hover-color)}::-webkit-scrollbar-track{background-color:var(--mwb-scrollbar-track-color)}::-webkit-scrollbar{width:var(--mwb-scrollbar-width)}.mwb-list-item{align-items:center;background-color:var(--mwb-background-color);contain-intrinsic-size:var(--mwb-item-height);content-visibility:auto;display:flex;height:var(--mwb-item-height);padding:0 var(--mwb-list-item-horizontal-margin)}.mwb-list-item.hovered{background-color:var(--mwb-list-item-hover-background-color)}.mwb-list-item.selected{background-color:var(--mwb-list-item-selected-background-color)}
     </style>
   </template>
 `.content);
-styleMod$5.register('mwb-shared-style');
+styleMod$4.register('mwb-shared-style');
 
-const styleMod$4 = document.createElement('dom-module');
-styleMod$4.appendChild(html `
+const styleMod$3 = document.createElement('dom-module');
+styleMod$3.appendChild(html `
   <template>
     <style>
 .tab-organization-body{color:var(--color-secondary-foreground);font-size:13px;font-weight:400;line-height:20px}.tab-organization-container{display:flex;flex-direction:column;gap:16px;width:100%}.tab-organization-header{color:var(--cr-primary-text-color);font-size:14px;font-weight:500}.tab-organization-link{color:var(--color-link-foreground-on-bubble-footer);cursor:pointer;display:inline-block;font-size:13px;font-weight:400;outline-color:var(--color-button-foreground);outline-offset:1px;text-decoration:underline;width:fit-content}.tab-organization-text-container{display:flex;flex-direction:column;gap:8px}@keyframes displayOut{0%{height:auto;visibility:visible;position:relative}50%{visibility:visible}100%{height:0;visibility:hidden;position:absolute}}@keyframes displayIn{0%{height:0;visibility:hidden;position:absolute}50%{visibility:hidden}100%{height:auto;visibility:visible;position:relative}}@keyframes fadeOut{0%{opacity:1}100%{opacity:0}}@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}@keyframes slideOut{0%{transform:translateY(0)}100%{transform:translateY(-16px)}}@keyframes slideIn{0%{transform:translateY(16px)}100%{transform:translateY(0)}}
     </style>
   </template>
 `.content);
-styleMod$4.register('tab-organization-shared-style');
+styleMod$3.register('tab-organization-shared-style');
 
-function getTemplate$g() {
+function getTemplate$f() {
     return html `<!--_html_template_start_--><style include="tab-organization-shared-style">.footer{background-color:var(--color-bubble-footer-background);display:flex;flex-direction:column;margin:0 -20px -20px -20px;padding:16px var(--mwb-list-item-horizontal-margin)}.tab-organization-body{width:280px}</style>
 
 <div class="tab-organization-container">
@@ -2187,7 +2188,7 @@ class TabOrganizationFailureElement extends PolymerElement {
         };
     }
     static get template() {
-        return getTemplate$g();
+        return getTemplate$f();
     }
     announceHeader() {
         this.$.header.textContent = '';
@@ -2295,7 +2296,7 @@ function assertNotReached(message = 'Unreachable code hit') {
     assert(false, message);
 }
 
-function getTemplate$f() {
+function getTemplate$e() {
     return html `<!--_html_template_start_--><style>:host{--cr-loading-gradient-color-start:transparent;--cr-loading-gradient-color-middle:rgb(211, 227, 253);--cr-loading-gradient-color-end:rgb(231, 248, 237);display:flex;width:100%;height:fit-content;position:relative}@media (prefers-color-scheme:dark){:host{--cr-loading-gradient-color-middle:rgb(8, 66, 160);--cr-loading-gradient-color-end:rgb(15, 82, 35)}}:host-context([chrome-refresh-2023]):host{--cr-loading-gradient-color-start:var(--color-loading-gradient-start,
         transparent);--cr-loading-gradient-color-middle:var(--color-loading-gradient-middle,
         var(--cr-fallback-color-primary-container));--cr-loading-gradient-color-end:var(--color-loading-gradient-end,
@@ -2318,7 +2319,7 @@ class CrLoadingGradientElement extends PolymerElement {
         return 'cr-loading-gradient';
     }
     static get template() {
-        return getTemplate$f();
+        return getTemplate$e();
     }
     onSlotchange_() {
         const clipPath = this.querySelector('svg clipPath');
@@ -2330,7 +2331,7 @@ class CrLoadingGradientElement extends PolymerElement {
 }
 customElements.define(CrLoadingGradientElement.is, CrLoadingGradientElement);
 
-function getTemplate$e() {
+function getTemplate$d() {
     return html `<!--_html_template_start_--><style include="tab-organization-shared-style">#loading-container{border:solid 1px var(--color-loading-gradient-border);border-radius:8px;padding:14px}</style>
 
 <div class="tab-organization-container">
@@ -2369,7 +2370,7 @@ class TabOrganizationInProgressElement extends PolymerElement {
         return 'tab-organization-in-progress';
     }
     static get template() {
-        return getTemplate$e();
+        return getTemplate$d();
     }
     announceHeader() {
         this.$.header.textContent = '';
@@ -2381,7 +2382,7 @@ class TabOrganizationInProgressElement extends PolymerElement {
 }
 customElements.define(TabOrganizationInProgressElement.is, TabOrganizationInProgressElement);
 
-function getTemplate$d() {
+function getTemplate$c() {
     return html `<!--_html_template_start_--><style>:host{--image-background-color-1:rgb(211, 227, 253);--image-background_color-2:rgb(231, 248, 237);--window_frame_color:#A8C7FA;--tab-group-1-color:#0B57D0;--tab-group-2-color:#1EA446;--tab-content-color-top:#fff;--tab-content-color-bottom:#ECF3FE;--active-tab-text-color:#D3E3FD;--inactive-tab-text-color:#1B6EF3}@media (prefers-color-scheme:dark){:host{--image-background-color-1:rgb(8, 66, 160);--image-background_color-2:rgb(15, 82, 35);--window_frame_color:#0B57D0;--tab-group-1-color:#A8C7FA;--tab-content-color-top:#041E49;--tab-content-color-bottom:#062E6F;--active-tab-text-color:var(--inactive-tab-text-color)}}:host-context([chrome-refresh-2023]):host{--image-background-color-1:var(--color-loading-gradient-middle);--image-background_color-2:var(--color-loading-gradient-end);--window_frame_color:var(--color-tab-search-image-window-frame);--tab-group-1-color:var(--color-tab-group-tab-strip-frame-active-blue);--tab-group-2-color:var(--color-tab-group-tab-strip-frame-active-green);--tab-content-color-top:var(--color-tab-search-image-tab-content-top);--tab-content-color-bottom:var(--color-tab-search-image-tab-content-bottom);--active-tab-text-color:var(--color-tab-search-image-tab-text);--inactive-tab-text-color:var(--color-tab-search-image-tab-text)}.image-background-color-1{stop-color:var(--image-background-color-1)}.image-background-color-2{stop-color:var(--image-background_color-2)}.window-frame-stroke{stroke:var(--window_frame_color)}.window-frame-fill{fill:var(--window_frame_color)}.tab-group-1-stroke{stroke:var(--tab-group-1-color)}.tab-group-1-fill{fill:var(--tab-group-1-color)}.tab-group-2-stroke{stroke:var(--tab-group-2-color)}.tab-group-2-fill{fill:var(--tab-group-2-color)}.tab-content-fill{fill:var(--tab-content-color-top)}.tab-content-stop-color-start{stop-color:var(--tab-content-color-top)}.tab-content-stop-color-end{stop-color:var(--tab-content-color-bottom)}.active-tab-text-color{fill:var(--active-tab-text-color)}.inactive-tab-text-color{fill:var(--inactive-tab-text-color)}</style>
   
 <svg xmlns="http://www.w3.org/2000/svg" width="280" height="103" fill="none">
@@ -2434,7 +2435,7 @@ class TabOrganizationNotStartedImageElement extends PolymerElement {
         return 'tab-organization-not-started-image';
     }
     static get template() {
-        return getTemplate$d();
+        return getTemplate$c();
     }
 }
 customElements.define(TabOrganizationNotStartedImageElement.is, TabOrganizationNotStartedImageElement);
@@ -2442,10 +2443,6 @@ customElements.define(TabOrganizationNotStartedImageElement.is, TabOrganizationN
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Mixin to be used by Polymer elements that want to
- * automatically remove WebUI listeners when detached.
- */
 const WebUiListenerMixin = dedupingMixin((superClass) => {
     class WebUiListenerMixin extends superClass {
         constructor() {
@@ -2478,7 +2475,7 @@ const WebUiListenerMixin = dedupingMixin((superClass) => {
     return WebUiListenerMixin;
 });
 
-function getTemplate$c() {
+function getTemplate$b() {
     return html `<!--_html_template_start_--><style include="tab-organization-shared-style">:host{--avatar-size:40px}cr-button{align-self:flex-end;width:fit-content}.account-email{font-size:12px}.account-image{border-radius:var(--avatar-size);height:var(--avatar-size);width:var(--avatar-size)}.account-row{align-items:center;display:flex;gap:10px}.account-text{display:flex;flex-direction:column;gap:4px}</style>
 
 <div class="tab-organization-container">
@@ -2558,7 +2555,7 @@ class TabOrganizationNotStartedElement extends TabOrganizationNotStartedElementB
         };
     }
     static get template() {
-        return getTemplate$c();
+        return getTemplate$b();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -3089,7 +3086,7 @@ Polymer({
   }
 });
 
-function getTemplate$b() {
+function getTemplate$a() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -3147,7 +3144,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$b();
+        return getTemplate$a();
     }
     static get properties() {
         return {
@@ -3827,7 +3824,7 @@ const template$2 = html `
 `;
 document.head.appendChild(template$2.content);
 
-function getTemplate$a() {
+function getTemplate$9() {
     return html `<!--_html_template_start_--><style>.buttons{--cr-feedback-buttons-icon-size_:16px;display:grid;grid-auto-columns:var(--cr-feedback-buttons-icon-size_);grid-auto-rows:var(--cr-feedback-buttons-icon-size_);grid-auto-flow:column;gap:12px;align-items:center;justify-items:center}cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-icon-size:var(--cr-feedback-buttons-icon-size_);--cr-icon-button-size:24px;margin:0}</style>
 
 <div class="buttons">
@@ -3853,7 +3850,7 @@ class CrFeedbackButtonsElement extends PolymerElement {
         return 'cr-feedback-buttons';
     }
     static get template() {
-        return getTemplate$a();
+        return getTemplate$9();
     }
     static get properties() {
         return {
@@ -3909,18 +3906,18 @@ class CrFeedbackButtonsElement extends PolymerElement {
 }
 customElements.define(CrFeedbackButtonsElement.is, CrFeedbackButtonsElement);
 
-const styleMod$3 = document.createElement('dom-module');
-styleMod$3.appendChild(html `
+const styleMod$2 = document.createElement('dom-module');
+styleMod$2.appendChild(html `
   <template>
     <style include="cr-hidden-style cr-icons">
 :host,html{--scrollable-border-color:var(--google-grey-300)}@media (prefers-color-scheme:dark){:host,html{--scrollable-border-color:var(--google-grey-700)}}[actionable]{cursor:pointer}.hr{border-top:var(--cr-separator-line)}iron-list.cr-separators>:not([first]){border-top:var(--cr-separator-line)}[scrollable]{border-color:transparent;border-style:solid;border-width:1px 0;overflow-y:auto}[scrollable].is-scrolled{border-top-color:var(--scrollable-border-color)}[scrollable].can-scroll:not(.scrolled-to-bottom){border-bottom-color:var(--scrollable-border-color)}[scrollable] iron-list>:not(.no-outline):focus,[selectable]:focus,[selectable]>:focus{background-color:var(--cr-focused-item-color);outline:0}.scroll-container{display:flex;flex-direction:column;min-height:1px}[selectable]>*{cursor:pointer}.cr-centered-card-container{box-sizing:border-box;display:block;height:inherit;margin:0 auto;max-width:var(--cr-centered-card-max-width);min-width:550px;position:relative;width:calc(100% * var(--cr-centered-card-width-percentage))}.cr-container-shadow{box-shadow:inset 0 5px 6px -3px rgba(0,0,0,.4);height:var(--cr-container-shadow-height);left:0;margin:0 0 var(--cr-container-shadow-margin);opacity:0;pointer-events:none;position:relative;right:0;top:0;transition:opacity .5s;z-index:1}#cr-container-shadow-bottom{margin-bottom:0;margin-top:var(--cr-container-shadow-margin);transform:scaleY(-1)}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{opacity:var(--cr-container-shadow-max-opacity)}.cr-row{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--cr-section-min-height);padding:0 var(--cr-section-padding)}.cr-row.continuation,.cr-row.first{border-top:none}.cr-row-gap{padding-inline-start:16px}.cr-button-gap{margin-inline-start:8px}paper-tooltip::part(tooltip){border-radius:var(--paper-tooltip-border-radius,2px);font-size:92.31%;font-weight:500;max-width:330px;min-width:var(--paper-tooltip-min-width,200px);padding:var(--paper-tooltip-padding,10px 8px)}.cr-padded-text{padding-block-end:var(--cr-section-vertical-padding);padding-block-start:var(--cr-section-vertical-padding)}.cr-title-text{color:var(--cr-title-text-color);font-size:107.6923%;font-weight:500}.cr-secondary-text{color:var(--cr-secondary-text-color);font-weight:400}.cr-form-field-label{color:var(--cr-form-field-label-color);display:block;font-size:var(--cr-form-field-label-font-size);font-weight:500;letter-spacing:.4px;line-height:var(--cr-form-field-label-line-height);margin-bottom:8px}.cr-vertical-tab{align-items:center;display:flex}.cr-vertical-tab::before{border-radius:0 3px 3px 0;content:'';display:block;flex-shrink:0;height:var(--cr-vertical-tab-height,100%);width:4px}.cr-vertical-tab.selected::before{background:var(--cr-vertical-tab-selected-color,var(--cr-checked-color))}:host-context([dir=rtl]) .cr-vertical-tab::before{transform:scaleX(-1)}.iph-anchor-highlight{background-color:var(--cr-iph-anchor-highlight-color)}
     </style>
   </template>
 `.content);
-styleMod$3.register('cr-shared-style');
+styleMod$2.register('cr-shared-style');
 
-const styleMod$2 = document.createElement('dom-module');
-styleMod$2.appendChild(html `
+const styleMod$1 = document.createElement('dom-module');
+styleMod$1.appendChild(html `
   <template>
     <style>
 :host{--cr-input-background-color:var(--google-grey-100);--cr-input-color:var(--cr-primary-text-color);--cr-input-error-color:var(--google-red-600);--cr-input-focus-color:var(--google-blue-600);display:block;outline:0}:host-context([chrome-refresh-2023]):host{--cr-input-background-color:var(--color-textfield-filled-background,
@@ -3937,9 +3934,9 @@ styleMod$2.appendChild(html `
     </style>
   </template>
 `.content);
-styleMod$2.register('cr-input-style');
+styleMod$1.register('cr-input-style');
 
-function getTemplate$9() {
+function getTemplate$8() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -3982,7 +3979,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$9();
+        return getTemplate$8();
     }
     static get properties() {
         return {
@@ -4976,11 +4973,6 @@ document.head.appendChild(template$1.content);
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview This file provides a mixin to manage a `hovered` style on mouse
- * events. Relies on listening for pointer events as touch devices may fire
- * mouse events too.
- */
 const HOVERED_STYLE = 'hovered';
 const MouseHoverableMixin = dedupingMixin((superClass) => {
     class MouseHoverableMixin extends superClass {
@@ -5309,7 +5301,7 @@ function colorName(color) {
     return colorMap.get(color);
 }
 
-function getTemplate$8() {
+function getTemplate$7() {
     return html `<!--_html_template_start_--><style include="mwb-element-shared-style">:host{--audio-icon-color:var(--google-grey-700);--media-recording-icon-color:var(--google-red-600)}@media (prefers-color-scheme:dark){:host{--audio-icon-color:var(--google-grey-300);--media-recording-icon-color:var(--google-red-300)}}:host-context([chrome-refresh-2023]):host{--audio-icon-color:var(--color-tab-search-media-icon);--media-recording-icon-color:var(--color-tab-search-media-recording-icon)}:host(:focus){outline:0}:host(:is(.hovered,.selected)) .button-container{height:auto;overflow:visible;visibility:visible;width:auto}.button-container{height:0;margin-inline-start:2px;overflow:hidden;width:0}.button-container.allocate-space-while-hidden{height:auto;overflow:visible;visibility:hidden;width:auto}.button-container cr-icon-button{--cr-icon-button-fill-color:var(--mwb-icon-button-fill-color)}.favicon{background-repeat:no-repeat;background-size:var(--mwb-icon-size);flex-shrink:0;height:var(--mwb-icon-size);width:var(--mwb-icon-size)}.text-container{flex-grow:1;overflow:hidden;user-select:none}#groupTitle,#primaryText,#secondaryText{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#primaryText{color:var(--cr-primary-text-color);font-size:var(--mwb-primary-text-font-size);font-weight:var(--mwb-primary-text-font-weight);margin-bottom:3px}#secondaryContainer{align-items:center;color:var(--cr-secondary-text-color);display:flex;font-size:var(--mwb-secondary-text-font-size);font-weight:var(--mwb-secondary-text-font-weight)}#primaryContainer{display:flex}#secondaryTimestamp{flex-shrink:0}#textAriaLabel{clip:rect(0,0,0,0);display:inline-block;position:fixed}.separator{margin-inline-end:4px;margin-inline-start:4px}cr-icon-button{--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}.search-highlight-hit{--search-highlight-hit-background-color:none;--search-highlight-hit-color:none;font-weight:700}#groupSvg{flex-shrink:0;height:8px;margin-inline-end:6px;width:8px}#groupDot{fill:var(--group-dot-color)}#mediaAlert[display=block]{-webkit-mask:center/contain no-repeat;flex-shrink:0;height:var(--mwb-icon-size);margin-inline-end:8px;margin-inline-start:4px;width:var(--mwb-icon-size)}#mediaAlert[class=audio-recording],#mediaAlert[class=media-recording],#mediaAlert[class=video-recording]{-webkit-mask-image:url(alert_indicators/tab_media_recording.svg);background-color:var(--media-recording-icon-color)}#mediaAlert[class=audio-playing]{-webkit-mask-image:url(alert_indicators/tab_audio_rounded.svg);background-color:var(--audio-icon-color)}#mediaAlert[class=audio-muting]{-webkit-mask-image:url(alert_indicators/tab_audio_muting_rounded.svg);background-color:var(--audio-icon-color)}#iconContainer{margin-inline-end:16px}:host-context([chrome-refresh-2023]) #iconContainer{align-items:center;background:var(--tab-search-favicon-background,var(--color-list-item-url-favicon-background));border-radius:8px;display:flex;flex-shrink:0;height:40px;justify-content:center;overflow:hidden;width:40px}</style>
 
 <div id="iconContainer">
@@ -5355,7 +5347,7 @@ class TabSearchItem extends TabSearchItemBase {
         return 'tab-search-item';
     }
     static get template() {
-        return getTemplate$8();
+        return getTemplate$7();
     }
     static get properties() {
         return {
@@ -5491,7 +5483,7 @@ class TabSearchItem extends TabSearchItemBase {
 }
 customElements.define(TabSearchItem.is, TabSearchItem);
 
-function getTemplate$7() {
+function getTemplate$6() {
     return html `<!--_html_template_start_--><style include="mwb-shared-style tab-organization-shared-style">cr-button{margin-top:16px;width:fit-content}cr-feedback-buttons{color:var(--color-icon)}cr-input{--cr-input-background-color:transparent;--cr-input-border:1px solid var(--color-side-panel-textfield-border);--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-error-display:none;--cr-input-padding-bottom:9px;--cr-input-padding-top:9px;--cr-input-underline-display:none;margin:0 var(--mwb-list-item-horizontal-margin) 16px var(--mwb-list-item-horizontal-margin)}cr-input:focus{--cr-input-border:2px solid var(--cr-focus-outline-color);--cr-input-padding-bottom:8px;--cr-input-padding-top:8px}tab-search-item{--tab-search-favicon-background:var(--color-tab-search-background)}.button-row{display:flex;gap:16px;justify-content:flex-end;margin:0 16px}.feedback{align-items:center;display:flex;gap:8px;justify-content:space-between}iron-selector>.mwb-list-item:focus{background-color:var(--mwb-list-item-selected-background-color)}.mwb-list-item{background-color:transparent;min-height:var(--mwb-item-height)}.results{background-color:var(--color-tab-search-card-background);border-radius:8px}#scrollable{display:flex;flex-direction:column;overflow-y:auto;padding:16px 0}.tab-organization-body,.tab-organization-link{font-size:11px;line-height:16px}</style>
 
 <div class="tab-organization-container">
@@ -5579,7 +5571,7 @@ class TabOrganizationResultsElement extends PolymerElement {
         };
     }
     static get template() {
-        return getTemplate$7();
+        return getTemplate$6();
     }
     announceHeader() {
         this.$.header.textContent = '';
@@ -5773,7 +5765,7 @@ function mojoString16ToString(str16) {
     return str;
 }
 
-function getTemplate$6() {
+function getTemplate$5() {
     return html `<!--_html_template_start_--><style include="tab-organization-shared-style">:host{--standard-curve:cubic-bezier(0.2, 0.0, 0, 1.0)}tab-organization-failure,tab-organization-in-progress,tab-organization-not-started,tab-organization-results{display:flex}:host(.changed-state) tab-organization-failure[shown],:host(.changed-state) tab-organization-in-progress[shown],:host(.changed-state) tab-organization-not-started[shown],:host(.changed-state) tab-organization-results[shown]{animation:fadeIn .1s linear .1s forwards,displayIn .2s linear forwards,slideIn 250ms var(--standard-curve) forwards}tab-organization-failure:not([shown]),tab-organization-in-progress:not([shown]),tab-organization-not-started:not([shown]),tab-organization-results:not([shown]){height:0;position:absolute;visibility:hidden}:host(.changed-state.from-failure) tab-organization-failure:not([shown]),:host(.changed-state.from-in-progress) tab-organization-in-progress:not([shown]),:host(.changed-state.from-not-started) tab-organization-not-started:not([shown]),:host(.changed-state.from-success) tab-organization-results:not([shown]){animation:fadeOut .1s linear forwards,displayOut .2s linear forwards,slideOut 250ms var(--standard-curve) forwards}#body{margin:var(--mwb-list-item-horizontal-margin)}#contents{overflow:hidden}</style>
 
 <div id="contents">
@@ -5916,7 +5908,7 @@ class TabOrganizationPageElement extends PolymerElement {
         };
     }
     static get template() {
-        return getTemplate$6();
+        return getTemplate$5();
     }
     constructor() {
         super();
@@ -6093,15 +6085,9 @@ class TabOrganizationPageElement extends PolymerElement {
 }
 customElements.define(TabOrganizationPageElement.is, TabOrganizationPageElement);
 
-const styleMod$1 = document.createElement('dom-module');
-styleMod$1.appendChild(html `
-  <template>
-    <style>
-:host{align-items:center;align-self:stretch;display:flex;margin:0;outline:0}:host(:not([effectively-disabled_])){cursor:pointer}:host(:not([no-hover],[effectively-disabled_]):hover){background-color:var(--cr-hover-background-color)}:host(:not([no-hover],[effectively-disabled_]):active){background-color:var(--cr-active-background-color)}:host(:not([no-hover],[effectively-disabled_])) cr-icon-button{--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}
-    </style>
-  </template>
-`.content);
-styleMod$1.register('cr-actionable-row-style');
+function getCss$1() {
+    return css `:host{align-items:center;align-self:stretch;display:flex;margin:0;outline:0}:host(:not([effectively-disabled_])){cursor:pointer}:host(:not([no-hover],[effectively-disabled_]):hover){background-color:var(--cr-hover-background-color)}:host(:not([no-hover],[effectively-disabled_]):active){background-color:var(--cr-active-background-color)}:host(:not([no-hover],[effectively-disabled_])) cr-icon-button{--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}`;
+}
 
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -6138,12 +6124,14 @@ function focusWithoutInk(toFocus) {
     toFocusWithNoInk.noink = noink;
 }
 
-function getTemplate$5() {
-    return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
+function getCss() {
+    return css `:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}`;
+}
 
-    <div id="label" aria-hidden="true"><slot></slot></div>
-    <cr-icon-button id="icon" aria-labelledby="label" aria-expanded="[[getAriaExpanded_(expanded)]]" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon" iron-icon="[[icon_]]">
-    </cr-icon-button>
+function getHtml() {
+    return html$1 `<!--_html_template_start_--><div id="label" aria-hidden="true"><slot></slot></div>
+<cr-icon-button id="icon" aria-labelledby="label" ?disabled="${this.disabled}" aria-expanded="${this.ariaExpanded_}" tabindex="${this.tabIndex}" part="icon" iron-icon="${this.icon_}">
+</cr-icon-button>
 <!--_html_template_end_-->`;
 }
 
@@ -6155,12 +6143,28 @@ function getTemplate$5() {
  * 'cr-expand-button' is a chrome-specific wrapper around a button that toggles
  * between an opened (expanded) and closed state.
  */
-class CrExpandButtonElement extends PolymerElement {
+class CrExpandButtonElement extends CrLitElement {
+    constructor() {
+        super(...arguments);
+        this.expanded = false;
+        this.disabled = false;
+        this.ariaExpanded_ = 'false';
+        this.expandIcon = 'cr:expand-more';
+        this.collapseIcon = 'cr:expand-less';
+        this.tabIndex = 0;
+        this.icon_ = '';
+    }
     static get is() {
         return 'cr-expand-button';
     }
-    static get template() {
-        return getTemplate$5();
+    static get styles() {
+        return [
+            getCss$1(),
+            getCss(),
+        ];
+    }
+    render() {
+        return getHtml.bind(this)();
     }
     static get properties() {
         return {
@@ -6171,7 +6175,6 @@ class CrExpandButtonElement extends PolymerElement {
              */
             expanded: {
                 type: Boolean,
-                value: false,
                 notify: true,
             },
             /**
@@ -6179,50 +6182,43 @@ class CrExpandButtonElement extends PolymerElement {
              */
             disabled: {
                 type: Boolean,
-                value: false,
-                reflectToAttribute: true,
+                reflect: true,
             },
             /** A11y text descriptor for this control. */
-            ariaLabel: {
-                type: String,
-                observer: 'onAriaLabelChange_',
-            },
-            tabIndex: {
-                type: Number,
-                value: 0,
-            },
-            expandIcon: {
-                type: String,
-                value: 'cr:expand-more',
-            },
-            collapseIcon: {
-                type: String,
-                value: 'cr:expand-less',
-            },
-            icon_: String,
-            expandTitle: String,
-            collapseTitle: String,
-            tooltipText_: {
-                type: String,
-                computed: 'computeTooltipText_(expandTitle, collapseTitle, expanded)',
-                observer: 'onTooltipTextChange_',
-            },
+            ariaLabel: { type: String },
+            ariaExpanded_: { type: String },
+            tabIndex: { type: Number },
+            expandIcon: { type: String },
+            collapseIcon: { type: String },
+            expandTitle: { type: String },
+            collapseTitle: { type: String },
+            icon_: { type: String },
         };
     }
-    static get observers() {
-        return [
-            'updateIcon_(collapseIcon, expandIcon, expanded)',
-        ];
-    }
-    ready() {
-        super.ready();
+    firstUpdated() {
         this.addEventListener('click', this.toggleExpand_);
     }
-    computeTooltipText_() {
-        return this.expanded ? this.collapseTitle : this.expandTitle;
+    willUpdate(changedProperties) {
+        super.willUpdate(changedProperties);
+        if (changedProperties.has('expanded') ||
+            changedProperties.has('expandIcon') ||
+            changedProperties.has('collapseIcon')) {
+            this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
+        }
+        if (changedProperties.has('expanded') ||
+            changedProperties.has('collapseTitle') ||
+            changedProperties.has('expandTitle')) {
+            this.title = this.expanded ? this.collapseTitle : this.expandTitle;
+        }
+        if (changedProperties.has('expanded')) {
+            this.ariaExpanded_ = this.expanded ? 'true' : 'false';
+        }
     }
-    onTooltipTextChange_() {
-        this.title = this.tooltipText_;
+    updated(changedProperties) {
+        super.updated(changedProperties);
+        if (changedProperties.has('ariaLabel')) {
+            this.onAriaLabelChange_();
+        }
     }
     focus() {
         this.$.icon.focus();
@@ -6237,9 +6233,6 @@ class CrExpandButtonElement extends PolymerElement {
             this.$.icon.setAttribute('aria-labelledby', 'label');
         }
     }
-    updateIcon_() {
-        this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
-    }
     toggleExpand_(event) {
         // Prevent |click| event from bubbling. It can cause parents of this
         // elements to erroneously re-toggle this control.
@@ -6248,9 +6241,6 @@ class CrExpandButtonElement extends PolymerElement {
         this.scrollIntoViewIfNeeded();
         this.expanded = !this.expanded;
         focusWithoutInk(this.$.icon);
-    }
-    getAriaExpanded_() {
-        return this.expanded ? 'true' : 'false';
     }
 }
 customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);

@@ -1935,6 +1935,30 @@ struct CertificateBasedDeviceRegisterRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CertificateBasedDeviceRegisterRequestDefaultTypeInternal _CertificateBasedDeviceRegisterRequest_default_instance_;
+PROTOBUF_CONSTEXPR TokenBasedDeviceRegisterRequest::TokenBasedDeviceRegisterRequest(
+    ::_pbi::ConstantInitialized)
+  : device_register_request_(nullptr){}
+struct TokenBasedDeviceRegisterRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR TokenBasedDeviceRegisterRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~TokenBasedDeviceRegisterRequestDefaultTypeInternal() {}
+  union {
+    TokenBasedDeviceRegisterRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TokenBasedDeviceRegisterRequestDefaultTypeInternal _TokenBasedDeviceRegisterRequest_default_instance_;
+PROTOBUF_CONSTEXPR TokenBasedDeviceRegisterResponse::TokenBasedDeviceRegisterResponse(
+    ::_pbi::ConstantInitialized)
+  : device_register_response_(nullptr){}
+struct TokenBasedDeviceRegisterResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR TokenBasedDeviceRegisterResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~TokenBasedDeviceRegisterResponseDefaultTypeInternal() {}
+  union {
+    TokenBasedDeviceRegisterResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TokenBasedDeviceRegisterResponseDefaultTypeInternal _TokenBasedDeviceRegisterResponse_default_instance_;
 PROTOBUF_CONSTEXPR DeviceRegisterConfiguration::DeviceRegisterConfiguration(
     ::_pbi::ConstantInitialized)
   : device_owner_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
@@ -2887,7 +2911,8 @@ PROTOBUF_CONSTEXPR DeviceManagementRequest::DeviceManagementRequest(
   , private_set_membership_request_(nullptr)
   , browser_public_key_upload_request_(nullptr)
   , upload_euicc_info_request_(nullptr)
-  , chrome_profile_report_request_(nullptr){}
+  , chrome_profile_report_request_(nullptr)
+  , token_based_device_register_request_(nullptr){}
 struct DeviceManagementRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceManagementRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -2935,7 +2960,8 @@ PROTOBUF_CONSTEXPR DeviceManagementResponse::DeviceManagementResponse(
   , private_set_membership_response_(nullptr)
   , browser_public_key_upload_response_(nullptr)
   , upload_euicc_info_response_(nullptr)
-  , chrome_profile_report_response_(nullptr){}
+  , chrome_profile_report_response_(nullptr)
+  , token_based_device_register_response_(nullptr){}
 struct DeviceManagementResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceManagementResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -50433,6 +50459,401 @@ std::string CertificateBasedDeviceRegisterRequest::GetTypeName() const {
 
 // ===================================================================
 
+class TokenBasedDeviceRegisterRequest::_Internal {
+ public:
+  using HasBits = decltype(std::declval<TokenBasedDeviceRegisterRequest>()._has_bits_);
+  static const ::enterprise_management::DeviceRegisterRequest& device_register_request(const TokenBasedDeviceRegisterRequest* msg);
+  static void set_has_device_register_request(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+const ::enterprise_management::DeviceRegisterRequest&
+TokenBasedDeviceRegisterRequest::_Internal::device_register_request(const TokenBasedDeviceRegisterRequest* msg) {
+  return *msg->device_register_request_;
+}
+TokenBasedDeviceRegisterRequest::TokenBasedDeviceRegisterRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.TokenBasedDeviceRegisterRequest)
+}
+TokenBasedDeviceRegisterRequest::TokenBasedDeviceRegisterRequest(const TokenBasedDeviceRegisterRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_device_register_request()) {
+    device_register_request_ = new ::enterprise_management::DeviceRegisterRequest(*from.device_register_request_);
+  } else {
+    device_register_request_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.TokenBasedDeviceRegisterRequest)
+}
+
+inline void TokenBasedDeviceRegisterRequest::SharedCtor() {
+device_register_request_ = nullptr;
+}
+
+TokenBasedDeviceRegisterRequest::~TokenBasedDeviceRegisterRequest() {
+  // @@protoc_insertion_point(destructor:enterprise_management.TokenBasedDeviceRegisterRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void TokenBasedDeviceRegisterRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete device_register_request_;
+}
+
+void TokenBasedDeviceRegisterRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void TokenBasedDeviceRegisterRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.TokenBasedDeviceRegisterRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(device_register_request_ != nullptr);
+    device_register_request_->Clear();
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* TokenBasedDeviceRegisterRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .enterprise_management.DeviceRegisterRequest device_register_request = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_register_request(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* TokenBasedDeviceRegisterRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.TokenBasedDeviceRegisterRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .enterprise_management.DeviceRegisterRequest device_register_request = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::device_register_request(this),
+        _Internal::device_register_request(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.TokenBasedDeviceRegisterRequest)
+  return target;
+}
+
+size_t TokenBasedDeviceRegisterRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.TokenBasedDeviceRegisterRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .enterprise_management.DeviceRegisterRequest device_register_request = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *device_register_request_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void TokenBasedDeviceRegisterRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const TokenBasedDeviceRegisterRequest*>(
+      &from));
+}
+
+void TokenBasedDeviceRegisterRequest::MergeFrom(const TokenBasedDeviceRegisterRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.TokenBasedDeviceRegisterRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_device_register_request()) {
+    _internal_mutable_device_register_request()->::enterprise_management::DeviceRegisterRequest::MergeFrom(from._internal_device_register_request());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void TokenBasedDeviceRegisterRequest::CopyFrom(const TokenBasedDeviceRegisterRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.TokenBasedDeviceRegisterRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool TokenBasedDeviceRegisterRequest::IsInitialized() const {
+  return true;
+}
+
+void TokenBasedDeviceRegisterRequest::InternalSwap(TokenBasedDeviceRegisterRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(device_register_request_, other->device_register_request_);
+}
+
+std::string TokenBasedDeviceRegisterRequest::GetTypeName() const {
+  return "enterprise_management.TokenBasedDeviceRegisterRequest";
+}
+
+
+// ===================================================================
+
+class TokenBasedDeviceRegisterResponse::_Internal {
+ public:
+  using HasBits = decltype(std::declval<TokenBasedDeviceRegisterResponse>()._has_bits_);
+  static const ::enterprise_management::DeviceRegisterResponse& device_register_response(const TokenBasedDeviceRegisterResponse* msg);
+  static void set_has_device_register_response(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+const ::enterprise_management::DeviceRegisterResponse&
+TokenBasedDeviceRegisterResponse::_Internal::device_register_response(const TokenBasedDeviceRegisterResponse* msg) {
+  return *msg->device_register_response_;
+}
+TokenBasedDeviceRegisterResponse::TokenBasedDeviceRegisterResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.TokenBasedDeviceRegisterResponse)
+}
+TokenBasedDeviceRegisterResponse::TokenBasedDeviceRegisterResponse(const TokenBasedDeviceRegisterResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_device_register_response()) {
+    device_register_response_ = new ::enterprise_management::DeviceRegisterResponse(*from.device_register_response_);
+  } else {
+    device_register_response_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.TokenBasedDeviceRegisterResponse)
+}
+
+inline void TokenBasedDeviceRegisterResponse::SharedCtor() {
+device_register_response_ = nullptr;
+}
+
+TokenBasedDeviceRegisterResponse::~TokenBasedDeviceRegisterResponse() {
+  // @@protoc_insertion_point(destructor:enterprise_management.TokenBasedDeviceRegisterResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void TokenBasedDeviceRegisterResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete device_register_response_;
+}
+
+void TokenBasedDeviceRegisterResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void TokenBasedDeviceRegisterResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.TokenBasedDeviceRegisterResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(device_register_response_ != nullptr);
+    device_register_response_->Clear();
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* TokenBasedDeviceRegisterResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .enterprise_management.DeviceRegisterResponse device_register_response = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_register_response(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* TokenBasedDeviceRegisterResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.TokenBasedDeviceRegisterResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .enterprise_management.DeviceRegisterResponse device_register_response = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::device_register_response(this),
+        _Internal::device_register_response(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.TokenBasedDeviceRegisterResponse)
+  return target;
+}
+
+size_t TokenBasedDeviceRegisterResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.TokenBasedDeviceRegisterResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .enterprise_management.DeviceRegisterResponse device_register_response = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *device_register_response_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void TokenBasedDeviceRegisterResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const TokenBasedDeviceRegisterResponse*>(
+      &from));
+}
+
+void TokenBasedDeviceRegisterResponse::MergeFrom(const TokenBasedDeviceRegisterResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.TokenBasedDeviceRegisterResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_device_register_response()) {
+    _internal_mutable_device_register_response()->::enterprise_management::DeviceRegisterResponse::MergeFrom(from._internal_device_register_response());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void TokenBasedDeviceRegisterResponse::CopyFrom(const TokenBasedDeviceRegisterResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.TokenBasedDeviceRegisterResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool TokenBasedDeviceRegisterResponse::IsInitialized() const {
+  if (_internal_has_device_register_response()) {
+    if (!device_register_response_->IsInitialized()) return false;
+  }
+  return true;
+}
+
+void TokenBasedDeviceRegisterResponse::InternalSwap(TokenBasedDeviceRegisterResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(device_register_response_, other->device_register_response_);
+}
+
+std::string TokenBasedDeviceRegisterResponse::GetTypeName() const {
+  return "enterprise_management.TokenBasedDeviceRegisterResponse";
+}
+
+
+// ===================================================================
+
 class DeviceRegisterConfiguration::_Internal {
  public:
   using HasBits = decltype(std::declval<DeviceRegisterConfiguration>()._has_bits_);
@@ -68009,6 +68430,10 @@ class DeviceManagementRequest::_Internal {
   static void set_has_chrome_profile_report_request(HasBits* has_bits) {
     (*has_bits)[1] |= 64u;
   }
+  static const ::enterprise_management::TokenBasedDeviceRegisterRequest& token_based_device_register_request(const DeviceManagementRequest* msg);
+  static void set_has_token_based_device_register_request(HasBits* has_bits) {
+    (*has_bits)[1] |= 128u;
+  }
 };
 
 const ::enterprise_management::DeviceRegisterRequest&
@@ -68166,6 +68591,10 @@ DeviceManagementRequest::_Internal::upload_euicc_info_request(const DeviceManage
 const ::enterprise_management::ChromeProfileReportRequest&
 DeviceManagementRequest::_Internal::chrome_profile_report_request(const DeviceManagementRequest* msg) {
   return *msg->chrome_profile_report_request_;
+}
+const ::enterprise_management::TokenBasedDeviceRegisterRequest&
+DeviceManagementRequest::_Internal::token_based_device_register_request(const DeviceManagementRequest* msg) {
+  return *msg->token_based_device_register_request_;
 }
 DeviceManagementRequest::DeviceManagementRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -68372,14 +68801,19 @@ DeviceManagementRequest::DeviceManagementRequest(const DeviceManagementRequest& 
   } else {
     chrome_profile_report_request_ = nullptr;
   }
+  if (from._internal_has_token_based_device_register_request()) {
+    token_based_device_register_request_ = new ::enterprise_management::TokenBasedDeviceRegisterRequest(*from.token_based_device_register_request_);
+  } else {
+    token_based_device_register_request_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceManagementRequest)
 }
 
 inline void DeviceManagementRequest::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&register_request_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&chrome_profile_report_request_) -
-    reinterpret_cast<char*>(&register_request_)) + sizeof(chrome_profile_report_request_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&token_based_device_register_request_) -
+    reinterpret_cast<char*>(&register_request_)) + sizeof(token_based_device_register_request_));
 }
 
 DeviceManagementRequest::~DeviceManagementRequest() {
@@ -68432,6 +68866,7 @@ inline void DeviceManagementRequest::SharedDtor() {
   if (this != internal_default_instance()) delete browser_public_key_upload_request_;
   if (this != internal_default_instance()) delete upload_euicc_info_request_;
   if (this != internal_default_instance()) delete chrome_profile_report_request_;
+  if (this != internal_default_instance()) delete token_based_device_register_request_;
 }
 
 void DeviceManagementRequest::SetCachedSize(int size) const {
@@ -68582,7 +69017,7 @@ void DeviceManagementRequest::Clear() {
     }
   }
   cached_has_bits = _has_bits_[1];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(client_certificate_provisioning_request_ != nullptr);
       client_certificate_provisioning_request_->Clear();
@@ -68610,6 +69045,10 @@ void DeviceManagementRequest::Clear() {
     if (cached_has_bits & 0x00000040u) {
       GOOGLE_DCHECK(chrome_profile_report_request_ != nullptr);
       chrome_profile_report_request_->Clear();
+    }
+    if (cached_has_bits & 0x00000080u) {
+      GOOGLE_DCHECK(token_based_device_register_request_ != nullptr);
+      token_based_device_register_request_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -68934,6 +69373,14 @@ const char* DeviceManagementRequest::_InternalParse(const char* ptr, ::_pbi::Par
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.TokenBasedDeviceRegisterRequest token_based_device_register_request = 41;
+      case 41:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          ptr = ctx->ParseMessage(_internal_mutable_token_based_device_register_request(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -69238,6 +69685,13 @@ uint8_t* DeviceManagementRequest::_InternalSerialize(
         _Internal::chrome_profile_report_request(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.TokenBasedDeviceRegisterRequest token_based_device_register_request = 41;
+  if (cached_has_bits & 0x00000080u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(41, _Internal::token_based_device_register_request(this),
+        _Internal::token_based_device_register_request(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -69488,7 +69942,7 @@ size_t DeviceManagementRequest::ByteSizeLong() const {
 
   }
   cached_has_bits = _has_bits_[1];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     // optional .enterprise_management.ClientCertificateProvisioningRequest client_certificate_provisioning_request = 34;
     if (cached_has_bits & 0x00000001u) {
       total_size += 2 +
@@ -69536,6 +69990,13 @@ size_t DeviceManagementRequest::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *chrome_profile_report_request_);
+    }
+
+    // optional .enterprise_management.TokenBasedDeviceRegisterRequest token_based_device_register_request = 41;
+    if (cached_has_bits & 0x00000080u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *token_based_device_register_request_);
     }
 
   }
@@ -69665,7 +70126,7 @@ void DeviceManagementRequest::MergeFrom(const DeviceManagementRequest& from) {
     }
   }
   cached_has_bits = from._has_bits_[1];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_mutable_client_certificate_provisioning_request()->::enterprise_management::ClientCertificateProvisioningRequest::MergeFrom(from._internal_client_certificate_provisioning_request());
     }
@@ -69686,6 +70147,9 @@ void DeviceManagementRequest::MergeFrom(const DeviceManagementRequest& from) {
     }
     if (cached_has_bits & 0x00000040u) {
       _internal_mutable_chrome_profile_report_request()->::enterprise_management::ChromeProfileReportRequest::MergeFrom(from._internal_chrome_profile_report_request());
+    }
+    if (cached_has_bits & 0x00000080u) {
+      _internal_mutable_token_based_device_register_request()->::enterprise_management::TokenBasedDeviceRegisterRequest::MergeFrom(from._internal_token_based_device_register_request());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -69711,8 +70175,8 @@ void DeviceManagementRequest::InternalSwap(DeviceManagementRequest* other) {
   swap(_has_bits_[0], other->_has_bits_[0]);
   swap(_has_bits_[1], other->_has_bits_[1]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DeviceManagementRequest, chrome_profile_report_request_)
-      + sizeof(DeviceManagementRequest::chrome_profile_report_request_)
+      PROTOBUF_FIELD_OFFSET(DeviceManagementRequest, token_based_device_register_request_)
+      + sizeof(DeviceManagementRequest::token_based_device_register_request_)
       - PROTOBUF_FIELD_OFFSET(DeviceManagementRequest, register_request_)>(
           reinterpret_cast<char*>(&register_request_),
           reinterpret_cast<char*>(&other->register_request_));
@@ -69871,6 +70335,10 @@ class DeviceManagementResponse::_Internal {
   static void set_has_chrome_profile_report_response(HasBits* has_bits) {
     (*has_bits)[1] |= 8u;
   }
+  static const ::enterprise_management::TokenBasedDeviceRegisterResponse& token_based_device_register_response(const DeviceManagementResponse* msg);
+  static void set_has_token_based_device_register_response(HasBits* has_bits) {
+    (*has_bits)[1] |= 16u;
+  }
 };
 
 const ::enterprise_management::DeviceRegisterResponse&
@@ -70012,6 +70480,10 @@ DeviceManagementResponse::_Internal::upload_euicc_info_response(const DeviceMana
 const ::enterprise_management::ChromeProfileReportResponse&
 DeviceManagementResponse::_Internal::chrome_profile_report_response(const DeviceManagementResponse* msg) {
   return *msg->chrome_profile_report_response_;
+}
+const ::enterprise_management::TokenBasedDeviceRegisterResponse&
+DeviceManagementResponse::_Internal::token_based_device_register_response(const DeviceManagementResponse* msg) {
+  return *msg->token_based_device_register_response_;
 }
 DeviceManagementResponse::DeviceManagementResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -70208,6 +70680,11 @@ DeviceManagementResponse::DeviceManagementResponse(const DeviceManagementRespons
   } else {
     chrome_profile_report_response_ = nullptr;
   }
+  if (from._internal_has_token_based_device_register_response()) {
+    token_based_device_register_response_ = new ::enterprise_management::TokenBasedDeviceRegisterResponse(*from.token_based_device_register_response_);
+  } else {
+    token_based_device_register_response_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceManagementResponse)
 }
 
@@ -70218,8 +70695,8 @@ error_message_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&register_response_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&chrome_profile_report_response_) -
-    reinterpret_cast<char*>(&register_response_)) + sizeof(chrome_profile_report_response_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&token_based_device_register_response_) -
+    reinterpret_cast<char*>(&register_response_)) + sizeof(token_based_device_register_response_));
 }
 
 DeviceManagementResponse::~DeviceManagementResponse() {
@@ -70269,6 +70746,7 @@ inline void DeviceManagementResponse::SharedDtor() {
   if (this != internal_default_instance()) delete browser_public_key_upload_response_;
   if (this != internal_default_instance()) delete upload_euicc_info_response_;
   if (this != internal_default_instance()) delete chrome_profile_report_response_;
+  if (this != internal_default_instance()) delete token_based_device_register_response_;
 }
 
 void DeviceManagementResponse::SetCachedSize(int size) const {
@@ -70419,7 +70897,7 @@ void DeviceManagementResponse::Clear() {
     }
   }
   cached_has_bits = _has_bits_[1];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(private_set_membership_response_ != nullptr);
       private_set_membership_response_->Clear();
@@ -70435,6 +70913,10 @@ void DeviceManagementResponse::Clear() {
     if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(chrome_profile_report_response_ != nullptr);
       chrome_profile_report_response_->Clear();
+    }
+    if (cached_has_bits & 0x00000010u) {
+      GOOGLE_DCHECK(token_based_device_register_response_ != nullptr);
+      token_based_device_register_response_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -70757,6 +71239,14 @@ const char* DeviceManagementResponse::_InternalParse(const char* ptr, ::_pbi::Pa
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.TokenBasedDeviceRegisterResponse token_based_device_register_response = 40;
+      case 40:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          ptr = ctx->ParseMessage(_internal_mutable_token_based_device_register_response(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -71046,6 +71536,13 @@ uint8_t* DeviceManagementResponse::_InternalSerialize(
         39, this->_internal_error_detail(i), target);
   }
 
+  // optional .enterprise_management.TokenBasedDeviceRegisterResponse token_based_device_register_response = 40;
+  if (cached_has_bits & 0x00000010u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(40, _Internal::token_based_device_register_response(this),
+        _Internal::token_based_device_register_response(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -71306,7 +71803,7 @@ size_t DeviceManagementResponse::ByteSizeLong() const {
 
   }
   cached_has_bits = _has_bits_[1];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     // optional .enterprise_management.PrivateSetMembershipResponse private_set_membership_response = 35;
     if (cached_has_bits & 0x00000001u) {
       total_size += 2 +
@@ -71333,6 +71830,13 @@ size_t DeviceManagementResponse::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *chrome_profile_report_response_);
+    }
+
+    // optional .enterprise_management.TokenBasedDeviceRegisterResponse token_based_device_register_response = 40;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *token_based_device_register_response_);
     }
 
   }
@@ -71463,7 +71967,7 @@ void DeviceManagementResponse::MergeFrom(const DeviceManagementResponse& from) {
     }
   }
   cached_has_bits = from._has_bits_[1];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_mutable_private_set_membership_response()->::enterprise_management::PrivateSetMembershipResponse::MergeFrom(from._internal_private_set_membership_response());
     }
@@ -71475,6 +71979,9 @@ void DeviceManagementResponse::MergeFrom(const DeviceManagementResponse& from) {
     }
     if (cached_has_bits & 0x00000008u) {
       _internal_mutable_chrome_profile_report_response()->::enterprise_management::ChromeProfileReportResponse::MergeFrom(from._internal_chrome_profile_report_response());
+    }
+    if (cached_has_bits & 0x00000010u) {
+      _internal_mutable_token_based_device_register_response()->::enterprise_management::TokenBasedDeviceRegisterResponse::MergeFrom(from._internal_token_based_device_register_response());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -71490,6 +71997,9 @@ void DeviceManagementResponse::CopyFrom(const DeviceManagementResponse& from) {
 bool DeviceManagementResponse::IsInitialized() const {
   if (_internal_has_register_response()) {
     if (!register_response_->IsInitialized()) return false;
+  }
+  if (_internal_has_token_based_device_register_response()) {
+    if (!token_based_device_register_response_->IsInitialized()) return false;
   }
   return true;
 }
@@ -71507,8 +72017,8 @@ void DeviceManagementResponse::InternalSwap(DeviceManagementResponse* other) {
       &other->error_message_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DeviceManagementResponse, chrome_profile_report_response_)
-      + sizeof(DeviceManagementResponse::chrome_profile_report_response_)
+      PROTOBUF_FIELD_OFFSET(DeviceManagementResponse, token_based_device_register_response_)
+      + sizeof(DeviceManagementResponse::token_based_device_register_response_)
       - PROTOBUF_FIELD_OFFSET(DeviceManagementResponse, register_response_)>(
           reinterpret_cast<char*>(&register_response_),
           reinterpret_cast<char*>(&other->register_response_));
@@ -72197,6 +72707,14 @@ Arena::CreateMaybeMessage< ::enterprise_management::CheckAndroidManagementRespon
 template<> PROTOBUF_NOINLINE ::enterprise_management::CertificateBasedDeviceRegisterRequest*
 Arena::CreateMaybeMessage< ::enterprise_management::CertificateBasedDeviceRegisterRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::CertificateBasedDeviceRegisterRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::TokenBasedDeviceRegisterRequest*
+Arena::CreateMaybeMessage< ::enterprise_management::TokenBasedDeviceRegisterRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::TokenBasedDeviceRegisterRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::TokenBasedDeviceRegisterResponse*
+Arena::CreateMaybeMessage< ::enterprise_management::TokenBasedDeviceRegisterResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::TokenBasedDeviceRegisterResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceRegisterConfiguration*
 Arena::CreateMaybeMessage< ::enterprise_management::DeviceRegisterConfiguration >(Arena* arena) {

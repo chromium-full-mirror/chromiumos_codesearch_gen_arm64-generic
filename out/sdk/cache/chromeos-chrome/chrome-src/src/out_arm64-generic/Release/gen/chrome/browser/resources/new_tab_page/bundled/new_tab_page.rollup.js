@@ -1480,9 +1480,8 @@ class RealboxDropdownElement extends PolymerElement {
         return sideTypeToClass(side);
     }
     classForGroupRenderType_(groupId) {
-        return this.result?.suggestionGroupsMap[groupId] ?
-            renderTypeToClass(this.result?.suggestionGroupsMap[groupId].renderType) :
-            '';
+        return renderTypeToClass(this.result?.suggestionGroupsMap[groupId]?.renderType ??
+            RenderType.kDefaultVertical);
     }
     computeHasSecondarySide_() {
         const hasSecondarySide = !!this.groupIdsForSideType_(SideType.kSecondary).length;

@@ -5724,6 +5724,16 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetSimLockTypeDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSimLockType(UserType* output) {
+    
+    auto* pointer = data_->sim_lock_type.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
   inline void GetPaymentPortalDataView(
       PaymentPortalPropertiesDataView* output);
 
@@ -12314,6 +12324,18 @@ struct Serializer<::chromeos::network_config::mojom::ManagedCellularPropertiesDa
         in_network_technology, network_technology_fragment);
     fragment->network_technology.Set(
         network_technology_fragment.is_null() ? nullptr : network_technology_fragment.data());
+    decltype(Traits::sim_lock_type(input)) in_sim_lock_type = Traits::sim_lock_type(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->sim_lock_type)::BaseType> sim_lock_type_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_sim_lock_type, sim_lock_type_fragment);
+    fragment->sim_lock_type.Set(
+        sim_lock_type_fragment.is_null() ? nullptr : sim_lock_type_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->sim_lock_type.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null sim_lock_type in ManagedCellularProperties struct");
     decltype(Traits::payment_portal(input)) in_payment_portal = Traits::payment_portal(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->payment_portal)::BaseType> payment_portal_fragment(
@@ -15816,6 +15838,11 @@ inline void ManagedCellularPropertiesDataView::GetModelIdDataView(
 inline void ManagedCellularPropertiesDataView::GetNetworkTechnologyDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->network_technology.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void ManagedCellularPropertiesDataView::GetSimLockTypeDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->sim_lock_type.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void ManagedCellularPropertiesDataView::GetPaymentPortalDataView(

@@ -65,12 +65,17 @@ enum HistoryClustersModuleRankingModelSignals : int {
   HISTORY_CLUSTERS_MODULE_RANKING_NUM_ABANDONED_CARTS = 6,
   HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_SEEN = 7,
   HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_USED = 8,
+  HISTORY_CLUSTERS_MODULE_RANKING_NUM_ASSOCIATED_CATEGORIES = 9,
+  HISTORY_CLUSTERS_MODULE_RANKING_BELONGS_TO_MOST_SEEN_CATEGORY = 10,
+  HISTORY_CLUSTERS_MODULE_RANKING_BELONGS_TO_MOST_USED_CATEGORY = 11,
+  HISTORY_CLUSTERS_MODULE_RANKING_MOST_FREQUENT_SEEN_CATEGORY_COUNT = 12,
+  HISTORY_CLUSTERS_MODULE_RANKING_MOST_FREQUENT_USED_CATEGORY_COUNT = 13,
   HistoryClustersModuleRankingModelSignals_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   HistoryClustersModuleRankingModelSignals_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool HistoryClustersModuleRankingModelSignals_IsValid(int value);
 constexpr HistoryClustersModuleRankingModelSignals HistoryClustersModuleRankingModelSignals_MIN = HISTORY_CLUSTERS_MODULE_RANKING_MODEL_SIGNALS_UNKNOWN;
-constexpr HistoryClustersModuleRankingModelSignals HistoryClustersModuleRankingModelSignals_MAX = HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_USED;
+constexpr HistoryClustersModuleRankingModelSignals HistoryClustersModuleRankingModelSignals_MAX = HISTORY_CLUSTERS_MODULE_RANKING_MOST_FREQUENT_USED_CATEGORY_COUNT;
 constexpr int HistoryClustersModuleRankingModelSignals_ARRAYSIZE = HistoryClustersModuleRankingModelSignals_MAX + 1;
 
 const std::string& HistoryClustersModuleRankingModelSignals_Name(HistoryClustersModuleRankingModelSignals value);

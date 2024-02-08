@@ -118,17 +118,21 @@ suite('SiteSettingsPage', function () {
         await flushTasks();
         assertEquals(loadTimeData.getString('siteSettingsNotificationsAskLoud'), notificationsLinkRow.subLabel);
     });
-    test('ProtectedContentRow', function () {
+    test('ProtectedContentRow', async function () {
         setupPage();
-        page.shadowRoot.querySelector('#expandContent').click();
-        flush();
+        const expandButton = page.shadowRoot.querySelector('#expandContent');
+        assertTrue(!!expandButton);
+        expandButton.click();
+        await expandButton.updateComplete;
         assertTrue(isChildVisible(page.shadowRoot.querySelector('#advancedContentList'), '#protected-content'));
     });
     // TODO(crbug/1378703): Remove after crbug/1378703 launched.
-    test('SiteDataLinkRow', function () {
+    test('SiteDataLinkRow', async function () {
         setupPage();
-        page.shadowRoot.querySelector('#expandContent').click();
-        flush();
+        const expandButton = page.shadowRoot.querySelector('#expandContent');
+        assertTrue(!!expandButton);
+        expandButton.click();
+        await expandButton.updateComplete;
         assertTrue(isChildVisible(page.shadowRoot.querySelector('#advancedContentList'), '#site-data'));
     });
     test('SiteDataLinkRowSublabel', async function () {

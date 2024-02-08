@@ -570,7 +570,7 @@ bool SharedDictionaryInfo_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 64, validation_context)) {
+          data, 80, validation_context)) {
     return false;
   }
 
@@ -591,35 +591,57 @@ bool SharedDictionaryInfo_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->dictionary_url, 2, validation_context)) {
+          object->match_dest, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& match_dest_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::network::mojom::internal::RequestDestination_Data::Validate>();
+  if (!mojo::internal::ValidateContainer(object->match_dest, validation_context,
+                                         &match_dest_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->id, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->id, validation_context,
+                                         &id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->dictionary_url, 4, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->dictionary_url, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->response_time, 3, validation_context)) {
+          object->response_time, 5, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->response_time, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->expiration, 4, validation_context)) {
+          object->expiration, 6, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->expiration, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->last_used_time, 5, validation_context)) {
+          object->last_used_time, 7, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->last_used_time, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->hash, 7, validation_context)) {
+          object->hash, 9, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->hash, validation_context))

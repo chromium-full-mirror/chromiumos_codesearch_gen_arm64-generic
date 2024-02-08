@@ -17,7 +17,7 @@ var AxMode;
     AxMode[AxMode["HTML"] = 16] = "HTML";
     AxMode[AxMode["HTML_METADATA"] = 32] = "HTML_METADATA";
     AxMode[AxMode["LABEL_IMAGES"] = 64] = "LABEL_IMAGES";
-    AxMode[AxMode["PDF"] = 128] = "PDF";
+    AxMode[AxMode["PDF_PRINTING"] = 128] = "PDF_PRINTING";
     AxMode[AxMode["PDF_OCR"] = 256] = "PDF_OCR";
 })(AxMode || (AxMode = {}));
 class BrowserProxy {
@@ -250,7 +250,7 @@ function formatRow(row, data, requestType) {
         row.appendChild(createModeElement(AxMode.SCREEN_READER, pageData, 'web'));
         row.appendChild(createModeElement(AxMode.HTML, pageData, 'web'));
         row.appendChild(createModeElement(AxMode.HTML_METADATA, pageData, 'metadata'));
-        row.appendChild(createModeElement(AxMode.PDF, pageData, 'pdf'));
+        row.appendChild(createModeElement(AxMode.PDF_PRINTING, pageData, 'pdfPrinting'));
         row.appendChild(createModeElement(AxMode.LABEL_IMAGES, pageData, 'screenreader', 
         /*readonly=*/ true));
     }
@@ -339,8 +339,8 @@ function getNameForAccessibilityMode(mode) {
             return 'HTML Metadata';
         case AxMode.LABEL_IMAGES:
             return 'Label images';
-        case AxMode.PDF:
-            return 'PDF';
+        case AxMode.PDF_PRINTING:
+            return 'PDF printing';
         case AxMode.PDF_OCR:
             return 'PDF OCR';
         default:

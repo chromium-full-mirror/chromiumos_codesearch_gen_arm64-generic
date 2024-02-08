@@ -7,8 +7,8 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
     <div slot="body" class="firmware-dialog-body-font">
       <template is="dom-if" if="[[shouldShowDisclaimer]]" restamp>
         <div id="disclaimer">
-          <div id="disclaimer-icon">
-            <iron-icon icon="firmware-updates:warning"></iron-icon>
+          <div id="disclaimer-icon" aria-label="[[i18n('confirmationDisclaimerIconAriaLabel')]]">
+            <iron-icon icon="firmware-updates:warning" aria-hidden="true"></iron-icon>
           </div>
           <div id="disclaimer-text">[[i18n('confirmationDisclaimer')]]</div>
         </div>

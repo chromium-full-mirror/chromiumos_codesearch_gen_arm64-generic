@@ -137,19 +137,21 @@ enum class RendererColorId : int32_t {
   
   kColorWebNativeControlScrollbarThumbInactive = 47,
   
-  kColorWebNativeControlScrollbarThumbPressed = 48,
+  kColorWebNativeControlScrollbarThumbOverlayMinimalMode = 48,
   
-  kColorWebNativeControlScrollbarTrack = 49,
+  kColorWebNativeControlScrollbarThumbPressed = 49,
   
-  kColorWebNativeControlSlider = 50,
+  kColorWebNativeControlScrollbarTrack = 50,
   
-  kColorWebNativeControlSliderDisabled = 51,
+  kColorWebNativeControlSlider = 51,
   
-  kColorWebNativeControlSliderHovered = 52,
+  kColorWebNativeControlSliderDisabled = 52,
   
-  kColorWebNativeControlSliderPressed = 53,
+  kColorWebNativeControlSliderHovered = 53,
+  
+  kColorWebNativeControlSliderPressed = 54,
   kMinValue = 0,
-  kMaxValue = 53,
+  kMaxValue = 54,
 };
 
  std::ostream& operator<<(std::ostream& os, RendererColorId value);

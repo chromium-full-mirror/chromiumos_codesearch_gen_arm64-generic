@@ -120,6 +120,8 @@ NOINLINE static const char* RendererColorIdToStringHelper(RendererColorId value)
       return "kColorWebNativeControlScrollbarThumbHovered";
     case RendererColorId::kColorWebNativeControlScrollbarThumbInactive:
       return "kColorWebNativeControlScrollbarThumbInactive";
+    case RendererColorId::kColorWebNativeControlScrollbarThumbOverlayMinimalMode:
+      return "kColorWebNativeControlScrollbarThumbOverlayMinimalMode";
     case RendererColorId::kColorWebNativeControlScrollbarThumbPressed:
       return "kColorWebNativeControlScrollbarThumbPressed";
     case RendererColorId::kColorWebNativeControlScrollbarTrack:

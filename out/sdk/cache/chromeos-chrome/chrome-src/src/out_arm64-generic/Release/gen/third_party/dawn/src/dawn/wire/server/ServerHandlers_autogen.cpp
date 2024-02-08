@@ -8,12 +8,11 @@ namespace dawn::wire::server {
         AdapterGetInstanceCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUInstance> resultData;
         WIRE_TRY(InstanceObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoAdapterGetInstance(cmd.self, &resultData->handle));
+
+        WIRE_TRY(DoAdapterGetInstance(cmd.self, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -23,7 +22,9 @@ WIRE_TRY(DoAdapterGetInstance(cmd.self, &resultData->handle));
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
         Known<WGPUAdapter> adapterIdHandle;
-        WIRE_TRY(AdapterObjects().Get(cmd.adapterId, &adapterIdHandle));WIRE_TRY(DoAdapterRequestDevice(adapterIdHandle, cmd.eventManagerHandle, cmd.future, cmd.deviceObjectHandle, cmd.descriptor));
+        WIRE_TRY(AdapterObjects().Get(cmd.adapterId, &adapterIdHandle));
+
+        WIRE_TRY(DoAdapterRequestDevice(adapterIdHandle, cmd.eventManagerHandle, cmd.future, cmd.deviceObjectHandle, cmd.descriptor));
 
         return WireResult::Success;
     }
@@ -32,7 +33,8 @@ WIRE_TRY(DoAdapterGetInstance(cmd.self, &resultData->handle));
         BindGroupLayoutSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoBindGroupLayoutSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoBindGroupLayoutSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -41,7 +43,8 @@ WIRE_TRY(DoBindGroupLayoutSetLabel(cmd.self, cmd.label));
         BindGroupSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoBindGroupSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoBindGroupSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -49,9 +52,9 @@ WIRE_TRY(DoBindGroupSetLabel(cmd.self, cmd.label));
     WireResult Server::HandleBufferDestroy(DeserializeBuffer* deserializeBuffer) {
         BufferDestroyCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
-
         WIRE_TRY(PreHandleBufferDestroy(cmd));
-WIRE_TRY(DoBufferDestroy(cmd.self));
+
+        WIRE_TRY(DoBufferDestroy(cmd.self));
 
         return WireResult::Success;
     }
@@ -61,7 +64,9 @@ WIRE_TRY(DoBufferDestroy(cmd.self));
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator));
 
         Known<WGPUBuffer> bufferIdHandle;
-        WIRE_TRY(BufferObjects().Get(cmd.bufferId, &bufferIdHandle));WIRE_TRY(DoBufferMapAsync(bufferIdHandle, cmd.eventManagerHandle, cmd.future, cmd.mode, cmd.offset, cmd.size));
+        WIRE_TRY(BufferObjects().Get(cmd.bufferId, &bufferIdHandle));
+
+        WIRE_TRY(DoBufferMapAsync(bufferIdHandle, cmd.eventManagerHandle, cmd.future, cmd.mode, cmd.offset, cmd.size));
 
         return WireResult::Success;
     }
@@ -70,7 +75,8 @@ WIRE_TRY(DoBufferDestroy(cmd.self));
         BufferSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoBufferSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoBufferSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -78,9 +84,9 @@ WIRE_TRY(DoBufferSetLabel(cmd.self, cmd.label));
     WireResult Server::HandleBufferUnmap(DeserializeBuffer* deserializeBuffer) {
         BufferUnmapCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
-
         WIRE_TRY(PreHandleBufferUnmap(cmd));
-WIRE_TRY(DoBufferUnmap(cmd.self));
+
+        WIRE_TRY(DoBufferUnmap(cmd.self));
 
         return WireResult::Success;
     }
@@ -90,7 +96,9 @@ WIRE_TRY(DoBufferUnmap(cmd.self));
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator));
 
         Known<WGPUBuffer> bufferIdHandle;
-        WIRE_TRY(BufferObjects().Get(cmd.bufferId, &bufferIdHandle));WIRE_TRY(DoBufferUpdateMappedData(bufferIdHandle, cmd.writeDataUpdateInfoLength, cmd.writeDataUpdateInfo, cmd.offset, cmd.size));
+        WIRE_TRY(BufferObjects().Get(cmd.bufferId, &bufferIdHandle));
+
+        WIRE_TRY(DoBufferUpdateMappedData(bufferIdHandle, cmd.writeDataUpdateInfoLength, cmd.writeDataUpdateInfo, cmd.offset, cmd.size));
 
         return WireResult::Success;
     }
@@ -99,7 +107,8 @@ WIRE_TRY(DoBufferUnmap(cmd.self));
         CommandBufferSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoCommandBufferSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoCommandBufferSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -108,12 +117,11 @@ WIRE_TRY(DoCommandBufferSetLabel(cmd.self, cmd.label));
         CommandEncoderBeginComputePassCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUComputePassEncoder> resultData;
         WIRE_TRY(ComputePassEncoderObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoCommandEncoderBeginComputePass(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoCommandEncoderBeginComputePass(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -122,12 +130,11 @@ WIRE_TRY(DoCommandEncoderBeginComputePass(cmd.self, cmd.descriptor, &resultData-
         CommandEncoderBeginRenderPassCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPURenderPassEncoder> resultData;
         WIRE_TRY(RenderPassEncoderObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoCommandEncoderBeginRenderPass(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoCommandEncoderBeginRenderPass(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -136,7 +143,8 @@ WIRE_TRY(DoCommandEncoderBeginRenderPass(cmd.self, cmd.descriptor, &resultData->
         CommandEncoderClearBufferCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoCommandEncoderClearBuffer(cmd.self, cmd.buffer, cmd.offset, cmd.size));
+
+        WIRE_TRY(DoCommandEncoderClearBuffer(cmd.self, cmd.buffer, cmd.offset, cmd.size));
 
         return WireResult::Success;
     }
@@ -145,7 +153,8 @@ WIRE_TRY(DoCommandEncoderClearBuffer(cmd.self, cmd.buffer, cmd.offset, cmd.size)
         CommandEncoderCopyBufferToBufferCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoCommandEncoderCopyBufferToBuffer(cmd.self, cmd.source, cmd.sourceOffset, cmd.destination, cmd.destinationOffset, cmd.size));
+
+        WIRE_TRY(DoCommandEncoderCopyBufferToBuffer(cmd.self, cmd.source, cmd.sourceOffset, cmd.destination, cmd.destinationOffset, cmd.size));
 
         return WireResult::Success;
     }
@@ -154,7 +163,8 @@ WIRE_TRY(DoCommandEncoderCopyBufferToBuffer(cmd.self, cmd.source, cmd.sourceOffs
         CommandEncoderCopyBufferToTextureCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoCommandEncoderCopyBufferToTexture(cmd.self, cmd.source, cmd.destination, cmd.copySize));
+
+        WIRE_TRY(DoCommandEncoderCopyBufferToTexture(cmd.self, cmd.source, cmd.destination, cmd.copySize));
 
         return WireResult::Success;
     }
@@ -163,7 +173,8 @@ WIRE_TRY(DoCommandEncoderCopyBufferToTexture(cmd.self, cmd.source, cmd.destinati
         CommandEncoderCopyTextureToBufferCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoCommandEncoderCopyTextureToBuffer(cmd.self, cmd.source, cmd.destination, cmd.copySize));
+
+        WIRE_TRY(DoCommandEncoderCopyTextureToBuffer(cmd.self, cmd.source, cmd.destination, cmd.copySize));
 
         return WireResult::Success;
     }
@@ -172,7 +183,8 @@ WIRE_TRY(DoCommandEncoderCopyTextureToBuffer(cmd.self, cmd.source, cmd.destinati
         CommandEncoderCopyTextureToTextureCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoCommandEncoderCopyTextureToTexture(cmd.self, cmd.source, cmd.destination, cmd.copySize));
+
+        WIRE_TRY(DoCommandEncoderCopyTextureToTexture(cmd.self, cmd.source, cmd.destination, cmd.copySize));
 
         return WireResult::Success;
     }
@@ -181,12 +193,11 @@ WIRE_TRY(DoCommandEncoderCopyTextureToTexture(cmd.self, cmd.source, cmd.destinat
         CommandEncoderFinishCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUCommandBuffer> resultData;
         WIRE_TRY(CommandBufferObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoCommandEncoderFinish(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoCommandEncoderFinish(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -195,7 +206,8 @@ WIRE_TRY(DoCommandEncoderFinish(cmd.self, cmd.descriptor, &resultData->handle));
         CommandEncoderInjectValidationErrorCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoCommandEncoderInjectValidationError(cmd.self, cmd.message));
+
+        WIRE_TRY(DoCommandEncoderInjectValidationError(cmd.self, cmd.message));
 
         return WireResult::Success;
     }
@@ -204,7 +216,8 @@ WIRE_TRY(DoCommandEncoderInjectValidationError(cmd.self, cmd.message));
         CommandEncoderInsertDebugMarkerCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoCommandEncoderInsertDebugMarker(cmd.self, cmd.markerLabel));
+
+        WIRE_TRY(DoCommandEncoderInsertDebugMarker(cmd.self, cmd.markerLabel));
 
         return WireResult::Success;
     }
@@ -213,7 +226,8 @@ WIRE_TRY(DoCommandEncoderInsertDebugMarker(cmd.self, cmd.markerLabel));
         CommandEncoderPopDebugGroupCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoCommandEncoderPopDebugGroup(cmd.self));
+
+        WIRE_TRY(DoCommandEncoderPopDebugGroup(cmd.self));
 
         return WireResult::Success;
     }
@@ -222,7 +236,8 @@ WIRE_TRY(DoCommandEncoderPopDebugGroup(cmd.self));
         CommandEncoderPushDebugGroupCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoCommandEncoderPushDebugGroup(cmd.self, cmd.groupLabel));
+
+        WIRE_TRY(DoCommandEncoderPushDebugGroup(cmd.self, cmd.groupLabel));
 
         return WireResult::Success;
     }
@@ -231,7 +246,8 @@ WIRE_TRY(DoCommandEncoderPushDebugGroup(cmd.self, cmd.groupLabel));
         CommandEncoderResolveQuerySetCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoCommandEncoderResolveQuerySet(cmd.self, cmd.querySet, cmd.firstQuery, cmd.queryCount, cmd.destination, cmd.destinationOffset));
+
+        WIRE_TRY(DoCommandEncoderResolveQuerySet(cmd.self, cmd.querySet, cmd.firstQuery, cmd.queryCount, cmd.destination, cmd.destinationOffset));
 
         return WireResult::Success;
     }
@@ -240,7 +256,8 @@ WIRE_TRY(DoCommandEncoderResolveQuerySet(cmd.self, cmd.querySet, cmd.firstQuery,
         CommandEncoderSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoCommandEncoderSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoCommandEncoderSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -249,7 +266,8 @@ WIRE_TRY(DoCommandEncoderSetLabel(cmd.self, cmd.label));
         CommandEncoderWriteBufferCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoCommandEncoderWriteBuffer(cmd.self, cmd.buffer, cmd.bufferOffset, cmd.data, cmd.size));
+
+        WIRE_TRY(DoCommandEncoderWriteBuffer(cmd.self, cmd.buffer, cmd.bufferOffset, cmd.data, cmd.size));
 
         return WireResult::Success;
     }
@@ -258,7 +276,8 @@ WIRE_TRY(DoCommandEncoderWriteBuffer(cmd.self, cmd.buffer, cmd.bufferOffset, cmd
         CommandEncoderWriteTimestampCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoCommandEncoderWriteTimestamp(cmd.self, cmd.querySet, cmd.queryIndex));
+
+        WIRE_TRY(DoCommandEncoderWriteTimestamp(cmd.self, cmd.querySet, cmd.queryIndex));
 
         return WireResult::Success;
     }
@@ -267,7 +286,8 @@ WIRE_TRY(DoCommandEncoderWriteTimestamp(cmd.self, cmd.querySet, cmd.queryIndex))
         ComputePassEncoderDispatchWorkgroupsCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoComputePassEncoderDispatchWorkgroups(cmd.self, cmd.workgroupCountX, cmd.workgroupCountY, cmd.workgroupCountZ));
+
+        WIRE_TRY(DoComputePassEncoderDispatchWorkgroups(cmd.self, cmd.workgroupCountX, cmd.workgroupCountY, cmd.workgroupCountZ));
 
         return WireResult::Success;
     }
@@ -276,7 +296,8 @@ WIRE_TRY(DoComputePassEncoderDispatchWorkgroups(cmd.self, cmd.workgroupCountX, c
         ComputePassEncoderDispatchWorkgroupsIndirectCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoComputePassEncoderDispatchWorkgroupsIndirect(cmd.self, cmd.indirectBuffer, cmd.indirectOffset));
+
+        WIRE_TRY(DoComputePassEncoderDispatchWorkgroupsIndirect(cmd.self, cmd.indirectBuffer, cmd.indirectOffset));
 
         return WireResult::Success;
     }
@@ -285,7 +306,8 @@ WIRE_TRY(DoComputePassEncoderDispatchWorkgroupsIndirect(cmd.self, cmd.indirectBu
         ComputePassEncoderEndCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoComputePassEncoderEnd(cmd.self));
+
+        WIRE_TRY(DoComputePassEncoderEnd(cmd.self));
 
         return WireResult::Success;
     }
@@ -294,7 +316,8 @@ WIRE_TRY(DoComputePassEncoderEnd(cmd.self));
         ComputePassEncoderInsertDebugMarkerCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoComputePassEncoderInsertDebugMarker(cmd.self, cmd.markerLabel));
+
+        WIRE_TRY(DoComputePassEncoderInsertDebugMarker(cmd.self, cmd.markerLabel));
 
         return WireResult::Success;
     }
@@ -303,7 +326,8 @@ WIRE_TRY(DoComputePassEncoderInsertDebugMarker(cmd.self, cmd.markerLabel));
         ComputePassEncoderPopDebugGroupCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoComputePassEncoderPopDebugGroup(cmd.self));
+
+        WIRE_TRY(DoComputePassEncoderPopDebugGroup(cmd.self));
 
         return WireResult::Success;
     }
@@ -312,7 +336,8 @@ WIRE_TRY(DoComputePassEncoderPopDebugGroup(cmd.self));
         ComputePassEncoderPushDebugGroupCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoComputePassEncoderPushDebugGroup(cmd.self, cmd.groupLabel));
+
+        WIRE_TRY(DoComputePassEncoderPushDebugGroup(cmd.self, cmd.groupLabel));
 
         return WireResult::Success;
     }
@@ -321,7 +346,8 @@ WIRE_TRY(DoComputePassEncoderPushDebugGroup(cmd.self, cmd.groupLabel));
         ComputePassEncoderSetBindGroupCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoComputePassEncoderSetBindGroup(cmd.self, cmd.groupIndex, cmd.group, cmd.dynamicOffsetCount, cmd.dynamicOffsets));
+
+        WIRE_TRY(DoComputePassEncoderSetBindGroup(cmd.self, cmd.groupIndex, cmd.group, cmd.dynamicOffsetCount, cmd.dynamicOffsets));
 
         return WireResult::Success;
     }
@@ -330,7 +356,8 @@ WIRE_TRY(DoComputePassEncoderSetBindGroup(cmd.self, cmd.groupIndex, cmd.group, c
         ComputePassEncoderSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoComputePassEncoderSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoComputePassEncoderSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -339,7 +366,8 @@ WIRE_TRY(DoComputePassEncoderSetLabel(cmd.self, cmd.label));
         ComputePassEncoderSetPipelineCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoComputePassEncoderSetPipeline(cmd.self, cmd.pipeline));
+
+        WIRE_TRY(DoComputePassEncoderSetPipeline(cmd.self, cmd.pipeline));
 
         return WireResult::Success;
     }
@@ -348,7 +376,8 @@ WIRE_TRY(DoComputePassEncoderSetPipeline(cmd.self, cmd.pipeline));
         ComputePassEncoderWriteTimestampCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoComputePassEncoderWriteTimestamp(cmd.self, cmd.querySet, cmd.queryIndex));
+
+        WIRE_TRY(DoComputePassEncoderWriteTimestamp(cmd.self, cmd.querySet, cmd.queryIndex));
 
         return WireResult::Success;
     }
@@ -357,12 +386,11 @@ WIRE_TRY(DoComputePassEncoderWriteTimestamp(cmd.self, cmd.querySet, cmd.queryInd
         ComputePipelineGetBindGroupLayoutCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUBindGroupLayout> resultData;
         WIRE_TRY(BindGroupLayoutObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoComputePipelineGetBindGroupLayout(cmd.self, cmd.groupIndex, &resultData->handle));
+
+        WIRE_TRY(DoComputePipelineGetBindGroupLayout(cmd.self, cmd.groupIndex, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -371,7 +399,8 @@ WIRE_TRY(DoComputePipelineGetBindGroupLayout(cmd.self, cmd.groupIndex, &resultDa
         ComputePipelineSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoComputePipelineSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoComputePipelineSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -380,7 +409,8 @@ WIRE_TRY(DoComputePipelineSetLabel(cmd.self, cmd.label));
         DestroyObjectCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator));
 
-WIRE_TRY(DoDestroyObject(cmd.objectType, cmd.objectId));
+
+        WIRE_TRY(DoDestroyObject(cmd.objectType, cmd.objectId));
 
         return WireResult::Success;
     }
@@ -389,12 +419,11 @@ WIRE_TRY(DoDestroyObject(cmd.objectType, cmd.objectId));
         DeviceCreateBindGroupCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUBindGroup> resultData;
         WIRE_TRY(BindGroupObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateBindGroup(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateBindGroup(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -403,12 +432,11 @@ WIRE_TRY(DoDeviceCreateBindGroup(cmd.self, cmd.descriptor, &resultData->handle))
         DeviceCreateBindGroupLayoutCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUBindGroupLayout> resultData;
         WIRE_TRY(BindGroupLayoutObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateBindGroupLayout(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateBindGroupLayout(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -418,7 +446,9 @@ WIRE_TRY(DoDeviceCreateBindGroupLayout(cmd.self, cmd.descriptor, &resultData->ha
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
         Known<WGPUDevice> deviceIdHandle;
-        WIRE_TRY(DeviceObjects().Get(cmd.deviceId, &deviceIdHandle));WIRE_TRY(DoDeviceCreateBuffer(deviceIdHandle, cmd.descriptor, cmd.result, cmd.readHandleCreateInfoLength, cmd.readHandleCreateInfo, cmd.writeHandleCreateInfoLength, cmd.writeHandleCreateInfo));
+        WIRE_TRY(DeviceObjects().Get(cmd.deviceId, &deviceIdHandle));
+
+        WIRE_TRY(DoDeviceCreateBuffer(deviceIdHandle, cmd.descriptor, cmd.result, cmd.readHandleCreateInfoLength, cmd.readHandleCreateInfo, cmd.writeHandleCreateInfoLength, cmd.writeHandleCreateInfo));
 
         return WireResult::Success;
     }
@@ -427,12 +457,11 @@ WIRE_TRY(DoDeviceCreateBindGroupLayout(cmd.self, cmd.descriptor, &resultData->ha
         DeviceCreateCommandEncoderCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUCommandEncoder> resultData;
         WIRE_TRY(CommandEncoderObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateCommandEncoder(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateCommandEncoder(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -441,12 +470,11 @@ WIRE_TRY(DoDeviceCreateCommandEncoder(cmd.self, cmd.descriptor, &resultData->han
         DeviceCreateComputePipelineCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUComputePipeline> resultData;
         WIRE_TRY(ComputePipelineObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateComputePipeline(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateComputePipeline(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -456,7 +484,9 @@ WIRE_TRY(DoDeviceCreateComputePipeline(cmd.self, cmd.descriptor, &resultData->ha
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
         Known<WGPUDevice> deviceIdHandle;
-        WIRE_TRY(DeviceObjects().Get(cmd.deviceId, &deviceIdHandle));WIRE_TRY(DoDeviceCreateComputePipelineAsync(deviceIdHandle, cmd.eventManagerHandle, cmd.future, cmd.pipelineObjectHandle, cmd.descriptor));
+        WIRE_TRY(DeviceObjects().Get(cmd.deviceId, &deviceIdHandle));
+
+        WIRE_TRY(DoDeviceCreateComputePipelineAsync(deviceIdHandle, cmd.eventManagerHandle, cmd.future, cmd.pipelineObjectHandle, cmd.descriptor));
 
         return WireResult::Success;
     }
@@ -465,12 +495,11 @@ WIRE_TRY(DoDeviceCreateComputePipeline(cmd.self, cmd.descriptor, &resultData->ha
         DeviceCreateErrorBufferCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUBuffer> resultData;
         WIRE_TRY(BufferObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateErrorBuffer(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateErrorBuffer(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -479,12 +508,11 @@ WIRE_TRY(DoDeviceCreateErrorBuffer(cmd.self, cmd.descriptor, &resultData->handle
         DeviceCreateErrorExternalTextureCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUExternalTexture> resultData;
         WIRE_TRY(ExternalTextureObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateErrorExternalTexture(cmd.self, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateErrorExternalTexture(cmd.self, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -493,12 +521,11 @@ WIRE_TRY(DoDeviceCreateErrorExternalTexture(cmd.self, &resultData->handle));
         DeviceCreateErrorShaderModuleCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUShaderModule> resultData;
         WIRE_TRY(ShaderModuleObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateErrorShaderModule(cmd.self, cmd.descriptor, cmd.errorMessage, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateErrorShaderModule(cmd.self, cmd.descriptor, cmd.errorMessage, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -507,12 +534,11 @@ WIRE_TRY(DoDeviceCreateErrorShaderModule(cmd.self, cmd.descriptor, cmd.errorMess
         DeviceCreateErrorTextureCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUTexture> resultData;
         WIRE_TRY(TextureObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateErrorTexture(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateErrorTexture(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -521,12 +547,11 @@ WIRE_TRY(DoDeviceCreateErrorTexture(cmd.self, cmd.descriptor, &resultData->handl
         DeviceCreateExternalTextureCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUExternalTexture> resultData;
         WIRE_TRY(ExternalTextureObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateExternalTexture(cmd.self, cmd.externalTextureDescriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateExternalTexture(cmd.self, cmd.externalTextureDescriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -535,12 +560,11 @@ WIRE_TRY(DoDeviceCreateExternalTexture(cmd.self, cmd.externalTextureDescriptor, 
         DeviceCreatePipelineLayoutCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUPipelineLayout> resultData;
         WIRE_TRY(PipelineLayoutObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreatePipelineLayout(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreatePipelineLayout(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -549,12 +573,11 @@ WIRE_TRY(DoDeviceCreatePipelineLayout(cmd.self, cmd.descriptor, &resultData->han
         DeviceCreateQuerySetCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUQuerySet> resultData;
         WIRE_TRY(QuerySetObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateQuerySet(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateQuerySet(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -563,12 +586,11 @@ WIRE_TRY(DoDeviceCreateQuerySet(cmd.self, cmd.descriptor, &resultData->handle));
         DeviceCreateRenderBundleEncoderCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPURenderBundleEncoder> resultData;
         WIRE_TRY(RenderBundleEncoderObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateRenderBundleEncoder(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateRenderBundleEncoder(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -577,12 +599,11 @@ WIRE_TRY(DoDeviceCreateRenderBundleEncoder(cmd.self, cmd.descriptor, &resultData
         DeviceCreateRenderPipelineCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPURenderPipeline> resultData;
         WIRE_TRY(RenderPipelineObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateRenderPipeline(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateRenderPipeline(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -592,7 +613,9 @@ WIRE_TRY(DoDeviceCreateRenderPipeline(cmd.self, cmd.descriptor, &resultData->han
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
         Known<WGPUDevice> deviceIdHandle;
-        WIRE_TRY(DeviceObjects().Get(cmd.deviceId, &deviceIdHandle));WIRE_TRY(DoDeviceCreateRenderPipelineAsync(deviceIdHandle, cmd.eventManagerHandle, cmd.future, cmd.pipelineObjectHandle, cmd.descriptor));
+        WIRE_TRY(DeviceObjects().Get(cmd.deviceId, &deviceIdHandle));
+
+        WIRE_TRY(DoDeviceCreateRenderPipelineAsync(deviceIdHandle, cmd.eventManagerHandle, cmd.future, cmd.pipelineObjectHandle, cmd.descriptor));
 
         return WireResult::Success;
     }
@@ -601,12 +624,11 @@ WIRE_TRY(DoDeviceCreateRenderPipeline(cmd.self, cmd.descriptor, &resultData->han
         DeviceCreateSamplerCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUSampler> resultData;
         WIRE_TRY(SamplerObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateSampler(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateSampler(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -615,12 +637,11 @@ WIRE_TRY(DoDeviceCreateSampler(cmd.self, cmd.descriptor, &resultData->handle));
         DeviceCreateShaderModuleCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUShaderModule> resultData;
         WIRE_TRY(ShaderModuleObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateShaderModule(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateShaderModule(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -629,12 +650,11 @@ WIRE_TRY(DoDeviceCreateShaderModule(cmd.self, cmd.descriptor, &resultData->handl
         DeviceCreateSwapChainCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUSwapChain> resultData;
         WIRE_TRY(SwapChainObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateSwapChain(cmd.self, cmd.surface, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateSwapChain(cmd.self, cmd.surface, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -643,12 +663,11 @@ WIRE_TRY(DoDeviceCreateSwapChain(cmd.self, cmd.surface, cmd.descriptor, &resultD
         DeviceCreateTextureCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUTexture> resultData;
         WIRE_TRY(TextureObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceCreateTexture(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoDeviceCreateTexture(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -657,7 +676,8 @@ WIRE_TRY(DoDeviceCreateTexture(cmd.self, cmd.descriptor, &resultData->handle));
         DeviceDestroyCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoDeviceDestroy(cmd.self));
+
+        WIRE_TRY(DoDeviceDestroy(cmd.self));
 
         return WireResult::Success;
     }
@@ -666,7 +686,8 @@ WIRE_TRY(DoDeviceDestroy(cmd.self));
         DeviceForceLossCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoDeviceForceLoss(cmd.self, cmd.type, cmd.message));
+
+        WIRE_TRY(DoDeviceForceLoss(cmd.self, cmd.type, cmd.message));
 
         return WireResult::Success;
     }
@@ -675,12 +696,11 @@ WIRE_TRY(DoDeviceForceLoss(cmd.self, cmd.type, cmd.message));
         DeviceGetQueueCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUQueue> resultData;
         WIRE_TRY(QueueObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoDeviceGetQueue(cmd.self, &resultData->handle));
+
+        WIRE_TRY(DoDeviceGetQueue(cmd.self, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -689,7 +709,8 @@ WIRE_TRY(DoDeviceGetQueue(cmd.self, &resultData->handle));
         DeviceInjectErrorCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoDeviceInjectError(cmd.self, cmd.type, cmd.message));
+
+        WIRE_TRY(DoDeviceInjectError(cmd.self, cmd.type, cmd.message));
 
         return WireResult::Success;
     }
@@ -699,7 +720,9 @@ WIRE_TRY(DoDeviceInjectError(cmd.self, cmd.type, cmd.message));
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator));
 
         Known<WGPUDevice> deviceIdHandle;
-        WIRE_TRY(DeviceObjects().Get(cmd.deviceId, &deviceIdHandle));WIRE_TRY(DoDevicePopErrorScope(deviceIdHandle, cmd.requestSerial));
+        WIRE_TRY(DeviceObjects().Get(cmd.deviceId, &deviceIdHandle));
+
+        WIRE_TRY(DoDevicePopErrorScope(deviceIdHandle, cmd.requestSerial));
 
         return WireResult::Success;
     }
@@ -708,7 +731,8 @@ WIRE_TRY(DoDeviceInjectError(cmd.self, cmd.type, cmd.message));
         DevicePushErrorScopeCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoDevicePushErrorScope(cmd.self, cmd.filter));
+
+        WIRE_TRY(DoDevicePushErrorScope(cmd.self, cmd.filter));
 
         return WireResult::Success;
     }
@@ -717,7 +741,8 @@ WIRE_TRY(DoDevicePushErrorScope(cmd.self, cmd.filter));
         DeviceSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoDeviceSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoDeviceSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -726,7 +751,8 @@ WIRE_TRY(DoDeviceSetLabel(cmd.self, cmd.label));
         DeviceTickCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoDeviceTick(cmd.self));
+
+        WIRE_TRY(DoDeviceTick(cmd.self));
 
         return WireResult::Success;
     }
@@ -735,7 +761,8 @@ WIRE_TRY(DoDeviceTick(cmd.self));
         DeviceValidateTextureDescriptorCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoDeviceValidateTextureDescriptor(cmd.self, cmd.descriptor));
+
+        WIRE_TRY(DoDeviceValidateTextureDescriptor(cmd.self, cmd.descriptor));
 
         return WireResult::Success;
     }
@@ -744,7 +771,8 @@ WIRE_TRY(DoDeviceValidateTextureDescriptor(cmd.self, cmd.descriptor));
         ExternalTextureDestroyCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoExternalTextureDestroy(cmd.self));
+
+        WIRE_TRY(DoExternalTextureDestroy(cmd.self));
 
         return WireResult::Success;
     }
@@ -753,7 +781,8 @@ WIRE_TRY(DoExternalTextureDestroy(cmd.self));
         ExternalTextureExpireCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoExternalTextureExpire(cmd.self));
+
+        WIRE_TRY(DoExternalTextureExpire(cmd.self));
 
         return WireResult::Success;
     }
@@ -762,7 +791,8 @@ WIRE_TRY(DoExternalTextureExpire(cmd.self));
         ExternalTextureRefreshCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoExternalTextureRefresh(cmd.self));
+
+        WIRE_TRY(DoExternalTextureRefresh(cmd.self));
 
         return WireResult::Success;
     }
@@ -771,7 +801,8 @@ WIRE_TRY(DoExternalTextureRefresh(cmd.self));
         ExternalTextureSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoExternalTextureSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoExternalTextureSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -780,12 +811,11 @@ WIRE_TRY(DoExternalTextureSetLabel(cmd.self, cmd.label));
         InstanceCreateSurfaceCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUSurface> resultData;
         WIRE_TRY(SurfaceObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoInstanceCreateSurface(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoInstanceCreateSurface(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -794,7 +824,8 @@ WIRE_TRY(DoInstanceCreateSurface(cmd.self, cmd.descriptor, &resultData->handle))
         InstanceProcessEventsCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoInstanceProcessEvents(cmd.self));
+
+        WIRE_TRY(DoInstanceProcessEvents(cmd.self));
 
         return WireResult::Success;
     }
@@ -804,7 +835,9 @@ WIRE_TRY(DoInstanceProcessEvents(cmd.self));
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
         Known<WGPUInstance> instanceIdHandle;
-        WIRE_TRY(InstanceObjects().Get(cmd.instanceId, &instanceIdHandle));WIRE_TRY(DoInstanceRequestAdapter(instanceIdHandle, cmd.eventManagerHandle, cmd.future, cmd.adapterObjectHandle, cmd.options));
+        WIRE_TRY(InstanceObjects().Get(cmd.instanceId, &instanceIdHandle));
+
+        WIRE_TRY(DoInstanceRequestAdapter(instanceIdHandle, cmd.eventManagerHandle, cmd.future, cmd.adapterObjectHandle, cmd.options));
 
         return WireResult::Success;
     }
@@ -813,7 +846,8 @@ WIRE_TRY(DoInstanceProcessEvents(cmd.self));
         PipelineLayoutSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoPipelineLayoutSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoPipelineLayoutSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -822,7 +856,8 @@ WIRE_TRY(DoPipelineLayoutSetLabel(cmd.self, cmd.label));
         QuerySetDestroyCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoQuerySetDestroy(cmd.self));
+
+        WIRE_TRY(DoQuerySetDestroy(cmd.self));
 
         return WireResult::Success;
     }
@@ -831,7 +866,8 @@ WIRE_TRY(DoQuerySetDestroy(cmd.self));
         QuerySetSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoQuerySetSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoQuerySetSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -840,7 +876,8 @@ WIRE_TRY(DoQuerySetSetLabel(cmd.self, cmd.label));
         QueueCopyExternalTextureForBrowserCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoQueueCopyExternalTextureForBrowser(cmd.self, cmd.source, cmd.destination, cmd.copySize, cmd.options));
+
+        WIRE_TRY(DoQueueCopyExternalTextureForBrowser(cmd.self, cmd.source, cmd.destination, cmd.copySize, cmd.options));
 
         return WireResult::Success;
     }
@@ -849,7 +886,8 @@ WIRE_TRY(DoQueueCopyExternalTextureForBrowser(cmd.self, cmd.source, cmd.destinat
         QueueCopyTextureForBrowserCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoQueueCopyTextureForBrowser(cmd.self, cmd.source, cmd.destination, cmd.copySize, cmd.options));
+
+        WIRE_TRY(DoQueueCopyTextureForBrowser(cmd.self, cmd.source, cmd.destination, cmd.copySize, cmd.options));
 
         return WireResult::Success;
     }
@@ -859,7 +897,9 @@ WIRE_TRY(DoQueueCopyTextureForBrowser(cmd.self, cmd.source, cmd.destination, cmd
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator));
 
         Known<WGPUQueue> queueIdHandle;
-        WIRE_TRY(QueueObjects().Get(cmd.queueId, &queueIdHandle));WIRE_TRY(DoQueueOnSubmittedWorkDone(queueIdHandle, cmd.eventManagerHandle, cmd.future));
+        WIRE_TRY(QueueObjects().Get(cmd.queueId, &queueIdHandle));
+
+        WIRE_TRY(DoQueueOnSubmittedWorkDone(queueIdHandle, cmd.eventManagerHandle, cmd.future));
 
         return WireResult::Success;
     }
@@ -868,7 +908,8 @@ WIRE_TRY(DoQueueCopyTextureForBrowser(cmd.self, cmd.source, cmd.destination, cmd
         QueueSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoQueueSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoQueueSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -877,7 +918,8 @@ WIRE_TRY(DoQueueSetLabel(cmd.self, cmd.label));
         QueueSubmitCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoQueueSubmit(cmd.self, cmd.commandCount, cmd.commands));
+
+        WIRE_TRY(DoQueueSubmit(cmd.self, cmd.commandCount, cmd.commands));
 
         return WireResult::Success;
     }
@@ -887,8 +929,11 @@ WIRE_TRY(DoQueueSubmit(cmd.self, cmd.commandCount, cmd.commands));
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator));
 
         Known<WGPUQueue> queueIdHandle;
-        WIRE_TRY(QueueObjects().Get(cmd.queueId, &queueIdHandle));        Known<WGPUBuffer> bufferIdHandle;
-        WIRE_TRY(BufferObjects().Get(cmd.bufferId, &bufferIdHandle));WIRE_TRY(DoQueueWriteBuffer(queueIdHandle, bufferIdHandle, cmd.bufferOffset, cmd.data, cmd.size));
+        WIRE_TRY(QueueObjects().Get(cmd.queueId, &queueIdHandle));
+        Known<WGPUBuffer> bufferIdHandle;
+        WIRE_TRY(BufferObjects().Get(cmd.bufferId, &bufferIdHandle));
+
+        WIRE_TRY(DoQueueWriteBuffer(queueIdHandle, bufferIdHandle, cmd.bufferOffset, cmd.data, cmd.size));
 
         return WireResult::Success;
     }
@@ -898,7 +943,9 @@ WIRE_TRY(DoQueueSubmit(cmd.self, cmd.commandCount, cmd.commands));
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
         Known<WGPUQueue> queueIdHandle;
-        WIRE_TRY(QueueObjects().Get(cmd.queueId, &queueIdHandle));WIRE_TRY(DoQueueWriteTexture(queueIdHandle, cmd.destination, cmd.data, cmd.dataSize, cmd.dataLayout, cmd.writeSize));
+        WIRE_TRY(QueueObjects().Get(cmd.queueId, &queueIdHandle));
+
+        WIRE_TRY(DoQueueWriteTexture(queueIdHandle, cmd.destination, cmd.data, cmd.dataSize, cmd.dataLayout, cmd.writeSize));
 
         return WireResult::Success;
     }
@@ -907,7 +954,8 @@ WIRE_TRY(DoQueueSubmit(cmd.self, cmd.commandCount, cmd.commands));
         RenderBundleEncoderDrawCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderBundleEncoderDraw(cmd.self, cmd.vertexCount, cmd.instanceCount, cmd.firstVertex, cmd.firstInstance));
+
+        WIRE_TRY(DoRenderBundleEncoderDraw(cmd.self, cmd.vertexCount, cmd.instanceCount, cmd.firstVertex, cmd.firstInstance));
 
         return WireResult::Success;
     }
@@ -916,7 +964,8 @@ WIRE_TRY(DoRenderBundleEncoderDraw(cmd.self, cmd.vertexCount, cmd.instanceCount,
         RenderBundleEncoderDrawIndexedCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderBundleEncoderDrawIndexed(cmd.self, cmd.indexCount, cmd.instanceCount, cmd.firstIndex, cmd.baseVertex, cmd.firstInstance));
+
+        WIRE_TRY(DoRenderBundleEncoderDrawIndexed(cmd.self, cmd.indexCount, cmd.instanceCount, cmd.firstIndex, cmd.baseVertex, cmd.firstInstance));
 
         return WireResult::Success;
     }
@@ -925,7 +974,8 @@ WIRE_TRY(DoRenderBundleEncoderDrawIndexed(cmd.self, cmd.indexCount, cmd.instance
         RenderBundleEncoderDrawIndexedIndirectCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderBundleEncoderDrawIndexedIndirect(cmd.self, cmd.indirectBuffer, cmd.indirectOffset));
+
+        WIRE_TRY(DoRenderBundleEncoderDrawIndexedIndirect(cmd.self, cmd.indirectBuffer, cmd.indirectOffset));
 
         return WireResult::Success;
     }
@@ -934,7 +984,8 @@ WIRE_TRY(DoRenderBundleEncoderDrawIndexedIndirect(cmd.self, cmd.indirectBuffer, 
         RenderBundleEncoderDrawIndirectCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderBundleEncoderDrawIndirect(cmd.self, cmd.indirectBuffer, cmd.indirectOffset));
+
+        WIRE_TRY(DoRenderBundleEncoderDrawIndirect(cmd.self, cmd.indirectBuffer, cmd.indirectOffset));
 
         return WireResult::Success;
     }
@@ -943,12 +994,11 @@ WIRE_TRY(DoRenderBundleEncoderDrawIndirect(cmd.self, cmd.indirectBuffer, cmd.ind
         RenderBundleEncoderFinishCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPURenderBundle> resultData;
         WIRE_TRY(RenderBundleObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoRenderBundleEncoderFinish(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoRenderBundleEncoderFinish(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -957,7 +1007,8 @@ WIRE_TRY(DoRenderBundleEncoderFinish(cmd.self, cmd.descriptor, &resultData->hand
         RenderBundleEncoderInsertDebugMarkerCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderBundleEncoderInsertDebugMarker(cmd.self, cmd.markerLabel));
+
+        WIRE_TRY(DoRenderBundleEncoderInsertDebugMarker(cmd.self, cmd.markerLabel));
 
         return WireResult::Success;
     }
@@ -966,7 +1017,8 @@ WIRE_TRY(DoRenderBundleEncoderInsertDebugMarker(cmd.self, cmd.markerLabel));
         RenderBundleEncoderPopDebugGroupCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderBundleEncoderPopDebugGroup(cmd.self));
+
+        WIRE_TRY(DoRenderBundleEncoderPopDebugGroup(cmd.self));
 
         return WireResult::Success;
     }
@@ -975,7 +1027,8 @@ WIRE_TRY(DoRenderBundleEncoderPopDebugGroup(cmd.self));
         RenderBundleEncoderPushDebugGroupCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderBundleEncoderPushDebugGroup(cmd.self, cmd.groupLabel));
+
+        WIRE_TRY(DoRenderBundleEncoderPushDebugGroup(cmd.self, cmd.groupLabel));
 
         return WireResult::Success;
     }
@@ -984,7 +1037,8 @@ WIRE_TRY(DoRenderBundleEncoderPushDebugGroup(cmd.self, cmd.groupLabel));
         RenderBundleEncoderSetBindGroupCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderBundleEncoderSetBindGroup(cmd.self, cmd.groupIndex, cmd.group, cmd.dynamicOffsetCount, cmd.dynamicOffsets));
+
+        WIRE_TRY(DoRenderBundleEncoderSetBindGroup(cmd.self, cmd.groupIndex, cmd.group, cmd.dynamicOffsetCount, cmd.dynamicOffsets));
 
         return WireResult::Success;
     }
@@ -993,7 +1047,8 @@ WIRE_TRY(DoRenderBundleEncoderSetBindGroup(cmd.self, cmd.groupIndex, cmd.group, 
         RenderBundleEncoderSetIndexBufferCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderBundleEncoderSetIndexBuffer(cmd.self, cmd.buffer, cmd.format, cmd.offset, cmd.size));
+
+        WIRE_TRY(DoRenderBundleEncoderSetIndexBuffer(cmd.self, cmd.buffer, cmd.format, cmd.offset, cmd.size));
 
         return WireResult::Success;
     }
@@ -1002,7 +1057,8 @@ WIRE_TRY(DoRenderBundleEncoderSetIndexBuffer(cmd.self, cmd.buffer, cmd.format, c
         RenderBundleEncoderSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderBundleEncoderSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoRenderBundleEncoderSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -1011,7 +1067,8 @@ WIRE_TRY(DoRenderBundleEncoderSetLabel(cmd.self, cmd.label));
         RenderBundleEncoderSetPipelineCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderBundleEncoderSetPipeline(cmd.self, cmd.pipeline));
+
+        WIRE_TRY(DoRenderBundleEncoderSetPipeline(cmd.self, cmd.pipeline));
 
         return WireResult::Success;
     }
@@ -1020,7 +1077,8 @@ WIRE_TRY(DoRenderBundleEncoderSetPipeline(cmd.self, cmd.pipeline));
         RenderBundleEncoderSetVertexBufferCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderBundleEncoderSetVertexBuffer(cmd.self, cmd.slot, cmd.buffer, cmd.offset, cmd.size));
+
+        WIRE_TRY(DoRenderBundleEncoderSetVertexBuffer(cmd.self, cmd.slot, cmd.buffer, cmd.offset, cmd.size));
 
         return WireResult::Success;
     }
@@ -1029,7 +1087,8 @@ WIRE_TRY(DoRenderBundleEncoderSetVertexBuffer(cmd.self, cmd.slot, cmd.buffer, cm
         RenderBundleSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderBundleSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoRenderBundleSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -1038,7 +1097,8 @@ WIRE_TRY(DoRenderBundleSetLabel(cmd.self, cmd.label));
         RenderPassEncoderBeginOcclusionQueryCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderBeginOcclusionQuery(cmd.self, cmd.queryIndex));
+
+        WIRE_TRY(DoRenderPassEncoderBeginOcclusionQuery(cmd.self, cmd.queryIndex));
 
         return WireResult::Success;
     }
@@ -1047,7 +1107,8 @@ WIRE_TRY(DoRenderPassEncoderBeginOcclusionQuery(cmd.self, cmd.queryIndex));
         RenderPassEncoderDrawCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderDraw(cmd.self, cmd.vertexCount, cmd.instanceCount, cmd.firstVertex, cmd.firstInstance));
+
+        WIRE_TRY(DoRenderPassEncoderDraw(cmd.self, cmd.vertexCount, cmd.instanceCount, cmd.firstVertex, cmd.firstInstance));
 
         return WireResult::Success;
     }
@@ -1056,7 +1117,8 @@ WIRE_TRY(DoRenderPassEncoderDraw(cmd.self, cmd.vertexCount, cmd.instanceCount, c
         RenderPassEncoderDrawIndexedCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderDrawIndexed(cmd.self, cmd.indexCount, cmd.instanceCount, cmd.firstIndex, cmd.baseVertex, cmd.firstInstance));
+
+        WIRE_TRY(DoRenderPassEncoderDrawIndexed(cmd.self, cmd.indexCount, cmd.instanceCount, cmd.firstIndex, cmd.baseVertex, cmd.firstInstance));
 
         return WireResult::Success;
     }
@@ -1065,7 +1127,8 @@ WIRE_TRY(DoRenderPassEncoderDrawIndexed(cmd.self, cmd.indexCount, cmd.instanceCo
         RenderPassEncoderDrawIndexedIndirectCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderDrawIndexedIndirect(cmd.self, cmd.indirectBuffer, cmd.indirectOffset));
+
+        WIRE_TRY(DoRenderPassEncoderDrawIndexedIndirect(cmd.self, cmd.indirectBuffer, cmd.indirectOffset));
 
         return WireResult::Success;
     }
@@ -1074,7 +1137,8 @@ WIRE_TRY(DoRenderPassEncoderDrawIndexedIndirect(cmd.self, cmd.indirectBuffer, cm
         RenderPassEncoderDrawIndirectCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderDrawIndirect(cmd.self, cmd.indirectBuffer, cmd.indirectOffset));
+
+        WIRE_TRY(DoRenderPassEncoderDrawIndirect(cmd.self, cmd.indirectBuffer, cmd.indirectOffset));
 
         return WireResult::Success;
     }
@@ -1083,7 +1147,8 @@ WIRE_TRY(DoRenderPassEncoderDrawIndirect(cmd.self, cmd.indirectBuffer, cmd.indir
         RenderPassEncoderEndCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderEnd(cmd.self));
+
+        WIRE_TRY(DoRenderPassEncoderEnd(cmd.self));
 
         return WireResult::Success;
     }
@@ -1092,7 +1157,8 @@ WIRE_TRY(DoRenderPassEncoderEnd(cmd.self));
         RenderPassEncoderEndOcclusionQueryCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderEndOcclusionQuery(cmd.self));
+
+        WIRE_TRY(DoRenderPassEncoderEndOcclusionQuery(cmd.self));
 
         return WireResult::Success;
     }
@@ -1101,7 +1167,8 @@ WIRE_TRY(DoRenderPassEncoderEndOcclusionQuery(cmd.self));
         RenderPassEncoderExecuteBundlesCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderExecuteBundles(cmd.self, cmd.bundleCount, cmd.bundles));
+
+        WIRE_TRY(DoRenderPassEncoderExecuteBundles(cmd.self, cmd.bundleCount, cmd.bundles));
 
         return WireResult::Success;
     }
@@ -1110,7 +1177,8 @@ WIRE_TRY(DoRenderPassEncoderExecuteBundles(cmd.self, cmd.bundleCount, cmd.bundle
         RenderPassEncoderInsertDebugMarkerCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderInsertDebugMarker(cmd.self, cmd.markerLabel));
+
+        WIRE_TRY(DoRenderPassEncoderInsertDebugMarker(cmd.self, cmd.markerLabel));
 
         return WireResult::Success;
     }
@@ -1119,7 +1187,8 @@ WIRE_TRY(DoRenderPassEncoderInsertDebugMarker(cmd.self, cmd.markerLabel));
         RenderPassEncoderPixelLocalStorageBarrierCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderPixelLocalStorageBarrier(cmd.self));
+
+        WIRE_TRY(DoRenderPassEncoderPixelLocalStorageBarrier(cmd.self));
 
         return WireResult::Success;
     }
@@ -1128,7 +1197,8 @@ WIRE_TRY(DoRenderPassEncoderPixelLocalStorageBarrier(cmd.self));
         RenderPassEncoderPopDebugGroupCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderPopDebugGroup(cmd.self));
+
+        WIRE_TRY(DoRenderPassEncoderPopDebugGroup(cmd.self));
 
         return WireResult::Success;
     }
@@ -1137,7 +1207,8 @@ WIRE_TRY(DoRenderPassEncoderPopDebugGroup(cmd.self));
         RenderPassEncoderPushDebugGroupCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderPushDebugGroup(cmd.self, cmd.groupLabel));
+
+        WIRE_TRY(DoRenderPassEncoderPushDebugGroup(cmd.self, cmd.groupLabel));
 
         return WireResult::Success;
     }
@@ -1146,7 +1217,8 @@ WIRE_TRY(DoRenderPassEncoderPushDebugGroup(cmd.self, cmd.groupLabel));
         RenderPassEncoderSetBindGroupCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderSetBindGroup(cmd.self, cmd.groupIndex, cmd.group, cmd.dynamicOffsetCount, cmd.dynamicOffsets));
+
+        WIRE_TRY(DoRenderPassEncoderSetBindGroup(cmd.self, cmd.groupIndex, cmd.group, cmd.dynamicOffsetCount, cmd.dynamicOffsets));
 
         return WireResult::Success;
     }
@@ -1155,7 +1227,8 @@ WIRE_TRY(DoRenderPassEncoderSetBindGroup(cmd.self, cmd.groupIndex, cmd.group, cm
         RenderPassEncoderSetBlendConstantCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderSetBlendConstant(cmd.self, cmd.color));
+
+        WIRE_TRY(DoRenderPassEncoderSetBlendConstant(cmd.self, cmd.color));
 
         return WireResult::Success;
     }
@@ -1164,7 +1237,8 @@ WIRE_TRY(DoRenderPassEncoderSetBlendConstant(cmd.self, cmd.color));
         RenderPassEncoderSetIndexBufferCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderSetIndexBuffer(cmd.self, cmd.buffer, cmd.format, cmd.offset, cmd.size));
+
+        WIRE_TRY(DoRenderPassEncoderSetIndexBuffer(cmd.self, cmd.buffer, cmd.format, cmd.offset, cmd.size));
 
         return WireResult::Success;
     }
@@ -1173,7 +1247,8 @@ WIRE_TRY(DoRenderPassEncoderSetIndexBuffer(cmd.self, cmd.buffer, cmd.format, cmd
         RenderPassEncoderSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoRenderPassEncoderSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -1182,7 +1257,8 @@ WIRE_TRY(DoRenderPassEncoderSetLabel(cmd.self, cmd.label));
         RenderPassEncoderSetPipelineCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderSetPipeline(cmd.self, cmd.pipeline));
+
+        WIRE_TRY(DoRenderPassEncoderSetPipeline(cmd.self, cmd.pipeline));
 
         return WireResult::Success;
     }
@@ -1191,7 +1267,8 @@ WIRE_TRY(DoRenderPassEncoderSetPipeline(cmd.self, cmd.pipeline));
         RenderPassEncoderSetScissorRectCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderSetScissorRect(cmd.self, cmd.x, cmd.y, cmd.width, cmd.height));
+
+        WIRE_TRY(DoRenderPassEncoderSetScissorRect(cmd.self, cmd.x, cmd.y, cmd.width, cmd.height));
 
         return WireResult::Success;
     }
@@ -1200,7 +1277,8 @@ WIRE_TRY(DoRenderPassEncoderSetScissorRect(cmd.self, cmd.x, cmd.y, cmd.width, cm
         RenderPassEncoderSetStencilReferenceCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderSetStencilReference(cmd.self, cmd.reference));
+
+        WIRE_TRY(DoRenderPassEncoderSetStencilReference(cmd.self, cmd.reference));
 
         return WireResult::Success;
     }
@@ -1209,7 +1287,8 @@ WIRE_TRY(DoRenderPassEncoderSetStencilReference(cmd.self, cmd.reference));
         RenderPassEncoderSetVertexBufferCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderSetVertexBuffer(cmd.self, cmd.slot, cmd.buffer, cmd.offset, cmd.size));
+
+        WIRE_TRY(DoRenderPassEncoderSetVertexBuffer(cmd.self, cmd.slot, cmd.buffer, cmd.offset, cmd.size));
 
         return WireResult::Success;
     }
@@ -1218,7 +1297,8 @@ WIRE_TRY(DoRenderPassEncoderSetVertexBuffer(cmd.self, cmd.slot, cmd.buffer, cmd.
         RenderPassEncoderSetViewportCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderSetViewport(cmd.self, cmd.x, cmd.y, cmd.width, cmd.height, cmd.minDepth, cmd.maxDepth));
+
+        WIRE_TRY(DoRenderPassEncoderSetViewport(cmd.self, cmd.x, cmd.y, cmd.width, cmd.height, cmd.minDepth, cmd.maxDepth));
 
         return WireResult::Success;
     }
@@ -1227,7 +1307,8 @@ WIRE_TRY(DoRenderPassEncoderSetViewport(cmd.self, cmd.x, cmd.y, cmd.width, cmd.h
         RenderPassEncoderWriteTimestampCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPassEncoderWriteTimestamp(cmd.self, cmd.querySet, cmd.queryIndex));
+
+        WIRE_TRY(DoRenderPassEncoderWriteTimestamp(cmd.self, cmd.querySet, cmd.queryIndex));
 
         return WireResult::Success;
     }
@@ -1236,12 +1317,11 @@ WIRE_TRY(DoRenderPassEncoderWriteTimestamp(cmd.self, cmd.querySet, cmd.queryInde
         RenderPipelineGetBindGroupLayoutCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUBindGroupLayout> resultData;
         WIRE_TRY(BindGroupLayoutObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoRenderPipelineGetBindGroupLayout(cmd.self, cmd.groupIndex, &resultData->handle));
+
+        WIRE_TRY(DoRenderPipelineGetBindGroupLayout(cmd.self, cmd.groupIndex, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -1250,7 +1330,8 @@ WIRE_TRY(DoRenderPipelineGetBindGroupLayout(cmd.self, cmd.groupIndex, &resultDat
         RenderPipelineSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoRenderPipelineSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoRenderPipelineSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -1259,7 +1340,8 @@ WIRE_TRY(DoRenderPipelineSetLabel(cmd.self, cmd.label));
         SamplerSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoSamplerSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoSamplerSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -1269,7 +1351,9 @@ WIRE_TRY(DoSamplerSetLabel(cmd.self, cmd.label));
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator));
 
         Known<WGPUShaderModule> shaderModuleIdHandle;
-        WIRE_TRY(ShaderModuleObjects().Get(cmd.shaderModuleId, &shaderModuleIdHandle));WIRE_TRY(DoShaderModuleGetCompilationInfo(shaderModuleIdHandle, cmd.requestSerial));
+        WIRE_TRY(ShaderModuleObjects().Get(cmd.shaderModuleId, &shaderModuleIdHandle));
+
+        WIRE_TRY(DoShaderModuleGetCompilationInfo(shaderModuleIdHandle, cmd.requestSerial));
 
         return WireResult::Success;
     }
@@ -1278,7 +1362,8 @@ WIRE_TRY(DoSamplerSetLabel(cmd.self, cmd.label));
         ShaderModuleSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoShaderModuleSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoShaderModuleSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -1287,12 +1372,11 @@ WIRE_TRY(DoShaderModuleSetLabel(cmd.self, cmd.label));
         SwapChainGetCurrentTextureCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUTexture> resultData;
         WIRE_TRY(TextureObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoSwapChainGetCurrentTexture(cmd.self, &resultData->handle));
+
+        WIRE_TRY(DoSwapChainGetCurrentTexture(cmd.self, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -1301,12 +1385,11 @@ WIRE_TRY(DoSwapChainGetCurrentTexture(cmd.self, &resultData->handle));
         SwapChainGetCurrentTextureViewCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUTextureView> resultData;
         WIRE_TRY(TextureViewObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoSwapChainGetCurrentTextureView(cmd.self, &resultData->handle));
+
+        WIRE_TRY(DoSwapChainGetCurrentTextureView(cmd.self, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -1315,7 +1398,8 @@ WIRE_TRY(DoSwapChainGetCurrentTextureView(cmd.self, &resultData->handle));
         SwapChainPresentCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoSwapChainPresent(cmd.self));
+
+        WIRE_TRY(DoSwapChainPresent(cmd.self));
 
         return WireResult::Success;
     }
@@ -1324,12 +1408,11 @@ WIRE_TRY(DoSwapChainPresent(cmd.self));
         TextureCreateErrorViewCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUTextureView> resultData;
         WIRE_TRY(TextureViewObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoTextureCreateErrorView(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoTextureCreateErrorView(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -1338,12 +1421,11 @@ WIRE_TRY(DoTextureCreateErrorView(cmd.self, cmd.descriptor, &resultData->handle)
         TextureCreateViewCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-
-
         Known<WGPUTextureView> resultData;
         WIRE_TRY(TextureViewObjects().Allocate(&resultData, cmd.result));
         resultData->generation = cmd.result.generation;
-WIRE_TRY(DoTextureCreateView(cmd.self, cmd.descriptor, &resultData->handle));
+
+        WIRE_TRY(DoTextureCreateView(cmd.self, cmd.descriptor, &resultData->handle));
 
         return WireResult::Success;
     }
@@ -1352,7 +1434,8 @@ WIRE_TRY(DoTextureCreateView(cmd.self, cmd.descriptor, &resultData->handle));
         TextureDestroyCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoTextureDestroy(cmd.self));
+
+        WIRE_TRY(DoTextureDestroy(cmd.self));
 
         return WireResult::Success;
     }
@@ -1361,7 +1444,8 @@ WIRE_TRY(DoTextureDestroy(cmd.self));
         TextureSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoTextureSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoTextureSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -1370,7 +1454,8 @@ WIRE_TRY(DoTextureSetLabel(cmd.self, cmd.label));
         TextureViewSetLabelCmd cmd;
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
-WIRE_TRY(DoTextureViewSetLabel(cmd.self, cmd.label));
+
+        WIRE_TRY(DoTextureViewSetLabel(cmd.self, cmd.label));
 
         return WireResult::Success;
     }
@@ -1804,6 +1889,15 @@ WIRE_TRY(DoTextureViewSetLabel(cmd.self, cmd.label));
                 return nullptr;
             }
             mAllocator.Reset();
+        }
+
+        // After the server handles all the commands from the stream, we additionally run
+        // ProcessEvents on all known Instances so that any work done on the server side can be
+        // forwarded through to the client.
+        for (auto instance : InstanceObjects().GetAllHandles()) {
+            if (DoInstanceProcessEvents(instance) != WireResult::Success) {
+                return nullptr;
+            }
         }
 
         if (deserializeBuffer.AvailableSize() != 0) {

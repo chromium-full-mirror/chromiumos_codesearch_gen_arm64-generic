@@ -10,40 +10,6 @@ export function getTemplate() {
         <img id="banner" alt="" src="chrome://settings/images/tracking_protection_banner.svg">
       
     </picture>
-    <template is="dom-if" if="[[is3pcdRedesignEnabled_]]">
-      <div id="explanationText" class="secondary">
-        $i18n{trackingProtectionPageDescription}
-      </div>
-      <div>
-        <div class="bullet-row">
-          <iron-icon icon="settings:visibility-off" aria-hidden="true">
-          </iron-icon>
-          <div>
-            $i18n{trackingProtectionBulletOne}
-            <div class="secondary">
-              $i18n{trackingProtectionBulletOneDescription}
-            </div>
-          </div>
-        </div>
-        <div class="bullet-row">
-          <iron-icon icon="settings:domain-verification" aria-hidden="true">
-          </iron-icon>
-          <div>
-            $i18n{trackingProtectionBulletTwo}
-            <div class="secondary">
-              $i18nRaw{trackingProtectionBulletTwoDescription}
-            </div>
-        </div>
-      </div>
-      <h2 id="advancedHeader">$i18n{trackingProtectionAdvancedLabel}</h2>
-      <settings-toggle-button id="blockThirdPartyToggle" pref="{{prefs.tracking_protection.block_all_3pc_toggle_enabled}}" label="$i18n{trackingProtectionThirdPartyCookiesToggleLabel}" sub-label="
-            $i18n{trackingProtectionThirdPartyCookiesToggleSubLabel}" learn-more-url="
-            $i18n{trackingProtectionThirdPartyCookiesLearnMoreUrl}" learn-more-aria-label="
-            $i18n{trackingProtectionThirdPartyCookiesLearnMoreAriaLabel}" on-settings-boolean-control-change="onBlockAll3pcToggleChanged_" icon="settings:visibility-off">
-      </settings-toggle-button>
-      <settings-do-not-track-toggle id="doNotTrack" prefs="{{prefs}}">
-      </settings-do-not-track-toggle>
-    </div></template>
     <template is="dom-if" if="[[!is3pcdRedesignEnabled_]]">
       <div id="rollbackNotice" hidden="[[!showTrackingProtectionRollbackNotice_]]">
         $i18nRaw{trackingProtectionRollbackNotice}
@@ -52,10 +18,12 @@ export function getTemplate() {
         $i18n{thirdPartyCookiesPageDescription}
       </div>
       <div id="generalControls">
-        <h2>$i18n{thirdPartyCookiesPageDefaultBehaviorHeading}</h2>
-        <div class="secondary radio-group-sub-heading">
-          $i18n{thirdPartyCookiesPageDefaultBehaviorDescription}
-        </div>
+        <template is="dom-if" if="[[!isCookieSettingsUiAlignmentEnabled_]]">
+          <h2>$i18n{thirdPartyCookiesPageDefaultBehaviorHeading}</h2>
+          <div class="secondary radio-group-sub-heading">
+            $i18n{thirdPartyCookiesPageDefaultBehaviorDescription}
+          </div>
+        </template>
         <settings-radio-group id="primarySettingGroup" no-set-pref pref="{{prefs.profile.cookie_controls_mode}}" selectable-elements="
                 cr-radio-button, settings-collapse-radio-button" on-change="onCookieControlsModeChanged_">
           <settings-collapse-radio-button id="allowThirdParty" pref="[[prefs.profile.cookie_controls_mode]]" name="[[cookieControlsModeEnum_.OFF]]" label="$i18n{thirdPartyCookiesPageAllowRadioLabel}" expand-aria-label="
@@ -119,11 +87,45 @@ export function getTemplate() {
         </settings-radio-group>
       </div>
     </template>
-    <settings-do-not-track-toggle id="doNotTrack" prefs="{{prefs}}" hidden="[[is3pcdRedesignEnabled_]]">
+    <template is="dom-if" if="[[is3pcdRedesignEnabled_]">
+      <div id="explanationText" class="secondary">
+        $i18n{trackingProtectionPageDescription}
+      </div>
+      <div>
+        <div class="bullet-row">
+          <iron-icon icon="settings:visibility-off" aria-hidden="true">
+          </iron-icon>
+          <div>
+            $i18n{trackingProtectionBulletOne}
+            <div class="secondary">
+              $i18n{trackingProtectionBulletOneDescription}
+            </div>
+          </div>
+        </div>
+        <div class="bullet-row">
+          <iron-icon icon="settings:domain-verification" aria-hidden="true">
+          </iron-icon>
+          <div>
+            $i18n{trackingProtectionBulletTwo}
+            <div class="secondary">
+              $i18nRaw{trackingProtectionBulletTwoDescription}
+            </div>
+        </div>
+      </div>
+    </div></template>
+    <template is="dom-if" if="[[isCookiesUiV2_]">
+      <h2 id="advancedHeader">$i18n{trackingProtectionAdvancedLabel}</h2>
+      <settings-toggle-button id="blockThirdPartyToggle" pref="{{prefs.tracking_protection.block_all_3pc_toggle_enabled}}" label="$i18n{trackingProtectionThirdPartyCookiesToggleLabel}" sub-label="
+            $i18n{trackingProtectionThirdPartyCookiesToggleSubLabel}" learn-more-url="
+            $i18n{trackingProtectionThirdPartyCookiesLearnMoreUrl}" learn-more-aria-label="
+            $i18n{trackingProtectionThirdPartyCookiesLearnMoreAriaLabel}" on-settings-boolean-control-change="onBlockAll3pcToggleChanged_" hidden="[[!is3pcdRedesignEnabled_]]" icon="settings:visibility-off">
+      </settings-toggle-button>
+    </template>
+    <settings-do-not-track-toggle id="doNotTrack" prefs="{{prefs}}">
     </settings-do-not-track-toggle>
     <cr-link-row id="site-data-trigger" class="hr" on-click="onSiteDataClick_" label="$i18n{cookiePageAllSitesLink}" role-description="$i18n{subpageArrowRoleDescription}">
     </cr-link-row>
-    <template is="dom-if" if="[[!is3pcdRedesignEnabled_]]">
+    <template is="dom-if" if="[[!isCookiesUiV2_]]">
       <div id="exceptionHeader">
         <h2>$i18n{thirdPartyCookiesPageCustomizedBehaviorHeading}</h2>
         <div id="exceptionHeaderSubLabel" class="secondary">
@@ -134,7 +136,7 @@ export function getTemplate() {
               $i18n{thirdPartyCookiesPageAllowExceptionsSubHeading}" read-only-list="[[exceptionListsReadOnly_]]" search-filter="[[searchTerm]]" cookies-exception-type="third-party">
       </site-list>
     </template>
-    <template is="dom-if" if="[[is3pcdRedesignEnabled_]]">
+    <template is="dom-if" if="[[isCookiesUiV2_]]">
       <div id="exceptionHeader3pcd">
         <h2>$i18n{trackingProtectionSitesAllowedCookiesTitle}</h2>
       </div>

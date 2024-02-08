@@ -9,8 +9,9 @@ import '//resources/polymer/v3_0/iron-icon/iron-icon.js';
 import '../../components/oobe_icons.html.js';
 import '../../components/common_styles/oobe_common_styles.css.js';
 import '../../components/common_styles/oobe_dialog_host_styles.css.js';
-import '../../components/dialogs/oobe_adaptive_dialog.js';
+import { OobeAdaptiveDialog } from '../../components/dialogs/oobe_adaptive_dialog.js';
 import '../../components/buttons/oobe_text_button.js';
+import { assert } from '//resources/js/assert.js';
 import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
 import { OobeDialogHostBehavior } from '../../components/behaviors/oobe_dialog_host_behavior.js';
@@ -83,6 +84,12 @@ export class FactorSetupSuccessScreen extends FactorSetupSuccessBase {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     getOobeUIInitialState() {
         return OOBE_UI_STATE.BLOCKING;
+    }
+    /** Returns a control which should receive an initial focus. */
+    get defaultControl() {
+        const dialog = this.shadowRoot?.querySelector('#factorSetupSuccessDialog');
+        assert(dialog instanceof OobeAdaptiveDialog);
+        return dialog;
     }
     /**
      * Invoked just before being shown. Contains all the data for the screen.

@@ -173,12 +173,14 @@ suite('SyncSettingsTests', function () {
         assertFalse(configurePage.hidden);
         assertTrue(spinnerPage.hidden);
     });
-    test('EncryptionExpandButton', function () {
+    test('EncryptionExpandButton', async function () {
         const encryptionDescription = syncPage.shadowRoot.querySelector('#encryptionDescription');
+        assertTrue(!!encryptionDescription);
         const encryptionCollapse = syncPage.$.encryptionCollapse;
         // No encryption with custom passphrase.
         assertFalse(encryptionCollapse.opened);
         encryptionDescription.click();
+        await encryptionDescription.updateComplete;
         assertTrue(encryptionCollapse.opened);
         // Push sync prefs with |prefs.encryptAllData| unchanged. The encryption
         // menu should not collapse.
@@ -186,6 +188,7 @@ suite('SyncSettingsTests', function () {
         flush();
         assertTrue(encryptionCollapse.opened);
         encryptionDescription.click();
+        await encryptionDescription.updateComplete;
         assertFalse(encryptionCollapse.opened);
         // Data encrypted with custom passphrase.
         // The encryption menu should be expanded.

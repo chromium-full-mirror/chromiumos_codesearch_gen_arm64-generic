@@ -145,6 +145,8 @@ NOINLINE static const char* SearchResultIconToStringHelper(SearchResultIcon valu
       return "kSelectToSpeak";
     case SearchResultIcon::kShield:
       return "kShield";
+    case SearchResultIcon::kSnapWindowSuggestions:
+      return "kSnapWindowSuggestions";
     case SearchResultIcon::kStorage:
       return "kStorage";
     case SearchResultIcon::kStylus:

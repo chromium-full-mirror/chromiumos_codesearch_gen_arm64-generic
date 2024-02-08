@@ -207,6 +207,7 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_par
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/web_launch/web_launch.mojom-shared-message-ids.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webaudio/audio_context_manager.mojom-shared-message-ids.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webdatabase/web_database.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webid/digital_identity_request.mojom-shared-message-ids.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webid/federated_auth_request.mojom-shared-message-ids.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webid/federated_auth_request_automation.mojom-shared-message-ids.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/webpreferences/web_preferences.mojom-shared-message-ids.h
