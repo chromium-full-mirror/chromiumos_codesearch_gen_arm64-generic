@@ -182,11 +182,9 @@ PROTOBUF_CONSTEXPR StartVmRequest::StartVmRequest(
 
   , /*decltype(_impl_.software_tpm_)*/ false
 
-  , /*decltype(_impl_.run_as_untrusted_)*/ false
+  , /*decltype(_impl_.enable_audio_capture_)*/ false
 
   , /*decltype(_impl_.cpus_)*/ 0u
-
-  , /*decltype(_impl_.enable_audio_capture_)*/ false
 
   , /*decltype(_impl_.writable_rootfs_)*/ false
 
@@ -194,9 +192,9 @@ PROTOBUF_CONSTEXPR StartVmRequest::StartVmRequest(
 
   , /*decltype(_impl_.enable_big_gl_)*/ false
 
-  , /*decltype(_impl_.timeout_)*/ 0u
-
   , /*decltype(_impl_.vtpm_proxy_)*/ false
+
+  , /*decltype(_impl_.timeout_)*/ 0u
 
   , /*decltype(_impl_.storage_ballooning_)*/ false
 
@@ -1714,13 +1712,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 template <typename>
 PROTOBUF_CONSTEXPR GetVmLaunchAllowedRequest::GetVmLaunchAllowedRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.run_as_untrusted_)*/ false
-
-  , /*decltype(_impl_.is_trusted_image_)*/ false
-
-  , /*decltype(_impl_.has_custom_kernel_params_)*/ false
-
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetVmLaunchAllowedRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetVmLaunchAllowedRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetVmLaunchAllowedRequestDefaultTypeInternal() {}
@@ -4979,11 +4971,9 @@ StartVmRequest::StartVmRequest(const StartVmRequest& from)
 
     , decltype(_impl_.software_tpm_) {}
 
-    , decltype(_impl_.run_as_untrusted_) {}
+    , decltype(_impl_.enable_audio_capture_) {}
 
     , decltype(_impl_.cpus_) {}
-
-    , decltype(_impl_.enable_audio_capture_) {}
 
     , decltype(_impl_.writable_rootfs_) {}
 
@@ -4991,9 +4981,9 @@ StartVmRequest::StartVmRequest(const StartVmRequest& from)
 
     , decltype(_impl_.enable_big_gl_) {}
 
-    , decltype(_impl_.timeout_) {}
-
     , decltype(_impl_.vtpm_proxy_) {}
+
+    , decltype(_impl_.timeout_) {}
 
     , decltype(_impl_.storage_ballooning_) {}
 
@@ -5062,11 +5052,9 @@ inline void StartVmRequest::SharedCtor(::_pb::Arena* arena) {
 
     , decltype(_impl_.software_tpm_) { false }
 
-    , decltype(_impl_.run_as_untrusted_) { false }
+    , decltype(_impl_.enable_audio_capture_) { false }
 
     , decltype(_impl_.cpus_) { 0u }
-
-    , decltype(_impl_.enable_audio_capture_) { false }
 
     , decltype(_impl_.writable_rootfs_) { false }
 
@@ -5074,9 +5062,9 @@ inline void StartVmRequest::SharedCtor(::_pb::Arena* arena) {
 
     , decltype(_impl_.enable_big_gl_) { false }
 
-    , decltype(_impl_.timeout_) { 0u }
-
     , decltype(_impl_.vtpm_proxy_) { false }
+
+    , decltype(_impl_.timeout_) { 0u }
 
     , decltype(_impl_.storage_ballooning_) { false }
 
@@ -5227,15 +5215,6 @@ const char* StartVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext
       case 9:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 72)) {
           _impl_.software_tpm_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else {
-          goto handle_unusual;
-        }
-        continue;
-      // bool run_as_untrusted = 10 [deprecated = true];
-      case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 80)) {
-          _impl_.run_as_untrusted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else {
           goto handle_unusual;
@@ -5493,13 +5472,6 @@ failure:
         9, this->_internal_software_tpm(), target);
   }
 
-  // bool run_as_untrusted = 10 [deprecated = true];
-  if (this->_internal_run_as_untrusted() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(
-        10, this->_internal_run_as_untrusted(), target);
-  }
-
   // bool enable_audio_capture = 11;
   if (this->_internal_enable_audio_capture() != 0) {
     target = stream->EnsureSpace(target);
@@ -5733,8 +5705,8 @@ failure:
     total_size += 2;
   }
 
-  // bool run_as_untrusted = 10 [deprecated = true];
-  if (this->_internal_run_as_untrusted() != 0) {
+  // bool enable_audio_capture = 11;
+  if (this->_internal_enable_audio_capture() != 0) {
     total_size += 2;
   }
 
@@ -5742,11 +5714,6 @@ failure:
   if (this->_internal_cpus() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
         this->_internal_cpus());
-  }
-
-  // bool enable_audio_capture = 11;
-  if (this->_internal_enable_audio_capture() != 0) {
-    total_size += 2;
   }
 
   // bool writable_rootfs = 15;
@@ -5764,15 +5731,15 @@ failure:
     total_size += 3;
   }
 
+  // bool vtpm_proxy = 22;
+  if (this->_internal_vtpm_proxy() != 0) {
+    total_size += 3;
+  }
+
   // uint32 timeout = 20;
   if (this->_internal_timeout() != 0) {
     total_size += 2 + ::_pbi::WireFormatLite::UInt32Size(
                                     this->_internal_timeout());
-  }
-
-  // bool vtpm_proxy = 22;
-  if (this->_internal_vtpm_proxy() != 0) {
-    total_size += 3;
   }
 
   // bool storage_ballooning = 23;
@@ -5844,14 +5811,11 @@ void StartVmRequest::MergeFrom(const StartVmRequest& from) {
   if (from._internal_software_tpm() != 0) {
     _this->_internal_set_software_tpm(from._internal_software_tpm());
   }
-  if (from._internal_run_as_untrusted() != 0) {
-    _this->_internal_set_run_as_untrusted(from._internal_run_as_untrusted());
+  if (from._internal_enable_audio_capture() != 0) {
+    _this->_internal_set_enable_audio_capture(from._internal_enable_audio_capture());
   }
   if (from._internal_cpus() != 0) {
     _this->_internal_set_cpus(from._internal_cpus());
-  }
-  if (from._internal_enable_audio_capture() != 0) {
-    _this->_internal_set_enable_audio_capture(from._internal_enable_audio_capture());
   }
   if (from._internal_writable_rootfs() != 0) {
     _this->_internal_set_writable_rootfs(from._internal_writable_rootfs());
@@ -5862,11 +5826,11 @@ void StartVmRequest::MergeFrom(const StartVmRequest& from) {
   if (from._internal_enable_big_gl() != 0) {
     _this->_internal_set_enable_big_gl(from._internal_enable_big_gl());
   }
-  if (from._internal_timeout() != 0) {
-    _this->_internal_set_timeout(from._internal_timeout());
-  }
   if (from._internal_vtpm_proxy() != 0) {
     _this->_internal_set_vtpm_proxy(from._internal_vtpm_proxy());
+  }
+  if (from._internal_timeout() != 0) {
+    _this->_internal_set_timeout(from._internal_timeout());
   }
   if (from._internal_storage_ballooning() != 0) {
     _this->_internal_set_storage_ballooning(from._internal_storage_ballooning());
@@ -24059,13 +24023,7 @@ GetVmLaunchAllowedRequest::GetVmLaunchAllowedRequest(const GetVmLaunchAllowedReq
 inline void GetVmLaunchAllowedRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
   new (&_impl_) Impl_{
-      decltype(_impl_.run_as_untrusted_) { false }
-
-    , decltype(_impl_.is_trusted_image_) { false }
-
-    , decltype(_impl_.has_custom_kernel_params_) { false }
-
-    , /*decltype(_impl_._cached_size_)*/{}
+      /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
@@ -24092,9 +24050,6 @@ void GetVmLaunchAllowedRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.run_as_untrusted_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.has_custom_kernel_params_) -
-      reinterpret_cast<char*>(&_impl_.run_as_untrusted_)) + sizeof(_impl_.has_custom_kernel_params_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -24103,38 +24058,6 @@ const char* GetVmLaunchAllowedRequest::_InternalParse(const char* ptr, ::_pbi::P
   while (!ctx->Done(&ptr)) {
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // bool run_as_untrusted = 1 [deprecated = true];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
-          _impl_.run_as_untrusted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else {
-          goto handle_unusual;
-        }
-        continue;
-      // bool is_trusted_image = 2 [deprecated = true];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
-          _impl_.is_trusted_image_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else {
-          goto handle_unusual;
-        }
-        continue;
-      // bool has_custom_kernel_params = 3 [deprecated = true];
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
-          _impl_.has_custom_kernel_params_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else {
-          goto handle_unusual;
-        }
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
       ctx->SetLastTag(tag);
@@ -24160,27 +24083,6 @@ failure:
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // bool run_as_untrusted = 1 [deprecated = true];
-  if (this->_internal_run_as_untrusted() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(
-        1, this->_internal_run_as_untrusted(), target);
-  }
-
-  // bool is_trusted_image = 2 [deprecated = true];
-  if (this->_internal_is_trusted_image() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(
-        2, this->_internal_is_trusted_image(), target);
-  }
-
-  // bool has_custom_kernel_params = 3 [deprecated = true];
-  if (this->_internal_has_custom_kernel_params() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(
-        3, this->_internal_has_custom_kernel_params(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -24196,21 +24098,6 @@ failure:
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // bool run_as_untrusted = 1 [deprecated = true];
-  if (this->_internal_run_as_untrusted() != 0) {
-    total_size += 2;
-  }
-
-  // bool is_trusted_image = 2 [deprecated = true];
-  if (this->_internal_is_trusted_image() != 0) {
-    total_size += 2;
-  }
-
-  // bool has_custom_kernel_params = 3 [deprecated = true];
-  if (this->_internal_has_custom_kernel_params() != 0) {
-    total_size += 2;
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -24233,15 +24120,6 @@ void GetVmLaunchAllowedRequest::MergeFrom(const GetVmLaunchAllowedRequest& from)
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_run_as_untrusted() != 0) {
-    _this->_internal_set_run_as_untrusted(from._internal_run_as_untrusted());
-  }
-  if (from._internal_is_trusted_image() != 0) {
-    _this->_internal_set_is_trusted_image(from._internal_is_trusted_image());
-  }
-  if (from._internal_has_custom_kernel_params() != 0) {
-    _this->_internal_set_has_custom_kernel_params(from._internal_has_custom_kernel_params());
-  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -24259,12 +24137,6 @@ bool GetVmLaunchAllowedRequest::IsInitialized() const {
 void GetVmLaunchAllowedRequest::InternalSwap(GetVmLaunchAllowedRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetVmLaunchAllowedRequest, _impl_.has_custom_kernel_params_)
-      + sizeof(GetVmLaunchAllowedRequest::_impl_.has_custom_kernel_params_)
-      - PROTOBUF_FIELD_OFFSET(GetVmLaunchAllowedRequest, _impl_.run_as_untrusted_)>(
-          reinterpret_cast<char*>(&_impl_.run_as_untrusted_),
-          reinterpret_cast<char*>(&other->_impl_.run_as_untrusted_));
 }
 
 std::string GetVmLaunchAllowedRequest::GetTypeName() const {

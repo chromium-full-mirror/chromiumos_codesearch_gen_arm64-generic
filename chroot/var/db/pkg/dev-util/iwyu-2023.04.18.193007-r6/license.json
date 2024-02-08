@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-util", "name": "iwyu", "version": "2023.04.18.193007", "revision": 6, "fullname": "dev-util/iwyu", "fullnamerev": "dev-util/iwyu-2023.04.18.193007-r6", "license_names": ["LLVM-exception"], "license_text_scanned": [], "homepages": ["https://include-what-you-use.org/"], "skip": false, "tainted": false, "ebuild_path": null}

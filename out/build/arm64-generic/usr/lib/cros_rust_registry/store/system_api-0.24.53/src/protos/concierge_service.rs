@@ -746,8 +746,6 @@ pub struct StartVmRequest {
     pub enable_gpu: bool,
     // @@protoc_insertion_point(field:vm_tools.concierge.StartVmRequest.software_tpm)
     pub software_tpm: bool,
-    // @@protoc_insertion_point(field:vm_tools.concierge.StartVmRequest.run_as_untrusted)
-    pub run_as_untrusted: bool,
     // @@protoc_insertion_point(field:vm_tools.concierge.StartVmRequest.enable_audio_capture)
     pub enable_audio_capture: bool,
     // @@protoc_insertion_point(field:vm_tools.concierge.StartVmRequest.cpus)
@@ -827,9 +825,6 @@ impl ::protobuf::Message for StartVmRequest {
                 },
                 72 => {
                     self.software_tpm = is.read_bool()?;
-                },
-                80 => {
-                    self.run_as_untrusted = is.read_bool()?;
                 },
                 88 => {
                     self.enable_audio_capture = is.read_bool()?;
@@ -920,9 +915,6 @@ impl ::protobuf::Message for StartVmRequest {
         if self.software_tpm != false {
             my_size += 1 + 1;
         }
-        if self.run_as_untrusted != false {
-            my_size += 1 + 1;
-        }
         if self.enable_audio_capture != false {
             my_size += 1 + 1;
         }
@@ -998,9 +990,6 @@ impl ::protobuf::Message for StartVmRequest {
         if self.software_tpm != false {
             os.write_bool(9, self.software_tpm)?;
         }
-        if self.run_as_untrusted != false {
-            os.write_bool(10, self.run_as_untrusted)?;
-        }
         if self.enable_audio_capture != false {
             os.write_bool(11, self.enable_audio_capture)?;
         }
@@ -1073,7 +1062,6 @@ impl ::protobuf::Message for StartVmRequest {
         self.owner_id.clear();
         self.enable_gpu = false;
         self.software_tpm = false;
-        self.run_as_untrusted = false;
         self.enable_audio_capture = false;
         self.cpus = 0;
         self.writable_rootfs = false;
@@ -1102,7 +1090,6 @@ impl ::protobuf::Message for StartVmRequest {
             owner_id: ::std::string::String::new(),
             enable_gpu: false,
             software_tpm: false,
-            run_as_untrusted: false,
             enable_audio_capture: false,
             cpus: 0,
             writable_rootfs: false,
@@ -9169,13 +9156,6 @@ impl ::protobuf::Message for AddGroupPermissionMesaRequest {
 #[derive(PartialEq,Clone,Default,Debug)]
 // @@protoc_insertion_point(message:vm_tools.concierge.GetVmLaunchAllowedRequest)
 pub struct GetVmLaunchAllowedRequest {
-    // message fields
-    // @@protoc_insertion_point(field:vm_tools.concierge.GetVmLaunchAllowedRequest.run_as_untrusted)
-    pub run_as_untrusted: bool,
-    // @@protoc_insertion_point(field:vm_tools.concierge.GetVmLaunchAllowedRequest.is_trusted_image)
-    pub is_trusted_image: bool,
-    // @@protoc_insertion_point(field:vm_tools.concierge.GetVmLaunchAllowedRequest.has_custom_kernel_params)
-    pub has_custom_kernel_params: bool,
     // special fields
     // @@protoc_insertion_point(special_field:vm_tools.concierge.GetVmLaunchAllowedRequest.special_fields)
     pub special_fields: ::protobuf::SpecialFields,
@@ -9203,15 +9183,6 @@ impl ::protobuf::Message for GetVmLaunchAllowedRequest {
     fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream<'_>) -> ::protobuf::Result<()> {
         while let Some(tag) = is.read_raw_tag_or_eof()? {
             match tag {
-                8 => {
-                    self.run_as_untrusted = is.read_bool()?;
-                },
-                16 => {
-                    self.is_trusted_image = is.read_bool()?;
-                },
-                24 => {
-                    self.has_custom_kernel_params = is.read_bool()?;
-                },
                 tag => {
                     ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
                 },
@@ -9224,30 +9195,12 @@ impl ::protobuf::Message for GetVmLaunchAllowedRequest {
     #[allow(unused_variables)]
     fn compute_size(&self) -> u64 {
         let mut my_size = 0;
-        if self.run_as_untrusted != false {
-            my_size += 1 + 1;
-        }
-        if self.is_trusted_image != false {
-            my_size += 1 + 1;
-        }
-        if self.has_custom_kernel_params != false {
-            my_size += 1 + 1;
-        }
         my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
         self.special_fields.cached_size().set(my_size as u32);
         my_size
     }
 
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::Result<()> {
-        if self.run_as_untrusted != false {
-            os.write_bool(1, self.run_as_untrusted)?;
-        }
-        if self.is_trusted_image != false {
-            os.write_bool(2, self.is_trusted_image)?;
-        }
-        if self.has_custom_kernel_params != false {
-            os.write_bool(3, self.has_custom_kernel_params)?;
-        }
         os.write_unknown_fields(self.special_fields.unknown_fields())?;
         ::std::result::Result::Ok(())
     }
@@ -9265,17 +9218,11 @@ impl ::protobuf::Message for GetVmLaunchAllowedRequest {
     }
 
     fn clear(&mut self) {
-        self.run_as_untrusted = false;
-        self.is_trusted_image = false;
-        self.has_custom_kernel_params = false;
         self.special_fields.clear();
     }
 
     fn default_instance() -> &'static GetVmLaunchAllowedRequest {
         static instance: GetVmLaunchAllowedRequest = GetVmLaunchAllowedRequest {
-            run_as_untrusted: false,
-            is_trusted_image: false,
-            has_custom_kernel_params: false,
             special_fields: ::protobuf::SpecialFields::new(),
         };
         &instance

@@ -37,31 +37,31 @@ build obj/common-mk/gn_root/root.stamp: stamp obj/featured/all.stamp
 build obj/featured/_libfake_platform_features_pkg_config-install_config.stamp: stamp
 build obj/featured/all.stamp: stamp ./featured ./lib/libc_fake_feature_library.so ./lib/libfake_platform_features.so obj/featured/libfake_platform_features_pkg_config.stamp ./lib/libfeatures.so ./lib/libfeatures_c.so ./libstore_impl.a
 rule __featured_early_boot_state_checks___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r462/work/featured-0.0.1/featured/scripts/generate_early_boot_checks.py --default_states=/./usr/include/chromeos/dbus/featured/default_states.json --fileroot_output=gen/featured/early_boot_state_checks --template_folder=../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r462/work/featured-0.0.1/featured/scripts/
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r464/work/featured-0.0.1/featured/scripts/generate_early_boot_checks.py --default_states=/./usr/include/chromeos/dbus/featured/default_states.json --fileroot_output=gen/featured/early_boot_state_checks --template_folder=../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r464/work/featured-0.0.1/featured/scripts/
   description = ACTION //featured:early_boot_state_checks(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/featured/early_boot_state_checks.cc gen/featured/early_boot_state_checks.h: __featured_early_boot_state_checks___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r462/work/featured-0.0.1/featured/scripts/generate_early_boot_checks.py ../../../../../../../usr/include/chromeos/dbus/featured/default_states.json ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r462/work/featured-0.0.1/featured/scripts/early_boot_state_checks_cc.jinja ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r462/work/featured-0.0.1/featured/scripts/early_boot_state_checks_h.jinja
+build gen/featured/early_boot_state_checks.cc gen/featured/early_boot_state_checks.h: __featured_early_boot_state_checks___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r464/work/featured-0.0.1/featured/scripts/generate_early_boot_checks.py ../../../../../../../usr/include/chromeos/dbus/featured/default_states.json ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r464/work/featured-0.0.1/featured/scripts/early_boot_state_checks_cc.jinja ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r464/work/featured-0.0.1/featured/scripts/early_boot_state_checks_h.jinja
 
 build obj/featured/early_boot_state_checks.stamp: stamp gen/featured/early_boot_state_checks.cc gen/featured/early_boot_state_checks.h
 subninja obj/featured/featured.ninja
 rule __featured_featured-adaptors___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r462/work/featured-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/var/cache/portage/chromeos-base/featured/out/Default/gen/include/featured/dbus_adaptors/${source_name_part}.h -service-config=/var/tmp/portage/chromeos-base/featured-0.0.1-r462/work/featured-0.0.1/featured/dbus_bindings/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r464/work/featured-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/var/cache/portage/chromeos-base/featured/out/Default/gen/include/featured/dbus_adaptors/${source_name_part}.h -service-config=/var/tmp/portage/chromeos-base/featured-0.0.1-r464/work/featured-0.0.1/featured/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //featured:featured-adaptors(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/featured/dbus_adaptors/org.chromium.featured.h: __featured_featured-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r462/work/featured-0.0.1/featured/dbus_bindings/org.chromium.featured.xml | ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r462/work/featured-0.0.1/common-mk/file_generator_wrapper.py
+build gen/include/featured/dbus_adaptors/org.chromium.featured.h: __featured_featured-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r464/work/featured-0.0.1/featured/dbus_bindings/org.chromium.featured.xml | ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r464/work/featured-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.featured
 
 build obj/featured/featured-adaptors.stamp: stamp gen/include/featured/dbus_adaptors/org.chromium.featured.h
 subninja obj/featured/libc_fake_feature_library.ninja
 subninja obj/featured/libfake_platform_features.ninja
 rule __featured_libfake_platform_features_pkg_config___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r462/work/featured-0.0.1/common-mk/generate-pc.py --output /var/cache/portage/chromeos-base/featured/out/Default/obj/featured/libfake_platform_features.pc --name=libfake_platform_features --description=Fake\$ libfeatures\$ for\$ tests --version=0.0 --libs=-lfake_platform_features
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r464/work/featured-0.0.1/common-mk/generate-pc.py --output /var/cache/portage/chromeos-base/featured/out/Default/obj/featured/libfake_platform_features.pc --name=libfake_platform_features --description=Fake\$ libfeatures\$ for\$ tests --version=0.0 --libs=-lfake_platform_features
   description = ACTION //featured:libfake_platform_features_pkg_config(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/featured/libfake_platform_features.pc: __featured_libfake_platform_features_pkg_config___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r462/work/featured-0.0.1/common-mk/generate-pc.py obj/featured/_libfake_platform_features_pkg_config-install_config.stamp
+build obj/featured/libfake_platform_features.pc: __featured_libfake_platform_features_pkg_config___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r464/work/featured-0.0.1/common-mk/generate-pc.py obj/featured/_libfake_platform_features_pkg_config-install_config.stamp
 
 build obj/featured/libfake_platform_features_pkg_config.stamp: stamp obj/featured/libfake_platform_features.pc
 subninja obj/featured/libfeatured.ninja
