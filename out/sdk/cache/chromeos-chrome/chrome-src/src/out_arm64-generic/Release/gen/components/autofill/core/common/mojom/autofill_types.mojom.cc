@@ -962,7 +962,6 @@ FormData::FormData()
       button_titles(),
       action(),
       is_action_empty(),
-      is_form_tag(),
       renderer_id(),
       child_frames(),
       submission_event(),
@@ -977,7 +976,6 @@ FormData::FormData(
     std::vector<ButtonTitleInfoPtr> button_titles_in,
     const ::GURL& action_in,
     bool is_action_empty_in,
-    bool is_form_tag_in,
     ::autofill::FormRendererId renderer_id_in,
     std::vector<FrameTokenWithPredecessorPtr> child_frames_in,
     SubmissionIndicatorEvent submission_event_in,
@@ -990,7 +988,6 @@ FormData::FormData(
       button_titles(std::move(button_titles_in)),
       action(std::move(action_in)),
       is_action_empty(std::move(is_action_empty_in)),
-      is_form_tag(std::move(is_form_tag_in)),
       renderer_id(std::move(renderer_id_in)),
       child_frames(std::move(child_frames_in)),
       submission_event(std::move(submission_event_in)),
@@ -1051,15 +1048,6 @@ void FormData::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "is_action_empty"), this->is_action_empty,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "is_form_tag"), this->is_form_tag,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -2258,8 +2246,6 @@ bool StructTraits<::autofill::mojom::FormData::DataView, ::autofill::mojom::Form
         success = false;
       if (success)
         result->is_action_empty = input.is_action_empty();
-      if (success)
-        result->is_form_tag = input.is_form_tag();
       if (success && !input.ReadRendererId(&result->renderer_id))
         success = false;
       if (success && !input.ReadChildFrames(&result->child_frames))

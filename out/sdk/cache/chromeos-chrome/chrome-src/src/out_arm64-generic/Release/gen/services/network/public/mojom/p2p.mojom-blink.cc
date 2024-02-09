@@ -663,7 +663,7 @@ void P2PSocketManagerProxy::GetHostAddressWithFamily(
 }
 
 void P2PSocketManagerProxy::CreateSocket(
-    ::network::P2PSocketType in_type, const ::net::IPEndPoint& in_local_address, const ::network::P2PPortRange& in_port_range, const ::network::P2PHostAndIPEndPoint& in_remote_address, const ::net::MutableNetworkTrafficAnnotationTag& in_traffic_annotation, ::mojo::PendingRemote<P2PSocketClient> in_client, ::mojo::PendingReceiver<P2PSocket> in_socket) {
+    ::network::P2PSocketType in_type, const ::net::IPEndPoint& in_local_address, const ::network::P2PPortRange& in_port_range, const ::network::P2PHostAndIPEndPoint& in_remote_address, const ::net::MutableNetworkTrafficAnnotationTag& in_traffic_annotation, const std::optional<::base::UnguessableToken>& in_devtools_token, ::mojo::PendingRemote<P2PSocketClient> in_client, ::mojo::PendingReceiver<P2PSocket> in_socket) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::P2PSocketManager::CreateSocket", "input_parameters",
@@ -684,6 +684,9 @@ void P2PSocketManagerProxy::CreateSocket(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("traffic_annotation"), in_traffic_annotation,
                         "<value of type const ::net::MutableNetworkTrafficAnnotationTag&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("devtools_token"), in_devtools_token,
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("client"), in_client,
                         "<value of type ::mojo::PendingRemote<P2PSocketClient>>");
@@ -756,6 +759,13 @@ void P2PSocketManagerProxy::CreateSocket(
       params->traffic_annotation.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null traffic_annotation in P2PSocketManager.CreateSocket request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->devtools_token)::BaseType> devtools_token_fragment(
+          params.message());
+  mojo::internal::Serialize<::mojo_base::mojom::UnguessableTokenDataView>(
+      in_devtools_token, devtools_token_fragment);
+  params->devtools_token.Set(
+      devtools_token_fragment.is_null() ? nullptr : devtools_token_fragment.data());
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::network::mojom::P2PSocketClientInterfaceBase>>(
       in_client, &params->client, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1100,6 +1110,7 @@ bool P2PSocketManagerStubDispatch::Accept(
       ::network::P2PPortRange p_port_range{};
       ::network::P2PHostAndIPEndPoint p_remote_address{};
       ::net::MutableNetworkTrafficAnnotationTag p_traffic_annotation{};
+      std::optional<::base::UnguessableToken> p_devtools_token{};
       ::mojo::PendingRemote<P2PSocketClient> p_client{};
       ::mojo::PendingReceiver<P2PSocket> p_socket{};
       P2PSocketManager_CreateSocket_ParamsDataView input_data_view(params, message);
@@ -1113,6 +1124,8 @@ bool P2PSocketManagerStubDispatch::Accept(
       if (success && !input_data_view.ReadRemoteAddress(&p_remote_address))
         success = false;
       if (success && !input_data_view.ReadTrafficAnnotation(&p_traffic_annotation))
+        success = false;
+      if (success && !input_data_view.ReadDevtoolsToken(&p_devtools_token))
         success = false;
       if (success) {
         p_client =
@@ -1137,6 +1150,7 @@ bool P2PSocketManagerStubDispatch::Accept(
         std::move(p_port_range), 
         std::move(p_remote_address), 
         std::move(p_traffic_annotation), 
+        std::move(p_devtools_token), 
         std::move(p_client), 
         std::move(p_socket));
       return true;
@@ -2239,8 +2253,8 @@ void P2PSocketManagerInterceptorForTesting::GetHostAddress(const WTF::String& ho
 void P2PSocketManagerInterceptorForTesting::GetHostAddressWithFamily(const WTF::String& host_name, int32_t address_family, bool enable_mdns, GetHostAddressWithFamilyCallback callback) {
   GetForwardingInterface()->GetHostAddressWithFamily(std::move(host_name), std::move(address_family), std::move(enable_mdns), std::move(callback));
 }
-void P2PSocketManagerInterceptorForTesting::CreateSocket(::network::P2PSocketType type, const ::net::IPEndPoint& local_address, const ::network::P2PPortRange& port_range, const ::network::P2PHostAndIPEndPoint& remote_address, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingRemote<P2PSocketClient> client, ::mojo::PendingReceiver<P2PSocket> socket) {
-  GetForwardingInterface()->CreateSocket(std::move(type), std::move(local_address), std::move(port_range), std::move(remote_address), std::move(traffic_annotation), std::move(client), std::move(socket));
+void P2PSocketManagerInterceptorForTesting::CreateSocket(::network::P2PSocketType type, const ::net::IPEndPoint& local_address, const ::network::P2PPortRange& port_range, const ::network::P2PHostAndIPEndPoint& remote_address, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, const std::optional<::base::UnguessableToken>& devtools_token, ::mojo::PendingRemote<P2PSocketClient> client, ::mojo::PendingReceiver<P2PSocket> socket) {
+  GetForwardingInterface()->CreateSocket(std::move(type), std::move(local_address), std::move(port_range), std::move(remote_address), std::move(traffic_annotation), std::move(devtools_token), std::move(client), std::move(socket));
 }
 P2PSocketManagerAsyncWaiter::P2PSocketManagerAsyncWaiter(
     P2PSocketManager* proxy) : proxy_(proxy) {}

@@ -683,6 +683,14 @@ inline void WebTransportClosed(ExecutionContext* param_execution_context, uint64
   WebTransportClosedImpl(param_execution_context, transport_id);
 }
 
+CORE_EXPORT void WillCreateP2PSocketUdpImpl(ExecutionContext*, absl::optional<base::UnguessableToken>*);
+inline void WillCreateP2PSocketUdp(ExecutionContext* param_execution_context, absl::optional<base::UnguessableToken>* devtools_token) {
+  if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kInspectorNetworkAgent))
+    return;
+
+  WillCreateP2PSocketUdpImpl(param_execution_context, devtools_token);
+}
+
 CORE_EXPORT void LayerTreeDidChangeImpl(LocalFrame*);
 inline void LayerTreeDidChange(LocalFrame* param_local_frame) {
   if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kInspectorLayerTreeAgent))

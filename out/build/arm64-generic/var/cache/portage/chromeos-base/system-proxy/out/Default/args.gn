@@ -11,8 +11,8 @@ OS = "linux"
 sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root = "/build/arm64-generic/var/cache/portage/chromeos-base/system-proxy"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/system-proxy-0.0.1-r642/work/system-proxy-0.0.1"
-libbase_ver = "1256589"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/system-proxy-0.0.1-r643/work/system-proxy-0.0.1"
+libbase_ver = "1257783"
 enable_exceptions = false
 external_cflags = [
   "-Os",

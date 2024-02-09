@@ -96,7 +96,7 @@ build irt_arm/obj/base/anchor_functions_buildflags.stamp: irt_arm_stamp irt_arm/
 subninja irt_arm/obj/base/base.ninja
 subninja irt_arm/obj/base/base_static.ninja
 rule __base_build_date___build_toolchain_nacl_irt_arm__rule
-  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/base/write_build_date_header.py irt_arm/gen/base/generated_build_date.h 1707365071
+  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/base/write_build_date_header.py irt_arm/gen/base/generated_build_date.h 1707408285
   description = ACTION //base:build_date(//build/toolchain/nacl:irt_arm)
   restat = 1
   pool = build_toolchain_action_pool

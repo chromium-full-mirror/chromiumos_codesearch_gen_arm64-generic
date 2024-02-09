@@ -4,7 +4,6 @@
 import { assertEquals } from 'chrome://webui-test/chromeos/chai_assert.js';
 import { ImageLoaderUtil } from './image_loader_util.js';
 import { ImageOrientation } from './image_orientation.js';
-import { LoadImageRequest } from './load_image_request.js';
 /**
  * Casts a map of options as an incoming load request to test CopyParameters.
  *
@@ -13,7 +12,7 @@ import { LoadImageRequest } from './load_image_request.js';
  * @return {!ImageLoaderUtil.CopyParameters} Calculated copy parameters.
  */
 function calculateCopyParametersFromOptions(source, options) {
-    return ImageLoaderUtil.calculateCopyParameters(source, /** @type{!LoadImageRequest} */ (options));
+    return ImageLoaderUtil.calculateCopyParameters(source, options);
 }
 /**
  * Test case:

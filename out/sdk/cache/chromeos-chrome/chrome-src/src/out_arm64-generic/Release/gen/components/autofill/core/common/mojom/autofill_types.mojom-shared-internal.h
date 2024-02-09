@@ -1255,9 +1255,8 @@ class  FormData_Data {
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ButtonTitleInfo_Data>>> button_titles;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> action;
   uint8_t is_action_empty : 1;
-  uint8_t is_form_tag : 1;
   uint8_t is_gaia_with_skip_save_password_form : 1;
-  uint8_t pad7_[3];
+  uint8_t pad6_[3];
   int32_t submission_event;
   mojo::internal::Pointer<internal::FormRendererId_Data> renderer_id;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::FrameTokenWithPredecessor_Data>>> child_frames;

@@ -37,71 +37,23 @@ namespace sync_pb {
 bool GetUpdatesCallerInfo_GetUpdatesSource_IsValid(int value) {
   switch (value) {
     case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 7:
-    case 8:
-    case 9:
-    case 10:
-    case 11:
-    case 13:
-    case 14:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> GetUpdatesCallerInfo_GetUpdatesSource_strings[13] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> GetUpdatesCallerInfo_GetUpdatesSource_strings[1] = {};
 
 static const char GetUpdatesCallerInfo_GetUpdatesSource_names[] =
-  "DATATYPE_REFRESH"
-  "FIRST_UPDATE"
-  "LOCAL"
-  "MIGRATION"
-  "NEWLY_SUPPORTED_DATATYPE"
-  "NEW_CLIENT"
-  "NOTIFICATION"
-  "PERIODIC"
-  "PROGRAMMATIC"
-  "RECONFIGURATION"
-  "RETRY"
-  "SYNC_CYCLE_CONTINUATION"
   "UNKNOWN";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry GetUpdatesCallerInfo_GetUpdatesSource_entries[] = {
-  { {GetUpdatesCallerInfo_GetUpdatesSource_names + 0, 16}, 11 },
-  { {GetUpdatesCallerInfo_GetUpdatesSource_names + 16, 12}, 1 },
-  { {GetUpdatesCallerInfo_GetUpdatesSource_names + 28, 5}, 2 },
-  { {GetUpdatesCallerInfo_GetUpdatesSource_names + 33, 9}, 8 },
-  { {GetUpdatesCallerInfo_GetUpdatesSource_names + 42, 24}, 7 },
-  { {GetUpdatesCallerInfo_GetUpdatesSource_names + 66, 10}, 9 },
-  { {GetUpdatesCallerInfo_GetUpdatesSource_names + 76, 12}, 3 },
-  { {GetUpdatesCallerInfo_GetUpdatesSource_names + 88, 8}, 4 },
-  { {GetUpdatesCallerInfo_GetUpdatesSource_names + 96, 12}, 14 },
-  { {GetUpdatesCallerInfo_GetUpdatesSource_names + 108, 15}, 10 },
-  { {GetUpdatesCallerInfo_GetUpdatesSource_names + 123, 5}, 13 },
-  { {GetUpdatesCallerInfo_GetUpdatesSource_names + 128, 23}, 5 },
-  { {GetUpdatesCallerInfo_GetUpdatesSource_names + 151, 7}, 0 },
+  { {GetUpdatesCallerInfo_GetUpdatesSource_names + 0, 7}, 0 },
 };
 
 static const int GetUpdatesCallerInfo_GetUpdatesSource_entries_by_number[] = {
-  12, // 0 -> UNKNOWN
-  1, // 1 -> FIRST_UPDATE
-  2, // 2 -> LOCAL
-  6, // 3 -> NOTIFICATION
-  7, // 4 -> PERIODIC
-  11, // 5 -> SYNC_CYCLE_CONTINUATION
-  4, // 7 -> NEWLY_SUPPORTED_DATATYPE
-  3, // 8 -> MIGRATION
-  5, // 9 -> NEW_CLIENT
-  9, // 10 -> RECONFIGURATION
-  0, // 11 -> DATATYPE_REFRESH
-  10, // 13 -> RETRY
-  8, // 14 -> PROGRAMMATIC
+  0, // 0 -> UNKNOWN
 };
 
 const std::string& GetUpdatesCallerInfo_GetUpdatesSource_Name(
@@ -110,12 +62,12 @@ const std::string& GetUpdatesCallerInfo_GetUpdatesSource_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           GetUpdatesCallerInfo_GetUpdatesSource_entries,
           GetUpdatesCallerInfo_GetUpdatesSource_entries_by_number,
-          13, GetUpdatesCallerInfo_GetUpdatesSource_strings);
+          1, GetUpdatesCallerInfo_GetUpdatesSource_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       GetUpdatesCallerInfo_GetUpdatesSource_entries,
       GetUpdatesCallerInfo_GetUpdatesSource_entries_by_number,
-      13, value);
+      1, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      GetUpdatesCallerInfo_GetUpdatesSource_strings[idx].get();
 }
@@ -123,7 +75,7 @@ bool GetUpdatesCallerInfo_GetUpdatesSource_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, GetUpdatesCallerInfo_GetUpdatesSource* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      GetUpdatesCallerInfo_GetUpdatesSource_entries, 13, name, &int_value);
+      GetUpdatesCallerInfo_GetUpdatesSource_entries, 1, name, &int_value);
   if (success) {
     *value = static_cast<GetUpdatesCallerInfo_GetUpdatesSource>(int_value);
   }
@@ -131,18 +83,6 @@ bool GetUpdatesCallerInfo_GetUpdatesSource_Parse(
 }
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::UNKNOWN;
-constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::FIRST_UPDATE;
-constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::LOCAL;
-constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::NOTIFICATION;
-constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::PERIODIC;
-constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::SYNC_CYCLE_CONTINUATION;
-constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::NEWLY_SUPPORTED_DATATYPE;
-constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::MIGRATION;
-constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::NEW_CLIENT;
-constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::RECONFIGURATION;
-constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::DATATYPE_REFRESH;
-constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::RETRY;
-constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::PROGRAMMATIC;
 constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::GetUpdatesSource_MIN;
 constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo::GetUpdatesSource_MAX;
 constexpr int GetUpdatesCallerInfo::GetUpdatesSource_ARRAYSIZE;

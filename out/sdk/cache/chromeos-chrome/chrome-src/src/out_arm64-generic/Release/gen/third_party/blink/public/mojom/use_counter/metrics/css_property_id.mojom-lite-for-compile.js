@@ -744,8 +744,9 @@ blink.mojom.CSSSampleId = {
   kInsetArea: 781,
   kViewTransitionClass: 782,
   kPositionTryOrder: 783,
+  kPositionTryOptions: 784,
   MIN_VALUE: 0,
-  MAX_VALUE: 783,
+  MAX_VALUE: 784,
 };
 
 

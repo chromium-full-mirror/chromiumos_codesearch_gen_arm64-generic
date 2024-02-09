@@ -44,6 +44,154 @@ namespace blink::mojom {
 
 
 
+class BLINK_COMMON_EXPORT BlockingReasonSourceLocation {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<BlockingReasonSourceLocation, T>::value>;
+  using DataView = BlockingReasonSourceLocationDataView;
+  using Data_ = internal::BlockingReasonSourceLocation_Data;
+
+  template <typename... Args>
+  static BlockingReasonSourceLocationPtr New(Args&&... args) {
+    return BlockingReasonSourceLocationPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static BlockingReasonSourceLocationPtr From(const U& u) {
+    return mojo::TypeConverter<BlockingReasonSourceLocationPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, BlockingReasonSourceLocation>::Convert(*this);
+  }
+
+
+  BlockingReasonSourceLocation();
+
+  BlockingReasonSourceLocation(
+      const std::string& url,
+      uint64_t line_number,
+      uint64_t column_number);
+
+
+  ~BlockingReasonSourceLocation();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = BlockingReasonSourceLocationPtr>
+  BlockingReasonSourceLocationPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, BlockingReasonSourceLocation::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, BlockingReasonSourceLocation::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, BlockingReasonSourceLocation::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        BlockingReasonSourceLocation::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        BlockingReasonSourceLocation::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::BlockingReasonSourceLocation_UnserializedMessageContext<
+            UserType, BlockingReasonSourceLocation::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<BlockingReasonSourceLocation::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return BlockingReasonSourceLocation::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::BlockingReasonSourceLocation_UnserializedMessageContext<
+            UserType, BlockingReasonSourceLocation::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<BlockingReasonSourceLocation::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string url;
+  
+  uint64_t line_number;
+  
+  uint64_t column_number;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, BlockingReasonSourceLocation::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, BlockingReasonSourceLocation::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, BlockingReasonSourceLocation::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, BlockingReasonSourceLocation::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
 
 
 
@@ -192,6 +340,152 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+class BLINK_COMMON_EXPORT BFCacheBlockingDetailedReason {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<BFCacheBlockingDetailedReason, T>::value>;
+  using DataView = BFCacheBlockingDetailedReasonDataView;
+  using Data_ = internal::BFCacheBlockingDetailedReason_Data;
+
+  template <typename... Args>
+  static BFCacheBlockingDetailedReasonPtr New(Args&&... args) {
+    return BFCacheBlockingDetailedReasonPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static BFCacheBlockingDetailedReasonPtr From(const U& u) {
+    return mojo::TypeConverter<BFCacheBlockingDetailedReasonPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, BFCacheBlockingDetailedReason>::Convert(*this);
+  }
+
+
+  BFCacheBlockingDetailedReason();
+
+  BFCacheBlockingDetailedReason(
+      const std::string& name,
+      BlockingReasonSourceLocationPtr source);
+
+BFCacheBlockingDetailedReason(const BFCacheBlockingDetailedReason&) = delete;
+BFCacheBlockingDetailedReason& operator=(const BFCacheBlockingDetailedReason&) = delete;
+
+  ~BFCacheBlockingDetailedReason();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = BFCacheBlockingDetailedReasonPtr>
+  BFCacheBlockingDetailedReasonPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, BFCacheBlockingDetailedReason::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, BFCacheBlockingDetailedReason::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, BFCacheBlockingDetailedReason::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        BFCacheBlockingDetailedReason::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        BFCacheBlockingDetailedReason::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::BFCacheBlockingDetailedReason_UnserializedMessageContext<
+            UserType, BFCacheBlockingDetailedReason::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<BFCacheBlockingDetailedReason::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return BFCacheBlockingDetailedReason::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::BFCacheBlockingDetailedReason_UnserializedMessageContext<
+            UserType, BFCacheBlockingDetailedReason::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<BFCacheBlockingDetailedReason::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string name;
+  
+  BlockingReasonSourceLocationPtr source;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, BFCacheBlockingDetailedReason::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, BFCacheBlockingDetailedReason::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, BFCacheBlockingDetailedReason::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, BFCacheBlockingDetailedReason::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class BLINK_COMMON_EXPORT BackForwardCacheNotRestoredReasons {
  public:
   template <typename T>
@@ -222,7 +516,7 @@ class BLINK_COMMON_EXPORT BackForwardCacheNotRestoredReasons {
       const std::optional<std::string>& src,
       const std::optional<std::string>& id,
       const std::optional<std::string>& name,
-      std::vector<std::string> reasons,
+      std::vector<BFCacheBlockingDetailedReasonPtr> reasons,
       SameOriginBfcacheNotRestoredDetailsPtr same_origin_details);
 
 BackForwardCacheNotRestoredReasons(const BackForwardCacheNotRestoredReasons&) = delete;
@@ -309,7 +603,7 @@ BackForwardCacheNotRestoredReasons& operator=(const BackForwardCacheNotRestoredR
   
   std::optional<std::string> name;
   
-  std::vector<std::string> reasons;
+  std::vector<BFCacheBlockingDetailedReasonPtr> reasons;
   
   SameOriginBfcacheNotRestoredDetailsPtr same_origin_details;
 
@@ -368,6 +662,71 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.children < rhs.children)
     return true;
   if (rhs.children < lhs.children)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+BlockingReasonSourceLocationPtr BlockingReasonSourceLocation::Clone() const {
+  return New(
+      mojo::Clone(url),
+      mojo::Clone(line_number),
+      mojo::Clone(column_number)
+  );
+}
+
+template <typename T, BlockingReasonSourceLocation::EnableIfSame<T>*>
+bool BlockingReasonSourceLocation::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->url, other_struct.url))
+    return false;
+  if (!mojo::Equals(this->line_number, other_struct.line_number))
+    return false;
+  if (!mojo::Equals(this->column_number, other_struct.column_number))
+    return false;
+  return true;
+}
+
+template <typename T, BlockingReasonSourceLocation::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.url < rhs.url)
+    return true;
+  if (rhs.url < lhs.url)
+    return false;
+  if (lhs.line_number < rhs.line_number)
+    return true;
+  if (rhs.line_number < lhs.line_number)
+    return false;
+  if (lhs.column_number < rhs.column_number)
+    return true;
+  if (rhs.column_number < lhs.column_number)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+BFCacheBlockingDetailedReasonPtr BFCacheBlockingDetailedReason::Clone() const {
+  return New(
+      mojo::Clone(name),
+      mojo::Clone(source)
+  );
+}
+
+template <typename T, BFCacheBlockingDetailedReason::EnableIfSame<T>*>
+bool BFCacheBlockingDetailedReason::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->source, other_struct.source))
+    return false;
+  return true;
+}
+
+template <typename T, BFCacheBlockingDetailedReason::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.name < rhs.name)
+    return true;
+  if (rhs.name < lhs.name)
+    return false;
+  if (lhs.source < rhs.source)
+    return true;
+  if (rhs.source < lhs.source)
     return false;
   return false;
 }
@@ -445,6 +804,51 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::SameOriginBfcacheNotRest
   }
 
   static bool Read(::blink::mojom::SameOriginBfcacheNotRestoredDetails::DataView input, ::blink::mojom::SameOriginBfcacheNotRestoredDetailsPtr* output);
+};
+
+
+template <>
+struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::BlockingReasonSourceLocation::DataView,
+                                         ::blink::mojom::BlockingReasonSourceLocationPtr> {
+  static bool IsNull(const ::blink::mojom::BlockingReasonSourceLocationPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::BlockingReasonSourceLocationPtr* output) { output->reset(); }
+
+  static const decltype(::blink::mojom::BlockingReasonSourceLocation::url)& url(
+      const ::blink::mojom::BlockingReasonSourceLocationPtr& input) {
+    return input->url;
+  }
+
+  static decltype(::blink::mojom::BlockingReasonSourceLocation::line_number) line_number(
+      const ::blink::mojom::BlockingReasonSourceLocationPtr& input) {
+    return input->line_number;
+  }
+
+  static decltype(::blink::mojom::BlockingReasonSourceLocation::column_number) column_number(
+      const ::blink::mojom::BlockingReasonSourceLocationPtr& input) {
+    return input->column_number;
+  }
+
+  static bool Read(::blink::mojom::BlockingReasonSourceLocation::DataView input, ::blink::mojom::BlockingReasonSourceLocationPtr* output);
+};
+
+
+template <>
+struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::BFCacheBlockingDetailedReason::DataView,
+                                         ::blink::mojom::BFCacheBlockingDetailedReasonPtr> {
+  static bool IsNull(const ::blink::mojom::BFCacheBlockingDetailedReasonPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::BFCacheBlockingDetailedReasonPtr* output) { output->reset(); }
+
+  static const decltype(::blink::mojom::BFCacheBlockingDetailedReason::name)& name(
+      const ::blink::mojom::BFCacheBlockingDetailedReasonPtr& input) {
+    return input->name;
+  }
+
+  static const decltype(::blink::mojom::BFCacheBlockingDetailedReason::source)& source(
+      const ::blink::mojom::BFCacheBlockingDetailedReasonPtr& input) {
+    return input->source;
+  }
+
+  static bool Read(::blink::mojom::BFCacheBlockingDetailedReason::DataView input, ::blink::mojom::BFCacheBlockingDetailedReasonPtr* output);
 };
 
 

@@ -1481,9 +1481,6 @@ class FormDataDataView {
   bool is_action_empty() const {
     return data_->is_action_empty;
   }
-  bool is_form_tag() const {
-    return data_->is_form_tag;
-  }
   inline void GetRendererIdDataView(
       FormRendererIdDataView* output);
 
@@ -3424,7 +3421,6 @@ struct Serializer<::autofill::mojom::FormDataDataView, MaybeConstUserType> {
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null action in FormData struct");
     fragment->is_action_empty = Traits::is_action_empty(input);
-    fragment->is_form_tag = Traits::is_form_tag(input);
     decltype(Traits::renderer_id(input)) in_renderer_id = Traits::renderer_id(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->renderer_id)::BaseType> renderer_id_fragment(

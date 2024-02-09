@@ -44,14 +44,11 @@ export function getDomState(documents) {
     return { loggables, shadowRoots };
 }
 const MIN_ELEMENT_SIZE_FOR_IMPRESSIONS = 10;
-export function visibleOverlap(element, viewportRect) {
+export function isVisible(element, viewportRect) {
     const elementRect = element.getBoundingClientRect();
     const overlap = intersection(viewportRect, elementRect);
-    if (!overlap || overlap.width < MIN_ELEMENT_SIZE_FOR_IMPRESSIONS ||
-        overlap.height < MIN_ELEMENT_SIZE_FOR_IMPRESSIONS) {
-        return null;
-    }
-    return overlap;
+    return Boolean(overlap && overlap.width >= MIN_ELEMENT_SIZE_FOR_IMPRESSIONS &&
+        overlap.height >= MIN_ELEMENT_SIZE_FOR_IMPRESSIONS);
 }
 function intersection(a, b) {
     const x0 = Math.max(a.left, b.left);

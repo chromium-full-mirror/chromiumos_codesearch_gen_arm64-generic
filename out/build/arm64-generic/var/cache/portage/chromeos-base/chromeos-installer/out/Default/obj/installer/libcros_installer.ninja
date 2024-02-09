@@ -1,41 +1,41 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_POSTINSTALL_CONFIG_EFI_AND_LEGACY=false -DUSE_POSTINSTALL_CGPT_REPAIR=false
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4179/work/chromeos-installer-0.0.3 -I/build/arm64-generic/usr/include
-cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1256589 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4180/work/chromeos-installer-0.0.3 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libcros_installer
 
-build obj/installer/libcros_installer.cgpt_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4179/work/chromeos-installer-0.0.3/installer/cgpt_manager.cc
+build obj/installer/libcros_installer.cgpt_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4180/work/chromeos-installer-0.0.3/installer/cgpt_manager.cc
   source_file_part = cgpt_manager.cc
   source_name_part = cgpt_manager
-build obj/installer/libcros_installer.chromeos_install_config.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4179/work/chromeos-installer-0.0.3/installer/chromeos_install_config.cc
+build obj/installer/libcros_installer.chromeos_install_config.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4180/work/chromeos-installer-0.0.3/installer/chromeos_install_config.cc
   source_file_part = chromeos_install_config.cc
   source_name_part = chromeos_install_config
-build obj/installer/libcros_installer.chromeos_legacy.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4179/work/chromeos-installer-0.0.3/installer/chromeos_legacy.cc
+build obj/installer/libcros_installer.chromeos_legacy.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4180/work/chromeos-installer-0.0.3/installer/chromeos_legacy.cc
   source_file_part = chromeos_legacy.cc
   source_name_part = chromeos_legacy
-build obj/installer/libcros_installer.chromeos_postinst.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4179/work/chromeos-installer-0.0.3/installer/chromeos_postinst.cc
+build obj/installer/libcros_installer.chromeos_postinst.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4180/work/chromeos-installer-0.0.3/installer/chromeos_postinst.cc
   source_file_part = chromeos_postinst.cc
   source_name_part = chromeos_postinst
-build obj/installer/libcros_installer.chromeos_setimage.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4179/work/chromeos-installer-0.0.3/installer/chromeos_setimage.cc
+build obj/installer/libcros_installer.chromeos_setimage.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4180/work/chromeos-installer-0.0.3/installer/chromeos_setimage.cc
   source_file_part = chromeos_setimage.cc
   source_name_part = chromeos_setimage
-build obj/installer/libcros_installer.chromeos_verity.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4179/work/chromeos-installer-0.0.3/installer/chromeos_verity.cc
+build obj/installer/libcros_installer.chromeos_verity.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4180/work/chromeos-installer-0.0.3/installer/chromeos_verity.cc
   source_file_part = chromeos_verity.cc
   source_name_part = chromeos_verity
-build obj/installer/libcros_installer.inst_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4179/work/chromeos-installer-0.0.3/installer/inst_util.cc
+build obj/installer/libcros_installer.inst_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4180/work/chromeos-installer-0.0.3/installer/inst_util.cc
   source_file_part = inst_util.cc
   source_name_part = inst_util
-build obj/installer/libcros_installer.slow_boot_notify_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4179/work/chromeos-installer-0.0.3/installer/slow_boot_notify_stub.cc
+build obj/installer/libcros_installer.slow_boot_notify_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4180/work/chromeos-installer-0.0.3/installer/slow_boot_notify_stub.cc
   source_file_part = slow_boot_notify_stub.cc
   source_name_part = slow_boot_notify_stub
-build obj/installer/libcros_installer.efi_boot_management_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4179/work/chromeos-installer-0.0.3/installer/efi_boot_management_stub.cc
+build obj/installer/libcros_installer.efi_boot_management_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4180/work/chromeos-installer-0.0.3/installer/efi_boot_management_stub.cc
   source_file_part = efi_boot_management_stub.cc
   source_name_part = efi_boot_management_stub
-build obj/installer/libcros_installer.metrics_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4179/work/chromeos-installer-0.0.3/installer/metrics_stub.cc
+build obj/installer/libcros_installer.metrics_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4180/work/chromeos-installer-0.0.3/installer/metrics_stub.cc
   source_file_part = metrics_stub.cc
   source_name_part = metrics_stub
-build obj/installer/libcros_installer.reven_partition_migration_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4179/work/chromeos-installer-0.0.3/installer/reven_partition_migration_stub.cc
+build obj/installer/libcros_installer.reven_partition_migration_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4180/work/chromeos-installer-0.0.3/installer/reven_partition_migration_stub.cc
   source_file_part = reven_partition_migration_stub.cc
   source_name_part = reven_partition_migration_stub
 

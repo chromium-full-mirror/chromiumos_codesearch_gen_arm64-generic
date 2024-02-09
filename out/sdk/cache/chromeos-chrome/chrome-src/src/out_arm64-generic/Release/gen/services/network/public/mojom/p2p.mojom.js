@@ -19,6 +19,12 @@
   var validator = mojo.internal;
 
   var exports = mojo.internal.exposeNamespace('network.mojom');
+  var unguessable_token$ =
+      mojo.internal.exposeNamespace('mojoBase.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'mojo/public/mojom/base/unguessable_token.mojom', '../../../../mojo/public/mojom/base/unguessable_token.mojom.js');
+  }
   var time$ =
       mojo.internal.exposeNamespace('mojoBase.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -826,6 +832,7 @@
     this.portRange = null;
     this.remoteAddress = null;
     this.trafficAnnotation = null;
+    this.devtoolsToken = null;
     this.client = new P2PSocketClientPtr();
   };
   P2PSocketManager_CreateSocket_Params.prototype.initFields_ = function(fields) {
@@ -842,7 +849,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 56}
+      {version: 0, numBytes: 64}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -879,8 +886,14 @@
         return err;
 
 
+    // validate P2PSocketManager_CreateSocket_Params.devtoolsToken
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 40, unguessable_token$.UnguessableToken, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate P2PSocketManager_CreateSocket_Params.client
-    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 40, false);
+    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 48, false);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -893,7 +906,7 @@
     return validator.validationError.NONE;
   };
 
-  P2PSocketManager_CreateSocket_Params.encodedSize = codec.kStructHeaderSize + 48;
+  P2PSocketManager_CreateSocket_Params.encodedSize = codec.kStructHeaderSize + 56;
 
   P2PSocketManager_CreateSocket_Params.decode = function(decoder) {
     var packed;
@@ -912,6 +925,8 @@
         decoder.decodeStructPointer(P2PHostAndIPEndPoint);
     val.trafficAnnotation =
         decoder.decodeStructPointer(mutable_network_traffic_annotation_tag$.MutableNetworkTrafficAnnotationTag);
+    val.devtoolsToken =
+        decoder.decodeStructPointer(unguessable_token$.UnguessableToken);
     val.client =
         decoder.decodeStruct(new codec.Interface(P2PSocketClientPtr));
     return val;
@@ -927,6 +942,7 @@
     encoder.encodeStructPointer(P2PPortRange, val.portRange);
     encoder.encodeStructPointer(P2PHostAndIPEndPoint, val.remoteAddress);
     encoder.encodeStructPointer(mutable_network_traffic_annotation_tag$.MutableNetworkTrafficAnnotationTag, val.trafficAnnotation);
+    encoder.encodeStructPointer(unguessable_token$.UnguessableToken, val.devtoolsToken);
     encoder.encodeStruct(new codec.Interface(P2PSocketClientPtr), val.client);
   };
   function P2PSocket_Send_Params(values) {
@@ -1537,13 +1553,14 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  P2PSocketManagerProxy.prototype.createSocket = function(type, localAddress, portRange, remoteAddress, trafficAnnotation, client, socket) {
+  P2PSocketManagerProxy.prototype.createSocket = function(type, localAddress, portRange, remoteAddress, trafficAnnotation, devtoolsToken, client, socket) {
     var params_ = new P2PSocketManager_CreateSocket_Params();
     params_.type = type;
     params_.localAddress = localAddress;
     params_.portRange = portRange;
     params_.remoteAddress = remoteAddress;
     params_.trafficAnnotation = trafficAnnotation;
+    params_.devtoolsToken = devtoolsToken;
     params_.client = client;
     params_.socket = socket;
     var builder = new codec.MessageV0Builder(
@@ -1566,8 +1583,8 @@
   P2PSocketManagerStub.prototype.getHostAddressWithFamily = function(hostName, addressFamily, enableMdns) {
     return this.delegate_ && this.delegate_.getHostAddressWithFamily && this.delegate_.getHostAddressWithFamily(hostName, addressFamily, enableMdns);
   }
-  P2PSocketManagerStub.prototype.createSocket = function(type, localAddress, portRange, remoteAddress, trafficAnnotation, client, socket) {
-    return this.delegate_ && this.delegate_.createSocket && this.delegate_.createSocket(type, localAddress, portRange, remoteAddress, trafficAnnotation, client, socket);
+  P2PSocketManagerStub.prototype.createSocket = function(type, localAddress, portRange, remoteAddress, trafficAnnotation, devtoolsToken, client, socket) {
+    return this.delegate_ && this.delegate_.createSocket && this.delegate_.createSocket(type, localAddress, portRange, remoteAddress, trafficAnnotation, devtoolsToken, client, socket);
   }
 
   P2PSocketManagerStub.prototype.accept = function(message) {
@@ -1579,7 +1596,7 @@
       return true;
     case kP2PSocketManager_CreateSocket_Name:
       var params = reader.decodeStruct(P2PSocketManager_CreateSocket_Params);
-      this.createSocket(params.type, params.localAddress, params.portRange, params.remoteAddress, params.trafficAnnotation, params.client, params.socket);
+      this.createSocket(params.type, params.localAddress, params.portRange, params.remoteAddress, params.trafficAnnotation, params.devtoolsToken, params.client, params.socket);
       return true;
     default:
       return false;

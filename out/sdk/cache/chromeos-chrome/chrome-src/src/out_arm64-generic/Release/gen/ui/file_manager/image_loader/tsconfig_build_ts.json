@@ -31,12 +31,12 @@
   "files": [
     "preprocessed/image_loader/image_loader_util.js",
     "preprocessed/image_loader/image_request_task.js",
-    "preprocessed/image_loader/load_image_request.js",
     "preprocessed/image_loader/background.ts",
     "preprocessed/image_loader/cache.ts",
     "preprocessed/image_loader/image_loader.ts",
     "preprocessed/image_loader/image_loader_client.ts",
     "preprocessed/image_loader/image_orientation.ts",
+    "preprocessed/image_loader/load_image_request.ts",
     "preprocessed/image_loader/piex_loader.ts",
     "preprocessed/image_loader/scheduler.ts",
     "preprocessed/file_manager/common/js/file_types_data.js",

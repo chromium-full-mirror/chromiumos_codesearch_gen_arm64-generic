@@ -1020,9 +1020,12 @@ enum class CSSValueID {
   kMostHeight = 1003,
   kMostBlockSize = 1004,
   kMostInlineSize = 1005,
+  kFlipBlock = 1006,
+  kFlipInline = 1007,
+  kFlipStart = 1008,
 };
 
-const int numCSSValueKeywords = 1006;
+const int numCSSValueKeywords = 1009;
 const size_t maxCSSValueKeywordLength = 42;
 
 inline bool IsValidCSSValueID(CSSValueID id)

@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "mojo/public/mojom/base/unguessable_token.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom-shared-internal.h"
 #include "services/network/public/mojom/network_interface.mojom-shared-internal.h"

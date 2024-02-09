@@ -86,6 +86,7 @@ class ContentData;
 class CounterDirectiveMap;
 class OffsetPathOperation;
 class PaintImages;
+class PositionTryOptions;
 class QuotesData;
 class RotateTransformOperation;
 class ScaleTransformOperation;
@@ -940,6 +941,10 @@ class ComputedStyleInitialValues{
   }
 
   static ScopedCSSName* InitialPositionFallbackBounds() {
+    return nullptr;
+  }
+
+  static PositionTryOptions* InitialPositionTryOptions() {
     return nullptr;
   }
 

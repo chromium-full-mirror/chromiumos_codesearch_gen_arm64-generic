@@ -341,6 +341,7 @@ namespace css_longhand { class PopoverHideDelay; }
 namespace css_longhand { class PopoverShowDelay; }
 namespace css_longhand { class PositionFallback; }
 namespace css_longhand { class PositionFallbackBounds; }
+namespace css_longhand { class PositionTryOptions; }
 namespace css_longhand { class PositionTryOrder; }
 namespace css_longhand { class Prefix; }
 namespace css_longhand { class Quotes; }
@@ -2362,6 +2363,11 @@ inline const css_longhand::PositionFallbackBounds&
 GetCSSPropertyPositionFallbackBounds() {
   return *reinterpret_cast<const css_longhand::PositionFallbackBounds *>(
       GetPropertyInternal(CSSPropertyID::kPositionFallbackBounds));
+}
+inline const css_longhand::PositionTryOptions&
+GetCSSPropertyPositionTryOptions() {
+  return *reinterpret_cast<const css_longhand::PositionTryOptions *>(
+      GetPropertyInternal(CSSPropertyID::kPositionTryOptions));
 }
 inline const css_longhand::PositionTryOrder&
 GetCSSPropertyPositionTryOrder() {

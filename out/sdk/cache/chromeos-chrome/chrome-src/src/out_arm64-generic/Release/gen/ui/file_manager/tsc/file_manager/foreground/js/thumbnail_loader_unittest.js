@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { ImageLoaderClient } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/image_loader_client.js';
-import { LoadImageRequest, LoadImageResponse } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/load_image_request.js';
+import { LoadImageResponse } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/load_image_request.js';
 import { assertEquals, assertTrue } from 'chrome://webui-test/chromeos/chai_assert.js';
 import { MockEntry, MockFileSystem } from '../../common/js/mock_entry.js';
 import { FillMode, LoaderType, LoadTarget, ThumbnailLoader } from './thumbnail_loader.js';

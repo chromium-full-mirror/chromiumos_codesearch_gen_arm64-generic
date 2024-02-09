@@ -24,5 +24,5 @@ home/chrome-bot/chrome_root/src/chrome/services/keymaster/public/mojom/cert_stor
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/services/keymanagement/public/mojom/mojom.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/services/keymanagement/public/mojom/cert_store_types.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/services/keymaster/public/mojom/mojom.build_metadata
-home/chrome-bot/chrome_root/src/chrome/services/keymaster/public/mojom/cert_store.mojom
 home/chrome-bot/chrome_root/src/chrome/services/keymanagement/public/mojom/cert_store_types.mojom
+home/chrome-bot/chrome_root/src/chrome/services/keymaster/public/mojom/cert_store.mojom

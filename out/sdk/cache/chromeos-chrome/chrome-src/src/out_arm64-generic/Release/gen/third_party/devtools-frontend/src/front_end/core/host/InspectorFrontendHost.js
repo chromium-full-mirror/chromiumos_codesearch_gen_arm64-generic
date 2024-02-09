@@ -361,8 +361,6 @@ export class InspectorFrontendHostStub {
     }
     recordImpression(event) {
     }
-    recordResize(event) {
-    }
     recordClick(event) {
     }
     recordHover(event) {

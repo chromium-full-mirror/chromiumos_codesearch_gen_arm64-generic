@@ -20,8 +20,8 @@ function setSortAttrs(th, sortDesc) {
         th.ariaSort = 'ascending';
         nextDir = 'descending';
     }
-    th.title = `Sort by ${th.innerText} ${nextDir}`;
-    th.ariaLabel = th.title;
+    const button = th.querySelector('button');
+    button.title = `Sort by ${button.innerText} ${nextDir}`;
 }
 /**
  * Table abstracts the logic for rendering and sorting a table. The table's
@@ -42,11 +42,15 @@ export class AttributionInternalsTableElement extends CustomElement {
         model.cols.forEach((col, idx) => {
             const th = document.createElement('th');
             th.scope = 'col';
-            col.renderHeader(th);
             if (col.compare) {
-                th.setAttribute('role', 'button');
+                const button = document.createElement('button');
+                col.renderHeader(button);
+                th.append(button);
                 setSortAttrs(th, idx === model.sortIdx ? this.sortDesc_ : null);
-                th.addEventListener('click', () => this.changeSortHeader_(idx));
+                button.addEventListener('click', () => this.changeSortHeader_(idx));
+            }
+            else {
+                col.renderHeader(th);
             }
             tr.append(th);
         });

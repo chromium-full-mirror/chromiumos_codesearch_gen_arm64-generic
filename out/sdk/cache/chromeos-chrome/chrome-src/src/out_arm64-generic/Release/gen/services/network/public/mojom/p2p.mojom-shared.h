@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "services/network/public/mojom/p2p.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/unguessable_token.mojom-shared.h"
 #include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom-shared.h"
 #include "services/network/public/mojom/network_interface.mojom-shared.h"

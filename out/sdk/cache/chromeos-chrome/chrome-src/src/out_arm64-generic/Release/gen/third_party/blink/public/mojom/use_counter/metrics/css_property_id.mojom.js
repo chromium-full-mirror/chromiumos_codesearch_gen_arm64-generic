@@ -737,8 +737,9 @@
   CSSSampleId.kInsetArea = 781;
   CSSSampleId.kViewTransitionClass = 782;
   CSSSampleId.kPositionTryOrder = 783;
+  CSSSampleId.kPositionTryOptions = 784;
   CSSSampleId.MIN_VALUE = 0;
-  CSSSampleId.MAX_VALUE = 783;
+  CSSSampleId.MAX_VALUE = 784;
 
   CSSSampleId.isKnownEnumValue = function(value) {
     switch (value) {
@@ -1427,6 +1428,7 @@
     case 781:
     case 782:
     case 783:
+    case 784:
       return true;
     }
     return false;

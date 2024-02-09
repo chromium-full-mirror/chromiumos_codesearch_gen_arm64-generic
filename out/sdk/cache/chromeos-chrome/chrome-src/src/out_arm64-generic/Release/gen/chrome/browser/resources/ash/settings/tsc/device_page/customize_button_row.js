@@ -8,8 +8,9 @@ import './customize_button_select.js';
 import '../settings_shared.css.js';
 import '../controls/settings_dropdown_menu.js';
 import '../os_settings_icons.html.js';
-import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/strict_query.js';
 import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
+import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/strict_query.js';
+import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { ButtonPressObserverReceiver } from '../mojom-webui/input_device_settings_provider.mojom-webui.js';
 import { getTemplate } from './customize_button_row.html.js';
@@ -80,6 +81,10 @@ export class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
         super.connectedCallback();
         this.observeButtonPresses();
         // Focus dropdown right away as this button was just pressed.
+        this.$.remappingActionDropdown.focus();
+    }
+    focus() {
+        assert(this.$.remappingActionDropdown);
         this.$.remappingActionDropdown.focus();
     }
     observeButtonPresses() {

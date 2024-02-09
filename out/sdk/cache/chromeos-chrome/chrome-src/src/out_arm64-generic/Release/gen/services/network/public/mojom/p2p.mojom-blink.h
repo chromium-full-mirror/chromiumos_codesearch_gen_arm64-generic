@@ -26,6 +26,7 @@
 #include "services/network/public/mojom/p2p.mojom-features.h"
 #include "services/network/public/mojom/p2p.mojom-shared.h"
 #include "services/network/public/mojom/p2p.mojom-blink-forward.h"
+#include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom-blink.h"
 #include "services/network/public/mojom/network_interface.mojom-blink.h"
@@ -165,7 +166,7 @@ class BLINK_PLATFORM_EXPORT P2PSocketManager
   virtual void GetHostAddressWithFamily(const WTF::String& host_name, int32_t address_family, bool enable_mdns, GetHostAddressWithFamilyCallback callback) = 0;
 
   
-  virtual void CreateSocket(::network::P2PSocketType type, const ::net::IPEndPoint& local_address, const ::network::P2PPortRange& port_range, const ::network::P2PHostAndIPEndPoint& remote_address, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingRemote<P2PSocketClient> client, ::mojo::PendingReceiver<P2PSocket> socket) = 0;
+  virtual void CreateSocket(::network::P2PSocketType type, const ::net::IPEndPoint& local_address, const ::network::P2PPortRange& port_range, const ::network::P2PHostAndIPEndPoint& remote_address, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, const std::optional<::base::UnguessableToken>& devtools_token, ::mojo::PendingRemote<P2PSocketClient> client, ::mojo::PendingReceiver<P2PSocket> socket) = 0;
 };
 
 class P2PSocketProxy;
@@ -323,7 +324,7 @@ class BLINK_PLATFORM_EXPORT P2PSocketManagerProxy
   
   void GetHostAddressWithFamily(const WTF::String& host_name, int32_t address_family, bool enable_mdns, GetHostAddressWithFamilyCallback callback) final;
   
-  void CreateSocket(::network::P2PSocketType type, const ::net::IPEndPoint& local_address, const ::network::P2PPortRange& port_range, const ::network::P2PHostAndIPEndPoint& remote_address, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingRemote<P2PSocketClient> client, ::mojo::PendingReceiver<P2PSocket> socket) final;
+  void CreateSocket(::network::P2PSocketType type, const ::net::IPEndPoint& local_address, const ::network::P2PPortRange& port_range, const ::network::P2PHostAndIPEndPoint& remote_address, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, const std::optional<::base::UnguessableToken>& devtools_token, ::mojo::PendingRemote<P2PSocketClient> client, ::mojo::PendingReceiver<P2PSocket> socket) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

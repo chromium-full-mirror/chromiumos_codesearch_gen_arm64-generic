@@ -36,7 +36,7 @@ class  P2PSocketManagerInterceptorForTesting : public P2PSocketManager {
   void StartNetworkNotifications(::mojo::PendingRemote<P2PNetworkNotificationClient> client) override;
   void GetHostAddress(const std::string& host_name, bool enable_mdns, GetHostAddressCallback callback) override;
   void GetHostAddressWithFamily(const std::string& host_name, int32_t address_family, bool enable_mdns, GetHostAddressWithFamilyCallback callback) override;
-  void CreateSocket(::network::P2PSocketType type, const ::net::IPEndPoint& local_address, const ::network::P2PPortRange& port_range, const ::network::P2PHostAndIPEndPoint& remote_address, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingRemote<P2PSocketClient> client, ::mojo::PendingReceiver<P2PSocket> socket) override;
+  void CreateSocket(::network::P2PSocketType type, const ::net::IPEndPoint& local_address, const ::network::P2PPortRange& port_range, const ::network::P2PHostAndIPEndPoint& remote_address, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, const std::optional<::base::UnguessableToken>& devtools_token, ::mojo::PendingRemote<P2PSocketClient> client, ::mojo::PendingReceiver<P2PSocket> socket) override;
 };
 class  P2PSocketManagerAsyncWaiter {
  public:

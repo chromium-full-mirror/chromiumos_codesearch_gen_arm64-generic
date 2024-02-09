@@ -53,23 +53,11 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace sync_pb {
 
 enum GetUpdatesCallerInfo_GetUpdatesSource : int {
-  GetUpdatesCallerInfo_GetUpdatesSource_UNKNOWN = 0,
-  GetUpdatesCallerInfo_GetUpdatesSource_FIRST_UPDATE = 1,
-  GetUpdatesCallerInfo_GetUpdatesSource_LOCAL = 2,
-  GetUpdatesCallerInfo_GetUpdatesSource_NOTIFICATION = 3,
-  GetUpdatesCallerInfo_GetUpdatesSource_PERIODIC = 4,
-  GetUpdatesCallerInfo_GetUpdatesSource_SYNC_CYCLE_CONTINUATION = 5,
-  GetUpdatesCallerInfo_GetUpdatesSource_NEWLY_SUPPORTED_DATATYPE = 7,
-  GetUpdatesCallerInfo_GetUpdatesSource_MIGRATION = 8,
-  GetUpdatesCallerInfo_GetUpdatesSource_NEW_CLIENT = 9,
-  GetUpdatesCallerInfo_GetUpdatesSource_RECONFIGURATION = 10,
-  GetUpdatesCallerInfo_GetUpdatesSource_DATATYPE_REFRESH = 11,
-  GetUpdatesCallerInfo_GetUpdatesSource_RETRY = 13,
-  GetUpdatesCallerInfo_GetUpdatesSource_PROGRAMMATIC = 14
+  GetUpdatesCallerInfo_GetUpdatesSource_UNKNOWN = 0
 };
 bool GetUpdatesCallerInfo_GetUpdatesSource_IsValid(int value);
 constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo_GetUpdatesSource_GetUpdatesSource_MIN = GetUpdatesCallerInfo_GetUpdatesSource_UNKNOWN;
-constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo_GetUpdatesSource_GetUpdatesSource_MAX = GetUpdatesCallerInfo_GetUpdatesSource_PROGRAMMATIC;
+constexpr GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesCallerInfo_GetUpdatesSource_GetUpdatesSource_MAX = GetUpdatesCallerInfo_GetUpdatesSource_UNKNOWN;
 constexpr int GetUpdatesCallerInfo_GetUpdatesSource_GetUpdatesSource_ARRAYSIZE = GetUpdatesCallerInfo_GetUpdatesSource_GetUpdatesSource_MAX + 1;
 
 const std::string& GetUpdatesCallerInfo_GetUpdatesSource_Name(GetUpdatesCallerInfo_GetUpdatesSource value);
@@ -194,30 +182,6 @@ class GetUpdatesCallerInfo final :
   typedef GetUpdatesCallerInfo_GetUpdatesSource GetUpdatesSource;
   static constexpr GetUpdatesSource UNKNOWN =
     GetUpdatesCallerInfo_GetUpdatesSource_UNKNOWN;
-  static constexpr GetUpdatesSource FIRST_UPDATE =
-    GetUpdatesCallerInfo_GetUpdatesSource_FIRST_UPDATE;
-  static constexpr GetUpdatesSource LOCAL =
-    GetUpdatesCallerInfo_GetUpdatesSource_LOCAL;
-  static constexpr GetUpdatesSource NOTIFICATION =
-    GetUpdatesCallerInfo_GetUpdatesSource_NOTIFICATION;
-  static constexpr GetUpdatesSource PERIODIC =
-    GetUpdatesCallerInfo_GetUpdatesSource_PERIODIC;
-  static constexpr GetUpdatesSource SYNC_CYCLE_CONTINUATION =
-    GetUpdatesCallerInfo_GetUpdatesSource_SYNC_CYCLE_CONTINUATION;
-  static constexpr GetUpdatesSource NEWLY_SUPPORTED_DATATYPE =
-    GetUpdatesCallerInfo_GetUpdatesSource_NEWLY_SUPPORTED_DATATYPE;
-  static constexpr GetUpdatesSource MIGRATION =
-    GetUpdatesCallerInfo_GetUpdatesSource_MIGRATION;
-  static constexpr GetUpdatesSource NEW_CLIENT =
-    GetUpdatesCallerInfo_GetUpdatesSource_NEW_CLIENT;
-  static constexpr GetUpdatesSource RECONFIGURATION =
-    GetUpdatesCallerInfo_GetUpdatesSource_RECONFIGURATION;
-  static constexpr GetUpdatesSource DATATYPE_REFRESH =
-    GetUpdatesCallerInfo_GetUpdatesSource_DATATYPE_REFRESH;
-  static constexpr GetUpdatesSource RETRY =
-    GetUpdatesCallerInfo_GetUpdatesSource_RETRY;
-  static constexpr GetUpdatesSource PROGRAMMATIC =
-    GetUpdatesCallerInfo_GetUpdatesSource_PROGRAMMATIC;
   static inline bool GetUpdatesSource_IsValid(int value) {
     return GetUpdatesCallerInfo_GetUpdatesSource_IsValid(value);
   }

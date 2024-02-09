@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 /**
  * Class representing image orientation.
- * @final
  */
 export class ImageOrientation {
     a;

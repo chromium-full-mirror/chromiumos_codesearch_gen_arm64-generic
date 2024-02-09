@@ -9,6 +9,7 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/android/battery_stats.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/android/binder.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/android/broadcasts.sql
+../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/android/counter_span_view_merged.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/android/dvfs.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/android/freezer.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/android/garbage_collection.sql
@@ -22,6 +23,7 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/android/services.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/android/slices.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/android/statsd.sql
+../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/android/suspend_resume.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/android/thread.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/chrome/chrome_scrolls.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/chrome/cpu_powerups.sql

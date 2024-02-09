@@ -1926,6 +1926,17 @@ void WebTransportClosedImpl(ExecutionContext* param_execution_context, uint64_t 
   }
 }
 
+void WillCreateP2PSocketUdpImpl(ExecutionContext* param_execution_context, absl::optional<base::UnguessableToken>* devtools_token) {
+  CoreProbeSink* probe_sink = ToCoreProbeSink(param_execution_context);
+  if (!probe_sink)
+    return;
+  if (probe_sink->HasInspectorNetworkAgents()) {
+    probe_sink->InspectorNetworkAgents().ForEachAgent([&](InspectorNetworkAgent* agent) {
+      agent->WillCreateP2PSocketUdp(devtools_token);
+    });
+  }
+}
+
 void LayerTreeDidChangeImpl(LocalFrame* param_local_frame) {
   CoreProbeSink* probe_sink = ToCoreProbeSink(param_local_frame);
   if (!probe_sink)

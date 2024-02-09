@@ -6,6 +6,8 @@
 
 #ifndef SERVICES_NETWORK_PUBLIC_MOJOM_P2P_MOJOM_IMPORT_HEADERS_H_
 #define SERVICES_NETWORK_PUBLIC_MOJOM_P2P_MOJOM_IMPORT_HEADERS_H_
+#include "mojo/public/mojom/base/unguessable_token.mojom.h"
+#include "mojo/public/mojom/base/unguessable_token.mojom-import-headers.h"
 #include "mojo/public/mojom/base/time.mojom.h"
 #include "mojo/public/mojom/base/time.mojom-import-headers.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom.h"

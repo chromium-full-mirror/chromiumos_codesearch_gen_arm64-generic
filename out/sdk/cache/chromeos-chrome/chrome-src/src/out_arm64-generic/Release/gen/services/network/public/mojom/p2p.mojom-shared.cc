@@ -328,7 +328,7 @@ bool P2PSocketManager_CreateSocket_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 56, validation_context)) {
+          data, 64, validation_context)) {
     return false;
   }
 
@@ -370,8 +370,11 @@ bool P2PSocketManager_CreateSocket_Params_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->traffic_annotation, validation_context))
     return false;
 
+  if (!mojo::internal::ValidateStruct(object->devtools_token, validation_context))
+    return false;
+
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->client, 6, validation_context)) {
+          object->client, 7, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateHandleOrInterface(object->client,
@@ -380,7 +383,7 @@ bool P2PSocketManager_CreateSocket_Params_Data::Validate(
   }
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->socket, 7, validation_context)) {
+          object->socket, 8, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateHandleOrInterface(object->socket,

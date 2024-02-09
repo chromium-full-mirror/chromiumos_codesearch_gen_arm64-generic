@@ -88,6 +88,138 @@
     encoder.encodeStruct(codec.String, val.url);
     encoder.encodeArrayPointer(new codec.PointerTo(BackForwardCacheNotRestoredReasons), val.children);
   };
+  function BlockingReasonSourceLocation(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  BlockingReasonSourceLocation.prototype.initDefaults_ = function() {
+    this.url = null;
+    this.lineNumber = 0;
+    this.columnNumber = 0;
+  };
+  BlockingReasonSourceLocation.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  BlockingReasonSourceLocation.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 32}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate BlockingReasonSourceLocation.url
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+    return validator.validationError.NONE;
+  };
+
+  BlockingReasonSourceLocation.encodedSize = codec.kStructHeaderSize + 24;
+
+  BlockingReasonSourceLocation.decode = function(decoder) {
+    var packed;
+    var val = new BlockingReasonSourceLocation();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.url =
+        decoder.decodeStruct(codec.String);
+    val.lineNumber =
+        decoder.decodeStruct(codec.Uint64);
+    val.columnNumber =
+        decoder.decodeStruct(codec.Uint64);
+    return val;
+  };
+
+  BlockingReasonSourceLocation.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(BlockingReasonSourceLocation.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.String, val.url);
+    encoder.encodeStruct(codec.Uint64, val.lineNumber);
+    encoder.encodeStruct(codec.Uint64, val.columnNumber);
+  };
+  function BFCacheBlockingDetailedReason(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  BFCacheBlockingDetailedReason.prototype.initDefaults_ = function() {
+    this.name = null;
+    this.source = null;
+  };
+  BFCacheBlockingDetailedReason.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  BFCacheBlockingDetailedReason.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate BFCacheBlockingDetailedReason.name
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate BFCacheBlockingDetailedReason.source
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, BlockingReasonSourceLocation, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  BFCacheBlockingDetailedReason.encodedSize = codec.kStructHeaderSize + 16;
+
+  BFCacheBlockingDetailedReason.decode = function(decoder) {
+    var packed;
+    var val = new BFCacheBlockingDetailedReason();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.name =
+        decoder.decodeStruct(codec.String);
+    val.source =
+        decoder.decodeStructPointer(BlockingReasonSourceLocation);
+    return val;
+  };
+
+  BFCacheBlockingDetailedReason.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(BFCacheBlockingDetailedReason.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.String, val.name);
+    encoder.encodeStructPointer(BlockingReasonSourceLocation, val.source);
+  };
   function BackForwardCacheNotRestoredReasons(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -141,7 +273,7 @@
 
 
     // validate BackForwardCacheNotRestoredReasons.reasons
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 24, 8, codec.String, false, [0, 0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 24, 8, new codec.PointerTo(BFCacheBlockingDetailedReason), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -168,7 +300,7 @@
     val.name =
         decoder.decodeStruct(codec.NullableString);
     val.reasons =
-        decoder.decodeArrayPointer(codec.String);
+        decoder.decodeArrayPointer(new codec.PointerTo(BFCacheBlockingDetailedReason));
     val.sameOriginDetails =
         decoder.decodeStructPointer(SameOriginBfcacheNotRestoredDetails);
     return val;
@@ -181,9 +313,11 @@
     encoder.encodeStruct(codec.NullableString, val.src);
     encoder.encodeStruct(codec.NullableString, val.id);
     encoder.encodeStruct(codec.NullableString, val.name);
-    encoder.encodeArrayPointer(codec.String, val.reasons);
+    encoder.encodeArrayPointer(new codec.PointerTo(BFCacheBlockingDetailedReason), val.reasons);
     encoder.encodeStructPointer(SameOriginBfcacheNotRestoredDetails, val.sameOriginDetails);
   };
   exports.SameOriginBfcacheNotRestoredDetails = SameOriginBfcacheNotRestoredDetails;
+  exports.BlockingReasonSourceLocation = BlockingReasonSourceLocation;
+  exports.BFCacheBlockingDetailedReason = BFCacheBlockingDetailedReason;
   exports.BackForwardCacheNotRestoredReasons = BackForwardCacheNotRestoredReasons;
 })();

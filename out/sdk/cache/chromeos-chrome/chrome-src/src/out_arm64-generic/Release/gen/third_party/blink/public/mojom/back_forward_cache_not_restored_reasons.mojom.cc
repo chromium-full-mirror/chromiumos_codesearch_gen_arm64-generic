@@ -84,6 +84,104 @@ bool SameOriginBfcacheNotRestoredDetails::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+BlockingReasonSourceLocation::BlockingReasonSourceLocation()
+    : url(),
+      line_number(),
+      column_number() {}
+
+BlockingReasonSourceLocation::BlockingReasonSourceLocation(
+    const std::string& url_in,
+    uint64_t line_number_in,
+    uint64_t column_number_in)
+    : url(std::move(url_in)),
+      line_number(std::move(line_number_in)),
+      column_number(std::move(column_number_in)) {}
+
+BlockingReasonSourceLocation::~BlockingReasonSourceLocation() = default;
+size_t BlockingReasonSourceLocation::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->url);
+  seed = mojo::internal::Hash(seed, this->line_number);
+  seed = mojo::internal::Hash(seed, this->column_number);
+  return seed;
+}
+
+void BlockingReasonSourceLocation::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "url"), this->url,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "line_number"), this->line_number,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "column_number"), this->column_number,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BlockingReasonSourceLocation::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BFCacheBlockingDetailedReason::BFCacheBlockingDetailedReason()
+    : name(),
+      source() {}
+
+BFCacheBlockingDetailedReason::BFCacheBlockingDetailedReason(
+    const std::string& name_in,
+    BlockingReasonSourceLocationPtr source_in)
+    : name(std::move(name_in)),
+      source(std::move(source_in)) {}
+
+BFCacheBlockingDetailedReason::~BFCacheBlockingDetailedReason() = default;
+
+void BFCacheBlockingDetailedReason::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "source"), this->source,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BlockingReasonSourceLocationPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BFCacheBlockingDetailedReason::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 BackForwardCacheNotRestoredReasons::BackForwardCacheNotRestoredReasons()
     : src(),
       id(),
@@ -95,7 +193,7 @@ BackForwardCacheNotRestoredReasons::BackForwardCacheNotRestoredReasons(
     const std::optional<std::string>& src_in,
     const std::optional<std::string>& id_in,
     const std::optional<std::string>& name_in,
-    std::vector<std::string> reasons_in,
+    std::vector<BFCacheBlockingDetailedReasonPtr> reasons_in,
     SameOriginBfcacheNotRestoredDetailsPtr same_origin_details_in)
     : src(std::move(src_in)),
       id(std::move(id_in)),
@@ -139,7 +237,7 @@ void BackForwardCacheNotRestoredReasons::WriteIntoTrace(
     dict.AddItem(
       "reasons"), this->reasons,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<std::string>&>"
+      "<value of type std::vector<BFCacheBlockingDetailedReasonPtr>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -178,6 +276,40 @@ bool StructTraits<::blink::mojom::SameOriginBfcacheNotRestoredDetails::DataView,
       if (success && !input.ReadUrl(&result->url))
         success = false;
       if (success && !input.ReadChildren(&result->children))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::blink::mojom::BlockingReasonSourceLocation::DataView, ::blink::mojom::BlockingReasonSourceLocationPtr>::Read(
+    ::blink::mojom::BlockingReasonSourceLocation::DataView input,
+    ::blink::mojom::BlockingReasonSourceLocationPtr* output) {
+  bool success = true;
+  ::blink::mojom::BlockingReasonSourceLocationPtr result(::blink::mojom::BlockingReasonSourceLocation::New());
+  
+      if (success && !input.ReadUrl(&result->url))
+        success = false;
+      if (success)
+        result->line_number = input.line_number();
+      if (success)
+        result->column_number = input.column_number();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::blink::mojom::BFCacheBlockingDetailedReason::DataView, ::blink::mojom::BFCacheBlockingDetailedReasonPtr>::Read(
+    ::blink::mojom::BFCacheBlockingDetailedReason::DataView input,
+    ::blink::mojom::BFCacheBlockingDetailedReasonPtr* output) {
+  bool success = true;
+  ::blink::mojom::BFCacheBlockingDetailedReasonPtr result(::blink::mojom::BFCacheBlockingDetailedReason::New());
+  
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success && !input.ReadSource(&result->source))
         success = false;
   *output = std::move(result);
   return success;

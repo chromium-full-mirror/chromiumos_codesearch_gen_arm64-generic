@@ -6,6 +6,8 @@
 
 #ifndef SERVICES_NETWORK_PUBLIC_MOJOM_P2P_MOJOM_BLINK_IMPORT_HEADERS_H_
 #define SERVICES_NETWORK_PUBLIC_MOJOM_P2P_MOJOM_BLINK_IMPORT_HEADERS_H_
+#include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
+#include "mojo/public/mojom/base/unguessable_token.mojom-blink-import-headers.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
 #include "mojo/public/mojom/base/time.mojom-blink-import-headers.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom-blink.h"

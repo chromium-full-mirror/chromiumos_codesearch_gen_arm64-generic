@@ -5195,9 +5195,7 @@ class FilteredVolumeManager extends VolumeManager {
         // runtime "The event is already being dispatched." error.
         switch (event.type) {
             case 'drive-connection-changed':
-                if (this.isAllowedVolumeType_(VolumeType.DRIVE)) {
-                    this.dispatchEvent(new CustomEvent('drive-connection-changed'));
-                }
+                this.dispatchEvent(new CustomEvent('drive-connection-changed'));
                 break;
             case 'externally-unmounted':
                 if (this.isAllowedVolume(event.detail)) {
@@ -5256,7 +5254,7 @@ class FilteredVolumeManager extends VolumeManager {
      * @return Current drive connection state.
      */
     getDriveConnectionState() {
-        if (!this.isAllowedVolumeType_(VolumeType.DRIVE) || !this.volumeManager_) {
+        if (!this.volumeManager_) {
             return {
                 type: chrome.fileManagerPrivate.DriveConnectionStateType.OFFLINE,
                 reason: chrome.fileManagerPrivate.DriveOfflineReason.NO_SERVICE,
@@ -6233,205 +6231,98 @@ let LruCache$1 = class LruCache {
 // found in the LICENSE file.
 /**
  * Response status.
- *
- * @enum {string}
  */
-const LoadImageResponseStatus = {
-    SUCCESS: 'success',
-    ERROR: 'error',
-};
+var LoadImageResponseStatus;
+(function (LoadImageResponseStatus) {
+    LoadImageResponseStatus["SUCCESS"] = "success";
+    LoadImageResponseStatus["ERROR"] = "error";
+})(LoadImageResponseStatus || (LoadImageResponseStatus = {}));
 /**
  * Structure of the response object passed to the LoadImageRequest callback.
  * All methods must be static since this is passed between isolated contexts.
- *
- * @struct
  */
 class LoadImageResponse {
-    /**
-     * @param {!LoadImageResponseStatus} status
-     * @param {?number} taskId or null if fulfilled by the client-side cache.
-     * @param {{width:number, height:number, ifd:?string, data:string}=}
-     *    opt_result
-     */
-    constructor(status, taskId, opt_result) {
-        /** @type {!LoadImageResponseStatus} */
+    /** @param taskId or null if fulfilled by the client-side cache.  */
+    constructor(status, taskId, result) {
+        this.ifd = null;
         this.status = status;
-        /** @type {?number} */
         this.taskId = taskId;
         if (status === LoadImageResponseStatus.ERROR) {
             return;
         }
         // Response result defined only when status === SUCCESS.
-        assert(opt_result);
-        /** @type {number|undefined} */
-        // @ts-ignore: error TS18048: 'opt_result' is possibly 'undefined'.
-        this.width = opt_result.width;
-        /** @type {number|undefined} */
-        // @ts-ignore: error TS18048: 'opt_result' is possibly 'undefined'.
-        this.height = opt_result.height;
-        /** @type {?string} */
-        // @ts-ignore: error TS18048: 'opt_result' is possibly 'undefined'.
-        this.ifd = opt_result.ifd;
-        /**
-         * The (compressed) image data as a data URL.
-         * @type {string|undefined}
-         */
-        // @ts-ignore: error TS18048: 'opt_result' is possibly 'undefined'.
-        this.data = opt_result.data;
+        assert$1(result);
+        this.width = result.width;
+        this.height = result.height;
+        this.ifd = result.ifd;
+        this.data = result.data;
     }
     /**
      * Returns the cacheable result value for |response|, or null for an error.
      *
-     * @param {!LoadImageResponse} response Response data from the ImageLoader.
-     * @param {number|undefined} timestamp The request timestamp. If undefined,
-     *        then null is used. Currently this disables any caching in the
-     *        ImageLoader, but disables only *expiration* in the client unless a
-     *        timestamp is presented on a later request.
-     * @return {?{
-     *   timestamp: ?number,
-     *   width: number,
-     *   height: number,
-     *   ifd: ?string,
-     *   data: string
-     * }}
+     * @param response Response data from the ImageLoader.
+     * @param timestamp The request timestamp. If undefined, then null is used.
+     *     Currently this disables any caching in the ImageLoader, but disables
+     *     only *expiration* in the client unless a timestamp is presented on a
+     *     later request.
      */
     static cacheValue(response, timestamp) {
         if (!response || response.status === LoadImageResponseStatus.ERROR) {
             return null;
         }
         // Response result defined only when status === SUCCESS.
-        assert(response.width);
-        assert(response.height);
-        assert(response.data);
+        assert$1(response.width);
+        assert$1(response.height);
+        assert$1(response.data);
         return {
             timestamp: timestamp || null,
-            // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable
-            // to type 'number'.
             width: response.width,
-            // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable
-            // to type 'number'.
             height: response.height,
             ifd: response.ifd,
-            // @ts-ignore: error TS2322: Type 'string | undefined' is not assignable
-            // to type 'string'.
             data: response.data,
         };
     }
 }
 /**
- * Encapsulates a request to load an image.
- * All methods must be static since this is passed between isolated contexts.
+ * Creates a cache key.
  *
- * @struct
+ * @return Cache key. It may be null if the cache does not support the request.
+ *     e.g. Data URI.
  */
-class LoadImageRequest {
-    constructor() {
-        // Parts that uniquely identify the request.
-        /**
-         * Url of the requested image. Undefined only for cancellations.
-         * @type {string|undefined}
-         */
-        this.url;
-        /**
-         * @type{import('./image_orientation.js').ImageOrientation|import('./image_orientation.js').ImageTransformParam|undefined}
-         */
-        this.orientation;
-        /** @type {number|undefined} */
-        this.scale;
-        /** @type {number|undefined} */
-        this.width;
-        /** @type {number|undefined} */
-        this.height;
-        /** @type {number|undefined} */
-        this.maxWidth;
-        /** @type {number|undefined} */
-        this.maxHeight;
-        // Parts that control the request flow.
-        /** @type {number|undefined} */
-        this.taskId;
-        /** @type {boolean|undefined} */
-        this.cancel;
-        /** @type {boolean|undefined} */
-        this.crop;
-        /** @type {number|undefined} */
-        this.timestamp;
-        /** @type {boolean|undefined} */
-        this.cache;
-        /** @type {number|undefined} */
-        this.priority;
+function cacheKey(request) {
+    if (/^data:/i.test(request.url ?? '')) {
+        return null;
     }
-    /**
-     * Creates a cache key.
-     *
-     * @return {?string} Cache key. It may be null if the cache does not support
-     *     the request. e.g. Data URI.
-     */
-    // @ts-ignore: error TS7006: Parameter 'request' implicitly has an 'any' type.
-    static cacheKey(request) {
-        if (/^data:/i.test(request.url)) {
-            return null;
-        }
-        return JSON.stringify({
-            url: request.url,
-            orientation: request.orientation,
-            scale: request.scale,
-            width: request.width,
-            height: request.height,
-            maxWidth: request.maxWidth,
-            maxHeight: request.maxHeight,
-        });
-    }
-    /**
-     * Creates a cancel request.
-     *
-     * @param{number} taskId The task to cancel.
-     * @return {!LoadImageRequest}
-     */
-    static createCancel(taskId) {
-        return /** @type {!LoadImageRequest} */ ({ taskId: taskId, cancel: true });
-    }
-    /**
-     * Creates a load request from an option map.
-     * Only the timestamp may be undefined.
-     *
-     * @param {{
-     *   url: !string,
-     *   maxWidth: number,
-     *   maxHeight: number,
-     *   cache: boolean,
-     *   priority: number,
-     *   timestamp: (number|undefined),
-     *   orientation: ?import('./image_orientation.js').ImageTransformParam,
-     * }} params Request parameters.
-     * @return {!LoadImageRequest}
-     */
-    static createRequest(params) {
-        return /** @type {!LoadImageRequest} */ (params);
-    }
-    /**
-     * Creates a request to load a full-sized image.
-     * Only the timestamp may be undefined.
-     *
-     * @param {{
-     *   url: !string,
-     *   cache: boolean,
-     *   priority: number,
-     *   timestamp: (?number|undefined),
-     * }} params Request parameters.
-     * @return {!LoadImageRequest}
-     */
-    static createFullImageRequest(params) {
-        return /** @type {!LoadImageRequest} */ (params);
-    }
-    /**
-     * Creates a load request from a url string. All options are undefined.
-     *
-     * @param {string} url
-     * @return {!LoadImageRequest}
-     */
-    static createForUrl(url) {
-        return /** @type {!LoadImageRequest} */ ({ url: url });
-    }
+    return JSON.stringify({
+        url: request.url,
+        orientation: request.orientation,
+        scale: request.scale,
+        width: request.width,
+        height: request.height,
+        maxWidth: request.maxWidth,
+        maxHeight: request.maxHeight,
+    });
+}
+/**
+ * Creates a cancel request.
+ *
+ * @param taskId The task to cancel.
+ */
+function createCancel(taskId) {
+    return { taskId: taskId, cancel: true };
+}
+/**
+ * Creates a load request from an option map.
+ * Only the timestamp may be undefined.
+ *
+ * @param params Request parameters.
+ */
+function createRequest(params) {
+    return params;
+}
+/** Creates a load request from a url string. All options are undefined. */
+function createForUrl(url) {
+    return { url: url };
 }
 
 // Copyright 2013 The Chromium Authors
@@ -6484,16 +6375,16 @@ class ImageLoaderClient {
         request.url = request.url.replace(CLIENT_URL_REGEX, IMAGE_LOADER_URL);
         request.url = request.url.replace(CLIENT_SWA_REGEX, IMAGE_LOADER_URL);
         // Try to load from cache, if available.
-        const cacheKey = LoadImageRequest.cacheKey(request);
-        if (cacheKey) {
+        const key = cacheKey(request);
+        if (key) {
             if (request.cache) {
                 // Load from cache.
-                let cachedValue = this.cache_.get(cacheKey);
+                let cachedValue = this.cache_.get(key);
                 // Check if the image in cache is up to date. If not, then remove it.
                 // It relies on comparing `null` equals to `undefined`.
                 // eslint-disable-next-line eqeqeq
                 if (cachedValue && cachedValue.timestamp != request.timestamp) {
-                    this.cache_.remove(cacheKey);
+                    this.cache_.remove(key);
                     cachedValue = null;
                 }
                 if (cachedValue && cachedValue.data && cachedValue.width &&
@@ -6509,7 +6400,7 @@ class ImageLoaderClient {
             }
             else {
                 // Remove from cache.
-                this.cache_.remove(cacheKey);
+                this.cache_.remove(key);
             }
         }
         // Not available in cache, performing a request to a remote extension.
@@ -6523,10 +6414,10 @@ class ImageLoaderClient {
             }
             const result = resultData;
             // Save to cache.
-            if (cacheKey && request.cache) {
+            if (key && request.cache) {
                 const value = LoadImageResponse.cacheValue(result, request.timestamp);
                 if (value) {
-                    this.cache_.put(cacheKey, value, value.data.length);
+                    this.cache_.put(key, value, value.data.length);
                 }
             }
             callback(result);
@@ -6539,7 +6430,7 @@ class ImageLoaderClient {
      * @param taskId Task id returned by ImageLoaderClient.load().
      */
     cancel(taskId) {
-        ImageLoaderClient.sendMessage_(LoadImageRequest.createCancel(taskId), (_result) => { });
+        ImageLoaderClient.sendMessage_(createCancel(taskId), (_result) => { });
     }
     // Helper functions.
     /**
@@ -6613,7 +6504,7 @@ class ThumbnailLoader {
         /**
          * The image transform from metadata.
          */
-        this.transform_ = null;
+        this.transform_ = undefined;
         this.loadTarget_ = null;
         this.fallbackUrl_ = null;
         this.croppedThumbnailUrl_ = null;
@@ -6643,7 +6534,7 @@ class ThumbnailLoader {
                         this.thumbnailUrl_ = this.metadata_.thumbnail.url;
                         this.transform_ = (this.metadata_.thumbnail &&
                             this.metadata_.thumbnail.transform) ??
-                            null;
+                            undefined;
                         this.loadTarget_ = LoadTarget.CONTENT_METADATA;
                     }
                     break;
@@ -6664,7 +6555,7 @@ class ThumbnailLoader {
                         this.thumbnailUrl_ = this.entry_.toURL();
                         this.transform_ =
                             (this.metadata_.media && this.metadata_.media.imageTransform) ??
-                                null;
+                                undefined;
                         this.loadTarget_ = LoadTarget.FILE_ENTRY;
                     }
                     break;
@@ -6730,7 +6621,7 @@ class ThumbnailLoader {
         const modificationTime = this.metadata_ && this.metadata_.filesystem &&
             this.metadata_.filesystem.modificationTime &&
             this.metadata_.filesystem.modificationTime.getTime();
-        this.taskId_ = ImageLoaderClient.loadToImage(LoadImageRequest.createRequest({
+        this.taskId_ = ImageLoaderClient.loadToImage(createRequest({
             url: this.thumbnailUrl_,
             maxWidth: THUMBNAIL_MAX_WIDTH,
             maxHeight: THUMBNAIL_MAX_HEIGHT,
@@ -6772,7 +6663,7 @@ class ThumbnailLoader {
                 this.metadata_.filesystem.modificationTime &&
                 this.metadata_.filesystem.modificationTime.getTime();
             // Load using ImageLoaderClient.
-            const request = LoadImageRequest.createRequest({
+            const request = createRequest({
                 url: requestUrl,
                 maxWidth: THUMBNAIL_MAX_WIDTH,
                 maxHeight: THUMBNAIL_MAX_HEIGHT,
@@ -7166,7 +7057,7 @@ class ContentMetadataProvider extends MetadataProvider {
             new Promise((resolve, reject) => {
                 entry
                     .file(file => {
-                    const request = LoadImageRequest.createForUrl(entry.toURL());
+                    const request = createForUrl(entry.toURL());
                     request.maxWidth = THUMBNAIL_MAX_WIDTH;
                     request.maxHeight = THUMBNAIL_MAX_HEIGHT;
                     request.timestamp = file.lastModified;
@@ -49776,7 +49667,7 @@ class QuickViewController {
      */
     async loadThumbnailFromDrive_(url, modificationTime) {
         const client = ImageLoaderClient.getInstance();
-        const request = LoadImageRequest.createForUrl(url);
+        const request = createForUrl(url);
         request.cache = true;
         request.timestamp =
             modificationTime ? modificationTime.valueOf() : undefined;
@@ -49791,7 +49682,7 @@ class QuickViewController {
     async loadRawFileThumbnailFromImageLoader_(entry) {
         return new Promise((resolve, reject) => {
             entry.file((file) => {
-                const request = LoadImageRequest.createForUrl(entry.toURL());
+                const request = createForUrl(entry.toURL());
                 request.maxWidth = THUMBNAIL_MAX_WIDTH;
                 request.maxHeight = THUMBNAIL_MAX_HEIGHT;
                 request.timestamp = file.lastModified;

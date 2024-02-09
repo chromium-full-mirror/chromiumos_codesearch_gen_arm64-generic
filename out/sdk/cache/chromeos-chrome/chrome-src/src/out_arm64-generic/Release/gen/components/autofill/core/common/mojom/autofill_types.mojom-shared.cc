@@ -1330,14 +1330,14 @@ bool FormData_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->renderer_id, 8, validation_context)) {
+          object->renderer_id, 7, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->renderer_id, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->child_frames, 9, validation_context)) {
+          object->child_frames, 8, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& child_frames_validate_params =
@@ -1353,7 +1353,7 @@ bool FormData_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->fields, 11, validation_context)) {
+          object->fields, 10, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& fields_validate_params =
@@ -1364,7 +1364,7 @@ bool FormData_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->username_predictions, 12, validation_context)) {
+          object->username_predictions, 11, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& username_predictions_validate_params =

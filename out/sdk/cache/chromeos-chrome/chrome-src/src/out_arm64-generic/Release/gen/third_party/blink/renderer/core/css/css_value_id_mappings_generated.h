@@ -41,6 +41,7 @@
 #include "third_party/blink/renderer/core/style/inset_area.h"
 #include "third_party/blink/renderer/core/style/list_style_type_data.h"
 #include "third_party/blink/renderer/core/style/offset_path_operation.h"
+#include "third_party/blink/renderer/core/style/position_try_options.h"
 #include "third_party/blink/renderer/core/style/scoped_css_name.h"
 #include "third_party/blink/renderer/core/style/scroll_start_data.h"
 #include "third_party/blink/renderer/core/style/shadow_list.h"

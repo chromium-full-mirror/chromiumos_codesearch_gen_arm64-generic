@@ -26,6 +26,8 @@ class ValidationContext;
 namespace blink::mojom {
 namespace internal {
 class SameOriginBfcacheNotRestoredDetails_Data;
+class BlockingReasonSourceLocation_Data;
+class BFCacheBlockingDetailedReason_Data;
 class BackForwardCacheNotRestoredReasons_Data;
 
 #pragma pack(push, 1)
@@ -78,6 +80,105 @@ struct SameOriginBfcacheNotRestoredDetails_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     SameOriginBfcacheNotRestoredDetails_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) BlockingReasonSourceLocation_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> url;
+  uint64_t line_number;
+  uint64_t column_number;
+
+ private:
+  friend class mojo::internal::MessageFragment<BlockingReasonSourceLocation_Data>;
+
+  BlockingReasonSourceLocation_Data();
+  ~BlockingReasonSourceLocation_Data() = delete;
+};
+static_assert(sizeof(BlockingReasonSourceLocation_Data) == 32,
+              "Bad sizeof(BlockingReasonSourceLocation_Data)");
+// Used by BlockingReasonSourceLocation::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BlockingReasonSourceLocation_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BlockingReasonSourceLocation_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BlockingReasonSourceLocation_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BlockingReasonSourceLocation_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BlockingReasonSourceLocation_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) BFCacheBlockingDetailedReason_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> name;
+  mojo::internal::Pointer<internal::BlockingReasonSourceLocation_Data> source;
+
+ private:
+  friend class mojo::internal::MessageFragment<BFCacheBlockingDetailedReason_Data>;
+
+  BFCacheBlockingDetailedReason_Data();
+  ~BFCacheBlockingDetailedReason_Data() = delete;
+};
+static_assert(sizeof(BFCacheBlockingDetailedReason_Data) == 24,
+              "Bad sizeof(BFCacheBlockingDetailedReason_Data)");
+// Used by BFCacheBlockingDetailedReason::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BFCacheBlockingDetailedReason_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BFCacheBlockingDetailedReason_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BFCacheBlockingDetailedReason_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BFCacheBlockingDetailedReason_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BFCacheBlockingDetailedReason_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) BackForwardCacheNotRestoredReasons_Data {
  public:
   static bool Validate(const void* data,
@@ -87,7 +188,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) BackForwardCacheNotRest
   mojo::internal::Pointer<mojo::internal::String_Data> src;
   mojo::internal::Pointer<mojo::internal::String_Data> id;
   mojo::internal::Pointer<mojo::internal::String_Data> name;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> reasons;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::BFCacheBlockingDetailedReason_Data>>> reasons;
   mojo::internal::Pointer<internal::SameOriginBfcacheNotRestoredDetails_Data> same_origin_details;
 
  private:

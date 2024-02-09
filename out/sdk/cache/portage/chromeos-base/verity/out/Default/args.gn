@@ -12,8 +12,8 @@ sysroot = "/"
 libdir = "/usr/lib64"
 build_root = "/var/cache/portage/chromeos-base/verity"
 platform2_root =
-    "/var/tmp/portage/chromeos-base/verity-0.0.1-r511/work/verity-0.0.1"
-libbase_ver = "1256589"
+    "/var/tmp/portage/chromeos-base/verity-0.0.1-r512/work/verity-0.0.1"
+libbase_ver = "1257783"
 enable_exceptions = false
 external_cflags = [
   "-O2",

@@ -2394,8 +2394,10 @@
             "platforms": [
                 "android",
                 "android_webview",
+                "chromeos",
                 "chromeos_lacros",
                 "fuchsia",
+                "ios",
                 "linux",
                 "mac",
                 "windows"
@@ -3891,26 +3893,6 @@
             ]
         }
     ],
-    "ChromeWallpaperSearchLaunch": [
-        {
-            "platforms": [
-                "chromeos",
-                "chromeos_lacros",
-                "linux",
-                "mac",
-                "windows"
-            ],
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "enable_features": [
-                        "CustomizeChromeWallpaperSearch",
-                        "CustomizeChromeWallpaperSearchInspirationCard"
-                    ]
-                }
-            ]
-        }
-    ],
     "ChromeWideEchoCancellation": [
         {
             "platforms": [
@@ -4832,6 +4814,24 @@
             ]
         }
     ],
+    "CrOSFederatedLauncherQueryPhhVersion2": [
+        {
+            "platforms": [
+                "chromeos"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "params": {
+                        "launch_stage": "prod"
+                    },
+                    "enable_features": [
+                        "FederatedLauncherQueryAnalyticsVersion2Task"
+                    ]
+                }
+            ]
+        }
+    ],
     "CrOSFederatedTimezoneCodePhh": [
         {
             "platforms": [
@@ -5412,6 +5412,24 @@
                     "name": "Enabled",
                     "enable_features": [
                         "DataRetentionPoliciesDisableSyncTypesNeeded"
+                    ]
+                }
+            ]
+        }
+    ],
+    "DbscPhase1aStudy": [
+        {
+            "platforms": [
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "params": {
+                        "dice-support": "enabled"
+                    },
+                    "enable_features": [
+                        "EnableBoundSessionCredentials"
                     ]
                 }
             ]
@@ -12117,58 +12135,6 @@
             ]
         }
     ],
-    "OmniboxActionsUISimplification": [
-        {
-            "platforms": [
-                "chromeos",
-                "linux",
-                "mac",
-                "windows"
-            ],
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "params": {
-                        "ActionsUISimplificationIncludeRealbox": "true",
-                        "ActionsUISimplificationTrimExtra": "true"
-                    },
-                    "enable_features": [
-                        "OmniboxActionsUISimplification"
-                    ]
-                },
-                {
-                    "name": "ExcludeRealbox",
-                    "params": {
-                        "ActionsUISimplificationIncludeRealbox": "false",
-                        "ActionsUISimplificationTrimExtra": "true"
-                    },
-                    "enable_features": [
-                        "OmniboxActionsUISimplification"
-                    ]
-                },
-                {
-                    "name": "ExcludeRealbox_TrimExtraFalse",
-                    "params": {
-                        "ActionsUISimplificationIncludeRealbox": "false",
-                        "ActionsUISimplificationTrimExtra": "false"
-                    },
-                    "enable_features": [
-                        "OmniboxActionsUISimplification"
-                    ]
-                },
-                {
-                    "name": "TrimExtraFalse",
-                    "params": {
-                        "ActionsUISimplificationIncludeRealbox": "true",
-                        "ActionsUISimplificationTrimExtra": "false"
-                    },
-                    "enable_features": [
-                        "OmniboxActionsUISimplification"
-                    ]
-                }
-            ]
-        }
-    ],
     "OmniboxBundledExperimentV1": [
         {
             "platforms": [
@@ -18271,6 +18237,38 @@
                 "chromeos"
             ],
             "experiments": [
+                {
+                    "name": "UploadCadence20ReadCadence5",
+                    "params": {
+                        "external_metrics_collection_interval_in_seconds": "300",
+                        "upload_time_in_seconds": "1200"
+                    },
+                    "enable_features": [
+                        "EnableStructuredMetrics",
+                        "EnableStructuredMetricsService"
+                    ]
+                },
+                {
+                    "name": "UploadCadence10ReadCadence3",
+                    "params": {
+                        "external_metrics_collection_interval_in_seconds": "180",
+                        "upload_time_in_seconds": "600"
+                    },
+                    "enable_features": [
+                        "EnableStructuredMetrics",
+                        "EnableStructuredMetricsService"
+                    ]
+                },
+                {
+                    "name": "UploadCadence20",
+                    "params": {
+                        "upload_time_in_seconds": "1200"
+                    },
+                    "enable_features": [
+                        "EnableStructuredMetrics",
+                        "EnableStructuredMetricsService"
+                    ]
+                },
                 {
                     "name": "StructuredMetricsExternalMetrics_100_20231027",
                     "params": {

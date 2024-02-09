@@ -35,6 +35,10 @@
 namespace blink::mojom {
 class SameOriginBfcacheNotRestoredDetailsDataView;
 
+class BlockingReasonSourceLocationDataView;
+
+class BFCacheBlockingDetailedReasonDataView;
+
 class BackForwardCacheNotRestoredReasonsDataView;
 
 
@@ -47,6 +51,20 @@ namespace internal {
 template <>
 struct MojomTypeTraits<::blink::mojom::SameOriginBfcacheNotRestoredDetailsDataView> {
   using Data = ::blink::mojom::internal::SameOriginBfcacheNotRestoredDetails_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::blink::mojom::BlockingReasonSourceLocationDataView> {
+  using Data = ::blink::mojom::internal::BlockingReasonSourceLocation_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::blink::mojom::BFCacheBlockingDetailedReasonDataView> {
+  using Data = ::blink::mojom::internal::BFCacheBlockingDetailedReason_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -97,6 +115,84 @@ class SameOriginBfcacheNotRestoredDetailsDataView {
   }
  private:
   internal::SameOriginBfcacheNotRestoredDetails_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class BlockingReasonSourceLocationDataView {
+ public:
+  BlockingReasonSourceLocationDataView() = default;
+
+  BlockingReasonSourceLocationDataView(
+      internal::BlockingReasonSourceLocation_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetUrlDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUrl(UserType* output) {
+    
+    auto* pointer = data_->url.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  uint64_t line_number() const {
+    return data_->line_number;
+  }
+  uint64_t column_number() const {
+    return data_->column_number;
+  }
+ private:
+  internal::BlockingReasonSourceLocation_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class BFCacheBlockingDetailedReasonDataView {
+ public:
+  BFCacheBlockingDetailedReasonDataView() = default;
+
+  BFCacheBlockingDetailedReasonDataView(
+      internal::BFCacheBlockingDetailedReason_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) {
+    
+    auto* pointer = data_->name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetSourceDataView(
+      BlockingReasonSourceLocationDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::blink::mojom::BlockingReasonSourceLocationDataView, UserType>(),
+    "Attempting to read the optional `source` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSource` instead "
+    "of `ReadSource if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->source.Get();
+    return mojo::internal::Deserialize<::blink::mojom::BlockingReasonSourceLocationDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::BFCacheBlockingDetailedReason_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -172,13 +268,13 @@ static_assert(
         pointer, output, message_);
   }
   inline void GetReasonsDataView(
-      mojo::ArrayDataView<mojo::StringDataView>* output);
+      mojo::ArrayDataView<BFCacheBlockingDetailedReasonDataView>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadReasons(UserType* output) {
     
     auto* pointer = data_->reasons.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::BFCacheBlockingDetailedReasonDataView>>(
         pointer, output, message_);
   }
   inline void GetSameOriginDetailsDataView(
@@ -274,6 +370,98 @@ struct Serializer<::blink::mojom::SameOriginBfcacheNotRestoredDetailsDataView, M
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::BlockingReasonSourceLocationDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::blink::mojom::BlockingReasonSourceLocationDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::blink::mojom::internal::BlockingReasonSourceLocation_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::url(input)) in_url = Traits::url(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->url)::BaseType> url_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_url, url_fragment);
+    fragment->url.Set(
+        url_fragment.is_null() ? nullptr : url_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->url.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null url in BlockingReasonSourceLocation struct");
+    fragment->line_number = Traits::line_number(input);
+    fragment->column_number = Traits::column_number(input);
+  }
+
+  static bool Deserialize(::blink::mojom::internal::BlockingReasonSourceLocation_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::blink::mojom::BlockingReasonSourceLocationDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::BFCacheBlockingDetailedReasonDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::blink::mojom::BFCacheBlockingDetailedReasonDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::blink::mojom::internal::BFCacheBlockingDetailedReason_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::name(input)) in_name = Traits::name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->name)::BaseType> name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_name, name_fragment);
+    fragment->name.Set(
+        name_fragment.is_null() ? nullptr : name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null name in BFCacheBlockingDetailedReason struct");
+    decltype(Traits::source(input)) in_source = Traits::source(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->source)::BaseType> source_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::BlockingReasonSourceLocationDataView>(
+        in_source, source_fragment);
+    fragment->source.Set(
+        source_fragment.is_null() ? nullptr : source_fragment.data());
+  }
+
+  static bool Deserialize(::blink::mojom::internal::BFCacheBlockingDetailedReason_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::blink::mojom::BFCacheBlockingDetailedReasonDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::blink::mojom::BackForwardCacheNotRestoredReasonsDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::blink::mojom::BackForwardCacheNotRestoredReasonsDataView, UserType>;
@@ -313,8 +501,8 @@ struct Serializer<::blink::mojom::BackForwardCacheNotRestoredReasonsDataView, Ma
         typename decltype(fragment->reasons)::BaseType>
         reasons_fragment(fragment.message());
     constexpr const mojo::internal::ContainerValidateParams& reasons_validate_params =
-        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
-    mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::BFCacheBlockingDetailedReasonDataView>>(
         in_reasons, reasons_fragment, &reasons_validate_params);
     fragment->reasons.Set(
         reasons_fragment.is_null() ? nullptr : reasons_fragment.data());
@@ -362,6 +550,25 @@ inline void SameOriginBfcacheNotRestoredDetailsDataView::GetChildrenDataView(
 }
 
 
+inline void BlockingReasonSourceLocationDataView::GetUrlDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->url.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void BFCacheBlockingDetailedReasonDataView::GetNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void BFCacheBlockingDetailedReasonDataView::GetSourceDataView(
+    BlockingReasonSourceLocationDataView* output) {
+  auto pointer = data_->source.Get();
+  *output = BlockingReasonSourceLocationDataView(pointer, message_);
+}
+
+
 inline void BackForwardCacheNotRestoredReasonsDataView::GetSrcDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->src.Get();
@@ -378,9 +585,9 @@ inline void BackForwardCacheNotRestoredReasonsDataView::GetNameDataView(
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void BackForwardCacheNotRestoredReasonsDataView::GetReasonsDataView(
-    mojo::ArrayDataView<mojo::StringDataView>* output) {
+    mojo::ArrayDataView<BFCacheBlockingDetailedReasonDataView>* output) {
   auto pointer = data_->reasons.Get();
-  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
+  *output = mojo::ArrayDataView<BFCacheBlockingDetailedReasonDataView>(pointer, message_);
 }
 inline void BackForwardCacheNotRestoredReasonsDataView::GetSameOriginDetailsDataView(
     SameOriginBfcacheNotRestoredDetailsDataView* output) {

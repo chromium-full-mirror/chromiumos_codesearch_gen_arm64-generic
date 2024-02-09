@@ -1866,6 +1866,17 @@ bool CSSOMKeywords::ValidKeywordForProperty(CSSPropertyID id,
       return false;
     }
   }
+  case CSSPropertyID::kPositionTryOptions: {
+    switch (valueID) {
+    case CSSValueID::kNone:
+    case CSSValueID::kFlipBlock:
+    case CSSValueID::kFlipInline:
+    case CSSValueID::kFlipStart:
+      return true;
+    default:
+      return false;
+    }
+  }
   case CSSPropertyID::kPositionTryOrder: {
     switch (valueID) {
     case CSSValueID::kNormal:

@@ -1394,6 +1394,8 @@ NOINLINE static const char* CSSSampleIdToStringHelper(CSSSampleId value) {
       return "kViewTransitionClass";
     case CSSSampleId::kPositionTryOrder:
       return "kPositionTryOrder";
+    case CSSSampleId::kPositionTryOptions:
+      return "kPositionTryOptions";
     default:
       return nullptr;
   }

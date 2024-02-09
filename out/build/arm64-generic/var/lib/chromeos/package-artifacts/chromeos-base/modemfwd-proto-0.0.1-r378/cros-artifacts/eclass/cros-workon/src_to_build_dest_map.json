@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/platform2",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/modemfwd-proto-0.0.1-r378/work/modemfwd-proto-0.0.1"
-    }
-  ]
-}

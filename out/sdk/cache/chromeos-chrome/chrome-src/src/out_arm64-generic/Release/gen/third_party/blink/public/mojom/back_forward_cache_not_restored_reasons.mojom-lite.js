@@ -30,6 +30,22 @@ blink.mojom.SameOriginBfcacheNotRestoredDetailsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
+blink.mojom.BlockingReasonSourceLocationSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.BFCacheBlockingDetailedReasonSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
 blink.mojom.BackForwardCacheNotRestoredReasonsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -76,6 +92,94 @@ blink.mojom.SameOriginBfcacheNotRestoredDetails = class {
 
 
 mojo.internal.Struct(
+    blink.mojom.BlockingReasonSourceLocationSpec.$,
+    'BlockingReasonSourceLocation',
+    [
+      mojo.internal.StructField(
+        'url', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'lineNumber', 8,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'columnNumber', 16,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 32],]);
+
+
+
+
+
+/** @record */
+blink.mojom.BlockingReasonSourceLocation = class {
+  constructor() {
+    /** @export { !string } */
+    this.url;
+    /** @export { !bigint } */
+    this.lineNumber;
+    /** @export { !bigint } */
+    this.columnNumber;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.BFCacheBlockingDetailedReasonSpec.$,
+    'BFCacheBlockingDetailedReason',
+    [
+      mojo.internal.StructField(
+        'name', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'source', 8,
+        0,
+        blink.mojom.BlockingReasonSourceLocationSpec.$,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+blink.mojom.BFCacheBlockingDetailedReason = class {
+  constructor() {
+    /** @export { !string } */
+    this.name;
+    /** @export { (blink.mojom.BlockingReasonSourceLocation|undefined) } */
+    this.source;
+  }
+};
+
+
+
+mojo.internal.Struct(
     blink.mojom.BackForwardCacheNotRestoredReasonsSpec.$,
     'BackForwardCacheNotRestoredReasons',
     [
@@ -106,7 +210,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'reasons', 24,
         0,
-        mojo.internal.Array(mojo.internal.String, false),
+        mojo.internal.Array(blink.mojom.BFCacheBlockingDetailedReasonSpec.$, false),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -135,7 +239,7 @@ blink.mojom.BackForwardCacheNotRestoredReasons = class {
     this.id;
     /** @export { (string|undefined) } */
     this.name;
-    /** @export { !Array<!string> } */
+    /** @export { !Array<!blink.mojom.BFCacheBlockingDetailedReason> } */
     this.reasons;
     /** @export { (blink.mojom.SameOriginBfcacheNotRestoredDetails|undefined) } */
     this.sameOriginDetails;

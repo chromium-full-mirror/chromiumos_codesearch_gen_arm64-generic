@@ -1925,6 +1925,8 @@ String ComputedStyleBase::DebugFieldToString(DebugField field) {
      return "position_fallback_";
    case DebugField::position_fallback_bounds_:
      return "position_fallback_bounds_";
+   case DebugField::position_try_options_:
+     return "position_try_options_";
    case DebugField::position_try_order_:
      return "position_try_order_";
    case DebugField::print_color_adjust_:
@@ -3740,6 +3742,13 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.field = DebugField::position_fallback_bounds_;
       d.actual = DebugStringForField(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_fallback_bounds_);
       d.correct = DebugStringForField(o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_fallback_bounds_);
+      diff.push_back(std::move(d));
+    }
+  if (!(base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_options_, o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_options_))) {
+      DebugDiff d;
+      d.field = DebugField::position_try_options_;
+      d.actual = DebugStringForField(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_options_);
+      d.correct = DebugStringForField(o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_options_);
       diff.push_back(std::move(d));
     }
   if (!(base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->document_rules_selectors_, o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->document_rules_selectors_))) {
@@ -5745,6 +5754,7 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
       , container_name_(nullptr)
       , position_fallback_(nullptr)
       , position_fallback_bounds_(nullptr)
+      , position_try_options_(nullptr)
       , document_rules_selectors_(nullptr)
       , paint_images_(nullptr)
       , initial_letter_(StyleInitialLetter())
@@ -5837,6 +5847,7 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
       , container_name_(MemberCopy(other.container_name_))
       , position_fallback_(MemberCopy(other.position_fallback_))
       , position_fallback_bounds_(MemberCopy(other.position_fallback_bounds_))
+      , position_try_options_(MemberCopy(other.position_try_options_))
       , document_rules_selectors_(MemberCopy(other.document_rules_selectors_))
       , paint_images_(MemberCopy(other.paint_images_))
       , initial_letter_(other.initial_letter_)

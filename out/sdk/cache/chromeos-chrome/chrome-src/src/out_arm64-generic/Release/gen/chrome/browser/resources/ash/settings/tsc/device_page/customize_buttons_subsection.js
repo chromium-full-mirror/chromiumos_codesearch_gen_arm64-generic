@@ -13,6 +13,7 @@ import '../settings_shared.css.js';
 import './customize_button_row.js';
 import './key_combination_input_dialog.js';
 import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
+import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './customize_buttons_subsection.html.js';
 import { DragAndDropManager } from './drag_and_drop_manager.js';
@@ -93,9 +94,11 @@ export class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectio
         this.addEventListener('show-renaming-dialog', this.showRenamingDialog_);
         this.addEventListener('show-key-combination-dialog', this.showKeyCombinationDialog_);
         this.dragAndDropManager.init(this, this.onDrop_.bind(this));
+        this.addEventListener('key-combination-dialog-close', this.onKeyCombinationDialogClose_);
     }
     disconnectedCallback() {
         this.dragAndDropManager.destroy();
+        this.removeEventListener('key-combination-dialog-close', this.onKeyCombinationDialogClose_);
     }
     showRenamingDialog_(e) {
         this.selectedButtonIndex_ = e.detail.buttonIndex;
@@ -174,6 +177,11 @@ export class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectio
             }));
         }
         this.selectedButtonName_ = '';
+    }
+    onKeyCombinationDialogClose_() {
+        const buttonRows = this.$.subsection.querySelectorAll('customize-button-row');
+        assert(!!buttonRows && buttonRows.length > this.selectedButtonIndex_);
+        buttonRows[this.selectedButtonIndex_].focus();
     }
 }
 customElements.define(CustomizeButtonsSubsectionElement.is, CustomizeButtonsSubsectionElement);

@@ -17,6 +17,11 @@ import {
 } from '../../../../mojo/public/mojom/base/time.mojom.m.js';
 
 import {
+  UnguessableToken as mojoBase_mojom_UnguessableToken,
+  UnguessableTokenSpec as mojoBase_mojom_UnguessableTokenSpec
+} from '../../../../mojo/public/mojom/base/unguessable_token.mojom.m.js';
+
+import {
   IPAddress as network_mojom_IPAddress,
   IPAddressSpec as network_mojom_IPAddressSpec
 } from './ip_address.mojom.m.js';
@@ -292,11 +297,12 @@ export class P2PSocketManagerInterface {
    * @param { !P2PPortRange } portRange
    * @param { !P2PHostAndIPEndPoint } remoteAddress
    * @param { !network_mojom_MutableNetworkTrafficAnnotationTag } trafficAnnotation
+   * @param { ?mojoBase_mojom_UnguessableToken } devtoolsToken
    * @param { !P2PSocketClientRemote } client
    * @param { !P2PSocketPendingReceiver } socket
    */
 
-  createSocket(type, localAddress, portRange, remoteAddress, trafficAnnotation, client, socket) {}
+  createSocket(type, localAddress, portRange, remoteAddress, trafficAnnotation, devtoolsToken, client, socket) {}
 }
 
 /**
@@ -392,6 +398,7 @@ export class P2PSocketManagerRemote {
    * @param { !P2PPortRange } portRange
    * @param { !P2PHostAndIPEndPoint } remoteAddress
    * @param { !network_mojom_MutableNetworkTrafficAnnotationTag } trafficAnnotation
+   * @param { ?mojoBase_mojom_UnguessableToken } devtoolsToken
    * @param { !P2PSocketClientRemote } client
    * @param { !P2PSocketPendingReceiver } socket
    */
@@ -402,6 +409,7 @@ export class P2PSocketManagerRemote {
       portRange,
       remoteAddress,
       trafficAnnotation,
+      devtoolsToken,
       client,
       socket) {
     this.proxy.sendMessage(
@@ -414,6 +422,7 @@ export class P2PSocketManagerRemote {
           portRange,
           remoteAddress,
           trafficAnnotation,
+          devtoolsToken,
           client,
           socket
         ]);
@@ -1662,7 +1671,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'client', 40,
+        'devtoolsToken', 40,
+        0,
+        mojoBase_mojom_UnguessableTokenSpec.$,
+        null,
+        true /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'client', 48,
         0,
         mojo.internal.InterfaceProxy(P2PSocketClientRemote),
         null,
@@ -1678,7 +1695,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 56],]);
+    [[0, 64],]);
 
 
 
@@ -1697,6 +1714,8 @@ export class P2PSocketManager_CreateSocket_Params {
     this.remoteAddress;
     /** @type { !network_mojom_MutableNetworkTrafficAnnotationTag } */
     this.trafficAnnotation;
+    /** @type { (mojoBase_mojom_UnguessableToken|undefined) } */
+    this.devtoolsToken;
     /** @type { !P2PSocketClientRemote } */
     this.client;
     /** @type { !P2PSocketPendingReceiver } */

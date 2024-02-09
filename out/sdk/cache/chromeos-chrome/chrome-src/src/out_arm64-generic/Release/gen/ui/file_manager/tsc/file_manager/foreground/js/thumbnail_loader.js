@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { ImageLoaderClient } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/image_loader_client.js';
-import { LoadImageRequest, LoadImageResponse, LoadImageResponseStatus } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/load_image_request.js';
+import { createRequest, LoadImageResponse, LoadImageResponseStatus } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/load_image_request.js';
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { getMediaType, isImage, isPDF, isRaw, isVideo } from '../../common/js/file_type.js';
 /**
@@ -30,7 +30,7 @@ export class ThumbnailLoader {
         /**
          * The image transform from metadata.
          */
-        this.transform_ = null;
+        this.transform_ = undefined;
         this.loadTarget_ = null;
         this.fallbackUrl_ = null;
         this.croppedThumbnailUrl_ = null;
@@ -60,7 +60,7 @@ export class ThumbnailLoader {
                         this.thumbnailUrl_ = this.metadata_.thumbnail.url;
                         this.transform_ = (this.metadata_.thumbnail &&
                             this.metadata_.thumbnail.transform) ??
-                            null;
+                            undefined;
                         this.loadTarget_ = LoadTarget.CONTENT_METADATA;
                     }
                     break;
@@ -81,7 +81,7 @@ export class ThumbnailLoader {
                         this.thumbnailUrl_ = this.entry_.toURL();
                         this.transform_ =
                             (this.metadata_.media && this.metadata_.media.imageTransform) ??
-                                null;
+                                undefined;
                         this.loadTarget_ = LoadTarget.FILE_ENTRY;
                     }
                     break;
@@ -147,7 +147,7 @@ export class ThumbnailLoader {
         const modificationTime = this.metadata_ && this.metadata_.filesystem &&
             this.metadata_.filesystem.modificationTime &&
             this.metadata_.filesystem.modificationTime.getTime();
-        this.taskId_ = ImageLoaderClient.loadToImage(LoadImageRequest.createRequest({
+        this.taskId_ = ImageLoaderClient.loadToImage(createRequest({
             url: this.thumbnailUrl_,
             maxWidth: THUMBNAIL_MAX_WIDTH,
             maxHeight: THUMBNAIL_MAX_HEIGHT,
@@ -189,7 +189,7 @@ export class ThumbnailLoader {
                 this.metadata_.filesystem.modificationTime &&
                 this.metadata_.filesystem.modificationTime.getTime();
             // Load using ImageLoaderClient.
-            const request = LoadImageRequest.createRequest({
+            const request = createRequest({
                 url: requestUrl,
                 maxWidth: THUMBNAIL_MAX_WIDTH,
                 maxHeight: THUMBNAIL_MAX_HEIGHT,

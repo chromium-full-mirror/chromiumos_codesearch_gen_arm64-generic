@@ -2089,7 +2089,6 @@ class  FormData {
       std::vector<ButtonTitleInfoPtr> button_titles,
       const ::GURL& action,
       bool is_action_empty,
-      bool is_form_tag,
       ::autofill::FormRendererId renderer_id,
       std::vector<FrameTokenWithPredecessorPtr> child_frames,
       SubmissionIndicatorEvent submission_event,
@@ -2186,8 +2185,6 @@ FormData& operator=(const FormData&) = delete;
   ::GURL action;
   
   bool is_action_empty;
-  
-  bool is_form_tag;
   
   ::autofill::FormRendererId renderer_id;
   
@@ -4258,7 +4255,6 @@ FormDataPtr FormData::Clone() const {
       mojo::Clone(button_titles),
       mojo::Clone(action),
       mojo::Clone(is_action_empty),
-      mojo::Clone(is_form_tag),
       mojo::Clone(renderer_id),
       mojo::Clone(child_frames),
       mojo::Clone(submission_event),
@@ -4281,8 +4277,6 @@ bool FormData::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->action, other_struct.action))
     return false;
   if (!mojo::Equals(this->is_action_empty, other_struct.is_action_empty))
-    return false;
-  if (!mojo::Equals(this->is_form_tag, other_struct.is_form_tag))
     return false;
   if (!mojo::Equals(this->renderer_id, other_struct.renderer_id))
     return false;
@@ -4324,10 +4318,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.is_action_empty < rhs.is_action_empty)
     return true;
   if (rhs.is_action_empty < lhs.is_action_empty)
-    return false;
-  if (lhs.is_form_tag < rhs.is_form_tag)
-    return true;
-  if (rhs.is_form_tag < lhs.is_form_tag)
     return false;
   if (lhs.renderer_id < rhs.renderer_id)
     return true;
@@ -5317,11 +5307,6 @@ struct  StructTraits<::autofill::mojom::FormData::DataView,
   static decltype(::autofill::mojom::FormData::is_action_empty) is_action_empty(
       const ::autofill::mojom::FormDataPtr& input) {
     return input->is_action_empty;
-  }
-
-  static decltype(::autofill::mojom::FormData::is_form_tag) is_form_tag(
-      const ::autofill::mojom::FormDataPtr& input) {
-    return input->is_form_tag;
   }
 
   static const decltype(::autofill::mojom::FormData::renderer_id)& renderer_id(

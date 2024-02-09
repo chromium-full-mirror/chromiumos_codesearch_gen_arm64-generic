@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { ImageLoaderClient } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/image_loader_client.js';
-import { LoadImageRequest, LoadImageResponseStatus } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/load_image_request.js';
+import { createForUrl, LoadImageResponseStatus } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/load_image_request.js';
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { getContentMetadata, getContentMimeType } from '../../../common/js/api.js';
 import { unwrapEntry } from '../../../common/js/entry_utils.js';
@@ -141,7 +141,7 @@ export class ContentMetadataProvider extends MetadataProvider {
             new Promise((resolve, reject) => {
                 entry
                     .file(file => {
-                    const request = LoadImageRequest.createForUrl(entry.toURL());
+                    const request = createForUrl(entry.toURL());
                     request.maxWidth = THUMBNAIL_MAX_WIDTH;
                     request.maxHeight = THUMBNAIL_MAX_HEIGHT;
                     request.timestamp = file.lastModified;

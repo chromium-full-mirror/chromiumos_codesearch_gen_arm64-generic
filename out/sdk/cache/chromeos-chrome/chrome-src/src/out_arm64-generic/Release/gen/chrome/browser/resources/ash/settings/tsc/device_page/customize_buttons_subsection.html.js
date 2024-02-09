@@ -1,7 +1,7 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">.subsection{padding-inline-start:20px}#inputContainer{height:70px}#renamingDialog{--cr-dialog-width:320px}:host([button-name-invalid_]) #inputSuffix{color:var(--cros-text-color-alert)}#inputSuffix{display:flex;font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);justify-content:flex-end;line-height:var(--cr-form-field-label-line-height);margin:8px 0;position:absolute;top:130px;white-space:var(--cr-input-error-white-space);width:256px}</style>
-<div class="subsection">
+<div class="subsection" id="subsection">
   <template is="dom-repeat" items="{{buttonRemappingList}}" index-as="index">
     <customize-button-row button-remapping-list="[[buttonRemappingList]]" remapping-index="[[index]]" action-list$="[[actionList]]">
     </customize-button-row>
@@ -39,7 +39,7 @@ export function getTemplate() {
     </div>
   </cr-dialog>
 </template>
-<key-combination-input-dialog id="keyCombinationInputDialog" button-remapping-list="{{buttonRemappingList}}" remapping-index="[[selectedButtonIndex_]]" has-launcher-button="[[hasLauncherButton]]">
+<key-combination-input-dialog id="keyCombinationInputDialog" button-remapping-list="{{buttonRemappingList}}" remapping-index="[[selectedButtonIndex_]]" has-launcher-button="[[hasLauncherButton]]" on-close="onKeyCombinationDialogClose_">
 </key-combination-input-dialog>
 <!--_html_template_end_-->`;
 }

@@ -19261,7 +19261,7 @@ function getTemplate$9() {
         </settings-radio-group>
       </div>
     </template>
-    <template is="dom-if" if="[[is3pcdRedesignEnabled_]">
+    <template is="dom-if" if="[[is3pcdRedesignEnabled_]]">
       <div id="explanationText" class="secondary">
         $i18n{trackingProtectionPageDescription}
       </div>
@@ -19287,7 +19287,7 @@ function getTemplate$9() {
         </div>
       </div>
     </div></template>
-    <template is="dom-if" if="[[isCookiesUiV2_]">
+    <template is="dom-if" if="[[isCookiesUiV2_]]">
       <h2 id="advancedHeader">$i18n{trackingProtectionAdvancedLabel}</h2>
       <settings-toggle-button id="blockThirdPartyToggle" pref="{{prefs.tracking_protection.block_all_3pc_toggle_enabled}}" label="$i18n{trackingProtectionThirdPartyCookiesToggleLabel}" sub-label="
             $i18n{trackingProtectionThirdPartyCookiesToggleSubLabel}" learn-more-url="

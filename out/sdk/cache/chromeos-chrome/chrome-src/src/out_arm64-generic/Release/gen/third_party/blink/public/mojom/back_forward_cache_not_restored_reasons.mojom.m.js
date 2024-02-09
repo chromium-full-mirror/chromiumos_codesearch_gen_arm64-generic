@@ -17,6 +17,18 @@ export const SameOriginBfcacheNotRestoredDetailsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
+export const BlockingReasonSourceLocationSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const BFCacheBlockingDetailedReasonSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
 export const BackForwardCacheNotRestoredReasonsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -63,6 +75,94 @@ export class SameOriginBfcacheNotRestoredDetails {
 
 
 mojo.internal.Struct(
+    BlockingReasonSourceLocationSpec.$,
+    'BlockingReasonSourceLocation',
+    [
+      mojo.internal.StructField(
+        'url', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'lineNumber', 8,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'columnNumber', 16,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 32],]);
+
+
+
+/**
+ * @record
+ */
+export class BlockingReasonSourceLocation {
+  constructor() {
+    /** @type { !string } */
+    this.url;
+    /** @type { !bigint } */
+    this.lineNumber;
+    /** @type { !bigint } */
+    this.columnNumber;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    BFCacheBlockingDetailedReasonSpec.$,
+    'BFCacheBlockingDetailedReason',
+    [
+      mojo.internal.StructField(
+        'name', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'source', 8,
+        0,
+        BlockingReasonSourceLocationSpec.$,
+        null,
+        true /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+/**
+ * @record
+ */
+export class BFCacheBlockingDetailedReason {
+  constructor() {
+    /** @type { !string } */
+    this.name;
+    /** @type { (BlockingReasonSourceLocation|undefined) } */
+    this.source;
+  }
+}
+
+
+
+mojo.internal.Struct(
     BackForwardCacheNotRestoredReasonsSpec.$,
     'BackForwardCacheNotRestoredReasons',
     [
@@ -93,7 +193,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'reasons', 24,
         0,
-        mojo.internal.Array(mojo.internal.String, false),
+        mojo.internal.Array(BFCacheBlockingDetailedReasonSpec.$, false),
         null,
         false /* nullable */,
         0,
@@ -122,7 +222,7 @@ export class BackForwardCacheNotRestoredReasons {
     this.id;
     /** @type { (string|undefined) } */
     this.name;
-    /** @type { !Array<!string> } */
+    /** @type { !Array<!BFCacheBlockingDetailedReason> } */
     this.reasons;
     /** @type { (SameOriginBfcacheNotRestoredDetails|undefined) } */
     this.sameOriginDetails;

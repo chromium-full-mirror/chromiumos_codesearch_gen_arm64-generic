@@ -58,6 +58,7 @@
 #include "third_party/blink/renderer/core/style/nine_piece_image.h"
 #include "third_party/blink/renderer/core/style/offset_path_operation.h"
 #include "third_party/blink/renderer/core/style/paint_images.h"
+#include "third_party/blink/renderer/core/style/position_try_options.h"
 #include "third_party/blink/renderer/core/style/scoped_css_name.h"
 #include "third_party/blink/renderer/core/style/scroll_start_data.h"
 #include "third_party/blink/renderer/core/style/shadow_list.h"
@@ -3254,6 +3255,16 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
 
+  // position-try-options
+  const Member<PositionTryOptions>& GetPositionTryOptions() const {
+    return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_options_;
+  }
+
+
+
+
+
+
   // position-try-order
   EPositionTryOrder PositionTryOrder() const {
     return static_cast<EPositionTryOrder>(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_order_);
@@ -4683,6 +4694,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     position_,
     position_fallback_,
     position_fallback_bounds_,
+    position_try_options_,
     position_try_order_,
     print_color_adjust_,
     pseudo_argument_,
@@ -5843,6 +5855,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
       visitor->Trace(container_name_);
       visitor->Trace(position_fallback_);
       visitor->Trace(position_fallback_bounds_);
+      visitor->Trace(position_try_options_);
       visitor->Trace(document_rules_selectors_);
       visitor->Trace(paint_images_);
       TraceIfNeeded<StyleInitialLetter>::Trace(visitor, initial_letter_);
@@ -5886,6 +5899,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         && base::ValuesEquivalent(container_name_, other.container_name_)
         && base::ValuesEquivalent(position_fallback_, other.position_fallback_)
         && base::ValuesEquivalent(position_fallback_bounds_, other.position_fallback_bounds_)
+        && base::ValuesEquivalent(position_try_options_, other.position_try_options_)
         && base::ValuesEquivalent(document_rules_selectors_, other.document_rules_selectors_)
         && initial_letter_ == other.initial_letter_
         && page_size_ == other.page_size_
@@ -5964,6 +5978,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     Member<ScopedCSSNameList> container_name_;
     Member<ScopedCSSName> position_fallback_;
     Member<ScopedCSSName> position_fallback_bounds_;
+    Member<PositionTryOptions> position_try_options_;
     Member<HeapHashSet<WeakMember<StyleRule>>> document_rules_selectors_;
     Member<PaintImages> paint_images_;
     StyleInitialLetter initial_letter_;
@@ -8770,6 +8785,12 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
   // position-fallback-bounds
+  
+
+
+
+
+  // position-try-options
   
 
 
@@ -14810,6 +14831,27 @@ class ComputedStyleBuilderBase {
 
 
 
+  // position-try-options
+  const Member<PositionTryOptions>& GetPositionTryOptions() const {
+    return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_options_;
+  }
+
+  void SetPositionTryOptions(const Member<PositionTryOptions>& v) {
+    if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_options_ == v))
+      Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->position_try_options_ = v;
+  }
+
+  void SetPositionTryOptions(Member<PositionTryOptions>&& v) {
+    if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_options_ == v))
+      Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->position_try_options_ = std::move(v);
+  }
+
+  inline void ResetPositionTryOptions() {
+    Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->position_try_options_ = nullptr;
+  }
+
+
+
   // position-try-order
   EPositionTryOrder PositionTryOrder() const {
     return static_cast<EPositionTryOrder>(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_order_);
@@ -20139,6 +20181,15 @@ class ComputedStyleBuilderBase {
 
   Member<ScopedCSSName>& MutablePositionFallbackBoundsInternal() {
     return Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->position_fallback_bounds_;
+  }
+
+
+  // position-try-options
+  
+
+
+  Member<PositionTryOptions>& MutablePositionTryOptionsInternal() {
+    return Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->position_try_options_;
   }
 
 

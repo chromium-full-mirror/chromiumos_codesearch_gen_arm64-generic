@@ -13,7 +13,7 @@ libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/debugd-client"
 platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/debugd-client-0.0.1-r2636/work/debugd-client-0.0.1"
-libbase_ver = "1256589"
+libbase_ver = "1257783"
 enable_exceptions = false
 external_cflags = [
   "-Os",

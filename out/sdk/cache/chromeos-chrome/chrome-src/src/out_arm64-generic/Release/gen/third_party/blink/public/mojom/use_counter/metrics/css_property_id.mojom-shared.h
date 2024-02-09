@@ -1471,8 +1471,10 @@ enum class CSSSampleId : int32_t {
   kViewTransitionClass = 782,
   
   kPositionTryOrder = 783,
+  
+  kPositionTryOptions = 784,
   kMinValue = 0,
-  kMaxValue = 783,
+  kMaxValue = 784,
 };
 
 COMPONENT_EXPORT(WEB_FEATURE_MOJO_BINDINGS_MOJOM_SHARED) std::ostream& operator<<(std::ostream& os, CSSSampleId value);

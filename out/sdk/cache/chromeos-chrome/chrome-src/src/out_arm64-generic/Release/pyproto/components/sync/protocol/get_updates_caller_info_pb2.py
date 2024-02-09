@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n6components/sync/protocol/get_updates_caller_info.proto\x12\x07sync_pb\"\xfa\x02\n\x14GetUpdatesCallerInfo\x12\x42\n\x06source\x18\x01 \x02(\x0e\x32..sync_pb.GetUpdatesCallerInfo.GetUpdatesSourceB\x02\x18\x01\x12\x1d\n\x15notifications_enabled\x18\x02 \x01(\x08\"\xfe\x01\n\x10GetUpdatesSource\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x10\n\x0c\x46IRST_UPDATE\x10\x01\x12\t\n\x05LOCAL\x10\x02\x12\x10\n\x0cNOTIFICATION\x10\x03\x12\x0c\n\x08PERIODIC\x10\x04\x12\x1b\n\x17SYNC_CYCLE_CONTINUATION\x10\x05\x12\x1c\n\x18NEWLY_SUPPORTED_DATATYPE\x10\x07\x12\r\n\tMIGRATION\x10\x08\x12\x0e\n\nNEW_CLIENT\x10\t\x12\x13\n\x0fRECONFIGURATION\x10\n\x12\x14\n\x10\x44\x41TATYPE_REFRESH\x10\x0b\x12\t\n\x05RETRY\x10\r\x12\x10\n\x0cPROGRAMMATIC\x10\x0e\x42+\n%org.chromium.components.sync.protocolH\x03P\x01')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n6components/sync/protocol/get_updates_caller_info.proto\x12\x07sync_pb\"\x9a\x01\n\x14GetUpdatesCallerInfo\x12\x42\n\x06source\x18\x01 \x02(\x0e\x32..sync_pb.GetUpdatesCallerInfo.GetUpdatesSourceB\x02\x18\x01\x12\x1d\n\x15notifications_enabled\x18\x02 \x01(\x08\"\x1f\n\x10GetUpdatesSource\x12\x0b\n\x07UNKNOWN\x10\x00\x42+\n%org.chromium.components.sync.protocolH\x03P\x01')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'components.sync.protocol.get_updates_caller_info_pb2', globals())
@@ -24,7 +24,7 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _GETUPDATESCALLERINFO.fields_by_name['source']._options = None
   _GETUPDATESCALLERINFO.fields_by_name['source']._serialized_options = b'\030\001'
   _GETUPDATESCALLERINFO._serialized_start=68
-  _GETUPDATESCALLERINFO._serialized_end=446
-  _GETUPDATESCALLERINFO_GETUPDATESSOURCE._serialized_start=192
-  _GETUPDATESCALLERINFO_GETUPDATESSOURCE._serialized_end=446
+  _GETUPDATESCALLERINFO._serialized_end=222
+  _GETUPDATESCALLERINFO_GETUPDATESSOURCE._serialized_start=191
+  _GETUPDATESCALLERINFO_GETUPDATESSOURCE._serialized_end=222
 # @@protoc_insertion_point(module_scope)

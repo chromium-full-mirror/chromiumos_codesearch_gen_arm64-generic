@@ -12,7 +12,7 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root = "/build/arm64-generic/var/cache/portage/chromeos-base/dev-install"
 platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/dev-install-0.0.1-r1539/work/dev-install-0.0.1"
-libbase_ver = "1256589"
+libbase_ver = "1257783"
 enable_exceptions = false
 external_cflags = [
   "-Os",

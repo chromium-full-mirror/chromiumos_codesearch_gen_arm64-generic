@@ -30,6 +30,12 @@ namespace blink::mojom::blink {
 class SameOriginBfcacheNotRestoredDetails;
 using SameOriginBfcacheNotRestoredDetailsPtr = mojo::StructPtr<SameOriginBfcacheNotRestoredDetails>;
 
+class BlockingReasonSourceLocation;
+using BlockingReasonSourceLocationPtr = mojo::InlinedStructPtr<BlockingReasonSourceLocation>;
+
+class BFCacheBlockingDetailedReason;
+using BFCacheBlockingDetailedReasonPtr = mojo::StructPtr<BFCacheBlockingDetailedReason>;
+
 class BackForwardCacheNotRestoredReasons;
 using BackForwardCacheNotRestoredReasonsPtr = mojo::StructPtr<BackForwardCacheNotRestoredReasons>;
 

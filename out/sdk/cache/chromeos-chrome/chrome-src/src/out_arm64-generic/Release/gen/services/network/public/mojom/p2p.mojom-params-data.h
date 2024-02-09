@@ -137,6 +137,7 @@ class  P2PSocketManager_CreateSocket_Params_Data {
   mojo::internal::Pointer<internal::P2PPortRange_Data> port_range;
   mojo::internal::Pointer<internal::P2PHostAndIPEndPoint_Data> remote_address;
   mojo::internal::Pointer<::network::mojom::internal::MutableNetworkTrafficAnnotationTag_Data> traffic_annotation;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> devtools_token;
   mojo::internal::Interface_Data client;
 
  private:
@@ -145,7 +146,7 @@ class  P2PSocketManager_CreateSocket_Params_Data {
   P2PSocketManager_CreateSocket_Params_Data();
   ~P2PSocketManager_CreateSocket_Params_Data() = delete;
 };
-static_assert(sizeof(P2PSocketManager_CreateSocket_Params_Data) == 56,
+static_assert(sizeof(P2PSocketManager_CreateSocket_Params_Data) == 64,
               "Bad sizeof(P2PSocketManager_CreateSocket_Params_Data)");
 class  P2PSocket_Send_Params_Data {
  public:
@@ -510,6 +511,26 @@ class P2PSocketManager_CreateSocket_ParamsDataView {
     return mojo::internal::Deserialize<::network::mojom::MutableNetworkTrafficAnnotationTagDataView>(
         pointer, output, message_);
   }
+  inline void GetDevtoolsTokenDataView(
+      ::mojo_base::mojom::UnguessableTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDevtoolsToken(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
+    "Attempting to read the optional `devtools_token` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadDevtoolsToken` instead "
+    "of `ReadDevtoolsToken if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->devtools_token.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::UnguessableTokenDataView>(
+        pointer, output, message_);
+  }
   template <typename UserType>
   UserType TakeClient() {
     UserType result;
@@ -803,6 +824,11 @@ inline void P2PSocketManager_CreateSocket_ParamsDataView::GetTrafficAnnotationDa
     ::network::mojom::MutableNetworkTrafficAnnotationTagDataView* output) {
   auto pointer = data_->traffic_annotation.Get();
   *output = ::network::mojom::MutableNetworkTrafficAnnotationTagDataView(pointer, message_);
+}
+inline void P2PSocketManager_CreateSocket_ParamsDataView::GetDevtoolsTokenDataView(
+    ::mojo_base::mojom::UnguessableTokenDataView* output) {
+  auto pointer = data_->devtools_token.Get();
+  *output = ::mojo_base::mojom::UnguessableTokenDataView(pointer, message_);
 }
 
 

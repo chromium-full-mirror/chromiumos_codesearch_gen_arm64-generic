@@ -38,7 +38,7 @@ build obj/installer/_cros_installer-install_config.stamp: stamp
 build obj/installer/_evwaitkey-install_config.stamp: stamp
 build obj/installer/_postinst_script_symlink-0-install_config.stamp: stamp
 build obj/installer/all.stamp: stamp ./cros_installer obj/installer/crx_import_script.stamp obj/installer/postinst_script_symlink.stamp obj/installer/sbin_scripts.stamp ./evwaitkey obj/installer/init_confs.stamp
-build gen/chromeos-install: copy ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4179/work/chromeos-installer-0.0.3/installer/chromeos-install
+build gen/chromeos-install: copy ../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4180/work/chromeos-installer-0.0.3/installer/chromeos-install
 
 build obj/installer/chromeos_install_script.stamp: stamp gen/chromeos-install
 subninja obj/installer/cros_installer.ninja

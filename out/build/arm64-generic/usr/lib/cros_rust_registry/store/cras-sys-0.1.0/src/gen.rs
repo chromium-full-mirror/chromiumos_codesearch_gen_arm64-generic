@@ -620,7 +620,7 @@ pub const ionode_attr_IONODE_ATTR_PLUGGED: ionode_attr = 0;
 pub const ionode_attr_IONODE_ATTR_VOLUME: ionode_attr = 1;
 pub const ionode_attr_IONODE_ATTR_CAPTURE_GAIN: ionode_attr = 2;
 pub const ionode_attr_IONODE_ATTR_SWAP_LEFT_RIGHT: ionode_attr = 3;
-pub const ionode_attr_IONODE_ATTR_DISPLAY_ROTATION: ionode_attr = 4;
+pub const ionode_attr_DEPRECATED_ATTR_0: ionode_attr = 4;
 pub type ionode_attr = ::std::os::raw::c_uint;
 #[repr(i32)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]

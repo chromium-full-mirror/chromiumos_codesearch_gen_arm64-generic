@@ -11,8 +11,8 @@ OS = "linux"
 sysroot = "/"
 libdir = "/usr/lib64"
 build_root = "/var/cache/portage/chromeos-base/update_engine-client"
-platform2_root = "/var/tmp/portage/chromeos-base/update_engine-client-0.0.1-r2375/work/update_engine-client-0.0.1"
-libbase_ver = "1256589"
+platform2_root = "/var/tmp/portage/chromeos-base/update_engine-client-0.0.1-r2378/work/update_engine-client-0.0.1"
+libbase_ver = "1257783"
 enable_exceptions = false
 external_cflags = [
   "-O2",

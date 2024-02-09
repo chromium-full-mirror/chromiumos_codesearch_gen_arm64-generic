@@ -70,6 +70,77 @@ SameOriginBfcacheNotRestoredDetails_Data::SameOriginBfcacheNotRestoredDetails_Da
 
 
 // static
+bool BlockingReasonSourceLocation_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BlockingReasonSourceLocation_Data* object =
+      static_cast<const BlockingReasonSourceLocation_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->url, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& url_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->url, validation_context,
+                                         &url_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+BlockingReasonSourceLocation_Data::BlockingReasonSourceLocation_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BFCacheBlockingDetailedReason_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BFCacheBlockingDetailedReason_Data* object =
+      static_cast<const BFCacheBlockingDetailedReason_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->name, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->name, validation_context,
+                                         &name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateStruct(object->source, validation_context))
+    return false;
+
+  return true;
+}
+
+BFCacheBlockingDetailedReason_Data::BFCacheBlockingDetailedReason_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool BackForwardCacheNotRestoredReasons_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -111,7 +182,7 @@ bool BackForwardCacheNotRestoredReasons_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& reasons_validate_params =
-      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->reasons, validation_context,
                                          &reasons_validate_params)) {
     return false;

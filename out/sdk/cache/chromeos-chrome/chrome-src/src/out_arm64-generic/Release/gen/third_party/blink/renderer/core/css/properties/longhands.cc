@@ -11518,6 +11518,40 @@ void PositionFallbackBounds::ApplyValue(StyleResolverState& state, const CSSValu
 SetPositionFallbackBounds(StyleBuilderConverter::ConvertNormalOrCustomIdent(state, value));
 }
 
+ // position-try-options
+
+
+CSSExposure PositionTryOptions::Exposure(const ExecutionContext* execution_context) const {
+  if (!RuntimeEnabledFeatures::CSSAnchorPositioningEnabled(execution_context)) {
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
+
+const char* PositionTryOptions::GetPropertyName() const {
+  return "position-try-options";
+}
+
+const WTF::AtomicString& PositionTryOptions::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("position-try-options"));
+  return name;
+}
+
+const char* PositionTryOptions::GetJSPropertyName() const {
+  return "positionTryOptions";
+}
+
+
+
+void PositionTryOptions::ApplyInitial(StyleResolverState& state) const {
+  state.StyleBuilder().
+SetPositionTryOptions(ComputedStyleInitialValues::InitialPositionTryOptions());
+}
+void PositionTryOptions::ApplyInherit(StyleResolverState& state) const {
+  state.StyleBuilder().
+SetPositionTryOptions(state.ParentStyle()->GetPositionTryOptions());
+}
+
  // position-try-order
 
 

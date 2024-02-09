@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { LruCache } from 'chrome://file-manager/common/js/lru_cache.js';
-import { LoadImageRequest, LoadImageResponse, LoadImageResponseStatus } from './load_image_request.js';
+import { cacheKey, createCancel, LoadImageResponse, LoadImageResponseStatus } from './load_image_request.js';
 let instance = null;
 /**
  * Client used to connect to the remote ImageLoader extension. Client class runs
@@ -48,16 +48,16 @@ export class ImageLoaderClient {
         request.url = request.url.replace(CLIENT_URL_REGEX, IMAGE_LOADER_URL);
         request.url = request.url.replace(CLIENT_SWA_REGEX, IMAGE_LOADER_URL);
         // Try to load from cache, if available.
-        const cacheKey = LoadImageRequest.cacheKey(request);
-        if (cacheKey) {
+        const key = cacheKey(request);
+        if (key) {
             if (request.cache) {
                 // Load from cache.
-                let cachedValue = this.cache_.get(cacheKey);
+                let cachedValue = this.cache_.get(key);
                 // Check if the image in cache is up to date. If not, then remove it.
                 // It relies on comparing `null` equals to `undefined`.
                 // eslint-disable-next-line eqeqeq
                 if (cachedValue && cachedValue.timestamp != request.timestamp) {
-                    this.cache_.remove(cacheKey);
+                    this.cache_.remove(key);
                     cachedValue = null;
                 }
                 if (cachedValue && cachedValue.data && cachedValue.width &&
@@ -73,7 +73,7 @@ export class ImageLoaderClient {
             }
             else {
                 // Remove from cache.
-                this.cache_.remove(cacheKey);
+                this.cache_.remove(key);
             }
         }
         // Not available in cache, performing a request to a remote extension.
@@ -87,10 +87,10 @@ export class ImageLoaderClient {
             }
             const result = resultData;
             // Save to cache.
-            if (cacheKey && request.cache) {
+            if (key && request.cache) {
                 const value = LoadImageResponse.cacheValue(result, request.timestamp);
                 if (value) {
-                    this.cache_.put(cacheKey, value, value.data.length);
+                    this.cache_.put(key, value, value.data.length);
                 }
             }
             callback(result);
@@ -103,7 +103,7 @@ export class ImageLoaderClient {
      * @param taskId Task id returned by ImageLoaderClient.load().
      */
     cancel(taskId) {
-        ImageLoaderClient.sendMessage_(LoadImageRequest.createCancel(taskId), (_result) => { });
+        ImageLoaderClient.sendMessage_(createCancel(taskId), (_result) => { });
     }
     // Helper functions.
     /**

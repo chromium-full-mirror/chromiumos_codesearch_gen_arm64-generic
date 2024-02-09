@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { ImageLoaderClient } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/image_loader_client.js';
-import { LoadImageRequest, LoadImageResponse, LoadImageResponseStatus } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/load_image_request.js';
+import { createForUrl, LoadImageResponse, LoadImageResponseStatus } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/load_image_request.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { isModal } from '../../common/js/dialog_type.js';
 import { isSameEntry } from '../../common/js/entry_utils.js';
@@ -547,7 +547,7 @@ export class QuickViewController {
      */
     async loadThumbnailFromDrive_(url, modificationTime) {
         const client = ImageLoaderClient.getInstance();
-        const request = LoadImageRequest.createForUrl(url);
+        const request = createForUrl(url);
         request.cache = true;
         request.timestamp =
             modificationTime ? modificationTime.valueOf() : undefined;
@@ -562,7 +562,7 @@ export class QuickViewController {
     async loadRawFileThumbnailFromImageLoader_(entry) {
         return new Promise((resolve, reject) => {
             entry.file((file) => {
-                const request = LoadImageRequest.createForUrl(entry.toURL());
+                const request = createForUrl(entry.toURL());
                 request.maxWidth = THUMBNAIL_MAX_WIDTH;
                 request.maxHeight = THUMBNAIL_MAX_HEIGHT;
                 request.timestamp = file.lastModified;

@@ -2,14 +2,14 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { assert } from 'chrome://resources/ash/common/assert.js';
-import { LoadImageRequest } from './load_image_request.js';
 export function ImageLoaderUtil() { }
 /**
  * Checks if the options on the request contain any image processing.
  *
  * @param {number} width Source width.
  * @param {number} height Source height.
- * @param {!LoadImageRequest} request The request, containing resizing options.
+ * @param {!import('./load_image_request.js').LoadImageRequest} request The
+ *     request, containing resizing options.
  * @return {boolean} True if yes, false if not.
  */
 ImageLoaderUtil.shouldProcess = function (width, height, request) {
@@ -36,7 +36,8 @@ ImageLoaderUtil.shouldProcess = function (width, height, request) {
  *
  * @param {number} width Source width.
  * @param {number} height Source height.
- * @param {!LoadImageRequest} request The request, containing resizing options.
+ * @param {!import('./load_image_request.js').LoadImageRequest} request The
+ *     request, containing resizing options.
  * @return {!{width: number, height:number}} Dimensions.
  */
 ImageLoaderUtil.resizeDimensions = function (width, height, request) {
@@ -72,7 +73,8 @@ ImageLoaderUtil.resizeDimensions = function (width, height, request) {
  *
  * @param {HTMLCanvasElement|HTMLImageElement} source Source image or canvas.
  * @param {HTMLCanvasElement} target Target canvas.
- * @param {!LoadImageRequest} request The request, containing resizing options.
+ * @param {!import('./load_image_request.js').LoadImageRequest} request The
+ *     request, containing resizing options.
  */
 ImageLoaderUtil.resizeAndCrop = function (source, target, request) {
     // Calculates copy parameters.
@@ -101,7 +103,8 @@ ImageLoaderUtil.CopyParameters;
  * Calculates copy parameters.
  *
  * @param {HTMLCanvasElement|HTMLImageElement} source Source image or canvas.
- * @param {!LoadImageRequest} request The request, containing resizing options.
+ * @param {!import('./load_image_request.js').LoadImageRequest} request The
+ *     request, containing resizing options.
  * @return {!ImageLoaderUtil.CopyParameters} Calculated copy parameters.
  */
 ImageLoaderUtil.calculateCopyParameters = function (source, request) {

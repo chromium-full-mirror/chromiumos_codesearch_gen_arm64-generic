@@ -9,19 +9,18 @@ import { BackgroundBridge } from '../common/background_bridge.js';
 import { PanelInterface } from './panel_interface.js';
 const Dir = constants.Dir;
 export class ISearchUI {
-    /** @param {!Element} input */
+    static instance;
+    onKeyDown;
+    onTextInput;
+    input_;
+    dir_ = Dir.FORWARD;
     constructor(input) {
         this.input_ = input;
-        this.dir_ = Dir.FORWARD;
         this.onKeyDown = event => this.onKeyDown_(event);
         this.onTextInput = event => this.onTextInput_(event);
         input.addEventListener('keydown', this.onKeyDown, true);
         input.addEventListener('textInput', this.onTextInput, false);
     }
-    /**
-     * @param {!Element} input
-     * @return {!Promise<ISearchUI>}
-     */
     static async init(input) {
         if (ISearchUI.instance) {
             ISearchUI.instance.destroy();
@@ -32,12 +31,6 @@ export class ISearchUI {
         input.select();
         return ISearchUI.instance;
     }
-    /**
-     * Listens to key down events.
-     * @param {Event} evt
-     * @return {boolean}
-     * @private
-     */
     onKeyDown_(evt) {
         switch (evt.key) {
             case 'ArrowUp':
@@ -56,17 +49,12 @@ export class ISearchUI {
             default:
                 return false;
         }
+        // TODO(b/314203187): Not null asserted, check that this is correct.
         BackgroundBridge.PanelBackground.incrementalSearch(this.input_.value, this.dir_, true);
         evt.preventDefault();
         evt.stopPropagation();
         return false;
     }
-    /**
-     * Listens to text input events.
-     * @param {Event} evt
-     * @return {boolean}
-     * @private
-     */
     onTextInput_(evt) {
         const searchStr = evt.target.value + evt.data;
         BackgroundBridge.PanelBackground.incrementalSearch(searchStr, this.dir_);
@@ -77,9 +65,7 @@ export class ISearchUI {
         BackgroundBridge.PanelBackground.destroyISearch();
         const input = this.input_;
         this.input_ = null;
-        input.removeEventListener('keydown', this.onKeyDown, true);
-        input.removeEventListener('textInput', this.onTextInput, false);
+        input?.removeEventListener('keydown', this.onKeyDown, true);
+        input?.removeEventListener('textInput', this.onTextInput, false);
     }
 }
-/** @type {ISearchUI} */
-ISearchUI.instance;
