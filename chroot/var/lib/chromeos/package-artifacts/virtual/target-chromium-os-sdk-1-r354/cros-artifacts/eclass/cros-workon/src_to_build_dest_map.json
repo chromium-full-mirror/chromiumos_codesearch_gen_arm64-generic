@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/../platform/empty-project",
+      "build_dest_path": "/var/tmp/portage/virtual/target-chromium-os-sdk-1-r354/work/target-chromium-os-sdk-1"
+    }
+  ]
+}

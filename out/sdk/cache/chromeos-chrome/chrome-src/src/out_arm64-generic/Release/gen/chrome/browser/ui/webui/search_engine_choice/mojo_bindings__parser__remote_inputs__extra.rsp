@@ -21,5 +21,5 @@ home/chrome-bot/chrome_root/src/third_party/ply/yacc.py
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/search_engine_choice/mojo_bindings.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/search_engine_choice/mojo_bindings__parser.rsp
 home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/search_engine_choice/search_engine_choice.mojom
-home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/search_engine_choice/search_engine_choice.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/search_engine_choice/mojo_bindings.build_metadata
+home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/search_engine_choice/search_engine_choice.mojom

@@ -59,21 +59,21 @@ subninja obj/debugd/bt_usb_disconnect_helper.ninja
 subninja obj/debugd/capture_packets.ninja
 subninja obj/debugd/cryptohome-proto.ninja
 rule __debugd_cryptohome-proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3815/work/debugd-0.0.1/common-mk/file_generator_wrapper.py protoc key.proto rpc.proto --proto_path /build/arm64-generic/usr/include/chromeos/dbus/cryptohome --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/debugd/out/Default/gen/include
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3816/work/debugd-0.0.1/common-mk/file_generator_wrapper.py protoc key.proto rpc.proto --proto_path /build/arm64-generic/usr/include/chromeos/dbus/cryptohome --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/debugd/out/Default/gen/include
   description = ACTION //debugd:cryptohome-proto_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/key.pb.cc gen/include/key.pb.h gen/include/rpc.pb.cc gen/include/rpc.pb.h: __debugd_cryptohome-proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3815/work/debugd-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../usr/include/chromeos/dbus/cryptohome/key.proto ../../../../../../../usr/include/chromeos/dbus/cryptohome/rpc.proto
+build gen/include/key.pb.cc gen/include/key.pb.h gen/include/rpc.pb.cc gen/include/rpc.pb.h: __debugd_cryptohome-proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3816/work/debugd-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../usr/include/chromeos/dbus/cryptohome/key.proto ../../../../../../../usr/include/chromeos/dbus/cryptohome/rpc.proto
 
 build obj/debugd/cryptohome-proto_gen.stamp: stamp gen/include/key.pb.cc gen/include/key.pb.h gen/include/rpc.pb.cc gen/include/rpc.pb.h
 subninja obj/debugd/cups_uri_helper.ninja
 subninja obj/debugd/debugd.ninja
 rule __debugd_debugd-adaptors___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3815/work/debugd-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/debugd/out/Default/gen/include/debugd/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3815/work/debugd-0.0.1/debugd/dbus_bindings/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3816/work/debugd-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/debugd/out/Default/gen/include/debugd/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3816/work/debugd-0.0.1/debugd/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //debugd:debugd-adaptors(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/debugd/dbus_adaptors/org.chromium.debugd.h: __debugd_debugd-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3815/work/debugd-0.0.1/debugd/dbus_bindings/org.chromium.debugd.xml | ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3815/work/debugd-0.0.1/common-mk/file_generator_wrapper.py
+build gen/include/debugd/dbus_adaptors/org.chromium.debugd.h: __debugd_debugd-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3816/work/debugd-0.0.1/debugd/dbus_bindings/org.chromium.debugd.xml | ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3816/work/debugd-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.debugd
 
 build obj/debugd/debugd-adaptors.stamp: stamp gen/include/debugd/dbus_adaptors/org.chromium.debugd.h
@@ -96,11 +96,11 @@ subninja obj/debugd/netif.ninja
 subninja obj/debugd/network_status.ninja
 subninja obj/debugd/power_manager-proto.ninja
 rule __debugd_power_manager-proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3815/work/debugd-0.0.1/common-mk/file_generator_wrapper.py protoc battery_saver.proto --proto_path /build/arm64-generic/usr/include/chromeos/dbus/power_manager --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/debugd/out/Default/gen/include
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3816/work/debugd-0.0.1/common-mk/file_generator_wrapper.py protoc battery_saver.proto --proto_path /build/arm64-generic/usr/include/chromeos/dbus/power_manager --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/debugd/out/Default/gen/include
   description = ACTION //debugd:power_manager-proto_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/battery_saver.pb.cc gen/include/battery_saver.pb.h: __debugd_power_manager-proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3815/work/debugd-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../usr/include/chromeos/dbus/power_manager/battery_saver.proto
+build gen/include/battery_saver.pb.cc gen/include/battery_saver.pb.h: __debugd_power_manager-proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3816/work/debugd-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../usr/include/chromeos/dbus/power_manager/battery_saver.proto
 
 build obj/debugd/power_manager-proto_gen.stamp: stamp gen/include/battery_saver.pb.cc gen/include/battery_saver.pb.h
 subninja obj/debugd/scheduler_configuration_helper.ninja
