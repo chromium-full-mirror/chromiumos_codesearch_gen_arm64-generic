@@ -128,6 +128,22 @@ class  CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data {
 };
 static_assert(sizeof(CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data) == 16,
               "Bad sizeof(CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data)");
+class  CrosCameraServiceObserver_CameraEffectChange_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::cros::mojom::internal::EffectsConfig_Data> config;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraServiceObserver_CameraEffectChange_Params_Data>;
+
+  CrosCameraServiceObserver_CameraEffectChange_Params_Data();
+  ~CrosCameraServiceObserver_CameraEffectChange_Params_Data() = delete;
+};
+static_assert(sizeof(CrosCameraServiceObserver_CameraEffectChange_Params_Data) == 16,
+              "Bad sizeof(CrosCameraServiceObserver_CameraEffectChange_Params_Data)");
 class  CrosCameraService_GetCameraModule_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -501,6 +517,32 @@ class CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsDataView 
 };
 
 
+class CrosCameraServiceObserver_CameraEffectChange_ParamsDataView {
+ public:
+  CrosCameraServiceObserver_CameraEffectChange_ParamsDataView() = default;
+
+  CrosCameraServiceObserver_CameraEffectChange_ParamsDataView(
+      internal::CrosCameraServiceObserver_CameraEffectChange_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetConfigDataView(
+      ::cros::mojom::EffectsConfigDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConfig(UserType* output) {
+    
+    auto* pointer = data_->config.Get();
+    return mojo::internal::Deserialize<::cros::mojom::EffectsConfigDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosCameraServiceObserver_CameraEffectChange_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class CrosCameraService_GetCameraModule_ParamsDataView {
  public:
   CrosCameraService_GetCameraModule_ParamsDataView() = default;
@@ -782,6 +824,13 @@ inline void CameraHalDispatcher_RegisterClientWithToken_ParamsDataView::GetAuthT
 
 
 
+
+
+inline void CrosCameraServiceObserver_CameraEffectChange_ParamsDataView::GetConfigDataView(
+    ::cros::mojom::EffectsConfigDataView* output) {
+  auto pointer = data_->config.Get();
+  *output = ::cros::mojom::EffectsConfigDataView(pointer, message_);
+}
 
 
 

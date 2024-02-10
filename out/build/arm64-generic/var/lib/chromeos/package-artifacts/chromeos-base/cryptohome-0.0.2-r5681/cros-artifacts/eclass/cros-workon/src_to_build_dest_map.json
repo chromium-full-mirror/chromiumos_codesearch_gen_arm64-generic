@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/platform2",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/cryptohome-0.0.2-r5681/work/cryptohome-0.0.2/platform2"
+    }
+  ]
+}

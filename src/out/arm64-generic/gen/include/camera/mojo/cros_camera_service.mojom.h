@@ -153,7 +153,7 @@ class CrosCameraServiceObserver
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 14;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -169,6 +169,7 @@ class CrosCameraServiceObserver
     kCameraDeviceActivityChangeMinVersion = 0,
     kCameraPrivacySwitchStateChangeMinVersion = 0,
     kCameraSWPrivacySwitchStateChangeMinVersion = 0,
+    kCameraEffectChangeMinVersion = 14,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -183,6 +184,9 @@ class CrosCameraServiceObserver
   struct CameraSWPrivacySwitchStateChange_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct CameraEffectChange_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CrosCameraServiceObserver() = default;
 
@@ -194,6 +198,9 @@ class CrosCameraServiceObserver
 
   
   virtual void CameraSWPrivacySwitchStateChange(CameraPrivacySwitchState state) = 0;
+
+  
+  virtual void CameraEffectChange(::cros::mojom::EffectsConfigPtr config) = 0;
 };
 
 class CrosCameraServiceProxy;
@@ -343,6 +350,8 @@ class  CrosCameraServiceObserverProxy
   void CameraPrivacySwitchStateChange(CameraPrivacySwitchState state, int32_t camera_id) final;
   
   void CameraSWPrivacySwitchStateChange(CameraPrivacySwitchState state) final;
+  
+  void CameraEffectChange(::cros::mojom::EffectsConfigPtr config) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

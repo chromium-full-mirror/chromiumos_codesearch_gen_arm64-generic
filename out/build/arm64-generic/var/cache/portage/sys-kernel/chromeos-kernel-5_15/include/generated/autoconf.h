@@ -272,7 +272,7 @@
 #define CONFIG_MTD 1
 #define CONFIG_MIGRATION 1
 #define CONFIG_HAVE_ARCH_JUMP_LABEL 1
-#define CONFIG_BUILD_SALT "chromeos-kernel-5_15-5.15.148-r2684"
+#define CONFIG_BUILD_SALT "chromeos-kernel-5_15-5.15.148-r2685"
 #define CONFIG_MMC_BLOCK_MINORS 16
 #define CONFIG_HID_PRIMAX_MODULE 1
 #define CONFIG_HAVE_ARCH_PREL32_RELOCATIONS 1
@@ -1022,7 +1022,7 @@
 #define CONFIG_PM_OPP 1
 #define CONFIG_GPIO_CDEV 1
 #define CONFIG_CRYPTO_SHA2_ARM64_CE 1
-#define CONFIG_CC_VERSION_TEXT "Chromium OS 18.0_pre510928-r61 clang version 18.0.0 (/mnt/host/source/src/third_party/llvm-project 82e851a407c52d65ce65e7aa58453127e67d42a0)"
+#define CONFIG_CC_VERSION_TEXT "Chromium OS 18.0_pre510928-r64 clang version 18.0.0 (/mnt/host/source/src/third_party/llvm-project 82e851a407c52d65ce65e7aa58453127e67d42a0)"
 #define CONFIG_NET_IP_TUNNEL_MODULE 1
 #define CONFIG_MTD_CFI_I1 1
 #define CONFIG_NF_NAT 1

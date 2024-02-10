@@ -574,6 +574,9 @@ CrosCameraServiceObserver::IPCStableHashFunction CrosCameraServiceObserver::Mess
     case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name: {
       return &CrosCameraServiceObserver::CameraSWPrivacySwitchStateChange_Sym::IPCStableHash;
     }
+    case internal::kCrosCameraServiceObserver_CameraEffectChange_Name: {
+      return &CrosCameraServiceObserver::CameraEffectChange_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -591,6 +594,8 @@ const char* CrosCameraServiceObserver::MessageToMethodName_(mojo::Message& messa
             return "Receive cros::mojom::CrosCameraServiceObserver::CameraPrivacySwitchStateChange";
       case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name:
             return "Receive cros::mojom::CrosCameraServiceObserver::CameraSWPrivacySwitchStateChange";
+      case internal::kCrosCameraServiceObserver_CameraEffectChange_Name:
+            return "Receive cros::mojom::CrosCameraServiceObserver::CameraEffectChange";
     }
   } else {
     switch (message.name()) {
@@ -600,6 +605,8 @@ const char* CrosCameraServiceObserver::MessageToMethodName_(mojo::Message& messa
             return "Receive reply cros::mojom::CrosCameraServiceObserver::CameraPrivacySwitchStateChange";
       case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name:
             return "Receive reply cros::mojom::CrosCameraServiceObserver::CameraSWPrivacySwitchStateChange";
+      case internal::kCrosCameraServiceObserver_CameraEffectChange_Name:
+            return "Receive reply cros::mojom::CrosCameraServiceObserver::CameraEffectChange";
     }
   }
   return "Receive unknown mojo message";
@@ -649,6 +656,19 @@ uint32_t CrosCameraServiceObserver::CameraSWPrivacySwitchStateChange_Sym::IPCSta
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)cros::mojom::CrosCameraServiceObserver::CameraSWPrivacySwitchStateChange");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosCameraServiceObserver::CameraEffectChange_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CrosCameraServiceObserver::CameraEffectChange");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -797,6 +817,57 @@ void CrosCameraServiceObserverProxy::CameraSWPrivacySwitchStateChange(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void CrosCameraServiceObserverProxy::CameraEffectChange(
+    ::cros::mojom::EffectsConfigPtr in_config) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::CrosCameraServiceObserver::CameraEffectChange", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("config"), in_config,
+                        "<value of type ::cros::mojom::EffectsConfigPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosCameraServiceObserver_CameraEffectChange_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CrosCameraServiceObserver_CameraEffectChange_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->config)::BaseType> config_fragment(
+          params.message());
+  mojo::internal::Serialize<::cros::mojom::EffectsConfigDataView>(
+      in_config, config_fragment);
+  params->config.Set(
+      config_fragment.is_null() ? nullptr : config_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->config.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null config in CrosCameraServiceObserver.CameraEffectChange request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosCameraServiceObserver::Name_);
+  message.set_method_name("CameraEffectChange");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool CrosCameraServiceObserverStubDispatch::Accept(
     CrosCameraServiceObserver* impl,
@@ -898,6 +969,34 @@ bool CrosCameraServiceObserverStubDispatch::Accept(
         std::move(p_state));
       return true;
     }
+    case internal::kCrosCameraServiceObserver_CameraEffectChange_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CrosCameraServiceObserver_CameraEffectChange_Params_Data* params =
+          reinterpret_cast<internal::CrosCameraServiceObserver_CameraEffectChange_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for CrosCameraServiceObserver.3
+      bool success = true;
+      ::cros::mojom::EffectsConfigPtr p_config{};
+      CrosCameraServiceObserver_CameraEffectChange_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadConfig(&p_config))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosCameraServiceObserver::Name_, 3, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->CameraEffectChange(        
+        std::move(p_config));
+      return true;
+    }
   }
   return false;
 }
@@ -920,6 +1019,9 @@ bool CrosCameraServiceObserverStubDispatch::AcceptWithResponder(
     case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name: {
       break;
     }
+    case internal::kCrosCameraServiceObserver_CameraEffectChange_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -931,6 +1033,8 @@ static const mojo::internal::GenericValidationInfo kCrosCameraServiceObserverVal
     { &internal::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::CrosCameraServiceObserver_CameraEffectChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2404,6 +2508,9 @@ void CrosCameraServiceObserverInterceptorForTesting::CameraPrivacySwitchStateCha
 }
 void CrosCameraServiceObserverInterceptorForTesting::CameraSWPrivacySwitchStateChange(CameraPrivacySwitchState state) {
   GetForwardingInterface()->CameraSWPrivacySwitchStateChange(std::move(state));
+}
+void CrosCameraServiceObserverInterceptorForTesting::CameraEffectChange(::cros::mojom::EffectsConfigPtr config) {
+  GetForwardingInterface()->CameraEffectChange(std::move(config));
 }
 CrosCameraServiceObserverAsyncWaiter::CrosCameraServiceObserverAsyncWaiter(
     CrosCameraServiceObserver* proxy) : proxy_(proxy) {}
