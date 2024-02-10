@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/platform2",
-      "build_dest_path": "/var/tmp/portage/chromeos-base/update_payload-0.0.1-r598/work/update_payload-0.0.1"
-    }
-  ]
-}

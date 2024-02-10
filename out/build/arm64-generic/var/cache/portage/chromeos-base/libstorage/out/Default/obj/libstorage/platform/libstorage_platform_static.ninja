@@ -1,0 +1,10 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include
+root_out_dir = .
+target_output_name = libstorage_platform_static
+
+
+build ./libstorage_platform_static.a: alink || obj/libstorage/platform/libstorage_sources.stamp
+  arflags = rcsT
+  output_extension = .a
+  output_dir = 

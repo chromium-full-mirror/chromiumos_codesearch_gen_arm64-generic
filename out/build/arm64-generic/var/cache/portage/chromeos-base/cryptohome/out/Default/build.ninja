@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5679/work/cryptohome-0.0.2/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5680/work/cryptohome-0.0.2/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -26,8 +26,6 @@ build _encrypted-reboot-vault-install_config: phony obj/cryptohome/_encrypted-re
 build _homedirs_initializer-install_config: phony obj/cryptohome/_homedirs_initializer-install_config.stamp
 build _libcryptohome_data_migrator-install_config: phony obj/cryptohome/libs/_libcryptohome_data_migrator-install_config.stamp
 build _libcryptohome_data_migrator_pc-install_config: phony obj/cryptohome/libs/_libcryptohome_data_migrator_pc-install_config.stamp
-build _libcryptohome_platform-install_config: phony obj/cryptohome/libs/_libcryptohome_platform-install_config.stamp
-build _libcryptohome_platform_pc-install_config: phony obj/cryptohome/libs/_libcryptohome_platform_pc-install_config.stamp
 build _lockbox-cache-install_config: phony obj/cryptohome/_lockbox-cache-install_config.stamp
 build _lockbox-cache-manager-install_config: phony obj/cryptohome/_lockbox-cache-manager-install_config.stamp
 build _mount-encrypted-install_config: phony obj/cryptohome/_mount-encrypted-install_config.stamp
@@ -55,7 +53,6 @@ build install_attributes-proto: phony ./libinstall_attributes-proto.a
 build install_attributes-proto_gen: phony obj/common-mk/external_dependencies/install_attributes-proto_gen.stamp
 build install_data_migrator_headers: phony obj/cryptohome/libs/install_data_migrator_headers.stamp
 build install_dbus_config: phony obj/cryptohome/install_dbus_config.stamp
-build install_platform_headers: phony obj/cryptohome/libs/install_platform_headers.stamp
 build install_tmpfilesd_cryptohome: phony obj/cryptohome/install_tmpfilesd_cryptohome.stamp
 build install_tmpfilesd_freezer: phony obj/cryptohome/install_tmpfilesd_freezer.stamp
 build install_udev_rule: phony obj/cryptohome/install_udev_rule.stamp
@@ -64,8 +61,6 @@ build libcrostpm: phony ./libcrostpm.a
 build libcryptohome: phony ./libcryptohome.a
 build libcryptohome_data_migrator: phony ./lib/libcryptohome_data_migrator.so
 build libcryptohome_data_migrator_pc: phony obj/cryptohome/libs/libcryptohome_data_migrator_pc.stamp
-build libcryptohome_platform: phony ./lib/libcryptohome_platform.so
-build libcryptohome_platform_pc: phony obj/cryptohome/libs/libcryptohome_platform_pc.stamp
 build libfido: phony ./libfido.a
 build modemmanager-dbus-adaptors: phony obj/common-mk/external_dependencies/modemmanager-dbus-adaptors.stamp
 build mount_encrypted_lib: phony ./libmount_encrypted_lib.a
@@ -143,8 +138,6 @@ build cryptohome$:stateful-recovery: phony ./stateful-recovery
 build cryptohome$:stateful_recovery_lib: phony ./libstateful_recovery_lib.a
 build cryptohome/libs$:_libcryptohome_data_migrator-install_config: phony obj/cryptohome/libs/_libcryptohome_data_migrator-install_config.stamp
 build cryptohome/libs$:_libcryptohome_data_migrator_pc-install_config: phony obj/cryptohome/libs/_libcryptohome_data_migrator_pc-install_config.stamp
-build cryptohome/libs$:_libcryptohome_platform-install_config: phony obj/cryptohome/libs/_libcryptohome_platform-install_config.stamp
-build cryptohome/libs$:_libcryptohome_platform_pc-install_config: phony obj/cryptohome/libs/_libcryptohome_platform_pc-install_config.stamp
 build cryptohome/libs$:auth-block-state-flatbuffers-binding-binary: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-binary.stamp
 build cryptohome/libs$:auth-block-state-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-binary_gen.stamp
 build cryptohome/libs$:auth-block-state-flatbuffers-binding-generate: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-generate.stamp
@@ -162,14 +155,11 @@ build cryptohome/libs$:enumerations-flatbuffers-binding-binary_gen: phony obj/cr
 build cryptohome/libs$:enumerations-flatbuffers-binding-generate: phony obj/cryptohome/libs/enumerations-flatbuffers-binding-generate.stamp
 build cryptohome/libs$:flatbuffers-binding-generator: phony obj/cryptohome/libs/flatbuffers-binding-generator.stamp
 build cryptohome/libs$:install_data_migrator_headers: phony obj/cryptohome/libs/install_data_migrator_headers.stamp
-build cryptohome/libs$:install_platform_headers: phony obj/cryptohome/libs/install_platform_headers.stamp
 build cryptohome/libs$:libcrosplatform: phony ./libcrosplatform.a
 build cryptohome/libs$:libcrostpm: phony ./libcrostpm.a
 build cryptohome/libs$:libcryptohome: phony ./libcryptohome.a
 build cryptohome/libs$:libcryptohome_data_migrator: phony ./lib/libcryptohome_data_migrator.so
 build cryptohome/libs$:libcryptohome_data_migrator_pc: phony obj/cryptohome/libs/libcryptohome_data_migrator_pc.stamp
-build cryptohome/libs$:libcryptohome_platform: phony ./lib/libcryptohome_platform.so
-build cryptohome/libs$:libcryptohome_platform_pc: phony obj/cryptohome/libs/libcryptohome_platform_pc.stamp
 build cryptohome/libs$:libfido: phony ./libfido.a
 build cryptohome/libs$:namespace-mounter-ipc-proto: phony ./libnamespace-mounter-ipc-proto.a
 build cryptohome/libs$:namespace-mounter-ipc-proto_gen: phony obj/cryptohome/libs/namespace-mounter-ipc-proto_gen.stamp
@@ -234,8 +224,6 @@ build all: phony $
     ./libstateful_recovery_lib.a $
     obj/cryptohome/libs/_libcryptohome_data_migrator-install_config.stamp $
     obj/cryptohome/libs/_libcryptohome_data_migrator_pc-install_config.stamp $
-    obj/cryptohome/libs/_libcryptohome_platform-install_config.stamp $
-    obj/cryptohome/libs/_libcryptohome_platform_pc-install_config.stamp $
     obj/cryptohome/libs/auth-block-state-flatbuffers-binding-binary.stamp $
     obj/cryptohome/libs/auth-block-state-flatbuffers-binding-binary_gen.stamp $
     obj/cryptohome/libs/auth-block-state-flatbuffers-binding-generate.stamp $
@@ -253,14 +241,11 @@ build all: phony $
     obj/cryptohome/libs/enumerations-flatbuffers-binding-generate.stamp $
     obj/cryptohome/libs/flatbuffers-binding-generator.stamp $
     obj/cryptohome/libs/install_data_migrator_headers.stamp $
-    obj/cryptohome/libs/install_platform_headers.stamp $
     ./libcrosplatform.a $
     ./libcrostpm.a $
     ./libcryptohome.a $
     ./lib/libcryptohome_data_migrator.so $
     obj/cryptohome/libs/libcryptohome_data_migrator_pc.stamp $
-    ./lib/libcryptohome_platform.so $
-    obj/cryptohome/libs/libcryptohome_platform_pc.stamp $
     ./libfido.a $
     ./libnamespace-mounter-ipc-proto.a $
     obj/cryptohome/libs/namespace-mounter-ipc-proto_gen.stamp $

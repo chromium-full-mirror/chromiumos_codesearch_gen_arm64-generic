@@ -21,8 +21,8 @@ home/chrome-bot/chrome_root/src/third_party/ply/yacc.py
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/media_app_ui/mojo_bindings_untrusted.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/media_app_ui/mojo_bindings_untrusted__parser.rsp
 home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/media_app_ui_untrusted.mojom
-home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/media_app_ui_untrusted.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/gfx/geometry/mojom/geometry.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/gfx/geometry/mojom/mojom.build_metadata
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/media_app_ui/mojo_bindings_untrusted.build_metadata
 home/chrome-bot/chrome_root/src/ui/gfx/geometry/mojom/geometry.mojom
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/media_app_ui/mojo_bindings_untrusted.build_metadata
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/gfx/geometry/mojom/geometry.mojom-module
+home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/media_app_ui_untrusted.mojom
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/gfx/geometry/mojom/mojom.build_metadata
