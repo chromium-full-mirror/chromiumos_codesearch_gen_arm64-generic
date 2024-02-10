@@ -46,29 +46,29 @@ build obj/libstorage/platform/install_platform_fake_headers.stamp: stamp
 build obj/libstorage/platform/install_platform_headers.stamp: stamp
 subninja obj/libstorage/platform/libstorage_fake_platform.ninja
 rule __libstorage_platform_libstorage_fake_platform_pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libstorage/out/Default/obj/libstorage/platform/libstorage_fake_platform.pc --name=libstorage_fake_platform --description=Fake\$ Storage\$ Platform\$ library --version=1.0 --libs=-lstorage_fake_platform
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libstorage-0.0.1-r2/work/libstorage-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libstorage/out/Default/obj/libstorage/platform/libstorage_fake_platform.pc --name=libstorage_fake_platform --description=Fake\$ Storage\$ Platform\$ library --version=1.0 --libs=-lstorage_fake_platform
   description = ACTION //libstorage/platform:libstorage_fake_platform_pc(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/libstorage/platform/libstorage_fake_platform.pc: __libstorage_platform_libstorage_fake_platform_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/libstorage/platform/_libstorage_fake_platform_pc-install_config.stamp
+build obj/libstorage/platform/libstorage_fake_platform.pc: __libstorage_platform_libstorage_fake_platform_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/libstorage-0.0.1-r2/work/libstorage-0.0.1/common-mk/generate-pc.py obj/libstorage/platform/_libstorage_fake_platform_pc-install_config.stamp
 
 build obj/libstorage/platform/libstorage_fake_platform_pc.stamp: stamp obj/libstorage/platform/libstorage_fake_platform.pc
 subninja obj/libstorage/platform/libstorage_fuzzer.ninja
 rule __libstorage_platform_libstorage_fuzzer_pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libstorage/out/Default/obj/libstorage/platform/libstorage_fuzzer.pc --name=libstorage_fuzzer --description=Fuzzer\$ Platform\$ library --version=1.0 --libs=-lstorage_fuzzer --cflags=-I/usr/include/libstorage
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libstorage-0.0.1-r2/work/libstorage-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libstorage/out/Default/obj/libstorage/platform/libstorage_fuzzer.pc --name=libstorage_fuzzer --description=Fuzzer\$ Platform\$ library --version=1.0 --libs=-lstorage_fuzzer --cflags=-I/usr/include/libstorage
   description = ACTION //libstorage/platform:libstorage_fuzzer_pc(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/libstorage/platform/libstorage_fuzzer.pc: __libstorage_platform_libstorage_fuzzer_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/libstorage/platform/_libstorage_fuzzer_pc-install_config.stamp
+build obj/libstorage/platform/libstorage_fuzzer.pc: __libstorage_platform_libstorage_fuzzer_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/libstorage-0.0.1-r2/work/libstorage-0.0.1/common-mk/generate-pc.py obj/libstorage/platform/_libstorage_fuzzer_pc-install_config.stamp
 
 build obj/libstorage/platform/libstorage_fuzzer_pc.stamp: stamp obj/libstorage/platform/libstorage_fuzzer.pc
 subninja obj/libstorage/platform/libstorage_platform.ninja
 rule __libstorage_platform_libstorage_platform_pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libstorage/out/Default/obj/libstorage/platform/libstorage_platform.pc --name=libstorage_platform --description=Storage\$ Platform\$ library --version=1.0 --libs=-lstorage_platform --cflags=-I/usr/include/libstorage
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libstorage-0.0.1-r2/work/libstorage-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libstorage/out/Default/obj/libstorage/platform/libstorage_platform.pc --name=libstorage_platform --description=Storage\$ Platform\$ library --version=1.0 --libs=-lstorage_platform --cflags=-I/usr/include/libstorage
   description = ACTION //libstorage/platform:libstorage_platform_pc(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/libstorage/platform/libstorage_platform.pc: __libstorage_platform_libstorage_platform_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/libstorage/platform/_libstorage_platform_pc-install_config.stamp
+build obj/libstorage/platform/libstorage_platform.pc: __libstorage_platform_libstorage_platform_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/libstorage-0.0.1-r2/work/libstorage-0.0.1/common-mk/generate-pc.py obj/libstorage/platform/_libstorage_platform_pc-install_config.stamp
 
 build obj/libstorage/platform/libstorage_platform_pc.stamp: stamp obj/libstorage/platform/libstorage_platform.pc
 subninja obj/libstorage/platform/libstorage_platform_static.ninja
