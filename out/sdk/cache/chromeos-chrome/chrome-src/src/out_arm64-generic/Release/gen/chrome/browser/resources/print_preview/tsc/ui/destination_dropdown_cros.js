@@ -54,7 +54,15 @@ export class PrintPreviewDestinationDropdownCrosElement extends PrintPreviewDest
                     'driveDestinationKey, noDestinations)',
             },
             destinationStatusText: String,
+            pdfPosinset: Number,
+            drivePosinset: Number,
+            seeMorePosinset: Number,
         };
+    }
+    static get observers() {
+        return [
+            'updateAriaPosinset(itemList, pdfPrinterDisabled, driveDestinationKey)',
+        ];
     }
     ready() {
         super.ready();
@@ -255,6 +263,22 @@ export class PrintPreviewDestinationDropdownCrosElement extends PrintPreviewDest
     }
     getPrinterStatusIcon_(printerStatusReason, isEnterprisePrinter) {
         return getPrinterStatusIcon(printerStatusReason, isEnterprisePrinter, this.isDarkModeActive_);
+    }
+    getPrinterPosinset_(index) {
+        return index + 1;
+    }
+    /**
+     * Set the ARIA position in the dropdown based on the visible items.
+     */
+    updateAriaPosinset() {
+        let currentPosition = this.itemList ? this.itemList.length + 1 : 1;
+        if (!this.pdfPrinterDisabled) {
+            this.pdfPosinset = currentPosition++;
+        }
+        if (this.driveDestinationKey) {
+            this.drivePosinset = currentPosition++;
+        }
+        this.seeMorePosinset = currentPosition++;
     }
 }
 customElements.define(PrintPreviewDestinationDropdownCrosElement.is, PrintPreviewDestinationDropdownCrosElement);

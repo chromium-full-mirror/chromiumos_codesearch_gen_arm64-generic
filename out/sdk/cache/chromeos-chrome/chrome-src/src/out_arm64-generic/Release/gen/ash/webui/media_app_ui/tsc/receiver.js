@@ -290,6 +290,9 @@ const DELEGATE = {
         }
         await ocrUntrustedPageHandler?.pageMetadataUpdated(metadata);
     },
+    async pageContentsUpdated(dirtyPageId) {
+        await ocrUntrustedPageHandler?.pageContentsUpdated(dirtyPageId);
+    },
     async viewportUpdated(viewportBox, scaleFactor) {
         await ocrUntrustedPageHandler?.viewportUpdated({
             x: viewportBox.left,

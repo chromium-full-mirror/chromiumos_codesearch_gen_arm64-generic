@@ -313,6 +313,40 @@ class  CustomizeChromePageHandler_OpenThirdPartyThemePage_Params_Data {
 };
 static_assert(sizeof(CustomizeChromePageHandler_OpenThirdPartyThemePage_Params_Data) == 16,
               "Bad sizeof(CustomizeChromePageHandler_OpenThirdPartyThemePage_Params_Data)");
+class  CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t category;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data>;
+
+  CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data();
+  ~CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data() = delete;
+};
+static_assert(sizeof(CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data) == 16,
+              "Bad sizeof(CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data)");
+class  CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t collection;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data>;
+
+  CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data();
+  ~CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data() = delete;
+};
+static_assert(sizeof(CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data) == 16,
+              "Bad sizeof(CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data)");
 class  CustomizeChromePageHandler_SetModulesVisible_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -854,6 +888,56 @@ class CustomizeChromePageHandler_OpenThirdPartyThemePage_ParamsDataView {
 };
 
 
+class CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_ParamsDataView {
+ public:
+  CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_ParamsDataView() = default;
+
+  CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_ParamsDataView(
+      internal::CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadCategory(UserType* output) const {
+    auto data_value = data_->category;
+    return mojo::internal::Deserialize<::side_panel::mojom::ChromeWebStoreCategory>(
+        data_value, output);
+  }
+  ChromeWebStoreCategory category() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::side_panel::mojom::ChromeWebStoreCategory>(data_->category));
+  }
+ private:
+  internal::CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data* data_ = nullptr;
+};
+
+
+class CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_ParamsDataView {
+ public:
+  CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_ParamsDataView() = default;
+
+  CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_ParamsDataView(
+      internal::CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadCollection(UserType* output) const {
+    auto data_value = data_->collection;
+    return mojo::internal::Deserialize<::side_panel::mojom::ChromeWebStoreCollection>(
+        data_value, output);
+  }
+  ChromeWebStoreCollection collection() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::side_panel::mojom::ChromeWebStoreCollection>(data_->collection));
+  }
+ private:
+  internal::CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data* data_ = nullptr;
+};
+
+
 class CustomizeChromePageHandler_SetModulesVisible_ParamsDataView {
  public:
   CustomizeChromePageHandler_SetModulesVisible_ParamsDataView() = default;
@@ -1108,6 +1192,10 @@ inline void CustomizeChromePageHandler_OpenThirdPartyThemePage_ParamsDataView::G
   auto pointer = data_->theme_id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
+
+
 
 
 

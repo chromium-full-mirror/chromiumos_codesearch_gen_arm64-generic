@@ -86,7 +86,6 @@
   "files": [
     "preprocessed/file_manager/foreground/js/ui/directory_tree_unittest.js",
     "preprocessed/file_manager/foreground/js/navigation_list_model_unittest.js",
-    "preprocessed/image_loader/image_loader_unittest.js",
     "preprocessed/file_manager/common/js/array_data_model_unittest.ts",
     "preprocessed/file_manager/common/js/async_util_unittest.ts",
     "preprocessed/file_manager/common/js/entry_utils_unittest.ts",
@@ -200,6 +199,7 @@
     "preprocessed/file_manager/foreground/js/metadata/thumbnail_model_unittest.ts",
     "preprocessed/image_loader/cache_unittest.ts",
     "preprocessed/image_loader/image_loader_client_unittest.ts",
+    "preprocessed/image_loader/image_loader_unittest.ts",
     "preprocessed/image_loader/image_orientation_unittest.ts",
     "preprocessed/image_loader/scheduler_unittest.ts",
     "../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_event.d.ts",

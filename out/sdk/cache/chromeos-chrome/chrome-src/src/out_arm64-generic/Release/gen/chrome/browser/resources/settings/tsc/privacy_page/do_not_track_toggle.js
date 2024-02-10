@@ -30,9 +30,10 @@ export class SettingsDoNotTrackToggleElement extends PolymerElement {
                 type: Boolean,
                 value: false,
             },
-            is3pcdRedesignEnabled_: {
+            isCookiesUiV2_: {
                 type: Boolean,
-                value: () => loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled'),
+                value: () => (loadTimeData.getBoolean('isCookieSettingsUiAlignmentEnabled') ||
+                    loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled')),
             },
         };
     }

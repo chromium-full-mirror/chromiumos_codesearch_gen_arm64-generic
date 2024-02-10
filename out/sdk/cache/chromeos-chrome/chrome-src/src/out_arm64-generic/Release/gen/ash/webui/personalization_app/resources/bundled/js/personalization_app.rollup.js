@@ -6777,8 +6777,8 @@ function getWallpaperTemplates() {
         },
         {
             id: SeaPenTemplateId.kArt,
-            title: 'Classic art',
-            text: `A painting of a <${SeaPenTemplateChip.kArtFeature}> in the <${SeaPenTemplateChip.kArtMovement}> style`,
+            title: loadTimeData.getString('seaPenTemplateTitleArt'),
+            text: loadTimeData.getStringF('seaPenTemplateArt', `<${SeaPenTemplateChip.kArtFeature}>`, `<${SeaPenTemplateChip.kArtMovement}>`),
             preview: [{
                     url: 'chrome://resources/ash/common/sea_pen/sea_pen_images/sea_pen_art.jpg',
                 }],
@@ -6788,83 +6788,83 @@ function getWallpaperTemplates() {
                     [
                         {
                             value: SeaPenTemplateOption.kArtFeatureCanyon,
-                            translation: 'canyon',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureCanyon'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureMountain,
-                            translation: 'mountain',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureMountain'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureBeach,
-                            translation: 'beach',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureBeach'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureCave,
-                            translation: 'cave',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureCave'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureCliff,
-                            translation: 'cliff',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureCliff'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureForest,
-                            translation: 'forest',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureForest'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureGlacier,
-                            translation: 'glacier',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureGlacier'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureIsland,
-                            translation: 'tropical island',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureIsland'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureJungle,
-                            translation: 'jungle',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureJungle'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureLake,
-                            translation: 'lake',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureLake'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureMeadow,
-                            translation: 'meadow',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureMeadow'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureOcean,
-                            translation: 'vast ocean',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureOcean'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureRiver,
-                            translation: 'river',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureRiver'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureDune,
-                            translation: 'sand dune',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureDune'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureSwamp,
-                            translation: 'swamp',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureSwamp'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureValley,
-                            translation: 'valley',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureValley'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureWaterfall,
-                            translation: 'waterfall',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureWaterfall'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureField,
-                            translation: 'field of flowers ',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureField'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureCityscape,
-                            translation: 'cityscape',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureCityscape'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtFeatureVillage,
-                            translation: 'village',
+                            translation: loadTimeData.getString('seaPenOptionArtFeatureVillage'),
                         },
                     ],
                 ],
@@ -6873,59 +6873,59 @@ function getWallpaperTemplates() {
                     [
                         {
                             value: SeaPenTemplateOption.kArtMovementAvantGarde,
-                            translation: 'avant-garde',
+                            translation: loadTimeData.getString('seaPenOptionArtMovementAvantGarde'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtMovementRealist,
-                            translation: 'realist',
+                            translation: loadTimeData.getString('seaPenOptionArtMovementRealist'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtMovementExpressionist,
-                            translation: 'expressionist',
+                            translation: loadTimeData.getString('seaPenOptionArtMovementExpressionist'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtMovementImpressionist,
-                            translation: 'impressionist',
+                            translation: loadTimeData.getString('seaPenOptionArtMovementImpressionist'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtMovementPostImpressionist,
-                            translation: 'post-impressionist',
+                            translation: loadTimeData.getString('seaPenOptionArtMovementPostImpressionist'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtMovementArtNouveau,
-                            translation: 'art nouveau',
+                            translation: loadTimeData.getString('seaPenOptionArtMovementArtNouveau'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtMovementBaroque,
-                            translation: 'baroque',
+                            translation: loadTimeData.getString('seaPenOptionArtMovementBaroque'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtMovementBauhaus,
-                            translation: 'bauhaus',
+                            translation: loadTimeData.getString('seaPenOptionArtMovementBauhaus'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtMovementClassicist,
-                            translation: 'classicist',
+                            translation: loadTimeData.getString('seaPenOptionArtMovementClassicist'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtMovementWatercolor,
-                            translation: 'watercolor',
+                            translation: loadTimeData.getString('seaPenOptionArtMovementWatercolor'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtMovementAbstract,
-                            translation: 'abstract',
+                            translation: loadTimeData.getString('seaPenOptionArtMovementAbstract'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtMovementPointillist,
-                            translation: 'pointillist',
+                            translation: loadTimeData.getString('seaPenOptionArtMovementPointillist'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtMovementGraphicDesign,
-                            translation: 'graphic design',
+                            translation: loadTimeData.getString('seaPenOptionArtMovementGraphicDesign'),
                         },
                         {
                             value: SeaPenTemplateOption.kArtMovementModernArt,
-                            translation: 'modern art',
+                            translation: loadTimeData.getString('seaPenOptionArtMovementModernArt'),
                         },
                     ],
                 ],
@@ -9933,6 +9933,7 @@ var SeaPenActionName;
     SeaPenActionName["SET_RECENT_SEA_PEN_IMAGES"] = "set_recent_sea_pen_images";
     SeaPenActionName["SET_RECENT_SEA_PEN_IMAGE_DATA"] = "set_recent_sea_pen_image_data";
     SeaPenActionName["SET_SELECTED_RECENT_SEA_PEN_IMAGE"] = "set_selected_recent_sea_pen_image";
+    SeaPenActionName["SET_SEA_PEN_ATTRIBUTION"] = "set_sea_pen_attribution";
     SeaPenActionName["SET_SHOULD_SHOW_SEA_PEN_TERMS_OF_SERVICE_DIALOG"] = "set_should_show_sea_pen_terms_of_service_dialog";
 })(SeaPenActionName || (SeaPenActionName = {}));
 function beginSearchSeaPenThumbnailsAction(query) {
@@ -10015,6 +10016,11 @@ function setSelectedRecentSeaPenImageAction(key) {
     return {
         name: SeaPenActionName.SET_SELECTED_RECENT_SEA_PEN_IMAGE,
         key: key,
+    };
+}
+function setSeaPenAttributionAction() {
+    return {
+        name: SeaPenActionName.SET_SEA_PEN_ATTRIBUTION,
     };
 }
 function setThumbnailResponseStatusCodeAction(thumbnailResponseStatusCode) {
@@ -10103,26 +10109,56 @@ function loadingReducer$1(state, action) {
                 },
             };
         case SeaPenActionName.BEGIN_SELECT_RECENT_SEA_PEN_IMAGE:
-        case SeaPenActionName.BEGIN_SELECT_SEA_PEN_THUMBNAIL:
-            return { ...state, setImage: state.setImage + 1 };
+            return {
+                ...state,
+                setImage: state.setImage + 1,
+            };
         case SeaPenActionName.END_SELECT_RECENT_SEA_PEN_IMAGE:
         case SeaPenActionName.END_SELECT_SEA_PEN_THUMBNAIL:
             if (state.setImage <= 0) {
                 console.error('Impossible state for loading.setImage');
                 // Reset to 0.
-                return { ...state, setImage: 0 };
+                return {
+                    ...state,
+                    setImage: 0,
+                };
             }
-            return { ...state, setImage: state.setImage - 1 };
+            return {
+                ...state,
+                setImage: state.setImage - 1,
+            };
         case SeaPenActionName.BEGIN_LOAD_SELECTED_RECENT_SEA_PEN_IMAGE:
+            return {
+                ...state,
+                selected: {
+                    attribution: true,
+                    image: true,
+                },
+            };
         case SeaPenActionName.BEGIN_SELECT_SEA_PEN_THUMBNAIL:
             return {
                 ...state,
-                currentSelected: true,
+                setImage: state.setImage + 1,
+                selected: {
+                    attribution: true,
+                    image: true,
+                },
             };
         case SeaPenActionName.SET_SELECTED_RECENT_SEA_PEN_IMAGE:
             return {
                 ...state,
-                currentSelected: false,
+                selected: {
+                    ...state.selected,
+                    image: false,
+                },
+            };
+        case SeaPenActionName.SET_SEA_PEN_ATTRIBUTION:
+            return {
+                ...state,
+                selected: {
+                    ...state.selected,
+                    attribution: false,
+                },
             };
         default:
             return state;
@@ -10588,7 +10624,10 @@ function emptyState$6() {
             recentImages: false,
             recentImageData: {},
             thumbnails: false,
-            currentSelected: false,
+            selected: {
+                attribution: false,
+                image: false,
+            },
             setImage: 0,
         },
         recentImageData: {},
@@ -12914,6 +12953,15 @@ class WallpaperObserver {
     onAttributionChanged(attribution) {
         const store = PersonalizationStore.getInstance();
         store.dispatch(setAttributionAction(attribution));
+        // Set the Sea Pen wallpaper attribution loading state completed if it is
+        // loading.
+        if (store.data.wallpaper.seaPen.loading.selected.attribution) {
+            // Sea Pen currentSelected state should have been set before the
+            // attribution is notified, and match with the attribution key.
+            assert$1(attribution, 'attribution should be available');
+            assert$1(store.data.wallpaper.seaPen.currentSelected === attribution.key, 'attribution key should match currentSelected');
+            store.dispatch(setSeaPenAttributionAction());
+        }
     }
     onWallpaperChanged(currentWallpaper) {
         // Ignore updates while in fullscreen preview mode. The attribution
@@ -30968,10 +31016,16 @@ class WallpaperSelectedElement extends WithPersonalizationStore {
         this.watch('error_', state => state.error);
         this.watch('attribution_', state => state.wallpaper.attribution);
         this.watch('image_', state => state.wallpaper.currentSelected);
-        this.watch('isLoading_', state => state.wallpaper.loading.setImage > 0 ||
-            state.wallpaper.loading.selected.image ||
-            state.wallpaper.loading.selected.attribution ||
-            state.wallpaper.loading.refreshWallpaper);
+        this.watch('isLoading_', state => {
+            const isWallpaperLoading = state.wallpaper.loading.setImage > 0 ||
+                state.wallpaper.loading.selected.image ||
+                state.wallpaper.loading.selected.attribution ||
+                state.wallpaper.loading.refreshWallpaper;
+            const isSeaPenLoading = state.wallpaper.seaPen.loading.setImage > 0 ||
+                state.wallpaper.seaPen.loading.selected.image ||
+                state.wallpaper.seaPen.loading.selected.attribution;
+            return isWallpaperLoading || isSeaPenLoading;
+        });
         this.watch('dailyRefreshState_', state => state.wallpaper.dailyRefresh);
         this.watch('imagesByCollectionId_', state => state.wallpaper.backdrop.images);
         this.watch('photosByAlbumId_', state => state.wallpaper.googlePhotos.photosByAlbumId);
@@ -31654,5 +31708,5 @@ if (isPersonalizationJellyEnabled()) {
     ColorChangeUpdater.forDocument().start();
 }
 
-export { AcceptEvent, AlbumListElement, AlbumsSubpageElement, AmbientActionName, AmbientModeAlbumSpec, AmbientObserver, AmbientObserverCallbackRouter, AmbientObserverPendingReceiver, AmbientObserverReceiver, AmbientObserverRemote, AmbientObserver_OnAlbumsChanged_ParamsSpec, AmbientObserver_OnAmbientModeEnabledChanged_ParamsSpec, AmbientObserver_OnAmbientThemeChanged_ParamsSpec, AmbientObserver_OnAmbientUiVisibilityChanged_ParamsSpec, AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsSpec, AmbientObserver_OnPreviewsFetched_ParamsSpec, AmbientObserver_OnScreenSaverDurationChanged_ParamsSpec, AmbientObserver_OnTemperatureUnitChanged_ParamsSpec, AmbientObserver_OnTopicSourceChanged_ParamsSpec, AmbientPreviewLargeElement, AmbientPreviewSmallElement, AmbientProvider, AmbientProviderCallbackRouter, AmbientProviderPendingReceiver, AmbientProviderReceiver, AmbientProviderRemote, AmbientProvider_EnableGeolocationForSystemServices_ParamsSpec, AmbientProvider_FetchSettingsAndAlbums_ParamsSpec, AmbientProvider_HandleTimeOfDayBannerDismissed_ParamsSpec, AmbientProvider_IsAmbientModeEnabled_ParamsSpec, AmbientProvider_IsAmbientModeEnabled_ResponseParamsSpec, AmbientProvider_IsGeolocationEnabledForSystemServices_ParamsSpec, AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParamsSpec, AmbientProvider_SetAlbumSelected_ParamsSpec, AmbientProvider_SetAmbientModeEnabled_ParamsSpec, AmbientProvider_SetAmbientObserver_ParamsSpec, AmbientProvider_SetAmbientTheme_ParamsSpec, AmbientProvider_SetPageViewed_ParamsSpec, AmbientProvider_SetScreenSaverDuration_ParamsSpec, AmbientProvider_SetTemperatureUnit_ParamsSpec, AmbientProvider_SetTopicSource_ParamsSpec, AmbientProvider_ShouldShowTimeOfDayBanner_ParamsSpec, AmbientProvider_ShouldShowTimeOfDayBanner_ResponseParamsSpec, AmbientProvider_StartScreenSaverPreview_ParamsSpec, AmbientSubpageElement, AmbientTheme, AmbientThemeItemElement, AmbientThemeListElement, AmbientThemeSpec, AmbientUiVisibility, AmbientUiVisibilitySpec, AmbientWeatherUnitElement, AmbientZeroStateElement, ArtAlbumDialogElement, AvatarCameraElement, AvatarListElement, BLUE_COLOR, BacklightColor, BacklightColorSpec, ColorIconElement, ColorScheme, ColorSchemeIconSvgElement, CurrentAttributionSpec, CurrentBacklightStateSpec, CurrentWallpaperSpec, DEFAULT_COLOR_SCHEME, DailyRefreshType, DefaultUserImageSpec, DeprecatedSourceInfoSpec, DynamicColorElement, FetchGooglePhotosAlbumsResponseSpec, FetchGooglePhotosPhotosResponseSpec, GREEN_COLOR, GetUserMediaProxy, GooglePhotosAlbumSpec, GooglePhotosAlbumsElement, GooglePhotosCollectionElement, GooglePhotosEnablementState, GooglePhotosEnablementStateSpec, GooglePhotosPhotoSpec, GooglePhotosPhotosByAlbumIdElement, GooglePhotosPhotosElement, GooglePhotosSharedAlbumDialogElement, GooglePhotosTab, GooglePhotosZeroStateElement, INDIGO_COLOR, InvalidImageSpec, KeyboardBacklightActionName, KeyboardBacklightElement, KeyboardBacklightObserver, KeyboardBacklightObserverCallbackRouter, KeyboardBacklightObserverPendingReceiver, KeyboardBacklightObserverReceiver, KeyboardBacklightObserverRemote, KeyboardBacklightObserver_OnBacklightStateChanged_ParamsSpec, KeyboardBacklightObserver_OnWallpaperColorChanged_ParamsSpec, KeyboardBacklightProvider, KeyboardBacklightProviderCallbackRouter, KeyboardBacklightProviderPendingReceiver, KeyboardBacklightProviderReceiver, KeyboardBacklightProviderRemote, KeyboardBacklightProvider_HandleNudgeShown_ParamsSpec, KeyboardBacklightProvider_SetBacklightColor_ParamsSpec, KeyboardBacklightProvider_SetBacklightZoneColor_ParamsSpec, KeyboardBacklightProvider_SetKeyboardBacklightObserver_ParamsSpec, KeyboardBacklightProvider_ShouldShowNudge_ParamsSpec, KeyboardBacklightProvider_ShouldShowNudge_ResponseParamsSpec, LocalImagesElement, OnlineImageType, OnlineImageTypeSpec, PURPLE_COLOR, Paths, PersonalizationActionName, PersonalizationBreadcrumbElement, PersonalizationMainElement, PersonalizationRouterElement, PersonalizationStore, PersonalizationThemeElement, PersonalizationToastElement, ProfileImageSpec, RED_COLOR, STATIC_COLOR_DARK_GREEN, STATIC_COLOR_GOOGLE_BLUE, STATIC_COLOR_LIGHT_PINK, STATIC_COLOR_LIGHT_PURPLE, SampleColorSchemeSpec, ScrollableTarget, SeaPenActionName, SeaPenImagesElement, SeaPenInputQueryElement, SeaPenPaths, SeaPenRecentWallpapersElement, SeaPenRouterElement, SeaPenStoreAdapter, SeaPenTemplateQueryElement, SeaPenTemplatesElement, SeaPenTermsOfServiceDialogElement, SparklePlaceholderElement, StaticColor, StaticColorSpec, TemperatureUnit, TemperatureUnitSpec, ThemeActionName, ThemeObserver, ThemeObserverCallbackRouter, ThemeObserverPendingReceiver, ThemeObserverReceiver, ThemeObserverRemote, ThemeObserver_OnColorModeAutoScheduleChanged_ParamsSpec, ThemeObserver_OnColorModeChanged_ParamsSpec, ThemeObserver_OnColorSchemeChanged_ParamsSpec, ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsSpec, ThemeObserver_OnSampleColorSchemesChanged_ParamsSpec, ThemeObserver_OnStaticColorChanged_ParamsSpec, ThemeProvider, ThemeProviderCallbackRouter, ThemeProviderPendingReceiver, ThemeProviderReceiver, ThemeProviderRemote, ThemeProvider_EnableGeolocationForSystemServices_ParamsSpec, ThemeProvider_GenerateSampleColorSchemes_ParamsSpec, ThemeProvider_GenerateSampleColorSchemes_ResponseParamsSpec, ThemeProvider_GetColorScheme_ParamsSpec, ThemeProvider_GetColorScheme_ResponseParamsSpec, ThemeProvider_GetStaticColor_ParamsSpec, ThemeProvider_GetStaticColor_ResponseParamsSpec, ThemeProvider_IsColorModeAutoScheduleEnabled_ParamsSpec, ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParamsSpec, ThemeProvider_IsDarkModeEnabled_ParamsSpec, ThemeProvider_IsDarkModeEnabled_ResponseParamsSpec, ThemeProvider_IsGeolocationEnabledForSystemServices_ParamsSpec, ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParamsSpec, ThemeProvider_SetColorModeAutoScheduleEnabled_ParamsSpec, ThemeProvider_SetColorModePref_ParamsSpec, ThemeProvider_SetColorScheme_ParamsSpec, ThemeProvider_SetStaticColor_ParamsSpec, ThemeProvider_SetThemeObserver_ParamsSpec, TimeOfDayAcceptEvent, TimeOfDayBannerElement, TimeOfDayWallpaperDialogElement, ToggleRowElement, TopicSource, TopicSourceItemElement, TopicSourceListElement, TopicSourceSpec, UserActionName, UserImageObserver, UserImageObserverCallbackRouter, UserImageObserverPendingReceiver, UserImageObserverReceiver, UserImageObserverRemote, UserImageObserver_OnCameraPresenceCheckDone_ParamsSpec, UserImageObserver_OnIsEnterpriseManagedChanged_ParamsSpec, UserImageObserver_OnUserImageChanged_ParamsSpec, UserImageObserver_OnUserProfileImageUpdated_ParamsSpec, UserImageSpec, UserInfoSpec, UserPreviewElement, UserProvider, UserProviderCallbackRouter, UserProviderPendingReceiver, UserProviderReceiver, UserProviderRemote, UserProvider_GetDefaultUserImages_ParamsSpec, UserProvider_GetDefaultUserImages_ResponseParamsSpec, UserProvider_GetUserInfo_ParamsSpec, UserProvider_GetUserInfo_ResponseParamsSpec, UserProvider_SelectCameraImage_ParamsSpec, UserProvider_SelectDefaultImage_ParamsSpec, UserProvider_SelectImageFromDisk_ParamsSpec, UserProvider_SelectLastExternalUserImage_ParamsSpec, UserProvider_SelectProfileImage_ParamsSpec, UserProvider_SetUserImageObserver_ParamsSpec, UserSubpageElement, WHITE_COLOR, WallpaperActionName, WallpaperCollectionSpec, WallpaperCollectionsElement, WallpaperErrorElement, WallpaperFullscreenElement, WallpaperGridItemElement, WallpaperImageSpec, WallpaperImagesElement, WallpaperLayout, WallpaperLayoutSpec, WallpaperObserver, WallpaperObserverCallbackRouter, WallpaperObserverPendingReceiver, WallpaperObserverReceiver, WallpaperObserverRemote, WallpaperObserver_OnAttributionChanged_ParamsSpec, WallpaperObserver_OnWallpaperChanged_ParamsSpec, WallpaperObserver_OnWallpaperPreviewEnded_ParamsSpec, WallpaperPreviewElement, WallpaperProvider, WallpaperProviderCallbackRouter, WallpaperProviderPendingReceiver, WallpaperProviderReceiver, WallpaperProviderRemote, WallpaperProvider_CancelPreviewWallpaper_ParamsSpec, WallpaperProvider_ConfirmPreviewWallpaper_ParamsSpec, WallpaperProvider_FetchCollections_ParamsSpec, WallpaperProvider_FetchCollections_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosAlbums_ParamsSpec, WallpaperProvider_FetchGooglePhotosAlbums_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosEnabled_ParamsSpec, WallpaperProvider_FetchGooglePhotosEnabled_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosPhotos_ParamsSpec, WallpaperProvider_FetchGooglePhotosPhotos_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosSharedAlbums_ParamsSpec, WallpaperProvider_FetchGooglePhotosSharedAlbums_ResponseParamsSpec, WallpaperProvider_FetchImagesForCollection_ParamsSpec, WallpaperProvider_FetchImagesForCollection_ResponseParamsSpec, WallpaperProvider_GetDailyRefreshCollectionId_ParamsSpec, WallpaperProvider_GetDailyRefreshCollectionId_ResponseParamsSpec, WallpaperProvider_GetDefaultImageThumbnail_ParamsSpec, WallpaperProvider_GetDefaultImageThumbnail_ResponseParamsSpec, WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_ParamsSpec, WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_ResponseParamsSpec, WallpaperProvider_GetLocalImageThumbnail_ParamsSpec, WallpaperProvider_GetLocalImageThumbnail_ResponseParamsSpec, WallpaperProvider_GetLocalImages_ParamsSpec, WallpaperProvider_GetLocalImages_ResponseParamsSpec, WallpaperProvider_IsInTabletMode_ParamsSpec, WallpaperProvider_IsInTabletMode_ResponseParamsSpec, WallpaperProvider_MakeOpaque_ParamsSpec, WallpaperProvider_MakeTransparent_ParamsSpec, WallpaperProvider_SelectDefaultImage_ParamsSpec, WallpaperProvider_SelectDefaultImage_ResponseParamsSpec, WallpaperProvider_SelectGooglePhotosAlbum_ParamsSpec, WallpaperProvider_SelectGooglePhotosAlbum_ResponseParamsSpec, WallpaperProvider_SelectGooglePhotosPhoto_ParamsSpec, WallpaperProvider_SelectGooglePhotosPhoto_ResponseParamsSpec, WallpaperProvider_SelectLocalImage_ParamsSpec, WallpaperProvider_SelectLocalImage_ResponseParamsSpec, WallpaperProvider_SelectWallpaper_ParamsSpec, WallpaperProvider_SelectWallpaper_ResponseParamsSpec, WallpaperProvider_SetCurrentWallpaperLayout_ParamsSpec, WallpaperProvider_SetDailyRefreshCollectionId_ParamsSpec, WallpaperProvider_SetDailyRefreshCollectionId_ResponseParamsSpec, WallpaperProvider_SetWallpaperObserver_ParamsSpec, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsSpec, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsSpec, WallpaperProvider_UpdateDailyRefreshWallpaper_ParamsSpec, WallpaperProvider_UpdateDailyRefreshWallpaper_ResponseParamsSpec, WallpaperSelectedElement, WallpaperSubpageElement, WallpaperType, WallpaperTypeSpec, YELLOW_COLOR, ZoneCustomizationElement, appendGooglePhotosAlbumAction, appendGooglePhotosAlbumsAction, appendGooglePhotosPhotosAction, appendGooglePhotosSharedAlbumsAction, beginLoadDefaultImageThubmnailAction, beginLoadGooglePhotosAlbumAction, beginLoadGooglePhotosAlbumsAction, beginLoadGooglePhotosEnabledAction, beginLoadGooglePhotosPhotosAction, beginLoadGooglePhotosSharedAlbumsAction, beginLoadImagesForCollectionsAction, beginLoadLocalImageDataAction, beginLoadLocalImagesAction, beginLoadRecentSeaPenImageDataAction, beginLoadRecentSeaPenImagesAction, beginLoadSelectedImageAction, beginLoadSelectedRecentSeaPenImageAction, beginSearchSeaPenThumbnailsAction, beginSelectImageAction, beginSelectRecentSeaPenImageAction, beginSelectSeaPenThumbnailAction, beginUpdateDailyRefreshImageAction, cancelPreviewWallpaper, clearDailyRefreshAction, clearSeaPenThumbnailsAction, confirmPreviewWallpaper, dismissErrorAction, emptyState, endSelectImageAction, endSelectRecentSeaPenImageAction, endSelectSeaPenThumbnailAction, fetchCollections, fetchGooglePhotosAlbum, fetchGooglePhotosAlbums, fetchGooglePhotosEnabled, fetchGooglePhotosPhotos, fetchGooglePhotosSharedAlbums, fetchLocalData, getCountText, getDefaultImageThumbnail, getImageTiles, getLocalImages, getNumberOfGridItemsPerRow, getRecentSeaPenImages, getSeaPenStore, getThemeProvider, getWebcamUtils, initializeBackdropData, isDefaultImage, isGooglePhotosPhoto, isWallpaperImage, kDefaultImageSymbol, kMaximumLocalImagePreviews, reduce, searchSeaPenThumbnails, selectGooglePhotosAlbum, selectRecentSeaPenImage, selectWallpaper, setAlbumSelectedAction, setAlbumsAction, setAmbientModeEnabledAction, setAmbientProviderForTesting, setAmbientThemeAction, setAttributionAction, setCollectionsAction, setColorSchemeAction, setCurrentBacklightStateAction, setCurrentWallpaperLayout, setDailyRefreshCollectionId, setDailyRefreshCollectionIdAction, setDarkModeEnabledAction, setDefaultImageThumbnailAction, setFullscreenEnabledAction, setGooglePhotosDailyRefreshAlbumIdAction, setGooglePhotosEnabledAction, setImagesForCollectionAction, setKeyboardBacklightProviderForTesting, setLocalImageDataAction, setLocalImagesAction, setPreviewsAction, setRecentSeaPenImageDataAction, setRecentSeaPenImagesAction, setScreenSaverDurationAction, setSeaPenProviderForTesting, setSeaPenStore, setSeaPenThumbnailsAction, setSelectedImageAction, setSelectedRecentSeaPenImageAction, setShouldShowNudgeAction, setShouldShowSeaPenTermsOfServiceDialogAction, setShouldShowTimeOfDayWallpaperDialog, setStaticColorAction, setTemperatureUnitAction, setThemeProviderForTesting, setThumbnailResponseStatusCodeAction, setTopicSourceAction, setUpdatedDailyRefreshImageAction, setUserProviderForTesting, setWallpaperColorAction, setWallpaperProviderForTesting, setWebcamUtilsForTesting, staticColorIds, updateDailyRefreshWallpaper };
+export { AcceptEvent, AlbumListElement, AlbumsSubpageElement, AmbientActionName, AmbientModeAlbumSpec, AmbientObserver, AmbientObserverCallbackRouter, AmbientObserverPendingReceiver, AmbientObserverReceiver, AmbientObserverRemote, AmbientObserver_OnAlbumsChanged_ParamsSpec, AmbientObserver_OnAmbientModeEnabledChanged_ParamsSpec, AmbientObserver_OnAmbientThemeChanged_ParamsSpec, AmbientObserver_OnAmbientUiVisibilityChanged_ParamsSpec, AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsSpec, AmbientObserver_OnPreviewsFetched_ParamsSpec, AmbientObserver_OnScreenSaverDurationChanged_ParamsSpec, AmbientObserver_OnTemperatureUnitChanged_ParamsSpec, AmbientObserver_OnTopicSourceChanged_ParamsSpec, AmbientPreviewLargeElement, AmbientPreviewSmallElement, AmbientProvider, AmbientProviderCallbackRouter, AmbientProviderPendingReceiver, AmbientProviderReceiver, AmbientProviderRemote, AmbientProvider_EnableGeolocationForSystemServices_ParamsSpec, AmbientProvider_FetchSettingsAndAlbums_ParamsSpec, AmbientProvider_HandleTimeOfDayBannerDismissed_ParamsSpec, AmbientProvider_IsAmbientModeEnabled_ParamsSpec, AmbientProvider_IsAmbientModeEnabled_ResponseParamsSpec, AmbientProvider_IsGeolocationEnabledForSystemServices_ParamsSpec, AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParamsSpec, AmbientProvider_SetAlbumSelected_ParamsSpec, AmbientProvider_SetAmbientModeEnabled_ParamsSpec, AmbientProvider_SetAmbientObserver_ParamsSpec, AmbientProvider_SetAmbientTheme_ParamsSpec, AmbientProvider_SetPageViewed_ParamsSpec, AmbientProvider_SetScreenSaverDuration_ParamsSpec, AmbientProvider_SetTemperatureUnit_ParamsSpec, AmbientProvider_SetTopicSource_ParamsSpec, AmbientProvider_ShouldShowTimeOfDayBanner_ParamsSpec, AmbientProvider_ShouldShowTimeOfDayBanner_ResponseParamsSpec, AmbientProvider_StartScreenSaverPreview_ParamsSpec, AmbientSubpageElement, AmbientTheme, AmbientThemeItemElement, AmbientThemeListElement, AmbientThemeSpec, AmbientUiVisibility, AmbientUiVisibilitySpec, AmbientWeatherUnitElement, AmbientZeroStateElement, ArtAlbumDialogElement, AvatarCameraElement, AvatarListElement, BLUE_COLOR, BacklightColor, BacklightColorSpec, ColorIconElement, ColorScheme, ColorSchemeIconSvgElement, CurrentAttributionSpec, CurrentBacklightStateSpec, CurrentWallpaperSpec, DEFAULT_COLOR_SCHEME, DailyRefreshType, DefaultUserImageSpec, DeprecatedSourceInfoSpec, DynamicColorElement, FetchGooglePhotosAlbumsResponseSpec, FetchGooglePhotosPhotosResponseSpec, GREEN_COLOR, GetUserMediaProxy, GooglePhotosAlbumSpec, GooglePhotosAlbumsElement, GooglePhotosCollectionElement, GooglePhotosEnablementState, GooglePhotosEnablementStateSpec, GooglePhotosPhotoSpec, GooglePhotosPhotosByAlbumIdElement, GooglePhotosPhotosElement, GooglePhotosSharedAlbumDialogElement, GooglePhotosTab, GooglePhotosZeroStateElement, INDIGO_COLOR, InvalidImageSpec, KeyboardBacklightActionName, KeyboardBacklightElement, KeyboardBacklightObserver, KeyboardBacklightObserverCallbackRouter, KeyboardBacklightObserverPendingReceiver, KeyboardBacklightObserverReceiver, KeyboardBacklightObserverRemote, KeyboardBacklightObserver_OnBacklightStateChanged_ParamsSpec, KeyboardBacklightObserver_OnWallpaperColorChanged_ParamsSpec, KeyboardBacklightProvider, KeyboardBacklightProviderCallbackRouter, KeyboardBacklightProviderPendingReceiver, KeyboardBacklightProviderReceiver, KeyboardBacklightProviderRemote, KeyboardBacklightProvider_HandleNudgeShown_ParamsSpec, KeyboardBacklightProvider_SetBacklightColor_ParamsSpec, KeyboardBacklightProvider_SetBacklightZoneColor_ParamsSpec, KeyboardBacklightProvider_SetKeyboardBacklightObserver_ParamsSpec, KeyboardBacklightProvider_ShouldShowNudge_ParamsSpec, KeyboardBacklightProvider_ShouldShowNudge_ResponseParamsSpec, LocalImagesElement, OnlineImageType, OnlineImageTypeSpec, PURPLE_COLOR, Paths, PersonalizationActionName, PersonalizationBreadcrumbElement, PersonalizationMainElement, PersonalizationRouterElement, PersonalizationStore, PersonalizationThemeElement, PersonalizationToastElement, ProfileImageSpec, RED_COLOR, STATIC_COLOR_DARK_GREEN, STATIC_COLOR_GOOGLE_BLUE, STATIC_COLOR_LIGHT_PINK, STATIC_COLOR_LIGHT_PURPLE, SampleColorSchemeSpec, ScrollableTarget, SeaPenActionName, SeaPenImagesElement, SeaPenInputQueryElement, SeaPenPaths, SeaPenRecentWallpapersElement, SeaPenRouterElement, SeaPenStoreAdapter, SeaPenTemplateQueryElement, SeaPenTemplatesElement, SeaPenTermsOfServiceDialogElement, SparklePlaceholderElement, StaticColor, StaticColorSpec, TemperatureUnit, TemperatureUnitSpec, ThemeActionName, ThemeObserver, ThemeObserverCallbackRouter, ThemeObserverPendingReceiver, ThemeObserverReceiver, ThemeObserverRemote, ThemeObserver_OnColorModeAutoScheduleChanged_ParamsSpec, ThemeObserver_OnColorModeChanged_ParamsSpec, ThemeObserver_OnColorSchemeChanged_ParamsSpec, ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsSpec, ThemeObserver_OnSampleColorSchemesChanged_ParamsSpec, ThemeObserver_OnStaticColorChanged_ParamsSpec, ThemeProvider, ThemeProviderCallbackRouter, ThemeProviderPendingReceiver, ThemeProviderReceiver, ThemeProviderRemote, ThemeProvider_EnableGeolocationForSystemServices_ParamsSpec, ThemeProvider_GenerateSampleColorSchemes_ParamsSpec, ThemeProvider_GenerateSampleColorSchemes_ResponseParamsSpec, ThemeProvider_GetColorScheme_ParamsSpec, ThemeProvider_GetColorScheme_ResponseParamsSpec, ThemeProvider_GetStaticColor_ParamsSpec, ThemeProvider_GetStaticColor_ResponseParamsSpec, ThemeProvider_IsColorModeAutoScheduleEnabled_ParamsSpec, ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParamsSpec, ThemeProvider_IsDarkModeEnabled_ParamsSpec, ThemeProvider_IsDarkModeEnabled_ResponseParamsSpec, ThemeProvider_IsGeolocationEnabledForSystemServices_ParamsSpec, ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParamsSpec, ThemeProvider_SetColorModeAutoScheduleEnabled_ParamsSpec, ThemeProvider_SetColorModePref_ParamsSpec, ThemeProvider_SetColorScheme_ParamsSpec, ThemeProvider_SetStaticColor_ParamsSpec, ThemeProvider_SetThemeObserver_ParamsSpec, TimeOfDayAcceptEvent, TimeOfDayBannerElement, TimeOfDayWallpaperDialogElement, ToggleRowElement, TopicSource, TopicSourceItemElement, TopicSourceListElement, TopicSourceSpec, UserActionName, UserImageObserver, UserImageObserverCallbackRouter, UserImageObserverPendingReceiver, UserImageObserverReceiver, UserImageObserverRemote, UserImageObserver_OnCameraPresenceCheckDone_ParamsSpec, UserImageObserver_OnIsEnterpriseManagedChanged_ParamsSpec, UserImageObserver_OnUserImageChanged_ParamsSpec, UserImageObserver_OnUserProfileImageUpdated_ParamsSpec, UserImageSpec, UserInfoSpec, UserPreviewElement, UserProvider, UserProviderCallbackRouter, UserProviderPendingReceiver, UserProviderReceiver, UserProviderRemote, UserProvider_GetDefaultUserImages_ParamsSpec, UserProvider_GetDefaultUserImages_ResponseParamsSpec, UserProvider_GetUserInfo_ParamsSpec, UserProvider_GetUserInfo_ResponseParamsSpec, UserProvider_SelectCameraImage_ParamsSpec, UserProvider_SelectDefaultImage_ParamsSpec, UserProvider_SelectImageFromDisk_ParamsSpec, UserProvider_SelectLastExternalUserImage_ParamsSpec, UserProvider_SelectProfileImage_ParamsSpec, UserProvider_SetUserImageObserver_ParamsSpec, UserSubpageElement, WHITE_COLOR, WallpaperActionName, WallpaperCollectionSpec, WallpaperCollectionsElement, WallpaperErrorElement, WallpaperFullscreenElement, WallpaperGridItemElement, WallpaperImageSpec, WallpaperImagesElement, WallpaperLayout, WallpaperLayoutSpec, WallpaperObserver, WallpaperObserverCallbackRouter, WallpaperObserverPendingReceiver, WallpaperObserverReceiver, WallpaperObserverRemote, WallpaperObserver_OnAttributionChanged_ParamsSpec, WallpaperObserver_OnWallpaperChanged_ParamsSpec, WallpaperObserver_OnWallpaperPreviewEnded_ParamsSpec, WallpaperPreviewElement, WallpaperProvider, WallpaperProviderCallbackRouter, WallpaperProviderPendingReceiver, WallpaperProviderReceiver, WallpaperProviderRemote, WallpaperProvider_CancelPreviewWallpaper_ParamsSpec, WallpaperProvider_ConfirmPreviewWallpaper_ParamsSpec, WallpaperProvider_FetchCollections_ParamsSpec, WallpaperProvider_FetchCollections_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosAlbums_ParamsSpec, WallpaperProvider_FetchGooglePhotosAlbums_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosEnabled_ParamsSpec, WallpaperProvider_FetchGooglePhotosEnabled_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosPhotos_ParamsSpec, WallpaperProvider_FetchGooglePhotosPhotos_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosSharedAlbums_ParamsSpec, WallpaperProvider_FetchGooglePhotosSharedAlbums_ResponseParamsSpec, WallpaperProvider_FetchImagesForCollection_ParamsSpec, WallpaperProvider_FetchImagesForCollection_ResponseParamsSpec, WallpaperProvider_GetDailyRefreshCollectionId_ParamsSpec, WallpaperProvider_GetDailyRefreshCollectionId_ResponseParamsSpec, WallpaperProvider_GetDefaultImageThumbnail_ParamsSpec, WallpaperProvider_GetDefaultImageThumbnail_ResponseParamsSpec, WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_ParamsSpec, WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_ResponseParamsSpec, WallpaperProvider_GetLocalImageThumbnail_ParamsSpec, WallpaperProvider_GetLocalImageThumbnail_ResponseParamsSpec, WallpaperProvider_GetLocalImages_ParamsSpec, WallpaperProvider_GetLocalImages_ResponseParamsSpec, WallpaperProvider_IsInTabletMode_ParamsSpec, WallpaperProvider_IsInTabletMode_ResponseParamsSpec, WallpaperProvider_MakeOpaque_ParamsSpec, WallpaperProvider_MakeTransparent_ParamsSpec, WallpaperProvider_SelectDefaultImage_ParamsSpec, WallpaperProvider_SelectDefaultImage_ResponseParamsSpec, WallpaperProvider_SelectGooglePhotosAlbum_ParamsSpec, WallpaperProvider_SelectGooglePhotosAlbum_ResponseParamsSpec, WallpaperProvider_SelectGooglePhotosPhoto_ParamsSpec, WallpaperProvider_SelectGooglePhotosPhoto_ResponseParamsSpec, WallpaperProvider_SelectLocalImage_ParamsSpec, WallpaperProvider_SelectLocalImage_ResponseParamsSpec, WallpaperProvider_SelectWallpaper_ParamsSpec, WallpaperProvider_SelectWallpaper_ResponseParamsSpec, WallpaperProvider_SetCurrentWallpaperLayout_ParamsSpec, WallpaperProvider_SetDailyRefreshCollectionId_ParamsSpec, WallpaperProvider_SetDailyRefreshCollectionId_ResponseParamsSpec, WallpaperProvider_SetWallpaperObserver_ParamsSpec, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsSpec, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsSpec, WallpaperProvider_UpdateDailyRefreshWallpaper_ParamsSpec, WallpaperProvider_UpdateDailyRefreshWallpaper_ResponseParamsSpec, WallpaperSelectedElement, WallpaperSubpageElement, WallpaperType, WallpaperTypeSpec, YELLOW_COLOR, ZoneCustomizationElement, appendGooglePhotosAlbumAction, appendGooglePhotosAlbumsAction, appendGooglePhotosPhotosAction, appendGooglePhotosSharedAlbumsAction, beginLoadDefaultImageThubmnailAction, beginLoadGooglePhotosAlbumAction, beginLoadGooglePhotosAlbumsAction, beginLoadGooglePhotosEnabledAction, beginLoadGooglePhotosPhotosAction, beginLoadGooglePhotosSharedAlbumsAction, beginLoadImagesForCollectionsAction, beginLoadLocalImageDataAction, beginLoadLocalImagesAction, beginLoadRecentSeaPenImageDataAction, beginLoadRecentSeaPenImagesAction, beginLoadSelectedImageAction, beginLoadSelectedRecentSeaPenImageAction, beginSearchSeaPenThumbnailsAction, beginSelectImageAction, beginSelectRecentSeaPenImageAction, beginSelectSeaPenThumbnailAction, beginUpdateDailyRefreshImageAction, cancelPreviewWallpaper, clearDailyRefreshAction, clearSeaPenThumbnailsAction, confirmPreviewWallpaper, dismissErrorAction, emptyState, endSelectImageAction, endSelectRecentSeaPenImageAction, endSelectSeaPenThumbnailAction, fetchCollections, fetchGooglePhotosAlbum, fetchGooglePhotosAlbums, fetchGooglePhotosEnabled, fetchGooglePhotosPhotos, fetchGooglePhotosSharedAlbums, fetchLocalData, getCountText, getDefaultImageThumbnail, getImageTiles, getLocalImages, getNumberOfGridItemsPerRow, getRecentSeaPenImages, getSeaPenStore, getThemeProvider, getWebcamUtils, initializeBackdropData, isDefaultImage, isGooglePhotosPhoto, isWallpaperImage, kDefaultImageSymbol, kMaximumLocalImagePreviews, reduce, searchSeaPenThumbnails, selectGooglePhotosAlbum, selectRecentSeaPenImage, selectWallpaper, setAlbumSelectedAction, setAlbumsAction, setAmbientModeEnabledAction, setAmbientProviderForTesting, setAmbientThemeAction, setAttributionAction, setCollectionsAction, setColorSchemeAction, setCurrentBacklightStateAction, setCurrentWallpaperLayout, setDailyRefreshCollectionId, setDailyRefreshCollectionIdAction, setDarkModeEnabledAction, setDefaultImageThumbnailAction, setFullscreenEnabledAction, setGooglePhotosDailyRefreshAlbumIdAction, setGooglePhotosEnabledAction, setImagesForCollectionAction, setKeyboardBacklightProviderForTesting, setLocalImageDataAction, setLocalImagesAction, setPreviewsAction, setRecentSeaPenImageDataAction, setRecentSeaPenImagesAction, setScreenSaverDurationAction, setSeaPenAttributionAction, setSeaPenProviderForTesting, setSeaPenStore, setSeaPenThumbnailsAction, setSelectedImageAction, setSelectedRecentSeaPenImageAction, setShouldShowNudgeAction, setShouldShowSeaPenTermsOfServiceDialogAction, setShouldShowTimeOfDayWallpaperDialog, setStaticColorAction, setTemperatureUnitAction, setThemeProviderForTesting, setThumbnailResponseStatusCodeAction, setTopicSourceAction, setUpdatedDailyRefreshImageAction, setUserProviderForTesting, setWallpaperColorAction, setWallpaperProviderForTesting, setWebcamUtilsForTesting, staticColorIds, updateDailyRefreshWallpaper };
 //# sourceMappingURL=personalization_app.rollup.js.map

@@ -162,6 +162,8 @@ class BLINK_PLATFORM_EXPORT IpProtectionProxyDelegateInterceptorForTesting : pub
   virtual IpProtectionProxyDelegate* GetForwardingInterface() = 0;
   void VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) override;
   void InvalidateIpProtectionConfigCacheTryAgainAfterTime() override;
+  void SetIpProtectionEnabled(bool value) override;
+  void IsIpProtectionEnabledForTesting(IsIpProtectionEnabledForTestingCallback callback) override;
 };
 class BLINK_PLATFORM_EXPORT IpProtectionProxyDelegateAsyncWaiter {
  public:
@@ -174,6 +176,9 @@ class BLINK_PLATFORM_EXPORT IpProtectionProxyDelegateAsyncWaiter {
   void VerifyIpProtectionConfigGetterForTesting(
       BlindSignedAuthTokenPtr* out_bsa_token, std::optional<::base::Time>* out_try_again_after);
   
+  void IsIpProtectionEnabledForTesting(
+      bool* out_value);
+  bool IsIpProtectionEnabledForTesting();
 
  private:
   IpProtectionProxyDelegate* const proxy_;

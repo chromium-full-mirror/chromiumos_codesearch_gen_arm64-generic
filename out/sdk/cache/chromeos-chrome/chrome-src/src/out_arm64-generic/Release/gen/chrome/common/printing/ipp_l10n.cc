@@ -6,8 +6,8 @@
 #include "base/no_destructor.h"
 #include "components/strings/grit/components_strings.h"
 
-const std::map<base::StringPiece, int>& CapabilityLocalizationMap() {
-  static const base::NoDestructor<std::map<base::StringPiece, int>> l10n_map({
+const std::map<std::string_view, int>& CapabilityLocalizationMap() {
+  static const base::NoDestructor<std::map<std::string_view, int>> l10n_map({
       {"chamber-humidity", IDS_PRINT_CHAMBER_HUMIDITY},
       {"chamber-temperature", IDS_PRINT_CHAMBER_TEMPERATURE},
       {"confirmation-sheet-print", IDS_PRINT_CONFIRMATION_SHEET_PRINT},

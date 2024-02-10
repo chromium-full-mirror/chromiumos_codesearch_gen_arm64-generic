@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_-->    <style include="settings-shared passwords-shared cr-screen-reader-only">.expiration-column,.misc-column{align-items:center;display:flex;flex:1}.misc-column{justify-content:flex-end}.list-item{margin-bottom:8px;margin-top:8px}.sub-label{color:var(--cr-secondary-text-color)}#paymentsIcon{vertical-align:middle}#cardImage{margin-inline-end:16px;vertical-align:middle}</style>
+    return html `<!--_html_template_start_-->    <style include="settings-shared passwords-shared cr-screen-reader-only">.expiration-column,.misc-column{align-items:center;display:flex;flex:1}.misc-column{justify-content:flex-end}.list-item{margin-bottom:8px;margin-top:8px}.sub-label{color:var(--cr-secondary-text-color)}#paymentsIcon{vertical-align:middle}#cardImage{margin-inline-end:16px;vertical-align:middle}#summaryTermsLink{text-decoration:none}</style>
     <div class="list-item" role="row">
       <div class="type-column" role="cell">
         <img id="cardImage" src="[[creditCard.imageSrc]]" alt="">
@@ -12,8 +12,11 @@ export function getTemplate() {
           <div id="summaryLabel" class="ellipses" aria-hidden="true">
             [[creditCard.metadata.summaryLabel]]
           </div>
-          <div id="summarySublabel" class="ellipses sub-label" aria-hidden="true">
+          <div id="summarySublabel" class="sub-label" aria-hidden="true">
             [[getSummarySublabel_(creditCard)]]
+            <template is="dom-if" if="[[isCardBenefitsProductUrlAvailable_(creditCard)]]">
+              (<a id="summaryTermsLink" href="[[getCardBenefitsProductUrl_(creditCard)]]" target="_blank">$i18n{benefitsTermsTagForCreditCardListEntry}</a>)
+            </template>
           </div>
         </div>
       </div>

@@ -44,174 +44,6 @@
 
 
 namespace blink::mojom {
-DigitalCredentialProvider::DigitalCredentialProvider()
-    : params(),
-      selector(),
-      protocol(),
-      request(),
-      publicKey() {}
-
-DigitalCredentialProvider::DigitalCredentialProvider(
-    const std::optional<base::flat_map<std::string, std::string>>& params_in,
-    DigitalCredentialSelectorPtr selector_in,
-    const std::optional<std::string>& protocol_in,
-    const std::optional<std::string>& request_in,
-    const std::optional<std::string>& publicKey_in)
-    : params(std::move(params_in)),
-      selector(std::move(selector_in)),
-      protocol(std::move(protocol_in)),
-      request(std::move(request_in)),
-      publicKey(std::move(publicKey_in)) {}
-
-DigitalCredentialProvider::~DigitalCredentialProvider() = default;
-
-void DigitalCredentialProvider::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "params"), this->params,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::optional<base::flat_map<std::string, std::string>>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "selector"), this->selector,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type DigitalCredentialSelectorPtr>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "protocol"), this->protocol,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "request"), this->request,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "publicKey"), this->publicKey,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool DigitalCredentialProvider::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-DigitalCredentialSelector::DigitalCredentialSelector()
-    : format(),
-      doctype(),
-      fields() {}
-
-DigitalCredentialSelector::DigitalCredentialSelector(
-    std::vector<std::string> format_in,
-    const std::optional<std::string>& doctype_in,
-    std::vector<DigitalCredentialFieldRequirementPtr> fields_in)
-    : format(std::move(format_in)),
-      doctype(std::move(doctype_in)),
-      fields(std::move(fields_in)) {}
-
-DigitalCredentialSelector::~DigitalCredentialSelector() = default;
-
-void DigitalCredentialSelector::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "format"), this->format,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "doctype"), this->doctype,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "fields"), this->fields,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type std::vector<DigitalCredentialFieldRequirementPtr>>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool DigitalCredentialSelector::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-DigitalCredentialFieldRequirement::DigitalCredentialFieldRequirement()
-    : name(),
-      equals() {}
-
-DigitalCredentialFieldRequirement::DigitalCredentialFieldRequirement(
-    const std::string& name_in,
-    const std::optional<std::string>& equals_in)
-    : name(std::move(name_in)),
-      equals(std::move(equals_in)) {}
-
-DigitalCredentialFieldRequirement::~DigitalCredentialFieldRequirement() = default;
-
-void DigitalCredentialFieldRequirement::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "name"), this->name,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::string&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "equals"), this->equals,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool DigitalCredentialFieldRequirement::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
 IdentityProviderConfig::IdentityProviderConfig()
     : config_url(),
       use_registered_config_urls(),
@@ -481,7 +313,7 @@ IdentityProviderGetParameters::IdentityProviderGetParameters()
       mode() {}
 
 IdentityProviderGetParameters::IdentityProviderGetParameters(
-    std::vector<IdentityProviderPtr> providers_in,
+    std::vector<IdentityProviderRequestOptionsPtr> providers_in,
     RpContext context_in,
     RpMode mode_in)
     : providers(std::move(providers_in)),
@@ -497,7 +329,7 @@ void IdentityProviderGetParameters::WriteIntoTrace(
     dict.AddItem(
       "providers"), this->providers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type std::vector<IdentityProviderPtr>>"
+      "<value of type std::vector<IdentityProviderRequestOptionsPtr>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -566,57 +398,6 @@ bool TokenError::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
-}
-IdentityProvider::IdentityProvider() : tag_(Tag::kFederated) {
-  data_.federated = new IdentityProviderRequestOptionsPtr;
-}
-
-IdentityProvider::~IdentityProvider() {
-  DestroyActive();
-}
-
-
-void IdentityProvider::set_federated(
-    IdentityProviderRequestOptionsPtr federated) {
-  if (tag_ == Tag::kFederated) {
-    *(data_.federated) = std::move(federated);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kFederated;
-    data_.federated = new IdentityProviderRequestOptionsPtr(
-        std::move(federated));
-  }
-}
-void IdentityProvider::set_holder(
-    DigitalCredentialProviderPtr holder) {
-  if (tag_ == Tag::kHolder) {
-    *(data_.holder) = std::move(holder);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kHolder;
-    data_.holder = new DigitalCredentialProviderPtr(
-        std::move(holder));
-  }
-}
-
-void IdentityProvider::DestroyActive() {
-  switch (tag_) {
-
-    case Tag::kFederated:
-
-      delete data_.federated;
-      break;
-    case Tag::kHolder:
-
-      delete data_.holder;
-      break;
-  }
-}
-
-bool IdentityProvider::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context, false);
 }
 const char FederatedAuthRequest::Name_[] = "blink.mojom.FederatedAuthRequest";
 
@@ -2739,62 +2520,6 @@ namespace mojo {
 
 
 // static
-bool StructTraits<::blink::mojom::DigitalCredentialProvider::DataView, ::blink::mojom::DigitalCredentialProviderPtr>::Read(
-    ::blink::mojom::DigitalCredentialProvider::DataView input,
-    ::blink::mojom::DigitalCredentialProviderPtr* output) {
-  bool success = true;
-  ::blink::mojom::DigitalCredentialProviderPtr result(::blink::mojom::DigitalCredentialProvider::New());
-  
-      if (success && !input.ReadParams(&result->params))
-        success = false;
-      if (success && !input.ReadSelector(&result->selector))
-        success = false;
-      if (success && !input.ReadProtocol(&result->protocol))
-        success = false;
-      if (success && !input.ReadRequest(&result->request))
-        success = false;
-      if (success && !input.ReadPublicKey(&result->publicKey))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::blink::mojom::DigitalCredentialSelector::DataView, ::blink::mojom::DigitalCredentialSelectorPtr>::Read(
-    ::blink::mojom::DigitalCredentialSelector::DataView input,
-    ::blink::mojom::DigitalCredentialSelectorPtr* output) {
-  bool success = true;
-  ::blink::mojom::DigitalCredentialSelectorPtr result(::blink::mojom::DigitalCredentialSelector::New());
-  
-      if (success && !input.ReadFormat(&result->format))
-        success = false;
-      if (success && !input.ReadDoctype(&result->doctype))
-        success = false;
-      if (success && !input.ReadFields(&result->fields))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::blink::mojom::DigitalCredentialFieldRequirement::DataView, ::blink::mojom::DigitalCredentialFieldRequirementPtr>::Read(
-    ::blink::mojom::DigitalCredentialFieldRequirement::DataView input,
-    ::blink::mojom::DigitalCredentialFieldRequirementPtr* output) {
-  bool success = true;
-  ::blink::mojom::DigitalCredentialFieldRequirementPtr result(::blink::mojom::DigitalCredentialFieldRequirement::New());
-  
-      if (success && !input.ReadName(&result->name))
-        success = false;
-      if (success && !input.ReadEquals(&result->equals))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
 bool StructTraits<::blink::mojom::IdentityProviderConfig::DataView, ::blink::mojom::IdentityProviderConfigPtr>::Read(
     ::blink::mojom::IdentityProviderConfig::DataView input,
     ::blink::mojom::IdentityProviderConfigPtr* output) {
@@ -2905,39 +2630,6 @@ bool StructTraits<::blink::mojom::TokenError::DataView, ::blink::mojom::TokenErr
         success = false;
   *output = std::move(result);
   return success;
-}
-
-// static
-bool UnionTraits<::blink::mojom::IdentityProvider::DataView, ::blink::mojom::IdentityProviderPtr>::Read(
-    ::blink::mojom::IdentityProvider::DataView input,
-    ::blink::mojom::IdentityProviderPtr* output) {
-  using UnionType = ::blink::mojom::IdentityProvider;
-  using Tag = UnionType::Tag;
-
-  switch (input.tag()) {
-    case Tag::kFederated: {
-      ::blink::mojom::IdentityProviderRequestOptionsPtr result_federated;
-      if (!input.ReadFederated(&result_federated))
-        return false;
-
-      *output = UnionType::NewFederated(
-          std::move(result_federated));
-      break;
-    }
-    case Tag::kHolder: {
-      ::blink::mojom::DigitalCredentialProviderPtr result_holder;
-      if (!input.ReadHolder(&result_holder))
-        return false;
-
-      *output = UnionType::NewHolder(
-          std::move(result_holder));
-      break;
-    }
-    default:
-
-      return false;
-  }
-  return true;
 }
 
 }  // namespace mojo

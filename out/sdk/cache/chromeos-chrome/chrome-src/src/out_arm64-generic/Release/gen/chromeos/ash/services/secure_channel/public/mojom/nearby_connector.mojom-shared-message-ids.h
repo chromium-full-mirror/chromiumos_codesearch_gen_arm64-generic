@@ -14,6 +14,7 @@ namespace ash::secure_channel::mojom {
 namespace internal {
 
 
+constexpr uint32_t kNearbyConnectionStateListener_OnNearbyConnectionStateChanged_Name = 0;
 constexpr uint32_t kNearbyMessageSender_SendMessage_Name = 0;
 constexpr uint32_t kNearbyMessageReceiver_OnMessageReceived_Name = 0;
 constexpr uint32_t kNearbyFilePayloadHandler_RegisterPayloadFile_Name = 0;

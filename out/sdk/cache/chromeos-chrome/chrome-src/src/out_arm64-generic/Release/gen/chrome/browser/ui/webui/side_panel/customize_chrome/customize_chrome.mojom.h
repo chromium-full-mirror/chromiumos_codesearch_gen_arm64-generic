@@ -131,6 +131,8 @@ class CustomizeChromePageHandler
     kSetDailyRefreshCollectionIdMinVersion = 0,
     kOpenChromeWebStoreMinVersion = 0,
     kOpenThirdPartyThemePageMinVersion = 0,
+    kOpenChromeWebStoreCategoryPageMinVersion = 0,
+    kOpenChromeWebStoreCollectionPageMinVersion = 0,
     kSetModulesVisibleMinVersion = 0,
     kSetModuleDisabledMinVersion = 0,
     kUpdateScrollToSectionMinVersion = 0,
@@ -179,6 +181,12 @@ class CustomizeChromePageHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OpenThirdPartyThemePage_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OpenChromeWebStoreCategoryPage_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OpenChromeWebStoreCollectionPage_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetModulesVisible_Sym {
@@ -240,6 +248,12 @@ class CustomizeChromePageHandler
 
   
   virtual void OpenThirdPartyThemePage(const std::string& theme_id) = 0;
+
+  
+  virtual void OpenChromeWebStoreCategoryPage(ChromeWebStoreCategory category) = 0;
+
+  
+  virtual void OpenChromeWebStoreCollectionPage(ChromeWebStoreCollection collection) = 0;
 
   
   virtual void SetModulesVisible(bool visible) = 0;
@@ -368,6 +382,10 @@ class  CustomizeChromePageHandlerProxy
   void OpenChromeWebStore() final;
   
   void OpenThirdPartyThemePage(const std::string& theme_id) final;
+  
+  void OpenChromeWebStoreCategoryPage(ChromeWebStoreCategory category) final;
+  
+  void OpenChromeWebStoreCollectionPage(ChromeWebStoreCollection collection) final;
   
   void SetModulesVisible(bool visible) final;
   

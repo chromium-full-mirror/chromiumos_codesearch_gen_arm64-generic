@@ -48,15 +48,6 @@ using IdpSigninStatus = IdpSigninStatus;
 using RpContext = RpContext;
 using RpMode = RpMode;
 using FederatedAuthRequestInterfaceBase = FederatedAuthRequestInterfaceBase;
-class DigitalCredentialProvider;
-using DigitalCredentialProviderPtr = mojo::StructPtr<DigitalCredentialProvider>;
-
-class DigitalCredentialSelector;
-using DigitalCredentialSelectorPtr = mojo::StructPtr<DigitalCredentialSelector>;
-
-class DigitalCredentialFieldRequirement;
-using DigitalCredentialFieldRequirementPtr = mojo::InlinedStructPtr<DigitalCredentialFieldRequirement>;
-
 class IdentityProviderConfig;
 using IdentityProviderConfigPtr = mojo::StructPtr<IdentityProviderConfig>;
 
@@ -74,10 +65,6 @@ using IdentityProviderGetParametersPtr = mojo::StructPtr<IdentityProviderGetPara
 
 class TokenError;
 using TokenErrorPtr = mojo::InlinedStructPtr<TokenError>;
-
-class IdentityProvider;
-
-using IdentityProviderPtr = mojo::StructPtr<IdentityProvider>;
 
 class FederatedAuthRequest;
 

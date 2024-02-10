@@ -44,6 +44,46 @@
 
 
 namespace on_device_model::mojom {
+AdaptationAssets::AdaptationAssets()
+    : model(),
+      weights() {}
+
+AdaptationAssets::AdaptationAssets(
+    ::base::File model_in,
+    ::base::File weights_in)
+    : model(std::move(model_in)),
+      weights(std::move(weights_in)) {}
+
+AdaptationAssets::~AdaptationAssets() = default;
+
+void AdaptationAssets::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "model"), this->model,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::File>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "weights"), this->weights,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::File>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool AdaptationAssets::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 LanguageDetectionResult::LanguageDetectionResult()
     : code(),
       reliability() {}
@@ -193,6 +233,34 @@ void ResponseSummary::WriteIntoTrace(
 }
 
 bool ResponseSummary::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+LoadAdaptationParams::LoadAdaptationParams()
+    : assets() {}
+
+LoadAdaptationParams::LoadAdaptationParams(
+    ::on_device_model::AdaptationAssets assets_in)
+    : assets(std::move(assets_in)) {}
+
+LoadAdaptationParams::~LoadAdaptationParams() = default;
+
+void LoadAdaptationParams::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "assets"), this->assets,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::on_device_model::AdaptationAssets>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool LoadAdaptationParams::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -1039,6 +1107,9 @@ OnDeviceModel::IPCStableHashFunction OnDeviceModel::MessageToMethodInfo_(mojo::M
     case internal::kOnDeviceModel_StartSession_Name: {
       return &OnDeviceModel::StartSession_Sym::IPCStableHash;
     }
+    case internal::kOnDeviceModel_LoadAdaptation_Name: {
+      return &OnDeviceModel::LoadAdaptation_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1052,11 +1123,15 @@ const char* OnDeviceModel::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kOnDeviceModel_StartSession_Name:
             return "Receive on_device_model::mojom::OnDeviceModel::StartSession";
+      case internal::kOnDeviceModel_LoadAdaptation_Name:
+            return "Receive on_device_model::mojom::OnDeviceModel::LoadAdaptation";
     }
   } else {
     switch (message.name()) {
       case internal::kOnDeviceModel_StartSession_Name:
             return "Receive reply on_device_model::mojom::OnDeviceModel::StartSession";
+      case internal::kOnDeviceModel_LoadAdaptation_Name:
+            return "Receive reply on_device_model::mojom::OnDeviceModel::LoadAdaptation";
     }
   }
   return "Receive unknown mojo message";
@@ -1084,7 +1159,36 @@ uint32_t OnDeviceModel::StartSession_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t OnDeviceModel::LoadAdaptation_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)on_device_model::mojom::OnDeviceModel::LoadAdaptation");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
+
+class OnDeviceModel_LoadAdaptation_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  OnDeviceModel_LoadAdaptation_ForwardToCallback(
+      OnDeviceModel::LoadAdaptationCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  OnDeviceModel_LoadAdaptation_ForwardToCallback(const OnDeviceModel_LoadAdaptation_ForwardToCallback&) = delete;
+  OnDeviceModel_LoadAdaptation_ForwardToCallback& operator=(const OnDeviceModel_LoadAdaptation_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  OnDeviceModel::LoadAdaptationCallback callback_;
+};
 
 OnDeviceModelProxy::OnDeviceModelProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -1136,6 +1240,189 @@ void OnDeviceModelProxy::StartSession(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void OnDeviceModelProxy::LoadAdaptation(
+    LoadAdaptationParamsPtr in_params, ::mojo::PendingReceiver<OnDeviceModel> in_model, LoadAdaptationCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send on_device_model::mojom::OnDeviceModel::LoadAdaptation", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("params"), in_params,
+                        "<value of type LoadAdaptationParamsPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("model"), in_model,
+                        "<value of type ::mojo::PendingReceiver<OnDeviceModel>>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kOnDeviceModel_LoadAdaptation_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::on_device_model::mojom::internal::OnDeviceModel_LoadAdaptation_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->params)::BaseType> params_fragment(
+          params.message());
+  mojo::internal::Serialize<::on_device_model::mojom::LoadAdaptationParamsDataView>(
+      in_params, params_fragment);
+  params->params.Set(
+      params_fragment.is_null() ? nullptr : params_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->params.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null params in OnDeviceModel.LoadAdaptation request");
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::on_device_model::mojom::OnDeviceModelInterfaceBase>>(
+      in_model, &params->model, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->model),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid model in OnDeviceModel.LoadAdaptation request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(OnDeviceModel::Name_);
+  message.set_method_name("LoadAdaptation");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new OnDeviceModel_LoadAdaptation_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+class OnDeviceModel_LoadAdaptation_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static OnDeviceModel::LoadAdaptationCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<OnDeviceModel_LoadAdaptation_ProxyToResponder> proxy(
+        new OnDeviceModel_LoadAdaptation_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&OnDeviceModel_LoadAdaptation_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~OnDeviceModel_LoadAdaptation_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  OnDeviceModel_LoadAdaptation_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "OnDeviceModel::LoadAdaptationCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      LoadModelResult in_result);
+};
+
+bool OnDeviceModel_LoadAdaptation_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::OnDeviceModel_LoadAdaptation_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::OnDeviceModel_LoadAdaptation_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for OnDeviceModel.1
+  bool success = true;
+  LoadModelResult p_result{};
+  OnDeviceModel_LoadAdaptation_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        OnDeviceModel::Name_, 1, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void OnDeviceModel_LoadAdaptation_ProxyToResponder::Run(
+    LoadModelResult in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply on_device_model::mojom::OnDeviceModel::LoadAdaptation", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type LoadModelResult>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kOnDeviceModel_LoadAdaptation_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::on_device_model::mojom::internal::OnDeviceModel_LoadAdaptation_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::on_device_model::mojom::LoadModelResult>(
+      in_result, &params->result);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(OnDeviceModel::Name_);
+  message.set_method_name("LoadAdaptation");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+
 // static
 bool OnDeviceModelStubDispatch::Accept(
     OnDeviceModel* impl,
@@ -1171,6 +1458,9 @@ bool OnDeviceModelStubDispatch::Accept(
         std::move(p_session));
       return true;
     }
+    case internal::kOnDeviceModel_LoadAdaptation_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -1187,6 +1477,43 @@ bool OnDeviceModelStubDispatch::AcceptWithResponder(
     case internal::kOnDeviceModel_StartSession_Name: {
       break;
     }
+    case internal::kOnDeviceModel_LoadAdaptation_Name: {
+
+      internal::OnDeviceModel_LoadAdaptation_Params_Data* params =
+          reinterpret_cast<
+              internal::OnDeviceModel_LoadAdaptation_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for OnDeviceModel.1
+      bool success = true;
+      LoadAdaptationParamsPtr p_params{};
+      ::mojo::PendingReceiver<OnDeviceModel> p_model{};
+      OnDeviceModel_LoadAdaptation_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadParams(&p_params))
+        success = false;
+      if (success) {
+        p_model =
+            input_data_view.TakeModel<decltype(p_model)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            OnDeviceModel::Name_, 1, false);
+        return false;
+      }
+      OnDeviceModel::LoadAdaptationCallback callback =
+          OnDeviceModel_LoadAdaptation_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->LoadAdaptation(        
+        std::move(p_params), 
+        std::move(p_model), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -1195,6 +1522,8 @@ namespace {
 static const mojo::internal::GenericValidationInfo kOnDeviceModelValidationInfo[] = {
     { &internal::OnDeviceModel_StartSession_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::OnDeviceModel_LoadAdaptation_Params_Data::Validate,
+     &internal::OnDeviceModel_LoadAdaptation_ResponseParams_Data::Validate},
 };
 
 bool OnDeviceModelRequestValidator::Accept(mojo::Message* message) {
@@ -1202,12 +1531,32 @@ bool OnDeviceModelRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kOnDeviceModelValidationInfo);
 }
 
+bool OnDeviceModelResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::on_device_model::mojom::OnDeviceModel::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kOnDeviceModelValidationInfo);
+}
 
 
 }  // on_device_model::mojom
 
 
 namespace mojo {
+
+
+// static
+bool StructTraits<::on_device_model::mojom::AdaptationAssets::DataView, ::on_device_model::mojom::AdaptationAssetsPtr>::Read(
+    ::on_device_model::mojom::AdaptationAssets::DataView input,
+    ::on_device_model::mojom::AdaptationAssetsPtr* output) {
+  bool success = true;
+  ::on_device_model::mojom::AdaptationAssetsPtr result(::on_device_model::mojom::AdaptationAssets::New());
+  
+      if (success && !input.ReadModel(&result->model))
+        success = false;
+      if (success && !input.ReadWeights(&result->weights))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
 
 
 // static
@@ -1266,6 +1615,20 @@ bool StructTraits<::on_device_model::mojom::ResponseSummary::DataView, ::on_devi
   ::on_device_model::mojom::ResponseSummaryPtr result(::on_device_model::mojom::ResponseSummary::New());
   
       if (success && !input.ReadSafetyInfo(&result->safety_info))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::on_device_model::mojom::LoadAdaptationParams::DataView, ::on_device_model::mojom::LoadAdaptationParamsPtr>::Read(
+    ::on_device_model::mojom::LoadAdaptationParams::DataView input,
+    ::on_device_model::mojom::LoadAdaptationParamsPtr* output) {
+  bool success = true;
+  ::on_device_model::mojom::LoadAdaptationParamsPtr result(::on_device_model::mojom::LoadAdaptationParams::New());
+  
+      if (success && !input.ReadAssets(&result->assets))
         success = false;
   *output = std::move(result);
   return success;
@@ -1351,10 +1714,36 @@ SessionAsyncWaiter::~SessionAsyncWaiter() = default;
 void OnDeviceModelInterceptorForTesting::StartSession(::mojo::PendingReceiver<Session> session) {
   GetForwardingInterface()->StartSession(std::move(session));
 }
+void OnDeviceModelInterceptorForTesting::LoadAdaptation(LoadAdaptationParamsPtr params, ::mojo::PendingReceiver<OnDeviceModel> model, LoadAdaptationCallback callback) {
+  GetForwardingInterface()->LoadAdaptation(std::move(params), std::move(model), std::move(callback));
+}
 OnDeviceModelAsyncWaiter::OnDeviceModelAsyncWaiter(
     OnDeviceModel* proxy) : proxy_(proxy) {}
 
 OnDeviceModelAsyncWaiter::~OnDeviceModelAsyncWaiter() = default;
+
+void OnDeviceModelAsyncWaiter::LoadAdaptation(
+    LoadAdaptationParamsPtr params, ::mojo::PendingReceiver<OnDeviceModel> model, LoadModelResult* out_result) {
+  base::RunLoop loop;
+  proxy_->LoadAdaptation(std::move(params),std::move(model),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             LoadModelResult* out_result
+,
+             LoadModelResult result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+LoadModelResult OnDeviceModelAsyncWaiter::LoadAdaptation(
+    LoadAdaptationParamsPtr params, ::mojo::PendingReceiver<OnDeviceModel> model) {
+  LoadModelResult async_wait_result;
+  LoadAdaptation(std::move(params),std::move(model),&async_wait_result);
+  return async_wait_result;
+}
 
 
 

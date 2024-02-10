@@ -206,7 +206,7 @@ class ConnectionDelegate
   virtual void OnConnectionAttemptFailure(ConnectionAttemptFailureReason reason) = 0;
 
   
-  virtual void OnConnection(::mojo::PendingRemote<Channel> channel, ::mojo::PendingReceiver<MessageReceiver> message_receiver_receiver) = 0;
+  virtual void OnConnection(::mojo::PendingRemote<Channel> channel, ::mojo::PendingReceiver<MessageReceiver> message_receiver_receiver, ::mojo::PendingReceiver<::ash::secure_channel::mojom::NearbyConnectionStateListener> nearby_connection_state_listener_receiver) = 0;
 };
 
 class SecureChannelStructuredMetricsLoggerProxy;
@@ -382,7 +382,7 @@ class  ConnectionDelegateProxy
   
   void OnConnectionAttemptFailure(ConnectionAttemptFailureReason reason) final;
   
-  void OnConnection(::mojo::PendingRemote<Channel> channel, ::mojo::PendingReceiver<MessageReceiver> message_receiver_receiver) final;
+  void OnConnection(::mojo::PendingRemote<Channel> channel, ::mojo::PendingReceiver<MessageReceiver> message_receiver_receiver, ::mojo::PendingReceiver<::ash::secure_channel::mojom::NearbyConnectionStateListener> nearby_connection_state_listener_receiver) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

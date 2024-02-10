@@ -38,6 +38,7 @@
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
 
+#include "services/on_device_model/public/cpp/adaptation_assets_mojom_traits.h"
 #include "services/on_device_model/public/cpp/model_assets_mojom_traits.h"
 
 
@@ -358,7 +359,8 @@ class  LoadModelParams {
   LoadModelParams(
       ::on_device_model::ModelAssets assets,
       uint32_t max_tokens,
-      std::optional<uint32_t> ts_dimension);
+      std::optional<uint32_t> ts_dimension,
+      std::vector<uint32_t> adaptation_ranks);
 
 LoadModelParams(const LoadModelParams&) = delete;
 LoadModelParams& operator=(const LoadModelParams&) = delete;
@@ -438,6 +440,8 @@ LoadModelParams& operator=(const LoadModelParams&) = delete;
   uint32_t max_tokens;
   
   std::optional<uint32_t> ts_dimension;
+  
+  std::vector<uint32_t> adaptation_ranks;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -530,7 +534,8 @@ LoadModelParamsPtr LoadModelParams::Clone() const {
   return New(
       mojo::Clone(assets),
       mojo::Clone(max_tokens),
-      mojo::Clone(ts_dimension)
+      mojo::Clone(ts_dimension),
+      mojo::Clone(adaptation_ranks)
   );
 }
 
@@ -541,6 +546,8 @@ bool LoadModelParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->max_tokens, other_struct.max_tokens))
     return false;
   if (!mojo::Equals(this->ts_dimension, other_struct.ts_dimension))
+    return false;
+  if (!mojo::Equals(this->adaptation_ranks, other_struct.adaptation_ranks))
     return false;
   return true;
 }
@@ -558,6 +565,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.ts_dimension < rhs.ts_dimension)
     return true;
   if (rhs.ts_dimension < lhs.ts_dimension)
+    return false;
+  if (lhs.adaptation_ranks < rhs.adaptation_ranks)
+    return true;
+  if (rhs.adaptation_ranks < lhs.adaptation_ranks)
     return false;
   return false;
 }
@@ -627,6 +638,11 @@ struct  StructTraits<::on_device_model::mojom::LoadModelParams::DataView,
   static decltype(::on_device_model::mojom::LoadModelParams::ts_dimension) ts_dimension(
       const ::on_device_model::mojom::LoadModelParamsPtr& input) {
     return input->ts_dimension;
+  }
+
+  static const decltype(::on_device_model::mojom::LoadModelParams::adaptation_ranks)& adaptation_ranks(
+      const ::on_device_model::mojom::LoadModelParamsPtr& input) {
+    return input->adaptation_ranks;
   }
 
   static bool Read(::on_device_model::mojom::LoadModelParams::DataView input, ::on_device_model::mojom::LoadModelParamsPtr* output);

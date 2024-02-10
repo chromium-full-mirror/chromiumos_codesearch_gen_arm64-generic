@@ -273,6 +273,8 @@ class  TestControllerInterceptorForTesting : public TestController {
   void GetAllOpenTabURLs(GetAllOpenTabURLsCallback callback) override;
   void SetAlmanacEndpointUrlForTesting(const std::optional<std::string>& override, SetAlmanacEndpointUrlForTestingCallback callback) override;
   void IsToastShown(const std::string& toast_id, IsToastShownCallback callback) override;
+  void SnapWindow(const std::string& window_id, SnapPosition position, SnapWindowCallback callback) override;
+  void IsShelfVisible(IsShelfVisibleCallback callback) override;
 };
 class  TestControllerAsyncWaiter {
  public:
@@ -396,6 +398,12 @@ class  TestControllerAsyncWaiter {
   void IsToastShown(
       const std::string& toast_id, bool* out_toast_shown);
   bool IsToastShown(const std::string& toast_id);
+  void SnapWindow(
+      const std::string& window_id, SnapPosition position);
+  
+  void IsShelfVisible(
+      bool* out_visible);
+  bool IsShelfVisible();
 
  private:
   TestController* const proxy_;

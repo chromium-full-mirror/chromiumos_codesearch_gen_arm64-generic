@@ -58,19 +58,23 @@ enum class NearbyConnectionStep : int32_t {
   
   kRequestingConnectionEnded = 3,
   
-  kWaitingForConnectionToBeAcceptedByRemoteDeviceStarted = 4,
+  kAcceptingConnectionStarted = 4,
   
-  kWaitingForConnectionToBeAcceptedByRemoteDeviceEnded = 5,
+  kAcceptingConnectionFinished = 5,
   
-  kConnected = 6,
+  kWaitingForConnectionToBeAcceptedByRemoteDeviceStarted = 6,
   
-  kUpgradedToWebRtc = 7,
+  kWaitingForConnectionToBeAcceptedByRemoteDeviceEnded = 7,
   
-  kDisconnectionStarted = 8,
+  kConnected = 8,
   
-  kDisconnectionFinished = 9,
+  kUpgradedToWebRtc = 9,
+  
+  kDisconnectionStarted = 10,
+  
+  kDisconnectionFinished = 11,
   kMinValue = 0,
-  kMaxValue = 9,
+  kMaxValue = 11,
 };
 
  std::ostream& operator<<(std::ostream& os, NearbyConnectionStep value);
@@ -131,6 +135,16 @@ inline bool IsKnownEnumValue(NearbyConnectionStepResult value) {
       static_cast<int32_t>(value));
 }
 // Interface base classes. They are used for type safety check.
+class NearbyConnectionStateListenerInterfaceBase {};
+
+using NearbyConnectionStateListenerPtrDataView =
+    mojo::InterfacePtrDataView<NearbyConnectionStateListenerInterfaceBase>;
+using NearbyConnectionStateListenerRequestDataView =
+    mojo::InterfaceRequestDataView<NearbyConnectionStateListenerInterfaceBase>;
+using NearbyConnectionStateListenerAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<NearbyConnectionStateListenerInterfaceBase>;
+using NearbyConnectionStateListenerAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<NearbyConnectionStateListenerInterfaceBase>;
 class NearbyMessageSenderInterfaceBase {};
 
 using NearbyMessageSenderPtrDataView =

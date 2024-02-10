@@ -1233,7 +1233,7 @@ void ConnectionDelegateProxy::OnConnectionAttemptFailure(
 }
 
 void ConnectionDelegateProxy::OnConnection(
-    ::mojo::PendingRemote<Channel> in_channel, ::mojo::PendingReceiver<MessageReceiver> in_message_receiver_receiver) {
+    ::mojo::PendingRemote<Channel> in_channel, ::mojo::PendingReceiver<MessageReceiver> in_message_receiver_receiver, ::mojo::PendingReceiver<::ash::secure_channel::mojom::NearbyConnectionStateListener> in_nearby_connection_state_listener_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::secure_channel::mojom::ConnectionDelegate::OnConnection", "input_parameters",
@@ -1245,6 +1245,9 @@ void ConnectionDelegateProxy::OnConnection(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("message_receiver_receiver"), in_message_receiver_receiver,
                         "<value of type ::mojo::PendingReceiver<MessageReceiver>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("nearby_connection_state_listener_receiver"), in_nearby_connection_state_listener_receiver,
+                        "<value of type ::mojo::PendingReceiver<::ash::secure_channel::mojom::NearbyConnectionStateListener>>");
    });
 #endif
 
@@ -1277,6 +1280,12 @@ void ConnectionDelegateProxy::OnConnection(
       !mojo::internal::IsHandleOrInterfaceValid(params->message_receiver_receiver),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
       "invalid message_receiver_receiver in ConnectionDelegate.OnConnection request");
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::secure_channel::mojom::NearbyConnectionStateListenerInterfaceBase>>(
+      in_nearby_connection_state_listener_receiver, &params->nearby_connection_state_listener_receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->nearby_connection_state_listener_receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid nearby_connection_state_listener_receiver in ConnectionDelegate.OnConnection request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(ConnectionDelegate::Name_);
@@ -1332,6 +1341,7 @@ bool ConnectionDelegateStubDispatch::Accept(
       bool success = true;
       ::mojo::PendingRemote<Channel> p_channel{};
       ::mojo::PendingReceiver<MessageReceiver> p_message_receiver_receiver{};
+      ::mojo::PendingReceiver<::ash::secure_channel::mojom::NearbyConnectionStateListener> p_nearby_connection_state_listener_receiver{};
       ConnectionDelegate_OnConnection_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1341,6 +1351,10 @@ bool ConnectionDelegateStubDispatch::Accept(
       if (success) {
         p_message_receiver_receiver =
             input_data_view.TakeMessageReceiverReceiver<decltype(p_message_receiver_receiver)>();
+      }
+      if (success) {
+        p_nearby_connection_state_listener_receiver =
+            input_data_view.TakeNearbyConnectionStateListenerReceiver<decltype(p_nearby_connection_state_listener_receiver)>();
       }
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1353,7 +1367,8 @@ bool ConnectionDelegateStubDispatch::Accept(
       DCHECK(impl);
       impl->OnConnection(        
         std::move(p_channel), 
-        std::move(p_message_receiver_receiver));
+        std::move(p_message_receiver_receiver), 
+        std::move(p_nearby_connection_state_listener_receiver));
       return true;
     }
   }
@@ -2695,8 +2710,8 @@ MessageReceiverAsyncWaiter::~MessageReceiverAsyncWaiter() = default;
 void ConnectionDelegateInterceptorForTesting::OnConnectionAttemptFailure(ConnectionAttemptFailureReason reason) {
   GetForwardingInterface()->OnConnectionAttemptFailure(std::move(reason));
 }
-void ConnectionDelegateInterceptorForTesting::OnConnection(::mojo::PendingRemote<Channel> channel, ::mojo::PendingReceiver<MessageReceiver> message_receiver_receiver) {
-  GetForwardingInterface()->OnConnection(std::move(channel), std::move(message_receiver_receiver));
+void ConnectionDelegateInterceptorForTesting::OnConnection(::mojo::PendingRemote<Channel> channel, ::mojo::PendingReceiver<MessageReceiver> message_receiver_receiver, ::mojo::PendingReceiver<::ash::secure_channel::mojom::NearbyConnectionStateListener> nearby_connection_state_listener_receiver) {
+  GetForwardingInterface()->OnConnection(std::move(channel), std::move(message_receiver_receiver), std::move(nearby_connection_state_listener_receiver));
 }
 ConnectionDelegateAsyncWaiter::ConnectionDelegateAsyncWaiter(
     ConnectionDelegate* proxy) : proxy_(proxy) {}

@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">:host{--avatar-size:40px}cr-button{align-self:flex-end;width:fit-content}.account-email{font-size:12px}.account-image{border-radius:var(--avatar-size);height:var(--avatar-size);width:var(--avatar-size)}.account-row{align-items:center;display:flex;gap:10px}.account-text{display:flex;flex-direction:column;gap:4px}</style>
+    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">:host{--avatar-size:40px}cr-button{align-self:flex-end;width:fit-content}.account-email{font-size:12px}.account-image{border-radius:var(--avatar-size);height:var(--avatar-size);width:var(--avatar-size)}.account-row{align-items:center;display:flex;gap:10px}.account-text{display:flex;flex-direction:column;gap:4px}.tab-organization-link{display:inline}</style>
 
 <div class="tab-organization-container">
   <tab-organization-not-started-image></tab-organization-not-started-image>
@@ -10,6 +10,11 @@ export function getTemplate() {
     </div>
     <div class="tab-organization-body">
       [[getBody_(showFre, sync_, account_)]]
+      <template is="dom-if" if="[[shouldShowBodyLink_(showFre, sync_, account_)]]">
+        <a class="tab-organization-link" role="link" tabindex="0" on-click="onLinkClick_" on-keydown="onLinkKeyDown_">
+            $i18n{notStartedBodyLinkFRE}
+        </a>
+      </template>
     </div>
   </div>
   <template is="dom-if" if="[[shouldShowAccountInfo_(sync_, account_)]]">

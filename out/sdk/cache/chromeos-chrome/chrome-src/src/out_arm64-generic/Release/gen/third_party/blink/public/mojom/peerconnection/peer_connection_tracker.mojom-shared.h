@@ -124,16 +124,6 @@ class PeerConnectionInfoDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  inline void GetConstraintsDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadConstraints(UserType* output) {
-    
-    auto* pointer = data_->constraints.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
   inline void GetUrlDataView(
       mojo::StringDataView* output);
 
@@ -219,18 +209,6 @@ struct Serializer<::blink::mojom::PeerConnectionInfoDataView, MaybeConstUserType
         fragment->rtc_configuration.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null rtc_configuration in PeerConnectionInfo struct");
-    decltype(Traits::constraints(input)) in_constraints = Traits::constraints(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->constraints)::BaseType> constraints_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_constraints, constraints_fragment);
-    fragment->constraints.Set(
-        constraints_fragment.is_null() ? nullptr : constraints_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->constraints.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null constraints in PeerConnectionInfo struct");
     decltype(Traits::url(input)) in_url = Traits::url(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->url)::BaseType> url_fragment(
@@ -262,11 +240,6 @@ namespace blink::mojom {
 inline void PeerConnectionInfoDataView::GetRtcConfigurationDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->rtc_configuration.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void PeerConnectionInfoDataView::GetConstraintsDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->constraints.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void PeerConnectionInfoDataView::GetUrlDataView(

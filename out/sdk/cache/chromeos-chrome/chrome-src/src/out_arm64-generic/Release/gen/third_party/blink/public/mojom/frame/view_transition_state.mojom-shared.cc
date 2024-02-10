@@ -61,7 +61,7 @@ bool ViewTransitionElement_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 72, validation_context)) {
+          data, 80, validation_context)) {
     return false;
   }
 
@@ -120,6 +120,17 @@ bool ViewTransitionElement_Data::Validate(
       mojo::internal::GetMapValidator<*&mojo::internal::GetArrayOfEnumsValidator<0, ::blink::mojom::internal::ViewTransitionPropertyId_Data::Validate>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
   if (!mojo::internal::ValidateContainer(object->captured_css_properties, validation_context,
                                          &captured_css_properties_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->class_list, 9, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& class_list_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->class_list, validation_context,
+                                         &class_list_validate_params)) {
     return false;
   }
 

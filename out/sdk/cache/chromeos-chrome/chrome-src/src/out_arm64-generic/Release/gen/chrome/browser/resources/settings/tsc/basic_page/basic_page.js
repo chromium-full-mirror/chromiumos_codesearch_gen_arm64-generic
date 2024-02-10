@@ -244,15 +244,6 @@ export class SettingsBasicPageElement extends SettingsBasicPageElementBase {
     showAdvancedSettings_(visibility) {
         return this.showPage_(visibility);
     }
-    showPerformancePage_(visibility) {
-        return this.showPage_(visibility);
-    }
-    showBatteryPage_(visibility) {
-        return this.showPage_(visibility);
-    }
-    showSpeedPage_(visibility) {
-        return this.showPage_(visibility);
-    }
     showSafetyCheckPage_(visibility) {
         return !loadTimeData.getBoolean('enableSafetyHub') &&
             this.showPage_(visibility);

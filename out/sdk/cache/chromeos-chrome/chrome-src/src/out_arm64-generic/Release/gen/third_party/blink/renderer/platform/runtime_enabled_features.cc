@@ -134,6 +134,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_css_at_rule_counter_style_speak_as_descriptor_enabled_(RuntimeEnabledFeaturesBase::is_css_at_rule_counter_style_speak_as_descriptor_enabled_),
     is_css_background_clip_unprefix_enabled_(RuntimeEnabledFeaturesBase::is_css_background_clip_unprefix_enabled_),
     is_css_calc_simplification_and_serialization_enabled_(RuntimeEnabledFeaturesBase::is_css_calc_simplification_and_serialization_enabled_),
+    is_css_calc_size_function_enabled_(RuntimeEnabledFeaturesBase::is_css_calc_size_function_enabled_),
     is_css_cap_font_units_enabled_(RuntimeEnabledFeaturesBase::is_css_cap_font_units_enabled_),
     is_css_case_sensitive_selector_enabled_(RuntimeEnabledFeaturesBase::is_css_case_sensitive_selector_enabled_),
     is_css_color_contrast_enabled_(RuntimeEnabledFeaturesBase::is_css_color_contrast_enabled_),
@@ -173,6 +174,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_css_phrase_line_break_enabled_(RuntimeEnabledFeaturesBase::is_css_phrase_line_break_enabled_),
     is_css_position_sticky_static_scroll_position_enabled_(RuntimeEnabledFeaturesBase::is_css_position_sticky_static_scroll_position_enabled_),
     is_css_progress_notation_enabled_(RuntimeEnabledFeaturesBase::is_css_progress_notation_enabled_),
+    is_css_pseudo_open_closed_enabled_(RuntimeEnabledFeaturesBase::is_css_pseudo_open_closed_enabled_),
     is_css_pseudo_playing_paused_enabled_(RuntimeEnabledFeaturesBase::is_css_pseudo_playing_paused_enabled_),
     is_css_relative_color_enabled_(RuntimeEnabledFeaturesBase::is_css_relative_color_enabled_),
     is_css_resize_auto_enabled_(RuntimeEnabledFeaturesBase::is_css_resize_auto_enabled_),
@@ -377,6 +379,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_layout_ng_shape_cache_enabled_(RuntimeEnabledFeaturesBase::is_layout_ng_shape_cache_enabled_),
     is_lazy_initialize_media_controls_enabled_(RuntimeEnabledFeaturesBase::is_lazy_initialize_media_controls_enabled_),
     is_lazy_load_scroll_margin_enabled_(RuntimeEnabledFeaturesBase::is_lazy_load_scroll_margin_enabled_),
+    is_lazy_load_scroll_margin_iframe_enabled_(RuntimeEnabledFeaturesBase::is_lazy_load_scroll_margin_iframe_enabled_),
     is_lcp_animated_images_web_exposed_enabled_(RuntimeEnabledFeaturesBase::is_lcp_animated_images_web_exposed_enabled_),
     is_lcp_mouseover_heuristics_enabled_(RuntimeEnabledFeaturesBase::is_lcp_mouseover_heuristics_enabled_),
     is_lcp_multiple_updates_per_element_enabled_(RuntimeEnabledFeaturesBase::is_lcp_multiple_updates_per_element_enabled_),
@@ -624,7 +627,6 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_strict_mime_types_for_workers_enabled_(RuntimeEnabledFeaturesBase::is_strict_mime_types_for_workers_enabled_),
     is_stylable_select_enabled_(RuntimeEnabledFeaturesBase::is_stylable_select_enabled_),
     is_stylus_handwriting_enabled_(RuntimeEnabledFeaturesBase::is_stylus_handwriting_enabled_),
-    is_suggestion_picker_dark_mode_support_enabled_(RuntimeEnabledFeaturesBase::is_suggestion_picker_dark_mode_support_enabled_),
     is_svg_cross_origin_attribute_enabled_(RuntimeEnabledFeaturesBase::is_svg_cross_origin_attribute_enabled_),
     is_svg_no_pixel_snapping_scale_adjustment_enabled_(RuntimeEnabledFeaturesBase::is_svg_no_pixel_snapping_scale_adjustment_enabled_),
     is_synthesized_keyboard_events_for_accessibility_actions_enabled_(RuntimeEnabledFeaturesBase::is_synthesized_keyboard_events_for_accessibility_actions_enabled_),
@@ -870,6 +872,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_css_at_rule_counter_style_speak_as_descriptor_enabled_ = is_css_at_rule_counter_style_speak_as_descriptor_enabled_;
   RuntimeEnabledFeaturesBase::is_css_background_clip_unprefix_enabled_ = is_css_background_clip_unprefix_enabled_;
   RuntimeEnabledFeaturesBase::is_css_calc_simplification_and_serialization_enabled_ = is_css_calc_simplification_and_serialization_enabled_;
+  RuntimeEnabledFeaturesBase::is_css_calc_size_function_enabled_ = is_css_calc_size_function_enabled_;
   RuntimeEnabledFeaturesBase::is_css_cap_font_units_enabled_ = is_css_cap_font_units_enabled_;
   RuntimeEnabledFeaturesBase::is_css_case_sensitive_selector_enabled_ = is_css_case_sensitive_selector_enabled_;
   RuntimeEnabledFeaturesBase::is_css_color_contrast_enabled_ = is_css_color_contrast_enabled_;
@@ -909,6 +912,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_css_phrase_line_break_enabled_ = is_css_phrase_line_break_enabled_;
   RuntimeEnabledFeaturesBase::is_css_position_sticky_static_scroll_position_enabled_ = is_css_position_sticky_static_scroll_position_enabled_;
   RuntimeEnabledFeaturesBase::is_css_progress_notation_enabled_ = is_css_progress_notation_enabled_;
+  RuntimeEnabledFeaturesBase::is_css_pseudo_open_closed_enabled_ = is_css_pseudo_open_closed_enabled_;
   RuntimeEnabledFeaturesBase::is_css_pseudo_playing_paused_enabled_ = is_css_pseudo_playing_paused_enabled_;
   RuntimeEnabledFeaturesBase::is_css_relative_color_enabled_ = is_css_relative_color_enabled_;
   RuntimeEnabledFeaturesBase::is_css_resize_auto_enabled_ = is_css_resize_auto_enabled_;
@@ -1113,6 +1117,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_layout_ng_shape_cache_enabled_ = is_layout_ng_shape_cache_enabled_;
   RuntimeEnabledFeaturesBase::is_lazy_initialize_media_controls_enabled_ = is_lazy_initialize_media_controls_enabled_;
   RuntimeEnabledFeaturesBase::is_lazy_load_scroll_margin_enabled_ = is_lazy_load_scroll_margin_enabled_;
+  RuntimeEnabledFeaturesBase::is_lazy_load_scroll_margin_iframe_enabled_ = is_lazy_load_scroll_margin_iframe_enabled_;
   RuntimeEnabledFeaturesBase::is_lcp_animated_images_web_exposed_enabled_ = is_lcp_animated_images_web_exposed_enabled_;
   RuntimeEnabledFeaturesBase::is_lcp_mouseover_heuristics_enabled_ = is_lcp_mouseover_heuristics_enabled_;
   RuntimeEnabledFeaturesBase::is_lcp_multiple_updates_per_element_enabled_ = is_lcp_multiple_updates_per_element_enabled_;
@@ -1360,7 +1365,6 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_strict_mime_types_for_workers_enabled_ = is_strict_mime_types_for_workers_enabled_;
   RuntimeEnabledFeaturesBase::is_stylable_select_enabled_ = is_stylable_select_enabled_;
   RuntimeEnabledFeaturesBase::is_stylus_handwriting_enabled_ = is_stylus_handwriting_enabled_;
-  RuntimeEnabledFeaturesBase::is_suggestion_picker_dark_mode_support_enabled_ = is_suggestion_picker_dark_mode_support_enabled_;
   RuntimeEnabledFeaturesBase::is_svg_cross_origin_attribute_enabled_ = is_svg_cross_origin_attribute_enabled_;
   RuntimeEnabledFeaturesBase::is_svg_no_pixel_snapping_scale_adjustment_enabled_ = is_svg_no_pixel_snapping_scale_adjustment_enabled_;
   RuntimeEnabledFeaturesBase::is_synthesized_keyboard_events_for_accessibility_actions_enabled_ = is_synthesized_keyboard_events_for_accessibility_actions_enabled_;
@@ -1691,7 +1695,6 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetSpellCheckerReplaceRangeUseInsertTextEnabled(enable);
   SetStableBlinkFeaturesEnabled(enable);
   SetStorageBucketsEnabled(enable);
-  SetSuggestionPickerDarkModeSupportEnabled(enable);
   SetSvgCrossOriginAttributeEnabled(enable);
   SetSvgNoPixelSnappingScaleAdjustmentEnabled(enable);
   SetTextDecoratingBoxEnabled(enable);
@@ -1959,6 +1962,7 @@ void RuntimeEnabledFeaturesBase::SetExperimentalFeaturesEnabled(bool enable) {
   SetContextMenuEnabled(enable);
   SetCrossFramePerformanceTimelineEnabled(enable);
   SetCSSAnchorPositioningEnabled(enable);
+  SetCSSCalcSizeFunctionEnabled(enable);
   SetCSSColorContrastEnabled(enable);
   SetCSSColorTypedOMEnabled(enable);
   SetCSSCrossFadeEnabled(enable);
@@ -1969,6 +1973,7 @@ void RuntimeEnabledFeaturesBase::SetExperimentalFeaturesEnabled(bool enable) {
   SetCSSMarkerNestedPseudoElementEnabled(enable);
   SetCSSPaintAPIArgumentsEnabled(enable);
   SetCSSProgressNotationEnabled(enable);
+  SetCSSPseudoOpenClosedEnabled(enable);
   SetCSSSelectorFragmentAnchorEnabled(enable);
   SetCSSSignRelatedFunctionsEnabled(enable);
   SetCSSSnapContainerQueriesEnabled(enable);
@@ -2248,6 +2253,7 @@ void RuntimeEnabledFeaturesBase::SetTestFeaturesEnabled(bool enable) {
   SetGroupEffectEnabled(enable);
   SetLayoutFlexNewRowAlgorithmV3Enabled(enable);
   SetLayoutNGShapeCacheEnabled(enable);
+  SetLazyLoadScrollMarginIframeEnabled(enable);
   SetLCPAnimatedImagesWebExposedEnabled(enable);
   SetLockedModeEnabled(enable);
   SetMediaCapabilitiesSpatialAudioEnabled(enable);
@@ -2536,6 +2542,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"CSSAtRuleCounterStyleSpeakAsDescriptor", &is_css_at_rule_counter_style_speak_as_descriptor_enabled_},
     {"CSSBackgroundClipUnprefix", &is_css_background_clip_unprefix_enabled_},
     {"CSSCalcSimplificationAndSerialization", &is_css_calc_simplification_and_serialization_enabled_},
+    {"CSSCalcSizeFunction", &is_css_calc_size_function_enabled_},
     {"CSSCapFontUnits", &is_css_cap_font_units_enabled_},
     {"CSSCaseSensitiveSelector", &is_css_case_sensitive_selector_enabled_},
     {"CSSColorContrast", &is_css_color_contrast_enabled_},
@@ -2573,6 +2580,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"CSSPhraseLineBreak", &is_css_phrase_line_break_enabled_},
     {"CSSPositionStickyStaticScrollPosition", &is_css_position_sticky_static_scroll_position_enabled_},
     {"CSSProgressNotation", &is_css_progress_notation_enabled_},
+    {"CSSPseudoOpenClosed", &is_css_pseudo_open_closed_enabled_},
     {"CSSPseudoPlayingPaused", &is_css_pseudo_playing_paused_enabled_},
     {"CSSRelativeColor", &is_css_relative_color_enabled_},
     {"CSSResizeAuto", &is_css_resize_auto_enabled_},
@@ -2830,6 +2838,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"LayoutNGShapeCache", &is_layout_ng_shape_cache_enabled_},
     {"LazyInitializeMediaControls", &is_lazy_initialize_media_controls_enabled_},
     {"LazyLoadScrollMargin", &is_lazy_load_scroll_margin_enabled_},
+    {"LazyLoadScrollMarginIframe", &is_lazy_load_scroll_margin_iframe_enabled_},
     {"LegacyWindowsDWriteFontFallback", &is_legacy_windows_d_write_font_fallback_enabled_},
     {"LockedMode", &is_locked_mode_enabled_},
     {"LongAnimationFrameTiming", &is_long_animation_frame_timing_enabled_},
@@ -3074,7 +3083,6 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"StrictMimeTypesForWorkers", &is_strict_mime_types_for_workers_enabled_},
     {"StylableSelect", &is_stylable_select_enabled_},
     {"StylusHandwriting", &is_stylus_handwriting_enabled_},
-    {"SuggestionPickerDarkModeSupport", &is_suggestion_picker_dark_mode_support_enabled_},
     {"SvgCrossOriginAttribute", &is_svg_cross_origin_attribute_enabled_},
     {"SvgNoPixelSnappingScaleAdjustment", &is_svg_no_pixel_snapping_scale_adjustment_enabled_},
     {"SynthesizedKeyboardEventsForAccessibilityActions", &is_synthesized_keyboard_events_for_accessibility_actions_enabled_},
@@ -3271,6 +3279,8 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
      false},
     {blink::features::kCSSBackgroundClipUnprefix, SetCSSBackgroundClipUnprefixEnabled,
      false},
+    {blink::features::kCSSCalcSizeFunction, SetCSSCalcSizeFunctionEnabled,
+     false},
     {blink::features::kCSSCapFontUnits, SetCSSCapFontUnitsEnabled,
      false},
     {blink::features::kCSSContentVisibilityImpliesContainIntrinsicSizeAuto, SetCSSContentVisibilityImpliesContainIntrinsicSizeAutoEnabled,
@@ -3322,6 +3332,8 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
     {blink::features::kCSSPhraseLineBreak, SetCSSPhraseLineBreakEnabled,
      false},
     {blink::features::kCSSProgressNotation, SetCSSProgressNotationEnabled,
+     false},
+    {blink::features::kCSSPseudoOpenClosed, SetCSSPseudoOpenClosedEnabled,
      false},
     {blink::features::kCSSRelativeColor, SetCSSRelativeColorEnabled,
      false},
@@ -3605,6 +3617,8 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
      false},
     {blink::features::kLazyLoadScrollMargin, SetLazyLoadScrollMarginEnabled,
      false},
+    {blink::features::kLazyLoadScrollMarginIframe, SetLazyLoadScrollMarginIframeEnabled,
+     false},
     {blink::features::kLockedMode, SetLockedModeEnabled,
      false},
     {blink::features::kLongAnimationFrameTiming, SetLongAnimationFrameTimingEnabled,
@@ -3810,8 +3824,6 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
     {blink::features::kStorageBucketsLocks, SetStorageBucketsLocksEnabled,
      false},
     {blink::features::kStylableSelect, SetStylableSelectEnabled,
-     false},
-    {blink::features::kSuggestionPickerDarkModeSupport, SetSuggestionPickerDarkModeSupportEnabled,
      false},
     {blink::features::kSvgCrossOriginAttribute, SetSvgCrossOriginAttributeEnabled,
      false},
@@ -4895,6 +4907,7 @@ bool RuntimeEnabledFeaturesBase::is_css_at_rule_counter_style_image_symbols_enab
 bool RuntimeEnabledFeaturesBase::is_css_at_rule_counter_style_speak_as_descriptor_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_background_clip_unprefix_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_css_calc_simplification_and_serialization_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_css_calc_size_function_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_cap_font_units_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_css_case_sensitive_selector_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_color_contrast_enabled_ = false;
@@ -4934,6 +4947,7 @@ bool RuntimeEnabledFeaturesBase::is_css_parser_ignore_charset_for_urls_enabled_ 
 bool RuntimeEnabledFeaturesBase::is_css_phrase_line_break_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_css_position_sticky_static_scroll_position_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_progress_notation_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_css_pseudo_open_closed_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_pseudo_playing_paused_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_relative_color_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_css_resize_auto_enabled_ = true;
@@ -5121,6 +5135,7 @@ bool RuntimeEnabledFeaturesBase::is_layout_ignore_margins_for_sticky_enabled_ = 
 bool RuntimeEnabledFeaturesBase::is_layout_ng_shape_cache_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_lazy_initialize_media_controls_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_lazy_load_scroll_margin_enabled_ = true;
+bool RuntimeEnabledFeaturesBase::is_lazy_load_scroll_margin_iframe_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_lcp_animated_images_web_exposed_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_lcp_mouseover_heuristics_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_lcp_multiple_updates_per_element_enabled_ = false;
@@ -5349,7 +5364,6 @@ bool RuntimeEnabledFeaturesBase::is_storage_buckets_locks_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_strict_mime_types_for_workers_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_stylable_select_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_stylus_handwriting_enabled_ = false;
-bool RuntimeEnabledFeaturesBase::is_suggestion_picker_dark_mode_support_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_svg_cross_origin_attribute_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_svg_no_pixel_snapping_scale_adjustment_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_synthesized_keyboard_events_for_accessibility_actions_enabled_ = false;

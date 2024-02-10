@@ -54,7 +54,8 @@ ViewTransitionElement::ViewTransitionElement()
       captured_rect_in_layout_space(),
       snapshot_id(),
       paint_order(),
-      captured_css_properties() {}
+      captured_css_properties(),
+      class_list() {}
 
 ViewTransitionElement::ViewTransitionElement(
     const WTF::String& tag_name_in,
@@ -64,7 +65,8 @@ ViewTransitionElement::ViewTransitionElement(
     const std::optional<::gfx::RectF>& captured_rect_in_layout_space_in,
     ::viz::mojom::blink::ViewTransitionElementResourceIdPtr snapshot_id_in,
     int32_t paint_order_in,
-    const WTF::HashMap<ViewTransitionPropertyId, WTF::String>& captured_css_properties_in)
+    const WTF::HashMap<ViewTransitionPropertyId, WTF::String>& captured_css_properties_in,
+    WTF::Vector<WTF::String> class_list_in)
     : tag_name(std::move(tag_name_in)),
       border_box_size_in_css_space(std::move(border_box_size_in_css_space_in)),
       viewport_matrix(std::move(viewport_matrix_in)),
@@ -72,7 +74,8 @@ ViewTransitionElement::ViewTransitionElement(
       captured_rect_in_layout_space(std::move(captured_rect_in_layout_space_in)),
       snapshot_id(std::move(snapshot_id_in)),
       paint_order(std::move(paint_order_in)),
-      captured_css_properties(std::move(captured_css_properties_in)) {}
+      captured_css_properties(std::move(captured_css_properties_in)),
+      class_list(std::move(class_list_in)) {}
 
 ViewTransitionElement::~ViewTransitionElement() = default;
 
@@ -147,6 +150,15 @@ void ViewTransitionElement::WriteIntoTrace(
       "captured_css_properties"), this->captured_css_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const WTF::HashMap<ViewTransitionPropertyId, WTF::String>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "class_list"), this->class_list,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::Vector<WTF::String>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -252,6 +264,8 @@ bool StructTraits<::blink::mojom::blink::ViewTransitionElement::DataView, ::blin
       if (success)
         result->paint_order = input.paint_order();
       if (success && !input.ReadCapturedCssProperties(&result->captured_css_properties))
+        success = false;
+      if (success && !input.ReadClassList(&result->class_list))
         success = false;
   *output = std::move(result);
   return success;

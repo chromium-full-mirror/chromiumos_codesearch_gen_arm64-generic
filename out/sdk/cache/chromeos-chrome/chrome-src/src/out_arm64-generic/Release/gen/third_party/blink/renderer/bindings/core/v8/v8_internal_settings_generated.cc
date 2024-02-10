@@ -1768,186 +1768,6 @@ blink_receiver->setJavaScriptCanAccessClipboard(arg1_java_script_can_access_clip
 
 }
 
-void SetLazyFrameLoadingDistanceThresholdPx2GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyFrameLoadingDistanceThresholdPx2G");
-BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyFrameLoadingDistanceThresholdPx2G");
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "InternalSettingsGenerated";
-const char* const property_name = "setLazyFrameLoadingDistanceThresholdPx2G";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& arg1_lazy_frame_loading_distance_threshold_px_2_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-blink_receiver->setLazyFrameLoadingDistanceThresholdPx2G(arg1_lazy_frame_loading_distance_threshold_px_2_g);
-
-}
-
-void SetLazyFrameLoadingDistanceThresholdPx3GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyFrameLoadingDistanceThresholdPx3G");
-BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyFrameLoadingDistanceThresholdPx3G");
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "InternalSettingsGenerated";
-const char* const property_name = "setLazyFrameLoadingDistanceThresholdPx3G";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& arg1_lazy_frame_loading_distance_threshold_px_3_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-blink_receiver->setLazyFrameLoadingDistanceThresholdPx3G(arg1_lazy_frame_loading_distance_threshold_px_3_g);
-
-}
-
-void SetLazyFrameLoadingDistanceThresholdPx4GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyFrameLoadingDistanceThresholdPx4G");
-BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyFrameLoadingDistanceThresholdPx4G");
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "InternalSettingsGenerated";
-const char* const property_name = "setLazyFrameLoadingDistanceThresholdPx4G";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& arg1_lazy_frame_loading_distance_threshold_px_4_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-blink_receiver->setLazyFrameLoadingDistanceThresholdPx4G(arg1_lazy_frame_loading_distance_threshold_px_4_g);
-
-}
-
-void SetLazyFrameLoadingDistanceThresholdPxOfflineOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyFrameLoadingDistanceThresholdPxOffline");
-BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyFrameLoadingDistanceThresholdPxOffline");
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "InternalSettingsGenerated";
-const char* const property_name = "setLazyFrameLoadingDistanceThresholdPxOffline";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& arg1_lazy_frame_loading_distance_threshold_px_offline = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-blink_receiver->setLazyFrameLoadingDistanceThresholdPxOffline(arg1_lazy_frame_loading_distance_threshold_px_offline);
-
-}
-
-void SetLazyFrameLoadingDistanceThresholdPxSlow2GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyFrameLoadingDistanceThresholdPxSlow2G");
-BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyFrameLoadingDistanceThresholdPxSlow2G");
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "InternalSettingsGenerated";
-const char* const property_name = "setLazyFrameLoadingDistanceThresholdPxSlow2G";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& arg1_lazy_frame_loading_distance_threshold_px_slow_2_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-blink_receiver->setLazyFrameLoadingDistanceThresholdPxSlow2G(arg1_lazy_frame_loading_distance_threshold_px_slow_2_g);
-
-}
-
-void SetLazyFrameLoadingDistanceThresholdPxUnknownOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyFrameLoadingDistanceThresholdPxUnknown");
-BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyFrameLoadingDistanceThresholdPxUnknown");
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "InternalSettingsGenerated";
-const char* const property_name = "setLazyFrameLoadingDistanceThresholdPxUnknown";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& arg1_lazy_frame_loading_distance_threshold_px_unknown = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-blink_receiver->setLazyFrameLoadingDistanceThresholdPxUnknown(arg1_lazy_frame_loading_distance_threshold_px_unknown);
-
-}
-
 void SetLazyLoadEnabledOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyLoadEnabled");
 BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyLoadEnabled");
@@ -1975,6 +1795,186 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 blink_receiver->setLazyLoadEnabled(arg1_lazy_load_enabled);
+
+}
+
+void SetLazyLoadingFrameMarginPx2GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyLoadingFrameMarginPx2G");
+BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyLoadingFrameMarginPx2G");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "InternalSettingsGenerated";
+const char* const property_name = "setLazyLoadingFrameMarginPx2G";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_lazy_loading_frame_margin_px_2_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setLazyLoadingFrameMarginPx2G(arg1_lazy_loading_frame_margin_px_2_g);
+
+}
+
+void SetLazyLoadingFrameMarginPx3GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyLoadingFrameMarginPx3G");
+BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyLoadingFrameMarginPx3G");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "InternalSettingsGenerated";
+const char* const property_name = "setLazyLoadingFrameMarginPx3G";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_lazy_loading_frame_margin_px_3_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setLazyLoadingFrameMarginPx3G(arg1_lazy_loading_frame_margin_px_3_g);
+
+}
+
+void SetLazyLoadingFrameMarginPx4GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyLoadingFrameMarginPx4G");
+BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyLoadingFrameMarginPx4G");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "InternalSettingsGenerated";
+const char* const property_name = "setLazyLoadingFrameMarginPx4G";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_lazy_loading_frame_margin_px_4_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setLazyLoadingFrameMarginPx4G(arg1_lazy_loading_frame_margin_px_4_g);
+
+}
+
+void SetLazyLoadingFrameMarginPxOfflineOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyLoadingFrameMarginPxOffline");
+BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyLoadingFrameMarginPxOffline");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "InternalSettingsGenerated";
+const char* const property_name = "setLazyLoadingFrameMarginPxOffline";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_lazy_loading_frame_margin_px_offline = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setLazyLoadingFrameMarginPxOffline(arg1_lazy_loading_frame_margin_px_offline);
+
+}
+
+void SetLazyLoadingFrameMarginPxSlow2GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyLoadingFrameMarginPxSlow2G");
+BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyLoadingFrameMarginPxSlow2G");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "InternalSettingsGenerated";
+const char* const property_name = "setLazyLoadingFrameMarginPxSlow2G";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_lazy_loading_frame_margin_px_slow_2_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setLazyLoadingFrameMarginPxSlow2G(arg1_lazy_loading_frame_margin_px_slow_2_g);
+
+}
+
+void SetLazyLoadingFrameMarginPxUnknownOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyLoadingFrameMarginPxUnknown");
+BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyLoadingFrameMarginPxUnknown");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "InternalSettingsGenerated";
+const char* const property_name = "setLazyLoadingFrameMarginPxUnknown";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_lazy_loading_frame_margin_px_unknown = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setLazyLoadingFrameMarginPxUnknown(arg1_lazy_loading_frame_margin_px_unknown);
 
 }
 
@@ -4936,13 +4936,13 @@ void V8InternalSettingsGenerated::InstallUnconditionalProperties(v8::Isolate* is
 {"setImmersiveModeEnabled", SetImmersiveModeEnabledOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setInvertedColors", SetInvertedColorsOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setJavaScriptCanAccessClipboard", SetJavaScriptCanAccessClipboardOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setLazyFrameLoadingDistanceThresholdPx2G", SetLazyFrameLoadingDistanceThresholdPx2GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setLazyFrameLoadingDistanceThresholdPx3G", SetLazyFrameLoadingDistanceThresholdPx3GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setLazyFrameLoadingDistanceThresholdPx4G", SetLazyFrameLoadingDistanceThresholdPx4GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setLazyFrameLoadingDistanceThresholdPxOffline", SetLazyFrameLoadingDistanceThresholdPxOfflineOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setLazyFrameLoadingDistanceThresholdPxSlow2G", SetLazyFrameLoadingDistanceThresholdPxSlow2GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setLazyFrameLoadingDistanceThresholdPxUnknown", SetLazyFrameLoadingDistanceThresholdPxUnknownOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setLazyLoadEnabled", SetLazyLoadEnabledOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setLazyLoadingFrameMarginPx2G", SetLazyLoadingFrameMarginPx2GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setLazyLoadingFrameMarginPx3G", SetLazyLoadingFrameMarginPx3GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setLazyLoadingFrameMarginPx4G", SetLazyLoadingFrameMarginPx4GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setLazyLoadingFrameMarginPxOffline", SetLazyLoadingFrameMarginPxOfflineOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setLazyLoadingFrameMarginPxSlow2G", SetLazyLoadingFrameMarginPxSlow2GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setLazyLoadingFrameMarginPxUnknown", SetLazyLoadingFrameMarginPxUnknownOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setLazyLoadingImageMarginPx2G", SetLazyLoadingImageMarginPx2GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setLazyLoadingImageMarginPx3G", SetLazyLoadingImageMarginPx3GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setLazyLoadingImageMarginPx4G", SetLazyLoadingImageMarginPx4GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

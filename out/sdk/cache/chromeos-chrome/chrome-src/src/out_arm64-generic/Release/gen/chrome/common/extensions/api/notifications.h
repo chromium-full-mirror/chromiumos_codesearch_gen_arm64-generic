@@ -210,8 +210,9 @@ struct NotificationOptions {
 
   // <p>A URL to the sender's avatar, app icon, or a thumbnail for image
   // notifications.</p><p>URLs can be a data URL, a blob URL, or a URL relative to
-  // a resource within this extension's .crx file <em>Required for
-  // $(ref:notifications.create)</em> method.</p>
+  // a resource within this extension's .crx file <aside
+  // class="note"><b>Note:</b>This value is required for the
+  // $(ref:notifications.create)<code>()</code> method.</aside></p>
   std::optional<std::string> icon_url;
 
   std::optional<NotificationBitmap> icon_bitmap;
@@ -224,12 +225,13 @@ struct NotificationOptions {
 
   std::optional<NotificationBitmap> app_icon_mask_bitmap;
 
-  // Title of the notification (e.g. sender name for email). <em>Required for
-  // $(ref:notifications.create)</em> method.
+  // Title of the notification (e.g. sender name for email). <aside
+  // class="note"><b>Note:</b>This value is required for the
+  // $(ref:notifications.create)<code>()</code> method.</aside>
   std::optional<std::string> title;
 
-  // Main notification content. <em>Required for $(ref:notifications.create)</em>
-  // method.
+  // Main notification content. <aside class="note"><b>Note:</b>This value is
+  // required for the $(ref:notifications.create)<code>()</code> method.</aside>
   std::optional<std::string> message;
 
   // Alternate notification content with a lower-weight font.

@@ -10,7 +10,7 @@ export function getTemplate() {
     
     <button class="dropdown-item dropdown-voice-selection" on-click="onVoiceSelectClick_">
       <span class="voice-name">
-        <iron-icon class$="button-image item-invisible-[[!item.selected]]" icon="read-anything-20:check-mark"></iron-icon>
+        <iron-icon id="check-mark" class$="button-image item-invisible-[[!item.selected]]" icon="read-anything-20:check-mark"></iron-icon>
         [[item.title]]
       </span>
       <cr-icon-button on-click="onVoicePreviewClick_" class$="button-image display-[[!item.previewPlaying]]" iron-icon="read-anything-20:play-circle"></cr-icon-button>

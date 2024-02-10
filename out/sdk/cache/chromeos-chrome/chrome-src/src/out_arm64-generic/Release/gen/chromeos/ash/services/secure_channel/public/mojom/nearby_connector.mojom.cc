@@ -45,6 +45,180 @@
 
 namespace ash::secure_channel::mojom {
 const char kServiceId[] = "secure_channel";
+const char NearbyConnectionStateListener::Name_[] = "ash.secure_channel.mojom.NearbyConnectionStateListener";
+
+NearbyConnectionStateListener::IPCStableHashFunction NearbyConnectionStateListener::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kNearbyConnectionStateListener_OnNearbyConnectionStateChanged_Name: {
+      return &NearbyConnectionStateListener::OnNearbyConnectionStateChanged_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* NearbyConnectionStateListener::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kNearbyConnectionStateListener_OnNearbyConnectionStateChanged_Name:
+            return "Receive ash::secure_channel::mojom::NearbyConnectionStateListener::OnNearbyConnectionStateChanged";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kNearbyConnectionStateListener_OnNearbyConnectionStateChanged_Name:
+            return "Receive reply ash::secure_channel::mojom::NearbyConnectionStateListener::OnNearbyConnectionStateChanged";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t NearbyConnectionStateListener::OnNearbyConnectionStateChanged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::secure_channel::mojom::NearbyConnectionStateListener::OnNearbyConnectionStateChanged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+NearbyConnectionStateListenerProxy::NearbyConnectionStateListenerProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void NearbyConnectionStateListenerProxy::OnNearbyConnectionStateChanged(
+    NearbyConnectionStep in_step, NearbyConnectionStepResult in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::secure_channel::mojom::NearbyConnectionStateListener::OnNearbyConnectionStateChanged", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("step"), in_step,
+                        "<value of type NearbyConnectionStep>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type NearbyConnectionStepResult>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNearbyConnectionStateListener_OnNearbyConnectionStateChanged_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::secure_channel::mojom::internal::NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::ash::secure_channel::mojom::NearbyConnectionStep>(
+      in_step, &params->step);
+  mojo::internal::Serialize<::ash::secure_channel::mojom::NearbyConnectionStepResult>(
+      in_result, &params->result);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NearbyConnectionStateListener::Name_);
+  message.set_method_name("OnNearbyConnectionStateChanged");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool NearbyConnectionStateListenerStubDispatch::Accept(
+    NearbyConnectionStateListener* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kNearbyConnectionStateListener_OnNearbyConnectionStateChanged_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data* params =
+          reinterpret_cast<internal::NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for NearbyConnectionStateListener.0
+      bool success = true;
+      NearbyConnectionStep p_step{};
+      NearbyConnectionStepResult p_result{};
+      NearbyConnectionStateListener_OnNearbyConnectionStateChanged_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadStep(&p_step))
+        success = false;
+      if (success && !input_data_view.ReadResult(&p_result))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            NearbyConnectionStateListener::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnNearbyConnectionStateChanged(        
+        std::move(p_step), 
+        std::move(p_result));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool NearbyConnectionStateListenerStubDispatch::AcceptWithResponder(
+    NearbyConnectionStateListener* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kNearbyConnectionStateListener_OnNearbyConnectionStateChanged_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kNearbyConnectionStateListenerValidationInfo[] = {
+    { &internal::NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool NearbyConnectionStateListenerRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::secure_channel::mojom::NearbyConnectionStateListener::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kNearbyConnectionStateListenerValidationInfo);
+}
+
 const char NearbyMessageSender::Name_[] = "ash.secure_channel.mojom.NearbyMessageSender";
 
 NearbyMessageSender::IPCStableHashFunction NearbyMessageSender::MessageToMethodInfo_(mojo::Message& message) {
@@ -956,7 +1130,7 @@ NearbyConnectorProxy::NearbyConnectorProxy(mojo::MessageReceiverWithResponder* r
 }
 
 void NearbyConnectorProxy::Connect(
-    const std::vector<uint8_t>& in_bluetooth_public_address, const std::vector<uint8_t>& in_eid, ::mojo::PendingRemote<NearbyMessageReceiver> in_message_receiver, ConnectCallback callback) {
+    const std::vector<uint8_t>& in_bluetooth_public_address, const std::vector<uint8_t>& in_eid, ::mojo::PendingRemote<NearbyMessageReceiver> in_message_receiver, ::mojo::PendingRemote<NearbyConnectionStateListener> in_nearby_connection_state_listener, ConnectCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::secure_channel::mojom::NearbyConnector::Connect", "input_parameters",
@@ -971,6 +1145,9 @@ void NearbyConnectorProxy::Connect(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("message_receiver"), in_message_receiver,
                         "<value of type ::mojo::PendingRemote<NearbyMessageReceiver>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("nearby_connection_state_listener"), in_nearby_connection_state_listener,
+                        "<value of type ::mojo::PendingRemote<NearbyConnectionStateListener>>");
    });
 #endif
 
@@ -1023,6 +1200,12 @@ void NearbyConnectorProxy::Connect(
       !mojo::internal::IsHandleOrInterfaceValid(params->message_receiver),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
       "invalid message_receiver in NearbyConnector.Connect request");
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::secure_channel::mojom::NearbyConnectionStateListenerInterfaceBase>>(
+      in_nearby_connection_state_listener, &params->nearby_connection_state_listener, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->nearby_connection_state_listener),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid nearby_connection_state_listener in NearbyConnector.Connect request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NearbyConnector::Name_);
@@ -1203,6 +1386,7 @@ bool NearbyConnectorStubDispatch::AcceptWithResponder(
       std::vector<uint8_t> p_bluetooth_public_address{};
       std::vector<uint8_t> p_eid{};
       ::mojo::PendingRemote<NearbyMessageReceiver> p_message_receiver{};
+      ::mojo::PendingRemote<NearbyConnectionStateListener> p_nearby_connection_state_listener{};
       NearbyConnector_Connect_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadBluetoothPublicAddress(&p_bluetooth_public_address))
@@ -1212,6 +1396,10 @@ bool NearbyConnectorStubDispatch::AcceptWithResponder(
       if (success) {
         p_message_receiver =
             input_data_view.TakeMessageReceiver<decltype(p_message_receiver)>();
+      }
+      if (success) {
+        p_nearby_connection_state_listener =
+            input_data_view.TakeNearbyConnectionStateListener<decltype(p_nearby_connection_state_listener)>();
       }
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1228,7 +1416,8 @@ bool NearbyConnectorStubDispatch::AcceptWithResponder(
       impl->Connect(        
         std::move(p_bluetooth_public_address), 
         std::move(p_eid), 
-        std::move(p_message_receiver), std::move(callback));
+        std::move(p_message_receiver), 
+        std::move(p_nearby_connection_state_listener), std::move(callback));
       return true;
     }
   }
@@ -1265,6 +1454,17 @@ namespace mojo {
 
 
 namespace ash::secure_channel::mojom {
+
+
+void NearbyConnectionStateListenerInterceptorForTesting::OnNearbyConnectionStateChanged(NearbyConnectionStep step, NearbyConnectionStepResult result) {
+  GetForwardingInterface()->OnNearbyConnectionStateChanged(std::move(step), std::move(result));
+}
+NearbyConnectionStateListenerAsyncWaiter::NearbyConnectionStateListenerAsyncWaiter(
+    NearbyConnectionStateListener* proxy) : proxy_(proxy) {}
+
+NearbyConnectionStateListenerAsyncWaiter::~NearbyConnectionStateListenerAsyncWaiter() = default;
+
+
 
 
 void NearbyMessageSenderInterceptorForTesting::SendMessage(const std::string& message, SendMessageCallback callback) {
@@ -1346,8 +1546,8 @@ bool NearbyFilePayloadHandlerAsyncWaiter::RegisterPayloadFile(
 
 
 
-void NearbyConnectorInterceptorForTesting::Connect(const std::vector<uint8_t>& bluetooth_public_address, const std::vector<uint8_t>& eid, ::mojo::PendingRemote<NearbyMessageReceiver> message_receiver, ConnectCallback callback) {
-  GetForwardingInterface()->Connect(std::move(bluetooth_public_address), std::move(eid), std::move(message_receiver), std::move(callback));
+void NearbyConnectorInterceptorForTesting::Connect(const std::vector<uint8_t>& bluetooth_public_address, const std::vector<uint8_t>& eid, ::mojo::PendingRemote<NearbyMessageReceiver> message_receiver, ::mojo::PendingRemote<NearbyConnectionStateListener> nearby_connection_state_listener, ConnectCallback callback) {
+  GetForwardingInterface()->Connect(std::move(bluetooth_public_address), std::move(eid), std::move(message_receiver), std::move(nearby_connection_state_listener), std::move(callback));
 }
 NearbyConnectorAsyncWaiter::NearbyConnectorAsyncWaiter(
     NearbyConnector* proxy) : proxy_(proxy) {}
@@ -1355,9 +1555,9 @@ NearbyConnectorAsyncWaiter::NearbyConnectorAsyncWaiter(
 NearbyConnectorAsyncWaiter::~NearbyConnectorAsyncWaiter() = default;
 
 void NearbyConnectorAsyncWaiter::Connect(
-    const std::vector<uint8_t>& bluetooth_public_address, const std::vector<uint8_t>& eid, ::mojo::PendingRemote<NearbyMessageReceiver> message_receiver, ::mojo::PendingRemote<NearbyMessageSender>* out_message_sender, ::mojo::PendingRemote<NearbyFilePayloadHandler>* out_file_payload_handler) {
+    const std::vector<uint8_t>& bluetooth_public_address, const std::vector<uint8_t>& eid, ::mojo::PendingRemote<NearbyMessageReceiver> message_receiver, ::mojo::PendingRemote<NearbyConnectionStateListener> nearby_connection_state_listener, ::mojo::PendingRemote<NearbyMessageSender>* out_message_sender, ::mojo::PendingRemote<NearbyFilePayloadHandler>* out_file_payload_handler) {
   base::RunLoop loop;
-  proxy_->Connect(std::move(bluetooth_public_address),std::move(eid),std::move(message_receiver),
+  proxy_->Connect(std::move(bluetooth_public_address),std::move(eid),std::move(message_receiver),std::move(nearby_connection_state_listener),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::mojo::PendingRemote<NearbyMessageSender>* out_message_sender

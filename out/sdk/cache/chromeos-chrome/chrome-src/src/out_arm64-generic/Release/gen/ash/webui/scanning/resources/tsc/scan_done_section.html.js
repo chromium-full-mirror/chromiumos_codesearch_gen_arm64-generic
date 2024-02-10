@@ -12,7 +12,7 @@ export function getTemplate() {
   <cr-icon-button id="showInFolderButton" class="button" iron-icon="cr:open-in-new" aria-labelledby="showInFolderButtonLabel">
   </cr-icon-button>
 </div>
-<div class="container" hidden="[[!showEditButton]]" on-click="onOpenMediaAppClick">
+<div class="container" on-click="onOpenMediaAppClick">
   <span id="editButtonLabel" class="label" aria-hidden="true">
     [[editButtonLabel]]
   </span>

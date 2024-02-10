@@ -1310,15 +1310,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'constraints', 16,
-        0,
-        mojo.internal.String,
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'url', 24,
+        'url', 16,
         0,
         mojo.internal.String,
         null,
@@ -1326,7 +1318,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 40],]);
+    [[0, 32],]);
 
 
 
@@ -1339,8 +1331,6 @@ export class PeerConnectionInfo {
     this.lid;
     /** @type { !string } */
     this.rtcConfiguration;
-    /** @type { !string } */
-    this.constraints;
     /** @type { (string|undefined) } */
     this.url;
   }

@@ -10,6 +10,8 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "mojo/public/mojom/base/file.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/read_only_file.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -24,10 +26,12 @@ class ValidationContext;
 
 namespace on_device_model::mojom {
 namespace internal {
+class AdaptationAssets_Data;
 class LanguageDetectionResult_Data;
 class SafetyInfo_Data;
 class ResponseChunk_Data;
 class ResponseSummary_Data;
+class LoadAdaptationParams_Data;
 class InputOptions_Data;
 
 struct PerformanceClass_Data {
@@ -86,6 +90,55 @@ struct LoadModelResult_Data {
 };
 
 #pragma pack(push, 1)
+class  AdaptationAssets_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlyFile_Data> model;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::File_Data> weights;
+
+ private:
+  friend class mojo::internal::MessageFragment<AdaptationAssets_Data>;
+
+  AdaptationAssets_Data();
+  ~AdaptationAssets_Data() = delete;
+};
+static_assert(sizeof(AdaptationAssets_Data) == 24,
+              "Bad sizeof(AdaptationAssets_Data)");
+// Used by AdaptationAssets::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct AdaptationAssets_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  AdaptationAssets_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~AdaptationAssets_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<AdaptationAssets_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    AdaptationAssets_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  LanguageDetectionResult_Data {
  public:
   static bool Validate(const void* data,
@@ -282,6 +335,54 @@ struct ResponseSummary_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     ResponseSummary_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  LoadAdaptationParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::AdaptationAssets_Data> assets;
+
+ private:
+  friend class mojo::internal::MessageFragment<LoadAdaptationParams_Data>;
+
+  LoadAdaptationParams_Data();
+  ~LoadAdaptationParams_Data() = delete;
+};
+static_assert(sizeof(LoadAdaptationParams_Data) == 16,
+              "Bad sizeof(LoadAdaptationParams_Data)");
+// Used by LoadAdaptationParams::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct LoadAdaptationParams_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  LoadAdaptationParams_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~LoadAdaptationParams_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<LoadAdaptationParams_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    LoadAdaptationParams_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  InputOptions_Data {
  public:
   static bool Validate(const void* data,

@@ -944,6 +944,9 @@ static_assert(
     DCHECK(ret);
     return result;
   }
+  bool enable_ip_protection() const {
+    return data_->enable_ip_protection;
+  }
   bool pac_quick_check_enabled() const {
     return data_->pac_quick_check_enabled;
   }
@@ -2277,6 +2280,7 @@ struct Serializer<::network::mojom::NetworkContextParamsDataView, MaybeConstUser
     decltype(Traits::ip_protection_proxy_delegate(input)) in_ip_protection_proxy_delegate = Traits::ip_protection_proxy_delegate(input);
     mojo::internal::Serialize<mojo::InterfaceRequestDataView<::network::mojom::IpProtectionProxyDelegateInterfaceBase>>(
         in_ip_protection_proxy_delegate, &fragment->ip_protection_proxy_delegate, &fragment.message());
+    fragment->enable_ip_protection = Traits::enable_ip_protection(input);
     fragment->pac_quick_check_enabled = Traits::pac_quick_check_enabled(input);
     fragment->enable_certificate_reporting = Traits::enable_certificate_reporting(input);
     fragment->enforce_chrome_ct_policy = Traits::enforce_chrome_ct_policy(input);

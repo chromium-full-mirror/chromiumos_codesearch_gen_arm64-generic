@@ -122,6 +122,41 @@ class  OnDeviceModel_StartSession_Params_Data {
 };
 static_assert(sizeof(OnDeviceModel_StartSession_Params_Data) == 16,
               "Bad sizeof(OnDeviceModel_StartSession_Params_Data)");
+class  OnDeviceModel_LoadAdaptation_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::LoadAdaptationParams_Data> params;
+  mojo::internal::Handle_Data model;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<OnDeviceModel_LoadAdaptation_Params_Data>;
+
+  OnDeviceModel_LoadAdaptation_Params_Data();
+  ~OnDeviceModel_LoadAdaptation_Params_Data() = delete;
+};
+static_assert(sizeof(OnDeviceModel_LoadAdaptation_Params_Data) == 24,
+              "Bad sizeof(OnDeviceModel_LoadAdaptation_Params_Data)");
+class  OnDeviceModel_LoadAdaptation_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t result;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<OnDeviceModel_LoadAdaptation_ResponseParams_Data>;
+
+  OnDeviceModel_LoadAdaptation_ResponseParams_Data();
+  ~OnDeviceModel_LoadAdaptation_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(OnDeviceModel_LoadAdaptation_ResponseParams_Data) == 16,
+              "Bad sizeof(OnDeviceModel_LoadAdaptation_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -290,6 +325,66 @@ class OnDeviceModel_StartSession_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+class OnDeviceModel_LoadAdaptation_ParamsDataView {
+ public:
+  OnDeviceModel_LoadAdaptation_ParamsDataView() = default;
+
+  OnDeviceModel_LoadAdaptation_ParamsDataView(
+      internal::OnDeviceModel_LoadAdaptation_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetParamsDataView(
+      LoadAdaptationParamsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadParams(UserType* output) {
+    
+    auto* pointer = data_->params.Get();
+    return mojo::internal::Deserialize<::on_device_model::mojom::LoadAdaptationParamsDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  UserType TakeModel() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::on_device_model::mojom::OnDeviceModelInterfaceBase>>(
+            &data_->model, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::OnDeviceModel_LoadAdaptation_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class OnDeviceModel_LoadAdaptation_ResponseParamsDataView {
+ public:
+  OnDeviceModel_LoadAdaptation_ResponseParamsDataView() = default;
+
+  OnDeviceModel_LoadAdaptation_ResponseParamsDataView(
+      internal::OnDeviceModel_LoadAdaptation_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) const {
+    auto data_value = data_->result;
+    return mojo::internal::Deserialize<::on_device_model::mojom::LoadModelResult>(
+        data_value, output);
+  }
+  LoadModelResult result() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::on_device_model::mojom::LoadModelResult>(data_->result));
+  }
+ private:
+  internal::OnDeviceModel_LoadAdaptation_ResponseParams_Data* data_ = nullptr;
+};
+
 inline void StreamingResponder_OnResponse_ParamsDataView::GetChunkDataView(
     ResponseChunkDataView* output) {
   auto pointer = data_->chunk.Get();
@@ -317,6 +412,15 @@ inline void Session_Execute_ParamsDataView::GetInputDataView(
     InputOptionsDataView* output) {
   auto pointer = data_->input.Get();
   *output = InputOptionsDataView(pointer, message_);
+}
+
+
+
+
+inline void OnDeviceModel_LoadAdaptation_ParamsDataView::GetParamsDataView(
+    LoadAdaptationParamsDataView* output) {
+  auto pointer = data_->params.Get();
+  *output = LoadAdaptationParamsDataView(pointer, message_);
 }
 
 

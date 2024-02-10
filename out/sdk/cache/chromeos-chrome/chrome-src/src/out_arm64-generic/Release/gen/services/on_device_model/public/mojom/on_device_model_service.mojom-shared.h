@@ -246,6 +246,16 @@ class LoadModelParamsDataView {
         ? std::make_optional(data_->ts_dimension_$value)
         : std::nullopt;
   }
+  inline void GetAdaptationRanksDataView(
+      mojo::ArrayDataView<uint32_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAdaptationRanks(UserType* output) {
+    
+    auto* pointer = data_->adaptation_ranks.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint32_t>>(
+        pointer, output, message_);
+  }
  private:
   internal::LoadModelParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -368,6 +378,20 @@ struct Serializer<::on_device_model::mojom::LoadModelParamsDataView, MaybeConstU
     if (Traits::ts_dimension(input).has_value()) {
       fragment->ts_dimension_$value = Traits::ts_dimension(input).value();
     }
+    decltype(Traits::adaptation_ranks(input)) in_adaptation_ranks = Traits::adaptation_ranks(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->adaptation_ranks)::BaseType>
+        adaptation_ranks_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& adaptation_ranks_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<uint32_t>>(
+        in_adaptation_ranks, adaptation_ranks_fragment, &adaptation_ranks_validate_params);
+    fragment->adaptation_ranks.Set(
+        adaptation_ranks_fragment.is_null() ? nullptr : adaptation_ranks_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->adaptation_ranks.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null adaptation_ranks in LoadModelParams struct");
   }
 
   static bool Deserialize(::on_device_model::mojom::internal::LoadModelParams_Data* input,
@@ -424,6 +448,11 @@ inline void LoadModelParamsDataView::GetAssetsDataView(
     ModelAssetsDataView* output) {
   auto pointer = data_->assets.Get();
   *output = ModelAssetsDataView(pointer, message_);
+}
+inline void LoadModelParamsDataView::GetAdaptationRanksDataView(
+    mojo::ArrayDataView<uint32_t>* output) {
+  auto pointer = data_->adaptation_ranks.Get();
+  *output = mojo::ArrayDataView<uint32_t>(pointer, message_);
 }
 
 

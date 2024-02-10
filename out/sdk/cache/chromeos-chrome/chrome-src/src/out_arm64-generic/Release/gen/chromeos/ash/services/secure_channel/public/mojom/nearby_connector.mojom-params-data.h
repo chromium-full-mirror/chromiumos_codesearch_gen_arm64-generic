@@ -22,6 +22,23 @@ class ValidationContext;
 
 namespace ash::secure_channel::mojom {
 namespace internal {
+class  NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t step;
+  int32_t result;
+
+ private:
+  friend class mojo::internal::MessageFragment<NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data>;
+
+  NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data();
+  ~NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data() = delete;
+};
+static_assert(sizeof(NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data) == 16,
+              "Bad sizeof(NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data)");
 class  NearbyMessageSender_SendMessage_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -115,6 +132,7 @@ class  NearbyConnector_Connect_Params_Data {
   mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> bluetooth_public_address;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> eid;
   mojo::internal::Interface_Data message_receiver;
+  mojo::internal::Interface_Data nearby_connection_state_listener;
 
  private:
   friend class mojo::internal::MessageFragment<NearbyConnector_Connect_Params_Data>;
@@ -122,7 +140,7 @@ class  NearbyConnector_Connect_Params_Data {
   NearbyConnector_Connect_Params_Data();
   ~NearbyConnector_Connect_Params_Data() = delete;
 };
-static_assert(sizeof(NearbyConnector_Connect_Params_Data) == 32,
+static_assert(sizeof(NearbyConnector_Connect_Params_Data) == 40,
               "Bad sizeof(NearbyConnector_Connect_Params_Data)");
 class  NearbyConnector_Connect_ResponseParams_Data {
  public:
@@ -143,6 +161,41 @@ static_assert(sizeof(NearbyConnector_Connect_ResponseParams_Data) == 24,
               "Bad sizeof(NearbyConnector_Connect_ResponseParams_Data)");
 
 }  // namespace internal
+
+
+class NearbyConnectionStateListener_OnNearbyConnectionStateChanged_ParamsDataView {
+ public:
+  NearbyConnectionStateListener_OnNearbyConnectionStateChanged_ParamsDataView() = default;
+
+  NearbyConnectionStateListener_OnNearbyConnectionStateChanged_ParamsDataView(
+      internal::NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStep(UserType* output) const {
+    auto data_value = data_->step;
+    return mojo::internal::Deserialize<::ash::secure_channel::mojom::NearbyConnectionStep>(
+        data_value, output);
+  }
+  NearbyConnectionStep step() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::secure_channel::mojom::NearbyConnectionStep>(data_->step));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) const {
+    auto data_value = data_->result;
+    return mojo::internal::Deserialize<::ash::secure_channel::mojom::NearbyConnectionStepResult>(
+        data_value, output);
+  }
+  NearbyConnectionStepResult result() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::secure_channel::mojom::NearbyConnectionStepResult>(data_->result));
+  }
+ private:
+  internal::NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data* data_ = nullptr;
+};
 
 
 class NearbyMessageSender_SendMessage_ParamsDataView {
@@ -310,6 +363,15 @@ class NearbyConnector_Connect_ParamsDataView {
     DCHECK(ret);
     return result;
   }
+  template <typename UserType>
+  UserType TakeNearbyConnectionStateListener() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::secure_channel::mojom::NearbyConnectionStateListenerInterfaceBase>>(
+            &data_->nearby_connection_state_listener, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
  private:
   internal::NearbyConnector_Connect_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -348,6 +410,8 @@ class NearbyConnector_Connect_ResponseParamsDataView {
   internal::NearbyConnector_Connect_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
+
+
 
 inline void NearbyMessageSender_SendMessage_ParamsDataView::GetMessageDataView(
     mojo::StringDataView* output) {

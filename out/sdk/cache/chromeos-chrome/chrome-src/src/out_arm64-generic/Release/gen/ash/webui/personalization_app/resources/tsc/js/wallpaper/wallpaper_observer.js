@@ -1,7 +1,8 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { setSelectedRecentSeaPenImageAction } from 'chrome://resources/ash/common/sea_pen/sea_pen_actions.js';
+import { setSeaPenAttributionAction, setSelectedRecentSeaPenImageAction } from 'chrome://resources/ash/common/sea_pen/sea_pen_actions.js';
+import { assert } from 'chrome://resources/js/assert.js';
 import { WallpaperObserverReceiver, WallpaperType } from '../../personalization_app.mojom-webui.js';
 import { PersonalizationStore } from '../personalization_store.js';
 import { setAttributionAction, setFullscreenEnabledAction, setSelectedImageAction, setUpdatedDailyRefreshImageAction } from './wallpaper_actions.js';
@@ -49,6 +50,15 @@ export class WallpaperObserver {
     onAttributionChanged(attribution) {
         const store = PersonalizationStore.getInstance();
         store.dispatch(setAttributionAction(attribution));
+        // Set the Sea Pen wallpaper attribution loading state completed if it is
+        // loading.
+        if (store.data.wallpaper.seaPen.loading.selected.attribution) {
+            // Sea Pen currentSelected state should have been set before the
+            // attribution is notified, and match with the attribution key.
+            assert(attribution, 'attribution should be available');
+            assert(store.data.wallpaper.seaPen.currentSelected === attribution.key, 'attribution key should match currentSelected');
+            store.dispatch(setSeaPenAttributionAction());
+        }
     }
     onWallpaperChanged(currentWallpaper) {
         // Ignore updates while in fullscreen preview mode. The attribution

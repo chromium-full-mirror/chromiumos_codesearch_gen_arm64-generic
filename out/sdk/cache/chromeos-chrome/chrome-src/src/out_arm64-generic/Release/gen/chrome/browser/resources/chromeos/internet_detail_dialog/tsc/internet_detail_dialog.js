@@ -222,7 +222,7 @@ export class InternetDetailDialogElement extends InternetDetailDialogElementBase
         // If the network was or is active, request an update.
         if (this.managedProperties_.connectionState !=
             ConnectionStateType.kNotConnected ||
-            networks.find(network => network.guid == this.guid)) {
+            networks.find(network => network.guid === this.guid)) {
             this.getNetworkDetails_();
         }
     }
@@ -231,7 +231,7 @@ export class InternetDetailDialogElement extends InternetDetailDialogElementBase
         if (!this.guid || !this.managedProperties_) {
             return;
         }
-        if (network.guid == this.guid) {
+        if (network.guid === this.guid) {
             this.getNetworkDetails_();
         }
     }
@@ -265,7 +265,7 @@ export class InternetDetailDialogElement extends InternetDetailDialogElementBase
         const type = this.managedProperties_.type;
         this.networkConfig_.getDeviceStateList().then(response => {
             const devices = response.result;
-            this.deviceState_ = devices.find(device => device.type == type) || null;
+            this.deviceState_ = devices.find(device => device.type === type) || null;
             if (!this.deviceState_) {
                 // If the device type associated with the current network has been
                 // removed (e.g., due to unplugging a Cellular dongle), the details
@@ -349,7 +349,7 @@ export class InternetDetailDialogElement extends InternetDetailDialogElementBase
             this.isRestrictedConnectivity_(managedProperties);
     }
     isRemembered_(managedProperties) {
-        return managedProperties.source != OncSource.kNone;
+        return managedProperties.source !== OncSource.kNone;
     }
     isRememberedOrConnected_(managedProperties) {
         return this.isRemembered_(managedProperties) ||
@@ -357,7 +357,7 @@ export class InternetDetailDialogElement extends InternetDetailDialogElementBase
     }
     shouldShowApnList_(managedProperties) {
         return !this.isApnRevampEnabled_ &&
-            managedProperties.type == NetworkType.kCellular;
+            managedProperties.type === NetworkType.kCellular;
     }
     shouldShowApnSection_(managedProperties) {
         return this.isApnRevampEnabled_ &&
@@ -375,18 +375,18 @@ export class InternetDetailDialogElement extends InternetDetailDialogElementBase
         return getApnDisplayName(this.i18n.bind(this), managedProperties.typeProperties.cellular.connectedApn);
     }
     showCellularSim_(managedProperties) {
-        return managedProperties.type == NetworkType.kCellular &&
-            managedProperties.typeProperties.cellular.family != 'CDMA';
+        return managedProperties.type === NetworkType.kCellular &&
+            managedProperties.typeProperties.cellular.family !== 'CDMA';
     }
     showCellularChooseNetwork_(managedProperties) {
-        return managedProperties.type == NetworkType.kCellular &&
+        return managedProperties.type === NetworkType.kCellular &&
             managedProperties.typeProperties.cellular.supportNetworkScan;
     }
     showForget_(managedProperties) {
-        if (!managedProperties || managedProperties.type != NetworkType.kWiFi) {
+        if (!managedProperties || managedProperties.type !== NetworkType.kWiFi) {
             return false;
         }
-        return managedProperties.source != OncSource.kNone &&
+        return managedProperties.source !== OncSource.kNone &&
             !this.isPolicySource(managedProperties.source);
     }
     onForgetClicked_() {
@@ -435,15 +435,15 @@ export class InternetDetailDialogElement extends InternetDetailDialogElementBase
             return false;
         }
         return managedProperties.connectable &&
-            managedProperties.type != NetworkType.kEthernet &&
-            managedProperties.connectionState == ConnectionStateType.kNotConnected;
+            managedProperties.type !== NetworkType.kEthernet &&
+            managedProperties.connectionState === ConnectionStateType.kNotConnected;
     }
     showDisconnect_(managedProperties) {
         if (!managedProperties) {
             return false;
         }
-        return managedProperties.type != NetworkType.kEthernet &&
-            managedProperties.connectionState != ConnectionStateType.kNotConnected;
+        return managedProperties.type !== NetworkType.kEthernet &&
+            managedProperties.connectionState !== ConnectionStateType.kNotConnected;
     }
     shouldShowProxyPolicyIndicator_(managedProperties) {
         if (!managedProperties.proxySettings) {
@@ -549,16 +549,16 @@ export class InternetDetailDialogElement extends InternetDetailDialogElementBase
     getInfoFields_() {
         const fields = [];
         const type = this.managedProperties_.type;
-        if (type == NetworkType.kCellular) {
+        if (type === NetworkType.kCellular) {
             fields.push('cellular.activationState', 'cellular.servingOperator.name', 'cellular.networkTechnology');
         }
         if (OncMojo.isRestrictedConnectivity(this.managedProperties_.portalState)) {
             fields.push('portalState');
         }
-        // Two separate checks for type == kCellular because the order of the array
+        // Two separate checks for type === kCellular because the order of the array
         // dictates the order the fields appear on the UI. We want portalState to
         // show after the earlier Cellular fields but before these later fields.
-        if (type == NetworkType.kCellular) {
+        if (type === NetworkType.kCellular) {
             fields.push('cellular.homeProvider.name', 'cellular.homeProvider.country', 'cellular.firmwareRevision', 'cellular.hardwareRevision', 'cellular.esn', 'cellular.iccid', 'cellular.imei', 'cellular.meid', 'cellular.min');
         }
         return fields;

@@ -268,6 +268,11 @@ BASE_FEATURE(kCSSBackgroundClipUnprefix,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kCSSCalcSizeFunction,
+    "CSSCalcSizeFunction",
+    base::FEATURE_DISABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kCSSCapFontUnits,
     "CSSCapFontUnits",
     base::FEATURE_ENABLED_BY_DEFAULT
@@ -405,6 +410,11 @@ BASE_FEATURE(kCSSPhraseLineBreak,
 
 BASE_FEATURE(kCSSProgressNotation,
     "CSSProgressNotation",
+    base::FEATURE_DISABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kCSSPseudoOpenClosed,
+    "CSSPseudoOpenClosed",
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
@@ -1133,6 +1143,11 @@ BASE_FEATURE(kLazyLoadScrollMargin,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kLazyLoadScrollMarginIframe,
+    "LazyLoadScrollMarginIframe",
+    base::FEATURE_DISABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kLCPMouseoverHeuristics,
     "LCPMouseoverHeuristics",
     base::FEATURE_DISABLED_BY_DEFAULT
@@ -1756,11 +1771,6 @@ BASE_FEATURE(kStorageBucketsLocks,
 BASE_FEATURE(kStylableSelect,
     "StylableSelect",
     base::FEATURE_DISABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kSuggestionPickerDarkModeSupport,
-    "SuggestionPickerDarkModeSupport",
-    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kSvgCrossOriginAttribute,

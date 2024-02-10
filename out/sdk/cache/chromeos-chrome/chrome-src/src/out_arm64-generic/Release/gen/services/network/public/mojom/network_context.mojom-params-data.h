@@ -471,6 +471,55 @@ class  IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterT
 };
 static_assert(sizeof(IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data) == 8,
               "Bad sizeof(IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data)");
+class  IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t value : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data>;
+
+  IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data();
+  ~IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data() = delete;
+};
+static_assert(sizeof(IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data) == 16,
+              "Bad sizeof(IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data)");
+class  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data>;
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data();
+  ~IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data() = delete;
+};
+static_assert(sizeof(IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data) == 8,
+              "Bad sizeof(IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data)");
+class  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t value : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data>;
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data();
+  ~IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data) == 16,
+              "Bad sizeof(IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data)");
 class  NetworkContext_SetClient_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -3282,6 +3331,57 @@ class IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTi
   bool is_null() const { return !data_; }
  private:
   internal::IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data* data_ = nullptr;
+};
+
+
+class IpProtectionProxyDelegate_SetIpProtectionEnabled_ParamsDataView {
+ public:
+  IpProtectionProxyDelegate_SetIpProtectionEnabled_ParamsDataView() = default;
+
+  IpProtectionProxyDelegate_SetIpProtectionEnabled_ParamsDataView(
+      internal::IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool value() const {
+    return data_->value;
+  }
+ private:
+  internal::IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data* data_ = nullptr;
+};
+
+
+class IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ParamsDataView {
+ public:
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ParamsDataView() = default;
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ParamsDataView(
+      internal::IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data* data_ = nullptr;
+};
+
+
+class IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParamsDataView {
+ public:
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParamsDataView() = default;
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParamsDataView(
+      internal::IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool value() const {
+    return data_->value;
+  }
+ private:
+  internal::IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -7282,6 +7382,12 @@ inline void IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_R
   auto pointer = data_->try_again_after.Get();
   *output = ::mojo_base::mojom::TimeDataView(pointer, message_);
 }
+
+
+
+
+
+
 
 
 

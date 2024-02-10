@@ -575,7 +575,7 @@ class TestController
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 2275436942397425260ULL,
                                       11994706605012627667ULL };
-  static constexpr uint32_t Version_ = 31;
+  static constexpr uint32_t Version_ = 32;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -633,6 +633,8 @@ class TestController
     kGetAllOpenTabURLsMinVersion = 29,
     kSetAlmanacEndpointUrlForTestingMinVersion = 30,
     kIsToastShownMinVersion = 31,
+    kSnapWindowMinVersion = 32,
+    kIsShelfVisibleMinVersion = 32,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -771,6 +773,12 @@ class TestController
     NOINLINE static uint32_t IPCStableHash();
   };
   struct IsToastShown_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SnapWindow_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct IsShelfVisible_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -986,6 +994,16 @@ class TestController
   using IsToastShownCallback = base::OnceCallback<void(bool)>;
   
   virtual void IsToastShown(const std::string& toast_id, IsToastShownCallback callback) = 0;
+
+
+  using SnapWindowCallback = base::OnceCallback<void()>;
+  
+  virtual void SnapWindow(const std::string& window_id, SnapPosition position, SnapWindowCallback callback) = 0;
+
+
+  using IsShelfVisibleCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void IsShelfVisible(IsShelfVisibleCallback callback) = 0;
 };
 
 
@@ -1221,6 +1239,10 @@ class  TestControllerProxy
   void SetAlmanacEndpointUrlForTesting(const std::optional<std::string>& override, SetAlmanacEndpointUrlForTestingCallback callback) final;
   
   void IsToastShown(const std::string& toast_id, IsToastShownCallback callback) final;
+  
+  void SnapWindow(const std::string& window_id, SnapPosition position, SnapWindowCallback callback) final;
+  
+  void IsShelfVisible(IsShelfVisibleCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -120,6 +120,36 @@ inline bool IsKnownEnumValue(CustomizeChromeSection value) {
   return internal::CustomizeChromeSection_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+
+
+enum class ChromeWebStoreCollection : int32_t {
+  
+  kWrittingEssentials = 0,
+  kMinValue = 0,
+  kMaxValue = 0,
+};
+
+ std::ostream& operator<<(std::ostream& os, ChromeWebStoreCollection value);
+inline bool IsKnownEnumValue(ChromeWebStoreCollection value) {
+  return internal::ChromeWebStoreCollection_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class ChromeWebStoreCategory : int32_t {
+  
+  kWorkflowPlanning = 0,
+  
+  kShopping = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, ChromeWebStoreCategory value);
+inline bool IsKnownEnumValue(ChromeWebStoreCategory value) {
+  return internal::ChromeWebStoreCategory_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class CustomizeChromePageHandlerFactoryInterfaceBase {};
 
@@ -532,6 +562,14 @@ template <>
 struct hash<::side_panel::mojom::CustomizeChromeSection>
     : public mojo::internal::EnumHashImpl<::side_panel::mojom::CustomizeChromeSection> {};
 
+template <>
+struct hash<::side_panel::mojom::ChromeWebStoreCollection>
+    : public mojo::internal::EnumHashImpl<::side_panel::mojom::ChromeWebStoreCollection> {};
+
+template <>
+struct hash<::side_panel::mojom::ChromeWebStoreCategory>
+    : public mojo::internal::EnumHashImpl<::side_panel::mojom::ChromeWebStoreCategory> {};
+
 }  // namespace std
 
 namespace mojo {
@@ -551,6 +589,46 @@ struct Serializer<::side_panel::mojom::CustomizeChromeSection, MaybeConstUserTyp
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::side_panel::mojom::CustomizeChromeSection>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::side_panel::mojom::ChromeWebStoreCollection, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::side_panel::mojom::ChromeWebStoreCollection, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::side_panel::mojom::ChromeWebStoreCollection>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::side_panel::mojom::ChromeWebStoreCategory, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::side_panel::mojom::ChromeWebStoreCategory, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::side_panel::mojom::ChromeWebStoreCategory>(input)), output);
   }
 };
 
@@ -1121,6 +1199,24 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::side_panel::mojom::CustomizeChromeSection> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::side_panel::mojom::CustomizeChromeSection value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::side_panel::mojom::ChromeWebStoreCollection> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::side_panel::mojom::ChromeWebStoreCollection value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::side_panel::mojom::ChromeWebStoreCategory> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::side_panel::mojom::ChromeWebStoreCategory value);
 };
 
 } // namespace perfetto

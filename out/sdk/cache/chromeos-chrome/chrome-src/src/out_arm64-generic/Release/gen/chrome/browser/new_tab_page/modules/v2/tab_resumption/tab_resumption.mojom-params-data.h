@@ -53,6 +53,37 @@ class  PageHandler_GetTabs_ResponseParams_Data {
 };
 static_assert(sizeof(PageHandler_GetTabs_ResponseParams_Data) == 16,
               "Bad sizeof(PageHandler_GetTabs_ResponseParams_Data)");
+class  PageHandler_DismissModule_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::url::mojom::internal::Url_Data>>> urls;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_DismissModule_Params_Data>;
+
+  PageHandler_DismissModule_Params_Data();
+  ~PageHandler_DismissModule_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_DismissModule_Params_Data) == 16,
+              "Bad sizeof(PageHandler_DismissModule_Params_Data)");
+class  PageHandler_RestoreModule_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_RestoreModule_Params_Data>;
+
+  PageHandler_RestoreModule_Params_Data();
+  ~PageHandler_RestoreModule_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_RestoreModule_Params_Data) == 8,
+              "Bad sizeof(PageHandler_RestoreModule_Params_Data)");
 
 }  // namespace internal
 
@@ -98,12 +129,62 @@ class PageHandler_GetTabs_ResponseParamsDataView {
 };
 
 
+class PageHandler_DismissModule_ParamsDataView {
+ public:
+  PageHandler_DismissModule_ParamsDataView() = default;
+
+  PageHandler_DismissModule_ParamsDataView(
+      internal::PageHandler_DismissModule_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetUrlsDataView(
+      mojo::ArrayDataView<::url::mojom::UrlDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUrls(UserType* output) {
+    
+    auto* pointer = data_->urls.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::url::mojom::UrlDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_DismissModule_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PageHandler_RestoreModule_ParamsDataView {
+ public:
+  PageHandler_RestoreModule_ParamsDataView() = default;
+
+  PageHandler_RestoreModule_ParamsDataView(
+      internal::PageHandler_RestoreModule_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_RestoreModule_Params_Data* data_ = nullptr;
+};
+
+
 
 inline void PageHandler_GetTabs_ResponseParamsDataView::GetTabsDataView(
     mojo::ArrayDataView<::history::mojom::TabDataView>* output) {
   auto pointer = data_->tabs.Get();
   *output = mojo::ArrayDataView<::history::mojom::TabDataView>(pointer, message_);
 }
+
+
+inline void PageHandler_DismissModule_ParamsDataView::GetUrlsDataView(
+    mojo::ArrayDataView<::url::mojom::UrlDataView>* output) {
+  auto pointer = data_->urls.Get();
+  *output = mojo::ArrayDataView<::url::mojom::UrlDataView>(pointer, message_);
+}
+
+
 
 
 

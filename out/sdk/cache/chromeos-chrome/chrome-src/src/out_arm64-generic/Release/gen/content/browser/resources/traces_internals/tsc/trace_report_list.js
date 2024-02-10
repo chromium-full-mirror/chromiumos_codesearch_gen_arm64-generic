@@ -46,10 +46,10 @@ export class TraceReportListElement extends PolymerElement {
     }
     connectedCallback() {
         super.connectedCallback();
-        this.initializeList();
+        this.initializeList(true);
     }
-    async initializeList() {
-        this.isLoading = true;
+    async initializeList(hasLoading = false) {
+        this.isLoading = hasLoading;
         const { reports } = await this.traceReportProxy_.handler.getAllTraceReports();
         if (reports) {
             this.traces = reports;

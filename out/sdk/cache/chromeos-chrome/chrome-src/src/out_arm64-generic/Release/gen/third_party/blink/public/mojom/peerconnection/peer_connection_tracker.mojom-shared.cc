@@ -61,7 +61,7 @@ bool PeerConnectionInfo_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -78,17 +78,6 @@ bool PeerConnectionInfo_Data::Validate(
       mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->rtc_configuration, validation_context,
                                          &rtc_configuration_validate_params)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->constraints, 3, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& constraints_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->constraints, validation_context,
-                                         &constraints_validate_params)) {
     return false;
   }
 

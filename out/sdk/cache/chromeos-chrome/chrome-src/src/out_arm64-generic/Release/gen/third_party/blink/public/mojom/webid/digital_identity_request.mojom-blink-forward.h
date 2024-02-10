@@ -9,11 +9,12 @@
 
 #include <stdint.h>
 
-
+#include "mojo/public/cpp/bindings/struct_forward.h"
 
 #include "mojo/public/cpp/bindings/deprecated_interface_types_forward.h"
 
 
+#include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
 
 
 
@@ -32,6 +33,15 @@ namespace blink::mojom::blink {
 // Aliases for definition in the parent namespace.
 using RequestDigitalIdentityStatus = RequestDigitalIdentityStatus;
 using DigitalIdentityRequestInterfaceBase = DigitalIdentityRequestInterfaceBase;
+class DigitalCredentialProvider;
+using DigitalCredentialProviderPtr = mojo::StructPtr<DigitalCredentialProvider>;
+
+class DigitalCredentialSelector;
+using DigitalCredentialSelectorPtr = mojo::StructPtr<DigitalCredentialSelector>;
+
+class DigitalCredentialFieldRequirement;
+using DigitalCredentialFieldRequirementPtr = mojo::InlinedStructPtr<DigitalCredentialFieldRequirement>;
+
 class DigitalIdentityRequest;
 
 

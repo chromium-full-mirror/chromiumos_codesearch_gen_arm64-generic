@@ -688,24 +688,6 @@ export class FederatedAuthRequestCallbackRouter {
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const DigitalCredentialProviderSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const DigitalCredentialSelectorSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const DigitalCredentialFieldRequirementSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
 export const IdentityProviderConfigSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -841,169 +823,6 @@ export const FederatedAuthRequest_Disconnect_ParamsSpec =
 export const FederatedAuthRequest_Disconnect_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-/**
- * @const { {$:!mojo.internal.MojomType} }
- */
-export const IdentityProviderSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-
-
-mojo.internal.Struct(
-    DigitalCredentialProviderSpec.$,
-    'DigitalCredentialProvider',
-    [
-      mojo.internal.StructField(
-        'params', 0,
-        0,
-        mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
-        null,
-        true /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'selector', 8,
-        0,
-        DigitalCredentialSelectorSpec.$,
-        null,
-        true /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'protocol', 16,
-        0,
-        mojo.internal.String,
-        null,
-        true /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'request', 24,
-        0,
-        mojo.internal.String,
-        null,
-        true /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'publicKey', 32,
-        0,
-        mojo.internal.String,
-        null,
-        true /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 48],]);
-
-
-
-/**
- * @record
- */
-export class DigitalCredentialProvider {
-  constructor() {
-    /** @type { (Object<!string, !string>|undefined) } */
-    this.params;
-    /** @type { (DigitalCredentialSelector|undefined) } */
-    this.selector;
-    /** @type { (string|undefined) } */
-    this.protocol;
-    /** @type { (string|undefined) } */
-    this.request;
-    /** @type { (string|undefined) } */
-    this.publicKey;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    DigitalCredentialSelectorSpec.$,
-    'DigitalCredentialSelector',
-    [
-      mojo.internal.StructField(
-        'format', 0,
-        0,
-        mojo.internal.Array(mojo.internal.String, false),
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'doctype', 8,
-        0,
-        mojo.internal.String,
-        null,
-        true /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'fields', 16,
-        0,
-        mojo.internal.Array(DigitalCredentialFieldRequirementSpec.$, false),
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 32],]);
-
-
-
-/**
- * @record
- */
-export class DigitalCredentialSelector {
-  constructor() {
-    /** @type { !Array<!string> } */
-    this.format;
-    /** @type { (string|undefined) } */
-    this.doctype;
-    /** @type { !Array<!DigitalCredentialFieldRequirement> } */
-    this.fields;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    DigitalCredentialFieldRequirementSpec.$,
-    'DigitalCredentialFieldRequirement',
-    [
-      mojo.internal.StructField(
-        'name', 0,
-        0,
-        mojo.internal.String,
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'equals', 8,
-        0,
-        mojo.internal.String,
-        null,
-        true /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-/**
- * @record
- */
-export class DigitalCredentialFieldRequirement {
-  constructor() {
-    /** @type { !string } */
-    this.name;
-    /** @type { (string|undefined) } */
-    this.equals;
-  }
-}
 
 
 
@@ -1250,7 +1069,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'providers', 0,
         0,
-        mojo.internal.Array(IdentityProviderSpec.$, false),
+        mojo.internal.Array(IdentityProviderRequestOptionsSpec.$, false),
         null,
         false /* nullable */,
         0,
@@ -1281,7 +1100,7 @@ mojo.internal.Struct(
  */
 export class IdentityProviderGetParameters {
   constructor() {
-    /** @type { !Array<!IdentityProvider> } */
+    /** @type { !Array<!IdentityProviderRequestOptions> } */
     this.providers;
     /** @type { !RpContext } */
     this.context;
@@ -1852,23 +1671,3 @@ export class FederatedAuthRequest_Disconnect_ResponseParams {
   }
 }
 
-mojo.internal.Union(
-    IdentityProviderSpec.$, 'IdentityProvider',
-    {
-      'federated': {
-        'ordinal': 0,
-        'type': IdentityProviderRequestOptionsSpec.$,
-      },
-      'holder': {
-        'ordinal': 1,
-        'type': DigitalCredentialProviderSpec.$,
-      },
-    });
-
-/**
- * @typedef { {
- *   federated: (!IdentityProviderRequestOptions|undefined),
- *   holder: (!DigitalCredentialProvider|undefined),
- * } }
- */
-export const IdentityProvider = {};

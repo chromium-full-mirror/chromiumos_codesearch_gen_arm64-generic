@@ -4,6 +4,7 @@
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { TabSpec as history_mojom_TabSpec } from './history_types.mojom-webui.js';
+import { UrlSpec as url_mojom_UrlSpec } from '//resources/mojo/url/mojom/url.mojom-webui.js';
 export class PageHandlerPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -22,6 +23,14 @@ export class PageHandlerRemote {
     getTabs() {
         return this.proxy.sendMessage(0, PageHandler_GetTabs_ParamsSpec.$, PageHandler_GetTabs_ResponseParamsSpec.$, []);
     }
+    dismissModule(urls) {
+        this.proxy.sendMessage(1, PageHandler_DismissModule_ParamsSpec.$, null, [
+            urls
+        ]);
+    }
+    restoreModule() {
+        this.proxy.sendMessage(2, PageHandler_RestoreModule_ParamsSpec.$, null, []);
+    }
 }
 ;
 /**
@@ -34,6 +43,8 @@ export class PageHandlerReceiver {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, PageHandler_GetTabs_ParamsSpec.$, PageHandler_GetTabs_ResponseParamsSpec.$, impl.getTabs.bind(impl));
+        this.helper_internal_.registerHandler(1, PageHandler_DismissModule_ParamsSpec.$, null, impl.dismissModule.bind(impl));
+        this.helper_internal_.registerHandler(2, PageHandler_RestoreModule_ParamsSpec.$, null, impl.restoreModule.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -66,6 +77,12 @@ export class PageHandlerCallbackRouter {
         this.getTabs =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(0, PageHandler_GetTabs_ParamsSpec.$, PageHandler_GetTabs_ResponseParamsSpec.$, this.getTabs.createReceiverHandler(true /* expectsResponse */));
+        this.dismissModule =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(1, PageHandler_DismissModule_ParamsSpec.$, null, this.dismissModule.createReceiverHandler(false /* expectsResponse */));
+        this.restoreModule =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(2, PageHandler_RestoreModule_ParamsSpec.$, null, this.restoreModule.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -78,7 +95,13 @@ export class PageHandlerCallbackRouter {
 }
 export const PageHandler_GetTabs_ParamsSpec = { $: {} };
 export const PageHandler_GetTabs_ResponseParamsSpec = { $: {} };
+export const PageHandler_DismissModule_ParamsSpec = { $: {} };
+export const PageHandler_RestoreModule_ParamsSpec = { $: {} };
 mojo.internal.Struct(PageHandler_GetTabs_ParamsSpec.$, 'PageHandler_GetTabs_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandler_GetTabs_ResponseParamsSpec.$, 'PageHandler_GetTabs_ResponseParams', [
     mojo.internal.StructField('tabs', 0, 0, mojo.internal.Array(history_mojom_TabSpec.$, false), null, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(PageHandler_DismissModule_ParamsSpec.$, 'PageHandler_DismissModule_Params', [
+    mojo.internal.StructField('urls', 0, 0, mojo.internal.Array(url_mojom_UrlSpec.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_RestoreModule_ParamsSpec.$, 'PageHandler_RestoreModule_Params', [], [[0, 8],]);

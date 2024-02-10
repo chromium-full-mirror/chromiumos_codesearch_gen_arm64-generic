@@ -72,6 +72,7 @@ class  SessionAsyncWaiter {
 class  OnDeviceModelInterceptorForTesting : public OnDeviceModel {
   virtual OnDeviceModel* GetForwardingInterface() = 0;
   void StartSession(::mojo::PendingReceiver<Session> session) override;
+  void LoadAdaptation(LoadAdaptationParamsPtr params, ::mojo::PendingReceiver<OnDeviceModel> model, LoadAdaptationCallback callback) override;
 };
 class  OnDeviceModelAsyncWaiter {
  public:
@@ -81,6 +82,9 @@ class  OnDeviceModelAsyncWaiter {
   OnDeviceModelAsyncWaiter& operator=(const OnDeviceModelAsyncWaiter&) = delete;
 
   ~OnDeviceModelAsyncWaiter();
+  void LoadAdaptation(
+      LoadAdaptationParamsPtr params, ::mojo::PendingReceiver<OnDeviceModel> model, LoadModelResult* out_result);
+  LoadModelResult LoadAdaptation(LoadAdaptationParamsPtr params, ::mojo::PendingReceiver<OnDeviceModel> model);
 
  private:
   OnDeviceModel* const proxy_;

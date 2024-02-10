@@ -390,6 +390,20 @@ struct augmented_surface_interface {
 			      wl_fixed_t y,
 			      wl_fixed_t width,
 			      wl_fixed_t height);
+	/**
+	 * sets a trace ID for tracking frame submission flow
+	 *
+	 * This sets a trace ID to connect the frame submission trace
+	 * event flow at the client and the server side. This state is
+	 * double-buffered, and is applied on the next wl_surface.commit.
+	 * @param id_hi high 32 bits of the trace ID
+	 * @param id_lo low 32 bits of the trace ID
+	 * @since 11
+	 */
+	void (*set_frame_trace_id)(struct wl_client *client,
+				   struct wl_resource *resource,
+				   uint32_t id_hi,
+				   uint32_t id_lo);
 };
 
 
@@ -425,6 +439,10 @@ struct augmented_surface_interface {
  * @ingroup iface_augmented_surface
  */
 #define AUGMENTED_SURFACE_SET_CLIP_RECT_SINCE_VERSION 8
+/**
+ * @ingroup iface_augmented_surface
+ */
+#define AUGMENTED_SURFACE_SET_FRAME_TRACE_ID_SINCE_VERSION 11
 
 #ifndef AUGMENTED_SUB_SURFACE_ERROR_ENUM
 #define AUGMENTED_SUB_SURFACE_ERROR_ENUM

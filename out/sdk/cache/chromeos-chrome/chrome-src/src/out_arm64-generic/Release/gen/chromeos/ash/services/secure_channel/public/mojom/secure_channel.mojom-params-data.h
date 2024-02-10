@@ -160,7 +160,7 @@ class  ConnectionDelegate_OnConnection_Params_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Interface_Data channel;
   mojo::internal::Handle_Data message_receiver_receiver;
-  uint8_t padfinal_[4];
+  mojo::internal::Handle_Data nearby_connection_state_listener_receiver;
 
  private:
   friend class mojo::internal::MessageFragment<ConnectionDelegate_OnConnection_Params_Data>;
@@ -533,6 +533,15 @@ class ConnectionDelegate_OnConnection_ParamsDataView {
     bool ret =
         mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::secure_channel::mojom::MessageReceiverInterfaceBase>>(
             &data_->message_receiver_receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeNearbyConnectionStateListenerReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::secure_channel::mojom::NearbyConnectionStateListenerInterfaceBase>>(
+            &data_->nearby_connection_state_listener_receiver, &result, message_);
     DCHECK(ret);
     return result;
   }

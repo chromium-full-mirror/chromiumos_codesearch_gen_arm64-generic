@@ -89,7 +89,8 @@ class CORE_EXPORT ViewTransitionElement {
       const std::optional<::gfx::RectF>& captured_rect_in_layout_space,
       ::viz::mojom::blink::ViewTransitionElementResourceIdPtr snapshot_id,
       int32_t paint_order,
-      const WTF::HashMap<ViewTransitionPropertyId, WTF::String>& captured_css_properties);
+      const WTF::HashMap<ViewTransitionPropertyId, WTF::String>& captured_css_properties,
+      WTF::Vector<WTF::String> class_list);
 
 ViewTransitionElement(const ViewTransitionElement&) = delete;
 ViewTransitionElement& operator=(const ViewTransitionElement&) = delete;
@@ -184,6 +185,8 @@ ViewTransitionElement& operator=(const ViewTransitionElement&) = delete;
   int32_t paint_order;
   
   WTF::HashMap<ViewTransitionPropertyId, WTF::String> captured_css_properties;
+  
+  WTF::Vector<WTF::String> class_list;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -373,7 +376,8 @@ ViewTransitionElementPtr ViewTransitionElement::Clone() const {
       mojo::Clone(captured_rect_in_layout_space),
       mojo::Clone(snapshot_id),
       mojo::Clone(paint_order),
-      mojo::Clone(captured_css_properties)
+      mojo::Clone(captured_css_properties),
+      mojo::Clone(class_list)
   );
 }
 
@@ -394,6 +398,8 @@ bool ViewTransitionElement::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->paint_order, other_struct.paint_order))
     return false;
   if (!mojo::Equals(this->captured_css_properties, other_struct.captured_css_properties))
+    return false;
+  if (!mojo::Equals(this->class_list, other_struct.class_list))
     return false;
   return true;
 }
@@ -431,6 +437,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.captured_css_properties < rhs.captured_css_properties)
     return true;
   if (rhs.captured_css_properties < lhs.captured_css_properties)
+    return false;
+  if (lhs.class_list < rhs.class_list)
+    return true;
+  if (rhs.class_list < lhs.class_list)
     return false;
   return false;
 }
@@ -528,6 +538,11 @@ struct CORE_EXPORT StructTraits<::blink::mojom::blink::ViewTransitionElement::Da
   static const decltype(::blink::mojom::blink::ViewTransitionElement::captured_css_properties)& captured_css_properties(
       const ::blink::mojom::blink::ViewTransitionElementPtr& input) {
     return input->captured_css_properties;
+  }
+
+  static const decltype(::blink::mojom::blink::ViewTransitionElement::class_list)& class_list(
+      const ::blink::mojom::blink::ViewTransitionElementPtr& input) {
+    return input->class_list;
   }
 
   static bool Read(::blink::mojom::blink::ViewTransitionElement::DataView input, ::blink::mojom::blink::ViewTransitionElementPtr* output);

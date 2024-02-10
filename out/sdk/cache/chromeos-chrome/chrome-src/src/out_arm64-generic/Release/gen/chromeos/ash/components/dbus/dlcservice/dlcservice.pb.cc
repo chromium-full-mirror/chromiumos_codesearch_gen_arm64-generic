@@ -22,7 +22,8 @@ PROTOBUF_CONSTEXPR InstallRequest::InstallRequest(
     ::_pbi::ConstantInitialized)
   : id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , omaha_url_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , reserve_(false){}
+  , reserve_(false)
+  , force_ota_(false){}
 struct InstallRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR InstallRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -176,7 +177,9 @@ InstallRequest::InstallRequest(const InstallRequest& from)
     omaha_url_.Set(from._internal_omaha_url(), 
       GetArenaForAllocation());
   }
-  reserve_ = from.reserve_;
+  ::memcpy(&reserve_, &from.reserve_,
+    static_cast<size_t>(reinterpret_cast<char*>(&force_ota_) -
+    reinterpret_cast<char*>(&reserve_)) + sizeof(force_ota_));
   // @@protoc_insertion_point(copy_constructor:dlcservice.InstallRequest)
 }
 
@@ -189,7 +192,10 @@ omaha_url_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   omaha_url_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-reserve_ = false;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&reserve_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&force_ota_) -
+    reinterpret_cast<char*>(&reserve_)) + sizeof(force_ota_));
 }
 
 InstallRequest::~InstallRequest() {
@@ -219,7 +225,9 @@ void InstallRequest::Clear() {
 
   id_.ClearToEmpty();
   omaha_url_.ClearToEmpty();
-  reserve_ = false;
+  ::memset(&reserve_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&force_ota_) -
+      reinterpret_cast<char*>(&reserve_)) + sizeof(force_ota_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -253,6 +261,14 @@ const char* InstallRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           reserve_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool force_ota = 2047;
+      case 2047:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 248)) {
+          force_ota_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -312,6 +328,12 @@ uint8_t* InstallRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_reserve(), target);
   }
 
+  // bool force_ota = 2047;
+  if (this->_internal_force_ota() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2047, this->_internal_force_ota(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -347,6 +369,11 @@ size_t InstallRequest::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // bool force_ota = 2047;
+  if (this->_internal_force_ota() != 0) {
+    total_size += 2 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -376,6 +403,9 @@ void InstallRequest::MergeFrom(const InstallRequest& from) {
   if (from._internal_reserve() != 0) {
     _internal_set_reserve(from._internal_reserve());
   }
+  if (from._internal_force_ota() != 0) {
+    _internal_set_force_ota(from._internal_force_ota());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -403,7 +433,12 @@ void InstallRequest::InternalSwap(InstallRequest* other) {
       &omaha_url_, lhs_arena,
       &other->omaha_url_, rhs_arena
   );
-  swap(reserve_, other->reserve_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(InstallRequest, force_ota_)
+      + sizeof(InstallRequest::force_ota_)
+      - PROTOBUF_FIELD_OFFSET(InstallRequest, reserve_)>(
+          reinterpret_cast<char*>(&reserve_),
+          reinterpret_cast<char*>(&other->reserve_));
 }
 
 std::string InstallRequest::GetTypeName() const {

@@ -1409,6 +1409,7 @@ CreditCardEntry CreditCardEntry::Clone() const {
   out.network = network;
   out.image_src = image_src;
   out.cvc = cvc;
+  out.product_terms_url = product_terms_url;
   if (metadata) {
     out.metadata = metadata->Clone();
   }
@@ -1538,6 +1539,18 @@ bool CreditCardEntry::Populate(
     }
   }
 
+  const base::Value* product_terms_url_value = dict.Find("productTermsUrl");
+  if (product_terms_url_value) {
+    {
+      auto* temp = (*product_terms_url_value).GetIfString();
+      if (!temp) {
+        out.product_terms_url = std::nullopt;
+        return false;
+      }
+      out.product_terms_url = *temp;
+    }
+  }
+
   const base::Value* metadata_value = dict.Find("metadata");
   if (metadata_value) {
     {
@@ -1626,6 +1639,10 @@ base::Value::Dict CreditCardEntry::ToValue() const {
   }
   if (this->cvc) {
     to_value_result.Set("cvc", *this->cvc);
+
+  }
+  if (this->product_terms_url) {
+    to_value_result.Set("productTermsUrl", *this->product_terms_url);
 
   }
   if (this->metadata) {

@@ -411,6 +411,7 @@ NetworkContextParams::NetworkContextParams()
       proxy_error_client(),
       ip_protection_config_getter(),
       ip_protection_proxy_delegate(),
+      enable_ip_protection(false),
       pac_quick_check_enabled(true),
       enable_certificate_reporting(false),
       enforce_chrome_ct_policy(false),
@@ -469,6 +470,7 @@ NetworkContextParams::NetworkContextParams(
     ::mojo::PendingRemote<::network::mojom::blink::ProxyErrorClient> proxy_error_client_in,
     ::mojo::PendingRemote<IpProtectionConfigGetter> ip_protection_config_getter_in,
     ::mojo::PendingReceiver<IpProtectionProxyDelegate> ip_protection_proxy_delegate_in,
+    bool enable_ip_protection_in,
     bool pac_quick_check_enabled_in,
     bool enable_certificate_reporting_in,
     bool enforce_chrome_ct_policy_in,
@@ -525,6 +527,7 @@ NetworkContextParams::NetworkContextParams(
       proxy_error_client(std::move(proxy_error_client_in)),
       ip_protection_config_getter(std::move(ip_protection_config_getter_in)),
       ip_protection_proxy_delegate(std::move(ip_protection_proxy_delegate_in)),
+      enable_ip_protection(std::move(enable_ip_protection_in)),
       pac_quick_check_enabled(std::move(pac_quick_check_enabled_in)),
       enable_certificate_reporting(std::move(enable_certificate_reporting_in)),
       enforce_chrome_ct_policy(std::move(enforce_chrome_ct_policy_in)),
@@ -791,6 +794,15 @@ void NetworkContextParams::WriteIntoTrace(
       "ip_protection_proxy_delegate"), this->ip_protection_proxy_delegate,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::mojo::PendingReceiver<IpProtectionProxyDelegate>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "enable_ip_protection"), this->enable_ip_protection,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5205,6 +5217,12 @@ IpProtectionProxyDelegate::IPCStableHashFunction IpProtectionProxyDelegate::Mess
     case internal::kIpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name: {
       return &IpProtectionProxyDelegate::InvalidateIpProtectionConfigCacheTryAgainAfterTime_Sym::IPCStableHash;
     }
+    case internal::kIpProtectionProxyDelegate_SetIpProtectionEnabled_Name: {
+      return &IpProtectionProxyDelegate::SetIpProtectionEnabled_Sym::IPCStableHash;
+    }
+    case internal::kIpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Name: {
+      return &IpProtectionProxyDelegate::IsIpProtectionEnabledForTesting_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -5220,6 +5238,10 @@ const char* IpProtectionProxyDelegate::MessageToMethodName_(mojo::Message& messa
             return "Receive network::mojom::IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTesting";
       case internal::kIpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name:
             return "Receive network::mojom::IpProtectionProxyDelegate::InvalidateIpProtectionConfigCacheTryAgainAfterTime";
+      case internal::kIpProtectionProxyDelegate_SetIpProtectionEnabled_Name:
+            return "Receive network::mojom::IpProtectionProxyDelegate::SetIpProtectionEnabled";
+      case internal::kIpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Name:
+            return "Receive network::mojom::IpProtectionProxyDelegate::IsIpProtectionEnabledForTesting";
     }
   } else {
     switch (message.name()) {
@@ -5227,6 +5249,10 @@ const char* IpProtectionProxyDelegate::MessageToMethodName_(mojo::Message& messa
             return "Receive reply network::mojom::IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTesting";
       case internal::kIpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name:
             return "Receive reply network::mojom::IpProtectionProxyDelegate::InvalidateIpProtectionConfigCacheTryAgainAfterTime";
+      case internal::kIpProtectionProxyDelegate_SetIpProtectionEnabled_Name:
+            return "Receive reply network::mojom::IpProtectionProxyDelegate::SetIpProtectionEnabled";
+      case internal::kIpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Name:
+            return "Receive reply network::mojom::IpProtectionProxyDelegate::IsIpProtectionEnabledForTesting";
     }
   }
   return "Receive unknown mojo message";
@@ -5267,6 +5293,32 @@ uint32_t IpProtectionProxyDelegate::InvalidateIpProtectionConfigCacheTryAgainAft
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t IpProtectionProxyDelegate::SetIpProtectionEnabled_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)network::mojom::IpProtectionProxyDelegate::SetIpProtectionEnabled");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t IpProtectionProxyDelegate::IsIpProtectionEnabledForTesting_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)network::mojom::IpProtectionProxyDelegate::IsIpProtectionEnabledForTesting");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback
@@ -5283,6 +5335,22 @@ class IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Forward
   bool Accept(mojo::Message* message) override;
  private:
   IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTestingCallback callback_;
+};
+
+class IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ForwardToCallback(
+      IpProtectionProxyDelegate::IsIpProtectionEnabledForTestingCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ForwardToCallback(const IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ForwardToCallback&) = delete;
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ForwardToCallback& operator=(const IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  IpProtectionProxyDelegate::IsIpProtectionEnabledForTestingCallback callback_;
 };
 
 IpProtectionProxyDelegateProxy::IpProtectionProxyDelegateProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -5354,6 +5422,81 @@ void IpProtectionProxyDelegateProxy::InvalidateIpProtectionConfigCacheTryAgainAf
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void IpProtectionProxyDelegateProxy::SetIpProtectionEnabled(
+    bool in_value) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send network::mojom::IpProtectionProxyDelegate::SetIpProtectionEnabled", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("value"), in_value,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kIpProtectionProxyDelegate_SetIpProtectionEnabled_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::network::mojom::internal::IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data> params(
+          message);
+  params.Allocate();
+  params->value = in_value;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(IpProtectionProxyDelegate::Name_);
+  message.set_method_name("SetIpProtectionEnabled");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void IpProtectionProxyDelegateProxy::IsIpProtectionEnabledForTesting(
+    IsIpProtectionEnabledForTestingCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send network::mojom::IpProtectionProxyDelegate::IsIpProtectionEnabledForTesting");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kIpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::network::mojom::internal::IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(IpProtectionProxyDelegate::Name_);
+  message.set_method_name("IsIpProtectionEnabledForTesting");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -5496,6 +5639,127 @@ void IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ProxyToR
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static IpProtectionProxyDelegate::IsIpProtectionEnabledForTestingCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ProxyToResponder> proxy(
+        new IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "IpProtectionProxyDelegate::IsIpProtectionEnabledForTestingCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_value);
+};
+
+bool IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for IpProtectionProxyDelegate.3
+  bool success = true;
+  bool p_value{};
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_value = input_data_view.value();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        IpProtectionProxyDelegate::Name_, 3, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_value));
+  return true;
+}
+
+void IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ProxyToResponder::Run(
+    bool in_value) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply network::mojom::IpProtectionProxyDelegate::IsIpProtectionEnabledForTesting", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("value"), in_value,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kIpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::network::mojom::internal::IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->value = in_value;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(IpProtectionProxyDelegate::Name_);
+  message.set_method_name("IsIpProtectionEnabledForTesting");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool IpProtectionProxyDelegateStubDispatch::Accept(
@@ -5528,6 +5792,37 @@ bool IpProtectionProxyDelegateStubDispatch::Accept(
       DCHECK(impl);
       impl->InvalidateIpProtectionConfigCacheTryAgainAfterTime(        );
       return true;
+    }
+    case internal::kIpProtectionProxyDelegate_SetIpProtectionEnabled_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data* params =
+          reinterpret_cast<internal::IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for IpProtectionProxyDelegate.2
+      bool success = true;
+      bool p_value{};
+      IpProtectionProxyDelegate_SetIpProtectionEnabled_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_value = input_data_view.value();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            IpProtectionProxyDelegate::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetIpProtectionEnabled(        
+        std::move(p_value));
+      return true;
+    }
+    case internal::kIpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Name: {
+      break;
     }
   }
   return false;
@@ -5572,6 +5867,36 @@ bool IpProtectionProxyDelegateStubDispatch::AcceptWithResponder(
     case internal::kIpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name: {
       break;
     }
+    case internal::kIpProtectionProxyDelegate_SetIpProtectionEnabled_Name: {
+      break;
+    }
+    case internal::kIpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Name: {
+
+      internal::IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data* params =
+          reinterpret_cast<
+              internal::IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for IpProtectionProxyDelegate.3
+      bool success = true;
+      IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            IpProtectionProxyDelegate::Name_, 3, false);
+        return false;
+      }
+      IpProtectionProxyDelegate::IsIpProtectionEnabledForTestingCallback callback =
+          IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->IsIpProtectionEnabledForTesting(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -5582,6 +5907,10 @@ static const mojo::internal::GenericValidationInfo kIpProtectionProxyDelegateVal
      &internal::IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data::Validate},
     { &internal::IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data::Validate,
+     &internal::IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data::Validate},
 };
 
 bool IpProtectionProxyDelegateRequestValidator::Accept(mojo::Message* message) {
@@ -21228,6 +21557,8 @@ bool StructTraits<::network::mojom::blink::NetworkContextParams::DataView, ::net
             input.TakeIpProtectionProxyDelegate<decltype(result->ip_protection_proxy_delegate)>();
       }
       if (success)
+        result->enable_ip_protection = input.enable_ip_protection();
+      if (success)
         result->pac_quick_check_enabled = input.pac_quick_check_enabled();
       if (success)
         result->enable_certificate_reporting = input.enable_certificate_reporting();
@@ -21800,6 +22131,12 @@ void IpProtectionProxyDelegateInterceptorForTesting::VerifyIpProtectionConfigGet
 void IpProtectionProxyDelegateInterceptorForTesting::InvalidateIpProtectionConfigCacheTryAgainAfterTime() {
   GetForwardingInterface()->InvalidateIpProtectionConfigCacheTryAgainAfterTime();
 }
+void IpProtectionProxyDelegateInterceptorForTesting::SetIpProtectionEnabled(bool value) {
+  GetForwardingInterface()->SetIpProtectionEnabled(std::move(value));
+}
+void IpProtectionProxyDelegateInterceptorForTesting::IsIpProtectionEnabledForTesting(IsIpProtectionEnabledForTestingCallback callback) {
+  GetForwardingInterface()->IsIpProtectionEnabledForTesting(std::move(callback));
+}
 IpProtectionProxyDelegateAsyncWaiter::IpProtectionProxyDelegateAsyncWaiter(
     IpProtectionProxyDelegate* proxy) : proxy_(proxy) {}
 
@@ -21826,6 +22163,29 @@ void IpProtectionProxyDelegateAsyncWaiter::VerifyIpProtectionConfigGetterForTest
 }
 
 
+
+void IpProtectionProxyDelegateAsyncWaiter::IsIpProtectionEnabledForTesting(
+    bool* out_value) {
+  base::RunLoop loop;
+  proxy_->IsIpProtectionEnabledForTesting(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_value
+,
+             bool value) {*out_value = std::move(value);
+            loop->Quit();
+          },
+          &loop,
+          out_value));
+  loop.Run();
+}
+
+bool IpProtectionProxyDelegateAsyncWaiter::IsIpProtectionEnabledForTesting(
+    ) {
+  bool async_wait_result;
+  IsIpProtectionEnabledForTesting(&async_wait_result);
+  return async_wait_result;
+}
 
 
 

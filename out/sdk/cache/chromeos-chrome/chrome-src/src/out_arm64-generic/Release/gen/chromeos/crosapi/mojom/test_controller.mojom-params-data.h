@@ -2424,6 +2424,71 @@ class  TestController_IsToastShown_ResponseParams_Data {
 };
 static_assert(sizeof(TestController_IsToastShown_ResponseParams_Data) == 16,
               "Bad sizeof(TestController_IsToastShown_ResponseParams_Data)");
+class  TestController_SnapWindow_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> window_id;
+  int32_t position;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<TestController_SnapWindow_Params_Data>;
+
+  TestController_SnapWindow_Params_Data();
+  ~TestController_SnapWindow_Params_Data() = delete;
+};
+static_assert(sizeof(TestController_SnapWindow_Params_Data) == 24,
+              "Bad sizeof(TestController_SnapWindow_Params_Data)");
+class  TestController_SnapWindow_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<TestController_SnapWindow_ResponseParams_Data>;
+
+  TestController_SnapWindow_ResponseParams_Data();
+  ~TestController_SnapWindow_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(TestController_SnapWindow_ResponseParams_Data) == 8,
+              "Bad sizeof(TestController_SnapWindow_ResponseParams_Data)");
+class  TestController_IsShelfVisible_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<TestController_IsShelfVisible_Params_Data>;
+
+  TestController_IsShelfVisible_Params_Data();
+  ~TestController_IsShelfVisible_Params_Data() = delete;
+};
+static_assert(sizeof(TestController_IsShelfVisible_Params_Data) == 8,
+              "Bad sizeof(TestController_IsShelfVisible_Params_Data)");
+class  TestController_IsShelfVisible_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t visible : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<TestController_IsShelfVisible_ResponseParams_Data>;
+
+  TestController_IsShelfVisible_ResponseParams_Data();
+  ~TestController_IsShelfVisible_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(TestController_IsShelfVisible_ResponseParams_Data) == 16,
+              "Bad sizeof(TestController_IsShelfVisible_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -5793,6 +5858,90 @@ class TestController_IsToastShown_ResponseParamsDataView {
   internal::TestController_IsToastShown_ResponseParams_Data* data_ = nullptr;
 };
 
+
+class TestController_SnapWindow_ParamsDataView {
+ public:
+  TestController_SnapWindow_ParamsDataView() = default;
+
+  TestController_SnapWindow_ParamsDataView(
+      internal::TestController_SnapWindow_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetWindowIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadWindowId(UserType* output) {
+    
+    auto* pointer = data_->window_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadPosition(UserType* output) const {
+    auto data_value = data_->position;
+    return mojo::internal::Deserialize<::crosapi::mojom::SnapPosition>(
+        data_value, output);
+  }
+  SnapPosition position() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::crosapi::mojom::SnapPosition>(data_->position));
+  }
+ private:
+  internal::TestController_SnapWindow_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class TestController_SnapWindow_ResponseParamsDataView {
+ public:
+  TestController_SnapWindow_ResponseParamsDataView() = default;
+
+  TestController_SnapWindow_ResponseParamsDataView(
+      internal::TestController_SnapWindow_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::TestController_SnapWindow_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class TestController_IsShelfVisible_ParamsDataView {
+ public:
+  TestController_IsShelfVisible_ParamsDataView() = default;
+
+  TestController_IsShelfVisible_ParamsDataView(
+      internal::TestController_IsShelfVisible_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::TestController_IsShelfVisible_Params_Data* data_ = nullptr;
+};
+
+
+class TestController_IsShelfVisible_ResponseParamsDataView {
+ public:
+  TestController_IsShelfVisible_ResponseParamsDataView() = default;
+
+  TestController_IsShelfVisible_ResponseParamsDataView(
+      internal::TestController_IsShelfVisible_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool visible() const {
+    return data_->visible;
+  }
+ private:
+  internal::TestController_IsShelfVisible_ResponseParams_Data* data_ = nullptr;
+};
+
 inline void DomMessageObserver_OnMessage_ParamsDataView::GetMessageDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->message.Get();
@@ -6502,6 +6651,19 @@ inline void TestController_IsToastShown_ParamsDataView::GetToastIdDataView(
   auto pointer = data_->toast_id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
+
+
+inline void TestController_SnapWindow_ParamsDataView::GetWindowIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->window_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
 
 
 

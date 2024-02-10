@@ -1567,6 +1567,38 @@ network.mojom.IpProtectionProxyDelegateRemote = class {
         [
         ]);
   }
+
+  
+  /**
+   * @param { !boolean } value
+   */
+
+  setIpProtectionEnabled(
+      value) {
+    this.proxy.sendMessage(
+        2,
+        network.mojom.IpProtectionProxyDelegate_SetIpProtectionEnabled_ParamsSpec.$,
+        null,
+        [
+          value
+        ]);
+  }
+
+  
+  /**
+   * @return {!Promise<{
+        value: !boolean,
+   *  }>}
+   */
+
+  isIpProtectionEnabledForTesting() {
+    return this.proxy.sendMessage(
+        3,
+        network.mojom.IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ParamsSpec.$,
+        network.mojom.IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParamsSpec.$,
+        [
+        ]);
+  }
 };
 
 /**
@@ -1601,6 +1633,16 @@ network.mojom.IpProtectionProxyDelegateReceiver = class {
         network.mojom.IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_ParamsSpec.$,
         null,
         impl.invalidateIpProtectionConfigCacheTryAgainAfterTime.bind(impl));
+    this.helper_internal_.registerHandler(
+        2,
+        network.mojom.IpProtectionProxyDelegate_SetIpProtectionEnabled_ParamsSpec.$,
+        null,
+        impl.setIpProtectionEnabled.bind(impl));
+    this.helper_internal_.registerHandler(
+        3,
+        network.mojom.IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ParamsSpec.$,
+        network.mojom.IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParamsSpec.$,
+        impl.isIpProtectionEnabledForTesting.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1677,6 +1719,30 @@ network.mojom.IpProtectionProxyDelegateCallbackRouter = class {
         network.mojom.IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_ParamsSpec.$,
         null,
         this.invalidateIpProtectionConfigCacheTryAgainAfterTime.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.setIpProtectionEnabled =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        2,
+        network.mojom.IpProtectionProxyDelegate_SetIpProtectionEnabled_ParamsSpec.$,
+        null,
+        this.setIpProtectionEnabled.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.isIpProtectionEnabledForTesting =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        3,
+        network.mojom.IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ParamsSpec.$,
+        network.mojom.IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParamsSpec.$,
+        this.isIpProtectionEnabledForTesting.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -5089,6 +5155,30 @@ network.mojom.IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgai
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
+network.mojom.IpProtectionProxyDelegate_SetIpProtectionEnabled_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+network.mojom.IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+network.mojom.IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
 network.mojom.NetworkContext_SetClient_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -6565,8 +6655,16 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'pacQuickCheckEnabled', 17,
+        'enableIpProtection', 17,
         1,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'pacQuickCheckEnabled', 17,
+        2,
         mojo.internal.Bool,
         true,
         false, /* nullable */
@@ -6574,7 +6672,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'enableCertificateReporting', 17,
-        2,
+        3,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -6582,7 +6680,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'enforceChromeCtPolicy', 17,
-        3,
+        4,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -6622,7 +6720,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'enableDomainReliability', 17,
-        4,
+        5,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -6638,7 +6736,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'discardDomainReliablityUploads', 17,
-        5,
+        6,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -6654,7 +6752,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'skipReportingSendPermissionCheck', 17,
-        6,
+        7,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -6677,8 +6775,8 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'allowAnyCorsExemptHeaderForBrowser', 17,
-        7,
+        'allowAnyCorsExemptHeaderForBrowser', 18,
+        0,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -6702,14 +6800,6 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'resetHttpCacheBackend', 18,
-        0,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'splitAuthCacheByNetworkAnonymizationKey', 18,
         1,
         mojo.internal.Bool,
         false,
@@ -6717,8 +6807,16 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'requireNetworkAnonymizationKey', 18,
+        'splitAuthCacheByNetworkAnonymizationKey', 18,
         2,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'requireNetworkAnonymizationKey', 18,
+        3,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -6734,7 +6832,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'blockTrustTokens', 18,
-        3,
+        4,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -6742,7 +6840,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'sharedDictionaryEnabled', 18,
-        4,
+        5,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -6774,7 +6872,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'acamPreflightSpecConformant', 18,
-        5,
+        6,
         mojo.internal.Bool,
         true,
         false, /* nullable */
@@ -6790,7 +6888,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'afpBlockListExperimentEnabled', 18,
-        6,
+        7,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -6866,6 +6964,8 @@ network.mojom.NetworkContextParams = class {
     this.ipProtectionConfigGetter;
     /** @export { (network.mojom.IpProtectionProxyDelegatePendingReceiver|undefined) } */
     this.ipProtectionProxyDelegate;
+    /** @export { !boolean } */
+    this.enableIpProtection;
     /** @export { !boolean } */
     this.pacQuickCheckEnabled;
     /** @export { !boolean } */
@@ -8453,6 +8553,83 @@ mojo.internal.Struct(
 /** @record */
 network.mojom.IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params = class {
   constructor() {
+  }
+};
+
+
+
+mojo.internal.Struct(
+    network.mojom.IpProtectionProxyDelegate_SetIpProtectionEnabled_ParamsSpec.$,
+    'IpProtectionProxyDelegate_SetIpProtectionEnabled_Params',
+    [
+      mojo.internal.StructField(
+        'value', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+network.mojom.IpProtectionProxyDelegate_SetIpProtectionEnabled_Params = class {
+  constructor() {
+    /** @export { !boolean } */
+    this.value;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    network.mojom.IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ParamsSpec.$,
+    'IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+
+
+/** @record */
+network.mojom.IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params = class {
+  constructor() {
+  }
+};
+
+
+
+mojo.internal.Struct(
+    network.mojom.IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParamsSpec.$,
+    'IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'value', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+network.mojom.IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams = class {
+  constructor() {
+    /** @export { !boolean } */
+    this.value;
   }
 };
 

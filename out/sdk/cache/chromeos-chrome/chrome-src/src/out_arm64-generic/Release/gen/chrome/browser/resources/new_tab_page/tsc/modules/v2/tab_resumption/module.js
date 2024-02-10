@@ -28,6 +28,11 @@ export class TabResumptionModuleElement extends I18nMixin(PolymerElement) {
         return [
             [
                 {
+                    action: 'dismiss',
+                    icon: 'modules:thumb_down',
+                    text: this.i18n('modulesTabResumptionDismissButton'),
+                },
+                {
                     action: 'disable',
                     icon: 'modules:block',
                     text: this.i18nRecursive('', 'modulesDisableButtonTextV2', 'modulesThisTypeOfCardText'),
@@ -72,6 +77,18 @@ export class TabResumptionModuleElement extends I18nMixin(PolymerElement) {
             max: 4 * 24 * 60 * 60 * 1000,
             buckets: 50,
         }, Number(e.model.item.relativeTime.microseconds / 1000n));
+    }
+    onDismissButtonClick_() {
+        const urls = this.tabs.map((tab) => tab.url);
+        TabResumptionProxyImpl.getInstance().handler.dismissModule(urls);
+        this.dispatchEvent(new CustomEvent('dismiss-module-instance', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                message: loadTimeData.getStringF('dismissModuleToastMessage', loadTimeData.getString('modulesTabResumptionSentence')),
+                restoreCallback: () => TabResumptionProxyImpl.getInstance().handler.restoreModule(),
+            },
+        }));
     }
 }
 customElements.define(TabResumptionModuleElement.is, TabResumptionModuleElement);

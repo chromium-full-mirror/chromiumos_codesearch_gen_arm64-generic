@@ -8,7 +8,6 @@ import { CustomElement } from 'chrome://resources/js/custom_element.js';
 import { getTemplate } from './app.html.js';
 import { MetricsInternalsBrowserProxyImpl } from './browser_proxy.js';
 import { getEventsPeekString, logEventToString, sizeToString, timestampToString, umaLogTypeToString } from './log_utils.js';
-// 
 import { updateStructuredMetricsEvents, updateStructuredMetricsSummary } from './structured/structured_utils.js';
 // 
 /**

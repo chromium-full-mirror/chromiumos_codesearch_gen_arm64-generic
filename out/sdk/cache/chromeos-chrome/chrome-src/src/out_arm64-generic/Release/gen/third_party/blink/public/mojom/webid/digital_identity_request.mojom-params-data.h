@@ -28,7 +28,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DigitalIdentityRequest_
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::blink::mojom::internal::DigitalCredentialProvider_Data> digital_credential_provider;
+  mojo::internal::Pointer<internal::DigitalCredentialProvider_Data> digital_credential_provider;
 
  private:
   friend class mojo::internal::MessageFragment<DigitalIdentityRequest_Request_Params_Data>;
@@ -86,7 +86,7 @@ class DigitalIdentityRequest_Request_ParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetDigitalCredentialProviderDataView(
-      ::blink::mojom::DigitalCredentialProviderDataView* output);
+      DigitalCredentialProviderDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadDigitalCredentialProvider(UserType* output) {
@@ -162,9 +162,9 @@ class DigitalIdentityRequest_Abort_ParamsDataView {
 };
 
 inline void DigitalIdentityRequest_Request_ParamsDataView::GetDigitalCredentialProviderDataView(
-    ::blink::mojom::DigitalCredentialProviderDataView* output) {
+    DigitalCredentialProviderDataView* output) {
   auto pointer = data_->digital_credential_provider.Get();
-  *output = ::blink::mojom::DigitalCredentialProviderDataView(pointer, message_);
+  *output = DigitalCredentialProviderDataView(pointer, message_);
 }
 
 

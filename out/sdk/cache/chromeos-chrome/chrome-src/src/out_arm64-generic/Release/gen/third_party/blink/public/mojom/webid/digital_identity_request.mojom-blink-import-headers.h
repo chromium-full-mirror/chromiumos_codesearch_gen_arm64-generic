@@ -6,7 +6,5 @@
 
 #ifndef THIRD_PARTY_BLINK_PUBLIC_MOJOM_WEBID_DIGITAL_IDENTITY_REQUEST_MOJOM_BLINK_IMPORT_HEADERS_H_
 #define THIRD_PARTY_BLINK_PUBLIC_MOJOM_WEBID_DIGITAL_IDENTITY_REQUEST_MOJOM_BLINK_IMPORT_HEADERS_H_
-#include "third_party/blink/public/mojom/webid/federated_auth_request.mojom-blink.h"
-#include "third_party/blink/public/mojom/webid/federated_auth_request.mojom-blink-import-headers.h"
 
 #endif  // THIRD_PARTY_BLINK_PUBLIC_MOJOM_WEBID_DIGITAL_IDENTITY_REQUEST_MOJOM_BLINK_IMPORT_HEADERS_H_

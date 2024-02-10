@@ -98,6 +98,7 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/media/test/data/id3_png_test.mp3
 ../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/extensions/
 ../../../../../../../home/chrome-bot/chrome_root/src/extensions/test/data/
+../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/web_tests/http/tests/wasm/resources/large.wasm
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/test/data/
 ../../../../../../../home/chrome-bot/chrome_root/src/ui/file_manager/integration_tests/testing_provider/
 chromevox_test_data/
@@ -7264,8 +7265,6 @@ gen/ui/file_manager/integration_tests/tsc/file_manager/metrics.js
 gen/ui/file_manager/integration_tests/tsc/file_manager/metrics.d.ts
 gen/ui/file_manager/integration_tests/tsc/file_manager/my_files.js
 gen/ui/file_manager/integration_tests/tsc/file_manager/my_files.d.ts
-gen/ui/file_manager/integration_tests/tsc/file_manager/navigation.js
-gen/ui/file_manager/integration_tests/tsc/file_manager/navigation.d.ts
 gen/ui/file_manager/integration_tests/tsc/file_manager/office.js
 gen/ui/file_manager/integration_tests/tsc/file_manager/office.d.ts
 gen/ui/file_manager/integration_tests/tsc/file_manager/providers.js
@@ -7312,6 +7311,8 @@ gen/ui/file_manager/integration_tests/tsc/file_manager/directory_tree.js
 gen/ui/file_manager/integration_tests/tsc/file_manager/directory_tree.d.ts
 gen/ui/file_manager/integration_tests/tsc/file_manager/files_tooltip.js
 gen/ui/file_manager/integration_tests/tsc/file_manager/files_tooltip.d.ts
+gen/ui/file_manager/integration_tests/tsc/file_manager/navigation.js
+gen/ui/file_manager/integration_tests/tsc/file_manager/navigation.d.ts
 gen/ui/file_manager/integration_tests/tsc/file_manager/open_audio_media_app.js
 gen/ui/file_manager/integration_tests/tsc/file_manager/open_audio_media_app.d.ts
 gen/ui/file_manager/integration_tests/tsc/file_manager/open_files_in_web_drive.js

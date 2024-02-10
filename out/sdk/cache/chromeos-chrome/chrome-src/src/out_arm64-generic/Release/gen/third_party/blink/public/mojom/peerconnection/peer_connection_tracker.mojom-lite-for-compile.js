@@ -1404,15 +1404,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'constraints', 16,
-        0,
-        mojo.internal.String,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'url', 24,
+        'url', 16,
         0,
         mojo.internal.String,
         null,
@@ -1420,7 +1412,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 40],]);
+    [[0, 32],]);
 
 
 
@@ -1433,8 +1425,6 @@ blink.mojom.PeerConnectionInfo = class {
     this.lid;
     /** @export { !string } */
     this.rtcConfiguration;
-    /** @export { !string } */
-    this.constraints;
     /** @export { (string|undefined) } */
     this.url;
   }

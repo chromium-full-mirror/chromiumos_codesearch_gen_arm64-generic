@@ -606,7 +606,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0x3b49d8df,  // Renderer4.pixelCountCulled_Draw
   0x3b4be9ea,  // OfflinePages.OfflineUsage
   0x3b7bb457,  // Enterprise.TimeToFirstPolicyLoad.Profile.Managed
-  0x3b7bb892,  // Mojo.InvalidUTF8String
   0x3bd20c94,  // WebRTC.Stun.BatchSuccessPercent.NoNAT.50ms.1
   0x3bda5584,  // IOS.NSString.stringByReplacingCharactersInRange.NilArgument
   0x3be3c31d,  // ExploreSites.RequestStatus

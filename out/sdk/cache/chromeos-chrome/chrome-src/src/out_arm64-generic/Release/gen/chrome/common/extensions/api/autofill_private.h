@@ -563,6 +563,9 @@ struct CreditCardEntry {
   // Credit card's masked cvc.
   std::optional<std::string> cvc;
 
+  // Credit card's product terms URL.
+  std::optional<std::string> product_terms_url;
+
   std::optional<AutofillMetadata> metadata;
 
 };

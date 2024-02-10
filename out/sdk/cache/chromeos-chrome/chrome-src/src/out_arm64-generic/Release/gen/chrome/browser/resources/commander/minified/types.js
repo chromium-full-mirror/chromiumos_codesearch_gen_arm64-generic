@@ -1,4 +1,0 @@
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-export var Entity;(function(Entity){Entity[Entity["COMMAND"]=0]="COMMAND";Entity[Entity["BOOKMARK"]=1]="BOOKMARK";Entity[Entity["TAB"]=2]="TAB";Entity[Entity["WINDOW"]=3]="WINDOW";Entity[Entity["GROUP"]=4]="GROUP"})(Entity||(Entity={}));export var Action;(function(Action){Action[Action["DISPLAY_RESULTS"]=0]="DISPLAY_RESULTS";Action[Action["CLOSE"]=1]="CLOSE";Action[Action["PROMPT"]=2]="PROMPT"})(Action||(Action={}));export class Option{}export class ViewModel{}

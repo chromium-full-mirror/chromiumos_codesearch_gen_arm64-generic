@@ -33,6 +33,10 @@ NOINLINE static const char* NearbyConnectionStepToStringHelper(NearbyConnectionS
       return "kRequestingConnectionStarted";
     case NearbyConnectionStep::kRequestingConnectionEnded:
       return "kRequestingConnectionEnded";
+    case NearbyConnectionStep::kAcceptingConnectionStarted:
+      return "kAcceptingConnectionStarted";
+    case NearbyConnectionStep::kAcceptingConnectionFinished:
+      return "kAcceptingConnectionFinished";
     case NearbyConnectionStep::kWaitingForConnectionToBeAcceptedByRemoteDeviceStarted:
       return "kWaitingForConnectionToBeAcceptedByRemoteDeviceStarted";
     case NearbyConnectionStep::kWaitingForConnectionToBeAcceptedByRemoteDeviceEnded:
@@ -123,6 +127,39 @@ std::ostream& operator<<(std::ostream& os, NearbyConnectionStepResult value) {
 }
 
 namespace internal {
+
+
+// static
+bool NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data* object =
+      static_cast<const NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data*>(data);
+
+
+  if (!::ash::secure_channel::mojom::internal::NearbyConnectionStep_Data
+        ::Validate(object->step, validation_context))
+    return false;
+
+
+  if (!::ash::secure_channel::mojom::internal::NearbyConnectionStepResult_Data
+        ::Validate(object->result, validation_context))
+    return false;
+
+  return true;
+}
+
+NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data::NearbyConnectionStateListener_OnNearbyConnectionStateChanged_Params_Data()
+    : header_({sizeof(*this), 0}) {}
 
 
 // static
@@ -285,7 +322,7 @@ bool NearbyConnector_Connect_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 40, validation_context)) {
     return false;
   }
 
@@ -321,6 +358,15 @@ bool NearbyConnector_Connect_Params_Data::Validate(
     return false;
   }
   if (!mojo::internal::ValidateHandleOrInterface(object->message_receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->nearby_connection_state_listener, 4, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->nearby_connection_state_listener,
                                                  validation_context)) {
     return false;
   }

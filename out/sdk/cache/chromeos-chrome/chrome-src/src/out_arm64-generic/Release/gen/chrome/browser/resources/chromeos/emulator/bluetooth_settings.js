@@ -394,7 +394,7 @@ Polymer({
     const addressRegex = RegExp('^([\\da-fA-F]{2}:){5}[\\da-fA-F]{2}$');
     if (addressRegex.test(val)) {
       for (let i = 0; i < this.predefinedDevices.length; ++i) {
-        if (this.predefinedDevices[i].address == val) {
+        if (this.predefinedDevices[i].address === val) {
           exists = true;
           break;
         }
@@ -402,7 +402,7 @@ Polymer({
 
       if (!exists) {
         for (let i = 0; i < this.devices.length; ++i) {
-          if (this.devices[i].address == val && i != this.currentEditIndex) {
+          if (this.devices[i].address === val && i !== this.currentEditIndex) {
             exists = true;
             break;
           }
@@ -430,7 +430,7 @@ Polymer({
     let exists = false;
 
     for (let i = 0; i < this.predefinedDevices.length; ++i) {
-      if (this.predefinedDevices[i].path == val) {
+      if (this.predefinedDevices[i].path === val) {
         exists = true;
         break;
       }
@@ -438,7 +438,7 @@ Polymer({
 
     if (!exists) {
       for (let i = 0; i < this.devices.length; ++i) {
-        if (this.devices[i].path == val && i != this.currentEditIndex) {
+        if (this.devices[i].path === val && i !== this.currentEditIndex) {
           exists = true;
           break;
         }
@@ -461,7 +461,7 @@ Polymer({
    * @return {boolean} Whether the PIN/passkey input field should be shown.
    */
   showAuthToken(pairMethod) {
-    return !!pairMethod && pairMethod != 'None';
+    return !!pairMethod && pairMethod !== 'None';
   },
 
   /**
@@ -493,7 +493,7 @@ Polymer({
     /** @type {!Array<!BluetoothDevice>} */ const deviceList = [];
 
     for (let i = 0; i < devices.length; ++i) {
-      if (this.devicePaths[devices[i].path] != undefined) {
+      if (this.devicePaths[devices[i].path] !== undefined) {
         continue;
       }
 
@@ -518,7 +518,7 @@ Polymer({
   devicePairedFromTray_(path) {
     const obj = this.devicePaths[path];
 
-    if (obj == undefined) {
+    if (obj === undefined) {
       return;
     }
 
@@ -537,7 +537,7 @@ Polymer({
   pairDevice(event) {
     const index = event.model.index;
     const predefined =
-        /** @type {boolean} */ (event.target.dataset.predefined == 'true');
+        /** @type {boolean} */ (event.target.dataset.predefined === 'true');
     const device =
         predefined ? this.predefinedDevices[index] : this.devices[index];
 
@@ -570,7 +570,7 @@ Polymer({
   pairFailed_(path) {
     const obj = this.devicePaths[path];
 
-    if (obj == undefined) {
+    if (obj === undefined) {
       return;
     }
 
@@ -587,7 +587,7 @@ Polymer({
   discoverDevice(event) {
     const index = event.model.index;
     const predefined =
-        /** @type {boolean} */ (event.target.dataset.predefined == 'true');
+        /** @type {boolean} */ (event.target.dataset.predefined === 'true');
     const device =
         predefined ? this.predefinedDevices[index] : this.devices[index];
 
@@ -622,7 +622,7 @@ Polymer({
    * @private
    */
   addBluetoothDevice_(device) {
-    if (this.devicePaths[device.path] != undefined) {
+    if (this.devicePaths[device.path] !== undefined) {
       const obj = this.devicePaths[device.path];
       let devicePath = (obj.predefined ? 'predefinedDevices.' : 'devices.');
       devicePath += obj.index.toString();
@@ -646,7 +646,7 @@ Polymer({
    *     of the item which the target is contained in.
    */
   copyDevice(event) {
-    const predefined = (event.target.dataset.predefined == 'true');
+    const predefined = (event.target.dataset.predefined === 'true');
     const index = event.model.index;
     const copyDevice =
         predefined ? this.predefinedDevices[index] : this.devices[index];
@@ -704,7 +704,7 @@ Polymer({
    * @private
    */
   deviceRemovedFromMainAdapter_(path) {
-    if (this.devicePaths[path] == undefined) {
+    if (this.devicePaths[path] === undefined) {
       return;
     }
 
@@ -723,7 +723,7 @@ Polymer({
    */
   getTextForDeviceClass(classValue) {
     for (let i = 0; i < this.deviceClassOptions.length; ++i) {
-      if (this.deviceClassOptions[i].value == classValue) {
+      if (this.deviceClassOptions[i].value === classValue) {
         return this.deviceClassOptions[i].text;
       }
     }
@@ -737,7 +737,7 @@ Polymer({
    */
   getValueForDeviceClass(classText) {
     for (let i = 0; i < this.deviceClassOptions.length; ++i) {
-      if (this.deviceClassOptions[i].text == classText) {
+      if (this.deviceClassOptions[i].text === classText) {
         return this.deviceClassOptions[i].value;
       }
     }

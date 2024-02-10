@@ -10,7 +10,7 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
   <cr-icon-button id="showInFolderButton" class="button" iron-icon="cr:open-in-new" aria-labelledby="showInFolderButtonLabel">
   </cr-icon-button>
 </div>
-<div class="container" hidden="[[!showEditButton]]" on-click="onOpenMediaAppClick">
+<div class="container" on-click="onOpenMediaAppClick">
   <span id="editButtonLabel" class="label" aria-hidden="true">
     [[editButtonLabel]]
   </span>

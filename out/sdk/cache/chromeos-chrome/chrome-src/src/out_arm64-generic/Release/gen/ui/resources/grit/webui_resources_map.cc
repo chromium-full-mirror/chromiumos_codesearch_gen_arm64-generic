@@ -279,6 +279,7 @@ const webui::ResourcePath kWebuiResources[] = {
   {"mojo/mojo/public/mojom/base/int128.mojom-webui.js", IDR_WEBUI_MOJO_MOJO_PUBLIC_MOJOM_BASE_INT128_MOJOM_WEBUI_JS},
   {"mojo/mojo/public/mojom/base/process_id.mojom-webui.js", IDR_WEBUI_MOJO_MOJO_PUBLIC_MOJOM_BASE_PROCESS_ID_MOJOM_WEBUI_JS},
   {"mojo/mojo/public/mojom/base/read_only_buffer.mojom-webui.js", IDR_WEBUI_MOJO_MOJO_PUBLIC_MOJOM_BASE_READ_ONLY_BUFFER_MOJOM_WEBUI_JS},
+  {"mojo/mojo/public/mojom/base/read_only_file.mojom-webui.js", IDR_WEBUI_MOJO_MOJO_PUBLIC_MOJOM_BASE_READ_ONLY_FILE_MOJOM_WEBUI_JS},
   {"mojo/mojo/public/mojom/base/safe_base_name.mojom-webui.js", IDR_WEBUI_MOJO_MOJO_PUBLIC_MOJOM_BASE_SAFE_BASE_NAME_MOJOM_WEBUI_JS},
   {"mojo/mojo/public/mojom/base/string16.mojom-webui.js", IDR_WEBUI_MOJO_MOJO_PUBLIC_MOJOM_BASE_STRING16_MOJOM_WEBUI_JS},
   {"mojo/mojo/public/mojom/base/text_direction.mojom-webui.js", IDR_WEBUI_MOJO_MOJO_PUBLIC_MOJOM_BASE_TEXT_DIRECTION_MOJOM_WEBUI_JS},

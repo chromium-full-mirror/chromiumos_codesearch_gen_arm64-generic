@@ -75,6 +75,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ViewTransitionElement_D
   int32_t paint_order;
   uint8_t pad6_[4];
   mojo::internal::Pointer<mojo::internal::Map_Data<int32_t, mojo::internal::Pointer<mojo::internal::String_Data>>> captured_css_properties;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> class_list;
 
  private:
   friend class mojo::internal::MessageFragment<ViewTransitionElement_Data>;
@@ -82,7 +83,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ViewTransitionElement_D
   ViewTransitionElement_Data();
   ~ViewTransitionElement_Data() = delete;
 };
-static_assert(sizeof(ViewTransitionElement_Data) == 72,
+static_assert(sizeof(ViewTransitionElement_Data) == 80,
               "Bad sizeof(ViewTransitionElement_Data)");
 // Used by ViewTransitionElement::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

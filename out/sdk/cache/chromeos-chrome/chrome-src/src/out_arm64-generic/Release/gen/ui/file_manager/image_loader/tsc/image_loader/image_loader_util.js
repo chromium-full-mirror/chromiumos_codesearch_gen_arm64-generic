@@ -1,32 +1,30 @@
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { assert } from 'chrome://resources/ash/common/assert.js';
-export function ImageLoaderUtil() { }
+import { assert } from 'chrome://resources/js/assert.js';
+import { isImageOrientation } from './image_orientation.js';
 /**
  * Checks if the options on the request contain any image processing.
  *
- * @param {number} width Source width.
- * @param {number} height Source height.
- * @param {!import('./load_image_request.js').LoadImageRequest} request The
- *     request, containing resizing options.
- * @return {boolean} True if yes, false if not.
+ * @param width Source width.
+ * @param height Source height.
+ * @param request The request, containing resizing options.
+ * @return True if yes, false if not.
  */
-ImageLoaderUtil.shouldProcess = function (width, height, request) {
-    const targetDimensions = ImageLoaderUtil.resizeDimensions(width, height, request);
+export function shouldProcess(width, height, request) {
+    const targetDimensions = resizeDimensions(width, height, request);
     // Dimensions has to be adjusted.
     if (targetDimensions.width !== width || targetDimensions.height !== height) {
         return true;
     }
     // Orientation has to be adjusted.
-    // @ts-ignore: error TS2339: Property 'isIdentity' does not exist on type
-    // 'ImageTransformParam | ImageOrientation'.
-    if (!request.orientation.isIdentity()) {
+    if (isImageOrientation(request.orientation) &&
+        !request.orientation.isIdentity()) {
         return true;
     }
     // No changes required.
     return false;
-};
+}
 /**
  * Calculates dimensions taking into account resize options, such as:
  * - scale: for scaling,
@@ -34,18 +32,15 @@ ImageLoaderUtil.shouldProcess = function (width, height, request) {
  * - width, height: for exact requested size.
  * Returns the target size as hash array with width, height properties.
  *
- * @param {number} width Source width.
- * @param {number} height Source height.
- * @param {!import('./load_image_request.js').LoadImageRequest} request The
- *     request, containing resizing options.
- * @return {!{width: number, height:number}} Dimensions.
+ * @param width Source width.
+ * @param height Source height.
+ * @param request The request, containing resizing options.
+ * @return Dimensions.
  */
-ImageLoaderUtil.resizeDimensions = function (width, height, request) {
+export function resizeDimensions(width, height, request) {
     const scale = request.scale || 1;
-    const targetDimensions = 
-    // @ts-ignore: error TS2339: Property 'getSizeAfterCancelling' does not
-    // exist on type 'ImageTransformParam | ImageOrientation'.
-    request.orientation.getSizeAfterCancelling(width * scale, height * scale);
+    assert(isImageOrientation(request.orientation));
+    const targetDimensions = request.orientation.getSizeAfterCancelling(width * scale, height * scale);
     let targetWidth = targetDimensions.width;
     let targetHeight = targetDimensions.height;
     if (request.maxWidth && targetWidth > request.maxWidth) {
@@ -67,47 +62,35 @@ ImageLoaderUtil.resizeDimensions = function (width, height, request) {
     targetWidth = Math.round(targetWidth);
     targetHeight = Math.round(targetHeight);
     return { width: targetWidth, height: targetHeight };
-};
+}
 /**
  * Performs resizing and cropping of the source image into the target canvas.
  *
- * @param {HTMLCanvasElement|HTMLImageElement} source Source image or canvas.
- * @param {HTMLCanvasElement} target Target canvas.
- * @param {!import('./load_image_request.js').LoadImageRequest} request The
- *     request, containing resizing options.
+ * @param source Source image or canvas.
+ * @param target Target canvas.
+ * @param request The request, containing resizing options.
  */
-ImageLoaderUtil.resizeAndCrop = function (source, target, request) {
+export function resizeAndCrop(source, target, request) {
     // Calculates copy parameters.
-    const copyParameters = ImageLoaderUtil.calculateCopyParameters(source, request);
+    const copyParameters = calculateCopyParameters(source, request);
     target.width = copyParameters.canvas.width;
     target.height = copyParameters.canvas.height;
     // Apply.
-    const targetContext = 
-    /** @type {CanvasRenderingContext2D} */ (target.getContext('2d'));
+    const targetContext = target.getContext('2d');
     targetContext.save();
-    // @ts-ignore: error TS2339: Property 'cancelImageOrientation' does not exist
-    // on type 'ImageTransformParam | ImageOrientation'.
+    assert(isImageOrientation(request.orientation));
     request.orientation.cancelImageOrientation(targetContext, copyParameters.target.width, copyParameters.target.height);
     targetContext.drawImage(source, copyParameters.source.x, copyParameters.source.y, copyParameters.source.width, copyParameters.source.height, copyParameters.target.x, copyParameters.target.y, copyParameters.target.width, copyParameters.target.height);
     targetContext.restore();
-};
-/**
- * @typedef {{
- *   source: {x:number, y:number, width:number, height:number},
- *   target: {x:number, y:number, width:number, height:number},
- *   canvas: {width:number, height:number}
- * }}
- */
-ImageLoaderUtil.CopyParameters;
+}
 /**
  * Calculates copy parameters.
  *
- * @param {HTMLCanvasElement|HTMLImageElement} source Source image or canvas.
- * @param {!import('./load_image_request.js').LoadImageRequest} request The
- *     request, containing resizing options.
- * @return {!ImageLoaderUtil.CopyParameters} Calculated copy parameters.
+ * @param source Source image or canvas.
+ * @param request The request, containing resizing options.
+ * @return Calculated copy parameters.
  */
-ImageLoaderUtil.calculateCopyParameters = function (source, request) {
+export function calculateCopyParameters(source, request) {
     if (request.crop) {
         // When an image is cropped, target should be a fixed size square.
         assert(request.width);
@@ -126,27 +109,18 @@ ImageLoaderUtil.calculateCopyParameters = function (source, request) {
             target: {
                 x: 0,
                 y: 0,
-                // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable
-                // to type 'number'.
                 width: request.width,
-                // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable
-                // to type 'number'.
                 height: request.height,
             },
             canvas: {
-                // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable
-                // to type 'number'.
                 width: request.width,
-                // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable
-                // to type 'number'.
                 height: request.height,
             },
         };
     }
     // Target dimension is calculated in the rotated(transformed) coordinate.
-    const targetCanvasDimensions = ImageLoaderUtil.resizeDimensions(source.width, source.height, request);
-    // @ts-ignore: error TS2339: Property 'getSizeAfterCancelling' does not exist
-    // on type 'ImageTransformParam | ImageOrientation'.
+    const targetCanvasDimensions = resizeDimensions(source.width, source.height, request);
+    assert(isImageOrientation(request.orientation));
     const targetDimensions = request.orientation.getSizeAfterCancelling(targetCanvasDimensions.width, targetCanvasDimensions.height);
     return {
         source: {
@@ -166,4 +140,4 @@ ImageLoaderUtil.calculateCopyParameters = function (source, request) {
             height: targetCanvasDimensions.height,
         },
     };
-};
+}

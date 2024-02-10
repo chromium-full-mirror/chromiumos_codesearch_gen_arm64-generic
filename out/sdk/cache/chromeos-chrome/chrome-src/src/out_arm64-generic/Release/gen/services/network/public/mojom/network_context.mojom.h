@@ -494,6 +494,8 @@ class IpProtectionProxyDelegate
   enum MethodMinVersions : uint32_t {
     kVerifyIpProtectionConfigGetterForTestingMinVersion = 0,
     kInvalidateIpProtectionConfigCacheTryAgainAfterTimeMinVersion = 0,
+    kSetIpProtectionEnabledMinVersion = 0,
+    kIsIpProtectionEnabledForTestingMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -503,6 +505,12 @@ class IpProtectionProxyDelegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct InvalidateIpProtectionConfigCacheTryAgainAfterTime_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetIpProtectionEnabled_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct IsIpProtectionEnabledForTesting_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -515,6 +523,14 @@ class IpProtectionProxyDelegate
 
   
   virtual void InvalidateIpProtectionConfigCacheTryAgainAfterTime() = 0;
+
+  
+  virtual void SetIpProtectionEnabled(bool value) = 0;
+
+
+  using IsIpProtectionEnabledForTestingCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void IsIpProtectionEnabledForTesting(IsIpProtectionEnabledForTestingCallback callback) = 0;
 };
 
 class NetworkContextProxy;
@@ -1325,6 +1341,10 @@ class  IpProtectionProxyDelegateProxy
   void VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) final;
   
   void InvalidateIpProtectionConfigCacheTryAgainAfterTime() final;
+  
+  void SetIpProtectionEnabled(bool value) final;
+  
+  void IsIpProtectionEnabledForTesting(IsIpProtectionEnabledForTestingCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -2702,6 +2722,7 @@ class  NetworkContextParams {
       ::mojo::PendingRemote<::network::mojom::ProxyErrorClient> proxy_error_client,
       ::mojo::PendingRemote<IpProtectionConfigGetter> ip_protection_config_getter,
       ::mojo::PendingReceiver<IpProtectionProxyDelegate> ip_protection_proxy_delegate,
+      bool enable_ip_protection,
       bool pac_quick_check_enabled,
       bool enable_certificate_reporting,
       bool enforce_chrome_ct_policy,
@@ -2857,6 +2878,8 @@ NetworkContextParams& operator=(const NetworkContextParams&) = delete;
   ::mojo::PendingRemote<IpProtectionConfigGetter> ip_protection_config_getter;
   
   ::mojo::PendingReceiver<IpProtectionProxyDelegate> ip_protection_proxy_delegate;
+  
+  bool enable_ip_protection;
   
   bool pac_quick_check_enabled;
   
@@ -4176,6 +4199,7 @@ NetworkContextParamsPtr NetworkContextParams::Clone() const {
       mojo::Clone(proxy_error_client),
       mojo::Clone(ip_protection_config_getter),
       mojo::Clone(ip_protection_proxy_delegate),
+      mojo::Clone(enable_ip_protection),
       mojo::Clone(pac_quick_check_enabled),
       mojo::Clone(enable_certificate_reporting),
       mojo::Clone(enforce_chrome_ct_policy),
@@ -4262,6 +4286,8 @@ bool NetworkContextParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->ip_protection_config_getter, other_struct.ip_protection_config_getter))
     return false;
   if (!mojo::Equals(this->ip_protection_proxy_delegate, other_struct.ip_protection_proxy_delegate))
+    return false;
+  if (!mojo::Equals(this->enable_ip_protection, other_struct.enable_ip_protection))
     return false;
   if (!mojo::Equals(this->pac_quick_check_enabled, other_struct.pac_quick_check_enabled))
     return false;
@@ -4431,6 +4457,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.ip_protection_proxy_delegate < rhs.ip_protection_proxy_delegate)
     return true;
   if (rhs.ip_protection_proxy_delegate < lhs.ip_protection_proxy_delegate)
+    return false;
+  if (lhs.enable_ip_protection < rhs.enable_ip_protection)
+    return true;
+  if (rhs.enable_ip_protection < lhs.enable_ip_protection)
     return false;
   if (lhs.pac_quick_check_enabled < rhs.pac_quick_check_enabled)
     return true;
@@ -5318,6 +5348,11 @@ struct  StructTraits<::network::mojom::NetworkContextParams::DataView,
   static  decltype(::network::mojom::NetworkContextParams::ip_protection_proxy_delegate)& ip_protection_proxy_delegate(
        ::network::mojom::NetworkContextParamsPtr& input) {
     return input->ip_protection_proxy_delegate;
+  }
+
+  static decltype(::network::mojom::NetworkContextParams::enable_ip_protection) enable_ip_protection(
+      const ::network::mojom::NetworkContextParamsPtr& input) {
+    return input->enable_ip_protection;
   }
 
   static decltype(::network::mojom::NetworkContextParams::pac_quick_check_enabled) pac_quick_check_enabled(

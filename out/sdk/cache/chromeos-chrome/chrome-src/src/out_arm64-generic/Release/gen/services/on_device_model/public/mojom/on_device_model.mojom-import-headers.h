@@ -6,5 +6,9 @@
 
 #ifndef SERVICES_ON_DEVICE_MODEL_PUBLIC_MOJOM_ON_DEVICE_MODEL_MOJOM_IMPORT_HEADERS_H_
 #define SERVICES_ON_DEVICE_MODEL_PUBLIC_MOJOM_ON_DEVICE_MODEL_MOJOM_IMPORT_HEADERS_H_
+#include "mojo/public/mojom/base/file.mojom.h"
+#include "mojo/public/mojom/base/file.mojom-import-headers.h"
+#include "mojo/public/mojom/base/read_only_file.mojom.h"
+#include "mojo/public/mojom/base/read_only_file.mojom-import-headers.h"
 
 #endif  // SERVICES_ON_DEVICE_MODEL_PUBLIC_MOJOM_ON_DEVICE_MODEL_MOJOM_IMPORT_HEADERS_H_

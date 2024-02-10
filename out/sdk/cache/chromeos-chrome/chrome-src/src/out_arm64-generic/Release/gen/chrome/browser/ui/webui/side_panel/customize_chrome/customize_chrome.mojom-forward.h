@@ -36,6 +36,10 @@ class ModuleSettingsDataView;
 
 
 enum class CustomizeChromeSection : int32_t;
+
+enum class ChromeWebStoreCollection : int32_t;
+
+enum class ChromeWebStoreCategory : int32_t;
 class BackgroundImage;
 using BackgroundImagePtr = mojo::StructPtr<BackgroundImage>;
 

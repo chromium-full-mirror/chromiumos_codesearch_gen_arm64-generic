@@ -622,6 +622,7 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/tools/perf/contrib/shared_storage/page_set.py
 ../../../../../../../home/chrome-bot/chrome_root/src/tools/perf/contrib/shared_storage/pages.py
 ../../../../../../../home/chrome-bot/chrome_root/src/tools/perf/contrib/shared_storage/shared_storage.py
+../../../../../../../home/chrome-bot/chrome_root/src/tools/perf/contrib/shared_storage/shared_storage_shared_page_state.py
 ../../../../../../../home/chrome-bot/chrome_root/src/tools/perf/contrib/system_health_scroll_jank/__init__.py
 ../../../../../../../home/chrome-bot/chrome_root/src/tools/perf/contrib/system_health_scroll_jank/janky_story_set.py
 ../../../../../../../home/chrome-bot/chrome_root/src/tools/perf/contrib/system_health_scroll_jank/system_health_scroll_jank.py

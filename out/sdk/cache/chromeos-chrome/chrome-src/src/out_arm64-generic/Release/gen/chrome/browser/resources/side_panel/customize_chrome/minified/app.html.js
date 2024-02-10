@@ -34,17 +34,17 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
           Customize your browser even more with extensions from the <a href="#">Chrome Web Store</a>
         </div>
         <div id="buttonContainer">
-          <cr-chip id="couponsButton" chip-role="link">
+          <cr-chip id="couponsButton" chip-role="link" on-click="onCouponsButtonClick_">
             <div class="cr-icon"></div>
-            Find coupons
+            $i18n{webstoreShoppingCategoryLabel}
           </cr-chip>
-          <cr-chip id="writingButton" chip-role="link">
+          <cr-chip id="writingButton" chip-role="link" on-click="onWritingButtonClick_">
             <div class="cr-icon"></div>
-            Get writing help
+            $i18n{webstoreWritingHelpCollectionLabel}
           </cr-chip>
-          <cr-chip id="productivityButton" chip-role="link">
+          <cr-chip id="productivityButton" chip-role="link" on-click="onProductivityButtonClick_">
             <div class="cr-icon"></div>
-            Increase your productivity
+            $i18n{webstoreProductivityCategoryLabel}
           </cr-chip>
         </div>
       </div>

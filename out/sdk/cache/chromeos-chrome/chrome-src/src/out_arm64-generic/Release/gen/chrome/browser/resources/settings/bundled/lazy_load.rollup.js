@@ -2125,7 +2125,7 @@ styleMod$4.appendChild(html `
 styleMod$4.register('cr-screen-reader-only');
 
 function getTemplate$1s() {
-    return html `<!--_html_template_start_-->    <style include="settings-shared passwords-shared cr-screen-reader-only">.expiration-column,.misc-column{align-items:center;display:flex;flex:1}.misc-column{justify-content:flex-end}.list-item{margin-bottom:8px;margin-top:8px}.sub-label{color:var(--cr-secondary-text-color)}#paymentsIcon{vertical-align:middle}#cardImage{margin-inline-end:16px;vertical-align:middle}</style>
+    return html `<!--_html_template_start_-->    <style include="settings-shared passwords-shared cr-screen-reader-only">.expiration-column,.misc-column{align-items:center;display:flex;flex:1}.misc-column{justify-content:flex-end}.list-item{margin-bottom:8px;margin-top:8px}.sub-label{color:var(--cr-secondary-text-color)}#paymentsIcon{vertical-align:middle}#cardImage{margin-inline-end:16px;vertical-align:middle}#summaryTermsLink{text-decoration:none}</style>
     <div class="list-item" role="row">
       <div class="type-column" role="cell">
         <img id="cardImage" src="[[creditCard.imageSrc]]" alt="">
@@ -2137,8 +2137,11 @@ function getTemplate$1s() {
           <div id="summaryLabel" class="ellipses" aria-hidden="true">
             [[creditCard.metadata.summaryLabel]]
           </div>
-          <div id="summarySublabel" class="ellipses sub-label" aria-hidden="true">
+          <div id="summarySublabel" class="sub-label" aria-hidden="true">
             [[getSummarySublabel_(creditCard)]]
+            <template is="dom-if" if="[[isCardBenefitsProductUrlAvailable_(creditCard)]]">
+              (<a id="summaryTermsLink" href="[[getCardBenefitsProductUrl_(creditCard)]]" target="_blank">$i18n{benefitsTermsTagForCreditCardListEntry}</a>)
+            </template>
           </div>
         </div>
       </div>
@@ -2265,54 +2268,67 @@ class SettingsCreditCardListEntryElement extends SettingsCreditCardListEntryElem
     }
     getCardSublabelType() {
         if (this.isVirtualCardEnrolled_()) {
-            if (loadTimeData.getBoolean('cvcStorageAvailable') &&
-                !!this.creditCard.cvc) {
-                return 1 /* CardSummarySublabelType.VIRTUAL_CARD_WITH_CVC_TAG */;
+            if (this.isCardCvcAvailable_()) {
+                return this.isCardBenefitsProductUrlAvailable_() ?
+                    7 /* CardSummarySublabelType.VIRTUAL_CARD_WITH_CVC_AND_BENEFITS_TAG */ :
+                    6 /* CardSummarySublabelType.VIRTUAL_CARD_WITH_CVC_TAG */;
             }
-            return 0 /* CardSummarySublabelType.VIRTUAL_CARD */;
+            return this.isCardBenefitsProductUrlAvailable_() ?
+                5 /* CardSummarySublabelType.VIRTUAL_CARD_WITH_BENEFITS_TAG */ :
+                4 /* CardSummarySublabelType.VIRTUAL_CARD */;
         }
-        if (loadTimeData.getBoolean('cvcStorageAvailable') &&
-            !!this.creditCard.cvc) {
-            return 3 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_TAG */;
+        if (this.isCardCvcAvailable_()) {
+            return this.isCardBenefitsProductUrlAvailable_() ?
+                3 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_AND_BENEFITS_TAG */ :
+                2 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_TAG */;
         }
-        return 2 /* CardSummarySublabelType.EXPIRATION_DATE */;
+        return this.isCardBenefitsProductUrlAvailable_() ?
+            1 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_BENEFITS_TAG */ :
+            0 /* CardSummarySublabelType.EXPIRATION_DATE */;
     }
     /**
      * Returns one of the following sublabels, based on the card's status:
-     *    Virtual card metadata if card is eligible for enrollment or has already
-     * enrolled
-     *    Expiration date tag (MM/YY)
-     *    'CVC saved' tag
-     *
+     *   Virtual card enrollment tag
+     *   Expiration date tag (MM/YY)
+     *   'CVC saved' tag
+     *   Benefit tag (Place the benefit tag last because it includes a link to
+     *                product terms.)
      * e.g., one of the following:
-     *    11/23
-     *    11/23 | CVC saved
-     *    Virtual card turned on
-     *    Virtual card turned on | CVC saved
+     *   11/23
+     *   11/23 | CVC saved
+     *   11/23 | Card benefits available (terms apply)
+     *   11/23 | CVC saved | Card benefits available (terms apply)
+     *   Virtual card turned on
+     *   Virtual card turned on | CVC saved
+     *   Virtual card turned on | Card benefits available (terms apply)
+     *   Virtual card turned on | CVC saved | Card benefits available (terms
+     *     apply)
      */
     getSummarySublabel_() {
-        switch (this.getCardSublabelType()) {
-            case 0 /* CardSummarySublabelType.VIRTUAL_CARD */:
-                return this.i18n('virtualCardTurnedOn');
-            case 1 /* CardSummarySublabelType.VIRTUAL_CARD_WITH_CVC_TAG */:
-                return this.i18n('virtualCardTurnedOn') + ' | ' +
-                    this.i18n('cvcTagForCreditCardListEntry');
-            case 3 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_TAG */:
-                return this.getCardExpiryDate_() + ' | ' +
-                    this.i18n('cvcTagForCreditCardListEntry');
-            case 2 /* CardSummarySublabelType.EXPIRATION_DATE */:
-                return this.getCardExpiryDate_();
-            default:
-                assertNotReached();
+        const separator = ' | ';
+        let summarySublabel = this.isVirtualCardEnrolled_() ?
+            this.i18n('virtualCardTurnedOn') :
+            this.getCardExpiryDate_();
+        if (this.isCardCvcAvailable_()) {
+            summarySublabel += separator + this.i18n('cvcTagForCreditCardListEntry');
         }
+        if (this.isCardBenefitsProductUrlAvailable_()) {
+            summarySublabel +=
+                separator + this.i18n('benefitsAvailableTagForCreditCardListEntry');
+        }
+        return summarySublabel;
     }
     getSummaryAriaSublabel_() {
         switch (this.getCardSublabelType()) {
-            case 0 /* CardSummarySublabelType.VIRTUAL_CARD */:
-            case 1 /* CardSummarySublabelType.VIRTUAL_CARD_WITH_CVC_TAG */:
+            case 7 /* CardSummarySublabelType.VIRTUAL_CARD_WITH_CVC_AND_BENEFITS_TAG */:
+            case 5 /* CardSummarySublabelType.VIRTUAL_CARD_WITH_BENEFITS_TAG */:
+            case 6 /* CardSummarySublabelType.VIRTUAL_CARD_WITH_CVC_TAG */:
+            case 4 /* CardSummarySublabelType.VIRTUAL_CARD */:
                 return this.getSummarySublabel_();
-            case 3 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_TAG */:
-            case 2 /* CardSummarySublabelType.EXPIRATION_DATE */:
+            case 3 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_AND_BENEFITS_TAG */:
+            case 1 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_BENEFITS_TAG */:
+            case 2 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_TAG */:
+            case 0 /* CardSummarySublabelType.EXPIRATION_DATE */:
                 return this.i18n('creditCardExpDateA11yLabeled', this.getSummarySublabel_());
             default:
                 assertNotReached();
@@ -2331,6 +2347,17 @@ class SettingsCreditCardListEntryElement extends SettingsCreditCardListEntryElem
             return this.i18n('googlePaymentsCached');
         }
         return this.i18n('googlePayments');
+    }
+    isCardCvcAvailable_() {
+        return loadTimeData.getBoolean('cvcStorageAvailable') &&
+            !!this.creditCard.cvc;
+    }
+    isCardBenefitsProductUrlAvailable_() {
+        return loadTimeData.getBoolean('autofillCardBenefitsAvailable') &&
+            !!this.creditCard.productTermsUrl;
+    }
+    getCardBenefitsProductUrl_() {
+        return this.creditCard.productTermsUrl || '';
     }
 }
 customElements.define(SettingsCreditCardListEntryElement.is, SettingsCreditCardListEntryElement);
@@ -19068,11 +19095,11 @@ customElements.define(CrToastManagerElement.is, CrToastManagerElement);
 
 function getTemplate$a() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">.toggle{padding:0 var(--cr-section-padding);margin-bottom:var(--cr-section-vertical-padding)}</style>
-    <template is="dom-if" if="[[!is3pcdRedesignEnabled_]]">
+    <template is="dom-if" if="[[!isCookiesUiV2_]]">
       <settings-toggle-button id="toggle" class="hr" label="$i18n{doNotTrack}" pref="{{prefs.enable_do_not_track}}" on-settings-boolean-control-change="onToggleChange_" no-set-pref>
       </settings-toggle-button>
     </template>
-    <template is="dom-if" if="[[is3pcdRedesignEnabled_]]">
+    <template is="dom-if" if="[[isCookiesUiV2_]]">
       <settings-toggle-button id="toggle" class="toggle" label="$i18n{doNotTrack}" pref="{{prefs.enable_do_not_track}}" on-settings-boolean-control-change="onToggleChange_" sub-label="$i18n{trackingProtectionDoNotTrackToggleSubLabel}" icon="settings:forward" no-set-pref>
       </settings-toggle-button>
     </template>
@@ -19120,9 +19147,10 @@ class SettingsDoNotTrackToggleElement extends PolymerElement {
                 type: Boolean,
                 value: false,
             },
-            is3pcdRedesignEnabled_: {
+            isCookiesUiV2_: {
                 type: Boolean,
-                value: () => loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled'),
+                value: () => (loadTimeData.getBoolean('isCookieSettingsUiAlignmentEnabled') ||
+                    loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled')),
             },
         };
     }

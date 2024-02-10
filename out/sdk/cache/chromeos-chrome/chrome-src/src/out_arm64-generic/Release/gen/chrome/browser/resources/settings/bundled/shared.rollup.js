@@ -10550,8 +10550,9 @@ var PrivacyElementInteractions;
     PrivacyElementInteractions[PrivacyElementInteractions["THIRD_PARTY_COOKIES_BLOCK_IN_INCOGNITO"] = 21] = "THIRD_PARTY_COOKIES_BLOCK_IN_INCOGNITO";
     PrivacyElementInteractions[PrivacyElementInteractions["THIRD_PARTY_COOKIES_BLOCK"] = 22] = "THIRD_PARTY_COOKIES_BLOCK";
     PrivacyElementInteractions[PrivacyElementInteractions["BLOCK_ALL_THIRD_PARTY_COOKIES"] = 23] = "BLOCK_ALL_THIRD_PARTY_COOKIES";
+    PrivacyElementInteractions[PrivacyElementInteractions["IP_PROTECTION"] = 24] = "IP_PROTECTION";
     // Max value should be updated whenever new entries are added.
-    PrivacyElementInteractions[PrivacyElementInteractions["MAX_VALUE"] = 24] = "MAX_VALUE";
+    PrivacyElementInteractions[PrivacyElementInteractions["MAX_VALUE"] = 25] = "MAX_VALUE";
 })(PrivacyElementInteractions || (PrivacyElementInteractions = {}));
 /**
  * Contains all Safety Hub card states.

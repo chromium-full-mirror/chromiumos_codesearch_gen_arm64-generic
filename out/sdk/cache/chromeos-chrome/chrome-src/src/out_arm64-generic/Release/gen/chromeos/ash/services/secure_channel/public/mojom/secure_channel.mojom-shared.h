@@ -219,9 +219,27 @@ enum class SecureChannelState : int32_t {
   
   kAuthenticationSuccess = 6,
   
-  kAuthenticationFailure = 7,
+  kFailureNotConnectedToRemoteDevice = 7,
+  
+  kFailedToGenerateSessionKeys = 8,
+  
+  kFailedToGenerateHelloMessage = 9,
+  
+  kFailedToSendHelloMessage = 10,
+  
+  kFailedToWaitForResponderAuth = 11,
+  
+  kReceivedUnexpectedMessage = 12,
+  
+  kFailedToValidateReponderAuth = 13,
+  
+  kFailedToGenerateInitiatorAuth = 14,
+  
+  kFailedToSendInitiatorAuth = 15,
+  
+  kFailureDisconnectDuringAuthentication = 16,
   kMinValue = 0,
-  kMaxValue = 7,
+  kMaxValue = 16,
 };
 
  std::ostream& operator<<(std::ostream& os, SecureChannelState value);

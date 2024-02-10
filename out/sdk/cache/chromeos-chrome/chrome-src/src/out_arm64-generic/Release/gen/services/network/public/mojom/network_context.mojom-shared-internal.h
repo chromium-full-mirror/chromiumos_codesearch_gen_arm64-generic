@@ -479,6 +479,7 @@ class  NetworkContextParams_Data {
   uint8_t persist_session_cookies : 1;
   uint8_t http_cache_enabled : 1;
   uint8_t disable_idle_sockets_close_on_memory_pressure : 1;
+  uint8_t enable_ip_protection : 1;
   uint8_t pac_quick_check_enabled : 1;
   uint8_t enable_certificate_reporting : 1;
   uint8_t enforce_chrome_ct_policy : 1;
@@ -493,7 +494,7 @@ class  NetworkContextParams_Data {
   uint8_t shared_dictionary_enabled : 1;
   uint8_t acam_preflight_spec_conformant : 1;
   uint8_t afp_block_list_experiment_enabled : 1;
-  uint8_t pad24_[1];
+  uint8_t pad25_[1];
   mojo::internal::Interface_Data proxy_resolver_factory;
   mojo::internal::Interface_Data dhcp_wpad_url_client;
   int32_t http_cache_max_size;

@@ -16,6 +16,8 @@ namespace ntp::tab_resumption::mojom {
 class  PageHandlerInterceptorForTesting : public PageHandler {
   virtual PageHandler* GetForwardingInterface() = 0;
   void GetTabs(GetTabsCallback callback) override;
+  void DismissModule(const std::vector<::GURL>& urls) override;
+  void RestoreModule() override;
 };
 class  PageHandlerAsyncWaiter {
  public:

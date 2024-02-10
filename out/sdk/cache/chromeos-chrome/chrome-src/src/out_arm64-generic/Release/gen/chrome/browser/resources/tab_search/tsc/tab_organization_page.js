@@ -66,6 +66,7 @@ export class TabOrganizationPageElement extends PolymerElement {
         this.apiProxy_.getTabOrganizationSession().then(({ session }) => this.setSession_(session));
         const callbackRouter = this.apiProxy_.getCallbackRouter();
         this.listenerIds_.push(callbackRouter.tabOrganizationSessionUpdated.addListener(this.setSession_.bind(this)));
+        this.listenerIds_.push(callbackRouter.showFREChanged.addListener(this.setShowFre_.bind(this)));
         if (document.visibilityState === 'visible') {
             this.onVisible_();
         }
@@ -95,6 +96,9 @@ export class TabOrganizationPageElement extends PolymerElement {
             this.availableHeight_ =
                 activeWindow ? activeWindow.height : profileData.windows[0].height;
         });
+    }
+    setShowFre_(show) {
+        this.showFRE_ = show;
     }
     setSessionForTesting(session) {
         this.setSession_(session);

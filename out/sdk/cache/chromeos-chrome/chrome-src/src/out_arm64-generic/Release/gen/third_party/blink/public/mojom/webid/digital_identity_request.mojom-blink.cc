@@ -45,6 +45,174 @@
 
 
 namespace blink::mojom::blink {
+DigitalCredentialProvider::DigitalCredentialProvider()
+    : params(),
+      selector(),
+      protocol(),
+      request(),
+      publicKey() {}
+
+DigitalCredentialProvider::DigitalCredentialProvider(
+    const std::optional<WTF::HashMap<WTF::String, WTF::String>>& params_in,
+    DigitalCredentialSelectorPtr selector_in,
+    const WTF::String& protocol_in,
+    const WTF::String& request_in,
+    const WTF::String& publicKey_in)
+    : params(std::move(params_in)),
+      selector(std::move(selector_in)),
+      protocol(std::move(protocol_in)),
+      request(std::move(request_in)),
+      publicKey(std::move(publicKey_in)) {}
+
+DigitalCredentialProvider::~DigitalCredentialProvider() = default;
+
+void DigitalCredentialProvider::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "params"), this->params,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<WTF::HashMap<WTF::String, WTF::String>>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "selector"), this->selector,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type DigitalCredentialSelectorPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "protocol"), this->protocol,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::String&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "request"), this->request,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::String&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "publicKey"), this->publicKey,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::String&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool DigitalCredentialProvider::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+DigitalCredentialSelector::DigitalCredentialSelector()
+    : format(),
+      doctype(),
+      fields() {}
+
+DigitalCredentialSelector::DigitalCredentialSelector(
+    WTF::Vector<WTF::String> format_in,
+    const WTF::String& doctype_in,
+    WTF::Vector<DigitalCredentialFieldRequirementPtr> fields_in)
+    : format(std::move(format_in)),
+      doctype(std::move(doctype_in)),
+      fields(std::move(fields_in)) {}
+
+DigitalCredentialSelector::~DigitalCredentialSelector() = default;
+
+void DigitalCredentialSelector::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "format"), this->format,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::Vector<WTF::String>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "doctype"), this->doctype,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::String&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "fields"), this->fields,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type WTF::Vector<DigitalCredentialFieldRequirementPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool DigitalCredentialSelector::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+DigitalCredentialFieldRequirement::DigitalCredentialFieldRequirement()
+    : name(),
+      equals() {}
+
+DigitalCredentialFieldRequirement::DigitalCredentialFieldRequirement(
+    const WTF::String& name_in,
+    const WTF::String& equals_in)
+    : name(std::move(name_in)),
+      equals(std::move(equals_in)) {}
+
+DigitalCredentialFieldRequirement::~DigitalCredentialFieldRequirement() = default;
+
+void DigitalCredentialFieldRequirement::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::String&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "equals"), this->equals,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::String&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool DigitalCredentialFieldRequirement::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 const char DigitalIdentityRequest::Name_[] = "blink.mojom.DigitalIdentityRequest";
 
 DigitalIdentityRequest::IPCStableHashFunction DigitalIdentityRequest::MessageToMethodInfo_(mojo::Message& message) {
@@ -141,7 +309,7 @@ DigitalIdentityRequestProxy::DigitalIdentityRequestProxy(mojo::MessageReceiverWi
 }
 
 void DigitalIdentityRequestProxy::Request(
-    ::blink::mojom::blink::DigitalCredentialProviderPtr in_digital_credential_provider, RequestCallback callback) {
+    DigitalCredentialProviderPtr in_digital_credential_provider, RequestCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::DigitalIdentityRequest::Request", "input_parameters",
@@ -149,7 +317,7 @@ void DigitalIdentityRequestProxy::Request(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("digital_credential_provider"), in_digital_credential_provider,
-                        "<value of type ::blink::mojom::blink::DigitalCredentialProviderPtr>");
+                        "<value of type DigitalCredentialProviderPtr>");
    });
 #endif
 
@@ -416,7 +584,7 @@ bool DigitalIdentityRequestStubDispatch::AcceptWithResponder(
       
       // Validation for DigitalIdentityRequest.0
       bool success = true;
-      ::blink::mojom::blink::DigitalCredentialProviderPtr p_digital_credential_provider{};
+      DigitalCredentialProviderPtr p_digital_credential_provider{};
       DigitalIdentityRequest_Request_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDigitalCredentialProvider(&p_digital_credential_provider))
@@ -468,6 +636,62 @@ bool DigitalIdentityRequestResponseValidator::Accept(mojo::Message* message) {
 
 namespace mojo {
 
+
+// static
+bool StructTraits<::blink::mojom::blink::DigitalCredentialProvider::DataView, ::blink::mojom::blink::DigitalCredentialProviderPtr>::Read(
+    ::blink::mojom::blink::DigitalCredentialProvider::DataView input,
+    ::blink::mojom::blink::DigitalCredentialProviderPtr* output) {
+  bool success = true;
+  ::blink::mojom::blink::DigitalCredentialProviderPtr result(::blink::mojom::blink::DigitalCredentialProvider::New());
+  
+      if (success && !input.ReadParams(&result->params))
+        success = false;
+      if (success && !input.ReadSelector(&result->selector))
+        success = false;
+      if (success && !input.ReadProtocol(&result->protocol))
+        success = false;
+      if (success && !input.ReadRequest(&result->request))
+        success = false;
+      if (success && !input.ReadPublicKey(&result->publicKey))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::blink::mojom::blink::DigitalCredentialSelector::DataView, ::blink::mojom::blink::DigitalCredentialSelectorPtr>::Read(
+    ::blink::mojom::blink::DigitalCredentialSelector::DataView input,
+    ::blink::mojom::blink::DigitalCredentialSelectorPtr* output) {
+  bool success = true;
+  ::blink::mojom::blink::DigitalCredentialSelectorPtr result(::blink::mojom::blink::DigitalCredentialSelector::New());
+  
+      if (success && !input.ReadFormat(&result->format))
+        success = false;
+      if (success && !input.ReadDoctype(&result->doctype))
+        success = false;
+      if (success && !input.ReadFields(&result->fields))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::blink::mojom::blink::DigitalCredentialFieldRequirement::DataView, ::blink::mojom::blink::DigitalCredentialFieldRequirementPtr>::Read(
+    ::blink::mojom::blink::DigitalCredentialFieldRequirement::DataView input,
+    ::blink::mojom::blink::DigitalCredentialFieldRequirementPtr* output) {
+  bool success = true;
+  ::blink::mojom::blink::DigitalCredentialFieldRequirementPtr result(::blink::mojom::blink::DigitalCredentialFieldRequirement::New());
+  
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success && !input.ReadEquals(&result->equals))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 }  // namespace mojo
 
 
@@ -478,7 +702,7 @@ namespace mojo {
 namespace blink::mojom::blink {
 
 
-void DigitalIdentityRequestInterceptorForTesting::Request(::blink::mojom::blink::DigitalCredentialProviderPtr digital_credential_provider, RequestCallback callback) {
+void DigitalIdentityRequestInterceptorForTesting::Request(DigitalCredentialProviderPtr digital_credential_provider, RequestCallback callback) {
   GetForwardingInterface()->Request(std::move(digital_credential_provider), std::move(callback));
 }
 void DigitalIdentityRequestInterceptorForTesting::Abort() {
@@ -490,7 +714,7 @@ DigitalIdentityRequestAsyncWaiter::DigitalIdentityRequestAsyncWaiter(
 DigitalIdentityRequestAsyncWaiter::~DigitalIdentityRequestAsyncWaiter() = default;
 
 void DigitalIdentityRequestAsyncWaiter::Request(
-    ::blink::mojom::blink::DigitalCredentialProviderPtr digital_credential_provider, RequestDigitalIdentityStatus* out_status, WTF::String* out_token) {
+    DigitalCredentialProviderPtr digital_credential_provider, RequestDigitalIdentityStatus* out_status, WTF::String* out_token) {
   base::RunLoop loop;
   proxy_->Request(std::move(digital_credential_provider),
       base::BindOnce(

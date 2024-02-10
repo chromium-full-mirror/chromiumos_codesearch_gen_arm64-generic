@@ -259,6 +259,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_css_background_clip_unprefix_enabled_>;
   using ScopedCSSCalcSimplificationAndSerialization = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_calc_simplification_and_serialization_enabled_>;
+  using ScopedCSSCalcSizeFunction = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_css_calc_size_function_enabled_>;
   using ScopedCSSCapFontUnits = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_cap_font_units_enabled_>;
   using ScopedCSSCaseSensitiveSelector = ScopedRuntimeEnabledFeature<
@@ -337,6 +339,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_css_position_sticky_static_scroll_position_enabled_>;
   using ScopedCSSProgressNotation = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_progress_notation_enabled_>;
+  using ScopedCSSPseudoOpenClosed = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_css_pseudo_open_closed_enabled_>;
   using ScopedCSSPseudoPlayingPaused = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_pseudo_playing_paused_enabled_>;
   using ScopedCSSRelativeColor = ScopedRuntimeEnabledFeature<
@@ -745,6 +749,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_lazy_initialize_media_controls_enabled_>;
   using ScopedLazyLoadScrollMargin = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_lazy_load_scroll_margin_enabled_>;
+  using ScopedLazyLoadScrollMarginIframe = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_lazy_load_scroll_margin_iframe_enabled_>;
   using ScopedLCPAnimatedImagesWebExposed = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_lcp_animated_images_web_exposed_enabled_>;
   using ScopedLCPMouseoverHeuristics = ScopedRuntimeEnabledFeature<
@@ -1239,8 +1245,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_stylable_select_enabled_>;
   using ScopedStylusHandwriting = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_stylus_handwriting_enabled_>;
-  using ScopedSuggestionPickerDarkModeSupport = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_suggestion_picker_dark_mode_support_enabled_>;
   using ScopedSvgCrossOriginAttribute = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_svg_cross_origin_attribute_enabled_>;
   using ScopedSvgNoPixelSnappingScaleAdjustment = ScopedRuntimeEnabledFeature<
@@ -1729,6 +1733,8 @@ using ScopedCSSBackgroundClipUnprefixForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSBackgroundClipUnprefix;
 using ScopedCSSCalcSimplificationAndSerializationForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSCalcSimplificationAndSerialization;
+using ScopedCSSCalcSizeFunctionForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedCSSCalcSizeFunction;
 using ScopedCSSCapFontUnitsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSCapFontUnits;
 using ScopedCSSCaseSensitiveSelectorForTest =
@@ -1807,6 +1813,8 @@ using ScopedCSSPositionStickyStaticScrollPositionForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSPositionStickyStaticScrollPosition;
 using ScopedCSSProgressNotationForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSProgressNotation;
+using ScopedCSSPseudoOpenClosedForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedCSSPseudoOpenClosed;
 using ScopedCSSPseudoPlayingPausedForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSPseudoPlayingPaused;
 using ScopedCSSRelativeColorForTest =
@@ -2215,6 +2223,8 @@ using ScopedLazyInitializeMediaControlsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedLazyInitializeMediaControls;
 using ScopedLazyLoadScrollMarginForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedLazyLoadScrollMargin;
+using ScopedLazyLoadScrollMarginIframeForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedLazyLoadScrollMarginIframe;
 using ScopedLCPAnimatedImagesWebExposedForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedLCPAnimatedImagesWebExposed;
 using ScopedLCPMouseoverHeuristicsForTest =
@@ -2709,8 +2719,6 @@ using ScopedStylableSelectForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedStylableSelect;
 using ScopedStylusHandwritingForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedStylusHandwriting;
-using ScopedSuggestionPickerDarkModeSupportForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedSuggestionPickerDarkModeSupport;
 using ScopedSvgCrossOriginAttributeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSvgCrossOriginAttribute;
 using ScopedSvgNoPixelSnappingScaleAdjustmentForTest =

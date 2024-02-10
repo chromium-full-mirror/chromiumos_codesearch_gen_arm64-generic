@@ -21,6 +21,7 @@ export var SeaPenActionName;
     SeaPenActionName["SET_RECENT_SEA_PEN_IMAGES"] = "set_recent_sea_pen_images";
     SeaPenActionName["SET_RECENT_SEA_PEN_IMAGE_DATA"] = "set_recent_sea_pen_image_data";
     SeaPenActionName["SET_SELECTED_RECENT_SEA_PEN_IMAGE"] = "set_selected_recent_sea_pen_image";
+    SeaPenActionName["SET_SEA_PEN_ATTRIBUTION"] = "set_sea_pen_attribution";
     SeaPenActionName["SET_SHOULD_SHOW_SEA_PEN_TERMS_OF_SERVICE_DIALOG"] = "set_should_show_sea_pen_terms_of_service_dialog";
 })(SeaPenActionName || (SeaPenActionName = {}));
 export function beginSearchSeaPenThumbnailsAction(query) {
@@ -103,6 +104,11 @@ export function setSelectedRecentSeaPenImageAction(key) {
     return {
         name: SeaPenActionName.SET_SELECTED_RECENT_SEA_PEN_IMAGE,
         key: key,
+    };
+}
+export function setSeaPenAttributionAction() {
+    return {
+        name: SeaPenActionName.SET_SEA_PEN_ATTRIBUTION,
     };
 }
 export function setThumbnailResponseStatusCodeAction(thumbnailResponseStatusCode) {

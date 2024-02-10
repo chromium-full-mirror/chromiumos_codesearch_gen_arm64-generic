@@ -27,7 +27,7 @@
 #include "chrome/browser/new_tab_page/modules/v2/tab_resumption/tab_resumption.mojom-shared.h"
 #include "chrome/browser/new_tab_page/modules/v2/tab_resumption/tab_resumption.mojom-forward.h"
 #include "components/history/core/browser/mojom/history_types.mojom-forward.h"
-#include "url/mojom/url.mojom-forward.h"
+#include "url/mojom/url.mojom.h"
 #include <string>
 #include <vector>
 
@@ -72,12 +72,20 @@ class PageHandler
   using ResponseValidator_ = PageHandlerResponseValidator;
   enum MethodMinVersions : uint32_t {
     kGetTabsMinVersion = 0,
+    kDismissModuleMinVersion = 0,
+    kRestoreModuleMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct GetTabs_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct DismissModule_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RestoreModule_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -87,6 +95,12 @@ class PageHandler
   using GetTabsCallback = base::OnceCallback<void(std::vector<::history::mojom::TabPtr>)>;
   
   virtual void GetTabs(GetTabsCallback callback) = 0;
+
+  
+  virtual void DismissModule(const std::vector<::GURL>& urls) = 0;
+
+  
+  virtual void RestoreModule() = 0;
 };
 
 
@@ -99,6 +113,10 @@ class  PageHandlerProxy
   explicit PageHandlerProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void GetTabs(GetTabsCallback callback) final;
+  
+  void DismissModule(const std::vector<::GURL>& urls) final;
+  
+  void RestoreModule() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

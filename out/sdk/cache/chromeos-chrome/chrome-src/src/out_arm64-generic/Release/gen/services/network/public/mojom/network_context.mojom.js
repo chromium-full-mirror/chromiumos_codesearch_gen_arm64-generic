@@ -999,6 +999,7 @@
     this.persistSessionCookies = false;
     this.httpCacheEnabled = true;
     this.disableIdleSocketsCloseOnMemoryPressure = false;
+    this.enableIpProtection = false;
     this.pacQuickCheckEnabled = true;
     this.enableCertificateReporting = false;
     this.enforceChromeCtPolicy = false;
@@ -1175,6 +1176,7 @@
 
 
 
+
     // validate NetworkContextParams.sctAuditingMode
     err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 120, SCTAuditingMode);
     if (err !== validator.validationError.NONE)
@@ -1301,21 +1303,22 @@
     val.httpCacheEnabled = (packed >> 7) & 1 ? true : false;
     packed = decoder.readUint8();
     val.disableIdleSocketsCloseOnMemoryPressure = (packed >> 0) & 1 ? true : false;
-    val.pacQuickCheckEnabled = (packed >> 1) & 1 ? true : false;
-    val.enableCertificateReporting = (packed >> 2) & 1 ? true : false;
-    val.enforceChromeCtPolicy = (packed >> 3) & 1 ? true : false;
-    val.enableDomainReliability = (packed >> 4) & 1 ? true : false;
-    val.discardDomainReliablityUploads = (packed >> 5) & 1 ? true : false;
-    val.skipReportingSendPermissionCheck = (packed >> 6) & 1 ? true : false;
-    val.allowAnyCorsExemptHeaderForBrowser = (packed >> 7) & 1 ? true : false;
+    val.enableIpProtection = (packed >> 1) & 1 ? true : false;
+    val.pacQuickCheckEnabled = (packed >> 2) & 1 ? true : false;
+    val.enableCertificateReporting = (packed >> 3) & 1 ? true : false;
+    val.enforceChromeCtPolicy = (packed >> 4) & 1 ? true : false;
+    val.enableDomainReliability = (packed >> 5) & 1 ? true : false;
+    val.discardDomainReliablityUploads = (packed >> 6) & 1 ? true : false;
+    val.skipReportingSendPermissionCheck = (packed >> 7) & 1 ? true : false;
     packed = decoder.readUint8();
-    val.resetHttpCacheBackend = (packed >> 0) & 1 ? true : false;
-    val.splitAuthCacheByNetworkAnonymizationKey = (packed >> 1) & 1 ? true : false;
-    val.requireNetworkAnonymizationKey = (packed >> 2) & 1 ? true : false;
-    val.blockTrustTokens = (packed >> 3) & 1 ? true : false;
-    val.sharedDictionaryEnabled = (packed >> 4) & 1 ? true : false;
-    val.acamPreflightSpecConformant = (packed >> 5) & 1 ? true : false;
-    val.afpBlockListExperimentEnabled = (packed >> 6) & 1 ? true : false;
+    val.allowAnyCorsExemptHeaderForBrowser = (packed >> 0) & 1 ? true : false;
+    val.resetHttpCacheBackend = (packed >> 1) & 1 ? true : false;
+    val.splitAuthCacheByNetworkAnonymizationKey = (packed >> 2) & 1 ? true : false;
+    val.requireNetworkAnonymizationKey = (packed >> 3) & 1 ? true : false;
+    val.blockTrustTokens = (packed >> 4) & 1 ? true : false;
+    val.sharedDictionaryEnabled = (packed >> 5) & 1 ? true : false;
+    val.acamPreflightSpecConformant = (packed >> 6) & 1 ? true : false;
+    val.afpBlockListExperimentEnabled = (packed >> 7) & 1 ? true : false;
     decoder.skip(1);
     val.proxyResolverFactory =
         decoder.decodeStruct(new codec.NullableInterface(proxy_resolver$.ProxyResolverFactoryPtr));
@@ -1400,22 +1403,23 @@
     encoder.writeUint8(packed);
     packed = 0;
     packed |= (val.disableIdleSocketsCloseOnMemoryPressure & 1) << 0
-    packed |= (val.pacQuickCheckEnabled & 1) << 1
-    packed |= (val.enableCertificateReporting & 1) << 2
-    packed |= (val.enforceChromeCtPolicy & 1) << 3
-    packed |= (val.enableDomainReliability & 1) << 4
-    packed |= (val.discardDomainReliablityUploads & 1) << 5
-    packed |= (val.skipReportingSendPermissionCheck & 1) << 6
-    packed |= (val.allowAnyCorsExemptHeaderForBrowser & 1) << 7
+    packed |= (val.enableIpProtection & 1) << 1
+    packed |= (val.pacQuickCheckEnabled & 1) << 2
+    packed |= (val.enableCertificateReporting & 1) << 3
+    packed |= (val.enforceChromeCtPolicy & 1) << 4
+    packed |= (val.enableDomainReliability & 1) << 5
+    packed |= (val.discardDomainReliablityUploads & 1) << 6
+    packed |= (val.skipReportingSendPermissionCheck & 1) << 7
     encoder.writeUint8(packed);
     packed = 0;
-    packed |= (val.resetHttpCacheBackend & 1) << 0
-    packed |= (val.splitAuthCacheByNetworkAnonymizationKey & 1) << 1
-    packed |= (val.requireNetworkAnonymizationKey & 1) << 2
-    packed |= (val.blockTrustTokens & 1) << 3
-    packed |= (val.sharedDictionaryEnabled & 1) << 4
-    packed |= (val.acamPreflightSpecConformant & 1) << 5
-    packed |= (val.afpBlockListExperimentEnabled & 1) << 6
+    packed |= (val.allowAnyCorsExemptHeaderForBrowser & 1) << 0
+    packed |= (val.resetHttpCacheBackend & 1) << 1
+    packed |= (val.splitAuthCacheByNetworkAnonymizationKey & 1) << 2
+    packed |= (val.requireNetworkAnonymizationKey & 1) << 3
+    packed |= (val.blockTrustTokens & 1) << 4
+    packed |= (val.sharedDictionaryEnabled & 1) << 5
+    packed |= (val.acamPreflightSpecConformant & 1) << 6
+    packed |= (val.afpBlockListExperimentEnabled & 1) << 7
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.encodeStruct(new codec.NullableInterface(proxy_resolver$.ProxyResolverFactoryPtr), val.proxyResolverFactory);
@@ -3845,6 +3849,186 @@
     var packed;
     encoder.writeUint32(IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params.encodedSize);
     encoder.writeUint32(0);
+  };
+  function IpProtectionProxyDelegate_SetIpProtectionEnabled_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  IpProtectionProxyDelegate_SetIpProtectionEnabled_Params.prototype.initDefaults_ = function() {
+    this.value = false;
+  };
+  IpProtectionProxyDelegate_SetIpProtectionEnabled_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  IpProtectionProxyDelegate_SetIpProtectionEnabled_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  IpProtectionProxyDelegate_SetIpProtectionEnabled_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  IpProtectionProxyDelegate_SetIpProtectionEnabled_Params.decode = function(decoder) {
+    var packed;
+    var val = new IpProtectionProxyDelegate_SetIpProtectionEnabled_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.value = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  IpProtectionProxyDelegate_SetIpProtectionEnabled_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(IpProtectionProxyDelegate_SetIpProtectionEnabled_Params.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.value & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params.prototype.initDefaults_ = function() {
+  };
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 8}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params.encodedSize = codec.kStructHeaderSize + 0;
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params.decode = function(decoder) {
+    var packed;
+    var val = new IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    return val;
+  };
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params.encodedSize);
+    encoder.writeUint32(0);
+  };
+  function IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams.prototype.initDefaults_ = function() {
+    this.value = false;
+  };
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.value = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.value & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
   };
   function NetworkContext_SetClient_Params(values) {
     this.initDefaults_();
@@ -12596,6 +12780,8 @@
   IpProtectionConfigGetterProxy.prototype.validator = validateIpProtectionConfigGetterResponse;
   var kIpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Name = 0;
   var kIpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name = 1;
+  var kIpProtectionProxyDelegate_SetIpProtectionEnabled_Name = 2;
+  var kIpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Name = 3;
 
   function IpProtectionProxyDelegatePtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(IpProtectionProxyDelegate,
@@ -12653,6 +12839,45 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  IpProtectionProxyDelegatePtr.prototype.setIpProtectionEnabled = function() {
+    return IpProtectionProxyDelegateProxy.prototype.setIpProtectionEnabled
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  IpProtectionProxyDelegateProxy.prototype.setIpProtectionEnabled = function(value) {
+    var params_ = new IpProtectionProxyDelegate_SetIpProtectionEnabled_Params();
+    params_.value = value;
+    var builder = new codec.MessageV0Builder(
+        kIpProtectionProxyDelegate_SetIpProtectionEnabled_Name,
+        codec.align(IpProtectionProxyDelegate_SetIpProtectionEnabled_Params.encodedSize));
+    builder.encodeStruct(IpProtectionProxyDelegate_SetIpProtectionEnabled_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+  IpProtectionProxyDelegatePtr.prototype.isIpProtectionEnabledForTesting = function() {
+    return IpProtectionProxyDelegateProxy.prototype.isIpProtectionEnabledForTesting
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  IpProtectionProxyDelegateProxy.prototype.isIpProtectionEnabledForTesting = function() {
+    var params_ = new IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params();
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kIpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Name,
+          codec.align(IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
 
   function IpProtectionProxyDelegateStub(delegate) {
     this.delegate_ = delegate;
@@ -12663,6 +12888,12 @@
   IpProtectionProxyDelegateStub.prototype.invalidateIpProtectionConfigCacheTryAgainAfterTime = function() {
     return this.delegate_ && this.delegate_.invalidateIpProtectionConfigCacheTryAgainAfterTime && this.delegate_.invalidateIpProtectionConfigCacheTryAgainAfterTime();
   }
+  IpProtectionProxyDelegateStub.prototype.setIpProtectionEnabled = function(value) {
+    return this.delegate_ && this.delegate_.setIpProtectionEnabled && this.delegate_.setIpProtectionEnabled(value);
+  }
+  IpProtectionProxyDelegateStub.prototype.isIpProtectionEnabledForTesting = function() {
+    return this.delegate_ && this.delegate_.isIpProtectionEnabledForTesting && this.delegate_.isIpProtectionEnabledForTesting();
+  }
 
   IpProtectionProxyDelegateStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
@@ -12670,6 +12901,10 @@
     case kIpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name:
       var params = reader.decodeStruct(IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params);
       this.invalidateIpProtectionConfigCacheTryAgainAfterTime();
+      return true;
+    case kIpProtectionProxyDelegate_SetIpProtectionEnabled_Name:
+      var params = reader.decodeStruct(IpProtectionProxyDelegate_SetIpProtectionEnabled_Params);
+      this.setIpProtectionEnabled(params.value);
       return true;
     default:
       return false;
@@ -12697,6 +12932,22 @@
         responder.accept(message);
       });
       return true;
+    case kIpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Name:
+      var params = reader.decodeStruct(IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params);
+      this.isIpProtectionEnabledForTesting().then(function(response) {
+        var responseParams =
+            new IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams();
+        responseParams.value = response.value;
+        var builder = new codec.MessageV1Builder(
+            kIpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Name,
+            codec.align(IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
     default:
       return false;
     }
@@ -12714,6 +12965,14 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params;
       break;
+      case kIpProtectionProxyDelegate_SetIpProtectionEnabled_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = IpProtectionProxyDelegate_SetIpProtectionEnabled_Params;
+      break;
+      case kIpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Name:
+        if (message.expectsResponse())
+          paramsClass = IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params;
+      break;
     }
     if (paramsClass === null)
       return validator.validationError.NONE;
@@ -12727,6 +12986,10 @@
       case kIpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Name:
         if (message.isResponse())
           paramsClass = IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParams;
+        break;
+      case kIpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Name:
+        if (message.isResponse())
+          paramsClass = IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams;
         break;
     }
     if (paramsClass === null)

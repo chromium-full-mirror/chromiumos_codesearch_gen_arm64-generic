@@ -51,7 +51,7 @@ export class RecentlyUsedStore {
      *    otherwise.
      */
     savePreferredVariant(variant, baseEmoji) {
-        // If `baseEmoji == undefined`, then variant itself is a base emoji.
+        // If `baseEmoji === undefined`, then variant itself is a base emoji.
         if (!baseEmoji) {
             baseEmoji = variant;
         }
@@ -130,7 +130,7 @@ export class RecentlyUsedStore {
      */
     fillEmojiVariantAttributes(name, alternates, groupedTone = false, groupedGender = false) {
         const matchingEmojis = this.store.data.history.filter(emoji => emoji.base.name === ' ' + name);
-        if (matchingEmojis.length == 0) {
+        if (matchingEmojis.length === 0) {
             return;
         }
         matchingEmojis.forEach(emoji => {

@@ -20,6 +20,7 @@ constexpr uint32_t kContextClient_OnComplete_Name = 0;
 constexpr uint32_t kSession_AddContext_Name = 0;
 constexpr uint32_t kSession_Execute_Name = 1;
 constexpr uint32_t kOnDeviceModel_StartSession_Name = 0;
+constexpr uint32_t kOnDeviceModel_LoadAdaptation_Name = 1;
 
 }  // namespace internal
 

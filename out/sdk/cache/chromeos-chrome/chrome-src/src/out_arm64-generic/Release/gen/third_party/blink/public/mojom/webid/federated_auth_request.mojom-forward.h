@@ -22,12 +22,6 @@
 
 
 namespace blink::mojom {
-class DigitalCredentialProviderDataView;
-
-class DigitalCredentialSelectorDataView;
-
-class DigitalCredentialFieldRequirementDataView;
-
 class IdentityProviderConfigDataView;
 
 class IdentityProviderRequestOptionsDataView;
@@ -40,7 +34,6 @@ class IdentityProviderGetParametersDataView;
 
 class TokenErrorDataView;
 
-class IdentityProviderDataView;
 
 enum class RequestTokenStatus : int32_t;
 
@@ -53,15 +46,6 @@ enum class IdpSigninStatus : int32_t;
 enum class RpContext : int32_t;
 
 enum class RpMode : int32_t;
-class DigitalCredentialProvider;
-using DigitalCredentialProviderPtr = mojo::StructPtr<DigitalCredentialProvider>;
-
-class DigitalCredentialSelector;
-using DigitalCredentialSelectorPtr = mojo::StructPtr<DigitalCredentialSelector>;
-
-class DigitalCredentialFieldRequirement;
-using DigitalCredentialFieldRequirementPtr = mojo::InlinedStructPtr<DigitalCredentialFieldRequirement>;
-
 class IdentityProviderConfig;
 using IdentityProviderConfigPtr = mojo::StructPtr<IdentityProviderConfig>;
 
@@ -79,10 +63,6 @@ using IdentityProviderGetParametersPtr = mojo::StructPtr<IdentityProviderGetPara
 
 class TokenError;
 using TokenErrorPtr = mojo::InlinedStructPtr<TokenError>;
-
-class IdentityProvider;
-
-using IdentityProviderPtr = mojo::StructPtr<IdentityProvider>;
 
 class FederatedAuthRequest;
 

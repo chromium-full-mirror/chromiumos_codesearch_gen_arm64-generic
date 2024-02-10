@@ -19,12 +19,6 @@
   var validator = mojo.internal;
 
   var exports = mojo.internal.exposeNamespace('blink.mojom');
-  var federated_auth_request$ =
-      mojo.internal.exposeNamespace('blink.mojom');
-  if (mojo.config.autoLoadMojomDeps) {
-    mojo.internal.loadMojomIfNecessary(
-        'third_party/blink/public/mojom/webid/federated_auth_request.mojom', 'federated_auth_request.mojom.js');
-  }
 
 
   var RequestDigitalIdentityStatus = {};
@@ -58,6 +52,244 @@
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
 
+  function DigitalCredentialProvider(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  DigitalCredentialProvider.prototype.initDefaults_ = function() {
+    this.params = null;
+    this.selector = null;
+    this.protocol = null;
+    this.request = null;
+    this.publicKey = null;
+  };
+  DigitalCredentialProvider.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  DigitalCredentialProvider.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 48}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DigitalCredentialProvider.params
+    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 0, true, codec.String, codec.String, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DigitalCredentialProvider.selector
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, DigitalCredentialSelector, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DigitalCredentialProvider.protocol
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, true)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DigitalCredentialProvider.request
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 24, true)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DigitalCredentialProvider.publicKey
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 32, true)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  DigitalCredentialProvider.encodedSize = codec.kStructHeaderSize + 40;
+
+  DigitalCredentialProvider.decode = function(decoder) {
+    var packed;
+    var val = new DigitalCredentialProvider();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.params =
+        decoder.decodeMapPointer(codec.String, codec.String);
+    val.selector =
+        decoder.decodeStructPointer(DigitalCredentialSelector);
+    val.protocol =
+        decoder.decodeStruct(codec.NullableString);
+    val.request =
+        decoder.decodeStruct(codec.NullableString);
+    val.publicKey =
+        decoder.decodeStruct(codec.NullableString);
+    return val;
+  };
+
+  DigitalCredentialProvider.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(DigitalCredentialProvider.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeMapPointer(codec.String, codec.String, val.params);
+    encoder.encodeStructPointer(DigitalCredentialSelector, val.selector);
+    encoder.encodeStruct(codec.NullableString, val.protocol);
+    encoder.encodeStruct(codec.NullableString, val.request);
+    encoder.encodeStruct(codec.NullableString, val.publicKey);
+  };
+  function DigitalCredentialSelector(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  DigitalCredentialSelector.prototype.initDefaults_ = function() {
+    this.format = null;
+    this.doctype = null;
+    this.fields = null;
+  };
+  DigitalCredentialSelector.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  DigitalCredentialSelector.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 32}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DigitalCredentialSelector.format
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, codec.String, false, [0, 0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DigitalCredentialSelector.doctype
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, true)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DigitalCredentialSelector.fields
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 16, 8, new codec.PointerTo(DigitalCredentialFieldRequirement), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  DigitalCredentialSelector.encodedSize = codec.kStructHeaderSize + 24;
+
+  DigitalCredentialSelector.decode = function(decoder) {
+    var packed;
+    var val = new DigitalCredentialSelector();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.format =
+        decoder.decodeArrayPointer(codec.String);
+    val.doctype =
+        decoder.decodeStruct(codec.NullableString);
+    val.fields =
+        decoder.decodeArrayPointer(new codec.PointerTo(DigitalCredentialFieldRequirement));
+    return val;
+  };
+
+  DigitalCredentialSelector.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(DigitalCredentialSelector.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeArrayPointer(codec.String, val.format);
+    encoder.encodeStruct(codec.NullableString, val.doctype);
+    encoder.encodeArrayPointer(new codec.PointerTo(DigitalCredentialFieldRequirement), val.fields);
+  };
+  function DigitalCredentialFieldRequirement(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  DigitalCredentialFieldRequirement.prototype.initDefaults_ = function() {
+    this.name = null;
+    this.equals = null;
+  };
+  DigitalCredentialFieldRequirement.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  DigitalCredentialFieldRequirement.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DigitalCredentialFieldRequirement.name
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DigitalCredentialFieldRequirement.equals
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, true)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  DigitalCredentialFieldRequirement.encodedSize = codec.kStructHeaderSize + 16;
+
+  DigitalCredentialFieldRequirement.decode = function(decoder) {
+    var packed;
+    var val = new DigitalCredentialFieldRequirement();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.name =
+        decoder.decodeStruct(codec.String);
+    val.equals =
+        decoder.decodeStruct(codec.NullableString);
+    return val;
+  };
+
+  DigitalCredentialFieldRequirement.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(DigitalCredentialFieldRequirement.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.String, val.name);
+    encoder.encodeStruct(codec.NullableString, val.equals);
+  };
   function DigitalIdentityRequest_Request_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -89,7 +321,7 @@
 
 
     // validate DigitalIdentityRequest_Request_Params.digitalCredentialProvider
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, federated_auth_request$.DigitalCredentialProvider, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, DigitalCredentialProvider, false);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -104,7 +336,7 @@
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.digitalCredentialProvider =
-        decoder.decodeStructPointer(federated_auth_request$.DigitalCredentialProvider);
+        decoder.decodeStructPointer(DigitalCredentialProvider);
     return val;
   };
 
@@ -112,7 +344,7 @@
     var packed;
     encoder.writeUint32(DigitalIdentityRequest_Request_Params.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStructPointer(federated_auth_request$.DigitalCredentialProvider, val.digitalCredentialProvider);
+    encoder.encodeStructPointer(DigitalCredentialProvider, val.digitalCredentialProvider);
   };
   function DigitalIdentityRequest_Request_ResponseParams(values) {
     this.initDefaults_();
@@ -387,6 +619,9 @@
   DigitalIdentityRequestStub.prototype.validator = validateDigitalIdentityRequestRequest;
   DigitalIdentityRequestProxy.prototype.validator = validateDigitalIdentityRequestResponse;
   exports.RequestDigitalIdentityStatus = RequestDigitalIdentityStatus;
+  exports.DigitalCredentialProvider = DigitalCredentialProvider;
+  exports.DigitalCredentialSelector = DigitalCredentialSelector;
+  exports.DigitalCredentialFieldRequirement = DigitalCredentialFieldRequirement;
   exports.DigitalIdentityRequest = DigitalIdentityRequest;
   exports.DigitalIdentityRequestPtr = DigitalIdentityRequestPtr;
   exports.DigitalIdentityRequestAssociatedPtr = DigitalIdentityRequestAssociatedPtr;

@@ -632,30 +632,6 @@ blink.mojom.FederatedAuthRequestCallbackRouter = class {
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-blink.mojom.DigitalCredentialProviderSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-blink.mojom.DigitalCredentialSelectorSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-blink.mojom.DigitalCredentialFieldRequirementSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
 blink.mojom.IdentityProviderConfigSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -835,171 +811,6 @@ blink.mojom.FederatedAuthRequest_Disconnect_ParamsSpec =
 blink.mojom.FederatedAuthRequest_Disconnect_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-
-/**
- * @const { {$:!mojo.internal.MojomType} }
- * @export
- */
-blink.mojom.IdentityProviderSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-
-
-mojo.internal.Struct(
-    blink.mojom.DigitalCredentialProviderSpec.$,
-    'DigitalCredentialProvider',
-    [
-      mojo.internal.StructField(
-        'params', 0,
-        0,
-        mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'selector', 8,
-        0,
-        blink.mojom.DigitalCredentialSelectorSpec.$,
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'protocol', 16,
-        0,
-        mojo.internal.String,
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'request', 24,
-        0,
-        mojo.internal.String,
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'publicKey', 32,
-        0,
-        mojo.internal.String,
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 48],]);
-
-
-
-
-
-/** @record */
-blink.mojom.DigitalCredentialProvider = class {
-  constructor() {
-    /** @export { (Object<!string, !string>|undefined) } */
-    this.params;
-    /** @export { (blink.mojom.DigitalCredentialSelector|undefined) } */
-    this.selector;
-    /** @export { (string|undefined) } */
-    this.protocol;
-    /** @export { (string|undefined) } */
-    this.request;
-    /** @export { (string|undefined) } */
-    this.publicKey;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    blink.mojom.DigitalCredentialSelectorSpec.$,
-    'DigitalCredentialSelector',
-    [
-      mojo.internal.StructField(
-        'format', 0,
-        0,
-        mojo.internal.Array(mojo.internal.String, false),
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'doctype', 8,
-        0,
-        mojo.internal.String,
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'fields', 16,
-        0,
-        mojo.internal.Array(blink.mojom.DigitalCredentialFieldRequirementSpec.$, false),
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 32],]);
-
-
-
-
-
-/** @record */
-blink.mojom.DigitalCredentialSelector = class {
-  constructor() {
-    /** @export { !Array<!string> } */
-    this.format;
-    /** @export { (string|undefined) } */
-    this.doctype;
-    /** @export { !Array<!blink.mojom.DigitalCredentialFieldRequirement> } */
-    this.fields;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    blink.mojom.DigitalCredentialFieldRequirementSpec.$,
-    'DigitalCredentialFieldRequirement',
-    [
-      mojo.internal.StructField(
-        'name', 0,
-        0,
-        mojo.internal.String,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'equals', 8,
-        0,
-        mojo.internal.String,
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-
-
-/** @record */
-blink.mojom.DigitalCredentialFieldRequirement = class {
-  constructor() {
-    /** @export { !string } */
-    this.name;
-    /** @export { (string|undefined) } */
-    this.equals;
-  }
-};
 
 
 
@@ -1246,7 +1057,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'providers', 0,
         0,
-        mojo.internal.Array(blink.mojom.IdentityProviderSpec.$, false),
+        mojo.internal.Array(blink.mojom.IdentityProviderRequestOptionsSpec.$, false),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -1277,7 +1088,7 @@ mojo.internal.Struct(
 /** @record */
 blink.mojom.IdentityProviderGetParameters = class {
   constructor() {
-    /** @export { !Array<!blink.mojom.IdentityProvider> } */
+    /** @export { !Array<!blink.mojom.IdentityProviderRequestOptions> } */
     this.providers;
     /** @export { !blink.mojom.RpContext } */
     this.context;
@@ -1848,25 +1659,3 @@ blink.mojom.FederatedAuthRequest_Disconnect_ResponseParams = class {
   }
 };
 
-
-
-mojo.internal.Union(
-    blink.mojom.IdentityProviderSpec.$, 'IdentityProvider',
-    {
-      'federated': {
-        'ordinal': 0,
-        'type': blink.mojom.IdentityProviderRequestOptionsSpec.$,
-      },
-      'holder': {
-        'ordinal': 1,
-        'type': blink.mojom.DigitalCredentialProviderSpec.$,
-      },
-    });
-
-/**
- * @typedef { {
- *   federated: (!blink.mojom.IdentityProviderRequestOptions|undefined),
- *   holder: (!blink.mojom.DigitalCredentialProvider|undefined),
- * } }
- */
-blink.mojom.IdentityProvider;

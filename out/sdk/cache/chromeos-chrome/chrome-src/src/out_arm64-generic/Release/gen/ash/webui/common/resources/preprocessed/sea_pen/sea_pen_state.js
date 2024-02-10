@@ -7,7 +7,10 @@ export function emptyState() {
             recentImages: false,
             recentImageData: {},
             thumbnails: false,
-            currentSelected: false,
+            selected: {
+                attribution: false,
+                image: false,
+            },
             setImage: 0,
         },
         recentImageData: {},

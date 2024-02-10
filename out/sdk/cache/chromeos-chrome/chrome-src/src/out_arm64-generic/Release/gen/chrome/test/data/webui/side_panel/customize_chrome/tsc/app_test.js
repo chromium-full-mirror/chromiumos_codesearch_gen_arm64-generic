@@ -86,6 +86,28 @@ suite('AppTest', () => {
         assertEquals(customizeChromeApp.shadowRoot.querySelector('#shortcuts'), sectionsScrolledTo[0]);
         assertTrue(customizeChromeApp.$.overviewPage.classList.contains('iron-selected'));
     });
+    suite('ExtensionCard', () => {
+        suiteSetup(() => {
+            loadTimeData.overrideValues({
+                'extensionsCardEnabled': true,
+            });
+        });
+        test('clicking "coupon" card opens Chrome Web Store category page', async () => {
+            (customizeChromeApp.shadowRoot.querySelector('#couponsButton'))
+                .click();
+            assertEquals(1, handler.getCallCount('openChromeWebStoreCategoryPage'));
+        });
+        test('clicking "writing" card opens Chrome Web Store collection page', async () => {
+            (customizeChromeApp.shadowRoot.querySelector('#writingButton'))
+                .click();
+            assertEquals(1, handler.getCallCount('openChromeWebStoreCollectionPage'));
+        });
+        test('clicking "productivity" card opens Chrome Web Store category page', async () => {
+            (customizeChromeApp.shadowRoot.querySelector('#productivityButton'))
+                .click();
+            assertEquals(1, handler.getCallCount('openChromeWebStoreCategoryPage'));
+        });
+    });
     [true, false].forEach((flagEnabled) => {
         suite(`ExtensionCardEnabled_${flagEnabled}`, () => {
             suiteSetup(() => {

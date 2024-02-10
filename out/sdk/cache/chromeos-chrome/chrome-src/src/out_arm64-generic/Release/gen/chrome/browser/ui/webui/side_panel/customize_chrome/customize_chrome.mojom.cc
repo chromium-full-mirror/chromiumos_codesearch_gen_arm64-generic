@@ -708,6 +708,12 @@ CustomizeChromePageHandler::IPCStableHashFunction CustomizeChromePageHandler::Me
     case internal::kCustomizeChromePageHandler_OpenThirdPartyThemePage_Name: {
       return &CustomizeChromePageHandler::OpenThirdPartyThemePage_Sym::IPCStableHash;
     }
+    case internal::kCustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Name: {
+      return &CustomizeChromePageHandler::OpenChromeWebStoreCategoryPage_Sym::IPCStableHash;
+    }
+    case internal::kCustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Name: {
+      return &CustomizeChromePageHandler::OpenChromeWebStoreCollectionPage_Sym::IPCStableHash;
+    }
     case internal::kCustomizeChromePageHandler_SetModulesVisible_Name: {
       return &CustomizeChromePageHandler::SetModulesVisible_Sym::IPCStableHash;
     }
@@ -756,6 +762,10 @@ const char* CustomizeChromePageHandler::MessageToMethodName_(mojo::Message& mess
             return "Receive side_panel::mojom::CustomizeChromePageHandler::OpenChromeWebStore";
       case internal::kCustomizeChromePageHandler_OpenThirdPartyThemePage_Name:
             return "Receive side_panel::mojom::CustomizeChromePageHandler::OpenThirdPartyThemePage";
+      case internal::kCustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Name:
+            return "Receive side_panel::mojom::CustomizeChromePageHandler::OpenChromeWebStoreCategoryPage";
+      case internal::kCustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Name:
+            return "Receive side_panel::mojom::CustomizeChromePageHandler::OpenChromeWebStoreCollectionPage";
       case internal::kCustomizeChromePageHandler_SetModulesVisible_Name:
             return "Receive side_panel::mojom::CustomizeChromePageHandler::SetModulesVisible";
       case internal::kCustomizeChromePageHandler_SetModuleDisabled_Name:
@@ -793,6 +803,10 @@ const char* CustomizeChromePageHandler::MessageToMethodName_(mojo::Message& mess
             return "Receive reply side_panel::mojom::CustomizeChromePageHandler::OpenChromeWebStore";
       case internal::kCustomizeChromePageHandler_OpenThirdPartyThemePage_Name:
             return "Receive reply side_panel::mojom::CustomizeChromePageHandler::OpenThirdPartyThemePage";
+      case internal::kCustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Name:
+            return "Receive reply side_panel::mojom::CustomizeChromePageHandler::OpenChromeWebStoreCategoryPage";
+      case internal::kCustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Name:
+            return "Receive reply side_panel::mojom::CustomizeChromePageHandler::OpenChromeWebStoreCollectionPage";
       case internal::kCustomizeChromePageHandler_SetModulesVisible_Name:
             return "Receive reply side_panel::mojom::CustomizeChromePageHandler::SetModulesVisible";
       case internal::kCustomizeChromePageHandler_SetModuleDisabled_Name:
@@ -991,6 +1005,32 @@ uint32_t CustomizeChromePageHandler::OpenThirdPartyThemePage_Sym::IPCStableHash(
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)side_panel::mojom::CustomizeChromePageHandler::OpenThirdPartyThemePage");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CustomizeChromePageHandler::OpenChromeWebStoreCategoryPage_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)side_panel::mojom::CustomizeChromePageHandler::OpenChromeWebStoreCategoryPage");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CustomizeChromePageHandler::OpenChromeWebStoreCollectionPage_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)side_panel::mojom::CustomizeChromePageHandler::OpenChromeWebStoreCollectionPage");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1709,6 +1749,90 @@ void CustomizeChromePageHandlerProxy::OpenThirdPartyThemePage(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CustomizeChromePageHandler::Name_);
   message.set_method_name("OpenThirdPartyThemePage");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CustomizeChromePageHandlerProxy::OpenChromeWebStoreCategoryPage(
+    ChromeWebStoreCategory in_category) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send side_panel::mojom::CustomizeChromePageHandler::OpenChromeWebStoreCategoryPage", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("category"), in_category,
+                        "<value of type ChromeWebStoreCategory>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::side_panel::mojom::internal::CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::side_panel::mojom::ChromeWebStoreCategory>(
+      in_category, &params->category);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CustomizeChromePageHandler::Name_);
+  message.set_method_name("OpenChromeWebStoreCategoryPage");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CustomizeChromePageHandlerProxy::OpenChromeWebStoreCollectionPage(
+    ChromeWebStoreCollection in_collection) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send side_panel::mojom::CustomizeChromePageHandler::OpenChromeWebStoreCollectionPage", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("collection"), in_collection,
+                        "<value of type ChromeWebStoreCollection>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::side_panel::mojom::internal::CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::side_panel::mojom::ChromeWebStoreCollection>(
+      in_collection, &params->collection);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CustomizeChromePageHandler::Name_);
+  message.set_method_name("OpenChromeWebStoreCollectionPage");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2553,6 +2677,62 @@ bool CustomizeChromePageHandlerStubDispatch::Accept(
         std::move(p_theme_id));
       return true;
     }
+    case internal::kCustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data* params =
+          reinterpret_cast<internal::CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for CustomizeChromePageHandler.14
+      bool success = true;
+      ChromeWebStoreCategory p_category{};
+      CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadCategory(&p_category))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CustomizeChromePageHandler::Name_, 14, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenChromeWebStoreCategoryPage(        
+        std::move(p_category));
+      return true;
+    }
+    case internal::kCustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data* params =
+          reinterpret_cast<internal::CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for CustomizeChromePageHandler.15
+      bool success = true;
+      ChromeWebStoreCollection p_collection{};
+      CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadCollection(&p_collection))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CustomizeChromePageHandler::Name_, 15, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenChromeWebStoreCollectionPage(        
+        std::move(p_collection));
+      return true;
+    }
     case internal::kCustomizeChromePageHandler_SetModulesVisible_Name: {
 
       DCHECK(message->is_serialized());
@@ -2561,7 +2741,7 @@ bool CustomizeChromePageHandlerStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for CustomizeChromePageHandler.14
+      // Validation for CustomizeChromePageHandler.16
       bool success = true;
       bool p_visible{};
       CustomizeChromePageHandler_SetModulesVisible_ParamsDataView input_data_view(params, message);
@@ -2572,7 +2752,7 @@ bool CustomizeChromePageHandlerStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CustomizeChromePageHandler::Name_, 14, false);
+            CustomizeChromePageHandler::Name_, 16, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2589,7 +2769,7 @@ bool CustomizeChromePageHandlerStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for CustomizeChromePageHandler.15
+      // Validation for CustomizeChromePageHandler.17
       bool success = true;
       std::string p_module_id{};
       bool p_disabled{};
@@ -2603,7 +2783,7 @@ bool CustomizeChromePageHandlerStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CustomizeChromePageHandler::Name_, 15, false);
+            CustomizeChromePageHandler::Name_, 17, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2621,7 +2801,7 @@ bool CustomizeChromePageHandlerStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for CustomizeChromePageHandler.16
+      // Validation for CustomizeChromePageHandler.18
       bool success = true;
       CustomizeChromePageHandler_UpdateScrollToSection_ParamsDataView input_data_view(params, message);
       
@@ -2629,7 +2809,7 @@ bool CustomizeChromePageHandlerStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CustomizeChromePageHandler::Name_, 16, false);
+            CustomizeChromePageHandler::Name_, 18, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2768,6 +2948,12 @@ bool CustomizeChromePageHandlerStubDispatch::AcceptWithResponder(
     case internal::kCustomizeChromePageHandler_OpenThirdPartyThemePage_Name: {
       break;
     }
+    case internal::kCustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Name: {
+      break;
+    }
+    case internal::kCustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Name: {
+      break;
+    }
     case internal::kCustomizeChromePageHandler_SetModulesVisible_Name: {
       break;
     }
@@ -2810,6 +2996,10 @@ static const mojo::internal::GenericValidationInfo kCustomizeChromePageHandlerVa
     { &internal::CustomizeChromePageHandler_OpenChromeWebStore_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::CustomizeChromePageHandler_OpenThirdPartyThemePage_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::CustomizeChromePageHandler_SetModulesVisible_Params_Data::Validate,
      nullptr /* no response */},
@@ -3516,6 +3706,12 @@ void CustomizeChromePageHandlerInterceptorForTesting::OpenChromeWebStore() {
 }
 void CustomizeChromePageHandlerInterceptorForTesting::OpenThirdPartyThemePage(const std::string& theme_id) {
   GetForwardingInterface()->OpenThirdPartyThemePage(std::move(theme_id));
+}
+void CustomizeChromePageHandlerInterceptorForTesting::OpenChromeWebStoreCategoryPage(ChromeWebStoreCategory category) {
+  GetForwardingInterface()->OpenChromeWebStoreCategoryPage(std::move(category));
+}
+void CustomizeChromePageHandlerInterceptorForTesting::OpenChromeWebStoreCollectionPage(ChromeWebStoreCollection collection) {
+  GetForwardingInterface()->OpenChromeWebStoreCollectionPage(std::move(collection));
 }
 void CustomizeChromePageHandlerInterceptorForTesting::SetModulesVisible(bool visible) {
   GetForwardingInterface()->SetModulesVisible(std::move(visible));

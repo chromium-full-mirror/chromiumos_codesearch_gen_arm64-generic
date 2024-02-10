@@ -19,7 +19,7 @@ import { assert } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './app.html.js';
-import { CustomizeChromeSection } from './customize_chrome.mojom-webui.js';
+import { ChromeWebStoreCategory, ChromeWebStoreCollection, CustomizeChromeSection } from './customize_chrome.mojom-webui.js';
 import { CustomizeChromeApiProxy } from './customize_chrome_api_proxy.js';
 const SECTION_TO_SELECTOR = {
     [CustomizeChromeSection.kAppearance]: '#appearance',
@@ -37,10 +37,6 @@ export var CustomizeChromePage;
 })(CustomizeChromePage || (CustomizeChromePage = {}));
 const AppElementBase = HelpBubbleMixin(PolymerElement);
 export class AppElement extends AppElementBase {
-    constructor() {
-        super(...arguments);
-        this.scrollToSectionListenerId_ = null;
-    }
     static get is() {
         return 'customize-chrome-app';
     }
@@ -75,6 +71,11 @@ export class AppElement extends AppElementBase {
         super.ready();
         ColorChangeUpdater.forDocument().start();
         this.registerHelpBubble(CHANGE_CHROME_THEME_BUTTON_ELEMENT_ID, ['#appearanceElement', '#editThemeButton']);
+    }
+    constructor() {
+        super();
+        this.scrollToSectionListenerId_ = null;
+        this.pageHandler_ = CustomizeChromeApiProxy.getInstance().handler;
     }
     connectedCallback() {
         super.connectedCallback();
@@ -136,6 +137,15 @@ export class AppElement extends AppElementBase {
         const page = this.shadowRoot.querySelector('customize-chrome-wallpaper-search');
         assert(page);
         page.focusOnBackButton();
+    }
+    onCouponsButtonClick_() {
+        this.pageHandler_.openChromeWebStoreCategoryPage(ChromeWebStoreCategory.kShopping);
+    }
+    onWritingButtonClick_() {
+        this.pageHandler_.openChromeWebStoreCollectionPage(ChromeWebStoreCollection.kWrittingEssentials);
+    }
+    onProductivityButtonClick_() {
+        this.pageHandler_.openChromeWebStoreCategoryPage(ChromeWebStoreCategory.kWorkflowPlanning);
     }
 }
 customElements.define(AppElement.is, AppElement);

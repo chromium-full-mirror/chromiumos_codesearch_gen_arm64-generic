@@ -159,6 +159,30 @@ std::ostream& operator<<(std::ostream& os, AssistiveTechnologyType value) {
   return os << AssistiveTechnologyTypeToString(value);
 }
 
+NOINLINE static const char* SnapPositionToStringHelper(SnapPosition value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case SnapPosition::kPrimary:
+      return "kPrimary";
+    case SnapPosition::kSecondary:
+      return "kSecondary";
+    default:
+      return nullptr;
+  }
+}
+
+std::string SnapPositionToString(SnapPosition value) {
+  const char *str = SnapPositionToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown SnapPosition value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, SnapPosition value) {
+  return os << SnapPositionToString(value);
+}
+
 namespace internal {
 // static
 bool IsolatedWebAppLocation_Data::Validate(
@@ -4753,6 +4777,114 @@ bool TestController_IsToastShown_ResponseParams_Data::Validate(
 TestController_IsToastShown_ResponseParams_Data::TestController_IsToastShown_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool TestController_SnapWindow_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TestController_SnapWindow_Params_Data* object =
+      static_cast<const TestController_SnapWindow_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->window_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& window_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->window_id, validation_context,
+                                         &window_id_validate_params)) {
+    return false;
+  }
+
+
+  if (!::crosapi::mojom::internal::SnapPosition_Data
+        ::Validate(object->position, validation_context))
+    return false;
+
+  return true;
+}
+
+TestController_SnapWindow_Params_Data::TestController_SnapWindow_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TestController_SnapWindow_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TestController_SnapWindow_ResponseParams_Data* object =
+      static_cast<const TestController_SnapWindow_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+TestController_SnapWindow_ResponseParams_Data::TestController_SnapWindow_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TestController_IsShelfVisible_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TestController_IsShelfVisible_Params_Data* object =
+      static_cast<const TestController_IsShelfVisible_Params_Data*>(data);
+
+  return true;
+}
+
+TestController_IsShelfVisible_Params_Data::TestController_IsShelfVisible_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TestController_IsShelfVisible_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TestController_IsShelfVisible_ResponseParams_Data* object =
+      static_cast<const TestController_IsShelfVisible_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+TestController_IsShelfVisible_ResponseParams_Data::TestController_IsShelfVisible_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace crosapi
@@ -4803,6 +4935,16 @@ namespace perfetto {
 void TraceFormatTraits<::crosapi::mojom::AssistiveTechnologyType>::WriteIntoTrace(
    perfetto::TracedValue context, ::crosapi::mojom::AssistiveTechnologyType value) {
   return std::move(context).WriteString(::crosapi::mojom::AssistiveTechnologyTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::crosapi::mojom::SnapPosition>::WriteIntoTrace(
+   perfetto::TracedValue context, ::crosapi::mojom::SnapPosition value) {
+  return std::move(context).WriteString(::crosapi::mojom::SnapPositionToString(value));
 }
 
 } // namespace perfetto

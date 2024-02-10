@@ -70,7 +70,6 @@
   PeerConnectionInfo.prototype.initDefaults_ = function() {
     this.lid = 0;
     this.rtcConfiguration = null;
-    this.constraints = null;
     this.url = null;
   };
   PeerConnectionInfo.prototype.initFields_ = function(fields) {
@@ -87,7 +86,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 40}
+      {version: 0, numBytes: 32}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -101,21 +100,15 @@
         return err;
 
 
-    // validate PeerConnectionInfo.constraints
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, false)
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
     // validate PeerConnectionInfo.url
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 24, true)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, true)
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  PeerConnectionInfo.encodedSize = codec.kStructHeaderSize + 32;
+  PeerConnectionInfo.encodedSize = codec.kStructHeaderSize + 24;
 
   PeerConnectionInfo.decode = function(decoder) {
     var packed;
@@ -129,8 +122,6 @@
     decoder.skip(1);
     decoder.skip(1);
     val.rtcConfiguration =
-        decoder.decodeStruct(codec.String);
-    val.constraints =
         decoder.decodeStruct(codec.String);
     val.url =
         decoder.decodeStruct(codec.NullableString);
@@ -147,7 +138,6 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeStruct(codec.String, val.rtcConfiguration);
-    encoder.encodeStruct(codec.String, val.constraints);
     encoder.encodeStruct(codec.NullableString, val.url);
   };
   function PeerConnectionManager_OnSuspend_Params(values) {

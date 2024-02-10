@@ -16,7 +16,7 @@ namespace blink::mojom::blink {
 
 class PLATFORM_EXPORT DigitalIdentityRequestInterceptorForTesting : public DigitalIdentityRequest {
   virtual DigitalIdentityRequest* GetForwardingInterface() = 0;
-  void Request(::blink::mojom::blink::DigitalCredentialProviderPtr digital_credential_provider, RequestCallback callback) override;
+  void Request(DigitalCredentialProviderPtr digital_credential_provider, RequestCallback callback) override;
   void Abort() override;
 };
 class PLATFORM_EXPORT DigitalIdentityRequestAsyncWaiter {
@@ -28,7 +28,7 @@ class PLATFORM_EXPORT DigitalIdentityRequestAsyncWaiter {
 
   ~DigitalIdentityRequestAsyncWaiter();
   void Request(
-      ::blink::mojom::blink::DigitalCredentialProviderPtr digital_credential_provider, RequestDigitalIdentityStatus* out_status, WTF::String* out_token);
+      DigitalCredentialProviderPtr digital_credential_provider, RequestDigitalIdentityStatus* out_status, WTF::String* out_token);
   
 
  private:

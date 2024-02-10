@@ -221,8 +221,26 @@ NOINLINE static const char* SecureChannelStateToStringHelper(SecureChannelState 
       return "kSentInitiatorAuth";
     case SecureChannelState::kAuthenticationSuccess:
       return "kAuthenticationSuccess";
-    case SecureChannelState::kAuthenticationFailure:
-      return "kAuthenticationFailure";
+    case SecureChannelState::kFailureNotConnectedToRemoteDevice:
+      return "kFailureNotConnectedToRemoteDevice";
+    case SecureChannelState::kFailedToGenerateSessionKeys:
+      return "kFailedToGenerateSessionKeys";
+    case SecureChannelState::kFailedToGenerateHelloMessage:
+      return "kFailedToGenerateHelloMessage";
+    case SecureChannelState::kFailedToSendHelloMessage:
+      return "kFailedToSendHelloMessage";
+    case SecureChannelState::kFailedToWaitForResponderAuth:
+      return "kFailedToWaitForResponderAuth";
+    case SecureChannelState::kReceivedUnexpectedMessage:
+      return "kReceivedUnexpectedMessage";
+    case SecureChannelState::kFailedToValidateReponderAuth:
+      return "kFailedToValidateReponderAuth";
+    case SecureChannelState::kFailedToGenerateInitiatorAuth:
+      return "kFailedToGenerateInitiatorAuth";
+    case SecureChannelState::kFailedToSendInitiatorAuth:
+      return "kFailedToSendInitiatorAuth";
+    case SecureChannelState::kFailureDisconnectDuringAuthentication:
+      return "kFailureDisconnectDuringAuthentication";
     default:
       return nullptr;
   }
@@ -578,6 +596,15 @@ bool ConnectionDelegate_OnConnection_Params_Data::Validate(
     return false;
   }
   if (!mojo::internal::ValidateHandleOrInterface(object->message_receiver_receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->nearby_connection_state_listener_receiver, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->nearby_connection_state_listener_receiver,
                                                  validation_context)) {
     return false;
   }

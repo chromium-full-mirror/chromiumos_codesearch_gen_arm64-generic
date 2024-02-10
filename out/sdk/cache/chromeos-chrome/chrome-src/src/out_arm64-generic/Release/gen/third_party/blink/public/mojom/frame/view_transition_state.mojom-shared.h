@@ -184,6 +184,16 @@ static_assert(
     return mojo::internal::Deserialize<mojo::MapDataView<::blink::mojom::ViewTransitionPropertyId, mojo::StringDataView>>(
         pointer, output, message_);
   }
+  inline void GetClassListDataView(
+      mojo::ArrayDataView<mojo::StringDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadClassList(UserType* output) {
+    
+    auto* pointer = data_->class_list.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        pointer, output, message_);
+  }
  private:
   internal::ViewTransitionElement_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -368,6 +378,20 @@ struct Serializer<::blink::mojom::ViewTransitionElementDataView, MaybeConstUserT
         fragment->captured_css_properties.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null captured_css_properties in ViewTransitionElement struct");
+    decltype(Traits::class_list(input)) in_class_list = Traits::class_list(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->class_list)::BaseType>
+        class_list_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& class_list_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        in_class_list, class_list_fragment, &class_list_validate_params);
+    fragment->class_list.Set(
+        class_list_fragment.is_null() ? nullptr : class_list_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->class_list.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null class_list in ViewTransitionElement struct");
   }
 
   static bool Deserialize(::blink::mojom::internal::ViewTransitionElement_Data* input,
@@ -490,6 +514,11 @@ inline void ViewTransitionElementDataView::GetCapturedCssPropertiesDataView(
     mojo::MapDataView<ViewTransitionPropertyId, mojo::StringDataView>* output) {
   auto pointer = data_->captured_css_properties.Get();
   *output = mojo::MapDataView<ViewTransitionPropertyId, mojo::StringDataView>(pointer, message_);
+}
+inline void ViewTransitionElementDataView::GetClassListDataView(
+    mojo::ArrayDataView<mojo::StringDataView>* output) {
+  auto pointer = data_->class_list.Get();
+  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
 }
 
 

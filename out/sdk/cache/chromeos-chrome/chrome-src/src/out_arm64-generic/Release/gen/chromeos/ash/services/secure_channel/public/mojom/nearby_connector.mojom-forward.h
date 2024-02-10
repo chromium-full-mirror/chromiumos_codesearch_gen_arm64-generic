@@ -27,6 +27,8 @@ enum class NearbyConnectionStep : int32_t;
 enum class NearbyConnectionStepResult : int32_t;
 
 extern const char kServiceId[];
+class NearbyConnectionStateListener;
+
 class NearbyMessageSender;
 
 class NearbyMessageReceiver;

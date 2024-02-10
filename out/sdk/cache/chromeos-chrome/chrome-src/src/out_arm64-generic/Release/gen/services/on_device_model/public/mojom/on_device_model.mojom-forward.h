@@ -22,6 +22,8 @@
 
 
 namespace on_device_model::mojom {
+class AdaptationAssetsDataView;
+
 class LanguageDetectionResultDataView;
 
 class SafetyInfoDataView;
@@ -30,12 +32,17 @@ class ResponseChunkDataView;
 
 class ResponseSummaryDataView;
 
+class LoadAdaptationParamsDataView;
+
 class InputOptionsDataView;
 
 
 enum class PerformanceClass : int32_t;
 
 enum class LoadModelResult : int32_t;
+class AdaptationAssets;
+using AdaptationAssetsPtr = mojo::StructPtr<AdaptationAssets>;
+
 class LanguageDetectionResult;
 using LanguageDetectionResultPtr = mojo::InlinedStructPtr<LanguageDetectionResult>;
 
@@ -47,6 +54,9 @@ using ResponseChunkPtr = mojo::StructPtr<ResponseChunk>;
 
 class ResponseSummary;
 using ResponseSummaryPtr = mojo::StructPtr<ResponseSummary>;
+
+class LoadAdaptationParams;
+using LoadAdaptationParamsPtr = mojo::StructPtr<LoadAdaptationParams>;
 
 class InputOptions;
 using InputOptionsPtr = mojo::StructPtr<InputOptions>;

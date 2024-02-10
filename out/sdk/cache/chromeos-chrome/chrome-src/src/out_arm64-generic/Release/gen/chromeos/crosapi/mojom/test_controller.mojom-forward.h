@@ -40,6 +40,8 @@ enum class OptionalBoolean : int32_t;
 enum class KeyEventType : int32_t;
 
 enum class AssistiveTechnologyType : int32_t;
+
+enum class SnapPosition : int32_t;
 class AppListItemAttributes;
 using AppListItemAttributesPtr = mojo::InlinedStructPtr<AppListItemAttributes>;
 

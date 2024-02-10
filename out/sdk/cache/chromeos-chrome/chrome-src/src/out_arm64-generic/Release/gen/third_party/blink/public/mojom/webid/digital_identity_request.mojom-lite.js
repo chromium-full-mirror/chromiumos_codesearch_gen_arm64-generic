@@ -250,6 +250,30 @@ blink.mojom.DigitalIdentityRequestCallbackRouter = class {
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
+blink.mojom.DigitalCredentialProviderSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.DigitalCredentialSelectorSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.DigitalCredentialFieldRequirementSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
 blink.mojom.DigitalIdentityRequest_Request_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -269,6 +293,163 @@ blink.mojom.DigitalIdentityRequest_Request_ResponseParamsSpec =
 blink.mojom.DigitalIdentityRequest_Abort_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+
+
+
+mojo.internal.Struct(
+    blink.mojom.DigitalCredentialProviderSpec.$,
+    'DigitalCredentialProvider',
+    [
+      mojo.internal.StructField(
+        'params', 0,
+        0,
+        mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'selector', 8,
+        0,
+        blink.mojom.DigitalCredentialSelectorSpec.$,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'protocol', 16,
+        0,
+        mojo.internal.String,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'request', 24,
+        0,
+        mojo.internal.String,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'publicKey', 32,
+        0,
+        mojo.internal.String,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 48],]);
+
+
+
+
+
+/** @record */
+blink.mojom.DigitalCredentialProvider = class {
+  constructor() {
+    /** @export { (Object<!string, !string>|undefined) } */
+    this.params;
+    /** @export { (blink.mojom.DigitalCredentialSelector|undefined) } */
+    this.selector;
+    /** @export { (string|undefined) } */
+    this.protocol;
+    /** @export { (string|undefined) } */
+    this.request;
+    /** @export { (string|undefined) } */
+    this.publicKey;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.DigitalCredentialSelectorSpec.$,
+    'DigitalCredentialSelector',
+    [
+      mojo.internal.StructField(
+        'format', 0,
+        0,
+        mojo.internal.Array(mojo.internal.String, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'doctype', 8,
+        0,
+        mojo.internal.String,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'fields', 16,
+        0,
+        mojo.internal.Array(blink.mojom.DigitalCredentialFieldRequirementSpec.$, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 32],]);
+
+
+
+
+
+/** @record */
+blink.mojom.DigitalCredentialSelector = class {
+  constructor() {
+    /** @export { !Array<!string> } */
+    this.format;
+    /** @export { (string|undefined) } */
+    this.doctype;
+    /** @export { !Array<!blink.mojom.DigitalCredentialFieldRequirement> } */
+    this.fields;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.DigitalCredentialFieldRequirementSpec.$,
+    'DigitalCredentialFieldRequirement',
+    [
+      mojo.internal.StructField(
+        'name', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'equals', 8,
+        0,
+        mojo.internal.String,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+blink.mojom.DigitalCredentialFieldRequirement = class {
+  constructor() {
+    /** @export { !string } */
+    this.name;
+    /** @export { (string|undefined) } */
+    this.equals;
+  }
+};
 
 
 

@@ -13,6 +13,24 @@
 namespace ash::secure_channel::mojom {
 
 
+class  NearbyConnectionStateListenerInterceptorForTesting : public NearbyConnectionStateListener {
+  virtual NearbyConnectionStateListener* GetForwardingInterface() = 0;
+  void OnNearbyConnectionStateChanged(NearbyConnectionStep step, NearbyConnectionStepResult result) override;
+};
+class  NearbyConnectionStateListenerAsyncWaiter {
+ public:
+  explicit NearbyConnectionStateListenerAsyncWaiter(NearbyConnectionStateListener* proxy);
+
+  NearbyConnectionStateListenerAsyncWaiter(const NearbyConnectionStateListenerAsyncWaiter&) = delete;
+  NearbyConnectionStateListenerAsyncWaiter& operator=(const NearbyConnectionStateListenerAsyncWaiter&) = delete;
+
+  ~NearbyConnectionStateListenerAsyncWaiter();
+
+ private:
+  NearbyConnectionStateListener* const proxy_;
+};
+
+
 class  NearbyMessageSenderInterceptorForTesting : public NearbyMessageSender {
   virtual NearbyMessageSender* GetForwardingInterface() = 0;
   void SendMessage(const std::string& message, SendMessageCallback callback) override;
@@ -75,7 +93,7 @@ class  NearbyFilePayloadHandlerAsyncWaiter {
 
 class  NearbyConnectorInterceptorForTesting : public NearbyConnector {
   virtual NearbyConnector* GetForwardingInterface() = 0;
-  void Connect(const std::vector<uint8_t>& bluetooth_public_address, const std::vector<uint8_t>& eid, ::mojo::PendingRemote<NearbyMessageReceiver> message_receiver, ConnectCallback callback) override;
+  void Connect(const std::vector<uint8_t>& bluetooth_public_address, const std::vector<uint8_t>& eid, ::mojo::PendingRemote<NearbyMessageReceiver> message_receiver, ::mojo::PendingRemote<NearbyConnectionStateListener> nearby_connection_state_listener, ConnectCallback callback) override;
 };
 class  NearbyConnectorAsyncWaiter {
  public:
@@ -86,7 +104,7 @@ class  NearbyConnectorAsyncWaiter {
 
   ~NearbyConnectorAsyncWaiter();
   void Connect(
-      const std::vector<uint8_t>& bluetooth_public_address, const std::vector<uint8_t>& eid, ::mojo::PendingRemote<NearbyMessageReceiver> message_receiver, ::mojo::PendingRemote<NearbyMessageSender>* out_message_sender, ::mojo::PendingRemote<NearbyFilePayloadHandler>* out_file_payload_handler);
+      const std::vector<uint8_t>& bluetooth_public_address, const std::vector<uint8_t>& eid, ::mojo::PendingRemote<NearbyMessageReceiver> message_receiver, ::mojo::PendingRemote<NearbyConnectionStateListener> nearby_connection_state_listener, ::mojo::PendingRemote<NearbyMessageSender>* out_message_sender, ::mojo::PendingRemote<NearbyFilePayloadHandler>* out_file_payload_handler);
   
 
  private:

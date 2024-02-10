@@ -10,7 +10,6 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
-#include "third_party/blink/public/mojom/webid/federated_auth_request.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 #include "base/component_export.h"
@@ -26,6 +25,9 @@ class ValidationContext;
 
 namespace blink::mojom {
 namespace internal {
+class DigitalCredentialProvider_Data;
+class DigitalCredentialSelector_Data;
+class DigitalCredentialFieldRequirement_Data;
 
 struct RequestDigitalIdentityStatus_Data {
  public:
@@ -54,6 +56,157 @@ struct RequestDigitalIdentityStatus_Data {
 };
 
 #pragma pack(push, 1)
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DigitalCredentialProvider_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, mojo::internal::Pointer<mojo::internal::String_Data>>> params;
+  mojo::internal::Pointer<internal::DigitalCredentialSelector_Data> selector;
+  mojo::internal::Pointer<mojo::internal::String_Data> protocol;
+  mojo::internal::Pointer<mojo::internal::String_Data> request;
+  mojo::internal::Pointer<mojo::internal::String_Data> publicKey;
+
+ private:
+  friend class mojo::internal::MessageFragment<DigitalCredentialProvider_Data>;
+
+  DigitalCredentialProvider_Data();
+  ~DigitalCredentialProvider_Data() = delete;
+};
+static_assert(sizeof(DigitalCredentialProvider_Data) == 48,
+              "Bad sizeof(DigitalCredentialProvider_Data)");
+// Used by DigitalCredentialProvider::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct DigitalCredentialProvider_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  DigitalCredentialProvider_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~DigitalCredentialProvider_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<DigitalCredentialProvider_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    DigitalCredentialProvider_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DigitalCredentialSelector_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> format;
+  mojo::internal::Pointer<mojo::internal::String_Data> doctype;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::DigitalCredentialFieldRequirement_Data>>> fields;
+
+ private:
+  friend class mojo::internal::MessageFragment<DigitalCredentialSelector_Data>;
+
+  DigitalCredentialSelector_Data();
+  ~DigitalCredentialSelector_Data() = delete;
+};
+static_assert(sizeof(DigitalCredentialSelector_Data) == 32,
+              "Bad sizeof(DigitalCredentialSelector_Data)");
+// Used by DigitalCredentialSelector::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct DigitalCredentialSelector_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  DigitalCredentialSelector_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~DigitalCredentialSelector_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<DigitalCredentialSelector_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    DigitalCredentialSelector_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DigitalCredentialFieldRequirement_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> name;
+  mojo::internal::Pointer<mojo::internal::String_Data> equals;
+
+ private:
+  friend class mojo::internal::MessageFragment<DigitalCredentialFieldRequirement_Data>;
+
+  DigitalCredentialFieldRequirement_Data();
+  ~DigitalCredentialFieldRequirement_Data() = delete;
+};
+static_assert(sizeof(DigitalCredentialFieldRequirement_Data) == 24,
+              "Bad sizeof(DigitalCredentialFieldRequirement_Data)");
+// Used by DigitalCredentialFieldRequirement::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct DigitalCredentialFieldRequirement_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  DigitalCredentialFieldRequirement_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~DigitalCredentialFieldRequirement_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<DigitalCredentialFieldRequirement_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    DigitalCredentialFieldRequirement_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

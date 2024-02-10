@@ -444,7 +444,7 @@ bool NetworkContextParams_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->cert_verifier_params, 32, validation_context)) {
+          object->cert_verifier_params, 33, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->cert_verifier_params, validation_context))
@@ -454,7 +454,7 @@ bool NetworkContextParams_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->domain_reliability_upload_reporter, 35, validation_context)) {
+          object->domain_reliability_upload_reporter, 36, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& domain_reliability_upload_reporter_validate_params =
@@ -468,7 +468,7 @@ bool NetworkContextParams_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->cors_origin_access_list, 39, validation_context)) {
+          object->cors_origin_access_list, 40, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& cors_origin_access_list_validate_params =
@@ -479,7 +479,7 @@ bool NetworkContextParams_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->cors_exempt_header_list, 40, validation_context)) {
+          object->cors_exempt_header_list, 41, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& cors_exempt_header_list_validate_params =
@@ -490,7 +490,7 @@ bool NetworkContextParams_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->hsts_policy_bypass_list, 42, validation_context)) {
+          object->hsts_policy_bypass_list, 43, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& hsts_policy_bypass_list_validate_params =
@@ -1734,6 +1734,75 @@ bool IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTim
 }
 
 IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data::IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data* object =
+      static_cast<const IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data*>(data);
+
+  return true;
+}
+
+IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data::IpProtectionProxyDelegate_SetIpProtectionEnabled_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data* object =
+      static_cast<const IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data*>(data);
+
+  return true;
+}
+
+IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data::IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data* object =
+      static_cast<const IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data::IpProtectionProxyDelegate_IsIpProtectionEnabledForTesting_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 

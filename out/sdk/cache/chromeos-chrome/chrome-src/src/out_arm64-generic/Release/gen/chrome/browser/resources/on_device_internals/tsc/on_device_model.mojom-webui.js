@@ -3,6 +3,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
+import { FileSpec as mojoBase_mojom_FileSpec } from '//resources/mojo/mojo/public/mojom/base/file.mojom-webui.js';
+import { ReadOnlyFileSpec as mojoBase_mojom_ReadOnlyFileSpec } from '//resources/mojo/mojo/public/mojom/base/read_only_file.mojom-webui.js';
 export const PerformanceClassSpec = { $: mojo.internal.Enum() };
 export var PerformanceClass;
 (function (PerformanceClass) {
@@ -288,6 +290,12 @@ export class OnDeviceModelRemote {
             session
         ]);
     }
+    loadAdaptation(params, model) {
+        return this.proxy.sendMessage(1, OnDeviceModel_LoadAdaptation_ParamsSpec.$, OnDeviceModel_LoadAdaptation_ResponseParamsSpec.$, [
+            params,
+            model
+        ]);
+    }
 }
 ;
 /**
@@ -300,6 +308,7 @@ export class OnDeviceModelReceiver {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(OnDeviceModelRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, OnDeviceModel_StartSession_ParamsSpec.$, null, impl.startSession.bind(impl));
+        this.helper_internal_.registerHandler(1, OnDeviceModel_LoadAdaptation_ParamsSpec.$, OnDeviceModel_LoadAdaptation_ResponseParamsSpec.$, impl.loadAdaptation.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -332,6 +341,9 @@ export class OnDeviceModelCallbackRouter {
         this.startSession =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(0, OnDeviceModel_StartSession_ParamsSpec.$, null, this.startSession.createReceiverHandler(false /* expectsResponse */));
+        this.loadAdaptation =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(1, OnDeviceModel_LoadAdaptation_ParamsSpec.$, OnDeviceModel_LoadAdaptation_ResponseParamsSpec.$, this.loadAdaptation.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -342,10 +354,12 @@ export class OnDeviceModelCallbackRouter {
         return this.router_.removeListener(id);
     }
 }
+export const AdaptationAssetsSpec = { $: {} };
 export const LanguageDetectionResultSpec = { $: {} };
 export const SafetyInfoSpec = { $: {} };
 export const ResponseChunkSpec = { $: {} };
 export const ResponseSummarySpec = { $: {} };
+export const LoadAdaptationParamsSpec = { $: {} };
 export const InputOptionsSpec = { $: {} };
 export const StreamingResponder_OnResponse_ParamsSpec = { $: {} };
 export const StreamingResponder_OnComplete_ParamsSpec = { $: {} };
@@ -353,6 +367,12 @@ export const ContextClient_OnComplete_ParamsSpec = { $: {} };
 export const Session_AddContext_ParamsSpec = { $: {} };
 export const Session_Execute_ParamsSpec = { $: {} };
 export const OnDeviceModel_StartSession_ParamsSpec = { $: {} };
+export const OnDeviceModel_LoadAdaptation_ParamsSpec = { $: {} };
+export const OnDeviceModel_LoadAdaptation_ResponseParamsSpec = { $: {} };
+mojo.internal.Struct(AdaptationAssetsSpec.$, 'AdaptationAssets', [
+    mojo.internal.StructField('model', 0, 0, mojoBase_mojom_ReadOnlyFileSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('weights', 8, 0, mojoBase_mojom_FileSpec.$, null, true /* nullable */, 0),
+], [[0, 24],]);
 mojo.internal.Struct(LanguageDetectionResultSpec.$, 'LanguageDetectionResult', [
     mojo.internal.StructField('code', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('reliability', 8, 0, mojo.internal.Float, 0, false /* nullable */, 0),
@@ -367,6 +387,9 @@ mojo.internal.Struct(ResponseChunkSpec.$, 'ResponseChunk', [
 ], [[0, 24],]);
 mojo.internal.Struct(ResponseSummarySpec.$, 'ResponseSummary', [
     mojo.internal.StructField('safetyInfo', 0, 0, SafetyInfoSpec.$, null, true /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(LoadAdaptationParamsSpec.$, 'LoadAdaptationParams', [
+    mojo.internal.StructField('assets', 0, 0, AdaptationAssetsSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(InputOptionsSpec.$, 'InputOptions', [
     mojo.internal.StructField('text', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
@@ -427,4 +450,11 @@ mojo.internal.Struct(Session_Execute_ParamsSpec.$, 'Session_Execute_Params', [
 ], [[0, 24],]);
 mojo.internal.Struct(OnDeviceModel_StartSession_ParamsSpec.$, 'OnDeviceModel_StartSession_Params', [
     mojo.internal.StructField('session', 0, 0, mojo.internal.InterfaceRequest(SessionPendingReceiver), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(OnDeviceModel_LoadAdaptation_ParamsSpec.$, 'OnDeviceModel_LoadAdaptation_Params', [
+    mojo.internal.StructField('params', 0, 0, LoadAdaptationParamsSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('model', 8, 0, mojo.internal.InterfaceRequest(OnDeviceModelPendingReceiver), null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(OnDeviceModel_LoadAdaptation_ResponseParamsSpec.$, 'OnDeviceModel_LoadAdaptation_ResponseParams', [
+    mojo.internal.StructField('result', 0, 0, LoadModelResultSpec.$, 0, false /* nullable */, 0),
 ], [[0, 16],]);

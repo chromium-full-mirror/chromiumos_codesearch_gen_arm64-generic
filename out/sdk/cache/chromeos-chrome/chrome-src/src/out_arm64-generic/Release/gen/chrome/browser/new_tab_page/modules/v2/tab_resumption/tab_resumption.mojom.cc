@@ -52,6 +52,12 @@ PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Messa
     case internal::kPageHandler_GetTabs_Name: {
       return &PageHandler::GetTabs_Sym::IPCStableHash;
     }
+    case internal::kPageHandler_DismissModule_Name: {
+      return &PageHandler::DismissModule_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_RestoreModule_Name: {
+      return &PageHandler::RestoreModule_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -65,11 +71,19 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kPageHandler_GetTabs_Name:
             return "Receive ntp::tab_resumption::mojom::PageHandler::GetTabs";
+      case internal::kPageHandler_DismissModule_Name:
+            return "Receive ntp::tab_resumption::mojom::PageHandler::DismissModule";
+      case internal::kPageHandler_RestoreModule_Name:
+            return "Receive ntp::tab_resumption::mojom::PageHandler::RestoreModule";
     }
   } else {
     switch (message.name()) {
       case internal::kPageHandler_GetTabs_Name:
             return "Receive reply ntp::tab_resumption::mojom::PageHandler::GetTabs";
+      case internal::kPageHandler_DismissModule_Name:
+            return "Receive reply ntp::tab_resumption::mojom::PageHandler::DismissModule";
+      case internal::kPageHandler_RestoreModule_Name:
+            return "Receive reply ntp::tab_resumption::mojom::PageHandler::RestoreModule";
     }
   }
   return "Receive unknown mojo message";
@@ -93,6 +107,32 @@ uint32_t PageHandler::GetTabs_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ntp::tab_resumption::mojom::PageHandler::GetTabs");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::DismissModule_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ntp::tab_resumption::mojom::PageHandler::DismissModule");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::RestoreModule_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ntp::tab_resumption::mojom::PageHandler::RestoreModule");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -151,6 +191,92 @@ void PageHandlerProxy::GetTabs(
       new PageHandler_GetTabs_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void PageHandlerProxy::DismissModule(
+    const std::vector<::GURL>& in_urls) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ntp::tab_resumption::mojom::PageHandler::DismissModule", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("urls"), in_urls,
+                        "<value of type const std::vector<::GURL>&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_DismissModule_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ntp::tab_resumption::mojom::internal::PageHandler_DismissModule_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->urls)::BaseType>
+      urls_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& urls_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::url::mojom::UrlDataView>>(
+      in_urls, urls_fragment, &urls_validate_params);
+  params->urls.Set(
+      urls_fragment.is_null() ? nullptr : urls_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->urls.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null urls in PageHandler.DismissModule request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("DismissModule");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::RestoreModule(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ntp::tab_resumption::mojom::PageHandler::RestoreModule");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_RestoreModule_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ntp::tab_resumption::mojom::internal::PageHandler_RestoreModule_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("RestoreModule");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class PageHandler_GetTabs_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -294,6 +420,58 @@ bool PageHandlerStubDispatch::Accept(
     case internal::kPageHandler_GetTabs_Name: {
       break;
     }
+    case internal::kPageHandler_DismissModule_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_DismissModule_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_DismissModule_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for PageHandler.1
+      bool success = true;
+      std::vector<::GURL> p_urls{};
+      PageHandler_DismissModule_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadUrls(&p_urls))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->DismissModule(        
+        std::move(p_urls));
+      return true;
+    }
+    case internal::kPageHandler_RestoreModule_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_RestoreModule_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_RestoreModule_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for PageHandler.2
+      bool success = true;
+      PageHandler_RestoreModule_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RestoreModule(        );
+      return true;
+    }
   }
   return false;
 }
@@ -334,6 +512,12 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
       impl->GetTabs(std::move(callback));
       return true;
     }
+    case internal::kPageHandler_DismissModule_Name: {
+      break;
+    }
+    case internal::kPageHandler_RestoreModule_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -342,6 +526,10 @@ namespace {
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
     { &internal::PageHandler_GetTabs_Params_Data::Validate,
      &internal::PageHandler_GetTabs_ResponseParams_Data::Validate},
+    { &internal::PageHandler_DismissModule_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_RestoreModule_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool PageHandlerRequestValidator::Accept(mojo::Message* message) {
@@ -372,6 +560,12 @@ namespace ntp::tab_resumption::mojom {
 
 void PageHandlerInterceptorForTesting::GetTabs(GetTabsCallback callback) {
   GetForwardingInterface()->GetTabs(std::move(callback));
+}
+void PageHandlerInterceptorForTesting::DismissModule(const std::vector<::GURL>& urls) {
+  GetForwardingInterface()->DismissModule(std::move(urls));
+}
+void PageHandlerInterceptorForTesting::RestoreModule() {
+  GetForwardingInterface()->RestoreModule();
 }
 PageHandlerAsyncWaiter::PageHandlerAsyncWaiter(
     PageHandler* proxy) : proxy_(proxy) {}

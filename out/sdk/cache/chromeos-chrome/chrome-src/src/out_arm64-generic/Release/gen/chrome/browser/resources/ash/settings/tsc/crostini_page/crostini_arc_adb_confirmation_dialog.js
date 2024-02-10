@@ -12,6 +12,7 @@ import '../settings_shared.css.js';
 import { assertNotReached } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { recordSettingChange } from '../metrics_recorder.js';
+import { Setting } from '../mojom-webui/setting.mojom-webui.js';
 import { getTemplate } from './crostini_arc_adb_confirmation_dialog.html.js';
 import { CrostiniBrowserProxyImpl } from './crostini_browser_proxy.js';
 class SettingsCrostiniArcAdbConfirmationDialogElement extends PolymerElement {
@@ -49,11 +50,11 @@ class SettingsCrostiniArcAdbConfirmationDialogElement extends PolymerElement {
     onRestartClick_() {
         if (this.isEnabling_()) {
             this.browserProxy_.enableArcAdbSideload();
-            recordSettingChange();
+            recordSettingChange(Setting.kCrostiniAdbDebugging, { boolValue: true });
         }
         else if (this.isDisabling_()) {
             this.browserProxy_.disableArcAdbSideload();
-            recordSettingChange();
+            recordSettingChange(Setting.kCrostiniAdbDebugging, { boolValue: false });
         }
         else {
             assertNotReached();

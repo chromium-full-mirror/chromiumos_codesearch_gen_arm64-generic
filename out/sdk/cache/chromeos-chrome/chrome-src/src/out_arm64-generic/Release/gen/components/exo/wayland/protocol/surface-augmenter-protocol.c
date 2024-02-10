@@ -70,7 +70,7 @@ static const struct wl_message surface_augmenter_requests[] = {
 };
 
 WL_PRIVATE const struct wl_interface surface_augmenter_interface = {
-	"surface_augmenter", 10,
+	"surface_augmenter", 11,
 	4, surface_augmenter_requests,
 	0, NULL,
 };
@@ -84,11 +84,12 @@ static const struct wl_message augmented_surface_requests[] = {
 	{ "set_trusted_damage", "6i", surface_augmenter_types + 0 },
 	{ "set_rounded_corners_clip_bounds", "7ffffffff", surface_augmenter_types + 0 },
 	{ "set_clip_rect", "8ffff", surface_augmenter_types + 0 },
+	{ "set_frame_trace_id", "11uu", surface_augmenter_types + 0 },
 };
 
 WL_PRIVATE const struct wl_interface augmented_surface_interface = {
-	"augmented_surface", 10,
-	8, augmented_surface_requests,
+	"augmented_surface", 11,
+	9, augmented_surface_requests,
 	0, NULL,
 };
 

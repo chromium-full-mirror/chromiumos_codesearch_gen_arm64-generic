@@ -94,6 +94,8 @@ constexpr uint32_t kTestController_CheckAtLeastOneAshBrowserWindowOpen_Name = 42
 constexpr uint32_t kTestController_GetAllOpenTabURLs_Name = 43;
 constexpr uint32_t kTestController_SetAlmanacEndpointUrlForTesting_Name = 44;
 constexpr uint32_t kTestController_IsToastShown_Name = 45;
+constexpr uint32_t kTestController_SnapWindow_Name = 46;
+constexpr uint32_t kTestController_IsShelfVisible_Name = 47;
 
 }  // namespace internal
 

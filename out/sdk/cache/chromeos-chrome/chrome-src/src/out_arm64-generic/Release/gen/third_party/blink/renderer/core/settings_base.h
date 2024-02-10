@@ -98,13 +98,13 @@ class CORE_EXPORT SettingsBase {
   bool GetImmersiveModeEnabled() const { return immersive_mode_enabled_; }
   bool GetInvertedColors() const { return inverted_colors_; }
   bool GetJavaScriptCanAccessClipboard() const { return java_script_can_access_clipboard_; }
-  int GetLazyFrameLoadingDistanceThresholdPx2G() const { return lazy_frame_loading_distance_threshold_px_2_g_; }
-  int GetLazyFrameLoadingDistanceThresholdPx3G() const { return lazy_frame_loading_distance_threshold_px_3_g_; }
-  int GetLazyFrameLoadingDistanceThresholdPx4G() const { return lazy_frame_loading_distance_threshold_px_4_g_; }
-  int GetLazyFrameLoadingDistanceThresholdPxOffline() const { return lazy_frame_loading_distance_threshold_px_offline_; }
-  int GetLazyFrameLoadingDistanceThresholdPxSlow2G() const { return lazy_frame_loading_distance_threshold_px_slow_2_g_; }
-  int GetLazyFrameLoadingDistanceThresholdPxUnknown() const { return lazy_frame_loading_distance_threshold_px_unknown_; }
   bool GetLazyLoadEnabled() const { return lazy_load_enabled_; }
+  int GetLazyLoadingFrameMarginPx2G() const { return lazy_loading_frame_margin_px_2_g_; }
+  int GetLazyLoadingFrameMarginPx3G() const { return lazy_loading_frame_margin_px_3_g_; }
+  int GetLazyLoadingFrameMarginPx4G() const { return lazy_loading_frame_margin_px_4_g_; }
+  int GetLazyLoadingFrameMarginPxOffline() const { return lazy_loading_frame_margin_px_offline_; }
+  int GetLazyLoadingFrameMarginPxSlow2G() const { return lazy_loading_frame_margin_px_slow_2_g_; }
+  int GetLazyLoadingFrameMarginPxUnknown() const { return lazy_loading_frame_margin_px_unknown_; }
   int GetLazyLoadingImageMarginPx2G() const { return lazy_loading_image_margin_px_2_g_; }
   int GetLazyLoadingImageMarginPx3G() const { return lazy_loading_image_margin_px_3_g_; }
   int GetLazyLoadingImageMarginPx4G() const { return lazy_loading_image_margin_px_4_g_; }
@@ -274,13 +274,13 @@ class CORE_EXPORT SettingsBase {
   void SetImmersiveModeEnabled(bool immersive_mode_enabled);
   void SetInvertedColors(bool inverted_colors);
   void SetJavaScriptCanAccessClipboard(bool java_script_can_access_clipboard);
-  void SetLazyFrameLoadingDistanceThresholdPx2G(int lazy_frame_loading_distance_threshold_px_2_g);
-  void SetLazyFrameLoadingDistanceThresholdPx3G(int lazy_frame_loading_distance_threshold_px_3_g);
-  void SetLazyFrameLoadingDistanceThresholdPx4G(int lazy_frame_loading_distance_threshold_px_4_g);
-  void SetLazyFrameLoadingDistanceThresholdPxOffline(int lazy_frame_loading_distance_threshold_px_offline);
-  void SetLazyFrameLoadingDistanceThresholdPxSlow2G(int lazy_frame_loading_distance_threshold_px_slow_2_g);
-  void SetLazyFrameLoadingDistanceThresholdPxUnknown(int lazy_frame_loading_distance_threshold_px_unknown);
   void SetLazyLoadEnabled(bool lazy_load_enabled);
+  void SetLazyLoadingFrameMarginPx2G(int lazy_loading_frame_margin_px_2_g);
+  void SetLazyLoadingFrameMarginPx3G(int lazy_loading_frame_margin_px_3_g);
+  void SetLazyLoadingFrameMarginPx4G(int lazy_loading_frame_margin_px_4_g);
+  void SetLazyLoadingFrameMarginPxOffline(int lazy_loading_frame_margin_px_offline);
+  void SetLazyLoadingFrameMarginPxSlow2G(int lazy_loading_frame_margin_px_slow_2_g);
+  void SetLazyLoadingFrameMarginPxUnknown(int lazy_loading_frame_margin_px_unknown);
   void SetLazyLoadingImageMarginPx2G(int lazy_loading_image_margin_px_2_g);
   void SetLazyLoadingImageMarginPx3G(int lazy_loading_image_margin_px_3_g);
   void SetLazyLoadingImageMarginPx4G(int lazy_loading_image_margin_px_4_g);
@@ -415,12 +415,12 @@ class CORE_EXPORT SettingsBase {
   blink::mojom::DisplayMode display_mode_override_;
   mojom::EditingBehavior editing_behavior_type_;
   mojom::blink::ImageAnimationPolicy image_animation_policy_;
-  int lazy_frame_loading_distance_threshold_px_2_g_;
-  int lazy_frame_loading_distance_threshold_px_3_g_;
-  int lazy_frame_loading_distance_threshold_px_4_g_;
-  int lazy_frame_loading_distance_threshold_px_offline_;
-  int lazy_frame_loading_distance_threshold_px_slow_2_g_;
-  int lazy_frame_loading_distance_threshold_px_unknown_;
+  int lazy_loading_frame_margin_px_2_g_;
+  int lazy_loading_frame_margin_px_3_g_;
+  int lazy_loading_frame_margin_px_4_g_;
+  int lazy_loading_frame_margin_px_offline_;
+  int lazy_loading_frame_margin_px_slow_2_g_;
+  int lazy_loading_frame_margin_px_unknown_;
   int lazy_loading_image_margin_px_2_g_;
   int lazy_loading_image_margin_px_3_g_;
   int lazy_loading_image_margin_px_4_g_;

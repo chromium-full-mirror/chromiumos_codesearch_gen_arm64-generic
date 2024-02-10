@@ -87,19 +87,15 @@ export class SyncConfirmationAppElement extends SyncConfirmationAppElementBase {
             /** Determines the screen mode. */
             screenMode_: {
                 type: ScreenMode,
-                value() {
-                    return loadTimeData.getInteger('screenMode');
-                },
+                value: ScreenMode.PENDING,
             },
         };
     }
     connectedCallback() {
         super.connectedCallback();
         this.addWebUiListener('account-info-changed', this.handleAccountInfoChanged_.bind(this));
+        this.addWebUiListener('screen-mode-changed', this.handleScreenModeChanged_.bind(this));
         this.syncConfirmationBrowserProxy_.requestAccountInfo();
-        setTimeout(() => {
-            this.defaultToRestrictedModeIfStillPending();
-        }, /*delay in ms=*/ 2000);
     }
     onConfirm_(e) {
         this.anyButtonClicked_ = true;
@@ -145,15 +141,9 @@ export class SyncConfirmationAppElement extends SyncConfirmationAppElementBase {
     handleAccountInfoChanged_(accountInfo) {
         this.accountImageSrc_ = accountInfo.src;
         this.showEnterpriseBadge_ = accountInfo.showEnterpriseBadge;
-        // Only allow this change once, from PENDING mode to (UN)RESTRICTED.
-        if (this.screenMode_ === ScreenMode.PENDING) {
-            this.screenMode_ = accountInfo.screenMode;
-        }
     }
-    defaultToRestrictedModeIfStillPending() {
-        if (this.screenMode_ === ScreenMode.PENDING) {
-            this.screenMode_ = ScreenMode.RESTRICTED;
-        }
+    handleScreenModeChanged_(screenMode) {
+        this.screenMode_ = screenMode;
     }
     getConfirmButtonClass_(screenMode) {
         return screenMode === ScreenMode.UNRESTRICTED ? 'action-button' : '';

@@ -63,7 +63,7 @@ class  MessageReceiverAsyncWaiter {
 class  ConnectionDelegateInterceptorForTesting : public ConnectionDelegate {
   virtual ConnectionDelegate* GetForwardingInterface() = 0;
   void OnConnectionAttemptFailure(ConnectionAttemptFailureReason reason) override;
-  void OnConnection(::mojo::PendingRemote<Channel> channel, ::mojo::PendingReceiver<MessageReceiver> message_receiver_receiver) override;
+  void OnConnection(::mojo::PendingRemote<Channel> channel, ::mojo::PendingReceiver<MessageReceiver> message_receiver_receiver, ::mojo::PendingReceiver<::ash::secure_channel::mojom::NearbyConnectionStateListener> nearby_connection_state_listener_receiver) override;
 };
 class  ConnectionDelegateAsyncWaiter {
  public:

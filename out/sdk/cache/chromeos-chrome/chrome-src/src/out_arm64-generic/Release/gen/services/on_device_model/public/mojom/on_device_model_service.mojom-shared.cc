@@ -72,7 +72,7 @@ bool LoadModelParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 40, validation_context)) {
     return false;
   }
 
@@ -87,6 +87,17 @@ bool LoadModelParams_Data::Validate(
   }
   if (!mojo::internal::ValidateStruct(object->assets, validation_context))
     return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->adaptation_ranks, 5, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& adaptation_ranks_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->adaptation_ranks, validation_context,
+                                         &adaptation_ranks_validate_params)) {
+    return false;
+  }
 
   return true;
 }

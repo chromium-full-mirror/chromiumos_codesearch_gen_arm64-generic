@@ -47,17 +47,14 @@ namespace blink::mojom {
 PeerConnectionInfo::PeerConnectionInfo()
     : lid(),
       rtc_configuration(),
-      constraints(),
       url() {}
 
 PeerConnectionInfo::PeerConnectionInfo(
     int32_t lid_in,
     const std::string& rtc_configuration_in,
-    const std::string& constraints_in,
     const std::optional<std::string>& url_in)
     : lid(std::move(lid_in)),
       rtc_configuration(std::move(rtc_configuration_in)),
-      constraints(std::move(constraints_in)),
       url(std::move(url_in)) {}
 
 PeerConnectionInfo::~PeerConnectionInfo() = default;
@@ -77,15 +74,6 @@ void PeerConnectionInfo::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "rtc_configuration"), this->rtc_configuration,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::string&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "constraints"), this->constraints,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
 #else
@@ -2523,8 +2511,6 @@ bool StructTraits<::blink::mojom::PeerConnectionInfo::DataView, ::blink::mojom::
       if (success)
         result->lid = input.lid();
       if (success && !input.ReadRtcConfiguration(&result->rtc_configuration))
-        success = false;
-      if (success && !input.ReadConstraints(&result->constraints))
         success = false;
       if (success && !input.ReadUrl(&result->url))
         success = false;

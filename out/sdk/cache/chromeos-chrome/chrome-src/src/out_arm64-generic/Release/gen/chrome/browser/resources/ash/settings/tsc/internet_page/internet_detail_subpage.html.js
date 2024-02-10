@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="internet-shared settings-shared iron-flex">:host{padding-bottom:40px}iron-icon{margin-inline-end:10px}cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}cr-policy-network-indicator-mojo{margin:0 var(--cr-controlled-by-spacing)}#networkState[connected]{color:var(--cros-text-color-positive)}#networkState[warning]{color:var(--cros-text-color-warning)}#networkState[error]{color:var(--cros-text-color-alert)}#preferNetworkToggleContainer:hover{background-color:var(--cr-hover-background-color)}#preferNetworkToggleContainer:active{background-color:var(--cr-active-background-color)}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}.warning{color:var(--cr-secondary-text-color);margin-inline-start:var(--cr-controlled-by-spacing)}.signin-button{margin-inline-end:8px;padding:8px 16px 8px 8px}.signin-icon{background-color:var(--text-color);margin-inline-end:4px;margin-inline-start:0}#mac-address-container{border-top:none}#hiddenToggle{margin-inline-start:var(--cr-section-padding)}cr-link-row:not([warning]){--cr-secondary-text-color:var(--cros-text-color-positive)}#apnSubpageButton{height:var(--cr-section-two-line-min-height)}</style>
+    return html `<!--_html_template_start_--><style include="internet-shared settings-shared iron-flex">:host{padding-bottom:40px}iron-icon{margin-inline-end:10px}cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}cr-policy-network-indicator-mojo{margin:0 var(--cr-controlled-by-spacing)}#networkState[connected]{color:var(--cros-text-color-positive)}#networkState[warning]{color:var(--cros-text-color-warning)}#networkState[error]{color:var(--cros-text-color-alert)}#preferNetworkToggleContainer:hover{background-color:var(--cr-hover-background-color)}#preferNetworkToggleContainer:active{background-color:var(--cr-active-background-color)}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}.warning{color:var(--cr-secondary-text-color);margin-inline-start:var(--cr-controlled-by-spacing)}#signinButton>iron-icon{margin-inline-end:0}#mac-address-container{border-top:none}#hiddenToggle{margin-inline-start:var(--cr-section-padding)}cr-link-row:not([warning]){--cr-secondary-text-color:var(--cros-text-color-positive)}#apnSubpageButton{height:var(--cr-section-two-line-min-height)}</style>
 
 <div id="titleDiv" class="settings-box first">
   <div class="start layout horizontal center">
@@ -17,9 +17,9 @@ export function getTemplate() {
       </cr-policy-indicator>
     </template>
   </div>
-  <cr-button class="signin-button" id="signinButton" on-click="onSigninClick_" hidden$="[[!showSignin_(managedProperties_)]]" disabled="[[disableSignin_(managedProperties_, disabled_)]]">
-    <div class="signin-icon cr-icon icon-external"></div>
-      $i18n{networkButtonSignin}
+  <cr-button id="signinButton" on-click="onSigninClick_" hidden$="[[!showSignin_(managedProperties_)]]" disabled="[[disableSignin_(managedProperties_, disabled_)]]">
+    <iron-icon icon="cr:open-in-new" slot="prefix-icon"></iron-icon>
+    $i18n{networkButtonSignin}
   </cr-button>
   <cr-button id="forgetButton" on-click="onForgetClick_" hidden$="[[!showForget_(managedProperties_)]]" disabled="[[disableForget_(managedProperties_,
           prefs.vpn_config_allowed, disabled_)]]">

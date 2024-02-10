@@ -2,17 +2,15 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { assertEquals } from 'chrome://webui-test/chromeos/chai_assert.js';
-import { ImageLoaderUtil } from './image_loader_util.js';
+import { calculateCopyParameters } from './image_loader_util.js';
 import { ImageOrientation } from './image_orientation.js';
 /**
  * Casts a map of options as an incoming load request to test CopyParameters.
  *
- * @param {HTMLImageElement} source
- * @param {Object} options
- * @return {!ImageLoaderUtil.CopyParameters} Calculated copy parameters.
+ * @return Calculated copy parameters.
  */
 function calculateCopyParametersFromOptions(source, options) {
-    return ImageLoaderUtil.calculateCopyParameters(source, options);
+    return calculateCopyParameters(source, options);
 }
 /**
  * Test case:

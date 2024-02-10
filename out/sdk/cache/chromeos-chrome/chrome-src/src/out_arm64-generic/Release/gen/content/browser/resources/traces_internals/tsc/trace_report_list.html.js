@@ -23,7 +23,7 @@ export function getTemplate() {
     </cr-button>
   </div>
   <template is="dom-repeat" items="[[traces]]">
-    <trace-report trace="[[item]]" on-show-toast="showToastHandler_">
+    <trace-report trace="[[item]]" on-show-toast="showToastHandler_" on-refresh-traces-request="initializeList">
     </trace-report>
   </template>
   <div class="empty-message" hidden$="[[hasTraces_(traces)]]">

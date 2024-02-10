@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "gdb", "version": "9.2.20200923", "revision": 13, "fullname": "sys-devel/gdb", "fullnamerev": "sys-devel/gdb-9.2.20200923-r13", "license_names": ["GPL-2", "LGPL-2"], "license_text_scanned": [], "homepages": ["https://sourceware.org/gdb/"], "skip": false, "tainted": false, "ebuild_path": null}

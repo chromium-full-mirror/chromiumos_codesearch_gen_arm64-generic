@@ -53,6 +53,153 @@ namespace internal {
 
 
 // static
+bool DigitalCredentialProvider_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 48, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DigitalCredentialProvider_Data* object =
+      static_cast<const DigitalCredentialProvider_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& params_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
+  if (!mojo::internal::ValidateContainer(object->params, validation_context,
+                                         &params_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateStruct(object->selector, validation_context))
+    return false;
+
+  constexpr const mojo::internal::ContainerValidateParams& protocol_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->protocol, validation_context,
+                                         &protocol_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& request_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->request, validation_context,
+                                         &request_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& publicKey_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->publicKey, validation_context,
+                                         &publicKey_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+DigitalCredentialProvider_Data::DigitalCredentialProvider_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool DigitalCredentialSelector_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DigitalCredentialSelector_Data* object =
+      static_cast<const DigitalCredentialSelector_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->format, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& format_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->format, validation_context,
+                                         &format_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& doctype_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->doctype, validation_context,
+                                         &doctype_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->fields, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& fields_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->fields, validation_context,
+                                         &fields_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+DigitalCredentialSelector_Data::DigitalCredentialSelector_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool DigitalCredentialFieldRequirement_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DigitalCredentialFieldRequirement_Data* object =
+      static_cast<const DigitalCredentialFieldRequirement_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->name, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->name, validation_context,
+                                         &name_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& equals_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->equals, validation_context,
+                                         &equals_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+DigitalCredentialFieldRequirement_Data::DigitalCredentialFieldRequirement_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool DigitalIdentityRequest_Request_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

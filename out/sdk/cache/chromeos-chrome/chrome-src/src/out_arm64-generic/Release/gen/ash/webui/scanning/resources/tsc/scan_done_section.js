@@ -13,7 +13,6 @@ import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/stri
 import { sanitizeInnerHtml } from 'chrome://resources/js/parse_html_subset.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './scan_done_section.html.js';
-import { FileType } from './scanning.mojom-webui.js';
 import { ScanCompleteAction } from './scanning_app_types.js';
 import { ScanningBrowserProxyImpl } from './scanning_browser_proxy.js';
 /**
@@ -43,10 +42,6 @@ export class ScanDoneSectionElement extends ScanDoneSectionElementBase {
             selectedFileType: String,
             selectedFolder: String,
             fileSavedTextContent: String,
-            showEditButton: {
-                type: Boolean,
-                computed: 'computeShowEditButton(selectedFileType)',
-            },
             editButtonLabel: String,
         };
     }
@@ -111,9 +106,6 @@ export class ScanDoneSectionElement extends ScanDoneSectionElementBase {
         const anchorTags = tempEl.getElementsByTagName('a');
         anchorTags[0].setAttribute('aria-labelledby', ariaLabelledByIds.join(' '));
         return tempEl.innerHTML;
-    }
-    computeShowEditButton() {
-        return this.selectedFileType !== FileType.kPdf.toString();
     }
     onOpenMediaAppClick() {
         assert(this.scannedFilePaths.length !== 0);

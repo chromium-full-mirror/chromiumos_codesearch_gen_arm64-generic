@@ -65,7 +65,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PeerConnectionInfo_Data
   int32_t lid;
   uint8_t pad0_[4];
   mojo::internal::Pointer<mojo::internal::String_Data> rtc_configuration;
-  mojo::internal::Pointer<mojo::internal::String_Data> constraints;
   mojo::internal::Pointer<mojo::internal::String_Data> url;
 
  private:
@@ -74,7 +73,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PeerConnectionInfo_Data
   PeerConnectionInfo_Data();
   ~PeerConnectionInfo_Data() = delete;
 };
-static_assert(sizeof(PeerConnectionInfo_Data) == 40,
+static_assert(sizeof(PeerConnectionInfo_Data) == 32,
               "Bad sizeof(PeerConnectionInfo_Data)");
 // Used by PeerConnectionInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

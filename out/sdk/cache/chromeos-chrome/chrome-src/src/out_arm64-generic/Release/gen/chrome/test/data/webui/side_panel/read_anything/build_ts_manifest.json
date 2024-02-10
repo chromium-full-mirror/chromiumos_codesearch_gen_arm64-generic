@@ -1,1 +1,1 @@
-{"base_dir": "gen/chrome/test/data/webui/side_panel/read_anything/tsc", "files": ["checkmark_visible_on_selected.js", "fake_reading_mode.js"]}
+{"base_dir": "gen/chrome/test/data/webui/side_panel/read_anything/tsc", "files": ["checkmark_visible_on_selected.js", "voice_selection_menu_test.js", "fake_reading_mode.js"]}

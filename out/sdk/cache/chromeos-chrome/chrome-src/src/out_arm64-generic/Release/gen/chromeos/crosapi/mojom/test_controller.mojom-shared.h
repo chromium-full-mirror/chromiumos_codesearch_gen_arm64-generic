@@ -222,6 +222,29 @@ inline AssistiveTechnologyType ToKnownEnumValue(AssistiveTechnologyType value) {
   }
   return AssistiveTechnologyType::kDefaultValue;
 }
+
+
+enum class SnapPosition : int32_t {
+  
+  kPrimary = 0,
+  
+  kSecondary = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, SnapPosition value);
+inline bool IsKnownEnumValue(SnapPosition value) {
+  return internal::SnapPosition_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline SnapPosition ToKnownEnumValue(SnapPosition value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return SnapPosition::kDefaultValue;
+}
 // Interface base classes. They are used for type safety check.
 class DomMessageObserverInterfaceBase {};
 
@@ -506,6 +529,10 @@ template <>
 struct hash<::crosapi::mojom::AssistiveTechnologyType>
     : public mojo::internal::EnumHashImpl<::crosapi::mojom::AssistiveTechnologyType> {};
 
+template <>
+struct hash<::crosapi::mojom::SnapPosition>
+    : public mojo::internal::EnumHashImpl<::crosapi::mojom::SnapPosition> {};
+
 }  // namespace std
 
 namespace mojo {
@@ -605,6 +632,26 @@ struct Serializer<::crosapi::mojom::AssistiveTechnologyType, MaybeConstUserType>
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::crosapi::mojom::AssistiveTechnologyType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::SnapPosition, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::crosapi::mojom::SnapPosition, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::crosapi::mojom::SnapPosition>(input)), output);
   }
 };
 
@@ -980,6 +1027,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::crosapi::mojom::AssistiveTechnologyType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::crosapi::mojom::AssistiveTechnologyType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::crosapi::mojom::SnapPosition> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::crosapi::mojom::SnapPosition value);
 };
 
 } // namespace perfetto

@@ -87,6 +87,35 @@ namespace internal {
 
 
 // static
+bool AdaptationAssets_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AdaptationAssets_Data* object =
+      static_cast<const AdaptationAssets_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->model, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->weights, validation_context))
+    return false;
+
+  return true;
+}
+
+AdaptationAssets_Data::AdaptationAssets_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool LanguageDetectionResult_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -217,6 +246,36 @@ bool ResponseSummary_Data::Validate(
 }
 
 ResponseSummary_Data::ResponseSummary_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LoadAdaptationParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LoadAdaptationParams_Data* object =
+      static_cast<const LoadAdaptationParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->assets, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->assets, validation_context))
+    return false;
+
+  return true;
+}
+
+LoadAdaptationParams_Data::LoadAdaptationParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -440,6 +499,73 @@ bool OnDeviceModel_StartSession_Params_Data::Validate(
 }
 
 OnDeviceModel_StartSession_Params_Data::OnDeviceModel_StartSession_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool OnDeviceModel_LoadAdaptation_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const OnDeviceModel_LoadAdaptation_Params_Data* object =
+      static_cast<const OnDeviceModel_LoadAdaptation_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->params, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->params, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->model, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->model,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+OnDeviceModel_LoadAdaptation_Params_Data::OnDeviceModel_LoadAdaptation_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool OnDeviceModel_LoadAdaptation_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const OnDeviceModel_LoadAdaptation_ResponseParams_Data* object =
+      static_cast<const OnDeviceModel_LoadAdaptation_ResponseParams_Data*>(data);
+
+
+  if (!::on_device_model::mojom::internal::LoadModelResult_Data
+        ::Validate(object->result, validation_context))
+    return false;
+
+  return true;
+}
+
+OnDeviceModel_LoadAdaptation_ResponseParams_Data::OnDeviceModel_LoadAdaptation_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

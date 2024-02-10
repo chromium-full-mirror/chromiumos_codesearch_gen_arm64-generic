@@ -1936,8 +1936,13 @@ let PageRemote$1 = class PageRemote {
             index
         ]);
     }
+    showFREChanged(show) {
+        this.proxy.sendMessage(5, Page_ShowFREChanged_ParamsSpec.$, null, [
+            show
+        ]);
+    }
     tabOrganizationEnabledChanged(enabled) {
-        this.proxy.sendMessage(5, Page_TabOrganizationEnabledChanged_ParamsSpec.$, null, [
+        this.proxy.sendMessage(6, Page_TabOrganizationEnabledChanged_ParamsSpec.$, null, [
             enabled
         ]);
     }
@@ -1968,9 +1973,12 @@ let PageCallbackRouter$1 = class PageCallbackRouter {
         this.tabSearchTabIndexChanged =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(4, Page_TabSearchTabIndexChanged_ParamsSpec.$, null, this.tabSearchTabIndexChanged.createReceiverHandler(false /* expectsResponse */));
+        this.showFREChanged =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(5, Page_ShowFREChanged_ParamsSpec.$, null, this.showFREChanged.createReceiverHandler(false /* expectsResponse */));
         this.tabOrganizationEnabledChanged =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(5, Page_TabOrganizationEnabledChanged_ParamsSpec.$, null, this.tabOrganizationEnabledChanged.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(6, Page_TabOrganizationEnabledChanged_ParamsSpec.$, null, this.tabOrganizationEnabledChanged.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -2020,6 +2028,7 @@ const Page_TabsChanged_ParamsSpec = { $: {} };
 const Page_TabUpdated_ParamsSpec = { $: {} };
 const Page_TabsRemoved_ParamsSpec = { $: {} };
 const Page_TabSearchTabIndexChanged_ParamsSpec = { $: {} };
+const Page_ShowFREChanged_ParamsSpec = { $: {} };
 const Page_TabOrganizationEnabledChanged_ParamsSpec = { $: {} };
 mojo.internal.Struct(ProfileDataSpec.$, 'ProfileData', [
     mojo.internal.StructField('windows', 0, 0, mojo.internal.Array(WindowSpec.$, false), null, false /* nullable */, 0),
@@ -2164,6 +2173,9 @@ mojo.internal.Struct(Page_TabsRemoved_ParamsSpec.$, 'Page_TabsRemoved_Params', [
 ], [[0, 16],]);
 mojo.internal.Struct(Page_TabSearchTabIndexChanged_ParamsSpec.$, 'Page_TabSearchTabIndexChanged_Params', [
     mojo.internal.StructField('index', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(Page_ShowFREChanged_ParamsSpec.$, 'Page_ShowFREChanged_Params', [
+    mojo.internal.StructField('show', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(Page_TabOrganizationEnabledChanged_ParamsSpec.$, 'Page_TabOrganizationEnabledChanged_Params', [
     mojo.internal.StructField('enabled', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
@@ -2476,7 +2488,7 @@ const WebUiListenerMixin = dedupingMixin((superClass) => {
 });
 
 function getTemplate$b() {
-    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">:host{--avatar-size:40px}cr-button{align-self:flex-end;width:fit-content}.account-email{font-size:12px}.account-image{border-radius:var(--avatar-size);height:var(--avatar-size);width:var(--avatar-size)}.account-row{align-items:center;display:flex;gap:10px}.account-text{display:flex;flex-direction:column;gap:4px}</style>
+    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">:host{--avatar-size:40px}cr-button{align-self:flex-end;width:fit-content}.account-email{font-size:12px}.account-image{border-radius:var(--avatar-size);height:var(--avatar-size);width:var(--avatar-size)}.account-row{align-items:center;display:flex;gap:10px}.account-text{display:flex;flex-direction:column;gap:4px}.tab-organization-link{display:inline}</style>
 
 <div class="tab-organization-container">
   <tab-organization-not-started-image></tab-organization-not-started-image>
@@ -2486,6 +2498,11 @@ function getTemplate$b() {
     </div>
     <div class="tab-organization-body">
       [[getBody_(showFre, sync_, account_)]]
+      <template is="dom-if" if="[[shouldShowBodyLink_(showFre, sync_, account_)]]">
+        <a class="tab-organization-link" role="link" tabindex="0" on-click="onLinkClick_" on-keydown="onLinkKeyDown_">
+            $i18n{notStartedBodyLinkFRE}
+        </a>
+      </template>
     </div>
   </div>
   <template is="dom-if" if="[[shouldShowAccountInfo_(sync_, account_)]]">
@@ -2619,6 +2636,9 @@ class TabOrganizationNotStartedElement extends TabOrganizationNotStartedElementB
             }
         }
     }
+    shouldShowBodyLink_() {
+        return this.getSyncState_() === SyncState.SYNCED && this.showFre;
+    }
     shouldShowAccountInfo_() {
         return !!this.account_ &&
             (!this.sync_ || !this.sync_.syncing || this.sync_.paused ||
@@ -2680,6 +2700,17 @@ class TabOrganizationNotStartedElement extends TabOrganizationNotStartedElementB
                 // Start a tab organization
                 this.dispatchEvent(new CustomEvent('organize-tabs-click', { bubbles: true, composed: true }));
                 break;
+        }
+    }
+    onLinkClick_() {
+        this.dispatchEvent(new CustomEvent('learn-more-click', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    onLinkKeyDown_(event) {
+        if (event.key === 'Enter') {
+            this.onLinkClick_();
         }
     }
 }
@@ -5770,7 +5801,7 @@ function getTemplate$5() {
 
 <div id="contents">
   <div id="body">
-    <tab-organization-not-started id="notStarted" shown$="[[isState_(tabOrganizationStateEnum_.kNotStarted, state_)]]" on-sync-click="onSyncClick_" on-sign-in-click="onSignInClick_" on-settings-click="onSettingsClick_" on-organize-tabs-click="onOrganizeTabsClick_" show-fre="[[showFRE_]]">
+    <tab-organization-not-started id="notStarted" shown$="[[isState_(tabOrganizationStateEnum_.kNotStarted, state_)]]" on-sync-click="onSyncClick_" on-sign-in-click="onSignInClick_" on-settings-click="onSettingsClick_" on-organize-tabs-click="onOrganizeTabsClick_" on-learn-more-click="onLearnMoreClick_" show-fre="[[showFRE_]]">
     </tab-organization-not-started>
     <tab-organization-in-progress id="inProgress" shown$="[[isState_(tabOrganizationStateEnum_.kInProgress, state_)]]">
     </tab-organization-in-progress>
@@ -5931,6 +5962,7 @@ class TabOrganizationPageElement extends PolymerElement {
         this.apiProxy_.getTabOrganizationSession().then(({ session }) => this.setSession_(session));
         const callbackRouter = this.apiProxy_.getCallbackRouter();
         this.listenerIds_.push(callbackRouter.tabOrganizationSessionUpdated.addListener(this.setSession_.bind(this)));
+        this.listenerIds_.push(callbackRouter.showFREChanged.addListener(this.setShowFre_.bind(this)));
         if (document.visibilityState === 'visible') {
             this.onVisible_();
         }
@@ -5960,6 +5992,9 @@ class TabOrganizationPageElement extends PolymerElement {
             this.availableHeight_ =
                 activeWindow ? activeWindow.height : profileData.windows[0].height;
         });
+    }
+    setShowFre_(show) {
+        this.showFRE_ = show;
     }
     setSessionForTesting(session) {
         this.setSession_(session);

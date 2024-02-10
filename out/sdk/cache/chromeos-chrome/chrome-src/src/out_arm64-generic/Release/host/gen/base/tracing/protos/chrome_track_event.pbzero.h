@@ -596,13 +596,16 @@ enum StepName : int32_t {
   STEP_BUFFER_SWAP_POST_SUBMIT = 12,
   STEP_FINISH_BUFFER_SWAP = 13,
   STEP_SWAP_BUFFERS_ACK = 14,
+  STEP_EXO_CONSTRUCT_COMPOSITOR_FRAME = 15,
+  STEP_EXO_SUBMIT_COMPOSITOR_FRAME = 16,
+  STEP_EXO_DISCARD_COMPOSITOR_FRAME = 17,
 };
 } // namespace perfetto_pbzero_enum_ChromeGraphicsPipeline
 using ChromeGraphicsPipeline_StepName = perfetto_pbzero_enum_ChromeGraphicsPipeline::StepName;
 
 
 constexpr ChromeGraphicsPipeline_StepName ChromeGraphicsPipeline_StepName_MIN = ChromeGraphicsPipeline_StepName::STEP_UNKNOWN;
-constexpr ChromeGraphicsPipeline_StepName ChromeGraphicsPipeline_StepName_MAX = ChromeGraphicsPipeline_StepName::STEP_SWAP_BUFFERS_ACK;
+constexpr ChromeGraphicsPipeline_StepName ChromeGraphicsPipeline_StepName_MAX = ChromeGraphicsPipeline_StepName::STEP_EXO_DISCARD_COMPOSITOR_FRAME;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -652,6 +655,15 @@ const char* ChromeGraphicsPipeline_StepName_Name(::perfetto::protos::pbzero::Chr
 
   case ::perfetto::protos::pbzero::ChromeGraphicsPipeline_StepName::STEP_SWAP_BUFFERS_ACK:
     return "STEP_SWAP_BUFFERS_ACK";
+
+  case ::perfetto::protos::pbzero::ChromeGraphicsPipeline_StepName::STEP_EXO_CONSTRUCT_COMPOSITOR_FRAME:
+    return "STEP_EXO_CONSTRUCT_COMPOSITOR_FRAME";
+
+  case ::perfetto::protos::pbzero::ChromeGraphicsPipeline_StepName::STEP_EXO_SUBMIT_COMPOSITOR_FRAME:
+    return "STEP_EXO_SUBMIT_COMPOSITOR_FRAME";
+
+  case ::perfetto::protos::pbzero::ChromeGraphicsPipeline_StepName::STEP_EXO_DISCARD_COMPOSITOR_FRAME:
+    return "STEP_EXO_DISCARD_COMPOSITOR_FRAME";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -3260,6 +3272,9 @@ class ChromeGraphicsPipeline : public ::protozero::Message {
   static inline const StepName STEP_BUFFER_SWAP_POST_SUBMIT = StepName::STEP_BUFFER_SWAP_POST_SUBMIT;
   static inline const StepName STEP_FINISH_BUFFER_SWAP = StepName::STEP_FINISH_BUFFER_SWAP;
   static inline const StepName STEP_SWAP_BUFFERS_ACK = StepName::STEP_SWAP_BUFFERS_ACK;
+  static inline const StepName STEP_EXO_CONSTRUCT_COMPOSITOR_FRAME = StepName::STEP_EXO_CONSTRUCT_COMPOSITOR_FRAME;
+  static inline const StepName STEP_EXO_SUBMIT_COMPOSITOR_FRAME = StepName::STEP_EXO_SUBMIT_COMPOSITOR_FRAME;
+  static inline const StepName STEP_EXO_DISCARD_COMPOSITOR_FRAME = StepName::STEP_EXO_DISCARD_COMPOSITOR_FRAME;
   static inline const FrameSkippedReason SKIPPED_REASON_UNKNOWN = FrameSkippedReason::SKIPPED_REASON_UNKNOWN;
   static inline const FrameSkippedReason SKIPPED_REASON_RECOVER_LATENCY = FrameSkippedReason::SKIPPED_REASON_RECOVER_LATENCY;
   static inline const FrameSkippedReason SKIPPED_REASON_NO_DAMAGE = FrameSkippedReason::SKIPPED_REASON_NO_DAMAGE;

@@ -135,15 +135,18 @@ bool ModelAssets::Validate(
 LoadModelParams::LoadModelParams()
     : assets(),
       max_tokens(),
-      ts_dimension() {}
+      ts_dimension(),
+      adaptation_ranks() {}
 
 LoadModelParams::LoadModelParams(
     ::on_device_model::ModelAssets assets_in,
     uint32_t max_tokens_in,
-    std::optional<uint32_t> ts_dimension_in)
+    std::optional<uint32_t> ts_dimension_in,
+    std::vector<uint32_t> adaptation_ranks_in)
     : assets(std::move(assets_in)),
       max_tokens(std::move(max_tokens_in)),
-      ts_dimension(std::move(ts_dimension_in)) {}
+      ts_dimension(std::move(ts_dimension_in)),
+      adaptation_ranks(std::move(adaptation_ranks_in)) {}
 
 LoadModelParams::~LoadModelParams() = default;
 
@@ -173,6 +176,15 @@ void LoadModelParams::WriteIntoTrace(
       "ts_dimension"), this->ts_dimension,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::optional<uint32_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "adaptation_ranks"), this->adaptation_ranks,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<uint32_t>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -789,6 +801,8 @@ bool StructTraits<::on_device_model::mojom::LoadModelParams::DataView, ::on_devi
       if (success) {
         result->ts_dimension = input.ts_dimension();
       }
+      if (success && !input.ReadAdaptationRanks(&result->adaptation_ranks))
+        success = false;
   *output = std::move(result);
   return success;
 }

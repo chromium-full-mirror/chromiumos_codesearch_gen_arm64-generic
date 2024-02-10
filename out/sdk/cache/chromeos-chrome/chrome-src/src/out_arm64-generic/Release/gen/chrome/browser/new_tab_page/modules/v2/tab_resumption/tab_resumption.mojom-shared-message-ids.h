@@ -15,6 +15,8 @@ namespace internal {
 
 
 constexpr uint32_t kPageHandler_GetTabs_Name = 0;
+constexpr uint32_t kPageHandler_DismissModule_Name = 1;
+constexpr uint32_t kPageHandler_RestoreModule_Name = 2;
 
 }  // namespace internal
 

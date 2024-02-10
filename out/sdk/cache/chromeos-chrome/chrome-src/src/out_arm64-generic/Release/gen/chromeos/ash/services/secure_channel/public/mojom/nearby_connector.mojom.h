@@ -40,6 +40,51 @@
 
 namespace ash::secure_channel::mojom {
 
+class NearbyConnectionStateListenerProxy;
+
+template <typename ImplRefTraits>
+class NearbyConnectionStateListenerStub;
+
+class NearbyConnectionStateListenerRequestValidator;
+
+
+class NearbyConnectionStateListener
+    : public NearbyConnectionStateListenerInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = NearbyConnectionStateListenerInterfaceBase;
+  using Proxy_ = NearbyConnectionStateListenerProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = NearbyConnectionStateListenerStub<ImplRefTraits>;
+
+  using RequestValidator_ = NearbyConnectionStateListenerRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnNearbyConnectionStateChangedMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnNearbyConnectionStateChanged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~NearbyConnectionStateListener() = default;
+
+  
+  virtual void OnNearbyConnectionStateChanged(NearbyConnectionStep step, NearbyConnectionStepResult result) = 0;
+};
+
 class NearbyMessageSenderProxy;
 
 template <typename ImplRefTraits>
@@ -226,7 +271,22 @@ class NearbyConnector
 
   using ConnectCallback = base::OnceCallback<void(::mojo::PendingRemote<NearbyMessageSender>, ::mojo::PendingRemote<NearbyFilePayloadHandler>)>;
   
-  virtual void Connect(const std::vector<uint8_t>& bluetooth_public_address, const std::vector<uint8_t>& eid, ::mojo::PendingRemote<NearbyMessageReceiver> message_receiver, ConnectCallback callback) = 0;
+  virtual void Connect(const std::vector<uint8_t>& bluetooth_public_address, const std::vector<uint8_t>& eid, ::mojo::PendingRemote<NearbyMessageReceiver> message_receiver, ::mojo::PendingRemote<NearbyConnectionStateListener> nearby_connection_state_listener, ConnectCallback callback) = 0;
+};
+
+
+
+class  NearbyConnectionStateListenerProxy
+    : public NearbyConnectionStateListener {
+ public:
+  using InterfaceType = NearbyConnectionStateListener;
+
+  explicit NearbyConnectionStateListenerProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnNearbyConnectionStateChanged(NearbyConnectionStep step, NearbyConnectionStepResult result) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
 };
 
 
@@ -283,10 +343,51 @@ class  NearbyConnectorProxy
 
   explicit NearbyConnectorProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void Connect(const std::vector<uint8_t>& bluetooth_public_address, const std::vector<uint8_t>& eid, ::mojo::PendingRemote<NearbyMessageReceiver> message_receiver, ConnectCallback callback) final;
+  void Connect(const std::vector<uint8_t>& bluetooth_public_address, const std::vector<uint8_t>& eid, ::mojo::PendingRemote<NearbyMessageReceiver> message_receiver, ::mojo::PendingRemote<NearbyConnectionStateListener> nearby_connection_state_listener, ConnectCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
+};
+class  NearbyConnectionStateListenerStubDispatch {
+ public:
+  static bool Accept(NearbyConnectionStateListener* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      NearbyConnectionStateListener* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<NearbyConnectionStateListener>>
+class NearbyConnectionStateListenerStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  NearbyConnectionStateListenerStub() = default;
+  ~NearbyConnectionStateListenerStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return NearbyConnectionStateListenerStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return NearbyConnectionStateListenerStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
 };
 class  NearbyMessageSenderStubDispatch {
  public:
@@ -451,6 +552,10 @@ class NearbyConnectorStub
 
  private:
   ImplPointerType sink_;
+};
+class  NearbyConnectionStateListenerRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
 };
 class  NearbyMessageSenderRequestValidator : public mojo::MessageReceiver {
  public:

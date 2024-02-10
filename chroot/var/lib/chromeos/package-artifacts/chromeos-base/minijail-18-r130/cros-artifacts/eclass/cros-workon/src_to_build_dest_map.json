@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/platform/minijail",
+      "build_dest_path": "/var/tmp/portage/chromeos-base/minijail-18-r130/work/minijail-18"
+    }
+  ]
+}

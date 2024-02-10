@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "crash", "version": "8.0.3", "revision": 5, "fullname": "sys-devel/crash", "fullnamerev": "sys-devel/crash-8.0.3-r5", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://crash-utility.github.io/"], "skip": false, "tainted": false, "ebuild_path": null}

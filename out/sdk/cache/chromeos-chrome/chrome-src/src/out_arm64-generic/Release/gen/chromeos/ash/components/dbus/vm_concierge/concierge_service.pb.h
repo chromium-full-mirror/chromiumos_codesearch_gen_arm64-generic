@@ -1890,14 +1890,13 @@ class StartVmRequest final :
     kStartTerminaFieldNumber = 5,
     kEnableGpuFieldNumber = 8,
     kSoftwareTpmFieldNumber = 9,
-    kRunAsUntrustedFieldNumber = 10,
-    kCpusFieldNumber = 12,
     kEnableAudioCaptureFieldNumber = 11,
+    kCpusFieldNumber = 12,
     kWritableRootfsFieldNumber = 15,
     kEnableVulkanFieldNumber = 18,
     kEnableBigGlFieldNumber = 19,
-    kTimeoutFieldNumber = 20,
     kVtpmProxyFieldNumber = 22,
+    kTimeoutFieldNumber = 20,
     kStorageBallooningFieldNumber = 23,
     kEnableVirtgpuNativeContextFieldNumber = 25,
     kEnableDgpuPassthroughFieldNumber = 27,
@@ -2090,13 +2089,13 @@ class StartVmRequest final :
   void _internal_set_software_tpm(bool value);
   public:
 
-  // bool run_as_untrusted = 10 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_run_as_untrusted();
-  PROTOBUF_DEPRECATED bool run_as_untrusted() const;
-  PROTOBUF_DEPRECATED void set_run_as_untrusted(bool value);
+  // bool enable_audio_capture = 11;
+  void clear_enable_audio_capture();
+  bool enable_audio_capture() const;
+  void set_enable_audio_capture(bool value);
   private:
-  bool _internal_run_as_untrusted() const;
-  void _internal_set_run_as_untrusted(bool value);
+  bool _internal_enable_audio_capture() const;
+  void _internal_set_enable_audio_capture(bool value);
   public:
 
   // uint32 cpus = 12;
@@ -2106,15 +2105,6 @@ class StartVmRequest final :
   private:
   uint32_t _internal_cpus() const;
   void _internal_set_cpus(uint32_t value);
-  public:
-
-  // bool enable_audio_capture = 11;
-  void clear_enable_audio_capture();
-  bool enable_audio_capture() const;
-  void set_enable_audio_capture(bool value);
-  private:
-  bool _internal_enable_audio_capture() const;
-  void _internal_set_enable_audio_capture(bool value);
   public:
 
   // bool writable_rootfs = 15;
@@ -2144,15 +2134,6 @@ class StartVmRequest final :
   void _internal_set_enable_big_gl(bool value);
   public:
 
-  // uint32 timeout = 20;
-  void clear_timeout();
-  uint32_t timeout() const;
-  void set_timeout(uint32_t value);
-  private:
-  uint32_t _internal_timeout() const;
-  void _internal_set_timeout(uint32_t value);
-  public:
-
   // bool vtpm_proxy = 22;
   void clear_vtpm_proxy();
   bool vtpm_proxy() const;
@@ -2160,6 +2141,15 @@ class StartVmRequest final :
   private:
   bool _internal_vtpm_proxy() const;
   void _internal_set_vtpm_proxy(bool value);
+  public:
+
+  // uint32 timeout = 20;
+  void clear_timeout();
+  uint32_t timeout() const;
+  void set_timeout(uint32_t value);
+  private:
+  uint32_t _internal_timeout() const;
+  void _internal_set_timeout(uint32_t value);
   public:
 
   // bool storage_ballooning = 23;
@@ -2219,14 +2209,13 @@ class StartVmRequest final :
   bool start_termina_;
   bool enable_gpu_;
   bool software_tpm_;
-  bool run_as_untrusted_;
-  uint32_t cpus_;
   bool enable_audio_capture_;
+  uint32_t cpus_;
   bool writable_rootfs_;
   bool enable_vulkan_;
   bool enable_big_gl_;
-  uint32_t timeout_;
   bool vtpm_proxy_;
+  uint32_t timeout_;
   bool storage_ballooning_;
   bool enable_virtgpu_native_context_;
   bool enable_dgpu_passthrough_;
@@ -12890,38 +12879,6 @@ class GetVmLaunchAllowedRequest final :
 
   // accessors -------------------------------------------------------
 
-  enum : int {
-    kRunAsUntrustedFieldNumber = 1,
-    kIsTrustedImageFieldNumber = 2,
-    kHasCustomKernelParamsFieldNumber = 3,
-  };
-  // bool run_as_untrusted = 1 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_run_as_untrusted();
-  PROTOBUF_DEPRECATED bool run_as_untrusted() const;
-  PROTOBUF_DEPRECATED void set_run_as_untrusted(bool value);
-  private:
-  bool _internal_run_as_untrusted() const;
-  void _internal_set_run_as_untrusted(bool value);
-  public:
-
-  // bool is_trusted_image = 2 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_is_trusted_image();
-  PROTOBUF_DEPRECATED bool is_trusted_image() const;
-  PROTOBUF_DEPRECATED void set_is_trusted_image(bool value);
-  private:
-  bool _internal_is_trusted_image() const;
-  void _internal_set_is_trusted_image(bool value);
-  public:
-
-  // bool has_custom_kernel_params = 3 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_has_custom_kernel_params();
-  PROTOBUF_DEPRECATED bool has_custom_kernel_params() const;
-  PROTOBUF_DEPRECATED void set_has_custom_kernel_params(bool value);
-  private:
-  bool _internal_has_custom_kernel_params() const;
-  void _internal_set_has_custom_kernel_params(bool value);
-  public:
-
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.GetVmLaunchAllowedRequest)
  private:
   class _Internal;
@@ -12929,9 +12886,6 @@ class GetVmLaunchAllowedRequest final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  bool run_as_untrusted_;
-  bool is_trusted_image_;
-  bool has_custom_kernel_params_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -15875,26 +15829,6 @@ inline void StartVmRequest::_internal_set_software_tpm(bool value) {
 inline void StartVmRequest::set_software_tpm(bool value) {
   _internal_set_software_tpm(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.software_tpm)
-}
-
-// bool run_as_untrusted = 10 [deprecated = true];
-inline void StartVmRequest::clear_run_as_untrusted() {
-  run_as_untrusted_ = false;
-}
-inline bool StartVmRequest::_internal_run_as_untrusted() const {
-  return run_as_untrusted_;
-}
-inline bool StartVmRequest::run_as_untrusted() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartVmRequest.run_as_untrusted)
-  return _internal_run_as_untrusted();
-}
-inline void StartVmRequest::_internal_set_run_as_untrusted(bool value) {
-  
-  run_as_untrusted_ = value;
-}
-inline void StartVmRequest::set_run_as_untrusted(bool value) {
-  _internal_set_run_as_untrusted(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.run_as_untrusted)
 }
 
 // bool enable_audio_capture = 11;
@@ -24863,66 +24797,6 @@ inline void AddGroupPermissionMesaRequest::set_allocated_owner_id(std::string* o
 // -------------------------------------------------------------------
 
 // GetVmLaunchAllowedRequest
-
-// bool run_as_untrusted = 1 [deprecated = true];
-inline void GetVmLaunchAllowedRequest::clear_run_as_untrusted() {
-  run_as_untrusted_ = false;
-}
-inline bool GetVmLaunchAllowedRequest::_internal_run_as_untrusted() const {
-  return run_as_untrusted_;
-}
-inline bool GetVmLaunchAllowedRequest::run_as_untrusted() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLaunchAllowedRequest.run_as_untrusted)
-  return _internal_run_as_untrusted();
-}
-inline void GetVmLaunchAllowedRequest::_internal_set_run_as_untrusted(bool value) {
-  
-  run_as_untrusted_ = value;
-}
-inline void GetVmLaunchAllowedRequest::set_run_as_untrusted(bool value) {
-  _internal_set_run_as_untrusted(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLaunchAllowedRequest.run_as_untrusted)
-}
-
-// bool is_trusted_image = 2 [deprecated = true];
-inline void GetVmLaunchAllowedRequest::clear_is_trusted_image() {
-  is_trusted_image_ = false;
-}
-inline bool GetVmLaunchAllowedRequest::_internal_is_trusted_image() const {
-  return is_trusted_image_;
-}
-inline bool GetVmLaunchAllowedRequest::is_trusted_image() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLaunchAllowedRequest.is_trusted_image)
-  return _internal_is_trusted_image();
-}
-inline void GetVmLaunchAllowedRequest::_internal_set_is_trusted_image(bool value) {
-  
-  is_trusted_image_ = value;
-}
-inline void GetVmLaunchAllowedRequest::set_is_trusted_image(bool value) {
-  _internal_set_is_trusted_image(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLaunchAllowedRequest.is_trusted_image)
-}
-
-// bool has_custom_kernel_params = 3 [deprecated = true];
-inline void GetVmLaunchAllowedRequest::clear_has_custom_kernel_params() {
-  has_custom_kernel_params_ = false;
-}
-inline bool GetVmLaunchAllowedRequest::_internal_has_custom_kernel_params() const {
-  return has_custom_kernel_params_;
-}
-inline bool GetVmLaunchAllowedRequest::has_custom_kernel_params() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLaunchAllowedRequest.has_custom_kernel_params)
-  return _internal_has_custom_kernel_params();
-}
-inline void GetVmLaunchAllowedRequest::_internal_set_has_custom_kernel_params(bool value) {
-  
-  has_custom_kernel_params_ = value;
-}
-inline void GetVmLaunchAllowedRequest::set_has_custom_kernel_params(bool value) {
-  _internal_set_has_custom_kernel_params(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLaunchAllowedRequest.has_custom_kernel_params)
-}
 
 // -------------------------------------------------------------------
 

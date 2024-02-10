@@ -97,7 +97,8 @@ class  LoadModelParams_Data {
   uint8_t ts_dimension_$flag : 1;
   uint8_t pad2_[3];
   uint32_t ts_dimension_$value;
-  uint8_t padfinal_[4];
+  uint8_t pad3_[4];
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> adaptation_ranks;
 
  private:
   friend class mojo::internal::MessageFragment<LoadModelParams_Data>;
@@ -105,7 +106,7 @@ class  LoadModelParams_Data {
   LoadModelParams_Data();
   ~LoadModelParams_Data() = delete;
 };
-static_assert(sizeof(LoadModelParams_Data) == 32,
+static_assert(sizeof(LoadModelParams_Data) == 40,
               "Bad sizeof(LoadModelParams_Data)");
 // Used by LoadModelParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

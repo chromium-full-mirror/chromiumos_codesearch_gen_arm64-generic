@@ -3,6 +3,8 @@
 
 #include "printing/backend/ipp_handler_map.h"
 
+#include <string_view>
+
 #include "base/functional/bind.h"
 #include "printing/backend/ipp_handlers.h"
 

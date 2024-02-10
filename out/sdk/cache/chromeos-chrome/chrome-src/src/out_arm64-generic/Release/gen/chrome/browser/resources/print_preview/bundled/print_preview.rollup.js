@@ -20323,7 +20323,7 @@ function getTemplate$5() {
     return html `<!--_html_template_start_--><style include="cr-shared-style cr-hidden-style">:host{--dropdown-bg-color:var(--google-grey-100);--dropdown-focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--dropdown-option-bg-color:white}@media (prefers-color-scheme:dark){:host{--dropdown-bg-color:rgba(0, 0, 0, 0.3);--dropdown-focus-shadow-color:rgba(var(--google-blue-300-rgb), .4);--dropdown-option-bg-color:var(--google-grey-900-white-4-percent)}}#destinationDropdown{outline:0;position:relative}#destinationDropdown:focus{border-radius:4px;box-shadow:0 0 0 2px var(--dropdown-focus-shadow-color)}#destinationDropdown,iron-dropdown{width:var(--print-preview-dropdown-width)}iron-dropdown{border:.5px solid rgba(0,0,0,.5);max-height:270px}iron-dropdown [slot=dropdown-content]{background-color:var(--dropdown-option-bg-color);box-shadow:var(--cr-menu-shadow);padding:8px 0}#dropdown-icon{--iron-icon-height:24px;--iron-icon-width:44px;align-items:center;left:2px;margin-inline-start:-4px;top:50%}:host-context([dir=rtl]) #dropdown-icon{right:2px}#dropdown-box{border-radius:4px;height:100%;left:0;margin-top:24px;overflow:hidden;pointer-events:initial;position:absolute;top:0;width:100%}.list-item{background:0 0;border:none;box-sizing:border-box;cursor:pointer;font:inherit;min-height:32px;padding:0 8px;text-align:start;width:100%}.list-item:focus{outline:0}.list-item.highlighted{background-color:var(--google-blue-100)}@media (prefers-color-scheme:dark){.list-item.highlighted{--iron-icon-fill-color:currentColor;background-color:var(--google-blue-200);color:var(--google-grey-900)}}#destination-icon-box,.printer-display-name{padding-inline-start:8px}#destination-display-container{align-items:center;background-color:var(--dropdown-bg-color);border-radius:4px;cursor:pointer;display:flex;width:100%}:host([disabled]) #destination-display-container{cursor:default;opacity:var(--cr-disabled-opacity)}#destination-display{box-sizing:border-box;overflow:hidden;padding-inline-start:8px;text-overflow:ellipsis;white-space:nowrap;width:100%}</style>
 <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
 </iron-media-query>
-<div id="destinationDropdown" on-keydown="onKeyDown_" tabindex="0" on-blur="onBlur_" on-click="onClick_" role="button" aria-haspopup="true" aria-label="$i18n{destinationLabel} [[value.displayName]]" aria-description$="[[getAriaDescription_(destinationStatusText)]]">
+<div id="destinationDropdown" on-keydown="onKeyDown_" tabindex="0" on-blur="onBlur_" on-click="onClick_" role="button" aria-haspopup="true" aria-label="$i18n{destinationLabel} [[value.displayName]]" aria-description$="[[getAriaDescription_(destinationStatusText)]]" aria-expanded="[[opened_]]" aria-setsize$="[[dropdownLength_]]">
   <div id="destination-display-container">
     <div id="destination-icon-box">
       <iron-icon icon="[[destinationIcon]]"></iron-icon>
@@ -20339,7 +20339,7 @@ function getTemplate$5() {
         <template is="dom-repeat" items="[[itemList]]">
           <button id="[[item.key]]" tabindex="-1" value="[[item.key]]" on-click="onSelect_" on-blur="onBlur_" role="menuitem" aria-setsize$="[[dropdownLength_]]" class$="list-item [[getHighlightedClass_(item.key,
                   highlightedIndex_)]]" aria-description$="[[getPrinterStatusErrorString_(
-                  item.printerStatusReason)]]">
+                  item.printerStatusReason)]]" aria-posinset$="[[getPrinterPosinset_(index)]]">
             <iron-icon icon="[[getPrinterStatusIcon_(
                 item.printerStatusReason, item.isEnterprisePrinter,
                 isDarkModeActive_)]]">
@@ -20347,19 +20347,19 @@ function getTemplate$5() {
             <span class="printer-display-name">[[item.displayName]]</span>
           </button>
         </template>
-        <button on-click="onSelect_" tabindex="-1" value="[[pdfDestinationKey]]" hidden$="[[pdfPrinterDisabled]]" on-blur="onBlur_" role="menuitem" aria-setsize$="[[dropdownLength_]]" class$="list-item [[getHighlightedClass_(pdfDestinationKey,
+        <button on-click="onSelect_" tabindex="-1" value="[[pdfDestinationKey]]" hidden$="[[pdfPrinterDisabled]]" on-blur="onBlur_" role="menuitem" aria-setsize$="[[dropdownLength_]]" aria-posinset$="[[pdfPosinset]]" class$="list-item [[getHighlightedClass_(pdfDestinationKey,
               highlightedIndex_)]]">
           $i18n{printToPDF}
         </button>
-        <button on-click="onSelect_" tabindex="-1" on-blur="onBlur_" value="[[driveDestinationKey]]" hidden$="[[!driveDestinationKey]]" role="menuitem" aria-setsize$="[[dropdownLength_]]" class$="list-item [[getHighlightedClass_(driveDestinationKey,
+        <button on-click="onSelect_" tabindex="-1" on-blur="onBlur_" value="[[driveDestinationKey]]" hidden$="[[!driveDestinationKey]]" role="menuitem" aria-setsize$="[[dropdownLength_]]" aria-posinset$="[[drivePosinset]]" class$="list-item [[getHighlightedClass_(driveDestinationKey,
               highlightedIndex_)]]">
           $i18n{printToGoogleDrive}
         </button>
-        <button on-click="onSelect_" tabindex="-1" value="noDestinations" hidden$="[[!noDestinations]]" on-blur="onBlur_" role="menuitem" aria-setsize$="[[dropdownLength_]]" class$="list-item [[getHighlightedClass_('noDestinations',
+        <button on-click="onSelect_" tabindex="-1" value="noDestinations" hidden$="[[!noDestinations]]" on-blur="onBlur_" role="menuitem" aria-setsize$="[[dropdownLength_]]" aria-posinset$="1" class$="list-item [[getHighlightedClass_('noDestinations',
               highlightedIndex_)]]">
           $i18n{noDestinationsMessage}
         </button>
-        <button on-click="onSelect_" tabindex="-1" value="seeMore" aria-label="$i18n{seeMoreDestinationsLabel}" on-blur="onBlur_" role="menuitem" aria-setsize$="[[dropdownLength_]]" class$="list-item [[getHighlightedClass_('seeMore',
+        <button on-click="onSelect_" tabindex="-1" value="seeMore" aria-label="$i18n{seeMoreDestinationsLabel}" on-blur="onBlur_" aria-posinset$="[[seeMorePosinset]]" role="menuitem" aria-setsize$="[[dropdownLength_]]" class$="list-item [[getHighlightedClass_('seeMore',
               highlightedIndex_)]]">
           $i18n{seeMore}
         </button>
@@ -20415,7 +20415,15 @@ class PrintPreviewDestinationDropdownCrosElement extends PrintPreviewDestination
                     'driveDestinationKey, noDestinations)',
             },
             destinationStatusText: String,
+            pdfPosinset: Number,
+            drivePosinset: Number,
+            seeMorePosinset: Number,
         };
+    }
+    static get observers() {
+        return [
+            'updateAriaPosinset(itemList, pdfPrinterDisabled, driveDestinationKey)',
+        ];
     }
     ready() {
         super.ready();
@@ -20616,6 +20624,22 @@ class PrintPreviewDestinationDropdownCrosElement extends PrintPreviewDestination
     }
     getPrinterStatusIcon_(printerStatusReason, isEnterprisePrinter) {
         return getPrinterStatusIcon(printerStatusReason, isEnterprisePrinter, this.isDarkModeActive_);
+    }
+    getPrinterPosinset_(index) {
+        return index + 1;
+    }
+    /**
+     * Set the ARIA position in the dropdown based on the visible items.
+     */
+    updateAriaPosinset() {
+        let currentPosition = this.itemList ? this.itemList.length + 1 : 1;
+        if (!this.pdfPrinterDisabled) {
+            this.pdfPosinset = currentPosition++;
+        }
+        if (this.driveDestinationKey) {
+            this.drivePosinset = currentPosition++;
+        }
+        this.seeMorePosinset = currentPosition++;
     }
 }
 customElements.define(PrintPreviewDestinationDropdownCrosElement.is, PrintPreviewDestinationDropdownCrosElement);

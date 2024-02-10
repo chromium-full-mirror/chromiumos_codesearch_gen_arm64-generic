@@ -81,6 +81,63 @@ bool PageHandler_GetTabs_ResponseParams_Data::Validate(
 PageHandler_GetTabs_ResponseParams_Data::PageHandler_GetTabs_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool PageHandler_DismissModule_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_DismissModule_Params_Data* object =
+      static_cast<const PageHandler_DismissModule_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->urls, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& urls_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->urls, validation_context,
+                                         &urls_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+PageHandler_DismissModule_Params_Data::PageHandler_DismissModule_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_RestoreModule_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_RestoreModule_Params_Data* object =
+      static_cast<const PageHandler_RestoreModule_Params_Data*>(data);
+
+  return true;
+}
+
+PageHandler_RestoreModule_Params_Data::PageHandler_RestoreModule_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace tab_resumption

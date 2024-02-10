@@ -8932,6 +8932,12 @@ TestController::IPCStableHashFunction TestController::MessageToMethodInfo_(mojo:
     case internal::kTestController_IsToastShown_Name: {
       return &TestController::IsToastShown_Sym::IPCStableHash;
     }
+    case internal::kTestController_SnapWindow_Name: {
+      return &TestController::SnapWindow_Sym::IPCStableHash;
+    }
+    case internal::kTestController_IsShelfVisible_Name: {
+      return &TestController::IsShelfVisible_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -9033,6 +9039,10 @@ const char* TestController::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::TestController::SetAlmanacEndpointUrlForTesting";
       case internal::kTestController_IsToastShown_Name:
             return "Receive crosapi::mojom::TestController::IsToastShown";
+      case internal::kTestController_SnapWindow_Name:
+            return "Receive crosapi::mojom::TestController::SnapWindow";
+      case internal::kTestController_IsShelfVisible_Name:
+            return "Receive crosapi::mojom::TestController::IsShelfVisible";
     }
   } else {
     switch (message.name()) {
@@ -9126,6 +9136,10 @@ const char* TestController::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::TestController::SetAlmanacEndpointUrlForTesting";
       case internal::kTestController_IsToastShown_Name:
             return "Receive reply crosapi::mojom::TestController::IsToastShown";
+      case internal::kTestController_SnapWindow_Name:
+            return "Receive reply crosapi::mojom::TestController::SnapWindow";
+      case internal::kTestController_IsShelfVisible_Name:
+            return "Receive reply crosapi::mojom::TestController::IsShelfVisible";
     }
   }
   return "Receive unknown mojo message";
@@ -9721,6 +9735,32 @@ uint32_t TestController::IsToastShown_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)crosapi::mojom::TestController::IsToastShown");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t TestController::SnapWindow_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::TestController::SnapWindow");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t TestController::IsShelfVisible_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::TestController::IsShelfVisible");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -10333,6 +10373,38 @@ class TestController_IsToastShown_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   TestController::IsToastShownCallback callback_;
+};
+
+class TestController_SnapWindow_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  TestController_SnapWindow_ForwardToCallback(
+      TestController::SnapWindowCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  TestController_SnapWindow_ForwardToCallback(const TestController_SnapWindow_ForwardToCallback&) = delete;
+  TestController_SnapWindow_ForwardToCallback& operator=(const TestController_SnapWindow_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  TestController::SnapWindowCallback callback_;
+};
+
+class TestController_IsShelfVisible_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  TestController_IsShelfVisible_ForwardToCallback(
+      TestController::IsShelfVisibleCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  TestController_IsShelfVisible_ForwardToCallback(const TestController_IsShelfVisible_ForwardToCallback&) = delete;
+  TestController_IsShelfVisible_ForwardToCallback& operator=(const TestController_IsShelfVisible_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  TestController::IsShelfVisibleCallback callback_;
 };
 
 TestControllerProxy::TestControllerProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -12395,6 +12467,97 @@ void TestControllerProxy::IsToastShown(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new TestController_IsToastShown_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void TestControllerProxy::SnapWindow(
+    const std::string& in_window_id, SnapPosition in_position, SnapWindowCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::TestController::SnapWindow", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("window_id"), in_window_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("position"), in_position,
+                        "<value of type SnapPosition>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kTestController_SnapWindow_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::TestController_SnapWindow_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->window_id)::BaseType> window_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_window_id, window_id_fragment);
+  params->window_id.Set(
+      window_id_fragment.is_null() ? nullptr : window_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->window_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null window_id in TestController.SnapWindow request");
+  mojo::internal::Serialize<::crosapi::mojom::SnapPosition>(
+      in_position, &params->position);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TestController::Name_);
+  message.set_method_name("SnapWindow");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new TestController_SnapWindow_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void TestControllerProxy::IsShelfVisible(
+    IsShelfVisibleCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::IsShelfVisible");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kTestController_IsShelfVisible_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::TestController_IsShelfVisible_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TestController::Name_);
+  message.set_method_name("IsShelfVisible");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new TestController_IsShelfVisible_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -16913,6 +17076,236 @@ void TestController_IsToastShown_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class TestController_SnapWindow_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static TestController::SnapWindowCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<TestController_SnapWindow_ProxyToResponder> proxy(
+        new TestController_SnapWindow_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&TestController_SnapWindow_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~TestController_SnapWindow_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  TestController_SnapWindow_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "TestController::SnapWindowCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      );
+};
+
+bool TestController_SnapWindow_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::TestController_SnapWindow_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::TestController_SnapWindow_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for TestController.46
+  bool success = true;
+  TestController_SnapWindow_ResponseParamsDataView input_data_view(params, message);
+  
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        TestController::Name_, 46, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run();
+  return true;
+}
+
+void TestController_SnapWindow_ProxyToResponder::Run(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send reply crosapi::mojom::TestController::SnapWindow");
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kTestController_SnapWindow_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::TestController_SnapWindow_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TestController::Name_);
+  message.set_method_name("SnapWindow");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class TestController_IsShelfVisible_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static TestController::IsShelfVisibleCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<TestController_IsShelfVisible_ProxyToResponder> proxy(
+        new TestController_IsShelfVisible_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&TestController_IsShelfVisible_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~TestController_IsShelfVisible_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  TestController_IsShelfVisible_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "TestController::IsShelfVisibleCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_visible);
+};
+
+bool TestController_IsShelfVisible_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::TestController_IsShelfVisible_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::TestController_IsShelfVisible_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for TestController.47
+  bool success = true;
+  bool p_visible{};
+  TestController_IsShelfVisible_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_visible = input_data_view.visible();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        TestController::Name_, 47, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_visible));
+  return true;
+}
+
+void TestController_IsShelfVisible_ProxyToResponder::Run(
+    bool in_visible) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::TestController::IsShelfVisible", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("visible"), in_visible,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kTestController_IsShelfVisible_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::TestController_IsShelfVisible_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->visible = in_visible;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TestController::Name_);
+  message.set_method_name("IsShelfVisible");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool TestControllerStubDispatch::Accept(
@@ -17239,6 +17632,12 @@ bool TestControllerStubDispatch::Accept(
       break;
     }
     case internal::kTestController_IsToastShown_Name: {
+      break;
+    }
+    case internal::kTestController_SnapWindow_Name: {
+      break;
+    }
+    case internal::kTestController_IsShelfVisible_Name: {
       break;
     }
   }
@@ -18419,6 +18818,68 @@ bool TestControllerStubDispatch::AcceptWithResponder(
         std::move(p_toast_id), std::move(callback));
       return true;
     }
+    case internal::kTestController_SnapWindow_Name: {
+
+      internal::TestController_SnapWindow_Params_Data* params =
+          reinterpret_cast<
+              internal::TestController_SnapWindow_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for TestController.46
+      bool success = true;
+      std::string p_window_id{};
+      SnapPosition p_position{};
+      TestController_SnapWindow_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadWindowId(&p_window_id))
+        success = false;
+      if (success && !input_data_view.ReadPosition(&p_position))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            TestController::Name_, 46, false);
+        return false;
+      }
+      TestController::SnapWindowCallback callback =
+          TestController_SnapWindow_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SnapWindow(        
+        std::move(p_window_id), 
+        std::move(p_position), std::move(callback));
+      return true;
+    }
+    case internal::kTestController_IsShelfVisible_Name: {
+
+      internal::TestController_IsShelfVisible_Params_Data* params =
+          reinterpret_cast<
+              internal::TestController_IsShelfVisible_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for TestController.47
+      bool success = true;
+      TestController_IsShelfVisible_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            TestController::Name_, 47, false);
+        return false;
+      }
+      TestController::IsShelfVisibleCallback callback =
+          TestController_IsShelfVisible_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->IsShelfVisible(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -18516,6 +18977,10 @@ static const mojo::internal::GenericValidationInfo kTestControllerValidationInfo
      &internal::TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data::Validate},
     { &internal::TestController_IsToastShown_Params_Data::Validate,
      &internal::TestController_IsToastShown_ResponseParams_Data::Validate},
+    { &internal::TestController_SnapWindow_Params_Data::Validate,
+     &internal::TestController_SnapWindow_ResponseParams_Data::Validate},
+    { &internal::TestController_IsShelfVisible_Params_Data::Validate,
+     &internal::TestController_IsShelfVisible_ResponseParams_Data::Validate},
 };
 
 bool TestControllerRequestValidator::Accept(mojo::Message* message) {
@@ -19483,6 +19948,12 @@ void TestControllerInterceptorForTesting::SetAlmanacEndpointUrlForTesting(const 
 void TestControllerInterceptorForTesting::IsToastShown(const std::string& toast_id, IsToastShownCallback callback) {
   GetForwardingInterface()->IsToastShown(std::move(toast_id), std::move(callback));
 }
+void TestControllerInterceptorForTesting::SnapWindow(const std::string& window_id, SnapPosition position, SnapWindowCallback callback) {
+  GetForwardingInterface()->SnapWindow(std::move(window_id), std::move(position), std::move(callback));
+}
+void TestControllerInterceptorForTesting::IsShelfVisible(IsShelfVisibleCallback callback) {
+  GetForwardingInterface()->IsShelfVisible(std::move(callback));
+}
 TestControllerAsyncWaiter::TestControllerAsyncWaiter(
     TestController* proxy) : proxy_(proxy) {}
 
@@ -20242,6 +20713,43 @@ bool TestControllerAsyncWaiter::IsToastShown(
     const std::string& toast_id) {
   bool async_wait_result;
   IsToastShown(std::move(toast_id),&async_wait_result);
+  return async_wait_result;
+}
+
+void TestControllerAsyncWaiter::SnapWindow(
+    const std::string& window_id, SnapPosition position) {
+  base::RunLoop loop;
+  proxy_->SnapWindow(std::move(window_id),std::move(position),
+      base::BindOnce(
+          [](base::RunLoop* loop) {
+            loop->Quit();
+          },
+          &loop));
+  loop.Run();
+}
+
+
+
+void TestControllerAsyncWaiter::IsShelfVisible(
+    bool* out_visible) {
+  base::RunLoop loop;
+  proxy_->IsShelfVisible(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_visible
+,
+             bool visible) {*out_visible = std::move(visible);
+            loop->Quit();
+          },
+          &loop,
+          out_visible));
+  loop.Run();
+}
+
+bool TestControllerAsyncWaiter::IsShelfVisible(
+    ) {
+  bool async_wait_result;
+  IsShelfVisible(&async_wait_result);
   return async_wait_result;
 }
 

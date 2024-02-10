@@ -293,11 +293,11 @@ Polymer({
   },
 
   isBatteryPresent() {
-    return this.batteryState != 'Not Present';
+    return this.batteryState !== 'Not Present';
   },
 
   isDualRole(source) {
-    return source.type == 'DualRoleUSB';
+    return source.type === 'DualRoleUSB';
   },
 
   /**
@@ -306,11 +306,11 @@ Polymer({
    * @private
    */
   cssClassForSetAsSource_(source) {
-    return source.id == this.selectedPowerSourceId ? '' : 'action-button';
+    return source.id === this.selectedPowerSourceId ? '' : 'action-button';
   },
 
   canAmpsChange(type) {
-    return type == 'USB';
+    return type === 'USB';
   },
 
   canBecomeSource(source, selectedId, powerSourceOptionsChange) {
@@ -318,7 +318,7 @@ Polymer({
       return false;
     }
     return !this.powerSourceOptions.some(function(source) {
-      return source.connected && source.type == 'DedicatedCharger';
+      return source.connected && source.type === 'DedicatedCharger';
     });
   },
 });

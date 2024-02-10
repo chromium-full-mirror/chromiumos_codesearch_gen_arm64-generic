@@ -53,6 +53,7 @@
     "preprocessed/mojo/public/mojom/base/int128.mojom-webui.js",
     "preprocessed/mojo/public/mojom/base/process_id.mojom-webui.js",
     "preprocessed/mojo/public/mojom/base/read_only_buffer.mojom-webui.js",
+    "preprocessed/mojo/public/mojom/base/read_only_file.mojom-webui.js",
     "preprocessed/mojo/public/mojom/base/safe_base_name.mojom-webui.js",
     "preprocessed/mojo/public/mojom/base/string16.mojom-webui.js",
     "preprocessed/mojo/public/mojom/base/text_direction.mojom-webui.js",

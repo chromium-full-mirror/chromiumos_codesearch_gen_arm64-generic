@@ -24,6 +24,8 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "services/on_device_model/public/mojom/on_device_model.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/file.mojom-shared.h"
+#include "mojo/public/mojom/base/read_only_file.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -33,6 +35,8 @@
 
 
 namespace on_device_model::mojom {
+class AdaptationAssetsDataView;
+
 class LanguageDetectionResultDataView;
 
 class SafetyInfoDataView;
@@ -40,6 +44,8 @@ class SafetyInfoDataView;
 class ResponseChunkDataView;
 
 class ResponseSummaryDataView;
+
+class LoadAdaptationParamsDataView;
 
 class InputOptionsDataView;
 
@@ -49,6 +55,13 @@ class InputOptionsDataView;
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::on_device_model::mojom::AdaptationAssetsDataView> {
+  using Data = ::on_device_model::mojom::internal::AdaptationAssets_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 template <>
 struct MojomTypeTraits<::on_device_model::mojom::LanguageDetectionResultDataView> {
@@ -74,6 +87,13 @@ struct MojomTypeTraits<::on_device_model::mojom::ResponseChunkDataView> {
 template <>
 struct MojomTypeTraits<::on_device_model::mojom::ResponseSummaryDataView> {
   using Data = ::on_device_model::mojom::internal::ResponseSummary_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::on_device_model::mojom::LoadAdaptationParamsDataView> {
+  using Data = ::on_device_model::mojom::internal::LoadAdaptationParams_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -177,6 +197,62 @@ using OnDeviceModelAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<OnDeviceModelInterfaceBase>;
 using OnDeviceModelAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<OnDeviceModelInterfaceBase>;
+
+
+class AdaptationAssetsDataView {
+ public:
+  AdaptationAssetsDataView() = default;
+
+  AdaptationAssetsDataView(
+      internal::AdaptationAssets_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetModelDataView(
+      ::mojo_base::mojom::ReadOnlyFileDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadModel(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::ReadOnlyFileDataView, UserType>(),
+    "Attempting to read the optional `model` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadModel` instead "
+    "of `ReadModel if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->model.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::ReadOnlyFileDataView>(
+        pointer, output, message_);
+  }
+  inline void GetWeightsDataView(
+      ::mojo_base::mojom::FileDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadWeights(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::FileDataView, UserType>(),
+    "Attempting to read the optional `weights` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadWeights` instead "
+    "of `ReadWeights if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->weights.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::FileDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::AdaptationAssets_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
 
 
 class LanguageDetectionResultDataView {
@@ -336,6 +412,32 @@ static_assert(
 };
 
 
+class LoadAdaptationParamsDataView {
+ public:
+  LoadAdaptationParamsDataView() = default;
+
+  LoadAdaptationParamsDataView(
+      internal::LoadAdaptationParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetAssetsDataView(
+      AdaptationAssetsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAssets(UserType* output) {
+    
+    auto* pointer = data_->assets.Get();
+    return mojo::internal::Deserialize<::on_device_model::mojom::AdaptationAssetsDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::LoadAdaptationParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class InputOptionsDataView {
  public:
   InputOptionsDataView() = default;
@@ -440,6 +542,51 @@ struct Serializer<::on_device_model::mojom::LoadModelResult, MaybeConstUserType>
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::on_device_model::mojom::LoadModelResult>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::on_device_model::mojom::AdaptationAssetsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::on_device_model::mojom::AdaptationAssetsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::on_device_model::mojom::internal::AdaptationAssets_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::model(input)) in_model = Traits::model(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->model)::BaseType> model_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::ReadOnlyFileDataView>(
+        in_model, model_fragment);
+    fragment->model.Set(
+        model_fragment.is_null() ? nullptr : model_fragment.data());
+    decltype(Traits::weights(input)) in_weights = Traits::weights(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->weights)::BaseType> weights_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::FileDataView>(
+        in_weights, weights_fragment);
+    fragment->weights.Set(
+        weights_fragment.is_null() ? nullptr : weights_fragment.data());
+  }
+
+  static bool Deserialize(::on_device_model::mojom::internal::AdaptationAssets_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::on_device_model::mojom::AdaptationAssetsDataView data_view(input, message);
+    return Traits::Read(data_view, output);
   }
 };
 
@@ -628,6 +775,47 @@ struct Serializer<::on_device_model::mojom::ResponseSummaryDataView, MaybeConstU
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::on_device_model::mojom::LoadAdaptationParamsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::on_device_model::mojom::LoadAdaptationParamsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::on_device_model::mojom::internal::LoadAdaptationParams_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::assets(input)) in_assets = Traits::assets(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->assets)::BaseType> assets_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::on_device_model::mojom::AdaptationAssetsDataView>(
+        in_assets, assets_fragment);
+    fragment->assets.Set(
+        assets_fragment.is_null() ? nullptr : assets_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->assets.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null assets in LoadAdaptationParams struct");
+  }
+
+  static bool Deserialize(::on_device_model::mojom::internal::LoadAdaptationParams_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::on_device_model::mojom::LoadAdaptationParamsDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::on_device_model::mojom::InputOptionsDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::on_device_model::mojom::InputOptionsDataView, UserType>;
@@ -687,6 +875,18 @@ struct Serializer<::on_device_model::mojom::InputOptionsDataView, MaybeConstUser
 
 namespace on_device_model::mojom {
 
+inline void AdaptationAssetsDataView::GetModelDataView(
+    ::mojo_base::mojom::ReadOnlyFileDataView* output) {
+  auto pointer = data_->model.Get();
+  *output = ::mojo_base::mojom::ReadOnlyFileDataView(pointer, message_);
+}
+inline void AdaptationAssetsDataView::GetWeightsDataView(
+    ::mojo_base::mojom::FileDataView* output) {
+  auto pointer = data_->weights.Get();
+  *output = ::mojo_base::mojom::FileDataView(pointer, message_);
+}
+
+
 inline void LanguageDetectionResultDataView::GetCodeDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->code.Get();
@@ -722,6 +922,13 @@ inline void ResponseSummaryDataView::GetSafetyInfoDataView(
     SafetyInfoDataView* output) {
   auto pointer = data_->safety_info.Get();
   *output = SafetyInfoDataView(pointer, message_);
+}
+
+
+inline void LoadAdaptationParamsDataView::GetAssetsDataView(
+    AdaptationAssetsDataView* output) {
+  auto pointer = data_->assets.Get();
+  *output = AdaptationAssetsDataView(pointer, message_);
 }
 
 

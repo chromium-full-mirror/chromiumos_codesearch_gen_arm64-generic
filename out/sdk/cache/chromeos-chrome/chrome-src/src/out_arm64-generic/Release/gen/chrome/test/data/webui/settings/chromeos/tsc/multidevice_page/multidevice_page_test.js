@@ -106,7 +106,7 @@ suite('<settings-multidevice-page>', () => {
         assertTrue(!!disabledLocalizedLink);
         const disabledDescription = disabledLocalizedLink.shadowRoot.querySelector('#container');
         assertTrue(!!disabledDescription);
-        return disabledDescription.textContent.trim();
+        return disabledDescription.innerText.trim();
     }
     /**
      * @param feature The feature to change.
@@ -199,16 +199,21 @@ suite('<settings-multidevice-page>', () => {
     function getLabel() {
         const element = multidevicePage.shadowRoot.querySelector('#multideviceLabel');
         assertTrue(!!element);
-        return element.textContent.trim();
+        return element.innerText.trim();
     }
     function getSublabel() {
         const element = multidevicePage.shadowRoot.querySelector('#multideviceSubLabel')
             .shadowRoot.querySelector('#container');
         assertTrue(!!element);
-        return element.textContent.trim();
+        return element.innerText.trim();
     }
     function getSubpage() {
         return multidevicePage.shadowRoot.querySelector('settings-multidevice-subpage');
+    }
+    function getNearbyShareSecondary() {
+        const nearbyShareSecondary = multidevicePage.shadowRoot.querySelector('#nearbyShareSecondary');
+        assertTrue(!!nearbyShareSecondary);
+        return nearbyShareSecondary;
     }
     suite('nearby share description updates with isRevampWayfindingEnabled enabled', () => {
         setup(async () => {
@@ -228,47 +233,46 @@ suite('<settings-multidevice-page>', () => {
             setNearbyShareEnabled(true);
             fakeSettings.setVisibility(Visibility.kAllContacts);
             await flushTasks();
-            const nearbyShareSecondary = multidevicePage.shadowRoot.querySelector('#nearbyShareSecondary');
-            assertTrue(!!nearbyShareSecondary);
-            assertEquals('Visible to all contacts', nearbyShareSecondary.textContent.trim());
+            const nearbyShareSecondary = getNearbyShareSecondary();
+            assertEquals('Visible to all contacts', nearbyShareSecondary.innerText.trim());
         });
         test('nearby share visible to all description shows when it is only visible to selected contacts', async () => {
             setNearbyShareEnabled(true);
             fakeSettings.setVisibility(Visibility.kSelectedContacts);
             await flushTasks();
-            const nearbyShareSecondary = multidevicePage.shadowRoot.querySelector('#nearbyShareSecondary');
+            const nearbyShareSecondary = getNearbyShareSecondary();
             assertTrue(!!nearbyShareSecondary);
-            assertEquals('Visible to some contacts', nearbyShareSecondary.textContent.trim());
+            assertEquals('Visible to some contacts', nearbyShareSecondary.innerText.trim());
         });
         test('nearby share visible to your devices shows when it is only visible to your devices', async () => {
             setNearbyShareEnabled(true);
             fakeSettings.setVisibility(Visibility.kYourDevices);
             await flushTasks();
-            const nearbyShareSecondary = multidevicePage.shadowRoot.querySelector('#nearbyShareSecondary');
+            const nearbyShareSecondary = getNearbyShareSecondary();
             assertTrue(!!nearbyShareSecondary);
-            assertEquals('Visible to your devices', nearbyShareSecondary.textContent.trim());
+            assertEquals('Visible to your devices', nearbyShareSecondary.innerText.trim());
         });
         test('nearby share hidden description shows when no contact is selected', async () => {
             setNearbyShareEnabled(true);
             fakeSettings.setVisibility(Visibility.kNoOne);
             await flushTasks();
-            const nearbyShareSecondary = multidevicePage.shadowRoot.querySelector('#nearbyShareSecondary');
+            const nearbyShareSecondary = getNearbyShareSecondary();
             assertTrue(!!nearbyShareSecondary);
-            assertEquals('Hidden', nearbyShareSecondary.textContent.trim());
+            assertEquals('Hidden', nearbyShareSecondary.innerText.trim());
         });
         test('nearby share description updates on visibility or enable states change', async () => {
             setNearbyShareEnabled(true);
             fakeSettings.setVisibility(Visibility.kNoOne);
             await flushTasks();
-            const nearbyShareSecondaryEnabled = multidevicePage.shadowRoot.querySelector('#nearbyShareSecondary');
+            const nearbyShareSecondaryEnabled = getNearbyShareSecondary();
             assertTrue(!!nearbyShareSecondaryEnabled);
-            assertEquals('Hidden', nearbyShareSecondaryEnabled.textContent.trim());
+            assertEquals('Hidden', nearbyShareSecondaryEnabled.innerText.trim());
             fakeSettings.setVisibility(Visibility.kAllContacts);
             await flushTasks();
-            assertEquals('Visible to all contacts', nearbyShareSecondaryEnabled.textContent.trim());
+            assertEquals('Visible to all contacts', nearbyShareSecondaryEnabled.innerText.trim());
             fakeSettings.setVisibility(Visibility.kYourDevices);
             await flushTasks();
-            assertEquals('Visible to your devices', nearbyShareSecondaryEnabled.textContent.trim());
+            assertEquals('Visible to your devices', nearbyShareSecondaryEnabled.innerText.trim());
             setNearbyShareEnabled(false);
             flush();
             const disabledDescription = getNearbyShareDisabledDescription();
@@ -277,7 +281,7 @@ suite('<settings-multidevice-page>', () => {
             flush();
             fakeSettings.setVisibility(Visibility.kSelectedContacts);
             await flushTasks();
-            assertEquals('Visible to some contacts', nearbyShareSecondaryEnabled.textContent.trim());
+            assertEquals('Visible to some contacts', nearbyShareSecondaryEnabled.innerText.trim());
         });
     });
     test('clicking setup shows multidevice setup dialog', async () => {
@@ -357,6 +361,12 @@ suite('<settings-multidevice-page>', () => {
             assertEquals('Android phone', getLabel());
             assertEquals(anotherHost, getSublabel());
         });
+        test('Labels for no eligible host device', () => {
+            setHostData(MultiDeviceSettingsMode.NO_ELIGIBLE_HOSTS);
+            assertEquals('Android phone', getLabel());
+            assertEquals('No available devices. Add your Google Account to your phone to ' +
+                'connect it to this Chrome device. Learn more', getSublabel());
+        });
     }
     else {
         test('changing host device changes label', () => {
@@ -365,6 +375,11 @@ suite('<settings-multidevice-page>', () => {
             const anotherHost = `Super Duper ${HOST_DEVICE}`;
             setHostData(MultiDeviceSettingsMode.HOST_SET_VERIFIED, anotherHost);
             assertEquals(anotherHost, getLabel());
+        });
+        test('Labels for no eligible host device', () => {
+            setHostData(MultiDeviceSettingsMode.NO_ELIGIBLE_HOSTS);
+            assertEquals('Android phone', getLabel());
+            assertEquals('No eligible devices. Learn more', getSublabel());
         });
     }
     test('item is actionable if and only if a host is set', () => {

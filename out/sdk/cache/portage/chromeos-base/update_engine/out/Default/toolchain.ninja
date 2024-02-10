@@ -46,29 +46,29 @@ subninja obj/update_engine/libupdate_engine.ninja
 subninja obj/update_engine/libupdate_engine_client.ninja
 subninja obj/update_engine/update_engine.ninja
 rule __update_engine_update_engine-dbus-adaptor___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/var/cache/portage/chromeos-base/update_engine/out/Default/gen/include/dbus_bindings/${source_name_part}.h -service-config= ${in}
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4952/work/update_engine-0.0.3/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/var/cache/portage/chromeos-base/update_engine/out/Default/gen/include/dbus_bindings/${source_name_part}.h -service-config= ${in}
   description = ACTION //update_engine:update_engine-dbus-adaptor(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/dbus_bindings/org.chromium.UpdateEngineInterface.h: __update_engine_update_engine-dbus-adaptor___common-mk_toolchain_toolchain__rule ../../../../../../../mnt/host/source/src/platform2/update_engine/dbus_bindings/org.chromium.UpdateEngineInterface.dbus-xml | ../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py
+build gen/include/dbus_bindings/org.chromium.UpdateEngineInterface.h: __update_engine_update_engine-dbus-adaptor___common-mk_toolchain_toolchain__rule ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4952/work/update_engine-0.0.3/update_engine/dbus_bindings/org.chromium.UpdateEngineInterface.dbus-xml | ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4952/work/update_engine-0.0.3/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.UpdateEngineInterface
 
 build obj/update_engine/update_engine-dbus-adaptor.stamp: stamp gen/include/dbus_bindings/org.chromium.UpdateEngineInterface.h
 rule __update_engine_update_engine-dbus-kiosk-app-client___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config= -proxy=/var/cache/portage/chromeos-base/update_engine/out/Default/gen/include/kiosk-app/dbus-proxies.h -mock=/var/cache/portage/chromeos-base/update_engine/out/Default/gen/include/kiosk-app/dbus-proxy-mocks.h ../../../../../../../mnt/host/source/src/platform2/update_engine/dbus_bindings/org.chromium.KioskAppService.dbus-xml
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4952/work/update_engine-0.0.3/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config= -proxy=/var/cache/portage/chromeos-base/update_engine/out/Default/gen/include/kiosk-app/dbus-proxies.h -mock=/var/cache/portage/chromeos-base/update_engine/out/Default/gen/include/kiosk-app/dbus-proxy-mocks.h ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4952/work/update_engine-0.0.3/update_engine/dbus_bindings/org.chromium.KioskAppService.dbus-xml
   description = ACTION //update_engine:update_engine-dbus-kiosk-app-client(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/kiosk-app/dbus-proxies.h gen/include/kiosk-app/dbus-proxy-mocks.h: __update_engine_update_engine-dbus-kiosk-app-client___common-mk_toolchain_toolchain__rule | ../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../mnt/host/source/src/platform2/update_engine/dbus_bindings/org.chromium.KioskAppService.dbus-xml
+build gen/include/kiosk-app/dbus-proxies.h gen/include/kiosk-app/dbus-proxy-mocks.h: __update_engine_update_engine-dbus-kiosk-app-client___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4952/work/update_engine-0.0.3/common-mk/file_generator_wrapper.py ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4952/work/update_engine-0.0.3/update_engine/dbus_bindings/org.chromium.KioskAppService.dbus-xml
 
 build obj/update_engine/update_engine-dbus-kiosk-app-client.stamp: stamp gen/include/kiosk-app/dbus-proxies.h gen/include/kiosk-app/dbus-proxy-mocks.h
 subninja obj/update_engine/update_engine_client.ninja
 subninja obj/update_engine/update_metadata-protos.ninja
 rule __update_engine_update_metadata-protos_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc update_metadata.proto --proto_path /mnt/host/source/src/platform2/update_engine --proto_path /./usr/share/proto --cpp_out=/var/cache/portage/chromeos-base/update_engine/out/Default/gen/include/update_engine
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4952/work/update_engine-0.0.3/common-mk/file_generator_wrapper.py protoc update_metadata.proto --proto_path /var/tmp/portage/chromeos-base/update_engine-0.0.3-r4952/work/update_engine-0.0.3/update_engine --proto_path /./usr/share/proto --cpp_out=/var/cache/portage/chromeos-base/update_engine/out/Default/gen/include/update_engine
   description = ACTION //update_engine:update_metadata-protos_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/update_engine/update_metadata.pb.cc gen/include/update_engine/update_metadata.pb.h: __update_engine_update_metadata-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../mnt/host/source/src/platform2/update_engine/update_metadata.proto
+build gen/include/update_engine/update_metadata.pb.cc gen/include/update_engine/update_metadata.pb.h: __update_engine_update_metadata-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4952/work/update_engine-0.0.3/common-mk/file_generator_wrapper.py ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4952/work/update_engine-0.0.3/update_engine/update_metadata.proto
 
 build obj/update_engine/update_metadata-protos_gen.stamp: stamp gen/include/update_engine/update_metadata.pb.cc gen/include/update_engine/update_metadata.pb.h

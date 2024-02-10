@@ -8490,19 +8490,15 @@ function getTemplate$7() {
             </settings-privacy-page>
           </settings-section>
         </template>
-        <template is="dom-if" if="[[showPerformancePage_(pageVisibility.performance)]]" restamp>
+        <template is="dom-if" if="[[showPage_(pageVisibility.performance)]]" restamp>
           <settings-section page-title="$i18n{memoryPageTitle}" section="performance" id="performanceSettingsSection">
             <settings-performance-page prefs="{{prefs}}">
             </settings-performance-page>
           </settings-section>
-        </template>
-        <template is="dom-if" if="[[showBatteryPage_(pageVisibility.performance)]]" restamp>
           <settings-section page-title="$i18n{batteryPageTitle}" section="battery" nest-under-section="performance" id="batterySettingsSection" hidden="[[!showBatterySettings_]]">
             <settings-battery-page prefs="{{prefs}}">
             </settings-battery-page>
           </settings-section>
-        </template>
-        <template is="dom-if" if="[[showSpeedPage_(pageVisibility.performance)]]" restamp>
           <settings-section page-title="$i18n{speedPageTitle}" section="speed" nest-under-section="performance" id="speedSettingsSection">
             <settings-speed-page prefs="{{prefs}}"></settings-speed-page>
           </settings-section>
@@ -8770,15 +8766,6 @@ class SettingsBasicPageElement extends SettingsBasicPageElementBase {
         return this.inSearchMode || routes.BASIC.contains(this.currentRoute_);
     }
     showAdvancedSettings_(visibility) {
-        return this.showPage_(visibility);
-    }
-    showPerformancePage_(visibility) {
-        return this.showPage_(visibility);
-    }
-    showBatteryPage_(visibility) {
-        return this.showPage_(visibility);
-    }
-    showSpeedPage_(visibility) {
         return this.showPage_(visibility);
     }
     showSafetyCheckPage_(visibility) {

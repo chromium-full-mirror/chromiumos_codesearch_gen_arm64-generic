@@ -3261,6 +3261,9 @@ Page::IPCStableHashFunction Page::MessageToMethodInfo_(mojo::Message& message) {
     case internal::kPage_TabSearchTabIndexChanged_Name: {
       return &Page::TabSearchTabIndexChanged_Sym::IPCStableHash;
     }
+    case internal::kPage_ShowFREChanged_Name: {
+      return &Page::ShowFREChanged_Sym::IPCStableHash;
+    }
     case internal::kPage_TabOrganizationEnabledChanged_Name: {
       return &Page::TabOrganizationEnabledChanged_Sym::IPCStableHash;
     }
@@ -3285,6 +3288,8 @@ const char* Page::MessageToMethodName_(mojo::Message& message) {
             return "Receive tab_search::mojom::Page::TabsRemoved";
       case internal::kPage_TabSearchTabIndexChanged_Name:
             return "Receive tab_search::mojom::Page::TabSearchTabIndexChanged";
+      case internal::kPage_ShowFREChanged_Name:
+            return "Receive tab_search::mojom::Page::ShowFREChanged";
       case internal::kPage_TabOrganizationEnabledChanged_Name:
             return "Receive tab_search::mojom::Page::TabOrganizationEnabledChanged";
     }
@@ -3300,6 +3305,8 @@ const char* Page::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply tab_search::mojom::Page::TabsRemoved";
       case internal::kPage_TabSearchTabIndexChanged_Name:
             return "Receive reply tab_search::mojom::Page::TabSearchTabIndexChanged";
+      case internal::kPage_ShowFREChanged_Name:
+            return "Receive reply tab_search::mojom::Page::ShowFREChanged";
       case internal::kPage_TabOrganizationEnabledChanged_Name:
             return "Receive reply tab_search::mojom::Page::TabOrganizationEnabledChanged";
     }
@@ -3377,6 +3384,19 @@ uint32_t Page::TabSearchTabIndexChanged_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)tab_search::mojom::Page::TabSearchTabIndexChanged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Page::ShowFREChanged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)tab_search::mojom::Page::ShowFREChanged");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -3645,6 +3665,47 @@ void PageProxy::TabSearchTabIndexChanged(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void PageProxy::ShowFREChanged(
+    bool in_show) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send tab_search::mojom::Page::ShowFREChanged", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("show"), in_show,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPage_ShowFREChanged_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::tab_search::mojom::internal::Page_ShowFREChanged_Params_Data> params(
+          message);
+  params.Allocate();
+  params->show = in_show;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Page::Name_);
+  message.set_method_name("ShowFREChanged");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void PageProxy::TabOrganizationEnabledChanged(
     bool in_enabled) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3831,6 +3892,34 @@ bool PageStubDispatch::Accept(
         std::move(p_index));
       return true;
     }
+    case internal::kPage_ShowFREChanged_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Page_ShowFREChanged_Params_Data* params =
+          reinterpret_cast<internal::Page_ShowFREChanged_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for Page.5
+      bool success = true;
+      bool p_show{};
+      Page_ShowFREChanged_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_show = input_data_view.show();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Page::Name_, 5, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ShowFREChanged(        
+        std::move(p_show));
+      return true;
+    }
     case internal::kPage_TabOrganizationEnabledChanged_Name: {
 
       DCHECK(message->is_serialized());
@@ -3839,7 +3928,7 @@ bool PageStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for Page.5
+      // Validation for Page.6
       bool success = true;
       bool p_enabled{};
       Page_TabOrganizationEnabledChanged_ParamsDataView input_data_view(params, message);
@@ -3850,7 +3939,7 @@ bool PageStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Page::Name_, 5, false);
+            Page::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3887,6 +3976,9 @@ bool PageStubDispatch::AcceptWithResponder(
     case internal::kPage_TabSearchTabIndexChanged_Name: {
       break;
     }
+    case internal::kPage_ShowFREChanged_Name: {
+      break;
+    }
     case internal::kPage_TabOrganizationEnabledChanged_Name: {
       break;
     }
@@ -3905,6 +3997,8 @@ static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
     { &internal::Page_TabsRemoved_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::Page_TabSearchTabIndexChanged_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Page_ShowFREChanged_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::Page_TabOrganizationEnabledChanged_Params_Data::Validate,
      nullptr /* no response */},
@@ -4301,6 +4395,9 @@ void PageInterceptorForTesting::TabsRemoved(TabsRemovedInfoPtr tabsRemovedInfo) 
 }
 void PageInterceptorForTesting::TabSearchTabIndexChanged(int32_t index) {
   GetForwardingInterface()->TabSearchTabIndexChanged(std::move(index));
+}
+void PageInterceptorForTesting::ShowFREChanged(bool show) {
+  GetForwardingInterface()->ShowFREChanged(std::move(show));
 }
 void PageInterceptorForTesting::TabOrganizationEnabledChanged(bool enabled) {
   GetForwardingInterface()->TabOrganizationEnabledChanged(std::move(enabled));

@@ -162,6 +162,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_css_at_rule_counter_style_speak_as_descriptor_enabled_;
     bool is_css_background_clip_unprefix_enabled_;
     bool is_css_calc_simplification_and_serialization_enabled_;
+    bool is_css_calc_size_function_enabled_;
     bool is_css_cap_font_units_enabled_;
     bool is_css_case_sensitive_selector_enabled_;
     bool is_css_color_contrast_enabled_;
@@ -201,6 +202,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_css_phrase_line_break_enabled_;
     bool is_css_position_sticky_static_scroll_position_enabled_;
     bool is_css_progress_notation_enabled_;
+    bool is_css_pseudo_open_closed_enabled_;
     bool is_css_pseudo_playing_paused_enabled_;
     bool is_css_relative_color_enabled_;
     bool is_css_resize_auto_enabled_;
@@ -405,6 +407,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_layout_ng_shape_cache_enabled_;
     bool is_lazy_initialize_media_controls_enabled_;
     bool is_lazy_load_scroll_margin_enabled_;
+    bool is_lazy_load_scroll_margin_iframe_enabled_;
     bool is_lcp_animated_images_web_exposed_enabled_;
     bool is_lcp_mouseover_heuristics_enabled_;
     bool is_lcp_multiple_updates_per_element_enabled_;
@@ -652,7 +655,6 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_strict_mime_types_for_workers_enabled_;
     bool is_stylable_select_enabled_;
     bool is_stylus_handwriting_enabled_;
-    bool is_suggestion_picker_dark_mode_support_enabled_;
     bool is_svg_cross_origin_attribute_enabled_;
     bool is_svg_no_pixel_snapping_scale_adjustment_enabled_;
     bool is_synthesized_keyboard_events_for_accessibility_actions_enabled_;
@@ -1395,6 +1397,12 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
 
   static bool CSSCalcSimplificationAndSerializationEnabled(const FeatureContext*) { return CSSCalcSimplificationAndSerializationEnabled(); }
 
+  static bool CSSCalcSizeFunctionEnabled() {
+    return is_css_calc_size_function_enabled_;
+  }
+
+  static bool CSSCalcSizeFunctionEnabled(const FeatureContext*) { return CSSCalcSizeFunctionEnabled(); }
+
   static bool CSSCapFontUnitsEnabled() {
     return is_css_cap_font_units_enabled_;
   }
@@ -1630,6 +1638,12 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   }
 
   static bool CSSProgressNotationEnabled(const FeatureContext*) { return CSSProgressNotationEnabled(); }
+
+  static bool CSSPseudoOpenClosedEnabled() {
+    return is_css_pseudo_open_closed_enabled_;
+  }
+
+  static bool CSSPseudoOpenClosedEnabled(const FeatureContext*) { return CSSPseudoOpenClosedEnabled(); }
 
   static bool CSSPseudoPlayingPausedEnabled() {
     return is_css_pseudo_playing_paused_enabled_;
@@ -2782,6 +2796,12 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   }
 
   static bool LazyLoadScrollMarginEnabled(const FeatureContext*) { return LazyLoadScrollMarginEnabled(); }
+
+  static bool LazyLoadScrollMarginIframeEnabled() {
+    return is_lazy_load_scroll_margin_iframe_enabled_;
+  }
+
+  static bool LazyLoadScrollMarginIframeEnabled(const FeatureContext*) { return LazyLoadScrollMarginIframeEnabled(); }
 
   static bool LCPAnimatedImagesWebExposedEnabled() {
     return is_lcp_animated_images_web_exposed_enabled_;
@@ -3975,12 +3995,6 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
 
   static bool StylusHandwritingEnabled(const FeatureContext*) { return StylusHandwritingEnabled(); }
 
-  static bool SuggestionPickerDarkModeSupportEnabled() {
-    return is_suggestion_picker_dark_mode_support_enabled_;
-  }
-
-  static bool SuggestionPickerDarkModeSupportEnabled(const FeatureContext*) { return SuggestionPickerDarkModeSupportEnabled(); }
-
   static bool SvgCrossOriginAttributeEnabled() {
     return is_svg_cross_origin_attribute_enabled_;
   }
@@ -5128,6 +5142,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetCSSAtRuleCounterStyleSpeakAsDescriptorEnabled(bool enabled) { is_css_at_rule_counter_style_speak_as_descriptor_enabled_ = enabled; }
   static void SetCSSBackgroundClipUnprefixEnabled(bool enabled) { is_css_background_clip_unprefix_enabled_ = enabled; }
   static void SetCSSCalcSimplificationAndSerializationEnabled(bool enabled) { is_css_calc_simplification_and_serialization_enabled_ = enabled; }
+  static void SetCSSCalcSizeFunctionEnabled(bool enabled) { is_css_calc_size_function_enabled_ = enabled; }
   static void SetCSSCapFontUnitsEnabled(bool enabled) { is_css_cap_font_units_enabled_ = enabled; }
   static void SetCSSCaseSensitiveSelectorEnabled(bool enabled) { is_css_case_sensitive_selector_enabled_ = enabled; }
   static void SetCSSColorContrastEnabled(bool enabled) { is_css_color_contrast_enabled_ = enabled; }
@@ -5167,6 +5182,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetCSSPhraseLineBreakEnabled(bool enabled) { is_css_phrase_line_break_enabled_ = enabled; }
   static void SetCSSPositionStickyStaticScrollPositionEnabled(bool enabled) { is_css_position_sticky_static_scroll_position_enabled_ = enabled; }
   static void SetCSSProgressNotationEnabled(bool enabled) { is_css_progress_notation_enabled_ = enabled; }
+  static void SetCSSPseudoOpenClosedEnabled(bool enabled) { is_css_pseudo_open_closed_enabled_ = enabled; }
   static void SetCSSPseudoPlayingPausedEnabled(bool enabled) { is_css_pseudo_playing_paused_enabled_ = enabled; }
   static void SetCSSRelativeColorEnabled(bool enabled) { is_css_relative_color_enabled_ = enabled; }
   static void SetCSSResizeAutoEnabled(bool enabled) { is_css_resize_auto_enabled_ = enabled; }
@@ -5371,6 +5387,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetLayoutNGShapeCacheEnabled(bool enabled) { is_layout_ng_shape_cache_enabled_ = enabled; }
   static void SetLazyInitializeMediaControlsEnabled(bool enabled) { is_lazy_initialize_media_controls_enabled_ = enabled; }
   static void SetLazyLoadScrollMarginEnabled(bool enabled) { is_lazy_load_scroll_margin_enabled_ = enabled; }
+  static void SetLazyLoadScrollMarginIframeEnabled(bool enabled) { is_lazy_load_scroll_margin_iframe_enabled_ = enabled; }
   static void SetLCPAnimatedImagesWebExposedEnabled(bool enabled) { is_lcp_animated_images_web_exposed_enabled_ = enabled; }
   static void SetLCPMouseoverHeuristicsEnabled(bool enabled) { is_lcp_mouseover_heuristics_enabled_ = enabled; }
   static void SetLCPMultipleUpdatesPerElementEnabled(bool enabled) { is_lcp_multiple_updates_per_element_enabled_ = enabled; }
@@ -5618,7 +5635,6 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetStrictMimeTypesForWorkersEnabled(bool enabled) { is_strict_mime_types_for_workers_enabled_ = enabled; }
   static void SetStylableSelectEnabled(bool enabled) { is_stylable_select_enabled_ = enabled; }
   static void SetStylusHandwritingEnabled(bool enabled) { is_stylus_handwriting_enabled_ = enabled; }
-  static void SetSuggestionPickerDarkModeSupportEnabled(bool enabled) { is_suggestion_picker_dark_mode_support_enabled_ = enabled; }
   static void SetSvgCrossOriginAttributeEnabled(bool enabled) { is_svg_cross_origin_attribute_enabled_ = enabled; }
   static void SetSvgNoPixelSnappingScaleAdjustmentEnabled(bool enabled) { is_svg_no_pixel_snapping_scale_adjustment_enabled_ = enabled; }
   static void SetSynthesizedKeyboardEventsForAccessibilityActionsEnabled(bool enabled) { is_synthesized_keyboard_events_for_accessibility_actions_enabled_ = enabled; }
@@ -5866,6 +5882,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_css_at_rule_counter_style_speak_as_descriptor_enabled_;
   static bool is_css_background_clip_unprefix_enabled_;
   static bool is_css_calc_simplification_and_serialization_enabled_;
+  static bool is_css_calc_size_function_enabled_;
   static bool is_css_cap_font_units_enabled_;
   static bool is_css_case_sensitive_selector_enabled_;
   static bool is_css_color_contrast_enabled_;
@@ -5905,6 +5922,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_css_phrase_line_break_enabled_;
   static bool is_css_position_sticky_static_scroll_position_enabled_;
   static bool is_css_progress_notation_enabled_;
+  static bool is_css_pseudo_open_closed_enabled_;
   static bool is_css_pseudo_playing_paused_enabled_;
   static bool is_css_relative_color_enabled_;
   static bool is_css_resize_auto_enabled_;
@@ -6109,6 +6127,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_layout_ng_shape_cache_enabled_;
   static bool is_lazy_initialize_media_controls_enabled_;
   static bool is_lazy_load_scroll_margin_enabled_;
+  static bool is_lazy_load_scroll_margin_iframe_enabled_;
   static bool is_lcp_animated_images_web_exposed_enabled_;
   static bool is_lcp_mouseover_heuristics_enabled_;
   static bool is_lcp_multiple_updates_per_element_enabled_;
@@ -6356,7 +6375,6 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_strict_mime_types_for_workers_enabled_;
   static bool is_stylable_select_enabled_;
   static bool is_stylus_handwriting_enabled_;
-  static bool is_suggestion_picker_dark_mode_support_enabled_;
   static bool is_svg_cross_origin_attribute_enabled_;
   static bool is_svg_no_pixel_snapping_scale_adjustment_enabled_;
   static bool is_synthesized_keyboard_events_for_accessibility_actions_enabled_;

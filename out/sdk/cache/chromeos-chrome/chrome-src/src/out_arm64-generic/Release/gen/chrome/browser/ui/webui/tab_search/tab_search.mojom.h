@@ -307,6 +307,7 @@ class Page
     kTabUpdatedMinVersion = 0,
     kTabsRemovedMinVersion = 0,
     kTabSearchTabIndexChangedMinVersion = 0,
+    kShowFREChangedMinVersion = 0,
     kTabOrganizationEnabledChangedMinVersion = 0,
   };
 
@@ -326,6 +327,9 @@ class Page
     NOINLINE static uint32_t IPCStableHash();
   };
   struct TabSearchTabIndexChanged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ShowFREChanged_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct TabOrganizationEnabledChanged_Sym {
@@ -348,6 +352,9 @@ class Page
 
   
   virtual void TabSearchTabIndexChanged(int32_t index) = 0;
+
+  
+  virtual void ShowFREChanged(bool show) = 0;
 
   
   virtual void TabOrganizationEnabledChanged(bool enabled) = 0;
@@ -439,6 +446,8 @@ class  PageProxy
   void TabsRemoved(TabsRemovedInfoPtr tabsRemovedInfo) final;
   
   void TabSearchTabIndexChanged(int32_t index) final;
+  
+  void ShowFREChanged(bool show) final;
   
   void TabOrganizationEnabledChanged(bool enabled) final;
 

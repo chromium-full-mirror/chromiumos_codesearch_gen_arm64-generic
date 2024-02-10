@@ -15,6 +15,21 @@ export var CustomizeChromeSection;
     CustomizeChromeSection[CustomizeChromeSection["kShortcuts"] = 1] = "kShortcuts";
     CustomizeChromeSection[CustomizeChromeSection["kModules"] = 2] = "kModules";
 })(CustomizeChromeSection || (CustomizeChromeSection = {}));
+export const ChromeWebStoreCollectionSpec = { $: mojo.internal.Enum() };
+export var ChromeWebStoreCollection;
+(function (ChromeWebStoreCollection) {
+    ChromeWebStoreCollection[ChromeWebStoreCollection["MIN_VALUE"] = 0] = "MIN_VALUE";
+    ChromeWebStoreCollection[ChromeWebStoreCollection["MAX_VALUE"] = 0] = "MAX_VALUE";
+    ChromeWebStoreCollection[ChromeWebStoreCollection["kWrittingEssentials"] = 0] = "kWrittingEssentials";
+})(ChromeWebStoreCollection || (ChromeWebStoreCollection = {}));
+export const ChromeWebStoreCategorySpec = { $: mojo.internal.Enum() };
+export var ChromeWebStoreCategory;
+(function (ChromeWebStoreCategory) {
+    ChromeWebStoreCategory[ChromeWebStoreCategory["MIN_VALUE"] = 0] = "MIN_VALUE";
+    ChromeWebStoreCategory[ChromeWebStoreCategory["MAX_VALUE"] = 1] = "MAX_VALUE";
+    ChromeWebStoreCategory[ChromeWebStoreCategory["kWorkflowPlanning"] = 0] = "kWorkflowPlanning";
+    ChromeWebStoreCategory[ChromeWebStoreCategory["kShopping"] = 1] = "kShopping";
+})(ChromeWebStoreCategory || (ChromeWebStoreCategory = {}));
 export class CustomizeChromePageHandlerFactoryPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -165,19 +180,29 @@ export class CustomizeChromePageHandlerRemote {
             themeId
         ]);
     }
+    openChromeWebStoreCategoryPage(category) {
+        this.proxy.sendMessage(14, CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_ParamsSpec.$, null, [
+            category
+        ]);
+    }
+    openChromeWebStoreCollectionPage(collection) {
+        this.proxy.sendMessage(15, CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_ParamsSpec.$, null, [
+            collection
+        ]);
+    }
     setModulesVisible(visible) {
-        this.proxy.sendMessage(14, CustomizeChromePageHandler_SetModulesVisible_ParamsSpec.$, null, [
+        this.proxy.sendMessage(16, CustomizeChromePageHandler_SetModulesVisible_ParamsSpec.$, null, [
             visible
         ]);
     }
     setModuleDisabled(moduleId, disabled) {
-        this.proxy.sendMessage(15, CustomizeChromePageHandler_SetModuleDisabled_ParamsSpec.$, null, [
+        this.proxy.sendMessage(17, CustomizeChromePageHandler_SetModuleDisabled_ParamsSpec.$, null, [
             moduleId,
             disabled
         ]);
     }
     updateScrollToSection() {
-        this.proxy.sendMessage(16, CustomizeChromePageHandler_UpdateScrollToSection_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(18, CustomizeChromePageHandler_UpdateScrollToSection_ParamsSpec.$, null, []);
     }
 }
 ;
@@ -204,9 +229,11 @@ export class CustomizeChromePageHandlerReceiver {
         this.helper_internal_.registerHandler(11, CustomizeChromePageHandler_SetDailyRefreshCollectionId_ParamsSpec.$, null, impl.setDailyRefreshCollectionId.bind(impl));
         this.helper_internal_.registerHandler(12, CustomizeChromePageHandler_OpenChromeWebStore_ParamsSpec.$, null, impl.openChromeWebStore.bind(impl));
         this.helper_internal_.registerHandler(13, CustomizeChromePageHandler_OpenThirdPartyThemePage_ParamsSpec.$, null, impl.openThirdPartyThemePage.bind(impl));
-        this.helper_internal_.registerHandler(14, CustomizeChromePageHandler_SetModulesVisible_ParamsSpec.$, null, impl.setModulesVisible.bind(impl));
-        this.helper_internal_.registerHandler(15, CustomizeChromePageHandler_SetModuleDisabled_ParamsSpec.$, null, impl.setModuleDisabled.bind(impl));
-        this.helper_internal_.registerHandler(16, CustomizeChromePageHandler_UpdateScrollToSection_ParamsSpec.$, null, impl.updateScrollToSection.bind(impl));
+        this.helper_internal_.registerHandler(14, CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_ParamsSpec.$, null, impl.openChromeWebStoreCategoryPage.bind(impl));
+        this.helper_internal_.registerHandler(15, CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_ParamsSpec.$, null, impl.openChromeWebStoreCollectionPage.bind(impl));
+        this.helper_internal_.registerHandler(16, CustomizeChromePageHandler_SetModulesVisible_ParamsSpec.$, null, impl.setModulesVisible.bind(impl));
+        this.helper_internal_.registerHandler(17, CustomizeChromePageHandler_SetModuleDisabled_ParamsSpec.$, null, impl.setModuleDisabled.bind(impl));
+        this.helper_internal_.registerHandler(18, CustomizeChromePageHandler_UpdateScrollToSection_ParamsSpec.$, null, impl.updateScrollToSection.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -278,15 +305,21 @@ export class CustomizeChromePageHandlerCallbackRouter {
         this.openThirdPartyThemePage =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(13, CustomizeChromePageHandler_OpenThirdPartyThemePage_ParamsSpec.$, null, this.openThirdPartyThemePage.createReceiverHandler(false /* expectsResponse */));
+        this.openChromeWebStoreCategoryPage =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(14, CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_ParamsSpec.$, null, this.openChromeWebStoreCategoryPage.createReceiverHandler(false /* expectsResponse */));
+        this.openChromeWebStoreCollectionPage =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(15, CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_ParamsSpec.$, null, this.openChromeWebStoreCollectionPage.createReceiverHandler(false /* expectsResponse */));
         this.setModulesVisible =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(14, CustomizeChromePageHandler_SetModulesVisible_ParamsSpec.$, null, this.setModulesVisible.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(16, CustomizeChromePageHandler_SetModulesVisible_ParamsSpec.$, null, this.setModulesVisible.createReceiverHandler(false /* expectsResponse */));
         this.setModuleDisabled =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(15, CustomizeChromePageHandler_SetModuleDisabled_ParamsSpec.$, null, this.setModuleDisabled.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(17, CustomizeChromePageHandler_SetModuleDisabled_ParamsSpec.$, null, this.setModuleDisabled.createReceiverHandler(false /* expectsResponse */));
         this.updateScrollToSection =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(16, CustomizeChromePageHandler_UpdateScrollToSection_ParamsSpec.$, null, this.updateScrollToSection.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(18, CustomizeChromePageHandler_UpdateScrollToSection_ParamsSpec.$, null, this.updateScrollToSection.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -425,6 +458,8 @@ export const CustomizeChromePageHandler_SetBackgroundImage_ParamsSpec = { $: {} 
 export const CustomizeChromePageHandler_SetDailyRefreshCollectionId_ParamsSpec = { $: {} };
 export const CustomizeChromePageHandler_OpenChromeWebStore_ParamsSpec = { $: {} };
 export const CustomizeChromePageHandler_OpenThirdPartyThemePage_ParamsSpec = { $: {} };
+export const CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_ParamsSpec = { $: {} };
+export const CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_ParamsSpec = { $: {} };
 export const CustomizeChromePageHandler_SetModulesVisible_ParamsSpec = { $: {} };
 export const CustomizeChromePageHandler_SetModuleDisabled_ParamsSpec = { $: {} };
 export const CustomizeChromePageHandler_UpdateScrollToSection_ParamsSpec = { $: {} };
@@ -515,6 +550,12 @@ mojo.internal.Struct(CustomizeChromePageHandler_SetDailyRefreshCollectionId_Para
 mojo.internal.Struct(CustomizeChromePageHandler_OpenChromeWebStore_ParamsSpec.$, 'CustomizeChromePageHandler_OpenChromeWebStore_Params', [], [[0, 8],]);
 mojo.internal.Struct(CustomizeChromePageHandler_OpenThirdPartyThemePage_ParamsSpec.$, 'CustomizeChromePageHandler_OpenThirdPartyThemePage_Params', [
     mojo.internal.StructField('themeId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_ParamsSpec.$, 'CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params', [
+    mojo.internal.StructField('category', 0, 0, ChromeWebStoreCategorySpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_ParamsSpec.$, 'CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params', [
+    mojo.internal.StructField('collection', 0, 0, ChromeWebStoreCollectionSpec.$, 0, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(CustomizeChromePageHandler_SetModulesVisible_ParamsSpec.$, 'CustomizeChromePageHandler_SetModulesVisible_Params', [
     mojo.internal.StructField('visible', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),

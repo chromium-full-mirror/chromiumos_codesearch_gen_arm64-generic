@@ -291,7 +291,7 @@ export class SettingsCrostiniSubpageElement extends SettingsCrostiniSubpageEleme
      */
     onRemoveClick_() {
         this.browserProxy_.requestRemoveCrostini();
-        recordSettingChange();
+        recordSettingChange(Setting.kUninstallCrostini);
     }
     /**
      * Shows the upgrade flow dialog.

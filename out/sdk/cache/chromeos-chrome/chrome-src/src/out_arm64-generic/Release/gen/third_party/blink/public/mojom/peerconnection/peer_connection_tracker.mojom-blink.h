@@ -449,7 +449,6 @@ class PLATFORM_EXPORT PeerConnectionInfo {
   PeerConnectionInfo(
       int32_t lid,
       const WTF::String& rtc_configuration,
-      const WTF::String& constraints,
       const WTF::String& url);
 
 
@@ -532,8 +531,6 @@ class PLATFORM_EXPORT PeerConnectionInfo {
   
   WTF::String rtc_configuration;
   
-  WTF::String constraints;
-  
   WTF::String url;
 
   // Serialise this struct into a trace.
@@ -573,7 +570,6 @@ PeerConnectionInfoPtr PeerConnectionInfo::Clone() const {
   return New(
       mojo::Clone(lid),
       mojo::Clone(rtc_configuration),
-      mojo::Clone(constraints),
       mojo::Clone(url)
   );
 }
@@ -583,8 +579,6 @@ bool PeerConnectionInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->lid, other_struct.lid))
     return false;
   if (!mojo::Equals(this->rtc_configuration, other_struct.rtc_configuration))
-    return false;
-  if (!mojo::Equals(this->constraints, other_struct.constraints))
     return false;
   if (!mojo::Equals(this->url, other_struct.url))
     return false;
@@ -600,10 +594,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.rtc_configuration < rhs.rtc_configuration)
     return true;
   if (rhs.rtc_configuration < lhs.rtc_configuration)
-    return false;
-  if (lhs.constraints < rhs.constraints)
-    return true;
-  if (rhs.constraints < lhs.constraints)
     return false;
   if (lhs.url < rhs.url)
     return true;
@@ -632,11 +622,6 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::PeerConnectionInfo::D
   static const decltype(::blink::mojom::blink::PeerConnectionInfo::rtc_configuration)& rtc_configuration(
       const ::blink::mojom::blink::PeerConnectionInfoPtr& input) {
     return input->rtc_configuration;
-  }
-
-  static const decltype(::blink::mojom::blink::PeerConnectionInfo::constraints)& constraints(
-      const ::blink::mojom::blink::PeerConnectionInfoPtr& input) {
-    return input->constraints;
   }
 
   static const decltype(::blink::mojom::blink::PeerConnectionInfo::url)& url(

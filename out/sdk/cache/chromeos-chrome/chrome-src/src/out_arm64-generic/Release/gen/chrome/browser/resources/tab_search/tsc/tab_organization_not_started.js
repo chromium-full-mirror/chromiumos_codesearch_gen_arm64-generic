@@ -100,6 +100,9 @@ export class TabOrganizationNotStartedElement extends TabOrganizationNotStartedE
             }
         }
     }
+    shouldShowBodyLink_() {
+        return this.getSyncState_() === SyncState.SYNCED && this.showFre;
+    }
     shouldShowAccountInfo_() {
         return !!this.account_ &&
             (!this.sync_ || !this.sync_.syncing || this.sync_.paused ||
@@ -161,6 +164,17 @@ export class TabOrganizationNotStartedElement extends TabOrganizationNotStartedE
                 // Start a tab organization
                 this.dispatchEvent(new CustomEvent('organize-tabs-click', { bubbles: true, composed: true }));
                 break;
+        }
+    }
+    onLinkClick_() {
+        this.dispatchEvent(new CustomEvent('learn-more-click', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    onLinkKeyDown_(event) {
+        if (event.key === 'Enter') {
+            this.onLinkClick_();
         }
     }
 }

@@ -52,26 +52,56 @@ function loadingReducer(state, action) {
                 },
             };
         case SeaPenActionName.BEGIN_SELECT_RECENT_SEA_PEN_IMAGE:
-        case SeaPenActionName.BEGIN_SELECT_SEA_PEN_THUMBNAIL:
-            return { ...state, setImage: state.setImage + 1 };
+            return {
+                ...state,
+                setImage: state.setImage + 1,
+            };
         case SeaPenActionName.END_SELECT_RECENT_SEA_PEN_IMAGE:
         case SeaPenActionName.END_SELECT_SEA_PEN_THUMBNAIL:
             if (state.setImage <= 0) {
                 console.error('Impossible state for loading.setImage');
                 // Reset to 0.
-                return { ...state, setImage: 0 };
+                return {
+                    ...state,
+                    setImage: 0,
+                };
             }
-            return { ...state, setImage: state.setImage - 1 };
+            return {
+                ...state,
+                setImage: state.setImage - 1,
+            };
         case SeaPenActionName.BEGIN_LOAD_SELECTED_RECENT_SEA_PEN_IMAGE:
+            return {
+                ...state,
+                selected: {
+                    attribution: true,
+                    image: true,
+                },
+            };
         case SeaPenActionName.BEGIN_SELECT_SEA_PEN_THUMBNAIL:
             return {
                 ...state,
-                currentSelected: true,
+                setImage: state.setImage + 1,
+                selected: {
+                    attribution: true,
+                    image: true,
+                },
             };
         case SeaPenActionName.SET_SELECTED_RECENT_SEA_PEN_IMAGE:
             return {
                 ...state,
-                currentSelected: false,
+                selected: {
+                    ...state.selected,
+                    image: false,
+                },
+            };
+        case SeaPenActionName.SET_SEA_PEN_ATTRIBUTION:
+            return {
+                ...state,
+                selected: {
+                    ...state.selected,
+                    attribution: false,
+                },
             };
         default:
             return state;

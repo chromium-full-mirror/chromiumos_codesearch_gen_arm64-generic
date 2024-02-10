@@ -403,6 +403,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   bool cssCalcSimplificationAndSerializationEnabled() {
     return RuntimeEnabledFeatures::CSSCalcSimplificationAndSerializationEnabled();
   }
+  bool cssCalcSizeFunctionEnabled() {
+    return RuntimeEnabledFeatures::CSSCalcSizeFunctionEnabled();
+  }
   bool cssCapFontUnitsEnabled() {
     return RuntimeEnabledFeatures::CSSCapFontUnitsEnabled();
   }
@@ -519,6 +522,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool cssProgressNotationEnabled() {
     return RuntimeEnabledFeatures::CSSProgressNotationEnabled();
+  }
+  bool cssPseudoOpenClosedEnabled() {
+    return RuntimeEnabledFeatures::CSSPseudoOpenClosedEnabled();
   }
   bool cssPseudoPlayingPausedEnabled() {
     return RuntimeEnabledFeatures::CSSPseudoPlayingPausedEnabled();
@@ -1131,6 +1137,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool lazyLoadScrollMarginEnabled() {
     return RuntimeEnabledFeatures::LazyLoadScrollMarginEnabled();
+  }
+  bool lazyLoadScrollMarginIframeEnabled() {
+    return RuntimeEnabledFeatures::LazyLoadScrollMarginIframeEnabled();
   }
   bool lcpAnimatedImagesWebExposedEnabled() {
     return RuntimeEnabledFeatures::LCPAnimatedImagesWebExposedEnabled();
@@ -1872,9 +1881,6 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool stylusHandwritingEnabled() {
     return RuntimeEnabledFeatures::StylusHandwritingEnabled();
-  }
-  bool suggestionPickerDarkModeSupportEnabled() {
-    return RuntimeEnabledFeatures::SuggestionPickerDarkModeSupportEnabled();
   }
   bool svgCrossOriginAttributeEnabled() {
     return RuntimeEnabledFeatures::SvgCrossOriginAttributeEnabled();

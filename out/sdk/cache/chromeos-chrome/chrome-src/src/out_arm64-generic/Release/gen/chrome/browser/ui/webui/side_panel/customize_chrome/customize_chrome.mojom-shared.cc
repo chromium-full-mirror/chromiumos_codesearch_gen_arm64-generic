@@ -47,6 +47,52 @@ std::ostream& operator<<(std::ostream& os, CustomizeChromeSection value) {
   return os << CustomizeChromeSectionToString(value);
 }
 
+NOINLINE static const char* ChromeWebStoreCollectionToStringHelper(ChromeWebStoreCollection value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case ChromeWebStoreCollection::kWrittingEssentials:
+      return "kWrittingEssentials";
+    default:
+      return nullptr;
+  }
+}
+
+std::string ChromeWebStoreCollectionToString(ChromeWebStoreCollection value) {
+  const char *str = ChromeWebStoreCollectionToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown ChromeWebStoreCollection value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, ChromeWebStoreCollection value) {
+  return os << ChromeWebStoreCollectionToString(value);
+}
+
+NOINLINE static const char* ChromeWebStoreCategoryToStringHelper(ChromeWebStoreCategory value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case ChromeWebStoreCategory::kWorkflowPlanning:
+      return "kWorkflowPlanning";
+    case ChromeWebStoreCategory::kShopping:
+      return "kShopping";
+    default:
+      return nullptr;
+  }
+}
+
+std::string ChromeWebStoreCategoryToString(ChromeWebStoreCategory value) {
+  const char *str = ChromeWebStoreCategoryToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown ChromeWebStoreCategory value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, ChromeWebStoreCategory value) {
+  return os << ChromeWebStoreCategoryToString(value);
+}
+
 namespace internal {
 
 
@@ -912,6 +958,62 @@ CustomizeChromePageHandler_OpenThirdPartyThemePage_Params_Data::CustomizeChromeP
 
 
 // static
+bool CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data* object =
+      static_cast<const CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data*>(data);
+
+
+  if (!::side_panel::mojom::internal::ChromeWebStoreCategory_Data
+        ::Validate(object->category, validation_context))
+    return false;
+
+  return true;
+}
+
+CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data::CustomizeChromePageHandler_OpenChromeWebStoreCategoryPage_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data* object =
+      static_cast<const CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data*>(data);
+
+
+  if (!::side_panel::mojom::internal::ChromeWebStoreCollection_Data
+        ::Validate(object->collection, validation_context))
+    return false;
+
+  return true;
+}
+
+CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data::CustomizeChromePageHandler_OpenChromeWebStoreCollectionPage_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CustomizeChromePageHandler_SetModulesVisible_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1115,6 +1217,26 @@ namespace perfetto {
 void TraceFormatTraits<::side_panel::mojom::CustomizeChromeSection>::WriteIntoTrace(
    perfetto::TracedValue context, ::side_panel::mojom::CustomizeChromeSection value) {
   return std::move(context).WriteString(::side_panel::mojom::CustomizeChromeSectionToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::side_panel::mojom::ChromeWebStoreCollection>::WriteIntoTrace(
+   perfetto::TracedValue context, ::side_panel::mojom::ChromeWebStoreCollection value) {
+  return std::move(context).WriteString(::side_panel::mojom::ChromeWebStoreCollectionToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::side_panel::mojom::ChromeWebStoreCategory>::WriteIntoTrace(
+   perfetto::TracedValue context, ::side_panel::mojom::ChromeWebStoreCategory value) {
+  return std::move(context).WriteString(::side_panel::mojom::ChromeWebStoreCategoryToString(value));
 }
 
 } // namespace perfetto

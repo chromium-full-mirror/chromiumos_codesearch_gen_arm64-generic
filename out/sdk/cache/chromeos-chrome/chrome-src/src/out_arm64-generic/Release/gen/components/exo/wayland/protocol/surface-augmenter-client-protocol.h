@@ -265,6 +265,7 @@ enum augmented_surface_error {
 #define AUGMENTED_SURFACE_SET_TRUSTED_DAMAGE 5
 #define AUGMENTED_SURFACE_SET_ROUNDED_CORNERS_CLIP_BOUNDS 6
 #define AUGMENTED_SURFACE_SET_CLIP_RECT 7
+#define AUGMENTED_SURFACE_SET_FRAME_TRACE_ID 8
 
 
 /**
@@ -299,6 +300,10 @@ enum augmented_surface_error {
  * @ingroup iface_augmented_surface
  */
 #define AUGMENTED_SURFACE_SET_CLIP_RECT_SINCE_VERSION 8
+/**
+ * @ingroup iface_augmented_surface
+ */
+#define AUGMENTED_SURFACE_SET_FRAME_TRACE_ID_SINCE_VERSION 11
 
 /** @ingroup iface_augmented_surface */
 static inline void
@@ -458,6 +463,21 @@ augmented_surface_set_clip_rect(struct augmented_surface *augmented_surface, wl_
 {
 	wl_proxy_marshal_flags((struct wl_proxy *) augmented_surface,
 			 AUGMENTED_SURFACE_SET_CLIP_RECT, NULL, wl_proxy_get_version((struct wl_proxy *) augmented_surface), 0, x, y, width, height);
+}
+
+/**
+ * @ingroup iface_augmented_surface
+ *
+ * This sets a trace ID to connect the frame submission trace event flow at
+ * the client and the server side.
+ * This state is double-buffered, and is applied on the next
+ * wl_surface.commit.
+ */
+static inline void
+augmented_surface_set_frame_trace_id(struct augmented_surface *augmented_surface, uint32_t id_hi, uint32_t id_lo)
+{
+	wl_proxy_marshal_flags((struct wl_proxy *) augmented_surface,
+			 AUGMENTED_SURFACE_SET_FRAME_TRACE_ID, NULL, wl_proxy_get_version((struct wl_proxy *) augmented_surface), 0, id_hi, id_lo);
 }
 
 #ifndef AUGMENTED_SUB_SURFACE_ERROR_ENUM
