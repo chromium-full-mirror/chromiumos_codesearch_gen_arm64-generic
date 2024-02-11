@@ -21,8 +21,8 @@ home/chrome-bot/chrome_root/src/third_party/ply/yacc.py
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/safe_browsing/core/common/interfaces.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/safe_browsing/core/common/interfaces__parser.rsp
 home/chrome-bot/chrome_root/src/components/safe_browsing/core/common/safe_browsing_url_checker.mojom
+home/chrome-bot/chrome_root/src/components/safe_browsing/core/common/safe_browsing_url_checker.mojom
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/safe_browsing/core/common/interfaces.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/url/mojom/url_mojom_gurl.build_metadata
 home/chrome-bot/chrome_root/src/url/mojom/url.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/safe_browsing/core/common/interfaces.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/url/mojom/url.mojom-module
-home/chrome-bot/chrome_root/src/components/safe_browsing/core/common/safe_browsing_url_checker.mojom
