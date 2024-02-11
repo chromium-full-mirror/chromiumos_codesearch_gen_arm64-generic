@@ -1,19 +1,19 @@
 {
 	"package": "6bc707c6db9a3133fea579ec40a4d4d1bfc5f0ab58937cbb7e645bd57cb457c8",
 	"files": {
-		"cras_fra_test.cc": "2b6e6d5bece76d519d398930f17a789692f69b886da30da91228e898d39a763e",
-		"pseudonymization_test.cc": "04611cab364590b5db09ff1712d0acecd363f5a94b81e1abef532a6500f3bded",
 		"pseudonymization_none_test.cc": "1607fc37758d54461be8d5afb744459ff3fa9aa1b491f1a3bfe2fd0b1960fadb",
+		"pseudonymization_test.cc": "04611cab364590b5db09ff1712d0acecd363f5a94b81e1abef532a6500f3bded",
 		"rust_common.h": "26aea4f4ea9eb455c7baf059e3070bb6b2d15b68e7067e5c1eb96aafd3e89888",
-		"Cargo.toml": "8cbae6fdb7578113b0363b0b63a62852eb1c38a063f18319c8b0d2665f92cad9",
-		"Cargo.toml.orig": "65c96c8d24d6f4e3020bfcd85f6d4ec046493d0b501c9f3729747aab824b6280",
-		"check_test.cc": "3b6b6667fbf229e7e0f5428087ace524d350d173b09d6097d07848d1e818da2f",
 		"BUILD.bazel": "f4514017c9bf004e41746df3e8830592e809485842606a8b9d4ccf2a43c6ea7d",
 		"src/fra.rs": "36cc03c4589ddf373888eb31207caad864477478c7d0801739a82ed977fe144f",
-		"src/lib.rs": "83f2af205e99c2487bc9c4ad0aa8375a17d4bfde2f60f9e40679aae51e3e9eea",
-		"src/pseudonymization.rs": "b0b710a51f3202ce512af5651f9ad7fca1768f4ea1d23d7dde5c0c6c37404dfc",
 		"src/logging.rs": "344d52048bfba04e075a7ceb585b599b6f1378b55d955ddf9e04bad332ad3693",
+		"src/pseudonymization.rs": "b0b710a51f3202ce512af5651f9ad7fca1768f4ea1d23d7dde5c0c6c37404dfc",
+		"src/lib.rs": "83f2af205e99c2487bc9c4ad0aa8375a17d4bfde2f60f9e40679aae51e3e9eea",
 		"check.c": "94215cf8288d10c1a86fb8c1b78b04d37065ef1083390f1b00adc15b1f74c56a",
+		"Cargo.toml": "8cbae6fdb7578113b0363b0b63a62852eb1c38a063f18319c8b0d2665f92cad9",
+		"cras_fra_test.cc": "2b6e6d5bece76d519d398930f17a789692f69b886da30da91228e898d39a763e",
+		"check_test.cc": "3b6b6667fbf229e7e0f5428087ace524d350d173b09d6097d07848d1e818da2f",
+		"Cargo.toml.orig": "65c96c8d24d6f4e3020bfcd85f6d4ec046493d0b501c9f3729747aab824b6280",
 		"check.h": "97bc200909db77d481b29f803af9d574fbb8a19b6ace65d89c7f186c0b6e0888"
 	}
 }

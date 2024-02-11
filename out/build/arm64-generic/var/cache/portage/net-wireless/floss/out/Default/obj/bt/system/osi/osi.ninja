@@ -1,69 +1,69 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DTARGET_FLOSS -DEXPORT_SYMBOL=__attribute__\(\(visibility\(\"default\"\)\)\) -DFALLTHROUGH_INTENDED=\[\[clang$:$:fallthrough\]\] -DEXCLUDE_NONSTANDARD_CODECS
-include_dirs = -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/linux_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/include_internal -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/stack/include -Igen/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/flags/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/sysprop/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/types -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/gd -Igen/bt/system/gd -Igen/bt/system/gd/dumpsys/bundler -Igen -Igen/bt/system/gd/rust/shim -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/gd/rust/shim
-cflags = -DLIB_OSI_INTERNAL -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -fPIC -Wno-non-c-typedef-for-linkage -Wno-unreachable-code-return -Wno-defaulted-function-deleted -Wno-gnu-variable-sized-type-not-at-end -Wno-format-nonliteral -Wno-inconsistent-missing-override -Wno-unreachable-code -Wno-range-loop-construct -Wno-reorder-init-list -Wno-unused-function -Wno-unused-result -Wno-unused-variable -Wno-unused-const-variable -Wno-format -Wno-pessimizing-move -Wno-unknown-warning-option -Wno-final-dtor-non-final-class -ffile-prefix-map=../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/=\$  -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/metrics -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
+include_dirs = -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/linux_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/include_internal -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/stack/include -Igen/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/flags/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/sysprop/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/types -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/gd -Igen/bt/system/gd -Igen/bt/system/gd/dumpsys/bundler -Igen -Igen/bt/system/gd/rust/shim -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/gd/rust/shim
+cflags = -DLIB_OSI_INTERNAL -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -fPIC -Wno-non-c-typedef-for-linkage -Wno-unreachable-code-return -Wno-defaulted-function-deleted -Wno-gnu-variable-sized-type-not-at-end -Wno-format-nonliteral -Wno-inconsistent-missing-override -Wno-unreachable-code -Wno-range-loop-construct -Wno-reorder-init-list -Wno-unused-function -Wno-unused-result -Wno-unused-variable -Wno-unused-const-variable -Wno-format -Wno-pessimizing-move -Wno-unknown-warning-option -Wno-final-dtor-non-final-class -ffile-prefix-map=../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/=\$  -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/metrics -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -Wno-vla-cxx-extension -Wno-deprecated-this-capture -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -std=c++20
 root_out_dir = .
 target_output_name = libosi
 
 build obj/bt/system/osi/osi.inputdeps.stamp: stamp obj/bt/system/gd/rust/shim/init_flags_bridge_header.stamp obj/external/proto_logging/stats/enums/bluetooth/libbt-platform-protos-lite_gen.stamp
-build obj/bt/system/osi/src/libosi.alarm.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/alarm.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.alarm.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/alarm.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = alarm.cc
   source_name_part = alarm
-build obj/bt/system/osi/src/libosi.allocator.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/allocator.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.allocator.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/allocator.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = allocator.cc
   source_name_part = allocator
-build obj/bt/system/osi/src/libosi.compat.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/compat.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.compat.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/compat.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = compat.cc
   source_name_part = compat
-build obj/bt/system/osi/src/libosi.config.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/config.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.config.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/config.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = config.cc
   source_name_part = config
-build obj/bt/system/osi/src/libosi.fixed_queue.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/fixed_queue.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.fixed_queue.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/fixed_queue.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = fixed_queue.cc
   source_name_part = fixed_queue
-build obj/bt/system/osi/src/libosi.future.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/future.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.future.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/future.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = future.cc
   source_name_part = future
-build obj/bt/system/osi/src/libosi.hash_map_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/hash_map_utils.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.hash_map_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/hash_map_utils.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = hash_map_utils.cc
   source_name_part = hash_map_utils
-build obj/bt/system/osi/src/libosi.list.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/list.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.list.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/list.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = list.cc
   source_name_part = list
-build obj/bt/system/osi/src/libosi.mutex.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/mutex.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.mutex.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/mutex.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = mutex.cc
   source_name_part = mutex
-build obj/bt/system/osi/src/libosi.osi.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/osi.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.osi.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/osi.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = osi.cc
   source_name_part = osi
-build obj/bt/system/osi/src/libosi.properties.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/properties.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.properties.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/properties.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = properties.cc
   source_name_part = properties
-build obj/bt/system/osi/src/libosi.reactor.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/reactor.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.reactor.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/reactor.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = reactor.cc
   source_name_part = reactor
-build obj/bt/system/osi/src/libosi.ringbuffer.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/ringbuffer.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.ringbuffer.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/ringbuffer.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = ringbuffer.cc
   source_name_part = ringbuffer
-build obj/bt/system/osi/src/libosi.socket.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/socket.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.socket.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/socket.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = socket.cc
   source_name_part = socket
-build obj/bt/system/osi/src/socket_utils/libosi.socket_local_client.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/socket_utils/socket_local_client.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/socket_utils/libosi.socket_local_client.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/socket_utils/socket_local_client.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = socket_local_client.cc
   source_name_part = socket_local_client
-build obj/bt/system/osi/src/socket_utils/libosi.socket_local_server.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/socket_utils/socket_local_server.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/socket_utils/libosi.socket_local_server.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/socket_utils/socket_local_server.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = socket_local_server.cc
   source_name_part = socket_local_server
-build obj/bt/system/osi/src/libosi.stack_power_telemetry.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/stack_power_telemetry.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.stack_power_telemetry.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/stack_power_telemetry.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = stack_power_telemetry.cc
   source_name_part = stack_power_telemetry
-build obj/bt/system/osi/src/libosi.thread.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/thread.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.thread.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/thread.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = thread.cc
   source_name_part = thread
-build obj/bt/system/osi/src/libosi.wakelock.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/wakelock.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/libosi.wakelock.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/wakelock.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = wakelock.cc
   source_name_part = wakelock
-build obj/bt/system/osi/src/internal/libosi.semaphore.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5394/work/floss-0.0.2/platform2/bt/system/osi/src/internal/semaphore.cc || obj/bt/system/osi/osi.inputdeps.stamp
+build obj/bt/system/osi/src/internal/libosi.semaphore.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5395/work/floss-0.0.2/platform2/bt/system/osi/src/internal/semaphore.cc || obj/bt/system/osi/osi.inputdeps.stamp
   source_file_part = semaphore.cc
   source_name_part = semaphore
 
