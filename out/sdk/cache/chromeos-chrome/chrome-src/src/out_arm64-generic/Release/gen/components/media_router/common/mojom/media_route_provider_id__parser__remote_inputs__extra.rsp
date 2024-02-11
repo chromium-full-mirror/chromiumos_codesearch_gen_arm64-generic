@@ -21,5 +21,5 @@ home/chrome-bot/chrome_root/src/third_party/ply/yacc.py
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/media_router/common/mojom/media_route_provider_id.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/media_router/common/mojom/media_route_provider_id__parser.rsp
 home/chrome-bot/chrome_root/src/components/media_router/common/mojom/media_route_provider_id.mojom
-home/chrome-bot/chrome_root/src/components/media_router/common/mojom/media_route_provider_id.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/media_router/common/mojom/media_route_provider_id.build_metadata
+home/chrome-bot/chrome_root/src/components/media_router/common/mojom/media_route_provider_id.mojom
