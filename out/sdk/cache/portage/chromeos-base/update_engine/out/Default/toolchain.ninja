@@ -35,16 +35,11 @@ rule copy
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/update_engine/all.stamp
 build obj/update_engine/_delta_generator-install_config.stamp: stamp
-build obj/update_engine/_update_engine-install_config.stamp: stamp
-build obj/update_engine/_update_engine_client-install_config.stamp: stamp
 build obj/update_engine/all.stamp: stamp ./delta_generator obj/update_engine/install_subtool.stamp
 subninja obj/update_engine/delta_generator.ninja
 build obj/update_engine/install_subtool.stamp: stamp
 subninja obj/update_engine/libpayload_consumer.ninja
 subninja obj/update_engine/libpayload_generator.ninja
-subninja obj/update_engine/libupdate_engine.ninja
-subninja obj/update_engine/libupdate_engine_client.ninja
-subninja obj/update_engine/update_engine.ninja
 rule __update_engine_update_engine-dbus-adaptor___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/var/cache/portage/chromeos-base/update_engine/out/Default/gen/include/dbus_bindings/${source_name_part}.h -service-config= ${in}
   description = ACTION //update_engine:update_engine-dbus-adaptor(//common-mk/toolchain:toolchain)
@@ -62,7 +57,6 @@ rule __update_engine_update_engine-dbus-kiosk-app-client___common-mk_toolchain_t
 build gen/include/kiosk-app/dbus-proxies.h gen/include/kiosk-app/dbus-proxy-mocks.h: __update_engine_update_engine-dbus-kiosk-app-client___common-mk_toolchain_toolchain__rule | ../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../mnt/host/source/src/platform2/update_engine/dbus_bindings/org.chromium.KioskAppService.dbus-xml
 
 build obj/update_engine/update_engine-dbus-kiosk-app-client.stamp: stamp gen/include/kiosk-app/dbus-proxies.h gen/include/kiosk-app/dbus-proxy-mocks.h
-subninja obj/update_engine/update_engine_client.ninja
 subninja obj/update_engine/update_metadata-protos.ninja
 rule __update_engine_update_metadata-protos_gen___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc update_metadata.proto --proto_path /mnt/host/source/src/platform2/update_engine --proto_path /./usr/share/proto --cpp_out=/var/cache/portage/chromeos-base/update_engine/out/Default/gen/include/update_engine
