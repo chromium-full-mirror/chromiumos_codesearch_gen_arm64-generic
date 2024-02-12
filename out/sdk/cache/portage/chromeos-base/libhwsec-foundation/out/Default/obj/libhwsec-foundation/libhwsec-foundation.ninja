@@ -1,0 +1,102 @@
+defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DENABLE_PROFILING=false -DCHROMEOS_ENVIRONMENT=1 -DUSE_TPM1=false -DUSE_TPM2=false -DUSE_TPM2_SIMULATOR=false -DUSE_TPM_DYNAMIC=false
+include_dirs = -Igen/include -I../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIC -Wconsumed -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/usr/include/libchrome -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/perfetto -I/usr/include/nss -I/usr/include/nspr -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include -I/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/perfetto -I/usr/include/nss -I/usr/include/nspr -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -I/usr/include/tpm_manager-client
+cflags_cc = -std=gnu++20 -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -Wno-error=deprecated-declarations
+root_out_dir = .
+target_output_name = libhwsec-foundation
+
+build obj/libhwsec-foundation/crypto/libhwsec-foundation.aes.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/crypto/aes.cc
+  source_file_part = aes.cc
+  source_name_part = aes
+build obj/libhwsec-foundation/crypto/libhwsec-foundation.big_num_util.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/crypto/big_num_util.cc
+  source_file_part = big_num_util.cc
+  source_name_part = big_num_util
+build obj/libhwsec-foundation/crypto/libhwsec-foundation.ecdh_hkdf.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/crypto/ecdh_hkdf.cc
+  source_file_part = ecdh_hkdf.cc
+  source_name_part = ecdh_hkdf
+build obj/libhwsec-foundation/crypto/libhwsec-foundation.elliptic_curve.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/crypto/elliptic_curve.cc
+  source_file_part = elliptic_curve.cc
+  source_name_part = elliptic_curve
+build obj/libhwsec-foundation/crypto/libhwsec-foundation.error_util.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/crypto/error_util.cc
+  source_file_part = error_util.cc
+  source_name_part = error_util
+build obj/libhwsec-foundation/crypto/libhwsec-foundation.hkdf.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/crypto/hkdf.cc
+  source_file_part = hkdf.cc
+  source_name_part = hkdf
+build obj/libhwsec-foundation/crypto/libhwsec-foundation.hmac.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/crypto/hmac.cc
+  source_file_part = hmac.cc
+  source_name_part = hmac
+build obj/libhwsec-foundation/crypto/libhwsec-foundation.libscrypt_compat.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/crypto/libscrypt_compat.cc
+  source_file_part = libscrypt_compat.cc
+  source_name_part = libscrypt_compat
+build obj/libhwsec-foundation/crypto/libhwsec-foundation.openssl.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/crypto/openssl.cc
+  source_file_part = openssl.cc
+  source_name_part = openssl
+build obj/libhwsec-foundation/crypto/libhwsec-foundation.rsa.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/crypto/rsa.cc
+  source_file_part = rsa.cc
+  source_name_part = rsa
+build obj/libhwsec-foundation/crypto/libhwsec-foundation.scrypt.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/crypto/scrypt.cc
+  source_file_part = scrypt.cc
+  source_name_part = scrypt
+build obj/libhwsec-foundation/crypto/libhwsec-foundation.secure_blob_util.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/crypto/secure_blob_util.cc
+  source_file_part = secure_blob_util.cc
+  source_name_part = secure_blob_util
+build obj/libhwsec-foundation/crypto/libhwsec-foundation.secure_box.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/crypto/secure_box.cc
+  source_file_part = secure_box.cc
+  source_name_part = secure_box
+build obj/libhwsec-foundation/crypto/libhwsec-foundation.sha.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/crypto/sha.cc
+  source_file_part = sha.cc
+  source_name_part = sha
+build obj/libhwsec-foundation/da_reset/libhwsec-foundation.da_resetter.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/da_reset/da_resetter.cc
+  source_file_part = da_resetter.cc
+  source_name_part = da_resetter
+build obj/libhwsec-foundation/profiling/libhwsec-foundation.profiling.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/profiling/profiling.cc
+  source_file_part = profiling.cc
+  source_name_part = profiling
+build obj/libhwsec-foundation/syscaller/libhwsec-foundation.syscaller_impl.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/syscaller/syscaller_impl.cc
+  source_file_part = syscaller_impl.cc
+  source_name_part = syscaller_impl
+build obj/libhwsec-foundation/tlcl_wrapper/libhwsec-foundation.tlcl_wrapper.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/tlcl_wrapper/tlcl_wrapper.cc
+  source_file_part = tlcl_wrapper.cc
+  source_name_part = tlcl_wrapper
+build obj/libhwsec-foundation/tpm/libhwsec-foundation.tpm_clear.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/tpm/tpm_clear.cc
+  source_file_part = tpm_clear.cc
+  source_name_part = tpm_clear
+build obj/libhwsec-foundation/tpm/libhwsec-foundation.tpm_version.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/tpm/tpm_version.cc
+  source_file_part = tpm_version.cc
+  source_name_part = tpm_version
+build obj/libhwsec-foundation/tpm_error/libhwsec-foundation.auth_failure_analysis.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/tpm_error/auth_failure_analysis.cc
+  source_file_part = auth_failure_analysis.cc
+  source_name_part = auth_failure_analysis
+build obj/libhwsec-foundation/tpm_error/libhwsec-foundation.command_and_response_data.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/tpm_error/command_and_response_data.cc
+  source_file_part = command_and_response_data.cc
+  source_name_part = command_and_response_data
+build obj/libhwsec-foundation/tpm_error/libhwsec-foundation.handle_auth_failure.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/tpm_error/handle_auth_failure.cc
+  source_file_part = handle_auth_failure.cc
+  source_name_part = handle_auth_failure
+build obj/libhwsec-foundation/tpm_error/libhwsec-foundation.tpm_error_data.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/tpm_error/tpm_error_data.cc
+  source_file_part = tpm_error_data.cc
+  source_name_part = tpm_error_data
+build obj/libhwsec-foundation/tpm_error/libhwsec-foundation.tpm_error_uma_report.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/tpm_error/tpm_error_uma_report.cc
+  source_file_part = tpm_error_uma_report.cc
+  source_name_part = tpm_error_uma_report
+build obj/libhwsec-foundation/tpm_error/libhwsec-foundation.tpm_error_uma_reporter.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/tpm_error/tpm_error_uma_reporter.cc
+  source_file_part = tpm_error_uma_reporter.cc
+  source_name_part = tpm_error_uma_reporter
+build obj/libhwsec-foundation/tpm_error/libhwsec-foundation.tpm_error_uma_reporter_impl.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/tpm_error/tpm_error_uma_reporter_impl.cc
+  source_file_part = tpm_error_uma_reporter_impl.cc
+  source_name_part = tpm_error_uma_reporter_impl
+build obj/libhwsec-foundation/utility/libhwsec-foundation.crypto.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/utility/crypto.cc
+  source_file_part = crypto.cc
+  source_name_part = crypto
+build obj/libhwsec-foundation/vpd_reader/libhwsec-foundation.vpd_reader_impl.o: cxx ../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/vpd_reader/vpd_reader_impl.cc
+  source_file_part = vpd_reader_impl.cc
+  source_name_part = vpd_reader_impl
+
+build ./lib/libhwsec-foundation.so: solink obj/libhwsec-foundation/crypto/libhwsec-foundation.aes.o obj/libhwsec-foundation/crypto/libhwsec-foundation.big_num_util.o obj/libhwsec-foundation/crypto/libhwsec-foundation.ecdh_hkdf.o obj/libhwsec-foundation/crypto/libhwsec-foundation.elliptic_curve.o obj/libhwsec-foundation/crypto/libhwsec-foundation.error_util.o obj/libhwsec-foundation/crypto/libhwsec-foundation.hkdf.o obj/libhwsec-foundation/crypto/libhwsec-foundation.hmac.o obj/libhwsec-foundation/crypto/libhwsec-foundation.libscrypt_compat.o obj/libhwsec-foundation/crypto/libhwsec-foundation.openssl.o obj/libhwsec-foundation/crypto/libhwsec-foundation.rsa.o obj/libhwsec-foundation/crypto/libhwsec-foundation.scrypt.o obj/libhwsec-foundation/crypto/libhwsec-foundation.secure_blob_util.o obj/libhwsec-foundation/crypto/libhwsec-foundation.secure_box.o obj/libhwsec-foundation/crypto/libhwsec-foundation.sha.o obj/libhwsec-foundation/da_reset/libhwsec-foundation.da_resetter.o obj/libhwsec-foundation/profiling/libhwsec-foundation.profiling.o obj/libhwsec-foundation/syscaller/libhwsec-foundation.syscaller_impl.o obj/libhwsec-foundation/tlcl_wrapper/libhwsec-foundation.tlcl_wrapper.o obj/libhwsec-foundation/tpm/libhwsec-foundation.tpm_clear.o obj/libhwsec-foundation/tpm/libhwsec-foundation.tpm_version.o obj/libhwsec-foundation/tpm_error/libhwsec-foundation.auth_failure_analysis.o obj/libhwsec-foundation/tpm_error/libhwsec-foundation.command_and_response_data.o obj/libhwsec-foundation/tpm_error/libhwsec-foundation.handle_auth_failure.o obj/libhwsec-foundation/tpm_error/libhwsec-foundation.tpm_error_data.o obj/libhwsec-foundation/tpm_error/libhwsec-foundation.tpm_error_uma_report.o obj/libhwsec-foundation/tpm_error/libhwsec-foundation.tpm_error_uma_reporter.o obj/libhwsec-foundation/tpm_error/libhwsec-foundation.tpm_error_uma_reporter_impl.o obj/libhwsec-foundation/utility/libhwsec-foundation.crypto.o obj/libhwsec-foundation/vpd_reader/libhwsec-foundation.vpd_reader_impl.o || obj/libhwsec-foundation/_libhwsec-foundation-install_config.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,-O2 -Wl,--as-needed -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed -pthread
+  libs = -lbrillo -lbase -lpthread -lcrossystem -lssl -lcrypto -lre2 -labsl_base -lrt -labsl_log_severity -labsl_raw_logging_internal -labsl_spinlock_wait -labsl_throw_delegate -labsl_flags -labsl_flags_commandlineflag -labsl_flags_commandlineflag_internal -labsl_bad_optional_access -labsl_strings -labsl_string_view -labsl_strings_internal -labsl_int128 -labsl_flags_config -labsl_flags_program_name -labsl_synchronization -labsl_graphcycles_internal -labsl_malloc_internal -labsl_kernel_timeout_internal -labsl_time -labsl_civil_time -labsl_time_zone -labsl_stacktrace -labsl_debugging_internal -labsl_symbolize -labsl_demangle_internal -labsl_flags_internal -labsl_flags_marshalling -labsl_str_format_internal -labsl_flags_reflection -labsl_flags_private_handle_accessor -labsl_cord -labsl_cord_internal -labsl_crc_cord_state -labsl_crc32c -labsl_crc_cpu_detect -labsl_crc_internal -labsl_cordz_functions -labsl_exponential_biased -labsl_cordz_info -labsl_cordz_handle -labsl_hash -labsl_city -labsl_bad_variant_access -labsl_low_level_hash -labsl_raw_hash_set -labsl_hashtablez_sampler -lmetrics -lsystem_api-device_management-protos -lsystem_api-hps-protos -lsystem_api-power_manager-protos -lsystem_api-protos -lsystem_api-kerberos-protos -lsystem_api-login_manager-protos -lsystem_api-lorgnette-protos -lsystem_api-smbprovider-protos -lsystem_api-vm_concierge-protos -lsystem_api-vm_applications-protos -lsystem_api-vm_launch-protos -lsystem_api-vm_sk_forwarding-protos -lsystem_api-vm_cicerone-protos -lsystem_api-seneschal-protos -lsystem_api-oobe_config-protos -lsystem_api-runtime_probe-protos -lsystem_api-dlcservice-protos -lsystem_api-update_engine-protos -lsystem_api-vm_plugin_dispatcher-protos -lsystem_api-u2f-protos -lsystem_api-chunneld-protos -lsystem_api-system_proxy-protos -lsystem_api-vm_permission_service-protos -lsystem_api-anomaly_detector-protos -lsystem_api-minios-protos -lsystem_api-dlp-protos -lsystem_api-rmad-protos -lsystem_api-fusebox-protos -lsystem_api-privacy_screen-protos -lsystem_api-cdm_oemcrypto-protos -lsystem_api-ml-protos -lsystem_api-lvmd-protos -lsystem_api-shadercached-protos -lsystem_api-spaced-protos -lsystem_api-imageloader-protos -lsystem_api -lsystem_api-arc-protos -lsystem_api-private_computing-protos -lsystem_api-arcvm_data_migrator-protos -lsystem_api-featured-protos -lsystem_api-vm_wl-protos -lsystem_api-printscanmgr-protos -lsystem_api-vm_memory_management-protos -lvboot_host -ldl
+  frameworks =
+  swiftmodules =
+  output_extension = .so
+  output_dir = .
