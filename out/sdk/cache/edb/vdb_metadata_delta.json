@@ -1,1 +1,1 @@
-{"version": "1", "timestamp": 1707675190.3867073, "deltas": [{"event": "add", "package": "sys-devel/gdb", "version": "9.2.20200923-r13", "slot": "0", "counter": "1057"}]}
+{"version": "1", "timestamp": 1707696990.6681886, "deltas": [{"event": "add", "package": "chromeos-base/ec-devutils", "version": "0.0.3-r13582", "slot": "0", "counter": "1056"}, {"event": "add", "package": "sys-devel/gdb", "version": "9.2.20200923-r13", "slot": "0", "counter": "1057"}]}
