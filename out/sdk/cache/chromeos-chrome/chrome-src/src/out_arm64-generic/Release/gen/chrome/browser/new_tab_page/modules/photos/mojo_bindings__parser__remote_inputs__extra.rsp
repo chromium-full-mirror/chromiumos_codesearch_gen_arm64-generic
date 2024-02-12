@@ -22,7 +22,7 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/br
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/new_tab_page/modules/photos/mojo_bindings__parser.rsp
 home/chrome-bot/chrome_root/src/chrome/browser/new_tab_page/modules/photos/photos.mojom
 home/chrome-bot/chrome_root/src/url/mojom/url.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/new_tab_page/modules/photos/mojo_bindings.build_metadata
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/url/mojom/url_mojom_gurl.build_metadata
 home/chrome-bot/chrome_root/src/chrome/browser/new_tab_page/modules/photos/photos.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/url/mojom/url.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/new_tab_page/modules/photos/mojo_bindings.build_metadata
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/url/mojom/url_mojom_gurl.build_metadata
