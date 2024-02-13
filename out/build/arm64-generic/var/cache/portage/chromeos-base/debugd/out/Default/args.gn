@@ -11,7 +11,7 @@ OS = "linux"
 sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root = "/build/arm64-generic/var/cache/portage/chromeos-base/debugd"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3816/work/debugd-0.0.1"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1"
 libbase_ver = "1257783"
 enable_exceptions = false
 external_cflags = [
@@ -30,7 +30,7 @@ external_cflags = [
   "-fsanitize=cfi-icall",
   "-fsanitize=cfi-vcall",
   "-fsanitize=cfi-unrelated-cast",
-  "-fsanitize-ignorelist=/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3816/files/cfi-ignore.txt",
+  "-fsanitize-ignorelist=/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3817/files/cfi-ignore.txt",
 ]
 external_cxxflags = [
   "-Os",
@@ -48,7 +48,7 @@ external_cxxflags = [
   "-fsanitize=cfi-icall",
   "-fsanitize=cfi-vcall",
   "-fsanitize=cfi-unrelated-cast",
-  "-fsanitize-ignorelist=/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3816/files/cfi-ignore.txt",
+  "-fsanitize-ignorelist=/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3817/files/cfi-ignore.txt",
 ]
 external_cppflags = [
   "-D_FILE_OFFSET_BITS=64",
@@ -67,7 +67,7 @@ external_ldflags = [
   "-fsanitize=cfi-icall",
   "-fsanitize=cfi-vcall",
   "-fsanitize=cfi-unrelated-cast",
-  "-fsanitize-ignorelist=/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3816/files/cfi-ignore.txt",
+  "-fsanitize-ignorelist=/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3817/files/cfi-ignore.txt",
   "-Wl,--lto-O0",
 ]
 use = {

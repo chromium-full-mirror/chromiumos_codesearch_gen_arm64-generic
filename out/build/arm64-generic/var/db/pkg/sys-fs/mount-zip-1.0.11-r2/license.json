@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-fs", "name": "mount-zip", "version": "1.0.11", "revision": 2, "fullname": "sys-fs/mount-zip", "fullnamerev": "sys-fs/mount-zip-1.0.11-r2", "license_names": ["GPL-3+"], "license_text_scanned": [], "homepages": ["https://github.com/google/mount-zip"], "skip": false, "tainted": false, "ebuild_path": null}

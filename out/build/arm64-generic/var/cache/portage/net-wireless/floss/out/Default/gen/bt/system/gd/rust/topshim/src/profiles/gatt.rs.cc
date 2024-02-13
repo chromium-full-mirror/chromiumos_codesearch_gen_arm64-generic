@@ -946,9 +946,9 @@ void bluetooth$topshim$rust$cxxbridge1$BleScannerIntf$MsftAdvMonitorEnable(::blu
   (self.*MsftAdvMonitorEnable$)(call_id, enable);
 }
 
-void bluetooth$topshim$rust$cxxbridge1$BleScannerIntf$SetScanParameters(::bluetooth::topshim::rust::BleScannerIntf &self, ::std::uint8_t scanner_id, ::std::uint16_t scan_interval, ::std::uint16_t scan_window) noexcept {
-  void (::bluetooth::topshim::rust::BleScannerIntf::*SetScanParameters$)(::std::uint8_t, ::std::uint16_t, ::std::uint16_t) = &::bluetooth::topshim::rust::BleScannerIntf::SetScanParameters;
-  (self.*SetScanParameters$)(scanner_id, scan_interval, scan_window);
+void bluetooth$topshim$rust$cxxbridge1$BleScannerIntf$SetScanParameters(::bluetooth::topshim::rust::BleScannerIntf &self, ::std::uint8_t scanner_id, ::std::uint8_t scan_type, ::std::uint16_t scan_interval, ::std::uint16_t scan_window) noexcept {
+  void (::bluetooth::topshim::rust::BleScannerIntf::*SetScanParameters$)(::std::uint8_t, ::std::uint8_t, ::std::uint16_t, ::std::uint16_t) = &::bluetooth::topshim::rust::BleScannerIntf::SetScanParameters;
+  (self.*SetScanParameters$)(scanner_id, scan_type, scan_interval, scan_window);
 }
 
 void bluetooth$topshim$rust$cxxbridge1$BleScannerIntf$BatchscanConfigStorage(::bluetooth::topshim::rust::BleScannerIntf &self, ::std::uint8_t scanner_id, ::std::int32_t batch_scan_full_max, ::std::int32_t batch_scan_trunc_max, ::std::int32_t batch_scan_notify_threshold) noexcept {
