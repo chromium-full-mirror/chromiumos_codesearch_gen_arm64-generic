@@ -1,19 +1,19 @@
 {
 	"package": "70c99662462132cfdc906ea718ae5fdd8d39456511b663083b17825f3a71207b",
 	"files": {
-		"Cargo.toml": "dfb75271275c2cb52b6e26bfc32b09801e548ee3bc0064f0d059265ba0deff42",
-		"Cargo.toml.orig": "930835c3c94b4019083b68cf3e0c02ab5202f2043e14ddf7a711fed7cb1b5c5e",
-		"src/tokio_async.rs": "3f47164612a8b57bfa14d0f3e85648972ea596ca7f04c39f6f7986bf3b80ffee",
-		"src/scm_socket.rs": "3dd95562946c64bd00869bfa64d7b6bfa7eda5027f68fa7833e3e7af2bc0ee64",
-		"src/cras_shm_stream.rs": "9351e67862a96291beb8612f9381665bac366717780dec32c3c64ade9aa04704",
-		"src/async_.rs": "c2ac2894ddc1a94aef028bded213c93d3943cc336fe4a199687bd1a23b42fa9a",
-		"src/cras_stream.rs": "0300e9e32a2dff11c73774f61fa4f282d97a11f000d5ab558c8421ac4be36383",
-		"src/cras_client_message.rs": "cb17906931b026b8a17826db8c37f66fe69bfe3311c763c23d8a0f59142fb2ad",
-		"src/unaligned_memory.rs": "e72253f65228bfa9495f0956850a35290dad783dd7cdd8db6d0be60e183ec45a",
-		"src/audio_socket.rs": "78f2ac34f51e72bcdd67ccb81bc5e2db2015dcfe2187b413a9daea129ff18be1",
-		"src/libcras.rs": "a3d755129f7991d11afb2bb1450690133dddd5cb3b99dcb5e70a44895f457db3",
-		"src/cras_server_socket.rs": "bc0f4433e8ffebe3b686fa75df344460cf9363fa43861169f5ec5562366bd77b",
+		"Android.bp": "6935900c897d6df04ceb4269360754b93d824b02742a465335b701ae5aa392e3",
 		"src/cras_shm.rs": "638b01c80397c014856f8832c7dc008c3375899ff352225296e4917f15854bcd",
-		"Android.bp": "6935900c897d6df04ceb4269360754b93d824b02742a465335b701ae5aa392e3"
+		"src/unaligned_memory.rs": "e72253f65228bfa9495f0956850a35290dad783dd7cdd8db6d0be60e183ec45a",
+		"src/cras_client_message.rs": "cb17906931b026b8a17826db8c37f66fe69bfe3311c763c23d8a0f59142fb2ad",
+		"src/tokio_async.rs": "3f47164612a8b57bfa14d0f3e85648972ea596ca7f04c39f6f7986bf3b80ffee",
+		"src/async_.rs": "c2ac2894ddc1a94aef028bded213c93d3943cc336fe4a199687bd1a23b42fa9a",
+		"src/scm_socket.rs": "3dd95562946c64bd00869bfa64d7b6bfa7eda5027f68fa7833e3e7af2bc0ee64",
+		"src/libcras.rs": "a3d755129f7991d11afb2bb1450690133dddd5cb3b99dcb5e70a44895f457db3",
+		"src/audio_socket.rs": "78f2ac34f51e72bcdd67ccb81bc5e2db2015dcfe2187b413a9daea129ff18be1",
+		"src/cras_server_socket.rs": "bc0f4433e8ffebe3b686fa75df344460cf9363fa43861169f5ec5562366bd77b",
+		"src/cras_stream.rs": "0300e9e32a2dff11c73774f61fa4f282d97a11f000d5ab558c8421ac4be36383",
+		"src/cras_shm_stream.rs": "9351e67862a96291beb8612f9381665bac366717780dec32c3c64ade9aa04704",
+		"Cargo.toml.orig": "930835c3c94b4019083b68cf3e0c02ab5202f2043e14ddf7a711fed7cb1b5c5e",
+		"Cargo.toml": "dfb75271275c2cb52b6e26bfc32b09801e548ee3bc0064f0d059265ba0deff42"
 	}
 }

@@ -1,5 +1,5 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2 -I/build/arm64-generic/usr/include -Igen/bt/system/gd/rust/topshim -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/gd/rust/topshim -Igen -Igen/bt/system/gd -Igen/bt/system/gd/common -Igen/bt/system/gd/hci -Igen/bt/system/gd/l2cap/classic -Igen/bt/system/gd/os -Igen/bt/system/gd/shim -Igen/bt/system/gd/rust/shim -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/gd/rust/shim
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5409/work/floss-0.0.2/platform2 -I/build/arm64-generic/usr/include -Igen/bt/system/gd/rust/topshim -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5409/work/floss-0.0.2/platform2/bt/system/gd/rust/topshim -Igen -Igen/bt/system/gd -Igen/bt/system/gd/common -Igen/bt/system/gd/hci -Igen/bt/system/gd/l2cap/classic -Igen/bt/system/gd/os -Igen/bt/system/gd/shim -Igen/bt/system/gd/rust/shim -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5409/work/floss-0.0.2/platform2/bt/system/gd/rust/shim
 root_out_dir = .
 target_output_name = libbluetooth_topshim
 
