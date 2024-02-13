@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sci-libs", "name": "tensorflow", "version": "2.15.0", "revision": 4, "fullname": "sci-libs/tensorflow", "fullnamerev": "sci-libs/tensorflow-2.15.0-r4", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://www.tensorflow.org/"], "skip": false, "tainted": false, "ebuild_path": null}

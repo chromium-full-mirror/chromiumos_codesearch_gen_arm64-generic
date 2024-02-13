@@ -1,390 +1,390 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DTARGET_FLOSS -DEXPORT_SYMBOL=__attribute__\(\(visibility\(\"default\"\)\)\) -DFALLTHROUGH_INTENDED=\[\[clang$:$:fallthrough\]\] -DEXCLUDE_NONSTANDARD_CODECS
-include_dirs = -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avct -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avrc -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/l2cap -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avdt -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gatt -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gap -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/pan -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/bnep -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/eatt -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/hid -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/metrics -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/sdp -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/smp -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/srvc -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/bta/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/bta/sys -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/btif/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/ctrlr/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/gd -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/hcis -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/linux_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/rpc/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/types -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/udrv/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/vnd/ble -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/vnd/include -Igen/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/flags/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/sysprop/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/include -Igen/bt/system/gd -Igen/bt/system/gd/dumpsys/bundler -Igen -Igen/bt/system/gd/rust/shim -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/gd/rust/shim
-cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC -Wno-non-c-typedef-for-linkage -Wno-unreachable-code-return -Wno-defaulted-function-deleted -Wno-gnu-variable-sized-type-not-at-end -Wno-format-nonliteral -Wno-inconsistent-missing-override -Wno-unreachable-code -Wno-range-loop-construct -Wno-reorder-init-list -Wno-unused-function -Wno-unused-result -Wno-unused-variable -Wno-unused-const-variable -Wno-format -Wno-pessimizing-move -Wno-unknown-warning-option -Wno-final-dtor-non-final-class -ffile-prefix-map=../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/=\$  -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/metrics -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
+include_dirs = -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avct -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avrc -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/l2cap -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avdt -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gatt -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gap -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/pan -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/bnep -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/eatt -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/hid -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/metrics -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/sdp -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/smp -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/srvc -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/bta/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/bta/sys -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/btif/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/ctrlr/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/gd -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/hcis -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/linux_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/rpc/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/types -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/udrv/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/vnd/ble -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/vnd/include -Igen/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/flags/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/sysprop/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/include -Igen/bt/system/gd -Igen/bt/system/gd/dumpsys/bundler -Igen -Igen/bt/system/gd/rust/shim -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/gd/rust/shim
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC -Wno-non-c-typedef-for-linkage -Wno-unreachable-code-return -Wno-defaulted-function-deleted -Wno-gnu-variable-sized-type-not-at-end -Wno-format-nonliteral -Wno-inconsistent-missing-override -Wno-unreachable-code -Wno-range-loop-construct -Wno-reorder-init-list -Wno-unused-function -Wno-unused-result -Wno-unused-variable -Wno-unused-const-variable -Wno-format -Wno-pessimizing-move -Wno-unknown-warning-option -Wno-final-dtor-non-final-class -ffile-prefix-map=../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/=\$  -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/metrics -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -Wno-vla-cxx-extension -Wno-deprecated-this-capture -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -std=c++20
 root_out_dir = .
 target_output_name = stack
 
 build obj/bt/system/stack/stack.inputdeps.stamp: stamp obj/bt/system/gd/rust/shim/init_flags_bridge_header.stamp obj/bt/system/stack/mmc/proto/mmc_config_proto_gen.stamp obj/bt/system/stack/mmc/proto/mmc_service_proto_gen.stamp obj/external/proto_logging/stats/enums/bluetooth/libbt-platform-protos-lite_gen.stamp
-build obj/bt/system/stack/a2dp/stack.a2dp_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/a2dp/a2dp_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/a2dp/stack.a2dp_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/a2dp/a2dp_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = a2dp_api.cc
   source_name_part = a2dp_api
-build obj/bt/system/stack/a2dp/stack.a2dp_codec_config.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/a2dp/a2dp_codec_config.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/a2dp/stack.a2dp_codec_config.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/a2dp/a2dp_codec_config.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = a2dp_codec_config.cc
   source_name_part = a2dp_codec_config
-build obj/bt/system/stack/a2dp/stack.a2dp_ext.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/a2dp/a2dp_ext.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/a2dp/stack.a2dp_ext.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/a2dp/a2dp_ext.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = a2dp_ext.cc
   source_name_part = a2dp_ext
-build obj/bt/system/stack/a2dp/stack.a2dp_sbc.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/a2dp/a2dp_sbc.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/a2dp/stack.a2dp_sbc.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/a2dp/a2dp_sbc.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = a2dp_sbc.cc
   source_name_part = a2dp_sbc
-build obj/bt/system/stack/a2dp/stack.a2dp_sbc_decoder.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/a2dp/a2dp_sbc_decoder.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/a2dp/stack.a2dp_sbc_decoder.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/a2dp/a2dp_sbc_decoder.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = a2dp_sbc_decoder.cc
   source_name_part = a2dp_sbc_decoder
-build obj/bt/system/stack/a2dp/stack.a2dp_sbc_encoder.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/a2dp/a2dp_sbc_encoder.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/a2dp/stack.a2dp_sbc_encoder.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/a2dp/a2dp_sbc_encoder.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = a2dp_sbc_encoder.cc
   source_name_part = a2dp_sbc_encoder
-build obj/bt/system/stack/a2dp/stack.a2dp_sbc_up_sample.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/a2dp/a2dp_sbc_up_sample.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/a2dp/stack.a2dp_sbc_up_sample.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/a2dp/a2dp_sbc_up_sample.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = a2dp_sbc_up_sample.cc
   source_name_part = a2dp_sbc_up_sample
-build obj/bt/system/stack/acl/stack.acl.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/acl/acl.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/acl/stack.acl.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/acl/acl.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = acl.cc
   source_name_part = acl
-build obj/bt/system/stack/acl/stack.ble_acl.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/acl/ble_acl.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/acl/stack.ble_acl.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/acl/ble_acl.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = ble_acl.cc
   source_name_part = ble_acl
-build obj/bt/system/stack/acl/stack.btm_acl.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/acl/btm_acl.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/acl/stack.btm_acl.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/acl/btm_acl.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_acl.cc
   source_name_part = btm_acl
-build obj/bt/system/stack/acl/stack.btm_pm.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/acl/btm_pm.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/acl/stack.btm_pm.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/acl/btm_pm.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_pm.cc
   source_name_part = btm_pm
-build obj/bt/system/stack/arbiter/stack.acl_arbiter.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/arbiter/acl_arbiter.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/arbiter/stack.acl_arbiter.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/arbiter/acl_arbiter.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = acl_arbiter.cc
   source_name_part = acl_arbiter
-build obj/bt/system/stack/avct/stack.avct_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avct/avct_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avct/stack.avct_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avct/avct_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avct_api.cc
   source_name_part = avct_api
-build obj/bt/system/stack/avct/stack.avct_bcb_act.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avct/avct_bcb_act.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avct/stack.avct_bcb_act.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avct/avct_bcb_act.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avct_bcb_act.cc
   source_name_part = avct_bcb_act
-build obj/bt/system/stack/avct/stack.avct_ccb.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avct/avct_ccb.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avct/stack.avct_ccb.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avct/avct_ccb.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avct_ccb.cc
   source_name_part = avct_ccb
-build obj/bt/system/stack/avct/stack.avct_l2c.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avct/avct_l2c.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avct/stack.avct_l2c.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avct/avct_l2c.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avct_l2c.cc
   source_name_part = avct_l2c
-build obj/bt/system/stack/avct/stack.avct_l2c_br.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avct/avct_l2c_br.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avct/stack.avct_l2c_br.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avct/avct_l2c_br.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avct_l2c_br.cc
   source_name_part = avct_l2c_br
-build obj/bt/system/stack/avct/stack.avct_lcb.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avct/avct_lcb.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avct/stack.avct_lcb.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avct/avct_lcb.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avct_lcb.cc
   source_name_part = avct_lcb
-build obj/bt/system/stack/avct/stack.avct_lcb_act.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avct/avct_lcb_act.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avct/stack.avct_lcb_act.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avct/avct_lcb_act.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avct_lcb_act.cc
   source_name_part = avct_lcb_act
-build obj/bt/system/stack/avdt/stack.avdt_ad.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_ad.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avdt/stack.avdt_ad.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_ad.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avdt_ad.cc
   source_name_part = avdt_ad
-build obj/bt/system/stack/avdt/stack.avdt_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avdt/stack.avdt_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avdt_api.cc
   source_name_part = avdt_api
-build obj/bt/system/stack/avdt/stack.avdt_ccb.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_ccb.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avdt/stack.avdt_ccb.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_ccb.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avdt_ccb.cc
   source_name_part = avdt_ccb
-build obj/bt/system/stack/avdt/stack.avdt_ccb_act.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_ccb_act.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avdt/stack.avdt_ccb_act.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_ccb_act.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avdt_ccb_act.cc
   source_name_part = avdt_ccb_act
-build obj/bt/system/stack/avdt/stack.avdt_l2c.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_l2c.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avdt/stack.avdt_l2c.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_l2c.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avdt_l2c.cc
   source_name_part = avdt_l2c
-build obj/bt/system/stack/avdt/stack.avdt_msg.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_msg.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avdt/stack.avdt_msg.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_msg.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avdt_msg.cc
   source_name_part = avdt_msg
-build obj/bt/system/stack/avdt/stack.avdt_scb.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_scb.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avdt/stack.avdt_scb.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_scb.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avdt_scb.cc
   source_name_part = avdt_scb
-build obj/bt/system/stack/avdt/stack.avdt_scb_act.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_scb_act.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avdt/stack.avdt_scb_act.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avdt/avdt_scb_act.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avdt_scb_act.cc
   source_name_part = avdt_scb_act
-build obj/bt/system/stack/avrc/stack.avrc_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avrc/stack.avrc_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avrc_api.cc
   source_name_part = avrc_api
-build obj/bt/system/stack/avrc/stack.avrc_bld_ct.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_bld_ct.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avrc/stack.avrc_bld_ct.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_bld_ct.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avrc_bld_ct.cc
   source_name_part = avrc_bld_ct
-build obj/bt/system/stack/avrc/stack.avrc_bld_tg.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_bld_tg.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avrc/stack.avrc_bld_tg.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_bld_tg.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avrc_bld_tg.cc
   source_name_part = avrc_bld_tg
-build obj/bt/system/stack/avrc/stack.avrc_opt.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_opt.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avrc/stack.avrc_opt.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_opt.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avrc_opt.cc
   source_name_part = avrc_opt
-build obj/bt/system/stack/avrc/stack.avrc_pars_ct.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_pars_ct.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avrc/stack.avrc_pars_ct.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_pars_ct.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avrc_pars_ct.cc
   source_name_part = avrc_pars_ct
-build obj/bt/system/stack/avrc/stack.avrc_pars_tg.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_pars_tg.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avrc/stack.avrc_pars_tg.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_pars_tg.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avrc_pars_tg.cc
   source_name_part = avrc_pars_tg
-build obj/bt/system/stack/avrc/stack.avrc_sdp.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_sdp.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avrc/stack.avrc_sdp.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_sdp.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avrc_sdp.cc
   source_name_part = avrc_sdp
-build obj/bt/system/stack/avrc/stack.avrc_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/avrc/stack.avrc_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/avrc/avrc_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = avrc_utils.cc
   source_name_part = avrc_utils
-build obj/bt/system/stack/bnep/stack.bnep_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/bnep/bnep_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/bnep/stack.bnep_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/bnep/bnep_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = bnep_api.cc
   source_name_part = bnep_api
-build obj/bt/system/stack/bnep/stack.bnep_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/bnep/bnep_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/bnep/stack.bnep_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/bnep/bnep_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = bnep_main.cc
   source_name_part = bnep_main
-build obj/bt/system/stack/bnep/stack.bnep_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/bnep/bnep_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/bnep/stack.bnep_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/bnep/bnep_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = bnep_utils.cc
   source_name_part = bnep_utils
-build obj/bt/system/stack/btm/stack.ble_scanner_hci_interface.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/ble_scanner_hci_interface.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.ble_scanner_hci_interface.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/ble_scanner_hci_interface.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = ble_scanner_hci_interface.cc
   source_name_part = ble_scanner_hci_interface
-build obj/bt/system/stack/btm/stack.btm_ble.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_ble.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_ble.cc
   source_name_part = btm_ble
-build obj/bt/system/stack/btm/stack.btm_ble_addr.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_addr.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_ble_addr.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_addr.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_ble_addr.cc
   source_name_part = btm_ble_addr
-build obj/bt/system/stack/btm/stack.btm_ble_adv_filter.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_adv_filter.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_ble_adv_filter.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_adv_filter.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_ble_adv_filter.cc
   source_name_part = btm_ble_adv_filter
-build obj/bt/system/stack/btm/stack.btm_ble_bgconn.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_bgconn.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_ble_bgconn.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_bgconn.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_ble_bgconn.cc
   source_name_part = btm_ble_bgconn
-build obj/bt/system/stack/btm/stack.btm_ble_cont_energy.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_cont_energy.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_ble_cont_energy.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_cont_energy.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_ble_cont_energy.cc
   source_name_part = btm_ble_cont_energy
-build obj/bt/system/stack/btm/stack.btm_ble_gap.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_gap.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_ble_gap.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_gap.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_ble_gap.cc
   source_name_part = btm_ble_gap
-build obj/bt/system/stack/btm/stack.btm_ble_privacy.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_privacy.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_ble_privacy.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_privacy.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_ble_privacy.cc
   source_name_part = btm_ble_privacy
-build obj/bt/system/stack/btm/stack.btm_ble_scanner.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_scanner.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_ble_scanner.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_scanner.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_ble_scanner.cc
   source_name_part = btm_ble_scanner
-build obj/bt/system/stack/btm/stack.btm_ble_sec.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_sec.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_ble_sec.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_ble_sec.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_ble_sec.cc
   source_name_part = btm_ble_sec
-build obj/bt/system/stack/btm/stack.btm_client_interface.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_client_interface.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_client_interface.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_client_interface.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_client_interface.cc
   source_name_part = btm_client_interface
-build obj/bt/system/stack/btm/stack.btm_dev.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_dev.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_dev.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_dev.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_dev.cc
   source_name_part = btm_dev
-build obj/bt/system/stack/btm/stack.btm_devctl.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_devctl.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_devctl.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_devctl.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_devctl.cc
   source_name_part = btm_devctl
-build obj/bt/system/stack/btm/stack.btm_inq.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_inq.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_inq.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_inq.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_inq.cc
   source_name_part = btm_inq
-build obj/bt/system/stack/btm/stack.btm_iot_config.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_iot_config.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_iot_config.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_iot_config.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_iot_config.cc
   source_name_part = btm_iot_config
-build obj/bt/system/stack/btm/stack.btm_iso.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_iso.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_iso.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_iso.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_iso.cc
   source_name_part = btm_iso
-build obj/bt/system/stack/btm/stack.btm_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_main.cc
   source_name_part = btm_main
-build obj/bt/system/stack/btm/stack.btm_sco.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_sco.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_sco.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_sco.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_sco.cc
   source_name_part = btm_sco
-build obj/bt/system/stack/btm/stack.btm_sco_hci.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_sco_hci.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_sco_hci.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_sco_hci.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_sco_hci.cc
   source_name_part = btm_sco_hci
-build obj/bt/system/stack/btm/stack.btm_sco_hfp_hal_linux.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_sco_hfp_hal_linux.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_sco_hfp_hal_linux.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_sco_hfp_hal_linux.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_sco_hfp_hal_linux.cc
   source_name_part = btm_sco_hfp_hal_linux
-build obj/bt/system/stack/btm/stack.btm_sec.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_sec.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_sec.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_sec.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_sec.cc
   source_name_part = btm_sec
-build obj/bt/system/stack/btm/stack.btm_sec_cb.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_sec_cb.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_sec_cb.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_sec_cb.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_sec_cb.cc
   source_name_part = btm_sec_cb
-build obj/bt/system/stack/btm/stack.btm_security_client_interface.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_security_client_interface.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.btm_security_client_interface.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/btm_security_client_interface.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btm_security_client_interface.cc
   source_name_part = btm_security_client_interface
-build obj/bt/system/stack/btm/stack.hfp_lc3_encoder_linux.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/hfp_lc3_encoder_linux.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.hfp_lc3_encoder_linux.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/hfp_lc3_encoder_linux.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = hfp_lc3_encoder_linux.cc
   source_name_part = hfp_lc3_encoder_linux
-build obj/bt/system/stack/btm/stack.hfp_lc3_decoder_linux.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/hfp_lc3_decoder_linux.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.hfp_lc3_decoder_linux.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/hfp_lc3_decoder_linux.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = hfp_lc3_decoder_linux.cc
   source_name_part = hfp_lc3_decoder_linux
-build obj/bt/system/stack/btm/stack.hfp_msbc_encoder.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/hfp_msbc_encoder.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.hfp_msbc_encoder.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/hfp_msbc_encoder.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = hfp_msbc_encoder.cc
   source_name_part = hfp_msbc_encoder
-build obj/bt/system/stack/btm/stack.hfp_msbc_decoder.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btm/hfp_msbc_decoder.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btm/stack.hfp_msbc_decoder.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btm/hfp_msbc_decoder.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = hfp_msbc_decoder.cc
   source_name_part = hfp_msbc_decoder
-build obj/bt/system/stack/btu/stack.btu_event.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btu/btu_event.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btu/stack.btu_event.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btu/btu_event.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btu_event.cc
   source_name_part = btu_event
-build obj/bt/system/stack/btu/stack.btu_hcif.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btu/btu_hcif.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btu/stack.btu_hcif.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btu/btu_hcif.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = btu_hcif.cc
   source_name_part = btu_hcif
-build obj/bt/system/stack/btu/stack.main_thread.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/btu/main_thread.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/btu/stack.main_thread.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/btu/main_thread.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = main_thread.cc
   source_name_part = main_thread
-build obj/bt/system/stack/eatt/stack.eatt.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/eatt/eatt.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/eatt/stack.eatt.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/eatt/eatt.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = eatt.cc
   source_name_part = eatt
-build obj/bt/system/stack/gap/stack.gap_ble.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gap/gap_ble.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/gap/stack.gap_ble.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gap/gap_ble.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = gap_ble.cc
   source_name_part = gap_ble
-build obj/bt/system/stack/gap/stack.gap_conn.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gap/gap_conn.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/gap/stack.gap_conn.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gap/gap_conn.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = gap_conn.cc
   source_name_part = gap_conn
-build obj/bt/system/stack/gatt/stack.att_protocol.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gatt/att_protocol.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/gatt/stack.att_protocol.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gatt/att_protocol.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = att_protocol.cc
   source_name_part = att_protocol
-build obj/bt/system/stack/gatt/stack.connection_manager.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gatt/connection_manager.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/gatt/stack.connection_manager.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gatt/connection_manager.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = connection_manager.cc
   source_name_part = connection_manager
-build obj/bt/system/stack/gatt/stack.gatt_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/gatt/stack.gatt_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = gatt_api.cc
   source_name_part = gatt_api
-build obj/bt/system/stack/gatt/stack.gatt_attr.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_attr.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/gatt/stack.gatt_attr.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_attr.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = gatt_attr.cc
   source_name_part = gatt_attr
-build obj/bt/system/stack/gatt/stack.gatt_auth.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_auth.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/gatt/stack.gatt_auth.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_auth.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = gatt_auth.cc
   source_name_part = gatt_auth
-build obj/bt/system/stack/gatt/stack.gatt_cl.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_cl.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/gatt/stack.gatt_cl.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_cl.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = gatt_cl.cc
   source_name_part = gatt_cl
-build obj/bt/system/stack/gatt/stack.gatt_db.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_db.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/gatt/stack.gatt_db.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_db.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = gatt_db.cc
   source_name_part = gatt_db
-build obj/bt/system/stack/gatt/stack.gatt_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/gatt/stack.gatt_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = gatt_main.cc
   source_name_part = gatt_main
-build obj/bt/system/stack/gatt/stack.gatt_sr.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_sr.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/gatt/stack.gatt_sr.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_sr.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = gatt_sr.cc
   source_name_part = gatt_sr
-build obj/bt/system/stack/gatt/stack.gatt_sr_hash.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_sr_hash.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/gatt/stack.gatt_sr_hash.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_sr_hash.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = gatt_sr_hash.cc
   source_name_part = gatt_sr_hash
-build obj/bt/system/stack/gatt/stack.gatt_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/gatt/stack.gatt_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/gatt/gatt_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = gatt_utils.cc
   source_name_part = gatt_utils
-build obj/bt/system/stack/hcic/stack.hciblecmds.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/hcic/hciblecmds.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/hcic/stack.hciblecmds.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/hcic/hciblecmds.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = hciblecmds.cc
   source_name_part = hciblecmds
-build obj/bt/system/stack/hcic/stack.hcicmds.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/hcic/hcicmds.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/hcic/stack.hcicmds.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/hcic/hcicmds.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = hcicmds.cc
   source_name_part = hcicmds
-build obj/bt/system/stack/hid/stack.hidd_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/hid/hidd_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/hid/stack.hidd_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/hid/hidd_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = hidd_api.cc
   source_name_part = hidd_api
-build obj/bt/system/stack/hid/stack.hidd_conn.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/hid/hidd_conn.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/hid/stack.hidd_conn.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/hid/hidd_conn.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = hidd_conn.cc
   source_name_part = hidd_conn
-build obj/bt/system/stack/hid/stack.hidh_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/hid/hidh_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/hid/stack.hidh_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/hid/hidh_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = hidh_api.cc
   source_name_part = hidh_api
-build obj/bt/system/stack/hid/stack.hidh_conn.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/hid/hidh_conn.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/hid/stack.hidh_conn.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/hid/hidh_conn.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = hidh_conn.cc
   source_name_part = hidh_conn
-build obj/bt/system/stack/l2cap/stack.l2c_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/l2cap/stack.l2c_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = l2c_api.cc
   source_name_part = l2c_api
-build obj/bt/system/stack/l2cap/stack.l2c_ble.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_ble.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/l2cap/stack.l2c_ble.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_ble.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = l2c_ble.cc
   source_name_part = l2c_ble
-build obj/bt/system/stack/l2cap/stack.l2c_ble_conn_params.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_ble_conn_params.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/l2cap/stack.l2c_ble_conn_params.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_ble_conn_params.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = l2c_ble_conn_params.cc
   source_name_part = l2c_ble_conn_params
-build obj/bt/system/stack/l2cap/stack.l2c_csm.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_csm.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/l2cap/stack.l2c_csm.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_csm.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = l2c_csm.cc
   source_name_part = l2c_csm
-build obj/bt/system/stack/l2cap/stack.l2c_fcr.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_fcr.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/l2cap/stack.l2c_fcr.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_fcr.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = l2c_fcr.cc
   source_name_part = l2c_fcr
-build obj/bt/system/stack/l2cap/stack.l2c_link.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_link.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/l2cap/stack.l2c_link.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_link.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = l2c_link.cc
   source_name_part = l2c_link
-build obj/bt/system/stack/l2cap/stack.l2c_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/l2cap/stack.l2c_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = l2c_main.cc
   source_name_part = l2c_main
-build obj/bt/system/stack/l2cap/stack.l2c_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/l2cap/stack.l2c_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/l2cap/l2c_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = l2c_utils.cc
   source_name_part = l2c_utils
-build obj/bt/system/stack/metrics/stack.stack_metrics_logging.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/metrics/stack_metrics_logging.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/metrics/stack.stack_metrics_logging.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/metrics/stack_metrics_logging.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = stack_metrics_logging.cc
   source_name_part = stack_metrics_logging
-build obj/bt/system/stack/pan/stack.pan_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/pan/pan_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/pan/stack.pan_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/pan/pan_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = pan_api.cc
   source_name_part = pan_api
-build obj/bt/system/stack/pan/stack.pan_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/pan/pan_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/pan/stack.pan_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/pan/pan_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = pan_main.cc
   source_name_part = pan_main
-build obj/bt/system/stack/pan/stack.pan_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/pan/pan_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/pan/stack.pan_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/pan/pan_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = pan_utils.cc
   source_name_part = pan_utils
-build obj/bt/system/stack/rfcomm/stack.port_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/port_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/rfcomm/stack.port_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/port_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = port_api.cc
   source_name_part = port_api
-build obj/bt/system/stack/rfcomm/stack.port_rfc.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/port_rfc.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/rfcomm/stack.port_rfc.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/port_rfc.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = port_rfc.cc
   source_name_part = port_rfc
-build obj/bt/system/stack/rfcomm/stack.port_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/port_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/rfcomm/stack.port_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/port_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = port_utils.cc
   source_name_part = port_utils
-build obj/bt/system/stack/rfcomm/stack.rfc_l2cap_if.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/rfc_l2cap_if.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/rfcomm/stack.rfc_l2cap_if.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/rfc_l2cap_if.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = rfc_l2cap_if.cc
   source_name_part = rfc_l2cap_if
-build obj/bt/system/stack/rfcomm/stack.rfc_mx_fsm.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/rfc_mx_fsm.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/rfcomm/stack.rfc_mx_fsm.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/rfc_mx_fsm.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = rfc_mx_fsm.cc
   source_name_part = rfc_mx_fsm
-build obj/bt/system/stack/rfcomm/stack.rfc_port_fsm.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/rfc_port_fsm.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/rfcomm/stack.rfc_port_fsm.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/rfc_port_fsm.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = rfc_port_fsm.cc
   source_name_part = rfc_port_fsm
-build obj/bt/system/stack/rfcomm/stack.rfc_port_if.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/rfc_port_if.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/rfcomm/stack.rfc_port_if.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/rfc_port_if.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = rfc_port_if.cc
   source_name_part = rfc_port_if
-build obj/bt/system/stack/rfcomm/stack.rfc_ts_frames.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/rfc_ts_frames.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/rfcomm/stack.rfc_ts_frames.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/rfc_ts_frames.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = rfc_ts_frames.cc
   source_name_part = rfc_ts_frames
-build obj/bt/system/stack/rfcomm/stack.rfc_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/rfc_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/rfcomm/stack.rfc_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/rfcomm/rfc_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = rfc_utils.cc
   source_name_part = rfc_utils
-build obj/bt/system/stack/sdp/stack.sdp_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/sdp/sdp_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/sdp/stack.sdp_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/sdp/sdp_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = sdp_api.cc
   source_name_part = sdp_api
-build obj/bt/system/stack/sdp/stack.sdp_db.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/sdp/sdp_db.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/sdp/stack.sdp_db.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/sdp/sdp_db.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = sdp_db.cc
   source_name_part = sdp_db
-build obj/bt/system/stack/sdp/stack.sdp_discovery.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/sdp/sdp_discovery.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/sdp/stack.sdp_discovery.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/sdp/sdp_discovery.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = sdp_discovery.cc
   source_name_part = sdp_discovery
-build obj/bt/system/stack/sdp/stack.sdp_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/sdp/sdp_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/sdp/stack.sdp_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/sdp/sdp_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = sdp_main.cc
   source_name_part = sdp_main
-build obj/bt/system/stack/sdp/stack.sdp_server.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/sdp/sdp_server.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/sdp/stack.sdp_server.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/sdp/sdp_server.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = sdp_server.cc
   source_name_part = sdp_server
-build obj/bt/system/stack/sdp/stack.sdp_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/sdp/sdp_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/sdp/stack.sdp_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/sdp/sdp_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = sdp_utils.cc
   source_name_part = sdp_utils
-build obj/bt/system/stack/smp/stack.p_256_curvepara.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/smp/p_256_curvepara.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/smp/stack.p_256_curvepara.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/smp/p_256_curvepara.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = p_256_curvepara.cc
   source_name_part = p_256_curvepara
-build obj/bt/system/stack/smp/stack.p_256_ecc_pp.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/smp/p_256_ecc_pp.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/smp/stack.p_256_ecc_pp.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/smp/p_256_ecc_pp.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = p_256_ecc_pp.cc
   source_name_part = p_256_ecc_pp
-build obj/bt/system/stack/smp/stack.p_256_multprecision.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/smp/p_256_multprecision.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/smp/stack.p_256_multprecision.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/smp/p_256_multprecision.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = p_256_multprecision.cc
   source_name_part = p_256_multprecision
-build obj/bt/system/stack/smp/stack.smp_act.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/smp/smp_act.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/smp/stack.smp_act.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/smp/smp_act.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = smp_act.cc
   source_name_part = smp_act
-build obj/bt/system/stack/smp/stack.smp_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/smp/smp_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/smp/stack.smp_api.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/smp/smp_api.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = smp_api.cc
   source_name_part = smp_api
-build obj/bt/system/stack/smp/stack.smp_br_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/smp/smp_br_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/smp/stack.smp_br_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/smp/smp_br_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = smp_br_main.cc
   source_name_part = smp_br_main
-build obj/bt/system/stack/smp/stack.smp_keys.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/smp/smp_keys.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/smp/stack.smp_keys.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/smp/smp_keys.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = smp_keys.cc
   source_name_part = smp_keys
-build obj/bt/system/stack/smp/stack.smp_l2c.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/smp/smp_l2c.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/smp/stack.smp_l2c.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/smp/smp_l2c.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = smp_l2c.cc
   source_name_part = smp_l2c
-build obj/bt/system/stack/smp/stack.smp_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/smp/smp_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/smp/stack.smp_main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/smp/smp_main.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = smp_main.cc
   source_name_part = smp_main
-build obj/bt/system/stack/smp/stack.smp_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/smp/smp_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/smp/stack.smp_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/smp/smp_utils.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = smp_utils.cc
   source_name_part = smp_utils
-build obj/bt/system/stack/srvc/stack.srvc_dis.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/srvc/srvc_dis.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/srvc/stack.srvc_dis.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/srvc/srvc_dis.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = srvc_dis.cc
   source_name_part = srvc_dis
-build obj/bt/system/stack/srvc/stack.srvc_eng.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5406/work/floss-0.0.2/platform2/bt/system/stack/srvc/srvc_eng.cc || obj/bt/system/stack/stack.inputdeps.stamp
+build obj/bt/system/stack/srvc/stack.srvc_eng.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5407/work/floss-0.0.2/platform2/bt/system/stack/srvc/srvc_eng.cc || obj/bt/system/stack/stack.inputdeps.stamp
   source_file_part = srvc_eng.cc
   source_name_part = srvc_eng
 

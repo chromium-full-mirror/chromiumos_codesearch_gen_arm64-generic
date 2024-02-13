@@ -21,5 +21,5 @@ home/chrome-bot/chrome_root/src/third_party/ply/yacc.py
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/camera_intent.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/camera_intent__parser.rsp
 home/chrome-bot/chrome_root/src/ash/components/arc/mojom/camera_intent.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/camera_intent.build_metadata
 home/chrome-bot/chrome_root/src/ash/components/arc/mojom/camera_intent.mojom
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/camera_intent.build_metadata
