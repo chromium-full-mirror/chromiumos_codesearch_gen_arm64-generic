@@ -1,0 +1,63 @@
+rule link
+  command = x86_64-pc-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = x86_64-pc-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = x86_64-pc-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = x86_64-pc-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = x86_64-pc-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/debugd/client/all.stamp
+build obj/debugd/client/_libdebugd-client-test.pc-install_config.stamp: stamp
+build obj/debugd/client/_libdebugd-client.pc-install_config.stamp: stamp
+build obj/debugd/client/all.stamp: stamp obj/debugd/client/libdebugd-client-headers.stamp obj/debugd/client/libdebugd-client-test.pc.stamp obj/debugd/client/libdebugd-client.pc.stamp
+rule __debugd_client_libdebugd-client-headers___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2636/work/debugd-client-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config=/var/tmp/portage/chromeos-base/debugd-client-0.0.1-r2636/work/debugd-client-0.0.1/debugd/dbus_bindings/dbus-service-config.json -proxy=/var/cache/portage/chromeos-base/debugd-client/out/Default/gen/include/debugd/dbus-proxies.h -mock=/var/cache/portage/chromeos-base/debugd-client/out/Default/gen/include/debugd/dbus-proxy-mocks.h -proxy-path-for-mocks=debugd/dbus-proxies.h ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2636/work/debugd-client-0.0.1/debugd/dbus_bindings/org.chromium.debugd.xml
+  description = ACTION //debugd/client:libdebugd-client-headers(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/debugd/dbus-proxies.h gen/include/debugd/dbus-proxy-mocks.h: __debugd_client_libdebugd-client-headers___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2636/work/debugd-client-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2636/work/debugd-client-0.0.1/debugd/dbus_bindings/org.chromium.debugd.xml
+
+build obj/debugd/client/libdebugd-client-headers.stamp: stamp gen/include/debugd/dbus-proxies.h gen/include/debugd/dbus-proxy-mocks.h
+rule __debugd_client_libdebugd-client-test.pc___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2636/work/debugd-client-0.0.1/common-mk/generate-pc.py --output /var/cache/portage/chromeos-base/debugd-client/out/Default/obj/debugd/client/libdebugd-client-test.pc --name=libdebugd-client-test --description=debugd\$ client\$ interface\$ mock\$ library --version=0.0.1 --cflags=-I/usr/include/debugd-client-test
+  description = ACTION //debugd/client:libdebugd-client-test.pc(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build obj/debugd/client/libdebugd-client-test.pc: __debugd_client_libdebugd-client-test.pc___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2636/work/debugd-client-0.0.1/common-mk/generate-pc.py obj/debugd/client/_libdebugd-client-test.pc-install_config.stamp
+
+build obj/debugd/client/libdebugd-client-test.pc.stamp: stamp obj/debugd/client/libdebugd-client-test.pc
+rule __debugd_client_libdebugd-client.pc___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2636/work/debugd-client-0.0.1/common-mk/generate-pc.py --output /var/cache/portage/chromeos-base/debugd-client/out/Default/obj/debugd/client/libdebugd-client.pc --name=libdebugd-client --description=debugd\$ client\$ interface\$ library --version=0.0.1 --cflags=-I/usr/include/debugd-client
+  description = ACTION //debugd/client:libdebugd-client.pc(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build obj/debugd/client/libdebugd-client.pc: __debugd_client_libdebugd-client.pc___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2636/work/debugd-client-0.0.1/common-mk/generate-pc.py obj/debugd/client/_libdebugd-client.pc-install_config.stamp
+
+build obj/debugd/client/libdebugd-client.pc.stamp: stamp obj/debugd/client/libdebugd-client.pc

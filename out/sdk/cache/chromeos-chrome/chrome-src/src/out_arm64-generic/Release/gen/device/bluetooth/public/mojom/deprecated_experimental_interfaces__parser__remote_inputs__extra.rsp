@@ -22,9 +22,9 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bl
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/deprecated_experimental_interfaces__parser.rsp
 home/chrome-bot/chrome_root/src/device/bluetooth/public/mojom/adapter.mojom
 home/chrome-bot/chrome_root/src/device/bluetooth/public/mojom/device.mojom
-home/chrome-bot/chrome_root/src/device/bluetooth/public/mojom/device.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/mojom.build_metadata
-home/chrome-bot/chrome_root/src/device/bluetooth/public/mojom/adapter.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/uuid.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/deprecated_experimental_interfaces.build_metadata
 home/chrome-bot/chrome_root/src/device/bluetooth/public/mojom/uuid.mojom
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/mojom.build_metadata
+home/chrome-bot/chrome_root/src/device/bluetooth/public/mojom/device.mojom
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/uuid.mojom-module
+home/chrome-bot/chrome_root/src/device/bluetooth/public/mojom/adapter.mojom

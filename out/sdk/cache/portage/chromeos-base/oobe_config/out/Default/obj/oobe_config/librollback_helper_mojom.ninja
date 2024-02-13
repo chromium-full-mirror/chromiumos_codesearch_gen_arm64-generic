@@ -1,0 +1,18 @@
+defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../tmp/portage/chromeos-base/oobe_config-0.0.1-r1175/work/oobe_config-0.0.1
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIE -I/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/perfetto -I/usr/include/nss -I/usr/include/nspr -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -Wno-cast-qual -Wno-cast-align
+cflags_cc = -std=gnu++20 -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = librollback_helper_mojom
+
+build obj/gen/include/mojom/librollback_helper_mojom.rollback_network_config.mojom-shared.o: cxx gen/include/mojom/rollback_network_config.mojom-shared.cc || obj/oobe_config/librollback_helper_mojom_gen.stamp
+  source_file_part = rollback_network_config.mojom-shared.cc
+  source_name_part = rollback_network_config.mojom-shared
+build obj/gen/include/mojom/librollback_helper_mojom.rollback_network_config.mojom.o: cxx gen/include/mojom/rollback_network_config.mojom.cc || obj/oobe_config/librollback_helper_mojom_gen.stamp
+  source_file_part = rollback_network_config.mojom.cc
+  source_name_part = rollback_network_config.mojom
+
+build ./librollback_helper_mojom.a: alink obj/gen/include/mojom/librollback_helper_mojom.rollback_network_config.mojom-shared.o obj/gen/include/mojom/librollback_helper_mojom.rollback_network_config.mojom.o || obj/oobe_config/librollback_helper_mojom_gen.stamp
+  arflags = rcsT
+  output_extension = .a
+  output_dir = 

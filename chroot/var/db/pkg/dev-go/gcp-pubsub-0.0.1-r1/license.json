@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "gcp-pubsub", "version": "0.0.1", "revision": 1, "fullname": "dev-go/gcp-pubsub", "fullnamerev": "dev-go/gcp-pubsub-0.0.1-r1", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://code.googlesource.com/gocloud"], "skip": false, "tainted": false, "ebuild_path": null}

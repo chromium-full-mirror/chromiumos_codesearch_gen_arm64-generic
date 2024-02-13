@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-python", "name": "robotframework", "version": "4.0.1", "revision": 0, "fullname": "dev-python/robotframework", "fullnamerev": "dev-python/robotframework-4.0.1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://robotframework.org/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "media-video", "name": "ffmpeg", "version": "6.1.1", "revision": 6, "fullname": "media-video/ffmpeg", "fullnamerev": "media-video/ffmpeg-6.1.1-r6", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://ffmpeg.org/"], "skip": false, "tainted": false, "ebuild_path": null}

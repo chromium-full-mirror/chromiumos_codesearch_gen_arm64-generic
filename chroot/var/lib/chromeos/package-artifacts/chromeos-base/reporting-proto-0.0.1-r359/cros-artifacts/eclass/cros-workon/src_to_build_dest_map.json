@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/platform2",
+      "build_dest_path": "/var/tmp/portage/chromeos-base/reporting-proto-0.0.1-r359/work/reporting-proto-0.0.1"
+    }
+  ]
+}

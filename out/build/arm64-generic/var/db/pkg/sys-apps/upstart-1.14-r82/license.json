@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "upstart", "version": "1.14", "revision": 82, "fullname": "sys-apps/upstart", "fullnamerev": "sys-apps/upstart-1.14-r82", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://upstart.ubuntu.com/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/../platform/crostestutils",
+      "build_dest_path": "/var/tmp/portage/sys-firmware/fw-engprod-tools-0.0.1-r113/work/fw-engprod-tools-0.0.1"
+    }
+  ]
+}

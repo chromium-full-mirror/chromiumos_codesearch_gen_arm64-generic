@@ -1,0 +1,39 @@
+defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_BRILLO
+include_dirs = -Igen/include -I../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2 -I../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2/puffin/src/include -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIE -Wextra -I/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/perfetto -I/usr/include/nss -I/usr/include/nspr -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
+cflags_cc = -std=gnu++20 -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -Wnon-virtual-dtor
+root_out_dir = .
+target_output_name = libpuffpatch
+
+build obj/puffin/src/libpuffpatch.bit_reader.o: cxx ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2/puffin/src/bit_reader.cc || obj/puffin/libpuffin-proto_gen.stamp
+  source_file_part = bit_reader.cc
+  source_name_part = bit_reader
+build obj/puffin/src/libpuffpatch.bit_writer.o: cxx ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2/puffin/src/bit_writer.cc || obj/puffin/libpuffin-proto_gen.stamp
+  source_file_part = bit_writer.cc
+  source_name_part = bit_writer
+build obj/puffin/src/libpuffpatch.huffer.o: cxx ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2/puffin/src/huffer.cc || obj/puffin/libpuffin-proto_gen.stamp
+  source_file_part = huffer.cc
+  source_name_part = huffer
+build obj/puffin/src/libpuffpatch.huffman_table.o: cxx ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2/puffin/src/huffman_table.cc || obj/puffin/libpuffin-proto_gen.stamp
+  source_file_part = huffman_table.cc
+  source_name_part = huffman_table
+build obj/puffin/src/libpuffpatch.puff_reader.o: cxx ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2/puffin/src/puff_reader.cc || obj/puffin/libpuffin-proto_gen.stamp
+  source_file_part = puff_reader.cc
+  source_name_part = puff_reader
+build obj/puffin/src/libpuffpatch.puff_writer.o: cxx ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2/puffin/src/puff_writer.cc || obj/puffin/libpuffin-proto_gen.stamp
+  source_file_part = puff_writer.cc
+  source_name_part = puff_writer
+build obj/puffin/src/libpuffpatch.puffer.o: cxx ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2/puffin/src/puffer.cc || obj/puffin/libpuffin-proto_gen.stamp
+  source_file_part = puffer.cc
+  source_name_part = puffer
+build obj/puffin/src/libpuffpatch.puffin_stream.o: cxx ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2/puffin/src/puffin_stream.cc || obj/puffin/libpuffin-proto_gen.stamp
+  source_file_part = puffin_stream.cc
+  source_name_part = puffin_stream
+build obj/puffin/src/libpuffpatch.puffpatch.o: cxx ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2/puffin/src/puffpatch.cc || obj/puffin/libpuffin-proto_gen.stamp
+  source_file_part = puffpatch.cc
+  source_name_part = puffpatch
+
+build ./libpuffpatch.a: alink obj/puffin/src/libpuffpatch.bit_reader.o obj/puffin/src/libpuffpatch.bit_writer.o obj/puffin/src/libpuffpatch.huffer.o obj/puffin/src/libpuffpatch.huffman_table.o obj/puffin/src/libpuffpatch.puff_reader.o obj/puffin/src/libpuffpatch.puff_writer.o obj/puffin/src/libpuffpatch.puffer.o obj/puffin/src/libpuffpatch.puffin_stream.o obj/puffin/src/libpuffpatch.puffpatch.o obj/gen/include/puffin/src/libpuffin-proto.puffin.pb.o || ./libpuffin-proto.a
+  arflags = rcs
+  output_extension = .a
+  output_dir = 

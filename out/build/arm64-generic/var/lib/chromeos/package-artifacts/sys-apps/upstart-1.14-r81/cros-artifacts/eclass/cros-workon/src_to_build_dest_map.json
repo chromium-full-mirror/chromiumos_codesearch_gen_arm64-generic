@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/third_party/../third_party/upstart",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/sys-apps/upstart-1.14-r81/work/upstart-1.14"
-    }
-  ]
-}
