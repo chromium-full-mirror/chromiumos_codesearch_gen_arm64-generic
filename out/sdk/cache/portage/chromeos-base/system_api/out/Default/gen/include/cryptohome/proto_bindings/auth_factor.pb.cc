@@ -580,16 +580,18 @@ bool AuthIntent_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     default:
       return false;
   }
 }
 static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
-    AuthIntent_strings[4] = {};
+    AuthIntent_strings[5] = {};
 
 static const char AuthIntent_names[] = {
     "AUTH_INTENT_DECRYPT"
+    "AUTH_INTENT_RESTORE_KEY"
     "AUTH_INTENT_UNSPECIFIED"
     "AUTH_INTENT_VERIFY_ONLY"
     "AUTH_INTENT_WEBAUTHN"
@@ -598,27 +600,29 @@ static const char AuthIntent_names[] = {
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AuthIntent_entries[] =
     {
         {{&AuthIntent_names[0], 19}, 1},
-        {{&AuthIntent_names[19], 23}, 0},
-        {{&AuthIntent_names[42], 23}, 2},
-        {{&AuthIntent_names[65], 20}, 3},
+        {{&AuthIntent_names[19], 23}, 4},
+        {{&AuthIntent_names[42], 23}, 0},
+        {{&AuthIntent_names[65], 23}, 2},
+        {{&AuthIntent_names[88], 20}, 3},
 };
 
 static const int AuthIntent_entries_by_number[] = {
-    1,  // 0 -> AUTH_INTENT_UNSPECIFIED
+    2,  // 0 -> AUTH_INTENT_UNSPECIFIED
     0,  // 1 -> AUTH_INTENT_DECRYPT
-    2,  // 2 -> AUTH_INTENT_VERIFY_ONLY
-    3,  // 3 -> AUTH_INTENT_WEBAUTHN
+    3,  // 2 -> AUTH_INTENT_VERIFY_ONLY
+    4,  // 3 -> AUTH_INTENT_WEBAUTHN
+    1,  // 4 -> AUTH_INTENT_RESTORE_KEY
 };
 
 const std::string& AuthIntent_Name(AuthIntent value) {
   static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           AuthIntent_entries, AuthIntent_entries_by_number,
-          4, AuthIntent_strings);
+          5, AuthIntent_strings);
   (void)kDummy;
 
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      AuthIntent_entries, AuthIntent_entries_by_number, 4,
+      AuthIntent_entries, AuthIntent_entries_by_number, 5,
       value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
                    : AuthIntent_strings[idx].get();
@@ -627,7 +631,7 @@ const std::string& AuthIntent_Name(AuthIntent value) {
 bool AuthIntent_Parse(absl::string_view name, AuthIntent* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      AuthIntent_entries, 4, name, &int_value);
+      AuthIntent_entries, 5, name, &int_value);
   if (success) {
     *value = static_cast<AuthIntent>(int_value);
   }

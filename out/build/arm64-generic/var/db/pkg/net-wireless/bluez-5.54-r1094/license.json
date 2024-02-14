@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "net-wireless", "name": "bluez", "version": "5.54", "revision": 1094, "fullname": "net-wireless/bluez", "fullnamerev": "net-wireless/bluez-5.54-r1094", "license_names": ["GPL-2", "LGPL-2.1"], "license_text_scanned": [], "homepages": ["http://www.bluez.org/"], "skip": false, "tainted": false, "ebuild_path": null}

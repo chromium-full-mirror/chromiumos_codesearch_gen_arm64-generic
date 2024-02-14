@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/portage_tool",
+      "build_dest_path": "/var/tmp/portage/sys-apps/portage-2.3.75-r161/work/portage-2.3.75"
+    }
+  ]
+}

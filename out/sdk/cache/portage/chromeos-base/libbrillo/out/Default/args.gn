@@ -12,7 +12,7 @@ sysroot = "/"
 libdir = "/usr/lib64"
 build_root = "/var/cache/portage/chromeos-base/libbrillo"
 platform2_root =
-    "/var/tmp/portage/chromeos-base/libbrillo-0.0.1-r2408/work/libbrillo-0.0.1"
+    "/var/tmp/portage/chromeos-base/libbrillo-0.0.1-r2410/work/libbrillo-0.0.1"
 libbase_ver = "1257783"
 enable_exceptions = false
 external_cflags = [
@@ -190,7 +190,7 @@ use = {
   tpm2 = false
   tpm2_simulator = false
   ubsan = false
-  udev = true
+  udev = false
   usb = false
   user_session_isolation = false
   v4l2_codec = false

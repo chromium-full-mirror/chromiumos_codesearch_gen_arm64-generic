@@ -50,9 +50,15 @@ class MergeListItem(CompositeTask):
 		action_desc = "Emerging"
 		preposition = "for"
 		pkg_color = "PKG_MERGE"
+		gs_uri = None
+		md5 = None
 		if pkg.type_name == "binary":
 			pkg_color = "PKG_BINARY_MERGE"
 			action_desc += " binary"
+			# Get info about the remote binpkg to log.
+			bintree = pkg.root_config.trees["bintree"]
+			gs_uri = bintree.get_pkg_uri(pkg.cpv)
+			md5 = bintree.get_md5(pkg.cpv)
 
 		if build_opts.fetchonly:
 			action_desc = "Fetching"
@@ -62,6 +68,11 @@ class MergeListItem(CompositeTask):
 			colorize("MERGE_LIST_PROGRESS", str(pkg_count.curval)),
 			colorize("MERGE_LIST_PROGRESS", str(pkg_count.maxval)),
 			colorize(pkg_color, pkg.cpv + _repo_separator + pkg.repo))
+
+		if gs_uri:
+			msg += " (%s)" % gs_uri
+		if md5:
+			msg += " (md5: %s)" % md5
 
 		if pkg.root_config.settings["ROOT"] != "/":
 			msg += " %s %s" % (preposition, pkg.root)

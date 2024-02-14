@@ -1,119 +1,119 @@
 defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D__CHROMEOS__ -D_POSIX_C_SOURCE=199309L -DUSE_FEC=0 -DUSE_HWID_OVERRIDE=false -DUSE_HW_DETAILS=false -DUSE_LVM_STATEFUL_PARTITION=false
-include_dirs = -Igen/include -I../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3 -I../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/client_library/include -Igen
+include_dirs = -Igen/include -I../../../../../../../mnt/host/source/src/platform2 -I../../../../../../../mnt/host/source/src/platform2/update_engine/client_library/include -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIE -ffunction-sections -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/usr/include/libchrome -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/perfetto -I/usr/include/nss -I/usr/include/nspr -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include -I/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/usr/include/xz-embedded
 cflags_cc = -std=gnu++20 -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-strict-aliasing -Wdelete-non-virtual-dtor
 root_out_dir = .
 target_output_name = libpayload_consumer
 
-build obj/update_engine/common/libpayload_consumer.action_processor.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/action_processor.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.action_processor.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/action_processor.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = action_processor.cc
   source_name_part = action_processor
-build obj/update_engine/common/libpayload_consumer.boot_control_stub.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/boot_control_stub.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.boot_control_stub.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/boot_control_stub.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = boot_control_stub.cc
   source_name_part = boot_control_stub
-build obj/update_engine/common/libpayload_consumer.clock.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/clock.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.clock.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/clock.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = clock.cc
   source_name_part = clock
-build obj/update_engine/common/libpayload_consumer.constants.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/constants.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.constants.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/constants.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = constants.cc
   source_name_part = constants
-build obj/update_engine/common/libpayload_consumer.cpu_limiter.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/cpu_limiter.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.cpu_limiter.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/cpu_limiter.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = cpu_limiter.cc
   source_name_part = cpu_limiter
-build obj/update_engine/common/libpayload_consumer.dynamic_partition_control_stub.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/dynamic_partition_control_stub.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.dynamic_partition_control_stub.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/dynamic_partition_control_stub.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = dynamic_partition_control_stub.cc
   source_name_part = dynamic_partition_control_stub
-build obj/update_engine/common/libpayload_consumer.error_code_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/error_code_utils.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.error_code_utils.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/error_code_utils.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = error_code_utils.cc
   source_name_part = error_code_utils
-build obj/update_engine/common/libpayload_consumer.hash_calculator.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/hash_calculator.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.hash_calculator.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/hash_calculator.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = hash_calculator.cc
   source_name_part = hash_calculator
-build obj/update_engine/common/libpayload_consumer.http_common.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/http_common.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.http_common.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/http_common.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = http_common.cc
   source_name_part = http_common
-build obj/update_engine/common/libpayload_consumer.http_fetcher.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/http_fetcher.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.http_fetcher.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/http_fetcher.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = http_fetcher.cc
   source_name_part = http_fetcher
-build obj/update_engine/common/libpayload_consumer.hwid_override.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/hwid_override.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.hwid_override.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/hwid_override.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = hwid_override.cc
   source_name_part = hwid_override
-build obj/update_engine/common/libpayload_consumer.multi_range_http_fetcher.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/multi_range_http_fetcher.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.multi_range_http_fetcher.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/multi_range_http_fetcher.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = multi_range_http_fetcher.cc
   source_name_part = multi_range_http_fetcher
-build obj/update_engine/common/libpayload_consumer.prefs.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/prefs.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.prefs.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/prefs.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = prefs.cc
   source_name_part = prefs
-build obj/update_engine/common/libpayload_consumer.proxy_resolver.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/proxy_resolver.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.proxy_resolver.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/proxy_resolver.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = proxy_resolver.cc
   source_name_part = proxy_resolver
-build obj/update_engine/common/libpayload_consumer.subprocess.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/subprocess.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.subprocess.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/subprocess.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = subprocess.cc
   source_name_part = subprocess
-build obj/update_engine/common/libpayload_consumer.terminator.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/terminator.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.terminator.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/terminator.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = terminator.cc
   source_name_part = terminator
-build obj/update_engine/common/libpayload_consumer.utils.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/common/utils.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/common/libpayload_consumer.utils.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/common/utils.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = utils.cc
   source_name_part = utils
-build obj/update_engine/cros/libpayload_consumer.platform_constants_chromeos.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/cros/platform_constants_chromeos.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/cros/libpayload_consumer.platform_constants_chromeos.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/cros/platform_constants_chromeos.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = platform_constants_chromeos.cc
   source_name_part = platform_constants_chromeos
-build obj/update_engine/payload_consumer/libpayload_consumer.bzip_extent_writer.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/bzip_extent_writer.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.bzip_extent_writer.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/bzip_extent_writer.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = bzip_extent_writer.cc
   source_name_part = bzip_extent_writer
-build obj/update_engine/payload_consumer/libpayload_consumer.cached_file_descriptor.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/cached_file_descriptor.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.cached_file_descriptor.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/cached_file_descriptor.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = cached_file_descriptor.cc
   source_name_part = cached_file_descriptor
-build obj/update_engine/payload_consumer/libpayload_consumer.certificate_parser_stub.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/certificate_parser_stub.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.certificate_parser_stub.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/certificate_parser_stub.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = certificate_parser_stub.cc
   source_name_part = certificate_parser_stub
-build obj/update_engine/payload_consumer/libpayload_consumer.delta_performer.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/delta_performer.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.delta_performer.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/delta_performer.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = delta_performer.cc
   source_name_part = delta_performer
-build obj/update_engine/payload_consumer/libpayload_consumer.extent_reader.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/extent_reader.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.extent_reader.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/extent_reader.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = extent_reader.cc
   source_name_part = extent_reader
-build obj/update_engine/payload_consumer/libpayload_consumer.extent_writer.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/extent_writer.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.extent_writer.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/extent_writer.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = extent_writer.cc
   source_name_part = extent_writer
-build obj/update_engine/payload_consumer/libpayload_consumer.file_descriptor.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/file_descriptor.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.file_descriptor.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/file_descriptor.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = file_descriptor.cc
   source_name_part = file_descriptor
-build obj/update_engine/payload_consumer/libpayload_consumer.file_descriptor_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/file_descriptor_utils.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.file_descriptor_utils.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/file_descriptor_utils.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = file_descriptor_utils.cc
   source_name_part = file_descriptor_utils
-build obj/update_engine/payload_consumer/libpayload_consumer.file_writer.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/file_writer.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.file_writer.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/file_writer.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = file_writer.cc
   source_name_part = file_writer
-build obj/update_engine/payload_consumer/libpayload_consumer.filesystem_verifier_action.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/filesystem_verifier_action.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.filesystem_verifier_action.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/filesystem_verifier_action.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = filesystem_verifier_action.cc
   source_name_part = filesystem_verifier_action
-build obj/update_engine/payload_consumer/libpayload_consumer.install_plan.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/install_plan.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.install_plan.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/install_plan.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = install_plan.cc
   source_name_part = install_plan
-build obj/update_engine/payload_consumer/libpayload_consumer.mount_history.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/mount_history.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.mount_history.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/mount_history.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = mount_history.cc
   source_name_part = mount_history
-build obj/update_engine/payload_consumer/libpayload_consumer.partition_update_generator_stub.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/partition_update_generator_stub.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.partition_update_generator_stub.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/partition_update_generator_stub.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = partition_update_generator_stub.cc
   source_name_part = partition_update_generator_stub
-build obj/update_engine/payload_consumer/libpayload_consumer.payload_constants.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/payload_constants.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.payload_constants.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/payload_constants.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = payload_constants.cc
   source_name_part = payload_constants
-build obj/update_engine/payload_consumer/libpayload_consumer.payload_metadata.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/payload_metadata.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.payload_metadata.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/payload_metadata.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = payload_metadata.cc
   source_name_part = payload_metadata
-build obj/update_engine/payload_consumer/libpayload_consumer.payload_verifier.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/payload_verifier.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.payload_verifier.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/payload_verifier.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = payload_verifier.cc
   source_name_part = payload_verifier
-build obj/update_engine/payload_consumer/libpayload_consumer.postinstall_runner_action.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/postinstall_runner_action.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.postinstall_runner_action.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/postinstall_runner_action.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = postinstall_runner_action.cc
   source_name_part = postinstall_runner_action
-build obj/update_engine/payload_consumer/libpayload_consumer.verity_writer_stub.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/verity_writer_stub.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.verity_writer_stub.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/verity_writer_stub.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = verity_writer_stub.cc
   source_name_part = verity_writer_stub
-build obj/update_engine/payload_consumer/libpayload_consumer.xz_extent_writer.o: cxx ../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4959/work/update_engine-0.0.3/update_engine/payload_consumer/xz_extent_writer.cc || obj/update_engine/update_metadata-protos_gen.stamp
+build obj/update_engine/payload_consumer/libpayload_consumer.xz_extent_writer.o: cxx ../../../../../../../mnt/host/source/src/platform2/update_engine/payload_consumer/xz_extent_writer.cc || obj/update_engine/update_metadata-protos_gen.stamp
   source_file_part = xz_extent_writer.cc
   source_name_part = xz_extent_writer
 

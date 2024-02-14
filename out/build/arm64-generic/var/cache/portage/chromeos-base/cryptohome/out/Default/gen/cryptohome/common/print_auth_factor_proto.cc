@@ -120,6 +120,9 @@ std::string GetProtoDebugStringWithIndent(AuthIntent value, int indent_size) {
   if (value == AUTH_INTENT_WEBAUTHN) {
     return "AUTH_INTENT_WEBAUTHN";
   }
+  if (value == AUTH_INTENT_RESTORE_KEY) {
+    return "AUTH_INTENT_RESTORE_KEY";
+  }
   return "<unknown>";
 }
 

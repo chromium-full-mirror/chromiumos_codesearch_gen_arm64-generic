@@ -1597,6 +1597,26 @@ class binarytree(object):
 				uri = metadata["PKGINDEX_URI"]
 		return uri
 
+	def get_pkg_uri(self, cpv):
+		"""Returns the URI for a given package."""
+		uri = None
+		if self._remotepkgs is not None:
+			metadata = self._remotepkgs.get(self.dbapi._instance_key(cpv))
+			if metadata is not None:
+				base_uri = metadata.get("BASE_URI")
+				rel_uri = metadata.get("PATH")
+				uri = f"{base_uri}/{rel_uri}"
+		return uri
+
+	def get_md5(self, cpv):
+		"""Returns the MD5 for a given package."""
+		md5 = None
+		if self._remotepkgs is not None:
+			metadata = self._remotepkgs.get(self.dbapi._instance_key(cpv))
+			if metadata is not None:
+				md5 = metadata.get("MD5")
+		return md5
+
 	def gettbz2(self, pkgname):
 		"""Fetches the package from a remote site, if necessary.  Attempts to
 		resume if the file appears to be partially downloaded."""

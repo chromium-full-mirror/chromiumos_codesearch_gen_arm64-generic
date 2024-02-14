@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2408/work/libbrillo-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2410/work/libbrillo-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -28,11 +28,9 @@ build _libbrillo-http-install_config: phony obj/libbrillo/_libbrillo-http-instal
 build _libbrillo-minijail-install_config: phony obj/libbrillo/_libbrillo-minijail-install_config.stamp
 build _libbrillo-namespaces-install_config: phony obj/libbrillo/_libbrillo-namespaces-install_config.stamp
 build _libbrillo-protobuf-install_config: phony obj/libbrillo/_libbrillo-protobuf-install_config.stamp
-build _libbrillo-storage-install_config: phony obj/libbrillo/_libbrillo-storage-install_config.stamp
 build _libbrillo-streams-install_config: phony obj/libbrillo/_libbrillo-streams-install_config.stamp
 build _libbrillo-test-install_config: phony obj/libbrillo/_libbrillo-test-install_config.stamp
 build _libbrillo-test_pc-install_config: phony obj/libbrillo/_libbrillo-test_pc-install_config.stamp
-build _libbrillo-udev-install_config: phony obj/libbrillo/_libbrillo-udev-install_config.stamp
 build _libbrillo-vboot-install_config: phony obj/libbrillo/_libbrillo-vboot-install_config.stamp
 build _libbrillo_pc-install_config: phony obj/libbrillo/_libbrillo_pc-install_config.stamp
 build _libinstallattributes-install_config: phony obj/libbrillo/_libinstallattributes-install_config.stamp
@@ -52,11 +50,9 @@ build libbrillo-http: phony ./lib/libbrillo-http.so
 build libbrillo-minijail: phony ./lib/libbrillo-minijail.so
 build libbrillo-namespaces: phony ./lib/libbrillo-namespaces.so
 build libbrillo-protobuf: phony ./lib/libbrillo-protobuf.so
-build libbrillo-storage: phony ./lib/libbrillo-storage.so
 build libbrillo-streams: phony ./lib/libbrillo-streams.so
 build libbrillo-test: phony ./lib/libbrillo-test.so
 build libbrillo-test_pc: phony obj/libbrillo/libbrillo-test_pc.stamp
-build libbrillo-udev: phony ./lib/libbrillo-udev.so
 build libbrillo-vboot: phony ./lib/libbrillo-vboot.so
 build libbrillo_pc: phony obj/libbrillo/libbrillo_pc.stamp
 build libinstallattributes: phony ./lib/libinstallattributes.so
@@ -100,11 +96,9 @@ build libbrillo$:_libbrillo-http-install_config: phony obj/libbrillo/_libbrillo-
 build libbrillo$:_libbrillo-minijail-install_config: phony obj/libbrillo/_libbrillo-minijail-install_config.stamp
 build libbrillo$:_libbrillo-namespaces-install_config: phony obj/libbrillo/_libbrillo-namespaces-install_config.stamp
 build libbrillo$:_libbrillo-protobuf-install_config: phony obj/libbrillo/_libbrillo-protobuf-install_config.stamp
-build libbrillo$:_libbrillo-storage-install_config: phony obj/libbrillo/_libbrillo-storage-install_config.stamp
 build libbrillo$:_libbrillo-streams-install_config: phony obj/libbrillo/_libbrillo-streams-install_config.stamp
 build libbrillo$:_libbrillo-test-install_config: phony obj/libbrillo/_libbrillo-test-install_config.stamp
 build libbrillo$:_libbrillo-test_pc-install_config: phony obj/libbrillo/_libbrillo-test_pc-install_config.stamp
-build libbrillo$:_libbrillo-udev-install_config: phony obj/libbrillo/_libbrillo-udev-install_config.stamp
 build libbrillo$:_libbrillo-vboot-install_config: phony obj/libbrillo/_libbrillo-vboot-install_config.stamp
 build libbrillo$:_libbrillo_pc-install_config: phony obj/libbrillo/_libbrillo_pc-install_config.stamp
 build libbrillo$:_libinstallattributes-install_config: phony obj/libbrillo/_libinstallattributes-install_config.stamp
@@ -122,11 +116,9 @@ build libbrillo$:libbrillo-http: phony ./lib/libbrillo-http.so
 build libbrillo$:libbrillo-minijail: phony ./lib/libbrillo-minijail.so
 build libbrillo$:libbrillo-namespaces: phony ./lib/libbrillo-namespaces.so
 build libbrillo$:libbrillo-protobuf: phony ./lib/libbrillo-protobuf.so
-build libbrillo$:libbrillo-storage: phony ./lib/libbrillo-storage.so
 build libbrillo$:libbrillo-streams: phony ./lib/libbrillo-streams.so
 build libbrillo$:libbrillo-test: phony ./lib/libbrillo-test.so
 build libbrillo$:libbrillo-test_pc: phony obj/libbrillo/libbrillo-test_pc.stamp
-build libbrillo$:libbrillo-udev: phony ./lib/libbrillo-udev.so
 build libbrillo$:libbrillo-vboot: phony ./lib/libbrillo-vboot.so
 build libbrillo$:libbrillo_pc: phony obj/libbrillo/libbrillo_pc.stamp
 build libbrillo$:libinstallattributes: phony ./lib/libinstallattributes.so
@@ -160,11 +152,9 @@ build all: phony $
     obj/libbrillo/_libbrillo-minijail-install_config.stamp $
     obj/libbrillo/_libbrillo-namespaces-install_config.stamp $
     obj/libbrillo/_libbrillo-protobuf-install_config.stamp $
-    obj/libbrillo/_libbrillo-storage-install_config.stamp $
     obj/libbrillo/_libbrillo-streams-install_config.stamp $
     obj/libbrillo/_libbrillo-test-install_config.stamp $
     obj/libbrillo/_libbrillo-test_pc-install_config.stamp $
-    obj/libbrillo/_libbrillo-udev-install_config.stamp $
     obj/libbrillo/_libbrillo-vboot-install_config.stamp $
     obj/libbrillo/_libbrillo_pc-install_config.stamp $
     obj/libbrillo/_libinstallattributes-install_config.stamp $
@@ -182,11 +172,9 @@ build all: phony $
     ./lib/libbrillo-minijail.so $
     ./lib/libbrillo-namespaces.so $
     ./lib/libbrillo-protobuf.so $
-    ./lib/libbrillo-storage.so $
     ./lib/libbrillo-streams.so $
     ./lib/libbrillo-test.so $
     obj/libbrillo/libbrillo-test_pc.stamp $
-    ./lib/libbrillo-udev.so $
     ./lib/libbrillo-vboot.so $
     obj/libbrillo/libbrillo_pc.stamp $
     ./lib/libinstallattributes.so $

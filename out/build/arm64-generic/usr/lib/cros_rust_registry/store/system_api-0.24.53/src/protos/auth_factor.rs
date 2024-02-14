@@ -2953,6 +2953,8 @@ pub enum AuthIntent {
     AUTH_INTENT_VERIFY_ONLY = 2,
     // @@protoc_insertion_point(enum_value:user_data_auth.AuthIntent.AUTH_INTENT_WEBAUTHN)
     AUTH_INTENT_WEBAUTHN = 3,
+    // @@protoc_insertion_point(enum_value:user_data_auth.AuthIntent.AUTH_INTENT_RESTORE_KEY)
+    AUTH_INTENT_RESTORE_KEY = 4,
 }
 
 impl ::protobuf::Enum for AuthIntent {
@@ -2968,6 +2970,7 @@ impl ::protobuf::Enum for AuthIntent {
             1 => ::std::option::Option::Some(AuthIntent::AUTH_INTENT_DECRYPT),
             2 => ::std::option::Option::Some(AuthIntent::AUTH_INTENT_VERIFY_ONLY),
             3 => ::std::option::Option::Some(AuthIntent::AUTH_INTENT_WEBAUTHN),
+            4 => ::std::option::Option::Some(AuthIntent::AUTH_INTENT_RESTORE_KEY),
             _ => ::std::option::Option::None
         }
     }
@@ -2977,6 +2980,7 @@ impl ::protobuf::Enum for AuthIntent {
         AuthIntent::AUTH_INTENT_DECRYPT,
         AuthIntent::AUTH_INTENT_VERIFY_ONLY,
         AuthIntent::AUTH_INTENT_WEBAUTHN,
+        AuthIntent::AUTH_INTENT_RESTORE_KEY,
     ];
 }
 

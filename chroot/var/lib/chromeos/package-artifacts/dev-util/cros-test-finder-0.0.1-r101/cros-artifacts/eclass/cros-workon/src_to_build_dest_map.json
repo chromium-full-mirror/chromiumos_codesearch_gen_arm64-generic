@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/../platform/dev",
+      "build_dest_path": "/var/tmp/portage/dev-util/cros-test-finder-0.0.1-r101/work/cros-test-finder-0.0.1"
+    }
+  ]
+}

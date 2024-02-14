@@ -1,54 +1,54 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_MIN_CORE_BTF=1
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2 -I/build/arm64-generic/usr/include -Igen
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2 -I/build/arm64-generic/usr/include -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/attestation-client -I/build/arm64-generic/usr/include/bpf/uapi -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/libmissiveclient -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/session_manager-client -I/build/arm64-generic/usr/include/shill-client -I/build/arm64-generic/usr/include/tpm_manager-client -I/build/arm64-generic/usr/include/user_data_auth-client -pthread
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libsecagent
 
 build obj/secagentd/libsecagent.inputdeps.stamp: stamp obj/common-mk/external_dependencies/policy-protos_gen.stamp obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp obj/secagentd/bpf_network.stamp obj/secagentd/bpf_process.stamp obj/secagentd/proto/security_xdr_events_proto_gen.stamp
-build obj/secagentd/libsecagent.agent_plugin.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/agent_plugin.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.agent_plugin.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/agent_plugin.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = agent_plugin.cc
   source_name_part = agent_plugin
-build obj/secagentd/libsecagent.authentication_plugin.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/authentication_plugin.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.authentication_plugin.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/authentication_plugin.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = authentication_plugin.cc
   source_name_part = authentication_plugin
-build obj/secagentd/libsecagent.bpf_skeletons.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/bpf_skeletons.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.bpf_skeletons.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/bpf_skeletons.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = bpf_skeletons.cc
   source_name_part = bpf_skeletons
-build obj/secagentd/libsecagent.common.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/common.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.common.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/common.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = common.cc
   source_name_part = common
-build obj/secagentd/libsecagent.daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/daemon.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/daemon.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = daemon.cc
   source_name_part = daemon
-build obj/secagentd/libsecagent.device_user.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/device_user.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.device_user.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/device_user.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = device_user.cc
   source_name_part = device_user
-build obj/secagentd/libsecagent.factories.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/factories.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.factories.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/factories.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = factories.cc
   source_name_part = factories
-build obj/secagentd/libsecagent.message_sender.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/message_sender.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.message_sender.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/message_sender.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = message_sender.cc
   source_name_part = message_sender
-build obj/secagentd/libsecagent.metrics_sender.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/metrics_sender.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.metrics_sender.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/metrics_sender.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = metrics_sender.cc
   source_name_part = metrics_sender
-build obj/secagentd/libsecagent.network_plugin.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/network_plugin.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.network_plugin.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/network_plugin.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = network_plugin.cc
   source_name_part = network_plugin
-build obj/secagentd/libsecagent.platform.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/platform.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.platform.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/platform.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = platform.cc
   source_name_part = platform
-build obj/secagentd/libsecagent.policies_features_broker.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/policies_features_broker.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.policies_features_broker.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/policies_features_broker.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = policies_features_broker.cc
   source_name_part = policies_features_broker
-build obj/secagentd/libsecagent.process_cache.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/process_cache.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.process_cache.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/process_cache.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = process_cache.cc
   source_name_part = process_cache
-build obj/secagentd/libsecagent.process_plugin.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/process_plugin.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.process_plugin.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/process_plugin.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = process_plugin.cc
   source_name_part = process_plugin
-build obj/secagentd/libsecagent.secagent.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r405/work/secagentd-0.0.1/platform2/secagentd/secagent.cc || obj/secagentd/libsecagent.inputdeps.stamp
+build obj/secagentd/libsecagent.secagent.o: cxx ../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r407/work/secagentd-0.0.1/platform2/secagentd/secagent.cc || obj/secagentd/libsecagent.inputdeps.stamp
   source_file_part = secagent.cc
   source_name_part = secagent
 
