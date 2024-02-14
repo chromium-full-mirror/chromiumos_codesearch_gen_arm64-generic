@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/../platform/dev",
+      "build_dest_path": "/var/tmp/portage/dev-util/pre-process-0.0.1-r19/work/pre-process-0.0.1"
+    }
+  ]
+}

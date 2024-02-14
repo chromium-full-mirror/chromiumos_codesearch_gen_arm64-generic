@@ -11,7 +11,7 @@ OS = "linux"
 sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root = "/build/arm64-generic/var/cache/portage/chromeos-base/quipper"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/quipper-0.0.1-r2991/work/quipper-0.0.1/platform2"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/quipper-0.0.1-r2992/work/quipper-0.0.1/platform2"
 libbase_ver = "1257783"
 enable_exceptions = false
 external_cflags = [
@@ -35,6 +35,7 @@ external_cxxflags = [
   "-fno-asynchronous-unwind-tables",
   "-ffunction-sections",
   "-fdata-sections",
+  "-Wno-implicit-fallthrough",
 ]
 external_cppflags = [
   "-D_FILE_OFFSET_BITS=64",
