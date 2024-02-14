@@ -1,2 +1,0 @@
-irt_arm/gen/base/tracing/protos/grit/tracing_proto_resources.h
-irt_arm/gen/base/tracing/protos/tracing_proto_resources.pak

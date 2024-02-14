@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-shells", "name": "bash-completion", "version": "2.8", "revision": 1, "fullname": "app-shells/bash-completion", "fullnamerev": "app-shells/bash-completion-2.8-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://github.com/scop/bash-completion"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-fs", "name": "fuse-archive", "version": "0.1.14", "revision": 0, "fullname": "sys-fs/fuse-archive", "fullnamerev": "sys-fs/fuse-archive-0.1.14", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/google/fuse-archive"], "skip": false, "tainted": false, "ebuild_path": null}

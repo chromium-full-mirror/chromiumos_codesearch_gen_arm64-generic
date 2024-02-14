@@ -1,9 +1,0 @@
-{
-  "deps": [
-    "../../../../../../sandbox/policy/mojom/mojom.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/quick_pair/public/mojom/fast_pair_data_parser.mojom",
-    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/quick_pair/public/mojom/quick_pair_service.mojom"
-  ]
-}

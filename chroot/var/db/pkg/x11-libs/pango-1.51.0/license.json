@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "x11-libs", "name": "pango", "version": "1.51.0", "revision": 0, "fullname": "x11-libs/pango", "fullnamerev": "x11-libs/pango-1.51.0", "license_names": ["LGPL-2", "LGPL-2+"], "license_text_scanned": [], "homepages": ["https://www.pango.org/", "https://gitlab.gnome.org/GNOME/pango"], "skip": false, "tainted": false, "ebuild_path": null}

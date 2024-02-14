@@ -1,8 +1,0 @@
-{
-  "deps": [
-    "media_router.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/components/media_router/common/mojom/media_router_traits_test_service.mojom"
-  ]
-}

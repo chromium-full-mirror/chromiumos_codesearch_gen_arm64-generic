@@ -1,1 +1,0 @@
-host/obj/third_party/libevent/libevent/event.o host/obj/third_party/libevent/libevent/evutil.o host/obj/third_party/libevent/libevent/log.o host/obj/third_party/libevent/libevent/poll.o host/obj/third_party/libevent/libevent/select.o host/obj/third_party/libevent/libevent/signal.o host/obj/third_party/libevent/libevent/strlcpy.o host/obj/third_party/libevent/libevent/epoll.o

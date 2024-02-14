@@ -1,8 +1,0 @@
-{
-  "deps": [
-
-  ],
-  "sources": [
-    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/media/mojo/mojom/encryption_pattern.mojom"
-  ]
-}

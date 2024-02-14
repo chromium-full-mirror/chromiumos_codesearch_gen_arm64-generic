@@ -1,4 +1,0 @@
-gen/chrome/grit/sensor_info_resources.h
-gen/chrome/grit/sensor_info_resources_map.cc
-gen/chrome/grit/sensor_info_resources_map.h
-gen/chrome/sensor_info_resources.pak

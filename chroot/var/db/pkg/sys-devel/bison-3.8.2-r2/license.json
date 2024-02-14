@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-devel", "name": "bison", "version": "3.8.2", "revision": 2, "fullname": "sys-devel/bison", "fullnamerev": "sys-devel/bison-3.8.2-r2", "license_names": ["GPL-3+"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/bison/"], "skip": false, "tainted": false, "ebuild_path": null}

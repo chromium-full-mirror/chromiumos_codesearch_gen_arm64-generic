@@ -1,4 +1,0 @@
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{assert}from"//resources/js/assert.js";import{PolymerElement}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";import{getTemplate}from"./cr_loading_gradient.html.js";let count=0;export class CrLoadingGradientElement extends PolymerElement{static get is(){return"cr-loading-gradient"}static get template(){return getTemplate()}onSlotchange_(){const clipPath=this.querySelector("svg clipPath");assert(clipPath);const generatedId=`crLoadingGradient${count++}`;clipPath.id=generatedId;this.style.clipPath=`url(#${generatedId})`}}customElements.define(CrLoadingGradientElement.is,CrLoadingGradientElement);

@@ -1,4 +1,0 @@
-Pil gücü güncelleme için yeterli değil.
-
-Chromebook'unuzu lütfen bir güç kaynağına takın. Pilin gücü
-yeterli olduğunda güncelleme otomatik olarak başlar.

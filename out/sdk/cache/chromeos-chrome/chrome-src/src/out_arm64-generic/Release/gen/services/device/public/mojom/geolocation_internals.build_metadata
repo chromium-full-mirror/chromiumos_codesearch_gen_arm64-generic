@@ -1,9 +1,0 @@
-{
-  "deps": [
-    "geoposition.build_metadata",
-    "../../../../mojo/public/mojom/base/base.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/device/public/mojom/geolocation_internals.mojom"
-  ]
-}

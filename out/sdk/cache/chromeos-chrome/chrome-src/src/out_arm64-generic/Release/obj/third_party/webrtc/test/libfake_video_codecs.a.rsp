@@ -1,1 +1,0 @@
-obj/third_party/webrtc/test/fake_video_codecs/configurable_frame_size_encoder.o obj/third_party/webrtc/test/fake_video_codecs/fake_decoder.o obj/third_party/webrtc/test/fake_video_codecs/fake_encoder.o obj/third_party/webrtc/test/fake_video_codecs/fake_vp8_decoder.o obj/third_party/webrtc/test/fake_video_codecs/fake_vp8_encoder.o

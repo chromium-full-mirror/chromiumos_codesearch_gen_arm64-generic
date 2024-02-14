@@ -1,4 +1,0 @@
-gen/chrome/grit/borealis_installer_resources.h
-gen/chrome/grit/borealis_installer_resources_map.cc
-gen/chrome/grit/borealis_installer_resources_map.h
-gen/chrome/borealis_installer_resources.pak

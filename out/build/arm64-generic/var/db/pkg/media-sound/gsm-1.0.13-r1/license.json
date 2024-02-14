@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "media-sound", "name": "gsm", "version": "1.0.13", "revision": 1, "fullname": "media-sound/gsm", "fullnamerev": "media-sound/gsm-1.0.13-r1", "license_names": ["gsm"], "license_text_scanned": [], "homepages": ["https://packages.qa.debian.org/libg/libgsm.html"], "skip": false, "tainted": false, "ebuild_path": null}

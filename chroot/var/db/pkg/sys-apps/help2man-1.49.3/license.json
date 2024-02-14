@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "help2man", "version": "1.49.3", "revision": 0, "fullname": "sys-apps/help2man", "fullnamerev": "sys-apps/help2man-1.49.3", "license_names": ["GPL-3+"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/help2man/", "https://salsa.debian.org/bod/help2man"], "skip": false, "tainted": false, "ebuild_path": null}

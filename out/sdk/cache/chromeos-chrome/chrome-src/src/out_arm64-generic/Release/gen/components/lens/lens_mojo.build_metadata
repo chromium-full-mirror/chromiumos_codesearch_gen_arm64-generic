@@ -1,9 +1,0 @@
-{
-  "deps": [
-    "../../mojo/public/mojom/base/base.build_metadata",
-    "../../ui/gfx/geometry/mojom/mojom.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../home/chrome-bot/chrome_root/src/components/lens/lens_metadata.mojom"
-  ]
-}

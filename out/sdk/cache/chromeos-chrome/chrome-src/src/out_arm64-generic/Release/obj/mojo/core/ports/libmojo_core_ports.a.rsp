@@ -1,1 +1,0 @@
-obj/mojo/core/ports/ports/event.o obj/mojo/core/ports/ports/message_queue.o obj/mojo/core/ports/ports/name.o obj/mojo/core/ports/ports/node.o obj/mojo/core/ports/ports/port.o obj/mojo/core/ports/ports/port_locker.o obj/mojo/core/ports/ports/port_ref.o obj/mojo/core/ports/ports/user_message.o

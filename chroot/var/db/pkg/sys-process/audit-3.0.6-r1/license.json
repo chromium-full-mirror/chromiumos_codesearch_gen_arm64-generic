@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-process", "name": "audit", "version": "3.0.6", "revision": 1, "fullname": "sys-process/audit", "fullnamerev": "sys-process/audit-3.0.6-r1", "license_names": ["GPL-2", "GPL-2+", "LGPL-2.1+"], "license_text_scanned": [], "homepages": ["https://people.redhat.com/sgrubb/audit/"], "skip": false, "tainted": false, "ebuild_path": null}

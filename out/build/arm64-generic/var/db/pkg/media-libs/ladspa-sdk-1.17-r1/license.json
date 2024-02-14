@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "media-libs", "name": "ladspa-sdk", "version": "1.17", "revision": 1, "fullname": "media-libs/ladspa-sdk", "fullnamerev": "media-libs/ladspa-sdk-1.17-r1", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://www.ladspa.org/"], "skip": false, "tainted": false, "ebuild_path": null}

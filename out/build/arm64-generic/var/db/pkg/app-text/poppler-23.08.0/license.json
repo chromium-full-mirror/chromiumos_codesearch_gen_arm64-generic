@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-text", "name": "poppler", "version": "23.08.0", "revision": 0, "fullname": "app-text/poppler", "fullnamerev": "app-text/poppler-23.08.0", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://poppler.freedesktop.org/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-libs", "name": "zlib", "version": "1.2.13", "revision": 2, "fullname": "sys-libs/zlib", "fullnamerev": "sys-libs/zlib-1.2.13-r2", "license_names": ["ZLIB"], "license_text_scanned": [], "homepages": ["https://zlib.net/"], "skip": false, "tainted": false, "ebuild_path": null}

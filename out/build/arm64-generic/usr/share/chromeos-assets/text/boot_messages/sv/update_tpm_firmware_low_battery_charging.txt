@@ -1,6 +1,0 @@
-Batterinivån är för låg för uppdateringen.
-
-Laddar …
-
-Uppdateringen startar automatiskt när batteriet har laddats upp
-tillräckligt.

@@ -1,2 +1,0 @@
-nacl_helper_arm32/gen/base/tracing/protos/grit/tracing_proto_resources.h
-nacl_helper_arm32/gen/base/tracing/protos/tracing_proto_resources.pak

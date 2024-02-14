@@ -1,5 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/offline_page_auto_fetcher.mojom-forward.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/offline_page_auto_fetcher.mojom-import-headers.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/offline_page_auto_fetcher.mojom-test-utils.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/offline_page_auto_fetcher.mojom.cc
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/offline_page_auto_fetcher.mojom.h

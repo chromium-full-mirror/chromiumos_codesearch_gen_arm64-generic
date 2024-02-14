@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "media-gfx", "name": "deqp", "version": "2023.05.18", "revision": 7, "fullname": "media-gfx/deqp", "fullnamerev": "media-gfx/deqp-2023.05.18-r7", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/KhronosGroup/VK-GL-CTS"], "skip": false, "tainted": false, "ebuild_path": null}

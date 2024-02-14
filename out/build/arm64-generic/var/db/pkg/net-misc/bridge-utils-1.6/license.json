@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "net-misc", "name": "bridge-utils", "version": "1.6", "revision": 0, "fullname": "net-misc/bridge-utils", "fullnamerev": "net-misc/bridge-utils-1.6", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://bridge.sourceforge.net/"], "skip": false, "tainted": false, "ebuild_path": null}

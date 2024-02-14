@@ -1,4 +1,0 @@
-// Copyright 2015 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{PromiseResolver}from"chrome://resources/js/promise_resolver.js";class CrSettingsPrefsInternal{constructor(){this.isInitialized=false;this.initializedResolver_=new PromiseResolver;this.deferInitialization=false}get initialized(){return this.initializedResolver_.promise}setInitialized(){this.isInitialized=true;this.initializedResolver_.resolve()}resetForTesting(){this.isInitialized=false;this.initializedResolver_=new PromiseResolver}}export const CrSettingsPrefs=new CrSettingsPrefsInternal;

@@ -1,4 +1,0 @@
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{sendWithPromise}from"chrome://resources/js/cr.js";import{getNavigationViewForPageId}from"./diagnostics_utils.js";export class DiagnosticsBrowserProxyImpl{constructor(){this.previousView=null}initialize(){chrome.send("initialize")}recordNavigation(currentView){if(this.previousView===null){this.previousView=getNavigationViewForPageId(currentView);return}const currentViewId=getNavigationViewForPageId(currentView);chrome.send("recordNavigation",[this.previousView,currentViewId]);this.previousView=currentViewId}saveSessionLog(){return sendWithPromise("saveSessionLog")}getPluralString(name,count){return sendWithPromise("getPluralString",name,count)}static getInstance(){return browserProxy||(browserProxy=new DiagnosticsBrowserProxyImpl)}static setInstance(obj){browserProxy=obj}}let browserProxy=null;

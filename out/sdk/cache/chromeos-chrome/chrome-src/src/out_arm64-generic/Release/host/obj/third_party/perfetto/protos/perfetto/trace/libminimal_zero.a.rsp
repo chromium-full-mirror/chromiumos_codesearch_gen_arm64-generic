@@ -1,1 +1,0 @@
-host/obj/third_party/perfetto/protos/perfetto/trace/minimal_zero/clock_snapshot.pbzero.o host/obj/third_party/perfetto/protos/perfetto/trace/minimal_zero/trace_uuid.pbzero.o host/obj/third_party/perfetto/protos/perfetto/trace/minimal_zero/trigger.pbzero.o host/obj/third_party/perfetto/protos/perfetto/trace/minimal_zero/system_info.pbzero.o

@@ -1,5 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/buckets/bucket_manager_host.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/indexeddb/indexeddb.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/shared_storage/shared_storage.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/shared_storage/shared_storage_worklet_service.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/storage_access/storage_access_handle.mojom-shared-message-ids.h

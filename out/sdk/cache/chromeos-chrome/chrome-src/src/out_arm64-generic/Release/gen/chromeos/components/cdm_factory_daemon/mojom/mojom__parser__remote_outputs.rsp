@@ -1,5 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/components/cdm_factory_daemon/mojom/browser_cdm_factory.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/components/cdm_factory_daemon/mojom/cdm_factory_daemon.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/components/cdm_factory_daemon/mojom/cdm_storage.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/components/cdm_factory_daemon/mojom/content_decryption_module.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/components/cdm_factory_daemon/mojom/output_protection.mojom-module

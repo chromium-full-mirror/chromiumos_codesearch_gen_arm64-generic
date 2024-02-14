@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "x11-libs", "name": "libdrm", "version": "2.4.115", "revision": 3, "fullname": "x11-libs/libdrm", "fullnamerev": "x11-libs/libdrm-2.4.115-r3", "license_names": ["X"], "license_text_scanned": [], "homepages": ["http://dri.freedesktop.org/"], "skip": false, "tainted": false, "ebuild_path": null}

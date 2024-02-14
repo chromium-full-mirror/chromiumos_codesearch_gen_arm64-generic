@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-devel", "name": "gettext", "version": "0.21", "revision": 3, "fullname": "sys-devel/gettext", "fullnamerev": "sys-devel/gettext-0.21-r3", "license_names": ["GPL-3+", "LGPL-2.1+"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/gettext/"], "skip": false, "tainted": false, "ebuild_path": null}

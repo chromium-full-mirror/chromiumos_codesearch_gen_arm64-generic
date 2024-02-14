@@ -1,9 +1,0 @@
-{
-  "deps": [
-    "../mojo/public/interfaces/bindings/bindings.build_metadata",
-    "../mojo/public/mojom/base/base.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../home/chrome-bot/chrome_root/src/ipc/ipc.mojom"
-  ]
-}

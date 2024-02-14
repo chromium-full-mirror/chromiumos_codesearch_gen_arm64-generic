@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-util", "name": "ccache", "version": "4.8.2", "revision": 0, "fullname": "dev-util/ccache", "fullnamerev": "dev-util/ccache-4.8.2", "license_names": ["GPL-3", "LGPL-3"], "license_text_scanned": [], "homepages": ["https://ccache.dev/"], "skip": false, "tainted": false, "ebuild_path": null}

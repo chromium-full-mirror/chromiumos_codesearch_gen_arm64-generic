@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-perl", "name": "PerlIO-utf8_strict", "version": "0.10.0", "revision": 0, "fullname": "dev-perl/PerlIO-utf8_strict", "fullnamerev": "dev-perl/PerlIO-utf8_strict-0.10.0", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/PerlIO-utf8_strict"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,4 +1,0 @@
-gen/chromeos/grit/chromeos_resources.h
-gen/chromeos/grit/chromeos_resources_map.cc
-gen/chromeos/grit/chromeos_resources_map.h
-gen/chromeos/chromeos_resources.pak

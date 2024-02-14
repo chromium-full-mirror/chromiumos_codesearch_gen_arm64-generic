@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "yaml", "version": "3.0.0", "revision": 1, "fullname": "dev-go/yaml", "fullnamerev": "dev-go/yaml-3.0.0-r1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://gopkg.in/yaml.v3"], "skip": false, "tainted": false, "ebuild_path": null}

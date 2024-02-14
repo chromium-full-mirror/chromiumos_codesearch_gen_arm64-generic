@@ -1,1 +1,0 @@
-{"rustc":8436041950963596612,"features":"","target":0,"profile":0,"path":0,"deps":[[11325553717098814380,"build_script_build",false,16522747234660943694]],"local":[{"RerunIfChanged":{"output":"aarch64-cros-linux-gnu/release/build/rustfft-e8b1d7173222f36b/output","paths":["build.rs"]}}],"rustflags":[],"metadata":0,"config":0,"compile_kind":0}

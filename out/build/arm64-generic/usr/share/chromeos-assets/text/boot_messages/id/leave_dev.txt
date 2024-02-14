@@ -1,4 +1,0 @@
-﻿
-Booting terakhir sistem Anda dalam Mode Pengembang.
-Mengembalikan ke Mode Normal (Terverifikasi)... 
-Setelah selesai, sistem akan melakukan reboot.

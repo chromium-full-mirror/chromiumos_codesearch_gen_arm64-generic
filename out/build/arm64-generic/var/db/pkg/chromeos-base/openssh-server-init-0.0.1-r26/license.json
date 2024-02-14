@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "chromeos-base", "name": "openssh-server-init", "version": "0.0.1", "revision": 26, "fullname": "chromeos-base/openssh-server-init", "fullnamerev": "chromeos-base/openssh-server-init-0.0.1-r26", "license_names": [], "license_text_scanned": [], "homepages": [], "skip": true, "tainted": null, "ebuild_path": null}

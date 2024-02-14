@@ -1,8 +1,0 @@
-{
-  "deps": [
-    "../../../../../mojo/public/mojom/base/base.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/services/cups_proxy/public/mojom/proxy.mojom"
-  ]
-}

@@ -1,5 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/services/language_detection/public/mojom/language_detection.mojom-forward.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/services/language_detection/public/mojom/language_detection.mojom-import-headers.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/services/language_detection/public/mojom/language_detection.mojom-test-utils.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/services/language_detection/public/mojom/language_detection.mojom.cc
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/services/language_detection/public/mojom/language_detection.mojom.h

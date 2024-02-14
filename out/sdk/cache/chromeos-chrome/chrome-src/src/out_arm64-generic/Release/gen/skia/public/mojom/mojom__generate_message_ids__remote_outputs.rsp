@@ -1,8 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/skia/public/mojom/bitmap.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/skia/public/mojom/image_info.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/skia/public/mojom/skcolor.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/skia/public/mojom/skcolor4f.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/skia/public/mojom/skcolorspace.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/skia/public/mojom/skcolorspace_primaries.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/skia/public/mojom/surface_origin.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/skia/public/mojom/tile_mode.mojom-shared-message-ids.h

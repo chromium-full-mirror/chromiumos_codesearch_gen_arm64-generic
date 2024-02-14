@@ -1,5 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/media_control/mojom/media_playback_options.mojom-forward.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/media_control/mojom/media_playback_options.mojom-import-headers.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/media_control/mojom/media_playback_options.mojom-test-utils.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/media_control/mojom/media_playback_options.mojom.cc
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/media_control/mojom/media_playback_options.mojom.h

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-perl", "name": "Capture-Tiny", "version": "0.480.0", "revision": 1, "fullname": "dev-perl/Capture-Tiny", "fullnamerev": "dev-perl/Capture-Tiny-0.480.0-r1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/Capture-Tiny"], "skip": false, "tainted": false, "ebuild_path": null}

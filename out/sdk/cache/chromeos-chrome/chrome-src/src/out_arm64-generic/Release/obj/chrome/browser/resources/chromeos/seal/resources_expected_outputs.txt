@@ -1,4 +1,0 @@
-gen/chrome/grit/seal_resources.h
-gen/chrome/grit/seal_resources_map.h
-gen/chrome/grit/seal_resources_map.cc
-gen/chrome/seal_resources.pak

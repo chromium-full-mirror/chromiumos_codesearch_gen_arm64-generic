@@ -1,8 +1,0 @@
-{
-  "deps": [
-    "../../../../ash/guest_os/guest_os_diagnostics_mojom.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/ash/vm/vm.mojom"
-  ]
-}

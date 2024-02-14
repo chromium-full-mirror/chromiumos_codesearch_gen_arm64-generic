@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-auth", "name": "pambase", "version": "20190402", "revision": 4, "fullname": "sys-auth/pambase", "fullnamerev": "sys-auth/pambase-20190402-r4", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://github.com/gentoo/pambase"], "skip": false, "tainted": false, "ebuild_path": null}

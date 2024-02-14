@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/third_party/../platform/empty-project",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/net-dns/avahi-daemon-0.0.1-r17/work/avahi-daemon-0.0.1"
-    }
-  ]
-}

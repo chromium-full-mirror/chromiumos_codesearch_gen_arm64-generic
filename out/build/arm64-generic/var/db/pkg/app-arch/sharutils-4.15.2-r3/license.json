@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-arch", "name": "sharutils", "version": "4.15.2", "revision": 3, "fullname": "app-arch/sharutils", "fullnamerev": "app-arch/sharutils-4.15.2-r3", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/sharutils/"], "skip": false, "tainted": false, "ebuild_path": null}

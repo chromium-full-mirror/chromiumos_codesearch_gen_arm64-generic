@@ -1,4 +1,0 @@
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import"chrome://resources/ash/common/cr_elements/icons.html.js";import"chrome://resources/polymer/v3_0/iron-icon/iron-icon.js";import"chrome://resources/polymer/v3_0/paper-progress/paper-progress.js";import"./diagnostics_shared.css.js";import"./strings.m.js";import{PolymerElement}from"chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js";import{getTemplate}from"./percent_bar_chart.html.js";export class PercentBarChartElement extends PolymerElement{static get is(){return"percent-bar-chart"}static get template(){return getTemplate()}static get properties(){return{header:{type:String},value:{type:Number,value:0},max:{type:Number,value:100}}}getAdjustedValue(){return this.value<=this.max?this.value:this.max}}customElements.define(PercentBarChartElement.is,PercentBarChartElement);

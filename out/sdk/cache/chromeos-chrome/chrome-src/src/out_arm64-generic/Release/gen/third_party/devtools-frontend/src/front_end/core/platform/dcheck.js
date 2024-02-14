@@ -1,1 +1,0 @@
-export function DCHECK(condition, message = 'DCHECK') {}

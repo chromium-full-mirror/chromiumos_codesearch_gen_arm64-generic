@@ -1,1 +1,0 @@
-# MeteorLake-U boards: rex

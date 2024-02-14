@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "media-sound", "name": "alsa-utils", "version": "1.2.8", "revision": 1, "fullname": "media-sound/alsa-utils", "fullnamerev": "media-sound/alsa-utils-1.2.8-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://alsa-project.org/"], "skip": false, "tainted": false, "ebuild_path": null}

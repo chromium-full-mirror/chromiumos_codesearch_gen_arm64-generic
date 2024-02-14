@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "regexp2", "version": "1.9.0", "revision": 1, "fullname": "dev-go/regexp2", "fullnamerev": "dev-go/regexp2-1.9.0-r1", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://github.com/dlclark/regexp2"], "skip": false, "tainted": false, "ebuild_path": null}

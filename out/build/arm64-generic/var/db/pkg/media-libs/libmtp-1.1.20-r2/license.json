@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "media-libs", "name": "libmtp", "version": "1.1.20", "revision": 2, "fullname": "media-libs/libmtp", "fullnamerev": "media-libs/libmtp-1.1.20-r2", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["http://libmtp.sourceforge.net/"], "skip": false, "tainted": false, "ebuild_path": null}

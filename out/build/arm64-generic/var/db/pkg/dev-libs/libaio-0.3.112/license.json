@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-libs", "name": "libaio", "version": "0.3.112", "revision": 0, "fullname": "dev-libs/libaio", "fullnamerev": "dev-libs/libaio-0.3.112", "license_names": ["LGPL-2"], "license_text_scanned": [], "homepages": ["https://pagure.io/libaio"], "skip": false, "tainted": false, "ebuild_path": null}

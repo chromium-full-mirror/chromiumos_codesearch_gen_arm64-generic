@@ -1,1 +1,0 @@
-{"browser_proxy.rollup.js": ["../stage_rollup/mojo_type_util.js", "../stage_rollup/help_app_ui.mojom-webui.js", "../stage_rollup/types.mojom-webui.js", "../stage_rollup/index.mojom-webui.js", "../../../system_apps/public/js/message_pipe.js", "../stage_rollup/message_types.js", "../stage_rollup/search.mojom-webui.js", "../stage_rollup/browser_proxy.js"]}

@@ -1,8 +1,0 @@
-import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-export function getTemplate() {
-    return html `<!--_html_template_start_-->
-<style>:host{background-color:var(--cros-sys-on_surface);border-radius:6px;box-sizing:border-box;color:var(--cros-sys-inverse_on_surface);display:flex;height:28px;opacity:0;padding:5px 8px;position:absolute;transition:opacity .3s;z-index:1000}:host([visible]){opacity:100%}#label,#link.link-label{align-items:center;border-radius:2px;display:inline-flex;font:var(--cros-annotation-1-font);white-space:nowrap}:host(.card-tooltip){background-color:var(--cros-sys-base_elevated);border-radius:8px;box-shadow:var(--cros-elevation-1-shadow);color:var(--cros-sys-on_surface);height:auto;margin-top:4px;padding:16px}:host(.link-tooltip){align-items:flex-start;flex-direction:column}#label.card-label,#link.link-label{line-height:18px;margin:0;max-width:192px;padding:0;white-space:normal}#label.card-label a,#link.link-label a{color:var(--cros-sys-primary)}#link{display:none;text-decoration:none}#link:focus-visible{outline:2px solid var(--cros-sys-focus_ring)}</style>
-<div id="label"></div>
-<a id="link" target="_blank" href="#"></a>
-<!--_html_template_end_-->`;
-}

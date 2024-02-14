@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "cross-arm-none-eabi", "name": "binutils", "version": "2.41", "revision": 3, "fullname": "cross-arm-none-eabi/binutils", "fullnamerev": "cross-arm-none-eabi/binutils-2.41-r3", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["http://sources.redhat.com/binutils/"], "skip": false, "tainted": false, "ebuild_path": null}

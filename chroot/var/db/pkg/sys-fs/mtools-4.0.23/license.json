@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-fs", "name": "mtools", "version": "4.0.23", "revision": 0, "fullname": "sys-fs/mtools", "fullnamerev": "sys-fs/mtools-4.0.23", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/mtools/", "https://savannah.gnu.org/projects/mtools"], "skip": false, "tainted": false, "ebuild_path": null}

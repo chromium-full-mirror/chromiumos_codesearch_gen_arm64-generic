@@ -1,4 +1,0 @@
-gen/chromeos/ash/components/emoji/grit/emoji.h
-gen/chromeos/ash/components/emoji/grit/emoji_map.cc
-gen/chromeos/ash/components/emoji/grit/emoji_map.h
-gen/chromeos/ash/components/emoji/emoji.pak

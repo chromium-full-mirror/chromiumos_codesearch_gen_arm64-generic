@@ -1,1 +1,0 @@
---flags SKIA_SUPPORT_SKOTTIE=true SKIA_USE_DAWN=true SKIA_USE_METAL=false

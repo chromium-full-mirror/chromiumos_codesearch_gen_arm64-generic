@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "go-billy", "version": "4.3.2", "revision": 1, "fullname": "dev-go/go-billy", "fullnamerev": "dev-go/go-billy-4.3.2-r1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/src-d/go-billy"], "skip": false, "tainted": false, "ebuild_path": null}

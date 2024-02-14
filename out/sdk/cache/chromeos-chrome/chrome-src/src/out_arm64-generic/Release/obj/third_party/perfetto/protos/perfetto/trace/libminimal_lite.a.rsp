@@ -1,1 +1,0 @@
-obj/third_party/perfetto/protos/perfetto/trace/minimal_lite/clock_snapshot.pb.o obj/third_party/perfetto/protos/perfetto/trace/minimal_lite/trace_uuid.pb.o obj/third_party/perfetto/protos/perfetto/trace/minimal_lite/trigger.pb.o obj/third_party/perfetto/protos/perfetto/trace/minimal_lite/system_info.pb.o

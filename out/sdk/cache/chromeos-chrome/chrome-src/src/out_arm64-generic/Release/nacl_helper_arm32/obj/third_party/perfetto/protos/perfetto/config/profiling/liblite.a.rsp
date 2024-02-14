@@ -1,1 +1,0 @@
-nacl_helper_arm32/obj/third_party/perfetto/protos/perfetto/config/profiling/lite/heapprofd_config.pb.o nacl_helper_arm32/obj/third_party/perfetto/protos/perfetto/config/profiling/lite/java_hprof_config.pb.o nacl_helper_arm32/obj/third_party/perfetto/protos/perfetto/config/profiling/lite/perf_event_config.pb.o

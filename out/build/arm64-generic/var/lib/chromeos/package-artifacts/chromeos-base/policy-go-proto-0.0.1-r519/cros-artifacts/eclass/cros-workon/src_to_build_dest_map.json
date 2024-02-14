@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/platform2",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/policy-go-proto-0.0.1-r519/work/policy-go-proto-0.0.1"
-    }
-  ]
-}

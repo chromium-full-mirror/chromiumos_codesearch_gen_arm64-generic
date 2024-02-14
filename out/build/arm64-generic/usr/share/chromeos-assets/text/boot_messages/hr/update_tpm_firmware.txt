@@ -1,3 +1,0 @@
-Instaliranje ažuriranja...
-
-Nemojte isključivati uređaj. Automatski će se ponovo pokrenuti nakon dovršetka ažuriranja.

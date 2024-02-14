@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-fs", "name": "rar2fs", "version": "1.29.6", "revision": 2, "fullname": "sys-fs/rar2fs", "fullnamerev": "sys-fs/rar2fs-1.29.6-r2", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://hasse69.github.io/rar2fs/", "https://github.com/hasse69/rar2fs"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "media-libs", "name": "alsa-lib", "version": "1.2.8", "revision": 2, "fullname": "media-libs/alsa-lib", "fullnamerev": "media-libs/alsa-lib-1.2.8-r2", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://alsa-project.org/"], "skip": false, "tainted": false, "ebuild_path": null}

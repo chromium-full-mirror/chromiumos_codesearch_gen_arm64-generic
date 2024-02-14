@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-libs", "name": "libselinux", "version": "3.0", "revision": 5, "fullname": "sys-libs/libselinux", "fullnamerev": "sys-libs/libselinux-3.0-r5", "license_names": ["public-domain"], "license_text_scanned": [], "homepages": ["https://github.com/SELinuxProject/selinux/wiki"], "skip": false, "tainted": false, "ebuild_path": null}

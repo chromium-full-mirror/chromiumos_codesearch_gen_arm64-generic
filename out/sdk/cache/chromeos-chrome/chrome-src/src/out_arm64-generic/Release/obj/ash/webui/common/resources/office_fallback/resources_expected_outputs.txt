@@ -1,4 +1,0 @@
-gen/chrome/grit/office_fallback_resources.h
-gen/chrome/grit/office_fallback_resources_map.cc
-gen/chrome/grit/office_fallback_resources_map.h
-gen/chrome/office_fallback_resources.pak

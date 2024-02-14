@@ -1,6 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/accessibility/public/mojom/autoclick.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/accessibility/public/mojom/file_loader.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/accessibility/public/mojom/speech_recognition.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/accessibility/public/mojom/tts.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/accessibility/public/mojom/user_input.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/accessibility/public/mojom/user_interface.mojom-shared-message-ids.h

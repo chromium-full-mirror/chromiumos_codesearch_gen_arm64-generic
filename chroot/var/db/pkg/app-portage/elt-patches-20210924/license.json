@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-portage", "name": "elt-patches", "version": "20210924", "revision": 0, "fullname": "app-portage/elt-patches", "fullnamerev": "app-portage/elt-patches-20210924", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://gitweb.gentoo.org/proj/elt-patches.git/"], "skip": false, "tainted": false, "ebuild_path": null}

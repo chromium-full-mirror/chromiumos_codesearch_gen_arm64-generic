@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-libs", "name": "libcap", "version": "2.65", "revision": 0, "fullname": "sys-libs/libcap", "fullnamerev": "sys-libs/libcap-2.65", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://sites.google.com/site/fullycapable/"], "skip": false, "tainted": false, "ebuild_path": null}

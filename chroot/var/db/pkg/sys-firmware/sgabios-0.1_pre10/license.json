@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-firmware", "name": "sgabios", "version": "0.1_pre10", "revision": 0, "fullname": "sys-firmware/sgabios", "fullnamerev": "sys-firmware/sgabios-0.1_pre10", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://code.google.com/p/sgabios/"], "skip": false, "tainted": false, "ebuild_path": null}

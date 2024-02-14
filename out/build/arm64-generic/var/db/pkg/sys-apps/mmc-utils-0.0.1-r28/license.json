@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "mmc-utils", "version": "0.0.1", "revision": 28, "fullname": "sys-apps/mmc-utils", "fullnamerev": "sys-apps/mmc-utils-0.0.1-r28", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://chromium.googlesource.com/chromiumos/third_party/mmc-utils"], "skip": false, "tainted": false, "ebuild_path": null}

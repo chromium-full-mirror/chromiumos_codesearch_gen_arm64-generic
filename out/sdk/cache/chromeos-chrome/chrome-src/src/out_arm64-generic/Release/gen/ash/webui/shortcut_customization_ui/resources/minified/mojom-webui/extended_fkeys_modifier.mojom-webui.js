@@ -1,4 +1,0 @@
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{mojo}from"//resources/mojo/mojo/public/js/bindings.js";export const ExtendedFkeysModifierSpec={$:mojo.internal.Enum()};export var ExtendedFkeysModifier;(function(ExtendedFkeysModifier){ExtendedFkeysModifier[ExtendedFkeysModifier["MIN_VALUE"]=0]="MIN_VALUE";ExtendedFkeysModifier[ExtendedFkeysModifier["MAX_VALUE"]=3]="MAX_VALUE";ExtendedFkeysModifier[ExtendedFkeysModifier["kDisabled"]=0]="kDisabled";ExtendedFkeysModifier[ExtendedFkeysModifier["kAlt"]=1]="kAlt";ExtendedFkeysModifier[ExtendedFkeysModifier["kShift"]=2]="kShift";ExtendedFkeysModifier[ExtendedFkeysModifier["kCtrlShift"]=3]="kCtrlShift"})(ExtendedFkeysModifier||(ExtendedFkeysModifier={}));

@@ -1,1 +1,0 @@
-{"base_dir": "gen/chrome/browser/resources/chromeos/audio/tsc", "files": ["audio_broker.js", "audio.js", "audio_player.js", "audio.mojom-webui.js", "device_table.js", "device_page.js", "feedback_page.js", "input_page.js", "output_page.js", "page.js"]}

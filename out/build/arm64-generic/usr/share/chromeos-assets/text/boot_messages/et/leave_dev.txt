@@ -1,4 +1,0 @@
-﻿
-Süsteem käivitus viimati arendaja režiimis.
-Naasmine tavalisse (kinnitatud) režiimi ...
-Pärast lõpuleviimist süsteem taaskäivitub.

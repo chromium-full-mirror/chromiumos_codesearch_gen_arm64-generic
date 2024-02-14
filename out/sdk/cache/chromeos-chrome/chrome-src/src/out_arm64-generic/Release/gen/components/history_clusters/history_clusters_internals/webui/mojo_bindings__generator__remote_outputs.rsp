@@ -1,5 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/history_clusters/history_clusters_internals/webui/history_clusters_internals.mojom-forward.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/history_clusters/history_clusters_internals/webui/history_clusters_internals.mojom-import-headers.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/history_clusters/history_clusters_internals/webui/history_clusters_internals.mojom-test-utils.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/history_clusters/history_clusters_internals/webui/history_clusters_internals.mojom.cc
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/history_clusters/history_clusters_internals/webui/history_clusters_internals.mojom.h

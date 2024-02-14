@@ -1,8 +1,0 @@
-defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_GLIB=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -DCR_CLANG_REVISION=\"llvmorg-18-init-17730-gf670112a-3\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=9d119c1f4a097b7d27210874f4eba3fc91a83a4e -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
-include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Ihost/gen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++
-label_name = storage
-target_out_dir = host/obj/third_party/perfetto/include/perfetto/trace_processor
-target_output_name = storage
-
-
-build host/obj/third_party/perfetto/include/perfetto/trace_processor/storage.stamp: host_stamp || host/obj/third_party/perfetto/include/perfetto/trace_processor/basic_types.stamp host/obj/third_party/perfetto/include/perfetto/base/base.stamp host/obj/third_party/perfetto/include/perfetto/public/base.stamp host/obj/third_party/perfetto/include/perfetto/public/abi/base.stamp

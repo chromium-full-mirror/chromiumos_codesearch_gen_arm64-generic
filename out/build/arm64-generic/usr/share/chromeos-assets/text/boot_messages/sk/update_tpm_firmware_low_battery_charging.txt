@@ -1,5 +1,0 @@
-Batéria je príliš slabá na aktualizáciu.
-
-Nabíja sa...
-
-Aktualizácia sa automaticky spustí, keď bude batéria dostatočne nabitá.

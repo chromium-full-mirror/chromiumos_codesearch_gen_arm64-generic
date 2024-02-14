@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-python", "name": "python-uinput", "version": "0.11.2", "revision": 7, "fullname": "dev-python/python-uinput", "fullnamerev": "dev-python/python-uinput-0.11.2-r7", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["http://tjjr.fi/sw/python-uinput/"], "skip": false, "tainted": false, "ebuild_path": null}

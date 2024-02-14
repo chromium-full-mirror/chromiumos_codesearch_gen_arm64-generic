@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "media-tv", "name": "v4l-utils", "version": "1.24.1", "revision": 3, "fullname": "media-tv/v4l-utils", "fullnamerev": "media-tv/v4l-utils-1.24.1-r3", "license_names": ["GPL-2", "GPL-2+", "LGPL-2.1+"], "license_text_scanned": [], "homepages": ["http://git.linuxtv.org/v4l-utils.git"], "skip": false, "tainted": false, "ebuild_path": null}

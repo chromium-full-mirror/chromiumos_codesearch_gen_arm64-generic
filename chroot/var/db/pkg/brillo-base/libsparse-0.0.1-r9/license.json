@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "brillo-base", "name": "libsparse", "version": "0.0.1", "revision": 9, "fullname": "brillo-base/libsparse", "fullnamerev": "brillo-base/libsparse-0.0.1-r9", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://android.googlesource.com/platform/system/core"], "skip": false, "tainted": false, "ebuild_path": null}

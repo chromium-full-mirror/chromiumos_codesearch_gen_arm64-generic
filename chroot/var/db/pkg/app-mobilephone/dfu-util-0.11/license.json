@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-mobilephone", "name": "dfu-util", "version": "0.11", "revision": 0, "fullname": "app-mobilephone/dfu-util", "fullnamerev": "app-mobilephone/dfu-util-0.11", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://dfu-util.sourceforge.net/"], "skip": false, "tainted": false, "ebuild_path": null}

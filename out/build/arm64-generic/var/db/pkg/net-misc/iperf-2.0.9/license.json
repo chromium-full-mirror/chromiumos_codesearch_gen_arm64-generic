@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "net-misc", "name": "iperf", "version": "2.0.9", "revision": 0, "fullname": "net-misc/iperf", "fullnamerev": "net-misc/iperf-2.0.9", "license_names": ["HPND"], "license_text_scanned": [], "homepages": ["http://iperf2.sourceforge.net/"], "skip": false, "tainted": false, "ebuild_path": null}

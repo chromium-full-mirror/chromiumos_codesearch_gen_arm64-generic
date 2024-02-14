@@ -1,4 +1,0 @@
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{ContactManager,DownloadContactsObserverReceiver}from"chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_settings.mojom-webui.js";let contactManager=null;let isTesting=false;export function setContactManagerForTesting(testContactManager){contactManager=testContactManager;isTesting=true}export function getContactManager(){if(!contactManager){contactManager=ContactManager.getRemote()}return contactManager}export function observeContactManager(observer){if(isTesting){getContactManager().addDownloadContactsObserver(observer);return null}const receiver=new DownloadContactsObserverReceiver(observer);getContactManager().addDownloadContactsObserver(receiver.$.bindNewPipeAndPassRemote());return receiver}

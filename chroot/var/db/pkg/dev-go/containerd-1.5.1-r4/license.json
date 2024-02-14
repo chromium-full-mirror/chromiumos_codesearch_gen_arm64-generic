@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "containerd", "version": "1.5.1", "revision": 4, "fullname": "dev-go/containerd", "fullnamerev": "dev-go/containerd-1.5.1-r4", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/containerd/containerd"], "skip": false, "tainted": false, "ebuild_path": null}

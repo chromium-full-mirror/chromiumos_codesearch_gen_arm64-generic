@@ -1,4 +1,0 @@
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{mojo}from"//resources/mojo/mojo/public/js/bindings.js";export const SourceRegistrationTimeConfigSpec={$:mojo.internal.Enum()};export var SourceRegistrationTimeConfig;(function(SourceRegistrationTimeConfig){SourceRegistrationTimeConfig[SourceRegistrationTimeConfig["MIN_VALUE"]=0]="MIN_VALUE";SourceRegistrationTimeConfig[SourceRegistrationTimeConfig["MAX_VALUE"]=1]="MAX_VALUE";SourceRegistrationTimeConfig[SourceRegistrationTimeConfig["kInclude"]=0]="kInclude";SourceRegistrationTimeConfig[SourceRegistrationTimeConfig["kExclude"]=1]="kExclude"})(SourceRegistrationTimeConfig||(SourceRegistrationTimeConfig={}));

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "mock", "version": "1.6.0", "revision": 4, "fullname": "dev-go/mock", "fullnamerev": "dev-go/mock-1.6.0-r4", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/golang/mock"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-perl", "name": "Net-SSLeay", "version": "1.920.0", "revision": 0, "fullname": "dev-perl/Net-SSLeay", "fullnamerev": "dev-perl/Net-SSLeay-1.920.0", "license_names": ["Artistic-2"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/Net-SSLeay"], "skip": false, "tainted": false, "ebuild_path": null}

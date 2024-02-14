@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "cmp", "version": "0.5.6", "revision": 3, "fullname": "dev-go/cmp", "fullnamerev": "dev-go/cmp-0.5.6-r3", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://github.com/google/go-cmp"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,4 +1,0 @@
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{mojo}from"//resources/mojo/mojo/public/js/bindings.js";export const ShareTargetTypeSpec={$:mojo.internal.Enum()};export var ShareTargetType;(function(ShareTargetType){ShareTargetType[ShareTargetType["MIN_VALUE"]=0]="MIN_VALUE";ShareTargetType[ShareTargetType["MAX_VALUE"]=3]="MAX_VALUE";ShareTargetType[ShareTargetType["kUnknown"]=0]="kUnknown";ShareTargetType[ShareTargetType["kPhone"]=1]="kPhone";ShareTargetType[ShareTargetType["kTablet"]=2]="kTablet";ShareTargetType[ShareTargetType["kLaptop"]=3]="kLaptop"})(ShareTargetType||(ShareTargetType={}));

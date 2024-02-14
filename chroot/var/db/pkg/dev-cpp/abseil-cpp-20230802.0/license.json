@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-cpp", "name": "abseil-cpp", "version": "20230802.0", "revision": 0, "fullname": "dev-cpp/abseil-cpp", "fullnamerev": "dev-cpp/abseil-cpp-20230802.0", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://abseil.io/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,7 +1,0 @@
-defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r553/work/smbfs-0.0.1/platform2 -I/build/arm64-generic/usr/include
-root_out_dir = .
-target_output_name = mojo_bindings_lib
-
-
-build obj/smbfs/mojo_bindings_lib.stamp: stamp || ./libmojo_bindings.a

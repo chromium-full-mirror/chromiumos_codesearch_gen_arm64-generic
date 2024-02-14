@@ -1,2 +1,0 @@
-gen/ash/webui/grit/ash_media_app_resources.h
-gen/ash/webui/ash_media_app_resources.pak

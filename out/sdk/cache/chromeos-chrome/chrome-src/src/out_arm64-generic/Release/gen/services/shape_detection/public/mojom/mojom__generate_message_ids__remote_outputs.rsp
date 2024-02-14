@@ -1,6 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/shape_detection/public/mojom/barcodedetection.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/shape_detection/public/mojom/barcodedetection_provider.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/shape_detection/public/mojom/facedetection.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/shape_detection/public/mojom/facedetection_provider.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/shape_detection/public/mojom/shape_detection_service.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/shape_detection/public/mojom/textdetection.mojom-shared-message-ids.h

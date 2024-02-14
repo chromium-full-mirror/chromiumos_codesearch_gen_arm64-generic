@@ -1,4 +1,0 @@
-gen/chrome/grit/healthd_internals_resources.h
-gen/chrome/grit/healthd_internals_resources_map.cc
-gen/chrome/grit/healthd_internals_resources_map.h
-gen/chrome/healthd_internals_resources.pak

@@ -1,4 +1,0 @@
-﻿
-Notiek sistēmas sagatavošana izstrādātāja režīmam.
-Tas var ilgt dažas minūtes.
-Neizslēdziet datoru, kamēr tas nav restartēts.

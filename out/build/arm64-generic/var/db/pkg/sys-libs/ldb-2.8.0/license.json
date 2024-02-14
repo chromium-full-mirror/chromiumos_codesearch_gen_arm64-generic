@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-libs", "name": "ldb", "version": "2.8.0", "revision": 0, "fullname": "sys-libs/ldb", "fullnamerev": "sys-libs/ldb-2.8.0", "license_names": ["LGPL-3"], "license_text_scanned": [], "homepages": ["https://ldb.samba.org"], "skip": false, "tainted": false, "ebuild_path": null}

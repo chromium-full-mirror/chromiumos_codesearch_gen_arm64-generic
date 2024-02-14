@@ -1,4 +1,0 @@
-﻿
-Pēdējoreiz sistēma tika sāknēta izstrādātāja režīmā.
-Notiek atgriešanās parastajā (pārbaudītajā) režīmā...
-Kad process tiks pabeigts, sistēma tiks atsāknēta.

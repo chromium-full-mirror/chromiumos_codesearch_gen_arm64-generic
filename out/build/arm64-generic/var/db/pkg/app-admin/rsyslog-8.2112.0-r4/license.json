@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-admin", "name": "rsyslog", "version": "8.2112.0", "revision": 4, "fullname": "app-admin/rsyslog", "fullnamerev": "app-admin/rsyslog-8.2112.0-r4", "license_names": ["Apache-2.0", "GPL-3", "LGPL-3"], "license_text_scanned": [], "homepages": ["https://www.rsyslog.com/"], "skip": false, "tainted": false, "ebuild_path": null}

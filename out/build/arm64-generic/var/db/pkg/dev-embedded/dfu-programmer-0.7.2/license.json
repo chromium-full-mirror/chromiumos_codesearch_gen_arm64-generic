@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-embedded", "name": "dfu-programmer", "version": "0.7.2", "revision": 0, "fullname": "dev-embedded/dfu-programmer", "fullnamerev": "dev-embedded/dfu-programmer-0.7.2", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://dfu-programmer.sourceforge.net"], "skip": false, "tainted": false, "ebuild_path": null}

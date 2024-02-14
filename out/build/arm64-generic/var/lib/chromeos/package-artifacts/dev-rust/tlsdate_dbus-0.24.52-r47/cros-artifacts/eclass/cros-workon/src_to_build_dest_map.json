@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/third_party/tlsdate",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/dev-rust/tlsdate_dbus-0.24.52-r47/work/tlsdate_dbus-0.24.52"
-    }
-  ]
-}

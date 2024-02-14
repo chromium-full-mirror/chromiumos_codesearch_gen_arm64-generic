@@ -1,5 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/demo_mode_app_ui/mojom/demo_mode_app_untrusted_ui.mojom-forward.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/demo_mode_app_ui/mojom/demo_mode_app_untrusted_ui.mojom-import-headers.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/demo_mode_app_ui/mojom/demo_mode_app_untrusted_ui.mojom-test-utils.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/demo_mode_app_ui/mojom/demo_mode_app_untrusted_ui.mojom.cc
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/demo_mode_app_ui/mojom/demo_mode_app_untrusted_ui.mojom.h

@@ -1,3 +1,0 @@
-Probíhá instalace aktualizace...
-
-Zařízení prosím nevypínejte. Po dokončení aktualizace se automaticky restartuje.

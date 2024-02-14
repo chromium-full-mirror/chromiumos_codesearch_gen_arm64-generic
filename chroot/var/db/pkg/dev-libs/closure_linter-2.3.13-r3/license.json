@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-libs", "name": "closure_linter", "version": "2.3.13", "revision": 3, "fullname": "dev-libs/closure_linter", "fullnamerev": "dev-libs/closure_linter-2.3.13-r3", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://developers.google.com/closure/utilities/"], "skip": false, "tainted": false, "ebuild_path": null}

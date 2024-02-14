@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-i18n", "name": "chromeos-cangjie", "version": "1.0.0.0", "revision": 4, "fullname": "app-i18n/chromeos-cangjie", "fullnamerev": "app-i18n/chromeos-cangjie-1.0.0.0-r4", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/google/google-input-tools"], "skip": false, "tainted": false, "ebuild_path": null}

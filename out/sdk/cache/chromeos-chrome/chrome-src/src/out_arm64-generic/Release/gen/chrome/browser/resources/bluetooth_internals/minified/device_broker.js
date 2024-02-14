@@ -1,4 +1,0 @@
-// Copyright 2017 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{getAdapterBroker}from"./adapter_broker.js";import{DeviceRemote}from"./device.mojom-webui.js";export const connectedDevices=new Map;export function connectToDevice(address){const deviceOrPromise=connectedDevices.get(address)||null;if(deviceOrPromise!==null){return Promise.resolve(deviceOrPromise)}const promise=getAdapterBroker().then((function(adapterBroker){return adapterBroker.connectToDevice(address)})).then((function(device){connectedDevices.set(address,device);device.onConnectionError.addListener((()=>connectedDevices.delete(address)));return device})).catch((function(error){connectedDevices.delete(address);throw error}));connectedDevices.set(address,promise);return promise}

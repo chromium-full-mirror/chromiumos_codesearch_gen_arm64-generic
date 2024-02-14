@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "grpc", "version": "1.42.0", "revision": 8, "fullname": "dev-go/grpc", "fullnamerev": "dev-go/grpc-1.42.0-r8", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://grpc.io/"], "skip": false, "tainted": false, "ebuild_path": null}

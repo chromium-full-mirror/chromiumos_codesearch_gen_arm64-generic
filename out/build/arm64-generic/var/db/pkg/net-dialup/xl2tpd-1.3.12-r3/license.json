@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "net-dialup", "name": "xl2tpd", "version": "1.3.12", "revision": 3, "fullname": "net-dialup/xl2tpd", "fullnamerev": "net-dialup/xl2tpd-1.3.12-r3", "license_names": ["GPL-2", "GPL-2+"], "license_text_scanned": [], "homepages": ["https://github.com/xelerance/xl2tpd"], "skip": false, "tainted": false, "ebuild_path": null}

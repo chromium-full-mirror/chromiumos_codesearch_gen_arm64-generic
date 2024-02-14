@@ -1,7 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_diagnostics.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_events.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_probe.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_routines.mojom-shared-message-ids.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-shared-message-ids.h

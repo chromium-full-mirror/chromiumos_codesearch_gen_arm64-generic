@@ -1,4 +1,0 @@
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{dedupingMixin}from"chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js";import{PrivacySandboxDialogBrowserProxy}from"./privacy_sandbox_dialog_browser_proxy.js";export const PrivacySandboxDialogResizeMixin=dedupingMixin((superClass=>{class PrivacySandboxDialogResizeMixin extends superClass{resizeAndShowNativeDialog(){return new Promise((async resolve=>{const proxy=PrivacySandboxDialogBrowserProxy.getInstance();await proxy.resizeDialog(document.body.offsetHeight);const elements=this.shadowRoot.querySelectorAll("[fill-content]");for(const element of elements){element.classList.toggle("fill-content",true)}document.body.style.overflow="hidden";proxy.showDialog();resolve()}))}}return PrivacySandboxDialogResizeMixin}));

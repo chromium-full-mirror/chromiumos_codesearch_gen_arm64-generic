@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-misc", "name": "eglinfo", "version": "8.2.0", "revision": 3, "fullname": "app-misc/eglinfo", "fullnamerev": "app-misc/eglinfo-8.2.0-r3", "license_names": ["LGPL-2"], "license_text_scanned": [], "homepages": ["http://mesa3d.sourceforge.net/"], "skip": false, "tainted": false, "ebuild_path": null}

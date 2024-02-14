@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-firmware", "name": "fwupd-storage", "version": "0.0.1", "revision": 20, "fullname": "sys-firmware/fwupd-storage", "fullnamerev": "sys-firmware/fwupd-storage-0.0.1-r20", "license_names": ["LVFS-Vendor-Agreement-v1"], "license_text_scanned": [], "homepages": ["https://support.dell.com"], "skip": false, "tainted": false, "ebuild_path": null}

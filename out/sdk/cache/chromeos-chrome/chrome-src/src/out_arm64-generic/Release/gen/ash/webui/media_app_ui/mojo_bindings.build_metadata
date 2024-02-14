@@ -1,8 +1,0 @@
-{
-  "deps": [
-    "../../../third_party/blink/public/mojom/mojom_platform.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/media_app_ui.mojom"
-  ]
-}

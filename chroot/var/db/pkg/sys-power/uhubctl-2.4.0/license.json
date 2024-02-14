@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-power", "name": "uhubctl", "version": "2.4.0", "revision": 0, "fullname": "sys-power/uhubctl", "fullnamerev": "sys-power/uhubctl-2.4.0", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://github.com/mvp/uhubctl"], "skip": false, "tainted": false, "ebuild_path": null}

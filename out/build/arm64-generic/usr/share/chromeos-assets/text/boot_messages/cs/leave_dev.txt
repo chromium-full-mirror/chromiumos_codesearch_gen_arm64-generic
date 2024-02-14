@@ -1,4 +1,0 @@
-﻿
-Systém byl naposledy spuštěn v režimu pro vývojáře.
-Návrat do normálního (ověřeného) režimu...
-Po dokončení se systém restartuje.

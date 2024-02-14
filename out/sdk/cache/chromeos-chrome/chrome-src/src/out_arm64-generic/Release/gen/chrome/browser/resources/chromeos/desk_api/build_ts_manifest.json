@@ -1,1 +1,0 @@
-{"base_dir": "gen/chrome/browser/resources/chromeos/desk_api/tsc", "files": ["background.js", "background_main.js", "desk_api_impl.js", "message_type.js", "notification_api_impl.js", "service_worker.js"]}

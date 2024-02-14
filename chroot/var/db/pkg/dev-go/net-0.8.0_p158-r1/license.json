@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "net", "version": "0.8.0_p158", "revision": 1, "fullname": "dev-go/net", "fullnamerev": "dev-go/net-0.8.0_p158-r1", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://golang.org/x/net"], "skip": false, "tainted": false, "ebuild_path": null}

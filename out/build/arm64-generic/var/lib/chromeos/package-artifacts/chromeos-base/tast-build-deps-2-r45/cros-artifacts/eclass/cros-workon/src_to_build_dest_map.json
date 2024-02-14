@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/platform/empty-project",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/tast-build-deps-2-r45/work/tast-build-deps-2"
-    }
-  ]
-}

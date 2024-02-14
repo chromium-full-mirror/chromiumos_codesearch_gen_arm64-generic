@@ -1,6 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/ime/public/mojom/connection_factory.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/ime/public/mojom/ime_service.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/ime/public/mojom/input_engine.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/ime/public/mojom/input_method.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/ime/public/mojom/input_method_host.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/ime/public/mojom/japanese_settings.mojom-module

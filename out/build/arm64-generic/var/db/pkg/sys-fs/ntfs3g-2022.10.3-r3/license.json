@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-fs", "name": "ntfs3g", "version": "2022.10.3", "revision": 3, "fullname": "sys-fs/ntfs3g", "fullnamerev": "sys-fs/ntfs3g-2022.10.3-r3", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://github.com/tuxera/ntfs-3g"], "skip": false, "tainted": false, "ebuild_path": null}

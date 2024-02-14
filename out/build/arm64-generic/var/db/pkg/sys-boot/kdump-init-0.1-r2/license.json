@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-boot", "name": "kdump-init", "version": "0.1", "revision": 2, "fullname": "sys-boot/kdump-init", "fullnamerev": "sys-boot/kdump-init-0.1-r2", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": [], "skip": false, "tainted": false, "ebuild_path": null}

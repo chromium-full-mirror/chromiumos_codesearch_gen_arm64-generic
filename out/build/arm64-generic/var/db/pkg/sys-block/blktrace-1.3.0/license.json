@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-block", "name": "blktrace", "version": "1.3.0", "revision": 0, "fullname": "sys-block/blktrace", "fullnamerev": "sys-block/blktrace-1.3.0", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://git.kernel.dk/cgit/blktrace/"], "skip": false, "tainted": false, "ebuild_path": null}

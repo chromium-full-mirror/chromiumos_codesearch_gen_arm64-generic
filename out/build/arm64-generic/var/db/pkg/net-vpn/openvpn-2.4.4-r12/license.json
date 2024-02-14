@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "net-vpn", "name": "openvpn", "version": "2.4.4", "revision": 12, "fullname": "net-vpn/openvpn", "fullnamerev": "net-vpn/openvpn-2.4.4-r12", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://openvpn.net/"], "skip": false, "tainted": false, "ebuild_path": null}

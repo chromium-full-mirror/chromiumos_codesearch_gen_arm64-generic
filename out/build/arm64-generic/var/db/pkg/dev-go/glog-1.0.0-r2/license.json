@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "glog", "version": "1.0.0", "revision": 2, "fullname": "dev-go/glog", "fullnamerev": "dev-go/glog-1.0.0-r2", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://github.com/golang/glog"], "skip": false, "tainted": false, "ebuild_path": null}

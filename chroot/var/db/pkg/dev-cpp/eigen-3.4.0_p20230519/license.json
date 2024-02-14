@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-cpp", "name": "eigen", "version": "3.4.0_p20230519", "revision": 0, "fullname": "dev-cpp/eigen", "fullnamerev": "dev-cpp/eigen-3.4.0_p20230519", "license_names": ["MPL-2.0"], "license_text_scanned": [], "homepages": ["https://eigen.tuxfamily.org/index.php?title=Main_Page"], "skip": false, "tainted": false, "ebuild_path": null}

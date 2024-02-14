@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-libs", "name": "hidapi", "version": "0.13.1", "revision": 1, "fullname": "dev-libs/hidapi", "fullnamerev": "dev-libs/hidapi-0.13.1-r1", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://github.com/libusb/hidapi"], "skip": false, "tainted": false, "ebuild_path": null}

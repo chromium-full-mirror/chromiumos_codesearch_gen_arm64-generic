@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "net-libs", "name": "glib-networking", "version": "2.72.2", "revision": 0, "fullname": "net-libs/glib-networking", "fullnamerev": "net-libs/glib-networking-2.72.2", "license_names": ["LGPL-2.1+"], "license_text_scanned": [], "homepages": ["https://gitlab.gnome.org/GNOME/glib-networking"], "skip": false, "tainted": false, "ebuild_path": null}

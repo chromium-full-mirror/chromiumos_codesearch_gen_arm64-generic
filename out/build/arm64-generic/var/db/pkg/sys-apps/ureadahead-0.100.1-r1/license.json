@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "ureadahead", "version": "0.100.1", "revision": 1, "fullname": "sys-apps/ureadahead", "fullnamerev": "sys-apps/ureadahead-0.100.1-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://github.com/rostedt/ureadahead"], "skip": false, "tainted": false, "ebuild_path": null}

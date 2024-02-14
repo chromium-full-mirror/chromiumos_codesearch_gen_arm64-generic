@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-perl", "name": "File-Slurper", "version": "0.14.0", "revision": 0, "fullname": "dev-perl/File-Slurper", "fullnamerev": "dev-perl/File-Slurper-0.14.0", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/File-Slurper"], "skip": false, "tainted": false, "ebuild_path": null}

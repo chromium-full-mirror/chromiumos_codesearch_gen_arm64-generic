@@ -1,9 +1,0 @@
-{
-  "deps": [
-    "../../../../../media/mojo/mojom/mojom.build_metadata",
-    "../../../../../sandbox/policy/mojom/mojom.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/services/tts/public/mojom/tts_service.mojom"
-  ]
-}

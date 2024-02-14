@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "x11-libs", "name": "cairo", "version": "1.18.0", "revision": 0, "fullname": "x11-libs/cairo", "fullnamerev": "x11-libs/cairo-1.18.0", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://www.cairographics.org/", "https://gitlab.freedesktop.org/cairo/cairo"], "skip": false, "tainted": false, "ebuild_path": null}

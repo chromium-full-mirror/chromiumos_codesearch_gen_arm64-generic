@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-perl", "name": "XML-SAX-Expat", "version": "0.510.0", "revision": 3, "fullname": "dev-perl/XML-SAX-Expat", "fullnamerev": "dev-perl/XML-SAX-Expat-0.510.0-r3", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/XML-SAX-Expat"], "skip": false, "tainted": false, "ebuild_path": null}

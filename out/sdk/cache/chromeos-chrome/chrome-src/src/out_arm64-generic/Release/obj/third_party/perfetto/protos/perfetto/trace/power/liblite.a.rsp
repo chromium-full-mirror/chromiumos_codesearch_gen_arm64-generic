@@ -1,1 +1,0 @@
-obj/third_party/perfetto/protos/perfetto/trace/power/lite/android_energy_estimation_breakdown.pb.o obj/third_party/perfetto/protos/perfetto/trace/power/lite/android_entity_state_residency.pb.o obj/third_party/perfetto/protos/perfetto/trace/power/lite/battery_counters.pb.o obj/third_party/perfetto/protos/perfetto/trace/power/lite/power_rails.pb.o

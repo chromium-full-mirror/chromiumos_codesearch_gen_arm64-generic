@@ -1,4 +1,0 @@
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{AccessibilityFeatures}from"./accessibility_features.mojom-webui.js";import{ScanService}from"./scanning.mojom-webui.js";let scanService=null;let accessibilityFeatures=null;export function setScanServiceForTesting(testScanService){scanService=testScanService}export function getScanService(){if(scanService){return scanService}scanService=ScanService.getRemote();return scanService}export function setAccessibilityFeaturesForTesting(testAccessibilityInterface){accessibilityFeatures=testAccessibilityInterface}export function getAccessibilityFeaturesInterface(){if(accessibilityFeatures){return accessibilityFeatures}accessibilityFeatures=AccessibilityFeatures.getRemote();return accessibilityFeatures}

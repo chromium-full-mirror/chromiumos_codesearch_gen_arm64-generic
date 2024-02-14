@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "chromeos-base", "name": "sepolicy-analyze", "version": "0.1", "revision": 4, "fullname": "chromeos-base/sepolicy-analyze", "fullnamerev": "chromeos-base/sepolicy-analyze-0.1-r4", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["http://userspace.selinuxproject.org"], "skip": false, "tainted": false, "ebuild_path": null}

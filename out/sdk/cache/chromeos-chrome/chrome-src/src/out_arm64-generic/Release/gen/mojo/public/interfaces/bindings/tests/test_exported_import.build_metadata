@@ -1,8 +1,0 @@
-{
-  "deps": [
-    "test_export.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/mojo/public/interfaces/bindings/tests/test_import.mojom"
-  ]
-}

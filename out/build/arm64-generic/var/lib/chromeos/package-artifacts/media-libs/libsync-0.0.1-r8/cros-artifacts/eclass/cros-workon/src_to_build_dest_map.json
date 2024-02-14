@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/third_party/../aosp/system/libsync",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/media-libs/libsync-0.0.1-r8/work/libsync-0.0.1"
-    }
-  ]
-}

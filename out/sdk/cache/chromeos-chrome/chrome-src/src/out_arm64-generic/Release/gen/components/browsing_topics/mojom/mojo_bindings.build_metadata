@@ -1,8 +1,0 @@
-{
-  "deps": [
-    "../../../mojo/public/mojom/base/base.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/components/browsing_topics/mojom/browsing_topics_internals.mojom"
-  ]
-}

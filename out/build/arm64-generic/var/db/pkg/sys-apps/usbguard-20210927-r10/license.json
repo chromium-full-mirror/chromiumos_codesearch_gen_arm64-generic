@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "usbguard", "version": "20210927", "revision": 10, "fullname": "sys-apps/usbguard", "fullnamerev": "sys-apps/usbguard-20210927-r10", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://usbguard.github.io/"], "skip": false, "tainted": false, "ebuild_path": null}

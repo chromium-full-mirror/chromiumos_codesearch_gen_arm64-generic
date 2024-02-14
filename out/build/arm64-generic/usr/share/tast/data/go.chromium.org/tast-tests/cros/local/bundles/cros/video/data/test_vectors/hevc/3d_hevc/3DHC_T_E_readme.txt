@@ -1,1 +1,0 @@
-Combined texture only bitstream

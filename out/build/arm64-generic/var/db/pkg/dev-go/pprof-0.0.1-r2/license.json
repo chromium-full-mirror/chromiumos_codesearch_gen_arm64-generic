@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "pprof", "version": "0.0.1", "revision": 2, "fullname": "dev-go/pprof", "fullnamerev": "dev-go/pprof-0.0.1-r2", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/google/pprof"], "skip": false, "tainted": false, "ebuild_path": null}

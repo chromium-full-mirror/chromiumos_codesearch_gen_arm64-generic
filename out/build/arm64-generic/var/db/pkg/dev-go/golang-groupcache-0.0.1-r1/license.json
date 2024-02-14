@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "golang-groupcache", "version": "0.0.1", "revision": 1, "fullname": "dev-go/golang-groupcache", "fullnamerev": "dev-go/golang-groupcache-0.0.1-r1", "license_names": ["FTL"], "license_text_scanned": [], "homepages": ["https://github.com/golang/groupcache"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,2 +1,0 @@
-dEQP-GLES2.functional.shaders.function.global_variable_aliasing_fragment,Fail
-dEQP-GLES2.functional.shaders.function.global_variable_aliasing_vertex,Fail

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-libs", "name": "lzo", "version": "2.10", "revision": 0, "fullname": "dev-libs/lzo", "fullnamerev": "dev-libs/lzo-2.10", "license_names": ["GPL-2", "GPL-2+"], "license_text_scanned": [], "homepages": ["https://www.oberhumer.com/opensource/lzo/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,4 +1,0 @@
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{mojo}from"//resources/mojo/mojo/public/js/bindings.js";export const SixPackShortcutModifierSpec={$:mojo.internal.Enum()};export var SixPackShortcutModifier;(function(SixPackShortcutModifier){SixPackShortcutModifier[SixPackShortcutModifier["MIN_VALUE"]=0]="MIN_VALUE";SixPackShortcutModifier[SixPackShortcutModifier["MAX_VALUE"]=2]="MAX_VALUE";SixPackShortcutModifier[SixPackShortcutModifier["kNone"]=0]="kNone";SixPackShortcutModifier[SixPackShortcutModifier["kAlt"]=1]="kAlt";SixPackShortcutModifier[SixPackShortcutModifier["kSearch"]=2]="kSearch"})(SixPackShortcutModifier||(SixPackShortcutModifier={}));

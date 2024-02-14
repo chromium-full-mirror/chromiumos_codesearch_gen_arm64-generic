@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-devel", "name": "make", "version": "4.2.1", "revision": 4, "fullname": "sys-devel/make", "fullnamerev": "sys-devel/make-4.2.1-r4", "license_names": ["GPL-3+"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/make/make.html"], "skip": false, "tainted": false, "ebuild_path": null}

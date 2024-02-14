@@ -1,1 +1,0 @@
---flags USE_VAAPI=false USE_VAAPI_IMAGE_CODECS=false USE_V4L2_CODEC=true USE_LIBV4L2=false

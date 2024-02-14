@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-libs", "name": "json-glib", "version": "1.6.2", "revision": 0, "fullname": "dev-libs/json-glib", "fullnamerev": "dev-libs/json-glib-1.6.2", "license_names": ["LGPL-2.1+"], "license_text_scanned": [], "homepages": ["https://wiki.gnome.org/Projects/JsonGlib"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "media-libs", "name": "libsndfile", "version": "1.2.0", "revision": 1, "fullname": "media-libs/libsndfile", "fullnamerev": "media-libs/libsndfile-1.2.0-r1", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://libsndfile.github.io/libsndfile/"], "skip": false, "tainted": false, "ebuild_path": null}

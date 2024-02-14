@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-libs", "name": "pkcs11-helper", "version": "1.29.0", "revision": 1, "fullname": "dev-libs/pkcs11-helper", "fullnamerev": "dev-libs/pkcs11-helper-1.29.0-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://github.com/OpenSC/pkcs11-helper"], "skip": false, "tainted": false, "ebuild_path": null}

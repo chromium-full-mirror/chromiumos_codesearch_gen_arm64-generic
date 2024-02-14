@@ -1,1 +1,0 @@
-{"base_dir": "gen/chrome/browser/resources/access_code_cast/tsc", "files": ["access_code_cast.js", "error_message/error_message.js", "passcode_input/passcode_input.js", "browser_proxy.js", "access_code_cast.html.js", "error_message/error_message.html.js", "passcode_input/passcode_input.html.js", "access_code_cast.mojom-webui.js", "route_request_result_code.mojom-webui.js"]}

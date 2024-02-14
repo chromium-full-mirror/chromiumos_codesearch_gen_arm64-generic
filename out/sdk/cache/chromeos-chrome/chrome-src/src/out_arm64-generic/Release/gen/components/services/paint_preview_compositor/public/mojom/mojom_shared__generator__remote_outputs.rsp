@@ -1,5 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/services/paint_preview_compositor/public/mojom/paint_preview_compositor.mojom-features.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/services/paint_preview_compositor/public/mojom/paint_preview_compositor.mojom-params-data.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/services/paint_preview_compositor/public/mojom/paint_preview_compositor.mojom-shared-internal.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/services/paint_preview_compositor/public/mojom/paint_preview_compositor.mojom-shared.cc
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/services/paint_preview_compositor/public/mojom/paint_preview_compositor.mojom-shared.h

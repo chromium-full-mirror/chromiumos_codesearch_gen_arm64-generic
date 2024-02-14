@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-power", "name": "powertop", "version": "2.15", "revision": 0, "fullname": "sys-power/powertop", "fullnamerev": "sys-power/powertop-2.15", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://01.org/powertop/", "https://github.com/fenrus75/powertop/"], "skip": false, "tainted": false, "ebuild_path": null}

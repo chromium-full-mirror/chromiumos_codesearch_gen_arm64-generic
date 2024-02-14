@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "texinfo", "version": "6.8", "revision": 0, "fullname": "sys-apps/texinfo", "fullnamerev": "sys-apps/texinfo-6.8", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/texinfo/"], "skip": false, "tainted": false, "ebuild_path": null}

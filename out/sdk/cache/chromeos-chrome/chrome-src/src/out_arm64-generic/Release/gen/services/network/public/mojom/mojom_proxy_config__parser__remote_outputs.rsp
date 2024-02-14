@@ -1,4 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/network/public/mojom/mutable_network_traffic_annotation_tag.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/network/public/mojom/mutable_partial_network_traffic_annotation_tag.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/network/public/mojom/proxy_config.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/network/public/mojom/proxy_config_with_annotation.mojom-module

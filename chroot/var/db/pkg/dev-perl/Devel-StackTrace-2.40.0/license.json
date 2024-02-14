@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-perl", "name": "Devel-StackTrace", "version": "2.40.0", "revision": 0, "fullname": "dev-perl/Devel-StackTrace", "fullnamerev": "dev-perl/Devel-StackTrace-2.40.0", "license_names": ["Artistic-2"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/Devel-StackTrace"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,4 +1,0 @@
-gen/chrome/grit/network_ui_resources.h
-gen/chrome/grit/network_ui_resources_map.cc
-gen/chrome/grit/network_ui_resources_map.h
-gen/chrome/network_ui_resources.pak

@@ -1,4 +1,0 @@
-gen/ash/webui/grit/ash_shimless_rma_resources.h
-gen/ash/webui/grit/ash_shimless_rma_resources_map.cc
-gen/ash/webui/grit/ash_shimless_rma_resources_map.h
-gen/ash/webui/ash_shimless_rma_resources.pak

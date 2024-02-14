@@ -1,8 +1,0 @@
-{
-  "deps": [
-    "../../../../../../url/mojom/url_mojom_gurl.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/new_tab_page/modules/history_clusters/discount/discount.mojom"
-  ]
-}

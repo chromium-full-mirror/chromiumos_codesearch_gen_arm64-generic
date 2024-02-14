@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-python", "name": "clang-python", "version": "7.0.0", "revision": 3, "fullname": "dev-python/clang-python", "fullnamerev": "dev-python/clang-python-7.0.0-r3", "license_names": ["LLVM-exception"], "license_text_scanned": [], "homepages": ["https://llvm.org/"], "skip": false, "tainted": false, "ebuild_path": null}

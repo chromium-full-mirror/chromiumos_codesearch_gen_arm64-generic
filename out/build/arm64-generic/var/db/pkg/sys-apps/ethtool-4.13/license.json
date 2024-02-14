@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "ethtool", "version": "4.13", "revision": 0, "fullname": "sys-apps/ethtool", "fullnamerev": "sys-apps/ethtool-4.13", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://www.kernel.org/pub/software/network/ethtool/"], "skip": false, "tainted": false, "ebuild_path": null}

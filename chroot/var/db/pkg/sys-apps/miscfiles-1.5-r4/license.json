@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "miscfiles", "version": "1.5", "revision": 4, "fullname": "sys-apps/miscfiles", "fullnamerev": "sys-apps/miscfiles-1.5-r4", "license_names": ["GPL-2", "unicode"], "license_text_scanned": [], "homepages": ["https://savannah.gnu.org/projects/miscfiles/"], "skip": false, "tainted": false, "ebuild_path": null}

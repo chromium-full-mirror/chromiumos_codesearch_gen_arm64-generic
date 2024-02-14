@@ -1,4 +1,0 @@
-gen/chrome/grit/multidevice_setup_resources.h
-gen/chrome/grit/multidevice_setup_resources_map.cc
-gen/chrome/grit/multidevice_setup_resources_map.h
-gen/chrome/multidevice_setup_resources.pak

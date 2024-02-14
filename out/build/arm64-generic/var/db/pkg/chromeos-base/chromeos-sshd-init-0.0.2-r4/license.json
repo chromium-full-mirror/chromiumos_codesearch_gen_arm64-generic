@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "chromeos-base", "name": "chromeos-sshd-init", "version": "0.0.2", "revision": 4, "fullname": "chromeos-base/chromeos-sshd-init", "fullnamerev": "chromeos-base/chromeos-sshd-init-0.0.2-r4", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["http://www.chromium.org/"], "skip": false, "tainted": false, "ebuild_path": null}

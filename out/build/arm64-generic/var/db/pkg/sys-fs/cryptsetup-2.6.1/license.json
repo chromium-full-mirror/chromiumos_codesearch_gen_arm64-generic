@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-fs", "name": "cryptsetup", "version": "2.6.1", "revision": 0, "fullname": "sys-fs/cryptsetup", "fullnamerev": "sys-fs/cryptsetup-2.6.1", "license_names": ["GPL-2", "GPL-2+"], "license_text_scanned": [], "homepages": ["https://gitlab.com/cryptsetup/cryptsetup/blob/master/README.md"], "skip": false, "tainted": false, "ebuild_path": null}

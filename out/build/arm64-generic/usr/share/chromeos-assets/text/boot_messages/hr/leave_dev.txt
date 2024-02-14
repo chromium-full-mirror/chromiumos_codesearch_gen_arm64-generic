@@ -1,4 +1,0 @@
-﻿
-Vaš se sustav posljednji put pokrenuo u načinu rada razvojnog programera.
-Vraćanje na normalni (potvrđeni) način...
-Nakon dovršavanja sustav će se ponovo pokrenuti.

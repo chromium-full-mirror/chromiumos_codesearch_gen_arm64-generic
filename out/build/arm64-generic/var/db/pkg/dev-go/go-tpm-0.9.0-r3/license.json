@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "go-tpm", "version": "0.9.0", "revision": 3, "fullname": "dev-go/go-tpm", "fullnamerev": "dev-go/go-tpm-0.9.0-r3", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/google/go-tpm"], "skip": false, "tainted": false, "ebuild_path": null}

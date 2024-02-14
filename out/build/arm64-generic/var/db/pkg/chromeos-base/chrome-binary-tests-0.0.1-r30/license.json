@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "chromeos-base", "name": "chrome-binary-tests", "version": "0.0.1", "revision": 30, "fullname": "chromeos-base/chrome-binary-tests", "fullnamerev": "chromeos-base/chrome-binary-tests-0.0.1-r30", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["http://www.chromium.org"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,2 +1,0 @@
-# cometlake boards: drallion, hatch, puff
-

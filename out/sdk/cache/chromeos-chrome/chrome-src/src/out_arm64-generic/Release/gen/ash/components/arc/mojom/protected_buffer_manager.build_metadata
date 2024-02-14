@@ -1,9 +1,0 @@
-{
-  "deps": [
-    "../../../../media/mojo/mojom/stable/native_pixmap_handle.build_metadata",
-    "../../../../sandbox/policy/mojom/mojom.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/components/arc/mojom/protected_buffer_manager.mojom"
-  ]
-}

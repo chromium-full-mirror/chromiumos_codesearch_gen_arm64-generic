@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "memtester", "version": "4.6.0", "revision": 0, "fullname": "sys-apps/memtester", "fullnamerev": "sys-apps/memtester-4.6.0", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://pyropus.ca/software/memtester/"], "skip": false, "tainted": false, "ebuild_path": null}

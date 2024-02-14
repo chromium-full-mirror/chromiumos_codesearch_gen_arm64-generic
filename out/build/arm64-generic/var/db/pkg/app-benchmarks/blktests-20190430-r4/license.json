@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-benchmarks", "name": "blktests", "version": "20190430", "revision": 4, "fullname": "app-benchmarks/blktests", "fullnamerev": "app-benchmarks/blktests-20190430-r4", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://github.com/osandov/blktests"], "skip": false, "tainted": false, "ebuild_path": null}

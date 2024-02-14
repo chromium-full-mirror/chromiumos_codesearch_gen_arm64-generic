@@ -1,5 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/new_tab_page/new_tab_page.mojom-forward.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/new_tab_page/new_tab_page.mojom-import-headers.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/new_tab_page/new_tab_page.mojom-test-utils.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/new_tab_page/new_tab_page.mojom.cc
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/new_tab_page/new_tab_page.mojom.h

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-perl", "name": "HTTP-Message", "version": "6.330.0", "revision": 0, "fullname": "dev-perl/HTTP-Message", "fullnamerev": "dev-perl/HTTP-Message-6.330.0", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/HTTP-Message"], "skip": false, "tainted": false, "ebuild_path": null}

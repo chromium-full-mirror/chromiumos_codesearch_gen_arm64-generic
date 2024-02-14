@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-python", "name": "btsocket", "version": "1.0", "revision": 26, "fullname": "dev-python/btsocket", "fullnamerev": "dev-python/btsocket-1.0-r26", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://chromium.googlesource.com/chromiumos/platform/btsocket/"], "skip": false, "tainted": false, "ebuild_path": null}

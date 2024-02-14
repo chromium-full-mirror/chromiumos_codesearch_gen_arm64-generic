@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "media-libs", "name": "opencv", "version": "4.7.0", "revision": 1, "fullname": "media-libs/opencv", "fullnamerev": "media-libs/opencv-4.7.0-r1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://opencv.org"], "skip": false, "tainted": false, "ebuild_path": null}

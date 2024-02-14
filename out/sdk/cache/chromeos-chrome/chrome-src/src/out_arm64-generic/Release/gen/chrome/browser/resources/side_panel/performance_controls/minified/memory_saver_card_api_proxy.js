@@ -1,4 +1,0 @@
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{MemorySaverCardCallbackRouter,MemorySaverCardHandlerFactory,MemorySaverCardHandlerRemote}from"./performance.mojom-webui.js";let instance=null;export class MemorySaverCardApiProxyImpl{constructor(callbackRouter,handler){this.callbackRouter=callbackRouter;this.handler=handler}getCallbackRouter(){return this.callbackRouter}static getInstance(){if(!instance){const callbackRouter=new MemorySaverCardCallbackRouter;const handler=new MemorySaverCardHandlerRemote;const factory=MemorySaverCardHandlerFactory.getRemote();factory.createMemorySaverCardHandler(callbackRouter.$.bindNewPipeAndPassRemote(),handler.$.bindNewPipeAndPassReceiver());instance=new MemorySaverCardApiProxyImpl(callbackRouter,handler)}return instance}static setInstance(obj){instance=obj}}

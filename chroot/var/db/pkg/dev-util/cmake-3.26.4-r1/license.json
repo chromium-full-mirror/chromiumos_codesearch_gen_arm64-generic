@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-util", "name": "cmake", "version": "3.26.4", "revision": 1, "fullname": "dev-util/cmake", "fullnamerev": "dev-util/cmake-3.26.4-r1", "license_names": ["CMake"], "license_text_scanned": [], "homepages": ["https://cmake.org/"], "skip": false, "tainted": false, "ebuild_path": null}

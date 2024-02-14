@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "net-vpn", "name": "wireguard-tools", "version": "1.0.20200319", "revision": 0, "fullname": "net-vpn/wireguard-tools", "fullnamerev": "net-vpn/wireguard-tools-1.0.20200319", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://www.wireguard.com/"], "skip": false, "tainted": false, "ebuild_path": null}

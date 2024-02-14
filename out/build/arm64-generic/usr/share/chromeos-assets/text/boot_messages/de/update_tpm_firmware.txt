@@ -1,4 +1,0 @@
-Update wird installiert...
-
-Schalten Sie das Gerät nicht aus. Es startet automatisch neu,
-sobald das Update beendet ist.

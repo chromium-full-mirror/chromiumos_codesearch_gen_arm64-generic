@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "media-gfx", "name": "zbar", "version": "0.23.1", "revision": 0, "fullname": "media-gfx/zbar", "fullnamerev": "media-gfx/zbar-0.23.1", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://github.com/mchehab/zbar"], "skip": false, "tainted": false, "ebuild_path": null}

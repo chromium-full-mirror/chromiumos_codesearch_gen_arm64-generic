@@ -1,3 +1,0 @@
-Det er for lite batteri igjen til å starte oppdateringen.
-
-Koble Chromebooken til en strømkilde. Oppdateringen starter automatisk når batteriet er tilstrekkelig ladet.

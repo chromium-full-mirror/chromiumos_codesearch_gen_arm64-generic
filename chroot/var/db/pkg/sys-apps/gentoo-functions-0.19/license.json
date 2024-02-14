@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "gentoo-functions", "version": "0.19", "revision": 0, "fullname": "sys-apps/gentoo-functions", "fullnamerev": "sys-apps/gentoo-functions-0.19", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://gitweb.gentoo.org/proj/gentoo-functions.git"], "skip": false, "tainted": false, "ebuild_path": null}

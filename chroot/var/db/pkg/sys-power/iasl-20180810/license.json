@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-power", "name": "iasl", "version": "20180810", "revision": 0, "fullname": "sys-power/iasl", "fullnamerev": "sys-power/iasl-20180810", "license_names": ["iASL"], "license_text_scanned": [], "homepages": ["https://www.acpica.org/downloads/"], "skip": false, "tainted": false, "ebuild_path": null}

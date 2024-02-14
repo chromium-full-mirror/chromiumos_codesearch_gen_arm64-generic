@@ -1,5 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/assistant/public/mojom/assistant_audio_decoder.mojom-forward.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/assistant/public/mojom/assistant_audio_decoder.mojom-import-headers.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/assistant/public/mojom/assistant_audio_decoder.mojom-test-utils.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/assistant/public/mojom/assistant_audio_decoder.mojom.cc
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/assistant/public/mojom/assistant_audio_decoder.mojom.h

@@ -1,2 +1,0 @@
-dEQP-VK.api.device_init.create_device_unsupported_features,Fail
-dEQP-VK.pipeline.multisample_shader_builtin.write_sample_mask.1_samples,Fail

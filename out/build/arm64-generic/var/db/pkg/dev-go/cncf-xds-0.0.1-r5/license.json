@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "cncf-xds", "version": "0.0.1", "revision": 5, "fullname": "dev-go/cncf-xds", "fullnamerev": "dev-go/cncf-xds-0.0.1-r5", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://github.com/cncf/xds"], "skip": false, "tainted": false, "ebuild_path": null}

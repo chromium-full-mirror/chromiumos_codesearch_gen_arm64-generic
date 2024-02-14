@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "dtc", "version": "1.6.0", "revision": 6, "fullname": "sys-apps/dtc", "fullnamerev": "sys-apps/dtc-1.6.0-r6", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://devicetree.org/", "https://git.kernel.org/cgit/utils/dtc/dtc.git/"], "skip": false, "tainted": false, "ebuild_path": null}

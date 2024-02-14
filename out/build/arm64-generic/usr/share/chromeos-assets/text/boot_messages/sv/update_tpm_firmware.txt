@@ -1,4 +1,0 @@
-Uppdateringen installeras …
-
-Stäng inte av enheten. Den startas om automatiskt när
-uppdateringen är klar.

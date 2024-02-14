@@ -1,4 +1,0 @@
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{PrintingMetadataProvider,PrintManagementHandler}from"./printing_manager.mojom-webui.js";let metadataProvider=null;let pageHandler=null;export function setMetadataProviderForTesting(testProvider){metadataProvider=testProvider}export function getMetadataProvider(){if(metadataProvider){return metadataProvider}metadataProvider=PrintingMetadataProvider.getRemote();return metadataProvider}export function setPrintManagementHandlerForTesting(testHandler){pageHandler=testHandler}export function getPrintManagementHandler(){if(pageHandler){return pageHandler}pageHandler=PrintManagementHandler.getRemote();return pageHandler}

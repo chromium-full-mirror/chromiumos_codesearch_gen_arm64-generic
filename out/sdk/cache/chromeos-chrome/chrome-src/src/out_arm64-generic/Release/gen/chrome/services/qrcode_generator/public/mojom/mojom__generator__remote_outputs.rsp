@@ -1,5 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/services/qrcode_generator/public/mojom/qrcode_generator.mojom-forward.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/services/qrcode_generator/public/mojom/qrcode_generator.mojom-import-headers.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/services/qrcode_generator/public/mojom/qrcode_generator.mojom-test-utils.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/services/qrcode_generator/public/mojom/qrcode_generator.mojom.cc
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/services/qrcode_generator/public/mojom/qrcode_generator.mojom.h

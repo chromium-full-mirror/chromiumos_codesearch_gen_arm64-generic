@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-libs", "name": "tdb", "version": "1.4.9", "revision": 0, "fullname": "sys-libs/tdb", "fullnamerev": "sys-libs/tdb-1.4.9", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://tdb.samba.org/"], "skip": false, "tainted": false, "ebuild_path": null}

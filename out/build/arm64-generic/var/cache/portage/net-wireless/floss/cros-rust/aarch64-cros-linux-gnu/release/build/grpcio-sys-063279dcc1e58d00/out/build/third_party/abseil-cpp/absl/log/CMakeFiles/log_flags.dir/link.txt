@@ -1,2 +1,0 @@
-/usr/bin/llvm-ar qc libabsl_log_flags.a CMakeFiles/log_flags.dir/flags.cc.o
-/usr/bin/llvm-ranlib libabsl_log_flags.a

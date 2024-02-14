@@ -1,1 +1,0 @@
---flags USE_SECCOMP_BPF=true DISABLE_SECCOMP_SSBD=true

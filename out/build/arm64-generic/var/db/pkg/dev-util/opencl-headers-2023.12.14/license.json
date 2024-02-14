@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-util", "name": "opencl-headers", "version": "2023.12.14", "revision": 0, "fullname": "dev-util/opencl-headers", "fullnamerev": "dev-util/opencl-headers-2023.12.14", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/KhronosGroup/OpenCL-Headers"], "skip": false, "tainted": false, "ebuild_path": null}

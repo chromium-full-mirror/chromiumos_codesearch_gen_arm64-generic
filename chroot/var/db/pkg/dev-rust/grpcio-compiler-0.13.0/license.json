@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-rust", "name": "grpcio-compiler", "version": "0.13.0", "revision": 0, "fullname": "dev-rust/grpcio-compiler", "fullnamerev": "dev-rust/grpcio-compiler-0.13.0", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/tikv/grpc-rs/compiler"], "skip": false, "tainted": false, "ebuild_path": null}

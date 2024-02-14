@@ -1,6 +1,0 @@
-Der Akku ist für ein Update zu schwach.
-
-Wird aufgeladen...
-
-Das Update beginnt automatisch, sobald der Akku ausreichend
-geladen ist.

@@ -1,1 +1,0 @@
-{"base_dir": "gen/chrome/test/data/webui/chromeos/inline_login/tsc", "files": ["arc_account_picker_page_test.js", "inline_login_test.js", "inline_login_test_util.js", "inline_login_signin_blocked_by_policy_page_test.js", "inline_login_welcome_page_test.js"]}

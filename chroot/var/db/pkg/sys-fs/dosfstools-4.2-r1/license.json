@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-fs", "name": "dosfstools", "version": "4.2", "revision": 1, "fullname": "sys-fs/dosfstools", "fullnamerev": "sys-fs/dosfstools-4.2-r1", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://github.com/dosfstools/dosfstools"], "skip": false, "tainted": false, "ebuild_path": null}

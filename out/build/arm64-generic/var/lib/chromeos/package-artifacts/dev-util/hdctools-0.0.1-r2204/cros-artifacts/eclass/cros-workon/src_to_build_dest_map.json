@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/third_party/hdctools",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/dev-util/hdctools-0.0.1-r2204/work/hdctools-0.0.1"
-    }
-  ]
-}

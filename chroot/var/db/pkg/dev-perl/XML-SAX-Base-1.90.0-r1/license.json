@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-perl", "name": "XML-SAX-Base", "version": "1.90.0", "revision": 1, "fullname": "dev-perl/XML-SAX-Base", "fullnamerev": "dev-perl/XML-SAX-Base-1.90.0-r1", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/XML-SAX-Base"], "skip": false, "tainted": false, "ebuild_path": null}

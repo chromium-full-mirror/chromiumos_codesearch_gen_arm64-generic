@@ -1,4 +1,0 @@
-Installerer opdatering...
-
-Enheden må ikke slukkes. Den genstarter automatisk,
-når opdateringen er færdig.

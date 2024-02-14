@@ -1,4 +1,0 @@
-gen/ash/webui/grit/ash_print_management_resources.h
-gen/ash/webui/grit/ash_print_management_resources_map.cc
-gen/ash/webui/grit/ash_print_management_resources_map.h
-gen/ash/webui/ash_print_management_resources.pak

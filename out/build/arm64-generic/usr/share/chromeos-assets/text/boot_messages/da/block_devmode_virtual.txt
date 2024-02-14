@@ -1,5 +1,0 @@
-﻿
-Enhedsejeren har deaktiveret Udviklertilstand for denne enhed. Bed enhedsejeren om at fjerne restriktionen, hvis du vil bruge Udviklertilstand.
-
-
-Systemet genstarter i Verificeret tilstand.

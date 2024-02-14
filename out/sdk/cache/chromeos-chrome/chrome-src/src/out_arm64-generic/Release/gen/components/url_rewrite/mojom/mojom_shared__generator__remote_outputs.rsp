@@ -1,5 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/url_rewrite/mojom/url_request_rewrite.mojom-features.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/url_rewrite/mojom/url_request_rewrite.mojom-params-data.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/url_rewrite/mojom/url_request_rewrite.mojom-shared-internal.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/url_rewrite/mojom/url_request_rewrite.mojom-shared.cc
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/url_rewrite/mojom/url_request_rewrite.mojom-shared.h

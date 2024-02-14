@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "checkpolicy", "version": "2.7", "revision": 0, "fullname": "sys-apps/checkpolicy", "fullnamerev": "sys-apps/checkpolicy-2.7", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://userspace.selinuxproject.org"], "skip": false, "tainted": false, "ebuild_path": null}

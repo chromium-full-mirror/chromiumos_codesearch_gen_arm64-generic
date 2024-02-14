@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-fs", "name": "xfsprogs", "version": "4.14.0", "revision": 3, "fullname": "sys-fs/xfsprogs", "fullnamerev": "sys-fs/xfsprogs-4.14.0-r3", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://xfs.wiki.kernel.org/"], "skip": false, "tainted": false, "ebuild_path": null}

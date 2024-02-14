@@ -1,4 +1,0 @@
-gen/chromeos/ash/grit/ash_resources.h
-gen/chromeos/ash/grit/ash_resources_map.cc
-gen/chromeos/ash/grit/ash_resources_map.h
-gen/chromeos/ash/ash_resources.pak

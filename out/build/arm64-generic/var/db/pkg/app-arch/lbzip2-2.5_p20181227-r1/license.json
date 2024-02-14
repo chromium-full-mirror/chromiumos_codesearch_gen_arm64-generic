@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-arch", "name": "lbzip2", "version": "2.5_p20181227", "revision": 1, "fullname": "app-arch/lbzip2", "fullnamerev": "app-arch/lbzip2-2.5_p20181227-r1", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://github.com/kjn/lbzip2/"], "skip": false, "tainted": false, "ebuild_path": null}

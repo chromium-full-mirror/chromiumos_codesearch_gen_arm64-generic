@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "net-libs", "name": "libsoup", "version": "2.74.3", "revision": 0, "fullname": "net-libs/libsoup", "fullnamerev": "net-libs/libsoup-2.74.3", "license_names": ["LGPL-2.1+"], "license_text_scanned": [], "homepages": ["https://wiki.gnome.org/Projects/libsoup"], "skip": false, "tainted": false, "ebuild_path": null}

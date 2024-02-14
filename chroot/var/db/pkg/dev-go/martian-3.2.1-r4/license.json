@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "martian", "version": "3.2.1", "revision": 4, "fullname": "dev-go/martian", "fullnamerev": "dev-go/martian-3.2.1-r4", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/google/martian"], "skip": false, "tainted": false, "ebuild_path": null}

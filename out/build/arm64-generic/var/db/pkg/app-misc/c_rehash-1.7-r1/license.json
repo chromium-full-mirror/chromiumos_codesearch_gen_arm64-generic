@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-misc", "name": "c_rehash", "version": "1.7", "revision": 1, "fullname": "app-misc/c_rehash", "fullnamerev": "app-misc/c_rehash-1.7-r1", "license_names": ["openssl"], "license_text_scanned": [], "homepages": ["https://www.openssl.org/", "https://github.com/pld-linux/openssl/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,4 +1,0 @@
-gen/chrome/grit/gaia_action_buttons_resources.h
-gen/chrome/grit/gaia_action_buttons_resources_map.cc
-gen/chrome/grit/gaia_action_buttons_resources_map.h
-gen/chrome/gaia_action_buttons_resources.pak

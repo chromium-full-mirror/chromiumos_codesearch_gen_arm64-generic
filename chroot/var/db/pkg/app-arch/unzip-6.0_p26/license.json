@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-arch", "name": "unzip", "version": "6.0_p26", "revision": 0, "fullname": "app-arch/unzip", "fullnamerev": "app-arch/unzip-6.0_p26", "license_names": ["Info-ZIP"], "license_text_scanned": [], "homepages": ["http://www.info-zip.org/"], "skip": false, "tainted": false, "ebuild_path": null}

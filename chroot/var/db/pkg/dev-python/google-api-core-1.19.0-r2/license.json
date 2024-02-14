@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-python", "name": "google-api-core", "version": "1.19.0", "revision": 2, "fullname": "dev-python/google-api-core", "fullnamerev": "dev-python/google-api-core-1.19.0-r2", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://pypi.python.org/pypi/google-api-core"], "skip": false, "tainted": false, "ebuild_path": null}

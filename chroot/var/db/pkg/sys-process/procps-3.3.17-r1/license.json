@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-process", "name": "procps", "version": "3.3.17", "revision": 1, "fullname": "sys-process/procps", "fullnamerev": "sys-process/procps-3.3.17-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://procps-ng.sourceforge.net/", "https://gitlab.com/procps-ng/procps"], "skip": false, "tainted": false, "ebuild_path": null}

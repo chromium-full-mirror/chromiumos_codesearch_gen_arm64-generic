@@ -1,4 +1,0 @@
-Installerer oppdateringen …
-
-Ikke slå av enheten. Den starter på nytt automatisk
-når oppdateringen er fullført.

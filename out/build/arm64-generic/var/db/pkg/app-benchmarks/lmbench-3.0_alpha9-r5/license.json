@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-benchmarks", "name": "lmbench", "version": "3.0_alpha9", "revision": 5, "fullname": "app-benchmarks/lmbench", "fullnamerev": "app-benchmarks/lmbench-3.0_alpha9-r5", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://www.bitmover.com/lmbench/whatis_lmbench.html"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,4 +1,0 @@
-gen/chrome/grit/internet_detail_dialog_resources.h
-gen/chrome/grit/internet_detail_dialog_resources_map.cc
-gen/chrome/grit/internet_detail_dialog_resources_map.h
-gen/chrome/internet_detail_dialog_resources.pak

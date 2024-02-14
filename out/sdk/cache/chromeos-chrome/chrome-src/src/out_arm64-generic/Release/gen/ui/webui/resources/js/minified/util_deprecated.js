@@ -1,5 +1,0 @@
-"use strict";
-// Copyright 2012 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-function assert(condition,opt_message){if(!condition){let message="Assertion failed";if(opt_message){message=message+": "+opt_message}const error=new Error(message);const global=function(){const thisOrSelf=this||self;thisOrSelf.traceAssertionsForTesting;return thisOrSelf}();if(global.traceAssertionsForTesting){console.warn(error.stack)}throw error}return condition}function assertNotReached(message){assert(false,message||"Unreachable code hit")}function assertInstanceof(value,type,message){if(!(value instanceof type)){assertNotReached(message||"Value "+value+" is not a[n] "+(type.name||typeof type))}return value}function $(id){const el=document.getElementById(id);return el?assertInstanceof(el,HTMLElement):null}function findAncestor(node,predicate,includeShadowHosts){while(node!==null){if(predicate(node)){break}node=includeShadowHosts&&node instanceof ShadowRoot?node.host:node.parentNode}return node}console.warn("crbug/1173575, non-JS module files deprecated.");

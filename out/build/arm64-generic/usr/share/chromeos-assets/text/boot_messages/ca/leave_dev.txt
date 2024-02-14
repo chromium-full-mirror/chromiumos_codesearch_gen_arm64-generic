@@ -1,4 +1,0 @@
-﻿
-La darrera vegada que el sistema es va iniciar, va fer-ho en mode desenvolupador.
-S'està tornant al mode normal (verificat)...
-Quan es completi aquest procés, el sistema es reiniciarà.

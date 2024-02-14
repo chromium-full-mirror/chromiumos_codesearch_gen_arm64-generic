@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "lshw", "version": "02.19.2b_p20210121", "revision": 4, "fullname": "sys-apps/lshw", "fullnamerev": "sys-apps/lshw-02.19.2b_p20210121-r4", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://www.ezix.org/project/wiki/HardwareLiSter"], "skip": false, "tainted": false, "ebuild_path": null}

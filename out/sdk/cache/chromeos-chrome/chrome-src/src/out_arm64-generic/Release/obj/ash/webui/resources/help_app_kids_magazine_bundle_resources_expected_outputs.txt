@@ -1,4 +1,0 @@
-gen/chromeos/grit/chromeos_help_app_kids_magazine_bundle_resources.h
-gen/chromeos/grit/chromeos_help_app_kids_magazine_bundle_resources_map.cc
-gen/chromeos/grit/chromeos_help_app_kids_magazine_bundle_resources_map.h
-gen/chromeos/chromeos_help_app_kids_magazine_bundle_resources.pak

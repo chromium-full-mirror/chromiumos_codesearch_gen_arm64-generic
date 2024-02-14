@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-admin", "name": "eselect", "version": "1.4.26", "revision": 0, "fullname": "app-admin/eselect", "fullnamerev": "app-admin/eselect-1.4.26", "license_names": ["GPL-2", "GPL-2+"], "license_text_scanned": [], "homepages": ["https://wiki.gentoo.org/wiki/Project:Eselect"], "skip": false, "tainted": false, "ebuild_path": null}

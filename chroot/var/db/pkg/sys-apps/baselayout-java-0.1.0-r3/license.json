@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "baselayout-java", "version": "0.1.0", "revision": 3, "fullname": "sys-apps/baselayout-java", "fullnamerev": "sys-apps/baselayout-java-0.1.0-r3", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://wiki.gentoo.org/wiki/Project:Java"], "skip": false, "tainted": false, "ebuild_path": null}

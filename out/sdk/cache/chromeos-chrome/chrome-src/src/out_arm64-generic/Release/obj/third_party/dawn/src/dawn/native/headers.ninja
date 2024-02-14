@@ -1,9 +1,0 @@
-defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -DCR_CLANG_REVISION=\"llvmorg-18-init-17730-gf670112a-3\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=9d119c1f4a097b7d27210874f4eba3fc91a83a4e -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
-include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Igen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -Igen/third_party/dawn/include -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/include
-label_name = headers
-target_out_dir = obj/third_party/dawn/src/dawn/native
-target_output_name = headers
-
-build obj/third_party/dawn/src/dawn/native/headers.inputdeps.stamp: stamp obj/third_party/dawn/include/dawn/cpp_headers_gen.stamp obj/third_party/dawn/include/dawn/headers_gen.stamp
-
-build obj/third_party/dawn/src/dawn/native/headers.stamp: stamp || obj/third_party/dawn/include/dawn/cpp_headers.stamp obj/third_party/dawn/include/dawn/headers.stamp

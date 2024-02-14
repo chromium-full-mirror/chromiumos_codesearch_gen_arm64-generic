@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-arch", "name": "gzip", "version": "1.12", "revision": 4, "fullname": "app-arch/gzip", "fullnamerev": "app-arch/gzip-1.12-r4", "license_names": ["GPL-3+"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/gzip/"], "skip": false, "tainted": false, "ebuild_path": null}

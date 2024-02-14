@@ -1,5 +1,0 @@
-gen/ui/chromeos/resources/grit/ui_chromeos_resources.h
-gen/ui/chromeos/resources/grit/ui_chromeos_resources_map.cc
-gen/ui/chromeos/resources/grit/ui_chromeos_resources_map.h
-gen/ui/chromeos/resources/ui_chromeos_resources_100_percent.pak
-gen/ui/chromeos/resources/ui_chromeos_resources_200_percent.pak

@@ -1,8 +1,0 @@
-{
-  "deps": [
-    "mojom.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/ui/gl/mojom/traits_test_service.mojom"
-  ]
-}

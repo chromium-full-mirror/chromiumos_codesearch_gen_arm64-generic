@@ -1,9 +1,0 @@
-{
-  "deps": [
-    "../../../mojo/public/mojom/base/base.build_metadata",
-    "../../../ui/gfx/mojom/mojom.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/gpu/ipc/common/gpu_preferences.mojom"
-  ]
-}

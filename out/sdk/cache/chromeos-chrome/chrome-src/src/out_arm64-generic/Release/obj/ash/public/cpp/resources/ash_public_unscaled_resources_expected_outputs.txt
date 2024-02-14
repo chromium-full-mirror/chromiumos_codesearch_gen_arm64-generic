@@ -1,2 +1,0 @@
-gen/ash/public/cpp/resources/grit/ash_public_unscaled_resources.h
-gen/ash/public/cpp/resources/ash_public_unscaled_resources.pak

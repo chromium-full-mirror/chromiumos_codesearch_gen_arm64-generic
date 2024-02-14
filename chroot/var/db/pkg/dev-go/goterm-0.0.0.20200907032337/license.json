@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "goterm", "version": "0.0.0.20200907032337", "revision": 0, "fullname": "dev-go/goterm", "fullnamerev": "dev-go/goterm-0.0.0.20200907032337", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://github.com/google/goterm"], "skip": false, "tainted": false, "ebuild_path": null}

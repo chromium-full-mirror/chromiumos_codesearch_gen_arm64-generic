@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-devel", "name": "gcc-config", "version": "2.3.2", "revision": 1, "fullname": "sys-devel/gcc-config", "fullnamerev": "sys-devel/gcc-config-2.3.2-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://gitweb.gentoo.org/proj/gcc-config.git/"], "skip": false, "tainted": false, "ebuild_path": null}

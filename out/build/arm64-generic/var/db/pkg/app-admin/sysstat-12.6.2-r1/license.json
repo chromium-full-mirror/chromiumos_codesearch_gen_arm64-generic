@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-admin", "name": "sysstat", "version": "12.6.2", "revision": 1, "fullname": "app-admin/sysstat", "fullnamerev": "app-admin/sysstat-12.6.2-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://sebastien.godard.pagesperso-orange.fr/"], "skip": false, "tainted": false, "ebuild_path": null}

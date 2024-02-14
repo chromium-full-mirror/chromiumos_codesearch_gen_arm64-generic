@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "net-nds", "name": "openldap", "version": "2.5.14", "revision": 0, "fullname": "net-nds/openldap", "fullnamerev": "net-nds/openldap-2.5.14", "license_names": ["GPL-2", "OPENLDAP"], "license_text_scanned": [], "homepages": ["https://www.openldap.org/"], "skip": false, "tainted": false, "ebuild_path": null}

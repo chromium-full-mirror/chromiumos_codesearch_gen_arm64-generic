@@ -1,8 +1,0 @@
-[
-  {
-    "directory": "/build/arm64-generic/tmp/portage/chromeos-base/pinweaver-0.0.1-r306/work/build/out/Default",
-    "command": "aarch64-cros-linux-gnu-clang -MMD -MF obj/pinweaver/libpinweaver.pinweaver.o.d -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -Igen/include -I../../../pinweaver-0.0.1/platform2 -I/build/arm64-generic/usr/include -I../../../pinweaver-0.0.1/platform2/pinweaver -I../../../pinweaver-0.0.1/platform2/pinweaver/eal/tpm_storage -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -std=gnu17 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -c ../../../pinweaver-0.0.1/platform2/pinweaver/pinweaver.c -o obj/pinweaver/libpinweaver.pinweaver.o",
-    "file": "../../../pinweaver-0.0.1/platform2/pinweaver/pinweaver.c",
-    "output": "obj/pinweaver/libpinweaver.pinweaver.o"
-  }
-]

@@ -1,1 +1,0 @@
-{"base_dir": "gen/chrome/browser/resources/chromeos/accessibility/select_to_speak/tsc", "files": ["select_to_speak_main.js", "metrics_utils.js", "select_to_speak_constants.js", "tts_manager.js", "input_handler.js", "ui_manager.js", "prefs_manager.js", "select_to_speak.js"]}

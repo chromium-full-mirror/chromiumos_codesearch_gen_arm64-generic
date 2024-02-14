@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "luci-go", "version": "0.0.1", "revision": 3, "fullname": "dev-go/luci-go", "fullnamerev": "dev-go/luci-go-0.0.1-r3", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://chromium.googlesource.com/infra/luci/luci-go"], "skip": false, "tainted": false, "ebuild_path": null}

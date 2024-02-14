@@ -1,4 +1,0 @@
-gen/chrome/grit/set_time_dialog_resources.h
-gen/chrome/grit/set_time_dialog_resources_map.cc
-gen/chrome/grit/set_time_dialog_resources_map.h
-gen/chrome/set_time_dialog_resources.pak

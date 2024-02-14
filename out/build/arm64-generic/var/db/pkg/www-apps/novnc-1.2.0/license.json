@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "www-apps", "name": "novnc", "version": "1.2.0", "revision": 0, "fullname": "www-apps/novnc", "fullnamerev": "www-apps/novnc-1.2.0", "license_names": ["LGPL-3"], "license_text_scanned": [], "homepages": ["https://github.com/novnc/noVNC"], "skip": false, "tainted": false, "ebuild_path": null}

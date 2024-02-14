@@ -1,4 +1,0 @@
-gen/chrome/grit/audio_resources.h
-gen/chrome/grit/audio_resources_map.cc
-gen/chrome/grit/audio_resources_map.h
-gen/chrome/audio_resources.pak

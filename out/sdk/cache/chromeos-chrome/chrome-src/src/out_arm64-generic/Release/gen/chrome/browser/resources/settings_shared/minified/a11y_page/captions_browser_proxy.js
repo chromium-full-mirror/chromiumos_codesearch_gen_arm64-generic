@@ -1,4 +1,0 @@
-// Copyright 2019 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{sendWithPromise}from"chrome://resources/js/cr.js";export class CaptionsBrowserProxyImpl{openSystemCaptionsDialog(){chrome.send("openSystemCaptionsDialog")}liveCaptionSectionReady(){chrome.send("liveCaptionSectionReady")}getInstalledLanguagePacks(){return sendWithPromise("getInstalledLanguagePacks")}getAvailableLanguagePacks(){return sendWithPromise("getAvailableLanguagePacks")}removeLanguagePack(languageCode){chrome.send("removeLanguagePack",[languageCode])}installLanguagePacks(languageCodes){chrome.send("installLanguagePacks",languageCodes)}static getInstance(){return instance||(instance=new CaptionsBrowserProxyImpl)}static setInstance(obj){instance=obj}}let instance=null;

@@ -1,1 +1,0 @@
-{"base_dir": "gen/content/browser/resources/indexed_db/tsc", "files": ["indexeddb_internals.js", "bucket_id.mojom-webui.js", "bucket_locator.mojom-webui.js", "indexed_db_bucket_types.mojom-webui.js", "indexed_db_internals.mojom-webui.js", "quota_types.mojom-webui.js", "schemeful_site.mojom-webui.js", "ancestor_chain_bit.mojom-webui.js", "storage_key.mojom-webui.js"]}

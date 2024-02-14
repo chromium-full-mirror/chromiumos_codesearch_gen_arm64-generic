@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "x11-misc", "name": "shared-mime-info", "version": "2.1", "revision": 0, "fullname": "x11-misc/shared-mime-info", "fullnamerev": "x11-misc/shared-mime-info-2.1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://gitlab.freedesktop.org/xdg/shared-mime-info"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,9 +1,0 @@
-import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-export function getTemplate() {
-    return html `<!--_html_template_start_--><style>:host{height:var(--emoji-size);width:var(--emoji-size)}:host([gif-support]){height:var(--emoji-category-size);width:var(--emoji-category-size)}#category-button{--cr-icon-button-fill-color:var(--emoji-picker-icon-toggle-unselected-color);border-radius:50%;display:block;height:100%;margin:0;width:100%}:host([gif-support]) #category-button{--cr-icon-button-icon-size:24px}#category-button.category-button-active{--cr-icon-button-fill-color:var(--emoji-picker-icon-toggle-selected-color);background-color:var(--emoji-picker-icon-toggle-selected-container-color)}cr-icon-button{--cr-icon-button-focus-outline-color:var(--emoji-picker-focus-ring-color)}</style>
-
-
-<cr-icon-button id="category-button" class$="[[calculateClassName(active, searchActive)]]" iron-icon="[[icon]]" on-click="handleClick" aria-label$="[[getAriaLabel(name, gifSupport)]]" aria-pressed$="[[getAriaPressedState(active)]]">
-</cr-icon-button>
-<!--_html_template_end_-->`;
-}

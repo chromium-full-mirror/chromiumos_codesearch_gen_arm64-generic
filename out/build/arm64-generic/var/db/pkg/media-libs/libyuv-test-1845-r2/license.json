@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "media-libs", "name": "libyuv-test", "version": "1845", "revision": 2, "fullname": "media-libs/libyuv-test", "fullnamerev": "media-libs/libyuv-test-1845-r2", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://chromium.googlesource.com/libyuv/libyuv"], "skip": false, "tainted": false, "ebuild_path": null}

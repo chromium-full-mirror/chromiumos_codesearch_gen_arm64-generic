@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-util", "name": "bazel", "version": "5.3.0", "revision": 4, "fullname": "dev-util/bazel", "fullnamerev": "dev-util/bazel-5.3.0-r4", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://bazel.build/"], "skip": false, "tainted": false, "ebuild_path": null}

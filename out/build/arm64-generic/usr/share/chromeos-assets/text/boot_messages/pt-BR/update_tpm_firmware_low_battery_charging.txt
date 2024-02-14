@@ -1,6 +1,0 @@
-Bateria muito fraca para atualizar.
-
-Carregando...
-
-A atualização iniciará automaticamente assim que houver
-carga suficiente.

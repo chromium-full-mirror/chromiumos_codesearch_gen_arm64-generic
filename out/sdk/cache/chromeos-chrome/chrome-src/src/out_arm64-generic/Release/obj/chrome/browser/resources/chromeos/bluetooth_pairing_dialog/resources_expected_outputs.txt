@@ -1,4 +1,0 @@
-gen/chrome/grit/bluetooth_pairing_dialog_resources.h
-gen/chrome/grit/bluetooth_pairing_dialog_resources_map.cc
-gen/chrome/grit/bluetooth_pairing_dialog_resources_map.h
-gen/chrome/bluetooth_pairing_dialog_resources.pak

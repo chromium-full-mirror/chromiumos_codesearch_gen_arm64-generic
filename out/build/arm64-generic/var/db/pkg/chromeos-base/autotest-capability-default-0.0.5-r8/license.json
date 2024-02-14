@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "chromeos-base", "name": "autotest-capability-default", "version": "0.0.5", "revision": 8, "fullname": "chromeos-base/autotest-capability-default", "fullnamerev": "chromeos-base/autotest-capability-default-0.0.5-r8", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": [], "skip": false, "tainted": false, "ebuild_path": null}

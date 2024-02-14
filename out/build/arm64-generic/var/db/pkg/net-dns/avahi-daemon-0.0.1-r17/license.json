@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "net-dns", "name": "avahi-daemon", "version": "0.0.1", "revision": 17, "fullname": "net-dns/avahi-daemon", "fullnamerev": "net-dns/avahi-daemon-0.0.1-r17", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["http://www.chromium.org/"], "skip": false, "tainted": false, "ebuild_path": null}

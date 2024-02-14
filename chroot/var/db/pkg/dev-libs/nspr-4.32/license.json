@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-libs", "name": "nspr", "version": "4.32", "revision": 0, "fullname": "dev-libs/nspr", "fullnamerev": "dev-libs/nspr-4.32", "license_names": ["MPL-2.0"], "license_text_scanned": [], "homepages": ["https://www.mozilla.org/projects/nspr/"], "skip": false, "tainted": false, "ebuild_path": null}

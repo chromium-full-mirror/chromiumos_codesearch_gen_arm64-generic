@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-perl", "name": "libwww-perl", "version": "6.600.0", "revision": 1, "fullname": "dev-perl/libwww-perl", "fullnamerev": "dev-perl/libwww-perl-6.600.0-r1", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/libwww-perl"], "skip": false, "tainted": false, "ebuild_path": null}

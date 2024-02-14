@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "media-libs", "name": "libsync", "version": "0.0.1", "revision": 8, "fullname": "media-libs/libsync", "fullnamerev": "media-libs/libsync-0.0.1-r8", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://chromium.googlesource.com/aosp/platform/system/core/libsync"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,5 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/components/drivefs/mojom/drivefs_native_messaging.mojom-forward.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/components/drivefs/mojom/drivefs_native_messaging.mojom-import-headers.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/components/drivefs/mojom/drivefs_native_messaging.mojom-test-utils.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/components/drivefs/mojom/drivefs_native_messaging.mojom.cc
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/components/drivefs/mojom/drivefs_native_messaging.mojom.h

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-auth", "name": "pam_pwdfile", "version": "0.99", "revision": 3, "fullname": "sys-auth/pam_pwdfile", "fullnamerev": "sys-auth/pam_pwdfile-0.99-r3", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://cpbotha.net/software/pam_pwdfile/"], "skip": false, "tainted": false, "ebuild_path": null}

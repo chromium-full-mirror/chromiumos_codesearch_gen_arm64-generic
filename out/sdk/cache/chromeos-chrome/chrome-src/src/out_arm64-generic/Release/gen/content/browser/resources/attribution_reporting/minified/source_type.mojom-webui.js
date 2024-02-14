@@ -1,4 +1,0 @@
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import{mojo}from"//resources/mojo/mojo/public/js/bindings.js";export const SourceTypeSpec={$:mojo.internal.Enum()};export var SourceType;(function(SourceType){SourceType[SourceType["MIN_VALUE"]=0]="MIN_VALUE";SourceType[SourceType["MAX_VALUE"]=1]="MAX_VALUE";SourceType[SourceType["kNavigation"]=0]="kNavigation";SourceType[SourceType["kEvent"]=1]="kEvent"})(SourceType||(SourceType={}));

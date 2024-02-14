@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-libs", "name": "libgudev", "version": "233", "revision": 1, "fullname": "dev-libs/libgudev", "fullnamerev": "dev-libs/libgudev-233-r1", "license_names": ["LGPL-2.1+"], "license_text_scanned": [], "homepages": ["https://wiki.gnome.org/Projects/libgudev"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-process", "name": "lsof", "version": "4.94.0", "revision": 1, "fullname": "sys-process/lsof", "fullnamerev": "sys-process/lsof-4.94.0-r1", "license_names": ["lsof"], "license_text_scanned": [], "homepages": ["https://github.com/lsof-org/lsof"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "oauth2", "version": "0.0.1", "revision": 12, "fullname": "dev-go/oauth2", "fullnamerev": "dev-go/oauth2-0.0.1-r12", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://golang.org/x/oauth2"], "skip": false, "tainted": false, "ebuild_path": null}

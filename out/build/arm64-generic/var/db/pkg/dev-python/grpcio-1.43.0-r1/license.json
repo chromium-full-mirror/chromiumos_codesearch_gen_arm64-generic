@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-python", "name": "grpcio", "version": "1.43.0", "revision": 1, "fullname": "dev-python/grpcio", "fullnamerev": "dev-python/grpcio-1.43.0-r1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://grpc.io"], "skip": false, "tainted": false, "ebuild_path": null}

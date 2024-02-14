@@ -1,5 +1,0 @@
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/private/mojom/cros_healthd_internal.mojom-forward.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/private/mojom/cros_healthd_internal.mojom-import-headers.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/private/mojom/cros_healthd_internal.mojom-test-utils.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/private/mojom/cros_healthd_internal.mojom.cc
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/private/mojom/cros_healthd_internal.mojom.h

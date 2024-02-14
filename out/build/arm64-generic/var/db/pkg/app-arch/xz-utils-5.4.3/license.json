@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-arch", "name": "xz-utils", "version": "5.4.3", "revision": 0, "fullname": "app-arch/xz-utils", "fullnamerev": "app-arch/xz-utils-5.4.3", "license_names": ["GPL-2", "GPL-2+", "LGPL-2.1+", "public-domain"], "license_text_scanned": [], "homepages": ["https://tukaani.org/xz/"], "skip": false, "tainted": false, "ebuild_path": null}

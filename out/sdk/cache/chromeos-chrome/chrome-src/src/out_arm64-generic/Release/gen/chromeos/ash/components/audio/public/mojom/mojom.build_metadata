@@ -1,8 +1,0 @@
-{
-  "deps": [
-    "../../../../../../mojo/public/mojom/base/base.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/components/audio/public/mojom/cros_audio_config.mojom"
-  ]
-}

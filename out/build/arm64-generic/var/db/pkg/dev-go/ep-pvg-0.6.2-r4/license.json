@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "ep-pvg", "version": "0.6.2", "revision": 4, "fullname": "dev-go/ep-pvg", "fullnamerev": "dev-go/ep-pvg-0.6.2-r4", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://github.com/envoyproxy/go-control-plane/protoc-gen-validate"], "skip": false, "tainted": false, "ebuild_path": null}

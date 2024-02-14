@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "x11-drivers", "name": "opengles-headers", "version": "0.0.1", "revision": 42, "fullname": "x11-drivers/opengles-headers", "fullnamerev": "x11-drivers/opengles-headers-0.0.1-r42", "license_names": ["SGI-B-2.0"], "license_text_scanned": [], "homepages": ["http://www.khronos.org/opengles/2_X/"], "skip": false, "tainted": false, "ebuild_path": null}

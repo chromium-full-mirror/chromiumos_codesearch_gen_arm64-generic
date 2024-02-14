@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-fs", "name": "f2fs-tools", "version": "1.16.0", "revision": 1, "fullname": "sys-fs/f2fs-tools", "fullnamerev": "sys-fs/f2fs-tools-1.16.0-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git/about/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "pv", "version": "1.6.20", "revision": 0, "fullname": "sys-apps/pv", "fullnamerev": "sys-apps/pv-1.6.20", "license_names": ["Artistic-2"], "license_text_scanned": [], "homepages": ["https://www.ivarch.com/programs/pv.shtml"], "skip": false, "tainted": false, "ebuild_path": null}

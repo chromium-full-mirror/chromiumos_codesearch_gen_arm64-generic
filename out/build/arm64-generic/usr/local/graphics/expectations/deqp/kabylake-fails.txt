@@ -1,2 +1,0 @@
-# kabylake boards: atlas, eve fizz, kalista, nami, nautilus, nocturn, poppy, rammus, soraka
-

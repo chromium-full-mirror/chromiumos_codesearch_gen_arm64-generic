@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "perl-core", "name": "File-Temp", "version": "0.231.100", "revision": 0, "fullname": "perl-core/File-Temp", "fullnamerev": "perl-core/File-Temp-0.231.100", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/File-Temp"], "skip": false, "tainted": false, "ebuild_path": null}

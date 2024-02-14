@@ -1,7 +1,0 @@
-[
-	{
-		"board": "brya",
-		"periodicity": 180,
-		"cmd": "echo 1 > /sys/kernel/debug/ccci_driver/flashing"
-	}
-]

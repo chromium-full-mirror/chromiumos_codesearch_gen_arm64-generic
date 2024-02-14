@@ -1,4 +1,0 @@
-gen/chrome/grit/enterprise_reporting_resources.h
-gen/chrome/grit/enterprise_reporting_resources_map.cc
-gen/chrome/grit/enterprise_reporting_resources_map.h
-gen/chrome/enterprise_reporting_resources.pak

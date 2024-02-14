@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-fs", "name": "fuse-common", "version": "3.10.4", "revision": 1, "fullname": "sys-fs/fuse-common", "fullnamerev": "sys-fs/fuse-common-3.10.4-r1", "license_names": ["GPL-2", "LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://github.com/libfuse/libfuse"], "skip": false, "tainted": false, "ebuild_path": null}

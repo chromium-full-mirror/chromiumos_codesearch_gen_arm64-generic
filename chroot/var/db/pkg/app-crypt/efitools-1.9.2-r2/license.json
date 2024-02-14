@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-crypt", "name": "efitools", "version": "1.9.2", "revision": 2, "fullname": "app-crypt/efitools", "fullnamerev": "app-crypt/efitools-1.9.2-r2", "license_names": ["GPL-2", "LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://git.kernel.org/cgit/linux/kernel/git/jejb/efitools.git"], "skip": false, "tainted": false, "ebuild_path": null}

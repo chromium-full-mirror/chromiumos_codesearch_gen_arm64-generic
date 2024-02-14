@@ -1,1 +1,0 @@
-{"base_dir": "gen/chrome/browser/resources/usb_internals/minified", "files": ["app.js", "descriptor_panel.js", "devices_page.js", "app.html.js", "usb_internals.mojom-webui.js", "usb_device.mojom-webui.js", "usb_enumeration_options.mojom-webui.js", "usb_manager.mojom-webui.js", "usb_manager_client.mojom-webui.js", "usb_manager_test.mojom-webui.js"]}

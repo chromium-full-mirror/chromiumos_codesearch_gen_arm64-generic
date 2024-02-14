@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-misc", "name": "evtest", "version": "1.35", "revision": 1, "fullname": "app-misc/evtest", "fullnamerev": "app-misc/evtest-1.35-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://gitlab.freedesktop.org/libevdev/evtest/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,4 +1,0 @@
-﻿
-Menyiapkan sistem untuk Mode Pengembang.
-Tindakan ini mungkin memakan waktu beberapa lama.
-Jangan mematikan komputer hingga komputer dimulai ulang.

@@ -1,4 +1,0 @@
-gen/chrome/grit/password_change_resources.h
-gen/chrome/grit/password_change_resources_map.h
-gen/chrome/grit/password_change_resources_map.cc
-gen/chrome/password_change_resources.pak

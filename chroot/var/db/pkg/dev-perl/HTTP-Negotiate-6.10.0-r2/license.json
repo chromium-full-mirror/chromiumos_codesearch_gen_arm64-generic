@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-perl", "name": "HTTP-Negotiate", "version": "6.10.0", "revision": 2, "fullname": "dev-perl/HTTP-Negotiate", "fullnamerev": "dev-perl/HTTP-Negotiate-6.10.0-r2", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/HTTP-Negotiate"], "skip": false, "tainted": false, "ebuild_path": null}

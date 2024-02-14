@@ -1,1 +1,0 @@
-obj/google_apis/gcm/test_support/fake_encryptor.o obj/google_apis/gcm/test_support/fake_connection_factory.o obj/google_apis/gcm/test_support/fake_connection_handler.o obj/google_apis/gcm/test_support/fake_gcm_stats_recorder.o

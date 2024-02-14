@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-devel", "name": "gnuconfig", "version": "20221007", "revision": 0, "fullname": "sys-devel/gnuconfig", "fullnamerev": "sys-devel/gnuconfig-20221007", "license_names": ["GPL-3+-with-autoconf-exception"], "license_text_scanned": [], "homepages": ["https://savannah.gnu.org/projects/config"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "net-analyzer", "name": "netcat", "version": "110.20180111", "revision": 2, "fullname": "net-analyzer/netcat", "fullnamerev": "net-analyzer/netcat-110.20180111-r2", "license_names": ["netcat"], "license_text_scanned": [], "homepages": ["https://nc110.sourceforge.io"], "skip": false, "tainted": false, "ebuild_path": null}

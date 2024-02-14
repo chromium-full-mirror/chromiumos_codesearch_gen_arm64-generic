@@ -1,1 +1,0 @@
-{"base_dir": "gen/chrome/test/data/webui/chromeos/edu_coexistence/tsc", "files": ["edu_coexistence_app_test.js", "edu_coexistence_app_with_arc_picker_test.js", "edu_coexistence_controller_test.js", "edu_coexistence_test_browser_proxy.js", "edu_coexistence_ui_test.js"]}

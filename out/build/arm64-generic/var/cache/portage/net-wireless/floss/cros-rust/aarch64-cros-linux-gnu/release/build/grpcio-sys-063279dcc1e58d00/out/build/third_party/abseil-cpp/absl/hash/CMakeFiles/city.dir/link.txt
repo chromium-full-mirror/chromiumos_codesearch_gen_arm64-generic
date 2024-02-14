@@ -1,2 +1,0 @@
-/usr/bin/llvm-ar qc libabsl_city.a CMakeFiles/city.dir/internal/city.cc.o
-/usr/bin/llvm-ranlib libabsl_city.a
