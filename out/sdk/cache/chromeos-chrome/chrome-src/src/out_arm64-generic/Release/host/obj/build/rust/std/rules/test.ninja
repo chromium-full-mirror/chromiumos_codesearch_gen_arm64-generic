@@ -2,7 +2,7 @@ crate_name = test
 crate_type = rlib
 output_extension = .rlib
 output_dir = host/local_rustc_sysroot/lib/rustlib/x86_64-unknown-linux-gnu/lib
-rustflags = --cfg=backtrace_in_libstd -Zforce-unstable-if-unmarked --edition=2021 -Cforce-unwind-tables=no -Crelocation-model=pic -Coverflow-checks=on -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. --color=always --target=x86_64-unknown-linux-gnu -Ccodegen-units=1 -Cpanic=abort -Zpanic_abort_tests --cfg cr_rustc_revision=\"cd6d8f2a04528f827ad3d399581c0f3502b15a72-1-llvmorg-18-init-17730-gf670112a\" -Copt-level=3 -Zdwarf-version=5 -g --cap-lints=allow -Dunsafe_op_in_unsafe_fn -Dwarnings --sysroot=host/local_rustc_sysroot
+rustflags = --cfg=backtrace_in_libstd -Zforce-unstable-if-unmarked --edition=2021 -Cforce-unwind-tables=no -Crelocation-model=pic -Coverflow-checks=on -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. --color=always --target=x86_64-unknown-linux-gnu -Cembed-bitcode=no -Ccodegen-units=1 -Cpanic=abort -Zpanic_abort_tests --cfg cr_rustc_revision=\"cd6d8f2a04528f827ad3d399581c0f3502b15a72-1-llvmorg-18-init-17730-gf670112a\" -Copt-level=3 -Zdwarf-version=5 -g --cap-lints=allow -Dunsafe_op_in_unsafe_fn -Dwarnings --sysroot=host/local_rustc_sysroot
 rustenv = OUT_DIR=../../../../../../../../../../../../../var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/host/gen/build/rust/std/rules/test CFG_DISABLE_UNSTABLE_FEATURES=0 STD_ENV_ARCH=x86_64 CARGO_PKG_VERSION=0.0.0 CARGO_PKG_NAME=test CARGO_MANIFEST_DIR=../../../../../../../home/chrome-bot/chrome_root/src/build/rust/std/rules/test/crate
 label_name = test
 target_out_dir = host/obj/build/rust/std/rules

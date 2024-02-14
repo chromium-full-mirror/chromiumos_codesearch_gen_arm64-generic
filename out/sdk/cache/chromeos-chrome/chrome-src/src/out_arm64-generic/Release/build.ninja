@@ -20,7 +20,7 @@ pool build_toolchain_action_pool
   depth = 64
 
 pool build_toolchain_link_pool
-  depth = 6
+  depth = 30
 
 pool build_toolchain_remote_action_pool
   depth = 1000
@@ -1184,6 +1184,12 @@ build browser_tabs_model_form: phony obj/chrome/browser/resources/chromeos/multi
 build browser_test_resources: phony obj/chrome/test/media_router/browser_test_resources.stamp
 build browser_tests__runner: phony obj/chrome/test/browser_tests__runner.stamp
 build browser_tests_filters: phony obj/testing/buildbot/filters/browser_tests_filters.stamp
+build browser_tests_js_mojo_lite_webui: phony obj/chrome/test/data/webui/chromeos/browser_tests_js_mojo_lite_webui.stamp
+build browser_tests_js_mojo_lite_webui_action: phony obj/chrome/test/data/webui/chromeos/browser_tests_js_mojo_lite_webui_action.stamp
+build browser_tests_js_mojo_webui: phony obj/chrome/test/data/webui/chromeos/browser_tests_js_mojo_webui.stamp
+build browser_tests_js_mojo_webui_action: phony obj/chrome/test/data/webui/chromeos/browser_tests_js_mojo_webui_action.stamp
+build browser_tests_js_webui: phony obj/chrome/test/data/webui/chromeos/browser_tests_js_webui.stamp
+build browser_tests_js_webui_action: phony obj/chrome/test/data/webui/chromeos/browser_tests_js_webui_action.stamp
 build browser_tests_pak: phony obj/chrome/browser_tests_pak.stamp
 build browser_tests_runner: phony obj/chrome/test/libbrowser_tests_runner.a
 build browser_themes: phony obj/chrome/browser/browser_themes.stamp
@@ -4137,6 +4143,8 @@ build inter_frame_delay_variation_calculator: phony obj/third_party/webrtc/modul
 build interactions: phony obj/third_party/devtools-frontend/src/test/interactions/interactions.stamp
 build interactive_ui_test_support: phony obj/ash/libinteractive_ui_test_support.a
 build interactive_ui_tests_filters: phony obj/testing/buildbot/filters/interactive_ui_tests_filters.stamp
+build interactive_ui_tests_js_webui: phony obj/chrome/test/data/webui/chromeos/interactive_ui_tests_js_webui.stamp
+build interactive_ui_tests_js_webui_action: phony obj/chrome/test/data/webui/chromeos/interactive_ui_tests_js_webui_action.stamp
 build interceptors: phony obj/components/pdf/browser/interceptors.stamp
 build interest_group_proto: phony obj/content/browser/interest_group/libinterest_group_proto.a
 build interest_group_proto_gen: phony obj/content/browser/interest_group/interest_group_proto_gen.stamp
@@ -16415,6 +16423,12 @@ build chrome/test/data/webui/bookmarks$:preprocess: phony obj/chrome/test/data/w
 build chrome/test/data/webui/certificate_viewer_dialog$:build_grdp: phony obj/chrome/test/data/webui/certificate_viewer_dialog/build_grdp.stamp
 build chrome/test/data/webui/certificate_viewer_dialog$:build_ts: phony obj/chrome/test/data/webui/certificate_viewer_dialog/build_ts.stamp
 build chrome/test/data/webui/certificate_viewer_dialog$:preprocess: phony obj/chrome/test/data/webui/certificate_viewer_dialog/preprocess.stamp
+build chrome/test/data/webui/chromeos$:browser_tests_js_mojo_lite_webui: phony obj/chrome/test/data/webui/chromeos/browser_tests_js_mojo_lite_webui.stamp
+build chrome/test/data/webui/chromeos$:browser_tests_js_mojo_lite_webui_action: phony obj/chrome/test/data/webui/chromeos/browser_tests_js_mojo_lite_webui_action.stamp
+build chrome/test/data/webui/chromeos$:browser_tests_js_mojo_webui: phony obj/chrome/test/data/webui/chromeos/browser_tests_js_mojo_webui.stamp
+build chrome/test/data/webui/chromeos$:browser_tests_js_mojo_webui_action: phony obj/chrome/test/data/webui/chromeos/browser_tests_js_mojo_webui_action.stamp
+build chrome/test/data/webui/chromeos$:browser_tests_js_webui: phony obj/chrome/test/data/webui/chromeos/browser_tests_js_webui.stamp
+build chrome/test/data/webui/chromeos$:browser_tests_js_webui_action: phony obj/chrome/test/data/webui/chromeos/browser_tests_js_webui_action.stamp
 build chrome/test/data/webui/chromeos$:build_grdp: phony obj/chrome/test/data/webui/chromeos/build_grdp.stamp
 build chrome/test/data/webui/chromeos$:build_ts: phony obj/chrome/test/data/webui/chromeos/build_ts.stamp
 build chrome/test/data/webui/chromeos$:build_web_ui_test_mojo_grdp: phony obj/chrome/test/data/webui/chromeos/build_web_ui_test_mojo_grdp.stamp
@@ -16423,6 +16437,8 @@ build chrome/test/data/webui/chromeos$:chai_assert: phony obj/chrome/test/data/w
 build chrome/test/data/webui/chromeos$:closure_compile: phony obj/chrome/test/data/webui/chromeos/closure_compile.stamp
 build chrome/test/data/webui/chromeos$:closure_compile_local: phony obj/chrome/test/data/webui/chromeos/closure_compile_local.stamp
 build chrome/test/data/webui/chromeos$:fake_network_config_mojom: phony obj/chrome/test/data/webui/chromeos/fake_network_config_mojom.stamp
+build chrome/test/data/webui/chromeos$:interactive_ui_tests_js_webui: phony obj/chrome/test/data/webui/chromeos/interactive_ui_tests_js_webui.stamp
+build chrome/test/data/webui/chromeos$:interactive_ui_tests_js_webui_action: phony obj/chrome/test/data/webui/chromeos/interactive_ui_tests_js_webui_action.stamp
 build chrome/test/data/webui/chromeos$:mock_controller.m: phony obj/chrome/test/data/webui/chromeos/mock_controller.m.stamp
 build chrome/test/data/webui/chromeos$:test_browser_proxy: phony obj/chrome/test/data/webui/chromeos/test_browser_proxy.stamp
 build chrome/test/data/webui/chromeos$:test_util: phony obj/chrome/test/data/webui/chromeos/test_util.stamp
@@ -43874,6 +43890,12 @@ build all: phony $
     obj/chrome/test/data/webui/certificate_viewer_dialog/build_grdp.stamp $
     obj/chrome/test/data/webui/certificate_viewer_dialog/build_ts.stamp $
     obj/chrome/test/data/webui/certificate_viewer_dialog/preprocess.stamp $
+    obj/chrome/test/data/webui/chromeos/browser_tests_js_mojo_lite_webui.stamp $
+    obj/chrome/test/data/webui/chromeos/browser_tests_js_mojo_lite_webui_action.stamp $
+    obj/chrome/test/data/webui/chromeos/browser_tests_js_mojo_webui.stamp $
+    obj/chrome/test/data/webui/chromeos/browser_tests_js_mojo_webui_action.stamp $
+    obj/chrome/test/data/webui/chromeos/browser_tests_js_webui.stamp $
+    obj/chrome/test/data/webui/chromeos/browser_tests_js_webui_action.stamp $
     obj/chrome/test/data/webui/chromeos/build_grdp.stamp $
     obj/chrome/test/data/webui/chromeos/build_ts.stamp $
     obj/chrome/test/data/webui/chromeos/build_web_ui_test_mojo_grdp.stamp $
@@ -43882,6 +43904,8 @@ build all: phony $
     obj/chrome/test/data/webui/chromeos/closure_compile.stamp $
     obj/chrome/test/data/webui/chromeos/closure_compile_local.stamp $
     obj/chrome/test/data/webui/chromeos/fake_network_config_mojom.stamp $
+    obj/chrome/test/data/webui/chromeos/interactive_ui_tests_js_webui.stamp $
+    obj/chrome/test/data/webui/chromeos/interactive_ui_tests_js_webui_action.stamp $
     obj/chrome/test/data/webui/chromeos/mock_controller.m.stamp $
     obj/chrome/test/data/webui/chromeos/test_browser_proxy.stamp $
     obj/chrome/test/data/webui/chromeos/test_util.stamp $

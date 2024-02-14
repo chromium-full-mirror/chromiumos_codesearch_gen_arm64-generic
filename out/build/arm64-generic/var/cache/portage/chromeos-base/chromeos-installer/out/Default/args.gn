@@ -12,7 +12,7 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/chromeos-installer"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4180/work/chromeos-installer-0.0.3"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4182/work/chromeos-installer-0.0.3"
 libbase_ver = "1257783"
 enable_exceptions = false
 external_cflags = [

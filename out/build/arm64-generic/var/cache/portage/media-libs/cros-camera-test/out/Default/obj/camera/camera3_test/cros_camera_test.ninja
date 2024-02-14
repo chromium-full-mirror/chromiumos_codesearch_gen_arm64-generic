@@ -1,68 +1,68 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DCHROME_OS_CAMERA_BUILD_ENV -DUSE_ARCVM=false -DUSE_CAMERA_FEATURE_AUTO_FRAMING=false -DUSE_CAMERA_FEATURE_DIAGNOSTICS=false -DUSE_CAMERA_FEATURE_EFFECTS=false -DUSE_CAMERA_FEATURE_FACE_DETECTION=false -DUSE_CAMERA_FEATURE_FRAME_ANNOTATOR=false -DUSE_CAMERA_FEATURE_HDRNET=false -DUSE_CAMERA_FEATURE_PORTRAIT_MODE=false -DUSE_IPU6=false -DUSE_IPU6EP=false -DUSE_IPU6EPMTL=false -DUSE_CAMERA_ANGLE_BACKEND=false
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera -I../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/include
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera -I../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/include
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -I/build/arm64-generic/usr/include/cros-camera/mojo -I/build/arm64-generic/usr/include/android -I/build/arm64-generic/usr/include/android/hardware/libhardware/include -I/build/arm64-generic/usr/include/android/system/core/include -I/build/arm64-generic/usr/include/libdrm -I/build/arm64-generic/usr/include/libexif -I/build/arm64-generic/usr/include/sync -DHAVE_JPEG -I/build/arm64-generic/usr/include/mojo_service_manager -Wno-cast-qual -Wno-cast-align -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = cros_camera_test
 
-build obj/camera/common/utils/cros_camera_test.camera_hal_enumerator.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/common/utils/camera_hal_enumerator.cc
+build obj/camera/common/utils/cros_camera_test.camera_hal_enumerator.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/common/utils/camera_hal_enumerator.cc
   source_file_part = camera_hal_enumerator.cc
   source_name_part = camera_hal_enumerator
-build obj/camera/common/utils/cros_camera_test.cros_camera_mojo_utils.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/common/utils/cros_camera_mojo_utils.cc
+build obj/camera/common/utils/cros_camera_test.cros_camera_mojo_utils.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/common/utils/cros_camera_mojo_utils.cc
   source_file_part = cros_camera_mojo_utils.cc
   source_name_part = cros_camera_mojo_utils
-build obj/camera/common/cros_camera_test.vendor_tag_manager.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/common/vendor_tag_manager.cc
+build obj/camera/common/cros_camera_test.vendor_tag_manager.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/common/vendor_tag_manager.cc
   source_file_part = vendor_tag_manager.cc
   source_name_part = vendor_tag_manager
-build obj/camera/camera3_test/cros_camera_test.camera3_device_connector.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_device_connector.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_device_connector.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_device_connector.cc
   source_file_part = camera3_device_connector.cc
   source_name_part = camera3_device_connector
-build obj/camera/camera3_test/cros_camera_test.camera3_device_impl.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_device_impl.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_device_impl.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_device_impl.cc
   source_file_part = camera3_device_impl.cc
   source_name_part = camera3_device_impl
-build obj/camera/camera3_test/cros_camera_test.camera3_device_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_device_test.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_device_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_device_test.cc
   source_file_part = camera3_device_test.cc
   source_name_part = camera3_device_test
-build obj/camera/camera3_test/cros_camera_test.camera3_exif_validator.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_exif_validator.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_exif_validator.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_exif_validator.cc
   source_file_part = camera3_exif_validator.cc
   source_name_part = camera3_exif_validator
-build obj/camera/camera3_test/cros_camera_test.camera3_face_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_face_test.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_face_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_face_test.cc
   source_file_part = camera3_face_test.cc
   source_name_part = camera3_face_test
-build obj/camera/camera3_test/cros_camera_test.camera3_frame_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_frame_test.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_frame_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_frame_test.cc
   source_file_part = camera3_frame_test.cc
   source_name_part = camera3_frame_test
-build obj/camera/camera3_test/cros_camera_test.camera3_module_connector.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_module_connector.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_module_connector.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_module_connector.cc
   source_file_part = camera3_module_connector.cc
   source_name_part = camera3_module_connector
-build obj/camera/camera3_test/cros_camera_test.camera3_module_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_module_test.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_module_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_module_test.cc
   source_file_part = camera3_module_test.cc
   source_name_part = camera3_module_test
-build obj/camera/camera3_test/cros_camera_test.camera3_perf_log.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_perf_log.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_perf_log.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_perf_log.cc
   source_file_part = camera3_perf_log.cc
   source_name_part = camera3_perf_log
-build obj/camera/camera3_test/cros_camera_test.camera3_preview_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_preview_test.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_preview_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_preview_test.cc
   source_file_part = camera3_preview_test.cc
   source_name_part = camera3_preview_test
-build obj/camera/camera3_test/cros_camera_test.camera3_recording_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_recording_test.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_recording_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_recording_test.cc
   source_file_part = camera3_recording_test.cc
   source_name_part = camera3_recording_test
-build obj/camera/camera3_test/cros_camera_test.camera3_reprocessing_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_reprocessing_test.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_reprocessing_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_reprocessing_test.cc
   source_file_part = camera3_reprocessing_test.cc
   source_name_part = camera3_reprocessing_test
-build obj/camera/camera3_test/cros_camera_test.camera3_service.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_service.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_service.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_service.cc
   source_file_part = camera3_service.cc
   source_name_part = camera3_service
-build obj/camera/camera3_test/cros_camera_test.camera3_still_capture_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_still_capture_test.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_still_capture_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_still_capture_test.cc
   source_file_part = camera3_still_capture_test.cc
   source_name_part = camera3_still_capture_test
-build obj/camera/camera3_test/cros_camera_test.camera3_stream_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_stream_test.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_stream_test.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_stream_test.cc
   source_file_part = camera3_stream_test.cc
   source_name_part = camera3_stream_test
-build obj/camera/camera3_test/cros_camera_test.camera3_test_data_forwarder.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_test_data_forwarder.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_test_data_forwarder.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_test_data_forwarder.cc
   source_file_part = camera3_test_data_forwarder.cc
   source_name_part = camera3_test_data_forwarder
-build obj/camera/camera3_test/cros_camera_test.camera3_test_gralloc.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1549/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_test_gralloc.cc
+build obj/camera/camera3_test/cros_camera_test.camera3_test_gralloc.o: cxx ../../../../../../../tmp/portage/media-libs/cros-camera-test-0.0.1-r1550/work/cros-camera-test-0.0.1/camera/camera3_test/camera3_test_gralloc.cc
   source_file_part = camera3_test_gralloc.cc
   source_name_part = camera3_test_gralloc
 

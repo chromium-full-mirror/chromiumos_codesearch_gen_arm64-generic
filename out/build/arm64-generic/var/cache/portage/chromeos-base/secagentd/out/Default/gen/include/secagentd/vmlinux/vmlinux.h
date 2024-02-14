@@ -2926,22 +2926,22 @@ struct cfs_rq;
 struct sched_entity {
 	struct load_weight load;
 	struct rb_node run_node;
+	u64 deadline;
+	u64 min_deadline;
 	struct list_head group_node;
 	unsigned int on_rq;
 	u64 exec_start;
 	u64 sum_exec_runtime;
-	u64 vruntime;
 	u64 prev_sum_exec_runtime;
+	u64 vruntime;
+	s64 vlag;
+	u64 slice;
 	u64 nr_migrations;
 	int depth;
 	struct sched_entity *parent;
 	struct cfs_rq *cfs_rq;
 	struct cfs_rq *my_q;
 	unsigned long runnable_weight;
-	long: 64;
-	long: 64;
-	long: 64;
-	long: 64;
 	long: 64;
 	long: 64;
 	struct sched_avg avg;
@@ -19361,6 +19361,8 @@ struct cfs_rq {
 	unsigned int nr_running;
 	unsigned int h_nr_running;
 	unsigned int idle_h_nr_running;
+	s64 avg_vruntime;
+	u64 avg_load;
 	u64 exec_clock;
 	u64 min_vruntime;
 	struct rb_root_cached tasks_timeline;
@@ -19369,8 +19371,6 @@ struct cfs_rq {
 	struct sched_entity *last;
 	struct sched_entity *skip;
 	unsigned int nr_spread_over;
-	long: 64;
-	long: 64;
 	long: 64;
 	struct sched_avg avg;
 	struct {
@@ -19919,31 +19919,35 @@ struct kernel_cpustat {
 enum {
 	__SCHED_FEAT_GENTLE_FAIR_SLEEPERS = 0,
 	__SCHED_FEAT_START_DEBIT = 1,
-	__SCHED_FEAT_NEXT_BUDDY = 2,
-	__SCHED_FEAT_LAST_BUDDY = 3,
-	__SCHED_FEAT_CACHE_HOT_BUDDY = 4,
-	__SCHED_FEAT_WAKEUP_PREEMPTION = 5,
-	__SCHED_FEAT_HRTICK = 6,
-	__SCHED_FEAT_HRTICK_DL = 7,
-	__SCHED_FEAT_DOUBLE_TICK = 8,
-	__SCHED_FEAT_NONTASK_CAPACITY = 9,
-	__SCHED_FEAT_TTWU_QUEUE = 10,
-	__SCHED_FEAT_SIS_PROP = 11,
-	__SCHED_FEAT_SIS_UTIL = 12,
-	__SCHED_FEAT_WARN_DOUBLE_CLOCK = 13,
-	__SCHED_FEAT_RT_PUSH_IPI = 14,
-	__SCHED_FEAT_RT_RUNTIME_SHARE = 15,
-	__SCHED_FEAT_LB_MIN = 16,
-	__SCHED_FEAT_ATTACH_AGE_LOAD = 17,
-	__SCHED_FEAT_WA_IDLE = 18,
-	__SCHED_FEAT_WA_WEIGHT = 19,
-	__SCHED_FEAT_WA_BIAS = 20,
-	__SCHED_FEAT_UTIL_EST = 21,
-	__SCHED_FEAT_UTIL_EST_FASTUP = 22,
-	__SCHED_FEAT_LATENCY_WARN = 23,
-	__SCHED_FEAT_ALT_PERIOD = 24,
-	__SCHED_FEAT_BASE_SLICE = 25,
-	__SCHED_FEAT_NR = 26,
+	__SCHED_FEAT_LAST_BUDDY = 2,
+	__SCHED_FEAT_ENFORCE_ELIGIBILITY = 3,
+	__SCHED_FEAT_PLACE_LAG = 4,
+	__SCHED_FEAT_PLACE_DEADLINE_INITIAL = 5,
+	__SCHED_FEAT_RUN_TO_PARITY = 6,
+	__SCHED_FEAT_NEXT_BUDDY = 7,
+	__SCHED_FEAT_CACHE_HOT_BUDDY = 8,
+	__SCHED_FEAT_WAKEUP_PREEMPTION = 9,
+	__SCHED_FEAT_HRTICK = 10,
+	__SCHED_FEAT_HRTICK_DL = 11,
+	__SCHED_FEAT_DOUBLE_TICK = 12,
+	__SCHED_FEAT_NONTASK_CAPACITY = 13,
+	__SCHED_FEAT_TTWU_QUEUE = 14,
+	__SCHED_FEAT_SIS_PROP = 15,
+	__SCHED_FEAT_SIS_UTIL = 16,
+	__SCHED_FEAT_WARN_DOUBLE_CLOCK = 17,
+	__SCHED_FEAT_RT_PUSH_IPI = 18,
+	__SCHED_FEAT_RT_RUNTIME_SHARE = 19,
+	__SCHED_FEAT_LB_MIN = 20,
+	__SCHED_FEAT_ATTACH_AGE_LOAD = 21,
+	__SCHED_FEAT_WA_IDLE = 22,
+	__SCHED_FEAT_WA_WEIGHT = 23,
+	__SCHED_FEAT_WA_BIAS = 24,
+	__SCHED_FEAT_UTIL_EST = 25,
+	__SCHED_FEAT_UTIL_EST_FASTUP = 26,
+	__SCHED_FEAT_LATENCY_WARN = 27,
+	__SCHED_FEAT_ALT_PERIOD = 28,
+	__SCHED_FEAT_BASE_SLICE = 29,
+	__SCHED_FEAT_NR = 30,
 };
 
 enum uclamp_id {
@@ -20329,10 +20333,6 @@ struct idle_timer {
 	int done;
 };
 
-struct static_key_true {
-	struct static_key key;
-};
-
 enum {
 	SD_BALANCE_NEWIDLE = 1,
 	SD_BALANCE_EXEC = 2,
@@ -20348,6 +20348,28 @@ enum {
 	SD_PREFER_SIBLING = 2048,
 	SD_OVERLAP = 4096,
 	SD_NUMA = 8192,
+};
+
+struct update_util_data {
+	void (*func)(struct update_util_data *, u64, unsigned int);
+};
+
+typedef struct rt_rq *rt_rq_iter_t;
+
+enum dl_bw_request {
+	dl_bw_req_check_overflow = 0,
+	dl_bw_req_alloc = 1,
+	dl_bw_req_free = 2,
+};
+
+struct static_key_true {
+	struct static_key key;
+};
+
+struct rb_augment_callbacks {
+	void (*propagate)(struct rb_node *, struct rb_node *);
+	void (*copy)(struct rb_node *, struct rb_node *);
+	void (*rotate)(struct rb_node *, struct rb_node *);
 };
 
 enum cpu_idle_type {
@@ -20384,10 +20406,6 @@ enum group_type {
 	group_asym_packing = 3,
 	group_imbalanced = 4,
 	group_overloaded = 5,
-};
-
-struct update_util_data {
-	void (*func)(struct update_util_data *, u64, unsigned int);
 };
 
 struct sg_lb_stats {
@@ -20434,14 +20452,6 @@ struct sd_lb_stats {
 	unsigned int prefer_sibling;
 	struct sg_lb_stats busiest_stat;
 	struct sg_lb_stats local_stat;
-};
-
-typedef struct rt_rq *rt_rq_iter_t;
-
-enum dl_bw_request {
-	dl_bw_req_check_overflow = 0,
-	dl_bw_req_alloc = 1,
-	dl_bw_req_free = 2,
 };
 
 struct swait_queue {
@@ -33572,12 +33582,6 @@ struct alloc_context {
 	int migratetype;
 	enum zone_type highest_zoneidx;
 	bool spread_dirty_pages;
-};
-
-struct rb_augment_callbacks {
-	void (*propagate)(struct rb_node *, struct rb_node *);
-	void (*copy)(struct rb_node *, struct rb_node *);
-	void (*rotate)(struct rb_node *, struct rb_node *);
 };
 
 struct anon_vma_chain {

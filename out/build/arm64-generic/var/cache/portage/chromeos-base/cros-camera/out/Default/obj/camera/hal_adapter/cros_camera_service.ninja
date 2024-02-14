@@ -1,56 +1,56 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DCHROME_OS_CAMERA_BUILD_ENV -DUSE_ARCVM=false -DUSE_CAMERA_FEATURE_AUTO_FRAMING=false -DUSE_CAMERA_FEATURE_DIAGNOSTICS=false -DUSE_CAMERA_FEATURE_EFFECTS=false -DUSE_CAMERA_FEATURE_FACE_DETECTION=false -DUSE_CAMERA_FEATURE_FRAME_ANNOTATOR=false -DUSE_CAMERA_FEATURE_HDRNET=false -DUSE_CAMERA_FEATURE_PORTRAIT_MODE=false -DUSE_IPU6=false -DUSE_IPU6EP=false -DUSE_IPU6EPMTL=false -DUSE_CAMERA_ANGLE_BACKEND=false
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera -I../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/include
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera -I../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/include
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -I/build/arm64-generic/usr/include/cros-camera/mojo -I/build/arm64-generic/usr/include/android -I/build/arm64-generic/usr/include/android/hardware/libhardware/include -I/build/arm64-generic/usr/include/android/system/core/include -I/build/arm64-generic/usr/include/libdrm -I/build/arm64-generic/usr/include/sync -DHAVE_JPEG -I/build/arm64-generic/usr/include/mojo_service_manager -Wno-cast-qual -Wno-cast-align -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -O2 -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = cros_camera_service
 
-build obj/camera/common/cros_camera_service.ipc_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/common/ipc_util.cc
+build obj/camera/common/cros_camera_service.ipc_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/common/ipc_util.cc
   source_file_part = ipc_util.cc
   source_name_part = ipc_util
-build obj/camera/common/utils/cros_camera_service.camera_config_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/common/utils/camera_config_impl.cc
+build obj/camera/common/utils/cros_camera_service.camera_config_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/common/utils/camera_config_impl.cc
   source_file_part = camera_config_impl.cc
   source_name_part = camera_config_impl
-build obj/camera/common/utils/cros_camera_service.camera_hal_enumerator.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/common/utils/camera_hal_enumerator.cc
+build obj/camera/common/utils/cros_camera_service.camera_hal_enumerator.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/common/utils/camera_hal_enumerator.cc
   source_file_part = camera_hal_enumerator.cc
   source_name_part = camera_hal_enumerator
-build obj/camera/common/utils/cros_camera_service.cros_camera_mojo_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/common/utils/cros_camera_mojo_utils.cc
+build obj/camera/common/utils/cros_camera_service.cros_camera_mojo_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/common/utils/cros_camera_mojo_utils.cc
   source_file_part = cros_camera_mojo_utils.cc
   source_name_part = cros_camera_mojo_utils
-build obj/camera/mojo/cros_camera_service.CameraMetadataTagsVerifier.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/mojo/CameraMetadataTagsVerifier.cc
+build obj/camera/mojo/cros_camera_service.CameraMetadataTagsVerifier.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/mojo/CameraMetadataTagsVerifier.cc
   source_file_part = CameraMetadataTagsVerifier.cc
   source_name_part = CameraMetadataTagsVerifier
-build obj/camera/hal_adapter/cros_camera_service.camera3_callback_ops_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/hal_adapter/camera3_callback_ops_delegate.cc
+build obj/camera/hal_adapter/cros_camera_service.camera3_callback_ops_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/hal_adapter/camera3_callback_ops_delegate.cc
   source_file_part = camera3_callback_ops_delegate.cc
   source_name_part = camera3_callback_ops_delegate
-build obj/camera/hal_adapter/cros_camera_service.camera3_device_ops_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/hal_adapter/camera3_device_ops_delegate.cc
+build obj/camera/hal_adapter/cros_camera_service.camera3_device_ops_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/hal_adapter/camera3_device_ops_delegate.cc
   source_file_part = camera3_device_ops_delegate.cc
   source_name_part = camera3_device_ops_delegate
-build obj/camera/hal_adapter/cros_camera_service.camera_device_adapter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/hal_adapter/camera_device_adapter.cc
+build obj/camera/hal_adapter/cros_camera_service.camera_device_adapter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/hal_adapter/camera_device_adapter.cc
   source_file_part = camera_device_adapter.cc
   source_name_part = camera_device_adapter
-build obj/camera/hal_adapter/cros_camera_service.camera_hal_adapter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/hal_adapter/camera_hal_adapter.cc
+build obj/camera/hal_adapter/cros_camera_service.camera_hal_adapter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/hal_adapter/camera_hal_adapter.cc
   source_file_part = camera_hal_adapter.cc
   source_name_part = camera_hal_adapter
-build obj/camera/hal_adapter/cros_camera_service.camera_hal_server_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/hal_adapter/camera_hal_server_impl.cc
+build obj/camera/hal_adapter/cros_camera_service.camera_hal_server_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/hal_adapter/camera_hal_server_impl.cc
   source_file_part = camera_hal_server_impl.cc
   source_name_part = camera_hal_server_impl
-build obj/camera/hal_adapter/cros_camera_service.camera_hal_test_adapter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/hal_adapter/camera_hal_test_adapter.cc
+build obj/camera/hal_adapter/cros_camera_service.camera_hal_test_adapter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/hal_adapter/camera_hal_test_adapter.cc
   source_file_part = camera_hal_test_adapter.cc
   source_name_part = camera_hal_test_adapter
-build obj/camera/hal_adapter/cros_camera_service.camera_module_callbacks_associated_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/hal_adapter/camera_module_callbacks_associated_delegate.cc
+build obj/camera/hal_adapter/cros_camera_service.camera_module_callbacks_associated_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/hal_adapter/camera_module_callbacks_associated_delegate.cc
   source_file_part = camera_module_callbacks_associated_delegate.cc
   source_name_part = camera_module_callbacks_associated_delegate
-build obj/camera/hal_adapter/cros_camera_service.camera_module_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/hal_adapter/camera_module_delegate.cc
+build obj/camera/hal_adapter/cros_camera_service.camera_module_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/hal_adapter/camera_module_delegate.cc
   source_file_part = camera_module_delegate.cc
   source_name_part = camera_module_delegate
-build obj/camera/hal_adapter/cros_camera_service.camera_trace_event.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/hal_adapter/camera_trace_event.cc
+build obj/camera/hal_adapter/cros_camera_service.camera_trace_event.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/hal_adapter/camera_trace_event.cc
   source_file_part = camera_trace_event.cc
   source_name_part = camera_trace_event
-build obj/camera/hal_adapter/cros_camera_service.cros_camera_main.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/hal_adapter/cros_camera_main.cc
+build obj/camera/hal_adapter/cros_camera_service.cros_camera_main.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/hal_adapter/cros_camera_main.cc
   source_file_part = cros_camera_main.cc
   source_name_part = cros_camera_main
-build obj/camera/hal_adapter/cros_camera_service.vendor_tag_ops_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1972/work/cros-camera-0.0.1/camera/hal_adapter/vendor_tag_ops_delegate.cc
+build obj/camera/hal_adapter/cros_camera_service.vendor_tag_ops_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1973/work/cros-camera-0.0.1/camera/hal_adapter/vendor_tag_ops_delegate.cc
   source_file_part = vendor_tag_ops_delegate.cc
   source_name_part = vendor_tag_ops_delegate
 

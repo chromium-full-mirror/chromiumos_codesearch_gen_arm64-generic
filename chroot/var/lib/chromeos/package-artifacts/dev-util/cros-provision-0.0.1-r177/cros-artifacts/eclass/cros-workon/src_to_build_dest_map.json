@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/third_party/../platform/dev",
-      "build_dest_path": "/var/tmp/portage/dev-util/cros-provision-0.0.1-r177/work/cros-provision-0.0.1"
-    }
-  ]
-}

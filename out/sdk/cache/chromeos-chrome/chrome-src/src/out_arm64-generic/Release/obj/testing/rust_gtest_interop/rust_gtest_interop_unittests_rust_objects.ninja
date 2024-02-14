@@ -2,7 +2,7 @@ crate_name = testing_srust_ugtest_uinterop_crust_ugtest_uinterop_uunittests_urus
 crate_type = rlib
 output_extension = .rlib
 output_dir = obj/testing/rust_gtest_interop
-rustflags = --edition=2021 -Dunsafe_op_in_unsafe_fn -Dwarnings -Cforce-unwind-tables=no -Crelocation-model=pic -Cembed-bitcode=no -Coverflow-checks=on -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. --color=always --target=aarch64-unknown-linux-gnu -Cembed-bitcode=no -Ccodegen-units=1 -Cpanic=abort -Zpanic_abort_tests --cfg cr_rustc_revision=\"cd6d8f2a04528f827ad3d399581c0f3502b15a72-1-llvmorg-18-init-17730-gf670112a\" -Copt-level=s -Zdwarf-version=5 -g -Cembed-bitcode=no -Cembed-bitcode=no --cfg test --cfg is_gtest_unittests -Funsafe_code --sysroot=local_rustc_sysroot
+rustflags = --edition=2021 -Dunsafe_op_in_unsafe_fn -Dwarnings -Cforce-unwind-tables=no -Crelocation-model=pic -Coverflow-checks=on -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. --color=always --target=aarch64-unknown-linux-gnu -Cembed-bitcode=no -Ccodegen-units=1 -Cpanic=abort -Zpanic_abort_tests --cfg cr_rustc_revision=\"cd6d8f2a04528f827ad3d399581c0f3502b15a72-1-llvmorg-18-init-17730-gf670112a\" -Copt-level=s -Zdwarf-version=5 -g --cfg test --cfg is_gtest_unittests -Funsafe_code --sysroot=local_rustc_sysroot
 rustenv = OUT_DIR=rust_gtest_interop_unittests_rust_objects
 label_name = rust_gtest_interop_unittests_rust_objects
 target_out_dir = obj/testing/rust_gtest_interop

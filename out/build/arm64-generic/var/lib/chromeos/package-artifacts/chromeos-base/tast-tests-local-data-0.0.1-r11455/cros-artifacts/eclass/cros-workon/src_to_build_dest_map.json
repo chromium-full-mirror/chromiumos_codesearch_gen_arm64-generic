@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/platform/tast-tests",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/tast-tests-local-data-0.0.1-r11455/work/tast-tests-local-data-0.0.1"
-    }
-  ]
-}

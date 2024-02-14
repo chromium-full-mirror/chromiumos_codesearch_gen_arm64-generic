@@ -1,165 +1,165 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_CELLULAR=true -DUSE_IWLWIFI_DUMP=false
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1 -I/build/arm64-generic/usr/include -Igen
+include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1257783 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/user_data_auth-client -pthread -I/build/arm64-generic/usr/include/shill-client -I/build/arm64-generic/usr/include/user_data_auth-client -DPROTOBUF_USE_DLLS -DPROTOBUF_USE_DLLS
-cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fvisibility=default -flto=thin -fsanitize=cfi-derived-cast -fsanitize=cfi-icall -fsanitize=cfi-vcall -fsanitize=cfi-unrelated-cast -fsanitize-ignorelist=/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3817/files/cfi-ignore.txt -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fvisibility=default -flto=thin -fsanitize=cfi-derived-cast -fsanitize=cfi-icall -fsanitize=cfi-vcall -fsanitize=cfi-unrelated-cast -fsanitize-ignorelist=/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3819/files/cfi-ignore.txt -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libdebugd
 
 build obj/debugd/libdebugd.inputdeps.stamp: stamp obj/debugd/cryptohome-proto_gen.stamp obj/debugd/debugd-adaptors.stamp obj/debugd/power_manager-proto_gen.stamp
-build obj/debugd/src/libdebugd.battery_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/battery_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.battery_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/battery_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = battery_tool.cc
   source_name_part = battery_tool
-build obj/debugd/src/libdebugd.bluetooth_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/bluetooth_utils.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.bluetooth_utils.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/bluetooth_utils.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = bluetooth_utils.cc
   source_name_part = bluetooth_utils
-build obj/debugd/src/libdebugd.constants.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/constants.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.constants.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/constants.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = constants.cc
   source_name_part = constants
-build obj/debugd/src/libdebugd.container_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/container_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.container_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/container_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = container_tool.cc
   source_name_part = container_tool
-build obj/debugd/src/libdebugd.crash_sender_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/crash_sender_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.crash_sender_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/crash_sender_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = crash_sender_tool.cc
   source_name_part = crash_sender_tool
-build obj/debugd/src/libdebugd.crosh_shell_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/crosh_shell_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.crosh_shell_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/crosh_shell_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = crosh_shell_tool.cc
   source_name_part = crosh_shell_tool
-build obj/debugd/src/libdebugd.cups_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/cups_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.cups_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/cups_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = cups_tool.cc
   source_name_part = cups_tool
-build obj/debugd/src/libdebugd.debug_logs_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/debug_logs_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.debug_logs_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/debug_logs_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = debug_logs_tool.cc
   source_name_part = debug_logs_tool
-build obj/debugd/src/libdebugd.debug_mode_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/debug_mode_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.debug_mode_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/debug_mode_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = debug_mode_tool.cc
   source_name_part = debug_mode_tool
-build obj/debugd/src/libdebugd.debugd_dbus_adaptor.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/debugd_dbus_adaptor.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.debugd_dbus_adaptor.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/debugd_dbus_adaptor.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = debugd_dbus_adaptor.cc
   source_name_part = debugd_dbus_adaptor
-build obj/debugd/src/libdebugd.dev_features_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/dev_features_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.dev_features_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/dev_features_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = dev_features_tool.cc
   source_name_part = dev_features_tool
-build obj/debugd/src/libdebugd.dev_mode_no_owner_restriction.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/dev_mode_no_owner_restriction.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.dev_mode_no_owner_restriction.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/dev_mode_no_owner_restriction.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = dev_mode_no_owner_restriction.cc
   source_name_part = dev_mode_no_owner_restriction
-build obj/debugd/src/libdebugd.dmesg_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/dmesg_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.dmesg_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/dmesg_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = dmesg_tool.cc
   source_name_part = dmesg_tool
-build obj/debugd/src/libdebugd.drm_trace_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/drm_trace_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.drm_trace_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/drm_trace_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = drm_trace_tool.cc
   source_name_part = drm_trace_tool
-build obj/debugd/src/libdebugd.ec_typec_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/ec_typec_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.ec_typec_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/ec_typec_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = ec_typec_tool.cc
   source_name_part = ec_typec_tool
-build obj/debugd/src/libdebugd.ectool_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/ectool_util.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.ectool_util.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/ectool_util.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = ectool_util.cc
   source_name_part = ectool_util
-build obj/debugd/src/libdebugd.example_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/example_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.example_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/example_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = example_tool.cc
   source_name_part = example_tool
-build obj/debugd/src/libdebugd.helper_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/helper_utils.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.helper_utils.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/helper_utils.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = helper_utils.cc
   source_name_part = helper_utils
-build obj/debugd/src/libdebugd.icmp_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/icmp_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.icmp_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/icmp_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = icmp_tool.cc
   source_name_part = icmp_tool
-build obj/debugd/src/libdebugd.ipaddrs_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/ipaddrs_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.ipaddrs_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/ipaddrs_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = ipaddrs_tool.cc
   source_name_part = ipaddrs_tool
-build obj/debugd/src/libdebugd.kernel_feature_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/kernel_feature_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.kernel_feature_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/kernel_feature_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = kernel_feature_tool.cc
   source_name_part = kernel_feature_tool
-build obj/debugd/src/libdebugd.log_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/log_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.log_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/log_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = log_tool.cc
   source_name_part = log_tool
-build obj/debugd/src/libdebugd.lp_tools.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/lp_tools.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.lp_tools.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/lp_tools.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = lp_tools.cc
   source_name_part = lp_tools
-build obj/debugd/src/libdebugd.memory_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/memory_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.memory_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/memory_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = memory_tool.cc
   source_name_part = memory_tool
-build obj/debugd/src/libdebugd.metrics.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/metrics.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.metrics.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/metrics.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = metrics.cc
   source_name_part = metrics
-build obj/debugd/src/libdebugd.netif_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/netif_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.netif_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/netif_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = netif_tool.cc
   source_name_part = netif_tool
-build obj/debugd/src/libdebugd.network_status_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/network_status_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.network_status_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/network_status_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = network_status_tool.cc
   source_name_part = network_status_tool
-build obj/debugd/src/libdebugd.oom_adj_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/oom_adj_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.oom_adj_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/oom_adj_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = oom_adj_tool.cc
   source_name_part = oom_adj_tool
-build obj/debugd/src/libdebugd.packet_capture_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/packet_capture_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.packet_capture_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/packet_capture_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = packet_capture_tool.cc
   source_name_part = packet_capture_tool
-build obj/debugd/src/libdebugd.perf_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/perf_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.perf_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/perf_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = perf_tool.cc
   source_name_part = perf_tool
-build obj/debugd/src/libdebugd.perfetto_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/perfetto_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.perfetto_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/perfetto_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = perfetto_tool.cc
   source_name_part = perfetto_tool
-build obj/debugd/src/libdebugd.ping_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/ping_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.ping_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/ping_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = ping_tool.cc
   source_name_part = ping_tool
-build obj/debugd/src/libdebugd.printscan_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/printscan_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.printscan_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/printscan_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = printscan_tool.cc
   source_name_part = printscan_tool
-build obj/debugd/src/libdebugd.probe_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/probe_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.probe_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/probe_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = probe_tool.cc
   source_name_part = probe_tool
-build obj/debugd/src/libdebugd.process_with_id.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/process_with_id.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.process_with_id.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/process_with_id.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = process_with_id.cc
   source_name_part = process_with_id
-build obj/debugd/src/libdebugd.process_with_output.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/process_with_output.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.process_with_output.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/process_with_output.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = process_with_output.cc
   source_name_part = process_with_output
-build obj/debugd/src/libdebugd.route_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/route_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.route_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/route_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = route_tool.cc
   source_name_part = route_tool
-build obj/debugd/src/libdebugd.sandboxed_process.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/sandboxed_process.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.sandboxed_process.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/sandboxed_process.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = sandboxed_process.cc
   source_name_part = sandboxed_process
-build obj/debugd/src/libdebugd.scheduler_configuration_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/scheduler_configuration_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.scheduler_configuration_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/scheduler_configuration_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = scheduler_configuration_tool.cc
   source_name_part = scheduler_configuration_tool
-build obj/debugd/src/libdebugd.session_manager_proxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/session_manager_proxy.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.session_manager_proxy.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/session_manager_proxy.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = session_manager_proxy.cc
   source_name_part = session_manager_proxy
-build obj/debugd/src/libdebugd.shill_scripts_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/shill_scripts_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.shill_scripts_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/shill_scripts_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = shill_scripts_tool.cc
   source_name_part = shill_scripts_tool
-build obj/debugd/src/libdebugd.simple_service_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/simple_service_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.simple_service_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/simple_service_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = simple_service_tool.cc
   source_name_part = simple_service_tool
-build obj/debugd/src/libdebugd.storage_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/storage_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.storage_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/storage_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = storage_tool.cc
   source_name_part = storage_tool
-build obj/debugd/src/libdebugd.subprocess_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/subprocess_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.subprocess_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/subprocess_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = subprocess_tool.cc
   source_name_part = subprocess_tool
-build obj/debugd/src/libdebugd.sysrq_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/sysrq_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.sysrq_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/sysrq_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = sysrq_tool.cc
   source_name_part = sysrq_tool
-build obj/debugd/src/libdebugd.systrace_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/systrace_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.systrace_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/systrace_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = systrace_tool.cc
   source_name_part = systrace_tool
-build obj/debugd/src/libdebugd.tracepath_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/tracepath_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.tracepath_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/tracepath_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = tracepath_tool.cc
   source_name_part = tracepath_tool
-build obj/debugd/src/libdebugd.u2f_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/u2f_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.u2f_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/u2f_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = u2f_tool.cc
   source_name_part = u2f_tool
-build obj/debugd/src/libdebugd.upstart_tools.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/upstart_tools.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.upstart_tools.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/upstart_tools.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = upstart_tools.cc
   source_name_part = upstart_tools
-build obj/debugd/src/libdebugd.variant_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/variant_utils.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.variant_utils.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/variant_utils.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = variant_utils.cc
   source_name_part = variant_utils
-build obj/debugd/src/libdebugd.verify_ro_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/verify_ro_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.verify_ro_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/verify_ro_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = verify_ro_tool.cc
   source_name_part = verify_ro_tool
-build obj/debugd/src/libdebugd.wifi_power_tool.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3817/work/debugd-0.0.1/debugd/src/wifi_power_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
+build obj/debugd/src/libdebugd.wifi_power_tool.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/wifi_power_tool.cc || obj/debugd/libdebugd.inputdeps.stamp
   source_file_part = wifi_power_tool.cc
   source_name_part = wifi_power_tool
 

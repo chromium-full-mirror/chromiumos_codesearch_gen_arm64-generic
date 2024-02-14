@@ -2,7 +2,7 @@ crate_name = build_srust_stests_stest_urust_ustatic_ulibrary_ctest_urust_ustatic
 crate_type = rlib
 output_extension = .rlib
 output_dir = obj/build/rust/tests/test_rust_static_library
-rustflags = --edition=2021 -Dunsafe_op_in_unsafe_fn -Dwarnings -Cforce-unwind-tables=no -Crelocation-model=pic -Cembed-bitcode=no -Coverflow-checks=on -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. --color=always --target=aarch64-unknown-linux-gnu -Cembed-bitcode=no -Ccodegen-units=1 -Cpanic=abort -Zpanic_abort_tests --cfg cr_rustc_revision=\"cd6d8f2a04528f827ad3d399581c0f3502b15a72-1-llvmorg-18-init-17730-gf670112a\" -Copt-level=s -Zdwarf-version=5 -g -Cembed-bitcode=no -Cembed-bitcode=no --sysroot=local_rustc_sysroot
+rustflags = --edition=2021 -Dunsafe_op_in_unsafe_fn -Dwarnings -Cforce-unwind-tables=no -Crelocation-model=pic -Coverflow-checks=on -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. --color=always --target=aarch64-unknown-linux-gnu -Cembed-bitcode=no -Ccodegen-units=1 -Cpanic=abort -Zpanic_abort_tests --cfg cr_rustc_revision=\"cd6d8f2a04528f827ad3d399581c0f3502b15a72-1-llvmorg-18-init-17730-gf670112a\" -Copt-level=s -Zdwarf-version=5 -g --sysroot=local_rustc_sysroot
 rustenv = OUT_DIR=../../../../../../../../../var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/build/rust/tests/test_rust_static_library/test_rust_static_library
 label_name = test_rust_static_library
 target_out_dir = obj/build/rust/tests/test_rust_static_library

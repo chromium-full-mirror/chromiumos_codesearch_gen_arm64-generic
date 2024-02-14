@@ -17,9 +17,9 @@ is_asan = false
 is_msan = false
 is_ubsan = false
 is_clang = true
-use_thin_lto = true
+use_thin_lto = false
 use_goma_thin_lto = false
-is_cfi = true
+is_cfi = false
 use_dwarf5 = true
 use_sysroot = false
 enable_assistant_integration_tests = false
@@ -60,10 +60,10 @@ v8_snapshot_toolchain = "//build/toolchain/cros:v8_snapshot"
 cros_target_ld = "aarch64-cros-linux-gnu-clang++"
 cros_target_nm = "llvm-nm"
 cros_target_readelf = "llvm-readelf"
-cros_target_extra_cflags = "-pipe -ffunction-sections -fdata-sections -fno-split-dwarf-inlining -faddrsig -Wno-unknown-warning-option "
+cros_target_extra_cflags = "-pipe -ffunction-sections -fdata-sections -fno-split-dwarf-inlining -fdebug-types-section -faddrsig -Wno-unknown-warning-option "
 cros_target_extra_cppflags = ""
-cros_target_extra_cxxflags = "-pipe -ffunction-sections -fdata-sections -fno-split-dwarf-inlining -D__google_stl_debug_vector=1 -faddrsig -Wno-unknown-warning-option -stdlib=libc++ "
-cros_target_extra_ldflags = "-Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-mllvm -Wl,-generate-type-units -stdlib=libc++ -Wl,--no-fatal-warnings "
+cros_target_extra_cxxflags = "-pipe -ffunction-sections -fdata-sections -fno-split-dwarf-inlining -fdebug-types-section -D__google_stl_debug_vector=1 -faddrsig -Wno-unknown-warning-option -stdlib=libc++ "
+cros_target_extra_ldflags = "-Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -stdlib=libc++ -Wl,--no-fatal-warnings "
 cros_host_cc = "/usr/bin/x86_64-pc-linux-gnu-clang"
 cros_host_cxx = "/usr/bin/x86_64-pc-linux-gnu-clang++"
 cros_host_ar = "llvm-ar"
