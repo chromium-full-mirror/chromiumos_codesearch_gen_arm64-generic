@@ -10192,13 +10192,15 @@ class RenderFrameImplDeletion : public ::protozero::Message {
   }
 };
 
-class ChromeMessagePumpForUI_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class ChromeMessagePumpForUI_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   ChromeMessagePumpForUI_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ChromeMessagePumpForUI_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit ChromeMessagePumpForUI_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_message_id() const { return at<1>().valid(); }
   uint32_t message_id() const { return at<1>().as_uint32(); }
+  bool has_wait_for_object_result() const { return at<2>().valid(); }
+  uint32_t wait_for_object_result() const { return at<2>().as_uint32(); }
 };
 
 class ChromeMessagePumpForUI : public ::protozero::Message {
@@ -10206,6 +10208,7 @@ class ChromeMessagePumpForUI : public ::protozero::Message {
   using Decoder = ChromeMessagePumpForUI_Decoder;
   enum : int32_t {
     kMessageIdFieldNumber = 1,
+    kWaitForObjectResultFieldNumber = 2,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ChromeMessagePumpForUI"; }
 
@@ -10221,6 +10224,24 @@ class ChromeMessagePumpForUI : public ::protozero::Message {
   static constexpr FieldMetadata_MessageId kMessageId{};
   void set_message_id(uint32_t value) {
     static constexpr uint32_t field_id = FieldMetadata_MessageId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_WaitForObjectResult =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      ChromeMessagePumpForUI>;
+
+  static constexpr FieldMetadata_WaitForObjectResult kWaitForObjectResult{};
+  void set_wait_for_object_result(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_WaitForObjectResult::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
