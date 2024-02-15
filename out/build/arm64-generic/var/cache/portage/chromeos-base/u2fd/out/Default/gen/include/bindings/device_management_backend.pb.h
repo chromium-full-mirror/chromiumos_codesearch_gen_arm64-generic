@@ -607,6 +607,12 @@ extern TimePeriodDefaultTypeInternal _TimePeriod_default_instance_;
 class TimezoneInfo;
 struct TimezoneInfoDefaultTypeInternal;
 extern TimezoneInfoDefaultTypeInternal _TimezoneInfo_default_instance_;
+class TokenBasedDeviceRegisterRequest;
+struct TokenBasedDeviceRegisterRequestDefaultTypeInternal;
+extern TokenBasedDeviceRegisterRequestDefaultTypeInternal _TokenBasedDeviceRegisterRequest_default_instance_;
+class TokenBasedDeviceRegisterResponse;
+struct TokenBasedDeviceRegisterResponseDefaultTypeInternal;
+extern TokenBasedDeviceRegisterResponseDefaultTypeInternal _TokenBasedDeviceRegisterResponse_default_instance_;
 class TpmStatusInfo;
 struct TpmStatusInfoDefaultTypeInternal;
 extern TpmStatusInfoDefaultTypeInternal _TpmStatusInfo_default_instance_;
@@ -1000,6 +1006,10 @@ template <>
 template <>
 ::enterprise_management::TimezoneInfo* Arena::CreateMaybeMessage<::enterprise_management::TimezoneInfo>(Arena*);
 template <>
+::enterprise_management::TokenBasedDeviceRegisterRequest* Arena::CreateMaybeMessage<::enterprise_management::TokenBasedDeviceRegisterRequest>(Arena*);
+template <>
+::enterprise_management::TokenBasedDeviceRegisterResponse* Arena::CreateMaybeMessage<::enterprise_management::TokenBasedDeviceRegisterResponse>(Arena*);
+template <>
 ::enterprise_management::TpmStatusInfo* Arena::CreateMaybeMessage<::enterprise_management::TpmStatusInfo>(Arena*);
 template <>
 ::enterprise_management::TpmSupportedFeatures* Arena::CreateMaybeMessage<::enterprise_management::TpmSupportedFeatures>(Arena*);
@@ -1077,12 +1087,14 @@ enum DeviceRegisterRequest_Flavor : int {
   DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_ATTESTATION_INITIAL_MANUAL_FALLBACK = 15,
   DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_FORCED = 16,
   DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_MANUAL_FALLBACK = 17,
+  DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_TOKEN_INITIAL_SERVER_FORCED = 18,
+  DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_TOKEN_INITIAL_MANUAL_FALLBACK = 19,
 };
 
 bool DeviceRegisterRequest_Flavor_IsValid(int value);
 constexpr DeviceRegisterRequest_Flavor DeviceRegisterRequest_Flavor_Flavor_MIN = static_cast<DeviceRegisterRequest_Flavor>(0);
-constexpr DeviceRegisterRequest_Flavor DeviceRegisterRequest_Flavor_Flavor_MAX = static_cast<DeviceRegisterRequest_Flavor>(17);
-constexpr int DeviceRegisterRequest_Flavor_Flavor_ARRAYSIZE = 17 + 1;
+constexpr DeviceRegisterRequest_Flavor DeviceRegisterRequest_Flavor_Flavor_MAX = static_cast<DeviceRegisterRequest_Flavor>(19);
+constexpr int DeviceRegisterRequest_Flavor_Flavor_ARRAYSIZE = 19 + 1;
 const std::string& DeviceRegisterRequest_Flavor_Name(DeviceRegisterRequest_Flavor value);
 template <typename T>
 const std::string& DeviceRegisterRequest_Flavor_Name(T value) {
@@ -1196,6 +1208,26 @@ const std::string& DeviceRegisterResponse_DeviceMode_Name(T value) {
 }
 const std::string& DeviceRegisterResponse_DeviceMode_Name(DeviceRegisterResponse_DeviceMode value);
 bool DeviceRegisterResponse_DeviceMode_Parse(absl::string_view name, DeviceRegisterResponse_DeviceMode* value);
+enum DeviceRegisterResponse_ThirdPartyIdentityType : int {
+  DeviceRegisterResponse_ThirdPartyIdentityType_NONE = 0,
+  DeviceRegisterResponse_ThirdPartyIdentityType_DASHER_BASED = 1,
+  DeviceRegisterResponse_ThirdPartyIdentityType_DASHERLESS = 2,
+};
+
+bool DeviceRegisterResponse_ThirdPartyIdentityType_IsValid(int value);
+constexpr DeviceRegisterResponse_ThirdPartyIdentityType DeviceRegisterResponse_ThirdPartyIdentityType_ThirdPartyIdentityType_MIN = static_cast<DeviceRegisterResponse_ThirdPartyIdentityType>(0);
+constexpr DeviceRegisterResponse_ThirdPartyIdentityType DeviceRegisterResponse_ThirdPartyIdentityType_ThirdPartyIdentityType_MAX = static_cast<DeviceRegisterResponse_ThirdPartyIdentityType>(2);
+constexpr int DeviceRegisterResponse_ThirdPartyIdentityType_ThirdPartyIdentityType_ARRAYSIZE = 2 + 1;
+const std::string& DeviceRegisterResponse_ThirdPartyIdentityType_Name(DeviceRegisterResponse_ThirdPartyIdentityType value);
+template <typename T>
+const std::string& DeviceRegisterResponse_ThirdPartyIdentityType_Name(T value) {
+  static_assert(std::is_same<T, DeviceRegisterResponse_ThirdPartyIdentityType>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to ThirdPartyIdentityType_Name().");
+  return DeviceRegisterResponse_ThirdPartyIdentityType_Name(static_cast<DeviceRegisterResponse_ThirdPartyIdentityType>(value));
+}
+const std::string& DeviceRegisterResponse_ThirdPartyIdentityType_Name(DeviceRegisterResponse_ThirdPartyIdentityType value);
+bool DeviceRegisterResponse_ThirdPartyIdentityType_Parse(absl::string_view name, DeviceRegisterResponse_ThirdPartyIdentityType* value);
 enum DeviceCertUploadRequest_CertificateType : int {
   DeviceCertUploadRequest_CertificateType_CERTIFICATE_TYPE_UNSPECIFIED = 0,
   DeviceCertUploadRequest_CertificateType_ENTERPRISE_MACHINE_CERTIFICATE = 1,
@@ -3821,6 +3853,8 @@ class DeviceRegisterRequest final :
   static constexpr Flavor FLAVOR_ENROLLMENT_ATTESTATION_INITIAL_MANUAL_FALLBACK = DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_ATTESTATION_INITIAL_MANUAL_FALLBACK;
   static constexpr Flavor FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_FORCED = DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_FORCED;
   static constexpr Flavor FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_MANUAL_FALLBACK = DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_MANUAL_FALLBACK;
+  static constexpr Flavor FLAVOR_ENROLLMENT_TOKEN_INITIAL_SERVER_FORCED = DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_TOKEN_INITIAL_SERVER_FORCED;
+  static constexpr Flavor FLAVOR_ENROLLMENT_TOKEN_INITIAL_MANUAL_FALLBACK = DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_TOKEN_INITIAL_MANUAL_FALLBACK;
   static inline bool Flavor_IsValid(int value) {
     return DeviceRegisterRequest_Flavor_IsValid(value);
   }
@@ -4724,6 +4758,24 @@ class DeviceRegisterResponse final :
     return DeviceRegisterResponse_DeviceMode_Parse(name, value);
   }
 
+  using ThirdPartyIdentityType = DeviceRegisterResponse_ThirdPartyIdentityType;
+  static constexpr ThirdPartyIdentityType NONE = DeviceRegisterResponse_ThirdPartyIdentityType_NONE;
+  static constexpr ThirdPartyIdentityType DASHER_BASED = DeviceRegisterResponse_ThirdPartyIdentityType_DASHER_BASED;
+  static constexpr ThirdPartyIdentityType DASHERLESS = DeviceRegisterResponse_ThirdPartyIdentityType_DASHERLESS;
+  static inline bool ThirdPartyIdentityType_IsValid(int value) {
+    return DeviceRegisterResponse_ThirdPartyIdentityType_IsValid(value);
+  }
+  static constexpr ThirdPartyIdentityType ThirdPartyIdentityType_MIN = DeviceRegisterResponse_ThirdPartyIdentityType_ThirdPartyIdentityType_MIN;
+  static constexpr ThirdPartyIdentityType ThirdPartyIdentityType_MAX = DeviceRegisterResponse_ThirdPartyIdentityType_ThirdPartyIdentityType_MAX;
+  static constexpr int ThirdPartyIdentityType_ARRAYSIZE = DeviceRegisterResponse_ThirdPartyIdentityType_ThirdPartyIdentityType_ARRAYSIZE;
+  template <typename T>
+  static inline const std::string& ThirdPartyIdentityType_Name(T value) {
+    return DeviceRegisterResponse_ThirdPartyIdentityType_Name(value);
+  }
+  static inline bool ThirdPartyIdentityType_Parse(absl::string_view name, ThirdPartyIdentityType* value) {
+    return DeviceRegisterResponse_ThirdPartyIdentityType_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -4731,7 +4783,10 @@ class DeviceRegisterResponse final :
     kDeviceManagementTokenFieldNumber = 1,
     kMachineNameFieldNumber = 2,
     kConfigurationSeedFieldNumber = 4,
+    kUserDisplayNameFieldNumber = 7,
+    kUserEmailFieldNumber = 8,
     kEnrollmentTypeFieldNumber = 3,
+    kThirdPartyIdentityTypeFieldNumber = 9,
   };
   // repeated string user_affiliation_ids = 5;
   int user_affiliation_ids_size() const;
@@ -4826,6 +4881,48 @@ class DeviceRegisterResponse final :
   std::string* _internal_mutable_configuration_seed();
 
   public:
+  // optional string user_display_name = 7;
+  bool has_user_display_name() const;
+  void clear_user_display_name() ;
+  const std::string& user_display_name() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_user_display_name(Arg_&& arg, Args_... args);
+  std::string* mutable_user_display_name();
+  PROTOBUF_NODISCARD std::string* release_user_display_name();
+  void set_allocated_user_display_name(std::string* ptr);
+
+  private:
+  const std::string& _internal_user_display_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_display_name(
+      const std::string& value);
+  std::string* _internal_mutable_user_display_name();
+
+  public:
+  // optional string user_email = 8;
+  bool has_user_email() const;
+  void clear_user_email() ;
+  const std::string& user_email() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_user_email(Arg_&& arg, Args_... args);
+  std::string* mutable_user_email();
+  PROTOBUF_NODISCARD std::string* release_user_email();
+  void set_allocated_user_email(std::string* ptr);
+
+  private:
+  const std::string& _internal_user_email() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_email(
+      const std::string& value);
+  std::string* _internal_mutable_user_email();
+
+  public:
   // optional .enterprise_management.DeviceRegisterResponse.DeviceMode enrollment_type = 3 [default = ENTERPRISE];
   bool has_enrollment_type() const;
   void clear_enrollment_type() ;
@@ -4835,6 +4932,17 @@ class DeviceRegisterResponse final :
   private:
   ::enterprise_management::DeviceRegisterResponse_DeviceMode _internal_enrollment_type() const;
   void _internal_set_enrollment_type(::enterprise_management::DeviceRegisterResponse_DeviceMode value);
+
+  public:
+  // optional .enterprise_management.DeviceRegisterResponse.ThirdPartyIdentityType third_party_identity_type = 9 [default = NONE];
+  bool has_third_party_identity_type() const;
+  void clear_third_party_identity_type() ;
+  ::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType third_party_identity_type() const;
+  void set_third_party_identity_type(::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType value);
+
+  private:
+  ::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType _internal_third_party_identity_type() const;
+  void _internal_set_third_party_identity_type(::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType value);
 
   public:
   // @@protoc_insertion_point(class_scope:enterprise_management.DeviceRegisterResponse)
@@ -4851,7 +4959,10 @@ class DeviceRegisterResponse final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr device_management_token_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr machine_name_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr configuration_seed_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_display_name_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_email_;
     int enrollment_type_;
+    int third_party_identity_type_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
@@ -29333,6 +29444,290 @@ class CertificateBasedDeviceRegisterRequest final :
   friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };// -------------------------------------------------------------------
 
+class TokenBasedDeviceRegisterRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.TokenBasedDeviceRegisterRequest) */ {
+ public:
+  inline TokenBasedDeviceRegisterRequest() : TokenBasedDeviceRegisterRequest(nullptr) {}
+  ~TokenBasedDeviceRegisterRequest() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR TokenBasedDeviceRegisterRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  TokenBasedDeviceRegisterRequest(const TokenBasedDeviceRegisterRequest& from);
+  TokenBasedDeviceRegisterRequest(TokenBasedDeviceRegisterRequest&& from) noexcept
+    : TokenBasedDeviceRegisterRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline TokenBasedDeviceRegisterRequest& operator=(const TokenBasedDeviceRegisterRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline TokenBasedDeviceRegisterRequest& operator=(TokenBasedDeviceRegisterRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const TokenBasedDeviceRegisterRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const TokenBasedDeviceRegisterRequest* internal_default_instance() {
+    return reinterpret_cast<const TokenBasedDeviceRegisterRequest*>(
+               &_TokenBasedDeviceRegisterRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    124;
+
+  friend void swap(TokenBasedDeviceRegisterRequest& a, TokenBasedDeviceRegisterRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(TokenBasedDeviceRegisterRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(TokenBasedDeviceRegisterRequest* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  TokenBasedDeviceRegisterRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<TokenBasedDeviceRegisterRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const TokenBasedDeviceRegisterRequest& from);
+  void MergeFrom(const TokenBasedDeviceRegisterRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(TokenBasedDeviceRegisterRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "enterprise_management.TokenBasedDeviceRegisterRequest";
+  }
+  protected:
+  explicit TokenBasedDeviceRegisterRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDeviceRegisterRequestFieldNumber = 1,
+  };
+  // optional .enterprise_management.DeviceRegisterRequest device_register_request = 1;
+  bool has_device_register_request() const;
+  void clear_device_register_request() ;
+  const ::enterprise_management::DeviceRegisterRequest& device_register_request() const;
+  PROTOBUF_NODISCARD ::enterprise_management::DeviceRegisterRequest* release_device_register_request();
+  ::enterprise_management::DeviceRegisterRequest* mutable_device_register_request();
+  void set_allocated_device_register_request(::enterprise_management::DeviceRegisterRequest* device_register_request);
+  private:
+  const ::enterprise_management::DeviceRegisterRequest& _internal_device_register_request() const;
+  ::enterprise_management::DeviceRegisterRequest* _internal_mutable_device_register_request();
+  public:
+  void unsafe_arena_set_allocated_device_register_request(
+      ::enterprise_management::DeviceRegisterRequest* device_register_request);
+  ::enterprise_management::DeviceRegisterRequest* unsafe_arena_release_device_register_request();
+  // @@protoc_insertion_point(class_scope:enterprise_management.TokenBasedDeviceRegisterRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::enterprise_management::DeviceRegisterRequest* device_register_request_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
+};// -------------------------------------------------------------------
+
+class TokenBasedDeviceRegisterResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.TokenBasedDeviceRegisterResponse) */ {
+ public:
+  inline TokenBasedDeviceRegisterResponse() : TokenBasedDeviceRegisterResponse(nullptr) {}
+  ~TokenBasedDeviceRegisterResponse() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR TokenBasedDeviceRegisterResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  TokenBasedDeviceRegisterResponse(const TokenBasedDeviceRegisterResponse& from);
+  TokenBasedDeviceRegisterResponse(TokenBasedDeviceRegisterResponse&& from) noexcept
+    : TokenBasedDeviceRegisterResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline TokenBasedDeviceRegisterResponse& operator=(const TokenBasedDeviceRegisterResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline TokenBasedDeviceRegisterResponse& operator=(TokenBasedDeviceRegisterResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const TokenBasedDeviceRegisterResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const TokenBasedDeviceRegisterResponse* internal_default_instance() {
+    return reinterpret_cast<const TokenBasedDeviceRegisterResponse*>(
+               &_TokenBasedDeviceRegisterResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    125;
+
+  friend void swap(TokenBasedDeviceRegisterResponse& a, TokenBasedDeviceRegisterResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(TokenBasedDeviceRegisterResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(TokenBasedDeviceRegisterResponse* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  TokenBasedDeviceRegisterResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<TokenBasedDeviceRegisterResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const TokenBasedDeviceRegisterResponse& from);
+  void MergeFrom(const TokenBasedDeviceRegisterResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(TokenBasedDeviceRegisterResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "enterprise_management.TokenBasedDeviceRegisterResponse";
+  }
+  protected:
+  explicit TokenBasedDeviceRegisterResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDeviceRegisterResponseFieldNumber = 1,
+  };
+  // optional .enterprise_management.DeviceRegisterResponse device_register_response = 1;
+  bool has_device_register_response() const;
+  void clear_device_register_response() ;
+  const ::enterprise_management::DeviceRegisterResponse& device_register_response() const;
+  PROTOBUF_NODISCARD ::enterprise_management::DeviceRegisterResponse* release_device_register_response();
+  ::enterprise_management::DeviceRegisterResponse* mutable_device_register_response();
+  void set_allocated_device_register_response(::enterprise_management::DeviceRegisterResponse* device_register_response);
+  private:
+  const ::enterprise_management::DeviceRegisterResponse& _internal_device_register_response() const;
+  ::enterprise_management::DeviceRegisterResponse* _internal_mutable_device_register_response();
+  public:
+  void unsafe_arena_set_allocated_device_register_response(
+      ::enterprise_management::DeviceRegisterResponse* device_register_response);
+  ::enterprise_management::DeviceRegisterResponse* unsafe_arena_release_device_register_response();
+  // @@protoc_insertion_point(class_scope:enterprise_management.TokenBasedDeviceRegisterResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::enterprise_management::DeviceRegisterResponse* device_register_response_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
+};// -------------------------------------------------------------------
+
 class DeviceRegisterConfiguration final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceRegisterConfiguration) */ {
  public:
@@ -29380,7 +29775,7 @@ class DeviceRegisterConfiguration final :
                &_DeviceRegisterConfiguration_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    124;
+    126;
 
   friend void swap(DeviceRegisterConfiguration& a, DeviceRegisterConfiguration& b) {
     a.Swap(&b);
@@ -29529,7 +29924,7 @@ class CertificateBasedDeviceRegistrationData final :
                &_CertificateBasedDeviceRegistrationData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    125;
+    127;
 
   friend void swap(CertificateBasedDeviceRegistrationData& a, CertificateBasedDeviceRegistrationData& b) {
     a.Swap(&b);
@@ -29740,7 +30135,7 @@ class RegisterBrowserRequest final :
                &_RegisterBrowserRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    126;
+    128;
 
   friend void swap(RegisterBrowserRequest& a, RegisterBrowserRequest& b) {
     a.Swap(&b);
@@ -29997,7 +30392,7 @@ class ActiveDirectoryEnrollPlayUserRequest final :
                &_ActiveDirectoryEnrollPlayUserRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    127;
+    129;
 
   friend void swap(ActiveDirectoryEnrollPlayUserRequest& a, ActiveDirectoryEnrollPlayUserRequest& b) {
     a.Swap(&b);
@@ -30146,7 +30541,7 @@ class ActiveDirectoryEnrollPlayUserResponse final :
                &_ActiveDirectoryEnrollPlayUserResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    128;
+    130;
 
   friend void swap(ActiveDirectoryEnrollPlayUserResponse& a, ActiveDirectoryEnrollPlayUserResponse& b) {
     a.Swap(&b);
@@ -30334,7 +30729,7 @@ class SamlParametersProto final :
                &_SamlParametersProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    129;
+    131;
 
   friend void swap(SamlParametersProto& a, SamlParametersProto& b) {
     a.Swap(&b);
@@ -30506,7 +30901,7 @@ class PublicSamlUserRequest final :
                &_PublicSamlUserRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    130;
+    132;
 
   friend void swap(PublicSamlUserRequest& a, PublicSamlUserRequest& b) {
     a.Swap(&b);
@@ -30655,7 +31050,7 @@ class PublicSamlUserResponse final :
                &_PublicSamlUserResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    131;
+    133;
 
   friend void swap(PublicSamlUserResponse& a, PublicSamlUserResponse& b) {
     a.Swap(&b);
@@ -30797,7 +31192,7 @@ class ActiveDirectoryPlayActivityRequest final :
                &_ActiveDirectoryPlayActivityRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    132;
+    134;
 
   friend void swap(ActiveDirectoryPlayActivityRequest& a, ActiveDirectoryPlayActivityRequest& b) {
     a.Swap(&b);
@@ -30946,7 +31341,7 @@ class ActiveDirectoryPlayActivityResponse final :
                &_ActiveDirectoryPlayActivityResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    133;
+    135;
 
   friend void swap(ActiveDirectoryPlayActivityResponse& a, ActiveDirectoryPlayActivityResponse& b) {
     a.Swap(&b);
@@ -31069,7 +31464,7 @@ class CheckDeviceLicenseRequest final :
                &_CheckDeviceLicenseRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    134;
+    136;
 
   friend void swap(CheckDeviceLicenseRequest& a, CheckDeviceLicenseRequest& b) {
     a.Swap(&b);
@@ -31192,7 +31587,7 @@ class LicenseAvailability final :
                &_LicenseAvailability_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    135;
+    137;
 
   friend void swap(LicenseAvailability& a, LicenseAvailability& b) {
     a.Swap(&b);
@@ -31347,7 +31742,7 @@ class CheckDeviceLicenseResponse final :
                &_CheckDeviceLicenseResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    136;
+    138;
 
   friend void swap(CheckDeviceLicenseResponse& a, CheckDeviceLicenseResponse& b) {
     a.Swap(&b);
@@ -31526,7 +31921,7 @@ class ActiveDirectoryUserSigninRequest final :
                &_ActiveDirectoryUserSigninRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    137;
+    139;
 
   friend void swap(ActiveDirectoryUserSigninRequest& a, ActiveDirectoryUserSigninRequest& b) {
     a.Swap(&b);
@@ -31649,7 +32044,7 @@ class ActiveDirectoryUserSigninResponse final :
                &_ActiveDirectoryUserSigninResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    138;
+    140;
 
   friend void swap(ActiveDirectoryUserSigninResponse& a, ActiveDirectoryUserSigninResponse& b) {
     a.Swap(&b);
@@ -31798,7 +32193,7 @@ class TpmVersionInfo final :
                &_TpmVersionInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    139;
+    141;
 
   friend void swap(TpmVersionInfo& a, TpmVersionInfo& b) {
     a.Swap(&b);
@@ -32067,7 +32462,7 @@ class TpmStatusInfo final :
                &_TpmStatusInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    140;
+    142;
 
   friend void swap(TpmStatusInfo& a, TpmStatusInfo& b) {
     a.Swap(&b);
@@ -32352,7 +32747,7 @@ class TpmSupportedFeatures final :
                &_TpmSupportedFeatures_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    141;
+    143;
 
   friend void swap(TpmSupportedFeatures& a, TpmSupportedFeatures& b) {
     a.Swap(&b);
@@ -32530,7 +32925,7 @@ class SystemState final :
                &_SystemState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    142;
+    144;
 
   friend void swap(SystemState& a, SystemState& b) {
     a.Swap(&b);
@@ -32677,7 +33072,7 @@ class ExtensionInstallReportLogEvent final :
                &_ExtensionInstallReportLogEvent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    143;
+    145;
 
   friend void swap(ExtensionInstallReportLogEvent& a, ExtensionInstallReportLogEvent& b) {
     a.Swap(&b);
@@ -33397,7 +33792,7 @@ class AppInstallReportLogEvent final :
                &_AppInstallReportLogEvent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    144;
+    146;
 
   friend void swap(AppInstallReportLogEvent& a, AppInstallReportLogEvent& b) {
     a.Swap(&b);
@@ -33701,7 +34096,7 @@ class ExtensionInstallReport final :
                &_ExtensionInstallReport_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    145;
+    147;
 
   friend void swap(ExtensionInstallReport& a, ExtensionInstallReport& b) {
     a.Swap(&b);
@@ -33885,7 +34280,7 @@ class AppInstallReport final :
                &_AppInstallReport_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    146;
+    148;
 
   friend void swap(AppInstallReport& a, AppInstallReport& b) {
     a.Swap(&b);
@@ -34069,7 +34464,7 @@ class AppInstallReportRequest final :
                &_AppInstallReportRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    147;
+    149;
 
   friend void swap(AppInstallReportRequest& a, AppInstallReportRequest& b) {
     a.Swap(&b);
@@ -34216,7 +34611,7 @@ class ExtensionInstallReportRequest final :
                &_ExtensionInstallReportRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    148;
+    150;
 
   friend void swap(ExtensionInstallReportRequest& a, ExtensionInstallReportRequest& b) {
     a.Swap(&b);
@@ -34363,7 +34758,7 @@ class AppInstallReportResponse final :
                &_AppInstallReportResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    149;
+    151;
 
   friend void swap(AppInstallReportResponse& a, AppInstallReportResponse& b) {
     a.Swap(&b);
@@ -34486,7 +34881,7 @@ class RefreshAccountRequest final :
                &_RefreshAccountRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    150;
+    152;
 
   friend void swap(RefreshAccountRequest& a, RefreshAccountRequest& b) {
     a.Swap(&b);
@@ -34642,7 +35037,7 @@ class RefreshAccountResponse final :
                &_RefreshAccountResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    151;
+    153;
 
   friend void swap(RefreshAccountResponse& a, RefreshAccountResponse& b) {
     a.Swap(&b);
@@ -34765,7 +35160,7 @@ class RsuLookupKeyUploadRequest final :
                &_RsuLookupKeyUploadRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    152;
+    154;
 
   friend void swap(RsuLookupKeyUploadRequest& a, RsuLookupKeyUploadRequest& b) {
     a.Swap(&b);
@@ -34937,7 +35332,7 @@ class RsuLookupKeyUploadResponse final :
                &_RsuLookupKeyUploadResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    153;
+    155;
 
   friend void swap(RsuLookupKeyUploadResponse& a, RsuLookupKeyUploadResponse& b) {
     a.Swap(&b);
@@ -35076,7 +35471,7 @@ class ESimProfileInfo final :
                &_ESimProfileInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    154;
+    156;
 
   friend void swap(ESimProfileInfo& a, ESimProfileInfo& b) {
     a.Swap(&b);
@@ -35294,7 +35689,7 @@ class UploadEuiccInfoRequest final :
                &_UploadEuiccInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    155;
+    157;
 
   friend void swap(UploadEuiccInfoRequest& a, UploadEuiccInfoRequest& b) {
     a.Swap(&b);
@@ -35468,7 +35863,7 @@ class UploadEuiccInfoResponse final :
                &_UploadEuiccInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    156;
+    158;
 
   friend void swap(UploadEuiccInfoResponse& a, UploadEuiccInfoResponse& b) {
     a.Swap(&b);
@@ -35591,7 +35986,7 @@ class PrintJobEvent_PrintJobConfiguration final :
                &_PrintJobEvent_PrintJobConfiguration_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    157;
+    159;
 
   friend void swap(PrintJobEvent_PrintJobConfiguration& a, PrintJobEvent_PrintJobConfiguration& b) {
     a.Swap(&b);
@@ -35831,7 +36226,7 @@ class PrintJobEvent_Printer final :
                &_PrintJobEvent_Printer_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    158;
+    160;
 
   friend void swap(PrintJobEvent_Printer& a, PrintJobEvent_Printer& b) {
     a.Swap(&b);
@@ -36026,7 +36421,7 @@ class PrintJobEvent_PrintSettings_MediaSize final :
                &_PrintJobEvent_PrintSettings_MediaSize_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    159;
+    161;
 
   friend void swap(PrintJobEvent_PrintSettings_MediaSize& a, PrintJobEvent_PrintSettings_MediaSize& b) {
     a.Swap(&b);
@@ -36201,7 +36596,7 @@ class PrintJobEvent_PrintSettings final :
                &_PrintJobEvent_PrintSettings_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    160;
+    162;
 
   friend void swap(PrintJobEvent_PrintSettings& a, PrintJobEvent_PrintSettings& b) {
     a.Swap(&b);
@@ -36421,7 +36816,7 @@ class PrintJobEvent final :
                &_PrintJobEvent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    161;
+    163;
 
   friend void swap(PrintJobEvent& a, PrintJobEvent& b) {
     a.Swap(&b);
@@ -36615,7 +37010,7 @@ class App final :
                &_App_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    162;
+    164;
 
   friend void swap(App& a, App& b) {
     a.Swap(&b);
@@ -36833,7 +37228,7 @@ class AppActivity final :
                &_AppActivity_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    163;
+    165;
 
   friend void swap(AppActivity& a, AppActivity& b) {
     a.Swap(&b);
@@ -37044,7 +37439,7 @@ class ScreenTimeSpan final :
                &_ScreenTimeSpan_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    164;
+    166;
 
   friend void swap(ScreenTimeSpan& a, ScreenTimeSpan& b) {
     a.Swap(&b);
@@ -37199,7 +37594,7 @@ class ChildStatusReportRequest final :
                &_ChildStatusReportRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    165;
+    167;
 
   friend void swap(ChildStatusReportRequest& a, ChildStatusReportRequest& b) {
     a.Swap(&b);
@@ -37512,7 +37907,7 @@ class ChildStatusReportResponse final :
                &_ChildStatusReportResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    166;
+    168;
 
   friend void swap(ChildStatusReportResponse& a, ChildStatusReportResponse& b) {
     a.Swap(&b);
@@ -37674,7 +38069,7 @@ class StartCsrRequest final :
                &_StartCsrRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    167;
+    169;
 
   friend void swap(StartCsrRequest& a, StartCsrRequest& b) {
     a.Swap(&b);
@@ -37797,7 +38192,7 @@ class StartCsrResponse final :
                &_StartCsrResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    168;
+    170;
 
   friend void swap(StartCsrResponse& a, StartCsrResponse& b) {
     a.Swap(&b);
@@ -38018,7 +38413,7 @@ class FinishCsrRequest final :
                &_FinishCsrRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    169;
+    171;
 
   friend void swap(FinishCsrRequest& a, FinishCsrRequest& b) {
     a.Swap(&b);
@@ -38190,7 +38585,7 @@ class FinishCsrResponse final :
                &_FinishCsrResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    170;
+    172;
 
   friend void swap(FinishCsrResponse& a, FinishCsrResponse& b) {
     a.Swap(&b);
@@ -38313,7 +38708,7 @@ class DownloadCertRequest final :
                &_DownloadCertRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    171;
+    173;
 
   friend void swap(DownloadCertRequest& a, DownloadCertRequest& b) {
     a.Swap(&b);
@@ -38436,7 +38831,7 @@ class DownloadCertResponse final :
                &_DownloadCertResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    172;
+    174;
 
   friend void swap(DownloadCertResponse& a, DownloadCertResponse& b) {
     a.Swap(&b);
@@ -38585,7 +38980,7 @@ class CertProvStartRequest final :
                &_CertProvStartRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    173;
+    175;
 
   friend void swap(CertProvStartRequest& a, CertProvStartRequest& b) {
     a.Swap(&b);
@@ -38708,7 +39103,7 @@ class CertProvStartResponse final :
                &_CertProvStartResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    174;
+    176;
 
   friend void swap(CertProvStartResponse& a, CertProvStartResponse& b) {
     a.Swap(&b);
@@ -38857,7 +39252,7 @@ class CertProvGetNextInstructionRequest final :
                &_CertProvGetNextInstructionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    175;
+    177;
 
   friend void swap(CertProvGetNextInstructionRequest& a, CertProvGetNextInstructionRequest& b) {
     a.Swap(&b);
@@ -38987,7 +39382,7 @@ class CertProvGetNextInstructionResponse final :
                &_CertProvGetNextInstructionResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    176;
+    178;
 
   friend void swap(CertProvGetNextInstructionResponse& a, CertProvGetNextInstructionResponse& b) {
     a.Swap(&b);
@@ -39186,7 +39581,7 @@ class CertProvAuthorizeRequest final :
                &_CertProvAuthorizeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    177;
+    179;
 
   friend void swap(CertProvAuthorizeRequest& a, CertProvAuthorizeRequest& b) {
     a.Swap(&b);
@@ -39335,7 +39730,7 @@ class CertProvAuthorizeResponse final :
                &_CertProvAuthorizeResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    178;
+    180;
 
   friend void swap(CertProvAuthorizeResponse& a, CertProvAuthorizeResponse& b) {
     a.Swap(&b);
@@ -39458,7 +39853,7 @@ class CertProvUploadProofOfPossessionRequest final :
                &_CertProvUploadProofOfPossessionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    179;
+    181;
 
   friend void swap(CertProvUploadProofOfPossessionRequest& a, CertProvUploadProofOfPossessionRequest& b) {
     a.Swap(&b);
@@ -39607,7 +40002,7 @@ class CertProvUploadProofOfPossessionResponse final :
                &_CertProvUploadProofOfPossessionResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    180;
+    182;
 
   friend void swap(CertProvUploadProofOfPossessionResponse& a, CertProvUploadProofOfPossessionResponse& b) {
     a.Swap(&b);
@@ -39730,7 +40125,7 @@ class CertProvAuthorizeInstruction final :
                &_CertProvAuthorizeInstruction_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    181;
+    183;
 
   friend void swap(CertProvAuthorizeInstruction& a, CertProvAuthorizeInstruction& b) {
     a.Swap(&b);
@@ -39879,7 +40274,7 @@ class CertProvProofOfPossessionInstruction final :
                &_CertProvProofOfPossessionInstruction_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    182;
+    184;
 
   friend void swap(CertProvProofOfPossessionInstruction& a, CertProvProofOfPossessionInstruction& b) {
     a.Swap(&b);
@@ -40028,7 +40423,7 @@ class CertProvImportCertificateInstruction final :
                &_CertProvImportCertificateInstruction_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    183;
+    185;
 
   friend void swap(CertProvImportCertificateInstruction& a, CertProvImportCertificateInstruction& b) {
     a.Swap(&b);
@@ -40188,7 +40583,7 @@ class ClientCertificateProvisioningRequest final :
                &_ClientCertificateProvisioningRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    184;
+    186;
 
   friend void swap(ClientCertificateProvisioningRequest& a, ClientCertificateProvisioningRequest& b) {
     a.Swap(&b);
@@ -40587,7 +40982,7 @@ class CertProvBackendError final :
                &_CertProvBackendError_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    185;
+    187;
 
   friend void swap(CertProvBackendError& a, CertProvBackendError& b) {
     a.Swap(&b);
@@ -40792,7 +41187,7 @@ class ClientCertificateProvisioningResponse final :
                &_ClientCertificateProvisioningResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    186;
+    188;
 
   friend void swap(ClientCertificateProvisioningResponse& a, ClientCertificateProvisioningResponse& b) {
     a.Swap(&b);
@@ -41149,7 +41544,7 @@ class BrowserPublicKeyUploadRequest final :
                &_BrowserPublicKeyUploadRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    187;
+    189;
 
   friend void swap(BrowserPublicKeyUploadRequest& a, BrowserPublicKeyUploadRequest& b) {
     a.Swap(&b);
@@ -41252,6 +41647,7 @@ class BrowserPublicKeyUploadRequest final :
     kSignatureFieldNumber = 2,
     kKeyTrustLevelFieldNumber = 3,
     kKeyTypeFieldNumber = 4,
+    kProvisionCertificateFieldNumber = 5,
   };
   // optional bytes public_key = 1;
   bool has_public_key() const;
@@ -41317,6 +41713,17 @@ class BrowserPublicKeyUploadRequest final :
   void _internal_set_key_type(::enterprise_management::BrowserPublicKeyUploadRequest_KeyType value);
 
   public:
+  // optional bool provision_certificate = 5;
+  bool has_provision_certificate() const;
+  void clear_provision_certificate() ;
+  bool provision_certificate() const;
+  void set_provision_certificate(bool value);
+
+  private:
+  bool _internal_provision_certificate() const;
+  void _internal_set_provision_certificate(bool value);
+
+  public:
   // @@protoc_insertion_point(class_scope:enterprise_management.BrowserPublicKeyUploadRequest)
  private:
   class _Internal;
@@ -41331,6 +41738,7 @@ class BrowserPublicKeyUploadRequest final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr signature_;
     int key_trust_level_;
     int key_type_;
+    bool provision_certificate_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
@@ -41383,7 +41791,7 @@ class BrowserPublicKeyUploadResponse final :
                &_BrowserPublicKeyUploadResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    188;
+    190;
 
   friend void swap(BrowserPublicKeyUploadResponse& a, BrowserPublicKeyUploadResponse& b) {
     a.Swap(&b);
@@ -41464,8 +41872,30 @@ class BrowserPublicKeyUploadResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kPemEncodedCertificateFieldNumber = 2,
     kResponseCodeFieldNumber = 1,
   };
+  // optional string pem_encoded_certificate = 2;
+  bool has_pem_encoded_certificate() const;
+  void clear_pem_encoded_certificate() ;
+  const std::string& pem_encoded_certificate() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_pem_encoded_certificate(Arg_&& arg, Args_... args);
+  std::string* mutable_pem_encoded_certificate();
+  PROTOBUF_NODISCARD std::string* release_pem_encoded_certificate();
+  void set_allocated_pem_encoded_certificate(std::string* ptr);
+
+  private:
+  const std::string& _internal_pem_encoded_certificate() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_pem_encoded_certificate(
+      const std::string& value);
+  std::string* _internal_mutable_pem_encoded_certificate();
+
+  public:
   // optional .enterprise_management.BrowserPublicKeyUploadResponse.ResponseCode response_code = 1;
   bool has_response_code() const;
   void clear_response_code() ;
@@ -41487,6 +41917,7 @@ class BrowserPublicKeyUploadResponse final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pem_encoded_certificate_;
     int response_code_;
   };
   union { Impl_ _impl_; };
@@ -41540,7 +41971,7 @@ class DeviceManagementRequest final :
                &_DeviceManagementRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    189;
+    191;
 
   friend void swap(DeviceManagementRequest& a, DeviceManagementRequest& b) {
     a.Swap(&b);
@@ -41642,6 +42073,7 @@ class DeviceManagementRequest final :
     kBrowserPublicKeyUploadRequestFieldNumber = 38,
     kUploadEuiccInfoRequestFieldNumber = 39,
     kChromeProfileReportRequestFieldNumber = 40,
+    kTokenBasedDeviceRegisterRequestFieldNumber = 41,
   };
   // optional .enterprise_management.DeviceRegisterRequest register_request = 1;
   bool has_register_request() const;
@@ -42189,6 +42621,20 @@ class DeviceManagementRequest final :
   void unsafe_arena_set_allocated_chrome_profile_report_request(
       ::enterprise_management::ChromeProfileReportRequest* chrome_profile_report_request);
   ::enterprise_management::ChromeProfileReportRequest* unsafe_arena_release_chrome_profile_report_request();
+  // optional .enterprise_management.TokenBasedDeviceRegisterRequest token_based_device_register_request = 41;
+  bool has_token_based_device_register_request() const;
+  void clear_token_based_device_register_request() ;
+  const ::enterprise_management::TokenBasedDeviceRegisterRequest& token_based_device_register_request() const;
+  PROTOBUF_NODISCARD ::enterprise_management::TokenBasedDeviceRegisterRequest* release_token_based_device_register_request();
+  ::enterprise_management::TokenBasedDeviceRegisterRequest* mutable_token_based_device_register_request();
+  void set_allocated_token_based_device_register_request(::enterprise_management::TokenBasedDeviceRegisterRequest* token_based_device_register_request);
+  private:
+  const ::enterprise_management::TokenBasedDeviceRegisterRequest& _internal_token_based_device_register_request() const;
+  ::enterprise_management::TokenBasedDeviceRegisterRequest* _internal_mutable_token_based_device_register_request();
+  public:
+  void unsafe_arena_set_allocated_token_based_device_register_request(
+      ::enterprise_management::TokenBasedDeviceRegisterRequest* token_based_device_register_request);
+  ::enterprise_management::TokenBasedDeviceRegisterRequest* unsafe_arena_release_token_based_device_register_request();
   // @@protoc_insertion_point(class_scope:enterprise_management.DeviceManagementRequest)
  private:
   class _Internal;
@@ -42238,6 +42684,7 @@ class DeviceManagementRequest final :
     ::enterprise_management::BrowserPublicKeyUploadRequest* browser_public_key_upload_request_;
     ::enterprise_management::UploadEuiccInfoRequest* upload_euicc_info_request_;
     ::enterprise_management::ChromeProfileReportRequest* chrome_profile_report_request_;
+    ::enterprise_management::TokenBasedDeviceRegisterRequest* token_based_device_register_request_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
@@ -42290,7 +42737,7 @@ class DeviceManagementResponse final :
                &_DeviceManagementResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    190;
+    192;
 
   friend void swap(DeviceManagementResponse& a, DeviceManagementResponse& b) {
     a.Swap(&b);
@@ -42390,6 +42837,7 @@ class DeviceManagementResponse final :
     kBrowserPublicKeyUploadResponseFieldNumber = 36,
     kUploadEuiccInfoResponseFieldNumber = 37,
     kChromeProfileReportResponseFieldNumber = 38,
+    kTokenBasedDeviceRegisterResponseFieldNumber = 40,
   };
   // repeated .enterprise_management.DeviceManagementErrorDetail error_detail = 39;
   int error_detail_size() const;
@@ -42923,6 +43371,20 @@ class DeviceManagementResponse final :
   void unsafe_arena_set_allocated_chrome_profile_report_response(
       ::enterprise_management::ChromeProfileReportResponse* chrome_profile_report_response);
   ::enterprise_management::ChromeProfileReportResponse* unsafe_arena_release_chrome_profile_report_response();
+  // optional .enterprise_management.TokenBasedDeviceRegisterResponse token_based_device_register_response = 40;
+  bool has_token_based_device_register_response() const;
+  void clear_token_based_device_register_response() ;
+  const ::enterprise_management::TokenBasedDeviceRegisterResponse& token_based_device_register_response() const;
+  PROTOBUF_NODISCARD ::enterprise_management::TokenBasedDeviceRegisterResponse* release_token_based_device_register_response();
+  ::enterprise_management::TokenBasedDeviceRegisterResponse* mutable_token_based_device_register_response();
+  void set_allocated_token_based_device_register_response(::enterprise_management::TokenBasedDeviceRegisterResponse* token_based_device_register_response);
+  private:
+  const ::enterprise_management::TokenBasedDeviceRegisterResponse& _internal_token_based_device_register_response() const;
+  ::enterprise_management::TokenBasedDeviceRegisterResponse* _internal_mutable_token_based_device_register_response();
+  public:
+  void unsafe_arena_set_allocated_token_based_device_register_response(
+      ::enterprise_management::TokenBasedDeviceRegisterResponse* token_based_device_register_response);
+  ::enterprise_management::TokenBasedDeviceRegisterResponse* unsafe_arena_release_token_based_device_register_response();
   // @@protoc_insertion_point(class_scope:enterprise_management.DeviceManagementResponse)
  private:
   class _Internal;
@@ -42970,6 +43432,7 @@ class DeviceManagementResponse final :
     ::enterprise_management::BrowserPublicKeyUploadResponse* browser_public_key_upload_response_;
     ::enterprise_management::UploadEuiccInfoResponse* upload_euicc_info_response_;
     ::enterprise_management::ChromeProfileReportResponse* chrome_profile_report_response_;
+    ::enterprise_management::TokenBasedDeviceRegisterResponse* token_based_device_register_response_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
@@ -43022,7 +43485,7 @@ class DeviceStateRetrievalInfo final :
                &_DeviceStateRetrievalInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    191;
+    193;
 
   friend void swap(DeviceStateRetrievalInfo& a, DeviceStateRetrievalInfo& b) {
     a.Swap(&b);
@@ -44764,12 +45227,12 @@ inline void DeviceRegisterResponse::set_allocated_machine_name(std::string* valu
 
 // optional .enterprise_management.DeviceRegisterResponse.DeviceMode enrollment_type = 3 [default = ENTERPRISE];
 inline bool DeviceRegisterResponse::has_enrollment_type() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
 inline void DeviceRegisterResponse::clear_enrollment_type() {
   _impl_.enrollment_type_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000008u;
+  _impl_._has_bits_[0] &= ~0x00000020u;
 }
 inline ::enterprise_management::DeviceRegisterResponse_DeviceMode DeviceRegisterResponse::enrollment_type() const {
   // @@protoc_insertion_point(field_get:enterprise_management.DeviceRegisterResponse.enrollment_type)
@@ -44784,7 +45247,7 @@ inline ::enterprise_management::DeviceRegisterResponse_DeviceMode DeviceRegister
 }
 inline void DeviceRegisterResponse::_internal_set_enrollment_type(::enterprise_management::DeviceRegisterResponse_DeviceMode value) {
   assert(::enterprise_management::DeviceRegisterResponse_DeviceMode_IsValid(value));
-  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_._has_bits_[0] |= 0x00000020u;
   _impl_.enrollment_type_ = value;
 }
 
@@ -44944,6 +45407,162 @@ DeviceRegisterResponse::_internal_user_affiliation_ids() const {
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 DeviceRegisterResponse::_internal_mutable_user_affiliation_ids() {
   return &_impl_.user_affiliation_ids_;
+}
+
+// optional string user_display_name = 7;
+inline bool DeviceRegisterResponse::has_user_display_name() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline void DeviceRegisterResponse::clear_user_display_name() {
+  _impl_.user_display_name_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000008u;
+}
+inline const std::string& DeviceRegisterResponse::user_display_name() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceRegisterResponse.user_display_name)
+  return _internal_user_display_name();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void DeviceRegisterResponse::set_user_display_name(Arg_&& arg,
+                                                     Args_... args) {
+  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_.user_display_name_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_management.DeviceRegisterResponse.user_display_name)
+}
+inline std::string* DeviceRegisterResponse::mutable_user_display_name() {
+  std::string* _s = _internal_mutable_user_display_name();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.DeviceRegisterResponse.user_display_name)
+  return _s;
+}
+inline const std::string& DeviceRegisterResponse::_internal_user_display_name() const {
+  return _impl_.user_display_name_.Get();
+}
+inline void DeviceRegisterResponse::_internal_set_user_display_name(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000008u;
+
+
+  _impl_.user_display_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DeviceRegisterResponse::_internal_mutable_user_display_name() {
+  _impl_._has_bits_[0] |= 0x00000008u;
+  return _impl_.user_display_name_.Mutable( GetArenaForAllocation());
+}
+inline std::string* DeviceRegisterResponse::release_user_display_name() {
+  // @@protoc_insertion_point(field_release:enterprise_management.DeviceRegisterResponse.user_display_name)
+  if ((_impl_._has_bits_[0] & 0x00000008u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000008u;
+  auto* released = _impl_.user_display_name_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.user_display_name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
+}
+inline void DeviceRegisterResponse::set_allocated_user_display_name(std::string* value) {
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000008u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000008u;
+  }
+  _impl_.user_display_name_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.user_display_name_.IsDefault()) {
+          _impl_.user_display_name_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceRegisterResponse.user_display_name)
+}
+
+// optional string user_email = 8;
+inline bool DeviceRegisterResponse::has_user_email() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline void DeviceRegisterResponse::clear_user_email() {
+  _impl_.user_email_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000010u;
+}
+inline const std::string& DeviceRegisterResponse::user_email() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceRegisterResponse.user_email)
+  return _internal_user_email();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void DeviceRegisterResponse::set_user_email(Arg_&& arg,
+                                                     Args_... args) {
+  _impl_._has_bits_[0] |= 0x00000010u;
+  _impl_.user_email_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_management.DeviceRegisterResponse.user_email)
+}
+inline std::string* DeviceRegisterResponse::mutable_user_email() {
+  std::string* _s = _internal_mutable_user_email();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.DeviceRegisterResponse.user_email)
+  return _s;
+}
+inline const std::string& DeviceRegisterResponse::_internal_user_email() const {
+  return _impl_.user_email_.Get();
+}
+inline void DeviceRegisterResponse::_internal_set_user_email(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000010u;
+
+
+  _impl_.user_email_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DeviceRegisterResponse::_internal_mutable_user_email() {
+  _impl_._has_bits_[0] |= 0x00000010u;
+  return _impl_.user_email_.Mutable( GetArenaForAllocation());
+}
+inline std::string* DeviceRegisterResponse::release_user_email() {
+  // @@protoc_insertion_point(field_release:enterprise_management.DeviceRegisterResponse.user_email)
+  if ((_impl_._has_bits_[0] & 0x00000010u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000010u;
+  auto* released = _impl_.user_email_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.user_email_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
+}
+inline void DeviceRegisterResponse::set_allocated_user_email(std::string* value) {
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000010u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000010u;
+  }
+  _impl_.user_email_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.user_email_.IsDefault()) {
+          _impl_.user_email_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceRegisterResponse.user_email)
+}
+
+// optional .enterprise_management.DeviceRegisterResponse.ThirdPartyIdentityType third_party_identity_type = 9 [default = NONE];
+inline bool DeviceRegisterResponse::has_third_party_identity_type() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline void DeviceRegisterResponse::clear_third_party_identity_type() {
+  _impl_.third_party_identity_type_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000040u;
+}
+inline ::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType DeviceRegisterResponse::third_party_identity_type() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceRegisterResponse.third_party_identity_type)
+  return _internal_third_party_identity_type();
+}
+inline void DeviceRegisterResponse::set_third_party_identity_type(::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType value) {
+   _internal_set_third_party_identity_type(value);
+  // @@protoc_insertion_point(field_set:enterprise_management.DeviceRegisterResponse.third_party_identity_type)
+}
+inline ::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType DeviceRegisterResponse::_internal_third_party_identity_type() const {
+  return static_cast<::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType>(_impl_.third_party_identity_type_);
+}
+inline void DeviceRegisterResponse::_internal_set_third_party_identity_type(::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType value) {
+  assert(::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType_IsValid(value));
+  _impl_._has_bits_[0] |= 0x00000040u;
+  _impl_.third_party_identity_type_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -69850,6 +70469,188 @@ inline void CertificateBasedDeviceRegisterRequest::set_allocated_signed_request(
 
 // -------------------------------------------------------------------
 
+// TokenBasedDeviceRegisterRequest
+
+// optional .enterprise_management.DeviceRegisterRequest device_register_request = 1;
+inline bool TokenBasedDeviceRegisterRequest::has_device_register_request() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.device_register_request_ != nullptr);
+  return value;
+}
+inline void TokenBasedDeviceRegisterRequest::clear_device_register_request() {
+  if (_impl_.device_register_request_ != nullptr) _impl_.device_register_request_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::enterprise_management::DeviceRegisterRequest& TokenBasedDeviceRegisterRequest::_internal_device_register_request() const {
+  const ::enterprise_management::DeviceRegisterRequest* p = _impl_.device_register_request_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceRegisterRequest&>(
+      ::enterprise_management::_DeviceRegisterRequest_default_instance_);
+}
+inline const ::enterprise_management::DeviceRegisterRequest& TokenBasedDeviceRegisterRequest::device_register_request() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.TokenBasedDeviceRegisterRequest.device_register_request)
+  return _internal_device_register_request();
+}
+inline void TokenBasedDeviceRegisterRequest::unsafe_arena_set_allocated_device_register_request(
+    ::enterprise_management::DeviceRegisterRequest* device_register_request) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.device_register_request_);
+  }
+  _impl_.device_register_request_ = device_register_request;
+  if (device_register_request) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.TokenBasedDeviceRegisterRequest.device_register_request)
+}
+inline ::enterprise_management::DeviceRegisterRequest* TokenBasedDeviceRegisterRequest::release_device_register_request() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::enterprise_management::DeviceRegisterRequest* temp = _impl_.device_register_request_;
+  _impl_.device_register_request_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::DeviceRegisterRequest* TokenBasedDeviceRegisterRequest::unsafe_arena_release_device_register_request() {
+  // @@protoc_insertion_point(field_release:enterprise_management.TokenBasedDeviceRegisterRequest.device_register_request)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::enterprise_management::DeviceRegisterRequest* temp = _impl_.device_register_request_;
+  _impl_.device_register_request_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::DeviceRegisterRequest* TokenBasedDeviceRegisterRequest::_internal_mutable_device_register_request() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.device_register_request_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::DeviceRegisterRequest>(GetArenaForAllocation());
+    _impl_.device_register_request_ = p;
+  }
+  return _impl_.device_register_request_;
+}
+inline ::enterprise_management::DeviceRegisterRequest* TokenBasedDeviceRegisterRequest::mutable_device_register_request() {
+  ::enterprise_management::DeviceRegisterRequest* _msg = _internal_mutable_device_register_request();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.TokenBasedDeviceRegisterRequest.device_register_request)
+  return _msg;
+}
+inline void TokenBasedDeviceRegisterRequest::set_allocated_device_register_request(::enterprise_management::DeviceRegisterRequest* device_register_request) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.device_register_request_;
+  }
+  if (device_register_request) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_register_request);
+    if (message_arena != submessage_arena) {
+      device_register_request = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, device_register_request, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.device_register_request_ = device_register_request;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.TokenBasedDeviceRegisterRequest.device_register_request)
+}
+
+// -------------------------------------------------------------------
+
+// TokenBasedDeviceRegisterResponse
+
+// optional .enterprise_management.DeviceRegisterResponse device_register_response = 1;
+inline bool TokenBasedDeviceRegisterResponse::has_device_register_response() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.device_register_response_ != nullptr);
+  return value;
+}
+inline void TokenBasedDeviceRegisterResponse::clear_device_register_response() {
+  if (_impl_.device_register_response_ != nullptr) _impl_.device_register_response_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::enterprise_management::DeviceRegisterResponse& TokenBasedDeviceRegisterResponse::_internal_device_register_response() const {
+  const ::enterprise_management::DeviceRegisterResponse* p = _impl_.device_register_response_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceRegisterResponse&>(
+      ::enterprise_management::_DeviceRegisterResponse_default_instance_);
+}
+inline const ::enterprise_management::DeviceRegisterResponse& TokenBasedDeviceRegisterResponse::device_register_response() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.TokenBasedDeviceRegisterResponse.device_register_response)
+  return _internal_device_register_response();
+}
+inline void TokenBasedDeviceRegisterResponse::unsafe_arena_set_allocated_device_register_response(
+    ::enterprise_management::DeviceRegisterResponse* device_register_response) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.device_register_response_);
+  }
+  _impl_.device_register_response_ = device_register_response;
+  if (device_register_response) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.TokenBasedDeviceRegisterResponse.device_register_response)
+}
+inline ::enterprise_management::DeviceRegisterResponse* TokenBasedDeviceRegisterResponse::release_device_register_response() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::enterprise_management::DeviceRegisterResponse* temp = _impl_.device_register_response_;
+  _impl_.device_register_response_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::DeviceRegisterResponse* TokenBasedDeviceRegisterResponse::unsafe_arena_release_device_register_response() {
+  // @@protoc_insertion_point(field_release:enterprise_management.TokenBasedDeviceRegisterResponse.device_register_response)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::enterprise_management::DeviceRegisterResponse* temp = _impl_.device_register_response_;
+  _impl_.device_register_response_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::DeviceRegisterResponse* TokenBasedDeviceRegisterResponse::_internal_mutable_device_register_response() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.device_register_response_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::DeviceRegisterResponse>(GetArenaForAllocation());
+    _impl_.device_register_response_ = p;
+  }
+  return _impl_.device_register_response_;
+}
+inline ::enterprise_management::DeviceRegisterResponse* TokenBasedDeviceRegisterResponse::mutable_device_register_response() {
+  ::enterprise_management::DeviceRegisterResponse* _msg = _internal_mutable_device_register_response();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.TokenBasedDeviceRegisterResponse.device_register_response)
+  return _msg;
+}
+inline void TokenBasedDeviceRegisterResponse::set_allocated_device_register_response(::enterprise_management::DeviceRegisterResponse* device_register_response) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.device_register_response_;
+  }
+  if (device_register_response) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_register_response);
+    if (message_arena != submessage_arena) {
+      device_register_response = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, device_register_response, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.device_register_response_ = device_register_response;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.TokenBasedDeviceRegisterResponse.device_register_response)
+}
+
+// -------------------------------------------------------------------
+
 // DeviceRegisterConfiguration
 
 // optional string device_owner = 1;
@@ -79136,18 +79937,43 @@ inline void BrowserPublicKeyUploadRequest::_internal_set_key_type(::enterprise_m
   _impl_.key_type_ = value;
 }
 
+// optional bool provision_certificate = 5;
+inline bool BrowserPublicKeyUploadRequest::has_provision_certificate() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline void BrowserPublicKeyUploadRequest::clear_provision_certificate() {
+  _impl_.provision_certificate_ = false;
+  _impl_._has_bits_[0] &= ~0x00000010u;
+}
+inline bool BrowserPublicKeyUploadRequest::provision_certificate() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.BrowserPublicKeyUploadRequest.provision_certificate)
+  return _internal_provision_certificate();
+}
+inline void BrowserPublicKeyUploadRequest::set_provision_certificate(bool value) {
+  _internal_set_provision_certificate(value);
+  // @@protoc_insertion_point(field_set:enterprise_management.BrowserPublicKeyUploadRequest.provision_certificate)
+}
+inline bool BrowserPublicKeyUploadRequest::_internal_provision_certificate() const {
+  return _impl_.provision_certificate_;
+}
+inline void BrowserPublicKeyUploadRequest::_internal_set_provision_certificate(bool value) {
+  _impl_._has_bits_[0] |= 0x00000010u;
+  _impl_.provision_certificate_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // BrowserPublicKeyUploadResponse
 
 // optional .enterprise_management.BrowserPublicKeyUploadResponse.ResponseCode response_code = 1;
 inline bool BrowserPublicKeyUploadResponse::has_response_code() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline void BrowserPublicKeyUploadResponse::clear_response_code() {
   _impl_.response_code_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 inline ::enterprise_management::BrowserPublicKeyUploadResponse_ResponseCode BrowserPublicKeyUploadResponse::response_code() const {
   // @@protoc_insertion_point(field_get:enterprise_management.BrowserPublicKeyUploadResponse.response_code)
@@ -79162,8 +79988,73 @@ inline ::enterprise_management::BrowserPublicKeyUploadResponse_ResponseCode Brow
 }
 inline void BrowserPublicKeyUploadResponse::_internal_set_response_code(::enterprise_management::BrowserPublicKeyUploadResponse_ResponseCode value) {
   assert(::enterprise_management::BrowserPublicKeyUploadResponse_ResponseCode_IsValid(value));
-  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_._has_bits_[0] |= 0x00000002u;
   _impl_.response_code_ = value;
+}
+
+// optional string pem_encoded_certificate = 2;
+inline bool BrowserPublicKeyUploadResponse::has_pem_encoded_certificate() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline void BrowserPublicKeyUploadResponse::clear_pem_encoded_certificate() {
+  _impl_.pem_encoded_certificate_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& BrowserPublicKeyUploadResponse::pem_encoded_certificate() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.BrowserPublicKeyUploadResponse.pem_encoded_certificate)
+  return _internal_pem_encoded_certificate();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void BrowserPublicKeyUploadResponse::set_pem_encoded_certificate(Arg_&& arg,
+                                                     Args_... args) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.pem_encoded_certificate_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_management.BrowserPublicKeyUploadResponse.pem_encoded_certificate)
+}
+inline std::string* BrowserPublicKeyUploadResponse::mutable_pem_encoded_certificate() {
+  std::string* _s = _internal_mutable_pem_encoded_certificate();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.BrowserPublicKeyUploadResponse.pem_encoded_certificate)
+  return _s;
+}
+inline const std::string& BrowserPublicKeyUploadResponse::_internal_pem_encoded_certificate() const {
+  return _impl_.pem_encoded_certificate_.Get();
+}
+inline void BrowserPublicKeyUploadResponse::_internal_set_pem_encoded_certificate(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+
+
+  _impl_.pem_encoded_certificate_.Set(value, GetArenaForAllocation());
+}
+inline std::string* BrowserPublicKeyUploadResponse::_internal_mutable_pem_encoded_certificate() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  return _impl_.pem_encoded_certificate_.Mutable( GetArenaForAllocation());
+}
+inline std::string* BrowserPublicKeyUploadResponse::release_pem_encoded_certificate() {
+  // @@protoc_insertion_point(field_release:enterprise_management.BrowserPublicKeyUploadResponse.pem_encoded_certificate)
+  if ((_impl_._has_bits_[0] & 0x00000001u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* released = _impl_.pem_encoded_certificate_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.pem_encoded_certificate_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
+}
+inline void BrowserPublicKeyUploadResponse::set_allocated_pem_encoded_certificate(std::string* value) {
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.pem_encoded_certificate_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.pem_encoded_certificate_.IsDefault()) {
+          _impl_.pem_encoded_certificate_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.BrowserPublicKeyUploadResponse.pem_encoded_certificate)
 }
 
 // -------------------------------------------------------------------
@@ -82563,6 +83454,93 @@ inline void DeviceManagementRequest::set_allocated_chrome_profile_report_request
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceManagementRequest.chrome_profile_report_request)
 }
 
+// optional .enterprise_management.TokenBasedDeviceRegisterRequest token_based_device_register_request = 41;
+inline bool DeviceManagementRequest::has_token_based_device_register_request() const {
+  bool value = (_impl_._has_bits_[1] & 0x00000080u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.token_based_device_register_request_ != nullptr);
+  return value;
+}
+inline void DeviceManagementRequest::clear_token_based_device_register_request() {
+  if (_impl_.token_based_device_register_request_ != nullptr) _impl_.token_based_device_register_request_->Clear();
+  _impl_._has_bits_[1] &= ~0x00000080u;
+}
+inline const ::enterprise_management::TokenBasedDeviceRegisterRequest& DeviceManagementRequest::_internal_token_based_device_register_request() const {
+  const ::enterprise_management::TokenBasedDeviceRegisterRequest* p = _impl_.token_based_device_register_request_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::TokenBasedDeviceRegisterRequest&>(
+      ::enterprise_management::_TokenBasedDeviceRegisterRequest_default_instance_);
+}
+inline const ::enterprise_management::TokenBasedDeviceRegisterRequest& DeviceManagementRequest::token_based_device_register_request() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceManagementRequest.token_based_device_register_request)
+  return _internal_token_based_device_register_request();
+}
+inline void DeviceManagementRequest::unsafe_arena_set_allocated_token_based_device_register_request(
+    ::enterprise_management::TokenBasedDeviceRegisterRequest* token_based_device_register_request) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.token_based_device_register_request_);
+  }
+  _impl_.token_based_device_register_request_ = token_based_device_register_request;
+  if (token_based_device_register_request) {
+    _impl_._has_bits_[1] |= 0x00000080u;
+  } else {
+    _impl_._has_bits_[1] &= ~0x00000080u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.DeviceManagementRequest.token_based_device_register_request)
+}
+inline ::enterprise_management::TokenBasedDeviceRegisterRequest* DeviceManagementRequest::release_token_based_device_register_request() {
+  _impl_._has_bits_[1] &= ~0x00000080u;
+  ::enterprise_management::TokenBasedDeviceRegisterRequest* temp = _impl_.token_based_device_register_request_;
+  _impl_.token_based_device_register_request_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::TokenBasedDeviceRegisterRequest* DeviceManagementRequest::unsafe_arena_release_token_based_device_register_request() {
+  // @@protoc_insertion_point(field_release:enterprise_management.DeviceManagementRequest.token_based_device_register_request)
+  _impl_._has_bits_[1] &= ~0x00000080u;
+  ::enterprise_management::TokenBasedDeviceRegisterRequest* temp = _impl_.token_based_device_register_request_;
+  _impl_.token_based_device_register_request_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::TokenBasedDeviceRegisterRequest* DeviceManagementRequest::_internal_mutable_token_based_device_register_request() {
+  _impl_._has_bits_[1] |= 0x00000080u;
+  if (_impl_.token_based_device_register_request_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::TokenBasedDeviceRegisterRequest>(GetArenaForAllocation());
+    _impl_.token_based_device_register_request_ = p;
+  }
+  return _impl_.token_based_device_register_request_;
+}
+inline ::enterprise_management::TokenBasedDeviceRegisterRequest* DeviceManagementRequest::mutable_token_based_device_register_request() {
+  ::enterprise_management::TokenBasedDeviceRegisterRequest* _msg = _internal_mutable_token_based_device_register_request();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.DeviceManagementRequest.token_based_device_register_request)
+  return _msg;
+}
+inline void DeviceManagementRequest::set_allocated_token_based_device_register_request(::enterprise_management::TokenBasedDeviceRegisterRequest* token_based_device_register_request) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.token_based_device_register_request_;
+  }
+  if (token_based_device_register_request) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(token_based_device_register_request);
+    if (message_arena != submessage_arena) {
+      token_based_device_register_request = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, token_based_device_register_request, submessage_arena);
+    }
+    _impl_._has_bits_[1] |= 0x00000080u;
+  } else {
+    _impl_._has_bits_[1] &= ~0x00000080u;
+  }
+  _impl_.token_based_device_register_request_ = token_based_device_register_request;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceManagementRequest.token_based_device_register_request)
+}
+
 // -------------------------------------------------------------------
 
 // DeviceManagementResponse
@@ -85722,6 +86700,93 @@ inline void DeviceManagementResponse::set_allocated_chrome_profile_report_respon
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceManagementResponse.chrome_profile_report_response)
 }
 
+// optional .enterprise_management.TokenBasedDeviceRegisterResponse token_based_device_register_response = 40;
+inline bool DeviceManagementResponse::has_token_based_device_register_response() const {
+  bool value = (_impl_._has_bits_[1] & 0x00000010u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.token_based_device_register_response_ != nullptr);
+  return value;
+}
+inline void DeviceManagementResponse::clear_token_based_device_register_response() {
+  if (_impl_.token_based_device_register_response_ != nullptr) _impl_.token_based_device_register_response_->Clear();
+  _impl_._has_bits_[1] &= ~0x00000010u;
+}
+inline const ::enterprise_management::TokenBasedDeviceRegisterResponse& DeviceManagementResponse::_internal_token_based_device_register_response() const {
+  const ::enterprise_management::TokenBasedDeviceRegisterResponse* p = _impl_.token_based_device_register_response_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::TokenBasedDeviceRegisterResponse&>(
+      ::enterprise_management::_TokenBasedDeviceRegisterResponse_default_instance_);
+}
+inline const ::enterprise_management::TokenBasedDeviceRegisterResponse& DeviceManagementResponse::token_based_device_register_response() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceManagementResponse.token_based_device_register_response)
+  return _internal_token_based_device_register_response();
+}
+inline void DeviceManagementResponse::unsafe_arena_set_allocated_token_based_device_register_response(
+    ::enterprise_management::TokenBasedDeviceRegisterResponse* token_based_device_register_response) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.token_based_device_register_response_);
+  }
+  _impl_.token_based_device_register_response_ = token_based_device_register_response;
+  if (token_based_device_register_response) {
+    _impl_._has_bits_[1] |= 0x00000010u;
+  } else {
+    _impl_._has_bits_[1] &= ~0x00000010u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.DeviceManagementResponse.token_based_device_register_response)
+}
+inline ::enterprise_management::TokenBasedDeviceRegisterResponse* DeviceManagementResponse::release_token_based_device_register_response() {
+  _impl_._has_bits_[1] &= ~0x00000010u;
+  ::enterprise_management::TokenBasedDeviceRegisterResponse* temp = _impl_.token_based_device_register_response_;
+  _impl_.token_based_device_register_response_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::TokenBasedDeviceRegisterResponse* DeviceManagementResponse::unsafe_arena_release_token_based_device_register_response() {
+  // @@protoc_insertion_point(field_release:enterprise_management.DeviceManagementResponse.token_based_device_register_response)
+  _impl_._has_bits_[1] &= ~0x00000010u;
+  ::enterprise_management::TokenBasedDeviceRegisterResponse* temp = _impl_.token_based_device_register_response_;
+  _impl_.token_based_device_register_response_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::TokenBasedDeviceRegisterResponse* DeviceManagementResponse::_internal_mutable_token_based_device_register_response() {
+  _impl_._has_bits_[1] |= 0x00000010u;
+  if (_impl_.token_based_device_register_response_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::TokenBasedDeviceRegisterResponse>(GetArenaForAllocation());
+    _impl_.token_based_device_register_response_ = p;
+  }
+  return _impl_.token_based_device_register_response_;
+}
+inline ::enterprise_management::TokenBasedDeviceRegisterResponse* DeviceManagementResponse::mutable_token_based_device_register_response() {
+  ::enterprise_management::TokenBasedDeviceRegisterResponse* _msg = _internal_mutable_token_based_device_register_response();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.DeviceManagementResponse.token_based_device_register_response)
+  return _msg;
+}
+inline void DeviceManagementResponse::set_allocated_token_based_device_register_response(::enterprise_management::TokenBasedDeviceRegisterResponse* token_based_device_register_response) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.token_based_device_register_response_;
+  }
+  if (token_based_device_register_response) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(token_based_device_register_response);
+    if (message_arena != submessage_arena) {
+      token_based_device_register_response = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, token_based_device_register_response, submessage_arena);
+    }
+    _impl_._has_bits_[1] |= 0x00000010u;
+  } else {
+    _impl_._has_bits_[1] &= ~0x00000010u;
+  }
+  _impl_.token_based_device_register_response_ = token_based_device_register_response;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceManagementResponse.token_based_device_register_response)
+}
+
 // -------------------------------------------------------------------
 
 // DeviceStateRetrievalInfo
@@ -85777,6 +86842,8 @@ template <>
 struct is_proto_enum<::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType> : std::true_type {};
 template <>
 struct is_proto_enum<::enterprise_management::DeviceRegisterResponse_DeviceMode> : std::true_type {};
+template <>
+struct is_proto_enum<::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType> : std::true_type {};
 template <>
 struct is_proto_enum<::enterprise_management::DeviceCertUploadRequest_CertificateType> : std::true_type {};
 template <>
