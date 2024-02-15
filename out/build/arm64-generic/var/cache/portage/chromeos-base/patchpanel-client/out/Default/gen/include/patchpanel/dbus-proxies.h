@@ -267,20 +267,6 @@ class PatchPanelProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool SetVpnIntent(
-      const patchpanel::SetVpnIntentRequest& in_request,
-      const base::ScopedFD& in_socket_fd,
-      patchpanel::SetVpnIntentResponse* out_response,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void SetVpnIntentAsync(
-      const patchpanel::SetVpnIntentRequest& in_request,
-      const base::ScopedFD& in_socket_fd,
-      base::OnceCallback<void(const patchpanel::SetVpnIntentResponse& /*response*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool SetVpnLockdown(
       const patchpanel::SetVpnLockdownRequest& in_request,
       patchpanel::SetVpnLockdownResponse* out_response,
@@ -290,6 +276,20 @@ class PatchPanelProxyInterface {
   virtual void SetVpnLockdownAsync(
       const patchpanel::SetVpnLockdownRequest& in_request,
       base::OnceCallback<void(const patchpanel::SetVpnLockdownResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool TagSocket(
+      const patchpanel::TagSocketRequest& in_request,
+      const base::ScopedFD& in_socket_fd,
+      patchpanel::TagSocketResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void TagSocketAsync(
+      const patchpanel::TagSocketRequest& in_request,
+      const base::ScopedFD& in_socket_fd,
+      base::OnceCallback<void(const patchpanel::TagSocketResponse& /*response*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -1064,41 +1064,6 @@ class PatchPanelProxy final : public PatchPanelProxyInterface {
         in_client_fd);
   }
 
-  bool SetVpnIntent(
-      const patchpanel::SetVpnIntentRequest& in_request,
-      const base::ScopedFD& in_socket_fd,
-      patchpanel::SetVpnIntentResponse* out_response,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.PatchPanel",
-        "SetVpnIntent",
-        error,
-        in_request,
-        in_socket_fd);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_response);
-  }
-
-  void SetVpnIntentAsync(
-      const patchpanel::SetVpnIntentRequest& in_request,
-      const base::ScopedFD& in_socket_fd,
-      base::OnceCallback<void(const patchpanel::SetVpnIntentResponse& /*response*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.PatchPanel",
-        "SetVpnIntent",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request,
-        in_socket_fd);
-  }
-
   bool SetVpnLockdown(
       const patchpanel::SetVpnLockdownRequest& in_request,
       patchpanel::SetVpnLockdownResponse* out_response,
@@ -1128,6 +1093,41 @@ class PatchPanelProxy final : public PatchPanelProxyInterface {
         std::move(success_callback),
         std::move(error_callback),
         in_request);
+  }
+
+  bool TagSocket(
+      const patchpanel::TagSocketRequest& in_request,
+      const base::ScopedFD& in_socket_fd,
+      patchpanel::TagSocketResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "TagSocket",
+        error,
+        in_request,
+        in_socket_fd);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  void TagSocketAsync(
+      const patchpanel::TagSocketRequest& in_request,
+      const base::ScopedFD& in_socket_fd,
+      base::OnceCallback<void(const patchpanel::TagSocketResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "TagSocket",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request,
+        in_socket_fd);
   }
 
   bool TerminaVmShutdown(
