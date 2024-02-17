@@ -128,7 +128,9 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , pageupandpagedownkeysmodifier_(nullptr)
   , insertkeymodifier_(nullptr)
   , screencapturelocation_(nullptr)
-  , alloweddomainsforappslist_(nullptr){}
+  , alloweddomainsforappslist_(nullptr)
+  , googlelocationservicesenabled_(nullptr)
+  , localuserfilesallowed_(nullptr){}
 struct CloudPolicySubProto1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR CloudPolicySubProto1DefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -880,6 +882,10 @@ class CloudPolicySubProto1::_Internal {
   static void set_has_glanceablesenabled(HasBits* has_bits) {
     (*has_bits)[1] |= 134217728u;
   }
+  static const ::enterprise_management::IntegerPolicyProto& googlelocationservicesenabled(const CloudPolicySubProto1* msg);
+  static void set_has_googlelocationservicesenabled(HasBits* has_bits) {
+    (*has_bits)[3] |= 8192u;
+  }
   static const ::enterprise_management::BooleanPolicyProto& googlesearchsidepanelenabled(const CloudPolicySubProto1* msg);
   static void set_has_googlesearchsidepanelenabled(HasBits* has_bits) {
     (*has_bits)[1] |= 1024u;
@@ -907,6 +913,10 @@ class CloudPolicySubProto1::_Internal {
   static const ::enterprise_management::StringPolicyProto& lacrosselection(const CloudPolicySubProto1* msg);
   static void set_has_lacrosselection(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
+  }
+  static const ::enterprise_management::BooleanPolicyProto& localuserfilesallowed(const CloudPolicySubProto1* msg);
+  static void set_has_localuserfilesallowed(HasBits* has_bits) {
+    (*has_bits)[3] |= 16384u;
   }
   static const ::enterprise_management::BooleanPolicyProto& nativeclientforceallowed(const CloudPolicySubProto1* msg);
   static void set_has_nativeclientforceallowed(HasBits* has_bits) {
@@ -1318,6 +1328,10 @@ const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::glanceablesenabled(const CloudPolicySubProto1* msg) {
   return *msg->glanceablesenabled_;
 }
+const ::enterprise_management::IntegerPolicyProto&
+CloudPolicySubProto1::_Internal::googlelocationservicesenabled(const CloudPolicySubProto1* msg) {
+  return *msg->googlelocationservicesenabled_;
+}
 const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::googlesearchsidepanelenabled(const CloudPolicySubProto1* msg) {
   return *msg->googlesearchsidepanelenabled_;
@@ -1345,6 +1359,10 @@ CloudPolicySubProto1::_Internal::insertkeymodifier(const CloudPolicySubProto1* m
 const ::enterprise_management::StringPolicyProto&
 CloudPolicySubProto1::_Internal::lacrosselection(const CloudPolicySubProto1* msg) {
   return *msg->lacrosselection_;
+}
+const ::enterprise_management::BooleanPolicyProto&
+CloudPolicySubProto1::_Internal::localuserfilesallowed(const CloudPolicySubProto1* msg) {
+  return *msg->localuserfilesallowed_;
 }
 const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::nativeclientforceallowed(const CloudPolicySubProto1* msg) {
@@ -1754,6 +1772,10 @@ void CloudPolicySubProto1::clear_glanceablesenabled() {
   if (glanceablesenabled_ != nullptr) glanceablesenabled_->Clear();
   _has_bits_[1] &= ~0x08000000u;
 }
+void CloudPolicySubProto1::clear_googlelocationservicesenabled() {
+  if (googlelocationservicesenabled_ != nullptr) googlelocationservicesenabled_->Clear();
+  _has_bits_[3] &= ~0x00002000u;
+}
 void CloudPolicySubProto1::clear_googlesearchsidepanelenabled() {
   if (googlesearchsidepanelenabled_ != nullptr) googlesearchsidepanelenabled_->Clear();
   _has_bits_[1] &= ~0x00000400u;
@@ -1781,6 +1803,10 @@ void CloudPolicySubProto1::clear_insertkeymodifier() {
 void CloudPolicySubProto1::clear_lacrosselection() {
   if (lacrosselection_ != nullptr) lacrosselection_->Clear();
   _has_bits_[0] &= ~0x00000008u;
+}
+void CloudPolicySubProto1::clear_localuserfilesallowed() {
+  if (localuserfilesallowed_ != nullptr) localuserfilesallowed_->Clear();
+  _has_bits_[3] &= ~0x00004000u;
 }
 void CloudPolicySubProto1::clear_nativeclientforceallowed() {
   if (nativeclientforceallowed_ != nullptr) nativeclientforceallowed_->Clear();
@@ -2553,14 +2579,24 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
   } else {
     alloweddomainsforappslist_ = nullptr;
   }
+  if (from._internal_has_googlelocationservicesenabled()) {
+    googlelocationservicesenabled_ = new ::enterprise_management::IntegerPolicyProto(*from.googlelocationservicesenabled_);
+  } else {
+    googlelocationservicesenabled_ = nullptr;
+  }
+  if (from._internal_has_localuserfilesallowed()) {
+    localuserfilesallowed_ = new ::enterprise_management::BooleanPolicyProto(*from.localuserfilesallowed_);
+  } else {
+    localuserfilesallowed_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CloudPolicySubProto1)
 }
 
 inline void CloudPolicySubProto1::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&alloweddomainsforappslist_) -
-    reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_)) + sizeof(alloweddomainsforappslist_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&localuserfilesallowed_) -
+    reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_)) + sizeof(localuserfilesallowed_));
 }
 
 CloudPolicySubProto1::~CloudPolicySubProto1() {
@@ -2683,6 +2719,8 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete insertkeymodifier_;
   if (this != internal_default_instance()) delete screencapturelocation_;
   if (this != internal_default_instance()) delete alloweddomainsforappslist_;
+  if (this != internal_default_instance()) delete googlelocationservicesenabled_;
+  if (this != internal_default_instance()) delete localuserfilesallowed_;
 }
 
 void CloudPolicySubProto1::SetCachedSize(int size) const {
@@ -3141,7 +3179,7 @@ void CloudPolicySubProto1::Clear() {
       deletekeymodifier_->Clear();
     }
   }
-  if (cached_has_bits & 0x00001f00u) {
+  if (cached_has_bits & 0x00007f00u) {
     if (cached_has_bits & 0x00000100u) {
       GOOGLE_DCHECK(homeandendkeysmodifier_ != nullptr);
       homeandendkeysmodifier_->Clear();
@@ -3161,6 +3199,14 @@ void CloudPolicySubProto1::Clear() {
     if (cached_has_bits & 0x00001000u) {
       GOOGLE_DCHECK(alloweddomainsforappslist_ != nullptr);
       alloweddomainsforappslist_->Clear();
+    }
+    if (cached_has_bits & 0x00002000u) {
+      GOOGLE_DCHECK(googlelocationservicesenabled_ != nullptr);
+      googlelocationservicesenabled_->Clear();
+    }
+    if (cached_has_bits & 0x00004000u) {
+      GOOGLE_DCHECK(localuserfilesallowed_ != nullptr);
+      localuserfilesallowed_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -4045,6 +4091,22 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.IntegerPolicyProto GoogleLocationServicesEnabled = 174;
+      case 174:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
+          ptr = ctx->ParseMessage(_internal_mutable_googlelocationservicesenabled(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.BooleanPolicyProto LocalUserFilesAllowed = 176;
+      case 176:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 130)) {
+          ptr = ctx->ParseMessage(_internal_mutable_localuserfilesallowed(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -4841,6 +4903,20 @@ uint8_t* CloudPolicySubProto1::_InternalSerialize(
         _Internal::alloweddomainsforappslist(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.IntegerPolicyProto GoogleLocationServicesEnabled = 174;
+  if (cached_has_bits & 0x00002000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(174, _Internal::googlelocationservicesenabled(this),
+        _Internal::googlelocationservicesenabled(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.BooleanPolicyProto LocalUserFilesAllowed = 176;
+  if (cached_has_bits & 0x00004000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(176, _Internal::localuserfilesallowed(this),
+        _Internal::localuserfilesallowed(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -5615,7 +5691,7 @@ size_t CloudPolicySubProto1::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00001f00u) {
+  if (cached_has_bits & 0x00007f00u) {
     // optional .enterprise_management.IntegerPolicyProto HomeAndEndKeysModifier = 165;
     if (cached_has_bits & 0x00000100u) {
       total_size += 2 +
@@ -5649,6 +5725,20 @@ size_t CloudPolicySubProto1::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *alloweddomainsforappslist_);
+    }
+
+    // optional .enterprise_management.IntegerPolicyProto GoogleLocationServicesEnabled = 174;
+    if (cached_has_bits & 0x00002000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *googlelocationservicesenabled_);
+    }
+
+    // optional .enterprise_management.BooleanPolicyProto LocalUserFilesAllowed = 176;
+    if (cached_has_bits & 0x00004000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *localuserfilesallowed_);
     }
 
   }
@@ -6014,7 +6104,7 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
       _internal_mutable_deletekeymodifier()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_deletekeymodifier());
     }
   }
-  if (cached_has_bits & 0x00001f00u) {
+  if (cached_has_bits & 0x00007f00u) {
     if (cached_has_bits & 0x00000100u) {
       _internal_mutable_homeandendkeysmodifier()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_homeandendkeysmodifier());
     }
@@ -6029,6 +6119,12 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
     }
     if (cached_has_bits & 0x00001000u) {
       _internal_mutable_alloweddomainsforappslist()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_alloweddomainsforappslist());
+    }
+    if (cached_has_bits & 0x00002000u) {
+      _internal_mutable_googlelocationservicesenabled()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_googlelocationservicesenabled());
+    }
+    if (cached_has_bits & 0x00004000u) {
+      _internal_mutable_localuserfilesallowed()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_localuserfilesallowed());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -6053,8 +6149,8 @@ void CloudPolicySubProto1::InternalSwap(CloudPolicySubProto1* other) {
   swap(_has_bits_[2], other->_has_bits_[2]);
   swap(_has_bits_[3], other->_has_bits_[3]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, alloweddomainsforappslist_)
-      + sizeof(CloudPolicySubProto1::alloweddomainsforappslist_)
+      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, localuserfilesallowed_)
+      + sizeof(CloudPolicySubProto1::localuserfilesallowed_)
       - PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, newbaseurlinheritancebehaviorallowed_)>(
           reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_),
           reinterpret_cast<char*>(&other->newbaseurlinheritancebehaviorallowed_));

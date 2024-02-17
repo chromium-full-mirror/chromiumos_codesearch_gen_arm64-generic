@@ -278,6 +278,8 @@ kPageUpAndPageDownKeysModifierFieldNumber = 166,
 kInsertKeyModifierFieldNumber = 167,
 kScreenCaptureLocationFieldNumber = 171,
 kAllowedDomainsForAppsListFieldNumber = 172,
+kGoogleLocationServicesEnabledFieldNumber = 174,
+kLocalUserFilesAllowedFieldNumber = 176,
 };
 // optional .enterprise_management.BooleanPolicyProto NewBaseUrlInheritanceBehaviorAllowed = 1;
 bool has_newbaseurlinheritancebehaviorallowed() const;
@@ -2241,6 +2243,42 @@ void unsafe_arena_set_allocated_alloweddomainsforappslist(
 ::enterprise_management::StringListPolicyProto* alloweddomainsforappslist);
 ::enterprise_management::StringListPolicyProto* unsafe_arena_release_alloweddomainsforappslist();
 
+// optional .enterprise_management.IntegerPolicyProto GoogleLocationServicesEnabled = 174;
+bool has_googlelocationservicesenabled() const;
+private:
+bool _internal_has_googlelocationservicesenabled() const;
+public:
+void clear_googlelocationservicesenabled();
+const ::enterprise_management::IntegerPolicyProto& googlelocationservicesenabled() const;
+PROTOBUF_NODISCARD ::enterprise_management::IntegerPolicyProto* release_googlelocationservicesenabled();
+::enterprise_management::IntegerPolicyProto* mutable_googlelocationservicesenabled();
+void set_allocated_googlelocationservicesenabled(::enterprise_management::IntegerPolicyProto* googlelocationservicesenabled);
+private:
+const ::enterprise_management::IntegerPolicyProto& _internal_googlelocationservicesenabled() const;
+::enterprise_management::IntegerPolicyProto* _internal_mutable_googlelocationservicesenabled();
+public:
+void unsafe_arena_set_allocated_googlelocationservicesenabled(
+::enterprise_management::IntegerPolicyProto* googlelocationservicesenabled);
+::enterprise_management::IntegerPolicyProto* unsafe_arena_release_googlelocationservicesenabled();
+
+// optional .enterprise_management.BooleanPolicyProto LocalUserFilesAllowed = 176;
+bool has_localuserfilesallowed() const;
+private:
+bool _internal_has_localuserfilesallowed() const;
+public:
+void clear_localuserfilesallowed();
+const ::enterprise_management::BooleanPolicyProto& localuserfilesallowed() const;
+PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_localuserfilesallowed();
+::enterprise_management::BooleanPolicyProto* mutable_localuserfilesallowed();
+void set_allocated_localuserfilesallowed(::enterprise_management::BooleanPolicyProto* localuserfilesallowed);
+private:
+const ::enterprise_management::BooleanPolicyProto& _internal_localuserfilesallowed() const;
+::enterprise_management::BooleanPolicyProto* _internal_mutable_localuserfilesallowed();
+public:
+void unsafe_arena_set_allocated_localuserfilesallowed(
+::enterprise_management::BooleanPolicyProto* localuserfilesallowed);
+::enterprise_management::BooleanPolicyProto* unsafe_arena_release_localuserfilesallowed();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -2359,6 +2397,8 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::IntegerPolicyProto* insertkeymodifier_;
 ::enterprise_management::StringPolicyProto* screencapturelocation_;
 ::enterprise_management::StringListPolicyProto* alloweddomainsforappslist_;
+::enterprise_management::IntegerPolicyProto* googlelocationservicesenabled_;
+::enterprise_management::BooleanPolicyProto* localuserfilesallowed_;
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
@@ -17292,6 +17332,93 @@ glanceablesenabled_ = glanceablesenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.GlanceablesEnabled)
 }
 
+// optional .enterprise_management.IntegerPolicyProto GoogleLocationServicesEnabled = 174;
+inline bool CloudPolicySubProto1::_internal_has_googlelocationservicesenabled() const {
+bool value = (_has_bits_[3] & 0x00002000u) != 0;
+PROTOBUF_ASSUME(!value || googlelocationservicesenabled_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_googlelocationservicesenabled() const {
+return _internal_has_googlelocationservicesenabled();
+}
+inline const ::enterprise_management::IntegerPolicyProto& CloudPolicySubProto1::_internal_googlelocationservicesenabled() const {
+const ::enterprise_management::IntegerPolicyProto* p = googlelocationservicesenabled_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::IntegerPolicyProto&>(
+::enterprise_management::_IntegerPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::IntegerPolicyProto& CloudPolicySubProto1::googlelocationservicesenabled() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.GoogleLocationServicesEnabled)
+return _internal_googlelocationservicesenabled();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_googlelocationservicesenabled(
+::enterprise_management::IntegerPolicyProto* googlelocationservicesenabled) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(googlelocationservicesenabled_);
+}
+googlelocationservicesenabled_ = googlelocationservicesenabled;
+if (googlelocationservicesenabled) {
+_has_bits_[3] |= 0x00002000u;
+} else {
+_has_bits_[3] &= ~0x00002000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.GoogleLocationServicesEnabled)
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::release_googlelocationservicesenabled() {
+_has_bits_[3] &= ~0x00002000u;
+::enterprise_management::IntegerPolicyProto* temp = googlelocationservicesenabled_;
+googlelocationservicesenabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::unsafe_arena_release_googlelocationservicesenabled() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.GoogleLocationServicesEnabled)
+_has_bits_[3] &= ~0x00002000u;
+::enterprise_management::IntegerPolicyProto* temp = googlelocationservicesenabled_;
+googlelocationservicesenabled_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::_internal_mutable_googlelocationservicesenabled() {
+_has_bits_[3] |= 0x00002000u;
+if (googlelocationservicesenabled_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::IntegerPolicyProto>(GetArenaForAllocation());
+googlelocationservicesenabled_ = p;
+}
+return googlelocationservicesenabled_;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::mutable_googlelocationservicesenabled() {
+::enterprise_management::IntegerPolicyProto* _msg = _internal_mutable_googlelocationservicesenabled();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.GoogleLocationServicesEnabled)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_googlelocationservicesenabled(::enterprise_management::IntegerPolicyProto* googlelocationservicesenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(googlelocationservicesenabled_);
+}
+if (googlelocationservicesenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(googlelocationservicesenabled));
+if (message_arena != submessage_arena) {
+googlelocationservicesenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, googlelocationservicesenabled, submessage_arena);
+}
+_has_bits_[3] |= 0x00002000u;
+} else {
+_has_bits_[3] &= ~0x00002000u;
+}
+googlelocationservicesenabled_ = googlelocationservicesenabled;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.GoogleLocationServicesEnabled)
+}
+
 // optional .enterprise_management.BooleanPolicyProto GoogleSearchSidePanelEnabled = 67;
 inline bool CloudPolicySubProto1::_internal_has_googlesearchsidepanelenabled() const {
 bool value = (_has_bits_[1] & 0x00000400u) != 0;
@@ -17899,6 +18026,93 @@ _has_bits_[0] &= ~0x00000008u;
 }
 lacrosselection_ = lacrosselection;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.LacrosSelection)
+}
+
+// optional .enterprise_management.BooleanPolicyProto LocalUserFilesAllowed = 176;
+inline bool CloudPolicySubProto1::_internal_has_localuserfilesallowed() const {
+bool value = (_has_bits_[3] & 0x00004000u) != 0;
+PROTOBUF_ASSUME(!value || localuserfilesallowed_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_localuserfilesallowed() const {
+return _internal_has_localuserfilesallowed();
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_localuserfilesallowed() const {
+const ::enterprise_management::BooleanPolicyProto* p = localuserfilesallowed_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::localuserfilesallowed() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.LocalUserFilesAllowed)
+return _internal_localuserfilesallowed();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_localuserfilesallowed(
+::enterprise_management::BooleanPolicyProto* localuserfilesallowed) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(localuserfilesallowed_);
+}
+localuserfilesallowed_ = localuserfilesallowed;
+if (localuserfilesallowed) {
+_has_bits_[3] |= 0x00004000u;
+} else {
+_has_bits_[3] &= ~0x00004000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.LocalUserFilesAllowed)
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_localuserfilesallowed() {
+_has_bits_[3] &= ~0x00004000u;
+::enterprise_management::BooleanPolicyProto* temp = localuserfilesallowed_;
+localuserfilesallowed_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_localuserfilesallowed() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.LocalUserFilesAllowed)
+_has_bits_[3] &= ~0x00004000u;
+::enterprise_management::BooleanPolicyProto* temp = localuserfilesallowed_;
+localuserfilesallowed_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_localuserfilesallowed() {
+_has_bits_[3] |= 0x00004000u;
+if (localuserfilesallowed_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+localuserfilesallowed_ = p;
+}
+return localuserfilesallowed_;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_localuserfilesallowed() {
+::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_localuserfilesallowed();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.LocalUserFilesAllowed)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_localuserfilesallowed(::enterprise_management::BooleanPolicyProto* localuserfilesallowed) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(localuserfilesallowed_);
+}
+if (localuserfilesallowed) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(localuserfilesallowed));
+if (message_arena != submessage_arena) {
+localuserfilesallowed = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, localuserfilesallowed, submessage_arena);
+}
+_has_bits_[3] |= 0x00004000u;
+} else {
+_has_bits_[3] &= ~0x00004000u;
+}
+localuserfilesallowed_ = localuserfilesallowed;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.LocalUserFilesAllowed)
 }
 
 // optional .enterprise_management.BooleanPolicyProto NativeClientForceAllowed = 81;

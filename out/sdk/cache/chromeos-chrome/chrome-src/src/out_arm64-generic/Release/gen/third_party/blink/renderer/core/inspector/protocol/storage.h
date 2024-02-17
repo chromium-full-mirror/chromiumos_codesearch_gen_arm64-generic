@@ -685,6 +685,9 @@ public:
     double getRemainingBudget() { return m_remainingBudget; }
     void setRemainingBudget(double value) { m_remainingBudget = value; }
 
+    int getBytesUsed() { return m_bytesUsed; }
+    void setBytesUsed(int value) { m_bytesUsed = value; }
+
     template<int STATE>
     class SharedStorageMetadataBuilder {
     public:
@@ -693,7 +696,8 @@ public:
             CreationTimeSet = 1 << 1,
             LengthSet = 1 << 2,
             RemainingBudgetSet = 1 << 3,
-            AllFieldsSet = (CreationTimeSet | LengthSet | RemainingBudgetSet | 0)};
+            BytesUsedSet = 1 << 4,
+            AllFieldsSet = (CreationTimeSet | LengthSet | RemainingBudgetSet | BytesUsedSet | 0)};
 
 
         SharedStorageMetadataBuilder<STATE | CreationTimeSet>& setCreationTime(double value)
@@ -715,6 +719,13 @@ public:
             static_assert(!(STATE & RemainingBudgetSet), "property remainingBudget should not be set yet");
             m_result->setRemainingBudget(value);
             return castState<RemainingBudgetSet>();
+        }
+
+        SharedStorageMetadataBuilder<STATE | BytesUsedSet>& setBytesUsed(int value)
+        {
+            static_assert(!(STATE & BytesUsedSet), "property bytesUsed should not be set yet");
+            m_result->setBytesUsed(value);
+            return castState<BytesUsedSet>();
         }
 
         std::unique_ptr<SharedStorageMetadata> build()
@@ -748,11 +759,13 @@ private:
           m_creationTime = 0;
           m_length = 0;
           m_remainingBudget = 0;
+          m_bytesUsed = 0;
     }
 
     double m_creationTime;
     int m_length;
     double m_remainingBudget;
+    int m_bytesUsed;
 };
 
 

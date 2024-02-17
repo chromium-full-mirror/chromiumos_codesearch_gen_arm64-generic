@@ -171,6 +171,7 @@ CRDTP_END_SERIALIZER();
 
 
 CRDTP_BEGIN_DESERIALIZER(SharedStorageMetadata)
+    CRDTP_DESERIALIZE_FIELD("bytesUsed", m_bytesUsed),
     CRDTP_DESERIALIZE_FIELD("creationTime", m_creationTime),
     CRDTP_DESERIALIZE_FIELD("length", m_length),
     CRDTP_DESERIALIZE_FIELD("remainingBudget", m_remainingBudget),
@@ -180,6 +181,7 @@ CRDTP_BEGIN_SERIALIZER(SharedStorageMetadata)
     CRDTP_SERIALIZE_FIELD("creationTime", m_creationTime);
     CRDTP_SERIALIZE_FIELD("length", m_length);
     CRDTP_SERIALIZE_FIELD("remainingBudget", m_remainingBudget);
+    CRDTP_SERIALIZE_FIELD("bytesUsed", m_bytesUsed);
 CRDTP_END_SERIALIZER();
 
 

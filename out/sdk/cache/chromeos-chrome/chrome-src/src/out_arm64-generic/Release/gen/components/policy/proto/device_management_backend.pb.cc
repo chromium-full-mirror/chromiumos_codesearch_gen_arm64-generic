@@ -2848,7 +2848,8 @@ PROTOBUF_CONSTEXPR BrowserPublicKeyUploadRequest::BrowserPublicKeyUploadRequest(
   , key_trust_level_(0)
 
   , key_type_(0)
-{}
+
+  , provision_certificate_(false){}
 struct BrowserPublicKeyUploadRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR BrowserPublicKeyUploadRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -2860,7 +2861,8 @@ struct BrowserPublicKeyUploadRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BrowserPublicKeyUploadRequestDefaultTypeInternal _BrowserPublicKeyUploadRequest_default_instance_;
 PROTOBUF_CONSTEXPR BrowserPublicKeyUploadResponse::BrowserPublicKeyUploadResponse(
     ::_pbi::ConstantInitialized)
-  : response_code_(0)
+  : pem_encoded_certificate_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , response_code_(0)
 {}
 struct BrowserPublicKeyUploadResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR BrowserPublicKeyUploadResponseDefaultTypeInternal()
@@ -3155,13 +3157,15 @@ bool DeviceRegisterRequest_Flavor_IsValid(int value) {
     case 15:
     case 16:
     case 17:
+    case 18:
+    case 19:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeviceRegisterRequest_Flavor_strings[17] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeviceRegisterRequest_Flavor_strings[19] = {};
 
 static const char DeviceRegisterRequest_Flavor_names[] =
   "FLAVOR_ENROLLMENT_ATTESTATION"
@@ -3180,6 +3184,8 @@ static const char DeviceRegisterRequest_Flavor_names[] =
   "FLAVOR_ENROLLMENT_RECOVERY"
   "FLAVOR_ENROLLMENT_SERVER_ADVERTISED"
   "FLAVOR_ENROLLMENT_SERVER_FORCED"
+  "FLAVOR_ENROLLMENT_TOKEN_INITIAL_MANUAL_FALLBACK"
+  "FLAVOR_ENROLLMENT_TOKEN_INITIAL_SERVER_FORCED"
   "FLAVOR_USER_REGISTRATION";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceRegisterRequest_Flavor_entries[] = {
@@ -3199,7 +3205,9 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceRegisterRequest_
   { {DeviceRegisterRequest_Flavor_names + 519, 26}, 6 },
   { {DeviceRegisterRequest_Flavor_names + 545, 35}, 5 },
   { {DeviceRegisterRequest_Flavor_names + 580, 31}, 4 },
-  { {DeviceRegisterRequest_Flavor_names + 611, 24}, 7 },
+  { {DeviceRegisterRequest_Flavor_names + 611, 47}, 19 },
+  { {DeviceRegisterRequest_Flavor_names + 658, 45}, 18 },
+  { {DeviceRegisterRequest_Flavor_names + 703, 24}, 7 },
 };
 
 static const int DeviceRegisterRequest_Flavor_entries_by_number[] = {
@@ -3210,7 +3218,7 @@ static const int DeviceRegisterRequest_Flavor_entries_by_number[] = {
   15, // 4 -> FLAVOR_ENROLLMENT_SERVER_FORCED
   14, // 5 -> FLAVOR_ENROLLMENT_SERVER_ADVERTISED
   13, // 6 -> FLAVOR_ENROLLMENT_RECOVERY
-  16, // 7 -> FLAVOR_USER_REGISTRATION
+  18, // 7 -> FLAVOR_USER_REGISTRATION
   0, // 8 -> FLAVOR_ENROLLMENT_ATTESTATION
   3, // 9 -> FLAVOR_ENROLLMENT_ATTESTATION_LOCAL_FORCED
   7, // 10 -> FLAVOR_ENROLLMENT_ATTESTATION_SERVER_FORCED
@@ -3220,6 +3228,8 @@ static const int DeviceRegisterRequest_Flavor_entries_by_number[] = {
   1, // 15 -> FLAVOR_ENROLLMENT_ATTESTATION_INITIAL_MANUAL_FALLBACK
   5, // 16 -> FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_FORCED
   6, // 17 -> FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_MANUAL_FALLBACK
+  17, // 18 -> FLAVOR_ENROLLMENT_TOKEN_INITIAL_SERVER_FORCED
+  16, // 19 -> FLAVOR_ENROLLMENT_TOKEN_INITIAL_MANUAL_FALLBACK
 };
 
 const std::string& DeviceRegisterRequest_Flavor_Name(
@@ -3228,12 +3238,12 @@ const std::string& DeviceRegisterRequest_Flavor_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           DeviceRegisterRequest_Flavor_entries,
           DeviceRegisterRequest_Flavor_entries_by_number,
-          17, DeviceRegisterRequest_Flavor_strings);
+          19, DeviceRegisterRequest_Flavor_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       DeviceRegisterRequest_Flavor_entries,
       DeviceRegisterRequest_Flavor_entries_by_number,
-      17, value);
+      19, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      DeviceRegisterRequest_Flavor_strings[idx].get();
 }
@@ -3241,7 +3251,7 @@ bool DeviceRegisterRequest_Flavor_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceRegisterRequest_Flavor* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      DeviceRegisterRequest_Flavor_entries, 17, name, &int_value);
+      DeviceRegisterRequest_Flavor_entries, 19, name, &int_value);
   if (success) {
     *value = static_cast<DeviceRegisterRequest_Flavor>(int_value);
   }
@@ -3265,6 +3275,8 @@ constexpr DeviceRegisterRequest_Flavor DeviceRegisterRequest::FLAVOR_ENROLLMENT_
 constexpr DeviceRegisterRequest_Flavor DeviceRegisterRequest::FLAVOR_ENROLLMENT_ATTESTATION_INITIAL_MANUAL_FALLBACK;
 constexpr DeviceRegisterRequest_Flavor DeviceRegisterRequest::FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_FORCED;
 constexpr DeviceRegisterRequest_Flavor DeviceRegisterRequest::FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_MANUAL_FALLBACK;
+constexpr DeviceRegisterRequest_Flavor DeviceRegisterRequest::FLAVOR_ENROLLMENT_TOKEN_INITIAL_SERVER_FORCED;
+constexpr DeviceRegisterRequest_Flavor DeviceRegisterRequest::FLAVOR_ENROLLMENT_TOKEN_INITIAL_MANUAL_FALLBACK;
 constexpr DeviceRegisterRequest_Flavor DeviceRegisterRequest::Flavor_MIN;
 constexpr DeviceRegisterRequest_Flavor DeviceRegisterRequest::Flavor_MAX;
 constexpr int DeviceRegisterRequest::Flavor_ARRAYSIZE;
@@ -67761,6 +67773,9 @@ class BrowserPublicKeyUploadRequest::_Internal {
   static void set_has_key_type(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
+  static void set_has_provision_certificate(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
 };
 
 BrowserPublicKeyUploadRequest::BrowserPublicKeyUploadRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -67790,8 +67805,8 @@ BrowserPublicKeyUploadRequest::BrowserPublicKeyUploadRequest(const BrowserPublic
       GetArenaForAllocation());
   }
   ::memcpy(&key_trust_level_, &from.key_trust_level_,
-    static_cast<size_t>(reinterpret_cast<char*>(&key_type_) -
-    reinterpret_cast<char*>(&key_trust_level_)) + sizeof(key_type_));
+    static_cast<size_t>(reinterpret_cast<char*>(&provision_certificate_) -
+    reinterpret_cast<char*>(&key_trust_level_)) + sizeof(provision_certificate_));
   // @@protoc_insertion_point(copy_constructor:enterprise_management.BrowserPublicKeyUploadRequest)
 }
 
@@ -67806,8 +67821,8 @@ signature_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&key_trust_level_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&key_type_) -
-    reinterpret_cast<char*>(&key_trust_level_)) + sizeof(key_type_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&provision_certificate_) -
+    reinterpret_cast<char*>(&key_trust_level_)) + sizeof(provision_certificate_));
 }
 
 BrowserPublicKeyUploadRequest::~BrowserPublicKeyUploadRequest() {
@@ -67844,10 +67859,10 @@ void BrowserPublicKeyUploadRequest::Clear() {
       signature_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 0x0000000cu) {
+  if (cached_has_bits & 0x0000001cu) {
     ::memset(&key_trust_level_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&key_type_) -
-        reinterpret_cast<char*>(&key_trust_level_)) + sizeof(key_type_));
+        reinterpret_cast<char*>(&provision_certificate_) -
+        reinterpret_cast<char*>(&key_trust_level_)) + sizeof(provision_certificate_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -67901,6 +67916,15 @@ const char* BrowserPublicKeyUploadRequest::_InternalParse(const char* ptr, ::_pb
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(4, val, mutable_unknown_fields());
           }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool provision_certificate = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _Internal::set_has_provision_certificate(&has_bits);
+          provision_certificate_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -67961,6 +67985,12 @@ uint8_t* BrowserPublicKeyUploadRequest::_InternalSerialize(
       4, this->_internal_key_type(), target);
   }
 
+  // optional bool provision_certificate = 5;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_provision_certificate(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -67978,7 +68008,7 @@ size_t BrowserPublicKeyUploadRequest::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     // optional bytes public_key = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -68005,6 +68035,11 @@ size_t BrowserPublicKeyUploadRequest::ByteSizeLong() const {
         ::_pbi::WireFormatLite::EnumSize(this->_internal_key_type());
     }
 
+    // optional bool provision_certificate = 5;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 1 + 1;
+    }
+
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -68027,7 +68062,7 @@ void BrowserPublicKeyUploadRequest::MergeFrom(const BrowserPublicKeyUploadReques
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_public_key(from._internal_public_key());
     }
@@ -68039,6 +68074,9 @@ void BrowserPublicKeyUploadRequest::MergeFrom(const BrowserPublicKeyUploadReques
     }
     if (cached_has_bits & 0x00000008u) {
       key_type_ = from.key_type_;
+    }
+    if (cached_has_bits & 0x00000010u) {
+      provision_certificate_ = from.provision_certificate_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -68071,8 +68109,8 @@ void BrowserPublicKeyUploadRequest::InternalSwap(BrowserPublicKeyUploadRequest* 
       &other->signature_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(BrowserPublicKeyUploadRequest, key_type_)
-      + sizeof(BrowserPublicKeyUploadRequest::key_type_)
+      PROTOBUF_FIELD_OFFSET(BrowserPublicKeyUploadRequest, provision_certificate_)
+      + sizeof(BrowserPublicKeyUploadRequest::provision_certificate_)
       - PROTOBUF_FIELD_OFFSET(BrowserPublicKeyUploadRequest, key_trust_level_)>(
           reinterpret_cast<char*>(&key_trust_level_),
           reinterpret_cast<char*>(&other->key_trust_level_));
@@ -68089,6 +68127,9 @@ class BrowserPublicKeyUploadResponse::_Internal {
  public:
   using HasBits = decltype(std::declval<BrowserPublicKeyUploadResponse>()._has_bits_);
   static void set_has_response_code(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_pem_encoded_certificate(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
@@ -68103,11 +68144,23 @@ BrowserPublicKeyUploadResponse::BrowserPublicKeyUploadResponse(const BrowserPubl
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  pem_encoded_certificate_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    pem_encoded_certificate_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_pem_encoded_certificate()) {
+    pem_encoded_certificate_.Set(from._internal_pem_encoded_certificate(), 
+      GetArenaForAllocation());
+  }
   response_code_ = from.response_code_;
   // @@protoc_insertion_point(copy_constructor:enterprise_management.BrowserPublicKeyUploadResponse)
 }
 
 inline void BrowserPublicKeyUploadResponse::SharedCtor() {
+pem_encoded_certificate_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  pem_encoded_certificate_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 response_code_ = 0;
 }
 
@@ -68122,6 +68175,7 @@ BrowserPublicKeyUploadResponse::~BrowserPublicKeyUploadResponse() {
 
 inline void BrowserPublicKeyUploadResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  pem_encoded_certificate_.Destroy();
 }
 
 void BrowserPublicKeyUploadResponse::SetCachedSize(int size) const {
@@ -68134,6 +68188,10 @@ void BrowserPublicKeyUploadResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    pem_encoded_certificate_.ClearNonDefaultToEmpty();
+  }
   response_code_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -68156,6 +68214,15 @@ const char* BrowserPublicKeyUploadResponse::_InternalParse(const char* ptr, ::_p
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string pem_encoded_certificate = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_pem_encoded_certificate();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -68191,10 +68258,16 @@ uint8_t* BrowserPublicKeyUploadResponse::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional .enterprise_management.BrowserPublicKeyUploadResponse.ResponseCode response_code = 1;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_response_code(), target);
+  }
+
+  // optional string pem_encoded_certificate = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_pem_encoded_certificate(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -68213,13 +68286,22 @@ size_t BrowserPublicKeyUploadResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .enterprise_management.BrowserPublicKeyUploadResponse.ResponseCode response_code = 1;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_response_code());
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional string pem_encoded_certificate = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_pem_encoded_certificate());
+    }
 
+    // optional .enterprise_management.BrowserPublicKeyUploadResponse.ResponseCode response_code = 1;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_response_code());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -68240,8 +68322,15 @@ void BrowserPublicKeyUploadResponse::MergeFrom(const BrowserPublicKeyUploadRespo
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_response_code()) {
-    _internal_set_response_code(from._internal_response_code());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_pem_encoded_certificate(from._internal_pem_encoded_certificate());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      response_code_ = from.response_code_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -68259,8 +68348,14 @@ bool BrowserPublicKeyUploadResponse::IsInitialized() const {
 
 void BrowserPublicKeyUploadResponse::InternalSwap(BrowserPublicKeyUploadResponse* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &pem_encoded_certificate_, lhs_arena,
+      &other->pem_encoded_certificate_, rhs_arena
+  );
   swap(response_code_, other->response_code_);
 }
 

@@ -888,11 +888,13 @@ DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_INITIAL_SERVER_FORCED = 13,
 DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_ATTESTATION_INITIAL_SERVER_FORCED = 14,
 DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_ATTESTATION_INITIAL_MANUAL_FALLBACK = 15,
 DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_FORCED = 16,
-DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_MANUAL_FALLBACK = 17
+DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_MANUAL_FALLBACK = 17,
+DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_TOKEN_INITIAL_SERVER_FORCED = 18,
+DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_TOKEN_INITIAL_MANUAL_FALLBACK = 19
 };
 POLICY_PROTO_EXPORT bool DeviceRegisterRequest_Flavor_IsValid(int value);
 constexpr DeviceRegisterRequest_Flavor DeviceRegisterRequest_Flavor_Flavor_MIN = DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_MANUAL;
-constexpr DeviceRegisterRequest_Flavor DeviceRegisterRequest_Flavor_Flavor_MAX = DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_MANUAL_FALLBACK;
+constexpr DeviceRegisterRequest_Flavor DeviceRegisterRequest_Flavor_Flavor_MAX = DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_TOKEN_INITIAL_MANUAL_FALLBACK;
 constexpr int DeviceRegisterRequest_Flavor_Flavor_ARRAYSIZE = DeviceRegisterRequest_Flavor_Flavor_MAX + 1;
 
 const std::string& DeviceRegisterRequest_Flavor_Name(DeviceRegisterRequest_Flavor value);
@@ -3682,6 +3684,10 @@ static constexpr Flavor FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_FORCED =
 DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_FORCED;
 static constexpr Flavor FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_MANUAL_FALLBACK =
 DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_ATTESTATION_ROLLBACK_MANUAL_FALLBACK;
+static constexpr Flavor FLAVOR_ENROLLMENT_TOKEN_INITIAL_SERVER_FORCED =
+DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_TOKEN_INITIAL_SERVER_FORCED;
+static constexpr Flavor FLAVOR_ENROLLMENT_TOKEN_INITIAL_MANUAL_FALLBACK =
+DeviceRegisterRequest_Flavor_FLAVOR_ENROLLMENT_TOKEN_INITIAL_MANUAL_FALLBACK;
 static inline bool Flavor_IsValid(int value) {
 return DeviceRegisterRequest_Flavor_IsValid(value);
 }
@@ -41963,6 +41969,7 @@ kPublicKeyFieldNumber = 1,
 kSignatureFieldNumber = 2,
 kKeyTrustLevelFieldNumber = 3,
 kKeyTypeFieldNumber = 4,
+kProvisionCertificateFieldNumber = 5,
 };
 // optional bytes public_key = 1;
 bool has_public_key() const;
@@ -42026,6 +42033,19 @@ private:
 void _internal_set_key_type(::enterprise_management::BrowserPublicKeyUploadRequest_KeyType value);
 public:
 
+// optional bool provision_certificate = 5;
+bool has_provision_certificate() const;
+private:
+bool _internal_has_provision_certificate() const;
+public:
+void clear_provision_certificate();
+bool provision_certificate() const;
+void set_provision_certificate(bool value);
+private:
+bool _internal_provision_certificate() const;
+void _internal_set_provision_certificate(bool value);
+public:
+
 // @@protoc_insertion_point(class_scope:enterprise_management.BrowserPublicKeyUploadRequest)
 private:
 class _Internal;
@@ -42039,6 +42059,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr signature_;
 int key_trust_level_;
 int key_type_;
+bool provision_certificate_;
 friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
 // -------------------------------------------------------------------
@@ -42181,8 +42202,27 @@ return BrowserPublicKeyUploadResponse_ResponseCode_Parse(name, value);
 // accessors -------------------------------------------------------
 
 enum : int {
+kPemEncodedCertificateFieldNumber = 2,
 kResponseCodeFieldNumber = 1,
 };
+// optional string pem_encoded_certificate = 2;
+bool has_pem_encoded_certificate() const;
+private:
+bool _internal_has_pem_encoded_certificate() const;
+public:
+void clear_pem_encoded_certificate();
+const std::string& pem_encoded_certificate() const;
+template <typename ArgT0 = const std::string&, typename... ArgT>
+void set_pem_encoded_certificate(ArgT0&& arg0, ArgT... args);
+std::string* mutable_pem_encoded_certificate();
+PROTOBUF_NODISCARD std::string* release_pem_encoded_certificate();
+void set_allocated_pem_encoded_certificate(std::string* pem_encoded_certificate);
+private:
+const std::string& _internal_pem_encoded_certificate() const;
+inline PROTOBUF_ALWAYS_INLINE void _internal_set_pem_encoded_certificate(const std::string& value);
+std::string* _internal_mutable_pem_encoded_certificate();
+public:
+
 // optional .enterprise_management.BrowserPublicKeyUploadResponse.ResponseCode response_code = 1;
 bool has_response_code() const;
 private:
@@ -42205,6 +42245,7 @@ typedef void InternalArenaConstructable_;
 typedef void DestructorSkippable_;
 ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
 mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pem_encoded_certificate_;
 int response_code_;
 friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
@@ -81674,13 +81715,41 @@ _internal_set_key_type(value);
 // @@protoc_insertion_point(field_set:enterprise_management.BrowserPublicKeyUploadRequest.key_type)
 }
 
+// optional bool provision_certificate = 5;
+inline bool BrowserPublicKeyUploadRequest::_internal_has_provision_certificate() const {
+bool value = (_has_bits_[0] & 0x00000010u) != 0;
+return value;
+}
+inline bool BrowserPublicKeyUploadRequest::has_provision_certificate() const {
+return _internal_has_provision_certificate();
+}
+inline void BrowserPublicKeyUploadRequest::clear_provision_certificate() {
+provision_certificate_ = false;
+_has_bits_[0] &= ~0x00000010u;
+}
+inline bool BrowserPublicKeyUploadRequest::_internal_provision_certificate() const {
+return provision_certificate_;
+}
+inline bool BrowserPublicKeyUploadRequest::provision_certificate() const {
+// @@protoc_insertion_point(field_get:enterprise_management.BrowserPublicKeyUploadRequest.provision_certificate)
+return _internal_provision_certificate();
+}
+inline void BrowserPublicKeyUploadRequest::_internal_set_provision_certificate(bool value) {
+_has_bits_[0] |= 0x00000010u;
+provision_certificate_ = value;
+}
+inline void BrowserPublicKeyUploadRequest::set_provision_certificate(bool value) {
+_internal_set_provision_certificate(value);
+// @@protoc_insertion_point(field_set:enterprise_management.BrowserPublicKeyUploadRequest.provision_certificate)
+}
+
 // -------------------------------------------------------------------
 
 // BrowserPublicKeyUploadResponse
 
 // optional .enterprise_management.BrowserPublicKeyUploadResponse.ResponseCode response_code = 1;
 inline bool BrowserPublicKeyUploadResponse::_internal_has_response_code() const {
-bool value = (_has_bits_[0] & 0x00000001u) != 0;
+bool value = (_has_bits_[0] & 0x00000002u) != 0;
 return value;
 }
 inline bool BrowserPublicKeyUploadResponse::has_response_code() const {
@@ -81688,7 +81757,7 @@ return _internal_has_response_code();
 }
 inline void BrowserPublicKeyUploadResponse::clear_response_code() {
 response_code_ = 0;
-_has_bits_[0] &= ~0x00000001u;
+_has_bits_[0] &= ~0x00000002u;
 }
 inline ::enterprise_management::BrowserPublicKeyUploadResponse_ResponseCode BrowserPublicKeyUploadResponse::_internal_response_code() const {
 return static_cast< ::enterprise_management::BrowserPublicKeyUploadResponse_ResponseCode >(response_code_);
@@ -81699,12 +81768,80 @@ return _internal_response_code();
 }
 inline void BrowserPublicKeyUploadResponse::_internal_set_response_code(::enterprise_management::BrowserPublicKeyUploadResponse_ResponseCode value) {
 assert(::enterprise_management::BrowserPublicKeyUploadResponse_ResponseCode_IsValid(value));
-_has_bits_[0] |= 0x00000001u;
+_has_bits_[0] |= 0x00000002u;
 response_code_ = value;
 }
 inline void BrowserPublicKeyUploadResponse::set_response_code(::enterprise_management::BrowserPublicKeyUploadResponse_ResponseCode value) {
 _internal_set_response_code(value);
 // @@protoc_insertion_point(field_set:enterprise_management.BrowserPublicKeyUploadResponse.response_code)
+}
+
+// optional string pem_encoded_certificate = 2;
+inline bool BrowserPublicKeyUploadResponse::_internal_has_pem_encoded_certificate() const {
+bool value = (_has_bits_[0] & 0x00000001u) != 0;
+return value;
+}
+inline bool BrowserPublicKeyUploadResponse::has_pem_encoded_certificate() const {
+return _internal_has_pem_encoded_certificate();
+}
+inline void BrowserPublicKeyUploadResponse::clear_pem_encoded_certificate() {
+pem_encoded_certificate_.ClearToEmpty();
+_has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& BrowserPublicKeyUploadResponse::pem_encoded_certificate() const {
+// @@protoc_insertion_point(field_get:enterprise_management.BrowserPublicKeyUploadResponse.pem_encoded_certificate)
+return _internal_pem_encoded_certificate();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void BrowserPublicKeyUploadResponse::set_pem_encoded_certificate(ArgT0&& arg0, ArgT... args) {
+_has_bits_[0] |= 0x00000001u;
+pem_encoded_certificate_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+// @@protoc_insertion_point(field_set:enterprise_management.BrowserPublicKeyUploadResponse.pem_encoded_certificate)
+}
+inline std::string* BrowserPublicKeyUploadResponse::mutable_pem_encoded_certificate() {
+std::string* _s = _internal_mutable_pem_encoded_certificate();
+// @@protoc_insertion_point(field_mutable:enterprise_management.BrowserPublicKeyUploadResponse.pem_encoded_certificate)
+return _s;
+}
+inline const std::string& BrowserPublicKeyUploadResponse::_internal_pem_encoded_certificate() const {
+return pem_encoded_certificate_.Get();
+}
+inline void BrowserPublicKeyUploadResponse::_internal_set_pem_encoded_certificate(const std::string& value) {
+_has_bits_[0] |= 0x00000001u;
+pem_encoded_certificate_.Set(value, GetArenaForAllocation());
+}
+inline std::string* BrowserPublicKeyUploadResponse::_internal_mutable_pem_encoded_certificate() {
+_has_bits_[0] |= 0x00000001u;
+return pem_encoded_certificate_.Mutable(GetArenaForAllocation());
+}
+inline std::string* BrowserPublicKeyUploadResponse::release_pem_encoded_certificate() {
+// @@protoc_insertion_point(field_release:enterprise_management.BrowserPublicKeyUploadResponse.pem_encoded_certificate)
+if (!_internal_has_pem_encoded_certificate()) {
+return nullptr;
+}
+_has_bits_[0] &= ~0x00000001u;
+auto* p = pem_encoded_certificate_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (pem_encoded_certificate_.IsDefault()) {
+pem_encoded_certificate_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+return p;
+}
+inline void BrowserPublicKeyUploadResponse::set_allocated_pem_encoded_certificate(std::string* pem_encoded_certificate) {
+if (pem_encoded_certificate != nullptr) {
+_has_bits_[0] |= 0x00000001u;
+} else {
+_has_bits_[0] &= ~0x00000001u;
+}
+pem_encoded_certificate_.SetAllocated(pem_encoded_certificate, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (pem_encoded_certificate_.IsDefault()) {
+pem_encoded_certificate_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.BrowserPublicKeyUploadResponse.pem_encoded_certificate)
 }
 
 // -------------------------------------------------------------------
