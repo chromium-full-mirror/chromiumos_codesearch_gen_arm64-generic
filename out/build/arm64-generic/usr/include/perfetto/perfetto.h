@@ -32628,6 +32628,7 @@ namespace gen {
 class ProtoLogGroup;
 class ProtoLogConfig;
 enum ProtoLogLevel : int;
+enum ProtoLogConfig_TracingMode : int;
 }  // namespace perfetto
 }  // namespace protos
 }  // namespace gen
@@ -32639,6 +32640,10 @@ class Message;
 namespace perfetto {
 namespace protos {
 namespace gen {
+enum ProtoLogConfig_TracingMode : int {
+  ProtoLogConfig_TracingMode_DEFAULT = 0,
+  ProtoLogConfig_TracingMode_ENABLE_ALL = 1,
+};
 
 class PERFETTO_EXPORT_COMPONENT ProtoLogGroup : public ::protozero::CppMessageObj {
  public:
@@ -32683,8 +32688,14 @@ class PERFETTO_EXPORT_COMPONENT ProtoLogGroup : public ::protozero::CppMessageOb
 
 class PERFETTO_EXPORT_COMPONENT ProtoLogConfig : public ::protozero::CppMessageObj {
  public:
+  using TracingMode = ProtoLogConfig_TracingMode;
+  static constexpr auto DEFAULT = ProtoLogConfig_TracingMode_DEFAULT;
+  static constexpr auto ENABLE_ALL = ProtoLogConfig_TracingMode_ENABLE_ALL;
+  static constexpr auto TracingMode_MIN = ProtoLogConfig_TracingMode_DEFAULT;
+  static constexpr auto TracingMode_MAX = ProtoLogConfig_TracingMode_ENABLE_ALL;
   enum FieldNumbers {
     kGroupOverridesFieldNumber = 1,
+    kTracingModeFieldNumber = 2,
   };
 
   ProtoLogConfig();
@@ -32707,14 +32718,19 @@ class PERFETTO_EXPORT_COMPONENT ProtoLogConfig : public ::protozero::CppMessageO
   void clear_group_overrides();
   ProtoLogGroup* add_group_overrides();
 
+  bool has_tracing_mode() const { return _has_field_[2]; }
+  ProtoLogConfig_TracingMode tracing_mode() const { return tracing_mode_; }
+  void set_tracing_mode(ProtoLogConfig_TracingMode value) { tracing_mode_ = value; _has_field_.set(2); }
+
  private:
   std::vector<ProtoLogGroup> group_overrides_;
+  ProtoLogConfig_TracingMode tracing_mode_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<2> _has_field_{};
+  std::bitset<3> _has_field_{};
 };
 
 }  // namespace perfetto
@@ -37887,7 +37903,36 @@ namespace protos {
 namespace pbzero {
 
 class ProtoLogGroup;
+namespace perfetto_pbzero_enum_ProtoLogConfig {
+enum TracingMode : int32_t;
+}  // namespace perfetto_pbzero_enum_ProtoLogConfig
+using ProtoLogConfig_TracingMode = perfetto_pbzero_enum_ProtoLogConfig::TracingMode;
 enum ProtoLogLevel : int32_t;
+
+namespace perfetto_pbzero_enum_ProtoLogConfig {
+enum TracingMode : int32_t {
+  DEFAULT = 0,
+  ENABLE_ALL = 1,
+};
+} // namespace perfetto_pbzero_enum_ProtoLogConfig
+using ProtoLogConfig_TracingMode = perfetto_pbzero_enum_ProtoLogConfig::TracingMode;
+
+
+constexpr ProtoLogConfig_TracingMode ProtoLogConfig_TracingMode_MIN = ProtoLogConfig_TracingMode::DEFAULT;
+constexpr ProtoLogConfig_TracingMode ProtoLogConfig_TracingMode_MAX = ProtoLogConfig_TracingMode::ENABLE_ALL;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* ProtoLogConfig_TracingMode_Name(::perfetto::protos::pbzero::ProtoLogConfig_TracingMode value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::ProtoLogConfig_TracingMode::DEFAULT:
+    return "DEFAULT";
+
+  case ::perfetto::protos::pbzero::ProtoLogConfig_TracingMode::ENABLE_ALL:
+    return "ENABLE_ALL";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
 
 class ProtoLogGroup_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
@@ -37953,13 +37998,15 @@ class ProtoLogGroup : public ::protozero::Message {
   }
 };
 
-class ProtoLogConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class ProtoLogConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   ProtoLogConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ProtoLogConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit ProtoLogConfig_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_group_overrides() const { return at<1>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> group_overrides() const { return GetRepeated<::protozero::ConstBytes>(1); }
+  bool has_tracing_mode() const { return at<2>().valid(); }
+  int32_t tracing_mode() const { return at<2>().as_int32(); }
 };
 
 class ProtoLogConfig : public ::protozero::Message {
@@ -37967,9 +38014,17 @@ class ProtoLogConfig : public ::protozero::Message {
   using Decoder = ProtoLogConfig_Decoder;
   enum : int32_t {
     kGroupOverridesFieldNumber = 1,
+    kTracingModeFieldNumber = 2,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ProtoLogConfig"; }
 
+
+  using TracingMode = ::perfetto::protos::pbzero::ProtoLogConfig_TracingMode;
+  static inline const char* TracingMode_Name(TracingMode value) {
+    return ::perfetto::protos::pbzero::ProtoLogConfig_TracingMode_Name(value);
+  }
+  static inline const TracingMode DEFAULT = TracingMode::DEFAULT;
+  static inline const TracingMode ENABLE_ALL = TracingMode::ENABLE_ALL;
 
   using FieldMetadata_GroupOverrides =
     ::protozero::proto_utils::FieldMetadata<
@@ -37984,6 +38039,24 @@ class ProtoLogConfig : public ::protozero::Message {
     return BeginNestedMessage<T>(1);
   }
 
+
+  using FieldMetadata_TracingMode =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::ProtoLogConfig_TracingMode,
+      ProtoLogConfig>;
+
+  static constexpr FieldMetadata_TracingMode kTracingMode{};
+  void set_tracing_mode(::perfetto::protos::pbzero::ProtoLogConfig_TracingMode value) {
+    static constexpr uint32_t field_id = FieldMetadata_TracingMode::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
 };
 
 } // Namespace.
@@ -48554,9 +48627,9 @@ class TestConfig_DummyFields_Decoder : public ::protozero::TypedProtoDecoder</*M
   bool has_field_float() const { return at<10>().valid(); }
   float field_float() const { return at<10>().as_float(); }
   bool has_field_sint64() const { return at<11>().valid(); }
-  int64_t field_sint64() const { return at<11>().as_int64(); }
+  int64_t field_sint64() const { return at<11>().as_sint64(); }
   bool has_field_sint32() const { return at<12>().valid(); }
-  int32_t field_sint32() const { return at<12>().as_int32(); }
+  int32_t field_sint32() const { return at<12>().as_sint32(); }
   bool has_field_string() const { return at<13>().valid(); }
   ::protozero::ConstChars field_string() const { return at<13>().as_string(); }
   bool has_field_bytes() const { return at<14>().valid(); }
@@ -52712,7 +52785,7 @@ class AndroidKeyEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIEL
   bool has_device_id() const { return at<6>().valid(); }
   int32_t device_id() const { return at<6>().as_int32(); }
   bool has_display_id() const { return at<7>().valid(); }
-  int32_t display_id() const { return at<7>().as_int32(); }
+  int32_t display_id() const { return at<7>().as_sint32(); }
   bool has_key_code() const { return at<8>().valid(); }
   int32_t key_code() const { return at<8>().as_int32(); }
   bool has_scan_code() const { return at<9>().valid(); }
@@ -52999,7 +53072,7 @@ class AndroidMotionEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_F
   bool has_device_id() const { return at<5>().valid(); }
   int32_t device_id() const { return at<5>().as_int32(); }
   bool has_display_id() const { return at<6>().valid(); }
-  int32_t display_id() const { return at<6>().as_int32(); }
+  int32_t display_id() const { return at<6>().as_sint32(); }
   bool has_classification() const { return at<7>().valid(); }
   int32_t classification() const { return at<7>().as_int32(); }
   bool has_flags() const { return at<8>().valid(); }
@@ -69611,7 +69684,7 @@ class ReadyThreadEtwEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_
   bool has_adjust_reason() const { return at<2>().valid(); }
   int32_t adjust_reason() const { return at<2>().as_int32(); }
   bool has_adjust_increment() const { return at<3>().valid(); }
-  int32_t adjust_increment() const { return at<3>().as_int32(); }
+  int32_t adjust_increment() const { return at<3>().as_sint32(); }
   bool has_flag() const { return at<4>().valid(); }
   int32_t flag() const { return at<4>().as_int32(); }
 };
@@ -69728,9 +69801,9 @@ class CSwitchEtwEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIEL
   bool has_old_thread_id() const { return at<2>().valid(); }
   uint32_t old_thread_id() const { return at<2>().as_uint32(); }
   bool has_new_thread_priority() const { return at<3>().valid(); }
-  int32_t new_thread_priority() const { return at<3>().as_int32(); }
+  int32_t new_thread_priority() const { return at<3>().as_sint32(); }
   bool has_old_thread_priority() const { return at<4>().valid(); }
-  int32_t old_thread_priority() const { return at<4>().as_int32(); }
+  int32_t old_thread_priority() const { return at<4>().as_sint32(); }
   bool has_previous_c_state() const { return at<5>().valid(); }
   uint32_t previous_c_state() const { return at<5>().as_uint32(); }
   bool has_old_thread_wait_reason() const { return at<6>().valid(); }
@@ -69740,7 +69813,7 @@ class CSwitchEtwEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIEL
   bool has_old_thread_state() const { return at<8>().valid(); }
   int32_t old_thread_state() const { return at<8>().as_int32(); }
   bool has_old_thread_wait_ideal_processor() const { return at<9>().valid(); }
-  int32_t old_thread_wait_ideal_processor() const { return at<9>().as_int32(); }
+  int32_t old_thread_wait_ideal_processor() const { return at<9>().as_sint32(); }
   bool has_new_thread_wait_time() const { return at<10>().valid(); }
   uint32_t new_thread_wait_time() const { return at<10>().as_uint32(); }
 };
@@ -158170,6 +158243,7 @@ class PERFETTO_EXPORT_COMPONENT CloneSessionRequest : public ::protozero::CppMes
   enum FieldNumbers {
     kSessionIdFieldNumber = 1,
     kSkipTraceFilterFieldNumber = 2,
+    kForBugreportFieldNumber = 3,
   };
 
   CloneSessionRequest();
@@ -158194,15 +158268,20 @@ class PERFETTO_EXPORT_COMPONENT CloneSessionRequest : public ::protozero::CppMes
   bool skip_trace_filter() const { return skip_trace_filter_; }
   void set_skip_trace_filter(bool value) { skip_trace_filter_ = value; _has_field_.set(2); }
 
+  bool has_for_bugreport() const { return _has_field_[3]; }
+  bool for_bugreport() const { return for_bugreport_; }
+  void set_for_bugreport(bool value) { for_bugreport_ = value; _has_field_.set(3); }
+
  private:
   uint64_t session_id_{};
   bool skip_trace_filter_{};
+  bool for_bugreport_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<3> _has_field_{};
+  std::bitset<4> _has_field_{};
 };
 
 
