@@ -32665,7 +32665,7 @@ enum ProtoLogConfig_TracingMode : int {
 class PERFETTO_EXPORT_COMPONENT ProtoLogGroup : public ::protozero::CppMessageObj {
  public:
   enum FieldNumbers {
-    kTagFieldNumber = 1,
+    kGroupNameFieldNumber = 1,
     kLogFromFieldNumber = 2,
     kCollectStacktraceFieldNumber = 3,
   };
@@ -32684,9 +32684,9 @@ class PERFETTO_EXPORT_COMPONENT ProtoLogGroup : public ::protozero::CppMessageOb
   std::vector<uint8_t> SerializeAsArray() const override;
   void Serialize(::protozero::Message*) const;
 
-  bool has_tag() const { return _has_field_[1]; }
-  const std::string& tag() const { return tag_; }
-  void set_tag(const std::string& value) { tag_ = value; _has_field_.set(1); }
+  bool has_group_name() const { return _has_field_[1]; }
+  const std::string& group_name() const { return group_name_; }
+  void set_group_name(const std::string& value) { group_name_ = value; _has_field_.set(1); }
 
   bool has_log_from() const { return _has_field_[2]; }
   ProtoLogLevel log_from() const { return log_from_; }
@@ -32697,7 +32697,7 @@ class PERFETTO_EXPORT_COMPONENT ProtoLogGroup : public ::protozero::CppMessageOb
   void set_collect_stacktrace(bool value) { collect_stacktrace_ = value; _has_field_.set(3); }
 
  private:
-  std::string tag_{};
+  std::string group_name_{};
   ProtoLogLevel log_from_{};
   bool collect_stacktrace_{};
 
@@ -37962,8 +37962,8 @@ class ProtoLogGroup_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_
   ProtoLogGroup_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ProtoLogGroup_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit ProtoLogGroup_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
-  bool has_tag() const { return at<1>().valid(); }
-  ::protozero::ConstChars tag() const { return at<1>().as_string(); }
+  bool has_group_name() const { return at<1>().valid(); }
+  ::protozero::ConstChars group_name() const { return at<1>().as_string(); }
   bool has_log_from() const { return at<2>().valid(); }
   int32_t log_from() const { return at<2>().as_int32(); }
   bool has_collect_stacktrace() const { return at<3>().valid(); }
@@ -37974,14 +37974,14 @@ class ProtoLogGroup : public ::protozero::Message {
  public:
   using Decoder = ProtoLogGroup_Decoder;
   enum : int32_t {
-    kTagFieldNumber = 1,
+    kGroupNameFieldNumber = 1,
     kLogFromFieldNumber = 2,
     kCollectStacktraceFieldNumber = 3,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ProtoLogGroup"; }
 
 
-  using FieldMetadata_Tag =
+  using FieldMetadata_GroupName =
     ::protozero::proto_utils::FieldMetadata<
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
@@ -37989,15 +37989,15 @@ class ProtoLogGroup : public ::protozero::Message {
       std::string,
       ProtoLogGroup>;
 
-  static constexpr FieldMetadata_Tag kTag{};
-  void set_tag(const char* data, size_t size) {
-    AppendBytes(FieldMetadata_Tag::kFieldId, data, size);
+  static constexpr FieldMetadata_GroupName kGroupName{};
+  void set_group_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_GroupName::kFieldId, data, size);
   }
-  void set_tag(::protozero::ConstChars chars) {
-    AppendBytes(FieldMetadata_Tag::kFieldId, chars.data, chars.size);
+  void set_group_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_GroupName::kFieldId, chars.data, chars.size);
   }
-  void set_tag(std::string value) {
-    static constexpr uint32_t field_id = FieldMetadata_Tag::kFieldId;
+  void set_group_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_GroupName::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
