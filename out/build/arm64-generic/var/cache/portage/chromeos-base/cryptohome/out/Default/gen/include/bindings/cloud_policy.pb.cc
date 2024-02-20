@@ -132,7 +132,11 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , /*decltype(_impl_.alloweddomainsforappslist_)*/nullptr
   , /*decltype(_impl_.googlelocationservicesenabled_)*/nullptr
   , /*decltype(_impl_.localuserfilesallowed_)*/nullptr
-  , /*decltype(_impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_)*/nullptr} {}
+  , /*decltype(_impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_)*/nullptr
+  , /*decltype(_impl_.defaultwebprintingsetting_)*/nullptr
+  , /*decltype(_impl_.webprintingallowedforurls_)*/nullptr
+  , /*decltype(_impl_.webprintingblockedforurls_)*/nullptr
+  , /*decltype(_impl_.documentscanapitrustedextensions_)*/nullptr} {}
 struct CloudPolicySubProto1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR CloudPolicySubProto1DefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CloudPolicySubProto1DefaultTypeInternal() {}
@@ -730,6 +734,10 @@ class CloudPolicySubProto1::_Internal {
   static void set_has_defaultthirdpartystoragepartitioningsetting(HasBits* has_bits) {
     (*has_bits)[0] |= 536870912u;
   }
+  static const ::enterprise_management::IntegerPolicyProto& defaultwebprintingsetting(const CloudPolicySubProto1* msg);
+  static void set_has_defaultwebprintingsetting(HasBits* has_bits) {
+    (*has_bits)[3] |= 65536u;
+  }
   static const ::enterprise_management::IntegerPolicyProto& defaultwindowmanagementsetting(const CloudPolicySubProto1* msg);
   static void set_has_defaultwindowmanagementsetting(HasBits* has_bits) {
     (*has_bits)[0] |= 32768u;
@@ -737,6 +745,14 @@ class CloudPolicySubProto1::_Internal {
   static const ::enterprise_management::StringListPolicyProto& thirdpartystoragepartitioningblockedfororigins(const CloudPolicySubProto1* msg);
   static void set_has_thirdpartystoragepartitioningblockedfororigins(HasBits* has_bits) {
     (*has_bits)[0] |= 1073741824u;
+  }
+  static const ::enterprise_management::StringListPolicyProto& webprintingallowedforurls(const CloudPolicySubProto1* msg);
+  static void set_has_webprintingallowedforurls(HasBits* has_bits) {
+    (*has_bits)[3] |= 131072u;
+  }
+  static const ::enterprise_management::StringListPolicyProto& webprintingblockedforurls(const CloudPolicySubProto1* msg);
+  static void set_has_webprintingblockedforurls(HasBits* has_bits) {
+    (*has_bits)[3] |= 262144u;
   }
   static const ::enterprise_management::StringListPolicyProto& windowmanagementallowedforurls(const CloudPolicySubProto1* msg);
   static void set_has_windowmanagementallowedforurls(HasBits* has_bits) {
@@ -845,6 +861,10 @@ class CloudPolicySubProto1::_Internal {
   static const ::enterprise_management::IntegerPolicyProto& deletekeymodifier(const CloudPolicySubProto1* msg);
   static void set_has_deletekeymodifier(HasBits* has_bits) {
     (*has_bits)[3] |= 128u;
+  }
+  static const ::enterprise_management::StringListPolicyProto& documentscanapitrustedextensions(const CloudPolicySubProto1* msg);
+  static void set_has_documentscanapitrustedextensions(HasBits* has_bits) {
+    (*has_bits)[3] |= 524288u;
   }
   static const ::enterprise_management::BooleanPolicyProto& domainreliabilityallowed(const CloudPolicySubProto1* msg);
   static void set_has_domainreliabilityallowed(HasBits* has_bits) {
@@ -1181,12 +1201,24 @@ CloudPolicySubProto1::_Internal::defaultthirdpartystoragepartitioningsetting(con
   return *msg->_impl_.defaultthirdpartystoragepartitioningsetting_;
 }
 const ::enterprise_management::IntegerPolicyProto&
+CloudPolicySubProto1::_Internal::defaultwebprintingsetting(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.defaultwebprintingsetting_;
+}
+const ::enterprise_management::IntegerPolicyProto&
 CloudPolicySubProto1::_Internal::defaultwindowmanagementsetting(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.defaultwindowmanagementsetting_;
 }
 const ::enterprise_management::StringListPolicyProto&
 CloudPolicySubProto1::_Internal::thirdpartystoragepartitioningblockedfororigins(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.thirdpartystoragepartitioningblockedfororigins_;
+}
+const ::enterprise_management::StringListPolicyProto&
+CloudPolicySubProto1::_Internal::webprintingallowedforurls(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.webprintingallowedforurls_;
+}
+const ::enterprise_management::StringListPolicyProto&
+CloudPolicySubProto1::_Internal::webprintingblockedforurls(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.webprintingblockedforurls_;
 }
 const ::enterprise_management::StringListPolicyProto&
 CloudPolicySubProto1::_Internal::windowmanagementallowedforurls(const CloudPolicySubProto1* msg) {
@@ -1295,6 +1327,10 @@ CloudPolicySubProto1::_Internal::datacontrolsrules(const CloudPolicySubProto1* m
 const ::enterprise_management::IntegerPolicyProto&
 CloudPolicySubProto1::_Internal::deletekeymodifier(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.deletekeymodifier_;
+}
+const ::enterprise_management::StringListPolicyProto&
+CloudPolicySubProto1::_Internal::documentscanapitrustedextensions(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.documentscanapitrustedextensions_;
 }
 const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::domainreliabilityallowed(const CloudPolicySubProto1* msg) {
@@ -1628,6 +1664,10 @@ void CloudPolicySubProto1::clear_defaultthirdpartystoragepartitioningsetting() {
   if (_impl_.defaultthirdpartystoragepartitioningsetting_ != nullptr) _impl_.defaultthirdpartystoragepartitioningsetting_->Clear();
   _impl_._has_bits_[0] &= ~0x20000000u;
 }
+void CloudPolicySubProto1::clear_defaultwebprintingsetting() {
+  if (_impl_.defaultwebprintingsetting_ != nullptr) _impl_.defaultwebprintingsetting_->Clear();
+  _impl_._has_bits_[3] &= ~0x00010000u;
+}
 void CloudPolicySubProto1::clear_defaultwindowmanagementsetting() {
   if (_impl_.defaultwindowmanagementsetting_ != nullptr) _impl_.defaultwindowmanagementsetting_->Clear();
   _impl_._has_bits_[0] &= ~0x00008000u;
@@ -1635,6 +1675,14 @@ void CloudPolicySubProto1::clear_defaultwindowmanagementsetting() {
 void CloudPolicySubProto1::clear_thirdpartystoragepartitioningblockedfororigins() {
   if (_impl_.thirdpartystoragepartitioningblockedfororigins_ != nullptr) _impl_.thirdpartystoragepartitioningblockedfororigins_->Clear();
   _impl_._has_bits_[0] &= ~0x40000000u;
+}
+void CloudPolicySubProto1::clear_webprintingallowedforurls() {
+  if (_impl_.webprintingallowedforurls_ != nullptr) _impl_.webprintingallowedforurls_->Clear();
+  _impl_._has_bits_[3] &= ~0x00020000u;
+}
+void CloudPolicySubProto1::clear_webprintingblockedforurls() {
+  if (_impl_.webprintingblockedforurls_ != nullptr) _impl_.webprintingblockedforurls_->Clear();
+  _impl_._has_bits_[3] &= ~0x00040000u;
 }
 void CloudPolicySubProto1::clear_windowmanagementallowedforurls() {
   if (_impl_.windowmanagementallowedforurls_ != nullptr) _impl_.windowmanagementallowedforurls_->Clear();
@@ -1743,6 +1791,10 @@ void CloudPolicySubProto1::clear_datacontrolsrules() {
 void CloudPolicySubProto1::clear_deletekeymodifier() {
   if (_impl_.deletekeymodifier_ != nullptr) _impl_.deletekeymodifier_->Clear();
   _impl_._has_bits_[3] &= ~0x00000080u;
+}
+void CloudPolicySubProto1::clear_documentscanapitrustedextensions() {
+  if (_impl_.documentscanapitrustedextensions_ != nullptr) _impl_.documentscanapitrustedextensions_->Clear();
+  _impl_._has_bits_[3] &= ~0x00080000u;
 }
 void CloudPolicySubProto1::clear_domainreliabilityallowed() {
   if (_impl_.domainreliabilityallowed_ != nullptr) _impl_.domainreliabilityallowed_->Clear();
@@ -2166,7 +2218,11 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
     , decltype(_impl_.alloweddomainsforappslist_){nullptr}
     , decltype(_impl_.googlelocationservicesenabled_){nullptr}
     , decltype(_impl_.localuserfilesallowed_){nullptr}
-    , decltype(_impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_){nullptr}};
+    , decltype(_impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_){nullptr}
+    , decltype(_impl_.defaultwebprintingsetting_){nullptr}
+    , decltype(_impl_.webprintingallowedforurls_){nullptr}
+    , decltype(_impl_.webprintingblockedforurls_){nullptr}
+    , decltype(_impl_.documentscanapitrustedextensions_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
@@ -2505,6 +2561,18 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
   if ((from._impl_._has_bits_[3] & 0x00008000u) != 0) {
     _this->_impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_ = new ::enterprise_management::StringListPolicyProto(*from._impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_);
   }
+  if ((from._impl_._has_bits_[3] & 0x00010000u) != 0) {
+    _this->_impl_.defaultwebprintingsetting_ = new ::enterprise_management::IntegerPolicyProto(*from._impl_.defaultwebprintingsetting_);
+  }
+  if ((from._impl_._has_bits_[3] & 0x00020000u) != 0) {
+    _this->_impl_.webprintingallowedforurls_ = new ::enterprise_management::StringListPolicyProto(*from._impl_.webprintingallowedforurls_);
+  }
+  if ((from._impl_._has_bits_[3] & 0x00040000u) != 0) {
+    _this->_impl_.webprintingblockedforurls_ = new ::enterprise_management::StringListPolicyProto(*from._impl_.webprintingblockedforurls_);
+  }
+  if ((from._impl_._has_bits_[3] & 0x00080000u) != 0) {
+    _this->_impl_.documentscanapitrustedextensions_ = new ::enterprise_management::StringListPolicyProto(*from._impl_.documentscanapitrustedextensions_);
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CloudPolicySubProto1)
 }
 
@@ -2625,6 +2693,10 @@ inline void CloudPolicySubProto1::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.googlelocationservicesenabled_){nullptr}
     , decltype(_impl_.localuserfilesallowed_){nullptr}
     , decltype(_impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_){nullptr}
+    , decltype(_impl_.defaultwebprintingsetting_){nullptr}
+    , decltype(_impl_.webprintingallowedforurls_){nullptr}
+    , decltype(_impl_.webprintingblockedforurls_){nullptr}
+    , decltype(_impl_.documentscanapitrustedextensions_){nullptr}
   };
 }
 
@@ -2751,6 +2823,10 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.googlelocationservicesenabled_;
   if (this != internal_default_instance()) delete _impl_.localuserfilesallowed_;
   if (this != internal_default_instance()) delete _impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_;
+  if (this != internal_default_instance()) delete _impl_.defaultwebprintingsetting_;
+  if (this != internal_default_instance()) delete _impl_.webprintingallowedforurls_;
+  if (this != internal_default_instance()) delete _impl_.webprintingblockedforurls_;
+  if (this != internal_default_instance()) delete _impl_.documentscanapitrustedextensions_;
 }
 
 void CloudPolicySubProto1::SetCachedSize(int size) const {
@@ -3241,6 +3317,24 @@ void CloudPolicySubProto1::Clear() {
     if (cached_has_bits & 0x00008000u) {
       ABSL_DCHECK(_impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_ != nullptr);
       _impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_->Clear();
+    }
+  }
+  if (cached_has_bits & 0x000f0000u) {
+    if (cached_has_bits & 0x00010000u) {
+      ABSL_DCHECK(_impl_.defaultwebprintingsetting_ != nullptr);
+      _impl_.defaultwebprintingsetting_->Clear();
+    }
+    if (cached_has_bits & 0x00020000u) {
+      ABSL_DCHECK(_impl_.webprintingallowedforurls_ != nullptr);
+      _impl_.webprintingallowedforurls_->Clear();
+    }
+    if (cached_has_bits & 0x00040000u) {
+      ABSL_DCHECK(_impl_.webprintingblockedforurls_ != nullptr);
+      _impl_.webprintingblockedforurls_->Clear();
+    }
+    if (cached_has_bits & 0x00080000u) {
+      ABSL_DCHECK(_impl_.documentscanapitrustedextensions_ != nullptr);
+      _impl_.documentscanapitrustedextensions_->Clear();
     }
   }
   _impl_._has_bits_.Clear();
@@ -4261,6 +4355,42 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
           goto handle_unusual;
         }
         continue;
+      // optional .enterprise_management.IntegerPolicyProto DefaultWebPrintingSetting = 179;
+      case 179:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 154)) {
+          ptr = ctx->ParseMessage(_internal_mutable_defaultwebprintingsetting(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // optional .enterprise_management.StringListPolicyProto WebPrintingAllowedForUrls = 180;
+      case 180:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 162)) {
+          ptr = ctx->ParseMessage(_internal_mutable_webprintingallowedforurls(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // optional .enterprise_management.StringListPolicyProto WebPrintingBlockedForUrls = 181;
+      case 181:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 170)) {
+          ptr = ctx->ParseMessage(_internal_mutable_webprintingblockedforurls(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // optional .enterprise_management.StringListPolicyProto DocumentScanAPITrustedExtensions = 182;
+      case 182:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 178)) {
+          ptr = ctx->ParseMessage(_internal_mutable_documentscanapitrustedextensions(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5076,6 +5206,34 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(178, _Internal::subappsapisallowedwithoutgestureandauthorizationfororigins(this),
         _Internal::subappsapisallowedwithoutgestureandauthorizationfororigins(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.IntegerPolicyProto DefaultWebPrintingSetting = 179;
+  if (cached_has_bits & 0x00010000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(179, _Internal::defaultwebprintingsetting(this),
+        _Internal::defaultwebprintingsetting(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.StringListPolicyProto WebPrintingAllowedForUrls = 180;
+  if (cached_has_bits & 0x00020000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(180, _Internal::webprintingallowedforurls(this),
+        _Internal::webprintingallowedforurls(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.StringListPolicyProto WebPrintingBlockedForUrls = 181;
+  if (cached_has_bits & 0x00040000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(181, _Internal::webprintingblockedforurls(this),
+        _Internal::webprintingblockedforurls(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.StringListPolicyProto DocumentScanAPITrustedExtensions = 182;
+  if (cached_has_bits & 0x00080000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(182, _Internal::documentscanapitrustedextensions(this),
+        _Internal::documentscanapitrustedextensions(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5910,6 +6068,36 @@ failure:
     }
 
   }
+  if (cached_has_bits & 0x000f0000u) {
+    // optional .enterprise_management.IntegerPolicyProto DefaultWebPrintingSetting = 179;
+    if (cached_has_bits & 0x00010000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.defaultwebprintingsetting_);
+    }
+
+    // optional .enterprise_management.StringListPolicyProto WebPrintingAllowedForUrls = 180;
+    if (cached_has_bits & 0x00020000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.webprintingallowedforurls_);
+    }
+
+    // optional .enterprise_management.StringListPolicyProto WebPrintingBlockedForUrls = 181;
+    if (cached_has_bits & 0x00040000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.webprintingblockedforurls_);
+    }
+
+    // optional .enterprise_management.StringListPolicyProto DocumentScanAPITrustedExtensions = 182;
+    if (cached_has_bits & 0x00080000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.documentscanapitrustedextensions_);
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -6411,6 +6599,24 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
           from._internal_subappsapisallowedwithoutgestureandauthorizationfororigins());
     }
   }
+  if (cached_has_bits & 0x000f0000u) {
+    if (cached_has_bits & 0x00010000u) {
+      _this->_internal_mutable_defaultwebprintingsetting()->::enterprise_management::IntegerPolicyProto::MergeFrom(
+          from._internal_defaultwebprintingsetting());
+    }
+    if (cached_has_bits & 0x00020000u) {
+      _this->_internal_mutable_webprintingallowedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(
+          from._internal_webprintingallowedforurls());
+    }
+    if (cached_has_bits & 0x00040000u) {
+      _this->_internal_mutable_webprintingblockedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(
+          from._internal_webprintingblockedforurls());
+    }
+    if (cached_has_bits & 0x00080000u) {
+      _this->_internal_mutable_documentscanapitrustedextensions()->::enterprise_management::StringListPolicyProto::MergeFrom(
+          from._internal_documentscanapitrustedextensions());
+    }
+  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -6433,8 +6639,8 @@ void CloudPolicySubProto1::InternalSwap(CloudPolicySubProto1* other) {
   swap(_impl_._has_bits_[2], other->_impl_._has_bits_[2]);
   swap(_impl_._has_bits_[3], other->_impl_._has_bits_[3]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_)
-      + sizeof(CloudPolicySubProto1::_impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_)
+      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.documentscanapitrustedextensions_)
+      + sizeof(CloudPolicySubProto1::_impl_.documentscanapitrustedextensions_)
       - PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.newbaseurlinheritancebehaviorallowed_)>(
           reinterpret_cast<char*>(&_impl_.newbaseurlinheritancebehaviorallowed_),
           reinterpret_cast<char*>(&other->_impl_.newbaseurlinheritancebehaviorallowed_));

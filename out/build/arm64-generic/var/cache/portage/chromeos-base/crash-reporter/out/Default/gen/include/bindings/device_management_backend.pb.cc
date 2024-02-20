@@ -2747,6 +2747,10 @@ PROTOBUF_CONSTEXPR DeviceStateRetrievalRequest::DeviceStateRetrievalRequest(
   , /*decltype(_impl_.brand_code_)*/ {
     &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
   }
+
+  , /*decltype(_impl_.enrollment_token_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
 } {}
 struct DeviceStateRetrievalRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceStateRetrievalRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
@@ -8142,18 +8146,20 @@ bool DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_IsValid(int valu
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     default:
       return false;
   }
 }
 static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
-    DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_strings[4] = {};
+    DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_strings[5] = {};
 
 static const char DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_names[] = {
     "INITIAL_ENROLLMENT_MODE_DISABLED"
     "INITIAL_ENROLLMENT_MODE_ENROLLMENT_ENFORCED"
     "INITIAL_ENROLLMENT_MODE_NONE"
+    "INITIAL_ENROLLMENT_MODE_TOKEN_ENROLLMENT_ENFORCED"
     "INITIAL_ENROLLMENT_MODE_ZERO_TOUCH_ENFORCED"
 };
 
@@ -8162,25 +8168,27 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceInitialEnrollmen
         {{&DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_names[0], 32}, 3},
         {{&DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_names[32], 43}, 1},
         {{&DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_names[75], 28}, 0},
-        {{&DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_names[103], 43}, 2},
+        {{&DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_names[103], 49}, 4},
+        {{&DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_names[152], 43}, 2},
 };
 
 static const int DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_entries_by_number[] = {
     2,  // 0 -> INITIAL_ENROLLMENT_MODE_NONE
     1,  // 1 -> INITIAL_ENROLLMENT_MODE_ENROLLMENT_ENFORCED
-    3,  // 2 -> INITIAL_ENROLLMENT_MODE_ZERO_TOUCH_ENFORCED
+    4,  // 2 -> INITIAL_ENROLLMENT_MODE_ZERO_TOUCH_ENFORCED
     0,  // 3 -> INITIAL_ENROLLMENT_MODE_DISABLED
+    3,  // 4 -> INITIAL_ENROLLMENT_MODE_TOKEN_ENROLLMENT_ENFORCED
 };
 
 const std::string& DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_Name(DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode value) {
   static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_entries, DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_entries_by_number,
-          4, DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_strings);
+          5, DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_strings);
   (void)kDummy;
 
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_entries, DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_entries_by_number, 4,
+      DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_entries, DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_entries_by_number, 5,
       value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
                    : DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_strings[idx].get();
@@ -8189,7 +8197,7 @@ const std::string& DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_Na
 bool DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_Parse(absl::string_view name, DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_entries, 4, name, &int_value);
+      DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode_entries, 5, name, &int_value);
   if (success) {
     *value = static_cast<DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode>(int_value);
   }
@@ -8202,6 +8210,7 @@ constexpr DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode DeviceIniti
 constexpr DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode DeviceInitialEnrollmentStateResponse::INITIAL_ENROLLMENT_MODE_ENROLLMENT_ENFORCED;
 constexpr DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode DeviceInitialEnrollmentStateResponse::INITIAL_ENROLLMENT_MODE_ZERO_TOUCH_ENFORCED;
 constexpr DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode DeviceInitialEnrollmentStateResponse::INITIAL_ENROLLMENT_MODE_DISABLED;
+constexpr DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode DeviceInitialEnrollmentStateResponse::INITIAL_ENROLLMENT_MODE_TOKEN_ENROLLMENT_ENFORCED;
 constexpr DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode DeviceInitialEnrollmentStateResponse::InitialEnrollmentMode_MIN;
 constexpr DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode DeviceInitialEnrollmentStateResponse::InitialEnrollmentMode_MAX;
 constexpr int DeviceInitialEnrollmentStateResponse::InitialEnrollmentMode_ARRAYSIZE;
@@ -49353,6 +49362,9 @@ class DeviceStateRetrievalRequest::_Internal {
   static void set_has_brand_code(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
+  static void set_has_enrollment_token(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
 };
 
 DeviceStateRetrievalRequest::DeviceStateRetrievalRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
@@ -49371,6 +49383,8 @@ DeviceStateRetrievalRequest::DeviceStateRetrievalRequest(const DeviceStateRetrie
     , decltype(_impl_.serial_number_) {}
 
     , decltype(_impl_.brand_code_) {}
+
+    , decltype(_impl_.enrollment_token_) {}
   };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -49395,6 +49409,13 @@ DeviceStateRetrievalRequest::DeviceStateRetrievalRequest(const DeviceStateRetrie
   if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
     _this->_impl_.brand_code_.Set(from._internal_brand_code(), _this->GetArenaForAllocation());
   }
+  _impl_.enrollment_token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.enrollment_token_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
+    _this->_impl_.enrollment_token_.Set(from._internal_enrollment_token(), _this->GetArenaForAllocation());
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceStateRetrievalRequest)
 }
 
@@ -49409,6 +49430,8 @@ inline void DeviceStateRetrievalRequest::SharedCtor(::_pb::Arena* arena) {
 
     , decltype(_impl_.brand_code_) {}
 
+    , decltype(_impl_.enrollment_token_) {}
+
   };
   _impl_.server_backed_state_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -49421,6 +49444,10 @@ inline void DeviceStateRetrievalRequest::SharedCtor(::_pb::Arena* arena) {
   _impl_.brand_code_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
         _impl_.brand_code_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.enrollment_token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.enrollment_token_.Set("", GetArenaForAllocation());
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -49438,6 +49465,7 @@ inline void DeviceStateRetrievalRequest::SharedDtor() {
   _impl_.server_backed_state_key_.Destroy();
   _impl_.serial_number_.Destroy();
   _impl_.brand_code_.Destroy();
+  _impl_.enrollment_token_.Destroy();
 }
 
 void DeviceStateRetrievalRequest::SetCachedSize(int size) const {
@@ -49451,7 +49479,7 @@ void DeviceStateRetrievalRequest::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _impl_.server_backed_state_key_.ClearNonDefaultToEmpty();
     }
@@ -49460,6 +49488,9 @@ void DeviceStateRetrievalRequest::Clear() {
     }
     if (cached_has_bits & 0x00000004u) {
       _impl_.brand_code_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000008u) {
+      _impl_.enrollment_token_.ClearNonDefaultToEmpty();
     }
   }
   _impl_._has_bits_.Clear();
@@ -49497,6 +49528,16 @@ const char* DeviceStateRetrievalRequest::_InternalParse(const char* ptr, ::_pbi:
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_brand_code();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // optional string enrollment_token = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_enrollment_token();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else {
@@ -49552,6 +49593,12 @@ failure:
     target = stream->WriteStringMaybeAliased(3, _s, target);
   }
 
+  // optional string enrollment_token = 4;
+  if (cached_has_bits & 0x00000008u) {
+    const std::string& _s = this->_internal_enrollment_token();
+    target = stream->WriteStringMaybeAliased(4, _s, target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -49569,7 +49616,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional bytes server_backed_state_key = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
@@ -49586,6 +49633,12 @@ failure:
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
                                       this->_internal_brand_code());
+    }
+
+    // optional string enrollment_token = 4;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_enrollment_token());
     }
 
   }
@@ -49611,7 +49664,7 @@ void DeviceStateRetrievalRequest::MergeFrom(const DeviceStateRetrievalRequest& f
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_set_server_backed_state_key(from._internal_server_backed_state_key());
     }
@@ -49620,6 +49673,9 @@ void DeviceStateRetrievalRequest::MergeFrom(const DeviceStateRetrievalRequest& f
     }
     if (cached_has_bits & 0x00000004u) {
       _this->_internal_set_brand_code(from._internal_brand_code());
+    }
+    if (cached_has_bits & 0x00000008u) {
+      _this->_internal_set_enrollment_token(from._internal_enrollment_token());
     }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -49648,6 +49704,8 @@ void DeviceStateRetrievalRequest::InternalSwap(DeviceStateRetrievalRequest* othe
                                        &other->_impl_.serial_number_, rhs_arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.brand_code_, lhs_arena,
                                        &other->_impl_.brand_code_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.enrollment_token_, lhs_arena,
+                                       &other->_impl_.enrollment_token_, rhs_arena);
 }
 
 std::string DeviceStateRetrievalRequest::GetTypeName() const {

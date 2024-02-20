@@ -2635,19 +2635,62 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class EventForwarder_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class TouchDispositionGestureFilter_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  TouchDispositionGestureFilter_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit TouchDispositionGestureFilter_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit TouchDispositionGestureFilter_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_gesture_count() const { return at<1>().valid(); }
+  int32_t gesture_count() const { return at<1>().as_int32(); }
+};
+
+class TouchDispositionGestureFilter : public ::protozero::Message {
+ public:
+  using Decoder = TouchDispositionGestureFilter_Decoder;
+  enum : int32_t {
+    kGestureCountFieldNumber = 1,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.TouchDispositionGestureFilter"; }
+
+
+  using FieldMetadata_GestureCount =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      TouchDispositionGestureFilter>;
+
+  static constexpr FieldMetadata_GestureCount kGestureCount{};
+  void set_gesture_count(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_GestureCount::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class EventForwarder_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   EventForwarder_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit EventForwarder_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit EventForwarder_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_history_size() const { return at<1>().valid(); }
   int32_t history_size() const { return at<1>().as_int32(); }
-  bool has_time_ns() const { return at<2>().valid(); }
-  int64_t time_ns() const { return at<2>().as_int64(); }
+  bool has_oldest_time_ns() const { return at<2>().valid(); }
+  int64_t oldest_time_ns() const { return at<2>().as_int64(); }
+  bool has_latest_time_ns() const { return at<5>().valid(); }
+  int64_t latest_time_ns() const { return at<5>().as_int64(); }
   bool has_x_pixel() const { return at<3>().valid(); }
   float x_pixel() const { return at<3>().as_float(); }
   bool has_y_pixel() const { return at<4>().valid(); }
   float y_pixel() const { return at<4>().as_float(); }
+  bool has_has_x_movement() const { return at<6>().valid(); }
+  bool has_x_movement() const { return at<6>().as_bool(); }
+  bool has_has_y_movement() const { return at<7>().valid(); }
+  bool has_y_movement() const { return at<7>().as_bool(); }
 };
 
 class EventForwarder : public ::protozero::Message {
@@ -2655,9 +2698,12 @@ class EventForwarder : public ::protozero::Message {
   using Decoder = EventForwarder_Decoder;
   enum : int32_t {
     kHistorySizeFieldNumber = 1,
-    kTimeNsFieldNumber = 2,
+    kOldestTimeNsFieldNumber = 2,
+    kLatestTimeNsFieldNumber = 5,
     kXPixelFieldNumber = 3,
     kYPixelFieldNumber = 4,
+    kHasXMovementFieldNumber = 6,
+    kHasYMovementFieldNumber = 7,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.EventForwarder"; }
 
@@ -2680,7 +2726,7 @@ class EventForwarder : public ::protozero::Message {
         ::Append(*this, field_id, value);
   }
 
-  using FieldMetadata_TimeNs =
+  using FieldMetadata_OldestTimeNs =
     ::protozero::proto_utils::FieldMetadata<
       2,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
@@ -2688,9 +2734,27 @@ class EventForwarder : public ::protozero::Message {
       int64_t,
       EventForwarder>;
 
-  static constexpr FieldMetadata_TimeNs kTimeNs{};
-  void set_time_ns(int64_t value) {
-    static constexpr uint32_t field_id = FieldMetadata_TimeNs::kFieldId;
+  static constexpr FieldMetadata_OldestTimeNs kOldestTimeNs{};
+  void set_oldest_time_ns(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_OldestTimeNs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LatestTimeNs =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      EventForwarder>;
+
+  static constexpr FieldMetadata_LatestTimeNs kLatestTimeNs{};
+  void set_latest_time_ns(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_LatestTimeNs::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
@@ -2731,6 +2795,42 @@ class EventForwarder : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kFloat>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_HasXMovement =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      EventForwarder>;
+
+  static constexpr FieldMetadata_HasXMovement kHasXMovement{};
+  void set_has_x_movement(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_HasXMovement::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_HasYMovement =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      EventForwarder>;
+
+  static constexpr FieldMetadata_HasYMovement kHasYMovement{};
+  void set_has_y_movement(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_HasYMovement::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 };
@@ -11712,6 +11812,20 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_EventForwarder kEventForwarder{};
   template <typename T = EventForwarder> T* set_event_forwarder() {
     return BeginNestedMessage<T>(1059);
+  }
+
+
+  using FieldMetadata_TouchDispositionGestureFilter =
+    ::protozero::proto_utils::FieldMetadata<
+      1060,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      TouchDispositionGestureFilter,
+      ChromeTrackEvent>;
+
+  static constexpr FieldMetadata_TouchDispositionGestureFilter kTouchDispositionGestureFilter{};
+  template <typename T = TouchDispositionGestureFilter> T* set_touch_disposition_gesture_filter() {
+    return BeginNestedMessage<T>(1060);
   }
 
 };

@@ -15550,7 +15550,7 @@ class ProfiledFrameSymbols;
 class SourceLocation;
 class UnsymbolizedSourceLocation;
 
-class InternedData_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/36, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class InternedData_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/37, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   InternedData_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit InternedData_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -15611,6 +15611,8 @@ class InternedData_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_I
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> v8_isolate() const { return GetRepeated<::protozero::ConstBytes>(35); }
   bool has_protolog_string_args() const { return at<36>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> protolog_string_args() const { return GetRepeated<::protozero::ConstBytes>(36); }
+  bool has_protolog_stacktrace() const { return at<37>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> protolog_stacktrace() const { return GetRepeated<::protozero::ConstBytes>(37); }
 };
 
 class InternedData : public ::protozero::Message {
@@ -15645,6 +15647,7 @@ class InternedData : public ::protozero::Message {
     kV8WasmScriptFieldNumber = 34,
     kV8IsolateFieldNumber = 35,
     kProtologStringArgsFieldNumber = 36,
+    kProtologStacktraceFieldNumber = 37,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.InternedData"; }
 
@@ -16038,6 +16041,20 @@ class InternedData : public ::protozero::Message {
   static constexpr FieldMetadata_ProtologStringArgs kProtologStringArgs{};
   template <typename T = InternedString> T* add_protolog_string_args() {
     return BeginNestedMessage<T>(36);
+  }
+
+
+  using FieldMetadata_ProtologStacktrace =
+    ::protozero::proto_utils::FieldMetadata<
+      37,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      InternedString,
+      InternedData>;
+
+  static constexpr FieldMetadata_ProtologStacktrace kProtologStacktrace{};
+  template <typename T = InternedString> T* add_protolog_stacktrace() {
+    return BeginNestedMessage<T>(37);
   }
 
 };
@@ -32650,6 +32667,7 @@ class PERFETTO_EXPORT_COMPONENT ProtoLogGroup : public ::protozero::CppMessageOb
   enum FieldNumbers {
     kTagFieldNumber = 1,
     kLogFromFieldNumber = 2,
+    kCollectStacktraceFieldNumber = 3,
   };
 
   ProtoLogGroup();
@@ -32674,15 +32692,20 @@ class PERFETTO_EXPORT_COMPONENT ProtoLogGroup : public ::protozero::CppMessageOb
   ProtoLogLevel log_from() const { return log_from_; }
   void set_log_from(ProtoLogLevel value) { log_from_ = value; _has_field_.set(2); }
 
+  bool has_collect_stacktrace() const { return _has_field_[3]; }
+  bool collect_stacktrace() const { return collect_stacktrace_; }
+  void set_collect_stacktrace(bool value) { collect_stacktrace_ = value; _has_field_.set(3); }
+
  private:
   std::string tag_{};
   ProtoLogLevel log_from_{};
+  bool collect_stacktrace_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<3> _has_field_{};
+  std::bitset<4> _has_field_{};
 };
 
 
@@ -37934,7 +37957,7 @@ const char* ProtoLogConfig_TracingMode_Name(::perfetto::protos::pbzero::ProtoLog
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class ProtoLogGroup_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class ProtoLogGroup_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   ProtoLogGroup_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ProtoLogGroup_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -37943,6 +37966,8 @@ class ProtoLogGroup_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_
   ::protozero::ConstChars tag() const { return at<1>().as_string(); }
   bool has_log_from() const { return at<2>().valid(); }
   int32_t log_from() const { return at<2>().as_int32(); }
+  bool has_collect_stacktrace() const { return at<3>().valid(); }
+  bool collect_stacktrace() const { return at<3>().as_bool(); }
 };
 
 class ProtoLogGroup : public ::protozero::Message {
@@ -37951,6 +37976,7 @@ class ProtoLogGroup : public ::protozero::Message {
   enum : int32_t {
     kTagFieldNumber = 1,
     kLogFromFieldNumber = 2,
+    kCollectStacktraceFieldNumber = 3,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ProtoLogGroup"; }
 
@@ -37994,6 +38020,24 @@ class ProtoLogGroup : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_CollectStacktrace =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ProtoLogGroup>;
+
+  static constexpr FieldMetadata_CollectStacktrace kCollectStacktrace{};
+  void set_collect_stacktrace(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_CollectStacktrace::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 };
@@ -57701,21 +57745,23 @@ class ProtoLogViewerConfig_MessageData : public ::protozero::Message {
   }
 };
 
-class ProtoLogMessage_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class ProtoLogMessage_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/6, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   ProtoLogMessage_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ProtoLogMessage_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit ProtoLogMessage_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_message_id() const { return at<1>().valid(); }
   uint64_t message_id() const { return at<1>().as_uint64(); }
-  bool has_interned_str_params() const { return at<2>().valid(); }
-  ::protozero::RepeatedFieldIterator<uint32_t> interned_str_params() const { return GetRepeated<uint32_t>(2); }
+  bool has_str_param_iids() const { return at<2>().valid(); }
+  ::protozero::RepeatedFieldIterator<uint32_t> str_param_iids() const { return GetRepeated<uint32_t>(2); }
   bool has_sint64_params() const { return at<3>().valid(); }
   ::protozero::RepeatedFieldIterator<int64_t> sint64_params() const { return GetRepeated<int64_t>(3); }
   bool has_double_params() const { return at<4>().valid(); }
   ::protozero::RepeatedFieldIterator<double> double_params() const { return GetRepeated<double>(4); }
   bool has_boolean_params() const { return at<5>().valid(); }
   ::protozero::RepeatedFieldIterator<int32_t> boolean_params() const { return GetRepeated<int32_t>(5); }
+  bool has_stacktrace_iid() const { return at<6>().valid(); }
+  uint32_t stacktrace_iid() const { return at<6>().as_uint32(); }
 };
 
 class ProtoLogMessage : public ::protozero::Message {
@@ -57723,10 +57769,11 @@ class ProtoLogMessage : public ::protozero::Message {
   using Decoder = ProtoLogMessage_Decoder;
   enum : int32_t {
     kMessageIdFieldNumber = 1,
-    kInternedStrParamsFieldNumber = 2,
+    kStrParamIidsFieldNumber = 2,
     kSint64ParamsFieldNumber = 3,
     kDoubleParamsFieldNumber = 4,
     kBooleanParamsFieldNumber = 5,
+    kStacktraceIidFieldNumber = 6,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ProtoLogMessage"; }
 
@@ -57749,7 +57796,7 @@ class ProtoLogMessage : public ::protozero::Message {
         ::Append(*this, field_id, value);
   }
 
-  using FieldMetadata_InternedStrParams =
+  using FieldMetadata_StrParamIids =
     ::protozero::proto_utils::FieldMetadata<
       2,
       ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
@@ -57757,9 +57804,9 @@ class ProtoLogMessage : public ::protozero::Message {
       uint32_t,
       ProtoLogMessage>;
 
-  static constexpr FieldMetadata_InternedStrParams kInternedStrParams{};
-  void add_interned_str_params(uint32_t value) {
-    static constexpr uint32_t field_id = FieldMetadata_InternedStrParams::kFieldId;
+  static constexpr FieldMetadata_StrParamIids kStrParamIids{};
+  void add_str_param_iids(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_StrParamIids::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
@@ -57818,6 +57865,24 @@ class ProtoLogMessage : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_StacktraceIid =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      ProtoLogMessage>;
+
+  static constexpr FieldMetadata_StacktraceIid kStacktraceIid{};
+  void set_stacktrace_iid(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_StacktraceIid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
         ::Append(*this, field_id, value);
   }
 };
