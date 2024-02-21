@@ -1714,6 +1714,7 @@ class VmInfo final :
     kSeneschalServerHandleFieldNumber = 4,
     kVmTypeFieldNumber = 6,
     kStorageBallooningFieldNumber = 7,
+    kStatusFieldNumber = 8,
   };
   // string permission_token = 5;
   void clear_permission_token() ;
@@ -1795,6 +1796,16 @@ class VmInfo final :
   void _internal_set_storage_ballooning(bool value);
 
   public:
+  // .vm_tools.concierge.VmStatus status = 8;
+  void clear_status() ;
+  ::vm_tools::concierge::VmStatus status() const;
+  void set_status(::vm_tools::concierge::VmStatus value);
+
+  private:
+  ::vm_tools::concierge::VmStatus _internal_status() const;
+  void _internal_set_status(::vm_tools::concierge::VmStatus value);
+
+  public:
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.VmInfo)
  private:
   class _Internal;
@@ -1810,6 +1821,7 @@ class VmInfo final :
     ::uint32_t seneschal_server_handle_;
     int vm_type_;
     bool storage_ballooning_;
+    int status_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -17395,6 +17407,26 @@ inline bool VmInfo::_internal_storage_ballooning() const {
 inline void VmInfo::_internal_set_storage_ballooning(bool value) {
   ;
   _impl_.storage_ballooning_ = value;
+}
+
+// .vm_tools.concierge.VmStatus status = 8;
+inline void VmInfo::clear_status() {
+  _impl_.status_ = 0;
+}
+inline ::vm_tools::concierge::VmStatus VmInfo::status() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.VmInfo.status)
+  return _internal_status();
+}
+inline void VmInfo::set_status(::vm_tools::concierge::VmStatus value) {
+   _internal_set_status(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.VmInfo.status)
+}
+inline ::vm_tools::concierge::VmStatus VmInfo::_internal_status() const {
+  return static_cast<::vm_tools::concierge::VmStatus>(_impl_.status_);
+}
+inline void VmInfo::_internal_set_status(::vm_tools::concierge::VmStatus value) {
+  ;
+  _impl_.status_ = value;
 }
 
 // -------------------------------------------------------------------

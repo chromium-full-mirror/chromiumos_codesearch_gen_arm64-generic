@@ -127,7 +127,7 @@ class Camera3DeviceOps
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 5;
+  static constexpr uint32_t Version_ = 8;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -150,6 +150,8 @@ class Camera3DeviceOps
     kCloseMinVersion = 0,
     kConfigureStreamsAndGetAllocatedBuffersMinVersion = 3,
     kSignalStreamFlushMinVersion = 5,
+    kOnNewBufferMinVersion = 8,
+    kOnBufferRetiredMinVersion = 8,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -183,6 +185,12 @@ class Camera3DeviceOps
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SignalStreamFlush_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnNewBuffer_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnBufferRetired_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -235,6 +243,14 @@ class Camera3DeviceOps
 
   
   virtual void SignalStreamFlush(const std::vector<uint64_t>& stream_ids) = 0;
+
+
+  using OnNewBufferCallback = base::OnceCallback<void(int32_t)>;
+  
+  virtual void OnNewBuffer(CameraBufferHandlePtr buffer, OnNewBufferCallback callback) = 0;
+
+  
+  virtual void OnBufferRetired(uint64_t buffer_id) = 0;
 };
 
 
@@ -286,6 +302,10 @@ class  Camera3DeviceOpsProxy
   void ConfigureStreamsAndGetAllocatedBuffers(Camera3StreamConfigurationPtr config, ConfigureStreamsAndGetAllocatedBuffersCallback callback) final;
   
   void SignalStreamFlush(const std::vector<uint64_t>& stream_ids) final;
+  
+  void OnNewBuffer(CameraBufferHandlePtr buffer, OnNewBufferCallback callback) final;
+  
+  void OnBufferRetired(uint64_t buffer_id) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
