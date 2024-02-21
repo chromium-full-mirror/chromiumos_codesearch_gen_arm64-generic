@@ -32,59 +32,8 @@ class ValidationContext;
 
 namespace ash::cros_healthd::mojom {
 namespace internal {
-class ServiceStatus_Data;
 
 #pragma pack(push, 1)
-class  ServiceStatus_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint8_t network_health_bound : 1;
-  uint8_t network_diagnostics_bound : 1;
-  uint8_t padfinal_[7];
-
- private:
-  friend class mojo::internal::MessageFragment<ServiceStatus_Data>;
-
-  ServiceStatus_Data();
-  ~ServiceStatus_Data() = delete;
-};
-static_assert(sizeof(ServiceStatus_Data) == 16,
-              "Bad sizeof(ServiceStatus_Data)");
-// Used by ServiceStatus::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct ServiceStatus_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  ServiceStatus_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~ServiceStatus_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<ServiceStatus_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    ServiceStatus_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

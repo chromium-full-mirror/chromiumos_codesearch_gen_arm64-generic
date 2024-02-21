@@ -13,30 +13,6 @@
 namespace ash::cros_healthd::mojom {
 
 
-class  CrosHealthdServiceFactoryInterceptorForTesting : public CrosHealthdServiceFactory {
-  virtual CrosHealthdServiceFactory* GetForwardingInterface() = 0;
-  void GetDiagnosticsService(::mojo::PendingReceiver<CrosHealthdDiagnosticsService> service) override;
-  void GetEventService(::mojo::PendingReceiver<CrosHealthdEventService> service) override;
-  void GetProbeService(::mojo::PendingReceiver<CrosHealthdProbeService> service) override;
-  void SendNetworkHealthService(::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkHealthService> remote) override;
-  void SendNetworkDiagnosticsRoutines(::mojo::PendingRemote<::chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines> network_diagnostics_routines) override;
-  void GetSystemService(::mojo::PendingReceiver<CrosHealthdSystemService> service) override;
-  void SendChromiumDataCollector(::mojo::PendingRemote<::ash::cros_healthd::internal::mojom::ChromiumDataCollector> remote) override;
-};
-class  CrosHealthdServiceFactoryAsyncWaiter {
- public:
-  explicit CrosHealthdServiceFactoryAsyncWaiter(CrosHealthdServiceFactory* proxy);
-
-  CrosHealthdServiceFactoryAsyncWaiter(const CrosHealthdServiceFactoryAsyncWaiter&) = delete;
-  CrosHealthdServiceFactoryAsyncWaiter& operator=(const CrosHealthdServiceFactoryAsyncWaiter&) = delete;
-
-  ~CrosHealthdServiceFactoryAsyncWaiter();
-
- private:
-  CrosHealthdServiceFactory* const proxy_;
-};
-
-
 class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDiagnosticsService {
   virtual CrosHealthdDiagnosticsService* GetForwardingInterface() = 0;
   void GetAvailableRoutines(GetAvailableRoutinesCallback callback) override;
@@ -305,27 +281,6 @@ class  CrosHealthdProbeServiceAsyncWaiter {
 
  private:
   CrosHealthdProbeService* const proxy_;
-};
-
-
-class  CrosHealthdSystemServiceInterceptorForTesting : public CrosHealthdSystemService {
-  virtual CrosHealthdSystemService* GetForwardingInterface() = 0;
-  void GetServiceStatus(GetServiceStatusCallback callback) override;
-};
-class  CrosHealthdSystemServiceAsyncWaiter {
- public:
-  explicit CrosHealthdSystemServiceAsyncWaiter(CrosHealthdSystemService* proxy);
-
-  CrosHealthdSystemServiceAsyncWaiter(const CrosHealthdSystemServiceAsyncWaiter&) = delete;
-  CrosHealthdSystemServiceAsyncWaiter& operator=(const CrosHealthdSystemServiceAsyncWaiter&) = delete;
-
-  ~CrosHealthdSystemServiceAsyncWaiter();
-  void GetServiceStatus(
-      ServiceStatusPtr* out_response);
-  ServiceStatusPtr GetServiceStatus();
-
- private:
-  CrosHealthdSystemService* const proxy_;
 };
 
 
