@@ -2635,6 +2635,49 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
+class ViewClassName_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  ViewClassName_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit ViewClassName_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit ViewClassName_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_name() const { return at<1>().valid(); }
+  ::protozero::ConstChars name() const { return at<1>().as_string(); }
+};
+
+class ViewClassName : public ::protozero::Message {
+ public:
+  using Decoder = ViewClassName_Decoder;
+  enum : int32_t {
+    kNameFieldNumber = 1,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.ViewClassName"; }
+
+
+  using FieldMetadata_Name =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      ViewClassName>;
+
+  static constexpr FieldMetadata_Name kName{};
+  void set_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_Name::kFieldId, data, size);
+  }
+  void set_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Name::kFieldId, chars.data, chars.size);
+  }
+  void set_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_Name::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+};
+
 class TouchDispositionGestureFilter_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   TouchDispositionGestureFilter_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
@@ -11826,6 +11869,20 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_TouchDispositionGestureFilter kTouchDispositionGestureFilter{};
   template <typename T = TouchDispositionGestureFilter> T* set_touch_disposition_gesture_filter() {
     return BeginNestedMessage<T>(1060);
+  }
+
+
+  using FieldMetadata_ViewClassName =
+    ::protozero::proto_utils::FieldMetadata<
+      1061,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ViewClassName,
+      ChromeTrackEvent>;
+
+  static constexpr FieldMetadata_ViewClassName kViewClassName{};
+  template <typename T = ViewClassName> T* set_view_class_name() {
+    return BeginNestedMessage<T>(1061);
   }
 
 };

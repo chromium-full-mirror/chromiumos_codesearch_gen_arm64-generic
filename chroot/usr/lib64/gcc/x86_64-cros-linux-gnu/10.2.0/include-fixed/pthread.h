@@ -7,7 +7,7 @@
     This had to be done to correct non-standard usages in the
     original, manufacturer supplied header file.  */
 
-/* Copyright (C) 2002-2022 Free Software Foundation, Inc.
+/* Copyright (C) 2002-2023 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
