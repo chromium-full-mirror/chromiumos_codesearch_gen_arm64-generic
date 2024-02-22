@@ -45,7 +45,7 @@ BRILLO_EXPORT extern const char kReferrerURLXattrName[];
 //   The destination filesystem needs to support flushing hardware buffers on
 //   fsync.  In the case of Ext4, this means not disabling the barrier mount
 //   option.
-class BRILLO_EXPORT MigrationHelper {
+class BRILLO_EXPORT MigrationHelper final {
  public:
   // Callback for monitoring migration progress.  The |current_bytes| is the
   // number of bytes migrated so far, and the |total_bytes| is the total number
@@ -71,7 +71,7 @@ class BRILLO_EXPORT MigrationHelper {
   MigrationHelper(const MigrationHelper&) = delete;
   MigrationHelper& operator=(const MigrationHelper&) = delete;
 
-  virtual ~MigrationHelper();
+  ~MigrationHelper();
 
   void set_num_job_threads_for_testing(size_t num_job_threads) {
     num_job_threads_ = num_job_threads;
@@ -186,27 +186,27 @@ class BRILLO_EXPORT MigrationHelper {
 
   ProgressCallback progress_callback_;
 
-  uint64_t effective_chunk_size_;
-  uint64_t total_byte_count_;
-  uint64_t total_directory_byte_count_;
-  int64_t initial_dest_free_space_bytes_;
-  int n_files_;
-  int n_dirs_;
-  int n_symlinks_;
+  uint64_t effective_chunk_size_ = 0;
+  uint64_t total_byte_count_ = 0;
+  uint64_t total_directory_byte_count_ = 0;
+  int n_files_ = 0;
+  int n_dirs_ = 0;
+  int n_symlinks_ = 0;
 
-  uint64_t migrated_byte_count_;
+  uint64_t migrated_byte_count_ = 0;
   base::TimeTicks next_report_;
   // Lock for migrated_byte_count_ and next_report_.
   base::Lock migrated_byte_count_lock_;
 
-  MigrationFailedOperationType failed_operation_type_;
-  base::File::Error failed_error_type_;
-  int64_t no_space_failure_free_space_bytes_;
+  MigrationFailedOperationType failed_operation_type_ =
+      kMigrationFailedAtOtherOperation;
+  base::File::Error failed_error_type_ = base::File::FILE_OK;
+  int64_t no_space_failure_free_space_bytes_ = 0;
   // Lock for |failed_operation_type_|, |failed_error_type_| and
   // |no_space_failure_free_space_bytes_|.
   base::Lock failure_info_lock_;
 
-  size_t num_job_threads_;
+  size_t num_job_threads_ = 0;
   size_t max_job_list_size_;
   std::unique_ptr<WorkerPool> worker_pool_;
 
