@@ -2810,12 +2810,13 @@ enum CertProvBackendError_Error : int {
   CertProvBackendError_Error_CA_CONNECTION_NOT_FOUND = 12,
   CertProvBackendError_Error_PUBSUB_TOPIC_NOT_FOUND = 13,
   CertProvBackendError_Error_BAD_ADAPTER_CERTIFICATE_RECEIVED = 14,
+  CertProvBackendError_Error_CERTIFICATE_PROVISIONING_PROCESS_NOT_FOUND = 15,
 };
 
 bool CertProvBackendError_Error_IsValid(int value);
 constexpr CertProvBackendError_Error CertProvBackendError_Error_Error_MIN = static_cast<CertProvBackendError_Error>(0);
-constexpr CertProvBackendError_Error CertProvBackendError_Error_Error_MAX = static_cast<CertProvBackendError_Error>(14);
-constexpr int CertProvBackendError_Error_Error_ARRAYSIZE = 14 + 1;
+constexpr CertProvBackendError_Error CertProvBackendError_Error_Error_MAX = static_cast<CertProvBackendError_Error>(15);
+constexpr int CertProvBackendError_Error_Error_ARRAYSIZE = 15 + 1;
 const std::string& CertProvBackendError_Error_Name(CertProvBackendError_Error value);
 template <typename T>
 const std::string& CertProvBackendError_Error_Name(T value) {
@@ -41083,6 +41084,7 @@ class CertProvBackendError final :
   static constexpr Error CA_CONNECTION_NOT_FOUND = CertProvBackendError_Error_CA_CONNECTION_NOT_FOUND;
   static constexpr Error PUBSUB_TOPIC_NOT_FOUND = CertProvBackendError_Error_PUBSUB_TOPIC_NOT_FOUND;
   static constexpr Error BAD_ADAPTER_CERTIFICATE_RECEIVED = CertProvBackendError_Error_BAD_ADAPTER_CERTIFICATE_RECEIVED;
+  static constexpr Error CERTIFICATE_PROVISIONING_PROCESS_NOT_FOUND = CertProvBackendError_Error_CERTIFICATE_PROVISIONING_PROCESS_NOT_FOUND;
   static inline bool Error_IsValid(int value) {
     return CertProvBackendError_Error_IsValid(value);
   }

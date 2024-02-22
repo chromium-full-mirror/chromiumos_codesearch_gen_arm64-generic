@@ -295,6 +295,9 @@ class CloudPolicySubProto1 final :
     kWebPrintingAllowedForUrlsFieldNumber = 180,
     kWebPrintingBlockedForUrlsFieldNumber = 181,
     kDocumentScanAPITrustedExtensionsFieldNumber = 182,
+    kAutomaticFullscreenAllowedForUrlsFieldNumber = 185,
+    kAutomaticFullscreenBlockedForUrlsFieldNumber = 186,
+    kMutationEventsEnabledFieldNumber = 187,
   };
   // optional .enterprise_management.BooleanPolicyProto NewBaseUrlInheritanceBehaviorAllowed = 1;
   bool has_newbaseurlinheritancebehaviorallowed() const;
@@ -1920,6 +1923,48 @@ class CloudPolicySubProto1 final :
   void unsafe_arena_set_allocated_documentscanapitrustedextensions(
       ::enterprise_management::StringListPolicyProto* documentscanapitrustedextensions);
   ::enterprise_management::StringListPolicyProto* unsafe_arena_release_documentscanapitrustedextensions();
+  // optional .enterprise_management.StringListPolicyProto AutomaticFullscreenAllowedForUrls = 185;
+  bool has_automaticfullscreenallowedforurls() const;
+  void clear_automaticfullscreenallowedforurls() ;
+  const ::enterprise_management::StringListPolicyProto& automaticfullscreenallowedforurls() const;
+  PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_automaticfullscreenallowedforurls();
+  ::enterprise_management::StringListPolicyProto* mutable_automaticfullscreenallowedforurls();
+  void set_allocated_automaticfullscreenallowedforurls(::enterprise_management::StringListPolicyProto* automaticfullscreenallowedforurls);
+  private:
+  const ::enterprise_management::StringListPolicyProto& _internal_automaticfullscreenallowedforurls() const;
+  ::enterprise_management::StringListPolicyProto* _internal_mutable_automaticfullscreenallowedforurls();
+  public:
+  void unsafe_arena_set_allocated_automaticfullscreenallowedforurls(
+      ::enterprise_management::StringListPolicyProto* automaticfullscreenallowedforurls);
+  ::enterprise_management::StringListPolicyProto* unsafe_arena_release_automaticfullscreenallowedforurls();
+  // optional .enterprise_management.StringListPolicyProto AutomaticFullscreenBlockedForUrls = 186;
+  bool has_automaticfullscreenblockedforurls() const;
+  void clear_automaticfullscreenblockedforurls() ;
+  const ::enterprise_management::StringListPolicyProto& automaticfullscreenblockedforurls() const;
+  PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_automaticfullscreenblockedforurls();
+  ::enterprise_management::StringListPolicyProto* mutable_automaticfullscreenblockedforurls();
+  void set_allocated_automaticfullscreenblockedforurls(::enterprise_management::StringListPolicyProto* automaticfullscreenblockedforurls);
+  private:
+  const ::enterprise_management::StringListPolicyProto& _internal_automaticfullscreenblockedforurls() const;
+  ::enterprise_management::StringListPolicyProto* _internal_mutable_automaticfullscreenblockedforurls();
+  public:
+  void unsafe_arena_set_allocated_automaticfullscreenblockedforurls(
+      ::enterprise_management::StringListPolicyProto* automaticfullscreenblockedforurls);
+  ::enterprise_management::StringListPolicyProto* unsafe_arena_release_automaticfullscreenblockedforurls();
+  // optional .enterprise_management.BooleanPolicyProto MutationEventsEnabled = 187;
+  bool has_mutationeventsenabled() const;
+  void clear_mutationeventsenabled() ;
+  const ::enterprise_management::BooleanPolicyProto& mutationeventsenabled() const;
+  PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_mutationeventsenabled();
+  ::enterprise_management::BooleanPolicyProto* mutable_mutationeventsenabled();
+  void set_allocated_mutationeventsenabled(::enterprise_management::BooleanPolicyProto* mutationeventsenabled);
+  private:
+  const ::enterprise_management::BooleanPolicyProto& _internal_mutationeventsenabled() const;
+  ::enterprise_management::BooleanPolicyProto* _internal_mutable_mutationeventsenabled();
+  public:
+  void unsafe_arena_set_allocated_mutationeventsenabled(
+      ::enterprise_management::BooleanPolicyProto* mutationeventsenabled);
+  ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_mutationeventsenabled();
   // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
  private:
   class _Internal;
@@ -2046,6 +2091,9 @@ class CloudPolicySubProto1 final :
     ::enterprise_management::StringListPolicyProto* webprintingallowedforurls_;
     ::enterprise_management::StringListPolicyProto* webprintingblockedforurls_;
     ::enterprise_management::StringListPolicyProto* documentscanapitrustedextensions_;
+    ::enterprise_management::StringListPolicyProto* automaticfullscreenallowedforurls_;
+    ::enterprise_management::StringListPolicyProto* automaticfullscreenblockedforurls_;
+    ::enterprise_management::BooleanPolicyProto* mutationeventsenabled_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_cloud_5fpolicy_2eproto;
@@ -11193,6 +11241,174 @@ inline void CloudPolicySubProto1::set_allocated_microsoftofficecloudupload(::ent
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.MicrosoftOfficeCloudUpload)
 }
 
+// optional .enterprise_management.StringListPolicyProto AutomaticFullscreenAllowedForUrls = 185;
+inline bool CloudPolicySubProto1::has_automaticfullscreenallowedforurls() const {
+  bool value = (_impl_._has_bits_[3] & 0x00100000u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.automaticfullscreenallowedforurls_ != nullptr);
+  return value;
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::_internal_automaticfullscreenallowedforurls() const {
+  const ::enterprise_management::StringListPolicyProto* p = _impl_.automaticfullscreenallowedforurls_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+      ::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::automaticfullscreenallowedforurls() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenAllowedForUrls)
+  return _internal_automaticfullscreenallowedforurls();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_automaticfullscreenallowedforurls(
+    ::enterprise_management::StringListPolicyProto* automaticfullscreenallowedforurls) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.automaticfullscreenallowedforurls_);
+  }
+  _impl_.automaticfullscreenallowedforurls_ = automaticfullscreenallowedforurls;
+  if (automaticfullscreenallowedforurls) {
+    _impl_._has_bits_[3] |= 0x00100000u;
+  } else {
+    _impl_._has_bits_[3] &= ~0x00100000u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenAllowedForUrls)
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::release_automaticfullscreenallowedforurls() {
+  _impl_._has_bits_[3] &= ~0x00100000u;
+  ::enterprise_management::StringListPolicyProto* temp = _impl_.automaticfullscreenallowedforurls_;
+  _impl_.automaticfullscreenallowedforurls_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::unsafe_arena_release_automaticfullscreenallowedforurls() {
+  // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenAllowedForUrls)
+  _impl_._has_bits_[3] &= ~0x00100000u;
+  ::enterprise_management::StringListPolicyProto* temp = _impl_.automaticfullscreenallowedforurls_;
+  _impl_.automaticfullscreenallowedforurls_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::_internal_mutable_automaticfullscreenallowedforurls() {
+  _impl_._has_bits_[3] |= 0x00100000u;
+  if (_impl_.automaticfullscreenallowedforurls_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+    _impl_.automaticfullscreenallowedforurls_ = p;
+  }
+  return _impl_.automaticfullscreenallowedforurls_;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::mutable_automaticfullscreenallowedforurls() {
+  ::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_automaticfullscreenallowedforurls();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenAllowedForUrls)
+  return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_automaticfullscreenallowedforurls(::enterprise_management::StringListPolicyProto* automaticfullscreenallowedforurls) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.automaticfullscreenallowedforurls_);
+  }
+  if (automaticfullscreenallowedforurls) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(automaticfullscreenallowedforurls));
+    if (message_arena != submessage_arena) {
+      automaticfullscreenallowedforurls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, automaticfullscreenallowedforurls, submessage_arena);
+    }
+    _impl_._has_bits_[3] |= 0x00100000u;
+  } else {
+    _impl_._has_bits_[3] &= ~0x00100000u;
+  }
+  _impl_.automaticfullscreenallowedforurls_ = automaticfullscreenallowedforurls;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenAllowedForUrls)
+}
+
+// optional .enterprise_management.StringListPolicyProto AutomaticFullscreenBlockedForUrls = 186;
+inline bool CloudPolicySubProto1::has_automaticfullscreenblockedforurls() const {
+  bool value = (_impl_._has_bits_[3] & 0x00200000u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.automaticfullscreenblockedforurls_ != nullptr);
+  return value;
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::_internal_automaticfullscreenblockedforurls() const {
+  const ::enterprise_management::StringListPolicyProto* p = _impl_.automaticfullscreenblockedforurls_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+      ::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::automaticfullscreenblockedforurls() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenBlockedForUrls)
+  return _internal_automaticfullscreenblockedforurls();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_automaticfullscreenblockedforurls(
+    ::enterprise_management::StringListPolicyProto* automaticfullscreenblockedforurls) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.automaticfullscreenblockedforurls_);
+  }
+  _impl_.automaticfullscreenblockedforurls_ = automaticfullscreenblockedforurls;
+  if (automaticfullscreenblockedforurls) {
+    _impl_._has_bits_[3] |= 0x00200000u;
+  } else {
+    _impl_._has_bits_[3] &= ~0x00200000u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenBlockedForUrls)
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::release_automaticfullscreenblockedforurls() {
+  _impl_._has_bits_[3] &= ~0x00200000u;
+  ::enterprise_management::StringListPolicyProto* temp = _impl_.automaticfullscreenblockedforurls_;
+  _impl_.automaticfullscreenblockedforurls_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::unsafe_arena_release_automaticfullscreenblockedforurls() {
+  // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenBlockedForUrls)
+  _impl_._has_bits_[3] &= ~0x00200000u;
+  ::enterprise_management::StringListPolicyProto* temp = _impl_.automaticfullscreenblockedforurls_;
+  _impl_.automaticfullscreenblockedforurls_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::_internal_mutable_automaticfullscreenblockedforurls() {
+  _impl_._has_bits_[3] |= 0x00200000u;
+  if (_impl_.automaticfullscreenblockedforurls_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+    _impl_.automaticfullscreenblockedforurls_ = p;
+  }
+  return _impl_.automaticfullscreenblockedforurls_;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::mutable_automaticfullscreenblockedforurls() {
+  ::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_automaticfullscreenblockedforurls();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenBlockedForUrls)
+  return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_automaticfullscreenblockedforurls(::enterprise_management::StringListPolicyProto* automaticfullscreenblockedforurls) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.automaticfullscreenblockedforurls_);
+  }
+  if (automaticfullscreenblockedforurls) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(automaticfullscreenblockedforurls));
+    if (message_arena != submessage_arena) {
+      automaticfullscreenblockedforurls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, automaticfullscreenblockedforurls, submessage_arena);
+    }
+    _impl_._has_bits_[3] |= 0x00200000u;
+  } else {
+    _impl_._has_bits_[3] &= ~0x00200000u;
+  }
+  _impl_.automaticfullscreenblockedforurls_ = automaticfullscreenblockedforurls;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenBlockedForUrls)
+}
+
 // optional .enterprise_management.BooleanPolicyProto DataUrlInSvgUseEnabled = 69;
 inline bool CloudPolicySubProto1::has_dataurlinsvguseenabled() const {
   bool value = (_impl_._has_bits_[1] & 0x00001000u) != 0;
@@ -15811,6 +16027,90 @@ inline void CloudPolicySubProto1::set_allocated_localuserfilesallowed(::enterpri
   }
   _impl_.localuserfilesallowed_ = localuserfilesallowed;
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.LocalUserFilesAllowed)
+}
+
+// optional .enterprise_management.BooleanPolicyProto MutationEventsEnabled = 187;
+inline bool CloudPolicySubProto1::has_mutationeventsenabled() const {
+  bool value = (_impl_._has_bits_[3] & 0x00400000u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.mutationeventsenabled_ != nullptr);
+  return value;
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_mutationeventsenabled() const {
+  const ::enterprise_management::BooleanPolicyProto* p = _impl_.mutationeventsenabled_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+      ::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::mutationeventsenabled() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.MutationEventsEnabled)
+  return _internal_mutationeventsenabled();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_mutationeventsenabled(
+    ::enterprise_management::BooleanPolicyProto* mutationeventsenabled) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.mutationeventsenabled_);
+  }
+  _impl_.mutationeventsenabled_ = mutationeventsenabled;
+  if (mutationeventsenabled) {
+    _impl_._has_bits_[3] |= 0x00400000u;
+  } else {
+    _impl_._has_bits_[3] &= ~0x00400000u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.MutationEventsEnabled)
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_mutationeventsenabled() {
+  _impl_._has_bits_[3] &= ~0x00400000u;
+  ::enterprise_management::BooleanPolicyProto* temp = _impl_.mutationeventsenabled_;
+  _impl_.mutationeventsenabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_mutationeventsenabled() {
+  // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.MutationEventsEnabled)
+  _impl_._has_bits_[3] &= ~0x00400000u;
+  ::enterprise_management::BooleanPolicyProto* temp = _impl_.mutationeventsenabled_;
+  _impl_.mutationeventsenabled_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_mutationeventsenabled() {
+  _impl_._has_bits_[3] |= 0x00400000u;
+  if (_impl_.mutationeventsenabled_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+    _impl_.mutationeventsenabled_ = p;
+  }
+  return _impl_.mutationeventsenabled_;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_mutationeventsenabled() {
+  ::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_mutationeventsenabled();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.MutationEventsEnabled)
+  return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_mutationeventsenabled(::enterprise_management::BooleanPolicyProto* mutationeventsenabled) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.mutationeventsenabled_);
+  }
+  if (mutationeventsenabled) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(mutationeventsenabled));
+    if (message_arena != submessage_arena) {
+      mutationeventsenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, mutationeventsenabled, submessage_arena);
+    }
+    _impl_._has_bits_[3] |= 0x00400000u;
+  } else {
+    _impl_._has_bits_[3] &= ~0x00400000u;
+  }
+  _impl_.mutationeventsenabled_ = mutationeventsenabled;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.MutationEventsEnabled)
 }
 
 // optional .enterprise_management.BooleanPolicyProto NativeClientForceAllowed = 81;

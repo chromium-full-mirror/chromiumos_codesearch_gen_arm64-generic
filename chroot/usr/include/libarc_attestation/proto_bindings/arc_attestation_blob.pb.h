@@ -471,8 +471,39 @@ class CrOSSpecificBlob final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kDeviceKeyCertsFieldNumber = 2,
     kVersionAttestationFieldNumber = 1,
   };
+  // repeated string device_key_certs = 2;
+  int device_key_certs_size() const;
+  private:
+  int _internal_device_key_certs_size() const;
+
+  public:
+  void clear_device_key_certs() ;
+  const std::string& device_key_certs(int index) const;
+  std::string* mutable_device_key_certs(int index);
+  void set_device_key_certs(int index, const std::string& value);
+  void set_device_key_certs(int index, std::string&& value);
+  void set_device_key_certs(int index, const char* value);
+  void set_device_key_certs(int index, const char* value, std::size_t size);
+  void set_device_key_certs(int index, absl::string_view value);
+  std::string* add_device_key_certs();
+  void add_device_key_certs(const std::string& value);
+  void add_device_key_certs(std::string&& value);
+  void add_device_key_certs(const char* value);
+  void add_device_key_certs(const char* value, std::size_t size);
+  void add_device_key_certs(absl::string_view value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& device_key_certs() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_device_key_certs();
+
+  private:
+  const std::string& _internal_device_key_certs(int index) const;
+  std::string* _internal_add_device_key_certs();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& _internal_device_key_certs() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* _internal_mutable_device_key_certs();
+
+  public:
   // .arc_attestation.CrOSVersionAttestationBlob version_attestation = 1;
   bool has_version_attestation() const;
   void clear_version_attestation() ;
@@ -497,6 +528,7 @@ class CrOSSpecificBlob final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> device_key_certs_;
     ::arc_attestation::CrOSVersionAttestationBlob* version_attestation_;
   };
   union { Impl_ _impl_; };
@@ -910,6 +942,99 @@ inline void CrOSSpecificBlob::set_allocated_version_attestation(::arc_attestatio
   }
   _impl_.version_attestation_ = version_attestation;
   // @@protoc_insertion_point(field_set_allocated:arc_attestation.CrOSSpecificBlob.version_attestation)
+}
+
+// repeated string device_key_certs = 2;
+inline int CrOSSpecificBlob::_internal_device_key_certs_size() const {
+  return _impl_.device_key_certs_.size();
+}
+inline int CrOSSpecificBlob::device_key_certs_size() const {
+  return _internal_device_key_certs_size();
+}
+inline void CrOSSpecificBlob::clear_device_key_certs() {
+  _internal_mutable_device_key_certs()->Clear();
+}
+inline std::string* CrOSSpecificBlob::add_device_key_certs() {
+  std::string* _s = _internal_add_device_key_certs();
+  // @@protoc_insertion_point(field_add_mutable:arc_attestation.CrOSSpecificBlob.device_key_certs)
+  return _s;
+}
+inline const std::string& CrOSSpecificBlob::device_key_certs(int index) const {
+  // @@protoc_insertion_point(field_get:arc_attestation.CrOSSpecificBlob.device_key_certs)
+  return _internal_device_key_certs(index);
+}
+inline std::string* CrOSSpecificBlob::mutable_device_key_certs(int index) {
+  // @@protoc_insertion_point(field_mutable:arc_attestation.CrOSSpecificBlob.device_key_certs)
+  return _internal_mutable_device_key_certs()->Mutable(index);
+}
+inline void CrOSSpecificBlob::set_device_key_certs(int index, const std::string& value) {
+  _internal_mutable_device_key_certs()->Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:arc_attestation.CrOSSpecificBlob.device_key_certs)
+}
+inline void CrOSSpecificBlob::set_device_key_certs(int index, std::string&& value) {
+  _internal_mutable_device_key_certs()->Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:arc_attestation.CrOSSpecificBlob.device_key_certs)
+}
+inline void CrOSSpecificBlob::set_device_key_certs(int index, const char* value) {
+  ABSL_DCHECK(value != nullptr);
+  _internal_mutable_device_key_certs()->Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:arc_attestation.CrOSSpecificBlob.device_key_certs)
+}
+inline void CrOSSpecificBlob::set_device_key_certs(int index, const char* value,
+                              std::size_t size) {
+  _internal_mutable_device_key_certs()->Mutable(index)->assign(
+      reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:arc_attestation.CrOSSpecificBlob.device_key_certs)
+}
+inline void CrOSSpecificBlob::set_device_key_certs(int index, absl::string_view value) {
+  _internal_mutable_device_key_certs()->Mutable(index)->assign(value.data(),
+                                                     value.size());
+  // @@protoc_insertion_point(field_set_string_piece:arc_attestation.CrOSSpecificBlob.device_key_certs)
+}
+inline void CrOSSpecificBlob::add_device_key_certs(const std::string& value) {
+  _internal_mutable_device_key_certs()->Add()->assign(value);
+  // @@protoc_insertion_point(field_add:arc_attestation.CrOSSpecificBlob.device_key_certs)
+}
+inline void CrOSSpecificBlob::add_device_key_certs(std::string&& value) {
+  _internal_mutable_device_key_certs()->Add(std::move(value));
+  // @@protoc_insertion_point(field_add:arc_attestation.CrOSSpecificBlob.device_key_certs)
+}
+inline void CrOSSpecificBlob::add_device_key_certs(const char* value) {
+  ABSL_DCHECK(value != nullptr);
+  _internal_mutable_device_key_certs()->Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:arc_attestation.CrOSSpecificBlob.device_key_certs)
+}
+inline void CrOSSpecificBlob::add_device_key_certs(const char* value, std::size_t size) {
+  _internal_mutable_device_key_certs()->Add()->assign(
+      reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:arc_attestation.CrOSSpecificBlob.device_key_certs)
+}
+inline void CrOSSpecificBlob::add_device_key_certs(absl::string_view value) {
+  _internal_mutable_device_key_certs()->Add()->assign(value.data(), value.size());
+  // @@protoc_insertion_point(field_add_string_piece:arc_attestation.CrOSSpecificBlob.device_key_certs)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+CrOSSpecificBlob::device_key_certs() const {
+  // @@protoc_insertion_point(field_list:arc_attestation.CrOSSpecificBlob.device_key_certs)
+  return _internal_device_key_certs();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* CrOSSpecificBlob::mutable_device_key_certs() {
+  // @@protoc_insertion_point(field_mutable_list:arc_attestation.CrOSSpecificBlob.device_key_certs)
+  return _internal_mutable_device_key_certs();
+}
+inline const std::string& CrOSSpecificBlob::_internal_device_key_certs(int index) const {
+  return _internal_device_key_certs().Get(index);
+}
+inline std::string* CrOSSpecificBlob::_internal_add_device_key_certs() {
+  return _internal_mutable_device_key_certs()->Add();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+CrOSSpecificBlob::_internal_device_key_certs() const {
+  return _impl_.device_key_certs_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+CrOSSpecificBlob::_internal_mutable_device_key_certs() {
+  return &_impl_.device_key_certs_;
 }
 
 #ifdef __GNUC__
