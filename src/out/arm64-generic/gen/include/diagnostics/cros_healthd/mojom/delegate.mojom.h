@@ -236,7 +236,7 @@ class Delegate
   virtual void GetLidAngle(GetLidAngleCallback callback) = 0;
 
 
-  using GetPsrCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::PsrInfoPtr, const std::optional<std::string>&)>;
+  using GetPsrCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::GetPsrResultPtr)>;
   
   virtual void GetPsr(GetPsrCallback callback) = 0;
 

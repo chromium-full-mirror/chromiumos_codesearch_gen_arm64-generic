@@ -272,8 +272,8 @@ class  ExecutorAsyncWaiter {
       ::ash::cros_healthd::mojom::BootPerformanceResultPtr* out_result);
   ::ash::cros_healthd::mojom::BootPerformanceResultPtr FetchBootPerformance();
   void GetPsr(
-      ::ash::cros_healthd::mojom::PsrInfoPtr* out_result, std::optional<std::string>* out_err);
-  
+      GetPsrResultPtr* out_result);
+  GetPsrResultPtr GetPsr();
   void RemoveFioTestFile(
       ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr RemoveFioTestFile();

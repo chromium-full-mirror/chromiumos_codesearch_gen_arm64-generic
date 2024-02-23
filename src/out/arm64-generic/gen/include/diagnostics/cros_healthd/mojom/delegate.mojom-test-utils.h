@@ -70,8 +70,8 @@ class  DelegateAsyncWaiter {
       std::optional<uint16_t>* out_lid_angle);
   std::optional<uint16_t> GetLidAngle();
   void GetPsr(
-      ::ash::cros_healthd::mojom::PsrInfoPtr* out_result, std::optional<std::string>* out_err);
-  
+      ::ash::cros_healthd::mojom::GetPsrResultPtr* out_result);
+  ::ash::cros_healthd::mojom::GetPsrResultPtr GetPsr();
   void GetConnectedExternalDisplayConnectors(
       const std::optional<std::vector<uint32_t>>& last_known_connectors, base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, std::optional<std::string>* out_err);
   

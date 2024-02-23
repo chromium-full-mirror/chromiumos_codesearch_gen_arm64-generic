@@ -54,6 +54,7 @@ class PrivacyScreenInfoDataView;
 
 class FioJobArgumentDataView;
 class GetPrivacyScreenInfoResultDataView;
+class GetPsrResultDataView;
 
 
 }  // ash::cros_healthd::mojom
@@ -120,6 +121,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::FioJobArgumentDataView> {
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::GetPrivacyScreenInfoResultDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::GetPrivacyScreenInfoResult_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::GetPsrResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::GetPsrResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
@@ -629,6 +637,54 @@ class GetPrivacyScreenInfoResultDataView {
 
  private:
   internal::GetPrivacyScreenInfoResult_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class GetPsrResultDataView {
+ public:
+  using Tag = internal::GetPsrResult_Data::GetPsrResult_Tag;
+
+  GetPsrResultDataView() = default;
+
+  GetPsrResultDataView(
+      internal::GetPsrResult_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_info() const { return data_->tag == Tag::kInfo; }
+  inline void GetInfoDataView(
+      ::ash::cros_healthd::mojom::PsrInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInfo(UserType* output) const {
+    
+    CHECK(is_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PsrInfoDataView>(
+        data_->data.f_info.Get(), output, message_);
+  }
+  bool is_error() const { return data_->tag == Tag::kError; }
+  inline void GetErrorDataView(
+      mojo::StringDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadError(UserType* output) const {
+    
+    CHECK(is_error());
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        data_->data.f_error.Get(), output, message_);
+  }
+
+ private:
+  internal::GetPsrResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1230,6 +1286,79 @@ struct Serializer<::ash::cros_healthd::mojom::GetPrivacyScreenInfoResultDataView
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::GetPsrResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::GetPsrResultDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::GetPsrResult_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::GetPsrResultDataView::Tag::kInfo: {
+        decltype(Traits::info(input))
+            in_info = Traits::info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::PsrInfoDataView>(
+            in_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null info in GetPsrResult union");
+        fragment->data.f_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::GetPsrResultDataView::Tag::kError: {
+        decltype(Traits::error(input))
+            in_error = Traits::error(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_error)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<mojo::StringDataView>(
+            in_error, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null error in GetPsrResult union");
+        fragment->data.f_error.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::GetPsrResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::GetPsrResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -1291,6 +1420,17 @@ inline void GetPrivacyScreenInfoResultDataView::GetInfoDataView(
   *output = PrivacyScreenInfoDataView(data_->data.f_info.Get(), message_);
 }
 inline void GetPrivacyScreenInfoResultDataView::GetErrorDataView(
+    mojo::StringDataView* output) const {
+  CHECK(is_error());
+  *output = mojo::StringDataView(data_->data.f_error.Get(), message_);
+}
+
+inline void GetPsrResultDataView::GetInfoDataView(
+    ::ash::cros_healthd::mojom::PsrInfoDataView* output) const {
+  CHECK(is_info());
+  *output = ::ash::cros_healthd::mojom::PsrInfoDataView(data_->data.f_info.Get(), message_);
+}
+inline void GetPsrResultDataView::GetErrorDataView(
     mojo::StringDataView* output) const {
   CHECK(is_error());
   *output = mojo::StringDataView(data_->data.f_error.Get(), message_);

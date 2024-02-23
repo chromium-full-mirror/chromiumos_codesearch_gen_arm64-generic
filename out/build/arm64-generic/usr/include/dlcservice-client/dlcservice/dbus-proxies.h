@@ -83,6 +83,19 @@ class DlcServiceInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Unmount DLCs and change their states to `NOT_INSTALLED`.
+  virtual bool Unload(
+      const dlcservice::UnloadRequest& in_unload_request,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Unmount DLCs and change their states to `NOT_INSTALLED`.
+  virtual void UnloadAsync(
+      const dlcservice::UnloadRequest& in_unload_request,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Returns a list of installed Downloadable Content (DLC) IDs that are
   // installed.
   virtual bool GetInstalled(
@@ -341,6 +354,38 @@ class DlcServiceInterfaceProxy final : public DlcServiceInterfaceProxyInterface 
         std::move(success_callback),
         std::move(error_callback),
         in_id);
+  }
+
+  // Unmount DLCs and change their states to `NOT_INSTALLED`.
+  bool Unload(
+      const dlcservice::UnloadRequest& in_unload_request,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.DlcServiceInterface",
+        "Unload",
+        error,
+        in_unload_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // Unmount DLCs and change their states to `NOT_INSTALLED`.
+  void UnloadAsync(
+      const dlcservice::UnloadRequest& in_unload_request,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.DlcServiceInterface",
+        "Unload",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_unload_request);
   }
 
   // Returns a list of installed Downloadable Content (DLC) IDs that are

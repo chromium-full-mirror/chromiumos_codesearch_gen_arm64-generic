@@ -324,6 +324,67 @@ bool GetPrivacyScreenInfoResult_Data::Validate(
     }
   }
 }
+// static
+bool GetPsrResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const GetPsrResult_Data* object = static_cast<const GetPsrResult_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case GetPsrResult_Tag::kInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_info, 1, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_info, validation_context))
+        return false;
+      return true;
+    }
+    case GetPsrResult_Tag::kError: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_error, 2, validation_context)) {
+        return false;
+      }
+      constexpr const mojo::internal::ContainerValidateParams& error_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
+      if (!mojo::internal::ValidateContainer(object->data.f_error, validation_context,
+                                             &error_validate_params)) {
+        return false;
+      }
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in GetPsrResult");
+      return false;
+    }
+  }
+}
 
 
 // static
@@ -2242,19 +2303,12 @@ bool Executor_GetPsr_ResponseParams_Data::Validate(
   [[maybe_unused]] const Executor_GetPsr_ResponseParams_Data* object =
       static_cast<const Executor_GetPsr_ResponseParams_Data*>(data);
 
-  if (!mojo::internal::ValidatePointerNonNullable(
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
           object->result, 1, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->result, validation_context))
+  if (!mojo::internal::ValidateInlinedUnion(object->result, validation_context))
     return false;
-
-  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->err, validation_context,
-                                         &err_validate_params)) {
-    return false;
-  }
 
   return true;
 }

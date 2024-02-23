@@ -38,6 +38,7 @@ class ReadJobArgument_Data;
 class PrivacyScreenInfo_Data;
 class FioJobArgument_Data;
 class GetPrivacyScreenInfoResult_Data;
+class GetPsrResult_Data;
 
 struct FingerprintCaptureType_Data {
  public:
@@ -319,6 +320,58 @@ class  GetPrivacyScreenInfoResult_Data {
 };
 static_assert(sizeof(GetPrivacyScreenInfoResult_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(GetPrivacyScreenInfoResult_Data)");
+
+
+class  GetPsrResult_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  GetPsrResult_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~GetPsrResult_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<GetPsrResult_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class GetPsrResult_Tag : uint32_t {
+
+    
+    kInfo,
+    
+    kError,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::PsrInfo_Data> f_info;
+    mojo::internal::Pointer<mojo::internal::String_Data> f_error;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  GetPsrResult_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(GetPsrResult_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(GetPsrResult_Data)");
 class  ExecutedProcessResult_Data {
  public:
   static bool Validate(const void* data,

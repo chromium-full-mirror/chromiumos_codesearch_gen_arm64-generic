@@ -38,6 +38,10 @@ class DlcServiceInterfaceInterface {
   virtual bool Deploy(
       brillo::ErrorPtr* error,
       const std::string& in_id) = 0;
+  // Unmount DLCs and change their states to `NOT_INSTALLED`.
+  virtual bool Unload(
+      brillo::ErrorPtr* error,
+      const dlcservice::UnloadRequest& in_unload_request) = 0;
   // Returns a list of installed Downloadable Content (DLC) IDs that are
   // installed.
   virtual bool GetInstalled(
@@ -95,6 +99,10 @@ class DlcServiceInterfaceAdaptor {
         base::Unretained(interface_),
         &DlcServiceInterfaceInterface::Deploy);
     itf->AddSimpleMethodHandlerWithError(
+        "Unload",
+        base::Unretained(interface_),
+        &DlcServiceInterfaceInterface::Unload);
+    itf->AddSimpleMethodHandlerWithError(
         "GetInstalled",
         base::Unretained(interface_),
         &DlcServiceInterfaceInterface::GetInstalled);
@@ -147,6 +155,9 @@ class DlcServiceInterfaceAdaptor {
         "    </method>\n"
         "    <method name=\"Deploy\">\n"
         "      <arg name=\"id\" type=\"s\" direction=\"in\"/>\n"
+        "    </method>\n"
+        "    <method name=\"Unload\">\n"
+        "      <arg name=\"unload_request\" type=\"ay\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"GetInstalled\">\n"
         "      <arg name=\"ids\" type=\"as\" direction=\"out\"/>\n"

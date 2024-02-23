@@ -970,8 +970,7 @@ class  Executor_GetPsr_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::PsrInfo_Data> result;
-  mojo::internal::Pointer<mojo::internal::String_Data> err;
+  internal::GetPsrResult_Data result;
 
  private:
   friend class mojo::internal::MessageFragment<Executor_GetPsr_ResponseParams_Data>;
@@ -3100,33 +3099,13 @@ class Executor_GetPsr_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetResultDataView(
-      ::ash::cros_healthd::mojom::PsrInfoDataView* output);
+      GetPsrResultDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResult(UserType* output) {
     
-    auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PsrInfoDataView>(
-        pointer, output, message_);
-  }
-  inline void GetErrDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadErr(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::StringDataView, UserType>(),
-    "Attempting to read the optional `err` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with std::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadErr` instead "
-    "of `ReadErr if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->err.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
+    auto* pointer = !data_->result.is_null() ? &data_->result : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::GetPsrResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -4303,14 +4282,9 @@ inline void Executor_FetchBootPerformance_ResponseParamsDataView::GetResultDataV
 
 
 inline void Executor_GetPsr_ResponseParamsDataView::GetResultDataView(
-    ::ash::cros_healthd::mojom::PsrInfoDataView* output) {
-  auto pointer = data_->result.Get();
-  *output = ::ash::cros_healthd::mojom::PsrInfoDataView(pointer, message_);
-}
-inline void Executor_GetPsr_ResponseParamsDataView::GetErrDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->err.Get();
-  *output = mojo::StringDataView(pointer, message_);
+    GetPsrResultDataView* output) {
+  auto pointer = &data_->result;
+  *output = GetPsrResultDataView(pointer, message_);
 }
 
 

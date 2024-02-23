@@ -15,7 +15,7 @@ namespace metrics {
 namespace structured {
 namespace events {
 
-constexpr uint64_t kProjectNameHashes[] = {UINT64_C(827233605053062635), UINT64_C(524369188505453537), UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(4785189117830128085), UINT64_C(11294265225635075664), UINT64_C(4905803635010729907), UINT64_C(16881314472396226433), UINT64_C(10860358748803291132), UINT64_C(5876808001962504629), UINT64_C(15648706341345157436), UINT64_C(17922303533051575891), UINT64_C(1370722622176744014), UINT64_C(17319042894491683836), UINT64_C(6962789877417678651), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
+constexpr uint64_t kProjectNameHashes[] = {UINT64_C(827233605053062635), UINT64_C(524369188505453537), UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(13615523565054809415), UINT64_C(4785189117830128085), UINT64_C(11294265225635075664), UINT64_C(4905803635010729907), UINT64_C(16881314472396226433), UINT64_C(10860358748803291132), UINT64_C(5876808001962504629), UINT64_C(15648706341345157436), UINT64_C(17922303533051575891), UINT64_C(1370722622176744014), UINT64_C(17319042894491683836), UINT64_C(6962789877417678651), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
 
 namespace bluetooth {
 
@@ -586,6 +586,224 @@ class BRILLO_EXPORT BluetoothChipsetInfo final : public ::metrics::structured::E
 };
 
 }  // namespace bluetooth_chipset
+
+namespace crash_reporting {
+
+class BRILLO_EXPORT CrashpadDetect final : public ::metrics::structured::EventBase {
+ public:
+  CrashpadDetect();
+  ~CrashpadDetect() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(1601453839150531551);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(13615523565054809415);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kDummyNameHash = UINT64_C(13614441832933890093);
+  CrashpadDetect& SetDummy(const int64_t value);
+  int64_t GetDummyForTest() const;
+
+};
+
+class BRILLO_EXPORT CrashReporterStart final : public ::metrics::structured::EventBase {
+ public:
+  CrashReporterStart();
+  ~CrashReporterStart() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(7850511865548751040);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(13615523565054809415);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kCollectorNameHash = UINT64_C(10359177269713898166);
+  CrashReporterStart& SetCollector(const int64_t value);
+  int64_t GetCollectorForTest() const;
+
+  static constexpr uint64_t kIsCrashLoopNameHash = UINT64_C(1930484523447744031);
+  CrashReporterStart& SetIsCrashLoop(const int64_t value);
+  int64_t GetIsCrashLoopForTest() const;
+
+};
+
+class BRILLO_EXPORT CrashReporterStatus final : public ::metrics::structured::EventBase {
+ public:
+  CrashReporterStatus();
+  ~CrashReporterStatus() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(1308528214212923902);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(13615523565054809415);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kStatusNameHash = UINT64_C(17029140179819671253);
+  CrashReporterStatus& SetStatus(const int64_t value);
+  int64_t GetStatusForTest() const;
+
+  static constexpr uint64_t kCollectorNameHash = UINT64_C(10359177269713898166);
+  CrashReporterStatus& SetCollector(const int64_t value);
+  int64_t GetCollectorForTest() const;
+
+  static constexpr uint64_t kIsCrashLoopNameHash = UINT64_C(1930484523447744031);
+  CrashReporterStatus& SetIsCrashLoop(const int64_t value);
+  int64_t GetIsCrashLoopForTest() const;
+
+};
+
+class BRILLO_EXPORT CrashReporterInitializationStart final : public ::metrics::structured::EventBase {
+ public:
+  CrashReporterInitializationStart();
+  ~CrashReporterInitializationStart() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(6294424027513569412);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(13615523565054809415);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kIsEarlyNameHash = UINT64_C(9064645181175449570);
+  CrashReporterInitializationStart& SetIsEarly(const int64_t value);
+  int64_t GetIsEarlyForTest() const;
+
+};
+
+class BRILLO_EXPORT CrashReporterInitializationStatus final : public ::metrics::structured::EventBase {
+ public:
+  CrashReporterInitializationStatus();
+  ~CrashReporterInitializationStatus() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(2080720131813094578);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(13615523565054809415);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kIsEarlyNameHash = UINT64_C(9064645181175449570);
+  CrashReporterInitializationStatus& SetIsEarly(const int64_t value);
+  int64_t GetIsEarlyForTest() const;
+
+  static constexpr uint64_t kStatusNameHash = UINT64_C(17029140179819671253);
+  CrashReporterInitializationStatus& SetStatus(const int64_t value);
+  int64_t GetStatusForTest() const;
+
+};
+
+class BRILLO_EXPORT CrashSenderStart final : public ::metrics::structured::EventBase {
+ public:
+  CrashSenderStart();
+  ~CrashSenderStart() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(13833294554451550251);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(13615523565054809415);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kIsCrashLoopNameHash = UINT64_C(1930484523447744031);
+  CrashSenderStart& SetIsCrashLoop(const int64_t value);
+  int64_t GetIsCrashLoopForTest() const;
+
+};
+
+class BRILLO_EXPORT CrashSenderStartPerCollector final : public ::metrics::structured::EventBase {
+ public:
+  CrashSenderStartPerCollector();
+  ~CrashSenderStartPerCollector() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(12110916028108299118);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(13615523565054809415);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kCollectorNameHash = UINT64_C(10359177269713898166);
+  CrashSenderStartPerCollector& SetCollector(const int64_t value);
+  int64_t GetCollectorForTest() const;
+
+  static constexpr uint64_t kIsCrashLoopNameHash = UINT64_C(1930484523447744031);
+  CrashSenderStartPerCollector& SetIsCrashLoop(const int64_t value);
+  int64_t GetIsCrashLoopForTest() const;
+
+};
+
+class BRILLO_EXPORT CrashSenderRemovalReason final : public ::metrics::structured::EventBase {
+ public:
+  CrashSenderRemovalReason();
+  ~CrashSenderRemovalReason() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(7577946645089247696);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(13615523565054809415);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kCollectorNameHash = UINT64_C(10359177269713898166);
+  CrashSenderRemovalReason& SetCollector(const int64_t value);
+  int64_t GetCollectorForTest() const;
+
+  static constexpr uint64_t kReasonNameHash = UINT64_C(18445816987321669298);
+  CrashSenderRemovalReason& SetReason(const int64_t value);
+  int64_t GetReasonForTest() const;
+
+  static constexpr uint64_t kIsCrashLoopNameHash = UINT64_C(1930484523447744031);
+  CrashSenderRemovalReason& SetIsCrashLoop(const int64_t value);
+  int64_t GetIsCrashLoopForTest() const;
+
+};
+
+class BRILLO_EXPORT CrashSenderComplete final : public ::metrics::structured::EventBase {
+ public:
+  CrashSenderComplete();
+  ~CrashSenderComplete() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(4690971842482928427);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(13615523565054809415);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kCollectorNameHash = UINT64_C(10359177269713898166);
+  CrashSenderComplete& SetCollector(const int64_t value);
+  int64_t GetCollectorForTest() const;
+
+  static constexpr uint64_t kRemovedNameHash = UINT64_C(10660156047789882642);
+  CrashSenderComplete& SetRemoved(const int64_t value);
+  int64_t GetRemovedForTest() const;
+
+  static constexpr uint64_t kIsCrashLoopNameHash = UINT64_C(1930484523447744031);
+  CrashSenderComplete& SetIsCrashLoop(const int64_t value);
+  int64_t GetIsCrashLoopForTest() const;
+
+};
+
+class BRILLO_EXPORT CrashSenderOrphanFileRemoved final : public ::metrics::structured::EventBase {
+ public:
+  CrashSenderOrphanFileRemoved();
+  ~CrashSenderOrphanFileRemoved() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(8732967830585610921);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(13615523565054809415);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kRemovedNameHash = UINT64_C(10660156047789882642);
+  CrashSenderOrphanFileRemoved& SetRemoved(const int64_t value);
+  int64_t GetRemovedForTest() const;
+
+  static constexpr uint64_t kIsCrashLoopNameHash = UINT64_C(1930484523447744031);
+  CrashSenderOrphanFileRemoved& SetIsCrashLoop(const int64_t value);
+  int64_t GetIsCrashLoopForTest() const;
+
+  static constexpr uint64_t kSeemingCrashFileNameHash = UINT64_C(6278724688900276512);
+  CrashSenderOrphanFileRemoved& SetSeemingCrashFile(const int64_t value);
+  int64_t GetSeemingCrashFileForTest() const;
+
+};
+
+}  // namespace crash_reporting
 
 namespace hardware_verifier {
 

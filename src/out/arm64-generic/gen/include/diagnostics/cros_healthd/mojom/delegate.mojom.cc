@@ -2931,7 +2931,7 @@ class Delegate_GetPsr_ProxyToResponder : public ::mojo::internal::ProxyToRespond
 #endif
 
   void Run(
-      ::ash::cros_healthd::mojom::PsrInfoPtr in_result, const std::optional<std::string>& in_err);
+      ::ash::cros_healthd::mojom::GetPsrResultPtr in_result);
 };
 
 bool Delegate_GetPsr_ForwardToCallback::Accept(
@@ -2946,13 +2946,10 @@ bool Delegate_GetPsr_ForwardToCallback::Accept(
   
   // Validation for Delegate.11
   bool success = true;
-  ::ash::cros_healthd::mojom::PsrInfoPtr p_result{};
-  std::optional<std::string> p_err{};
+  ::ash::cros_healthd::mojom::GetPsrResultPtr p_result{};
   Delegate_GetPsr_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
-    success = false;
-  if (success && !input_data_view.ReadErr(&p_err))
     success = false;
   if (!success) {
     ReportValidationErrorForMessage(
@@ -2963,13 +2960,12 @@ bool Delegate_GetPsr_ForwardToCallback::Accept(
   }
   if (!callback_.is_null())
     std::move(callback_).Run(
-std::move(p_result), 
-std::move(p_err));
+std::move(p_result));
   return true;
 }
 
 void Delegate_GetPsr_ProxyToResponder::Run(
-    ::ash::cros_healthd::mojom::PsrInfoPtr in_result, const std::optional<std::string>& in_err) {
+    ::ash::cros_healthd::mojom::GetPsrResultPtr in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetPsr", "async_response_parameters",
@@ -2977,10 +2973,7 @@ void Delegate_GetPsr_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
-                        "<value of type ::ash::cros_healthd::mojom::PsrInfoPtr>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("err"), in_err,
-                        "<value of type const std::optional<std::string>&>");
+                        "<value of type ::ash::cros_healthd::mojom::GetPsrResultPtr>");
    });
 #endif
   
@@ -2995,24 +2988,15 @@ void Delegate_GetPsr_ProxyToResponder::Run(
       ::ash::cros_healthd::mojom::internal::Delegate_GetPsr_ResponseParams_Data> params(
           message);
   params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->result)::BaseType> result_fragment(
-          params.message());
-  mojo::internal::Serialize<::ash::cros_healthd::mojom::PsrInfoDataView>(
-      in_result, result_fragment);
-  params->result.Set(
-      result_fragment.is_null() ? nullptr : result_fragment.data());
+  mojo::internal::MessageFragment<decltype(params->result)>
+      result_fragment(params.message());
+  result_fragment.Claim(&params->result);
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::GetPsrResultDataView>(
+      in_result, result_fragment, true);
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->result.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null result in ");
-  mojo::internal::MessageFragment<
-      typename decltype(params->err)::BaseType> err_fragment(
-          params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_err, err_fragment);
-  params->err.Set(
-      err_fragment.is_null() ? nullptr : err_fragment.data());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Delegate::Name_);
@@ -5952,26 +5936,27 @@ std::optional<uint16_t> DelegateAsyncWaiter::GetLidAngle(
 }
 
 void DelegateAsyncWaiter::GetPsr(
-    ::ash::cros_healthd::mojom::PsrInfoPtr* out_result, std::optional<std::string>* out_err) {
+    ::ash::cros_healthd::mojom::GetPsrResultPtr* out_result) {
   base::RunLoop loop;
   proxy_->GetPsr(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::ash::cros_healthd::mojom::PsrInfoPtr* out_result
+             ::ash::cros_healthd::mojom::GetPsrResultPtr* out_result
 ,
-             std::optional<std::string>* out_err
-,
-             ::ash::cros_healthd::mojom::PsrInfoPtr result,
-             const std::optional<std::string>& err) {*out_result = std::move(result);*out_err = std::move(err);
+             ::ash::cros_healthd::mojom::GetPsrResultPtr result) {*out_result = std::move(result);
             loop->Quit();
           },
           &loop,
-          out_result,
-          out_err));
+          out_result));
   loop.Run();
 }
 
-
+::ash::cros_healthd::mojom::GetPsrResultPtr DelegateAsyncWaiter::GetPsr(
+    ) {
+  ::ash::cros_healthd::mojom::GetPsrResultPtr async_wait_result;
+  GetPsr(&async_wait_result);
+  return async_wait_result;
+}
 
 void DelegateAsyncWaiter::GetConnectedExternalDisplayConnectors(
     const std::optional<std::vector<uint32_t>>& last_known_connectors, base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, std::optional<std::string>* out_err) {

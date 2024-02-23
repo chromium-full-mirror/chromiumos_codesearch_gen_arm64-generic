@@ -29,7 +29,7 @@
 #include "diagnostics/mojom/external/time.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-forward.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom.h"
-#include "diagnostics/mojom/public/cros_healthd_probe.mojom-forward.h"
+#include "diagnostics/mojom/public/cros_healthd_probe.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_routines.mojom-forward.h"
 #include <string>
 #include <vector>
@@ -789,7 +789,7 @@ class Executor
   virtual void MonitorStylus(::mojo::PendingRemote<StylusObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) = 0;
 
 
-  using GetPsrCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::PsrInfoPtr, const std::optional<std::string>&)>;
+  using GetPsrCallback = base::OnceCallback<void(GetPsrResultPtr)>;
   
   virtual void GetPsr(GetPsrCallback callback) = 0;
 
@@ -2377,6 +2377,136 @@ class  GetPrivacyScreenInfoResult {
 
 
 
+class  GetPsrResult {
+ public:
+  using DataView = GetPsrResultDataView;
+  using Data_ = internal::GetPsrResult_Data;
+  using Tag = Data_::GetPsrResult_Tag;
+
+  template <typename... Args>
+  static GetPsrResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |info|.
+  static GetPsrResultPtr
+  NewInfo(
+      ::ash::cros_healthd::mojom::PsrInfoPtr value) {
+    auto result = GetPsrResultPtr(std::in_place);
+    result->set_info(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |error|.
+  static GetPsrResultPtr
+  NewError(
+      const std::string& value) {
+    auto result = GetPsrResultPtr(std::in_place);
+    result->set_error(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static GetPsrResultPtr From(const U& u) {
+    return mojo::TypeConverter<GetPsrResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, GetPsrResult>::Convert(*this);
+  }
+
+  GetPsrResult();
+  ~GetPsrResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  GetPsrResult(const GetPsrResult& other) = delete;
+  GetPsrResult& operator=(const GetPsrResult& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = GetPsrResultPtr>
+  GetPsrResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, GetPsrResult>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, GetPsrResult>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_info() const { return tag_ == Tag::kInfo; }
+
+  
+  ::ash::cros_healthd::mojom::PsrInfoPtr& get_info() const {
+    CHECK(tag_ == Tag::kInfo);
+    return *(data_.info);
+  }
+
+  
+  void set_info(
+      ::ash::cros_healthd::mojom::PsrInfoPtr info);
+  
+  bool is_error() const { return tag_ == Tag::kError; }
+
+  
+  std::string& get_error() const {
+    CHECK(tag_ == Tag::kError);
+    return *(data_.error);
+  }
+
+  
+  void set_error(
+      const std::string& error);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        GetPsrResult::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<GetPsrResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    ::ash::cros_healthd::mojom::PsrInfoPtr* info;
+    std::string* error;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
 
 
 
@@ -2866,6 +2996,35 @@ bool GetPrivacyScreenInfoResult::Equals(const T& other) const {
 
   return false;
 }
+template <typename UnionPtrType>
+GetPsrResultPtr GetPsrResult::Clone() const {
+  switch (tag_) {
+    case Tag::kInfo:
+      return NewInfo(
+          mojo::Clone(*data_.info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, GetPsrResult>::value>::type*>
+bool GetPsrResult::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kInfo:
+      return mojo::Equals(*(data_.info), *(other.data_.info));
+    case Tag::kError:
+      return mojo::Equals(*(data_.error), *(other.data_.error));
+  }
+
+  return false;
+}
 template <typename StructPtrType>
 ExecutedProcessResultPtr ExecutedProcessResult::Clone() const {
   return New(
@@ -3245,6 +3404,28 @@ struct  UnionTraits<::ash::cros_healthd::mojom::GetPrivacyScreenInfoResult::Data
   }
 
   static bool Read(::ash::cros_healthd::mojom::GetPrivacyScreenInfoResult::DataView input, ::ash::cros_healthd::mojom::GetPrivacyScreenInfoResultPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ash::cros_healthd::mojom::GetPsrResult::DataView,
+                                        ::ash::cros_healthd::mojom::GetPsrResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::GetPsrResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::GetPsrResultPtr* output) { output->reset(); }
+
+  static ::ash::cros_healthd::mojom::GetPsrResult::Tag GetTag(const ::ash::cros_healthd::mojom::GetPsrResultPtr& input) {
+    return input->which();
+  }
+
+  static const ::ash::cros_healthd::mojom::PsrInfoPtr& info(const ::ash::cros_healthd::mojom::GetPsrResultPtr& input) {
+    return input->get_info();
+  }
+
+  static const std::string& error(const ::ash::cros_healthd::mojom::GetPsrResultPtr& input) {
+    return input->get_error();
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::GetPsrResult::DataView input, ::ash::cros_healthd::mojom::GetPsrResultPtr* output);
 };
 
 }  // namespace mojo

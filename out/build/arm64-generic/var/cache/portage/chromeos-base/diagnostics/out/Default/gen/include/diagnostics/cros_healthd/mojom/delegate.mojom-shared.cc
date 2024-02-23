@@ -570,19 +570,12 @@ bool Delegate_GetPsr_ResponseParams_Data::Validate(
   [[maybe_unused]] const Delegate_GetPsr_ResponseParams_Data* object =
       static_cast<const Delegate_GetPsr_ResponseParams_Data*>(data);
 
-  if (!mojo::internal::ValidatePointerNonNullable(
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
           object->result, 1, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->result, validation_context))
+  if (!mojo::internal::ValidateInlinedUnion(object->result, validation_context))
     return false;
-
-  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->err, validation_context,
-                                         &err_validate_params)) {
-    return false;
-  }
 
   return true;
 }

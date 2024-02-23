@@ -38,6 +38,7 @@ class PrivacyScreenInfoDataView;
 
 class FioJobArgumentDataView;
 class GetPrivacyScreenInfoResultDataView;
+class GetPsrResultDataView;
 
 enum class FingerprintCaptureType : int32_t;
 
@@ -80,6 +81,10 @@ using FioJobArgumentPtr = mojo::StructPtr<FioJobArgument>;
 class GetPrivacyScreenInfoResult;
 
 using GetPrivacyScreenInfoResultPtr = mojo::StructPtr<GetPrivacyScreenInfoResult>;
+
+class GetPsrResult;
+
+using GetPsrResultPtr = mojo::StructPtr<GetPsrResult>;
 
 class ProcessControl;
 

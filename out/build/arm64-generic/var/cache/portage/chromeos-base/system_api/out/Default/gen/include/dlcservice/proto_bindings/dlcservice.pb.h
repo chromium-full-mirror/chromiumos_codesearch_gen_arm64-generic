@@ -60,6 +60,12 @@ extern DlcsWithContent_DlcInfoDefaultTypeInternal _DlcsWithContent_DlcInfo_defau
 class InstallRequest;
 struct InstallRequestDefaultTypeInternal;
 extern InstallRequestDefaultTypeInternal _InstallRequest_default_instance_;
+class UnloadRequest;
+struct UnloadRequestDefaultTypeInternal;
+extern UnloadRequestDefaultTypeInternal _UnloadRequest_default_instance_;
+class UnloadRequest_SelectDlc;
+struct UnloadRequest_SelectDlcDefaultTypeInternal;
+extern UnloadRequest_SelectDlcDefaultTypeInternal _UnloadRequest_SelectDlc_default_instance_;
 }  // namespace dlcservice
 PROTOBUF_NAMESPACE_OPEN
 template <>
@@ -70,6 +76,10 @@ template <>
 ::dlcservice::DlcsWithContent_DlcInfo* Arena::CreateMaybeMessage<::dlcservice::DlcsWithContent_DlcInfo>(Arena*);
 template <>
 ::dlcservice::InstallRequest* Arena::CreateMaybeMessage<::dlcservice::InstallRequest>(Arena*);
+template <>
+::dlcservice::UnloadRequest* Arena::CreateMaybeMessage<::dlcservice::UnloadRequest>(Arena*);
+template <>
+::dlcservice::UnloadRequest_SelectDlc* Arena::CreateMaybeMessage<::dlcservice::UnloadRequest_SelectDlc>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 namespace dlcservice {
@@ -296,6 +306,344 @@ class InstallRequest final :
   friend struct ::TableStruct_dlcservice_2eproto;
 };// -------------------------------------------------------------------
 
+class UnloadRequest_SelectDlc final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:dlcservice.UnloadRequest.SelectDlc) */ {
+ public:
+  inline UnloadRequest_SelectDlc() : UnloadRequest_SelectDlc(nullptr) {}
+  ~UnloadRequest_SelectDlc() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR UnloadRequest_SelectDlc(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UnloadRequest_SelectDlc(const UnloadRequest_SelectDlc& from);
+  UnloadRequest_SelectDlc(UnloadRequest_SelectDlc&& from) noexcept
+    : UnloadRequest_SelectDlc() {
+    *this = ::std::move(from);
+  }
+
+  inline UnloadRequest_SelectDlc& operator=(const UnloadRequest_SelectDlc& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UnloadRequest_SelectDlc& operator=(UnloadRequest_SelectDlc&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const UnloadRequest_SelectDlc& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UnloadRequest_SelectDlc* internal_default_instance() {
+    return reinterpret_cast<const UnloadRequest_SelectDlc*>(
+               &_UnloadRequest_SelectDlc_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(UnloadRequest_SelectDlc& a, UnloadRequest_SelectDlc& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UnloadRequest_SelectDlc* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UnloadRequest_SelectDlc* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UnloadRequest_SelectDlc* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UnloadRequest_SelectDlc>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const UnloadRequest_SelectDlc& from);
+  void MergeFrom(const UnloadRequest_SelectDlc& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(UnloadRequest_SelectDlc* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "dlcservice.UnloadRequest.SelectDlc";
+  }
+  protected:
+  explicit UnloadRequest_SelectDlc(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserTiedFieldNumber = 1,
+    kScaledFieldNumber = 2,
+  };
+  // bool user_tied = 1;
+  void clear_user_tied() ;
+  bool user_tied() const;
+  void set_user_tied(bool value);
+
+  private:
+  bool _internal_user_tied() const;
+  void _internal_set_user_tied(bool value);
+
+  public:
+  // bool scaled = 2;
+  void clear_scaled() ;
+  bool scaled() const;
+  void set_scaled(bool value);
+
+  private:
+  bool _internal_scaled() const;
+  void _internal_set_scaled(bool value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:dlcservice.UnloadRequest.SelectDlc)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    bool user_tied_;
+    bool scaled_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_dlcservice_2eproto;
+};// -------------------------------------------------------------------
+
+class UnloadRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:dlcservice.UnloadRequest) */ {
+ public:
+  inline UnloadRequest() : UnloadRequest(nullptr) {}
+  ~UnloadRequest() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR UnloadRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UnloadRequest(const UnloadRequest& from);
+  UnloadRequest(UnloadRequest&& from) noexcept
+    : UnloadRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline UnloadRequest& operator=(const UnloadRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UnloadRequest& operator=(UnloadRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const UnloadRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  enum DlcInfoCase {
+    kId = 1,
+    kAnyOf = 2,
+    DLCINFO_NOT_SET = 0,
+  };
+
+  static inline const UnloadRequest* internal_default_instance() {
+    return reinterpret_cast<const UnloadRequest*>(
+               &_UnloadRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(UnloadRequest& a, UnloadRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UnloadRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UnloadRequest* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UnloadRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UnloadRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const UnloadRequest& from);
+  void MergeFrom(const UnloadRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(UnloadRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "dlcservice.UnloadRequest";
+  }
+  protected:
+  explicit UnloadRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef UnloadRequest_SelectDlc SelectDlc;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+    kAnyOfFieldNumber = 2,
+  };
+  // string id = 1;
+  bool has_id() const;
+  void clear_id() ;
+  const std::string& id() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_id(Arg_&& arg, Args_... args);
+  std::string* mutable_id();
+  PROTOBUF_NODISCARD std::string* release_id();
+  void set_allocated_id(std::string* ptr);
+
+  private:
+  const std::string& _internal_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_id(
+      const std::string& value);
+  std::string* _internal_mutable_id();
+
+  public:
+  // .dlcservice.UnloadRequest.SelectDlc any_of = 2;
+  bool has_any_of() const;
+  private:
+  bool _internal_has_any_of() const;
+
+  public:
+  void clear_any_of() ;
+  const ::dlcservice::UnloadRequest_SelectDlc& any_of() const;
+  PROTOBUF_NODISCARD ::dlcservice::UnloadRequest_SelectDlc* release_any_of();
+  ::dlcservice::UnloadRequest_SelectDlc* mutable_any_of();
+  void set_allocated_any_of(::dlcservice::UnloadRequest_SelectDlc* any_of);
+  private:
+  const ::dlcservice::UnloadRequest_SelectDlc& _internal_any_of() const;
+  ::dlcservice::UnloadRequest_SelectDlc* _internal_mutable_any_of();
+  public:
+  void unsafe_arena_set_allocated_any_of(
+      ::dlcservice::UnloadRequest_SelectDlc* any_of);
+  ::dlcservice::UnloadRequest_SelectDlc* unsafe_arena_release_any_of();
+  void clear_DlcInfo();
+  DlcInfoCase DlcInfo_case() const;
+  // @@protoc_insertion_point(class_scope:dlcservice.UnloadRequest)
+ private:
+  class _Internal;
+  void set_has_id();
+  void set_has_any_of();
+
+  inline bool has_DlcInfo() const;
+  inline void clear_has_DlcInfo();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    union DlcInfoUnion {
+      constexpr DlcInfoUnion() : _constinit_{} {}
+        ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+      ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+      ::dlcservice::UnloadRequest_SelectDlc* any_of_;
+    } DlcInfo_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::uint32_t _oneof_case_[1];
+
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_dlcservice_2eproto;
+};// -------------------------------------------------------------------
+
 class DlcsWithContent_DlcInfo final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:dlcservice.DlcsWithContent.DlcInfo) */ {
  public:
@@ -343,7 +691,7 @@ class DlcsWithContent_DlcInfo final :
                &_DlcsWithContent_DlcInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    3;
 
   friend void swap(DlcsWithContent_DlcInfo& a, DlcsWithContent_DlcInfo& b) {
     a.Swap(&b);
@@ -558,7 +906,7 @@ class DlcsWithContent final :
                &_DlcsWithContent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    4;
 
   friend void swap(DlcsWithContent& a, DlcsWithContent& b) {
     a.Swap(&b);
@@ -707,7 +1055,7 @@ class DlcState final :
                &_DlcState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   friend void swap(DlcState& a, DlcState& b) {
     a.Swap(&b);
@@ -1077,6 +1425,216 @@ inline void InstallRequest::_internal_set_force_ota(bool value) {
   _impl_.force_ota_ = value;
 }
 
+// -------------------------------------------------------------------
+
+// UnloadRequest_SelectDlc
+
+// bool user_tied = 1;
+inline void UnloadRequest_SelectDlc::clear_user_tied() {
+  _impl_.user_tied_ = false;
+}
+inline bool UnloadRequest_SelectDlc::user_tied() const {
+  // @@protoc_insertion_point(field_get:dlcservice.UnloadRequest.SelectDlc.user_tied)
+  return _internal_user_tied();
+}
+inline void UnloadRequest_SelectDlc::set_user_tied(bool value) {
+  _internal_set_user_tied(value);
+  // @@protoc_insertion_point(field_set:dlcservice.UnloadRequest.SelectDlc.user_tied)
+}
+inline bool UnloadRequest_SelectDlc::_internal_user_tied() const {
+  return _impl_.user_tied_;
+}
+inline void UnloadRequest_SelectDlc::_internal_set_user_tied(bool value) {
+  ;
+  _impl_.user_tied_ = value;
+}
+
+// bool scaled = 2;
+inline void UnloadRequest_SelectDlc::clear_scaled() {
+  _impl_.scaled_ = false;
+}
+inline bool UnloadRequest_SelectDlc::scaled() const {
+  // @@protoc_insertion_point(field_get:dlcservice.UnloadRequest.SelectDlc.scaled)
+  return _internal_scaled();
+}
+inline void UnloadRequest_SelectDlc::set_scaled(bool value) {
+  _internal_set_scaled(value);
+  // @@protoc_insertion_point(field_set:dlcservice.UnloadRequest.SelectDlc.scaled)
+}
+inline bool UnloadRequest_SelectDlc::_internal_scaled() const {
+  return _impl_.scaled_;
+}
+inline void UnloadRequest_SelectDlc::_internal_set_scaled(bool value) {
+  ;
+  _impl_.scaled_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// UnloadRequest
+
+// string id = 1;
+inline bool UnloadRequest::has_id() const {
+  return DlcInfo_case() == kId;
+}
+inline void UnloadRequest::set_has_id() {
+  _impl_._oneof_case_[0] = kId;
+}
+inline void UnloadRequest::clear_id() {
+  if (DlcInfo_case() == kId) {
+    _impl_.DlcInfo_.id_.Destroy();
+    clear_has_DlcInfo();
+  }
+}
+inline const std::string& UnloadRequest::id() const {
+  // @@protoc_insertion_point(field_get:dlcservice.UnloadRequest.id)
+  return _internal_id();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void UnloadRequest::set_id(Arg_&& arg,
+                                                     Args_... args) {
+  if (DlcInfo_case() != kId) {
+    clear_DlcInfo();
+
+    set_has_id();
+    _impl_.DlcInfo_.id_.InitDefault();
+  }
+  _impl_.DlcInfo_.id_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:dlcservice.UnloadRequest.id)
+}
+inline std::string* UnloadRequest::mutable_id() {
+  std::string* _s = _internal_mutable_id();
+  // @@protoc_insertion_point(field_mutable:dlcservice.UnloadRequest.id)
+  return _s;
+}
+inline const std::string& UnloadRequest::_internal_id() const {
+  if (DlcInfo_case() != kId) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited();
+  }
+  return _impl_.DlcInfo_.id_.Get();
+}
+inline void UnloadRequest::_internal_set_id(const std::string& value) {
+  if (DlcInfo_case() != kId) {
+    clear_DlcInfo();
+
+    set_has_id();
+    _impl_.DlcInfo_.id_.InitDefault();
+  }
+
+
+  _impl_.DlcInfo_.id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* UnloadRequest::_internal_mutable_id() {
+  if (DlcInfo_case() != kId) {
+    clear_DlcInfo();
+
+    set_has_id();
+    _impl_.DlcInfo_.id_.InitDefault();
+  }
+  return _impl_.DlcInfo_.id_.Mutable( GetArenaForAllocation());
+}
+inline std::string* UnloadRequest::release_id() {
+  // @@protoc_insertion_point(field_release:dlcservice.UnloadRequest.id)
+  if (DlcInfo_case() != kId) {
+    return nullptr;
+  }
+  clear_has_DlcInfo();
+  return _impl_.DlcInfo_.id_.Release();
+}
+inline void UnloadRequest::set_allocated_id(std::string* value) {
+  if (has_DlcInfo()) {
+    clear_DlcInfo();
+  }
+  if (value != nullptr) {
+    set_has_id();
+    _impl_.DlcInfo_.id_.InitAllocated(value, GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(field_set_allocated:dlcservice.UnloadRequest.id)
+}
+
+// .dlcservice.UnloadRequest.SelectDlc any_of = 2;
+inline bool UnloadRequest::has_any_of() const {
+  return DlcInfo_case() == kAnyOf;
+}
+inline bool UnloadRequest::_internal_has_any_of() const {
+  return DlcInfo_case() == kAnyOf;
+}
+inline void UnloadRequest::set_has_any_of() {
+  _impl_._oneof_case_[0] = kAnyOf;
+}
+inline void UnloadRequest::clear_any_of() {
+  if (DlcInfo_case() == kAnyOf) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.DlcInfo_.any_of_;
+    }
+    clear_has_DlcInfo();
+  }
+}
+inline ::dlcservice::UnloadRequest_SelectDlc* UnloadRequest::release_any_of() {
+  // @@protoc_insertion_point(field_release:dlcservice.UnloadRequest.any_of)
+  if (DlcInfo_case() == kAnyOf) {
+    clear_has_DlcInfo();
+    ::dlcservice::UnloadRequest_SelectDlc* temp = _impl_.DlcInfo_.any_of_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.DlcInfo_.any_of_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::dlcservice::UnloadRequest_SelectDlc& UnloadRequest::_internal_any_of() const {
+  return DlcInfo_case() == kAnyOf
+      ? *_impl_.DlcInfo_.any_of_
+      : reinterpret_cast<::dlcservice::UnloadRequest_SelectDlc&>(::dlcservice::_UnloadRequest_SelectDlc_default_instance_);
+}
+inline const ::dlcservice::UnloadRequest_SelectDlc& UnloadRequest::any_of() const {
+  // @@protoc_insertion_point(field_get:dlcservice.UnloadRequest.any_of)
+  return _internal_any_of();
+}
+inline ::dlcservice::UnloadRequest_SelectDlc* UnloadRequest::unsafe_arena_release_any_of() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:dlcservice.UnloadRequest.any_of)
+  if (DlcInfo_case() == kAnyOf) {
+    clear_has_DlcInfo();
+    ::dlcservice::UnloadRequest_SelectDlc* temp = _impl_.DlcInfo_.any_of_;
+    _impl_.DlcInfo_.any_of_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void UnloadRequest::unsafe_arena_set_allocated_any_of(::dlcservice::UnloadRequest_SelectDlc* any_of) {
+  clear_DlcInfo();
+  if (any_of) {
+    set_has_any_of();
+    _impl_.DlcInfo_.any_of_ = any_of;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:dlcservice.UnloadRequest.any_of)
+}
+inline ::dlcservice::UnloadRequest_SelectDlc* UnloadRequest::_internal_mutable_any_of() {
+  if (DlcInfo_case() != kAnyOf) {
+    clear_DlcInfo();
+    set_has_any_of();
+    _impl_.DlcInfo_.any_of_ = CreateMaybeMessage< ::dlcservice::UnloadRequest_SelectDlc >(GetArenaForAllocation());
+  }
+  return _impl_.DlcInfo_.any_of_;
+}
+inline ::dlcservice::UnloadRequest_SelectDlc* UnloadRequest::mutable_any_of() {
+  ::dlcservice::UnloadRequest_SelectDlc* _msg = _internal_mutable_any_of();
+  // @@protoc_insertion_point(field_mutable:dlcservice.UnloadRequest.any_of)
+  return _msg;
+}
+
+inline bool UnloadRequest::has_DlcInfo() const {
+  return DlcInfo_case() != DLCINFO_NOT_SET;
+}
+inline void UnloadRequest::clear_has_DlcInfo() {
+  _impl_._oneof_case_[0] = DLCINFO_NOT_SET;
+}
+inline UnloadRequest::DlcInfoCase UnloadRequest::DlcInfo_case() const {
+  return UnloadRequest::DlcInfoCase(_impl_._oneof_case_[0]);
+}
 // -------------------------------------------------------------------
 
 // DlcsWithContent_DlcInfo
