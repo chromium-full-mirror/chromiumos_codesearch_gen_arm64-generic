@@ -300,8 +300,8 @@ class VideoEncodeAcceleratorConfigDataView {
   uint32_t initial_framerate() const {
     return data_->initial_framerate;
   }
-  bool has_initial_framerate() const {
-    return data_->has_initial_framerate;
+  bool has_initial_framerate_deprecated() const {
+    return data_->has_initial_framerate_deprecated;
   }
   uint8_t h264_output_level() const {
     return data_->h264_output_level;
@@ -615,7 +615,7 @@ struct Serializer<::arc::mojom::VideoEncodeAcceleratorConfigDataView, MaybeConst
         Traits::output_profile(input), &fragment->output_profile);
     fragment->initial_bitrate_deprecated = Traits::initial_bitrate_deprecated(input);
     fragment->initial_framerate = Traits::initial_framerate(input);
-    fragment->has_initial_framerate = Traits::has_initial_framerate(input);
+    fragment->has_initial_framerate_deprecated = Traits::has_initial_framerate_deprecated(input);
     fragment->h264_output_level = Traits::h264_output_level(input);
     fragment->has_h264_output_level = Traits::has_h264_output_level(input);
     mojo::internal::Serialize<::arc::mojom::VideoFrameStorageType>(

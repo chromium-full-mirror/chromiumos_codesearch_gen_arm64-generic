@@ -293,14 +293,25 @@ const char Exclude[] = "exclude";
 } // namespace AttributionReportingSourceRegistrationTimeConfigEnum
 
 
-CRDTP_BEGIN_DESERIALIZER(AttributionReportingAggregatableValueEntry)
+CRDTP_BEGIN_DESERIALIZER(AttributionReportingAggregatableValueDictEntry)
     CRDTP_DESERIALIZE_FIELD("key", m_key),
     CRDTP_DESERIALIZE_FIELD("value", m_value),
 CRDTP_END_DESERIALIZER()
 
-CRDTP_BEGIN_SERIALIZER(AttributionReportingAggregatableValueEntry)
+CRDTP_BEGIN_SERIALIZER(AttributionReportingAggregatableValueDictEntry)
     CRDTP_SERIALIZE_FIELD("key", m_key);
     CRDTP_SERIALIZE_FIELD("value", m_value);
+CRDTP_END_SERIALIZER();
+
+
+CRDTP_BEGIN_DESERIALIZER(AttributionReportingAggregatableValueEntry)
+    CRDTP_DESERIALIZE_FIELD("filters", m_filters),
+    CRDTP_DESERIALIZE_FIELD("values", m_values),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(AttributionReportingAggregatableValueEntry)
+    CRDTP_SERIALIZE_FIELD("values", m_values);
+    CRDTP_SERIALIZE_FIELD("filters", m_filters);
 CRDTP_END_SERIALIZER();
 
 

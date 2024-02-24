@@ -595,11 +595,28 @@ class VideoEncodeAcceleratorConfigDataView {
     return mojo::internal::Deserialize<::media::mojom::BitrateDataView>(
         pointer, output, message_);
   }
-  uint32_t initial_framerate() const {
-    return data_->initial_framerate;
+  uint32_t framerate() const {
+    return data_->framerate;
   }
-  bool has_initial_framerate() const {
-    return data_->has_initial_framerate;
+  template <typename UserType>
+  [[nodiscard]] bool ReadStorageType(UserType* output) const {
+    auto data_value = data_->storage_type;
+    return mojo::internal::Deserialize<::media::mojom::VideoEncodeAcceleratorConfig_StorageType>(
+        data_value, output);
+  }
+  VideoEncodeAcceleratorConfig_StorageType storage_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::media::mojom::VideoEncodeAcceleratorConfig_StorageType>(data_->storage_type));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadContentType(UserType* output) const {
+    auto data_value = data_->content_type;
+    return mojo::internal::Deserialize<::media::mojom::VideoEncodeAcceleratorConfig_ContentType>(
+        data_value, output);
+  }
+  VideoEncodeAcceleratorConfig_ContentType content_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::media::mojom::VideoEncodeAcceleratorConfig_ContentType>(data_->content_type));
   }
   uint32_t gop_length() const {
     return data_->gop_length;
@@ -615,29 +632,6 @@ class VideoEncodeAcceleratorConfigDataView {
   }
   bool is_constrained_h264() const {
     return data_->is_constrained_h264;
-  }
-  template <typename UserType>
-  [[nodiscard]] bool ReadStorageType(UserType* output) const {
-    auto data_value = data_->storage_type;
-    return mojo::internal::Deserialize<::media::mojom::VideoEncodeAcceleratorConfig_StorageType>(
-        data_value, output);
-  }
-  VideoEncodeAcceleratorConfig_StorageType storage_type() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::media::mojom::VideoEncodeAcceleratorConfig_StorageType>(data_->storage_type));
-  }
-  bool has_storage_type() const {
-    return data_->has_storage_type;
-  }
-  template <typename UserType>
-  [[nodiscard]] bool ReadContentType(UserType* output) const {
-    auto data_value = data_->content_type;
-    return mojo::internal::Deserialize<::media::mojom::VideoEncodeAcceleratorConfig_ContentType>(
-        data_value, output);
-  }
-  VideoEncodeAcceleratorConfig_ContentType content_type() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::media::mojom::VideoEncodeAcceleratorConfig_ContentType>(data_->content_type));
   }
   uint8_t drop_frame_thresh_percentage() const {
     return data_->drop_frame_thresh_percentage;
@@ -1517,18 +1511,16 @@ struct Serializer<::media::mojom::VideoEncodeAcceleratorConfigDataView, MaybeCon
         fragment->bitrate.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null bitrate in VideoEncodeAcceleratorConfig struct");
-    fragment->initial_framerate = Traits::initial_framerate(input);
-    fragment->has_initial_framerate = Traits::has_initial_framerate(input);
+    fragment->framerate = Traits::framerate(input);
+    mojo::internal::Serialize<::media::mojom::VideoEncodeAcceleratorConfig_StorageType>(
+        Traits::storage_type(input), &fragment->storage_type);
+    mojo::internal::Serialize<::media::mojom::VideoEncodeAcceleratorConfig_ContentType>(
+        Traits::content_type(input), &fragment->content_type);
     fragment->gop_length = Traits::gop_length(input);
     fragment->has_gop_length = Traits::has_gop_length(input);
     fragment->h264_output_level = Traits::h264_output_level(input);
     fragment->has_h264_output_level = Traits::has_h264_output_level(input);
     fragment->is_constrained_h264 = Traits::is_constrained_h264(input);
-    mojo::internal::Serialize<::media::mojom::VideoEncodeAcceleratorConfig_StorageType>(
-        Traits::storage_type(input), &fragment->storage_type);
-    fragment->has_storage_type = Traits::has_storage_type(input);
-    mojo::internal::Serialize<::media::mojom::VideoEncodeAcceleratorConfig_ContentType>(
-        Traits::content_type(input), &fragment->content_type);
     fragment->drop_frame_thresh_percentage = Traits::drop_frame_thresh_percentage(input);
     decltype(Traits::spatial_layers(input)) in_spatial_layers = Traits::spatial_layers(input);
     mojo::internal::MessageFragment<

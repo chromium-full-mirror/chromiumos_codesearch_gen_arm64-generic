@@ -203,12 +203,13 @@ enum AuthIntent : int {
   AUTH_INTENT_DECRYPT = 1,
   AUTH_INTENT_VERIFY_ONLY = 2,
   AUTH_INTENT_WEBAUTHN = 3,
+  AUTH_INTENT_RESTORE_KEY = 4,
   AuthIntent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   AuthIntent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool AuthIntent_IsValid(int value);
 constexpr AuthIntent AuthIntent_MIN = AUTH_INTENT_UNSPECIFIED;
-constexpr AuthIntent AuthIntent_MAX = AUTH_INTENT_WEBAUTHN;
+constexpr AuthIntent AuthIntent_MAX = AUTH_INTENT_RESTORE_KEY;
 constexpr int AuthIntent_ARRAYSIZE = AuthIntent_MAX + 1;
 
 const std::string& AuthIntent_Name(AuthIntent value);

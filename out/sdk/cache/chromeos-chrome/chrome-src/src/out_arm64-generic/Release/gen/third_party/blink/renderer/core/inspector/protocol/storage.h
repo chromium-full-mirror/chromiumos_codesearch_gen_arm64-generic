@@ -49,6 +49,7 @@ using AttributionReportingTriggerDataMatching = String;
 class AttributionReportingSourceRegistration;
 using AttributionReportingSourceRegistrationResult = String;
 using AttributionReportingSourceRegistrationTimeConfig = String;
+class AttributionReportingAggregatableValueDictEntry;
 class AttributionReportingAggregatableValueEntry;
 class AttributionReportingEventTriggerData;
 class AttributionReportingAggregatableTriggerData;
@@ -1866,9 +1867,9 @@ private:
 };
 
 
-class CORE_EXPORT AttributionReportingAggregatableValueEntry : public ::crdtp::ProtocolObject<AttributionReportingAggregatableValueEntry> {
+class CORE_EXPORT AttributionReportingAggregatableValueDictEntry : public ::crdtp::ProtocolObject<AttributionReportingAggregatableValueDictEntry> {
 public:
-    ~AttributionReportingAggregatableValueEntry() override { }
+    ~AttributionReportingAggregatableValueDictEntry() override { }
 
     String getKey() { return m_key; }
     void setKey(const String& value) { m_key = value; }
@@ -1877,7 +1878,7 @@ public:
     void setValue(double value) { m_value = value; }
 
     template<int STATE>
-    class AttributionReportingAggregatableValueEntryBuilder {
+    class AttributionReportingAggregatableValueDictEntryBuilder {
     public:
         enum {
             NoFieldsSet = 0,
@@ -1886,18 +1887,88 @@ public:
             AllFieldsSet = (KeySet | ValueSet | 0)};
 
 
-        AttributionReportingAggregatableValueEntryBuilder<STATE | KeySet>& setKey(const String& value)
+        AttributionReportingAggregatableValueDictEntryBuilder<STATE | KeySet>& setKey(const String& value)
         {
             static_assert(!(STATE & KeySet), "property key should not be set yet");
             m_result->setKey(value);
             return castState<KeySet>();
         }
 
-        AttributionReportingAggregatableValueEntryBuilder<STATE | ValueSet>& setValue(double value)
+        AttributionReportingAggregatableValueDictEntryBuilder<STATE | ValueSet>& setValue(double value)
         {
             static_assert(!(STATE & ValueSet), "property value should not be set yet");
             m_result->setValue(value);
             return castState<ValueSet>();
+        }
+
+        std::unique_ptr<AttributionReportingAggregatableValueDictEntry> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class AttributionReportingAggregatableValueDictEntry;
+        AttributionReportingAggregatableValueDictEntryBuilder() : m_result(new AttributionReportingAggregatableValueDictEntry()) { }
+
+        template<int STEP> AttributionReportingAggregatableValueDictEntryBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<AttributionReportingAggregatableValueDictEntryBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::AttributionReportingAggregatableValueDictEntry> m_result;
+    };
+
+    static AttributionReportingAggregatableValueDictEntryBuilder<0> create()
+    {
+        return AttributionReportingAggregatableValueDictEntryBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    AttributionReportingAggregatableValueDictEntry()
+    {
+          m_value = 0;
+    }
+
+    String m_key;
+    double m_value;
+};
+
+
+class CORE_EXPORT AttributionReportingAggregatableValueEntry : public ::crdtp::ProtocolObject<AttributionReportingAggregatableValueEntry> {
+public:
+    ~AttributionReportingAggregatableValueEntry() override { }
+
+    protocol::Array<protocol::Storage::AttributionReportingAggregatableValueDictEntry>* getValues() { return m_values.get(); }
+    void setValues(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregatableValueDictEntry>> value) { m_values = std::move(value); }
+
+    protocol::Storage::AttributionReportingFilterPair* getFilters() { return m_filters.get(); }
+    void setFilters(std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> value) { m_filters = std::move(value); }
+
+    template<int STATE>
+    class AttributionReportingAggregatableValueEntryBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            ValuesSet = 1 << 1,
+            FiltersSet = 1 << 2,
+            AllFieldsSet = (ValuesSet | FiltersSet | 0)};
+
+
+        AttributionReportingAggregatableValueEntryBuilder<STATE | ValuesSet>& setValues(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregatableValueDictEntry>> value)
+        {
+            static_assert(!(STATE & ValuesSet), "property values should not be set yet");
+            m_result->setValues(std::move(value));
+            return castState<ValuesSet>();
+        }
+
+        AttributionReportingAggregatableValueEntryBuilder<STATE | FiltersSet>& setFilters(std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> value)
+        {
+            static_assert(!(STATE & FiltersSet), "property filters should not be set yet");
+            m_result->setFilters(std::move(value));
+            return castState<FiltersSet>();
         }
 
         std::unique_ptr<AttributionReportingAggregatableValueEntry> build()
@@ -1928,11 +1999,10 @@ private:
 
     AttributionReportingAggregatableValueEntry()
     {
-          m_value = 0;
     }
 
-    String m_key;
-    double m_value;
+    std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregatableValueDictEntry>> m_values;
+    std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> m_filters;
 };
 
 

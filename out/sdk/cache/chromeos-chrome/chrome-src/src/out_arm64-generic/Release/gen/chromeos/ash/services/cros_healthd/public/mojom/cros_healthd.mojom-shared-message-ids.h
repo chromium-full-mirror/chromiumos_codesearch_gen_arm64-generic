@@ -14,13 +14,6 @@ namespace ash::cros_healthd::mojom {
 namespace internal {
 
 
-constexpr uint32_t kCrosHealthdServiceFactory_GetDiagnosticsService_Name = 0;
-constexpr uint32_t kCrosHealthdServiceFactory_GetEventService_Name = 1;
-constexpr uint32_t kCrosHealthdServiceFactory_GetProbeService_Name = 2;
-constexpr uint32_t kCrosHealthdServiceFactory_SendNetworkHealthService_Name = 3;
-constexpr uint32_t kCrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_Name = 4;
-constexpr uint32_t kCrosHealthdServiceFactory_GetSystemService_Name = 5;
-constexpr uint32_t kCrosHealthdServiceFactory_SendChromiumDataCollector_Name = 6;
 constexpr uint32_t kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name = 0;
 constexpr uint32_t kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name = 1;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name = 2;
@@ -82,7 +75,6 @@ constexpr uint32_t kCrosHealthdEventService_IsEventSupported_Name = 8;
 constexpr uint32_t kCrosHealthdProbeService_ProbeProcessInfo_Name = 0;
 constexpr uint32_t kCrosHealthdProbeService_ProbeTelemetryInfo_Name = 1;
 constexpr uint32_t kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name = 2;
-constexpr uint32_t kCrosHealthdSystemService_GetServiceStatus_Name = 0;
 
 }  // namespace internal
 

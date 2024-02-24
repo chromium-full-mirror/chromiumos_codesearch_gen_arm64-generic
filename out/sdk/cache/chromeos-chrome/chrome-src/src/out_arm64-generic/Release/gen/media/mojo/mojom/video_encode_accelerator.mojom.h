@@ -2727,16 +2727,14 @@ class  VideoEncodeAcceleratorConfig {
       const ::gfx::Size& input_visible_size,
       ::media::VideoCodecProfile output_profile,
       const ::media::Bitrate& bitrate,
-      uint32_t initial_framerate,
-      bool has_initial_framerate,
+      uint32_t framerate,
+      VideoEncodeAcceleratorConfig::StorageType storage_type,
+      VideoEncodeAcceleratorConfig::ContentType content_type,
       uint32_t gop_length,
       bool has_gop_length,
       uint8_t h264_output_level,
       bool has_h264_output_level,
       bool is_constrained_h264,
-      VideoEncodeAcceleratorConfig::StorageType storage_type,
-      bool has_storage_type,
-      VideoEncodeAcceleratorConfig::ContentType content_type,
       uint8_t drop_frame_thresh_percentage,
       std::vector<::media::VideoEncodeAccelerator::Config::SpatialLayer> spatial_layers,
       ::media::SVCInterLayerPredMode inter_layer_pred,
@@ -2827,9 +2825,11 @@ class  VideoEncodeAcceleratorConfig {
   
   ::media::Bitrate bitrate;
   
-  uint32_t initial_framerate;
+  uint32_t framerate;
   
-  bool has_initial_framerate;
+  VideoEncodeAcceleratorConfig::StorageType storage_type;
+  
+  VideoEncodeAcceleratorConfig::ContentType content_type;
   
   uint32_t gop_length;
   
@@ -2840,12 +2840,6 @@ class  VideoEncodeAcceleratorConfig {
   bool has_h264_output_level;
   
   bool is_constrained_h264;
-  
-  VideoEncodeAcceleratorConfig::StorageType storage_type;
-  
-  bool has_storage_type;
-  
-  VideoEncodeAcceleratorConfig::ContentType content_type;
   
   uint8_t drop_frame_thresh_percentage;
   
@@ -3551,16 +3545,14 @@ VideoEncodeAcceleratorConfigPtr VideoEncodeAcceleratorConfig::Clone() const {
       mojo::Clone(input_visible_size),
       mojo::Clone(output_profile),
       mojo::Clone(bitrate),
-      mojo::Clone(initial_framerate),
-      mojo::Clone(has_initial_framerate),
+      mojo::Clone(framerate),
+      mojo::Clone(storage_type),
+      mojo::Clone(content_type),
       mojo::Clone(gop_length),
       mojo::Clone(has_gop_length),
       mojo::Clone(h264_output_level),
       mojo::Clone(has_h264_output_level),
       mojo::Clone(is_constrained_h264),
-      mojo::Clone(storage_type),
-      mojo::Clone(has_storage_type),
-      mojo::Clone(content_type),
       mojo::Clone(drop_frame_thresh_percentage),
       mojo::Clone(spatial_layers),
       mojo::Clone(inter_layer_pred),
@@ -3579,9 +3571,11 @@ bool VideoEncodeAcceleratorConfig::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->bitrate, other_struct.bitrate))
     return false;
-  if (!mojo::Equals(this->initial_framerate, other_struct.initial_framerate))
+  if (!mojo::Equals(this->framerate, other_struct.framerate))
     return false;
-  if (!mojo::Equals(this->has_initial_framerate, other_struct.has_initial_framerate))
+  if (!mojo::Equals(this->storage_type, other_struct.storage_type))
+    return false;
+  if (!mojo::Equals(this->content_type, other_struct.content_type))
     return false;
   if (!mojo::Equals(this->gop_length, other_struct.gop_length))
     return false;
@@ -3592,12 +3586,6 @@ bool VideoEncodeAcceleratorConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->has_h264_output_level, other_struct.has_h264_output_level))
     return false;
   if (!mojo::Equals(this->is_constrained_h264, other_struct.is_constrained_h264))
-    return false;
-  if (!mojo::Equals(this->storage_type, other_struct.storage_type))
-    return false;
-  if (!mojo::Equals(this->has_storage_type, other_struct.has_storage_type))
-    return false;
-  if (!mojo::Equals(this->content_type, other_struct.content_type))
     return false;
   if (!mojo::Equals(this->drop_frame_thresh_percentage, other_struct.drop_frame_thresh_percentage))
     return false;
@@ -3630,13 +3618,17 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.bitrate < lhs.bitrate)
     return false;
-  if (lhs.initial_framerate < rhs.initial_framerate)
+  if (lhs.framerate < rhs.framerate)
     return true;
-  if (rhs.initial_framerate < lhs.initial_framerate)
+  if (rhs.framerate < lhs.framerate)
     return false;
-  if (lhs.has_initial_framerate < rhs.has_initial_framerate)
+  if (lhs.storage_type < rhs.storage_type)
     return true;
-  if (rhs.has_initial_framerate < lhs.has_initial_framerate)
+  if (rhs.storage_type < lhs.storage_type)
+    return false;
+  if (lhs.content_type < rhs.content_type)
+    return true;
+  if (rhs.content_type < lhs.content_type)
     return false;
   if (lhs.gop_length < rhs.gop_length)
     return true;
@@ -3657,18 +3649,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.is_constrained_h264 < rhs.is_constrained_h264)
     return true;
   if (rhs.is_constrained_h264 < lhs.is_constrained_h264)
-    return false;
-  if (lhs.storage_type < rhs.storage_type)
-    return true;
-  if (rhs.storage_type < lhs.storage_type)
-    return false;
-  if (lhs.has_storage_type < rhs.has_storage_type)
-    return true;
-  if (rhs.has_storage_type < lhs.has_storage_type)
-    return false;
-  if (lhs.content_type < rhs.content_type)
-    return true;
-  if (rhs.content_type < lhs.content_type)
     return false;
   if (lhs.drop_frame_thresh_percentage < rhs.drop_frame_thresh_percentage)
     return true;
@@ -4189,14 +4169,19 @@ struct  StructTraits<::media::mojom::VideoEncodeAcceleratorConfig::DataView,
     return input->bitrate;
   }
 
-  static decltype(::media::mojom::VideoEncodeAcceleratorConfig::initial_framerate) initial_framerate(
+  static decltype(::media::mojom::VideoEncodeAcceleratorConfig::framerate) framerate(
       const ::media::mojom::VideoEncodeAcceleratorConfigPtr& input) {
-    return input->initial_framerate;
+    return input->framerate;
   }
 
-  static decltype(::media::mojom::VideoEncodeAcceleratorConfig::has_initial_framerate) has_initial_framerate(
+  static decltype(::media::mojom::VideoEncodeAcceleratorConfig::storage_type) storage_type(
       const ::media::mojom::VideoEncodeAcceleratorConfigPtr& input) {
-    return input->has_initial_framerate;
+    return input->storage_type;
+  }
+
+  static decltype(::media::mojom::VideoEncodeAcceleratorConfig::content_type) content_type(
+      const ::media::mojom::VideoEncodeAcceleratorConfigPtr& input) {
+    return input->content_type;
   }
 
   static decltype(::media::mojom::VideoEncodeAcceleratorConfig::gop_length) gop_length(
@@ -4222,21 +4207,6 @@ struct  StructTraits<::media::mojom::VideoEncodeAcceleratorConfig::DataView,
   static decltype(::media::mojom::VideoEncodeAcceleratorConfig::is_constrained_h264) is_constrained_h264(
       const ::media::mojom::VideoEncodeAcceleratorConfigPtr& input) {
     return input->is_constrained_h264;
-  }
-
-  static decltype(::media::mojom::VideoEncodeAcceleratorConfig::storage_type) storage_type(
-      const ::media::mojom::VideoEncodeAcceleratorConfigPtr& input) {
-    return input->storage_type;
-  }
-
-  static decltype(::media::mojom::VideoEncodeAcceleratorConfig::has_storage_type) has_storage_type(
-      const ::media::mojom::VideoEncodeAcceleratorConfigPtr& input) {
-    return input->has_storage_type;
-  }
-
-  static decltype(::media::mojom::VideoEncodeAcceleratorConfig::content_type) content_type(
-      const ::media::mojom::VideoEncodeAcceleratorConfigPtr& input) {
-    return input->content_type;
   }
 
   static decltype(::media::mojom::VideoEncodeAcceleratorConfig::drop_frame_thresh_percentage) drop_frame_thresh_percentage(

@@ -191,7 +191,7 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig()
       output_profile(),
       initial_bitrate_deprecated(),
       initial_framerate(),
-      has_initial_framerate(),
+      has_initial_framerate_deprecated(),
       h264_output_level(),
       has_h264_output_level(),
       storage_type(),
@@ -203,7 +203,7 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
     ::media::VideoCodecProfile output_profile_in,
     uint32_t initial_bitrate_deprecated_in,
     uint32_t initial_framerate_in,
-    bool has_initial_framerate_in,
+    bool has_initial_framerate_deprecated_in,
     uint8_t h264_output_level_in,
     bool has_h264_output_level_in)
     : input_format(std::move(input_format_in)),
@@ -211,7 +211,7 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
       output_profile(std::move(output_profile_in)),
       initial_bitrate_deprecated(std::move(initial_bitrate_deprecated_in)),
       initial_framerate(std::move(initial_framerate_in)),
-      has_initial_framerate(std::move(has_initial_framerate_in)),
+      has_initial_framerate_deprecated(std::move(has_initial_framerate_deprecated_in)),
       h264_output_level(std::move(h264_output_level_in)),
       has_h264_output_level(std::move(has_h264_output_level_in)),
       storage_type(),
@@ -223,7 +223,7 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
     ::media::VideoCodecProfile output_profile_in,
     uint32_t initial_bitrate_deprecated_in,
     uint32_t initial_framerate_in,
-    bool has_initial_framerate_in,
+    bool has_initial_framerate_deprecated_in,
     uint8_t h264_output_level_in,
     bool has_h264_output_level_in,
     ::media::VideoEncodeAccelerator::Config::StorageType storage_type_in)
@@ -232,7 +232,7 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
       output_profile(std::move(output_profile_in)),
       initial_bitrate_deprecated(std::move(initial_bitrate_deprecated_in)),
       initial_framerate(std::move(initial_framerate_in)),
-      has_initial_framerate(std::move(has_initial_framerate_in)),
+      has_initial_framerate_deprecated(std::move(has_initial_framerate_deprecated_in)),
       h264_output_level(std::move(h264_output_level_in)),
       has_h264_output_level(std::move(has_h264_output_level_in)),
       storage_type(std::move(storage_type_in)),
@@ -244,7 +244,7 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
     ::media::VideoCodecProfile output_profile_in,
     uint32_t initial_bitrate_deprecated_in,
     uint32_t initial_framerate_in,
-    bool has_initial_framerate_in,
+    bool has_initial_framerate_deprecated_in,
     uint8_t h264_output_level_in,
     bool has_h264_output_level_in,
     ::media::VideoEncodeAccelerator::Config::StorageType storage_type_in,
@@ -254,7 +254,7 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
       output_profile(std::move(output_profile_in)),
       initial_bitrate_deprecated(std::move(initial_bitrate_deprecated_in)),
       initial_framerate(std::move(initial_framerate_in)),
-      has_initial_framerate(std::move(has_initial_framerate_in)),
+      has_initial_framerate_deprecated(std::move(has_initial_framerate_deprecated_in)),
       h264_output_level(std::move(h264_output_level_in)),
       has_h264_output_level(std::move(has_h264_output_level_in)),
       storage_type(std::move(storage_type_in)),
@@ -312,7 +312,7 @@ void VideoEncodeAcceleratorConfig::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "has_initial_framerate"), this->has_initial_framerate,
+      "has_initial_framerate_deprecated"), this->has_initial_framerate_deprecated,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -2342,7 +2342,7 @@ bool StructTraits<::arc::mojom::VideoEncodeAcceleratorConfig::DataView, ::arc::m
       if (success)
         result->initial_framerate = input.initial_framerate();
       if (success)
-        result->has_initial_framerate = input.has_initial_framerate();
+        result->has_initial_framerate_deprecated = input.has_initial_framerate_deprecated();
       if (success)
         result->h264_output_level = input.h264_output_level();
       if (success)

@@ -280,6 +280,18 @@ kScreenCaptureLocationFieldNumber = 171,
 kAllowedDomainsForAppsListFieldNumber = 172,
 kGoogleLocationServicesEnabledFieldNumber = 174,
 kLocalUserFilesAllowedFieldNumber = 176,
+kSubAppsAPIsAllowedWithoutGestureAndAuthorizationForOriginsFieldNumber = 178,
+kDefaultWebPrintingSettingFieldNumber = 179,
+kWebPrintingAllowedForUrlsFieldNumber = 180,
+kWebPrintingBlockedForUrlsFieldNumber = 181,
+kDocumentScanAPITrustedExtensionsFieldNumber = 182,
+kAutomaticFullscreenAllowedForUrlsFieldNumber = 185,
+kAutomaticFullscreenBlockedForUrlsFieldNumber = 186,
+kMutationEventsEnabledFieldNumber = 187,
+kDevToolsGenAiSettingsFieldNumber = 188,
+kDefaultDirectSocketsSettingFieldNumber = 190,
+kDirectSocketsAllowedForUrlsFieldNumber = 191,
+kDirectSocketsBlockedForUrlsFieldNumber = 192,
 };
 // optional .enterprise_management.BooleanPolicyProto NewBaseUrlInheritanceBehaviorAllowed = 1;
 bool has_newbaseurlinheritancebehaviorallowed() const;
@@ -2279,6 +2291,222 @@ void unsafe_arena_set_allocated_localuserfilesallowed(
 ::enterprise_management::BooleanPolicyProto* localuserfilesallowed);
 ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_localuserfilesallowed();
 
+// optional .enterprise_management.StringListPolicyProto SubAppsAPIsAllowedWithoutGestureAndAuthorizationForOrigins = 178;
+bool has_subappsapisallowedwithoutgestureandauthorizationfororigins() const;
+private:
+bool _internal_has_subappsapisallowedwithoutgestureandauthorizationfororigins() const;
+public:
+void clear_subappsapisallowedwithoutgestureandauthorizationfororigins();
+const ::enterprise_management::StringListPolicyProto& subappsapisallowedwithoutgestureandauthorizationfororigins() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_subappsapisallowedwithoutgestureandauthorizationfororigins();
+::enterprise_management::StringListPolicyProto* mutable_subappsapisallowedwithoutgestureandauthorizationfororigins();
+void set_allocated_subappsapisallowedwithoutgestureandauthorizationfororigins(::enterprise_management::StringListPolicyProto* subappsapisallowedwithoutgestureandauthorizationfororigins);
+private:
+const ::enterprise_management::StringListPolicyProto& _internal_subappsapisallowedwithoutgestureandauthorizationfororigins() const;
+::enterprise_management::StringListPolicyProto* _internal_mutable_subappsapisallowedwithoutgestureandauthorizationfororigins();
+public:
+void unsafe_arena_set_allocated_subappsapisallowedwithoutgestureandauthorizationfororigins(
+::enterprise_management::StringListPolicyProto* subappsapisallowedwithoutgestureandauthorizationfororigins);
+::enterprise_management::StringListPolicyProto* unsafe_arena_release_subappsapisallowedwithoutgestureandauthorizationfororigins();
+
+// optional .enterprise_management.IntegerPolicyProto DefaultWebPrintingSetting = 179;
+bool has_defaultwebprintingsetting() const;
+private:
+bool _internal_has_defaultwebprintingsetting() const;
+public:
+void clear_defaultwebprintingsetting();
+const ::enterprise_management::IntegerPolicyProto& defaultwebprintingsetting() const;
+PROTOBUF_NODISCARD ::enterprise_management::IntegerPolicyProto* release_defaultwebprintingsetting();
+::enterprise_management::IntegerPolicyProto* mutable_defaultwebprintingsetting();
+void set_allocated_defaultwebprintingsetting(::enterprise_management::IntegerPolicyProto* defaultwebprintingsetting);
+private:
+const ::enterprise_management::IntegerPolicyProto& _internal_defaultwebprintingsetting() const;
+::enterprise_management::IntegerPolicyProto* _internal_mutable_defaultwebprintingsetting();
+public:
+void unsafe_arena_set_allocated_defaultwebprintingsetting(
+::enterprise_management::IntegerPolicyProto* defaultwebprintingsetting);
+::enterprise_management::IntegerPolicyProto* unsafe_arena_release_defaultwebprintingsetting();
+
+// optional .enterprise_management.StringListPolicyProto WebPrintingAllowedForUrls = 180;
+bool has_webprintingallowedforurls() const;
+private:
+bool _internal_has_webprintingallowedforurls() const;
+public:
+void clear_webprintingallowedforurls();
+const ::enterprise_management::StringListPolicyProto& webprintingallowedforurls() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_webprintingallowedforurls();
+::enterprise_management::StringListPolicyProto* mutable_webprintingallowedforurls();
+void set_allocated_webprintingallowedforurls(::enterprise_management::StringListPolicyProto* webprintingallowedforurls);
+private:
+const ::enterprise_management::StringListPolicyProto& _internal_webprintingallowedforurls() const;
+::enterprise_management::StringListPolicyProto* _internal_mutable_webprintingallowedforurls();
+public:
+void unsafe_arena_set_allocated_webprintingallowedforurls(
+::enterprise_management::StringListPolicyProto* webprintingallowedforurls);
+::enterprise_management::StringListPolicyProto* unsafe_arena_release_webprintingallowedforurls();
+
+// optional .enterprise_management.StringListPolicyProto WebPrintingBlockedForUrls = 181;
+bool has_webprintingblockedforurls() const;
+private:
+bool _internal_has_webprintingblockedforurls() const;
+public:
+void clear_webprintingblockedforurls();
+const ::enterprise_management::StringListPolicyProto& webprintingblockedforurls() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_webprintingblockedforurls();
+::enterprise_management::StringListPolicyProto* mutable_webprintingblockedforurls();
+void set_allocated_webprintingblockedforurls(::enterprise_management::StringListPolicyProto* webprintingblockedforurls);
+private:
+const ::enterprise_management::StringListPolicyProto& _internal_webprintingblockedforurls() const;
+::enterprise_management::StringListPolicyProto* _internal_mutable_webprintingblockedforurls();
+public:
+void unsafe_arena_set_allocated_webprintingblockedforurls(
+::enterprise_management::StringListPolicyProto* webprintingblockedforurls);
+::enterprise_management::StringListPolicyProto* unsafe_arena_release_webprintingblockedforurls();
+
+// optional .enterprise_management.StringListPolicyProto DocumentScanAPITrustedExtensions = 182;
+bool has_documentscanapitrustedextensions() const;
+private:
+bool _internal_has_documentscanapitrustedextensions() const;
+public:
+void clear_documentscanapitrustedextensions();
+const ::enterprise_management::StringListPolicyProto& documentscanapitrustedextensions() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_documentscanapitrustedextensions();
+::enterprise_management::StringListPolicyProto* mutable_documentscanapitrustedextensions();
+void set_allocated_documentscanapitrustedextensions(::enterprise_management::StringListPolicyProto* documentscanapitrustedextensions);
+private:
+const ::enterprise_management::StringListPolicyProto& _internal_documentscanapitrustedextensions() const;
+::enterprise_management::StringListPolicyProto* _internal_mutable_documentscanapitrustedextensions();
+public:
+void unsafe_arena_set_allocated_documentscanapitrustedextensions(
+::enterprise_management::StringListPolicyProto* documentscanapitrustedextensions);
+::enterprise_management::StringListPolicyProto* unsafe_arena_release_documentscanapitrustedextensions();
+
+// optional .enterprise_management.StringListPolicyProto AutomaticFullscreenAllowedForUrls = 185;
+bool has_automaticfullscreenallowedforurls() const;
+private:
+bool _internal_has_automaticfullscreenallowedforurls() const;
+public:
+void clear_automaticfullscreenallowedforurls();
+const ::enterprise_management::StringListPolicyProto& automaticfullscreenallowedforurls() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_automaticfullscreenallowedforurls();
+::enterprise_management::StringListPolicyProto* mutable_automaticfullscreenallowedforurls();
+void set_allocated_automaticfullscreenallowedforurls(::enterprise_management::StringListPolicyProto* automaticfullscreenallowedforurls);
+private:
+const ::enterprise_management::StringListPolicyProto& _internal_automaticfullscreenallowedforurls() const;
+::enterprise_management::StringListPolicyProto* _internal_mutable_automaticfullscreenallowedforurls();
+public:
+void unsafe_arena_set_allocated_automaticfullscreenallowedforurls(
+::enterprise_management::StringListPolicyProto* automaticfullscreenallowedforurls);
+::enterprise_management::StringListPolicyProto* unsafe_arena_release_automaticfullscreenallowedforurls();
+
+// optional .enterprise_management.StringListPolicyProto AutomaticFullscreenBlockedForUrls = 186;
+bool has_automaticfullscreenblockedforurls() const;
+private:
+bool _internal_has_automaticfullscreenblockedforurls() const;
+public:
+void clear_automaticfullscreenblockedforurls();
+const ::enterprise_management::StringListPolicyProto& automaticfullscreenblockedforurls() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_automaticfullscreenblockedforurls();
+::enterprise_management::StringListPolicyProto* mutable_automaticfullscreenblockedforurls();
+void set_allocated_automaticfullscreenblockedforurls(::enterprise_management::StringListPolicyProto* automaticfullscreenblockedforurls);
+private:
+const ::enterprise_management::StringListPolicyProto& _internal_automaticfullscreenblockedforurls() const;
+::enterprise_management::StringListPolicyProto* _internal_mutable_automaticfullscreenblockedforurls();
+public:
+void unsafe_arena_set_allocated_automaticfullscreenblockedforurls(
+::enterprise_management::StringListPolicyProto* automaticfullscreenblockedforurls);
+::enterprise_management::StringListPolicyProto* unsafe_arena_release_automaticfullscreenblockedforurls();
+
+// optional .enterprise_management.BooleanPolicyProto MutationEventsEnabled = 187;
+bool has_mutationeventsenabled() const;
+private:
+bool _internal_has_mutationeventsenabled() const;
+public:
+void clear_mutationeventsenabled();
+const ::enterprise_management::BooleanPolicyProto& mutationeventsenabled() const;
+PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_mutationeventsenabled();
+::enterprise_management::BooleanPolicyProto* mutable_mutationeventsenabled();
+void set_allocated_mutationeventsenabled(::enterprise_management::BooleanPolicyProto* mutationeventsenabled);
+private:
+const ::enterprise_management::BooleanPolicyProto& _internal_mutationeventsenabled() const;
+::enterprise_management::BooleanPolicyProto* _internal_mutable_mutationeventsenabled();
+public:
+void unsafe_arena_set_allocated_mutationeventsenabled(
+::enterprise_management::BooleanPolicyProto* mutationeventsenabled);
+::enterprise_management::BooleanPolicyProto* unsafe_arena_release_mutationeventsenabled();
+
+// optional .enterprise_management.IntegerPolicyProto DevToolsGenAiSettings = 188;
+bool has_devtoolsgenaisettings() const;
+private:
+bool _internal_has_devtoolsgenaisettings() const;
+public:
+void clear_devtoolsgenaisettings();
+const ::enterprise_management::IntegerPolicyProto& devtoolsgenaisettings() const;
+PROTOBUF_NODISCARD ::enterprise_management::IntegerPolicyProto* release_devtoolsgenaisettings();
+::enterprise_management::IntegerPolicyProto* mutable_devtoolsgenaisettings();
+void set_allocated_devtoolsgenaisettings(::enterprise_management::IntegerPolicyProto* devtoolsgenaisettings);
+private:
+const ::enterprise_management::IntegerPolicyProto& _internal_devtoolsgenaisettings() const;
+::enterprise_management::IntegerPolicyProto* _internal_mutable_devtoolsgenaisettings();
+public:
+void unsafe_arena_set_allocated_devtoolsgenaisettings(
+::enterprise_management::IntegerPolicyProto* devtoolsgenaisettings);
+::enterprise_management::IntegerPolicyProto* unsafe_arena_release_devtoolsgenaisettings();
+
+// optional .enterprise_management.IntegerPolicyProto DefaultDirectSocketsSetting = 190;
+bool has_defaultdirectsocketssetting() const;
+private:
+bool _internal_has_defaultdirectsocketssetting() const;
+public:
+void clear_defaultdirectsocketssetting();
+const ::enterprise_management::IntegerPolicyProto& defaultdirectsocketssetting() const;
+PROTOBUF_NODISCARD ::enterprise_management::IntegerPolicyProto* release_defaultdirectsocketssetting();
+::enterprise_management::IntegerPolicyProto* mutable_defaultdirectsocketssetting();
+void set_allocated_defaultdirectsocketssetting(::enterprise_management::IntegerPolicyProto* defaultdirectsocketssetting);
+private:
+const ::enterprise_management::IntegerPolicyProto& _internal_defaultdirectsocketssetting() const;
+::enterprise_management::IntegerPolicyProto* _internal_mutable_defaultdirectsocketssetting();
+public:
+void unsafe_arena_set_allocated_defaultdirectsocketssetting(
+::enterprise_management::IntegerPolicyProto* defaultdirectsocketssetting);
+::enterprise_management::IntegerPolicyProto* unsafe_arena_release_defaultdirectsocketssetting();
+
+// optional .enterprise_management.StringListPolicyProto DirectSocketsAllowedForUrls = 191;
+bool has_directsocketsallowedforurls() const;
+private:
+bool _internal_has_directsocketsallowedforurls() const;
+public:
+void clear_directsocketsallowedforurls();
+const ::enterprise_management::StringListPolicyProto& directsocketsallowedforurls() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_directsocketsallowedforurls();
+::enterprise_management::StringListPolicyProto* mutable_directsocketsallowedforurls();
+void set_allocated_directsocketsallowedforurls(::enterprise_management::StringListPolicyProto* directsocketsallowedforurls);
+private:
+const ::enterprise_management::StringListPolicyProto& _internal_directsocketsallowedforurls() const;
+::enterprise_management::StringListPolicyProto* _internal_mutable_directsocketsallowedforurls();
+public:
+void unsafe_arena_set_allocated_directsocketsallowedforurls(
+::enterprise_management::StringListPolicyProto* directsocketsallowedforurls);
+::enterprise_management::StringListPolicyProto* unsafe_arena_release_directsocketsallowedforurls();
+
+// optional .enterprise_management.StringListPolicyProto DirectSocketsBlockedForUrls = 192;
+bool has_directsocketsblockedforurls() const;
+private:
+bool _internal_has_directsocketsblockedforurls() const;
+public:
+void clear_directsocketsblockedforurls();
+const ::enterprise_management::StringListPolicyProto& directsocketsblockedforurls() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_directsocketsblockedforurls();
+::enterprise_management::StringListPolicyProto* mutable_directsocketsblockedforurls();
+void set_allocated_directsocketsblockedforurls(::enterprise_management::StringListPolicyProto* directsocketsblockedforurls);
+private:
+const ::enterprise_management::StringListPolicyProto& _internal_directsocketsblockedforurls() const;
+::enterprise_management::StringListPolicyProto* _internal_mutable_directsocketsblockedforurls();
+public:
+void unsafe_arena_set_allocated_directsocketsblockedforurls(
+::enterprise_management::StringListPolicyProto* directsocketsblockedforurls);
+::enterprise_management::StringListPolicyProto* unsafe_arena_release_directsocketsblockedforurls();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -2399,6 +2627,18 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::StringListPolicyProto* alloweddomainsforappslist_;
 ::enterprise_management::IntegerPolicyProto* googlelocationservicesenabled_;
 ::enterprise_management::BooleanPolicyProto* localuserfilesallowed_;
+::enterprise_management::StringListPolicyProto* subappsapisallowedwithoutgestureandauthorizationfororigins_;
+::enterprise_management::IntegerPolicyProto* defaultwebprintingsetting_;
+::enterprise_management::StringListPolicyProto* webprintingallowedforurls_;
+::enterprise_management::StringListPolicyProto* webprintingblockedforurls_;
+::enterprise_management::StringListPolicyProto* documentscanapitrustedextensions_;
+::enterprise_management::StringListPolicyProto* automaticfullscreenallowedforurls_;
+::enterprise_management::StringListPolicyProto* automaticfullscreenblockedforurls_;
+::enterprise_management::BooleanPolicyProto* mutationeventsenabled_;
+::enterprise_management::IntegerPolicyProto* devtoolsgenaisettings_;
+::enterprise_management::IntegerPolicyProto* defaultdirectsocketssetting_;
+::enterprise_management::StringListPolicyProto* directsocketsallowedforurls_;
+::enterprise_management::StringListPolicyProto* directsocketsblockedforurls_;
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
@@ -3000,7 +3240,6 @@ kWindowPlacementBlockedForUrlsFieldNumber = 963,
 kCloudReportingUploadFrequencyFieldNumber = 964,
 kWebAuthnFactorsFieldNumber = 966,
 kWebAuthenticationRemoteProxiedRequestsAllowedFieldNumber = 967,
-kWebSQLAccessFieldNumber = 968,
 kFirstPartySetsOverridesFieldNumber = 971,
 kDevicePowerAdaptiveChargingEnabledFieldNumber = 973,
 kGetDisplayMediaSetSelectAllScreensAllowedForUrlsFieldNumber = 974,
@@ -11811,24 +12050,6 @@ void unsafe_arena_set_allocated_webauthenticationremoteproxiedrequestsallowed(
 ::enterprise_management::BooleanPolicyProto* webauthenticationremoteproxiedrequestsallowed);
 ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_webauthenticationremoteproxiedrequestsallowed();
 
-// optional .enterprise_management.BooleanPolicyProto WebSQLAccess = 968;
-bool has_websqlaccess() const;
-private:
-bool _internal_has_websqlaccess() const;
-public:
-void clear_websqlaccess();
-const ::enterprise_management::BooleanPolicyProto& websqlaccess() const;
-PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_websqlaccess();
-::enterprise_management::BooleanPolicyProto* mutable_websqlaccess();
-void set_allocated_websqlaccess(::enterprise_management::BooleanPolicyProto* websqlaccess);
-private:
-const ::enterprise_management::BooleanPolicyProto& _internal_websqlaccess() const;
-::enterprise_management::BooleanPolicyProto* _internal_mutable_websqlaccess();
-public:
-void unsafe_arena_set_allocated_websqlaccess(
-::enterprise_management::BooleanPolicyProto* websqlaccess);
-::enterprise_management::BooleanPolicyProto* unsafe_arena_release_websqlaccess();
-
 // optional .enterprise_management.StringPolicyProto FirstPartySetsOverrides = 971;
 bool has_firstpartysetsoverrides() const;
 private:
@@ -13099,7 +13320,6 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::IntegerPolicyProto* cloudreportinguploadfrequency_;
 ::enterprise_management::StringListPolicyProto* webauthnfactors_;
 ::enterprise_management::BooleanPolicyProto* webauthenticationremoteproxiedrequestsallowed_;
-::enterprise_management::BooleanPolicyProto* websqlaccess_;
 ::enterprise_management::StringPolicyProto* firstpartysetsoverrides_;
 ::enterprise_management::BooleanPolicyProto* devicepoweradaptivechargingenabled_;
 ::enterprise_management::StringListPolicyProto* getdisplaymediasetselectallscreensallowedforurls_;
@@ -13678,6 +13898,180 @@ microsoftofficecloudupload_ = microsoftofficecloudupload;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.MicrosoftOfficeCloudUpload)
 }
 
+// optional .enterprise_management.StringListPolicyProto AutomaticFullscreenAllowedForUrls = 185;
+inline bool CloudPolicySubProto1::_internal_has_automaticfullscreenallowedforurls() const {
+bool value = (_has_bits_[3] & 0x00100000u) != 0;
+PROTOBUF_ASSUME(!value || automaticfullscreenallowedforurls_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_automaticfullscreenallowedforurls() const {
+return _internal_has_automaticfullscreenallowedforurls();
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::_internal_automaticfullscreenallowedforurls() const {
+const ::enterprise_management::StringListPolicyProto* p = automaticfullscreenallowedforurls_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::automaticfullscreenallowedforurls() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenAllowedForUrls)
+return _internal_automaticfullscreenallowedforurls();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_automaticfullscreenallowedforurls(
+::enterprise_management::StringListPolicyProto* automaticfullscreenallowedforurls) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(automaticfullscreenallowedforurls_);
+}
+automaticfullscreenallowedforurls_ = automaticfullscreenallowedforurls;
+if (automaticfullscreenallowedforurls) {
+_has_bits_[3] |= 0x00100000u;
+} else {
+_has_bits_[3] &= ~0x00100000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenAllowedForUrls)
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::release_automaticfullscreenallowedforurls() {
+_has_bits_[3] &= ~0x00100000u;
+::enterprise_management::StringListPolicyProto* temp = automaticfullscreenallowedforurls_;
+automaticfullscreenallowedforurls_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::unsafe_arena_release_automaticfullscreenallowedforurls() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenAllowedForUrls)
+_has_bits_[3] &= ~0x00100000u;
+::enterprise_management::StringListPolicyProto* temp = automaticfullscreenallowedforurls_;
+automaticfullscreenallowedforurls_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::_internal_mutable_automaticfullscreenallowedforurls() {
+_has_bits_[3] |= 0x00100000u;
+if (automaticfullscreenallowedforurls_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+automaticfullscreenallowedforurls_ = p;
+}
+return automaticfullscreenallowedforurls_;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::mutable_automaticfullscreenallowedforurls() {
+::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_automaticfullscreenallowedforurls();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenAllowedForUrls)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_automaticfullscreenallowedforurls(::enterprise_management::StringListPolicyProto* automaticfullscreenallowedforurls) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(automaticfullscreenallowedforurls_);
+}
+if (automaticfullscreenallowedforurls) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(automaticfullscreenallowedforurls));
+if (message_arena != submessage_arena) {
+automaticfullscreenallowedforurls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, automaticfullscreenallowedforurls, submessage_arena);
+}
+_has_bits_[3] |= 0x00100000u;
+} else {
+_has_bits_[3] &= ~0x00100000u;
+}
+automaticfullscreenallowedforurls_ = automaticfullscreenallowedforurls;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenAllowedForUrls)
+}
+
+// optional .enterprise_management.StringListPolicyProto AutomaticFullscreenBlockedForUrls = 186;
+inline bool CloudPolicySubProto1::_internal_has_automaticfullscreenblockedforurls() const {
+bool value = (_has_bits_[3] & 0x00200000u) != 0;
+PROTOBUF_ASSUME(!value || automaticfullscreenblockedforurls_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_automaticfullscreenblockedforurls() const {
+return _internal_has_automaticfullscreenblockedforurls();
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::_internal_automaticfullscreenblockedforurls() const {
+const ::enterprise_management::StringListPolicyProto* p = automaticfullscreenblockedforurls_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::automaticfullscreenblockedforurls() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenBlockedForUrls)
+return _internal_automaticfullscreenblockedforurls();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_automaticfullscreenblockedforurls(
+::enterprise_management::StringListPolicyProto* automaticfullscreenblockedforurls) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(automaticfullscreenblockedforurls_);
+}
+automaticfullscreenblockedforurls_ = automaticfullscreenblockedforurls;
+if (automaticfullscreenblockedforurls) {
+_has_bits_[3] |= 0x00200000u;
+} else {
+_has_bits_[3] &= ~0x00200000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenBlockedForUrls)
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::release_automaticfullscreenblockedforurls() {
+_has_bits_[3] &= ~0x00200000u;
+::enterprise_management::StringListPolicyProto* temp = automaticfullscreenblockedforurls_;
+automaticfullscreenblockedforurls_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::unsafe_arena_release_automaticfullscreenblockedforurls() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenBlockedForUrls)
+_has_bits_[3] &= ~0x00200000u;
+::enterprise_management::StringListPolicyProto* temp = automaticfullscreenblockedforurls_;
+automaticfullscreenblockedforurls_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::_internal_mutable_automaticfullscreenblockedforurls() {
+_has_bits_[3] |= 0x00200000u;
+if (automaticfullscreenblockedforurls_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+automaticfullscreenblockedforurls_ = p;
+}
+return automaticfullscreenblockedforurls_;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::mutable_automaticfullscreenblockedforurls() {
+::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_automaticfullscreenblockedforurls();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenBlockedForUrls)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_automaticfullscreenblockedforurls(::enterprise_management::StringListPolicyProto* automaticfullscreenblockedforurls) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(automaticfullscreenblockedforurls_);
+}
+if (automaticfullscreenblockedforurls) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(automaticfullscreenblockedforurls));
+if (message_arena != submessage_arena) {
+automaticfullscreenblockedforurls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, automaticfullscreenblockedforurls, submessage_arena);
+}
+_has_bits_[3] |= 0x00200000u;
+} else {
+_has_bits_[3] &= ~0x00200000u;
+}
+automaticfullscreenblockedforurls_ = automaticfullscreenblockedforurls;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.AutomaticFullscreenBlockedForUrls)
+}
+
 // optional .enterprise_management.BooleanPolicyProto DataUrlInSvgUseEnabled = 69;
 inline bool CloudPolicySubProto1::_internal_has_dataurlinsvguseenabled() const {
 bool value = (_has_bits_[1] & 0x00001000u) != 0;
@@ -13763,6 +14157,93 @@ _has_bits_[1] &= ~0x00001000u;
 }
 dataurlinsvguseenabled_ = dataurlinsvguseenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.DataUrlInSvgUseEnabled)
+}
+
+// optional .enterprise_management.IntegerPolicyProto DefaultDirectSocketsSetting = 190;
+inline bool CloudPolicySubProto1::_internal_has_defaultdirectsocketssetting() const {
+bool value = (_has_bits_[3] & 0x01000000u) != 0;
+PROTOBUF_ASSUME(!value || defaultdirectsocketssetting_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_defaultdirectsocketssetting() const {
+return _internal_has_defaultdirectsocketssetting();
+}
+inline const ::enterprise_management::IntegerPolicyProto& CloudPolicySubProto1::_internal_defaultdirectsocketssetting() const {
+const ::enterprise_management::IntegerPolicyProto* p = defaultdirectsocketssetting_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::IntegerPolicyProto&>(
+::enterprise_management::_IntegerPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::IntegerPolicyProto& CloudPolicySubProto1::defaultdirectsocketssetting() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.DefaultDirectSocketsSetting)
+return _internal_defaultdirectsocketssetting();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_defaultdirectsocketssetting(
+::enterprise_management::IntegerPolicyProto* defaultdirectsocketssetting) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(defaultdirectsocketssetting_);
+}
+defaultdirectsocketssetting_ = defaultdirectsocketssetting;
+if (defaultdirectsocketssetting) {
+_has_bits_[3] |= 0x01000000u;
+} else {
+_has_bits_[3] &= ~0x01000000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.DefaultDirectSocketsSetting)
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::release_defaultdirectsocketssetting() {
+_has_bits_[3] &= ~0x01000000u;
+::enterprise_management::IntegerPolicyProto* temp = defaultdirectsocketssetting_;
+defaultdirectsocketssetting_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::unsafe_arena_release_defaultdirectsocketssetting() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.DefaultDirectSocketsSetting)
+_has_bits_[3] &= ~0x01000000u;
+::enterprise_management::IntegerPolicyProto* temp = defaultdirectsocketssetting_;
+defaultdirectsocketssetting_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::_internal_mutable_defaultdirectsocketssetting() {
+_has_bits_[3] |= 0x01000000u;
+if (defaultdirectsocketssetting_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::IntegerPolicyProto>(GetArenaForAllocation());
+defaultdirectsocketssetting_ = p;
+}
+return defaultdirectsocketssetting_;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::mutable_defaultdirectsocketssetting() {
+::enterprise_management::IntegerPolicyProto* _msg = _internal_mutable_defaultdirectsocketssetting();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.DefaultDirectSocketsSetting)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_defaultdirectsocketssetting(::enterprise_management::IntegerPolicyProto* defaultdirectsocketssetting) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(defaultdirectsocketssetting_);
+}
+if (defaultdirectsocketssetting) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(defaultdirectsocketssetting));
+if (message_arena != submessage_arena) {
+defaultdirectsocketssetting = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, defaultdirectsocketssetting, submessage_arena);
+}
+_has_bits_[3] |= 0x01000000u;
+} else {
+_has_bits_[3] &= ~0x01000000u;
+}
+defaultdirectsocketssetting_ = defaultdirectsocketssetting;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.DefaultDirectSocketsSetting)
 }
 
 // optional .enterprise_management.IntegerPolicyProto DefaultThirdPartyStoragePartitioningSetting = 50;
@@ -13852,6 +14333,93 @@ defaultthirdpartystoragepartitioningsetting_ = defaultthirdpartystoragepartition
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.DefaultThirdPartyStoragePartitioningSetting)
 }
 
+// optional .enterprise_management.IntegerPolicyProto DefaultWebPrintingSetting = 179;
+inline bool CloudPolicySubProto1::_internal_has_defaultwebprintingsetting() const {
+bool value = (_has_bits_[3] & 0x00010000u) != 0;
+PROTOBUF_ASSUME(!value || defaultwebprintingsetting_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_defaultwebprintingsetting() const {
+return _internal_has_defaultwebprintingsetting();
+}
+inline const ::enterprise_management::IntegerPolicyProto& CloudPolicySubProto1::_internal_defaultwebprintingsetting() const {
+const ::enterprise_management::IntegerPolicyProto* p = defaultwebprintingsetting_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::IntegerPolicyProto&>(
+::enterprise_management::_IntegerPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::IntegerPolicyProto& CloudPolicySubProto1::defaultwebprintingsetting() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.DefaultWebPrintingSetting)
+return _internal_defaultwebprintingsetting();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_defaultwebprintingsetting(
+::enterprise_management::IntegerPolicyProto* defaultwebprintingsetting) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(defaultwebprintingsetting_);
+}
+defaultwebprintingsetting_ = defaultwebprintingsetting;
+if (defaultwebprintingsetting) {
+_has_bits_[3] |= 0x00010000u;
+} else {
+_has_bits_[3] &= ~0x00010000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.DefaultWebPrintingSetting)
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::release_defaultwebprintingsetting() {
+_has_bits_[3] &= ~0x00010000u;
+::enterprise_management::IntegerPolicyProto* temp = defaultwebprintingsetting_;
+defaultwebprintingsetting_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::unsafe_arena_release_defaultwebprintingsetting() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.DefaultWebPrintingSetting)
+_has_bits_[3] &= ~0x00010000u;
+::enterprise_management::IntegerPolicyProto* temp = defaultwebprintingsetting_;
+defaultwebprintingsetting_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::_internal_mutable_defaultwebprintingsetting() {
+_has_bits_[3] |= 0x00010000u;
+if (defaultwebprintingsetting_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::IntegerPolicyProto>(GetArenaForAllocation());
+defaultwebprintingsetting_ = p;
+}
+return defaultwebprintingsetting_;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::mutable_defaultwebprintingsetting() {
+::enterprise_management::IntegerPolicyProto* _msg = _internal_mutable_defaultwebprintingsetting();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.DefaultWebPrintingSetting)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_defaultwebprintingsetting(::enterprise_management::IntegerPolicyProto* defaultwebprintingsetting) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(defaultwebprintingsetting_);
+}
+if (defaultwebprintingsetting) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(defaultwebprintingsetting));
+if (message_arena != submessage_arena) {
+defaultwebprintingsetting = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, defaultwebprintingsetting, submessage_arena);
+}
+_has_bits_[3] |= 0x00010000u;
+} else {
+_has_bits_[3] &= ~0x00010000u;
+}
+defaultwebprintingsetting_ = defaultwebprintingsetting;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.DefaultWebPrintingSetting)
+}
+
 // optional .enterprise_management.IntegerPolicyProto DefaultWindowManagementSetting = 27;
 inline bool CloudPolicySubProto1::_internal_has_defaultwindowmanagementsetting() const {
 bool value = (_has_bits_[0] & 0x00008000u) != 0;
@@ -13939,6 +14507,180 @@ defaultwindowmanagementsetting_ = defaultwindowmanagementsetting;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.DefaultWindowManagementSetting)
 }
 
+// optional .enterprise_management.StringListPolicyProto DirectSocketsAllowedForUrls = 191;
+inline bool CloudPolicySubProto1::_internal_has_directsocketsallowedforurls() const {
+bool value = (_has_bits_[3] & 0x02000000u) != 0;
+PROTOBUF_ASSUME(!value || directsocketsallowedforurls_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_directsocketsallowedforurls() const {
+return _internal_has_directsocketsallowedforurls();
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::_internal_directsocketsallowedforurls() const {
+const ::enterprise_management::StringListPolicyProto* p = directsocketsallowedforurls_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::directsocketsallowedforurls() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.DirectSocketsAllowedForUrls)
+return _internal_directsocketsallowedforurls();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_directsocketsallowedforurls(
+::enterprise_management::StringListPolicyProto* directsocketsallowedforurls) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(directsocketsallowedforurls_);
+}
+directsocketsallowedforurls_ = directsocketsallowedforurls;
+if (directsocketsallowedforurls) {
+_has_bits_[3] |= 0x02000000u;
+} else {
+_has_bits_[3] &= ~0x02000000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.DirectSocketsAllowedForUrls)
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::release_directsocketsallowedforurls() {
+_has_bits_[3] &= ~0x02000000u;
+::enterprise_management::StringListPolicyProto* temp = directsocketsallowedforurls_;
+directsocketsallowedforurls_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::unsafe_arena_release_directsocketsallowedforurls() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.DirectSocketsAllowedForUrls)
+_has_bits_[3] &= ~0x02000000u;
+::enterprise_management::StringListPolicyProto* temp = directsocketsallowedforurls_;
+directsocketsallowedforurls_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::_internal_mutable_directsocketsallowedforurls() {
+_has_bits_[3] |= 0x02000000u;
+if (directsocketsallowedforurls_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+directsocketsallowedforurls_ = p;
+}
+return directsocketsallowedforurls_;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::mutable_directsocketsallowedforurls() {
+::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_directsocketsallowedforurls();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.DirectSocketsAllowedForUrls)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_directsocketsallowedforurls(::enterprise_management::StringListPolicyProto* directsocketsallowedforurls) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(directsocketsallowedforurls_);
+}
+if (directsocketsallowedforurls) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(directsocketsallowedforurls));
+if (message_arena != submessage_arena) {
+directsocketsallowedforurls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, directsocketsallowedforurls, submessage_arena);
+}
+_has_bits_[3] |= 0x02000000u;
+} else {
+_has_bits_[3] &= ~0x02000000u;
+}
+directsocketsallowedforurls_ = directsocketsallowedforurls;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.DirectSocketsAllowedForUrls)
+}
+
+// optional .enterprise_management.StringListPolicyProto DirectSocketsBlockedForUrls = 192;
+inline bool CloudPolicySubProto1::_internal_has_directsocketsblockedforurls() const {
+bool value = (_has_bits_[3] & 0x04000000u) != 0;
+PROTOBUF_ASSUME(!value || directsocketsblockedforurls_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_directsocketsblockedforurls() const {
+return _internal_has_directsocketsblockedforurls();
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::_internal_directsocketsblockedforurls() const {
+const ::enterprise_management::StringListPolicyProto* p = directsocketsblockedforurls_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::directsocketsblockedforurls() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.DirectSocketsBlockedForUrls)
+return _internal_directsocketsblockedforurls();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_directsocketsblockedforurls(
+::enterprise_management::StringListPolicyProto* directsocketsblockedforurls) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(directsocketsblockedforurls_);
+}
+directsocketsblockedforurls_ = directsocketsblockedforurls;
+if (directsocketsblockedforurls) {
+_has_bits_[3] |= 0x04000000u;
+} else {
+_has_bits_[3] &= ~0x04000000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.DirectSocketsBlockedForUrls)
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::release_directsocketsblockedforurls() {
+_has_bits_[3] &= ~0x04000000u;
+::enterprise_management::StringListPolicyProto* temp = directsocketsblockedforurls_;
+directsocketsblockedforurls_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::unsafe_arena_release_directsocketsblockedforurls() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.DirectSocketsBlockedForUrls)
+_has_bits_[3] &= ~0x04000000u;
+::enterprise_management::StringListPolicyProto* temp = directsocketsblockedforurls_;
+directsocketsblockedforurls_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::_internal_mutable_directsocketsblockedforurls() {
+_has_bits_[3] |= 0x04000000u;
+if (directsocketsblockedforurls_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+directsocketsblockedforurls_ = p;
+}
+return directsocketsblockedforurls_;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::mutable_directsocketsblockedforurls() {
+::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_directsocketsblockedforurls();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.DirectSocketsBlockedForUrls)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_directsocketsblockedforurls(::enterprise_management::StringListPolicyProto* directsocketsblockedforurls) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(directsocketsblockedforurls_);
+}
+if (directsocketsblockedforurls) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(directsocketsblockedforurls));
+if (message_arena != submessage_arena) {
+directsocketsblockedforurls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, directsocketsblockedforurls, submessage_arena);
+}
+_has_bits_[3] |= 0x04000000u;
+} else {
+_has_bits_[3] &= ~0x04000000u;
+}
+directsocketsblockedforurls_ = directsocketsblockedforurls;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.DirectSocketsBlockedForUrls)
+}
+
 // optional .enterprise_management.StringListPolicyProto ThirdPartyStoragePartitioningBlockedForOrigins = 51;
 inline bool CloudPolicySubProto1::_internal_has_thirdpartystoragepartitioningblockedfororigins() const {
 bool value = (_has_bits_[0] & 0x40000000u) != 0;
@@ -14024,6 +14766,180 @@ _has_bits_[0] &= ~0x40000000u;
 }
 thirdpartystoragepartitioningblockedfororigins_ = thirdpartystoragepartitioningblockedfororigins;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.ThirdPartyStoragePartitioningBlockedForOrigins)
+}
+
+// optional .enterprise_management.StringListPolicyProto WebPrintingAllowedForUrls = 180;
+inline bool CloudPolicySubProto1::_internal_has_webprintingallowedforurls() const {
+bool value = (_has_bits_[3] & 0x00020000u) != 0;
+PROTOBUF_ASSUME(!value || webprintingallowedforurls_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_webprintingallowedforurls() const {
+return _internal_has_webprintingallowedforurls();
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::_internal_webprintingallowedforurls() const {
+const ::enterprise_management::StringListPolicyProto* p = webprintingallowedforurls_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::webprintingallowedforurls() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.WebPrintingAllowedForUrls)
+return _internal_webprintingallowedforurls();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_webprintingallowedforurls(
+::enterprise_management::StringListPolicyProto* webprintingallowedforurls) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(webprintingallowedforurls_);
+}
+webprintingallowedforurls_ = webprintingallowedforurls;
+if (webprintingallowedforurls) {
+_has_bits_[3] |= 0x00020000u;
+} else {
+_has_bits_[3] &= ~0x00020000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.WebPrintingAllowedForUrls)
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::release_webprintingallowedforurls() {
+_has_bits_[3] &= ~0x00020000u;
+::enterprise_management::StringListPolicyProto* temp = webprintingallowedforurls_;
+webprintingallowedforurls_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::unsafe_arena_release_webprintingallowedforurls() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.WebPrintingAllowedForUrls)
+_has_bits_[3] &= ~0x00020000u;
+::enterprise_management::StringListPolicyProto* temp = webprintingallowedforurls_;
+webprintingallowedforurls_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::_internal_mutable_webprintingallowedforurls() {
+_has_bits_[3] |= 0x00020000u;
+if (webprintingallowedforurls_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+webprintingallowedforurls_ = p;
+}
+return webprintingallowedforurls_;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::mutable_webprintingallowedforurls() {
+::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_webprintingallowedforurls();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.WebPrintingAllowedForUrls)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_webprintingallowedforurls(::enterprise_management::StringListPolicyProto* webprintingallowedforurls) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(webprintingallowedforurls_);
+}
+if (webprintingallowedforurls) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(webprintingallowedforurls));
+if (message_arena != submessage_arena) {
+webprintingallowedforurls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, webprintingallowedforurls, submessage_arena);
+}
+_has_bits_[3] |= 0x00020000u;
+} else {
+_has_bits_[3] &= ~0x00020000u;
+}
+webprintingallowedforurls_ = webprintingallowedforurls;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.WebPrintingAllowedForUrls)
+}
+
+// optional .enterprise_management.StringListPolicyProto WebPrintingBlockedForUrls = 181;
+inline bool CloudPolicySubProto1::_internal_has_webprintingblockedforurls() const {
+bool value = (_has_bits_[3] & 0x00040000u) != 0;
+PROTOBUF_ASSUME(!value || webprintingblockedforurls_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_webprintingblockedforurls() const {
+return _internal_has_webprintingblockedforurls();
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::_internal_webprintingblockedforurls() const {
+const ::enterprise_management::StringListPolicyProto* p = webprintingblockedforurls_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::webprintingblockedforurls() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.WebPrintingBlockedForUrls)
+return _internal_webprintingblockedforurls();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_webprintingblockedforurls(
+::enterprise_management::StringListPolicyProto* webprintingblockedforurls) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(webprintingblockedforurls_);
+}
+webprintingblockedforurls_ = webprintingblockedforurls;
+if (webprintingblockedforurls) {
+_has_bits_[3] |= 0x00040000u;
+} else {
+_has_bits_[3] &= ~0x00040000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.WebPrintingBlockedForUrls)
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::release_webprintingblockedforurls() {
+_has_bits_[3] &= ~0x00040000u;
+::enterprise_management::StringListPolicyProto* temp = webprintingblockedforurls_;
+webprintingblockedforurls_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::unsafe_arena_release_webprintingblockedforurls() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.WebPrintingBlockedForUrls)
+_has_bits_[3] &= ~0x00040000u;
+::enterprise_management::StringListPolicyProto* temp = webprintingblockedforurls_;
+webprintingblockedforurls_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::_internal_mutable_webprintingblockedforurls() {
+_has_bits_[3] |= 0x00040000u;
+if (webprintingblockedforurls_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+webprintingblockedforurls_ = p;
+}
+return webprintingblockedforurls_;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::mutable_webprintingblockedforurls() {
+::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_webprintingblockedforurls();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.WebPrintingBlockedForUrls)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_webprintingblockedforurls(::enterprise_management::StringListPolicyProto* webprintingblockedforurls) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(webprintingblockedforurls_);
+}
+if (webprintingblockedforurls) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(webprintingblockedforurls));
+if (message_arena != submessage_arena) {
+webprintingblockedforurls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, webprintingblockedforurls, submessage_arena);
+}
+_has_bits_[3] |= 0x00040000u;
+} else {
+_has_bits_[3] &= ~0x00040000u;
+}
+webprintingblockedforurls_ = webprintingblockedforurls;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.WebPrintingBlockedForUrls)
 }
 
 // optional .enterprise_management.StringListPolicyProto WindowManagementAllowedForUrls = 28;
@@ -15244,6 +16160,93 @@ createthemessettings_ = createthemessettings;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.CreateThemesSettings)
 }
 
+// optional .enterprise_management.IntegerPolicyProto DevToolsGenAiSettings = 188;
+inline bool CloudPolicySubProto1::_internal_has_devtoolsgenaisettings() const {
+bool value = (_has_bits_[3] & 0x00800000u) != 0;
+PROTOBUF_ASSUME(!value || devtoolsgenaisettings_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_devtoolsgenaisettings() const {
+return _internal_has_devtoolsgenaisettings();
+}
+inline const ::enterprise_management::IntegerPolicyProto& CloudPolicySubProto1::_internal_devtoolsgenaisettings() const {
+const ::enterprise_management::IntegerPolicyProto* p = devtoolsgenaisettings_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::IntegerPolicyProto&>(
+::enterprise_management::_IntegerPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::IntegerPolicyProto& CloudPolicySubProto1::devtoolsgenaisettings() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.DevToolsGenAiSettings)
+return _internal_devtoolsgenaisettings();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_devtoolsgenaisettings(
+::enterprise_management::IntegerPolicyProto* devtoolsgenaisettings) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(devtoolsgenaisettings_);
+}
+devtoolsgenaisettings_ = devtoolsgenaisettings;
+if (devtoolsgenaisettings) {
+_has_bits_[3] |= 0x00800000u;
+} else {
+_has_bits_[3] &= ~0x00800000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.DevToolsGenAiSettings)
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::release_devtoolsgenaisettings() {
+_has_bits_[3] &= ~0x00800000u;
+::enterprise_management::IntegerPolicyProto* temp = devtoolsgenaisettings_;
+devtoolsgenaisettings_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::unsafe_arena_release_devtoolsgenaisettings() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.DevToolsGenAiSettings)
+_has_bits_[3] &= ~0x00800000u;
+::enterprise_management::IntegerPolicyProto* temp = devtoolsgenaisettings_;
+devtoolsgenaisettings_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::_internal_mutable_devtoolsgenaisettings() {
+_has_bits_[3] |= 0x00800000u;
+if (devtoolsgenaisettings_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::IntegerPolicyProto>(GetArenaForAllocation());
+devtoolsgenaisettings_ = p;
+}
+return devtoolsgenaisettings_;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::mutable_devtoolsgenaisettings() {
+::enterprise_management::IntegerPolicyProto* _msg = _internal_mutable_devtoolsgenaisettings();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.DevToolsGenAiSettings)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_devtoolsgenaisettings(::enterprise_management::IntegerPolicyProto* devtoolsgenaisettings) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(devtoolsgenaisettings_);
+}
+if (devtoolsgenaisettings) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(devtoolsgenaisettings));
+if (message_arena != submessage_arena) {
+devtoolsgenaisettings = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, devtoolsgenaisettings, submessage_arena);
+}
+_has_bits_[3] |= 0x00800000u;
+} else {
+_has_bits_[3] &= ~0x00800000u;
+}
+devtoolsgenaisettings_ = devtoolsgenaisettings;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.DevToolsGenAiSettings)
+}
+
 // optional .enterprise_management.IntegerPolicyProto HelpMeWriteSettings = 147;
 inline bool CloudPolicySubProto1::_internal_has_helpmewritesettings() const {
 bool value = (_has_bits_[2] & 0x40000000u) != 0;
@@ -16373,6 +17376,93 @@ _has_bits_[3] &= ~0x00000080u;
 }
 deletekeymodifier_ = deletekeymodifier;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.DeleteKeyModifier)
+}
+
+// optional .enterprise_management.StringListPolicyProto DocumentScanAPITrustedExtensions = 182;
+inline bool CloudPolicySubProto1::_internal_has_documentscanapitrustedextensions() const {
+bool value = (_has_bits_[3] & 0x00080000u) != 0;
+PROTOBUF_ASSUME(!value || documentscanapitrustedextensions_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_documentscanapitrustedextensions() const {
+return _internal_has_documentscanapitrustedextensions();
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::_internal_documentscanapitrustedextensions() const {
+const ::enterprise_management::StringListPolicyProto* p = documentscanapitrustedextensions_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::documentscanapitrustedextensions() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.DocumentScanAPITrustedExtensions)
+return _internal_documentscanapitrustedextensions();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_documentscanapitrustedextensions(
+::enterprise_management::StringListPolicyProto* documentscanapitrustedextensions) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(documentscanapitrustedextensions_);
+}
+documentscanapitrustedextensions_ = documentscanapitrustedextensions;
+if (documentscanapitrustedextensions) {
+_has_bits_[3] |= 0x00080000u;
+} else {
+_has_bits_[3] &= ~0x00080000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.DocumentScanAPITrustedExtensions)
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::release_documentscanapitrustedextensions() {
+_has_bits_[3] &= ~0x00080000u;
+::enterprise_management::StringListPolicyProto* temp = documentscanapitrustedextensions_;
+documentscanapitrustedextensions_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::unsafe_arena_release_documentscanapitrustedextensions() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.DocumentScanAPITrustedExtensions)
+_has_bits_[3] &= ~0x00080000u;
+::enterprise_management::StringListPolicyProto* temp = documentscanapitrustedextensions_;
+documentscanapitrustedextensions_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::_internal_mutable_documentscanapitrustedextensions() {
+_has_bits_[3] |= 0x00080000u;
+if (documentscanapitrustedextensions_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+documentscanapitrustedextensions_ = p;
+}
+return documentscanapitrustedextensions_;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::mutable_documentscanapitrustedextensions() {
+::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_documentscanapitrustedextensions();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.DocumentScanAPITrustedExtensions)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_documentscanapitrustedextensions(::enterprise_management::StringListPolicyProto* documentscanapitrustedextensions) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(documentscanapitrustedextensions_);
+}
+if (documentscanapitrustedextensions) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(documentscanapitrustedextensions));
+if (message_arena != submessage_arena) {
+documentscanapitrustedextensions = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, documentscanapitrustedextensions, submessage_arena);
+}
+_has_bits_[3] |= 0x00080000u;
+} else {
+_has_bits_[3] &= ~0x00080000u;
+}
+documentscanapitrustedextensions_ = documentscanapitrustedextensions;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.DocumentScanAPITrustedExtensions)
 }
 
 // optional .enterprise_management.BooleanPolicyProto DomainReliabilityAllowed = 18;
@@ -18115,6 +19205,93 @@ localuserfilesallowed_ = localuserfilesallowed;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.LocalUserFilesAllowed)
 }
 
+// optional .enterprise_management.BooleanPolicyProto MutationEventsEnabled = 187;
+inline bool CloudPolicySubProto1::_internal_has_mutationeventsenabled() const {
+bool value = (_has_bits_[3] & 0x00400000u) != 0;
+PROTOBUF_ASSUME(!value || mutationeventsenabled_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_mutationeventsenabled() const {
+return _internal_has_mutationeventsenabled();
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_mutationeventsenabled() const {
+const ::enterprise_management::BooleanPolicyProto* p = mutationeventsenabled_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::mutationeventsenabled() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.MutationEventsEnabled)
+return _internal_mutationeventsenabled();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_mutationeventsenabled(
+::enterprise_management::BooleanPolicyProto* mutationeventsenabled) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(mutationeventsenabled_);
+}
+mutationeventsenabled_ = mutationeventsenabled;
+if (mutationeventsenabled) {
+_has_bits_[3] |= 0x00400000u;
+} else {
+_has_bits_[3] &= ~0x00400000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.MutationEventsEnabled)
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_mutationeventsenabled() {
+_has_bits_[3] &= ~0x00400000u;
+::enterprise_management::BooleanPolicyProto* temp = mutationeventsenabled_;
+mutationeventsenabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_mutationeventsenabled() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.MutationEventsEnabled)
+_has_bits_[3] &= ~0x00400000u;
+::enterprise_management::BooleanPolicyProto* temp = mutationeventsenabled_;
+mutationeventsenabled_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_mutationeventsenabled() {
+_has_bits_[3] |= 0x00400000u;
+if (mutationeventsenabled_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+mutationeventsenabled_ = p;
+}
+return mutationeventsenabled_;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_mutationeventsenabled() {
+::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_mutationeventsenabled();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.MutationEventsEnabled)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_mutationeventsenabled(::enterprise_management::BooleanPolicyProto* mutationeventsenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(mutationeventsenabled_);
+}
+if (mutationeventsenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(mutationeventsenabled));
+if (message_arena != submessage_arena) {
+mutationeventsenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, mutationeventsenabled, submessage_arena);
+}
+_has_bits_[3] |= 0x00400000u;
+} else {
+_has_bits_[3] &= ~0x00400000u;
+}
+mutationeventsenabled_ = mutationeventsenabled;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.MutationEventsEnabled)
+}
+
 // optional .enterprise_management.BooleanPolicyProto NativeClientForceAllowed = 81;
 inline bool CloudPolicySubProto1::_internal_has_nativeclientforceallowed() const {
 bool value = (_has_bits_[1] & 0x00800000u) != 0;
@@ -19592,6 +20769,93 @@ _has_bits_[2] &= ~0x01000000u;
 }
 sitesearchsettings_ = sitesearchsettings;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.SiteSearchSettings)
+}
+
+// optional .enterprise_management.StringListPolicyProto SubAppsAPIsAllowedWithoutGestureAndAuthorizationForOrigins = 178;
+inline bool CloudPolicySubProto1::_internal_has_subappsapisallowedwithoutgestureandauthorizationfororigins() const {
+bool value = (_has_bits_[3] & 0x00008000u) != 0;
+PROTOBUF_ASSUME(!value || subappsapisallowedwithoutgestureandauthorizationfororigins_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_subappsapisallowedwithoutgestureandauthorizationfororigins() const {
+return _internal_has_subappsapisallowedwithoutgestureandauthorizationfororigins();
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::_internal_subappsapisallowedwithoutgestureandauthorizationfororigins() const {
+const ::enterprise_management::StringListPolicyProto* p = subappsapisallowedwithoutgestureandauthorizationfororigins_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::subappsapisallowedwithoutgestureandauthorizationfororigins() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.SubAppsAPIsAllowedWithoutGestureAndAuthorizationForOrigins)
+return _internal_subappsapisallowedwithoutgestureandauthorizationfororigins();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_subappsapisallowedwithoutgestureandauthorizationfororigins(
+::enterprise_management::StringListPolicyProto* subappsapisallowedwithoutgestureandauthorizationfororigins) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(subappsapisallowedwithoutgestureandauthorizationfororigins_);
+}
+subappsapisallowedwithoutgestureandauthorizationfororigins_ = subappsapisallowedwithoutgestureandauthorizationfororigins;
+if (subappsapisallowedwithoutgestureandauthorizationfororigins) {
+_has_bits_[3] |= 0x00008000u;
+} else {
+_has_bits_[3] &= ~0x00008000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.SubAppsAPIsAllowedWithoutGestureAndAuthorizationForOrigins)
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::release_subappsapisallowedwithoutgestureandauthorizationfororigins() {
+_has_bits_[3] &= ~0x00008000u;
+::enterprise_management::StringListPolicyProto* temp = subappsapisallowedwithoutgestureandauthorizationfororigins_;
+subappsapisallowedwithoutgestureandauthorizationfororigins_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::unsafe_arena_release_subappsapisallowedwithoutgestureandauthorizationfororigins() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.SubAppsAPIsAllowedWithoutGestureAndAuthorizationForOrigins)
+_has_bits_[3] &= ~0x00008000u;
+::enterprise_management::StringListPolicyProto* temp = subappsapisallowedwithoutgestureandauthorizationfororigins_;
+subappsapisallowedwithoutgestureandauthorizationfororigins_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::_internal_mutable_subappsapisallowedwithoutgestureandauthorizationfororigins() {
+_has_bits_[3] |= 0x00008000u;
+if (subappsapisallowedwithoutgestureandauthorizationfororigins_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+subappsapisallowedwithoutgestureandauthorizationfororigins_ = p;
+}
+return subappsapisallowedwithoutgestureandauthorizationfororigins_;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::mutable_subappsapisallowedwithoutgestureandauthorizationfororigins() {
+::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_subappsapisallowedwithoutgestureandauthorizationfororigins();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.SubAppsAPIsAllowedWithoutGestureAndAuthorizationForOrigins)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_subappsapisallowedwithoutgestureandauthorizationfororigins(::enterprise_management::StringListPolicyProto* subappsapisallowedwithoutgestureandauthorizationfororigins) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(subappsapisallowedwithoutgestureandauthorizationfororigins_);
+}
+if (subappsapisallowedwithoutgestureandauthorizationfororigins) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(subappsapisallowedwithoutgestureandauthorizationfororigins));
+if (message_arena != submessage_arena) {
+subappsapisallowedwithoutgestureandauthorizationfororigins = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, subappsapisallowedwithoutgestureandauthorizationfororigins, submessage_arena);
+}
+_has_bits_[3] |= 0x00008000u;
+} else {
+_has_bits_[3] &= ~0x00008000u;
+}
+subappsapisallowedwithoutgestureandauthorizationfororigins_ = subappsapisallowedwithoutgestureandauthorizationfororigins;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.SubAppsAPIsAllowedWithoutGestureAndAuthorizationForOrigins)
 }
 
 // optional .enterprise_management.BooleanPolicyProto UrlKeyedMetricsAllowed = 73;
@@ -25255,7 +26519,7 @@ userborealisallowed_ = userborealisallowed;
 
 // optional .enterprise_management.StringPolicyProto BruschettaVMConfiguration = 1035;
 inline bool CloudPolicySettings::_internal_has_bruschettavmconfiguration() const {
-bool value = (_has_bits_[16] & 0x00001000u) != 0;
+bool value = (_has_bits_[16] & 0x00000800u) != 0;
 PROTOBUF_ASSUME(!value || bruschettavmconfiguration_ != nullptr);
 return value;
 }
@@ -25278,14 +26542,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(bruschettavmconfi
 }
 bruschettavmconfiguration_ = bruschettavmconfiguration;
 if (bruschettavmconfiguration) {
-_has_bits_[16] |= 0x00001000u;
+_has_bits_[16] |= 0x00000800u;
 } else {
-_has_bits_[16] &= ~0x00001000u;
+_has_bits_[16] &= ~0x00000800u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.BruschettaVMConfiguration)
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::release_bruschettavmconfiguration() {
-_has_bits_[16] &= ~0x00001000u;
+_has_bits_[16] &= ~0x00000800u;
 ::enterprise_management::StringPolicyProto* temp = bruschettavmconfiguration_;
 bruschettavmconfiguration_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -25301,13 +26565,13 @@ return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::unsafe_arena_release_bruschettavmconfiguration() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.BruschettaVMConfiguration)
-_has_bits_[16] &= ~0x00001000u;
+_has_bits_[16] &= ~0x00000800u;
 ::enterprise_management::StringPolicyProto* temp = bruschettavmconfiguration_;
 bruschettavmconfiguration_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::_internal_mutable_bruschettavmconfiguration() {
-_has_bits_[16] |= 0x00001000u;
+_has_bits_[16] |= 0x00000800u;
 if (bruschettavmconfiguration_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
 bruschettavmconfiguration_ = p;
@@ -25332,9 +26596,9 @@ if (message_arena != submessage_arena) {
 bruschettavmconfiguration = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, bruschettavmconfiguration, submessage_arena);
 }
-_has_bits_[16] |= 0x00001000u;
+_has_bits_[16] |= 0x00000800u;
 } else {
-_has_bits_[16] &= ~0x00001000u;
+_has_bits_[16] &= ~0x00000800u;
 }
 bruschettavmconfiguration_ = bruschettavmconfiguration;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.BruschettaVMConfiguration)
@@ -26038,7 +27302,7 @@ autoselectcertificateforurls_ = autoselectcertificateforurls;
 
 // optional .enterprise_management.StringListPolicyProto ClipboardAllowedForUrls = 986;
 inline bool CloudPolicySettings::_internal_has_clipboardallowedforurls() const {
-bool value = (_has_bits_[15] & 0x00040000u) != 0;
+bool value = (_has_bits_[15] & 0x00020000u) != 0;
 PROTOBUF_ASSUME(!value || clipboardallowedforurls_ != nullptr);
 return value;
 }
@@ -26061,14 +27325,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(clipboardallowedf
 }
 clipboardallowedforurls_ = clipboardallowedforurls;
 if (clipboardallowedforurls) {
-_has_bits_[15] |= 0x00040000u;
+_has_bits_[15] |= 0x00020000u;
 } else {
-_has_bits_[15] &= ~0x00040000u;
+_has_bits_[15] &= ~0x00020000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.ClipboardAllowedForUrls)
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::release_clipboardallowedforurls() {
-_has_bits_[15] &= ~0x00040000u;
+_has_bits_[15] &= ~0x00020000u;
 ::enterprise_management::StringListPolicyProto* temp = clipboardallowedforurls_;
 clipboardallowedforurls_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -26084,13 +27348,13 @@ return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::unsafe_arena_release_clipboardallowedforurls() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.ClipboardAllowedForUrls)
-_has_bits_[15] &= ~0x00040000u;
+_has_bits_[15] &= ~0x00020000u;
 ::enterprise_management::StringListPolicyProto* temp = clipboardallowedforurls_;
 clipboardallowedforurls_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::_internal_mutable_clipboardallowedforurls() {
-_has_bits_[15] |= 0x00040000u;
+_has_bits_[15] |= 0x00020000u;
 if (clipboardallowedforurls_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
 clipboardallowedforurls_ = p;
@@ -26115,9 +27379,9 @@ if (message_arena != submessage_arena) {
 clipboardallowedforurls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, clipboardallowedforurls, submessage_arena);
 }
-_has_bits_[15] |= 0x00040000u;
+_has_bits_[15] |= 0x00020000u;
 } else {
-_has_bits_[15] &= ~0x00040000u;
+_has_bits_[15] &= ~0x00020000u;
 }
 clipboardallowedforurls_ = clipboardallowedforurls;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.ClipboardAllowedForUrls)
@@ -26125,7 +27389,7 @@ clipboardallowedforurls_ = clipboardallowedforurls;
 
 // optional .enterprise_management.StringListPolicyProto ClipboardBlockedForUrls = 987;
 inline bool CloudPolicySettings::_internal_has_clipboardblockedforurls() const {
-bool value = (_has_bits_[15] & 0x00080000u) != 0;
+bool value = (_has_bits_[15] & 0x00040000u) != 0;
 PROTOBUF_ASSUME(!value || clipboardblockedforurls_ != nullptr);
 return value;
 }
@@ -26148,14 +27412,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(clipboardblockedf
 }
 clipboardblockedforurls_ = clipboardblockedforurls;
 if (clipboardblockedforurls) {
-_has_bits_[15] |= 0x00080000u;
+_has_bits_[15] |= 0x00040000u;
 } else {
-_has_bits_[15] &= ~0x00080000u;
+_has_bits_[15] &= ~0x00040000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.ClipboardBlockedForUrls)
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::release_clipboardblockedforurls() {
-_has_bits_[15] &= ~0x00080000u;
+_has_bits_[15] &= ~0x00040000u;
 ::enterprise_management::StringListPolicyProto* temp = clipboardblockedforurls_;
 clipboardblockedforurls_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -26171,13 +27435,13 @@ return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::unsafe_arena_release_clipboardblockedforurls() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.ClipboardBlockedForUrls)
-_has_bits_[15] &= ~0x00080000u;
+_has_bits_[15] &= ~0x00040000u;
 ::enterprise_management::StringListPolicyProto* temp = clipboardblockedforurls_;
 clipboardblockedforurls_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::_internal_mutable_clipboardblockedforurls() {
-_has_bits_[15] |= 0x00080000u;
+_has_bits_[15] |= 0x00040000u;
 if (clipboardblockedforurls_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
 clipboardblockedforurls_ = p;
@@ -26202,9 +27466,9 @@ if (message_arena != submessage_arena) {
 clipboardblockedforurls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, clipboardblockedforurls, submessage_arena);
 }
-_has_bits_[15] |= 0x00080000u;
+_has_bits_[15] |= 0x00040000u;
 } else {
-_has_bits_[15] &= ~0x00080000u;
+_has_bits_[15] &= ~0x00040000u;
 }
 clipboardblockedforurls_ = clipboardblockedforurls;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.ClipboardBlockedForUrls)
@@ -26473,7 +27737,7 @@ cookiessessiononlyforurls_ = cookiessessiononlyforurls;
 
 // optional .enterprise_management.IntegerPolicyProto DefaultClipboardSetting = 985;
 inline bool CloudPolicySettings::_internal_has_defaultclipboardsetting() const {
-bool value = (_has_bits_[15] & 0x00020000u) != 0;
+bool value = (_has_bits_[15] & 0x00010000u) != 0;
 PROTOBUF_ASSUME(!value || defaultclipboardsetting_ != nullptr);
 return value;
 }
@@ -26496,14 +27760,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(defaultclipboards
 }
 defaultclipboardsetting_ = defaultclipboardsetting;
 if (defaultclipboardsetting) {
-_has_bits_[15] |= 0x00020000u;
+_has_bits_[15] |= 0x00010000u;
 } else {
-_has_bits_[15] &= ~0x00020000u;
+_has_bits_[15] &= ~0x00010000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.DefaultClipboardSetting)
 }
 inline ::enterprise_management::IntegerPolicyProto* CloudPolicySettings::release_defaultclipboardsetting() {
-_has_bits_[15] &= ~0x00020000u;
+_has_bits_[15] &= ~0x00010000u;
 ::enterprise_management::IntegerPolicyProto* temp = defaultclipboardsetting_;
 defaultclipboardsetting_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -26519,13 +27783,13 @@ return temp;
 }
 inline ::enterprise_management::IntegerPolicyProto* CloudPolicySettings::unsafe_arena_release_defaultclipboardsetting() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.DefaultClipboardSetting)
-_has_bits_[15] &= ~0x00020000u;
+_has_bits_[15] &= ~0x00010000u;
 ::enterprise_management::IntegerPolicyProto* temp = defaultclipboardsetting_;
 defaultclipboardsetting_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::IntegerPolicyProto* CloudPolicySettings::_internal_mutable_defaultclipboardsetting() {
-_has_bits_[15] |= 0x00020000u;
+_has_bits_[15] |= 0x00010000u;
 if (defaultclipboardsetting_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::IntegerPolicyProto>(GetArenaForAllocation());
 defaultclipboardsetting_ = p;
@@ -26550,9 +27814,9 @@ if (message_arena != submessage_arena) {
 defaultclipboardsetting = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, defaultclipboardsetting, submessage_arena);
 }
-_has_bits_[15] |= 0x00020000u;
+_has_bits_[15] |= 0x00010000u;
 } else {
-_has_bits_[15] &= ~0x00020000u;
+_has_bits_[15] &= ~0x00010000u;
 }
 defaultclipboardsetting_ = defaultclipboardsetting;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.DefaultClipboardSetting)
@@ -27256,7 +28520,7 @@ defaultjavascriptsetting_ = defaultjavascriptsetting;
 
 // optional .enterprise_management.IntegerPolicyProto DefaultLocalFontsSetting = 979;
 inline bool CloudPolicySettings::_internal_has_defaultlocalfontssetting() const {
-bool value = (_has_bits_[15] & 0x00002000u) != 0;
+bool value = (_has_bits_[15] & 0x00001000u) != 0;
 PROTOBUF_ASSUME(!value || defaultlocalfontssetting_ != nullptr);
 return value;
 }
@@ -27279,14 +28543,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(defaultlocalfonts
 }
 defaultlocalfontssetting_ = defaultlocalfontssetting;
 if (defaultlocalfontssetting) {
-_has_bits_[15] |= 0x00002000u;
+_has_bits_[15] |= 0x00001000u;
 } else {
-_has_bits_[15] &= ~0x00002000u;
+_has_bits_[15] &= ~0x00001000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.DefaultLocalFontsSetting)
 }
 inline ::enterprise_management::IntegerPolicyProto* CloudPolicySettings::release_defaultlocalfontssetting() {
-_has_bits_[15] &= ~0x00002000u;
+_has_bits_[15] &= ~0x00001000u;
 ::enterprise_management::IntegerPolicyProto* temp = defaultlocalfontssetting_;
 defaultlocalfontssetting_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -27302,13 +28566,13 @@ return temp;
 }
 inline ::enterprise_management::IntegerPolicyProto* CloudPolicySettings::unsafe_arena_release_defaultlocalfontssetting() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.DefaultLocalFontsSetting)
-_has_bits_[15] &= ~0x00002000u;
+_has_bits_[15] &= ~0x00001000u;
 ::enterprise_management::IntegerPolicyProto* temp = defaultlocalfontssetting_;
 defaultlocalfontssetting_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::IntegerPolicyProto* CloudPolicySettings::_internal_mutable_defaultlocalfontssetting() {
-_has_bits_[15] |= 0x00002000u;
+_has_bits_[15] |= 0x00001000u;
 if (defaultlocalfontssetting_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::IntegerPolicyProto>(GetArenaForAllocation());
 defaultlocalfontssetting_ = p;
@@ -27333,9 +28597,9 @@ if (message_arena != submessage_arena) {
 defaultlocalfontssetting = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, defaultlocalfontssetting, submessage_arena);
 }
-_has_bits_[15] |= 0x00002000u;
+_has_bits_[15] |= 0x00001000u;
 } else {
-_has_bits_[15] &= ~0x00002000u;
+_has_bits_[15] &= ~0x00001000u;
 }
 defaultlocalfontssetting_ = defaultlocalfontssetting;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.DefaultLocalFontsSetting)
@@ -28474,7 +29738,7 @@ filesystemwriteblockedforurls_ = filesystemwriteblockedforurls;
 
 // optional .enterprise_management.StringListPolicyProto GetDisplayMediaSetSelectAllScreensAllowedForUrls = 974;
 inline bool CloudPolicySettings::_internal_has_getdisplaymediasetselectallscreensallowedforurls() const {
-bool value = (_has_bits_[15] & 0x00000400u) != 0;
+bool value = (_has_bits_[15] & 0x00000200u) != 0;
 PROTOBUF_ASSUME(!value || getdisplaymediasetselectallscreensallowedforurls_ != nullptr);
 return value;
 }
@@ -28497,14 +29761,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(getdisplaymediase
 }
 getdisplaymediasetselectallscreensallowedforurls_ = getdisplaymediasetselectallscreensallowedforurls;
 if (getdisplaymediasetselectallscreensallowedforurls) {
-_has_bits_[15] |= 0x00000400u;
+_has_bits_[15] |= 0x00000200u;
 } else {
-_has_bits_[15] &= ~0x00000400u;
+_has_bits_[15] &= ~0x00000200u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.GetDisplayMediaSetSelectAllScreensAllowedForUrls)
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::release_getdisplaymediasetselectallscreensallowedforurls() {
-_has_bits_[15] &= ~0x00000400u;
+_has_bits_[15] &= ~0x00000200u;
 ::enterprise_management::StringListPolicyProto* temp = getdisplaymediasetselectallscreensallowedforurls_;
 getdisplaymediasetselectallscreensallowedforurls_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -28520,13 +29784,13 @@ return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::unsafe_arena_release_getdisplaymediasetselectallscreensallowedforurls() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.GetDisplayMediaSetSelectAllScreensAllowedForUrls)
-_has_bits_[15] &= ~0x00000400u;
+_has_bits_[15] &= ~0x00000200u;
 ::enterprise_management::StringListPolicyProto* temp = getdisplaymediasetselectallscreensallowedforurls_;
 getdisplaymediasetselectallscreensallowedforurls_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::_internal_mutable_getdisplaymediasetselectallscreensallowedforurls() {
-_has_bits_[15] |= 0x00000400u;
+_has_bits_[15] |= 0x00000200u;
 if (getdisplaymediasetselectallscreensallowedforurls_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
 getdisplaymediasetselectallscreensallowedforurls_ = p;
@@ -28551,9 +29815,9 @@ if (message_arena != submessage_arena) {
 getdisplaymediasetselectallscreensallowedforurls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, getdisplaymediasetselectallscreensallowedforurls, submessage_arena);
 }
-_has_bits_[15] |= 0x00000400u;
+_has_bits_[15] |= 0x00000200u;
 } else {
-_has_bits_[15] &= ~0x00000400u;
+_has_bits_[15] &= ~0x00000200u;
 }
 getdisplaymediasetselectallscreensallowedforurls_ = getdisplaymediasetselectallscreensallowedforurls;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.GetDisplayMediaSetSelectAllScreensAllowedForUrls)
@@ -29344,7 +30608,7 @@ legacysamesitecookiebehaviorenabledfordomainlist_ = legacysamesitecookiebehavior
 
 // optional .enterprise_management.StringListPolicyProto LocalFontsAllowedForUrls = 980;
 inline bool CloudPolicySettings::_internal_has_localfontsallowedforurls() const {
-bool value = (_has_bits_[15] & 0x00004000u) != 0;
+bool value = (_has_bits_[15] & 0x00002000u) != 0;
 PROTOBUF_ASSUME(!value || localfontsallowedforurls_ != nullptr);
 return value;
 }
@@ -29367,14 +30631,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(localfontsallowed
 }
 localfontsallowedforurls_ = localfontsallowedforurls;
 if (localfontsallowedforurls) {
-_has_bits_[15] |= 0x00004000u;
+_has_bits_[15] |= 0x00002000u;
 } else {
-_has_bits_[15] &= ~0x00004000u;
+_has_bits_[15] &= ~0x00002000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.LocalFontsAllowedForUrls)
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::release_localfontsallowedforurls() {
-_has_bits_[15] &= ~0x00004000u;
+_has_bits_[15] &= ~0x00002000u;
 ::enterprise_management::StringListPolicyProto* temp = localfontsallowedforurls_;
 localfontsallowedforurls_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -29390,13 +30654,13 @@ return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::unsafe_arena_release_localfontsallowedforurls() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.LocalFontsAllowedForUrls)
-_has_bits_[15] &= ~0x00004000u;
+_has_bits_[15] &= ~0x00002000u;
 ::enterprise_management::StringListPolicyProto* temp = localfontsallowedforurls_;
 localfontsallowedforurls_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::_internal_mutable_localfontsallowedforurls() {
-_has_bits_[15] |= 0x00004000u;
+_has_bits_[15] |= 0x00002000u;
 if (localfontsallowedforurls_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
 localfontsallowedforurls_ = p;
@@ -29421,9 +30685,9 @@ if (message_arena != submessage_arena) {
 localfontsallowedforurls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, localfontsallowedforurls, submessage_arena);
 }
-_has_bits_[15] |= 0x00004000u;
+_has_bits_[15] |= 0x00002000u;
 } else {
-_has_bits_[15] &= ~0x00004000u;
+_has_bits_[15] &= ~0x00002000u;
 }
 localfontsallowedforurls_ = localfontsallowedforurls;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.LocalFontsAllowedForUrls)
@@ -29431,7 +30695,7 @@ localfontsallowedforurls_ = localfontsallowedforurls;
 
 // optional .enterprise_management.StringListPolicyProto LocalFontsBlockedForUrls = 981;
 inline bool CloudPolicySettings::_internal_has_localfontsblockedforurls() const {
-bool value = (_has_bits_[15] & 0x00008000u) != 0;
+bool value = (_has_bits_[15] & 0x00004000u) != 0;
 PROTOBUF_ASSUME(!value || localfontsblockedforurls_ != nullptr);
 return value;
 }
@@ -29454,14 +30718,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(localfontsblocked
 }
 localfontsblockedforurls_ = localfontsblockedforurls;
 if (localfontsblockedforurls) {
-_has_bits_[15] |= 0x00008000u;
+_has_bits_[15] |= 0x00004000u;
 } else {
-_has_bits_[15] &= ~0x00008000u;
+_has_bits_[15] &= ~0x00004000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.LocalFontsBlockedForUrls)
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::release_localfontsblockedforurls() {
-_has_bits_[15] &= ~0x00008000u;
+_has_bits_[15] &= ~0x00004000u;
 ::enterprise_management::StringListPolicyProto* temp = localfontsblockedforurls_;
 localfontsblockedforurls_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -29477,13 +30741,13 @@ return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::unsafe_arena_release_localfontsblockedforurls() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.LocalFontsBlockedForUrls)
-_has_bits_[15] &= ~0x00008000u;
+_has_bits_[15] &= ~0x00004000u;
 ::enterprise_management::StringListPolicyProto* temp = localfontsblockedforurls_;
 localfontsblockedforurls_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::_internal_mutable_localfontsblockedforurls() {
-_has_bits_[15] |= 0x00008000u;
+_has_bits_[15] |= 0x00004000u;
 if (localfontsblockedforurls_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
 localfontsblockedforurls_ = p;
@@ -29508,9 +30772,9 @@ if (message_arena != submessage_arena) {
 localfontsblockedforurls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, localfontsblockedforurls, submessage_arena);
 }
-_has_bits_[15] |= 0x00008000u;
+_has_bits_[15] |= 0x00004000u;
 } else {
-_has_bits_[15] &= ~0x00008000u;
+_has_bits_[15] &= ~0x00004000u;
 }
 localfontsblockedforurls_ = localfontsblockedforurls;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.LocalFontsBlockedForUrls)
@@ -29692,7 +30956,7 @@ notificationsblockedforurls_ = notificationsblockedforurls;
 
 // optional .enterprise_management.StringListPolicyProto PdfLocalFileAccessAllowedForDomains = 1040;
 inline bool CloudPolicySettings::_internal_has_pdflocalfileaccessallowedfordomains() const {
-bool value = (_has_bits_[16] & 0x00010000u) != 0;
+bool value = (_has_bits_[16] & 0x00008000u) != 0;
 PROTOBUF_ASSUME(!value || pdflocalfileaccessallowedfordomains_ != nullptr);
 return value;
 }
@@ -29715,14 +30979,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(pdflocalfileacces
 }
 pdflocalfileaccessallowedfordomains_ = pdflocalfileaccessallowedfordomains;
 if (pdflocalfileaccessallowedfordomains) {
-_has_bits_[16] |= 0x00010000u;
+_has_bits_[16] |= 0x00008000u;
 } else {
-_has_bits_[16] &= ~0x00010000u;
+_has_bits_[16] &= ~0x00008000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.PdfLocalFileAccessAllowedForDomains)
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::release_pdflocalfileaccessallowedfordomains() {
-_has_bits_[16] &= ~0x00010000u;
+_has_bits_[16] &= ~0x00008000u;
 ::enterprise_management::StringListPolicyProto* temp = pdflocalfileaccessallowedfordomains_;
 pdflocalfileaccessallowedfordomains_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -29738,13 +31002,13 @@ return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::unsafe_arena_release_pdflocalfileaccessallowedfordomains() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.PdfLocalFileAccessAllowedForDomains)
-_has_bits_[16] &= ~0x00010000u;
+_has_bits_[16] &= ~0x00008000u;
 ::enterprise_management::StringListPolicyProto* temp = pdflocalfileaccessallowedfordomains_;
 pdflocalfileaccessallowedfordomains_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::_internal_mutable_pdflocalfileaccessallowedfordomains() {
-_has_bits_[16] |= 0x00010000u;
+_has_bits_[16] |= 0x00008000u;
 if (pdflocalfileaccessallowedfordomains_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
 pdflocalfileaccessallowedfordomains_ = p;
@@ -29769,9 +31033,9 @@ if (message_arena != submessage_arena) {
 pdflocalfileaccessallowedfordomains = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, pdflocalfileaccessallowedfordomains, submessage_arena);
 }
-_has_bits_[16] |= 0x00010000u;
+_has_bits_[16] |= 0x00008000u;
 } else {
-_has_bits_[16] &= ~0x00010000u;
+_has_bits_[16] &= ~0x00008000u;
 }
 pdflocalfileaccessallowedfordomains_ = pdflocalfileaccessallowedfordomains;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.PdfLocalFileAccessAllowedForDomains)
@@ -31954,7 +33218,7 @@ crostinirootaccessallowed_ = crostinirootaccessallowed;
 
 // optional .enterprise_management.BooleanPolicyProto SystemTerminalSshAllowed = 976;
 inline bool CloudPolicySettings::_internal_has_systemterminalsshallowed() const {
-bool value = (_has_bits_[15] & 0x00000800u) != 0;
+bool value = (_has_bits_[15] & 0x00000400u) != 0;
 PROTOBUF_ASSUME(!value || systemterminalsshallowed_ != nullptr);
 return value;
 }
@@ -31977,14 +33241,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(systemterminalssh
 }
 systemterminalsshallowed_ = systemterminalsshallowed;
 if (systemterminalsshallowed) {
-_has_bits_[15] |= 0x00000800u;
+_has_bits_[15] |= 0x00000400u;
 } else {
-_has_bits_[15] &= ~0x00000800u;
+_has_bits_[15] &= ~0x00000400u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.SystemTerminalSshAllowed)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_systemterminalsshallowed() {
-_has_bits_[15] &= ~0x00000800u;
+_has_bits_[15] &= ~0x00000400u;
 ::enterprise_management::BooleanPolicyProto* temp = systemterminalsshallowed_;
 systemterminalsshallowed_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -32000,13 +33264,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_systemterminalsshallowed() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.SystemTerminalSshAllowed)
-_has_bits_[15] &= ~0x00000800u;
+_has_bits_[15] &= ~0x00000400u;
 ::enterprise_management::BooleanPolicyProto* temp = systemterminalsshallowed_;
 systemterminalsshallowed_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_systemterminalsshallowed() {
-_has_bits_[15] |= 0x00000800u;
+_has_bits_[15] |= 0x00000400u;
 if (systemterminalsshallowed_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 systemterminalsshallowed_ = p;
@@ -32031,9 +33295,9 @@ if (message_arena != submessage_arena) {
 systemterminalsshallowed = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, systemterminalsshallowed, submessage_arena);
 }
-_has_bits_[15] |= 0x00000800u;
+_has_bits_[15] |= 0x00000400u;
 } else {
-_has_bits_[15] &= ~0x00000800u;
+_has_bits_[15] &= ~0x00000400u;
 }
 systemterminalsshallowed_ = systemterminalsshallowed;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.SystemTerminalSshAllowed)
@@ -32041,7 +33305,7 @@ systemterminalsshallowed_ = systemterminalsshallowed;
 
 // optional .enterprise_management.BooleanPolicyProto CalendarIntegrationEnabled = 1017;
 inline bool CloudPolicySettings::_internal_has_calendarintegrationenabled() const {
-bool value = (_has_bits_[16] & 0x00000002u) != 0;
+bool value = (_has_bits_[16] & 0x00000001u) != 0;
 PROTOBUF_ASSUME(!value || calendarintegrationenabled_ != nullptr);
 return value;
 }
@@ -32064,14 +33328,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(calendarintegrati
 }
 calendarintegrationenabled_ = calendarintegrationenabled;
 if (calendarintegrationenabled) {
-_has_bits_[16] |= 0x00000002u;
+_has_bits_[16] |= 0x00000001u;
 } else {
-_has_bits_[16] &= ~0x00000002u;
+_has_bits_[16] &= ~0x00000001u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.CalendarIntegrationEnabled)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_calendarintegrationenabled() {
-_has_bits_[16] &= ~0x00000002u;
+_has_bits_[16] &= ~0x00000001u;
 ::enterprise_management::BooleanPolicyProto* temp = calendarintegrationenabled_;
 calendarintegrationenabled_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -32087,13 +33351,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_calendarintegrationenabled() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.CalendarIntegrationEnabled)
-_has_bits_[16] &= ~0x00000002u;
+_has_bits_[16] &= ~0x00000001u;
 ::enterprise_management::BooleanPolicyProto* temp = calendarintegrationenabled_;
 calendarintegrationenabled_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_calendarintegrationenabled() {
-_has_bits_[16] |= 0x00000002u;
+_has_bits_[16] |= 0x00000001u;
 if (calendarintegrationenabled_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 calendarintegrationenabled_ = p;
@@ -32118,9 +33382,9 @@ if (message_arena != submessage_arena) {
 calendarintegrationenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, calendarintegrationenabled, submessage_arena);
 }
-_has_bits_[16] |= 0x00000002u;
+_has_bits_[16] |= 0x00000001u;
 } else {
-_has_bits_[16] &= ~0x00000002u;
+_has_bits_[16] &= ~0x00000001u;
 }
 calendarintegrationenabled_ = calendarintegrationenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.CalendarIntegrationEnabled)
@@ -33172,7 +34436,7 @@ defaultsearchprovidersuggesturlpostparams_ = defaultsearchprovidersuggesturlpost
 
 // optional .enterprise_management.BooleanPolicyProto DeskAPIThirdPartyAccessEnabled = 1021;
 inline bool CloudPolicySettings::_internal_has_deskapithirdpartyaccessenabled() const {
-bool value = (_has_bits_[16] & 0x00000010u) != 0;
+bool value = (_has_bits_[16] & 0x00000008u) != 0;
 PROTOBUF_ASSUME(!value || deskapithirdpartyaccessenabled_ != nullptr);
 return value;
 }
@@ -33195,14 +34459,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(deskapithirdparty
 }
 deskapithirdpartyaccessenabled_ = deskapithirdpartyaccessenabled;
 if (deskapithirdpartyaccessenabled) {
-_has_bits_[16] |= 0x00000010u;
+_has_bits_[16] |= 0x00000008u;
 } else {
-_has_bits_[16] &= ~0x00000010u;
+_has_bits_[16] &= ~0x00000008u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.DeskAPIThirdPartyAccessEnabled)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_deskapithirdpartyaccessenabled() {
-_has_bits_[16] &= ~0x00000010u;
+_has_bits_[16] &= ~0x00000008u;
 ::enterprise_management::BooleanPolicyProto* temp = deskapithirdpartyaccessenabled_;
 deskapithirdpartyaccessenabled_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -33218,13 +34482,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_deskapithirdpartyaccessenabled() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.DeskAPIThirdPartyAccessEnabled)
-_has_bits_[16] &= ~0x00000010u;
+_has_bits_[16] &= ~0x00000008u;
 ::enterprise_management::BooleanPolicyProto* temp = deskapithirdpartyaccessenabled_;
 deskapithirdpartyaccessenabled_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_deskapithirdpartyaccessenabled() {
-_has_bits_[16] |= 0x00000010u;
+_has_bits_[16] |= 0x00000008u;
 if (deskapithirdpartyaccessenabled_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 deskapithirdpartyaccessenabled_ = p;
@@ -33249,9 +34513,9 @@ if (message_arena != submessage_arena) {
 deskapithirdpartyaccessenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, deskapithirdpartyaccessenabled, submessage_arena);
 }
-_has_bits_[16] |= 0x00000010u;
+_has_bits_[16] |= 0x00000008u;
 } else {
-_has_bits_[16] &= ~0x00000010u;
+_has_bits_[16] &= ~0x00000008u;
 }
 deskapithirdpartyaccessenabled_ = deskapithirdpartyaccessenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.DeskAPIThirdPartyAccessEnabled)
@@ -33259,7 +34523,7 @@ deskapithirdpartyaccessenabled_ = deskapithirdpartyaccessenabled;
 
 // optional .enterprise_management.StringListPolicyProto DeskAPIThirdPartyAllowlist = 1025;
 inline bool CloudPolicySettings::_internal_has_deskapithirdpartyallowlist() const {
-bool value = (_has_bits_[16] & 0x00000080u) != 0;
+bool value = (_has_bits_[16] & 0x00000040u) != 0;
 PROTOBUF_ASSUME(!value || deskapithirdpartyallowlist_ != nullptr);
 return value;
 }
@@ -33282,14 +34546,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(deskapithirdparty
 }
 deskapithirdpartyallowlist_ = deskapithirdpartyallowlist;
 if (deskapithirdpartyallowlist) {
-_has_bits_[16] |= 0x00000080u;
+_has_bits_[16] |= 0x00000040u;
 } else {
-_has_bits_[16] &= ~0x00000080u;
+_has_bits_[16] &= ~0x00000040u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.DeskAPIThirdPartyAllowlist)
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::release_deskapithirdpartyallowlist() {
-_has_bits_[16] &= ~0x00000080u;
+_has_bits_[16] &= ~0x00000040u;
 ::enterprise_management::StringListPolicyProto* temp = deskapithirdpartyallowlist_;
 deskapithirdpartyallowlist_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -33305,13 +34569,13 @@ return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::unsafe_arena_release_deskapithirdpartyallowlist() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.DeskAPIThirdPartyAllowlist)
-_has_bits_[16] &= ~0x00000080u;
+_has_bits_[16] &= ~0x00000040u;
 ::enterprise_management::StringListPolicyProto* temp = deskapithirdpartyallowlist_;
 deskapithirdpartyallowlist_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::_internal_mutable_deskapithirdpartyallowlist() {
-_has_bits_[16] |= 0x00000080u;
+_has_bits_[16] |= 0x00000040u;
 if (deskapithirdpartyallowlist_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
 deskapithirdpartyallowlist_ = p;
@@ -33336,9 +34600,9 @@ if (message_arena != submessage_arena) {
 deskapithirdpartyallowlist = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, deskapithirdpartyallowlist, submessage_arena);
 }
-_has_bits_[16] |= 0x00000080u;
+_has_bits_[16] |= 0x00000040u;
 } else {
-_has_bits_[16] &= ~0x00000080u;
+_has_bits_[16] &= ~0x00000040u;
 }
 deskapithirdpartyallowlist_ = deskapithirdpartyallowlist;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.DeskAPIThirdPartyAllowlist)
@@ -33955,7 +35219,7 @@ extensioninstallsources_ = extensioninstallsources;
 
 // optional .enterprise_management.IntegerPolicyProto ExtensionManifestV2Availability = 1032;
 inline bool CloudPolicySettings::_internal_has_extensionmanifestv2availability() const {
-bool value = (_has_bits_[16] & 0x00000800u) != 0;
+bool value = (_has_bits_[16] & 0x00000400u) != 0;
 PROTOBUF_ASSUME(!value || extensionmanifestv2availability_ != nullptr);
 return value;
 }
@@ -33978,14 +35242,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(extensionmanifest
 }
 extensionmanifestv2availability_ = extensionmanifestv2availability;
 if (extensionmanifestv2availability) {
-_has_bits_[16] |= 0x00000800u;
+_has_bits_[16] |= 0x00000400u;
 } else {
-_has_bits_[16] &= ~0x00000800u;
+_has_bits_[16] &= ~0x00000400u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.ExtensionManifestV2Availability)
 }
 inline ::enterprise_management::IntegerPolicyProto* CloudPolicySettings::release_extensionmanifestv2availability() {
-_has_bits_[16] &= ~0x00000800u;
+_has_bits_[16] &= ~0x00000400u;
 ::enterprise_management::IntegerPolicyProto* temp = extensionmanifestv2availability_;
 extensionmanifestv2availability_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -34001,13 +35265,13 @@ return temp;
 }
 inline ::enterprise_management::IntegerPolicyProto* CloudPolicySettings::unsafe_arena_release_extensionmanifestv2availability() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.ExtensionManifestV2Availability)
-_has_bits_[16] &= ~0x00000800u;
+_has_bits_[16] &= ~0x00000400u;
 ::enterprise_management::IntegerPolicyProto* temp = extensionmanifestv2availability_;
 extensionmanifestv2availability_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::IntegerPolicyProto* CloudPolicySettings::_internal_mutable_extensionmanifestv2availability() {
-_has_bits_[16] |= 0x00000800u;
+_has_bits_[16] |= 0x00000400u;
 if (extensionmanifestv2availability_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::IntegerPolicyProto>(GetArenaForAllocation());
 extensionmanifestv2availability_ = p;
@@ -34032,9 +35296,9 @@ if (message_arena != submessage_arena) {
 extensionmanifestv2availability = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, extensionmanifestv2availability, submessage_arena);
 }
-_has_bits_[16] |= 0x00000800u;
+_has_bits_[16] |= 0x00000400u;
 } else {
-_has_bits_[16] &= ~0x00000800u;
+_has_bits_[16] &= ~0x00000400u;
 }
 extensionmanifestv2availability_ = extensionmanifestv2availability;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.ExtensionManifestV2Availability)
@@ -34216,7 +35480,7 @@ firstpartysetsenabled_ = firstpartysetsenabled;
 
 // optional .enterprise_management.StringPolicyProto FirstPartySetsOverrides = 971;
 inline bool CloudPolicySettings::_internal_has_firstpartysetsoverrides() const {
-bool value = (_has_bits_[15] & 0x00000100u) != 0;
+bool value = (_has_bits_[15] & 0x00000080u) != 0;
 PROTOBUF_ASSUME(!value || firstpartysetsoverrides_ != nullptr);
 return value;
 }
@@ -34239,14 +35503,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(firstpartysetsove
 }
 firstpartysetsoverrides_ = firstpartysetsoverrides;
 if (firstpartysetsoverrides) {
-_has_bits_[15] |= 0x00000100u;
+_has_bits_[15] |= 0x00000080u;
 } else {
-_has_bits_[15] &= ~0x00000100u;
+_has_bits_[15] &= ~0x00000080u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.FirstPartySetsOverrides)
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::release_firstpartysetsoverrides() {
-_has_bits_[15] &= ~0x00000100u;
+_has_bits_[15] &= ~0x00000080u;
 ::enterprise_management::StringPolicyProto* temp = firstpartysetsoverrides_;
 firstpartysetsoverrides_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -34262,13 +35526,13 @@ return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::unsafe_arena_release_firstpartysetsoverrides() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.FirstPartySetsOverrides)
-_has_bits_[15] &= ~0x00000100u;
+_has_bits_[15] &= ~0x00000080u;
 ::enterprise_management::StringPolicyProto* temp = firstpartysetsoverrides_;
 firstpartysetsoverrides_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::_internal_mutable_firstpartysetsoverrides() {
-_has_bits_[15] |= 0x00000100u;
+_has_bits_[15] |= 0x00000080u;
 if (firstpartysetsoverrides_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
 firstpartysetsoverrides_ = p;
@@ -34293,9 +35557,9 @@ if (message_arena != submessage_arena) {
 firstpartysetsoverrides = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, firstpartysetsoverrides, submessage_arena);
 }
-_has_bits_[15] |= 0x00000100u;
+_has_bits_[15] |= 0x00000080u;
 } else {
-_has_bits_[15] &= ~0x00000100u;
+_has_bits_[15] &= ~0x00000080u;
 }
 firstpartysetsoverrides_ = firstpartysetsoverrides;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.FirstPartySetsOverrides)
@@ -36217,7 +37481,7 @@ kerberosaddaccountsallowed_ = kerberosaddaccountsallowed;
 
 // optional .enterprise_management.StringPolicyProto KerberosCustomPrefilledConfig = 1002;
 inline bool CloudPolicySettings::_internal_has_kerberoscustomprefilledconfig() const {
-bool value = (_has_bits_[15] & 0x02000000u) != 0;
+bool value = (_has_bits_[15] & 0x01000000u) != 0;
 PROTOBUF_ASSUME(!value || kerberoscustomprefilledconfig_ != nullptr);
 return value;
 }
@@ -36240,14 +37504,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(kerberoscustompre
 }
 kerberoscustomprefilledconfig_ = kerberoscustomprefilledconfig;
 if (kerberoscustomprefilledconfig) {
-_has_bits_[15] |= 0x02000000u;
+_has_bits_[15] |= 0x01000000u;
 } else {
-_has_bits_[15] &= ~0x02000000u;
+_has_bits_[15] &= ~0x01000000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.KerberosCustomPrefilledConfig)
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::release_kerberoscustomprefilledconfig() {
-_has_bits_[15] &= ~0x02000000u;
+_has_bits_[15] &= ~0x01000000u;
 ::enterprise_management::StringPolicyProto* temp = kerberoscustomprefilledconfig_;
 kerberoscustomprefilledconfig_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -36263,13 +37527,13 @@ return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::unsafe_arena_release_kerberoscustomprefilledconfig() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.KerberosCustomPrefilledConfig)
-_has_bits_[15] &= ~0x02000000u;
+_has_bits_[15] &= ~0x01000000u;
 ::enterprise_management::StringPolicyProto* temp = kerberoscustomprefilledconfig_;
 kerberoscustomprefilledconfig_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::_internal_mutable_kerberoscustomprefilledconfig() {
-_has_bits_[15] |= 0x02000000u;
+_has_bits_[15] |= 0x01000000u;
 if (kerberoscustomprefilledconfig_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
 kerberoscustomprefilledconfig_ = p;
@@ -36294,9 +37558,9 @@ if (message_arena != submessage_arena) {
 kerberoscustomprefilledconfig = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, kerberoscustomprefilledconfig, submessage_arena);
 }
-_has_bits_[15] |= 0x02000000u;
+_has_bits_[15] |= 0x01000000u;
 } else {
-_has_bits_[15] &= ~0x02000000u;
+_has_bits_[15] &= ~0x01000000u;
 }
 kerberoscustomprefilledconfig_ = kerberoscustomprefilledconfig;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.KerberosCustomPrefilledConfig)
@@ -36304,7 +37568,7 @@ kerberoscustomprefilledconfig_ = kerberoscustomprefilledconfig;
 
 // optional .enterprise_management.StringPolicyProto KerberosDomainAutocomplete = 1001;
 inline bool CloudPolicySettings::_internal_has_kerberosdomainautocomplete() const {
-bool value = (_has_bits_[15] & 0x01000000u) != 0;
+bool value = (_has_bits_[15] & 0x00800000u) != 0;
 PROTOBUF_ASSUME(!value || kerberosdomainautocomplete_ != nullptr);
 return value;
 }
@@ -36327,14 +37591,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(kerberosdomainaut
 }
 kerberosdomainautocomplete_ = kerberosdomainautocomplete;
 if (kerberosdomainautocomplete) {
-_has_bits_[15] |= 0x01000000u;
+_has_bits_[15] |= 0x00800000u;
 } else {
-_has_bits_[15] &= ~0x01000000u;
+_has_bits_[15] &= ~0x00800000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.KerberosDomainAutocomplete)
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::release_kerberosdomainautocomplete() {
-_has_bits_[15] &= ~0x01000000u;
+_has_bits_[15] &= ~0x00800000u;
 ::enterprise_management::StringPolicyProto* temp = kerberosdomainautocomplete_;
 kerberosdomainautocomplete_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -36350,13 +37614,13 @@ return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::unsafe_arena_release_kerberosdomainautocomplete() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.KerberosDomainAutocomplete)
-_has_bits_[15] &= ~0x01000000u;
+_has_bits_[15] &= ~0x00800000u;
 ::enterprise_management::StringPolicyProto* temp = kerberosdomainautocomplete_;
 kerberosdomainautocomplete_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::_internal_mutable_kerberosdomainautocomplete() {
-_has_bits_[15] |= 0x01000000u;
+_has_bits_[15] |= 0x00800000u;
 if (kerberosdomainautocomplete_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
 kerberosdomainautocomplete_ = p;
@@ -36381,9 +37645,9 @@ if (message_arena != submessage_arena) {
 kerberosdomainautocomplete = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, kerberosdomainautocomplete, submessage_arena);
 }
-_has_bits_[15] |= 0x01000000u;
+_has_bits_[15] |= 0x00800000u;
 } else {
-_has_bits_[15] &= ~0x01000000u;
+_has_bits_[15] &= ~0x00800000u;
 }
 kerberosdomainautocomplete_ = kerberosdomainautocomplete;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.KerberosDomainAutocomplete)
@@ -36565,7 +37829,7 @@ kerberosrememberpasswordenabled_ = kerberosrememberpasswordenabled;
 
 // optional .enterprise_management.BooleanPolicyProto NewWindowsInKioskAllowed = 997;
 inline bool CloudPolicySettings::_internal_has_newwindowsinkioskallowed() const {
-bool value = (_has_bits_[15] & 0x00400000u) != 0;
+bool value = (_has_bits_[15] & 0x00200000u) != 0;
 PROTOBUF_ASSUME(!value || newwindowsinkioskallowed_ != nullptr);
 return value;
 }
@@ -36588,14 +37852,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(newwindowsinkiosk
 }
 newwindowsinkioskallowed_ = newwindowsinkioskallowed;
 if (newwindowsinkioskallowed) {
-_has_bits_[15] |= 0x00400000u;
+_has_bits_[15] |= 0x00200000u;
 } else {
-_has_bits_[15] &= ~0x00400000u;
+_has_bits_[15] &= ~0x00200000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.NewWindowsInKioskAllowed)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_newwindowsinkioskallowed() {
-_has_bits_[15] &= ~0x00400000u;
+_has_bits_[15] &= ~0x00200000u;
 ::enterprise_management::BooleanPolicyProto* temp = newwindowsinkioskallowed_;
 newwindowsinkioskallowed_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -36611,13 +37875,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_newwindowsinkioskallowed() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.NewWindowsInKioskAllowed)
-_has_bits_[15] &= ~0x00400000u;
+_has_bits_[15] &= ~0x00200000u;
 ::enterprise_management::BooleanPolicyProto* temp = newwindowsinkioskallowed_;
 newwindowsinkioskallowed_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_newwindowsinkioskallowed() {
-_has_bits_[15] |= 0x00400000u;
+_has_bits_[15] |= 0x00200000u;
 if (newwindowsinkioskallowed_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 newwindowsinkioskallowed_ = p;
@@ -36642,9 +37906,9 @@ if (message_arena != submessage_arena) {
 newwindowsinkioskallowed = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, newwindowsinkioskallowed, submessage_arena);
 }
-_has_bits_[15] |= 0x00400000u;
+_has_bits_[15] |= 0x00200000u;
 } else {
-_has_bits_[15] &= ~0x00400000u;
+_has_bits_[15] &= ~0x00200000u;
 }
 newwindowsinkioskallowed_ = newwindowsinkioskallowed;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.NewWindowsInKioskAllowed)
@@ -37348,7 +38612,7 @@ allowscreenlock_ = allowscreenlock;
 
 // optional .enterprise_management.BooleanPolicyProto AllowWebAuthnWithBrokenTlsCerts = 1031;
 inline bool CloudPolicySettings::_internal_has_allowwebauthnwithbrokentlscerts() const {
-bool value = (_has_bits_[16] & 0x00000400u) != 0;
+bool value = (_has_bits_[16] & 0x00000200u) != 0;
 PROTOBUF_ASSUME(!value || allowwebauthnwithbrokentlscerts_ != nullptr);
 return value;
 }
@@ -37371,14 +38635,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(allowwebauthnwith
 }
 allowwebauthnwithbrokentlscerts_ = allowwebauthnwithbrokentlscerts;
 if (allowwebauthnwithbrokentlscerts) {
-_has_bits_[16] |= 0x00000400u;
+_has_bits_[16] |= 0x00000200u;
 } else {
-_has_bits_[16] &= ~0x00000400u;
+_has_bits_[16] &= ~0x00000200u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.AllowWebAuthnWithBrokenTlsCerts)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_allowwebauthnwithbrokentlscerts() {
-_has_bits_[16] &= ~0x00000400u;
+_has_bits_[16] &= ~0x00000200u;
 ::enterprise_management::BooleanPolicyProto* temp = allowwebauthnwithbrokentlscerts_;
 allowwebauthnwithbrokentlscerts_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -37394,13 +38658,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_allowwebauthnwithbrokentlscerts() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.AllowWebAuthnWithBrokenTlsCerts)
-_has_bits_[16] &= ~0x00000400u;
+_has_bits_[16] &= ~0x00000200u;
 ::enterprise_management::BooleanPolicyProto* temp = allowwebauthnwithbrokentlscerts_;
 allowwebauthnwithbrokentlscerts_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_allowwebauthnwithbrokentlscerts() {
-_has_bits_[16] |= 0x00000400u;
+_has_bits_[16] |= 0x00000200u;
 if (allowwebauthnwithbrokentlscerts_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 allowwebauthnwithbrokentlscerts_ = p;
@@ -37425,9 +38689,9 @@ if (message_arena != submessage_arena) {
 allowwebauthnwithbrokentlscerts = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, allowwebauthnwithbrokentlscerts, submessage_arena);
 }
-_has_bits_[16] |= 0x00000400u;
+_has_bits_[16] |= 0x00000200u;
 } else {
-_has_bits_[16] &= ~0x00000400u;
+_has_bits_[16] &= ~0x00000200u;
 }
 allowwebauthnwithbrokentlscerts_ = allowwebauthnwithbrokentlscerts;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.AllowWebAuthnWithBrokenTlsCerts)
@@ -38740,7 +40004,7 @@ autoplayallowlist_ = autoplayallowlist;
 
 // optional .enterprise_management.IntegerPolicyProto BatterySaverModeAvailability = 1011;
 inline bool CloudPolicySettings::_internal_has_batterysavermodeavailability() const {
-bool value = (_has_bits_[15] & 0x10000000u) != 0;
+bool value = (_has_bits_[15] & 0x08000000u) != 0;
 PROTOBUF_ASSUME(!value || batterysavermodeavailability_ != nullptr);
 return value;
 }
@@ -38763,14 +40027,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(batterysavermodea
 }
 batterysavermodeavailability_ = batterysavermodeavailability;
 if (batterysavermodeavailability) {
-_has_bits_[15] |= 0x10000000u;
+_has_bits_[15] |= 0x08000000u;
 } else {
-_has_bits_[15] &= ~0x10000000u;
+_has_bits_[15] &= ~0x08000000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.BatterySaverModeAvailability)
 }
 inline ::enterprise_management::IntegerPolicyProto* CloudPolicySettings::release_batterysavermodeavailability() {
-_has_bits_[15] &= ~0x10000000u;
+_has_bits_[15] &= ~0x08000000u;
 ::enterprise_management::IntegerPolicyProto* temp = batterysavermodeavailability_;
 batterysavermodeavailability_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -38786,13 +40050,13 @@ return temp;
 }
 inline ::enterprise_management::IntegerPolicyProto* CloudPolicySettings::unsafe_arena_release_batterysavermodeavailability() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.BatterySaverModeAvailability)
-_has_bits_[15] &= ~0x10000000u;
+_has_bits_[15] &= ~0x08000000u;
 ::enterprise_management::IntegerPolicyProto* temp = batterysavermodeavailability_;
 batterysavermodeavailability_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::IntegerPolicyProto* CloudPolicySettings::_internal_mutable_batterysavermodeavailability() {
-_has_bits_[15] |= 0x10000000u;
+_has_bits_[15] |= 0x08000000u;
 if (batterysavermodeavailability_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::IntegerPolicyProto>(GetArenaForAllocation());
 batterysavermodeavailability_ = p;
@@ -38817,9 +40081,9 @@ if (message_arena != submessage_arena) {
 batterysavermodeavailability = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, batterysavermodeavailability, submessage_arena);
 }
-_has_bits_[15] |= 0x10000000u;
+_has_bits_[15] |= 0x08000000u;
 } else {
-_has_bits_[15] &= ~0x10000000u;
+_has_bits_[15] &= ~0x08000000u;
 }
 batterysavermodeavailability_ = batterysavermodeavailability;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.BatterySaverModeAvailability)
@@ -41002,7 +42266,7 @@ defaultdownloaddirectory_ = defaultdownloaddirectory;
 
 // optional .enterprise_management.StringPolicyProto DefaultHandlersForFileExtensions = 1023;
 inline bool CloudPolicySettings::_internal_has_defaulthandlersforfileextensions() const {
-bool value = (_has_bits_[16] & 0x00000020u) != 0;
+bool value = (_has_bits_[16] & 0x00000010u) != 0;
 PROTOBUF_ASSUME(!value || defaulthandlersforfileextensions_ != nullptr);
 return value;
 }
@@ -41025,14 +42289,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(defaulthandlersfo
 }
 defaulthandlersforfileextensions_ = defaulthandlersforfileextensions;
 if (defaulthandlersforfileextensions) {
-_has_bits_[16] |= 0x00000020u;
+_has_bits_[16] |= 0x00000010u;
 } else {
-_has_bits_[16] &= ~0x00000020u;
+_has_bits_[16] &= ~0x00000010u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.DefaultHandlersForFileExtensions)
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::release_defaulthandlersforfileextensions() {
-_has_bits_[16] &= ~0x00000020u;
+_has_bits_[16] &= ~0x00000010u;
 ::enterprise_management::StringPolicyProto* temp = defaulthandlersforfileextensions_;
 defaulthandlersforfileextensions_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -41048,13 +42312,13 @@ return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::unsafe_arena_release_defaulthandlersforfileextensions() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.DefaultHandlersForFileExtensions)
-_has_bits_[16] &= ~0x00000020u;
+_has_bits_[16] &= ~0x00000010u;
 ::enterprise_management::StringPolicyProto* temp = defaulthandlersforfileextensions_;
 defaulthandlersforfileextensions_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::_internal_mutable_defaulthandlersforfileextensions() {
-_has_bits_[16] |= 0x00000020u;
+_has_bits_[16] |= 0x00000010u;
 if (defaulthandlersforfileextensions_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
 defaulthandlersforfileextensions_ = p;
@@ -41079,9 +42343,9 @@ if (message_arena != submessage_arena) {
 defaulthandlersforfileextensions = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, defaulthandlersforfileextensions, submessage_arena);
 }
-_has_bits_[16] |= 0x00000020u;
+_has_bits_[16] |= 0x00000010u;
 } else {
-_has_bits_[16] &= ~0x00000020u;
+_has_bits_[16] &= ~0x00000010u;
 }
 defaulthandlersforfileextensions_ = defaulthandlersforfileextensions;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.DefaultHandlersForFileExtensions)
@@ -42742,7 +44006,7 @@ enablesyncconsent_ = enablesyncconsent;
 
 // optional .enterprise_management.BooleanPolicyProto EncryptedClientHelloEnabled = 998;
 inline bool CloudPolicySettings::_internal_has_encryptedclienthelloenabled() const {
-bool value = (_has_bits_[15] & 0x00800000u) != 0;
+bool value = (_has_bits_[15] & 0x00400000u) != 0;
 PROTOBUF_ASSUME(!value || encryptedclienthelloenabled_ != nullptr);
 return value;
 }
@@ -42765,14 +44029,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(encryptedclienthe
 }
 encryptedclienthelloenabled_ = encryptedclienthelloenabled;
 if (encryptedclienthelloenabled) {
-_has_bits_[15] |= 0x00800000u;
+_has_bits_[15] |= 0x00400000u;
 } else {
-_has_bits_[15] &= ~0x00800000u;
+_has_bits_[15] &= ~0x00400000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.EncryptedClientHelloEnabled)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_encryptedclienthelloenabled() {
-_has_bits_[15] &= ~0x00800000u;
+_has_bits_[15] &= ~0x00400000u;
 ::enterprise_management::BooleanPolicyProto* temp = encryptedclienthelloenabled_;
 encryptedclienthelloenabled_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -42788,13 +44052,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_encryptedclienthelloenabled() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.EncryptedClientHelloEnabled)
-_has_bits_[15] &= ~0x00800000u;
+_has_bits_[15] &= ~0x00400000u;
 ::enterprise_management::BooleanPolicyProto* temp = encryptedclienthelloenabled_;
 encryptedclienthelloenabled_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_encryptedclienthelloenabled() {
-_has_bits_[15] |= 0x00800000u;
+_has_bits_[15] |= 0x00400000u;
 if (encryptedclienthelloenabled_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 encryptedclienthelloenabled_ = p;
@@ -42819,9 +44083,9 @@ if (message_arena != submessage_arena) {
 encryptedclienthelloenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, encryptedclienthelloenabled, submessage_arena);
 }
-_has_bits_[15] |= 0x00800000u;
+_has_bits_[15] |= 0x00400000u;
 } else {
-_has_bits_[15] &= ~0x00800000u;
+_has_bits_[15] &= ~0x00400000u;
 }
 encryptedclienthelloenabled_ = encryptedclienthelloenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.EncryptedClientHelloEnabled)
@@ -43612,7 +44876,7 @@ floatingworkspaceenabled_ = floatingworkspaceenabled;
 
 // optional .enterprise_management.BooleanPolicyProto FloatingWorkspaceV2Enabled = 1041;
 inline bool CloudPolicySettings::_internal_has_floatingworkspacev2enabled() const {
-bool value = (_has_bits_[16] & 0x00020000u) != 0;
+bool value = (_has_bits_[16] & 0x00010000u) != 0;
 PROTOBUF_ASSUME(!value || floatingworkspacev2enabled_ != nullptr);
 return value;
 }
@@ -43635,14 +44899,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(floatingworkspace
 }
 floatingworkspacev2enabled_ = floatingworkspacev2enabled;
 if (floatingworkspacev2enabled) {
-_has_bits_[16] |= 0x00020000u;
+_has_bits_[16] |= 0x00010000u;
 } else {
-_has_bits_[16] &= ~0x00020000u;
+_has_bits_[16] &= ~0x00010000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.FloatingWorkspaceV2Enabled)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_floatingworkspacev2enabled() {
-_has_bits_[16] &= ~0x00020000u;
+_has_bits_[16] &= ~0x00010000u;
 ::enterprise_management::BooleanPolicyProto* temp = floatingworkspacev2enabled_;
 floatingworkspacev2enabled_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -43658,13 +44922,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_floatingworkspacev2enabled() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.FloatingWorkspaceV2Enabled)
-_has_bits_[16] &= ~0x00020000u;
+_has_bits_[16] &= ~0x00010000u;
 ::enterprise_management::BooleanPolicyProto* temp = floatingworkspacev2enabled_;
 floatingworkspacev2enabled_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_floatingworkspacev2enabled() {
-_has_bits_[16] |= 0x00020000u;
+_has_bits_[16] |= 0x00010000u;
 if (floatingworkspacev2enabled_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 floatingworkspacev2enabled_ = p;
@@ -43689,9 +44953,9 @@ if (message_arena != submessage_arena) {
 floatingworkspacev2enabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, floatingworkspacev2enabled, submessage_arena);
 }
-_has_bits_[16] |= 0x00020000u;
+_has_bits_[16] |= 0x00010000u;
 } else {
-_has_bits_[16] &= ~0x00020000u;
+_has_bits_[16] &= ~0x00010000u;
 }
 floatingworkspacev2enabled_ = floatingworkspacev2enabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.FloatingWorkspaceV2Enabled)
@@ -45091,7 +46355,7 @@ hidewebstoreicon_ = hidewebstoreicon;
 
 // optional .enterprise_management.BooleanPolicyProto HighEfficiencyModeEnabled = 1008;
 inline bool CloudPolicySettings::_internal_has_highefficiencymodeenabled() const {
-bool value = (_has_bits_[15] & 0x08000000u) != 0;
+bool value = (_has_bits_[15] & 0x04000000u) != 0;
 PROTOBUF_ASSUME(!value || highefficiencymodeenabled_ != nullptr);
 return value;
 }
@@ -45114,14 +46378,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(highefficiencymod
 }
 highefficiencymodeenabled_ = highefficiencymodeenabled;
 if (highefficiencymodeenabled) {
-_has_bits_[15] |= 0x08000000u;
+_has_bits_[15] |= 0x04000000u;
 } else {
-_has_bits_[15] &= ~0x08000000u;
+_has_bits_[15] &= ~0x04000000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.HighEfficiencyModeEnabled)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_highefficiencymodeenabled() {
-_has_bits_[15] &= ~0x08000000u;
+_has_bits_[15] &= ~0x04000000u;
 ::enterprise_management::BooleanPolicyProto* temp = highefficiencymodeenabled_;
 highefficiencymodeenabled_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -45137,13 +46401,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_highefficiencymodeenabled() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.HighEfficiencyModeEnabled)
-_has_bits_[15] &= ~0x08000000u;
+_has_bits_[15] &= ~0x04000000u;
 ::enterprise_management::BooleanPolicyProto* temp = highefficiencymodeenabled_;
 highefficiencymodeenabled_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_highefficiencymodeenabled() {
-_has_bits_[15] |= 0x08000000u;
+_has_bits_[15] |= 0x04000000u;
 if (highefficiencymodeenabled_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 highefficiencymodeenabled_ = p;
@@ -45168,9 +46432,9 @@ if (message_arena != submessage_arena) {
 highefficiencymodeenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, highefficiencymodeenabled, submessage_arena);
 }
-_has_bits_[15] |= 0x08000000u;
+_has_bits_[15] |= 0x04000000u;
 } else {
-_has_bits_[15] &= ~0x08000000u;
+_has_bits_[15] &= ~0x04000000u;
 }
 highefficiencymodeenabled_ = highefficiencymodeenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.HighEfficiencyModeEnabled)
@@ -45613,7 +46877,7 @@ insecureformswarningsenabled_ = insecureformswarningsenabled;
 
 // optional .enterprise_management.BooleanPolicyProto InsightsExtensionEnabled = 977;
 inline bool CloudPolicySettings::_internal_has_insightsextensionenabled() const {
-bool value = (_has_bits_[15] & 0x00001000u) != 0;
+bool value = (_has_bits_[15] & 0x00000800u) != 0;
 PROTOBUF_ASSUME(!value || insightsextensionenabled_ != nullptr);
 return value;
 }
@@ -45636,14 +46900,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(insightsextension
 }
 insightsextensionenabled_ = insightsextensionenabled;
 if (insightsextensionenabled) {
-_has_bits_[15] |= 0x00001000u;
+_has_bits_[15] |= 0x00000800u;
 } else {
-_has_bits_[15] &= ~0x00001000u;
+_has_bits_[15] &= ~0x00000800u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.InsightsExtensionEnabled)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_insightsextensionenabled() {
-_has_bits_[15] &= ~0x00001000u;
+_has_bits_[15] &= ~0x00000800u;
 ::enterprise_management::BooleanPolicyProto* temp = insightsextensionenabled_;
 insightsextensionenabled_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -45659,13 +46923,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_insightsextensionenabled() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.InsightsExtensionEnabled)
-_has_bits_[15] &= ~0x00001000u;
+_has_bits_[15] &= ~0x00000800u;
 ::enterprise_management::BooleanPolicyProto* temp = insightsextensionenabled_;
 insightsextensionenabled_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_insightsextensionenabled() {
-_has_bits_[15] |= 0x00001000u;
+_has_bits_[15] |= 0x00000800u;
 if (insightsextensionenabled_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 insightsextensionenabled_ = p;
@@ -45690,9 +46954,9 @@ if (message_arena != submessage_arena) {
 insightsextensionenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, insightsextensionenabled, submessage_arena);
 }
-_has_bits_[15] |= 0x00001000u;
+_has_bits_[15] |= 0x00000800u;
 } else {
-_has_bits_[15] &= ~0x00001000u;
+_has_bits_[15] &= ~0x00000800u;
 }
 insightsextensionenabled_ = insightsextensionenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.InsightsExtensionEnabled)
@@ -46135,7 +47399,7 @@ isolatedappsdevelopermodeallowed_ = isolatedappsdevelopermodeallowed;
 
 // optional .enterprise_management.StringPolicyProto IsolatedWebAppInstallForceList = 1024;
 inline bool CloudPolicySettings::_internal_has_isolatedwebappinstallforcelist() const {
-bool value = (_has_bits_[16] & 0x00000040u) != 0;
+bool value = (_has_bits_[16] & 0x00000020u) != 0;
 PROTOBUF_ASSUME(!value || isolatedwebappinstallforcelist_ != nullptr);
 return value;
 }
@@ -46158,14 +47422,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(isolatedwebappins
 }
 isolatedwebappinstallforcelist_ = isolatedwebappinstallforcelist;
 if (isolatedwebappinstallforcelist) {
-_has_bits_[16] |= 0x00000040u;
+_has_bits_[16] |= 0x00000020u;
 } else {
-_has_bits_[16] &= ~0x00000040u;
+_has_bits_[16] &= ~0x00000020u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.IsolatedWebAppInstallForceList)
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::release_isolatedwebappinstallforcelist() {
-_has_bits_[16] &= ~0x00000040u;
+_has_bits_[16] &= ~0x00000020u;
 ::enterprise_management::StringPolicyProto* temp = isolatedwebappinstallforcelist_;
 isolatedwebappinstallforcelist_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -46181,13 +47445,13 @@ return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::unsafe_arena_release_isolatedwebappinstallforcelist() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.IsolatedWebAppInstallForceList)
-_has_bits_[16] &= ~0x00000040u;
+_has_bits_[16] &= ~0x00000020u;
 ::enterprise_management::StringPolicyProto* temp = isolatedwebappinstallforcelist_;
 isolatedwebappinstallforcelist_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::_internal_mutable_isolatedwebappinstallforcelist() {
-_has_bits_[16] |= 0x00000040u;
+_has_bits_[16] |= 0x00000020u;
 if (isolatedwebappinstallforcelist_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
 isolatedwebappinstallforcelist_ = p;
@@ -46212,9 +47476,9 @@ if (message_arena != submessage_arena) {
 isolatedwebappinstallforcelist = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, isolatedwebappinstallforcelist, submessage_arena);
 }
-_has_bits_[16] |= 0x00000040u;
+_has_bits_[16] |= 0x00000020u;
 } else {
-_has_bits_[16] &= ~0x00000040u;
+_has_bits_[16] &= ~0x00000020u;
 }
 isolatedwebappinstallforcelist_ = isolatedwebappinstallforcelist;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.IsolatedWebAppInstallForceList)
@@ -46570,7 +47834,7 @@ lacrosavailability_ = lacrosavailability;
 
 // optional .enterprise_management.StringPolicyProto LacrosDataBackwardMigrationMode = 1014;
 inline bool CloudPolicySettings::_internal_has_lacrosdatabackwardmigrationmode() const {
-bool value = (_has_bits_[15] & 0x40000000u) != 0;
+bool value = (_has_bits_[15] & 0x20000000u) != 0;
 PROTOBUF_ASSUME(!value || lacrosdatabackwardmigrationmode_ != nullptr);
 return value;
 }
@@ -46593,14 +47857,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(lacrosdatabackwar
 }
 lacrosdatabackwardmigrationmode_ = lacrosdatabackwardmigrationmode;
 if (lacrosdatabackwardmigrationmode) {
-_has_bits_[15] |= 0x40000000u;
+_has_bits_[15] |= 0x20000000u;
 } else {
-_has_bits_[15] &= ~0x40000000u;
+_has_bits_[15] &= ~0x20000000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.LacrosDataBackwardMigrationMode)
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::release_lacrosdatabackwardmigrationmode() {
-_has_bits_[15] &= ~0x40000000u;
+_has_bits_[15] &= ~0x20000000u;
 ::enterprise_management::StringPolicyProto* temp = lacrosdatabackwardmigrationmode_;
 lacrosdatabackwardmigrationmode_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -46616,13 +47880,13 @@ return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::unsafe_arena_release_lacrosdatabackwardmigrationmode() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.LacrosDataBackwardMigrationMode)
-_has_bits_[15] &= ~0x40000000u;
+_has_bits_[15] &= ~0x20000000u;
 ::enterprise_management::StringPolicyProto* temp = lacrosdatabackwardmigrationmode_;
 lacrosdatabackwardmigrationmode_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::_internal_mutable_lacrosdatabackwardmigrationmode() {
-_has_bits_[15] |= 0x40000000u;
+_has_bits_[15] |= 0x20000000u;
 if (lacrosdatabackwardmigrationmode_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
 lacrosdatabackwardmigrationmode_ = p;
@@ -46647,9 +47911,9 @@ if (message_arena != submessage_arena) {
 lacrosdatabackwardmigrationmode = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, lacrosdatabackwardmigrationmode, submessage_arena);
 }
-_has_bits_[15] |= 0x40000000u;
+_has_bits_[15] |= 0x20000000u;
 } else {
-_has_bits_[15] &= ~0x40000000u;
+_has_bits_[15] &= ~0x20000000u;
 }
 lacrosdatabackwardmigrationmode_ = lacrosdatabackwardmigrationmode;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.LacrosDataBackwardMigrationMode)
@@ -46744,7 +48008,7 @@ lacrossecondaryprofilesallowed_ = lacrossecondaryprofilesallowed;
 
 // optional .enterprise_management.BooleanPolicyProto LensDesktopNTPSearchEnabled = 1029;
 inline bool CloudPolicySettings::_internal_has_lensdesktopntpsearchenabled() const {
-bool value = (_has_bits_[16] & 0x00000100u) != 0;
+bool value = (_has_bits_[16] & 0x00000080u) != 0;
 PROTOBUF_ASSUME(!value || lensdesktopntpsearchenabled_ != nullptr);
 return value;
 }
@@ -46767,14 +48031,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(lensdesktopntpsea
 }
 lensdesktopntpsearchenabled_ = lensdesktopntpsearchenabled;
 if (lensdesktopntpsearchenabled) {
-_has_bits_[16] |= 0x00000100u;
+_has_bits_[16] |= 0x00000080u;
 } else {
-_has_bits_[16] &= ~0x00000100u;
+_has_bits_[16] &= ~0x00000080u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.LensDesktopNTPSearchEnabled)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_lensdesktopntpsearchenabled() {
-_has_bits_[16] &= ~0x00000100u;
+_has_bits_[16] &= ~0x00000080u;
 ::enterprise_management::BooleanPolicyProto* temp = lensdesktopntpsearchenabled_;
 lensdesktopntpsearchenabled_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -46790,13 +48054,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_lensdesktopntpsearchenabled() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.LensDesktopNTPSearchEnabled)
-_has_bits_[16] &= ~0x00000100u;
+_has_bits_[16] &= ~0x00000080u;
 ::enterprise_management::BooleanPolicyProto* temp = lensdesktopntpsearchenabled_;
 lensdesktopntpsearchenabled_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_lensdesktopntpsearchenabled() {
-_has_bits_[16] |= 0x00000100u;
+_has_bits_[16] |= 0x00000080u;
 if (lensdesktopntpsearchenabled_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 lensdesktopntpsearchenabled_ = p;
@@ -46821,9 +48085,9 @@ if (message_arena != submessage_arena) {
 lensdesktopntpsearchenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, lensdesktopntpsearchenabled, submessage_arena);
 }
-_has_bits_[16] |= 0x00000100u;
+_has_bits_[16] |= 0x00000080u;
 } else {
-_has_bits_[16] &= ~0x00000100u;
+_has_bits_[16] &= ~0x00000080u;
 }
 lensdesktopntpsearchenabled_ = lensdesktopntpsearchenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.LensDesktopNTPSearchEnabled)
@@ -48484,7 +49748,7 @@ onfiledownloadedenterpriseconnector_ = onfiledownloadedenterpriseconnector;
 
 // optional .enterprise_management.StringPolicyProto OnFileTransferEnterpriseConnector = 993;
 inline bool CloudPolicySettings::_internal_has_onfiletransferenterpriseconnector() const {
-bool value = (_has_bits_[15] & 0x00200000u) != 0;
+bool value = (_has_bits_[15] & 0x00100000u) != 0;
 PROTOBUF_ASSUME(!value || onfiletransferenterpriseconnector_ != nullptr);
 return value;
 }
@@ -48507,14 +49771,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(onfiletransferent
 }
 onfiletransferenterpriseconnector_ = onfiletransferenterpriseconnector;
 if (onfiletransferenterpriseconnector) {
-_has_bits_[15] |= 0x00200000u;
+_has_bits_[15] |= 0x00100000u;
 } else {
-_has_bits_[15] &= ~0x00200000u;
+_has_bits_[15] &= ~0x00100000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.OnFileTransferEnterpriseConnector)
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::release_onfiletransferenterpriseconnector() {
-_has_bits_[15] &= ~0x00200000u;
+_has_bits_[15] &= ~0x00100000u;
 ::enterprise_management::StringPolicyProto* temp = onfiletransferenterpriseconnector_;
 onfiletransferenterpriseconnector_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -48530,13 +49794,13 @@ return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::unsafe_arena_release_onfiletransferenterpriseconnector() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.OnFileTransferEnterpriseConnector)
-_has_bits_[15] &= ~0x00200000u;
+_has_bits_[15] &= ~0x00100000u;
 ::enterprise_management::StringPolicyProto* temp = onfiletransferenterpriseconnector_;
 onfiletransferenterpriseconnector_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::_internal_mutable_onfiletransferenterpriseconnector() {
-_has_bits_[15] |= 0x00200000u;
+_has_bits_[15] |= 0x00100000u;
 if (onfiletransferenterpriseconnector_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
 onfiletransferenterpriseconnector_ = p;
@@ -48561,9 +49825,9 @@ if (message_arena != submessage_arena) {
 onfiletransferenterpriseconnector = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, onfiletransferenterpriseconnector, submessage_arena);
 }
-_has_bits_[15] |= 0x00200000u;
+_has_bits_[15] |= 0x00100000u;
 } else {
-_has_bits_[15] &= ~0x00200000u;
+_has_bits_[15] &= ~0x00100000u;
 }
 onfiletransferenterpriseconnector_ = onfiletransferenterpriseconnector;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.OnFileTransferEnterpriseConnector)
@@ -48919,7 +50183,7 @@ originagentclusterdefaultenabled_ = originagentclusterdefaultenabled;
 
 // optional .enterprise_management.StringPolicyProto OsColorMode = 988;
 inline bool CloudPolicySettings::_internal_has_oscolormode() const {
-bool value = (_has_bits_[15] & 0x00100000u) != 0;
+bool value = (_has_bits_[15] & 0x00080000u) != 0;
 PROTOBUF_ASSUME(!value || oscolormode_ != nullptr);
 return value;
 }
@@ -48942,14 +50206,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(oscolormode_);
 }
 oscolormode_ = oscolormode;
 if (oscolormode) {
-_has_bits_[15] |= 0x00100000u;
+_has_bits_[15] |= 0x00080000u;
 } else {
-_has_bits_[15] &= ~0x00100000u;
+_has_bits_[15] &= ~0x00080000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.OsColorMode)
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::release_oscolormode() {
-_has_bits_[15] &= ~0x00100000u;
+_has_bits_[15] &= ~0x00080000u;
 ::enterprise_management::StringPolicyProto* temp = oscolormode_;
 oscolormode_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -48965,13 +50229,13 @@ return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::unsafe_arena_release_oscolormode() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.OsColorMode)
-_has_bits_[15] &= ~0x00100000u;
+_has_bits_[15] &= ~0x00080000u;
 ::enterprise_management::StringPolicyProto* temp = oscolormode_;
 oscolormode_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::_internal_mutable_oscolormode() {
-_has_bits_[15] |= 0x00100000u;
+_has_bits_[15] |= 0x00080000u;
 if (oscolormode_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
 oscolormode_ = p;
@@ -48996,9 +50260,9 @@ if (message_arena != submessage_arena) {
 oscolormode = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, oscolormode, submessage_arena);
 }
-_has_bits_[15] |= 0x00100000u;
+_has_bits_[15] |= 0x00080000u;
 } else {
-_has_bits_[15] &= ~0x00100000u;
+_has_bits_[15] &= ~0x00080000u;
 }
 oscolormode_ = oscolormode;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.OsColorMode)
@@ -53095,7 +54359,7 @@ shelfautohidebehavior_ = shelfautohidebehavior;
 
 // optional .enterprise_management.BooleanPolicyProto ShoppingListEnabled = 1020;
 inline bool CloudPolicySettings::_internal_has_shoppinglistenabled() const {
-bool value = (_has_bits_[16] & 0x00000008u) != 0;
+bool value = (_has_bits_[16] & 0x00000004u) != 0;
 PROTOBUF_ASSUME(!value || shoppinglistenabled_ != nullptr);
 return value;
 }
@@ -53118,14 +54382,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(shoppinglistenabl
 }
 shoppinglistenabled_ = shoppinglistenabled;
 if (shoppinglistenabled) {
-_has_bits_[16] |= 0x00000008u;
+_has_bits_[16] |= 0x00000004u;
 } else {
-_has_bits_[16] &= ~0x00000008u;
+_has_bits_[16] &= ~0x00000004u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.ShoppingListEnabled)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_shoppinglistenabled() {
-_has_bits_[16] &= ~0x00000008u;
+_has_bits_[16] &= ~0x00000004u;
 ::enterprise_management::BooleanPolicyProto* temp = shoppinglistenabled_;
 shoppinglistenabled_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -53141,13 +54405,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_shoppinglistenabled() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.ShoppingListEnabled)
-_has_bits_[16] &= ~0x00000008u;
+_has_bits_[16] &= ~0x00000004u;
 ::enterprise_management::BooleanPolicyProto* temp = shoppinglistenabled_;
 shoppinglistenabled_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_shoppinglistenabled() {
-_has_bits_[16] |= 0x00000008u;
+_has_bits_[16] |= 0x00000004u;
 if (shoppinglistenabled_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 shoppinglistenabled_ = p;
@@ -53172,9 +54436,9 @@ if (message_arena != submessage_arena) {
 shoppinglistenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, shoppinglistenabled, submessage_arena);
 }
-_has_bits_[16] |= 0x00000008u;
+_has_bits_[16] |= 0x00000004u;
 } else {
-_has_bits_[16] &= ~0x00000008u;
+_has_bits_[16] &= ~0x00000004u;
 }
 shoppinglistenabled_ = shoppinglistenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.ShoppingListEnabled)
@@ -54139,7 +55403,7 @@ startupbrowserwindowlaunchsuppressed_ = startupbrowserwindowlaunchsuppressed;
 
 // optional .enterprise_management.BooleanPolicyProto StrictMimetypeCheckForWorkerScriptsEnabled = 1015;
 inline bool CloudPolicySettings::_internal_has_strictmimetypecheckforworkerscriptsenabled() const {
-bool value = (_has_bits_[15] & 0x80000000u) != 0;
+bool value = (_has_bits_[15] & 0x40000000u) != 0;
 PROTOBUF_ASSUME(!value || strictmimetypecheckforworkerscriptsenabled_ != nullptr);
 return value;
 }
@@ -54162,14 +55426,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(strictmimetypeche
 }
 strictmimetypecheckforworkerscriptsenabled_ = strictmimetypecheckforworkerscriptsenabled;
 if (strictmimetypecheckforworkerscriptsenabled) {
-_has_bits_[15] |= 0x80000000u;
+_has_bits_[15] |= 0x40000000u;
 } else {
-_has_bits_[15] &= ~0x80000000u;
+_has_bits_[15] &= ~0x40000000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.StrictMimetypeCheckForWorkerScriptsEnabled)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_strictmimetypecheckforworkerscriptsenabled() {
-_has_bits_[15] &= ~0x80000000u;
+_has_bits_[15] &= ~0x40000000u;
 ::enterprise_management::BooleanPolicyProto* temp = strictmimetypecheckforworkerscriptsenabled_;
 strictmimetypecheckforworkerscriptsenabled_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -54185,13 +55449,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_strictmimetypecheckforworkerscriptsenabled() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.StrictMimetypeCheckForWorkerScriptsEnabled)
-_has_bits_[15] &= ~0x80000000u;
+_has_bits_[15] &= ~0x40000000u;
 ::enterprise_management::BooleanPolicyProto* temp = strictmimetypecheckforworkerscriptsenabled_;
 strictmimetypecheckforworkerscriptsenabled_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_strictmimetypecheckforworkerscriptsenabled() {
-_has_bits_[15] |= 0x80000000u;
+_has_bits_[15] |= 0x40000000u;
 if (strictmimetypecheckforworkerscriptsenabled_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 strictmimetypecheckforworkerscriptsenabled_ = p;
@@ -54216,9 +55480,9 @@ if (message_arena != submessage_arena) {
 strictmimetypecheckforworkerscriptsenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, strictmimetypecheckforworkerscriptsenabled, submessage_arena);
 }
-_has_bits_[15] |= 0x80000000u;
+_has_bits_[15] |= 0x40000000u;
 } else {
-_has_bits_[15] &= ~0x80000000u;
+_has_bits_[15] &= ~0x40000000u;
 }
 strictmimetypecheckforworkerscriptsenabled_ = strictmimetypecheckforworkerscriptsenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.StrictMimetypeCheckForWorkerScriptsEnabled)
@@ -54922,7 +56186,7 @@ systemfeaturesdisablemode_ = systemfeaturesdisablemode;
 
 // optional .enterprise_management.StringListPolicyProto TabDiscardingExceptions = 1012;
 inline bool CloudPolicySettings::_internal_has_tabdiscardingexceptions() const {
-bool value = (_has_bits_[15] & 0x20000000u) != 0;
+bool value = (_has_bits_[15] & 0x10000000u) != 0;
 PROTOBUF_ASSUME(!value || tabdiscardingexceptions_ != nullptr);
 return value;
 }
@@ -54945,14 +56209,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(tabdiscardingexce
 }
 tabdiscardingexceptions_ = tabdiscardingexceptions;
 if (tabdiscardingexceptions) {
-_has_bits_[15] |= 0x20000000u;
+_has_bits_[15] |= 0x10000000u;
 } else {
-_has_bits_[15] &= ~0x20000000u;
+_has_bits_[15] &= ~0x10000000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.TabDiscardingExceptions)
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::release_tabdiscardingexceptions() {
-_has_bits_[15] &= ~0x20000000u;
+_has_bits_[15] &= ~0x10000000u;
 ::enterprise_management::StringListPolicyProto* temp = tabdiscardingexceptions_;
 tabdiscardingexceptions_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -54968,13 +56232,13 @@ return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::unsafe_arena_release_tabdiscardingexceptions() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.TabDiscardingExceptions)
-_has_bits_[15] &= ~0x20000000u;
+_has_bits_[15] &= ~0x10000000u;
 ::enterprise_management::StringListPolicyProto* temp = tabdiscardingexceptions_;
 tabdiscardingexceptions_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringListPolicyProto* CloudPolicySettings::_internal_mutable_tabdiscardingexceptions() {
-_has_bits_[15] |= 0x20000000u;
+_has_bits_[15] |= 0x10000000u;
 if (tabdiscardingexceptions_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
 tabdiscardingexceptions_ = p;
@@ -54999,9 +56263,9 @@ if (message_arena != submessage_arena) {
 tabdiscardingexceptions = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, tabdiscardingexceptions, submessage_arena);
 }
-_has_bits_[15] |= 0x20000000u;
+_has_bits_[15] |= 0x10000000u;
 } else {
-_has_bits_[15] &= ~0x20000000u;
+_has_bits_[15] &= ~0x10000000u;
 }
 tabdiscardingexceptions_ = tabdiscardingexceptions;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.TabDiscardingExceptions)
@@ -55183,7 +56447,7 @@ termsofserviceurl_ = termsofserviceurl;
 
 // optional .enterprise_management.BooleanPolicyProto ThrottleNonVisibleCrossOriginIframesAllowed = 1039;
 inline bool CloudPolicySettings::_internal_has_throttlenonvisiblecrossoriginiframesallowed() const {
-bool value = (_has_bits_[16] & 0x00008000u) != 0;
+bool value = (_has_bits_[16] & 0x00004000u) != 0;
 PROTOBUF_ASSUME(!value || throttlenonvisiblecrossoriginiframesallowed_ != nullptr);
 return value;
 }
@@ -55206,14 +56470,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(throttlenonvisibl
 }
 throttlenonvisiblecrossoriginiframesallowed_ = throttlenonvisiblecrossoriginiframesallowed;
 if (throttlenonvisiblecrossoriginiframesallowed) {
-_has_bits_[16] |= 0x00008000u;
+_has_bits_[16] |= 0x00004000u;
 } else {
-_has_bits_[16] &= ~0x00008000u;
+_has_bits_[16] &= ~0x00004000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.ThrottleNonVisibleCrossOriginIframesAllowed)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_throttlenonvisiblecrossoriginiframesallowed() {
-_has_bits_[16] &= ~0x00008000u;
+_has_bits_[16] &= ~0x00004000u;
 ::enterprise_management::BooleanPolicyProto* temp = throttlenonvisiblecrossoriginiframesallowed_;
 throttlenonvisiblecrossoriginiframesallowed_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -55229,13 +56493,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_throttlenonvisiblecrossoriginiframesallowed() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.ThrottleNonVisibleCrossOriginIframesAllowed)
-_has_bits_[16] &= ~0x00008000u;
+_has_bits_[16] &= ~0x00004000u;
 ::enterprise_management::BooleanPolicyProto* temp = throttlenonvisiblecrossoriginiframesallowed_;
 throttlenonvisiblecrossoriginiframesallowed_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_throttlenonvisiblecrossoriginiframesallowed() {
-_has_bits_[16] |= 0x00008000u;
+_has_bits_[16] |= 0x00004000u;
 if (throttlenonvisiblecrossoriginiframesallowed_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 throttlenonvisiblecrossoriginiframesallowed_ = p;
@@ -55260,9 +56524,9 @@ if (message_arena != submessage_arena) {
 throttlenonvisiblecrossoriginiframesallowed = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, throttlenonvisiblecrossoriginiframesallowed, submessage_arena);
 }
-_has_bits_[16] |= 0x00008000u;
+_has_bits_[16] |= 0x00004000u;
 } else {
-_has_bits_[16] &= ~0x00008000u;
+_has_bits_[16] &= ~0x00004000u;
 }
 throttlenonvisiblecrossoriginiframesallowed_ = throttlenonvisiblecrossoriginiframesallowed;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.ThrottleNonVisibleCrossOriginIframesAllowed)
@@ -55444,7 +56708,7 @@ translateenabled_ = translateenabled;
 
 // optional .enterprise_management.BooleanPolicyProto TrashEnabled = 1019;
 inline bool CloudPolicySettings::_internal_has_trashenabled() const {
-bool value = (_has_bits_[16] & 0x00000004u) != 0;
+bool value = (_has_bits_[16] & 0x00000002u) != 0;
 PROTOBUF_ASSUME(!value || trashenabled_ != nullptr);
 return value;
 }
@@ -55467,14 +56731,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(trashenabled_);
 }
 trashenabled_ = trashenabled;
 if (trashenabled) {
-_has_bits_[16] |= 0x00000004u;
+_has_bits_[16] |= 0x00000002u;
 } else {
-_has_bits_[16] &= ~0x00000004u;
+_has_bits_[16] &= ~0x00000002u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.TrashEnabled)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_trashenabled() {
-_has_bits_[16] &= ~0x00000004u;
+_has_bits_[16] &= ~0x00000002u;
 ::enterprise_management::BooleanPolicyProto* temp = trashenabled_;
 trashenabled_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -55490,13 +56754,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_trashenabled() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.TrashEnabled)
-_has_bits_[16] &= ~0x00000004u;
+_has_bits_[16] &= ~0x00000002u;
 ::enterprise_management::BooleanPolicyProto* temp = trashenabled_;
 trashenabled_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_trashenabled() {
-_has_bits_[16] |= 0x00000004u;
+_has_bits_[16] |= 0x00000002u;
 if (trashenabled_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 trashenabled_ = p;
@@ -55521,9 +56785,9 @@ if (message_arena != submessage_arena) {
 trashenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, trashenabled, submessage_arena);
 }
-_has_bits_[16] |= 0x00000004u;
+_has_bits_[16] |= 0x00000002u;
 } else {
-_has_bits_[16] &= ~0x00000004u;
+_has_bits_[16] &= ~0x00000002u;
 }
 trashenabled_ = trashenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.TrashEnabled)
@@ -55792,7 +57056,7 @@ unifieddesktopenabledbydefault_ = unifieddesktopenabledbydefault;
 
 // optional .enterprise_management.BooleanPolicyProto UnmanagedDeviceSignalsConsentFlowEnabled = 1003;
 inline bool CloudPolicySettings::_internal_has_unmanageddevicesignalsconsentflowenabled() const {
-bool value = (_has_bits_[15] & 0x04000000u) != 0;
+bool value = (_has_bits_[15] & 0x02000000u) != 0;
 PROTOBUF_ASSUME(!value || unmanageddevicesignalsconsentflowenabled_ != nullptr);
 return value;
 }
@@ -55815,14 +57079,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(unmanageddevicesi
 }
 unmanageddevicesignalsconsentflowenabled_ = unmanageddevicesignalsconsentflowenabled;
 if (unmanageddevicesignalsconsentflowenabled) {
-_has_bits_[15] |= 0x04000000u;
+_has_bits_[15] |= 0x02000000u;
 } else {
-_has_bits_[15] &= ~0x04000000u;
+_has_bits_[15] &= ~0x02000000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.UnmanagedDeviceSignalsConsentFlowEnabled)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_unmanageddevicesignalsconsentflowenabled() {
-_has_bits_[15] &= ~0x04000000u;
+_has_bits_[15] &= ~0x02000000u;
 ::enterprise_management::BooleanPolicyProto* temp = unmanageddevicesignalsconsentflowenabled_;
 unmanageddevicesignalsconsentflowenabled_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -55838,13 +57102,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_unmanageddevicesignalsconsentflowenabled() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.UnmanagedDeviceSignalsConsentFlowEnabled)
-_has_bits_[15] &= ~0x04000000u;
+_has_bits_[15] &= ~0x02000000u;
 ::enterprise_management::BooleanPolicyProto* temp = unmanageddevicesignalsconsentflowenabled_;
 unmanageddevicesignalsconsentflowenabled_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_unmanageddevicesignalsconsentflowenabled() {
-_has_bits_[15] |= 0x04000000u;
+_has_bits_[15] |= 0x02000000u;
 if (unmanageddevicesignalsconsentflowenabled_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 unmanageddevicesignalsconsentflowenabled_ = p;
@@ -55869,9 +57133,9 @@ if (message_arena != submessage_arena) {
 unmanageddevicesignalsconsentflowenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, unmanageddevicesignalsconsentflowenabled, submessage_arena);
 }
-_has_bits_[15] |= 0x04000000u;
+_has_bits_[15] |= 0x02000000u;
 } else {
-_has_bits_[15] &= ~0x04000000u;
+_has_bits_[15] &= ~0x02000000u;
 }
 unmanageddevicesignalsconsentflowenabled_ = unmanageddevicesignalsconsentflowenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.UnmanagedDeviceSignalsConsentFlowEnabled)
@@ -57617,93 +58881,6 @@ webrtcudpportrange_ = webrtcudpportrange;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.WebRtcUdpPortRange)
 }
 
-// optional .enterprise_management.BooleanPolicyProto WebSQLAccess = 968;
-inline bool CloudPolicySettings::_internal_has_websqlaccess() const {
-bool value = (_has_bits_[15] & 0x00000080u) != 0;
-PROTOBUF_ASSUME(!value || websqlaccess_ != nullptr);
-return value;
-}
-inline bool CloudPolicySettings::has_websqlaccess() const {
-return _internal_has_websqlaccess();
-}
-inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySettings::_internal_websqlaccess() const {
-const ::enterprise_management::BooleanPolicyProto* p = websqlaccess_;
-return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
-::enterprise_management::_BooleanPolicyProto_default_instance_);
-}
-inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySettings::websqlaccess() const {
-// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySettings.WebSQLAccess)
-return _internal_websqlaccess();
-}
-inline void CloudPolicySettings::unsafe_arena_set_allocated_websqlaccess(
-::enterprise_management::BooleanPolicyProto* websqlaccess) {
-if (GetArenaForAllocation() == nullptr) {
-delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(websqlaccess_);
-}
-websqlaccess_ = websqlaccess;
-if (websqlaccess) {
-_has_bits_[15] |= 0x00000080u;
-} else {
-_has_bits_[15] &= ~0x00000080u;
-}
-// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.WebSQLAccess)
-}
-inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_websqlaccess() {
-_has_bits_[15] &= ~0x00000080u;
-::enterprise_management::BooleanPolicyProto* temp = websqlaccess_;
-websqlaccess_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-if (GetArenaForAllocation() != nullptr) {
-temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-}
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-return temp;
-}
-inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_websqlaccess() {
-// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.WebSQLAccess)
-_has_bits_[15] &= ~0x00000080u;
-::enterprise_management::BooleanPolicyProto* temp = websqlaccess_;
-websqlaccess_ = nullptr;
-return temp;
-}
-inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_websqlaccess() {
-_has_bits_[15] |= 0x00000080u;
-if (websqlaccess_ == nullptr) {
-auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
-websqlaccess_ = p;
-}
-return websqlaccess_;
-}
-inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::mutable_websqlaccess() {
-::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_websqlaccess();
-// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySettings.WebSQLAccess)
-return _msg;
-}
-inline void CloudPolicySettings::set_allocated_websqlaccess(::enterprise_management::BooleanPolicyProto* websqlaccess) {
-::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-if (message_arena == nullptr) {
-delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(websqlaccess_);
-}
-if (websqlaccess) {
-::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(websqlaccess));
-if (message_arena != submessage_arena) {
-websqlaccess = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-message_arena, websqlaccess, submessage_arena);
-}
-_has_bits_[15] |= 0x00000080u;
-} else {
-_has_bits_[15] &= ~0x00000080u;
-}
-websqlaccess_ = websqlaccess;
-// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.WebSQLAccess)
-}
-
 // optional .enterprise_management.BooleanPolicyProto WifiSyncAndroidAllowed = 800;
 inline bool CloudPolicySettings::_internal_has_wifisyncandroidallowed() const {
 bool value = (_has_bits_[12] & 0x00000010u) != 0;
@@ -57793,7 +58970,7 @@ wifisyncandroidallowed_ = wifisyncandroidallowed;
 
 // optional .enterprise_management.BooleanPolicyProto AccessControlAllowMethodsInCORSPreflightSpecConformant = 1030;
 inline bool CloudPolicySettings::_internal_has_accesscontrolallowmethodsincorspreflightspecconformant() const {
-bool value = (_has_bits_[16] & 0x00000200u) != 0;
+bool value = (_has_bits_[16] & 0x00000100u) != 0;
 PROTOBUF_ASSUME(!value || accesscontrolallowmethodsincorspreflightspecconformant_ != nullptr);
 return value;
 }
@@ -57816,14 +58993,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(accesscontrolallo
 }
 accesscontrolallowmethodsincorspreflightspecconformant_ = accesscontrolallowmethodsincorspreflightspecconformant;
 if (accesscontrolallowmethodsincorspreflightspecconformant) {
-_has_bits_[16] |= 0x00000200u;
+_has_bits_[16] |= 0x00000100u;
 } else {
-_has_bits_[16] &= ~0x00000200u;
+_has_bits_[16] &= ~0x00000100u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.AccessControlAllowMethodsInCORSPreflightSpecConformant)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_accesscontrolallowmethodsincorspreflightspecconformant() {
-_has_bits_[16] &= ~0x00000200u;
+_has_bits_[16] &= ~0x00000100u;
 ::enterprise_management::BooleanPolicyProto* temp = accesscontrolallowmethodsincorspreflightspecconformant_;
 accesscontrolallowmethodsincorspreflightspecconformant_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -57839,13 +59016,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_accesscontrolallowmethodsincorspreflightspecconformant() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.AccessControlAllowMethodsInCORSPreflightSpecConformant)
-_has_bits_[16] &= ~0x00000200u;
+_has_bits_[16] &= ~0x00000100u;
 ::enterprise_management::BooleanPolicyProto* temp = accesscontrolallowmethodsincorspreflightspecconformant_;
 accesscontrolallowmethodsincorspreflightspecconformant_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_accesscontrolallowmethodsincorspreflightspecconformant() {
-_has_bits_[16] |= 0x00000200u;
+_has_bits_[16] |= 0x00000100u;
 if (accesscontrolallowmethodsincorspreflightspecconformant_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 accesscontrolallowmethodsincorspreflightspecconformant_ = p;
@@ -57870,9 +59047,9 @@ if (message_arena != submessage_arena) {
 accesscontrolallowmethodsincorspreflightspecconformant = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, accesscontrolallowmethodsincorspreflightspecconformant, submessage_arena);
 }
-_has_bits_[16] |= 0x00000200u;
+_has_bits_[16] |= 0x00000100u;
 } else {
-_has_bits_[16] &= ~0x00000200u;
+_has_bits_[16] &= ~0x00000100u;
 }
 accesscontrolallowmethodsincorspreflightspecconformant_ = accesscontrolallowmethodsincorspreflightspecconformant;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.AccessControlAllowMethodsInCORSPreflightSpecConformant)
@@ -57880,7 +59057,7 @@ accesscontrolallowmethodsincorspreflightspecconformant_ = accesscontrolallowmeth
 
 // optional .enterprise_management.StringPolicyProto DnsOverHttpsSalt = 1036;
 inline bool CloudPolicySettings::_internal_has_dnsoverhttpssalt() const {
-bool value = (_has_bits_[16] & 0x00002000u) != 0;
+bool value = (_has_bits_[16] & 0x00001000u) != 0;
 PROTOBUF_ASSUME(!value || dnsoverhttpssalt_ != nullptr);
 return value;
 }
@@ -57903,14 +59080,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(dnsoverhttpssalt_
 }
 dnsoverhttpssalt_ = dnsoverhttpssalt;
 if (dnsoverhttpssalt) {
-_has_bits_[16] |= 0x00002000u;
+_has_bits_[16] |= 0x00001000u;
 } else {
-_has_bits_[16] &= ~0x00002000u;
+_has_bits_[16] &= ~0x00001000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.DnsOverHttpsSalt)
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::release_dnsoverhttpssalt() {
-_has_bits_[16] &= ~0x00002000u;
+_has_bits_[16] &= ~0x00001000u;
 ::enterprise_management::StringPolicyProto* temp = dnsoverhttpssalt_;
 dnsoverhttpssalt_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -57926,13 +59103,13 @@ return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::unsafe_arena_release_dnsoverhttpssalt() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.DnsOverHttpsSalt)
-_has_bits_[16] &= ~0x00002000u;
+_has_bits_[16] &= ~0x00001000u;
 ::enterprise_management::StringPolicyProto* temp = dnsoverhttpssalt_;
 dnsoverhttpssalt_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::_internal_mutable_dnsoverhttpssalt() {
-_has_bits_[16] |= 0x00002000u;
+_has_bits_[16] |= 0x00001000u;
 if (dnsoverhttpssalt_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
 dnsoverhttpssalt_ = p;
@@ -57957,9 +59134,9 @@ if (message_arena != submessage_arena) {
 dnsoverhttpssalt = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, dnsoverhttpssalt, submessage_arena);
 }
-_has_bits_[16] |= 0x00002000u;
+_has_bits_[16] |= 0x00001000u;
 } else {
-_has_bits_[16] &= ~0x00002000u;
+_has_bits_[16] &= ~0x00001000u;
 }
 dnsoverhttpssalt_ = dnsoverhttpssalt;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.DnsOverHttpsSalt)
@@ -57967,7 +59144,7 @@ dnsoverhttpssalt_ = dnsoverhttpssalt;
 
 // optional .enterprise_management.StringPolicyProto DnsOverHttpsTemplatesWithIdentifiers = 1037;
 inline bool CloudPolicySettings::_internal_has_dnsoverhttpstemplateswithidentifiers() const {
-bool value = (_has_bits_[16] & 0x00004000u) != 0;
+bool value = (_has_bits_[16] & 0x00002000u) != 0;
 PROTOBUF_ASSUME(!value || dnsoverhttpstemplateswithidentifiers_ != nullptr);
 return value;
 }
@@ -57990,14 +59167,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(dnsoverhttpstempl
 }
 dnsoverhttpstemplateswithidentifiers_ = dnsoverhttpstemplateswithidentifiers;
 if (dnsoverhttpstemplateswithidentifiers) {
-_has_bits_[16] |= 0x00004000u;
+_has_bits_[16] |= 0x00002000u;
 } else {
-_has_bits_[16] &= ~0x00004000u;
+_has_bits_[16] &= ~0x00002000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.DnsOverHttpsTemplatesWithIdentifiers)
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::release_dnsoverhttpstemplateswithidentifiers() {
-_has_bits_[16] &= ~0x00004000u;
+_has_bits_[16] &= ~0x00002000u;
 ::enterprise_management::StringPolicyProto* temp = dnsoverhttpstemplateswithidentifiers_;
 dnsoverhttpstemplateswithidentifiers_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -58013,13 +59190,13 @@ return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::unsafe_arena_release_dnsoverhttpstemplateswithidentifiers() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.DnsOverHttpsTemplatesWithIdentifiers)
-_has_bits_[16] &= ~0x00004000u;
+_has_bits_[16] &= ~0x00002000u;
 ::enterprise_management::StringPolicyProto* temp = dnsoverhttpstemplateswithidentifiers_;
 dnsoverhttpstemplateswithidentifiers_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::StringPolicyProto* CloudPolicySettings::_internal_mutable_dnsoverhttpstemplateswithidentifiers() {
-_has_bits_[16] |= 0x00004000u;
+_has_bits_[16] |= 0x00002000u;
 if (dnsoverhttpstemplateswithidentifiers_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
 dnsoverhttpstemplateswithidentifiers_ = p;
@@ -58044,9 +59221,9 @@ if (message_arena != submessage_arena) {
 dnsoverhttpstemplateswithidentifiers = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, dnsoverhttpstemplateswithidentifiers, submessage_arena);
 }
-_has_bits_[16] |= 0x00004000u;
+_has_bits_[16] |= 0x00002000u;
 } else {
-_has_bits_[16] &= ~0x00004000u;
+_has_bits_[16] &= ~0x00002000u;
 }
 dnsoverhttpstemplateswithidentifiers_ = dnsoverhttpstemplateswithidentifiers;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.DnsOverHttpsTemplatesWithIdentifiers)
@@ -59707,7 +60884,7 @@ allowwakelocks_ = allowwakelocks;
 
 // optional .enterprise_management.BooleanPolicyProto DevicePowerAdaptiveChargingEnabled = 973;
 inline bool CloudPolicySettings::_internal_has_devicepoweradaptivechargingenabled() const {
-bool value = (_has_bits_[15] & 0x00000200u) != 0;
+bool value = (_has_bits_[15] & 0x00000100u) != 0;
 PROTOBUF_ASSUME(!value || devicepoweradaptivechargingenabled_ != nullptr);
 return value;
 }
@@ -59730,14 +60907,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(devicepoweradapti
 }
 devicepoweradaptivechargingenabled_ = devicepoweradaptivechargingenabled;
 if (devicepoweradaptivechargingenabled) {
-_has_bits_[15] |= 0x00000200u;
+_has_bits_[15] |= 0x00000100u;
 } else {
-_has_bits_[15] &= ~0x00000200u;
+_has_bits_[15] &= ~0x00000100u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.DevicePowerAdaptiveChargingEnabled)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_devicepoweradaptivechargingenabled() {
-_has_bits_[15] &= ~0x00000200u;
+_has_bits_[15] &= ~0x00000100u;
 ::enterprise_management::BooleanPolicyProto* temp = devicepoweradaptivechargingenabled_;
 devicepoweradaptivechargingenabled_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -59753,13 +60930,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_devicepoweradaptivechargingenabled() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.DevicePowerAdaptiveChargingEnabled)
-_has_bits_[15] &= ~0x00000200u;
+_has_bits_[15] &= ~0x00000100u;
 ::enterprise_management::BooleanPolicyProto* temp = devicepoweradaptivechargingenabled_;
 devicepoweradaptivechargingenabled_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_devicepoweradaptivechargingenabled() {
-_has_bits_[15] |= 0x00000200u;
+_has_bits_[15] |= 0x00000100u;
 if (devicepoweradaptivechargingenabled_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 devicepoweradaptivechargingenabled_ = p;
@@ -59784,9 +60961,9 @@ if (message_arena != submessage_arena) {
 devicepoweradaptivechargingenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, devicepoweradaptivechargingenabled, submessage_arena);
 }
-_has_bits_[15] |= 0x00000200u;
+_has_bits_[15] |= 0x00000100u;
 } else {
-_has_bits_[15] &= ~0x00000200u;
+_has_bits_[15] &= ~0x00000100u;
 }
 devicepoweradaptivechargingenabled_ = devicepoweradaptivechargingenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.DevicePowerAdaptiveChargingEnabled)
@@ -64492,7 +65669,7 @@ insecureprivatenetworkrequestsallowedforurls_ = insecureprivatenetworkrequestsal
 
 // optional .enterprise_management.BooleanPolicyProto ProjectorDogfoodForFamilyLinkEnabled = 982;
 inline bool CloudPolicySettings::_internal_has_projectordogfoodforfamilylinkenabled() const {
-bool value = (_has_bits_[15] & 0x00010000u) != 0;
+bool value = (_has_bits_[15] & 0x00008000u) != 0;
 PROTOBUF_ASSUME(!value || projectordogfoodforfamilylinkenabled_ != nullptr);
 return value;
 }
@@ -64515,14 +65692,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(projectordogfoodf
 }
 projectordogfoodforfamilylinkenabled_ = projectordogfoodforfamilylinkenabled;
 if (projectordogfoodforfamilylinkenabled) {
-_has_bits_[15] |= 0x00010000u;
+_has_bits_[15] |= 0x00008000u;
 } else {
-_has_bits_[15] &= ~0x00010000u;
+_has_bits_[15] &= ~0x00008000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.ProjectorDogfoodForFamilyLinkEnabled)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_projectordogfoodforfamilylinkenabled() {
-_has_bits_[15] &= ~0x00010000u;
+_has_bits_[15] &= ~0x00008000u;
 ::enterprise_management::BooleanPolicyProto* temp = projectordogfoodforfamilylinkenabled_;
 projectordogfoodforfamilylinkenabled_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -64538,13 +65715,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_projectordogfoodforfamilylinkenabled() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.ProjectorDogfoodForFamilyLinkEnabled)
-_has_bits_[15] &= ~0x00010000u;
+_has_bits_[15] &= ~0x00008000u;
 ::enterprise_management::BooleanPolicyProto* temp = projectordogfoodforfamilylinkenabled_;
 projectordogfoodforfamilylinkenabled_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_projectordogfoodforfamilylinkenabled() {
-_has_bits_[15] |= 0x00010000u;
+_has_bits_[15] |= 0x00008000u;
 if (projectordogfoodforfamilylinkenabled_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 projectordogfoodforfamilylinkenabled_ = p;
@@ -64569,9 +65746,9 @@ if (message_arena != submessage_arena) {
 projectordogfoodforfamilylinkenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, projectordogfoodforfamilylinkenabled, submessage_arena);
 }
-_has_bits_[15] |= 0x00010000u;
+_has_bits_[15] |= 0x00008000u;
 } else {
-_has_bits_[15] &= ~0x00010000u;
+_has_bits_[15] &= ~0x00008000u;
 }
 projectordogfoodforfamilylinkenabled_ = projectordogfoodforfamilylinkenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.ProjectorDogfoodForFamilyLinkEnabled)
@@ -68233,7 +69410,7 @@ windowcaptureallowedbyorigins_ = windowcaptureallowedbyorigins;
 
 // optional .enterprise_management.BooleanPolicyProto RecoveryFactorBehavior = 1016;
 inline bool CloudPolicySettings::_internal_has_recoveryfactorbehavior() const {
-bool value = (_has_bits_[16] & 0x00000001u) != 0;
+bool value = (_has_bits_[15] & 0x80000000u) != 0;
 PROTOBUF_ASSUME(!value || recoveryfactorbehavior_ != nullptr);
 return value;
 }
@@ -68256,14 +69433,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(recoveryfactorbeh
 }
 recoveryfactorbehavior_ = recoveryfactorbehavior;
 if (recoveryfactorbehavior) {
-_has_bits_[16] |= 0x00000001u;
+_has_bits_[15] |= 0x80000000u;
 } else {
-_has_bits_[16] &= ~0x00000001u;
+_has_bits_[15] &= ~0x80000000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.RecoveryFactorBehavior)
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::release_recoveryfactorbehavior() {
-_has_bits_[16] &= ~0x00000001u;
+_has_bits_[15] &= ~0x80000000u;
 ::enterprise_management::BooleanPolicyProto* temp = recoveryfactorbehavior_;
 recoveryfactorbehavior_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -68279,13 +69456,13 @@ return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::unsafe_arena_release_recoveryfactorbehavior() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.RecoveryFactorBehavior)
-_has_bits_[16] &= ~0x00000001u;
+_has_bits_[15] &= ~0x80000000u;
 ::enterprise_management::BooleanPolicyProto* temp = recoveryfactorbehavior_;
 recoveryfactorbehavior_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::BooleanPolicyProto* CloudPolicySettings::_internal_mutable_recoveryfactorbehavior() {
-_has_bits_[16] |= 0x00000001u;
+_has_bits_[15] |= 0x80000000u;
 if (recoveryfactorbehavior_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
 recoveryfactorbehavior_ = p;
@@ -68310,9 +69487,9 @@ if (message_arena != submessage_arena) {
 recoveryfactorbehavior = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, recoveryfactorbehavior, submessage_arena);
 }
-_has_bits_[16] |= 0x00000001u;
+_has_bits_[15] |= 0x80000000u;
 } else {
-_has_bits_[16] &= ~0x00000001u;
+_has_bits_[15] &= ~0x80000000u;
 }
 recoveryfactorbehavior_ = recoveryfactorbehavior;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.RecoveryFactorBehavior)
@@ -68929,7 +70106,7 @@ reportarcstatusenabled_ = reportarcstatusenabled;
 
 // optional .enterprise_management.CloudPolicySubProto1 subProto1 = 1043;
 inline bool CloudPolicySettings::_internal_has_subproto1() const {
-bool value = (_has_bits_[16] & 0x00040000u) != 0;
+bool value = (_has_bits_[16] & 0x00020000u) != 0;
 PROTOBUF_ASSUME(!value || subproto1_ != nullptr);
 return value;
 }
@@ -68938,7 +70115,7 @@ return _internal_has_subproto1();
 }
 inline void CloudPolicySettings::clear_subproto1() {
 if (subproto1_ != nullptr) subproto1_->Clear();
-_has_bits_[16] &= ~0x00040000u;
+_has_bits_[16] &= ~0x00020000u;
 }
 inline const ::enterprise_management::CloudPolicySubProto1& CloudPolicySettings::_internal_subproto1() const {
 const ::enterprise_management::CloudPolicySubProto1* p = subproto1_;
@@ -68956,14 +70133,14 @@ delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(subproto1_);
 }
 subproto1_ = subproto1;
 if (subproto1) {
-_has_bits_[16] |= 0x00040000u;
+_has_bits_[16] |= 0x00020000u;
 } else {
-_has_bits_[16] &= ~0x00040000u;
+_has_bits_[16] &= ~0x00020000u;
 }
 // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySettings.subProto1)
 }
 inline ::enterprise_management::CloudPolicySubProto1* CloudPolicySettings::release_subproto1() {
-_has_bits_[16] &= ~0x00040000u;
+_has_bits_[16] &= ~0x00020000u;
 ::enterprise_management::CloudPolicySubProto1* temp = subproto1_;
 subproto1_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -68979,13 +70156,13 @@ return temp;
 }
 inline ::enterprise_management::CloudPolicySubProto1* CloudPolicySettings::unsafe_arena_release_subproto1() {
 // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySettings.subProto1)
-_has_bits_[16] &= ~0x00040000u;
+_has_bits_[16] &= ~0x00020000u;
 ::enterprise_management::CloudPolicySubProto1* temp = subproto1_;
 subproto1_ = nullptr;
 return temp;
 }
 inline ::enterprise_management::CloudPolicySubProto1* CloudPolicySettings::_internal_mutable_subproto1() {
-_has_bits_[16] |= 0x00040000u;
+_has_bits_[16] |= 0x00020000u;
 if (subproto1_ == nullptr) {
 auto* p = CreateMaybeMessage<::enterprise_management::CloudPolicySubProto1>(GetArenaForAllocation());
 subproto1_ = p;
@@ -69009,9 +70186,9 @@ if (message_arena != submessage_arena) {
 subproto1 = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
 message_arena, subproto1, submessage_arena);
 }
-_has_bits_[16] |= 0x00040000u;
+_has_bits_[16] |= 0x00020000u;
 } else {
-_has_bits_[16] &= ~0x00040000u;
+_has_bits_[16] &= ~0x00020000u;
 }
 subproto1_ = subproto1;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySettings.subProto1)

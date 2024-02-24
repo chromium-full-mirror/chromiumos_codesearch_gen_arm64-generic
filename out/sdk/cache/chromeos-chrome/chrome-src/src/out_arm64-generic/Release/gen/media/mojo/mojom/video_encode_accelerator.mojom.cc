@@ -406,16 +406,14 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig()
       input_visible_size(),
       output_profile(),
       bitrate(),
-      initial_framerate(),
-      has_initial_framerate(),
+      framerate(),
+      storage_type(),
+      content_type(),
       gop_length(),
       has_gop_length(),
       h264_output_level(),
       has_h264_output_level(),
       is_constrained_h264(),
-      storage_type(),
-      has_storage_type(),
-      content_type(),
       drop_frame_thresh_percentage(),
       spatial_layers(),
       inter_layer_pred(),
@@ -427,16 +425,14 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
     const ::gfx::Size& input_visible_size_in,
     ::media::VideoCodecProfile output_profile_in,
     const ::media::Bitrate& bitrate_in,
-    uint32_t initial_framerate_in,
-    bool has_initial_framerate_in,
+    uint32_t framerate_in,
+    VideoEncodeAcceleratorConfig::StorageType storage_type_in,
+    VideoEncodeAcceleratorConfig::ContentType content_type_in,
     uint32_t gop_length_in,
     bool has_gop_length_in,
     uint8_t h264_output_level_in,
     bool has_h264_output_level_in,
     bool is_constrained_h264_in,
-    VideoEncodeAcceleratorConfig::StorageType storage_type_in,
-    bool has_storage_type_in,
-    VideoEncodeAcceleratorConfig::ContentType content_type_in,
     uint8_t drop_frame_thresh_percentage_in,
     std::vector<::media::VideoEncodeAccelerator::Config::SpatialLayer> spatial_layers_in,
     ::media::SVCInterLayerPredMode inter_layer_pred_in,
@@ -446,16 +442,14 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
       input_visible_size(std::move(input_visible_size_in)),
       output_profile(std::move(output_profile_in)),
       bitrate(std::move(bitrate_in)),
-      initial_framerate(std::move(initial_framerate_in)),
-      has_initial_framerate(std::move(has_initial_framerate_in)),
+      framerate(std::move(framerate_in)),
+      storage_type(std::move(storage_type_in)),
+      content_type(std::move(content_type_in)),
       gop_length(std::move(gop_length_in)),
       has_gop_length(std::move(has_gop_length_in)),
       h264_output_level(std::move(h264_output_level_in)),
       has_h264_output_level(std::move(has_h264_output_level_in)),
       is_constrained_h264(std::move(is_constrained_h264_in)),
-      storage_type(std::move(storage_type_in)),
-      has_storage_type(std::move(has_storage_type_in)),
-      content_type(std::move(content_type_in)),
       drop_frame_thresh_percentage(std::move(drop_frame_thresh_percentage_in)),
       spatial_layers(std::move(spatial_layers_in)),
       inter_layer_pred(std::move(inter_layer_pred_in)),
@@ -505,7 +499,7 @@ void VideoEncodeAcceleratorConfig::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "initial_framerate"), this->initial_framerate,
+      "framerate"), this->framerate,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type uint32_t>"
 #else
@@ -514,9 +508,18 @@ void VideoEncodeAcceleratorConfig::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "has_initial_framerate"), this->has_initial_framerate,
+      "storage_type"), this->storage_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
+      "<value of type VideoEncodeAcceleratorConfig::StorageType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "content_type"), this->content_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type VideoEncodeAcceleratorConfig::ContentType>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -562,33 +565,6 @@ void VideoEncodeAcceleratorConfig::WriteIntoTrace(
       "is_constrained_h264"), this->is_constrained_h264,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "storage_type"), this->storage_type,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type VideoEncodeAcceleratorConfig::StorageType>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "has_storage_type"), this->has_storage_type,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "content_type"), this->content_type,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type VideoEncodeAcceleratorConfig::ContentType>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4131,9 +4107,11 @@ bool StructTraits<::media::mojom::VideoEncodeAcceleratorConfig::DataView, ::medi
       if (success && !input.ReadBitrate(&result->bitrate))
         success = false;
       if (success)
-        result->initial_framerate = input.initial_framerate();
-      if (success)
-        result->has_initial_framerate = input.has_initial_framerate();
+        result->framerate = input.framerate();
+      if (success && !input.ReadStorageType(&result->storage_type))
+        success = false;
+      if (success && !input.ReadContentType(&result->content_type))
+        success = false;
       if (success)
         result->gop_length = input.gop_length();
       if (success)
@@ -4144,12 +4122,6 @@ bool StructTraits<::media::mojom::VideoEncodeAcceleratorConfig::DataView, ::medi
         result->has_h264_output_level = input.has_h264_output_level();
       if (success)
         result->is_constrained_h264 = input.is_constrained_h264();
-      if (success && !input.ReadStorageType(&result->storage_type))
-        success = false;
-      if (success)
-        result->has_storage_type = input.has_storage_type();
-      if (success && !input.ReadContentType(&result->content_type))
-        success = false;
       if (success)
         result->drop_frame_thresh_percentage = input.drop_frame_thresh_percentage();
       if (success && !input.ReadSpatialLayers(&result->spatial_layers))

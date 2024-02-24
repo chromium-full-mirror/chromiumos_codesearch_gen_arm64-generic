@@ -41,8 +41,6 @@
 
 
 namespace ash::cros_healthd::mojom {
-class ServiceStatusDataView;
-
 
 
 }  // ash::cros_healthd::mojom
@@ -50,29 +48,12 @@ class ServiceStatusDataView;
 namespace mojo {
 namespace internal {
 
-template <>
-struct MojomTypeTraits<::ash::cros_healthd::mojom::ServiceStatusDataView> {
-  using Data = ::ash::cros_healthd::mojom::internal::ServiceStatus_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
 }  // namespace internal
 }  // namespace mojo
 
 
 namespace ash::cros_healthd::mojom {
 // Interface base classes. They are used for type safety check.
-class CrosHealthdServiceFactoryInterfaceBase {};
-
-using CrosHealthdServiceFactoryPtrDataView =
-    mojo::InterfacePtrDataView<CrosHealthdServiceFactoryInterfaceBase>;
-using CrosHealthdServiceFactoryRequestDataView =
-    mojo::InterfaceRequestDataView<CrosHealthdServiceFactoryInterfaceBase>;
-using CrosHealthdServiceFactoryAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<CrosHealthdServiceFactoryInterfaceBase>;
-using CrosHealthdServiceFactoryAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<CrosHealthdServiceFactoryInterfaceBase>;
 class CrosHealthdDiagnosticsServiceInterfaceBase {};
 
 using CrosHealthdDiagnosticsServicePtrDataView =
@@ -103,37 +84,6 @@ using CrosHealthdProbeServiceAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<CrosHealthdProbeServiceInterfaceBase>;
 using CrosHealthdProbeServiceAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CrosHealthdProbeServiceInterfaceBase>;
-class CrosHealthdSystemServiceInterfaceBase {};
-
-using CrosHealthdSystemServicePtrDataView =
-    mojo::InterfacePtrDataView<CrosHealthdSystemServiceInterfaceBase>;
-using CrosHealthdSystemServiceRequestDataView =
-    mojo::InterfaceRequestDataView<CrosHealthdSystemServiceInterfaceBase>;
-using CrosHealthdSystemServiceAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<CrosHealthdSystemServiceInterfaceBase>;
-using CrosHealthdSystemServiceAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<CrosHealthdSystemServiceInterfaceBase>;
-
-
-class ServiceStatusDataView {
- public:
-  ServiceStatusDataView() = default;
-
-  ServiceStatusDataView(
-      internal::ServiceStatus_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  bool network_health_bound() const {
-    return data_->network_health_bound;
-  }
-  bool network_diagnostics_bound() const {
-    return data_->network_diagnostics_bound;
-  }
- private:
-  internal::ServiceStatus_Data* data_ = nullptr;
-};
 
 
 }  // ash::cros_healthd::mojom
@@ -144,43 +94,10 @@ namespace std {
 
 namespace mojo {
 
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::ServiceStatusDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::ash::cros_healthd::mojom::ServiceStatusDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::ServiceStatus_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-    fragment->network_health_bound = Traits::network_health_bound(input);
-    fragment->network_diagnostics_bound = Traits::network_diagnostics_bound(input);
-  }
-
-  static bool Deserialize(::ash::cros_healthd::mojom::internal::ServiceStatus_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::ash::cros_healthd::mojom::ServiceStatusDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
 }  // namespace mojo
 
 
 namespace ash::cros_healthd::mojom {
-
-
 
 
 }  // ash::cros_healthd::mojom

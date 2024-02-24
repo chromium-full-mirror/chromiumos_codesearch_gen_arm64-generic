@@ -323,7 +323,7 @@ class  VideoEncodeAcceleratorConfig_Data {
   mojo::internal::Pointer<::arc::mojom::internal::Size_Data> input_visible_size;
   uint32_t initial_bitrate_deprecated;
   uint32_t initial_framerate;
-  uint8_t has_initial_framerate : 1;
+  uint8_t has_initial_framerate_deprecated : 1;
   uint8_t has_h264_output_level : 1;
   uint8_t h264_output_level;
   uint8_t pad7_[2];

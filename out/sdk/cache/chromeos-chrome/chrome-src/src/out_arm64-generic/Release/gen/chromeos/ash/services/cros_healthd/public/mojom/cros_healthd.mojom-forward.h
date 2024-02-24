@@ -9,12 +9,11 @@
 
 
 
-#include "mojo/public/cpp/bindings/struct_forward.h"
+
 
 #include "mojo/public/cpp/bindings/deprecated_interface_types_forward.h"
 
 
-#include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
 
 
 
@@ -22,20 +21,11 @@
 
 
 namespace ash::cros_healthd::mojom {
-class ServiceStatusDataView;
-
-class ServiceStatus;
-using ServiceStatusPtr = mojo::InlinedStructPtr<ServiceStatus>;
-
-class CrosHealthdServiceFactory;
-
 class CrosHealthdDiagnosticsService;
 
 class CrosHealthdEventService;
 
 class CrosHealthdProbeService;
-
-class CrosHealthdSystemService;
 
 
 

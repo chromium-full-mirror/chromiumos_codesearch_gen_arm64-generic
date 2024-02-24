@@ -127,7 +127,7 @@ class ExperimentalDomain : public Domain {
   // for example an emoji keyboard or an IME.
   void InsertText(std::unique_ptr<InsertTextParams> params, base::OnceCallback<void(std::unique_ptr<InsertTextResult>)> callback = base::OnceCallback<void(std::unique_ptr<InsertTextResult>)>());
 
-  // This method sets the current candidate text for ime.
+  // This method sets the current candidate text for IME.
   // Use imeCommitComposition to commit the final text.
   // Use imeSetComposition with empty string as text to cancel composition.
   void ImeSetComposition(std::unique_ptr<ImeSetCompositionParams> params, base::OnceCallback<void(std::unique_ptr<ImeSetCompositionResult>)> callback = base::OnceCallback<void(std::unique_ptr<ImeSetCompositionResult>)>());

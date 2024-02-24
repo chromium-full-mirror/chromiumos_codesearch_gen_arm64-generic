@@ -547,7 +547,7 @@ bool VideoEncodeAcceleratorConfig_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->spatial_layers, 16, validation_context)) {
+          object->spatial_layers, 14, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& spatial_layers_validate_params =

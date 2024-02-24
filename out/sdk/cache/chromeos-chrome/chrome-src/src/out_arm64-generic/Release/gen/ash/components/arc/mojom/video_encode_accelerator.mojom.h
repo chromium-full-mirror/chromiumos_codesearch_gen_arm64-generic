@@ -943,7 +943,7 @@ class  VideoEncodeAcceleratorConfig {
       ::media::VideoCodecProfile output_profile,
       uint32_t initial_bitrate_deprecated,
       uint32_t initial_framerate,
-      bool has_initial_framerate,
+      bool has_initial_framerate_deprecated,
       uint8_t h264_output_level,
       bool has_h264_output_level);
 
@@ -953,7 +953,7 @@ class  VideoEncodeAcceleratorConfig {
       ::media::VideoCodecProfile output_profile,
       uint32_t initial_bitrate_deprecated,
       uint32_t initial_framerate,
-      bool has_initial_framerate,
+      bool has_initial_framerate_deprecated,
       uint8_t h264_output_level,
       bool has_h264_output_level,
       ::media::VideoEncodeAccelerator::Config::StorageType storage_type);
@@ -964,7 +964,7 @@ class  VideoEncodeAcceleratorConfig {
       ::media::VideoCodecProfile output_profile,
       uint32_t initial_bitrate_deprecated,
       uint32_t initial_framerate,
-      bool has_initial_framerate,
+      bool has_initial_framerate_deprecated,
       uint8_t h264_output_level,
       bool has_h264_output_level,
       ::media::VideoEncodeAccelerator::Config::StorageType storage_type,
@@ -1056,7 +1056,7 @@ class  VideoEncodeAcceleratorConfig {
   
   uint32_t initial_framerate;
   
-  bool has_initial_framerate;
+  bool has_initial_framerate_deprecated;
   
   uint8_t h264_output_level;
   
@@ -1226,7 +1226,7 @@ VideoEncodeAcceleratorConfigPtr VideoEncodeAcceleratorConfig::Clone() const {
       mojo::Clone(output_profile),
       mojo::Clone(initial_bitrate_deprecated),
       mojo::Clone(initial_framerate),
-      mojo::Clone(has_initial_framerate),
+      mojo::Clone(has_initial_framerate_deprecated),
       mojo::Clone(h264_output_level),
       mojo::Clone(has_h264_output_level),
       mojo::Clone(storage_type),
@@ -1246,7 +1246,7 @@ bool VideoEncodeAcceleratorConfig::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->initial_framerate, other_struct.initial_framerate))
     return false;
-  if (!mojo::Equals(this->has_initial_framerate, other_struct.has_initial_framerate))
+  if (!mojo::Equals(this->has_initial_framerate_deprecated, other_struct.has_initial_framerate_deprecated))
     return false;
   if (!mojo::Equals(this->h264_output_level, other_struct.h264_output_level))
     return false;
@@ -1281,9 +1281,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.initial_framerate < lhs.initial_framerate)
     return false;
-  if (lhs.has_initial_framerate < rhs.has_initial_framerate)
+  if (lhs.has_initial_framerate_deprecated < rhs.has_initial_framerate_deprecated)
     return true;
-  if (rhs.has_initial_framerate < lhs.has_initial_framerate)
+  if (rhs.has_initial_framerate_deprecated < lhs.has_initial_framerate_deprecated)
     return false;
   if (lhs.h264_output_level < rhs.h264_output_level)
     return true;
@@ -1406,9 +1406,9 @@ struct  StructTraits<::arc::mojom::VideoEncodeAcceleratorConfig::DataView,
     return input->initial_framerate;
   }
 
-  static decltype(::arc::mojom::VideoEncodeAcceleratorConfig::has_initial_framerate) has_initial_framerate(
+  static decltype(::arc::mojom::VideoEncodeAcceleratorConfig::has_initial_framerate_deprecated) has_initial_framerate_deprecated(
       const ::arc::mojom::VideoEncodeAcceleratorConfigPtr& input) {
-    return input->has_initial_framerate;
+    return input->has_initial_framerate_deprecated;
   }
 
   static decltype(::arc::mojom::VideoEncodeAcceleratorConfig::h264_output_level) h264_output_level(
