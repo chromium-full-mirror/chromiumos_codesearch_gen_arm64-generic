@@ -149,6 +149,12 @@ extern TcpcDefaultTypeInternal _Tcpc_default_instance_;
 class Tcpc_Fields;
 struct Tcpc_FieldsDefaultTypeInternal;
 extern Tcpc_FieldsDefaultTypeInternal _Tcpc_Fields_default_instance_;
+class Tpm;
+struct TpmDefaultTypeInternal;
+extern TpmDefaultTypeInternal _Tpm_default_instance_;
+class Tpm_Fields;
+struct Tpm_FieldsDefaultTypeInternal;
+extern Tpm_FieldsDefaultTypeInternal _Tpm_Fields_default_instance_;
 class VpdCached;
 struct VpdCachedDefaultTypeInternal;
 extern VpdCachedDefaultTypeInternal _VpdCached_default_instance_;
@@ -222,6 +228,10 @@ template <>
 template <>
 ::runtime_probe::Tcpc_Fields* Arena::CreateMaybeMessage<::runtime_probe::Tcpc_Fields>(Arena*);
 template <>
+::runtime_probe::Tpm* Arena::CreateMaybeMessage<::runtime_probe::Tpm>(Arena*);
+template <>
+::runtime_probe::Tpm_Fields* Arena::CreateMaybeMessage<::runtime_probe::Tpm_Fields>(Arena*);
+template <>
 ::runtime_probe::VpdCached* Arena::CreateMaybeMessage<::runtime_probe::VpdCached>(Arena*);
 template <>
 ::runtime_probe::VpdCached_Fields* Arena::CreateMaybeMessage<::runtime_probe::VpdCached_Fields>(Arena*);
@@ -244,6 +254,7 @@ enum ProbeRequest_SupportCategory : int {
   ProbeRequest_SupportCategory_ethernet = 13,
   ProbeRequest_SupportCategory_wireless = 14,
   ProbeRequest_SupportCategory_cpu = 15,
+  ProbeRequest_SupportCategory_tpm = 16,
   ProbeRequest_SupportCategory_ProbeRequest_SupportCategory_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   ProbeRequest_SupportCategory_ProbeRequest_SupportCategory_INT_MAX_SENTINEL_DO_NOT_USE_ =
@@ -252,8 +263,8 @@ enum ProbeRequest_SupportCategory : int {
 
 bool ProbeRequest_SupportCategory_IsValid(int value);
 constexpr ProbeRequest_SupportCategory ProbeRequest_SupportCategory_SupportCategory_MIN = static_cast<ProbeRequest_SupportCategory>(0);
-constexpr ProbeRequest_SupportCategory ProbeRequest_SupportCategory_SupportCategory_MAX = static_cast<ProbeRequest_SupportCategory>(15);
-constexpr int ProbeRequest_SupportCategory_SupportCategory_ARRAYSIZE = 15 + 1;
+constexpr ProbeRequest_SupportCategory ProbeRequest_SupportCategory_SupportCategory_MAX = static_cast<ProbeRequest_SupportCategory>(16);
+constexpr int ProbeRequest_SupportCategory_SupportCategory_ARRAYSIZE = 16 + 1;
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
 ProbeRequest_SupportCategory_descriptor();
 template <typename T>
@@ -266,7 +277,7 @@ const std::string& ProbeRequest_SupportCategory_Name(T value) {
 template <>
 inline const std::string& ProbeRequest_SupportCategory_Name(ProbeRequest_SupportCategory value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfDenseEnum<ProbeRequest_SupportCategory_descriptor,
-                                                 0, 15>(
+                                                 0, 16>(
       static_cast<int>(value));
 }
 inline bool ProbeRequest_SupportCategory_Parse(absl::string_view name, ProbeRequest_SupportCategory* value) {
@@ -686,6 +697,7 @@ class ProbeRequest final :
   static constexpr SupportCategory ethernet = ProbeRequest_SupportCategory_ethernet;
   static constexpr SupportCategory wireless = ProbeRequest_SupportCategory_wireless;
   static constexpr SupportCategory cpu = ProbeRequest_SupportCategory_cpu;
+  static constexpr SupportCategory tpm = ProbeRequest_SupportCategory_tpm;
   static inline bool SupportCategory_IsValid(int value) {
     return ProbeRequest_SupportCategory_IsValid(value);
   }
@@ -6945,6 +6957,389 @@ class Cpu final :
   friend struct ::TableStruct_runtime_5fprobe_2eproto;
 };// -------------------------------------------------------------------
 
+class Tpm_Fields final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:runtime_probe.Tpm.Fields) */ {
+ public:
+  inline Tpm_Fields() : Tpm_Fields(nullptr) {}
+  ~Tpm_Fields() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR Tpm_Fields(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Tpm_Fields(const Tpm_Fields& from);
+  Tpm_Fields(Tpm_Fields&& from) noexcept
+    : Tpm_Fields() {
+    *this = ::std::move(from);
+  }
+
+  inline Tpm_Fields& operator=(const Tpm_Fields& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Tpm_Fields& operator=(Tpm_Fields&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Tpm_Fields& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Tpm_Fields* internal_default_instance() {
+    return reinterpret_cast<const Tpm_Fields*>(
+               &_Tpm_Fields_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    28;
+
+  friend void swap(Tpm_Fields& a, Tpm_Fields& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Tpm_Fields* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Tpm_Fields* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Tpm_Fields* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Tpm_Fields>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Tpm_Fields& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const Tpm_Fields& from) {
+    Tpm_Fields::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Tpm_Fields* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "runtime_probe.Tpm.Fields";
+  }
+  protected:
+  explicit Tpm_Fields(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kVendorSpecificFieldNumber = 2,
+    kManufacturerFieldNumber = 3,
+    kSpecLevelFieldNumber = 1,
+  };
+  // string vendor_specific = 2;
+  void clear_vendor_specific() ;
+  const std::string& vendor_specific() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_vendor_specific(Arg_&& arg, Args_... args);
+  std::string* mutable_vendor_specific();
+  PROTOBUF_NODISCARD std::string* release_vendor_specific();
+  void set_allocated_vendor_specific(std::string* ptr);
+
+  private:
+  const std::string& _internal_vendor_specific() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_vendor_specific(
+      const std::string& value);
+  std::string* _internal_mutable_vendor_specific();
+
+  public:
+  // string manufacturer = 3;
+  void clear_manufacturer() ;
+  const std::string& manufacturer() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_manufacturer(Arg_&& arg, Args_... args);
+  std::string* mutable_manufacturer();
+  PROTOBUF_NODISCARD std::string* release_manufacturer();
+  void set_allocated_manufacturer(std::string* ptr);
+
+  private:
+  const std::string& _internal_manufacturer() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_manufacturer(
+      const std::string& value);
+  std::string* _internal_mutable_manufacturer();
+
+  public:
+  // uint32 spec_level = 1;
+  void clear_spec_level() ;
+  ::uint32_t spec_level() const;
+  void set_spec_level(::uint32_t value);
+
+  private:
+  ::uint32_t _internal_spec_level() const;
+  void _internal_set_spec_level(::uint32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:runtime_probe.Tpm.Fields)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vendor_specific_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr manufacturer_;
+    ::uint32_t spec_level_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_runtime_5fprobe_2eproto;
+};// -------------------------------------------------------------------
+
+class Tpm final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:runtime_probe.Tpm) */ {
+ public:
+  inline Tpm() : Tpm(nullptr) {}
+  ~Tpm() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR Tpm(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Tpm(const Tpm& from);
+  Tpm(Tpm&& from) noexcept
+    : Tpm() {
+    *this = ::std::move(from);
+  }
+
+  inline Tpm& operator=(const Tpm& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Tpm& operator=(Tpm&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Tpm& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Tpm* internal_default_instance() {
+    return reinterpret_cast<const Tpm*>(
+               &_Tpm_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    29;
+
+  friend void swap(Tpm& a, Tpm& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Tpm* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Tpm* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Tpm* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Tpm>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Tpm& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const Tpm& from) {
+    Tpm::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Tpm* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "runtime_probe.Tpm";
+  }
+  protected:
+  explicit Tpm(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef Tpm_Fields Fields;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kValuesFieldNumber = 2,
+  };
+  // string name = 1;
+  void clear_name() ;
+  const std::string& name() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_name(Arg_&& arg, Args_... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* ptr);
+
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(
+      const std::string& value);
+  std::string* _internal_mutable_name();
+
+  public:
+  // .runtime_probe.Tpm.Fields values = 2;
+  bool has_values() const;
+  void clear_values() ;
+  const ::runtime_probe::Tpm_Fields& values() const;
+  PROTOBUF_NODISCARD ::runtime_probe::Tpm_Fields* release_values();
+  ::runtime_probe::Tpm_Fields* mutable_values();
+  void set_allocated_values(::runtime_probe::Tpm_Fields* values);
+  private:
+  const ::runtime_probe::Tpm_Fields& _internal_values() const;
+  ::runtime_probe::Tpm_Fields* _internal_mutable_values();
+  public:
+  void unsafe_arena_set_allocated_values(
+      ::runtime_probe::Tpm_Fields* values);
+  ::runtime_probe::Tpm_Fields* unsafe_arena_release_values();
+  // @@protoc_insertion_point(class_scope:runtime_probe.Tpm)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+    ::runtime_probe::Tpm_Fields* values_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_runtime_5fprobe_2eproto;
+};// -------------------------------------------------------------------
+
 class ProbeResult final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:runtime_probe.ProbeResult) */ {
  public:
@@ -7001,7 +7396,7 @@ class ProbeResult final :
                &_ProbeResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    30;
 
   friend void swap(ProbeResult& a, ProbeResult& b) {
     a.Swap(&b);
@@ -7088,6 +7483,7 @@ class ProbeResult final :
     kEthernetFieldNumber = 15,
     kWirelessFieldNumber = 16,
     kCpuFieldNumber = 17,
+    kTpmFieldNumber = 18,
     kProbeConfigChecksumFieldNumber = 6,
     kErrorFieldNumber = 1,
   };
@@ -7391,6 +7787,26 @@ class ProbeResult final :
   ::runtime_probe::Cpu* add_cpu();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Cpu >&
       cpu() const;
+  // repeated .runtime_probe.Tpm tpm = 18;
+  int tpm_size() const;
+  private:
+  int _internal_tpm_size() const;
+
+  public:
+  void clear_tpm() ;
+  ::runtime_probe::Tpm* mutable_tpm(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Tpm >*
+      mutable_tpm();
+  private:
+  const ::runtime_probe::Tpm& _internal_tpm(int index) const;
+  ::runtime_probe::Tpm* _internal_add_tpm();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::runtime_probe::Tpm>& _internal_tpm() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::runtime_probe::Tpm>* _internal_mutable_tpm();
+  public:
+  const ::runtime_probe::Tpm& tpm(int index) const;
+  ::runtime_probe::Tpm* add_tpm();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Tpm >&
+      tpm() const;
   // string probe_config_checksum = 6;
   void clear_probe_config_checksum() ;
   const std::string& probe_config_checksum() const;
@@ -7444,6 +7860,7 @@ class ProbeResult final :
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Network > ethernet_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Network > wireless_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Cpu > cpu_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Tpm > tpm_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr probe_config_checksum_;
     int error_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -7518,6 +7935,7 @@ class ComponentFields final :
     kEthernet = 12,
     kWireless = 13,
     kCpu = 14,
+    kTpm = 15,
     COMPONENT_FIELDS_NOT_SET = 0,
   };
 
@@ -7526,7 +7944,7 @@ class ComponentFields final :
                &_ComponentFields_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    31;
 
   friend void swap(ComponentFields& a, ComponentFields& b) {
     a.Swap(&b);
@@ -7612,6 +8030,7 @@ class ComponentFields final :
     kEthernetFieldNumber = 12,
     kWirelessFieldNumber = 13,
     kCpuFieldNumber = 14,
+    kTpmFieldNumber = 15,
   };
   // .runtime_probe.AudioCodec.Fields audio_codec = 1;
   bool has_audio_codec() const;
@@ -7865,6 +8284,24 @@ class ComponentFields final :
   void unsafe_arena_set_allocated_cpu(
       ::runtime_probe::Cpu_Fields* cpu);
   ::runtime_probe::Cpu_Fields* unsafe_arena_release_cpu();
+  // .runtime_probe.Tpm.Fields tpm = 15;
+  bool has_tpm() const;
+  private:
+  bool _internal_has_tpm() const;
+
+  public:
+  void clear_tpm() ;
+  const ::runtime_probe::Tpm_Fields& tpm() const;
+  PROTOBUF_NODISCARD ::runtime_probe::Tpm_Fields* release_tpm();
+  ::runtime_probe::Tpm_Fields* mutable_tpm();
+  void set_allocated_tpm(::runtime_probe::Tpm_Fields* tpm);
+  private:
+  const ::runtime_probe::Tpm_Fields& _internal_tpm() const;
+  ::runtime_probe::Tpm_Fields* _internal_mutable_tpm();
+  public:
+  void unsafe_arena_set_allocated_tpm(
+      ::runtime_probe::Tpm_Fields* tpm);
+  ::runtime_probe::Tpm_Fields* unsafe_arena_release_tpm();
   void clear_component_fields();
   ComponentFieldsCase component_fields_case() const;
   // @@protoc_insertion_point(class_scope:runtime_probe.ComponentFields)
@@ -7884,6 +8321,7 @@ class ComponentFields final :
   void set_has_ethernet();
   void set_has_wireless();
   void set_has_cpu();
+  void set_has_tpm();
 
   inline bool has_component_fields() const;
   inline void clear_has_component_fields();
@@ -7909,6 +8347,7 @@ class ComponentFields final :
       ::runtime_probe::Network_Fields* ethernet_;
       ::runtime_probe::Network_Fields* wireless_;
       ::runtime_probe::Cpu_Fields* cpu_;
+      ::runtime_probe::Tpm_Fields* tpm_;
     } component_fields_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::uint32_t _oneof_case_[1];
@@ -7974,7 +8413,7 @@ class GetKnownComponentsRequest final :
                &_GetKnownComponentsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    32;
 
   friend void swap(GetKnownComponentsRequest& a, GetKnownComponentsRequest& b) {
     a.Swap(&b);
@@ -8129,7 +8568,7 @@ class GetKnownComponentsResult final :
                &_GetKnownComponentsResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    33;
 
   friend void swap(GetKnownComponentsResult& a, GetKnownComponentsResult& b) {
     a.Swap(&b);
@@ -8315,7 +8754,7 @@ class ProbeSsfcComponentsRequest final :
                &_ProbeSsfcComponentsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    34;
 
   friend void swap(ProbeSsfcComponentsRequest& a, ProbeSsfcComponentsRequest& b) {
     a.Swap(&b);
@@ -8440,7 +8879,7 @@ class ProbeSsfcComponentsResponse final :
                &_ProbeSsfcComponentsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    35;
 
   friend void swap(ProbeSsfcComponentsResponse& a, ProbeSsfcComponentsResponse& b) {
     a.Swap(&b);
@@ -14216,6 +14655,262 @@ inline void Cpu::set_allocated_values(::runtime_probe::Cpu_Fields* values) {
 
 // -------------------------------------------------------------------
 
+// Tpm_Fields
+
+// uint32 spec_level = 1;
+inline void Tpm_Fields::clear_spec_level() {
+  _impl_.spec_level_ = 0u;
+}
+inline ::uint32_t Tpm_Fields::spec_level() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Tpm.Fields.spec_level)
+  return _internal_spec_level();
+}
+inline void Tpm_Fields::set_spec_level(::uint32_t value) {
+  _internal_set_spec_level(value);
+  // @@protoc_insertion_point(field_set:runtime_probe.Tpm.Fields.spec_level)
+}
+inline ::uint32_t Tpm_Fields::_internal_spec_level() const {
+  return _impl_.spec_level_;
+}
+inline void Tpm_Fields::_internal_set_spec_level(::uint32_t value) {
+  ;
+  _impl_.spec_level_ = value;
+}
+
+// string vendor_specific = 2;
+inline void Tpm_Fields::clear_vendor_specific() {
+  _impl_.vendor_specific_.ClearToEmpty();
+}
+inline const std::string& Tpm_Fields::vendor_specific() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Tpm.Fields.vendor_specific)
+  return _internal_vendor_specific();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void Tpm_Fields::set_vendor_specific(Arg_&& arg,
+                                                     Args_... args) {
+  ;
+  _impl_.vendor_specific_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Tpm.Fields.vendor_specific)
+}
+inline std::string* Tpm_Fields::mutable_vendor_specific() {
+  std::string* _s = _internal_mutable_vendor_specific();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Tpm.Fields.vendor_specific)
+  return _s;
+}
+inline const std::string& Tpm_Fields::_internal_vendor_specific() const {
+  return _impl_.vendor_specific_.Get();
+}
+inline void Tpm_Fields::_internal_set_vendor_specific(const std::string& value) {
+  ;
+
+
+  _impl_.vendor_specific_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Tpm_Fields::_internal_mutable_vendor_specific() {
+  ;
+  return _impl_.vendor_specific_.Mutable( GetArenaForAllocation());
+}
+inline std::string* Tpm_Fields::release_vendor_specific() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Tpm.Fields.vendor_specific)
+  return _impl_.vendor_specific_.Release();
+}
+inline void Tpm_Fields::set_allocated_vendor_specific(std::string* value) {
+  _impl_.vendor_specific_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.vendor_specific_.IsDefault()) {
+          _impl_.vendor_specific_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Tpm.Fields.vendor_specific)
+}
+
+// string manufacturer = 3;
+inline void Tpm_Fields::clear_manufacturer() {
+  _impl_.manufacturer_.ClearToEmpty();
+}
+inline const std::string& Tpm_Fields::manufacturer() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Tpm.Fields.manufacturer)
+  return _internal_manufacturer();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void Tpm_Fields::set_manufacturer(Arg_&& arg,
+                                                     Args_... args) {
+  ;
+  _impl_.manufacturer_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Tpm.Fields.manufacturer)
+}
+inline std::string* Tpm_Fields::mutable_manufacturer() {
+  std::string* _s = _internal_mutable_manufacturer();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Tpm.Fields.manufacturer)
+  return _s;
+}
+inline const std::string& Tpm_Fields::_internal_manufacturer() const {
+  return _impl_.manufacturer_.Get();
+}
+inline void Tpm_Fields::_internal_set_manufacturer(const std::string& value) {
+  ;
+
+
+  _impl_.manufacturer_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Tpm_Fields::_internal_mutable_manufacturer() {
+  ;
+  return _impl_.manufacturer_.Mutable( GetArenaForAllocation());
+}
+inline std::string* Tpm_Fields::release_manufacturer() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Tpm.Fields.manufacturer)
+  return _impl_.manufacturer_.Release();
+}
+inline void Tpm_Fields::set_allocated_manufacturer(std::string* value) {
+  _impl_.manufacturer_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.manufacturer_.IsDefault()) {
+          _impl_.manufacturer_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Tpm.Fields.manufacturer)
+}
+
+// -------------------------------------------------------------------
+
+// Tpm
+
+// string name = 1;
+inline void Tpm::clear_name() {
+  _impl_.name_.ClearToEmpty();
+}
+inline const std::string& Tpm::name() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Tpm.name)
+  return _internal_name();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void Tpm::set_name(Arg_&& arg,
+                                                     Args_... args) {
+  ;
+  _impl_.name_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Tpm.name)
+}
+inline std::string* Tpm::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Tpm.name)
+  return _s;
+}
+inline const std::string& Tpm::_internal_name() const {
+  return _impl_.name_.Get();
+}
+inline void Tpm::_internal_set_name(const std::string& value) {
+  ;
+
+
+  _impl_.name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Tpm::_internal_mutable_name() {
+  ;
+  return _impl_.name_.Mutable( GetArenaForAllocation());
+}
+inline std::string* Tpm::release_name() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Tpm.name)
+  return _impl_.name_.Release();
+}
+inline void Tpm::set_allocated_name(std::string* value) {
+  _impl_.name_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.name_.IsDefault()) {
+          _impl_.name_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Tpm.name)
+}
+
+// .runtime_probe.Tpm.Fields values = 2;
+inline bool Tpm::has_values() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.values_ != nullptr);
+  return value;
+}
+inline void Tpm::clear_values() {
+  if (_impl_.values_ != nullptr) _impl_.values_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::runtime_probe::Tpm_Fields& Tpm::_internal_values() const {
+  const ::runtime_probe::Tpm_Fields* p = _impl_.values_;
+  return p != nullptr ? *p : reinterpret_cast<const ::runtime_probe::Tpm_Fields&>(
+      ::runtime_probe::_Tpm_Fields_default_instance_);
+}
+inline const ::runtime_probe::Tpm_Fields& Tpm::values() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Tpm.values)
+  return _internal_values();
+}
+inline void Tpm::unsafe_arena_set_allocated_values(
+    ::runtime_probe::Tpm_Fields* values) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.values_);
+  }
+  _impl_.values_ = values;
+  if (values) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:runtime_probe.Tpm.values)
+}
+inline ::runtime_probe::Tpm_Fields* Tpm::release_values() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::runtime_probe::Tpm_Fields* temp = _impl_.values_;
+  _impl_.values_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::runtime_probe::Tpm_Fields* Tpm::unsafe_arena_release_values() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Tpm.values)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::runtime_probe::Tpm_Fields* temp = _impl_.values_;
+  _impl_.values_ = nullptr;
+  return temp;
+}
+inline ::runtime_probe::Tpm_Fields* Tpm::_internal_mutable_values() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.values_ == nullptr) {
+    auto* p = CreateMaybeMessage<::runtime_probe::Tpm_Fields>(GetArenaForAllocation());
+    _impl_.values_ = p;
+  }
+  return _impl_.values_;
+}
+inline ::runtime_probe::Tpm_Fields* Tpm::mutable_values() {
+  ::runtime_probe::Tpm_Fields* _msg = _internal_mutable_values();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Tpm.values)
+  return _msg;
+}
+inline void Tpm::set_allocated_values(::runtime_probe::Tpm_Fields* values) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.values_;
+  }
+  if (values) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(values);
+    if (message_arena != submessage_arena) {
+      values = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, values, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.values_ = values;
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Tpm.values)
+}
+
+// -------------------------------------------------------------------
+
 // ProbeResult
 
 // .runtime_probe.ErrorCode error = 1;
@@ -15003,6 +15698,54 @@ ProbeResult::_internal_cpu() const {
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::runtime_probe::Cpu>*
 ProbeResult::_internal_mutable_cpu() {
   return &_impl_.cpu_;
+}
+
+// repeated .runtime_probe.Tpm tpm = 18;
+inline int ProbeResult::_internal_tpm_size() const {
+  return _impl_.tpm_.size();
+}
+inline int ProbeResult::tpm_size() const {
+  return _internal_tpm_size();
+}
+inline void ProbeResult::clear_tpm() {
+  _internal_mutable_tpm()->Clear();
+}
+inline ::runtime_probe::Tpm* ProbeResult::mutable_tpm(int index) {
+  // @@protoc_insertion_point(field_mutable:runtime_probe.ProbeResult.tpm)
+  return _internal_mutable_tpm()->Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Tpm >*
+ProbeResult::mutable_tpm() {
+  // @@protoc_insertion_point(field_mutable_list:runtime_probe.ProbeResult.tpm)
+  return _internal_mutable_tpm();
+}
+inline const ::runtime_probe::Tpm& ProbeResult::_internal_tpm(int index) const {
+  return _internal_tpm().Get(index);
+}
+inline const ::runtime_probe::Tpm& ProbeResult::tpm(int index) const {
+  // @@protoc_insertion_point(field_get:runtime_probe.ProbeResult.tpm)
+  return _internal_tpm(index);
+}
+inline ::runtime_probe::Tpm* ProbeResult::_internal_add_tpm() {
+  return _internal_mutable_tpm()->Add();
+}
+inline ::runtime_probe::Tpm* ProbeResult::add_tpm() {
+  ::runtime_probe::Tpm* _add = _internal_add_tpm();
+  // @@protoc_insertion_point(field_add:runtime_probe.ProbeResult.tpm)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Tpm >&
+ProbeResult::tpm() const {
+  // @@protoc_insertion_point(field_list:runtime_probe.ProbeResult.tpm)
+  return _internal_tpm();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::runtime_probe::Tpm>&
+ProbeResult::_internal_tpm() const {
+  return _impl_.tpm_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::runtime_probe::Tpm>*
+ProbeResult::_internal_mutable_tpm() {
+  return &_impl_.tpm_;
 }
 
 // -------------------------------------------------------------------
@@ -16042,6 +16785,80 @@ inline ::runtime_probe::Cpu_Fields* ComponentFields::_internal_mutable_cpu() {
 inline ::runtime_probe::Cpu_Fields* ComponentFields::mutable_cpu() {
   ::runtime_probe::Cpu_Fields* _msg = _internal_mutable_cpu();
   // @@protoc_insertion_point(field_mutable:runtime_probe.ComponentFields.cpu)
+  return _msg;
+}
+
+// .runtime_probe.Tpm.Fields tpm = 15;
+inline bool ComponentFields::has_tpm() const {
+  return component_fields_case() == kTpm;
+}
+inline bool ComponentFields::_internal_has_tpm() const {
+  return component_fields_case() == kTpm;
+}
+inline void ComponentFields::set_has_tpm() {
+  _impl_._oneof_case_[0] = kTpm;
+}
+inline void ComponentFields::clear_tpm() {
+  if (component_fields_case() == kTpm) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.component_fields_.tpm_;
+    }
+    clear_has_component_fields();
+  }
+}
+inline ::runtime_probe::Tpm_Fields* ComponentFields::release_tpm() {
+  // @@protoc_insertion_point(field_release:runtime_probe.ComponentFields.tpm)
+  if (component_fields_case() == kTpm) {
+    clear_has_component_fields();
+    ::runtime_probe::Tpm_Fields* temp = _impl_.component_fields_.tpm_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.component_fields_.tpm_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::runtime_probe::Tpm_Fields& ComponentFields::_internal_tpm() const {
+  return component_fields_case() == kTpm
+      ? *_impl_.component_fields_.tpm_
+      : reinterpret_cast<::runtime_probe::Tpm_Fields&>(::runtime_probe::_Tpm_Fields_default_instance_);
+}
+inline const ::runtime_probe::Tpm_Fields& ComponentFields::tpm() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.ComponentFields.tpm)
+  return _internal_tpm();
+}
+inline ::runtime_probe::Tpm_Fields* ComponentFields::unsafe_arena_release_tpm() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:runtime_probe.ComponentFields.tpm)
+  if (component_fields_case() == kTpm) {
+    clear_has_component_fields();
+    ::runtime_probe::Tpm_Fields* temp = _impl_.component_fields_.tpm_;
+    _impl_.component_fields_.tpm_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ComponentFields::unsafe_arena_set_allocated_tpm(::runtime_probe::Tpm_Fields* tpm) {
+  clear_component_fields();
+  if (tpm) {
+    set_has_tpm();
+    _impl_.component_fields_.tpm_ = tpm;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:runtime_probe.ComponentFields.tpm)
+}
+inline ::runtime_probe::Tpm_Fields* ComponentFields::_internal_mutable_tpm() {
+  if (component_fields_case() != kTpm) {
+    clear_component_fields();
+    set_has_tpm();
+    _impl_.component_fields_.tpm_ = CreateMaybeMessage< ::runtime_probe::Tpm_Fields >(GetArenaForAllocation());
+  }
+  return _impl_.component_fields_.tpm_;
+}
+inline ::runtime_probe::Tpm_Fields* ComponentFields::mutable_tpm() {
+  ::runtime_probe::Tpm_Fields* _msg = _internal_mutable_tpm();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.ComponentFields.tpm)
   return _msg;
 }
 

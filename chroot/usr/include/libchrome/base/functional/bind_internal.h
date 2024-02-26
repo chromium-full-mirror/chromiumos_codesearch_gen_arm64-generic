@@ -1109,34 +1109,6 @@ void VerifyMethodReceiver(Receiver&& receiver, Unused&&...) {
   }
 }
 
-// Extracts necessary type info from Functor and BoundArgs.
-template <typename Functor, typename... BoundArgs>
-struct BindTypeHelper {
-  static constexpr size_t num_bounds = sizeof...(BoundArgs);
-  using FunctorTraits = FunctorTraits<Functor>;
-
-  // Example:
-  //   When Functor is `double (Foo::*)(int, const std::string&)`, and BoundArgs
-  //   is a template pack of `Foo*` and `int16_t`:
-  //    - RunType is `double(Foo*, int, const std::string&)`,
-  //    - ReturnType is `double`,
-  //    - RunParamsList is `TypeList<Foo*, int, const std::string&>`,
-  //    - BoundParamsList is `TypeList<Foo*, int>`,
-  //    - UnboundParamsList is `TypeList<const std::string&>`,
-  //    - BoundArgsList is `TypeList<Foo*, int16_t>`,
-  //    - UnboundRunType is `double(const std::string&)`.
-  using RunType = typename FunctorTraits::RunType;
-  using ReturnType = ExtractReturnType<RunType>;
-
-  using RunParamsList = ExtractArgs<RunType>;
-  using BoundParamsList = TakeTypeListItem<num_bounds, RunParamsList>;
-  using UnboundParamsList = DropTypeListItem<num_bounds, RunParamsList>;
-
-  using BoundArgsList = TypeList<BoundArgs...>;
-
-  using UnboundRunType = MakeFunctionType<ReturnType, UnboundParamsList>;
-};
-
 // `BindState<>`
 //
 // This stores all the state passed into `Bind()`.
@@ -1349,12 +1321,6 @@ struct ValidateBindStateType<true,
                          NoRawPtrsToRefCountedTypes<>,
                          ValidateStorageTraits<BoundArgs>...>;
 };
-
-// Returns a RunType of bound functor.
-// E.g. MakeUnboundRunType<R(A, B, C), A, B> is evaluated to R(C).
-template <typename Functor, typename... BoundArgs>
-using MakeUnboundRunType =
-    typename BindTypeHelper<Functor, BoundArgs...>::UnboundRunType;
 
 // Transforms `T` into an unwrapped type, which is passed to the target
 // function; e.g.:
