@@ -704,6 +704,17 @@ class InterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool ANQPGet(
+      const brillo::VariantDictionary& in_args,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void ANQPGetAsync(
+      const brillo::VariantDictionary& in_args,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual void RegisterScanDoneSignalHandler(
       const base::RepeatingCallback<void(bool)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -759,6 +770,11 @@ class InterfaceProxyInterface {
 
   virtual void RegisterInterworkingSelectDoneSignalHandler(
       base::RepeatingClosure signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
+  virtual void RegisterANQPQueryDoneSignalHandler(
+      const base::RepeatingCallback<void(const std::string&,
+                                         const std::string&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
   virtual void RegisterStationAddedSignalHandler(
@@ -1069,6 +1085,18 @@ class InterfaceProxy final : public InterfaceProxyInterface {
         dbus_object_proxy_,
         "fi.w1.wpa_supplicant1.Interface",
         "InterworkingSelectDone",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterANQPQueryDoneSignalHandler(
+      const base::RepeatingCallback<void(const std::string&,
+                                         const std::string&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface",
+        "ANQPQueryDone",
         signal_callback,
         std::move(on_connected_callback));
   }
@@ -1749,6 +1777,36 @@ class InterfaceProxy final : public InterfaceProxyInterface {
         "InterworkingSelect",
         std::move(success_callback),
         std::move(error_callback));
+  }
+
+  bool ANQPGet(
+      const brillo::VariantDictionary& in_args,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface",
+        "ANQPGet",
+        error,
+        in_args);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void ANQPGetAsync(
+      const brillo::VariantDictionary& in_args,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface",
+        "ANQPGet",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_args);
   }
 
   const brillo::VariantDictionary& capabilities() const override {

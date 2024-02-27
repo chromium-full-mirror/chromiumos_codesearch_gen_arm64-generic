@@ -535,7 +535,9 @@ class StatusResult final :
     kEolDateFieldNumber = 8,
     kLastAttemptErrorFieldNumber = 10,
     kUpdateUrgencyFieldNumber = 12,
+    kExtendedDateFieldNumber = 16,
     kWillDeferUpdateFieldNumber = 15,
+    kExtendedOptInRequiredFieldNumber = 17,
   };
   // repeated .update_engine.Feature features = 13;
   int features_size() const;
@@ -668,6 +670,15 @@ class StatusResult final :
   void _internal_set_update_urgency(::update_engine::UpdateUrgency value);
   public:
 
+  // int64 extended_date = 16;
+  void clear_extended_date();
+  int64_t extended_date() const;
+  void set_extended_date(int64_t value);
+  private:
+  int64_t _internal_extended_date() const;
+  void _internal_set_extended_date(int64_t value);
+  public:
+
   // bool will_defer_update = 15;
   void clear_will_defer_update();
   bool will_defer_update() const;
@@ -675,6 +686,15 @@ class StatusResult final :
   private:
   bool _internal_will_defer_update() const;
   void _internal_set_will_defer_update(bool value);
+  public:
+
+  // bool extended_opt_in_required = 17;
+  void clear_extended_opt_in_required();
+  bool extended_opt_in_required() const;
+  void set_extended_opt_in_required(bool value);
+  private:
+  bool _internal_extended_opt_in_required() const;
+  void _internal_set_extended_opt_in_required(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:update_engine.StatusResult)
@@ -697,7 +717,9 @@ class StatusResult final :
   int64_t eol_date_;
   int32_t last_attempt_error_;
   int update_urgency_;
+  int64_t extended_date_;
   bool will_defer_update_;
+  bool extended_opt_in_required_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_update_5fengine_2eproto;
 };
@@ -1625,6 +1647,46 @@ inline void StatusResult::_internal_set_will_defer_update(bool value) {
 inline void StatusResult::set_will_defer_update(bool value) {
   _internal_set_will_defer_update(value);
   // @@protoc_insertion_point(field_set:update_engine.StatusResult.will_defer_update)
+}
+
+// int64 extended_date = 16;
+inline void StatusResult::clear_extended_date() {
+  extended_date_ = int64_t{0};
+}
+inline int64_t StatusResult::_internal_extended_date() const {
+  return extended_date_;
+}
+inline int64_t StatusResult::extended_date() const {
+  // @@protoc_insertion_point(field_get:update_engine.StatusResult.extended_date)
+  return _internal_extended_date();
+}
+inline void StatusResult::_internal_set_extended_date(int64_t value) {
+  
+  extended_date_ = value;
+}
+inline void StatusResult::set_extended_date(int64_t value) {
+  _internal_set_extended_date(value);
+  // @@protoc_insertion_point(field_set:update_engine.StatusResult.extended_date)
+}
+
+// bool extended_opt_in_required = 17;
+inline void StatusResult::clear_extended_opt_in_required() {
+  extended_opt_in_required_ = false;
+}
+inline bool StatusResult::_internal_extended_opt_in_required() const {
+  return extended_opt_in_required_;
+}
+inline bool StatusResult::extended_opt_in_required() const {
+  // @@protoc_insertion_point(field_get:update_engine.StatusResult.extended_opt_in_required)
+  return _internal_extended_opt_in_required();
+}
+inline void StatusResult::_internal_set_extended_opt_in_required(bool value) {
+  
+  extended_opt_in_required_ = value;
+}
+inline void StatusResult::set_extended_opt_in_required(bool value) {
+  _internal_set_extended_opt_in_required(value);
+  // @@protoc_insertion_point(field_set:update_engine.StatusResult.extended_opt_in_required)
 }
 
 // -------------------------------------------------------------------
