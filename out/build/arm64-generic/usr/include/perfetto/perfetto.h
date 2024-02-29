@@ -1882,6 +1882,8 @@ class TraceConfig;
 class TraceStats;
 class TracingServiceCapabilities;
 class TracingServiceState;
+class SyncClockRequest;
+class SyncClockResponse;
 
 }  // namespace gen
 }  // namespace protos
@@ -1896,6 +1898,8 @@ using TraceStats = ::perfetto::protos::gen::TraceStats;
 using TracingServiceCapabilities =
     ::perfetto::protos::gen::TracingServiceCapabilities;
 using TracingServiceState = ::perfetto::protos::gen::TracingServiceState;
+using SyncClockRequest = ::perfetto::protos::gen::SyncClockRequest;
+using SyncClockResponse = ::perfetto::protos::gen::SyncClockResponse;
 
 }  // namespace perfetto
 
@@ -9717,6 +9721,7 @@ class ProfilePacket;
 class ProfiledFrameSymbols;
 class ProtoLogMessage;
 class ProtoLogViewerConfig;
+class RemoteClockSync;
 class ShellHandlerMappings;
 class ShellTransition;
 class SmapsPacket;
@@ -9934,6 +9939,8 @@ class TracePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes v8_code_move() const { return at<103>().as_bytes(); }
   bool has_android_input_event() const { return at<106>().valid(); }
   ::protozero::ConstBytes android_input_event() const { return at<106>().as_bytes(); }
+  bool has_remote_clock_sync() const { return at<107>().valid(); }
+  ::protozero::ConstBytes remote_clock_sync() const { return at<107>().as_bytes(); }
   bool has_for_testing() const { return at<900>().valid(); }
   ::protozero::ConstBytes for_testing() const { return at<900>().as_bytes(); }
   bool has_trusted_uid() const { return at<3>().valid(); }
@@ -10038,6 +10045,7 @@ class TracePacket : public ::protozero::Message {
     kV8RegExpCodeFieldNumber = 102,
     kV8CodeMoveFieldNumber = 103,
     kAndroidInputEventFieldNumber = 106,
+    kRemoteClockSyncFieldNumber = 107,
     kForTestingFieldNumber = 900,
     kTrustedUidFieldNumber = 3,
     kTrustedPacketSequenceIdFieldNumber = 10,
@@ -11150,6 +11158,20 @@ class TracePacket : public ::protozero::Message {
   static constexpr FieldMetadata_AndroidInputEvent kAndroidInputEvent{};
   template <typename T = AndroidInputEvent> T* set_android_input_event() {
     return BeginNestedMessage<T>(106);
+  }
+
+
+  using FieldMetadata_RemoteClockSync =
+    ::protozero::proto_utils::FieldMetadata<
+      107,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      RemoteClockSync,
+      TracePacket>;
+
+  static constexpr FieldMetadata_RemoteClockSync kRemoteClockSync{};
+  template <typename T = RemoteClockSync> T* set_remote_clock_sync() {
+    return BeginNestedMessage<T>(107);
   }
 
 
@@ -33017,6 +33039,7 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj
     kAtraceAppsFieldNumber = 3,
     kBufferSizeKbFieldNumber = 10,
     kDrainPeriodMsFieldNumber = 11,
+    kDrainBufferPercentFieldNumber = 26,
     kCompactSchedFieldNumber = 12,
     kPrintFilterFieldNumber = 22,
     kSymbolizeKsymsFieldNumber = 13,
@@ -33075,6 +33098,10 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj
   bool has_drain_period_ms() const { return _has_field_[11]; }
   uint32_t drain_period_ms() const { return drain_period_ms_; }
   void set_drain_period_ms(uint32_t value) { drain_period_ms_ = value; _has_field_.set(11); }
+
+  bool has_drain_buffer_percent() const { return _has_field_[26]; }
+  uint32_t drain_buffer_percent() const { return drain_buffer_percent_; }
+  void set_drain_buffer_percent(uint32_t value) { drain_buffer_percent_ = value; _has_field_.set(26); }
 
   bool has_compact_sched() const { return _has_field_[12]; }
   const FtraceConfig_CompactSchedConfig& compact_sched() const { return *compact_sched_; }
@@ -33147,6 +33174,7 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj
   std::vector<std::string> atrace_apps_;
   uint32_t buffer_size_kb_{};
   uint32_t drain_period_ms_{};
+  uint32_t drain_buffer_percent_{};
   ::protozero::CopyablePtr<FtraceConfig_CompactSchedConfig> compact_sched_;
   ::protozero::CopyablePtr<FtraceConfig_PrintFilter> print_filter_;
   bool symbolize_ksyms_{};
@@ -33166,7 +33194,7 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<26> _has_field_{};
+  std::bitset<27> _has_field_{};
 };
 
 
@@ -38465,7 +38493,7 @@ const char* FtraceConfig_KsymsMemPolicy_Name(::perfetto::protos::pbzero::FtraceC
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class FtraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/25, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class FtraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/26, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   FtraceConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit FtraceConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -38480,6 +38508,8 @@ class FtraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_I
   uint32_t buffer_size_kb() const { return at<10>().as_uint32(); }
   bool has_drain_period_ms() const { return at<11>().valid(); }
   uint32_t drain_period_ms() const { return at<11>().as_uint32(); }
+  bool has_drain_buffer_percent() const { return at<26>().valid(); }
+  uint32_t drain_buffer_percent() const { return at<26>().as_uint32(); }
   bool has_compact_sched() const { return at<12>().valid(); }
   ::protozero::ConstBytes compact_sched() const { return at<12>().as_bytes(); }
   bool has_print_filter() const { return at<22>().valid(); }
@@ -38519,6 +38549,7 @@ class FtraceConfig : public ::protozero::Message {
     kAtraceAppsFieldNumber = 3,
     kBufferSizeKbFieldNumber = 10,
     kDrainPeriodMsFieldNumber = 11,
+    kDrainBufferPercentFieldNumber = 26,
     kCompactSchedFieldNumber = 12,
     kPrintFilterFieldNumber = 22,
     kSymbolizeKsymsFieldNumber = 13,
@@ -38648,6 +38679,24 @@ class FtraceConfig : public ::protozero::Message {
   static constexpr FieldMetadata_DrainPeriodMs kDrainPeriodMs{};
   void set_drain_period_ms(uint32_t value) {
     static constexpr uint32_t field_id = FieldMetadata_DrainPeriodMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DrainBufferPercent =
+    ::protozero::proto_utils::FieldMetadata<
+      26,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      FtraceConfig>;
+
+  static constexpr FieldMetadata_DrainBufferPercent kDrainBufferPercent{};
+  void set_drain_buffer_percent(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DrainBufferPercent::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
@@ -59584,10 +59633,11 @@ enum HwcCompositionType : int32_t {
   HWC_TYPE_SOLID_COLOR = 3,
   HWC_TYPE_CURSOR = 4,
   HWC_TYPE_SIDEBAND = 5,
+  HWC_TYPE_DISPLAY_DECORATION = 6,
 };
 
 constexpr HwcCompositionType HwcCompositionType_MIN = HwcCompositionType::HWC_TYPE_UNSPECIFIED;
-constexpr HwcCompositionType HwcCompositionType_MAX = HwcCompositionType::HWC_TYPE_SIDEBAND;
+constexpr HwcCompositionType HwcCompositionType_MAX = HwcCompositionType::HWC_TYPE_DISPLAY_DECORATION;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -59610,6 +59660,9 @@ const char* HwcCompositionType_Name(::perfetto::protos::pbzero::HwcCompositionTy
 
   case ::perfetto::protos::pbzero::HwcCompositionType::HWC_TYPE_SIDEBAND:
     return "HWC_TYPE_SIDEBAND";
+
+  case ::perfetto::protos::pbzero::HwcCompositionType::HWC_TYPE_DISPLAY_DECORATION:
+    return "HWC_TYPE_DISPLAY_DECORATION";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -151873,6 +151926,116 @@ class TranslationTable : public ::protozero::Message {
 } // Namespace.
 } // Namespace.
 #endif  // Include guard.
+// gen_amalgamated begin header: gen/protos/perfetto/trace/remote_clock_sync.pbzero.h
+// Autogenerated by the ProtoZero compiler plugin. DO NOT EDIT.
+
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_REMOTE_CLOCK_SYNC_PROTO_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_REMOTE_CLOCK_SYNC_PROTO_H_
+
+#include <stddef.h>
+#include <stdint.h>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/field_writer.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/message.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/packed_repeated_fields.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/proto_decoder.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/proto_utils.h"
+
+namespace perfetto {
+namespace protos {
+namespace pbzero {
+
+class ClockSnapshot;
+class RemoteClockSync_SyncedClocks;
+
+class RemoteClockSync_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+ public:
+  RemoteClockSync_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit RemoteClockSync_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit RemoteClockSync_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_synced_clocks() const { return at<1>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> synced_clocks() const { return GetRepeated<::protozero::ConstBytes>(1); }
+};
+
+class RemoteClockSync : public ::protozero::Message {
+ public:
+  using Decoder = RemoteClockSync_Decoder;
+  enum : int32_t {
+    kSyncedClocksFieldNumber = 1,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.RemoteClockSync"; }
+
+  using SyncedClocks = ::perfetto::protos::pbzero::RemoteClockSync_SyncedClocks;
+
+  using FieldMetadata_SyncedClocks =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      RemoteClockSync_SyncedClocks,
+      RemoteClockSync>;
+
+  static constexpr FieldMetadata_SyncedClocks kSyncedClocks{};
+  template <typename T = RemoteClockSync_SyncedClocks> T* add_synced_clocks() {
+    return BeginNestedMessage<T>(1);
+  }
+
+};
+
+class RemoteClockSync_SyncedClocks_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  RemoteClockSync_SyncedClocks_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit RemoteClockSync_SyncedClocks_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit RemoteClockSync_SyncedClocks_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_client_clocks() const { return at<2>().valid(); }
+  ::protozero::ConstBytes client_clocks() const { return at<2>().as_bytes(); }
+  bool has_host_clocks() const { return at<3>().valid(); }
+  ::protozero::ConstBytes host_clocks() const { return at<3>().as_bytes(); }
+};
+
+class RemoteClockSync_SyncedClocks : public ::protozero::Message {
+ public:
+  using Decoder = RemoteClockSync_SyncedClocks_Decoder;
+  enum : int32_t {
+    kClientClocksFieldNumber = 2,
+    kHostClocksFieldNumber = 3,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.RemoteClockSync.SyncedClocks"; }
+
+
+  using FieldMetadata_ClientClocks =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ClockSnapshot,
+      RemoteClockSync_SyncedClocks>;
+
+  static constexpr FieldMetadata_ClientClocks kClientClocks{};
+  template <typename T = ClockSnapshot> T* set_client_clocks() {
+    return BeginNestedMessage<T>(2);
+  }
+
+
+  using FieldMetadata_HostClocks =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ClockSnapshot,
+      RemoteClockSync_SyncedClocks>;
+
+  static constexpr FieldMetadata_HostClocks kHostClocks{};
+  template <typename T = ClockSnapshot> T* set_host_clocks() {
+    return BeginNestedMessage<T>(3);
+  }
+
+};
+
+} // Namespace.
+} // Namespace.
+} // Namespace.
+#endif  // Include guard.
 // gen_amalgamated begin header: gen/protos/perfetto/trace/trace_packet_defaults.pbzero.h
 // Autogenerated by the ProtoZero compiler plugin. DO NOT EDIT.
 
@@ -160501,6 +160664,167 @@ class PERFETTO_EXPORT_COMPONENT InitializeConnectionRequest : public ::protozero
 }  // namespace gen
 
 #endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_IPC_PRODUCER_PORT_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/ipc/relay_port.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_IPC_RELAY_PORT_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_IPC_RELAY_PORT_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class SyncClockResponse;
+class SyncClockRequest;
+class SyncClockRequest_Clock;
+enum SyncClockRequest_Phase : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+enum SyncClockRequest_Phase : int {
+  SyncClockRequest_Phase_PING = 1,
+  SyncClockRequest_Phase_UPDATE = 2,
+};
+
+class PERFETTO_EXPORT_COMPONENT SyncClockResponse : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+  };
+
+  SyncClockResponse();
+  ~SyncClockResponse() override;
+  SyncClockResponse(SyncClockResponse&&) noexcept;
+  SyncClockResponse& operator=(SyncClockResponse&&);
+  SyncClockResponse(const SyncClockResponse&);
+  SyncClockResponse& operator=(const SyncClockResponse&);
+  bool operator==(const SyncClockResponse&) const;
+  bool operator!=(const SyncClockResponse& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+ private:
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<2> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT SyncClockRequest : public ::protozero::CppMessageObj {
+ public:
+  using Clock = SyncClockRequest_Clock;
+  using Phase = SyncClockRequest_Phase;
+  static constexpr auto PING = SyncClockRequest_Phase_PING;
+  static constexpr auto UPDATE = SyncClockRequest_Phase_UPDATE;
+  static constexpr auto Phase_MIN = SyncClockRequest_Phase_PING;
+  static constexpr auto Phase_MAX = SyncClockRequest_Phase_UPDATE;
+  enum FieldNumbers {
+    kPhaseFieldNumber = 1,
+    kClocksFieldNumber = 2,
+  };
+
+  SyncClockRequest();
+  ~SyncClockRequest() override;
+  SyncClockRequest(SyncClockRequest&&) noexcept;
+  SyncClockRequest& operator=(SyncClockRequest&&);
+  SyncClockRequest(const SyncClockRequest&);
+  SyncClockRequest& operator=(const SyncClockRequest&);
+  bool operator==(const SyncClockRequest&) const;
+  bool operator!=(const SyncClockRequest& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_phase() const { return _has_field_[1]; }
+  SyncClockRequest_Phase phase() const { return phase_; }
+  void set_phase(SyncClockRequest_Phase value) { phase_ = value; _has_field_.set(1); }
+
+  const std::vector<SyncClockRequest_Clock>& clocks() const { return clocks_; }
+  std::vector<SyncClockRequest_Clock>* mutable_clocks() { return &clocks_; }
+  int clocks_size() const;
+  void clear_clocks();
+  SyncClockRequest_Clock* add_clocks();
+
+ private:
+  SyncClockRequest_Phase phase_{};
+  std::vector<SyncClockRequest_Clock> clocks_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT SyncClockRequest_Clock : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kClockIdFieldNumber = 1,
+    kTimestampFieldNumber = 2,
+  };
+
+  SyncClockRequest_Clock();
+  ~SyncClockRequest_Clock() override;
+  SyncClockRequest_Clock(SyncClockRequest_Clock&&) noexcept;
+  SyncClockRequest_Clock& operator=(SyncClockRequest_Clock&&);
+  SyncClockRequest_Clock(const SyncClockRequest_Clock&);
+  SyncClockRequest_Clock& operator=(const SyncClockRequest_Clock&);
+  bool operator==(const SyncClockRequest_Clock&) const;
+  bool operator!=(const SyncClockRequest_Clock& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_clock_id() const { return _has_field_[1]; }
+  uint32_t clock_id() const { return clock_id_; }
+  void set_clock_id(uint32_t value) { clock_id_ = value; _has_field_.set(1); }
+
+  bool has_timestamp() const { return _has_field_[2]; }
+  uint64_t timestamp() const { return timestamp_; }
+  void set_timestamp(uint64_t value) { timestamp_ = value; _has_field_.set(2); }
+
+ private:
+  uint32_t clock_id_{};
+  uint64_t timestamp_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_IPC_RELAY_PORT_PROTO_CPP_H_
 // gen_amalgamated begin header: gen/protos/perfetto/ipc/wire_protocol.gen.h
 // DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
 #ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_IPC_WIRE_PROTOCOL_PROTO_CPP_H_
