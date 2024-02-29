@@ -6315,6 +6315,7 @@ class StatusInfo final :
 
   enum : int {
     kTimeAvailableInFieldNumber = 1,
+    kTimeExpiringInFieldNumber = 2,
   };
   // uint64 time_available_in = 1;
   void clear_time_available_in() ;
@@ -6326,6 +6327,16 @@ class StatusInfo final :
   void _internal_set_time_available_in(::uint64_t value);
 
   public:
+  // uint64 time_expiring_in = 2;
+  void clear_time_expiring_in() ;
+  ::uint64_t time_expiring_in() const;
+  void set_time_expiring_in(::uint64_t value);
+
+  private:
+  ::uint64_t _internal_time_expiring_in() const;
+  void _internal_set_time_expiring_in(::uint64_t value);
+
+  public:
   // @@protoc_insertion_point(class_scope:user_data_auth.StatusInfo)
  private:
   class _Internal;
@@ -6335,6 +6346,7 @@ class StatusInfo final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::uint64_t time_available_in_;
+    ::uint64_t time_expiring_in_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -27215,6 +27227,26 @@ inline ::uint64_t StatusInfo::_internal_time_available_in() const {
 inline void StatusInfo::_internal_set_time_available_in(::uint64_t value) {
   ;
   _impl_.time_available_in_ = value;
+}
+
+// uint64 time_expiring_in = 2;
+inline void StatusInfo::clear_time_expiring_in() {
+  _impl_.time_expiring_in_ = ::uint64_t{0u};
+}
+inline ::uint64_t StatusInfo::time_expiring_in() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.StatusInfo.time_expiring_in)
+  return _internal_time_expiring_in();
+}
+inline void StatusInfo::set_time_expiring_in(::uint64_t value) {
+  _internal_set_time_expiring_in(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.StatusInfo.time_expiring_in)
+}
+inline ::uint64_t StatusInfo::_internal_time_expiring_in() const {
+  return _impl_.time_expiring_in_;
+}
+inline void StatusInfo::_internal_set_time_expiring_in(::uint64_t value) {
+  ;
+  _impl_.time_expiring_in_ = value;
 }
 
 // -------------------------------------------------------------------

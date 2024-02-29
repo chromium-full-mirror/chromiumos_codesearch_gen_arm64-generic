@@ -65,6 +65,24 @@ struct MojomTypeTraits<::ash::heartd::mojom::ActionDataView> {
 namespace ash::heartd::mojom {
 
 
+enum class HeartbeatResponse : int32_t {
+  
+  kSuccess = 0,
+  
+  kRateLimit = 1,
+  
+  kNotAllowed = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, HeartbeatResponse value);
+inline bool IsKnownEnumValue(HeartbeatResponse value) {
+  return internal::HeartbeatResponse_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class ServiceName : int32_t {
   
   kUnmappedEnumField = 0,
@@ -208,6 +226,10 @@ class ActionDataView {
 namespace std {
 
 template <>
+struct hash<::ash::heartd::mojom::HeartbeatResponse>
+    : public mojo::internal::EnumHashImpl<::ash::heartd::mojom::HeartbeatResponse> {};
+
+template <>
 struct hash<::ash::heartd::mojom::ServiceName>
     : public mojo::internal::EnumHashImpl<::ash::heartd::mojom::ServiceName> {};
 
@@ -218,6 +240,26 @@ struct hash<::ash::heartd::mojom::ActionType>
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::heartd::mojom::HeartbeatResponse, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::heartd::mojom::HeartbeatResponse, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::heartd::mojom::HeartbeatResponse>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -354,6 +396,15 @@ inline void HeartbeatServiceArgumentDataView::GetActionsDataView(
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::heartd::mojom::HeartbeatResponse> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::heartd::mojom::HeartbeatResponse value);
+};
+
+} // namespace perfetto
 
 namespace perfetto {
 

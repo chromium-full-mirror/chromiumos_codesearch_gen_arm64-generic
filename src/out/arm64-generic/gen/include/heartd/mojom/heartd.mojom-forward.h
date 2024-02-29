@@ -27,6 +27,8 @@ class HeartbeatServiceArgumentDataView;
 class ActionDataView;
 
 
+enum class HeartbeatResponse : int32_t;
+
 enum class ServiceName : int32_t;
 
 enum class ActionType : int32_t;

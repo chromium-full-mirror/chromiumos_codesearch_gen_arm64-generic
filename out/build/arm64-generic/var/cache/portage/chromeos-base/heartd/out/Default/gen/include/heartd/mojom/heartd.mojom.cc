@@ -930,7 +930,7 @@ class Pacemaker_SendHeartbeat_ProxyToResponder : public ::mojo::internal::ProxyT
 #endif
 
   void Run(
-      );
+      HeartbeatResponse in_response);
 };
 
 bool Pacemaker_SendHeartbeat_ForwardToCallback::Accept(
@@ -945,8 +945,11 @@ bool Pacemaker_SendHeartbeat_ForwardToCallback::Accept(
   
   // Validation for Pacemaker.0
   bool success = true;
+  HeartbeatResponse p_response{};
   Pacemaker_SendHeartbeat_ResponseParamsDataView input_data_view(params, message);
   
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
   if (!success) {
     ReportValidationErrorForMessage(
         message,
@@ -955,14 +958,22 @@ bool Pacemaker_SendHeartbeat_ForwardToCallback::Accept(
     return false;
   }
   if (!callback_.is_null())
-    std::move(callback_).Run();
+    std::move(callback_).Run(
+std::move(p_response));
   return true;
 }
 
 void Pacemaker_SendHeartbeat_ProxyToResponder::Run(
-    ) {
+    HeartbeatResponse in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send reply ash::heartd::mojom::Pacemaker::SendHeartbeat");
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::heartd::mojom::Pacemaker::SendHeartbeat", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type HeartbeatResponse>");
+   });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
@@ -976,6 +987,8 @@ void Pacemaker_SendHeartbeat_ProxyToResponder::Run(
       ::ash::heartd::mojom::internal::Pacemaker_SendHeartbeat_ResponseParams_Data> params(
           message);
   params.Allocate();
+  mojo::internal::Serialize<::ash::heartd::mojom::HeartbeatResponse>(
+      in_response, &params->response);
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Pacemaker::Name_);
@@ -1311,18 +1324,27 @@ PacemakerAsyncWaiter::PacemakerAsyncWaiter(
 PacemakerAsyncWaiter::~PacemakerAsyncWaiter() = default;
 
 void PacemakerAsyncWaiter::SendHeartbeat(
-    ) {
+    HeartbeatResponse* out_response) {
   base::RunLoop loop;
   proxy_->SendHeartbeat(
       base::BindOnce(
-          [](base::RunLoop* loop) {
+          [](base::RunLoop* loop,
+             HeartbeatResponse* out_response
+,
+             HeartbeatResponse response) {*out_response = std::move(response);
             loop->Quit();
           },
-          &loop));
+          &loop,
+          out_response));
   loop.Run();
 }
 
-
+HeartbeatResponse PacemakerAsyncWaiter::SendHeartbeat(
+    ) {
+  HeartbeatResponse async_wait_result;
+  SendHeartbeat(&async_wait_result);
+  return async_wait_result;
+}
 
 void PacemakerAsyncWaiter::StopMonitor(
     ) {

@@ -219,6 +219,10 @@ class BRILLO_EXPORT Platform {
   Platform(const Platform&) = delete;
   Platform& operator=(const Platform&) = delete;
 
+  Platform(std::unique_ptr<brillo::LoopDeviceManager> loop_device_manager,
+           std::unique_ptr<brillo::LogicalVolumeManager> lvm,
+           std::unique_ptr<crossystem::Crossystem> crossystem);
+
   virtual ~Platform();
 
   // Calls the platform mount
@@ -795,6 +799,13 @@ class BRILLO_EXPORT Platform {
   //   encounted and false is returned, target will be cleared.
   virtual bool ReadLink(const base::FilePath& path, base::FilePath* target);
 
+  // Return true if |path| is a symbolic link, even if the link target does
+  // not exist.
+  //
+  // Parameters
+  //   path - The path of the symbolic link to read
+  virtual bool IsLink(const base::FilePath& path) const;
+
   // Sets the atime and mtime of a file to the provided values, optionally
   // following symlinks.
   //
@@ -951,6 +962,8 @@ class BRILLO_EXPORT Platform {
   virtual brillo::LoopDeviceManager* GetLoopDeviceManager();
 
   virtual brillo::LogicalVolumeManager* GetLogicalVolumeManager();
+
+  virtual crossystem::Crossystem* GetCrosssystem();
 
   // Creates a random unguessable token. The result is a non-null token.
   virtual base::UnguessableToken CreateUnguessableToken();

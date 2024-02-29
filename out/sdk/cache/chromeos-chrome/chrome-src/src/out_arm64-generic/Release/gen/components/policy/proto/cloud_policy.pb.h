@@ -292,6 +292,7 @@ kDevToolsGenAiSettingsFieldNumber = 188,
 kDefaultDirectSocketsSettingFieldNumber = 190,
 kDirectSocketsAllowedForUrlsFieldNumber = 191,
 kDirectSocketsBlockedForUrlsFieldNumber = 192,
+kProductSpecificationsEnabledFieldNumber = 193,
 };
 // optional .enterprise_management.BooleanPolicyProto NewBaseUrlInheritanceBehaviorAllowed = 1;
 bool has_newbaseurlinheritancebehaviorallowed() const;
@@ -2507,6 +2508,24 @@ void unsafe_arena_set_allocated_directsocketsblockedforurls(
 ::enterprise_management::StringListPolicyProto* directsocketsblockedforurls);
 ::enterprise_management::StringListPolicyProto* unsafe_arena_release_directsocketsblockedforurls();
 
+// optional .enterprise_management.BooleanPolicyProto ProductSpecificationsEnabled = 193;
+bool has_productspecificationsenabled() const;
+private:
+bool _internal_has_productspecificationsenabled() const;
+public:
+void clear_productspecificationsenabled();
+const ::enterprise_management::BooleanPolicyProto& productspecificationsenabled() const;
+PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_productspecificationsenabled();
+::enterprise_management::BooleanPolicyProto* mutable_productspecificationsenabled();
+void set_allocated_productspecificationsenabled(::enterprise_management::BooleanPolicyProto* productspecificationsenabled);
+private:
+const ::enterprise_management::BooleanPolicyProto& _internal_productspecificationsenabled() const;
+::enterprise_management::BooleanPolicyProto* _internal_mutable_productspecificationsenabled();
+public:
+void unsafe_arena_set_allocated_productspecificationsenabled(
+::enterprise_management::BooleanPolicyProto* productspecificationsenabled);
+::enterprise_management::BooleanPolicyProto* unsafe_arena_release_productspecificationsenabled();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -2639,6 +2658,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::IntegerPolicyProto* defaultdirectsocketssetting_;
 ::enterprise_management::StringListPolicyProto* directsocketsallowedforurls_;
 ::enterprise_management::StringListPolicyProto* directsocketsblockedforurls_;
+::enterprise_management::BooleanPolicyProto* productspecificationsenabled_;
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
@@ -19986,6 +20006,93 @@ _has_bits_[1] &= ~0x00080000u;
 }
 postquantumkeyagreementenabled_ = postquantumkeyagreementenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.PostQuantumKeyAgreementEnabled)
+}
+
+// optional .enterprise_management.BooleanPolicyProto ProductSpecificationsEnabled = 193;
+inline bool CloudPolicySubProto1::_internal_has_productspecificationsenabled() const {
+bool value = (_has_bits_[3] & 0x08000000u) != 0;
+PROTOBUF_ASSUME(!value || productspecificationsenabled_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_productspecificationsenabled() const {
+return _internal_has_productspecificationsenabled();
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_productspecificationsenabled() const {
+const ::enterprise_management::BooleanPolicyProto* p = productspecificationsenabled_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::productspecificationsenabled() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.ProductSpecificationsEnabled)
+return _internal_productspecificationsenabled();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_productspecificationsenabled(
+::enterprise_management::BooleanPolicyProto* productspecificationsenabled) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(productspecificationsenabled_);
+}
+productspecificationsenabled_ = productspecificationsenabled;
+if (productspecificationsenabled) {
+_has_bits_[3] |= 0x08000000u;
+} else {
+_has_bits_[3] &= ~0x08000000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.ProductSpecificationsEnabled)
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_productspecificationsenabled() {
+_has_bits_[3] &= ~0x08000000u;
+::enterprise_management::BooleanPolicyProto* temp = productspecificationsenabled_;
+productspecificationsenabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_productspecificationsenabled() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.ProductSpecificationsEnabled)
+_has_bits_[3] &= ~0x08000000u;
+::enterprise_management::BooleanPolicyProto* temp = productspecificationsenabled_;
+productspecificationsenabled_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_productspecificationsenabled() {
+_has_bits_[3] |= 0x08000000u;
+if (productspecificationsenabled_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+productspecificationsenabled_ = p;
+}
+return productspecificationsenabled_;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_productspecificationsenabled() {
+::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_productspecificationsenabled();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.ProductSpecificationsEnabled)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_productspecificationsenabled(::enterprise_management::BooleanPolicyProto* productspecificationsenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(productspecificationsenabled_);
+}
+if (productspecificationsenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(productspecificationsenabled));
+if (message_arena != submessage_arena) {
+productspecificationsenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, productspecificationsenabled, submessage_arena);
+}
+_has_bits_[3] |= 0x08000000u;
+} else {
+_has_bits_[3] &= ~0x08000000u;
+}
+productspecificationsenabled_ = productspecificationsenabled;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.ProductSpecificationsEnabled)
 }
 
 // optional .enterprise_management.BooleanPolicyProto QuickOfficeForceFileDownloadEnabled = 111;

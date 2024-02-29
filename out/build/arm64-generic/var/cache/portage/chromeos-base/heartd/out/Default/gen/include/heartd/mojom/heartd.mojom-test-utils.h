@@ -67,8 +67,8 @@ class  PacemakerAsyncWaiter {
 
   ~PacemakerAsyncWaiter();
   void SendHeartbeat(
-      );
-  
+      HeartbeatResponse* out_response);
+  HeartbeatResponse SendHeartbeat();
   void StopMonitor(
       );
   

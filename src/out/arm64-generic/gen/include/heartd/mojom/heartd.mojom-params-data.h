@@ -108,6 +108,8 @@ class  Pacemaker_SendHeartbeat_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  int32_t response;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<Pacemaker_SendHeartbeat_ResponseParams_Data>;
@@ -115,7 +117,7 @@ class  Pacemaker_SendHeartbeat_ResponseParams_Data {
   Pacemaker_SendHeartbeat_ResponseParams_Data();
   ~Pacemaker_SendHeartbeat_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(Pacemaker_SendHeartbeat_ResponseParams_Data) == 8,
+static_assert(sizeof(Pacemaker_SendHeartbeat_ResponseParams_Data) == 16,
               "Bad sizeof(Pacemaker_SendHeartbeat_ResponseParams_Data)");
 class  Pacemaker_StopMonitor_Params_Data {
  public:
@@ -269,6 +271,16 @@ class Pacemaker_SendHeartbeat_ResponseParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) const {
+    auto data_value = data_->response;
+    return mojo::internal::Deserialize<::ash::heartd::mojom::HeartbeatResponse>(
+        data_value, output);
+  }
+  HeartbeatResponse response() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::heartd::mojom::HeartbeatResponse>(data_->response));
+  }
  private:
   internal::Pacemaker_SendHeartbeat_ResponseParams_Data* data_ = nullptr;
 };

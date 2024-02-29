@@ -26,12 +26,10 @@
 #include "google/protobuf/arenastring.h"
 #include "google/protobuf/generated_message_util.h"
 #include "google/protobuf/metadata_lite.h"
-#include "google/protobuf/generated_message_reflection.h"
-#include "google/protobuf/message.h"
+#include "google/protobuf/message_lite.h"
 #include "google/protobuf/repeated_field.h"  // IWYU pragma: export
 #include "google/protobuf/extension_set.h"  // IWYU pragma: export
-#include "google/protobuf/generated_enum_reflection.h"
-#include "google/protobuf/unknown_field_set.h"
+#include "google/protobuf/generated_enum_util.h"
 // @@protoc_insertion_point(includes)
 
 // Must be included last.
@@ -49,8 +47,6 @@ PROTOBUF_NAMESPACE_CLOSE
 struct TableStruct_fbpreprocessor_2eproto {
   static const ::uint32_t offsets[];
 };
-extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
-    descriptor_table_fbpreprocessor_2eproto;
 namespace fbpreprocessor {
 class DebugDump;
 struct DebugDumpDefaultTypeInternal;
@@ -86,8 +82,7 @@ bool WiFiDump_State_IsValid(int value);
 constexpr WiFiDump_State WiFiDump_State_State_MIN = static_cast<WiFiDump_State>(0);
 constexpr WiFiDump_State WiFiDump_State_State_MAX = static_cast<WiFiDump_State>(2);
 constexpr int WiFiDump_State_State_ARRAYSIZE = 2 + 1;
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
-WiFiDump_State_descriptor();
+const std::string& WiFiDump_State_Name(WiFiDump_State value);
 template <typename T>
 const std::string& WiFiDump_State_Name(T value) {
   static_assert(std::is_same<T, WiFiDump_State>::value ||
@@ -95,16 +90,8 @@ const std::string& WiFiDump_State_Name(T value) {
                 "Incorrect type passed to State_Name().");
   return WiFiDump_State_Name(static_cast<WiFiDump_State>(value));
 }
-template <>
-inline const std::string& WiFiDump_State_Name(WiFiDump_State value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfDenseEnum<WiFiDump_State_descriptor,
-                                                 0, 2>(
-      static_cast<int>(value));
-}
-inline bool WiFiDump_State_Parse(absl::string_view name, WiFiDump_State* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<WiFiDump_State>(
-      WiFiDump_State_descriptor(), name, value);
-}
+const std::string& WiFiDump_State_Name(WiFiDump_State value);
+bool WiFiDump_State_Parse(absl::string_view name, WiFiDump_State* value);
 enum WiFiDump_Vendor : int {
   WiFiDump_Vendor_VENDOR_UNSPECIFIED = 0,
   WiFiDump_Vendor_IWLWIFI = 1,
@@ -120,8 +107,7 @@ bool WiFiDump_Vendor_IsValid(int value);
 constexpr WiFiDump_Vendor WiFiDump_Vendor_Vendor_MIN = static_cast<WiFiDump_Vendor>(0);
 constexpr WiFiDump_Vendor WiFiDump_Vendor_Vendor_MAX = static_cast<WiFiDump_Vendor>(3);
 constexpr int WiFiDump_Vendor_Vendor_ARRAYSIZE = 3 + 1;
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
-WiFiDump_Vendor_descriptor();
+const std::string& WiFiDump_Vendor_Name(WiFiDump_Vendor value);
 template <typename T>
 const std::string& WiFiDump_Vendor_Name(T value) {
   static_assert(std::is_same<T, WiFiDump_Vendor>::value ||
@@ -129,16 +115,8 @@ const std::string& WiFiDump_Vendor_Name(T value) {
                 "Incorrect type passed to Vendor_Name().");
   return WiFiDump_Vendor_Name(static_cast<WiFiDump_Vendor>(value));
 }
-template <>
-inline const std::string& WiFiDump_Vendor_Name(WiFiDump_Vendor value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfDenseEnum<WiFiDump_Vendor_descriptor,
-                                                 0, 3>(
-      static_cast<int>(value));
-}
-inline bool WiFiDump_Vendor_Parse(absl::string_view name, WiFiDump_Vendor* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<WiFiDump_Vendor>(
-      WiFiDump_Vendor_descriptor(), name, value);
-}
+const std::string& WiFiDump_Vendor_Name(WiFiDump_Vendor value);
+bool WiFiDump_Vendor_Parse(absl::string_view name, WiFiDump_Vendor* value);
 enum WiFiDump_Compression : int {
   WiFiDump_Compression_COMPRESSION_UNSPECIFIED = 0,
   WiFiDump_Compression_UNCOMPRESSED = 1,
@@ -154,8 +132,7 @@ bool WiFiDump_Compression_IsValid(int value);
 constexpr WiFiDump_Compression WiFiDump_Compression_Compression_MIN = static_cast<WiFiDump_Compression>(0);
 constexpr WiFiDump_Compression WiFiDump_Compression_Compression_MAX = static_cast<WiFiDump_Compression>(3);
 constexpr int WiFiDump_Compression_Compression_ARRAYSIZE = 3 + 1;
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
-WiFiDump_Compression_descriptor();
+const std::string& WiFiDump_Compression_Name(WiFiDump_Compression value);
 template <typename T>
 const std::string& WiFiDump_Compression_Name(T value) {
   static_assert(std::is_same<T, WiFiDump_Compression>::value ||
@@ -163,16 +140,8 @@ const std::string& WiFiDump_Compression_Name(T value) {
                 "Incorrect type passed to Compression_Name().");
   return WiFiDump_Compression_Name(static_cast<WiFiDump_Compression>(value));
 }
-template <>
-inline const std::string& WiFiDump_Compression_Name(WiFiDump_Compression value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfDenseEnum<WiFiDump_Compression_descriptor,
-                                                 0, 3>(
-      static_cast<int>(value));
-}
-inline bool WiFiDump_Compression_Parse(absl::string_view name, WiFiDump_Compression* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<WiFiDump_Compression>(
-      WiFiDump_Compression_descriptor(), name, value);
-}
+const std::string& WiFiDump_Compression_Name(WiFiDump_Compression value);
+bool WiFiDump_Compression_Parse(absl::string_view name, WiFiDump_Compression* value);
 enum DebugDump_Type : int {
   DebugDump_Type_TYPE_UNSPECIFIED = 0,
   DebugDump_Type_WIFI = 1,
@@ -186,8 +155,7 @@ bool DebugDump_Type_IsValid(int value);
 constexpr DebugDump_Type DebugDump_Type_Type_MIN = static_cast<DebugDump_Type>(0);
 constexpr DebugDump_Type DebugDump_Type_Type_MAX = static_cast<DebugDump_Type>(1);
 constexpr int DebugDump_Type_Type_ARRAYSIZE = 1 + 1;
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
-DebugDump_Type_descriptor();
+const std::string& DebugDump_Type_Name(DebugDump_Type value);
 template <typename T>
 const std::string& DebugDump_Type_Name(T value) {
   static_assert(std::is_same<T, DebugDump_Type>::value ||
@@ -195,16 +163,8 @@ const std::string& DebugDump_Type_Name(T value) {
                 "Incorrect type passed to Type_Name().");
   return DebugDump_Type_Name(static_cast<DebugDump_Type>(value));
 }
-template <>
-inline const std::string& DebugDump_Type_Name(DebugDump_Type value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfDenseEnum<DebugDump_Type_descriptor,
-                                                 0, 1>(
-      static_cast<int>(value));
-}
-inline bool DebugDump_Type_Parse(absl::string_view name, DebugDump_Type* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<DebugDump_Type>(
-      DebugDump_Type_descriptor(), name, value);
-}
+const std::string& DebugDump_Type_Name(DebugDump_Type value);
+bool DebugDump_Type_Parse(absl::string_view name, DebugDump_Type* value);
 
 // ===================================================================
 
@@ -212,7 +172,7 @@ inline bool DebugDump_Type_Parse(absl::string_view name, DebugDump_Type* value) 
 // -------------------------------------------------------------------
 
 class WiFiDump final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:fbpreprocessor.WiFiDump) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fbpreprocessor.WiFiDump) */ {
  public:
   inline WiFiDump() : WiFiDump(nullptr) {}
   ~WiFiDump() override;
@@ -243,22 +203,13 @@ class WiFiDump final :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
   static const WiFiDump& default_instance() {
     return *internal_default_instance();
   }
@@ -296,15 +247,9 @@ class WiFiDump final :
   WiFiDump* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
     return CreateMaybeMessage<WiFiDump>(arena);
   }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
   void CopyFrom(const WiFiDump& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const WiFiDump& from) {
-    WiFiDump::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
+  void MergeFrom(const WiFiDump& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -317,7 +262,7 @@ class WiFiDump final :
   private:
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(WiFiDump* other);
 
   private:
@@ -329,10 +274,7 @@ class WiFiDump final :
   explicit WiFiDump(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -346,9 +288,6 @@ class WiFiDump final :
   static constexpr State State_MIN = WiFiDump_State_State_MIN;
   static constexpr State State_MAX = WiFiDump_State_State_MAX;
   static constexpr int State_ARRAYSIZE = WiFiDump_State_State_ARRAYSIZE;
-  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* State_descriptor() {
-    return WiFiDump_State_descriptor();
-  }
   template <typename T>
   static inline const std::string& State_Name(T value) {
     return WiFiDump_State_Name(value);
@@ -368,9 +307,6 @@ class WiFiDump final :
   static constexpr Vendor Vendor_MIN = WiFiDump_Vendor_Vendor_MIN;
   static constexpr Vendor Vendor_MAX = WiFiDump_Vendor_Vendor_MAX;
   static constexpr int Vendor_ARRAYSIZE = WiFiDump_Vendor_Vendor_ARRAYSIZE;
-  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Vendor_descriptor() {
-    return WiFiDump_Vendor_descriptor();
-  }
   template <typename T>
   static inline const std::string& Vendor_Name(T value) {
     return WiFiDump_Vendor_Name(value);
@@ -390,9 +326,6 @@ class WiFiDump final :
   static constexpr Compression Compression_MIN = WiFiDump_Compression_Compression_MIN;
   static constexpr Compression Compression_MAX = WiFiDump_Compression_Compression_MAX;
   static constexpr int Compression_ARRAYSIZE = WiFiDump_Compression_Compression_ARRAYSIZE;
-  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Compression_descriptor() {
-    return WiFiDump_Compression_descriptor();
-  }
   template <typename T>
   static inline const std::string& Compression_Name(T value) {
     return WiFiDump_Compression_Name(value);
@@ -478,7 +411,7 @@ class WiFiDump final :
 };// -------------------------------------------------------------------
 
 class DebugDump final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:fbpreprocessor.DebugDump) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fbpreprocessor.DebugDump) */ {
  public:
   inline DebugDump() : DebugDump(nullptr) {}
   ~DebugDump() override;
@@ -509,22 +442,13 @@ class DebugDump final :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
   static const DebugDump& default_instance() {
     return *internal_default_instance();
   }
@@ -562,15 +486,9 @@ class DebugDump final :
   DebugDump* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
     return CreateMaybeMessage<DebugDump>(arena);
   }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
   void CopyFrom(const DebugDump& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const DebugDump& from) {
-    DebugDump::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
+  void MergeFrom(const DebugDump& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -583,7 +501,7 @@ class DebugDump final :
   private:
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(DebugDump* other);
 
   private:
@@ -595,10 +513,7 @@ class DebugDump final :
   explicit DebugDump(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -611,9 +526,6 @@ class DebugDump final :
   static constexpr Type Type_MIN = DebugDump_Type_Type_MIN;
   static constexpr Type Type_MAX = DebugDump_Type_Type_MAX;
   static constexpr int Type_ARRAYSIZE = DebugDump_Type_Type_ARRAYSIZE;
-  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Type_descriptor() {
-    return DebugDump_Type_descriptor();
-  }
   template <typename T>
   static inline const std::string& Type_Name(T value) {
     return DebugDump_Type_Name(value);
@@ -670,7 +582,7 @@ class DebugDump final :
 };// -------------------------------------------------------------------
 
 class DebugDumps final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:fbpreprocessor.DebugDumps) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fbpreprocessor.DebugDumps) */ {
  public:
   inline DebugDumps() : DebugDumps(nullptr) {}
   ~DebugDumps() override;
@@ -701,22 +613,13 @@ class DebugDumps final :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
   static const DebugDumps& default_instance() {
     return *internal_default_instance();
   }
@@ -754,15 +657,9 @@ class DebugDumps final :
   DebugDumps* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
     return CreateMaybeMessage<DebugDumps>(arena);
   }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
   void CopyFrom(const DebugDumps& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const DebugDumps& from) {
-    DebugDumps::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
+  void MergeFrom(const DebugDumps& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -775,7 +672,7 @@ class DebugDumps final :
   private:
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(DebugDumps* other);
 
   private:
@@ -787,10 +684,7 @@ class DebugDumps final :
   explicit DebugDumps(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -1133,27 +1027,11 @@ PROTOBUF_NAMESPACE_OPEN
 template <>
 struct is_proto_enum<::fbpreprocessor::WiFiDump_State> : std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor<::fbpreprocessor::WiFiDump_State>() {
-  return ::fbpreprocessor::WiFiDump_State_descriptor();
-}
-template <>
 struct is_proto_enum<::fbpreprocessor::WiFiDump_Vendor> : std::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor<::fbpreprocessor::WiFiDump_Vendor>() {
-  return ::fbpreprocessor::WiFiDump_Vendor_descriptor();
-}
 template <>
 struct is_proto_enum<::fbpreprocessor::WiFiDump_Compression> : std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor<::fbpreprocessor::WiFiDump_Compression>() {
-  return ::fbpreprocessor::WiFiDump_Compression_descriptor();
-}
-template <>
 struct is_proto_enum<::fbpreprocessor::DebugDump_Type> : std::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor<::fbpreprocessor::DebugDump_Type>() {
-  return ::fbpreprocessor::DebugDump_Type_descriptor();
-}
 
 PROTOBUF_NAMESPACE_CLOSE
 

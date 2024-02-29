@@ -75,6 +75,7 @@ class BRILLO_EXPORT FakePlatform : public Platform {
   bool CreateSymbolicLink(const base::FilePath& path,
                           const base::FilePath& target) override;
   bool ReadLink(const base::FilePath& path, base::FilePath* target) override;
+  bool IsLink(const base::FilePath& path) const override;
 
   bool SetFileTimes(const base::FilePath& path,
                     const struct timespec& atime,
@@ -197,9 +198,6 @@ class BRILLO_EXPORT FakePlatform : public Platform {
   std::optional<std::vector<bool>> AreDirectoriesMounted(
       const std::vector<base::FilePath>& directories) override;
   base::FilePath GetStatefulDevice() override;
-  brillo::LoopDeviceManager* GetLoopDeviceManager() override;
-  brillo::LogicalVolumeManager* GetLogicalVolumeManager() override;
-  brillo::MockLogicalVolumeManager* GetMockLogicalVolumeManager();
   base::UnguessableToken CreateUnguessableToken() override;
 
  private:
@@ -239,14 +237,8 @@ class BRILLO_EXPORT FakePlatform : public Platform {
   base::FilePath ResolveMountPath(const base::FilePath& path) const;
   base::FilePath TestFilePath(const base::FilePath& path) const;
   base::FilePath StripTestFilePath(const base::FilePath& path) const;
-  // TODO(dlunev): consider making IsLink a part of platform API.
-  bool IsLink(const base::FilePath& path) const;
 
   Platform real_platform_;
-  std::unique_ptr<brillo::fake::FakeLoopDeviceManager>
-      fake_loop_device_manager_;
-
-  std::unique_ptr<brillo::MockLogicalVolumeManager> mock_lvm_;
 
   std::string* old_salt_ = nullptr;
 

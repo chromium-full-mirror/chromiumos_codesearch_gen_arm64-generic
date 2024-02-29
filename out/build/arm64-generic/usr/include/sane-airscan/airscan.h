@@ -964,11 +964,15 @@ ip_straddr_from_sockaddr(const struct sockaddr *addr, bool withzone);
  * AF_INET, AF_INET6, and AF_UNIX are supported
  *
  * Port will not be appended, if it matches provided default port
+ *
  * If `withzone' is true, zone suffix will be appended, when appropriate
+ *
+ * If `withlocalhost` is true and address is 127.0.0.1 or ::1,
+ * "localhost" will be used instead of the IP address literal
  */
 ip_straddr
 ip_straddr_from_sockaddr_dport (const struct sockaddr *addr,
-        int dport, bool withzone);
+        int dport, bool withzone, bool withlocalhost);
 
 /* Check if address is link-local
  * af must be AF_INET or AF_INET6
@@ -1154,10 +1158,19 @@ ip_addrset_is_intersect (const ip_addrset *set, const ip_addrset *set2);
 bool
 ip_addrset_on_network (const ip_addrset *set, ip_network net);
 
+/* Check if address set has some addresses of the specified
+ * address family
+ */
+bool
+ip_addrset_has_af (const ip_addrset *set, int af);
+
 /* Create user-friendly string out of set of addresses, containing
  * in the ip_addrset:
  *   * addresses are sorted, IP4 addresses goes first
  *   * link-local addresses are skipped, if there are non-link-local ones
+ *
+ * Caller must use mem_free to release the returned string when
+ * it is not needed anymore
  */
 char*
 ip_addrset_friendly_str (const ip_addrset *set, char *s);
@@ -1473,6 +1486,14 @@ eloop_cond_wait (pthread_cond_t *cond);
 const AvahiPoll*
 eloop_poll_get (void);
 
+/* ELOOP_CALL_BADID is the invalid callid which will never be returned by
+ * the eloop_call().
+ *
+ * It is safe to use ELOOP_CALL_BADID as parameter to eloop_call_cancel().
+ * Calling eloop_call_cancel(ELOOP_CALL_BADID) is guaranteed to do nothing.
+ */
+#define ELOOP_CALL_BADID        (~(uint64_t) 0)
+
 /* Call function on a context of event loop thread
  * The returned value can be supplied as a `callid'
  * parameter for the eloop_call_cancel() function
@@ -1618,16 +1639,53 @@ http_uri_str (http_uri *uri);
 /* Get URI's host address. If Host address is not literal, returns NULL
  */
 const struct sockaddr*
-http_uri_addr (http_uri *uri);
+http_uri_addr (const http_uri *uri);
 
 /* Get URI's address family. May return AF_UNSPEC,
  * if host address is not literal
  */
 static inline int
-http_uri_af (http_uri *uri)
+http_uri_af (const http_uri *uri)
 {
     const struct sockaddr *addr = http_uri_addr(uri);
     return addr ? addr->sa_family : AF_UNSPEC;
+}
+
+/* Tell if URI host is literal IP address
+ */
+static inline bool
+http_uri_is_literal (const http_uri *uri)
+{
+    return http_uri_addr(uri) != NULL;
+}
+
+/* Tell if URI IP address is loopback
+ */
+static inline bool
+http_uri_is_loopback (const http_uri *uri)
+{
+    const struct sockaddr *addr = http_uri_addr(uri);
+    const void            *ip = NULL;
+
+    if (addr == NULL) {
+        return false;
+    }
+
+    switch (addr->sa_family) {
+    case AF_INET:
+        ip = &(((struct sockaddr_in*) addr)->sin_addr);
+        break;
+
+    case AF_INET6:
+        ip = &(((struct sockaddr_in6*) addr)->sin6_addr);
+        break;
+    }
+
+    if (ip != NULL) {
+        return ip_is_loopback(addr->sa_family, ip);
+    }
+
+    return false;
 }
 
 /* Get URI path
@@ -1655,6 +1713,27 @@ http_uri_set_path (http_uri *uri, const char *path);
  */
 const char*
 http_uri_get_host (const http_uri *uri);
+
+/* http_uri_host_is checks if URI's host name is equal to the
+ * specified string.
+ *
+ * It does its best to compare domain names correctly, taking
+ * in account only significant difference (for example, the difference
+ * in upper/lower case * in domain names is not significant).
+ */
+bool
+http_uri_host_is (const http_uri *uri, const char *host);
+
+/* http_uri_host_is_literal returns true if URI uses literal
+ * IP address
+ */
+bool
+http_uri_host_is_literal (const http_uri *uri);
+
+/* Set URI host into the literal IP address.
+ */
+void
+http_uri_set_host_addr (http_uri *uri, ip_addr addr);
 
 /* Fix URI host: if `match` is NULL or uri's host matches `match`,
  * replace uri's host and port with values taken from the base_uri
@@ -1777,11 +1856,6 @@ http_client_cancel (http_client *client);
 void
 http_client_timeout (http_client *client, int timeout);
 
-/* Cancel all pending queries with matching address family and uintptr
- */
-void
-http_client_cancel_af_uintptr (http_client *client, int af, uintptr_t uintptr);
-
 /* Check if client has pending queries
  */
 bool
@@ -1826,6 +1900,17 @@ http_query_new_relative(http_client *client,
  */
 void
 http_query_timeout (http_query *q, int timeout);
+
+/* Set 'no_need_response_body' flag
+ *
+ * This flag notifies, that http_query issued is only interested
+ * in the HTTP response headers, not body
+ *
+ * If this flag is set, after successful reception of response
+ * HTTP header, errors in fetching response body is ignored
+ */
+void
+http_query_no_need_response_body (http_query *q);
 
 /* Set forcing port to be added to the Host header for this query.
  *
@@ -2545,6 +2630,7 @@ enum {
 #define DEVCAPS_FORMATS_SUPPORTED       \
     ((1 << ID_FORMAT_JPEG) |            \
      (1 << ID_FORMAT_PNG)  |            \
+     (1 << ID_FORMAT_TIFF) |            \
      (1 << ID_FORMAT_BMP))
 
 /* Supported color modes
@@ -2685,6 +2771,26 @@ SANE_Status
 devopt_get_option (devopt *opt, SANE_Int option, void *value);
 
 /******************** ZeroConf (device discovery) ********************/
+/* Due to the way how device discovery is implemented, resolving
+ * of device IP addresses are independent between IPv4/IPv6 protocols
+ * and between different network interfaces
+ *
+ * It means that some of device addresses may be already discovered,
+ * while others still pending
+ *
+ * From another hand, some of addresses that we hope to discover may
+ * be not available at all. For example, device may have IPv4 address
+ * but IPv6 address may be missed.
+ *
+ * So once we have at least one address discovered, we limit discovery
+ * of another addresses by this constant.
+ *
+ * This parameter is common for both MDNS and WSDD worlds
+ *
+ * The timeout is in milliseconds
+ */
+#define ZEROCONF_PUBLISH_DELAY  1000
+
 /* Common logging context for device discovery
  */
 extern log_ctx *zeroconf_log;
@@ -2745,6 +2851,12 @@ typedef struct {
     zeroconf_device   *device;    /* Device the finding points to */
     ll_node           list_node;  /* Node in device's list of findings */
 } zeroconf_finding;
+
+/* Compare two pointers to pointers to zeroconf_finding (zeroconf_finding**)
+ * by index+name, for qsort
+ */
+int
+zeroconf_finding_qsort_by_index_name (const void *p1, const void *p2);
 
 /* Publish the zeroconf_finding.
  *
@@ -2816,16 +2928,16 @@ zeroconf_devinfo_lookup (const char *ident);
 void
 zeroconf_devinfo_free (zeroconf_devinfo *devinfo);
 
-/* Check if initial scan still in progress
- */
-bool
-zeroconf_init_scan (void);
-
 /* Create new zeroconf_endpoint. Newly created endpoint
  * takes ownership of uri string
  */
 zeroconf_endpoint*
 zeroconf_endpoint_new (ID_PROTO proto, http_uri *uri);
+
+/* Free single zeroconf_endpoint
+ */
+void
+zeroconf_endpoint_free_single (zeroconf_endpoint *endpoint);
 
 /* Create a copy of zeroconf_endpoint list
  */
@@ -2846,6 +2958,13 @@ zeroconf_endpoint_list_sort (zeroconf_endpoint *list);
  */
 zeroconf_endpoint*
 zeroconf_endpoint_list_sort_dedup (zeroconf_endpoint *list);
+
+/* Check if list of endpoints already contains the given
+ * endpoint (i.e., endpoint with the same URI and protocol)
+ */
+bool
+zeroconf_endpoint_list_contains (const zeroconf_endpoint *list,
+        const zeroconf_endpoint *endpoint);
 
 /* Check if endpoints list contains a non-link-local address
  * of the specified address family
@@ -2869,6 +2988,93 @@ mdns_init (void);
  */
 void
 mdns_cleanup (void);
+
+/* mdns_resolver asynchronously resolves IP addresses using MDNS
+ */
+typedef struct mdns_resolver mdns_resolver;
+
+/* mdns_query represents a single mdns_resolver query
+ */
+typedef struct mdns_query mdns_query;
+
+/* mdns_resolver_new creates a new MDNS resolver
+ */
+mdns_resolver*
+mdns_resolver_new (int ifindex);
+
+/* mdns_resolver_free frees the mdns_resolver previously created
+ * by mdns_resolver_new()
+ */
+void
+mdns_resolver_free (mdns_resolver *resolver);
+
+/* mdns_resolver_cancel cancels all pending queries
+ */
+void
+mdns_resolver_cancel (mdns_resolver *resolver);
+
+/* mdns_resolver_has_pending checks if resolver has pending queries
+ */
+bool
+mdns_resolver_has_pending (mdns_resolver *resolver);
+
+/* mdns_query_submit submits a new MDNS query for the specified domain
+ * name. When resolving is done, successfully or not, callback will be
+ * called
+ *
+ * The ptr parameter is passed to the callback without any interpretation
+ * as a user-defined argument
+ *
+ * Answer is a set of discovered IP addresses. It is owned by resolver,
+ * callback should not free it and should not assume that it is still
+ * valid after return from callback
+ */
+mdns_query*
+mdns_query_submit (mdns_resolver *resolver,
+                   const char *name,
+                   void (*callback)(const mdns_query *query),
+                   void *ptr);
+
+/* mdns_query_cancel cancels the pending query. mdns_query memory will
+ * be released and callback will not be called
+ *
+ * Note, mdns_query pointer is valid when obtained from mdns_query_sumbit
+ * and until canceled or return from callback.
+ */
+void
+mdns_query_cancel (mdns_query *query);
+
+/* mdns_query_get_name returns domain name, as it was specified
+ * when query was submitted
+ */
+const char*
+mdns_query_get_name (const mdns_query *query);
+
+/* mdns_query_get_answer returns resolved addresses
+ */
+const ip_addrset*
+mdns_query_get_answer (const mdns_query *query);
+
+/* mdns_query_set_ptr gets the user-defined ptr, associated
+ * with query when it was submitted
+ */
+void*
+mdns_query_get_ptr (const mdns_query *query);
+
+/* mdns_device_count_by_model returns count of distinct devices
+ * with model names matching the specified parent.
+ *
+ * Several instances of the same device (i.e. printer vs scanner) are
+ * counted only once per network interface.
+ *
+ * WSDD uses this function to decide when to use extended discovery
+ * time (some devices are known to be hard for WD-Discovery)
+ *
+ * Pattern is the glob-style expression, applied to the model name
+ * of discovered devices.
+ */
+unsigned int
+mdns_device_count_by_model (int ifindex, const char *pattern);
 
 /******************** WS-Discovery ********************/
 /* Called by zeroconf to notify wsdd about initial scan timer expiration
@@ -3030,7 +3236,7 @@ typedef struct {
     int           x_res, y_res; /* X/Y resolution */
     ID_SOURCE     src;          /* Desired source */
     ID_COLORMODE  colormode;    /* Desired color mode */
-    ID_FORMAT     format;       /* Image format */
+    ID_FORMAT     format;       /* Desired image format */
 } proto_scan_params;
 
 /* proto_ctx represents request context
@@ -3055,6 +3261,9 @@ typedef struct {
     PROTO_OP             failed_op;          /* Failed operation */
     int                  failed_http_status; /* Its HTTP status */
     int                  failed_attempt;     /* Retry count, 0-based */
+
+    /* Extra context for image decoding */
+    ID_FORMAT            format_detected; /* Actual image format */
 } proto_ctx;
 
 /* proto_result represents decoded query results
@@ -3168,6 +3377,11 @@ struct image_decoder {
     error (*read_line) (image_decoder *decoder, void *buffer);
 };
 
+/* Detect image format by image data
+ */
+ID_FORMAT
+image_format_detect (const void *data, size_t size);
+
 /* Create JPEG image decoder
  */
 image_decoder*
@@ -3177,6 +3391,11 @@ image_decoder_jpeg_new (void);
  */
 image_decoder*
 image_decoder_png_new (void);
+
+/* Create TIFF image decoder
+ */
+image_decoder*
+image_decoder_tiff_new (void);
 
 /* Create BMP image decoder
  */
@@ -3261,6 +3480,49 @@ static inline error
 image_decoder_read_line (image_decoder *decoder, void *buffer)
 {
     return decoder->read_line(decoder, buffer);
+}
+
+/* image_decoder_create_all creates all decoders
+ * and fills array of decoders, indexed by ID_FORMAT
+ *
+ * Note, it is not guaranteed, that for all ID_FORMAT
+ * decoder will be created. Missed entries will be set
+ * to NULL. Be aware when using the filled array!
+ */
+static inline void
+image_decoder_create_all (image_decoder *decoders[NUM_ID_FORMAT])
+{
+    int i;
+
+    /* Fill entire array with NULLs
+     */
+    for (i = 0; i < NUM_ID_FORMAT; i ++) {
+        decoders[i] = NULL;
+    }
+
+    /* Create known decoders
+     */
+    decoders[ID_FORMAT_BMP] = image_decoder_bmp_new();
+    decoders[ID_FORMAT_JPEG] = image_decoder_jpeg_new();
+    decoders[ID_FORMAT_PNG] = image_decoder_png_new();
+    decoders[ID_FORMAT_TIFF] = image_decoder_tiff_new();
+}
+
+/* image_decoder_free_all destroys all decoders, previously
+ * created by image_decoder_create_all
+ */
+static inline void
+image_decoder_free_all (image_decoder *decoders[NUM_ID_FORMAT])
+{
+    int i;
+
+    for (i = 0; i < NUM_ID_FORMAT; i ++) {
+        image_decoder *decoder = decoders[i];
+        if (decoder != NULL) {
+            image_decoder_free(decoder);
+            decoders[i] = NULL; /* For sanity */
+        }
+    }
 }
 
 /******************** Mathematical Functions ********************/
@@ -3477,6 +3739,8 @@ log_panic (log_ctx *log, const char *fmt, ...);
 
 /******************** Initialization/Cleanup ********************/
 /* AIRSCAN_INIT_FLAGS represents airscan_init() flags
+ *
+ * These flags are mostly used for testing
  */
 typedef enum {
     AIRSCAN_INIT_NO_CONF        = (1 << 0),     // Don't load configuration
@@ -3494,6 +3758,11 @@ airscan_init (AIRSCAN_INIT_FLAGS flags, const char *log_msg);
  */
 void
 airscan_cleanup (const char *log_msg);
+
+/* Get init flags from the airscan_init call
+ */
+AIRSCAN_INIT_FLAGS
+airscan_get_init_flags (void);
 
 #ifdef  __cplusplus
 };

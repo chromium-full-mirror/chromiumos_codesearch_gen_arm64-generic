@@ -22,6 +22,32 @@ namespace ash {
 namespace heartd {
 namespace mojom {
 
+NOINLINE static const char* HeartbeatResponseToStringHelper(HeartbeatResponse value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case HeartbeatResponse::kSuccess:
+      return "kSuccess";
+    case HeartbeatResponse::kRateLimit:
+      return "kRateLimit";
+    case HeartbeatResponse::kNotAllowed:
+      return "kNotAllowed";
+    default:
+      return nullptr;
+  }
+}
+
+std::string HeartbeatResponseToString(HeartbeatResponse value) {
+  const char *str = HeartbeatResponseToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown HeartbeatResponse value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, HeartbeatResponse value) {
+  return os << HeartbeatResponseToString(value);
+}
+
 NOINLINE static const char* ServiceNameToStringHelper(ServiceName value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -282,7 +308,7 @@ bool Pacemaker_SendHeartbeat_ResponseParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -290,6 +316,11 @@ bool Pacemaker_SendHeartbeat_ResponseParams_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const Pacemaker_SendHeartbeat_ResponseParams_Data* object =
       static_cast<const Pacemaker_SendHeartbeat_ResponseParams_Data*>(data);
+
+
+  if (!::ash::heartd::mojom::internal::HeartbeatResponse_Data
+        ::Validate(object->response, validation_context))
+    return false;
 
   return true;
 }
@@ -347,6 +378,16 @@ Pacemaker_StopMonitor_ResponseParams_Data::Pacemaker_StopMonitor_ResponseParams_
 }  // namespace mojom
 }  // namespace heartd
 }  // namespace ash
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::heartd::mojom::HeartbeatResponse>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::heartd::mojom::HeartbeatResponse value) {
+  return std::move(context).WriteString(::ash::heartd::mojom::HeartbeatResponseToString(value));
+}
+
+} // namespace perfetto
 
 namespace perfetto {
 

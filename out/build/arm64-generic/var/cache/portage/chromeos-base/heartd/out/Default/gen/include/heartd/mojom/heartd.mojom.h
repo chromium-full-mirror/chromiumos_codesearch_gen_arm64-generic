@@ -186,7 +186,7 @@ class Pacemaker
   virtual ~Pacemaker() = default;
 
 
-  using SendHeartbeatCallback = base::OnceCallback<void()>;
+  using SendHeartbeatCallback = base::OnceCallback<void(HeartbeatResponse)>;
   
   virtual void SendHeartbeat(SendHeartbeatCallback callback) = 0;
 
