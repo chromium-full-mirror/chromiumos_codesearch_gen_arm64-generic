@@ -143,7 +143,8 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , /*decltype(_impl_.devtoolsgenaisettings_)*/nullptr
   , /*decltype(_impl_.defaultdirectsocketssetting_)*/nullptr
   , /*decltype(_impl_.directsocketsallowedforurls_)*/nullptr
-  , /*decltype(_impl_.directsocketsblockedforurls_)*/nullptr} {}
+  , /*decltype(_impl_.directsocketsblockedforurls_)*/nullptr
+  , /*decltype(_impl_.productspecificationsenabled_)*/nullptr} {}
 struct CloudPolicySubProto1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR CloudPolicySubProto1DefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CloudPolicySubProto1DefaultTypeInternal() {}
@@ -1012,6 +1013,10 @@ class CloudPolicySubProto1::_Internal {
   static void set_has_postquantumkeyagreementenabled(HasBits* has_bits) {
     (*has_bits)[1] |= 524288u;
   }
+  static const ::enterprise_management::BooleanPolicyProto& productspecificationsenabled(const CloudPolicySubProto1* msg);
+  static void set_has_productspecificationsenabled(HasBits* has_bits) {
+    (*has_bits)[3] |= 134217728u;
+  }
   static const ::enterprise_management::BooleanPolicyProto& quickofficeforcefiledownloadenabled(const CloudPolicySubProto1* msg);
   static void set_has_quickofficeforcefiledownloadenabled(HasBits* has_bits) {
     (*has_bits)[2] |= 1024u;
@@ -1507,6 +1512,10 @@ CloudPolicySubProto1::_Internal::postquantumkeyagreementenabled(const CloudPolic
   return *msg->_impl_.postquantumkeyagreementenabled_;
 }
 const ::enterprise_management::BooleanPolicyProto&
+CloudPolicySubProto1::_Internal::productspecificationsenabled(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.productspecificationsenabled_;
+}
+const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::quickofficeforcefiledownloadenabled(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.quickofficeforcefiledownloadenabled_;
 }
@@ -1998,6 +2007,10 @@ void CloudPolicySubProto1::clear_postquantumkeyagreementenabled() {
   if (_impl_.postquantumkeyagreementenabled_ != nullptr) _impl_.postquantumkeyagreementenabled_->Clear();
   _impl_._has_bits_[1] &= ~0x00080000u;
 }
+void CloudPolicySubProto1::clear_productspecificationsenabled() {
+  if (_impl_.productspecificationsenabled_ != nullptr) _impl_.productspecificationsenabled_->Clear();
+  _impl_._has_bits_[3] &= ~0x08000000u;
+}
 void CloudPolicySubProto1::clear_quickofficeforcefiledownloadenabled() {
   if (_impl_.quickofficeforcefiledownloadenabled_ != nullptr) _impl_.quickofficeforcefiledownloadenabled_->Clear();
   _impl_._has_bits_[2] &= ~0x00000400u;
@@ -2319,7 +2332,8 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
     , decltype(_impl_.devtoolsgenaisettings_){nullptr}
     , decltype(_impl_.defaultdirectsocketssetting_){nullptr}
     , decltype(_impl_.directsocketsallowedforurls_){nullptr}
-    , decltype(_impl_.directsocketsblockedforurls_){nullptr}};
+    , decltype(_impl_.directsocketsblockedforurls_){nullptr}
+    , decltype(_impl_.productspecificationsenabled_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
@@ -2691,6 +2705,9 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
   if ((from._impl_._has_bits_[3] & 0x04000000u) != 0) {
     _this->_impl_.directsocketsblockedforurls_ = new ::enterprise_management::StringListPolicyProto(*from._impl_.directsocketsblockedforurls_);
   }
+  if ((from._impl_._has_bits_[3] & 0x08000000u) != 0) {
+    _this->_impl_.productspecificationsenabled_ = new ::enterprise_management::BooleanPolicyProto(*from._impl_.productspecificationsenabled_);
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CloudPolicySubProto1)
 }
 
@@ -2822,6 +2839,7 @@ inline void CloudPolicySubProto1::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.defaultdirectsocketssetting_){nullptr}
     , decltype(_impl_.directsocketsallowedforurls_){nullptr}
     , decltype(_impl_.directsocketsblockedforurls_){nullptr}
+    , decltype(_impl_.productspecificationsenabled_){nullptr}
   };
 }
 
@@ -2959,6 +2977,7 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.defaultdirectsocketssetting_;
   if (this != internal_default_instance()) delete _impl_.directsocketsallowedforurls_;
   if (this != internal_default_instance()) delete _impl_.directsocketsblockedforurls_;
+  if (this != internal_default_instance()) delete _impl_.productspecificationsenabled_;
 }
 
 void CloudPolicySubProto1::SetCachedSize(int size) const {
@@ -3485,7 +3504,7 @@ void CloudPolicySubProto1::Clear() {
       _impl_.devtoolsgenaisettings_->Clear();
     }
   }
-  if (cached_has_bits & 0x07000000u) {
+  if (cached_has_bits & 0x0f000000u) {
     if (cached_has_bits & 0x01000000u) {
       ABSL_DCHECK(_impl_.defaultdirectsocketssetting_ != nullptr);
       _impl_.defaultdirectsocketssetting_->Clear();
@@ -3497,6 +3516,10 @@ void CloudPolicySubProto1::Clear() {
     if (cached_has_bits & 0x04000000u) {
       ABSL_DCHECK(_impl_.directsocketsblockedforurls_ != nullptr);
       _impl_.directsocketsblockedforurls_->Clear();
+    }
+    if (cached_has_bits & 0x08000000u) {
+      ABSL_DCHECK(_impl_.productspecificationsenabled_ != nullptr);
+      _impl_.productspecificationsenabled_->Clear();
     }
   }
   _impl_._has_bits_.Clear();
@@ -4616,6 +4639,15 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
           goto handle_unusual;
         }
         continue;
+      // optional .enterprise_management.BooleanPolicyProto ProductSpecificationsEnabled = 193;
+      case 193:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_productspecificationsenabled(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5510,6 +5542,13 @@ failure:
         _Internal::directsocketsblockedforurls(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.BooleanPolicyProto ProductSpecificationsEnabled = 193;
+  if (cached_has_bits & 0x08000000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(193, _Internal::productspecificationsenabled(this),
+        _Internal::productspecificationsenabled(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -6400,7 +6439,7 @@ failure:
     }
 
   }
-  if (cached_has_bits & 0x07000000u) {
+  if (cached_has_bits & 0x0f000000u) {
     // optional .enterprise_management.IntegerPolicyProto DefaultDirectSocketsSetting = 190;
     if (cached_has_bits & 0x01000000u) {
       total_size += 2 +
@@ -6420,6 +6459,13 @@ failure:
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.directsocketsblockedforurls_);
+    }
+
+    // optional .enterprise_management.BooleanPolicyProto ProductSpecificationsEnabled = 193;
+    if (cached_has_bits & 0x08000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.productspecificationsenabled_);
     }
 
   }
@@ -6958,7 +7004,7 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
           from._internal_devtoolsgenaisettings());
     }
   }
-  if (cached_has_bits & 0x07000000u) {
+  if (cached_has_bits & 0x0f000000u) {
     if (cached_has_bits & 0x01000000u) {
       _this->_internal_mutable_defaultdirectsocketssetting()->::enterprise_management::IntegerPolicyProto::MergeFrom(
           from._internal_defaultdirectsocketssetting());
@@ -6970,6 +7016,10 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
     if (cached_has_bits & 0x04000000u) {
       _this->_internal_mutable_directsocketsblockedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(
           from._internal_directsocketsblockedforurls());
+    }
+    if (cached_has_bits & 0x08000000u) {
+      _this->_internal_mutable_productspecificationsenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(
+          from._internal_productspecificationsenabled());
     }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -6994,8 +7044,8 @@ void CloudPolicySubProto1::InternalSwap(CloudPolicySubProto1* other) {
   swap(_impl_._has_bits_[2], other->_impl_._has_bits_[2]);
   swap(_impl_._has_bits_[3], other->_impl_._has_bits_[3]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.directsocketsblockedforurls_)
-      + sizeof(CloudPolicySubProto1::_impl_.directsocketsblockedforurls_)
+      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.productspecificationsenabled_)
+      + sizeof(CloudPolicySubProto1::_impl_.productspecificationsenabled_)
       - PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.newbaseurlinheritancebehaviorallowed_)>(
           reinterpret_cast<char*>(&_impl_.newbaseurlinheritancebehaviorallowed_),
           reinterpret_cast<char*>(&other->_impl_.newbaseurlinheritancebehaviorallowed_));

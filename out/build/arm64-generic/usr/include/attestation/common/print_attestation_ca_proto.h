@@ -4,7 +4,7 @@
 
 // THIS CODE IS GENERATED.
 // Generated with command:
-// ../../../../../../../tmp/portage/chromeos-base/attestation-0.0.1-r4308/work/attestation-0.0.1/libhwsec-foundation/utility/proto_print.py
+// ../../../../../../../tmp/portage/chromeos-base/attestation-0.0.1-r4309/work/attestation-0.0.1/libhwsec-foundation/utility/proto_print.py
 // --subdir common --proto-include attestation/proto_bindings --output-dir
 // /build/arm64-generic/var/cache/portage/chromeos-base/attestation/out/Default/gen/attestation/common
 // /build/arm64-generic/usr/include/chromeos/dbus/attestation/attestation_ca.proto
