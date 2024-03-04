@@ -723,6 +723,17 @@ class ControlProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool SetStyleTransferEnabled(
+      bool in_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void SetStyleTransferEnabledAsync(
+      bool in_enabled,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool SetBypassBlockNoiseCancellation(
       bool in_bypass,
       brillo::ErrorPtr* error,
@@ -2768,6 +2779,36 @@ class ControlProxy final : public ControlProxyInterface {
         "IsNoiseCancellationSupported",
         std::move(success_callback),
         std::move(error_callback));
+  }
+
+  bool SetStyleTransferEnabled(
+      bool in_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "SetStyleTransferEnabled",
+        error,
+        in_enabled);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void SetStyleTransferEnabledAsync(
+      bool in_enabled,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "SetStyleTransferEnabled",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_enabled);
   }
 
   bool SetBypassBlockNoiseCancellation(
