@@ -24,7 +24,6 @@
 #include "base/files/scoped_file.h"
 #include "base/functional/callback.h"
 #include "build/build_config.h"
-#include "third_party/abseil-cpp/absl/types/optional.h"
 
 #if BUILDFLAG(IS_WIN)
 #include "base/win/windows_types.h"
