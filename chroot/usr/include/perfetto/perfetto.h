@@ -33054,6 +33054,7 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj
     kPreserveFtraceBufferFieldNumber = 23,
     kUseMonotonicRawClockFieldNumber = 24,
     kInstanceNameFieldNumber = 25,
+    kBufferSizeLowerBoundFieldNumber = 27,
   };
 
   FtraceConfig();
@@ -33168,6 +33169,10 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj
   const std::string& instance_name() const { return instance_name_; }
   void set_instance_name(const std::string& value) { instance_name_ = value; _has_field_.set(25); }
 
+  bool has_buffer_size_lower_bound() const { return _has_field_[27]; }
+  bool buffer_size_lower_bound() const { return buffer_size_lower_bound_; }
+  void set_buffer_size_lower_bound(bool value) { buffer_size_lower_bound_ = value; _has_field_.set(27); }
+
  private:
   std::vector<std::string> ftrace_events_;
   std::vector<std::string> atrace_categories_;
@@ -33189,12 +33194,13 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj
   bool preserve_ftrace_buffer_{};
   bool use_monotonic_raw_clock_{};
   std::string instance_name_{};
+  bool buffer_size_lower_bound_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<27> _has_field_{};
+  std::bitset<28> _has_field_{};
 };
 
 
@@ -38493,7 +38499,7 @@ const char* FtraceConfig_KsymsMemPolicy_Name(::perfetto::protos::pbzero::FtraceC
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class FtraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/26, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class FtraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/27, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   FtraceConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit FtraceConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -38538,6 +38544,8 @@ class FtraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_I
   bool use_monotonic_raw_clock() const { return at<24>().as_bool(); }
   bool has_instance_name() const { return at<25>().valid(); }
   ::protozero::ConstChars instance_name() const { return at<25>().as_string(); }
+  bool has_buffer_size_lower_bound() const { return at<27>().valid(); }
+  bool buffer_size_lower_bound() const { return at<27>().as_bool(); }
 };
 
 class FtraceConfig : public ::protozero::Message {
@@ -38564,6 +38572,7 @@ class FtraceConfig : public ::protozero::Message {
     kPreserveFtraceBufferFieldNumber = 23,
     kUseMonotonicRawClockFieldNumber = 24,
     kInstanceNameFieldNumber = 25,
+    kBufferSizeLowerBoundFieldNumber = 27,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FtraceConfig"; }
 
@@ -38969,6 +38978,24 @@ class FtraceConfig : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_BufferSizeLowerBound =
+    ::protozero::proto_utils::FieldMetadata<
+      27,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      FtraceConfig>;
+
+  static constexpr FieldMetadata_BufferSizeLowerBound kBufferSizeLowerBound{};
+  void set_buffer_size_lower_bound(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_BufferSizeLowerBound::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 };
