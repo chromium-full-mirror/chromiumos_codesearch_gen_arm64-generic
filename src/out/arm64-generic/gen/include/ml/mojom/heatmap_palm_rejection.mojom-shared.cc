@@ -36,6 +36,10 @@ NOINLINE static const char* LoadHeatmapPalmRejectionResultToStringHelper(LoadHea
       return "CREATE_GRAPH_EXECUTOR_ERROR";
     case LoadHeatmapPalmRejectionResult::OPEN_DEVICE_ERROR:
       return "OPEN_DEVICE_ERROR";
+    case LoadHeatmapPalmRejectionResult::WATCH_DEVICE_ERROR:
+      return "WATCH_DEVICE_ERROR";
+    case LoadHeatmapPalmRejectionResult::FEATURE_NOT_SUPPORTED_ERROR:
+      return "FEATURE_NOT_SUPPORTED_ERROR";
     default:
       return nullptr;
   }

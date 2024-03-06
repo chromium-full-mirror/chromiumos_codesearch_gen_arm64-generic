@@ -77,8 +77,12 @@ enum class LoadHeatmapPalmRejectionResult : int32_t {
   CREATE_GRAPH_EXECUTOR_ERROR = 3,
   
   OPEN_DEVICE_ERROR = 4,
+  
+  WATCH_DEVICE_ERROR = 5,
+  
+  FEATURE_NOT_SUPPORTED_ERROR = 6,
   kMinValue = 0,
-  kMaxValue = 4,
+  kMaxValue = 6,
   kDefaultValue = 1
 };
 
