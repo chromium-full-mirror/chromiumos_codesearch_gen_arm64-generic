@@ -681,7 +681,6 @@ PROTOBUF_CONSTEXPR CloudPolicySettings::CloudPolicySettings(
   , bruschettavmconfiguration_(nullptr)
   , dnsoverhttpssalt_(nullptr)
   , dnsoverhttpstemplateswithidentifiers_(nullptr)
-  , throttlenonvisiblecrossoriginiframesallowed_(nullptr)
   , pdflocalfileaccessallowedfordomains_(nullptr)
   , floatingworkspacev2enabled_(nullptr)
   , subproto1_(nullptr){}
@@ -7119,7 +7118,7 @@ class CloudPolicySettings::_Internal {
   }
   static const ::enterprise_management::StringListPolicyProto& pdflocalfileaccessallowedfordomains(const CloudPolicySettings* msg);
   static void set_has_pdflocalfileaccessallowedfordomains(HasBits* has_bits) {
-    (*has_bits)[16] |= 32768u;
+    (*has_bits)[16] |= 16384u;
   }
   static const ::enterprise_management::StringListPolicyProto& popupsallowedforurls(const CloudPolicySettings* msg);
   static void set_has_popupsallowedforurls(HasBits* has_bits) {
@@ -7759,7 +7758,7 @@ class CloudPolicySettings::_Internal {
   }
   static const ::enterprise_management::BooleanPolicyProto& floatingworkspacev2enabled(const CloudPolicySettings* msg);
   static void set_has_floatingworkspacev2enabled(HasBits* has_bits) {
-    (*has_bits)[16] |= 65536u;
+    (*has_bits)[16] |= 32768u;
   }
   static const ::enterprise_management::BooleanPolicyProto& forcegooglesafesearch(const CloudPolicySettings* msg);
   static void set_has_forcegooglesafesearch(HasBits* has_bits) {
@@ -8288,10 +8287,6 @@ class CloudPolicySettings::_Internal {
   static const ::enterprise_management::StringPolicyProto& termsofserviceurl(const CloudPolicySettings* msg);
   static void set_has_termsofserviceurl(HasBits* has_bits) {
     (*has_bits)[3] |= 4u;
-  }
-  static const ::enterprise_management::BooleanPolicyProto& throttlenonvisiblecrossoriginiframesallowed(const CloudPolicySettings* msg);
-  static void set_has_throttlenonvisiblecrossoriginiframesallowed(HasBits* has_bits) {
-    (*has_bits)[16] |= 16384u;
   }
   static const ::enterprise_management::BooleanPolicyProto& touchvirtualkeyboardenabled(const CloudPolicySettings* msg);
   static void set_has_touchvirtualkeyboardenabled(HasBits* has_bits) {
@@ -8919,7 +8914,7 @@ class CloudPolicySettings::_Internal {
   }
   static const ::enterprise_management::CloudPolicySubProto1& subproto1(const CloudPolicySettings* msg);
   static void set_has_subproto1(HasBits* has_bits) {
-    (*has_bits)[16] |= 131072u;
+    (*has_bits)[16] |= 65536u;
   }
 };
 
@@ -10412,10 +10407,6 @@ CloudPolicySettings::_Internal::termsofserviceurl(const CloudPolicySettings* msg
   return *msg->termsofserviceurl_;
 }
 const ::enterprise_management::BooleanPolicyProto&
-CloudPolicySettings::_Internal::throttlenonvisiblecrossoriginiframesallowed(const CloudPolicySettings* msg) {
-  return *msg->throttlenonvisiblecrossoriginiframesallowed_;
-}
-const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySettings::_Internal::touchvirtualkeyboardenabled(const CloudPolicySettings* msg) {
   return *msg->touchvirtualkeyboardenabled_;
 }
@@ -11361,7 +11352,7 @@ void CloudPolicySettings::clear_notificationsblockedforurls() {
 }
 void CloudPolicySettings::clear_pdflocalfileaccessallowedfordomains() {
   if (pdflocalfileaccessallowedfordomains_ != nullptr) pdflocalfileaccessallowedfordomains_->Clear();
-  _has_bits_[16] &= ~0x00008000u;
+  _has_bits_[16] &= ~0x00004000u;
 }
 void CloudPolicySettings::clear_popupsallowedforurls() {
   if (popupsallowedforurls_ != nullptr) popupsallowedforurls_->Clear();
@@ -12001,7 +11992,7 @@ void CloudPolicySettings::clear_floatingworkspaceenabled() {
 }
 void CloudPolicySettings::clear_floatingworkspacev2enabled() {
   if (floatingworkspacev2enabled_ != nullptr) floatingworkspacev2enabled_->Clear();
-  _has_bits_[16] &= ~0x00010000u;
+  _has_bits_[16] &= ~0x00008000u;
 }
 void CloudPolicySettings::clear_forcegooglesafesearch() {
   if (forcegooglesafesearch_ != nullptr) forcegooglesafesearch_->Clear();
@@ -12530,10 +12521,6 @@ void CloudPolicySettings::clear_taskmanagerendprocessenabled() {
 void CloudPolicySettings::clear_termsofserviceurl() {
   if (termsofserviceurl_ != nullptr) termsofserviceurl_->Clear();
   _has_bits_[3] &= ~0x00000004u;
-}
-void CloudPolicySettings::clear_throttlenonvisiblecrossoriginiframesallowed() {
-  if (throttlenonvisiblecrossoriginiframesallowed_ != nullptr) throttlenonvisiblecrossoriginiframesallowed_->Clear();
-  _has_bits_[16] &= ~0x00004000u;
 }
 void CloudPolicySettings::clear_touchvirtualkeyboardenabled() {
   if (touchvirtualkeyboardenabled_ != nullptr) touchvirtualkeyboardenabled_->Clear();
@@ -15799,11 +15786,6 @@ CloudPolicySettings::CloudPolicySettings(const CloudPolicySettings& from)
   } else {
     dnsoverhttpstemplateswithidentifiers_ = nullptr;
   }
-  if (from._internal_has_throttlenonvisiblecrossoriginiframesallowed()) {
-    throttlenonvisiblecrossoriginiframesallowed_ = new ::enterprise_management::BooleanPolicyProto(*from.throttlenonvisiblecrossoriginiframesallowed_);
-  } else {
-    throttlenonvisiblecrossoriginiframesallowed_ = nullptr;
-  }
   if (from._internal_has_pdflocalfileaccessallowedfordomains()) {
     pdflocalfileaccessallowedfordomains_ = new ::enterprise_management::StringListPolicyProto(*from.pdflocalfileaccessallowedfordomains_);
   } else {
@@ -16366,7 +16348,6 @@ inline void CloudPolicySettings::SharedDtor() {
   if (this != internal_default_instance()) delete bruschettavmconfiguration_;
   if (this != internal_default_instance()) delete dnsoverhttpssalt_;
   if (this != internal_default_instance()) delete dnsoverhttpstemplateswithidentifiers_;
-  if (this != internal_default_instance()) delete throttlenonvisiblecrossoriginiframesallowed_;
   if (this != internal_default_instance()) delete pdflocalfileaccessallowedfordomains_;
   if (this != internal_default_instance()) delete floatingworkspacev2enabled_;
   if (this != internal_default_instance()) delete subproto1_;
@@ -18635,23 +18616,17 @@ void CloudPolicySettings::Clear() {
       dnsoverhttpstemplateswithidentifiers_->Clear();
     }
     if (cached_has_bits & 0x00004000u) {
-      GOOGLE_DCHECK(throttlenonvisiblecrossoriginiframesallowed_ != nullptr);
-      throttlenonvisiblecrossoriginiframesallowed_->Clear();
-    }
-    if (cached_has_bits & 0x00008000u) {
       GOOGLE_DCHECK(pdflocalfileaccessallowedfordomains_ != nullptr);
       pdflocalfileaccessallowedfordomains_->Clear();
     }
-  }
-  if (cached_has_bits & 0x00030000u) {
-    if (cached_has_bits & 0x00010000u) {
+    if (cached_has_bits & 0x00008000u) {
       GOOGLE_DCHECK(floatingworkspacev2enabled_ != nullptr);
       floatingworkspacev2enabled_->Clear();
     }
-    if (cached_has_bits & 0x00020000u) {
-      GOOGLE_DCHECK(subproto1_ != nullptr);
-      subproto1_->Clear();
-    }
+  }
+  if (cached_has_bits & 0x00010000u) {
+    GOOGLE_DCHECK(subproto1_ != nullptr);
+    subproto1_->Clear();
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -22871,14 +22846,6 @@ const char* CloudPolicySettings::_InternalParse(const char* ptr, ::_pbi::ParseCo
         } else
           goto handle_unusual;
         continue;
-      // optional .enterprise_management.BooleanPolicyProto ThrottleNonVisibleCrossOriginIframesAllowed = 1039;
-      case 1039:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
-          ptr = ctx->ParseMessage(_internal_mutable_throttlenonvisiblecrossoriginiframesallowed(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // optional .enterprise_management.StringListPolicyProto PdfLocalFileAccessAllowedForDomains = 1040;
       case 1040:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 130)) {
@@ -26631,29 +26598,22 @@ uint8_t* CloudPolicySettings::_InternalSerialize(
         _Internal::dnsoverhttpstemplateswithidentifiers(this).GetCachedSize(), target, stream);
   }
 
-  // optional .enterprise_management.BooleanPolicyProto ThrottleNonVisibleCrossOriginIframesAllowed = 1039;
-  if (cached_has_bits & 0x00004000u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1039, _Internal::throttlenonvisiblecrossoriginiframesallowed(this),
-        _Internal::throttlenonvisiblecrossoriginiframesallowed(this).GetCachedSize(), target, stream);
-  }
-
   // optional .enterprise_management.StringListPolicyProto PdfLocalFileAccessAllowedForDomains = 1040;
-  if (cached_has_bits & 0x00008000u) {
+  if (cached_has_bits & 0x00004000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1040, _Internal::pdflocalfileaccessallowedfordomains(this),
         _Internal::pdflocalfileaccessallowedfordomains(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto FloatingWorkspaceV2Enabled = 1041;
-  if (cached_has_bits & 0x00010000u) {
+  if (cached_has_bits & 0x00008000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1041, _Internal::floatingworkspacev2enabled(this),
         _Internal::floatingworkspacev2enabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.CloudPolicySubProto1 subProto1 = 1043;
-  if (cached_has_bits & 0x00020000u) {
+  if (cached_has_bits & 0x00010000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1043, _Internal::subproto1(this),
         _Internal::subproto1(this).GetCachedSize(), target, stream);
@@ -30505,37 +30465,28 @@ size_t CloudPolicySettings::ByteSizeLong() const {
           *dnsoverhttpstemplateswithidentifiers_);
     }
 
-    // optional .enterprise_management.BooleanPolicyProto ThrottleNonVisibleCrossOriginIframesAllowed = 1039;
-    if (cached_has_bits & 0x00004000u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *throttlenonvisiblecrossoriginiframesallowed_);
-    }
-
     // optional .enterprise_management.StringListPolicyProto PdfLocalFileAccessAllowedForDomains = 1040;
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00004000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *pdflocalfileaccessallowedfordomains_);
     }
 
-  }
-  if (cached_has_bits & 0x00030000u) {
     // optional .enterprise_management.BooleanPolicyProto FloatingWorkspaceV2Enabled = 1041;
-    if (cached_has_bits & 0x00010000u) {
+    if (cached_has_bits & 0x00008000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *floatingworkspacev2enabled_);
     }
 
-    // optional .enterprise_management.CloudPolicySubProto1 subProto1 = 1043;
-    if (cached_has_bits & 0x00020000u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *subproto1_);
-    }
-
   }
+  // optional .enterprise_management.CloudPolicySubProto1 subProto1 = 1043;
+  if (cached_has_bits & 0x00010000u) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *subproto1_);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -32283,19 +32234,14 @@ void CloudPolicySettings::MergeFrom(const CloudPolicySettings& from) {
       _internal_mutable_dnsoverhttpstemplateswithidentifiers()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_dnsoverhttpstemplateswithidentifiers());
     }
     if (cached_has_bits & 0x00004000u) {
-      _internal_mutable_throttlenonvisiblecrossoriginiframesallowed()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_throttlenonvisiblecrossoriginiframesallowed());
-    }
-    if (cached_has_bits & 0x00008000u) {
       _internal_mutable_pdflocalfileaccessallowedfordomains()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_pdflocalfileaccessallowedfordomains());
     }
-  }
-  if (cached_has_bits & 0x00030000u) {
-    if (cached_has_bits & 0x00010000u) {
+    if (cached_has_bits & 0x00008000u) {
       _internal_mutable_floatingworkspacev2enabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_floatingworkspacev2enabled());
     }
-    if (cached_has_bits & 0x00020000u) {
-      _internal_mutable_subproto1()->::enterprise_management::CloudPolicySubProto1::MergeFrom(from._internal_subproto1());
-    }
+  }
+  if (cached_has_bits & 0x00010000u) {
+    _internal_mutable_subproto1()->::enterprise_management::CloudPolicySubProto1::MergeFrom(from._internal_subproto1());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }

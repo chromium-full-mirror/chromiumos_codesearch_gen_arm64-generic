@@ -6151,6 +6151,7 @@ class StartAuthSessionRequest final :
     kAccountIdFieldNumber = 1,
     kFlagsFieldNumber = 2,
     kIntentFieldNumber = 3,
+    kIsEphemeralUserFieldNumber = 4,
   };
   // .cryptohome.AccountIdentifier account_id = 1;
   bool has_account_id() const;
@@ -6186,6 +6187,16 @@ class StartAuthSessionRequest final :
   void _internal_set_intent(::user_data_auth::AuthIntent value);
 
   public:
+  // bool is_ephemeral_user = 4;
+  void clear_is_ephemeral_user() ;
+  bool is_ephemeral_user() const;
+  void set_is_ephemeral_user(bool value);
+
+  private:
+  bool _internal_is_ephemeral_user() const;
+  void _internal_set_is_ephemeral_user(bool value);
+
+  public:
   // @@protoc_insertion_point(class_scope:user_data_auth.StartAuthSessionRequest)
  private:
   class _Internal;
@@ -6199,6 +6210,7 @@ class StartAuthSessionRequest final :
     ::cryptohome::AccountIdentifier* account_id_;
     ::uint32_t flags_;
     int intent_;
+    bool is_ephemeral_user_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_UserDataAuth_2eproto;
@@ -27271,6 +27283,26 @@ inline ::uint32_t StartAuthSessionRequest::_internal_flags() const {
 inline void StartAuthSessionRequest::_internal_set_flags(::uint32_t value) {
   ;
   _impl_.flags_ = value;
+}
+
+// bool is_ephemeral_user = 4;
+inline void StartAuthSessionRequest::clear_is_ephemeral_user() {
+  _impl_.is_ephemeral_user_ = false;
+}
+inline bool StartAuthSessionRequest::is_ephemeral_user() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.StartAuthSessionRequest.is_ephemeral_user)
+  return _internal_is_ephemeral_user();
+}
+inline void StartAuthSessionRequest::set_is_ephemeral_user(bool value) {
+  _internal_set_is_ephemeral_user(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.StartAuthSessionRequest.is_ephemeral_user)
+}
+inline bool StartAuthSessionRequest::_internal_is_ephemeral_user() const {
+  return _impl_.is_ephemeral_user_;
+}
+inline void StartAuthSessionRequest::_internal_set_is_ephemeral_user(bool value) {
+  ;
+  _impl_.is_ephemeral_user_ = value;
 }
 
 // .user_data_auth.AuthIntent intent = 3;
