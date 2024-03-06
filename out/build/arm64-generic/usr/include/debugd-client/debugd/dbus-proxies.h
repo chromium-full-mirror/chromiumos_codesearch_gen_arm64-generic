@@ -1257,6 +1257,28 @@ class debugdProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Generate firmware dump for a specific firmware dump type.
+  //
+  //   The type of firmware dumps to be generated, such as the firmware dump
+  //   for iwlwifi (Intel WiFi driver). Please refer to the enum type
+  //   "FirmwareDumpType" for a complete list of supported types.
+  virtual bool GenerateFirmwareDump(
+      uint32_t in_type,
+      bool* out_output,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Generate firmware dump for a specific firmware dump type.
+  //
+  //   The type of firmware dumps to be generated, such as the firmware dump
+  //   for iwlwifi (Intel WiFi driver). Please refer to the enum type
+  //   "FirmwareDumpType" for a complete list of supported types.
+  virtual void GenerateFirmwareDumpAsync(
+      uint32_t in_type,
+      base::OnceCallback<void(bool /*output*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Runs the 'ectool inventory' command with pre-defined
   // sandbox options in rootfs and returns the output.
   virtual bool EcGetInventory(
@@ -4220,6 +4242,47 @@ class debugdProxy final : public debugdProxyInterface {
         std::move(error_callback),
         in_policy,
         in_lock_policy);
+  }
+
+  // Generate firmware dump for a specific firmware dump type.
+  //
+  //   The type of firmware dumps to be generated, such as the firmware dump
+  //   for iwlwifi (Intel WiFi driver). Please refer to the enum type
+  //   "FirmwareDumpType" for a complete list of supported types.
+  bool GenerateFirmwareDump(
+      uint32_t in_type,
+      bool* out_output,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "GenerateFirmwareDump",
+        error,
+        in_type);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_output);
+  }
+
+  // Generate firmware dump for a specific firmware dump type.
+  //
+  //   The type of firmware dumps to be generated, such as the firmware dump
+  //   for iwlwifi (Intel WiFi driver). Please refer to the enum type
+  //   "FirmwareDumpType" for a complete list of supported types.
+  void GenerateFirmwareDumpAsync(
+      uint32_t in_type,
+      base::OnceCallback<void(bool /*output*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "GenerateFirmwareDump",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_type);
   }
 
   // Runs the 'ectool inventory' command with pre-defined
