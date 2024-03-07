@@ -33944,6 +33944,8 @@ class PERFETTO_EXPORT_COMPONENT ProcessStatsConfig : public ::protozero::CppMess
     kProcStatsCacheTtlMsFieldNumber = 6,
     kResolveProcessFdsFieldNumber = 9,
     kScanSmapsRollupFieldNumber = 10,
+    kRecordProcessAgeFieldNumber = 11,
+    kRecordProcessRuntimeFieldNumber = 12,
   };
 
   ProcessStatsConfig();
@@ -33991,6 +33993,14 @@ class PERFETTO_EXPORT_COMPONENT ProcessStatsConfig : public ::protozero::CppMess
   bool scan_smaps_rollup() const { return scan_smaps_rollup_; }
   void set_scan_smaps_rollup(bool value) { scan_smaps_rollup_ = value; _has_field_.set(10); }
 
+  bool has_record_process_age() const { return _has_field_[11]; }
+  bool record_process_age() const { return record_process_age_; }
+  void set_record_process_age(bool value) { record_process_age_ = value; _has_field_.set(11); }
+
+  bool has_record_process_runtime() const { return _has_field_[12]; }
+  bool record_process_runtime() const { return record_process_runtime_; }
+  void set_record_process_runtime(bool value) { record_process_runtime_ = value; _has_field_.set(12); }
+
  private:
   std::vector<ProcessStatsConfig_Quirks> quirks_;
   bool scan_all_processes_on_start_{};
@@ -33999,12 +34009,14 @@ class PERFETTO_EXPORT_COMPONENT ProcessStatsConfig : public ::protozero::CppMess
   uint32_t proc_stats_cache_ttl_ms_{};
   bool resolve_process_fds_{};
   bool scan_smaps_rollup_{};
+  bool record_process_age_{};
+  bool record_process_runtime_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<11> _has_field_{};
+  std::bitset<13> _has_field_{};
 };
 
 }  // namespace perfetto
@@ -40050,7 +40062,7 @@ const char* ProcessStatsConfig_Quirks_Name(::perfetto::protos::pbzero::ProcessSt
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class ProcessStatsConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/10, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class ProcessStatsConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/12, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   ProcessStatsConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ProcessStatsConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -40069,6 +40081,10 @@ class ProcessStatsConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_F
   bool resolve_process_fds() const { return at<9>().as_bool(); }
   bool has_scan_smaps_rollup() const { return at<10>().valid(); }
   bool scan_smaps_rollup() const { return at<10>().as_bool(); }
+  bool has_record_process_age() const { return at<11>().valid(); }
+  bool record_process_age() const { return at<11>().as_bool(); }
+  bool has_record_process_runtime() const { return at<12>().valid(); }
+  bool record_process_runtime() const { return at<12>().as_bool(); }
 };
 
 class ProcessStatsConfig : public ::protozero::Message {
@@ -40082,6 +40098,8 @@ class ProcessStatsConfig : public ::protozero::Message {
     kProcStatsCacheTtlMsFieldNumber = 6,
     kResolveProcessFdsFieldNumber = 9,
     kScanSmapsRollupFieldNumber = 10,
+    kRecordProcessAgeFieldNumber = 11,
+    kRecordProcessRuntimeFieldNumber = 12,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ProcessStatsConfig"; }
 
@@ -40213,6 +40231,42 @@ class ProcessStatsConfig : public ::protozero::Message {
   static constexpr FieldMetadata_ScanSmapsRollup kScanSmapsRollup{};
   void set_scan_smaps_rollup(bool value) {
     static constexpr uint32_t field_id = FieldMetadata_ScanSmapsRollup::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_RecordProcessAge =
+    ::protozero::proto_utils::FieldMetadata<
+      11,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ProcessStatsConfig>;
+
+  static constexpr FieldMetadata_RecordProcessAge kRecordProcessAge{};
+  void set_record_process_age(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_RecordProcessAge::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_RecordProcessRuntime =
+    ::protozero::proto_utils::FieldMetadata<
+      12,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ProcessStatsConfig>;
+
+  static constexpr FieldMetadata_RecordProcessRuntime kRecordProcessRuntime{};
+  void set_record_process_runtime(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_RecordProcessRuntime::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
@@ -149099,13 +149153,15 @@ class ProcessStats : public ::protozero::Message {
   }
 };
 
-class ProcessStats_Process_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/20, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class ProcessStats_Process_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/22, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   ProcessStats_Process_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ProcessStats_Process_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit ProcessStats_Process_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_pid() const { return at<1>().valid(); }
   int32_t pid() const { return at<1>().as_int32(); }
+  bool has_threads() const { return at<11>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> threads() const { return GetRepeated<::protozero::ConstBytes>(11); }
   bool has_vm_size_kb() const { return at<2>().valid(); }
   uint64_t vm_size_kb() const { return at<2>().as_uint64(); }
   bool has_vm_rss_kb() const { return at<3>().valid(); }
@@ -149124,8 +149180,6 @@ class ProcessStats_Process_Decoder : public ::protozero::TypedProtoDecoder</*MAX
   uint64_t vm_hwm_kb() const { return at<9>().as_uint64(); }
   bool has_oom_score_adj() const { return at<10>().valid(); }
   int64_t oom_score_adj() const { return at<10>().as_int64(); }
-  bool has_threads() const { return at<11>().valid(); }
-  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> threads() const { return GetRepeated<::protozero::ConstBytes>(11); }
   bool has_is_peak_rss_resettable() const { return at<12>().valid(); }
   bool is_peak_rss_resettable() const { return at<12>().as_bool(); }
   bool has_chrome_private_footprint_kb() const { return at<13>().valid(); }
@@ -149144,6 +149198,10 @@ class ProcessStats_Process_Decoder : public ::protozero::TypedProtoDecoder</*MAX
   uint64_t smr_pss_file_kb() const { return at<19>().as_uint64(); }
   bool has_smr_pss_shmem_kb() const { return at<20>().valid(); }
   uint64_t smr_pss_shmem_kb() const { return at<20>().as_uint64(); }
+  bool has_runtime_user_mode() const { return at<21>().valid(); }
+  uint64_t runtime_user_mode() const { return at<21>().as_uint64(); }
+  bool has_runtime_kernel_mode() const { return at<22>().valid(); }
+  uint64_t runtime_kernel_mode() const { return at<22>().as_uint64(); }
 };
 
 class ProcessStats_Process : public ::protozero::Message {
@@ -149151,6 +149209,7 @@ class ProcessStats_Process : public ::protozero::Message {
   using Decoder = ProcessStats_Process_Decoder;
   enum : int32_t {
     kPidFieldNumber = 1,
+    kThreadsFieldNumber = 11,
     kVmSizeKbFieldNumber = 2,
     kVmRssKbFieldNumber = 3,
     kRssAnonKbFieldNumber = 4,
@@ -149160,7 +149219,6 @@ class ProcessStats_Process : public ::protozero::Message {
     kVmLockedKbFieldNumber = 8,
     kVmHwmKbFieldNumber = 9,
     kOomScoreAdjFieldNumber = 10,
-    kThreadsFieldNumber = 11,
     kIsPeakRssResettableFieldNumber = 12,
     kChromePrivateFootprintKbFieldNumber = 13,
     kChromePeakResidentSetKbFieldNumber = 14,
@@ -149170,6 +149228,8 @@ class ProcessStats_Process : public ::protozero::Message {
     kSmrPssAnonKbFieldNumber = 18,
     kSmrPssFileKbFieldNumber = 19,
     kSmrPssShmemKbFieldNumber = 20,
+    kRuntimeUserModeFieldNumber = 21,
+    kRuntimeKernelModeFieldNumber = 22,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ProcessStats.Process"; }
 
@@ -149191,6 +149251,20 @@ class ProcessStats_Process : public ::protozero::Message {
       ::protozero::proto_utils::ProtoSchemaType::kInt32>
         ::Append(*this, field_id, value);
   }
+
+  using FieldMetadata_Threads =
+    ::protozero::proto_utils::FieldMetadata<
+      11,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ProcessStats_Thread,
+      ProcessStats_Process>;
+
+  static constexpr FieldMetadata_Threads kThreads{};
+  template <typename T = ProcessStats_Thread> T* add_threads() {
+    return BeginNestedMessage<T>(11);
+  }
+
 
   using FieldMetadata_VmSizeKb =
     ::protozero::proto_utils::FieldMetadata<
@@ -149354,20 +149428,6 @@ class ProcessStats_Process : public ::protozero::Message {
         ::Append(*this, field_id, value);
   }
 
-  using FieldMetadata_Threads =
-    ::protozero::proto_utils::FieldMetadata<
-      11,
-      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
-      ::protozero::proto_utils::ProtoSchemaType::kMessage,
-      ProcessStats_Thread,
-      ProcessStats_Process>;
-
-  static constexpr FieldMetadata_Threads kThreads{};
-  template <typename T = ProcessStats_Thread> T* add_threads() {
-    return BeginNestedMessage<T>(11);
-  }
-
-
   using FieldMetadata_IsPeakRssResettable =
     ::protozero::proto_utils::FieldMetadata<
       12,
@@ -149519,6 +149579,42 @@ class ProcessStats_Process : public ::protozero::Message {
   static constexpr FieldMetadata_SmrPssShmemKb kSmrPssShmemKb{};
   void set_smr_pss_shmem_kb(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_SmrPssShmemKb::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_RuntimeUserMode =
+    ::protozero::proto_utils::FieldMetadata<
+      21,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      ProcessStats_Process>;
+
+  static constexpr FieldMetadata_RuntimeUserMode kRuntimeUserMode{};
+  void set_runtime_user_mode(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_RuntimeUserMode::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_RuntimeKernelMode =
+    ::protozero::proto_utils::FieldMetadata<
+      22,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      ProcessStats_Process>;
+
+  static constexpr FieldMetadata_RuntimeKernelMode kRuntimeKernelMode{};
+  void set_runtime_kernel_mode(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_RuntimeKernelMode::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
@@ -149727,7 +149823,7 @@ class ProcessTree : public ::protozero::Message {
   }
 };
 
-class ProcessTree_Process_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/6, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class ProcessTree_Process_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   ProcessTree_Process_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ProcessTree_Process_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -149738,12 +149834,12 @@ class ProcessTree_Process_Decoder : public ::protozero::TypedProtoDecoder</*MAX_
   int32_t ppid() const { return at<2>().as_int32(); }
   bool has_cmdline() const { return at<3>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstChars> cmdline() const { return GetRepeated<::protozero::ConstChars>(3); }
-  bool has_threads_deprecated() const { return at<4>().valid(); }
-  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> threads_deprecated() const { return GetRepeated<::protozero::ConstBytes>(4); }
   bool has_uid() const { return at<5>().valid(); }
   int32_t uid() const { return at<5>().as_int32(); }
   bool has_nspid() const { return at<6>().valid(); }
   ::protozero::RepeatedFieldIterator<int32_t> nspid() const { return GetRepeated<int32_t>(6); }
+  bool has_process_start_from_boot() const { return at<7>().valid(); }
+  uint64_t process_start_from_boot() const { return at<7>().as_uint64(); }
 };
 
 class ProcessTree_Process : public ::protozero::Message {
@@ -149753,9 +149849,9 @@ class ProcessTree_Process : public ::protozero::Message {
     kPidFieldNumber = 1,
     kPpidFieldNumber = 2,
     kCmdlineFieldNumber = 3,
-    kThreadsDeprecatedFieldNumber = 4,
     kUidFieldNumber = 5,
     kNspidFieldNumber = 6,
+    kProcessStartFromBootFieldNumber = 7,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ProcessTree.Process"; }
 
@@ -149820,20 +149916,6 @@ class ProcessTree_Process : public ::protozero::Message {
         ::Append(*this, field_id, value);
   }
 
-  using FieldMetadata_ThreadsDeprecated =
-    ::protozero::proto_utils::FieldMetadata<
-      4,
-      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
-      ::protozero::proto_utils::ProtoSchemaType::kMessage,
-      ProcessTree_Thread,
-      ProcessTree_Process>;
-
-  static constexpr FieldMetadata_ThreadsDeprecated kThreadsDeprecated{};
-  template <typename T = ProcessTree_Thread> T* add_threads_deprecated() {
-    return BeginNestedMessage<T>(4);
-  }
-
-
   using FieldMetadata_Uid =
     ::protozero::proto_utils::FieldMetadata<
       5,
@@ -149867,6 +149949,24 @@ class ProcessTree_Process : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ProcessStartFromBoot =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      ProcessTree_Process>;
+
+  static constexpr FieldMetadata_ProcessStartFromBoot kProcessStartFromBoot{};
+  void set_process_start_from_boot(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ProcessStartFromBoot::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
         ::Append(*this, field_id, value);
   }
 };
