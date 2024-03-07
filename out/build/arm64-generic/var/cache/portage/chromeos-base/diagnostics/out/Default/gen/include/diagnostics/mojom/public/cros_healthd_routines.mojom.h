@@ -59,7 +59,7 @@ class CrosHealthdRoutinesService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 1;
+  static constexpr uint32_t Version_ = 2;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -72,8 +72,8 @@ class CrosHealthdRoutinesService
   using RequestValidator_ = CrosHealthdRoutinesServiceRequestValidator;
   using ResponseValidator_ = CrosHealthdRoutinesServiceResponseValidator;
   enum MethodMinVersions : uint32_t {
-    kCreateRoutineMinVersion = 0,
-    kIsRoutineArgumentSupportedMinVersion = 1,
+    kCreateRoutineMinVersion = 1,
+    kIsRoutineArgumentSupportedMinVersion = 2,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -162,7 +162,7 @@ class RoutineControl
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -175,8 +175,8 @@ class RoutineControl
   using RequestValidator_ = RoutineControlRequestValidator;
   using ResponseValidator_ = RoutineControlResponseValidator;
   enum MethodMinVersions : uint32_t {
-    kGetStateMinVersion = 0,
-    kStartMinVersion = 0,
+    kGetStateMinVersion = 1,
+    kStartMinVersion = 1,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -216,7 +216,7 @@ class RoutineObserver
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -229,7 +229,7 @@ class RoutineObserver
   using RequestValidator_ = RoutineObserverRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
-    kOnRoutineStateChangeMinVersion = 0,
+    kOnRoutineStateChangeMinVersion = 1,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK

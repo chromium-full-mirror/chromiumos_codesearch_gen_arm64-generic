@@ -11460,6 +11460,8 @@ class PERFETTO_EXPORT_COMPONENT DataSourceBase {
   // OnSetup() is invoked when tracing is configured. In most cases this happens
   // just before starting the trace. In the case of deferred start (see
   // deferred_start in trace_config.proto) start might happen later.
+  //
+  // Can be called from any thread.
   class SetupArgs {
    public:
     // This is valid only within the scope of the OnSetup() call and must not
@@ -11479,6 +11481,9 @@ class PERFETTO_EXPORT_COMPONENT DataSourceBase {
     // The index of this data source instance (0..kMaxDataSourceInstances - 1).
     uint32_t internal_instance_index = 0;
   };
+  // Invoked after tracing is actually started.
+  //
+  // Can be called from any thread.
   virtual void OnStart(const StartArgs&);
 
   class PERFETTO_EXPORT_COMPONENT StopArgs {
@@ -11508,6 +11513,11 @@ class PERFETTO_EXPORT_COMPONENT DataSourceBase {
     // The index of this data source instance (0..kMaxDataSourceInstances - 1).
     uint32_t internal_instance_index = 0;
   };
+  // Invoked before tracing is stopped.
+  //
+  // Can be called from any thread. Blocking this for too long it's not a good
+  // idea and can cause deadlocks. Use HandleAsynchronously() to postpone
+  // disabling the data source instance.
   virtual void OnStop(const StopArgs&);
 
   class ClearIncrementalStateArgs {
@@ -11515,6 +11525,10 @@ class PERFETTO_EXPORT_COMPONENT DataSourceBase {
     // The index of this data source instance (0..kMaxDataSourceInstances - 1).
     uint32_t internal_instance_index = 0;
   };
+  // Invoked before marking the thread local per-instance incremental state
+  // outdated.
+  //
+  // Can be called from any thread.
   virtual void WillClearIncrementalState(const ClearIncrementalStateArgs&);
 
   class FlushArgs {
@@ -11536,6 +11550,10 @@ class PERFETTO_EXPORT_COMPONENT DataSourceBase {
   // Called when the tracing service requests a Flush. Users can override this
   // to tell other threads to flush their TraceContext for this data source
   // (the library cannot execute code on all the threads on its own).
+  //
+  // Can be called from any thread. Blocking this for too long it's not a good
+  // idea and can cause deadlocks. Use HandleAsynchronously() to postpone
+  // sending the flush acknowledgement to the service.
   virtual void OnFlush(const FlushArgs&);
 
   // Determines whether a startup session can be adopted by a service-initiated
