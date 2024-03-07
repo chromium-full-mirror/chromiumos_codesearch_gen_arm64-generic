@@ -50,6 +50,7 @@ enum class SerializedAuthIntent : int32_t {
   kVerifyOnly = 2,
   kWebAuthn = 3,
   kRestoreKey = 4,
+  kForensics = 5,
 };
 
 }  // namespace cryptohome

@@ -1279,6 +1279,30 @@ class debugdProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Clear firmware dump buffer for a specific firmware dump type.
+  //
+  //   The type of firmware dump for which its buffer to be cleared, such as
+  //   the firmware dump buffer for iwlwifi (Intel WiFi driver).
+  //   Please refer to the enum type "FirmwareDumpType" for a complete list
+  //   of supported types.
+  virtual bool ClearFirmwareDumpBuffer(
+      uint32_t in_type,
+      bool* out_output,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Clear firmware dump buffer for a specific firmware dump type.
+  //
+  //   The type of firmware dump for which its buffer to be cleared, such as
+  //   the firmware dump buffer for iwlwifi (Intel WiFi driver).
+  //   Please refer to the enum type "FirmwareDumpType" for a complete list
+  //   of supported types.
+  virtual void ClearFirmwareDumpBufferAsync(
+      uint32_t in_type,
+      base::OnceCallback<void(bool /*output*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Runs the 'ectool inventory' command with pre-defined
   // sandbox options in rootfs and returns the output.
   virtual bool EcGetInventory(
@@ -4280,6 +4304,49 @@ class debugdProxy final : public debugdProxyInterface {
         dbus_object_proxy_,
         "org.chromium.debugd",
         "GenerateFirmwareDump",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_type);
+  }
+
+  // Clear firmware dump buffer for a specific firmware dump type.
+  //
+  //   The type of firmware dump for which its buffer to be cleared, such as
+  //   the firmware dump buffer for iwlwifi (Intel WiFi driver).
+  //   Please refer to the enum type "FirmwareDumpType" for a complete list
+  //   of supported types.
+  bool ClearFirmwareDumpBuffer(
+      uint32_t in_type,
+      bool* out_output,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "ClearFirmwareDumpBuffer",
+        error,
+        in_type);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_output);
+  }
+
+  // Clear firmware dump buffer for a specific firmware dump type.
+  //
+  //   The type of firmware dump for which its buffer to be cleared, such as
+  //   the firmware dump buffer for iwlwifi (Intel WiFi driver).
+  //   Please refer to the enum type "FirmwareDumpType" for a complete list
+  //   of supported types.
+  void ClearFirmwareDumpBufferAsync(
+      uint32_t in_type,
+      base::OnceCallback<void(bool /*output*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "ClearFirmwareDumpBuffer",
         std::move(success_callback),
         std::move(error_callback),
         in_type);

@@ -1684,7 +1684,8 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR DeviceInitialEnrollmentStateRequest::DeviceInitialEnrollmentStateRequest(
     ::_pbi::ConstantInitialized)
   : serial_number_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , brand_code_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+  , brand_code_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , enrollment_token_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
 struct DeviceInitialEnrollmentStateRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceInitialEnrollmentStateRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -46213,6 +46214,9 @@ class DeviceInitialEnrollmentStateRequest::_Internal {
   static void set_has_brand_code(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
+  static void set_has_enrollment_token(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 DeviceInitialEnrollmentStateRequest::DeviceInitialEnrollmentStateRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -46241,6 +46245,14 @@ DeviceInitialEnrollmentStateRequest::DeviceInitialEnrollmentStateRequest(const D
     brand_code_.Set(from._internal_brand_code(), 
       GetArenaForAllocation());
   }
+  enrollment_token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    enrollment_token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_enrollment_token()) {
+    enrollment_token_.Set(from._internal_enrollment_token(), 
+      GetArenaForAllocation());
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceInitialEnrollmentStateRequest)
 }
 
@@ -46252,6 +46264,10 @@ serial_number_.InitDefault();
 brand_code_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   brand_code_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+enrollment_token_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  enrollment_token_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -46268,6 +46284,7 @@ inline void DeviceInitialEnrollmentStateRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   serial_number_.Destroy();
   brand_code_.Destroy();
+  enrollment_token_.Destroy();
 }
 
 void DeviceInitialEnrollmentStateRequest::SetCachedSize(int size) const {
@@ -46281,12 +46298,15 @@ void DeviceInitialEnrollmentStateRequest::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       serial_number_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
       brand_code_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      enrollment_token_.ClearNonDefaultToEmpty();
     }
   }
   _has_bits_.Clear();
@@ -46313,6 +46333,15 @@ const char* DeviceInitialEnrollmentStateRequest::_InternalParse(const char* ptr,
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_brand_code();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string enrollment_token = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_enrollment_token();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
@@ -46361,6 +46390,12 @@ uint8_t* DeviceInitialEnrollmentStateRequest::_InternalSerialize(
         2, this->_internal_brand_code(), target);
   }
 
+  // optional string enrollment_token = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_enrollment_token(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -46378,7 +46413,7 @@ size_t DeviceInitialEnrollmentStateRequest::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     // optional string serial_number = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -46391,6 +46426,13 @@ size_t DeviceInitialEnrollmentStateRequest::ByteSizeLong() const {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
           this->_internal_brand_code());
+    }
+
+    // optional string enrollment_token = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_enrollment_token());
     }
 
   }
@@ -46415,12 +46457,15 @@ void DeviceInitialEnrollmentStateRequest::MergeFrom(const DeviceInitialEnrollmen
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_serial_number(from._internal_serial_number());
     }
     if (cached_has_bits & 0x00000002u) {
       _internal_set_brand_code(from._internal_brand_code());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _internal_set_enrollment_token(from._internal_enrollment_token());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -46450,6 +46495,10 @@ void DeviceInitialEnrollmentStateRequest::InternalSwap(DeviceInitialEnrollmentSt
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &brand_code_, lhs_arena,
       &other->brand_code_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &enrollment_token_, lhs_arena,
+      &other->enrollment_token_, rhs_arena
   );
 }
 

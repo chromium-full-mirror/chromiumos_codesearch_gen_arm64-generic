@@ -293,6 +293,7 @@ kDefaultDirectSocketsSettingFieldNumber = 190,
 kDirectSocketsAllowedForUrlsFieldNumber = 191,
 kDirectSocketsBlockedForUrlsFieldNumber = 192,
 kProductSpecificationsEnabledFieldNumber = 193,
+kPrefixedVideoFullscreenApiAvailabilityFieldNumber = 194,
 };
 // optional .enterprise_management.BooleanPolicyProto NewBaseUrlInheritanceBehaviorAllowed = 1;
 bool has_newbaseurlinheritancebehaviorallowed() const;
@@ -2526,6 +2527,24 @@ void unsafe_arena_set_allocated_productspecificationsenabled(
 ::enterprise_management::BooleanPolicyProto* productspecificationsenabled);
 ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_productspecificationsenabled();
 
+// optional .enterprise_management.StringPolicyProto PrefixedVideoFullscreenApiAvailability = 194;
+bool has_prefixedvideofullscreenapiavailability() const;
+private:
+bool _internal_has_prefixedvideofullscreenapiavailability() const;
+public:
+void clear_prefixedvideofullscreenapiavailability();
+const ::enterprise_management::StringPolicyProto& prefixedvideofullscreenapiavailability() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringPolicyProto* release_prefixedvideofullscreenapiavailability();
+::enterprise_management::StringPolicyProto* mutable_prefixedvideofullscreenapiavailability();
+void set_allocated_prefixedvideofullscreenapiavailability(::enterprise_management::StringPolicyProto* prefixedvideofullscreenapiavailability);
+private:
+const ::enterprise_management::StringPolicyProto& _internal_prefixedvideofullscreenapiavailability() const;
+::enterprise_management::StringPolicyProto* _internal_mutable_prefixedvideofullscreenapiavailability();
+public:
+void unsafe_arena_set_allocated_prefixedvideofullscreenapiavailability(
+::enterprise_management::StringPolicyProto* prefixedvideofullscreenapiavailability);
+::enterprise_management::StringPolicyProto* unsafe_arena_release_prefixedvideofullscreenapiavailability();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -2659,6 +2678,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::StringListPolicyProto* directsocketsallowedforurls_;
 ::enterprise_management::StringListPolicyProto* directsocketsblockedforurls_;
 ::enterprise_management::BooleanPolicyProto* productspecificationsenabled_;
+::enterprise_management::StringPolicyProto* prefixedvideofullscreenapiavailability_;
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
@@ -19986,6 +20006,93 @@ _has_bits_[1] &= ~0x00080000u;
 }
 postquantumkeyagreementenabled_ = postquantumkeyagreementenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.PostQuantumKeyAgreementEnabled)
+}
+
+// optional .enterprise_management.StringPolicyProto PrefixedVideoFullscreenApiAvailability = 194;
+inline bool CloudPolicySubProto1::_internal_has_prefixedvideofullscreenapiavailability() const {
+bool value = (_has_bits_[3] & 0x10000000u) != 0;
+PROTOBUF_ASSUME(!value || prefixedvideofullscreenapiavailability_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_prefixedvideofullscreenapiavailability() const {
+return _internal_has_prefixedvideofullscreenapiavailability();
+}
+inline const ::enterprise_management::StringPolicyProto& CloudPolicySubProto1::_internal_prefixedvideofullscreenapiavailability() const {
+const ::enterprise_management::StringPolicyProto* p = prefixedvideofullscreenapiavailability_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringPolicyProto&>(
+::enterprise_management::_StringPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringPolicyProto& CloudPolicySubProto1::prefixedvideofullscreenapiavailability() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.PrefixedVideoFullscreenApiAvailability)
+return _internal_prefixedvideofullscreenapiavailability();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_prefixedvideofullscreenapiavailability(
+::enterprise_management::StringPolicyProto* prefixedvideofullscreenapiavailability) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(prefixedvideofullscreenapiavailability_);
+}
+prefixedvideofullscreenapiavailability_ = prefixedvideofullscreenapiavailability;
+if (prefixedvideofullscreenapiavailability) {
+_has_bits_[3] |= 0x10000000u;
+} else {
+_has_bits_[3] &= ~0x10000000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.PrefixedVideoFullscreenApiAvailability)
+}
+inline ::enterprise_management::StringPolicyProto* CloudPolicySubProto1::release_prefixedvideofullscreenapiavailability() {
+_has_bits_[3] &= ~0x10000000u;
+::enterprise_management::StringPolicyProto* temp = prefixedvideofullscreenapiavailability_;
+prefixedvideofullscreenapiavailability_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringPolicyProto* CloudPolicySubProto1::unsafe_arena_release_prefixedvideofullscreenapiavailability() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.PrefixedVideoFullscreenApiAvailability)
+_has_bits_[3] &= ~0x10000000u;
+::enterprise_management::StringPolicyProto* temp = prefixedvideofullscreenapiavailability_;
+prefixedvideofullscreenapiavailability_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringPolicyProto* CloudPolicySubProto1::_internal_mutable_prefixedvideofullscreenapiavailability() {
+_has_bits_[3] |= 0x10000000u;
+if (prefixedvideofullscreenapiavailability_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
+prefixedvideofullscreenapiavailability_ = p;
+}
+return prefixedvideofullscreenapiavailability_;
+}
+inline ::enterprise_management::StringPolicyProto* CloudPolicySubProto1::mutable_prefixedvideofullscreenapiavailability() {
+::enterprise_management::StringPolicyProto* _msg = _internal_mutable_prefixedvideofullscreenapiavailability();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.PrefixedVideoFullscreenApiAvailability)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_prefixedvideofullscreenapiavailability(::enterprise_management::StringPolicyProto* prefixedvideofullscreenapiavailability) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(prefixedvideofullscreenapiavailability_);
+}
+if (prefixedvideofullscreenapiavailability) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(prefixedvideofullscreenapiavailability));
+if (message_arena != submessage_arena) {
+prefixedvideofullscreenapiavailability = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, prefixedvideofullscreenapiavailability, submessage_arena);
+}
+_has_bits_[3] |= 0x10000000u;
+} else {
+_has_bits_[3] &= ~0x10000000u;
+}
+prefixedvideofullscreenapiavailability_ = prefixedvideofullscreenapiavailability;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.PrefixedVideoFullscreenApiAvailability)
 }
 
 // optional .enterprise_management.BooleanPolicyProto ProductSpecificationsEnabled = 193;

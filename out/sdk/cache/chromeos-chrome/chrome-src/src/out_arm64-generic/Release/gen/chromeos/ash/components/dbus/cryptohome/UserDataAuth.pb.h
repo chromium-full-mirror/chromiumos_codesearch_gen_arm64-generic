@@ -5622,6 +5622,7 @@ class StartAuthSessionRequest final :
     kAccountIdFieldNumber = 1,
     kFlagsFieldNumber = 2,
     kIntentFieldNumber = 3,
+    kIsEphemeralUserFieldNumber = 4,
   };
   // .cryptohome.AccountIdentifier account_id = 1;
   bool has_account_id() const;
@@ -5659,6 +5660,15 @@ class StartAuthSessionRequest final :
   void _internal_set_intent(::user_data_auth::AuthIntent value);
   public:
 
+  // bool is_ephemeral_user = 4;
+  void clear_is_ephemeral_user();
+  bool is_ephemeral_user() const;
+  void set_is_ephemeral_user(bool value);
+  private:
+  bool _internal_is_ephemeral_user() const;
+  void _internal_set_is_ephemeral_user(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:user_data_auth.StartAuthSessionRequest)
  private:
   class _Internal;
@@ -5669,6 +5679,7 @@ class StartAuthSessionRequest final :
   ::cryptohome::AccountIdentifier* account_id_;
   uint32_t flags_;
   int intent_;
+  bool is_ephemeral_user_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_UserDataAuth_2eproto;
 };
@@ -5778,6 +5789,7 @@ class StatusInfo final :
 
   enum : int {
     kTimeAvailableInFieldNumber = 1,
+    kTimeExpiringInFieldNumber = 2,
   };
   // uint64 time_available_in = 1;
   void clear_time_available_in();
@@ -5788,6 +5800,15 @@ class StatusInfo final :
   void _internal_set_time_available_in(uint64_t value);
   public:
 
+  // uint64 time_expiring_in = 2;
+  void clear_time_expiring_in();
+  uint64_t time_expiring_in() const;
+  void set_time_expiring_in(uint64_t value);
+  private:
+  uint64_t _internal_time_expiring_in() const;
+  void _internal_set_time_expiring_in(uint64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:user_data_auth.StatusInfo)
  private:
   class _Internal;
@@ -5796,6 +5817,7 @@ class StatusInfo final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   uint64_t time_available_in_;
+  uint64_t time_expiring_in_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_UserDataAuth_2eproto;
 };
@@ -21878,10 +21900,40 @@ class AuthenticateStarted final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kUsernameFieldNumber = 4,
+    kSanitizedUsernameFieldNumber = 5,
     kOperationIdFieldNumber = 1,
     kAuthFactorTypeFieldNumber = 2,
     kUserCreationFieldNumber = 3,
   };
+  // string username = 4;
+  void clear_username();
+  const std::string& username() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_username(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_username();
+  PROTOBUF_NODISCARD std::string* release_username();
+  void set_allocated_username(std::string* username);
+  private:
+  const std::string& _internal_username() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_username(const std::string& value);
+  std::string* _internal_mutable_username();
+  public:
+
+  // string sanitized_username = 5;
+  void clear_sanitized_username();
+  const std::string& sanitized_username() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_sanitized_username(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_sanitized_username();
+  PROTOBUF_NODISCARD std::string* release_sanitized_username();
+  void set_allocated_sanitized_username(std::string* sanitized_username);
+  private:
+  const std::string& _internal_sanitized_username() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sanitized_username(const std::string& value);
+  std::string* _internal_mutable_sanitized_username();
+  public:
+
   // uint64 operation_id = 1;
   void clear_operation_id();
   uint64_t operation_id() const;
@@ -21931,6 +21983,8 @@ class AuthenticateStarted final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sanitized_username_;
   uint64_t operation_id_;
   union AuthFactorUnion {
     constexpr AuthFactorUnion() : _constinit_{} {}
@@ -22054,12 +22108,42 @@ class AuthenticateAuthFactorCompleted final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kUsernameFieldNumber = 6,
+    kSanitizedUsernameFieldNumber = 7,
     kErrorInfoFieldNumber = 2,
     kOperationIdFieldNumber = 5,
     kErrorFieldNumber = 1,
     kAuthFactorTypeFieldNumber = 3,
     kUserCreationFieldNumber = 4,
   };
+  // string username = 6;
+  void clear_username();
+  const std::string& username() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_username(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_username();
+  PROTOBUF_NODISCARD std::string* release_username();
+  void set_allocated_username(std::string* username);
+  private:
+  const std::string& _internal_username() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_username(const std::string& value);
+  std::string* _internal_mutable_username();
+  public:
+
+  // string sanitized_username = 7;
+  void clear_sanitized_username();
+  const std::string& sanitized_username() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_sanitized_username(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_sanitized_username();
+  PROTOBUF_NODISCARD std::string* release_sanitized_username();
+  void set_allocated_sanitized_username(std::string* sanitized_username);
+  private:
+  const std::string& _internal_sanitized_username() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sanitized_username(const std::string& value);
+  std::string* _internal_mutable_sanitized_username();
+  public:
+
   // .user_data_auth.CryptohomeErrorInfo error_info = 2;
   bool has_error_info() const;
   private:
@@ -22136,6 +22220,8 @@ class AuthenticateAuthFactorCompleted final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sanitized_username_;
   ::user_data_auth::CryptohomeErrorInfo* error_info_;
   uint64_t operation_id_;
   int error_;
@@ -25396,6 +25482,26 @@ inline void StartAuthSessionRequest::set_flags(uint32_t value) {
   // @@protoc_insertion_point(field_set:user_data_auth.StartAuthSessionRequest.flags)
 }
 
+// bool is_ephemeral_user = 4;
+inline void StartAuthSessionRequest::clear_is_ephemeral_user() {
+  is_ephemeral_user_ = false;
+}
+inline bool StartAuthSessionRequest::_internal_is_ephemeral_user() const {
+  return is_ephemeral_user_;
+}
+inline bool StartAuthSessionRequest::is_ephemeral_user() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.StartAuthSessionRequest.is_ephemeral_user)
+  return _internal_is_ephemeral_user();
+}
+inline void StartAuthSessionRequest::_internal_set_is_ephemeral_user(bool value) {
+  
+  is_ephemeral_user_ = value;
+}
+inline void StartAuthSessionRequest::set_is_ephemeral_user(bool value) {
+  _internal_set_is_ephemeral_user(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.StartAuthSessionRequest.is_ephemeral_user)
+}
+
 // .user_data_auth.AuthIntent intent = 3;
 inline void StartAuthSessionRequest::clear_intent() {
   intent_ = 0;
@@ -25438,6 +25544,26 @@ inline void StatusInfo::_internal_set_time_available_in(uint64_t value) {
 inline void StatusInfo::set_time_available_in(uint64_t value) {
   _internal_set_time_available_in(value);
   // @@protoc_insertion_point(field_set:user_data_auth.StatusInfo.time_available_in)
+}
+
+// uint64 time_expiring_in = 2;
+inline void StatusInfo::clear_time_expiring_in() {
+  time_expiring_in_ = uint64_t{0u};
+}
+inline uint64_t StatusInfo::_internal_time_expiring_in() const {
+  return time_expiring_in_;
+}
+inline uint64_t StatusInfo::time_expiring_in() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.StatusInfo.time_expiring_in)
+  return _internal_time_expiring_in();
+}
+inline void StatusInfo::_internal_set_time_expiring_in(uint64_t value) {
+  
+  time_expiring_in_ = value;
+}
+inline void StatusInfo::set_time_expiring_in(uint64_t value) {
+  _internal_set_time_expiring_in(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.StatusInfo.time_expiring_in)
 }
 
 // -------------------------------------------------------------------
@@ -37468,6 +37594,106 @@ inline void AuthenticateStarted::set_user_creation(bool value) {
   // @@protoc_insertion_point(field_set:user_data_auth.AuthenticateStarted.user_creation)
 }
 
+// string username = 4;
+inline void AuthenticateStarted::clear_username() {
+  username_.ClearToEmpty();
+}
+inline const std::string& AuthenticateStarted::username() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.AuthenticateStarted.username)
+  return _internal_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AuthenticateStarted::set_username(ArgT0&& arg0, ArgT... args) {
+ 
+ username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.AuthenticateStarted.username)
+}
+inline std::string* AuthenticateStarted::mutable_username() {
+  std::string* _s = _internal_mutable_username();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.AuthenticateStarted.username)
+  return _s;
+}
+inline const std::string& AuthenticateStarted::_internal_username() const {
+  return username_.Get();
+}
+inline void AuthenticateStarted::_internal_set_username(const std::string& value) {
+  
+  username_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AuthenticateStarted::_internal_mutable_username() {
+  
+  return username_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AuthenticateStarted::release_username() {
+  // @@protoc_insertion_point(field_release:user_data_auth.AuthenticateStarted.username)
+  return username_.Release();
+}
+inline void AuthenticateStarted::set_allocated_username(std::string* username) {
+  if (username != nullptr) {
+    
+  } else {
+    
+  }
+  username_.SetAllocated(username, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (username_.IsDefault()) {
+    username_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.AuthenticateStarted.username)
+}
+
+// string sanitized_username = 5;
+inline void AuthenticateStarted::clear_sanitized_username() {
+  sanitized_username_.ClearToEmpty();
+}
+inline const std::string& AuthenticateStarted::sanitized_username() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.AuthenticateStarted.sanitized_username)
+  return _internal_sanitized_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AuthenticateStarted::set_sanitized_username(ArgT0&& arg0, ArgT... args) {
+ 
+ sanitized_username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.AuthenticateStarted.sanitized_username)
+}
+inline std::string* AuthenticateStarted::mutable_sanitized_username() {
+  std::string* _s = _internal_mutable_sanitized_username();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.AuthenticateStarted.sanitized_username)
+  return _s;
+}
+inline const std::string& AuthenticateStarted::_internal_sanitized_username() const {
+  return sanitized_username_.Get();
+}
+inline void AuthenticateStarted::_internal_set_sanitized_username(const std::string& value) {
+  
+  sanitized_username_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AuthenticateStarted::_internal_mutable_sanitized_username() {
+  
+  return sanitized_username_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AuthenticateStarted::release_sanitized_username() {
+  // @@protoc_insertion_point(field_release:user_data_auth.AuthenticateStarted.sanitized_username)
+  return sanitized_username_.Release();
+}
+inline void AuthenticateStarted::set_allocated_sanitized_username(std::string* sanitized_username) {
+  if (sanitized_username != nullptr) {
+    
+  } else {
+    
+  }
+  sanitized_username_.SetAllocated(sanitized_username, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (sanitized_username_.IsDefault()) {
+    sanitized_username_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.AuthenticateStarted.sanitized_username)
+}
+
 inline bool AuthenticateStarted::has_auth_factor() const {
   return auth_factor_case() != AUTH_FACTOR_NOT_SET;
 }
@@ -37685,6 +37911,106 @@ inline bool AuthenticateAuthFactorCompleted::user_creation() const {
 inline void AuthenticateAuthFactorCompleted::set_user_creation(bool value) {
   _internal_set_user_creation(value);
   // @@protoc_insertion_point(field_set:user_data_auth.AuthenticateAuthFactorCompleted.user_creation)
+}
+
+// string username = 6;
+inline void AuthenticateAuthFactorCompleted::clear_username() {
+  username_.ClearToEmpty();
+}
+inline const std::string& AuthenticateAuthFactorCompleted::username() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.AuthenticateAuthFactorCompleted.username)
+  return _internal_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AuthenticateAuthFactorCompleted::set_username(ArgT0&& arg0, ArgT... args) {
+ 
+ username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.AuthenticateAuthFactorCompleted.username)
+}
+inline std::string* AuthenticateAuthFactorCompleted::mutable_username() {
+  std::string* _s = _internal_mutable_username();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.AuthenticateAuthFactorCompleted.username)
+  return _s;
+}
+inline const std::string& AuthenticateAuthFactorCompleted::_internal_username() const {
+  return username_.Get();
+}
+inline void AuthenticateAuthFactorCompleted::_internal_set_username(const std::string& value) {
+  
+  username_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AuthenticateAuthFactorCompleted::_internal_mutable_username() {
+  
+  return username_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AuthenticateAuthFactorCompleted::release_username() {
+  // @@protoc_insertion_point(field_release:user_data_auth.AuthenticateAuthFactorCompleted.username)
+  return username_.Release();
+}
+inline void AuthenticateAuthFactorCompleted::set_allocated_username(std::string* username) {
+  if (username != nullptr) {
+    
+  } else {
+    
+  }
+  username_.SetAllocated(username, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (username_.IsDefault()) {
+    username_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.AuthenticateAuthFactorCompleted.username)
+}
+
+// string sanitized_username = 7;
+inline void AuthenticateAuthFactorCompleted::clear_sanitized_username() {
+  sanitized_username_.ClearToEmpty();
+}
+inline const std::string& AuthenticateAuthFactorCompleted::sanitized_username() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.AuthenticateAuthFactorCompleted.sanitized_username)
+  return _internal_sanitized_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AuthenticateAuthFactorCompleted::set_sanitized_username(ArgT0&& arg0, ArgT... args) {
+ 
+ sanitized_username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.AuthenticateAuthFactorCompleted.sanitized_username)
+}
+inline std::string* AuthenticateAuthFactorCompleted::mutable_sanitized_username() {
+  std::string* _s = _internal_mutable_sanitized_username();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.AuthenticateAuthFactorCompleted.sanitized_username)
+  return _s;
+}
+inline const std::string& AuthenticateAuthFactorCompleted::_internal_sanitized_username() const {
+  return sanitized_username_.Get();
+}
+inline void AuthenticateAuthFactorCompleted::_internal_set_sanitized_username(const std::string& value) {
+  
+  sanitized_username_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AuthenticateAuthFactorCompleted::_internal_mutable_sanitized_username() {
+  
+  return sanitized_username_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AuthenticateAuthFactorCompleted::release_sanitized_username() {
+  // @@protoc_insertion_point(field_release:user_data_auth.AuthenticateAuthFactorCompleted.sanitized_username)
+  return sanitized_username_.Release();
+}
+inline void AuthenticateAuthFactorCompleted::set_allocated_sanitized_username(std::string* sanitized_username) {
+  if (sanitized_username != nullptr) {
+    
+  } else {
+    
+  }
+  sanitized_username_.SetAllocated(sanitized_username, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (sanitized_username_.IsDefault()) {
+    sanitized_username_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.AuthenticateAuthFactorCompleted.sanitized_username)
 }
 
 inline bool AuthenticateAuthFactorCompleted::has_auth_factor() const {

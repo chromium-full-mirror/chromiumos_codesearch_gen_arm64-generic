@@ -167,8 +167,6 @@ bool CameraInfo_Data::Validate(
 
   if (!mojo::internal::ValidateStruct(object->resource_cost, validation_context))
     return false;
-  if (object->header_.version < 1)
-    return true;
 
   constexpr const mojo::internal::ContainerValidateParams& conflicting_devices_validate_params =
       mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();

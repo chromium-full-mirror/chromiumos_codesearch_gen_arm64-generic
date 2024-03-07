@@ -66,33 +66,36 @@ enum class SerializedAuthIntent : int32_t {
   kVerifyOnly = 2,
   kWebAuthn = 3,
   kRestoreKey = 4,
+  kForensics = 5,
   MIN = kDecrypt,
-  MAX = kRestoreKey
+  MAX = kForensics
 };
 
-inline const SerializedAuthIntent (&EnumValuesSerializedAuthIntent())[4] {
+inline const SerializedAuthIntent (&EnumValuesSerializedAuthIntent())[5] {
   static const SerializedAuthIntent values[] = {
     SerializedAuthIntent::kDecrypt,
     SerializedAuthIntent::kVerifyOnly,
     SerializedAuthIntent::kWebAuthn,
-    SerializedAuthIntent::kRestoreKey
+    SerializedAuthIntent::kRestoreKey,
+    SerializedAuthIntent::kForensics
   };
   return values;
 }
 
 inline const char * const *EnumNamesSerializedAuthIntent() {
-  static const char * const names[5] = {
+  static const char * const names[6] = {
     "kDecrypt",
     "kVerifyOnly",
     "kWebAuthn",
     "kRestoreKey",
+    "kForensics",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameSerializedAuthIntent(SerializedAuthIntent e) {
-  if (::flatbuffers::IsOutRange(e, SerializedAuthIntent::kDecrypt, SerializedAuthIntent::kRestoreKey)) return "";
+  if (::flatbuffers::IsOutRange(e, SerializedAuthIntent::kDecrypt, SerializedAuthIntent::kForensics)) return "";
   const size_t index = static_cast<size_t>(e) - static_cast<size_t>(SerializedAuthIntent::kDecrypt);
   return EnumNamesSerializedAuthIntent()[index];
 }
