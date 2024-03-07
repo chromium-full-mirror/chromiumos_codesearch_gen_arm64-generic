@@ -26375,6 +26375,7 @@ class DeviceInitialEnrollmentStateRequest final :
   enum : int {
     kSerialNumberFieldNumber = 1,
     kBrandCodeFieldNumber = 2,
+    kEnrollmentTokenFieldNumber = 3,
   };
   // optional string serial_number = 1;
   bool has_serial_number() const;
@@ -26418,6 +26419,27 @@ class DeviceInitialEnrollmentStateRequest final :
   std::string* _internal_mutable_brand_code();
 
   public:
+  // optional string enrollment_token = 3;
+  bool has_enrollment_token() const;
+  void clear_enrollment_token() ;
+  const std::string& enrollment_token() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_enrollment_token(Arg_&& arg, Args_... args);
+  std::string* mutable_enrollment_token();
+  PROTOBUF_NODISCARD std::string* release_enrollment_token();
+  void set_allocated_enrollment_token(std::string* ptr);
+
+  private:
+  const std::string& _internal_enrollment_token() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_enrollment_token(
+      const std::string& value);
+  std::string* _internal_mutable_enrollment_token();
+
+  public:
   // @@protoc_insertion_point(class_scope:enterprise_management.DeviceInitialEnrollmentStateRequest)
  private:
   class _Internal;
@@ -26430,6 +26452,7 @@ class DeviceInitialEnrollmentStateRequest final :
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr serial_number_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr brand_code_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr enrollment_token_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
@@ -68952,6 +68975,71 @@ inline void DeviceInitialEnrollmentStateRequest::set_allocated_brand_code(std::s
         }
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceInitialEnrollmentStateRequest.brand_code)
+}
+
+// optional string enrollment_token = 3;
+inline bool DeviceInitialEnrollmentStateRequest::has_enrollment_token() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline void DeviceInitialEnrollmentStateRequest::clear_enrollment_token() {
+  _impl_.enrollment_token_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& DeviceInitialEnrollmentStateRequest::enrollment_token() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceInitialEnrollmentStateRequest.enrollment_token)
+  return _internal_enrollment_token();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void DeviceInitialEnrollmentStateRequest::set_enrollment_token(Arg_&& arg,
+                                                     Args_... args) {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_.enrollment_token_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_management.DeviceInitialEnrollmentStateRequest.enrollment_token)
+}
+inline std::string* DeviceInitialEnrollmentStateRequest::mutable_enrollment_token() {
+  std::string* _s = _internal_mutable_enrollment_token();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.DeviceInitialEnrollmentStateRequest.enrollment_token)
+  return _s;
+}
+inline const std::string& DeviceInitialEnrollmentStateRequest::_internal_enrollment_token() const {
+  return _impl_.enrollment_token_.Get();
+}
+inline void DeviceInitialEnrollmentStateRequest::_internal_set_enrollment_token(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000004u;
+
+
+  _impl_.enrollment_token_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DeviceInitialEnrollmentStateRequest::_internal_mutable_enrollment_token() {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  return _impl_.enrollment_token_.Mutable( GetArenaForAllocation());
+}
+inline std::string* DeviceInitialEnrollmentStateRequest::release_enrollment_token() {
+  // @@protoc_insertion_point(field_release:enterprise_management.DeviceInitialEnrollmentStateRequest.enrollment_token)
+  if ((_impl_._has_bits_[0] & 0x00000004u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000004u;
+  auto* released = _impl_.enrollment_token_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.enrollment_token_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
+}
+inline void DeviceInitialEnrollmentStateRequest::set_allocated_enrollment_token(std::string* value) {
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000004u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000004u;
+  }
+  _impl_.enrollment_token_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.enrollment_token_.IsDefault()) {
+          _impl_.enrollment_token_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceInitialEnrollmentStateRequest.enrollment_token)
 }
 
 // -------------------------------------------------------------------
