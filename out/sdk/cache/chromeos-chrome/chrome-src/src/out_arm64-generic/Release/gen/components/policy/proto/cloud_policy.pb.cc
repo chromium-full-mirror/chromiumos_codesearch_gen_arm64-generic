@@ -54,7 +54,6 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , screencapturewithoutgestureallowedfororigins_(nullptr)
   , fileordirectorypickerwithoutgestureallowedfororigins_(nullptr)
   , applaunchautomation_(nullptr)
-  , insecurehashesintlshandshakesenabled_(nullptr)
   , showdisplaysizescreenenabled_(nullptr)
   , essentialsearchenabled_(nullptr)
   , legacytechreportallowlist_(nullptr)
@@ -65,7 +64,6 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , googlesearchsidepanelenabled_(nullptr)
   , pdfuseskiarendererenabled_(nullptr)
   , dataurlinsvguseenabled_(nullptr)
-  , rsakeyusageforlocalanchorsenabled_(nullptr)
   , beforeunloadeventcancelbypreventdefaultenabled_(nullptr)
   , policytestpageenabled_(nullptr)
   , urlkeyedmetricsallowed_(nullptr)
@@ -704,43 +702,43 @@ class CloudPolicySubProto1::_Internal {
   using HasBits = decltype(std::declval<CloudPolicySubProto1>()._has_bits_);
   static const ::enterprise_management::BooleanPolicyProto& colorcorrectionenabled(const CloudPolicySubProto1* msg);
   static void set_has_colorcorrectionenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 4194304u;
+    (*has_bits)[1] |= 1048576u;
   }
   static const ::enterprise_management::BooleanPolicyProto& unaffiliateddevicearcallowed(const CloudPolicySubProto1* msg);
   static void set_has_unaffiliateddevicearcallowed(HasBits* has_bits) {
-    (*has_bits)[2] |= 65536u;
+    (*has_bits)[2] |= 16384u;
   }
   static const ::enterprise_management::StringPolicyProto& bruschettainstallerconfiguration(const CloudPolicySubProto1* msg);
   static void set_has_bruschettainstallerconfiguration(HasBits* has_bits) {
-    (*has_bits)[1] |= 268435456u;
+    (*has_bits)[1] |= 67108864u;
   }
   static const ::enterprise_management::StringListPolicyProto& legacytechreportallowlist(const CloudPolicySubProto1* msg);
   static void set_has_legacytechreportallowlist(HasBits* has_bits) {
-    (*has_bits)[1] |= 32u;
+    (*has_bits)[1] |= 16u;
   }
   static const ::enterprise_management::StringPolicyProto& googleworkspacecloudupload(const CloudPolicySubProto1* msg);
   static void set_has_googleworkspacecloudupload(HasBits* has_bits) {
-    (*has_bits)[2] |= 64u;
+    (*has_bits)[2] |= 16u;
   }
   static const ::enterprise_management::StringPolicyProto& microsoftofficecloudupload(const CloudPolicySubProto1* msg);
   static void set_has_microsoftofficecloudupload(HasBits* has_bits) {
-    (*has_bits)[2] |= 32u;
+    (*has_bits)[2] |= 8u;
   }
   static const ::enterprise_management::StringListPolicyProto& automaticfullscreenallowedforurls(const CloudPolicySubProto1* msg);
   static void set_has_automaticfullscreenallowedforurls(HasBits* has_bits) {
-    (*has_bits)[3] |= 1048576u;
+    (*has_bits)[3] |= 262144u;
   }
   static const ::enterprise_management::StringListPolicyProto& automaticfullscreenblockedforurls(const CloudPolicySubProto1* msg);
   static void set_has_automaticfullscreenblockedforurls(HasBits* has_bits) {
-    (*has_bits)[3] |= 2097152u;
+    (*has_bits)[3] |= 524288u;
   }
   static const ::enterprise_management::BooleanPolicyProto& dataurlinsvguseenabled(const CloudPolicySubProto1* msg);
   static void set_has_dataurlinsvguseenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 4096u;
+    (*has_bits)[1] |= 2048u;
   }
   static const ::enterprise_management::IntegerPolicyProto& defaultdirectsocketssetting(const CloudPolicySubProto1* msg);
   static void set_has_defaultdirectsocketssetting(HasBits* has_bits) {
-    (*has_bits)[3] |= 16777216u;
+    (*has_bits)[3] |= 4194304u;
   }
   static const ::enterprise_management::IntegerPolicyProto& defaultthirdpartystoragepartitioningsetting(const CloudPolicySubProto1* msg);
   static void set_has_defaultthirdpartystoragepartitioningsetting(HasBits* has_bits) {
@@ -748,7 +746,7 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::IntegerPolicyProto& defaultwebprintingsetting(const CloudPolicySubProto1* msg);
   static void set_has_defaultwebprintingsetting(HasBits* has_bits) {
-    (*has_bits)[3] |= 65536u;
+    (*has_bits)[3] |= 16384u;
   }
   static const ::enterprise_management::IntegerPolicyProto& defaultwindowmanagementsetting(const CloudPolicySubProto1* msg);
   static void set_has_defaultwindowmanagementsetting(HasBits* has_bits) {
@@ -756,11 +754,11 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::StringListPolicyProto& directsocketsallowedforurls(const CloudPolicySubProto1* msg);
   static void set_has_directsocketsallowedforurls(HasBits* has_bits) {
-    (*has_bits)[3] |= 33554432u;
+    (*has_bits)[3] |= 8388608u;
   }
   static const ::enterprise_management::StringListPolicyProto& directsocketsblockedforurls(const CloudPolicySubProto1* msg);
   static void set_has_directsocketsblockedforurls(HasBits* has_bits) {
-    (*has_bits)[3] |= 67108864u;
+    (*has_bits)[3] |= 16777216u;
   }
   static const ::enterprise_management::StringListPolicyProto& thirdpartystoragepartitioningblockedfororigins(const CloudPolicySubProto1* msg);
   static void set_has_thirdpartystoragepartitioningblockedfororigins(HasBits* has_bits) {
@@ -768,11 +766,11 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::StringListPolicyProto& webprintingallowedforurls(const CloudPolicySubProto1* msg);
   static void set_has_webprintingallowedforurls(HasBits* has_bits) {
-    (*has_bits)[3] |= 131072u;
+    (*has_bits)[3] |= 32768u;
   }
   static const ::enterprise_management::StringListPolicyProto& webprintingblockedforurls(const CloudPolicySubProto1* msg);
   static void set_has_webprintingblockedforurls(HasBits* has_bits) {
-    (*has_bits)[3] |= 262144u;
+    (*has_bits)[3] |= 65536u;
   }
   static const ::enterprise_management::StringListPolicyProto& windowmanagementallowedforurls(const CloudPolicySubProto1* msg);
   static void set_has_windowmanagementallowedforurls(HasBits* has_bits) {
@@ -784,19 +782,19 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::BooleanPolicyProto& deskapidesksaveandshareenabled(const CloudPolicySubProto1* msg);
   static void set_has_deskapidesksaveandshareenabled(HasBits* has_bits) {
-    (*has_bits)[2] |= 134217728u;
+    (*has_bits)[2] |= 33554432u;
   }
   static const ::enterprise_management::StringPolicyProto& drivefilesyncavailable(const CloudPolicySubProto1* msg);
   static void set_has_drivefilesyncavailable(HasBits* has_bits) {
-    (*has_bits)[2] |= 8192u;
+    (*has_bits)[2] |= 2048u;
   }
   static const ::enterprise_management::StringListPolicyProto& microsoftonedriveaccountrestrictions(const CloudPolicySubProto1* msg);
   static void set_has_microsoftonedriveaccountrestrictions(HasBits* has_bits) {
-    (*has_bits)[2] |= 8388608u;
+    (*has_bits)[2] |= 2097152u;
   }
   static const ::enterprise_management::StringPolicyProto& microsoftonedrivemount(const CloudPolicySubProto1* msg);
   static void set_has_microsoftonedrivemount(HasBits* has_bits) {
-    (*has_bits)[2] |= 256u;
+    (*has_bits)[2] |= 64u;
   }
   static const ::enterprise_management::StringListPolicyProto& extensionextendedbackgroundlifetimeforportconnectionstourls(const CloudPolicySubProto1* msg);
   static void set_has_extensionextendedbackgroundlifetimeforportconnectionstourls(HasBits* has_bits) {
@@ -804,7 +802,7 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::StringPolicyProto& extensionoauthredirecturls(const CloudPolicySubProto1* msg);
   static void set_has_extensionoauthredirecturls(HasBits* has_bits) {
-    (*has_bits)[2] |= 512u;
+    (*has_bits)[2] |= 128u;
   }
   static const ::enterprise_management::IntegerPolicyProto& extensionunpublishedavailability(const CloudPolicySubProto1* msg);
   static void set_has_extensionunpublishedavailability(HasBits* has_bits) {
@@ -816,31 +814,31 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::StringListPolicyProto& floatingssodomainblocklist(const CloudPolicySubProto1* msg);
   static void set_has_floatingssodomainblocklist(HasBits* has_bits) {
-    (*has_bits)[3] |= 4u;
+    (*has_bits)[3] |= 1u;
   }
   static const ::enterprise_management::StringListPolicyProto& floatingssodomainblocklistexceptions(const CloudPolicySubProto1* msg);
   static void set_has_floatingssodomainblocklistexceptions(HasBits* has_bits) {
-    (*has_bits)[3] |= 8u;
+    (*has_bits)[3] |= 2u;
   }
   static const ::enterprise_management::BooleanPolicyProto& floatingssoenabled(const CloudPolicySubProto1* msg);
   static void set_has_floatingssoenabled(HasBits* has_bits) {
-    (*has_bits)[3] |= 2u;
+    (*has_bits)[2] |= 2147483648u;
   }
   static const ::enterprise_management::IntegerPolicyProto& createthemessettings(const CloudPolicySubProto1* msg);
   static void set_has_createthemessettings(HasBits* has_bits) {
-    (*has_bits)[2] |= 2147483648u;
+    (*has_bits)[2] |= 536870912u;
   }
   static const ::enterprise_management::IntegerPolicyProto& devtoolsgenaisettings(const CloudPolicySubProto1* msg);
   static void set_has_devtoolsgenaisettings(HasBits* has_bits) {
-    (*has_bits)[3] |= 8388608u;
+    (*has_bits)[3] |= 2097152u;
   }
   static const ::enterprise_management::IntegerPolicyProto& helpmewritesettings(const CloudPolicySubProto1* msg);
   static void set_has_helpmewritesettings(HasBits* has_bits) {
-    (*has_bits)[2] |= 1073741824u;
+    (*has_bits)[2] |= 268435456u;
   }
   static const ::enterprise_management::IntegerPolicyProto& taborganizersettings(const CloudPolicySubProto1* msg);
   static void set_has_taborganizersettings(HasBits* has_bits) {
-    (*has_bits)[2] |= 536870912u;
+    (*has_bits)[2] |= 134217728u;
   }
   static const ::enterprise_management::BooleanPolicyProto& showcastsessionsstartedbyotherdevices(const CloudPolicySubProto1* msg);
   static void set_has_showcastsessionsstartedbyotherdevices(HasBits* has_bits) {
@@ -856,15 +854,15 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::BooleanPolicyProto& allowbackforwardcacheforcachecontrolnostorepageenabled(const CloudPolicySubProto1* msg);
   static void set_has_allowbackforwardcacheforcachecontrolnostorepageenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 131072u;
+    (*has_bits)[1] |= 32768u;
   }
   static const ::enterprise_management::StringListPolicyProto& alloweddomainsforappslist(const CloudPolicySubProto1* msg);
   static void set_has_alloweddomainsforappslist(HasBits* has_bits) {
-    (*has_bits)[3] |= 4096u;
+    (*has_bits)[3] |= 1024u;
   }
   static const ::enterprise_management::StringListPolicyProto& alwaysonvpnpreconnecturlallowlist(const CloudPolicySubProto1* msg);
   static void set_has_alwaysonvpnpreconnecturlallowlist(HasBits* has_bits) {
-    (*has_bits)[3] |= 1u;
+    (*has_bits)[2] |= 1073741824u;
   }
   static const ::enterprise_management::StringPolicyProto& applaunchautomation(const CloudPolicySubProto1* msg);
   static void set_has_applaunchautomation(HasBits* has_bits) {
@@ -872,23 +870,23 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::IntegerPolicyProto& arcvmdatamigrationstrategy(const CloudPolicySubProto1* msg);
   static void set_has_arcvmdatamigrationstrategy(HasBits* has_bits) {
-    (*has_bits)[1] |= 33554432u;
+    (*has_bits)[1] |= 8388608u;
   }
   static const ::enterprise_management::BooleanPolicyProto& beforeunloadeventcancelbypreventdefaultenabled(const CloudPolicySubProto1* msg);
   static void set_has_beforeunloadeventcancelbypreventdefaultenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 16384u;
+    (*has_bits)[1] |= 4096u;
   }
   static const ::enterprise_management::StringPolicyProto& datacontrolsrules(const CloudPolicySubProto1* msg);
   static void set_has_datacontrolsrules(HasBits* has_bits) {
-    (*has_bits)[2] |= 16384u;
+    (*has_bits)[2] |= 4096u;
   }
   static const ::enterprise_management::IntegerPolicyProto& deletekeymodifier(const CloudPolicySubProto1* msg);
   static void set_has_deletekeymodifier(HasBits* has_bits) {
-    (*has_bits)[3] |= 128u;
+    (*has_bits)[3] |= 32u;
   }
   static const ::enterprise_management::StringListPolicyProto& documentscanapitrustedextensions(const CloudPolicySubProto1* msg);
   static void set_has_documentscanapitrustedextensions(HasBits* has_bits) {
-    (*has_bits)[3] |= 524288u;
+    (*has_bits)[3] |= 131072u;
   }
   static const ::enterprise_management::BooleanPolicyProto& domainreliabilityallowed(const CloudPolicySubProto1* msg);
   static void set_has_domainreliabilityallowed(HasBits* has_bits) {
@@ -896,7 +894,7 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::BooleanPolicyProto& emojipickergifsupportenabled(const CloudPolicySubProto1* msg);
   static void set_has_emojipickergifsupportenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 16777216u;
+    (*has_bits)[1] |= 4194304u;
   }
   static const ::enterprise_management::BooleanPolicyProto& enforcelocalanchorconstraintsenabled(const CloudPolicySubProto1* msg);
   static void set_has_enforcelocalanchorconstraintsenabled(HasBits* has_bits) {
@@ -904,19 +902,19 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::BooleanPolicyProto& essentialsearchenabled(const CloudPolicySubProto1* msg);
   static void set_has_essentialsearchenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 16u;
+    (*has_bits)[1] |= 8u;
   }
   static const ::enterprise_management::IntegerPolicyProto& f11keymodifier(const CloudPolicySubProto1* msg);
   static void set_has_f11keymodifier(HasBits* has_bits) {
-    (*has_bits)[3] |= 16u;
+    (*has_bits)[3] |= 4u;
   }
   static const ::enterprise_management::IntegerPolicyProto& f12keymodifier(const CloudPolicySubProto1* msg);
   static void set_has_f12keymodifier(HasBits* has_bits) {
-    (*has_bits)[3] |= 32u;
+    (*has_bits)[3] |= 8u;
   }
   static const ::enterprise_management::BooleanPolicyProto& feedbacksurveysenabled(const CloudPolicySubProto1* msg);
   static void set_has_feedbacksurveysenabled(HasBits* has_bits) {
-    (*has_bits)[2] |= 67108864u;
+    (*has_bits)[2] |= 16777216u;
   }
   static const ::enterprise_management::StringListPolicyProto& fileordirectorypickerwithoutgestureallowedfororigins(const CloudPolicySubProto1* msg);
   static void set_has_fileordirectorypickerwithoutgestureallowedfororigins(HasBits* has_bits) {
@@ -924,27 +922,27 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::BooleanPolicyProto& forcepermissionpolicyunloaddefaultenabled(const CloudPolicySubProto1* msg);
   static void set_has_forcepermissionpolicyunloaddefaultenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 536870912u;
+    (*has_bits)[1] |= 134217728u;
   }
   static const ::enterprise_management::IntegerPolicyProto& fullrestoremode(const CloudPolicySubProto1* msg);
   static void set_has_fullrestoremode(HasBits* has_bits) {
-    (*has_bits)[2] |= 2048u;
+    (*has_bits)[2] |= 512u;
   }
   static const ::enterprise_management::BooleanPolicyProto& glanceablesenabled(const CloudPolicySubProto1* msg);
   static void set_has_glanceablesenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 134217728u;
+    (*has_bits)[1] |= 33554432u;
   }
   static const ::enterprise_management::IntegerPolicyProto& googlelocationservicesenabled(const CloudPolicySubProto1* msg);
   static void set_has_googlelocationservicesenabled(HasBits* has_bits) {
-    (*has_bits)[3] |= 8192u;
+    (*has_bits)[3] |= 2048u;
   }
   static const ::enterprise_management::BooleanPolicyProto& googlesearchsidepanelenabled(const CloudPolicySubProto1* msg);
   static void set_has_googlesearchsidepanelenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 1024u;
+    (*has_bits)[1] |= 512u;
   }
   static const ::enterprise_management::IntegerPolicyProto& homeandendkeysmodifier(const CloudPolicySubProto1* msg);
   static void set_has_homeandendkeysmodifier(HasBits* has_bits) {
-    (*has_bits)[3] |= 256u;
+    (*has_bits)[3] |= 64u;
   }
   static const ::enterprise_management::StringListPolicyProto& httpallowlist(const CloudPolicySubProto1* msg);
   static void set_has_httpallowlist(HasBits* has_bits) {
@@ -954,13 +952,9 @@ class CloudPolicySubProto1::_Internal {
   static void set_has_httpsupgradesenabled(HasBits* has_bits) {
     (*has_bits)[0] |= 33554432u;
   }
-  static const ::enterprise_management::BooleanPolicyProto& insecurehashesintlshandshakesenabled(const CloudPolicySubProto1* msg);
-  static void set_has_insecurehashesintlshandshakesenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 4u;
-  }
   static const ::enterprise_management::IntegerPolicyProto& insertkeymodifier(const CloudPolicySubProto1* msg);
   static void set_has_insertkeymodifier(HasBits* has_bits) {
-    (*has_bits)[3] |= 1024u;
+    (*has_bits)[3] |= 256u;
   }
   static const ::enterprise_management::StringPolicyProto& lacrosselection(const CloudPolicySubProto1* msg);
   static void set_has_lacrosselection(HasBits* has_bits) {
@@ -968,15 +962,15 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::BooleanPolicyProto& localuserfilesallowed(const CloudPolicySubProto1* msg);
   static void set_has_localuserfilesallowed(HasBits* has_bits) {
-    (*has_bits)[3] |= 16384u;
+    (*has_bits)[3] |= 4096u;
   }
   static const ::enterprise_management::BooleanPolicyProto& mutationeventsenabled(const CloudPolicySubProto1* msg);
   static void set_has_mutationeventsenabled(HasBits* has_bits) {
-    (*has_bits)[3] |= 4194304u;
+    (*has_bits)[3] |= 1048576u;
   }
   static const ::enterprise_management::BooleanPolicyProto& nativeclientforceallowed(const CloudPolicySubProto1* msg);
   static void set_has_nativeclientforceallowed(HasBits* has_bits) {
-    (*has_bits)[1] |= 8388608u;
+    (*has_bits)[1] |= 2097152u;
   }
   static const ::enterprise_management::BooleanPolicyProto& newbaseurlinheritancebehaviorallowed(const CloudPolicySubProto1* msg);
   static void set_has_newbaseurlinheritancebehaviorallowed(HasBits* has_bits) {
@@ -984,47 +978,43 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::IntegerPolicyProto& pageupandpagedownkeysmodifier(const CloudPolicySubProto1* msg);
   static void set_has_pageupandpagedownkeysmodifier(HasBits* has_bits) {
-    (*has_bits)[3] |= 512u;
+    (*has_bits)[3] |= 128u;
   }
   static const ::enterprise_management::BooleanPolicyProto& pdfuseskiarendererenabled(const CloudPolicySubProto1* msg);
   static void set_has_pdfuseskiarendererenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 2048u;
+    (*has_bits)[1] |= 1024u;
   }
   static const ::enterprise_management::BooleanPolicyProto& physicalkeyboardautocorrect(const CloudPolicySubProto1* msg);
   static void set_has_physicalkeyboardautocorrect(HasBits* has_bits) {
-    (*has_bits)[1] |= 1048576u;
+    (*has_bits)[1] |= 262144u;
   }
   static const ::enterprise_management::BooleanPolicyProto& physicalkeyboardpredictivewriting(const CloudPolicySubProto1* msg);
   static void set_has_physicalkeyboardpredictivewriting(HasBits* has_bits) {
-    (*has_bits)[1] |= 2097152u;
+    (*has_bits)[1] |= 524288u;
   }
   static const ::enterprise_management::BooleanPolicyProto& policytestpageenabled(const CloudPolicySubProto1* msg);
   static void set_has_policytestpageenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 32768u;
+    (*has_bits)[1] |= 8192u;
   }
   static const ::enterprise_management::BooleanPolicyProto& postquantumkeyagreementenabled(const CloudPolicySubProto1* msg);
   static void set_has_postquantumkeyagreementenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 524288u;
+    (*has_bits)[1] |= 131072u;
   }
   static const ::enterprise_management::StringPolicyProto& prefixedvideofullscreenapiavailability(const CloudPolicySubProto1* msg);
   static void set_has_prefixedvideofullscreenapiavailability(HasBits* has_bits) {
-    (*has_bits)[3] |= 268435456u;
+    (*has_bits)[3] |= 67108864u;
   }
   static const ::enterprise_management::BooleanPolicyProto& productspecificationsenabled(const CloudPolicySubProto1* msg);
   static void set_has_productspecificationsenabled(HasBits* has_bits) {
-    (*has_bits)[3] |= 134217728u;
+    (*has_bits)[3] |= 33554432u;
   }
   static const ::enterprise_management::BooleanPolicyProto& quickofficeforcefiledownloadenabled(const CloudPolicySubProto1* msg);
   static void set_has_quickofficeforcefiledownloadenabled(HasBits* has_bits) {
-    (*has_bits)[2] |= 1024u;
-  }
-  static const ::enterprise_management::BooleanPolicyProto& rsakeyusageforlocalanchorsenabled(const CloudPolicySubProto1* msg);
-  static void set_has_rsakeyusageforlocalanchorsenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 8192u;
+    (*has_bits)[2] |= 256u;
   }
   static const ::enterprise_management::StringPolicyProto& screencapturelocation(const CloudPolicySubProto1* msg);
   static void set_has_screencapturelocation(HasBits* has_bits) {
-    (*has_bits)[3] |= 2048u;
+    (*has_bits)[3] |= 512u;
   }
   static const ::enterprise_management::StringListPolicyProto& screencapturewithoutgestureallowedfororigins(const CloudPolicySubProto1* msg);
   static void set_has_screencapturewithoutgestureallowedfororigins(HasBits* has_bits) {
@@ -1032,15 +1022,15 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::BooleanPolicyProto& shortcutcustomizationallowed(const CloudPolicySubProto1* msg);
   static void set_has_shortcutcustomizationallowed(HasBits* has_bits) {
-    (*has_bits)[2] |= 128u;
+    (*has_bits)[2] |= 32u;
   }
   static const ::enterprise_management::BooleanPolicyProto& showdisplaysizescreenenabled(const CloudPolicySubProto1* msg);
   static void set_has_showdisplaysizescreenenabled(HasBits* has_bits) {
-    (*has_bits)[1] |= 8u;
+    (*has_bits)[1] |= 4u;
   }
   static const ::enterprise_management::BooleanPolicyProto& showhumanpresencesensorscreenenabled(const CloudPolicySubProto1* msg);
   static void set_has_showhumanpresencesensorscreenenabled(HasBits* has_bits) {
-    (*has_bits)[2] |= 262144u;
+    (*has_bits)[2] |= 65536u;
   }
   static const ::enterprise_management::BooleanPolicyProto& showtouchpadscrollscreenenabled(const CloudPolicySubProto1* msg);
   static void set_has_showtouchpadscrollscreenenabled(HasBits* has_bits) {
@@ -1048,15 +1038,15 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::StringPolicyProto& sitesearchsettings(const CloudPolicySubProto1* msg);
   static void set_has_sitesearchsettings(HasBits* has_bits) {
-    (*has_bits)[2] |= 16777216u;
+    (*has_bits)[2] |= 4194304u;
   }
   static const ::enterprise_management::StringListPolicyProto& subappsapisallowedwithoutgestureandauthorizationfororigins(const CloudPolicySubProto1* msg);
   static void set_has_subappsapisallowedwithoutgestureandauthorizationfororigins(HasBits* has_bits) {
-    (*has_bits)[3] |= 32768u;
+    (*has_bits)[3] |= 8192u;
   }
   static const ::enterprise_management::BooleanPolicyProto& urlkeyedmetricsallowed(const CloudPolicySubProto1* msg);
   static void set_has_urlkeyedmetricsallowed(HasBits* has_bits) {
-    (*has_bits)[1] |= 65536u;
+    (*has_bits)[1] |= 16384u;
   }
   static const ::enterprise_management::BooleanPolicyProto& usbdetectornotificationenabled(const CloudPolicySubProto1* msg);
   static void set_has_usbdetectornotificationenabled(HasBits* has_bits) {
@@ -1068,15 +1058,15 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::StringListPolicyProto& usercontextawareaccesssignalsallowlist(const CloudPolicySubProto1* msg);
   static void set_has_usercontextawareaccesssignalsallowlist(HasBits* has_bits) {
-    (*has_bits)[1] |= 512u;
+    (*has_bits)[1] |= 256u;
   }
   static const ::enterprise_management::StringListPolicyProto& userfeedbackwithlowleveldebugdataallowed(const CloudPolicySubProto1* msg);
   static void set_has_userfeedbackwithlowleveldebugdataallowed(HasBits* has_bits) {
-    (*has_bits)[2] |= 4194304u;
+    (*has_bits)[2] |= 1048576u;
   }
   static const ::enterprise_management::BooleanPolicyProto& virtualkeyboardsmartvisibilityenabled(const CloudPolicySubProto1* msg);
   static void set_has_virtualkeyboardsmartvisibilityenabled(HasBits* has_bits) {
-    (*has_bits)[3] |= 64u;
+    (*has_bits)[3] |= 16u;
   }
   static const ::enterprise_management::BooleanPolicyProto& wallpapergooglephotosintegrationenabled(const CloudPolicySubProto1* msg);
   static void set_has_wallpapergooglephotosintegrationenabled(HasBits* has_bits) {
@@ -1088,27 +1078,27 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::BooleanPolicyProto& blocktruncatedcookies(const CloudPolicySubProto1* msg);
   static void set_has_blocktruncatedcookies(HasBits* has_bits) {
-    (*has_bits)[2] |= 4u;
+    (*has_bits)[2] |= 1u;
   }
   static const ::enterprise_management::BooleanPolicyProto& compressiondictionarytransportenabled(const CloudPolicySubProto1* msg);
   static void set_has_compressiondictionarytransportenabled(HasBits* has_bits) {
-    (*has_bits)[2] |= 16u;
+    (*has_bits)[2] |= 4u;
   }
   static const ::enterprise_management::BooleanPolicyProto& ipv6reachabilityoverrideenabled(const CloudPolicySubProto1* msg);
   static void set_has_ipv6reachabilityoverrideenabled(HasBits* has_bits) {
-    (*has_bits)[2] |= 2097152u;
+    (*has_bits)[2] |= 524288u;
   }
   static const ::enterprise_management::BooleanPolicyProto& zstdcontentencodingenabled(const CloudPolicySubProto1* msg);
   static void set_has_zstdcontentencodingenabled(HasBits* has_bits) {
-    (*has_bits)[2] |= 1048576u;
+    (*has_bits)[2] |= 262144u;
   }
   static const ::enterprise_management::BooleanPolicyProto& passwordsharingenabled(const CloudPolicySubProto1* msg);
   static void set_has_passwordsharingenabled(HasBits* has_bits) {
-    (*has_bits)[2] |= 524288u;
+    (*has_bits)[2] |= 131072u;
   }
   static const ::enterprise_management::BooleanPolicyProto& oopprintdriversallowed(const CloudPolicySubProto1* msg);
   static void set_has_oopprintdriversallowed(HasBits* has_bits) {
-    (*has_bits)[2] |= 268435456u;
+    (*has_bits)[2] |= 67108864u;
   }
   static const ::enterprise_management::BooleanPolicyProto& privacysandboxadmeasurementenabled(const CloudPolicySubProto1* msg);
   static void set_has_privacysandboxadmeasurementenabled(HasBits* has_bits) {
@@ -1128,19 +1118,19 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::BooleanPolicyProto& privatenetworkaccessrestrictionsenabled(const CloudPolicySubProto1* msg);
   static void set_has_privatenetworkaccessrestrictionsenabled(HasBits* has_bits) {
-    (*has_bits)[2] |= 33554432u;
+    (*has_bits)[2] |= 8388608u;
   }
   static const ::enterprise_management::BooleanPolicyProto& relatedwebsitesetsenabled(const CloudPolicySubProto1* msg);
   static void set_has_relatedwebsitesetsenabled(HasBits* has_bits) {
-    (*has_bits)[2] |= 32768u;
+    (*has_bits)[2] |= 8192u;
   }
   static const ::enterprise_management::StringPolicyProto& relatedwebsitesetsoverrides(const CloudPolicySubProto1* msg);
   static void set_has_relatedwebsitesetsoverrides(HasBits* has_bits) {
-    (*has_bits)[2] |= 131072u;
+    (*has_bits)[2] |= 32768u;
   }
   static const ::enterprise_management::BooleanPolicyProto& remoteaccesshostallowenterprisefiletransfer(const CloudPolicySubProto1* msg);
   static void set_has_remoteaccesshostallowenterprisefiletransfer(HasBits* has_bits) {
-    (*has_bits)[1] |= 67108864u;
+    (*has_bits)[1] |= 16777216u;
   }
   static const ::enterprise_management::BooleanPolicyProto& remoteaccesshostallowenterpriseremotesupportconnections(const CloudPolicySubProto1* msg);
   static void set_has_remoteaccesshostallowenterpriseremotesupportconnections(HasBits* has_bits) {
@@ -1148,15 +1138,15 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::BooleanPolicyProto& safebrowsingdeepscanningenabled(const CloudPolicySubProto1* msg);
   static void set_has_safebrowsingdeepscanningenabled(HasBits* has_bits) {
-    (*has_bits)[2] |= 4096u;
+    (*has_bits)[2] |= 1024u;
   }
   static const ::enterprise_management::BooleanPolicyProto& safebrowsingproxiedrealtimechecksallowed(const CloudPolicySubProto1* msg);
   static void set_has_safebrowsingproxiedrealtimechecksallowed(HasBits* has_bits) {
-    (*has_bits)[1] |= 262144u;
+    (*has_bits)[1] |= 65536u;
   }
   static const ::enterprise_management::BooleanPolicyProto& safebrowsingsurveysenabled(const CloudPolicySubProto1* msg);
   static void set_has_safebrowsingsurveysenabled(HasBits* has_bits) {
-    (*has_bits)[2] |= 2u;
+    (*has_bits)[1] |= 2147483648u;
   }
   static const ::enterprise_management::BooleanPolicyProto& screensaverlockscreenenabled(const CloudPolicySubProto1* msg);
   static void set_has_screensaverlockscreenenabled(HasBits* has_bits) {
@@ -1176,31 +1166,31 @@ class CloudPolicySubProto1::_Internal {
   }
   static const ::enterprise_management::StringListPolicyProto& reportappinventory(const CloudPolicySubProto1* msg);
   static void set_has_reportappinventory(HasBits* has_bits) {
-    (*has_bits)[1] |= 64u;
+    (*has_bits)[1] |= 32u;
   }
   static const ::enterprise_management::StringListPolicyProto& reportappusage(const CloudPolicySubProto1* msg);
   static void set_has_reportappusage(HasBits* has_bits) {
-    (*has_bits)[1] |= 128u;
+    (*has_bits)[1] |= 64u;
   }
   static const ::enterprise_management::IntegerPolicyProto& reportappusagecollectionratems(const CloudPolicySubProto1* msg);
   static void set_has_reportappusagecollectionratems(HasBits* has_bits) {
-    (*has_bits)[1] |= 256u;
+    (*has_bits)[1] |= 128u;
   }
   static const ::enterprise_management::StringListPolicyProto& reportwebsiteactivityallowlist(const CloudPolicySubProto1* msg);
   static void set_has_reportwebsiteactivityallowlist(HasBits* has_bits) {
-    (*has_bits)[1] |= 1073741824u;
+    (*has_bits)[1] |= 268435456u;
   }
   static const ::enterprise_management::StringListPolicyProto& reportwebsitetelemetry(const CloudPolicySubProto1* msg);
   static void set_has_reportwebsitetelemetry(HasBits* has_bits) {
-    (*has_bits)[2] |= 8u;
+    (*has_bits)[2] |= 2u;
   }
   static const ::enterprise_management::StringListPolicyProto& reportwebsitetelemetryallowlist(const CloudPolicySubProto1* msg);
   static void set_has_reportwebsitetelemetryallowlist(HasBits* has_bits) {
-    (*has_bits)[1] |= 2147483648u;
+    (*has_bits)[1] |= 536870912u;
   }
   static const ::enterprise_management::IntegerPolicyProto& reportwebsitetelemetrycollectionratems(const CloudPolicySubProto1* msg);
   static void set_has_reportwebsitetelemetrycollectionratems(HasBits* has_bits) {
-    (*has_bits)[2] |= 1u;
+    (*has_bits)[1] |= 1073741824u;
   }
 };
 
@@ -1456,10 +1446,6 @@ const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::httpsupgradesenabled(const CloudPolicySubProto1* msg) {
   return *msg->httpsupgradesenabled_;
 }
-const ::enterprise_management::BooleanPolicyProto&
-CloudPolicySubProto1::_Internal::insecurehashesintlshandshakesenabled(const CloudPolicySubProto1* msg) {
-  return *msg->insecurehashesintlshandshakesenabled_;
-}
 const ::enterprise_management::IntegerPolicyProto&
 CloudPolicySubProto1::_Internal::insertkeymodifier(const CloudPolicySubProto1* msg) {
   return *msg->insertkeymodifier_;
@@ -1519,10 +1505,6 @@ CloudPolicySubProto1::_Internal::productspecificationsenabled(const CloudPolicyS
 const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::quickofficeforcefiledownloadenabled(const CloudPolicySubProto1* msg) {
   return *msg->quickofficeforcefiledownloadenabled_;
-}
-const ::enterprise_management::BooleanPolicyProto&
-CloudPolicySubProto1::_Internal::rsakeyusageforlocalanchorsenabled(const CloudPolicySubProto1* msg) {
-  return *msg->rsakeyusageforlocalanchorsenabled_;
 }
 const ::enterprise_management::StringPolicyProto&
 CloudPolicySubProto1::_Internal::screencapturelocation(const CloudPolicySubProto1* msg) {
@@ -1706,43 +1688,43 @@ CloudPolicySubProto1::_Internal::reportwebsitetelemetrycollectionratems(const Cl
 }
 void CloudPolicySubProto1::clear_colorcorrectionenabled() {
   if (colorcorrectionenabled_ != nullptr) colorcorrectionenabled_->Clear();
-  _has_bits_[1] &= ~0x00400000u;
+  _has_bits_[1] &= ~0x00100000u;
 }
 void CloudPolicySubProto1::clear_unaffiliateddevicearcallowed() {
   if (unaffiliateddevicearcallowed_ != nullptr) unaffiliateddevicearcallowed_->Clear();
-  _has_bits_[2] &= ~0x00010000u;
+  _has_bits_[2] &= ~0x00004000u;
 }
 void CloudPolicySubProto1::clear_bruschettainstallerconfiguration() {
   if (bruschettainstallerconfiguration_ != nullptr) bruschettainstallerconfiguration_->Clear();
-  _has_bits_[1] &= ~0x10000000u;
+  _has_bits_[1] &= ~0x04000000u;
 }
 void CloudPolicySubProto1::clear_legacytechreportallowlist() {
   if (legacytechreportallowlist_ != nullptr) legacytechreportallowlist_->Clear();
-  _has_bits_[1] &= ~0x00000020u;
+  _has_bits_[1] &= ~0x00000010u;
 }
 void CloudPolicySubProto1::clear_googleworkspacecloudupload() {
   if (googleworkspacecloudupload_ != nullptr) googleworkspacecloudupload_->Clear();
-  _has_bits_[2] &= ~0x00000040u;
+  _has_bits_[2] &= ~0x00000010u;
 }
 void CloudPolicySubProto1::clear_microsoftofficecloudupload() {
   if (microsoftofficecloudupload_ != nullptr) microsoftofficecloudupload_->Clear();
-  _has_bits_[2] &= ~0x00000020u;
+  _has_bits_[2] &= ~0x00000008u;
 }
 void CloudPolicySubProto1::clear_automaticfullscreenallowedforurls() {
   if (automaticfullscreenallowedforurls_ != nullptr) automaticfullscreenallowedforurls_->Clear();
-  _has_bits_[3] &= ~0x00100000u;
+  _has_bits_[3] &= ~0x00040000u;
 }
 void CloudPolicySubProto1::clear_automaticfullscreenblockedforurls() {
   if (automaticfullscreenblockedforurls_ != nullptr) automaticfullscreenblockedforurls_->Clear();
-  _has_bits_[3] &= ~0x00200000u;
+  _has_bits_[3] &= ~0x00080000u;
 }
 void CloudPolicySubProto1::clear_dataurlinsvguseenabled() {
   if (dataurlinsvguseenabled_ != nullptr) dataurlinsvguseenabled_->Clear();
-  _has_bits_[1] &= ~0x00001000u;
+  _has_bits_[1] &= ~0x00000800u;
 }
 void CloudPolicySubProto1::clear_defaultdirectsocketssetting() {
   if (defaultdirectsocketssetting_ != nullptr) defaultdirectsocketssetting_->Clear();
-  _has_bits_[3] &= ~0x01000000u;
+  _has_bits_[3] &= ~0x00400000u;
 }
 void CloudPolicySubProto1::clear_defaultthirdpartystoragepartitioningsetting() {
   if (defaultthirdpartystoragepartitioningsetting_ != nullptr) defaultthirdpartystoragepartitioningsetting_->Clear();
@@ -1750,7 +1732,7 @@ void CloudPolicySubProto1::clear_defaultthirdpartystoragepartitioningsetting() {
 }
 void CloudPolicySubProto1::clear_defaultwebprintingsetting() {
   if (defaultwebprintingsetting_ != nullptr) defaultwebprintingsetting_->Clear();
-  _has_bits_[3] &= ~0x00010000u;
+  _has_bits_[3] &= ~0x00004000u;
 }
 void CloudPolicySubProto1::clear_defaultwindowmanagementsetting() {
   if (defaultwindowmanagementsetting_ != nullptr) defaultwindowmanagementsetting_->Clear();
@@ -1758,11 +1740,11 @@ void CloudPolicySubProto1::clear_defaultwindowmanagementsetting() {
 }
 void CloudPolicySubProto1::clear_directsocketsallowedforurls() {
   if (directsocketsallowedforurls_ != nullptr) directsocketsallowedforurls_->Clear();
-  _has_bits_[3] &= ~0x02000000u;
+  _has_bits_[3] &= ~0x00800000u;
 }
 void CloudPolicySubProto1::clear_directsocketsblockedforurls() {
   if (directsocketsblockedforurls_ != nullptr) directsocketsblockedforurls_->Clear();
-  _has_bits_[3] &= ~0x04000000u;
+  _has_bits_[3] &= ~0x01000000u;
 }
 void CloudPolicySubProto1::clear_thirdpartystoragepartitioningblockedfororigins() {
   if (thirdpartystoragepartitioningblockedfororigins_ != nullptr) thirdpartystoragepartitioningblockedfororigins_->Clear();
@@ -1770,11 +1752,11 @@ void CloudPolicySubProto1::clear_thirdpartystoragepartitioningblockedfororigins(
 }
 void CloudPolicySubProto1::clear_webprintingallowedforurls() {
   if (webprintingallowedforurls_ != nullptr) webprintingallowedforurls_->Clear();
-  _has_bits_[3] &= ~0x00020000u;
+  _has_bits_[3] &= ~0x00008000u;
 }
 void CloudPolicySubProto1::clear_webprintingblockedforurls() {
   if (webprintingblockedforurls_ != nullptr) webprintingblockedforurls_->Clear();
-  _has_bits_[3] &= ~0x00040000u;
+  _has_bits_[3] &= ~0x00010000u;
 }
 void CloudPolicySubProto1::clear_windowmanagementallowedforurls() {
   if (windowmanagementallowedforurls_ != nullptr) windowmanagementallowedforurls_->Clear();
@@ -1786,19 +1768,19 @@ void CloudPolicySubProto1::clear_windowmanagementblockedforurls() {
 }
 void CloudPolicySubProto1::clear_deskapidesksaveandshareenabled() {
   if (deskapidesksaveandshareenabled_ != nullptr) deskapidesksaveandshareenabled_->Clear();
-  _has_bits_[2] &= ~0x08000000u;
+  _has_bits_[2] &= ~0x02000000u;
 }
 void CloudPolicySubProto1::clear_drivefilesyncavailable() {
   if (drivefilesyncavailable_ != nullptr) drivefilesyncavailable_->Clear();
-  _has_bits_[2] &= ~0x00002000u;
+  _has_bits_[2] &= ~0x00000800u;
 }
 void CloudPolicySubProto1::clear_microsoftonedriveaccountrestrictions() {
   if (microsoftonedriveaccountrestrictions_ != nullptr) microsoftonedriveaccountrestrictions_->Clear();
-  _has_bits_[2] &= ~0x00800000u;
+  _has_bits_[2] &= ~0x00200000u;
 }
 void CloudPolicySubProto1::clear_microsoftonedrivemount() {
   if (microsoftonedrivemount_ != nullptr) microsoftonedrivemount_->Clear();
-  _has_bits_[2] &= ~0x00000100u;
+  _has_bits_[2] &= ~0x00000040u;
 }
 void CloudPolicySubProto1::clear_extensionextendedbackgroundlifetimeforportconnectionstourls() {
   if (extensionextendedbackgroundlifetimeforportconnectionstourls_ != nullptr) extensionextendedbackgroundlifetimeforportconnectionstourls_->Clear();
@@ -1806,7 +1788,7 @@ void CloudPolicySubProto1::clear_extensionextendedbackgroundlifetimeforportconne
 }
 void CloudPolicySubProto1::clear_extensionoauthredirecturls() {
   if (extensionoauthredirecturls_ != nullptr) extensionoauthredirecturls_->Clear();
-  _has_bits_[2] &= ~0x00000200u;
+  _has_bits_[2] &= ~0x00000080u;
 }
 void CloudPolicySubProto1::clear_extensionunpublishedavailability() {
   if (extensionunpublishedavailability_ != nullptr) extensionunpublishedavailability_->Clear();
@@ -1818,31 +1800,31 @@ void CloudPolicySubProto1::clear_mandatoryextensionsforincognitonavigation() {
 }
 void CloudPolicySubProto1::clear_floatingssodomainblocklist() {
   if (floatingssodomainblocklist_ != nullptr) floatingssodomainblocklist_->Clear();
-  _has_bits_[3] &= ~0x00000004u;
+  _has_bits_[3] &= ~0x00000001u;
 }
 void CloudPolicySubProto1::clear_floatingssodomainblocklistexceptions() {
   if (floatingssodomainblocklistexceptions_ != nullptr) floatingssodomainblocklistexceptions_->Clear();
-  _has_bits_[3] &= ~0x00000008u;
+  _has_bits_[3] &= ~0x00000002u;
 }
 void CloudPolicySubProto1::clear_floatingssoenabled() {
   if (floatingssoenabled_ != nullptr) floatingssoenabled_->Clear();
-  _has_bits_[3] &= ~0x00000002u;
+  _has_bits_[2] &= ~0x80000000u;
 }
 void CloudPolicySubProto1::clear_createthemessettings() {
   if (createthemessettings_ != nullptr) createthemessettings_->Clear();
-  _has_bits_[2] &= ~0x80000000u;
+  _has_bits_[2] &= ~0x20000000u;
 }
 void CloudPolicySubProto1::clear_devtoolsgenaisettings() {
   if (devtoolsgenaisettings_ != nullptr) devtoolsgenaisettings_->Clear();
-  _has_bits_[3] &= ~0x00800000u;
+  _has_bits_[3] &= ~0x00200000u;
 }
 void CloudPolicySubProto1::clear_helpmewritesettings() {
   if (helpmewritesettings_ != nullptr) helpmewritesettings_->Clear();
-  _has_bits_[2] &= ~0x40000000u;
+  _has_bits_[2] &= ~0x10000000u;
 }
 void CloudPolicySubProto1::clear_taborganizersettings() {
   if (taborganizersettings_ != nullptr) taborganizersettings_->Clear();
-  _has_bits_[2] &= ~0x20000000u;
+  _has_bits_[2] &= ~0x08000000u;
 }
 void CloudPolicySubProto1::clear_showcastsessionsstartedbyotherdevices() {
   if (showcastsessionsstartedbyotherdevices_ != nullptr) showcastsessionsstartedbyotherdevices_->Clear();
@@ -1858,15 +1840,15 @@ void CloudPolicySubProto1::clear_kiosktroubleshootingtoolsenabled() {
 }
 void CloudPolicySubProto1::clear_allowbackforwardcacheforcachecontrolnostorepageenabled() {
   if (allowbackforwardcacheforcachecontrolnostorepageenabled_ != nullptr) allowbackforwardcacheforcachecontrolnostorepageenabled_->Clear();
-  _has_bits_[1] &= ~0x00020000u;
+  _has_bits_[1] &= ~0x00008000u;
 }
 void CloudPolicySubProto1::clear_alloweddomainsforappslist() {
   if (alloweddomainsforappslist_ != nullptr) alloweddomainsforappslist_->Clear();
-  _has_bits_[3] &= ~0x00001000u;
+  _has_bits_[3] &= ~0x00000400u;
 }
 void CloudPolicySubProto1::clear_alwaysonvpnpreconnecturlallowlist() {
   if (alwaysonvpnpreconnecturlallowlist_ != nullptr) alwaysonvpnpreconnecturlallowlist_->Clear();
-  _has_bits_[3] &= ~0x00000001u;
+  _has_bits_[2] &= ~0x40000000u;
 }
 void CloudPolicySubProto1::clear_applaunchautomation() {
   if (applaunchautomation_ != nullptr) applaunchautomation_->Clear();
@@ -1874,23 +1856,23 @@ void CloudPolicySubProto1::clear_applaunchautomation() {
 }
 void CloudPolicySubProto1::clear_arcvmdatamigrationstrategy() {
   if (arcvmdatamigrationstrategy_ != nullptr) arcvmdatamigrationstrategy_->Clear();
-  _has_bits_[1] &= ~0x02000000u;
+  _has_bits_[1] &= ~0x00800000u;
 }
 void CloudPolicySubProto1::clear_beforeunloadeventcancelbypreventdefaultenabled() {
   if (beforeunloadeventcancelbypreventdefaultenabled_ != nullptr) beforeunloadeventcancelbypreventdefaultenabled_->Clear();
-  _has_bits_[1] &= ~0x00004000u;
+  _has_bits_[1] &= ~0x00001000u;
 }
 void CloudPolicySubProto1::clear_datacontrolsrules() {
   if (datacontrolsrules_ != nullptr) datacontrolsrules_->Clear();
-  _has_bits_[2] &= ~0x00004000u;
+  _has_bits_[2] &= ~0x00001000u;
 }
 void CloudPolicySubProto1::clear_deletekeymodifier() {
   if (deletekeymodifier_ != nullptr) deletekeymodifier_->Clear();
-  _has_bits_[3] &= ~0x00000080u;
+  _has_bits_[3] &= ~0x00000020u;
 }
 void CloudPolicySubProto1::clear_documentscanapitrustedextensions() {
   if (documentscanapitrustedextensions_ != nullptr) documentscanapitrustedextensions_->Clear();
-  _has_bits_[3] &= ~0x00080000u;
+  _has_bits_[3] &= ~0x00020000u;
 }
 void CloudPolicySubProto1::clear_domainreliabilityallowed() {
   if (domainreliabilityallowed_ != nullptr) domainreliabilityallowed_->Clear();
@@ -1898,7 +1880,7 @@ void CloudPolicySubProto1::clear_domainreliabilityallowed() {
 }
 void CloudPolicySubProto1::clear_emojipickergifsupportenabled() {
   if (emojipickergifsupportenabled_ != nullptr) emojipickergifsupportenabled_->Clear();
-  _has_bits_[1] &= ~0x01000000u;
+  _has_bits_[1] &= ~0x00400000u;
 }
 void CloudPolicySubProto1::clear_enforcelocalanchorconstraintsenabled() {
   if (enforcelocalanchorconstraintsenabled_ != nullptr) enforcelocalanchorconstraintsenabled_->Clear();
@@ -1906,19 +1888,19 @@ void CloudPolicySubProto1::clear_enforcelocalanchorconstraintsenabled() {
 }
 void CloudPolicySubProto1::clear_essentialsearchenabled() {
   if (essentialsearchenabled_ != nullptr) essentialsearchenabled_->Clear();
-  _has_bits_[1] &= ~0x00000010u;
+  _has_bits_[1] &= ~0x00000008u;
 }
 void CloudPolicySubProto1::clear_f11keymodifier() {
   if (f11keymodifier_ != nullptr) f11keymodifier_->Clear();
-  _has_bits_[3] &= ~0x00000010u;
+  _has_bits_[3] &= ~0x00000004u;
 }
 void CloudPolicySubProto1::clear_f12keymodifier() {
   if (f12keymodifier_ != nullptr) f12keymodifier_->Clear();
-  _has_bits_[3] &= ~0x00000020u;
+  _has_bits_[3] &= ~0x00000008u;
 }
 void CloudPolicySubProto1::clear_feedbacksurveysenabled() {
   if (feedbacksurveysenabled_ != nullptr) feedbacksurveysenabled_->Clear();
-  _has_bits_[2] &= ~0x04000000u;
+  _has_bits_[2] &= ~0x01000000u;
 }
 void CloudPolicySubProto1::clear_fileordirectorypickerwithoutgestureallowedfororigins() {
   if (fileordirectorypickerwithoutgestureallowedfororigins_ != nullptr) fileordirectorypickerwithoutgestureallowedfororigins_->Clear();
@@ -1926,27 +1908,27 @@ void CloudPolicySubProto1::clear_fileordirectorypickerwithoutgestureallowedforor
 }
 void CloudPolicySubProto1::clear_forcepermissionpolicyunloaddefaultenabled() {
   if (forcepermissionpolicyunloaddefaultenabled_ != nullptr) forcepermissionpolicyunloaddefaultenabled_->Clear();
-  _has_bits_[1] &= ~0x20000000u;
+  _has_bits_[1] &= ~0x08000000u;
 }
 void CloudPolicySubProto1::clear_fullrestoremode() {
   if (fullrestoremode_ != nullptr) fullrestoremode_->Clear();
-  _has_bits_[2] &= ~0x00000800u;
+  _has_bits_[2] &= ~0x00000200u;
 }
 void CloudPolicySubProto1::clear_glanceablesenabled() {
   if (glanceablesenabled_ != nullptr) glanceablesenabled_->Clear();
-  _has_bits_[1] &= ~0x08000000u;
+  _has_bits_[1] &= ~0x02000000u;
 }
 void CloudPolicySubProto1::clear_googlelocationservicesenabled() {
   if (googlelocationservicesenabled_ != nullptr) googlelocationservicesenabled_->Clear();
-  _has_bits_[3] &= ~0x00002000u;
+  _has_bits_[3] &= ~0x00000800u;
 }
 void CloudPolicySubProto1::clear_googlesearchsidepanelenabled() {
   if (googlesearchsidepanelenabled_ != nullptr) googlesearchsidepanelenabled_->Clear();
-  _has_bits_[1] &= ~0x00000400u;
+  _has_bits_[1] &= ~0x00000200u;
 }
 void CloudPolicySubProto1::clear_homeandendkeysmodifier() {
   if (homeandendkeysmodifier_ != nullptr) homeandendkeysmodifier_->Clear();
-  _has_bits_[3] &= ~0x00000100u;
+  _has_bits_[3] &= ~0x00000040u;
 }
 void CloudPolicySubProto1::clear_httpallowlist() {
   if (httpallowlist_ != nullptr) httpallowlist_->Clear();
@@ -1956,13 +1938,9 @@ void CloudPolicySubProto1::clear_httpsupgradesenabled() {
   if (httpsupgradesenabled_ != nullptr) httpsupgradesenabled_->Clear();
   _has_bits_[0] &= ~0x02000000u;
 }
-void CloudPolicySubProto1::clear_insecurehashesintlshandshakesenabled() {
-  if (insecurehashesintlshandshakesenabled_ != nullptr) insecurehashesintlshandshakesenabled_->Clear();
-  _has_bits_[1] &= ~0x00000004u;
-}
 void CloudPolicySubProto1::clear_insertkeymodifier() {
   if (insertkeymodifier_ != nullptr) insertkeymodifier_->Clear();
-  _has_bits_[3] &= ~0x00000400u;
+  _has_bits_[3] &= ~0x00000100u;
 }
 void CloudPolicySubProto1::clear_lacrosselection() {
   if (lacrosselection_ != nullptr) lacrosselection_->Clear();
@@ -1970,15 +1948,15 @@ void CloudPolicySubProto1::clear_lacrosselection() {
 }
 void CloudPolicySubProto1::clear_localuserfilesallowed() {
   if (localuserfilesallowed_ != nullptr) localuserfilesallowed_->Clear();
-  _has_bits_[3] &= ~0x00004000u;
+  _has_bits_[3] &= ~0x00001000u;
 }
 void CloudPolicySubProto1::clear_mutationeventsenabled() {
   if (mutationeventsenabled_ != nullptr) mutationeventsenabled_->Clear();
-  _has_bits_[3] &= ~0x00400000u;
+  _has_bits_[3] &= ~0x00100000u;
 }
 void CloudPolicySubProto1::clear_nativeclientforceallowed() {
   if (nativeclientforceallowed_ != nullptr) nativeclientforceallowed_->Clear();
-  _has_bits_[1] &= ~0x00800000u;
+  _has_bits_[1] &= ~0x00200000u;
 }
 void CloudPolicySubProto1::clear_newbaseurlinheritancebehaviorallowed() {
   if (newbaseurlinheritancebehaviorallowed_ != nullptr) newbaseurlinheritancebehaviorallowed_->Clear();
@@ -1986,47 +1964,43 @@ void CloudPolicySubProto1::clear_newbaseurlinheritancebehaviorallowed() {
 }
 void CloudPolicySubProto1::clear_pageupandpagedownkeysmodifier() {
   if (pageupandpagedownkeysmodifier_ != nullptr) pageupandpagedownkeysmodifier_->Clear();
-  _has_bits_[3] &= ~0x00000200u;
+  _has_bits_[3] &= ~0x00000080u;
 }
 void CloudPolicySubProto1::clear_pdfuseskiarendererenabled() {
   if (pdfuseskiarendererenabled_ != nullptr) pdfuseskiarendererenabled_->Clear();
-  _has_bits_[1] &= ~0x00000800u;
+  _has_bits_[1] &= ~0x00000400u;
 }
 void CloudPolicySubProto1::clear_physicalkeyboardautocorrect() {
   if (physicalkeyboardautocorrect_ != nullptr) physicalkeyboardautocorrect_->Clear();
-  _has_bits_[1] &= ~0x00100000u;
+  _has_bits_[1] &= ~0x00040000u;
 }
 void CloudPolicySubProto1::clear_physicalkeyboardpredictivewriting() {
   if (physicalkeyboardpredictivewriting_ != nullptr) physicalkeyboardpredictivewriting_->Clear();
-  _has_bits_[1] &= ~0x00200000u;
+  _has_bits_[1] &= ~0x00080000u;
 }
 void CloudPolicySubProto1::clear_policytestpageenabled() {
   if (policytestpageenabled_ != nullptr) policytestpageenabled_->Clear();
-  _has_bits_[1] &= ~0x00008000u;
+  _has_bits_[1] &= ~0x00002000u;
 }
 void CloudPolicySubProto1::clear_postquantumkeyagreementenabled() {
   if (postquantumkeyagreementenabled_ != nullptr) postquantumkeyagreementenabled_->Clear();
-  _has_bits_[1] &= ~0x00080000u;
+  _has_bits_[1] &= ~0x00020000u;
 }
 void CloudPolicySubProto1::clear_prefixedvideofullscreenapiavailability() {
   if (prefixedvideofullscreenapiavailability_ != nullptr) prefixedvideofullscreenapiavailability_->Clear();
-  _has_bits_[3] &= ~0x10000000u;
+  _has_bits_[3] &= ~0x04000000u;
 }
 void CloudPolicySubProto1::clear_productspecificationsenabled() {
   if (productspecificationsenabled_ != nullptr) productspecificationsenabled_->Clear();
-  _has_bits_[3] &= ~0x08000000u;
+  _has_bits_[3] &= ~0x02000000u;
 }
 void CloudPolicySubProto1::clear_quickofficeforcefiledownloadenabled() {
   if (quickofficeforcefiledownloadenabled_ != nullptr) quickofficeforcefiledownloadenabled_->Clear();
-  _has_bits_[2] &= ~0x00000400u;
-}
-void CloudPolicySubProto1::clear_rsakeyusageforlocalanchorsenabled() {
-  if (rsakeyusageforlocalanchorsenabled_ != nullptr) rsakeyusageforlocalanchorsenabled_->Clear();
-  _has_bits_[1] &= ~0x00002000u;
+  _has_bits_[2] &= ~0x00000100u;
 }
 void CloudPolicySubProto1::clear_screencapturelocation() {
   if (screencapturelocation_ != nullptr) screencapturelocation_->Clear();
-  _has_bits_[3] &= ~0x00000800u;
+  _has_bits_[3] &= ~0x00000200u;
 }
 void CloudPolicySubProto1::clear_screencapturewithoutgestureallowedfororigins() {
   if (screencapturewithoutgestureallowedfororigins_ != nullptr) screencapturewithoutgestureallowedfororigins_->Clear();
@@ -2034,15 +2008,15 @@ void CloudPolicySubProto1::clear_screencapturewithoutgestureallowedfororigins() 
 }
 void CloudPolicySubProto1::clear_shortcutcustomizationallowed() {
   if (shortcutcustomizationallowed_ != nullptr) shortcutcustomizationallowed_->Clear();
-  _has_bits_[2] &= ~0x00000080u;
+  _has_bits_[2] &= ~0x00000020u;
 }
 void CloudPolicySubProto1::clear_showdisplaysizescreenenabled() {
   if (showdisplaysizescreenenabled_ != nullptr) showdisplaysizescreenenabled_->Clear();
-  _has_bits_[1] &= ~0x00000008u;
+  _has_bits_[1] &= ~0x00000004u;
 }
 void CloudPolicySubProto1::clear_showhumanpresencesensorscreenenabled() {
   if (showhumanpresencesensorscreenenabled_ != nullptr) showhumanpresencesensorscreenenabled_->Clear();
-  _has_bits_[2] &= ~0x00040000u;
+  _has_bits_[2] &= ~0x00010000u;
 }
 void CloudPolicySubProto1::clear_showtouchpadscrollscreenenabled() {
   if (showtouchpadscrollscreenenabled_ != nullptr) showtouchpadscrollscreenenabled_->Clear();
@@ -2050,15 +2024,15 @@ void CloudPolicySubProto1::clear_showtouchpadscrollscreenenabled() {
 }
 void CloudPolicySubProto1::clear_sitesearchsettings() {
   if (sitesearchsettings_ != nullptr) sitesearchsettings_->Clear();
-  _has_bits_[2] &= ~0x01000000u;
+  _has_bits_[2] &= ~0x00400000u;
 }
 void CloudPolicySubProto1::clear_subappsapisallowedwithoutgestureandauthorizationfororigins() {
   if (subappsapisallowedwithoutgestureandauthorizationfororigins_ != nullptr) subappsapisallowedwithoutgestureandauthorizationfororigins_->Clear();
-  _has_bits_[3] &= ~0x00008000u;
+  _has_bits_[3] &= ~0x00002000u;
 }
 void CloudPolicySubProto1::clear_urlkeyedmetricsallowed() {
   if (urlkeyedmetricsallowed_ != nullptr) urlkeyedmetricsallowed_->Clear();
-  _has_bits_[1] &= ~0x00010000u;
+  _has_bits_[1] &= ~0x00004000u;
 }
 void CloudPolicySubProto1::clear_usbdetectornotificationenabled() {
   if (usbdetectornotificationenabled_ != nullptr) usbdetectornotificationenabled_->Clear();
@@ -2070,15 +2044,15 @@ void CloudPolicySubProto1::clear_useravatarcustomizationselectorsenabled() {
 }
 void CloudPolicySubProto1::clear_usercontextawareaccesssignalsallowlist() {
   if (usercontextawareaccesssignalsallowlist_ != nullptr) usercontextawareaccesssignalsallowlist_->Clear();
-  _has_bits_[1] &= ~0x00000200u;
+  _has_bits_[1] &= ~0x00000100u;
 }
 void CloudPolicySubProto1::clear_userfeedbackwithlowleveldebugdataallowed() {
   if (userfeedbackwithlowleveldebugdataallowed_ != nullptr) userfeedbackwithlowleveldebugdataallowed_->Clear();
-  _has_bits_[2] &= ~0x00400000u;
+  _has_bits_[2] &= ~0x00100000u;
 }
 void CloudPolicySubProto1::clear_virtualkeyboardsmartvisibilityenabled() {
   if (virtualkeyboardsmartvisibilityenabled_ != nullptr) virtualkeyboardsmartvisibilityenabled_->Clear();
-  _has_bits_[3] &= ~0x00000040u;
+  _has_bits_[3] &= ~0x00000010u;
 }
 void CloudPolicySubProto1::clear_wallpapergooglephotosintegrationenabled() {
   if (wallpapergooglephotosintegrationenabled_ != nullptr) wallpapergooglephotosintegrationenabled_->Clear();
@@ -2090,27 +2064,27 @@ void CloudPolicySubProto1::clear_webrtctextlogcollectionallowed() {
 }
 void CloudPolicySubProto1::clear_blocktruncatedcookies() {
   if (blocktruncatedcookies_ != nullptr) blocktruncatedcookies_->Clear();
-  _has_bits_[2] &= ~0x00000004u;
+  _has_bits_[2] &= ~0x00000001u;
 }
 void CloudPolicySubProto1::clear_compressiondictionarytransportenabled() {
   if (compressiondictionarytransportenabled_ != nullptr) compressiondictionarytransportenabled_->Clear();
-  _has_bits_[2] &= ~0x00000010u;
+  _has_bits_[2] &= ~0x00000004u;
 }
 void CloudPolicySubProto1::clear_ipv6reachabilityoverrideenabled() {
   if (ipv6reachabilityoverrideenabled_ != nullptr) ipv6reachabilityoverrideenabled_->Clear();
-  _has_bits_[2] &= ~0x00200000u;
+  _has_bits_[2] &= ~0x00080000u;
 }
 void CloudPolicySubProto1::clear_zstdcontentencodingenabled() {
   if (zstdcontentencodingenabled_ != nullptr) zstdcontentencodingenabled_->Clear();
-  _has_bits_[2] &= ~0x00100000u;
+  _has_bits_[2] &= ~0x00040000u;
 }
 void CloudPolicySubProto1::clear_passwordsharingenabled() {
   if (passwordsharingenabled_ != nullptr) passwordsharingenabled_->Clear();
-  _has_bits_[2] &= ~0x00080000u;
+  _has_bits_[2] &= ~0x00020000u;
 }
 void CloudPolicySubProto1::clear_oopprintdriversallowed() {
   if (oopprintdriversallowed_ != nullptr) oopprintdriversallowed_->Clear();
-  _has_bits_[2] &= ~0x10000000u;
+  _has_bits_[2] &= ~0x04000000u;
 }
 void CloudPolicySubProto1::clear_privacysandboxadmeasurementenabled() {
   if (privacysandboxadmeasurementenabled_ != nullptr) privacysandboxadmeasurementenabled_->Clear();
@@ -2130,19 +2104,19 @@ void CloudPolicySubProto1::clear_privacysandboxsiteenabledadsenabled() {
 }
 void CloudPolicySubProto1::clear_privatenetworkaccessrestrictionsenabled() {
   if (privatenetworkaccessrestrictionsenabled_ != nullptr) privatenetworkaccessrestrictionsenabled_->Clear();
-  _has_bits_[2] &= ~0x02000000u;
+  _has_bits_[2] &= ~0x00800000u;
 }
 void CloudPolicySubProto1::clear_relatedwebsitesetsenabled() {
   if (relatedwebsitesetsenabled_ != nullptr) relatedwebsitesetsenabled_->Clear();
-  _has_bits_[2] &= ~0x00008000u;
+  _has_bits_[2] &= ~0x00002000u;
 }
 void CloudPolicySubProto1::clear_relatedwebsitesetsoverrides() {
   if (relatedwebsitesetsoverrides_ != nullptr) relatedwebsitesetsoverrides_->Clear();
-  _has_bits_[2] &= ~0x00020000u;
+  _has_bits_[2] &= ~0x00008000u;
 }
 void CloudPolicySubProto1::clear_remoteaccesshostallowenterprisefiletransfer() {
   if (remoteaccesshostallowenterprisefiletransfer_ != nullptr) remoteaccesshostallowenterprisefiletransfer_->Clear();
-  _has_bits_[1] &= ~0x04000000u;
+  _has_bits_[1] &= ~0x01000000u;
 }
 void CloudPolicySubProto1::clear_remoteaccesshostallowenterpriseremotesupportconnections() {
   if (remoteaccesshostallowenterpriseremotesupportconnections_ != nullptr) remoteaccesshostallowenterpriseremotesupportconnections_->Clear();
@@ -2150,15 +2124,15 @@ void CloudPolicySubProto1::clear_remoteaccesshostallowenterpriseremotesupportcon
 }
 void CloudPolicySubProto1::clear_safebrowsingdeepscanningenabled() {
   if (safebrowsingdeepscanningenabled_ != nullptr) safebrowsingdeepscanningenabled_->Clear();
-  _has_bits_[2] &= ~0x00001000u;
+  _has_bits_[2] &= ~0x00000400u;
 }
 void CloudPolicySubProto1::clear_safebrowsingproxiedrealtimechecksallowed() {
   if (safebrowsingproxiedrealtimechecksallowed_ != nullptr) safebrowsingproxiedrealtimechecksallowed_->Clear();
-  _has_bits_[1] &= ~0x00040000u;
+  _has_bits_[1] &= ~0x00010000u;
 }
 void CloudPolicySubProto1::clear_safebrowsingsurveysenabled() {
   if (safebrowsingsurveysenabled_ != nullptr) safebrowsingsurveysenabled_->Clear();
-  _has_bits_[2] &= ~0x00000002u;
+  _has_bits_[1] &= ~0x80000000u;
 }
 void CloudPolicySubProto1::clear_screensaverlockscreenenabled() {
   if (screensaverlockscreenenabled_ != nullptr) screensaverlockscreenenabled_->Clear();
@@ -2178,31 +2152,31 @@ void CloudPolicySubProto1::clear_screensaverlockscreenimages() {
 }
 void CloudPolicySubProto1::clear_reportappinventory() {
   if (reportappinventory_ != nullptr) reportappinventory_->Clear();
-  _has_bits_[1] &= ~0x00000040u;
+  _has_bits_[1] &= ~0x00000020u;
 }
 void CloudPolicySubProto1::clear_reportappusage() {
   if (reportappusage_ != nullptr) reportappusage_->Clear();
-  _has_bits_[1] &= ~0x00000080u;
+  _has_bits_[1] &= ~0x00000040u;
 }
 void CloudPolicySubProto1::clear_reportappusagecollectionratems() {
   if (reportappusagecollectionratems_ != nullptr) reportappusagecollectionratems_->Clear();
-  _has_bits_[1] &= ~0x00000100u;
+  _has_bits_[1] &= ~0x00000080u;
 }
 void CloudPolicySubProto1::clear_reportwebsiteactivityallowlist() {
   if (reportwebsiteactivityallowlist_ != nullptr) reportwebsiteactivityallowlist_->Clear();
-  _has_bits_[1] &= ~0x40000000u;
+  _has_bits_[1] &= ~0x10000000u;
 }
 void CloudPolicySubProto1::clear_reportwebsitetelemetry() {
   if (reportwebsitetelemetry_ != nullptr) reportwebsitetelemetry_->Clear();
-  _has_bits_[2] &= ~0x00000008u;
+  _has_bits_[2] &= ~0x00000002u;
 }
 void CloudPolicySubProto1::clear_reportwebsitetelemetryallowlist() {
   if (reportwebsitetelemetryallowlist_ != nullptr) reportwebsitetelemetryallowlist_->Clear();
-  _has_bits_[1] &= ~0x80000000u;
+  _has_bits_[1] &= ~0x20000000u;
 }
 void CloudPolicySubProto1::clear_reportwebsitetelemetrycollectionratems() {
   if (reportwebsitetelemetrycollectionratems_ != nullptr) reportwebsitetelemetrycollectionratems_->Clear();
-  _has_bits_[2] &= ~0x00000001u;
+  _has_bits_[1] &= ~0x40000000u;
 }
 CloudPolicySubProto1::CloudPolicySubProto1(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -2384,11 +2358,6 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
   } else {
     applaunchautomation_ = nullptr;
   }
-  if (from._internal_has_insecurehashesintlshandshakesenabled()) {
-    insecurehashesintlshandshakesenabled_ = new ::enterprise_management::BooleanPolicyProto(*from.insecurehashesintlshandshakesenabled_);
-  } else {
-    insecurehashesintlshandshakesenabled_ = nullptr;
-  }
   if (from._internal_has_showdisplaysizescreenenabled()) {
     showdisplaysizescreenenabled_ = new ::enterprise_management::BooleanPolicyProto(*from.showdisplaysizescreenenabled_);
   } else {
@@ -2438,11 +2407,6 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
     dataurlinsvguseenabled_ = new ::enterprise_management::BooleanPolicyProto(*from.dataurlinsvguseenabled_);
   } else {
     dataurlinsvguseenabled_ = nullptr;
-  }
-  if (from._internal_has_rsakeyusageforlocalanchorsenabled()) {
-    rsakeyusageforlocalanchorsenabled_ = new ::enterprise_management::BooleanPolicyProto(*from.rsakeyusageforlocalanchorsenabled_);
-  } else {
-    rsakeyusageforlocalanchorsenabled_ = nullptr;
   }
   if (from._internal_has_beforeunloadeventcancelbypreventdefaultenabled()) {
     beforeunloadeventcancelbypreventdefaultenabled_ = new ::enterprise_management::BooleanPolicyProto(*from.beforeunloadeventcancelbypreventdefaultenabled_);
@@ -2894,7 +2858,6 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete screencapturewithoutgestureallowedfororigins_;
   if (this != internal_default_instance()) delete fileordirectorypickerwithoutgestureallowedfororigins_;
   if (this != internal_default_instance()) delete applaunchautomation_;
-  if (this != internal_default_instance()) delete insecurehashesintlshandshakesenabled_;
   if (this != internal_default_instance()) delete showdisplaysizescreenenabled_;
   if (this != internal_default_instance()) delete essentialsearchenabled_;
   if (this != internal_default_instance()) delete legacytechreportallowlist_;
@@ -2905,7 +2868,6 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete googlesearchsidepanelenabled_;
   if (this != internal_default_instance()) delete pdfuseskiarendererenabled_;
   if (this != internal_default_instance()) delete dataurlinsvguseenabled_;
-  if (this != internal_default_instance()) delete rsakeyusageforlocalanchorsenabled_;
   if (this != internal_default_instance()) delete beforeunloadeventcancelbypreventdefaultenabled_;
   if (this != internal_default_instance()) delete policytestpageenabled_;
   if (this != internal_default_instance()) delete urlkeyedmetricsallowed_;
@@ -3145,390 +3107,382 @@ void CloudPolicySubProto1::Clear() {
       applaunchautomation_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(insecurehashesintlshandshakesenabled_ != nullptr);
-      insecurehashesintlshandshakesenabled_->Clear();
-    }
-    if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(showdisplaysizescreenenabled_ != nullptr);
       showdisplaysizescreenenabled_->Clear();
     }
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(essentialsearchenabled_ != nullptr);
       essentialsearchenabled_->Clear();
     }
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000010u) {
       GOOGLE_DCHECK(legacytechreportallowlist_ != nullptr);
       legacytechreportallowlist_->Clear();
     }
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000020u) {
       GOOGLE_DCHECK(reportappinventory_ != nullptr);
       reportappinventory_->Clear();
     }
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000040u) {
       GOOGLE_DCHECK(reportappusage_ != nullptr);
       reportappusage_->Clear();
+    }
+    if (cached_has_bits & 0x00000080u) {
+      GOOGLE_DCHECK(reportappusagecollectionratems_ != nullptr);
+      reportappusagecollectionratems_->Clear();
     }
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      GOOGLE_DCHECK(reportappusagecollectionratems_ != nullptr);
-      reportappusagecollectionratems_->Clear();
-    }
-    if (cached_has_bits & 0x00000200u) {
       GOOGLE_DCHECK(usercontextawareaccesssignalsallowlist_ != nullptr);
       usercontextawareaccesssignalsallowlist_->Clear();
     }
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000200u) {
       GOOGLE_DCHECK(googlesearchsidepanelenabled_ != nullptr);
       googlesearchsidepanelenabled_->Clear();
     }
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00000400u) {
       GOOGLE_DCHECK(pdfuseskiarendererenabled_ != nullptr);
       pdfuseskiarendererenabled_->Clear();
     }
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00000800u) {
       GOOGLE_DCHECK(dataurlinsvguseenabled_ != nullptr);
       dataurlinsvguseenabled_->Clear();
     }
-    if (cached_has_bits & 0x00002000u) {
-      GOOGLE_DCHECK(rsakeyusageforlocalanchorsenabled_ != nullptr);
-      rsakeyusageforlocalanchorsenabled_->Clear();
-    }
-    if (cached_has_bits & 0x00004000u) {
+    if (cached_has_bits & 0x00001000u) {
       GOOGLE_DCHECK(beforeunloadeventcancelbypreventdefaultenabled_ != nullptr);
       beforeunloadeventcancelbypreventdefaultenabled_->Clear();
     }
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00002000u) {
       GOOGLE_DCHECK(policytestpageenabled_ != nullptr);
       policytestpageenabled_->Clear();
+    }
+    if (cached_has_bits & 0x00004000u) {
+      GOOGLE_DCHECK(urlkeyedmetricsallowed_ != nullptr);
+      urlkeyedmetricsallowed_->Clear();
+    }
+    if (cached_has_bits & 0x00008000u) {
+      GOOGLE_DCHECK(allowbackforwardcacheforcachecontrolnostorepageenabled_ != nullptr);
+      allowbackforwardcacheforcachecontrolnostorepageenabled_->Clear();
     }
   }
   if (cached_has_bits & 0x00ff0000u) {
     if (cached_has_bits & 0x00010000u) {
-      GOOGLE_DCHECK(urlkeyedmetricsallowed_ != nullptr);
-      urlkeyedmetricsallowed_->Clear();
-    }
-    if (cached_has_bits & 0x00020000u) {
-      GOOGLE_DCHECK(allowbackforwardcacheforcachecontrolnostorepageenabled_ != nullptr);
-      allowbackforwardcacheforcachecontrolnostorepageenabled_->Clear();
-    }
-    if (cached_has_bits & 0x00040000u) {
       GOOGLE_DCHECK(safebrowsingproxiedrealtimechecksallowed_ != nullptr);
       safebrowsingproxiedrealtimechecksallowed_->Clear();
     }
-    if (cached_has_bits & 0x00080000u) {
+    if (cached_has_bits & 0x00020000u) {
       GOOGLE_DCHECK(postquantumkeyagreementenabled_ != nullptr);
       postquantumkeyagreementenabled_->Clear();
     }
-    if (cached_has_bits & 0x00100000u) {
+    if (cached_has_bits & 0x00040000u) {
       GOOGLE_DCHECK(physicalkeyboardautocorrect_ != nullptr);
       physicalkeyboardautocorrect_->Clear();
     }
-    if (cached_has_bits & 0x00200000u) {
+    if (cached_has_bits & 0x00080000u) {
       GOOGLE_DCHECK(physicalkeyboardpredictivewriting_ != nullptr);
       physicalkeyboardpredictivewriting_->Clear();
     }
-    if (cached_has_bits & 0x00400000u) {
+    if (cached_has_bits & 0x00100000u) {
       GOOGLE_DCHECK(colorcorrectionenabled_ != nullptr);
       colorcorrectionenabled_->Clear();
     }
-    if (cached_has_bits & 0x00800000u) {
+    if (cached_has_bits & 0x00200000u) {
       GOOGLE_DCHECK(nativeclientforceallowed_ != nullptr);
       nativeclientforceallowed_->Clear();
+    }
+    if (cached_has_bits & 0x00400000u) {
+      GOOGLE_DCHECK(emojipickergifsupportenabled_ != nullptr);
+      emojipickergifsupportenabled_->Clear();
+    }
+    if (cached_has_bits & 0x00800000u) {
+      GOOGLE_DCHECK(arcvmdatamigrationstrategy_ != nullptr);
+      arcvmdatamigrationstrategy_->Clear();
     }
   }
   if (cached_has_bits & 0xff000000u) {
     if (cached_has_bits & 0x01000000u) {
-      GOOGLE_DCHECK(emojipickergifsupportenabled_ != nullptr);
-      emojipickergifsupportenabled_->Clear();
-    }
-    if (cached_has_bits & 0x02000000u) {
-      GOOGLE_DCHECK(arcvmdatamigrationstrategy_ != nullptr);
-      arcvmdatamigrationstrategy_->Clear();
-    }
-    if (cached_has_bits & 0x04000000u) {
       GOOGLE_DCHECK(remoteaccesshostallowenterprisefiletransfer_ != nullptr);
       remoteaccesshostallowenterprisefiletransfer_->Clear();
     }
-    if (cached_has_bits & 0x08000000u) {
+    if (cached_has_bits & 0x02000000u) {
       GOOGLE_DCHECK(glanceablesenabled_ != nullptr);
       glanceablesenabled_->Clear();
     }
-    if (cached_has_bits & 0x10000000u) {
+    if (cached_has_bits & 0x04000000u) {
       GOOGLE_DCHECK(bruschettainstallerconfiguration_ != nullptr);
       bruschettainstallerconfiguration_->Clear();
     }
-    if (cached_has_bits & 0x20000000u) {
+    if (cached_has_bits & 0x08000000u) {
       GOOGLE_DCHECK(forcepermissionpolicyunloaddefaultenabled_ != nullptr);
       forcepermissionpolicyunloaddefaultenabled_->Clear();
     }
-    if (cached_has_bits & 0x40000000u) {
+    if (cached_has_bits & 0x10000000u) {
       GOOGLE_DCHECK(reportwebsiteactivityallowlist_ != nullptr);
       reportwebsiteactivityallowlist_->Clear();
     }
-    if (cached_has_bits & 0x80000000u) {
+    if (cached_has_bits & 0x20000000u) {
       GOOGLE_DCHECK(reportwebsitetelemetryallowlist_ != nullptr);
       reportwebsitetelemetryallowlist_->Clear();
+    }
+    if (cached_has_bits & 0x40000000u) {
+      GOOGLE_DCHECK(reportwebsitetelemetrycollectionratems_ != nullptr);
+      reportwebsitetelemetrycollectionratems_->Clear();
+    }
+    if (cached_has_bits & 0x80000000u) {
+      GOOGLE_DCHECK(safebrowsingsurveysenabled_ != nullptr);
+      safebrowsingsurveysenabled_->Clear();
     }
   }
   cached_has_bits = _has_bits_[2];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(reportwebsitetelemetrycollectionratems_ != nullptr);
-      reportwebsitetelemetrycollectionratems_->Clear();
-    }
-    if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(safebrowsingsurveysenabled_ != nullptr);
-      safebrowsingsurveysenabled_->Clear();
-    }
-    if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(blocktruncatedcookies_ != nullptr);
       blocktruncatedcookies_->Clear();
     }
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000002u) {
       GOOGLE_DCHECK(reportwebsitetelemetry_ != nullptr);
       reportwebsitetelemetry_->Clear();
     }
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(compressiondictionarytransportenabled_ != nullptr);
       compressiondictionarytransportenabled_->Clear();
     }
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(microsoftofficecloudupload_ != nullptr);
       microsoftofficecloudupload_->Clear();
     }
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000010u) {
       GOOGLE_DCHECK(googleworkspacecloudupload_ != nullptr);
       googleworkspacecloudupload_->Clear();
     }
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000020u) {
       GOOGLE_DCHECK(shortcutcustomizationallowed_ != nullptr);
       shortcutcustomizationallowed_->Clear();
+    }
+    if (cached_has_bits & 0x00000040u) {
+      GOOGLE_DCHECK(microsoftonedrivemount_ != nullptr);
+      microsoftonedrivemount_->Clear();
+    }
+    if (cached_has_bits & 0x00000080u) {
+      GOOGLE_DCHECK(extensionoauthredirecturls_ != nullptr);
+      extensionoauthredirecturls_->Clear();
     }
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      GOOGLE_DCHECK(microsoftonedrivemount_ != nullptr);
-      microsoftonedrivemount_->Clear();
-    }
-    if (cached_has_bits & 0x00000200u) {
-      GOOGLE_DCHECK(extensionoauthredirecturls_ != nullptr);
-      extensionoauthredirecturls_->Clear();
-    }
-    if (cached_has_bits & 0x00000400u) {
       GOOGLE_DCHECK(quickofficeforcefiledownloadenabled_ != nullptr);
       quickofficeforcefiledownloadenabled_->Clear();
     }
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00000200u) {
       GOOGLE_DCHECK(fullrestoremode_ != nullptr);
       fullrestoremode_->Clear();
     }
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00000400u) {
       GOOGLE_DCHECK(safebrowsingdeepscanningenabled_ != nullptr);
       safebrowsingdeepscanningenabled_->Clear();
     }
-    if (cached_has_bits & 0x00002000u) {
+    if (cached_has_bits & 0x00000800u) {
       GOOGLE_DCHECK(drivefilesyncavailable_ != nullptr);
       drivefilesyncavailable_->Clear();
     }
-    if (cached_has_bits & 0x00004000u) {
+    if (cached_has_bits & 0x00001000u) {
       GOOGLE_DCHECK(datacontrolsrules_ != nullptr);
       datacontrolsrules_->Clear();
     }
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00002000u) {
       GOOGLE_DCHECK(relatedwebsitesetsenabled_ != nullptr);
       relatedwebsitesetsenabled_->Clear();
+    }
+    if (cached_has_bits & 0x00004000u) {
+      GOOGLE_DCHECK(unaffiliateddevicearcallowed_ != nullptr);
+      unaffiliateddevicearcallowed_->Clear();
+    }
+    if (cached_has_bits & 0x00008000u) {
+      GOOGLE_DCHECK(relatedwebsitesetsoverrides_ != nullptr);
+      relatedwebsitesetsoverrides_->Clear();
     }
   }
   if (cached_has_bits & 0x00ff0000u) {
     if (cached_has_bits & 0x00010000u) {
-      GOOGLE_DCHECK(unaffiliateddevicearcallowed_ != nullptr);
-      unaffiliateddevicearcallowed_->Clear();
-    }
-    if (cached_has_bits & 0x00020000u) {
-      GOOGLE_DCHECK(relatedwebsitesetsoverrides_ != nullptr);
-      relatedwebsitesetsoverrides_->Clear();
-    }
-    if (cached_has_bits & 0x00040000u) {
       GOOGLE_DCHECK(showhumanpresencesensorscreenenabled_ != nullptr);
       showhumanpresencesensorscreenenabled_->Clear();
     }
-    if (cached_has_bits & 0x00080000u) {
+    if (cached_has_bits & 0x00020000u) {
       GOOGLE_DCHECK(passwordsharingenabled_ != nullptr);
       passwordsharingenabled_->Clear();
     }
-    if (cached_has_bits & 0x00100000u) {
+    if (cached_has_bits & 0x00040000u) {
       GOOGLE_DCHECK(zstdcontentencodingenabled_ != nullptr);
       zstdcontentencodingenabled_->Clear();
     }
-    if (cached_has_bits & 0x00200000u) {
+    if (cached_has_bits & 0x00080000u) {
       GOOGLE_DCHECK(ipv6reachabilityoverrideenabled_ != nullptr);
       ipv6reachabilityoverrideenabled_->Clear();
     }
-    if (cached_has_bits & 0x00400000u) {
+    if (cached_has_bits & 0x00100000u) {
       GOOGLE_DCHECK(userfeedbackwithlowleveldebugdataallowed_ != nullptr);
       userfeedbackwithlowleveldebugdataallowed_->Clear();
     }
-    if (cached_has_bits & 0x00800000u) {
+    if (cached_has_bits & 0x00200000u) {
       GOOGLE_DCHECK(microsoftonedriveaccountrestrictions_ != nullptr);
       microsoftonedriveaccountrestrictions_->Clear();
+    }
+    if (cached_has_bits & 0x00400000u) {
+      GOOGLE_DCHECK(sitesearchsettings_ != nullptr);
+      sitesearchsettings_->Clear();
+    }
+    if (cached_has_bits & 0x00800000u) {
+      GOOGLE_DCHECK(privatenetworkaccessrestrictionsenabled_ != nullptr);
+      privatenetworkaccessrestrictionsenabled_->Clear();
     }
   }
   if (cached_has_bits & 0xff000000u) {
     if (cached_has_bits & 0x01000000u) {
-      GOOGLE_DCHECK(sitesearchsettings_ != nullptr);
-      sitesearchsettings_->Clear();
-    }
-    if (cached_has_bits & 0x02000000u) {
-      GOOGLE_DCHECK(privatenetworkaccessrestrictionsenabled_ != nullptr);
-      privatenetworkaccessrestrictionsenabled_->Clear();
-    }
-    if (cached_has_bits & 0x04000000u) {
       GOOGLE_DCHECK(feedbacksurveysenabled_ != nullptr);
       feedbacksurveysenabled_->Clear();
     }
-    if (cached_has_bits & 0x08000000u) {
+    if (cached_has_bits & 0x02000000u) {
       GOOGLE_DCHECK(deskapidesksaveandshareenabled_ != nullptr);
       deskapidesksaveandshareenabled_->Clear();
     }
-    if (cached_has_bits & 0x10000000u) {
+    if (cached_has_bits & 0x04000000u) {
       GOOGLE_DCHECK(oopprintdriversallowed_ != nullptr);
       oopprintdriversallowed_->Clear();
     }
-    if (cached_has_bits & 0x20000000u) {
+    if (cached_has_bits & 0x08000000u) {
       GOOGLE_DCHECK(taborganizersettings_ != nullptr);
       taborganizersettings_->Clear();
     }
-    if (cached_has_bits & 0x40000000u) {
+    if (cached_has_bits & 0x10000000u) {
       GOOGLE_DCHECK(helpmewritesettings_ != nullptr);
       helpmewritesettings_->Clear();
     }
-    if (cached_has_bits & 0x80000000u) {
+    if (cached_has_bits & 0x20000000u) {
       GOOGLE_DCHECK(createthemessettings_ != nullptr);
       createthemessettings_->Clear();
+    }
+    if (cached_has_bits & 0x40000000u) {
+      GOOGLE_DCHECK(alwaysonvpnpreconnecturlallowlist_ != nullptr);
+      alwaysonvpnpreconnecturlallowlist_->Clear();
+    }
+    if (cached_has_bits & 0x80000000u) {
+      GOOGLE_DCHECK(floatingssoenabled_ != nullptr);
+      floatingssoenabled_->Clear();
     }
   }
   cached_has_bits = _has_bits_[3];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(alwaysonvpnpreconnecturlallowlist_ != nullptr);
-      alwaysonvpnpreconnecturlallowlist_->Clear();
-    }
-    if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(floatingssoenabled_ != nullptr);
-      floatingssoenabled_->Clear();
-    }
-    if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(floatingssodomainblocklist_ != nullptr);
       floatingssodomainblocklist_->Clear();
     }
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000002u) {
       GOOGLE_DCHECK(floatingssodomainblocklistexceptions_ != nullptr);
       floatingssodomainblocklistexceptions_->Clear();
     }
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(f11keymodifier_ != nullptr);
       f11keymodifier_->Clear();
     }
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(f12keymodifier_ != nullptr);
       f12keymodifier_->Clear();
     }
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000010u) {
       GOOGLE_DCHECK(virtualkeyboardsmartvisibilityenabled_ != nullptr);
       virtualkeyboardsmartvisibilityenabled_->Clear();
     }
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000020u) {
       GOOGLE_DCHECK(deletekeymodifier_ != nullptr);
       deletekeymodifier_->Clear();
+    }
+    if (cached_has_bits & 0x00000040u) {
+      GOOGLE_DCHECK(homeandendkeysmodifier_ != nullptr);
+      homeandendkeysmodifier_->Clear();
+    }
+    if (cached_has_bits & 0x00000080u) {
+      GOOGLE_DCHECK(pageupandpagedownkeysmodifier_ != nullptr);
+      pageupandpagedownkeysmodifier_->Clear();
     }
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      GOOGLE_DCHECK(homeandendkeysmodifier_ != nullptr);
-      homeandendkeysmodifier_->Clear();
-    }
-    if (cached_has_bits & 0x00000200u) {
-      GOOGLE_DCHECK(pageupandpagedownkeysmodifier_ != nullptr);
-      pageupandpagedownkeysmodifier_->Clear();
-    }
-    if (cached_has_bits & 0x00000400u) {
       GOOGLE_DCHECK(insertkeymodifier_ != nullptr);
       insertkeymodifier_->Clear();
     }
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00000200u) {
       GOOGLE_DCHECK(screencapturelocation_ != nullptr);
       screencapturelocation_->Clear();
     }
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00000400u) {
       GOOGLE_DCHECK(alloweddomainsforappslist_ != nullptr);
       alloweddomainsforappslist_->Clear();
     }
-    if (cached_has_bits & 0x00002000u) {
+    if (cached_has_bits & 0x00000800u) {
       GOOGLE_DCHECK(googlelocationservicesenabled_ != nullptr);
       googlelocationservicesenabled_->Clear();
     }
-    if (cached_has_bits & 0x00004000u) {
+    if (cached_has_bits & 0x00001000u) {
       GOOGLE_DCHECK(localuserfilesallowed_ != nullptr);
       localuserfilesallowed_->Clear();
     }
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00002000u) {
       GOOGLE_DCHECK(subappsapisallowedwithoutgestureandauthorizationfororigins_ != nullptr);
       subappsapisallowedwithoutgestureandauthorizationfororigins_->Clear();
+    }
+    if (cached_has_bits & 0x00004000u) {
+      GOOGLE_DCHECK(defaultwebprintingsetting_ != nullptr);
+      defaultwebprintingsetting_->Clear();
+    }
+    if (cached_has_bits & 0x00008000u) {
+      GOOGLE_DCHECK(webprintingallowedforurls_ != nullptr);
+      webprintingallowedforurls_->Clear();
     }
   }
   if (cached_has_bits & 0x00ff0000u) {
     if (cached_has_bits & 0x00010000u) {
-      GOOGLE_DCHECK(defaultwebprintingsetting_ != nullptr);
-      defaultwebprintingsetting_->Clear();
-    }
-    if (cached_has_bits & 0x00020000u) {
-      GOOGLE_DCHECK(webprintingallowedforurls_ != nullptr);
-      webprintingallowedforurls_->Clear();
-    }
-    if (cached_has_bits & 0x00040000u) {
       GOOGLE_DCHECK(webprintingblockedforurls_ != nullptr);
       webprintingblockedforurls_->Clear();
     }
-    if (cached_has_bits & 0x00080000u) {
+    if (cached_has_bits & 0x00020000u) {
       GOOGLE_DCHECK(documentscanapitrustedextensions_ != nullptr);
       documentscanapitrustedextensions_->Clear();
     }
-    if (cached_has_bits & 0x00100000u) {
+    if (cached_has_bits & 0x00040000u) {
       GOOGLE_DCHECK(automaticfullscreenallowedforurls_ != nullptr);
       automaticfullscreenallowedforurls_->Clear();
     }
-    if (cached_has_bits & 0x00200000u) {
+    if (cached_has_bits & 0x00080000u) {
       GOOGLE_DCHECK(automaticfullscreenblockedforurls_ != nullptr);
       automaticfullscreenblockedforurls_->Clear();
     }
-    if (cached_has_bits & 0x00400000u) {
+    if (cached_has_bits & 0x00100000u) {
       GOOGLE_DCHECK(mutationeventsenabled_ != nullptr);
       mutationeventsenabled_->Clear();
     }
-    if (cached_has_bits & 0x00800000u) {
+    if (cached_has_bits & 0x00200000u) {
       GOOGLE_DCHECK(devtoolsgenaisettings_ != nullptr);
       devtoolsgenaisettings_->Clear();
     }
-  }
-  if (cached_has_bits & 0x1f000000u) {
-    if (cached_has_bits & 0x01000000u) {
+    if (cached_has_bits & 0x00400000u) {
       GOOGLE_DCHECK(defaultdirectsocketssetting_ != nullptr);
       defaultdirectsocketssetting_->Clear();
     }
-    if (cached_has_bits & 0x02000000u) {
+    if (cached_has_bits & 0x00800000u) {
       GOOGLE_DCHECK(directsocketsallowedforurls_ != nullptr);
       directsocketsallowedforurls_->Clear();
     }
-    if (cached_has_bits & 0x04000000u) {
+  }
+  if (cached_has_bits & 0x07000000u) {
+    if (cached_has_bits & 0x01000000u) {
       GOOGLE_DCHECK(directsocketsblockedforurls_ != nullptr);
       directsocketsblockedforurls_->Clear();
     }
-    if (cached_has_bits & 0x08000000u) {
+    if (cached_has_bits & 0x02000000u) {
       GOOGLE_DCHECK(productspecificationsenabled_ != nullptr);
       productspecificationsenabled_->Clear();
     }
-    if (cached_has_bits & 0x10000000u) {
+    if (cached_has_bits & 0x04000000u) {
       GOOGLE_DCHECK(prefixedvideofullscreenapiavailability_ != nullptr);
       prefixedvideofullscreenapiavailability_->Clear();
     }
@@ -3815,14 +3769,6 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
-      // optional .enterprise_management.BooleanPolicyProto InsecureHashesInTLSHandshakesEnabled = 55;
-      case 55:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 186)) {
-          ptr = ctx->ParseMessage(_internal_mutable_insecurehashesintlshandshakesenabled(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // optional .enterprise_management.BooleanPolicyProto ShowDisplaySizeScreenEnabled = 59;
       case 59:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 218)) {
@@ -3899,14 +3845,6 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
       case 69:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_dataurlinsvguseenabled(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional .enterprise_management.BooleanPolicyProto RSAKeyUsageForLocalAnchorsEnabled = 70;
-      case 70:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
-          ptr = ctx->ParseMessage(_internal_mutable_rsakeyusageforlocalanchorsenabled(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4812,640 +4750,626 @@ uint8_t* CloudPolicySubProto1::_InternalSerialize(
         _Internal::applaunchautomation(this).GetCachedSize(), target, stream);
   }
 
-  // optional .enterprise_management.BooleanPolicyProto InsecureHashesInTLSHandshakesEnabled = 55;
-  if (cached_has_bits & 0x00000004u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(55, _Internal::insecurehashesintlshandshakesenabled(this),
-        _Internal::insecurehashesintlshandshakesenabled(this).GetCachedSize(), target, stream);
-  }
-
   // optional .enterprise_management.BooleanPolicyProto ShowDisplaySizeScreenEnabled = 59;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(59, _Internal::showdisplaysizescreenenabled(this),
         _Internal::showdisplaysizescreenenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto EssentialSearchEnabled = 60;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000008u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(60, _Internal::essentialsearchenabled(this),
         _Internal::essentialsearchenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto LegacyTechReportAllowlist = 61;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000010u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(61, _Internal::legacytechreportallowlist(this),
         _Internal::legacytechreportallowlist(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto ReportAppInventory = 62;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000020u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(62, _Internal::reportappinventory(this),
         _Internal::reportappinventory(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto ReportAppUsage = 63;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000040u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(63, _Internal::reportappusage(this),
         _Internal::reportappusage(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto ReportAppUsageCollectionRateMs = 64;
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000080u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(64, _Internal::reportappusagecollectionratems(this),
         _Internal::reportappusagecollectionratems(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto UserContextAwareAccessSignalsAllowlist = 66;
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00000100u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(66, _Internal::usercontextawareaccesssignalsallowlist(this),
         _Internal::usercontextawareaccesssignalsallowlist(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto GoogleSearchSidePanelEnabled = 67;
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00000200u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(67, _Internal::googlesearchsidepanelenabled(this),
         _Internal::googlesearchsidepanelenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto PdfUseSkiaRendererEnabled = 68;
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00000400u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(68, _Internal::pdfuseskiarendererenabled(this),
         _Internal::pdfuseskiarendererenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto DataUrlInSvgUseEnabled = 69;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00000800u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(69, _Internal::dataurlinsvguseenabled(this),
         _Internal::dataurlinsvguseenabled(this).GetCachedSize(), target, stream);
   }
 
-  // optional .enterprise_management.BooleanPolicyProto RSAKeyUsageForLocalAnchorsEnabled = 70;
-  if (cached_has_bits & 0x00002000u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(70, _Internal::rsakeyusageforlocalanchorsenabled(this),
-        _Internal::rsakeyusageforlocalanchorsenabled(this).GetCachedSize(), target, stream);
-  }
-
   // optional .enterprise_management.BooleanPolicyProto BeforeunloadEventCancelByPreventDefaultEnabled = 71;
-  if (cached_has_bits & 0x00004000u) {
+  if (cached_has_bits & 0x00001000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(71, _Internal::beforeunloadeventcancelbypreventdefaultenabled(this),
         _Internal::beforeunloadeventcancelbypreventdefaultenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto PolicyTestPageEnabled = 72;
-  if (cached_has_bits & 0x00008000u) {
+  if (cached_has_bits & 0x00002000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(72, _Internal::policytestpageenabled(this),
         _Internal::policytestpageenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto UrlKeyedMetricsAllowed = 73;
-  if (cached_has_bits & 0x00010000u) {
+  if (cached_has_bits & 0x00004000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(73, _Internal::urlkeyedmetricsallowed(this),
         _Internal::urlkeyedmetricsallowed(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto AllowBackForwardCacheForCacheControlNoStorePageEnabled = 74;
-  if (cached_has_bits & 0x00020000u) {
+  if (cached_has_bits & 0x00008000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(74, _Internal::allowbackforwardcacheforcachecontrolnostorepageenabled(this),
         _Internal::allowbackforwardcacheforcachecontrolnostorepageenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto SafeBrowsingProxiedRealTimeChecksAllowed = 76;
-  if (cached_has_bits & 0x00040000u) {
+  if (cached_has_bits & 0x00010000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(76, _Internal::safebrowsingproxiedrealtimechecksallowed(this),
         _Internal::safebrowsingproxiedrealtimechecksallowed(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto PostQuantumKeyAgreementEnabled = 77;
-  if (cached_has_bits & 0x00080000u) {
+  if (cached_has_bits & 0x00020000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(77, _Internal::postquantumkeyagreementenabled(this),
         _Internal::postquantumkeyagreementenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto PhysicalKeyboardAutocorrect = 78;
-  if (cached_has_bits & 0x00100000u) {
+  if (cached_has_bits & 0x00040000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(78, _Internal::physicalkeyboardautocorrect(this),
         _Internal::physicalkeyboardautocorrect(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto PhysicalKeyboardPredictiveWriting = 79;
-  if (cached_has_bits & 0x00200000u) {
+  if (cached_has_bits & 0x00080000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(79, _Internal::physicalkeyboardpredictivewriting(this),
         _Internal::physicalkeyboardpredictivewriting(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto ColorCorrectionEnabled = 80;
-  if (cached_has_bits & 0x00400000u) {
+  if (cached_has_bits & 0x00100000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(80, _Internal::colorcorrectionenabled(this),
         _Internal::colorcorrectionenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto NativeClientForceAllowed = 81;
-  if (cached_has_bits & 0x00800000u) {
+  if (cached_has_bits & 0x00200000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(81, _Internal::nativeclientforceallowed(this),
         _Internal::nativeclientforceallowed(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto EmojiPickerGifSupportEnabled = 82;
-  if (cached_has_bits & 0x01000000u) {
+  if (cached_has_bits & 0x00400000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(82, _Internal::emojipickergifsupportenabled(this),
         _Internal::emojipickergifsupportenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto ArcVmDataMigrationStrategy = 85;
-  if (cached_has_bits & 0x02000000u) {
+  if (cached_has_bits & 0x00800000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(85, _Internal::arcvmdatamigrationstrategy(this),
         _Internal::arcvmdatamigrationstrategy(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto RemoteAccessHostAllowEnterpriseFileTransfer = 87;
-  if (cached_has_bits & 0x04000000u) {
+  if (cached_has_bits & 0x01000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(87, _Internal::remoteaccesshostallowenterprisefiletransfer(this),
         _Internal::remoteaccesshostallowenterprisefiletransfer(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto GlanceablesEnabled = 91;
-  if (cached_has_bits & 0x08000000u) {
+  if (cached_has_bits & 0x02000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(91, _Internal::glanceablesenabled(this),
         _Internal::glanceablesenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringPolicyProto BruschettaInstallerConfiguration = 96;
-  if (cached_has_bits & 0x10000000u) {
+  if (cached_has_bits & 0x04000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(96, _Internal::bruschettainstallerconfiguration(this),
         _Internal::bruschettainstallerconfiguration(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto ForcePermissionPolicyUnloadDefaultEnabled = 97;
-  if (cached_has_bits & 0x20000000u) {
+  if (cached_has_bits & 0x08000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(97, _Internal::forcepermissionpolicyunloaddefaultenabled(this),
         _Internal::forcepermissionpolicyunloaddefaultenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto ReportWebsiteActivityAllowlist = 98;
-  if (cached_has_bits & 0x40000000u) {
+  if (cached_has_bits & 0x10000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(98, _Internal::reportwebsiteactivityallowlist(this),
         _Internal::reportwebsiteactivityallowlist(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto ReportWebsiteTelemetryAllowlist = 99;
-  if (cached_has_bits & 0x80000000u) {
+  if (cached_has_bits & 0x20000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(99, _Internal::reportwebsitetelemetryallowlist(this),
         _Internal::reportwebsitetelemetryallowlist(this).GetCachedSize(), target, stream);
   }
 
-  cached_has_bits = _has_bits_[2];
   // optional .enterprise_management.IntegerPolicyProto ReportWebsiteTelemetryCollectionRateMs = 100;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x40000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(100, _Internal::reportwebsitetelemetrycollectionratems(this),
         _Internal::reportwebsitetelemetrycollectionratems(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto SafeBrowsingSurveysEnabled = 101;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x80000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(101, _Internal::safebrowsingsurveysenabled(this),
         _Internal::safebrowsingsurveysenabled(this).GetCachedSize(), target, stream);
   }
 
+  cached_has_bits = _has_bits_[2];
   // optional .enterprise_management.BooleanPolicyProto BlockTruncatedCookies = 102;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(102, _Internal::blocktruncatedcookies(this),
         _Internal::blocktruncatedcookies(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto ReportWebsiteTelemetry = 103;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(103, _Internal::reportwebsitetelemetry(this),
         _Internal::reportwebsitetelemetry(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto CompressionDictionaryTransportEnabled = 104;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(104, _Internal::compressiondictionarytransportenabled(this),
         _Internal::compressiondictionarytransportenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringPolicyProto MicrosoftOfficeCloudUpload = 105;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000008u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(105, _Internal::microsoftofficecloudupload(this),
         _Internal::microsoftofficecloudupload(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringPolicyProto GoogleWorkspaceCloudUpload = 106;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000010u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(106, _Internal::googleworkspacecloudupload(this),
         _Internal::googleworkspacecloudupload(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto ShortcutCustomizationAllowed = 107;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000020u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(107, _Internal::shortcutcustomizationallowed(this),
         _Internal::shortcutcustomizationallowed(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringPolicyProto MicrosoftOneDriveMount = 108;
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000040u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(108, _Internal::microsoftonedrivemount(this),
         _Internal::microsoftonedrivemount(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringPolicyProto ExtensionOAuthRedirectUrls = 109;
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00000080u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(109, _Internal::extensionoauthredirecturls(this),
         _Internal::extensionoauthredirecturls(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto QuickOfficeForceFileDownloadEnabled = 111;
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00000100u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(111, _Internal::quickofficeforcefiledownloadenabled(this),
         _Internal::quickofficeforcefiledownloadenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto FullRestoreMode = 115;
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00000200u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(115, _Internal::fullrestoremode(this),
         _Internal::fullrestoremode(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto SafeBrowsingDeepScanningEnabled = 117;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00000400u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(117, _Internal::safebrowsingdeepscanningenabled(this),
         _Internal::safebrowsingdeepscanningenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringPolicyProto DriveFileSyncAvailable = 118;
-  if (cached_has_bits & 0x00002000u) {
+  if (cached_has_bits & 0x00000800u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(118, _Internal::drivefilesyncavailable(this),
         _Internal::drivefilesyncavailable(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringPolicyProto DataControlsRules = 121;
-  if (cached_has_bits & 0x00004000u) {
+  if (cached_has_bits & 0x00001000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(121, _Internal::datacontrolsrules(this),
         _Internal::datacontrolsrules(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto RelatedWebsiteSetsEnabled = 125;
-  if (cached_has_bits & 0x00008000u) {
+  if (cached_has_bits & 0x00002000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(125, _Internal::relatedwebsitesetsenabled(this),
         _Internal::relatedwebsitesetsenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto UnaffiliatedDeviceArcAllowed = 127;
-  if (cached_has_bits & 0x00010000u) {
+  if (cached_has_bits & 0x00004000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(127, _Internal::unaffiliateddevicearcallowed(this),
         _Internal::unaffiliateddevicearcallowed(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringPolicyProto RelatedWebsiteSetsOverrides = 128;
-  if (cached_has_bits & 0x00020000u) {
+  if (cached_has_bits & 0x00008000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(128, _Internal::relatedwebsitesetsoverrides(this),
         _Internal::relatedwebsitesetsoverrides(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto ShowHumanPresenceSensorScreenEnabled = 129;
-  if (cached_has_bits & 0x00040000u) {
+  if (cached_has_bits & 0x00010000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(129, _Internal::showhumanpresencesensorscreenenabled(this),
         _Internal::showhumanpresencesensorscreenenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto PasswordSharingEnabled = 130;
-  if (cached_has_bits & 0x00080000u) {
+  if (cached_has_bits & 0x00020000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(130, _Internal::passwordsharingenabled(this),
         _Internal::passwordsharingenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto ZstdContentEncodingEnabled = 131;
-  if (cached_has_bits & 0x00100000u) {
+  if (cached_has_bits & 0x00040000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(131, _Internal::zstdcontentencodingenabled(this),
         _Internal::zstdcontentencodingenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto IPv6ReachabilityOverrideEnabled = 132;
-  if (cached_has_bits & 0x00200000u) {
+  if (cached_has_bits & 0x00080000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(132, _Internal::ipv6reachabilityoverrideenabled(this),
         _Internal::ipv6reachabilityoverrideenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto UserFeedbackWithLowLevelDebugDataAllowed = 133;
-  if (cached_has_bits & 0x00400000u) {
+  if (cached_has_bits & 0x00100000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(133, _Internal::userfeedbackwithlowleveldebugdataallowed(this),
         _Internal::userfeedbackwithlowleveldebugdataallowed(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto MicrosoftOneDriveAccountRestrictions = 134;
-  if (cached_has_bits & 0x00800000u) {
+  if (cached_has_bits & 0x00200000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(134, _Internal::microsoftonedriveaccountrestrictions(this),
         _Internal::microsoftonedriveaccountrestrictions(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringPolicyProto SiteSearchSettings = 136;
-  if (cached_has_bits & 0x01000000u) {
+  if (cached_has_bits & 0x00400000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(136, _Internal::sitesearchsettings(this),
         _Internal::sitesearchsettings(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto PrivateNetworkAccessRestrictionsEnabled = 137;
-  if (cached_has_bits & 0x02000000u) {
+  if (cached_has_bits & 0x00800000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(137, _Internal::privatenetworkaccessrestrictionsenabled(this),
         _Internal::privatenetworkaccessrestrictionsenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto FeedbackSurveysEnabled = 142;
-  if (cached_has_bits & 0x04000000u) {
+  if (cached_has_bits & 0x01000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(142, _Internal::feedbacksurveysenabled(this),
         _Internal::feedbacksurveysenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto DeskAPIDeskSaveAndShareEnabled = 143;
-  if (cached_has_bits & 0x08000000u) {
+  if (cached_has_bits & 0x02000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(143, _Internal::deskapidesksaveandshareenabled(this),
         _Internal::deskapidesksaveandshareenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto OopPrintDriversAllowed = 144;
-  if (cached_has_bits & 0x10000000u) {
+  if (cached_has_bits & 0x04000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(144, _Internal::oopprintdriversallowed(this),
         _Internal::oopprintdriversallowed(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto TabOrganizerSettings = 146;
-  if (cached_has_bits & 0x20000000u) {
+  if (cached_has_bits & 0x08000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(146, _Internal::taborganizersettings(this),
         _Internal::taborganizersettings(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto HelpMeWriteSettings = 147;
-  if (cached_has_bits & 0x40000000u) {
+  if (cached_has_bits & 0x10000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(147, _Internal::helpmewritesettings(this),
         _Internal::helpmewritesettings(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto CreateThemesSettings = 148;
-  if (cached_has_bits & 0x80000000u) {
+  if (cached_has_bits & 0x20000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(148, _Internal::createthemessettings(this),
         _Internal::createthemessettings(this).GetCachedSize(), target, stream);
   }
 
-  cached_has_bits = _has_bits_[3];
   // optional .enterprise_management.StringListPolicyProto AlwaysOnVpnPreConnectUrlAllowlist = 150;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x40000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(150, _Internal::alwaysonvpnpreconnecturlallowlist(this),
         _Internal::alwaysonvpnpreconnecturlallowlist(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto FloatingSsoEnabled = 157;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x80000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(157, _Internal::floatingssoenabled(this),
         _Internal::floatingssoenabled(this).GetCachedSize(), target, stream);
   }
 
+  cached_has_bits = _has_bits_[3];
   // optional .enterprise_management.StringListPolicyProto FloatingSsoDomainBlocklist = 158;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(158, _Internal::floatingssodomainblocklist(this),
         _Internal::floatingssodomainblocklist(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto FloatingSsoDomainBlocklistExceptions = 159;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(159, _Internal::floatingssodomainblocklistexceptions(this),
         _Internal::floatingssodomainblocklistexceptions(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto F11KeyModifier = 160;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(160, _Internal::f11keymodifier(this),
         _Internal::f11keymodifier(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto F12KeyModifier = 161;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000008u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(161, _Internal::f12keymodifier(this),
         _Internal::f12keymodifier(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto VirtualKeyboardSmartVisibilityEnabled = 162;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000010u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(162, _Internal::virtualkeyboardsmartvisibilityenabled(this),
         _Internal::virtualkeyboardsmartvisibilityenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto DeleteKeyModifier = 164;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000020u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(164, _Internal::deletekeymodifier(this),
         _Internal::deletekeymodifier(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto HomeAndEndKeysModifier = 165;
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000040u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(165, _Internal::homeandendkeysmodifier(this),
         _Internal::homeandendkeysmodifier(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto PageUpAndPageDownKeysModifier = 166;
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00000080u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(166, _Internal::pageupandpagedownkeysmodifier(this),
         _Internal::pageupandpagedownkeysmodifier(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto InsertKeyModifier = 167;
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00000100u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(167, _Internal::insertkeymodifier(this),
         _Internal::insertkeymodifier(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringPolicyProto ScreenCaptureLocation = 171;
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00000200u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(171, _Internal::screencapturelocation(this),
         _Internal::screencapturelocation(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto AllowedDomainsForAppsList = 172;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00000400u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(172, _Internal::alloweddomainsforappslist(this),
         _Internal::alloweddomainsforappslist(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto GoogleLocationServicesEnabled = 174;
-  if (cached_has_bits & 0x00002000u) {
+  if (cached_has_bits & 0x00000800u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(174, _Internal::googlelocationservicesenabled(this),
         _Internal::googlelocationservicesenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto LocalUserFilesAllowed = 176;
-  if (cached_has_bits & 0x00004000u) {
+  if (cached_has_bits & 0x00001000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(176, _Internal::localuserfilesallowed(this),
         _Internal::localuserfilesallowed(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto SubAppsAPIsAllowedWithoutGestureAndAuthorizationForOrigins = 178;
-  if (cached_has_bits & 0x00008000u) {
+  if (cached_has_bits & 0x00002000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(178, _Internal::subappsapisallowedwithoutgestureandauthorizationfororigins(this),
         _Internal::subappsapisallowedwithoutgestureandauthorizationfororigins(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto DefaultWebPrintingSetting = 179;
-  if (cached_has_bits & 0x00010000u) {
+  if (cached_has_bits & 0x00004000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(179, _Internal::defaultwebprintingsetting(this),
         _Internal::defaultwebprintingsetting(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto WebPrintingAllowedForUrls = 180;
-  if (cached_has_bits & 0x00020000u) {
+  if (cached_has_bits & 0x00008000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(180, _Internal::webprintingallowedforurls(this),
         _Internal::webprintingallowedforurls(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto WebPrintingBlockedForUrls = 181;
-  if (cached_has_bits & 0x00040000u) {
+  if (cached_has_bits & 0x00010000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(181, _Internal::webprintingblockedforurls(this),
         _Internal::webprintingblockedforurls(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto DocumentScanAPITrustedExtensions = 182;
-  if (cached_has_bits & 0x00080000u) {
+  if (cached_has_bits & 0x00020000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(182, _Internal::documentscanapitrustedextensions(this),
         _Internal::documentscanapitrustedextensions(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto AutomaticFullscreenAllowedForUrls = 185;
-  if (cached_has_bits & 0x00100000u) {
+  if (cached_has_bits & 0x00040000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(185, _Internal::automaticfullscreenallowedforurls(this),
         _Internal::automaticfullscreenallowedforurls(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto AutomaticFullscreenBlockedForUrls = 186;
-  if (cached_has_bits & 0x00200000u) {
+  if (cached_has_bits & 0x00080000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(186, _Internal::automaticfullscreenblockedforurls(this),
         _Internal::automaticfullscreenblockedforurls(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto MutationEventsEnabled = 187;
-  if (cached_has_bits & 0x00400000u) {
+  if (cached_has_bits & 0x00100000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(187, _Internal::mutationeventsenabled(this),
         _Internal::mutationeventsenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto DevToolsGenAiSettings = 188;
-  if (cached_has_bits & 0x00800000u) {
+  if (cached_has_bits & 0x00200000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(188, _Internal::devtoolsgenaisettings(this),
         _Internal::devtoolsgenaisettings(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.IntegerPolicyProto DefaultDirectSocketsSetting = 190;
-  if (cached_has_bits & 0x01000000u) {
+  if (cached_has_bits & 0x00400000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(190, _Internal::defaultdirectsocketssetting(this),
         _Internal::defaultdirectsocketssetting(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto DirectSocketsAllowedForUrls = 191;
-  if (cached_has_bits & 0x02000000u) {
+  if (cached_has_bits & 0x00800000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(191, _Internal::directsocketsallowedforurls(this),
         _Internal::directsocketsallowedforurls(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto DirectSocketsBlockedForUrls = 192;
-  if (cached_has_bits & 0x04000000u) {
+  if (cached_has_bits & 0x01000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(192, _Internal::directsocketsblockedforurls(this),
         _Internal::directsocketsblockedforurls(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.BooleanPolicyProto ProductSpecificationsEnabled = 193;
-  if (cached_has_bits & 0x08000000u) {
+  if (cached_has_bits & 0x02000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(193, _Internal::productspecificationsenabled(this),
         _Internal::productspecificationsenabled(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringPolicyProto PrefixedVideoFullscreenApiAvailability = 194;
-  if (cached_has_bits & 0x10000000u) {
+  if (cached_has_bits & 0x04000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(194, _Internal::prefixedvideofullscreenapiavailability(this),
         _Internal::prefixedvideofullscreenapiavailability(this).GetCachedSize(), target, stream);
@@ -5716,662 +5640,648 @@ size_t CloudPolicySubProto1::ByteSizeLong() const {
           *applaunchautomation_);
     }
 
-    // optional .enterprise_management.BooleanPolicyProto InsecureHashesInTLSHandshakesEnabled = 55;
-    if (cached_has_bits & 0x00000004u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *insecurehashesintlshandshakesenabled_);
-    }
-
     // optional .enterprise_management.BooleanPolicyProto ShowDisplaySizeScreenEnabled = 59;
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *showdisplaysizescreenenabled_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto EssentialSearchEnabled = 60;
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *essentialsearchenabled_);
     }
 
     // optional .enterprise_management.StringListPolicyProto LegacyTechReportAllowlist = 61;
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *legacytechreportallowlist_);
     }
 
     // optional .enterprise_management.StringListPolicyProto ReportAppInventory = 62;
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *reportappinventory_);
     }
 
     // optional .enterprise_management.StringListPolicyProto ReportAppUsage = 63;
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000040u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *reportappusage_);
     }
 
-  }
-  if (cached_has_bits & 0x0000ff00u) {
     // optional .enterprise_management.IntegerPolicyProto ReportAppUsageCollectionRateMs = 64;
-    if (cached_has_bits & 0x00000100u) {
+    if (cached_has_bits & 0x00000080u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *reportappusagecollectionratems_);
     }
 
+  }
+  if (cached_has_bits & 0x0000ff00u) {
     // optional .enterprise_management.StringListPolicyProto UserContextAwareAccessSignalsAllowlist = 66;
-    if (cached_has_bits & 0x00000200u) {
+    if (cached_has_bits & 0x00000100u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *usercontextawareaccesssignalsallowlist_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto GoogleSearchSidePanelEnabled = 67;
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000200u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *googlesearchsidepanelenabled_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto PdfUseSkiaRendererEnabled = 68;
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00000400u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *pdfuseskiarendererenabled_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto DataUrlInSvgUseEnabled = 69;
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00000800u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *dataurlinsvguseenabled_);
     }
 
-    // optional .enterprise_management.BooleanPolicyProto RSAKeyUsageForLocalAnchorsEnabled = 70;
-    if (cached_has_bits & 0x00002000u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *rsakeyusageforlocalanchorsenabled_);
-    }
-
     // optional .enterprise_management.BooleanPolicyProto BeforeunloadEventCancelByPreventDefaultEnabled = 71;
-    if (cached_has_bits & 0x00004000u) {
+    if (cached_has_bits & 0x00001000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *beforeunloadeventcancelbypreventdefaultenabled_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto PolicyTestPageEnabled = 72;
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00002000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *policytestpageenabled_);
     }
 
-  }
-  if (cached_has_bits & 0x00ff0000u) {
     // optional .enterprise_management.BooleanPolicyProto UrlKeyedMetricsAllowed = 73;
-    if (cached_has_bits & 0x00010000u) {
+    if (cached_has_bits & 0x00004000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *urlkeyedmetricsallowed_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto AllowBackForwardCacheForCacheControlNoStorePageEnabled = 74;
-    if (cached_has_bits & 0x00020000u) {
+    if (cached_has_bits & 0x00008000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *allowbackforwardcacheforcachecontrolnostorepageenabled_);
     }
 
+  }
+  if (cached_has_bits & 0x00ff0000u) {
     // optional .enterprise_management.BooleanPolicyProto SafeBrowsingProxiedRealTimeChecksAllowed = 76;
-    if (cached_has_bits & 0x00040000u) {
+    if (cached_has_bits & 0x00010000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *safebrowsingproxiedrealtimechecksallowed_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto PostQuantumKeyAgreementEnabled = 77;
-    if (cached_has_bits & 0x00080000u) {
+    if (cached_has_bits & 0x00020000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *postquantumkeyagreementenabled_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto PhysicalKeyboardAutocorrect = 78;
-    if (cached_has_bits & 0x00100000u) {
+    if (cached_has_bits & 0x00040000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *physicalkeyboardautocorrect_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto PhysicalKeyboardPredictiveWriting = 79;
-    if (cached_has_bits & 0x00200000u) {
+    if (cached_has_bits & 0x00080000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *physicalkeyboardpredictivewriting_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto ColorCorrectionEnabled = 80;
-    if (cached_has_bits & 0x00400000u) {
+    if (cached_has_bits & 0x00100000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *colorcorrectionenabled_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto NativeClientForceAllowed = 81;
-    if (cached_has_bits & 0x00800000u) {
+    if (cached_has_bits & 0x00200000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *nativeclientforceallowed_);
     }
 
-  }
-  if (cached_has_bits & 0xff000000u) {
     // optional .enterprise_management.BooleanPolicyProto EmojiPickerGifSupportEnabled = 82;
-    if (cached_has_bits & 0x01000000u) {
+    if (cached_has_bits & 0x00400000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *emojipickergifsupportenabled_);
     }
 
     // optional .enterprise_management.IntegerPolicyProto ArcVmDataMigrationStrategy = 85;
-    if (cached_has_bits & 0x02000000u) {
+    if (cached_has_bits & 0x00800000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *arcvmdatamigrationstrategy_);
     }
 
+  }
+  if (cached_has_bits & 0xff000000u) {
     // optional .enterprise_management.BooleanPolicyProto RemoteAccessHostAllowEnterpriseFileTransfer = 87;
-    if (cached_has_bits & 0x04000000u) {
+    if (cached_has_bits & 0x01000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *remoteaccesshostallowenterprisefiletransfer_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto GlanceablesEnabled = 91;
-    if (cached_has_bits & 0x08000000u) {
+    if (cached_has_bits & 0x02000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *glanceablesenabled_);
     }
 
     // optional .enterprise_management.StringPolicyProto BruschettaInstallerConfiguration = 96;
-    if (cached_has_bits & 0x10000000u) {
+    if (cached_has_bits & 0x04000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *bruschettainstallerconfiguration_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto ForcePermissionPolicyUnloadDefaultEnabled = 97;
-    if (cached_has_bits & 0x20000000u) {
+    if (cached_has_bits & 0x08000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *forcepermissionpolicyunloaddefaultenabled_);
     }
 
     // optional .enterprise_management.StringListPolicyProto ReportWebsiteActivityAllowlist = 98;
-    if (cached_has_bits & 0x40000000u) {
+    if (cached_has_bits & 0x10000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *reportwebsiteactivityallowlist_);
     }
 
     // optional .enterprise_management.StringListPolicyProto ReportWebsiteTelemetryAllowlist = 99;
-    if (cached_has_bits & 0x80000000u) {
+    if (cached_has_bits & 0x20000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *reportwebsitetelemetryallowlist_);
     }
 
-  }
-  cached_has_bits = _has_bits_[2];
-  if (cached_has_bits & 0x000000ffu) {
     // optional .enterprise_management.IntegerPolicyProto ReportWebsiteTelemetryCollectionRateMs = 100;
-    if (cached_has_bits & 0x00000001u) {
+    if (cached_has_bits & 0x40000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *reportwebsitetelemetrycollectionratems_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto SafeBrowsingSurveysEnabled = 101;
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x80000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *safebrowsingsurveysenabled_);
     }
 
+  }
+  cached_has_bits = _has_bits_[2];
+  if (cached_has_bits & 0x000000ffu) {
     // optional .enterprise_management.BooleanPolicyProto BlockTruncatedCookies = 102;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *blocktruncatedcookies_);
     }
 
     // optional .enterprise_management.StringListPolicyProto ReportWebsiteTelemetry = 103;
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *reportwebsitetelemetry_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto CompressionDictionaryTransportEnabled = 104;
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *compressiondictionarytransportenabled_);
     }
 
     // optional .enterprise_management.StringPolicyProto MicrosoftOfficeCloudUpload = 105;
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *microsoftofficecloudupload_);
     }
 
     // optional .enterprise_management.StringPolicyProto GoogleWorkspaceCloudUpload = 106;
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *googleworkspacecloudupload_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto ShortcutCustomizationAllowed = 107;
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *shortcutcustomizationallowed_);
     }
 
-  }
-  if (cached_has_bits & 0x0000ff00u) {
     // optional .enterprise_management.StringPolicyProto MicrosoftOneDriveMount = 108;
-    if (cached_has_bits & 0x00000100u) {
+    if (cached_has_bits & 0x00000040u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *microsoftonedrivemount_);
     }
 
     // optional .enterprise_management.StringPolicyProto ExtensionOAuthRedirectUrls = 109;
-    if (cached_has_bits & 0x00000200u) {
+    if (cached_has_bits & 0x00000080u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *extensionoauthredirecturls_);
     }
 
+  }
+  if (cached_has_bits & 0x0000ff00u) {
     // optional .enterprise_management.BooleanPolicyProto QuickOfficeForceFileDownloadEnabled = 111;
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000100u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *quickofficeforcefiledownloadenabled_);
     }
 
     // optional .enterprise_management.IntegerPolicyProto FullRestoreMode = 115;
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00000200u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *fullrestoremode_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto SafeBrowsingDeepScanningEnabled = 117;
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00000400u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *safebrowsingdeepscanningenabled_);
     }
 
     // optional .enterprise_management.StringPolicyProto DriveFileSyncAvailable = 118;
-    if (cached_has_bits & 0x00002000u) {
+    if (cached_has_bits & 0x00000800u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *drivefilesyncavailable_);
     }
 
     // optional .enterprise_management.StringPolicyProto DataControlsRules = 121;
-    if (cached_has_bits & 0x00004000u) {
+    if (cached_has_bits & 0x00001000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *datacontrolsrules_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto RelatedWebsiteSetsEnabled = 125;
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00002000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *relatedwebsitesetsenabled_);
     }
 
-  }
-  if (cached_has_bits & 0x00ff0000u) {
     // optional .enterprise_management.BooleanPolicyProto UnaffiliatedDeviceArcAllowed = 127;
-    if (cached_has_bits & 0x00010000u) {
+    if (cached_has_bits & 0x00004000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *unaffiliateddevicearcallowed_);
     }
 
     // optional .enterprise_management.StringPolicyProto RelatedWebsiteSetsOverrides = 128;
-    if (cached_has_bits & 0x00020000u) {
+    if (cached_has_bits & 0x00008000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *relatedwebsitesetsoverrides_);
     }
 
+  }
+  if (cached_has_bits & 0x00ff0000u) {
     // optional .enterprise_management.BooleanPolicyProto ShowHumanPresenceSensorScreenEnabled = 129;
-    if (cached_has_bits & 0x00040000u) {
+    if (cached_has_bits & 0x00010000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *showhumanpresencesensorscreenenabled_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto PasswordSharingEnabled = 130;
-    if (cached_has_bits & 0x00080000u) {
+    if (cached_has_bits & 0x00020000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *passwordsharingenabled_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto ZstdContentEncodingEnabled = 131;
-    if (cached_has_bits & 0x00100000u) {
+    if (cached_has_bits & 0x00040000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *zstdcontentencodingenabled_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto IPv6ReachabilityOverrideEnabled = 132;
-    if (cached_has_bits & 0x00200000u) {
+    if (cached_has_bits & 0x00080000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *ipv6reachabilityoverrideenabled_);
     }
 
     // optional .enterprise_management.StringListPolicyProto UserFeedbackWithLowLevelDebugDataAllowed = 133;
-    if (cached_has_bits & 0x00400000u) {
+    if (cached_has_bits & 0x00100000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *userfeedbackwithlowleveldebugdataallowed_);
     }
 
     // optional .enterprise_management.StringListPolicyProto MicrosoftOneDriveAccountRestrictions = 134;
-    if (cached_has_bits & 0x00800000u) {
+    if (cached_has_bits & 0x00200000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *microsoftonedriveaccountrestrictions_);
     }
 
-  }
-  if (cached_has_bits & 0xff000000u) {
     // optional .enterprise_management.StringPolicyProto SiteSearchSettings = 136;
-    if (cached_has_bits & 0x01000000u) {
+    if (cached_has_bits & 0x00400000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *sitesearchsettings_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto PrivateNetworkAccessRestrictionsEnabled = 137;
-    if (cached_has_bits & 0x02000000u) {
+    if (cached_has_bits & 0x00800000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *privatenetworkaccessrestrictionsenabled_);
     }
 
+  }
+  if (cached_has_bits & 0xff000000u) {
     // optional .enterprise_management.BooleanPolicyProto FeedbackSurveysEnabled = 142;
-    if (cached_has_bits & 0x04000000u) {
+    if (cached_has_bits & 0x01000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *feedbacksurveysenabled_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto DeskAPIDeskSaveAndShareEnabled = 143;
-    if (cached_has_bits & 0x08000000u) {
+    if (cached_has_bits & 0x02000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *deskapidesksaveandshareenabled_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto OopPrintDriversAllowed = 144;
-    if (cached_has_bits & 0x10000000u) {
+    if (cached_has_bits & 0x04000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *oopprintdriversallowed_);
     }
 
     // optional .enterprise_management.IntegerPolicyProto TabOrganizerSettings = 146;
-    if (cached_has_bits & 0x20000000u) {
+    if (cached_has_bits & 0x08000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *taborganizersettings_);
     }
 
     // optional .enterprise_management.IntegerPolicyProto HelpMeWriteSettings = 147;
-    if (cached_has_bits & 0x40000000u) {
+    if (cached_has_bits & 0x10000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *helpmewritesettings_);
     }
 
     // optional .enterprise_management.IntegerPolicyProto CreateThemesSettings = 148;
-    if (cached_has_bits & 0x80000000u) {
+    if (cached_has_bits & 0x20000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *createthemessettings_);
     }
 
-  }
-  cached_has_bits = _has_bits_[3];
-  if (cached_has_bits & 0x000000ffu) {
     // optional .enterprise_management.StringListPolicyProto AlwaysOnVpnPreConnectUrlAllowlist = 150;
-    if (cached_has_bits & 0x00000001u) {
+    if (cached_has_bits & 0x40000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *alwaysonvpnpreconnecturlallowlist_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto FloatingSsoEnabled = 157;
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x80000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *floatingssoenabled_);
     }
 
+  }
+  cached_has_bits = _has_bits_[3];
+  if (cached_has_bits & 0x000000ffu) {
     // optional .enterprise_management.StringListPolicyProto FloatingSsoDomainBlocklist = 158;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *floatingssodomainblocklist_);
     }
 
     // optional .enterprise_management.StringListPolicyProto FloatingSsoDomainBlocklistExceptions = 159;
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *floatingssodomainblocklistexceptions_);
     }
 
     // optional .enterprise_management.IntegerPolicyProto F11KeyModifier = 160;
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *f11keymodifier_);
     }
 
     // optional .enterprise_management.IntegerPolicyProto F12KeyModifier = 161;
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *f12keymodifier_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto VirtualKeyboardSmartVisibilityEnabled = 162;
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *virtualkeyboardsmartvisibilityenabled_);
     }
 
     // optional .enterprise_management.IntegerPolicyProto DeleteKeyModifier = 164;
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *deletekeymodifier_);
     }
 
-  }
-  if (cached_has_bits & 0x0000ff00u) {
     // optional .enterprise_management.IntegerPolicyProto HomeAndEndKeysModifier = 165;
-    if (cached_has_bits & 0x00000100u) {
+    if (cached_has_bits & 0x00000040u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *homeandendkeysmodifier_);
     }
 
     // optional .enterprise_management.IntegerPolicyProto PageUpAndPageDownKeysModifier = 166;
-    if (cached_has_bits & 0x00000200u) {
+    if (cached_has_bits & 0x00000080u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *pageupandpagedownkeysmodifier_);
     }
 
+  }
+  if (cached_has_bits & 0x0000ff00u) {
     // optional .enterprise_management.IntegerPolicyProto InsertKeyModifier = 167;
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000100u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *insertkeymodifier_);
     }
 
     // optional .enterprise_management.StringPolicyProto ScreenCaptureLocation = 171;
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00000200u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *screencapturelocation_);
     }
 
     // optional .enterprise_management.StringListPolicyProto AllowedDomainsForAppsList = 172;
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00000400u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *alloweddomainsforappslist_);
     }
 
     // optional .enterprise_management.IntegerPolicyProto GoogleLocationServicesEnabled = 174;
-    if (cached_has_bits & 0x00002000u) {
+    if (cached_has_bits & 0x00000800u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *googlelocationservicesenabled_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto LocalUserFilesAllowed = 176;
-    if (cached_has_bits & 0x00004000u) {
+    if (cached_has_bits & 0x00001000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *localuserfilesallowed_);
     }
 
     // optional .enterprise_management.StringListPolicyProto SubAppsAPIsAllowedWithoutGestureAndAuthorizationForOrigins = 178;
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00002000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *subappsapisallowedwithoutgestureandauthorizationfororigins_);
     }
 
-  }
-  if (cached_has_bits & 0x00ff0000u) {
     // optional .enterprise_management.IntegerPolicyProto DefaultWebPrintingSetting = 179;
-    if (cached_has_bits & 0x00010000u) {
+    if (cached_has_bits & 0x00004000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *defaultwebprintingsetting_);
     }
 
     // optional .enterprise_management.StringListPolicyProto WebPrintingAllowedForUrls = 180;
-    if (cached_has_bits & 0x00020000u) {
+    if (cached_has_bits & 0x00008000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *webprintingallowedforurls_);
     }
 
+  }
+  if (cached_has_bits & 0x00ff0000u) {
     // optional .enterprise_management.StringListPolicyProto WebPrintingBlockedForUrls = 181;
-    if (cached_has_bits & 0x00040000u) {
+    if (cached_has_bits & 0x00010000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *webprintingblockedforurls_);
     }
 
     // optional .enterprise_management.StringListPolicyProto DocumentScanAPITrustedExtensions = 182;
-    if (cached_has_bits & 0x00080000u) {
+    if (cached_has_bits & 0x00020000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *documentscanapitrustedextensions_);
     }
 
     // optional .enterprise_management.StringListPolicyProto AutomaticFullscreenAllowedForUrls = 185;
-    if (cached_has_bits & 0x00100000u) {
+    if (cached_has_bits & 0x00040000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *automaticfullscreenallowedforurls_);
     }
 
     // optional .enterprise_management.StringListPolicyProto AutomaticFullscreenBlockedForUrls = 186;
-    if (cached_has_bits & 0x00200000u) {
+    if (cached_has_bits & 0x00080000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *automaticfullscreenblockedforurls_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto MutationEventsEnabled = 187;
-    if (cached_has_bits & 0x00400000u) {
+    if (cached_has_bits & 0x00100000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *mutationeventsenabled_);
     }
 
     // optional .enterprise_management.IntegerPolicyProto DevToolsGenAiSettings = 188;
-    if (cached_has_bits & 0x00800000u) {
+    if (cached_has_bits & 0x00200000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *devtoolsgenaisettings_);
     }
 
-  }
-  if (cached_has_bits & 0x1f000000u) {
     // optional .enterprise_management.IntegerPolicyProto DefaultDirectSocketsSetting = 190;
-    if (cached_has_bits & 0x01000000u) {
+    if (cached_has_bits & 0x00400000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *defaultdirectsocketssetting_);
     }
 
     // optional .enterprise_management.StringListPolicyProto DirectSocketsAllowedForUrls = 191;
-    if (cached_has_bits & 0x02000000u) {
+    if (cached_has_bits & 0x00800000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *directsocketsallowedforurls_);
     }
 
+  }
+  if (cached_has_bits & 0x07000000u) {
     // optional .enterprise_management.StringListPolicyProto DirectSocketsBlockedForUrls = 192;
-    if (cached_has_bits & 0x04000000u) {
+    if (cached_has_bits & 0x01000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *directsocketsblockedforurls_);
     }
 
     // optional .enterprise_management.BooleanPolicyProto ProductSpecificationsEnabled = 193;
-    if (cached_has_bits & 0x08000000u) {
+    if (cached_has_bits & 0x02000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *productspecificationsenabled_);
     }
 
     // optional .enterprise_management.StringPolicyProto PrefixedVideoFullscreenApiAvailability = 194;
-    if (cached_has_bits & 0x10000000u) {
+    if (cached_has_bits & 0x04000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *prefixedvideofullscreenapiavailability_);
@@ -6512,300 +6422,294 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
       _internal_mutable_applaunchautomation()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_applaunchautomation());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_insecurehashesintlshandshakesenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_insecurehashesintlshandshakesenabled());
-    }
-    if (cached_has_bits & 0x00000008u) {
       _internal_mutable_showdisplaysizescreenenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_showdisplaysizescreenenabled());
     }
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000008u) {
       _internal_mutable_essentialsearchenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_essentialsearchenabled());
     }
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000010u) {
       _internal_mutable_legacytechreportallowlist()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_legacytechreportallowlist());
     }
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000020u) {
       _internal_mutable_reportappinventory()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_reportappinventory());
     }
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000040u) {
       _internal_mutable_reportappusage()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_reportappusage());
+    }
+    if (cached_has_bits & 0x00000080u) {
+      _internal_mutable_reportappusagecollectionratems()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_reportappusagecollectionratems());
     }
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      _internal_mutable_reportappusagecollectionratems()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_reportappusagecollectionratems());
-    }
-    if (cached_has_bits & 0x00000200u) {
       _internal_mutable_usercontextawareaccesssignalsallowlist()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_usercontextawareaccesssignalsallowlist());
     }
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000200u) {
       _internal_mutable_googlesearchsidepanelenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_googlesearchsidepanelenabled());
     }
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00000400u) {
       _internal_mutable_pdfuseskiarendererenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_pdfuseskiarendererenabled());
     }
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00000800u) {
       _internal_mutable_dataurlinsvguseenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_dataurlinsvguseenabled());
     }
-    if (cached_has_bits & 0x00002000u) {
-      _internal_mutable_rsakeyusageforlocalanchorsenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_rsakeyusageforlocalanchorsenabled());
-    }
-    if (cached_has_bits & 0x00004000u) {
+    if (cached_has_bits & 0x00001000u) {
       _internal_mutable_beforeunloadeventcancelbypreventdefaultenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_beforeunloadeventcancelbypreventdefaultenabled());
     }
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00002000u) {
       _internal_mutable_policytestpageenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_policytestpageenabled());
+    }
+    if (cached_has_bits & 0x00004000u) {
+      _internal_mutable_urlkeyedmetricsallowed()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_urlkeyedmetricsallowed());
+    }
+    if (cached_has_bits & 0x00008000u) {
+      _internal_mutable_allowbackforwardcacheforcachecontrolnostorepageenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_allowbackforwardcacheforcachecontrolnostorepageenabled());
     }
   }
   if (cached_has_bits & 0x00ff0000u) {
     if (cached_has_bits & 0x00010000u) {
-      _internal_mutable_urlkeyedmetricsallowed()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_urlkeyedmetricsallowed());
-    }
-    if (cached_has_bits & 0x00020000u) {
-      _internal_mutable_allowbackforwardcacheforcachecontrolnostorepageenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_allowbackforwardcacheforcachecontrolnostorepageenabled());
-    }
-    if (cached_has_bits & 0x00040000u) {
       _internal_mutable_safebrowsingproxiedrealtimechecksallowed()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_safebrowsingproxiedrealtimechecksallowed());
     }
-    if (cached_has_bits & 0x00080000u) {
+    if (cached_has_bits & 0x00020000u) {
       _internal_mutable_postquantumkeyagreementenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_postquantumkeyagreementenabled());
     }
-    if (cached_has_bits & 0x00100000u) {
+    if (cached_has_bits & 0x00040000u) {
       _internal_mutable_physicalkeyboardautocorrect()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_physicalkeyboardautocorrect());
     }
-    if (cached_has_bits & 0x00200000u) {
+    if (cached_has_bits & 0x00080000u) {
       _internal_mutable_physicalkeyboardpredictivewriting()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_physicalkeyboardpredictivewriting());
     }
-    if (cached_has_bits & 0x00400000u) {
+    if (cached_has_bits & 0x00100000u) {
       _internal_mutable_colorcorrectionenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_colorcorrectionenabled());
     }
-    if (cached_has_bits & 0x00800000u) {
+    if (cached_has_bits & 0x00200000u) {
       _internal_mutable_nativeclientforceallowed()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_nativeclientforceallowed());
+    }
+    if (cached_has_bits & 0x00400000u) {
+      _internal_mutable_emojipickergifsupportenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_emojipickergifsupportenabled());
+    }
+    if (cached_has_bits & 0x00800000u) {
+      _internal_mutable_arcvmdatamigrationstrategy()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_arcvmdatamigrationstrategy());
     }
   }
   if (cached_has_bits & 0xff000000u) {
     if (cached_has_bits & 0x01000000u) {
-      _internal_mutable_emojipickergifsupportenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_emojipickergifsupportenabled());
-    }
-    if (cached_has_bits & 0x02000000u) {
-      _internal_mutable_arcvmdatamigrationstrategy()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_arcvmdatamigrationstrategy());
-    }
-    if (cached_has_bits & 0x04000000u) {
       _internal_mutable_remoteaccesshostallowenterprisefiletransfer()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_remoteaccesshostallowenterprisefiletransfer());
     }
-    if (cached_has_bits & 0x08000000u) {
+    if (cached_has_bits & 0x02000000u) {
       _internal_mutable_glanceablesenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_glanceablesenabled());
     }
-    if (cached_has_bits & 0x10000000u) {
+    if (cached_has_bits & 0x04000000u) {
       _internal_mutable_bruschettainstallerconfiguration()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_bruschettainstallerconfiguration());
     }
-    if (cached_has_bits & 0x20000000u) {
+    if (cached_has_bits & 0x08000000u) {
       _internal_mutable_forcepermissionpolicyunloaddefaultenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_forcepermissionpolicyunloaddefaultenabled());
     }
-    if (cached_has_bits & 0x40000000u) {
+    if (cached_has_bits & 0x10000000u) {
       _internal_mutable_reportwebsiteactivityallowlist()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_reportwebsiteactivityallowlist());
     }
-    if (cached_has_bits & 0x80000000u) {
+    if (cached_has_bits & 0x20000000u) {
       _internal_mutable_reportwebsitetelemetryallowlist()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_reportwebsitetelemetryallowlist());
+    }
+    if (cached_has_bits & 0x40000000u) {
+      _internal_mutable_reportwebsitetelemetrycollectionratems()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_reportwebsitetelemetrycollectionratems());
+    }
+    if (cached_has_bits & 0x80000000u) {
+      _internal_mutable_safebrowsingsurveysenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_safebrowsingsurveysenabled());
     }
   }
   cached_has_bits = from._has_bits_[2];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_reportwebsitetelemetrycollectionratems()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_reportwebsitetelemetrycollectionratems());
-    }
-    if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_safebrowsingsurveysenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_safebrowsingsurveysenabled());
-    }
-    if (cached_has_bits & 0x00000004u) {
       _internal_mutable_blocktruncatedcookies()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_blocktruncatedcookies());
     }
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000002u) {
       _internal_mutable_reportwebsitetelemetry()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_reportwebsitetelemetry());
     }
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000004u) {
       _internal_mutable_compressiondictionarytransportenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_compressiondictionarytransportenabled());
     }
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000008u) {
       _internal_mutable_microsoftofficecloudupload()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_microsoftofficecloudupload());
     }
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000010u) {
       _internal_mutable_googleworkspacecloudupload()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_googleworkspacecloudupload());
     }
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000020u) {
       _internal_mutable_shortcutcustomizationallowed()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_shortcutcustomizationallowed());
+    }
+    if (cached_has_bits & 0x00000040u) {
+      _internal_mutable_microsoftonedrivemount()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_microsoftonedrivemount());
+    }
+    if (cached_has_bits & 0x00000080u) {
+      _internal_mutable_extensionoauthredirecturls()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_extensionoauthredirecturls());
     }
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      _internal_mutable_microsoftonedrivemount()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_microsoftonedrivemount());
-    }
-    if (cached_has_bits & 0x00000200u) {
-      _internal_mutable_extensionoauthredirecturls()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_extensionoauthredirecturls());
-    }
-    if (cached_has_bits & 0x00000400u) {
       _internal_mutable_quickofficeforcefiledownloadenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_quickofficeforcefiledownloadenabled());
     }
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00000200u) {
       _internal_mutable_fullrestoremode()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_fullrestoremode());
     }
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00000400u) {
       _internal_mutable_safebrowsingdeepscanningenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_safebrowsingdeepscanningenabled());
     }
-    if (cached_has_bits & 0x00002000u) {
+    if (cached_has_bits & 0x00000800u) {
       _internal_mutable_drivefilesyncavailable()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_drivefilesyncavailable());
     }
-    if (cached_has_bits & 0x00004000u) {
+    if (cached_has_bits & 0x00001000u) {
       _internal_mutable_datacontrolsrules()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_datacontrolsrules());
     }
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00002000u) {
       _internal_mutable_relatedwebsitesetsenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_relatedwebsitesetsenabled());
+    }
+    if (cached_has_bits & 0x00004000u) {
+      _internal_mutable_unaffiliateddevicearcallowed()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_unaffiliateddevicearcallowed());
+    }
+    if (cached_has_bits & 0x00008000u) {
+      _internal_mutable_relatedwebsitesetsoverrides()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_relatedwebsitesetsoverrides());
     }
   }
   if (cached_has_bits & 0x00ff0000u) {
     if (cached_has_bits & 0x00010000u) {
-      _internal_mutable_unaffiliateddevicearcallowed()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_unaffiliateddevicearcallowed());
-    }
-    if (cached_has_bits & 0x00020000u) {
-      _internal_mutable_relatedwebsitesetsoverrides()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_relatedwebsitesetsoverrides());
-    }
-    if (cached_has_bits & 0x00040000u) {
       _internal_mutable_showhumanpresencesensorscreenenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_showhumanpresencesensorscreenenabled());
     }
-    if (cached_has_bits & 0x00080000u) {
+    if (cached_has_bits & 0x00020000u) {
       _internal_mutable_passwordsharingenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_passwordsharingenabled());
     }
-    if (cached_has_bits & 0x00100000u) {
+    if (cached_has_bits & 0x00040000u) {
       _internal_mutable_zstdcontentencodingenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_zstdcontentencodingenabled());
     }
-    if (cached_has_bits & 0x00200000u) {
+    if (cached_has_bits & 0x00080000u) {
       _internal_mutable_ipv6reachabilityoverrideenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_ipv6reachabilityoverrideenabled());
     }
-    if (cached_has_bits & 0x00400000u) {
+    if (cached_has_bits & 0x00100000u) {
       _internal_mutable_userfeedbackwithlowleveldebugdataallowed()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_userfeedbackwithlowleveldebugdataallowed());
     }
-    if (cached_has_bits & 0x00800000u) {
+    if (cached_has_bits & 0x00200000u) {
       _internal_mutable_microsoftonedriveaccountrestrictions()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_microsoftonedriveaccountrestrictions());
+    }
+    if (cached_has_bits & 0x00400000u) {
+      _internal_mutable_sitesearchsettings()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_sitesearchsettings());
+    }
+    if (cached_has_bits & 0x00800000u) {
+      _internal_mutable_privatenetworkaccessrestrictionsenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_privatenetworkaccessrestrictionsenabled());
     }
   }
   if (cached_has_bits & 0xff000000u) {
     if (cached_has_bits & 0x01000000u) {
-      _internal_mutable_sitesearchsettings()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_sitesearchsettings());
-    }
-    if (cached_has_bits & 0x02000000u) {
-      _internal_mutable_privatenetworkaccessrestrictionsenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_privatenetworkaccessrestrictionsenabled());
-    }
-    if (cached_has_bits & 0x04000000u) {
       _internal_mutable_feedbacksurveysenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_feedbacksurveysenabled());
     }
-    if (cached_has_bits & 0x08000000u) {
+    if (cached_has_bits & 0x02000000u) {
       _internal_mutable_deskapidesksaveandshareenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_deskapidesksaveandshareenabled());
     }
-    if (cached_has_bits & 0x10000000u) {
+    if (cached_has_bits & 0x04000000u) {
       _internal_mutable_oopprintdriversallowed()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_oopprintdriversallowed());
     }
-    if (cached_has_bits & 0x20000000u) {
+    if (cached_has_bits & 0x08000000u) {
       _internal_mutable_taborganizersettings()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_taborganizersettings());
     }
-    if (cached_has_bits & 0x40000000u) {
+    if (cached_has_bits & 0x10000000u) {
       _internal_mutable_helpmewritesettings()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_helpmewritesettings());
     }
-    if (cached_has_bits & 0x80000000u) {
+    if (cached_has_bits & 0x20000000u) {
       _internal_mutable_createthemessettings()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_createthemessettings());
+    }
+    if (cached_has_bits & 0x40000000u) {
+      _internal_mutable_alwaysonvpnpreconnecturlallowlist()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_alwaysonvpnpreconnecturlallowlist());
+    }
+    if (cached_has_bits & 0x80000000u) {
+      _internal_mutable_floatingssoenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_floatingssoenabled());
     }
   }
   cached_has_bits = from._has_bits_[3];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_alwaysonvpnpreconnecturlallowlist()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_alwaysonvpnpreconnecturlallowlist());
-    }
-    if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_floatingssoenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_floatingssoenabled());
-    }
-    if (cached_has_bits & 0x00000004u) {
       _internal_mutable_floatingssodomainblocklist()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_floatingssodomainblocklist());
     }
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000002u) {
       _internal_mutable_floatingssodomainblocklistexceptions()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_floatingssodomainblocklistexceptions());
     }
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000004u) {
       _internal_mutable_f11keymodifier()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_f11keymodifier());
     }
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000008u) {
       _internal_mutable_f12keymodifier()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_f12keymodifier());
     }
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000010u) {
       _internal_mutable_virtualkeyboardsmartvisibilityenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_virtualkeyboardsmartvisibilityenabled());
     }
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000020u) {
       _internal_mutable_deletekeymodifier()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_deletekeymodifier());
+    }
+    if (cached_has_bits & 0x00000040u) {
+      _internal_mutable_homeandendkeysmodifier()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_homeandendkeysmodifier());
+    }
+    if (cached_has_bits & 0x00000080u) {
+      _internal_mutable_pageupandpagedownkeysmodifier()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_pageupandpagedownkeysmodifier());
     }
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      _internal_mutable_homeandendkeysmodifier()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_homeandendkeysmodifier());
-    }
-    if (cached_has_bits & 0x00000200u) {
-      _internal_mutable_pageupandpagedownkeysmodifier()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_pageupandpagedownkeysmodifier());
-    }
-    if (cached_has_bits & 0x00000400u) {
       _internal_mutable_insertkeymodifier()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_insertkeymodifier());
     }
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00000200u) {
       _internal_mutable_screencapturelocation()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_screencapturelocation());
     }
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00000400u) {
       _internal_mutable_alloweddomainsforappslist()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_alloweddomainsforappslist());
     }
-    if (cached_has_bits & 0x00002000u) {
+    if (cached_has_bits & 0x00000800u) {
       _internal_mutable_googlelocationservicesenabled()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_googlelocationservicesenabled());
     }
-    if (cached_has_bits & 0x00004000u) {
+    if (cached_has_bits & 0x00001000u) {
       _internal_mutable_localuserfilesallowed()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_localuserfilesallowed());
     }
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00002000u) {
       _internal_mutable_subappsapisallowedwithoutgestureandauthorizationfororigins()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_subappsapisallowedwithoutgestureandauthorizationfororigins());
+    }
+    if (cached_has_bits & 0x00004000u) {
+      _internal_mutable_defaultwebprintingsetting()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_defaultwebprintingsetting());
+    }
+    if (cached_has_bits & 0x00008000u) {
+      _internal_mutable_webprintingallowedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_webprintingallowedforurls());
     }
   }
   if (cached_has_bits & 0x00ff0000u) {
     if (cached_has_bits & 0x00010000u) {
-      _internal_mutable_defaultwebprintingsetting()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_defaultwebprintingsetting());
-    }
-    if (cached_has_bits & 0x00020000u) {
-      _internal_mutable_webprintingallowedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_webprintingallowedforurls());
-    }
-    if (cached_has_bits & 0x00040000u) {
       _internal_mutable_webprintingblockedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_webprintingblockedforurls());
     }
-    if (cached_has_bits & 0x00080000u) {
+    if (cached_has_bits & 0x00020000u) {
       _internal_mutable_documentscanapitrustedextensions()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_documentscanapitrustedextensions());
     }
-    if (cached_has_bits & 0x00100000u) {
+    if (cached_has_bits & 0x00040000u) {
       _internal_mutable_automaticfullscreenallowedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_automaticfullscreenallowedforurls());
     }
-    if (cached_has_bits & 0x00200000u) {
+    if (cached_has_bits & 0x00080000u) {
       _internal_mutable_automaticfullscreenblockedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_automaticfullscreenblockedforurls());
     }
-    if (cached_has_bits & 0x00400000u) {
+    if (cached_has_bits & 0x00100000u) {
       _internal_mutable_mutationeventsenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_mutationeventsenabled());
     }
-    if (cached_has_bits & 0x00800000u) {
+    if (cached_has_bits & 0x00200000u) {
       _internal_mutable_devtoolsgenaisettings()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_devtoolsgenaisettings());
     }
-  }
-  if (cached_has_bits & 0x1f000000u) {
-    if (cached_has_bits & 0x01000000u) {
+    if (cached_has_bits & 0x00400000u) {
       _internal_mutable_defaultdirectsocketssetting()->::enterprise_management::IntegerPolicyProto::MergeFrom(from._internal_defaultdirectsocketssetting());
     }
-    if (cached_has_bits & 0x02000000u) {
+    if (cached_has_bits & 0x00800000u) {
       _internal_mutable_directsocketsallowedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_directsocketsallowedforurls());
     }
-    if (cached_has_bits & 0x04000000u) {
+  }
+  if (cached_has_bits & 0x07000000u) {
+    if (cached_has_bits & 0x01000000u) {
       _internal_mutable_directsocketsblockedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_directsocketsblockedforurls());
     }
-    if (cached_has_bits & 0x08000000u) {
+    if (cached_has_bits & 0x02000000u) {
       _internal_mutable_productspecificationsenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_productspecificationsenabled());
     }
-    if (cached_has_bits & 0x10000000u) {
+    if (cached_has_bits & 0x04000000u) {
       _internal_mutable_prefixedvideofullscreenapiavailability()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_prefixedvideofullscreenapiavailability());
     }
   }

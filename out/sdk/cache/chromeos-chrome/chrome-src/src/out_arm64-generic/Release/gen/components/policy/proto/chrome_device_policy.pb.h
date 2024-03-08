@@ -26241,41 +26241,41 @@ void unsafe_arena_set_allocated_device_reboot_on_user_signout(
 ::enterprise_management::DeviceRebootOnUserSignoutProto* device_reboot_on_user_signout);
 ::enterprise_management::DeviceRebootOnUserSignoutProto* unsafe_arena_release_device_reboot_on_user_signout();
 
-// optional .enterprise_management.DeviceWilcoDtcAllowedProto device_wilco_dtc_allowed = 80;
-bool has_device_wilco_dtc_allowed() const;
+// optional .enterprise_management.DeviceWilcoDtcAllowedProto device_wilco_dtc_allowed = 80 [deprecated = true];
+PROTOBUF_DEPRECATED bool has_device_wilco_dtc_allowed() const;
 private:
 bool _internal_has_device_wilco_dtc_allowed() const;
 public:
-void clear_device_wilco_dtc_allowed();
-const ::enterprise_management::DeviceWilcoDtcAllowedProto& device_wilco_dtc_allowed() const;
-PROTOBUF_NODISCARD ::enterprise_management::DeviceWilcoDtcAllowedProto* release_device_wilco_dtc_allowed();
-::enterprise_management::DeviceWilcoDtcAllowedProto* mutable_device_wilco_dtc_allowed();
-void set_allocated_device_wilco_dtc_allowed(::enterprise_management::DeviceWilcoDtcAllowedProto* device_wilco_dtc_allowed);
+PROTOBUF_DEPRECATED void clear_device_wilco_dtc_allowed();
+PROTOBUF_DEPRECATED const ::enterprise_management::DeviceWilcoDtcAllowedProto& device_wilco_dtc_allowed() const;
+PROTOBUF_NODISCARD PROTOBUF_DEPRECATED ::enterprise_management::DeviceWilcoDtcAllowedProto* release_device_wilco_dtc_allowed();
+PROTOBUF_DEPRECATED ::enterprise_management::DeviceWilcoDtcAllowedProto* mutable_device_wilco_dtc_allowed();
+PROTOBUF_DEPRECATED void set_allocated_device_wilco_dtc_allowed(::enterprise_management::DeviceWilcoDtcAllowedProto* device_wilco_dtc_allowed);
 private:
 const ::enterprise_management::DeviceWilcoDtcAllowedProto& _internal_device_wilco_dtc_allowed() const;
 ::enterprise_management::DeviceWilcoDtcAllowedProto* _internal_mutable_device_wilco_dtc_allowed();
 public:
-void unsafe_arena_set_allocated_device_wilco_dtc_allowed(
+PROTOBUF_DEPRECATED void unsafe_arena_set_allocated_device_wilco_dtc_allowed(
 ::enterprise_management::DeviceWilcoDtcAllowedProto* device_wilco_dtc_allowed);
-::enterprise_management::DeviceWilcoDtcAllowedProto* unsafe_arena_release_device_wilco_dtc_allowed();
+PROTOBUF_DEPRECATED ::enterprise_management::DeviceWilcoDtcAllowedProto* unsafe_arena_release_device_wilco_dtc_allowed();
 
-// optional .enterprise_management.DeviceWilcoDtcConfigurationProto device_wilco_dtc_configuration = 81;
-bool has_device_wilco_dtc_configuration() const;
+// optional .enterprise_management.DeviceWilcoDtcConfigurationProto device_wilco_dtc_configuration = 81 [deprecated = true];
+PROTOBUF_DEPRECATED bool has_device_wilco_dtc_configuration() const;
 private:
 bool _internal_has_device_wilco_dtc_configuration() const;
 public:
-void clear_device_wilco_dtc_configuration();
-const ::enterprise_management::DeviceWilcoDtcConfigurationProto& device_wilco_dtc_configuration() const;
-PROTOBUF_NODISCARD ::enterprise_management::DeviceWilcoDtcConfigurationProto* release_device_wilco_dtc_configuration();
-::enterprise_management::DeviceWilcoDtcConfigurationProto* mutable_device_wilco_dtc_configuration();
-void set_allocated_device_wilco_dtc_configuration(::enterprise_management::DeviceWilcoDtcConfigurationProto* device_wilco_dtc_configuration);
+PROTOBUF_DEPRECATED void clear_device_wilco_dtc_configuration();
+PROTOBUF_DEPRECATED const ::enterprise_management::DeviceWilcoDtcConfigurationProto& device_wilco_dtc_configuration() const;
+PROTOBUF_NODISCARD PROTOBUF_DEPRECATED ::enterprise_management::DeviceWilcoDtcConfigurationProto* release_device_wilco_dtc_configuration();
+PROTOBUF_DEPRECATED ::enterprise_management::DeviceWilcoDtcConfigurationProto* mutable_device_wilco_dtc_configuration();
+PROTOBUF_DEPRECATED void set_allocated_device_wilco_dtc_configuration(::enterprise_management::DeviceWilcoDtcConfigurationProto* device_wilco_dtc_configuration);
 private:
 const ::enterprise_management::DeviceWilcoDtcConfigurationProto& _internal_device_wilco_dtc_configuration() const;
 ::enterprise_management::DeviceWilcoDtcConfigurationProto* _internal_mutable_device_wilco_dtc_configuration();
 public:
-void unsafe_arena_set_allocated_device_wilco_dtc_configuration(
+PROTOBUF_DEPRECATED void unsafe_arena_set_allocated_device_wilco_dtc_configuration(
 ::enterprise_management::DeviceWilcoDtcConfigurationProto* device_wilco_dtc_configuration);
-::enterprise_management::DeviceWilcoDtcConfigurationProto* unsafe_arena_release_device_wilco_dtc_configuration();
+PROTOBUF_DEPRECATED ::enterprise_management::DeviceWilcoDtcConfigurationProto* unsafe_arena_release_device_wilco_dtc_configuration();
 
 // optional .enterprise_management.DeviceWiFiAllowedProto device_wifi_allowed = 82;
 bool has_device_wifi_allowed() const;
@@ -47673,7 +47673,7 @@ device_reboot_on_user_signout_ = device_reboot_on_user_signout;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_reboot_on_user_signout)
 }
 
-// optional .enterprise_management.DeviceWilcoDtcAllowedProto device_wilco_dtc_allowed = 80;
+// optional .enterprise_management.DeviceWilcoDtcAllowedProto device_wilco_dtc_allowed = 80 [deprecated = true];
 inline bool ChromeDeviceSettingsProto::_internal_has_device_wilco_dtc_allowed() const {
 bool value = (_has_bits_[2] & 0x00002000u) != 0;
 PROTOBUF_ASSUME(!value || device_wilco_dtc_allowed_ != nullptr);
@@ -47763,7 +47763,7 @@ device_wilco_dtc_allowed_ = device_wilco_dtc_allowed;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_wilco_dtc_allowed)
 }
 
-// optional .enterprise_management.DeviceWilcoDtcConfigurationProto device_wilco_dtc_configuration = 81;
+// optional .enterprise_management.DeviceWilcoDtcConfigurationProto device_wilco_dtc_configuration = 81 [deprecated = true];
 inline bool ChromeDeviceSettingsProto::_internal_has_device_wilco_dtc_configuration() const {
 bool value = (_has_bits_[2] & 0x00004000u) != 0;
 PROTOBUF_ASSUME(!value || device_wilco_dtc_configuration_ != nullptr);
