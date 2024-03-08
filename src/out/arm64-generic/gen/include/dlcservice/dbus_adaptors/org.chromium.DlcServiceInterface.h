@@ -42,11 +42,15 @@ class DlcServiceInterfaceInterface {
   virtual bool Unload(
       brillo::ErrorPtr* error,
       const dlcservice::UnloadRequest& in_unload_request) = 0;
-  // Returns a list of installed Downloadable Content (DLC) IDs that are
-  // installed.
+  // Returns a list of installed Downloadable Content (DLC) IDs.
   virtual bool GetInstalled(
       brillo::ErrorPtr* error,
       std::vector<std::string>* out_ids) = 0;
+  // Returns a list of installed Downloadable Content (DLC).
+  virtual bool GetInstalled2(
+      brillo::ErrorPtr* error,
+      const dlcservice::ListRequest& in_list_request,
+      dlcservice::DlcStateList* out_list_request) = 0;
   // Returns a list of DLCs that have content on disk.
   virtual bool GetExistingDlcs(
       brillo::ErrorPtr* error,
@@ -107,6 +111,10 @@ class DlcServiceInterfaceAdaptor {
         base::Unretained(interface_),
         &DlcServiceInterfaceInterface::GetInstalled);
     itf->AddSimpleMethodHandlerWithError(
+        "GetInstalled2",
+        base::Unretained(interface_),
+        &DlcServiceInterfaceInterface::GetInstalled2);
+    itf->AddSimpleMethodHandlerWithError(
         "GetExistingDlcs",
         base::Unretained(interface_),
         &DlcServiceInterfaceInterface::GetExistingDlcs);
@@ -161,6 +169,10 @@ class DlcServiceInterfaceAdaptor {
         "    </method>\n"
         "    <method name=\"GetInstalled\">\n"
         "      <arg name=\"ids\" type=\"as\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"GetInstalled2\">\n"
+        "      <arg name=\"list_request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"list_request\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"GetExistingDlcs\">\n"
         "      <arg name=\"dlc_list\" type=\"ay\" direction=\"out\"/>\n"

@@ -96,17 +96,29 @@ class DlcServiceInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  // Returns a list of installed Downloadable Content (DLC) IDs that are
-  // installed.
+  // Returns a list of installed Downloadable Content (DLC) IDs.
   virtual bool GetInstalled(
       std::vector<std::string>* out_ids,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  // Returns a list of installed Downloadable Content (DLC) IDs that are
-  // installed.
+  // Returns a list of installed Downloadable Content (DLC) IDs.
   virtual void GetInstalledAsync(
       base::OnceCallback<void(const std::vector<std::string>& /*ids*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns a list of installed Downloadable Content (DLC).
+  virtual bool GetInstalled2(
+      const dlcservice::ListRequest& in_list_request,
+      dlcservice::DlcStateList* out_list_request,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns a list of installed Downloadable Content (DLC).
+  virtual void GetInstalled2Async(
+      const dlcservice::ListRequest& in_list_request,
+      base::OnceCallback<void(const dlcservice::DlcStateList& /*list_request*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -388,8 +400,7 @@ class DlcServiceInterfaceProxy final : public DlcServiceInterfaceProxyInterface 
         in_unload_request);
   }
 
-  // Returns a list of installed Downloadable Content (DLC) IDs that are
-  // installed.
+  // Returns a list of installed Downloadable Content (DLC) IDs.
   bool GetInstalled(
       std::vector<std::string>* out_ids,
       brillo::ErrorPtr* error,
@@ -404,8 +415,7 @@ class DlcServiceInterfaceProxy final : public DlcServiceInterfaceProxyInterface 
         response.get(), error, out_ids);
   }
 
-  // Returns a list of installed Downloadable Content (DLC) IDs that are
-  // installed.
+  // Returns a list of installed Downloadable Content (DLC) IDs.
   void GetInstalledAsync(
       base::OnceCallback<void(const std::vector<std::string>& /*ids*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
@@ -417,6 +427,39 @@ class DlcServiceInterfaceProxy final : public DlcServiceInterfaceProxyInterface 
         "GetInstalled",
         std::move(success_callback),
         std::move(error_callback));
+  }
+
+  // Returns a list of installed Downloadable Content (DLC).
+  bool GetInstalled2(
+      const dlcservice::ListRequest& in_list_request,
+      dlcservice::DlcStateList* out_list_request,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.DlcServiceInterface",
+        "GetInstalled2",
+        error,
+        in_list_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_list_request);
+  }
+
+  // Returns a list of installed Downloadable Content (DLC).
+  void GetInstalled2Async(
+      const dlcservice::ListRequest& in_list_request,
+      base::OnceCallback<void(const dlcservice::DlcStateList& /*list_request*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.DlcServiceInterface",
+        "GetInstalled2",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_list_request);
   }
 
   // Returns a list of DLCs that have content on disk.

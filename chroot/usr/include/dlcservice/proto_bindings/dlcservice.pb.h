@@ -51,6 +51,9 @@ namespace dlcservice {
 class DlcState;
 struct DlcStateDefaultTypeInternal;
 extern DlcStateDefaultTypeInternal _DlcState_default_instance_;
+class DlcStateList;
+struct DlcStateListDefaultTypeInternal;
+extern DlcStateListDefaultTypeInternal _DlcStateList_default_instance_;
 class DlcsWithContent;
 struct DlcsWithContentDefaultTypeInternal;
 extern DlcsWithContentDefaultTypeInternal _DlcsWithContent_default_instance_;
@@ -60,16 +63,21 @@ extern DlcsWithContent_DlcInfoDefaultTypeInternal _DlcsWithContent_DlcInfo_defau
 class InstallRequest;
 struct InstallRequestDefaultTypeInternal;
 extern InstallRequestDefaultTypeInternal _InstallRequest_default_instance_;
+class ListRequest;
+struct ListRequestDefaultTypeInternal;
+extern ListRequestDefaultTypeInternal _ListRequest_default_instance_;
+class SelectDlc;
+struct SelectDlcDefaultTypeInternal;
+extern SelectDlcDefaultTypeInternal _SelectDlc_default_instance_;
 class UnloadRequest;
 struct UnloadRequestDefaultTypeInternal;
 extern UnloadRequestDefaultTypeInternal _UnloadRequest_default_instance_;
-class UnloadRequest_SelectDlc;
-struct UnloadRequest_SelectDlcDefaultTypeInternal;
-extern UnloadRequest_SelectDlcDefaultTypeInternal _UnloadRequest_SelectDlc_default_instance_;
 }  // namespace dlcservice
 PROTOBUF_NAMESPACE_OPEN
 template <>
 ::dlcservice::DlcState* Arena::CreateMaybeMessage<::dlcservice::DlcState>(Arena*);
+template <>
+::dlcservice::DlcStateList* Arena::CreateMaybeMessage<::dlcservice::DlcStateList>(Arena*);
 template <>
 ::dlcservice::DlcsWithContent* Arena::CreateMaybeMessage<::dlcservice::DlcsWithContent>(Arena*);
 template <>
@@ -77,9 +85,11 @@ template <>
 template <>
 ::dlcservice::InstallRequest* Arena::CreateMaybeMessage<::dlcservice::InstallRequest>(Arena*);
 template <>
-::dlcservice::UnloadRequest* Arena::CreateMaybeMessage<::dlcservice::UnloadRequest>(Arena*);
+::dlcservice::ListRequest* Arena::CreateMaybeMessage<::dlcservice::ListRequest>(Arena*);
 template <>
-::dlcservice::UnloadRequest_SelectDlc* Arena::CreateMaybeMessage<::dlcservice::UnloadRequest_SelectDlc>(Arena*);
+::dlcservice::SelectDlc* Arena::CreateMaybeMessage<::dlcservice::SelectDlc>(Arena*);
+template <>
+::dlcservice::UnloadRequest* Arena::CreateMaybeMessage<::dlcservice::UnloadRequest>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 namespace dlcservice {
@@ -306,25 +316,25 @@ class InstallRequest final :
   friend struct ::TableStruct_dlcservice_2eproto;
 };// -------------------------------------------------------------------
 
-class UnloadRequest_SelectDlc final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:dlcservice.UnloadRequest.SelectDlc) */ {
+class SelectDlc final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:dlcservice.SelectDlc) */ {
  public:
-  inline UnloadRequest_SelectDlc() : UnloadRequest_SelectDlc(nullptr) {}
-  ~UnloadRequest_SelectDlc() override;
+  inline SelectDlc() : SelectDlc(nullptr) {}
+  ~SelectDlc() override;
   template<typename = void>
-  explicit PROTOBUF_CONSTEXPR UnloadRequest_SelectDlc(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit PROTOBUF_CONSTEXPR SelectDlc(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  UnloadRequest_SelectDlc(const UnloadRequest_SelectDlc& from);
-  UnloadRequest_SelectDlc(UnloadRequest_SelectDlc&& from) noexcept
-    : UnloadRequest_SelectDlc() {
+  SelectDlc(const SelectDlc& from);
+  SelectDlc(SelectDlc&& from) noexcept
+    : SelectDlc() {
     *this = ::std::move(from);
   }
 
-  inline UnloadRequest_SelectDlc& operator=(const UnloadRequest_SelectDlc& from) {
+  inline SelectDlc& operator=(const SelectDlc& from) {
     CopyFrom(from);
     return *this;
   }
-  inline UnloadRequest_SelectDlc& operator=(UnloadRequest_SelectDlc&& from) noexcept {
+  inline SelectDlc& operator=(SelectDlc&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -345,20 +355,20 @@ class UnloadRequest_SelectDlc final :
     return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const UnloadRequest_SelectDlc& default_instance() {
+  static const SelectDlc& default_instance() {
     return *internal_default_instance();
   }
-  static inline const UnloadRequest_SelectDlc* internal_default_instance() {
-    return reinterpret_cast<const UnloadRequest_SelectDlc*>(
-               &_UnloadRequest_SelectDlc_default_instance_);
+  static inline const SelectDlc* internal_default_instance() {
+    return reinterpret_cast<const SelectDlc*>(
+               &_SelectDlc_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(UnloadRequest_SelectDlc& a, UnloadRequest_SelectDlc& b) {
+  friend void swap(SelectDlc& a, SelectDlc& b) {
     a.Swap(&b);
   }
-  inline void Swap(UnloadRequest_SelectDlc* other) {
+  inline void Swap(SelectDlc* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -371,7 +381,7 @@ class UnloadRequest_SelectDlc final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(UnloadRequest_SelectDlc* other) {
+  void UnsafeArenaSwap(SelectDlc* other) {
     if (other == this) return;
     ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -379,12 +389,12 @@ class UnloadRequest_SelectDlc final :
 
   // implements Message ----------------------------------------------
 
-  UnloadRequest_SelectDlc* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<UnloadRequest_SelectDlc>(arena);
+  SelectDlc* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SelectDlc>(arena);
   }
   void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const UnloadRequest_SelectDlc& from);
-  void MergeFrom(const UnloadRequest_SelectDlc& from);
+  void CopyFrom(const SelectDlc& from);
+  void MergeFrom(const SelectDlc& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -398,15 +408,15 @@ class UnloadRequest_SelectDlc final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(UnloadRequest_SelectDlc* other);
+  void InternalSwap(SelectDlc* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::absl::string_view FullMessageName() {
-    return "dlcservice.UnloadRequest.SelectDlc";
+    return "dlcservice.SelectDlc";
   }
   protected:
-  explicit UnloadRequest_SelectDlc(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit SelectDlc(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
   std::string GetTypeName() const final;
@@ -439,7 +449,7 @@ class UnloadRequest_SelectDlc final :
   void _internal_set_scaled(bool value);
 
   public:
-  // @@protoc_insertion_point(class_scope:dlcservice.UnloadRequest.SelectDlc)
+  // @@protoc_insertion_point(class_scope:dlcservice.SelectDlc)
  private:
   class _Internal;
 
@@ -499,7 +509,7 @@ class UnloadRequest final :
   }
   enum DlcInfoCase {
     kId = 1,
-    kAnyOf = 2,
+    kSelect = 2,
     DLCINFO_NOT_SET = 0,
   };
 
@@ -568,13 +578,11 @@ class UnloadRequest final :
 
   // nested types ----------------------------------------------------
 
-  typedef UnloadRequest_SelectDlc SelectDlc;
-
   // accessors -------------------------------------------------------
 
   enum : int {
     kIdFieldNumber = 1,
-    kAnyOfFieldNumber = 2,
+    kSelectFieldNumber = 2,
   };
   // string id = 1;
   bool has_id() const;
@@ -597,31 +605,31 @@ class UnloadRequest final :
   std::string* _internal_mutable_id();
 
   public:
-  // .dlcservice.UnloadRequest.SelectDlc any_of = 2;
-  bool has_any_of() const;
+  // .dlcservice.SelectDlc select = 2;
+  bool has_select() const;
   private:
-  bool _internal_has_any_of() const;
+  bool _internal_has_select() const;
 
   public:
-  void clear_any_of() ;
-  const ::dlcservice::UnloadRequest_SelectDlc& any_of() const;
-  PROTOBUF_NODISCARD ::dlcservice::UnloadRequest_SelectDlc* release_any_of();
-  ::dlcservice::UnloadRequest_SelectDlc* mutable_any_of();
-  void set_allocated_any_of(::dlcservice::UnloadRequest_SelectDlc* any_of);
+  void clear_select() ;
+  const ::dlcservice::SelectDlc& select() const;
+  PROTOBUF_NODISCARD ::dlcservice::SelectDlc* release_select();
+  ::dlcservice::SelectDlc* mutable_select();
+  void set_allocated_select(::dlcservice::SelectDlc* select);
   private:
-  const ::dlcservice::UnloadRequest_SelectDlc& _internal_any_of() const;
-  ::dlcservice::UnloadRequest_SelectDlc* _internal_mutable_any_of();
+  const ::dlcservice::SelectDlc& _internal_select() const;
+  ::dlcservice::SelectDlc* _internal_mutable_select();
   public:
-  void unsafe_arena_set_allocated_any_of(
-      ::dlcservice::UnloadRequest_SelectDlc* any_of);
-  ::dlcservice::UnloadRequest_SelectDlc* unsafe_arena_release_any_of();
+  void unsafe_arena_set_allocated_select(
+      ::dlcservice::SelectDlc* select);
+  ::dlcservice::SelectDlc* unsafe_arena_release_select();
   void clear_DlcInfo();
   DlcInfoCase DlcInfo_case() const;
   // @@protoc_insertion_point(class_scope:dlcservice.UnloadRequest)
  private:
   class _Internal;
   void set_has_id();
-  void set_has_any_of();
+  void set_has_select();
 
   inline bool has_DlcInfo() const;
   inline void clear_has_DlcInfo();
@@ -634,11 +642,165 @@ class UnloadRequest final :
       constexpr DlcInfoUnion() : _constinit_{} {}
         ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
       ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
-      ::dlcservice::UnloadRequest_SelectDlc* any_of_;
+      ::dlcservice::SelectDlc* select_;
     } DlcInfo_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::uint32_t _oneof_case_[1];
 
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_dlcservice_2eproto;
+};// -------------------------------------------------------------------
+
+class ListRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:dlcservice.ListRequest) */ {
+ public:
+  inline ListRequest() : ListRequest(nullptr) {}
+  ~ListRequest() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR ListRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ListRequest(const ListRequest& from);
+  ListRequest(ListRequest&& from) noexcept
+    : ListRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline ListRequest& operator=(const ListRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ListRequest& operator=(ListRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ListRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ListRequest* internal_default_instance() {
+    return reinterpret_cast<const ListRequest*>(
+               &_ListRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(ListRequest& a, ListRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ListRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ListRequest* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ListRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ListRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ListRequest& from);
+  void MergeFrom(const ListRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ListRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "dlcservice.ListRequest";
+  }
+  protected:
+  explicit ListRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSelectFieldNumber = 2,
+    kCheckMountFieldNumber = 1,
+  };
+  // .dlcservice.SelectDlc select = 2;
+  bool has_select() const;
+  void clear_select() ;
+  const ::dlcservice::SelectDlc& select() const;
+  PROTOBUF_NODISCARD ::dlcservice::SelectDlc* release_select();
+  ::dlcservice::SelectDlc* mutable_select();
+  void set_allocated_select(::dlcservice::SelectDlc* select);
+  private:
+  const ::dlcservice::SelectDlc& _internal_select() const;
+  ::dlcservice::SelectDlc* _internal_mutable_select();
+  public:
+  void unsafe_arena_set_allocated_select(
+      ::dlcservice::SelectDlc* select);
+  ::dlcservice::SelectDlc* unsafe_arena_release_select();
+  // bool check_mount = 1;
+  void clear_check_mount() ;
+  bool check_mount() const;
+  void set_check_mount(bool value);
+
+  private:
+  bool _internal_check_mount() const;
+  void _internal_set_check_mount(bool value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:dlcservice.ListRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::dlcservice::SelectDlc* select_;
+    bool check_mount_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_dlcservice_2eproto;
@@ -691,7 +853,7 @@ class DlcsWithContent_DlcInfo final :
                &_DlcsWithContent_DlcInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(DlcsWithContent_DlcInfo& a, DlcsWithContent_DlcInfo& b) {
     a.Swap(&b);
@@ -906,7 +1068,7 @@ class DlcsWithContent final :
                &_DlcsWithContent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(DlcsWithContent& a, DlcsWithContent& b) {
     a.Swap(&b);
@@ -1055,7 +1217,7 @@ class DlcState final :
                &_DlcState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(DlcState& a, DlcState& b) {
     a.Swap(&b);
@@ -1273,6 +1435,153 @@ class DlcState final :
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_dlcservice_2eproto;
+};// -------------------------------------------------------------------
+
+class DlcStateList final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:dlcservice.DlcStateList) */ {
+ public:
+  inline DlcStateList() : DlcStateList(nullptr) {}
+  ~DlcStateList() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR DlcStateList(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DlcStateList(const DlcStateList& from);
+  DlcStateList(DlcStateList&& from) noexcept
+    : DlcStateList() {
+    *this = ::std::move(from);
+  }
+
+  inline DlcStateList& operator=(const DlcStateList& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DlcStateList& operator=(DlcStateList&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const DlcStateList& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DlcStateList* internal_default_instance() {
+    return reinterpret_cast<const DlcStateList*>(
+               &_DlcStateList_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(DlcStateList& a, DlcStateList& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DlcStateList* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DlcStateList* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DlcStateList* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DlcStateList>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const DlcStateList& from);
+  void MergeFrom(const DlcStateList& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(DlcStateList* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "dlcservice.DlcStateList";
+  }
+  protected:
+  explicit DlcStateList(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStatesFieldNumber = 1,
+  };
+  // repeated .dlcservice.DlcState states = 1;
+  int states_size() const;
+  private:
+  int _internal_states_size() const;
+
+  public:
+  void clear_states() ;
+  ::dlcservice::DlcState* mutable_states(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlcservice::DlcState >*
+      mutable_states();
+  private:
+  const ::dlcservice::DlcState& _internal_states(int index) const;
+  ::dlcservice::DlcState* _internal_add_states();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::dlcservice::DlcState>& _internal_states() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::dlcservice::DlcState>* _internal_mutable_states();
+  public:
+  const ::dlcservice::DlcState& states(int index) const;
+  ::dlcservice::DlcState* add_states();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlcservice::DlcState >&
+      states() const;
+  // @@protoc_insertion_point(class_scope:dlcservice.DlcStateList)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlcservice::DlcState > states_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_dlcservice_2eproto;
 };
 
 // ===================================================================
@@ -1427,44 +1736,44 @@ inline void InstallRequest::_internal_set_force_ota(bool value) {
 
 // -------------------------------------------------------------------
 
-// UnloadRequest_SelectDlc
+// SelectDlc
 
 // bool user_tied = 1;
-inline void UnloadRequest_SelectDlc::clear_user_tied() {
+inline void SelectDlc::clear_user_tied() {
   _impl_.user_tied_ = false;
 }
-inline bool UnloadRequest_SelectDlc::user_tied() const {
-  // @@protoc_insertion_point(field_get:dlcservice.UnloadRequest.SelectDlc.user_tied)
+inline bool SelectDlc::user_tied() const {
+  // @@protoc_insertion_point(field_get:dlcservice.SelectDlc.user_tied)
   return _internal_user_tied();
 }
-inline void UnloadRequest_SelectDlc::set_user_tied(bool value) {
+inline void SelectDlc::set_user_tied(bool value) {
   _internal_set_user_tied(value);
-  // @@protoc_insertion_point(field_set:dlcservice.UnloadRequest.SelectDlc.user_tied)
+  // @@protoc_insertion_point(field_set:dlcservice.SelectDlc.user_tied)
 }
-inline bool UnloadRequest_SelectDlc::_internal_user_tied() const {
+inline bool SelectDlc::_internal_user_tied() const {
   return _impl_.user_tied_;
 }
-inline void UnloadRequest_SelectDlc::_internal_set_user_tied(bool value) {
+inline void SelectDlc::_internal_set_user_tied(bool value) {
   ;
   _impl_.user_tied_ = value;
 }
 
 // bool scaled = 2;
-inline void UnloadRequest_SelectDlc::clear_scaled() {
+inline void SelectDlc::clear_scaled() {
   _impl_.scaled_ = false;
 }
-inline bool UnloadRequest_SelectDlc::scaled() const {
-  // @@protoc_insertion_point(field_get:dlcservice.UnloadRequest.SelectDlc.scaled)
+inline bool SelectDlc::scaled() const {
+  // @@protoc_insertion_point(field_get:dlcservice.SelectDlc.scaled)
   return _internal_scaled();
 }
-inline void UnloadRequest_SelectDlc::set_scaled(bool value) {
+inline void SelectDlc::set_scaled(bool value) {
   _internal_set_scaled(value);
-  // @@protoc_insertion_point(field_set:dlcservice.UnloadRequest.SelectDlc.scaled)
+  // @@protoc_insertion_point(field_set:dlcservice.SelectDlc.scaled)
 }
-inline bool UnloadRequest_SelectDlc::_internal_scaled() const {
+inline bool SelectDlc::_internal_scaled() const {
   return _impl_.scaled_;
 }
-inline void UnloadRequest_SelectDlc::_internal_set_scaled(bool value) {
+inline void SelectDlc::_internal_set_scaled(bool value) {
   ;
   _impl_.scaled_ = value;
 }
@@ -1552,77 +1861,77 @@ inline void UnloadRequest::set_allocated_id(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:dlcservice.UnloadRequest.id)
 }
 
-// .dlcservice.UnloadRequest.SelectDlc any_of = 2;
-inline bool UnloadRequest::has_any_of() const {
-  return DlcInfo_case() == kAnyOf;
+// .dlcservice.SelectDlc select = 2;
+inline bool UnloadRequest::has_select() const {
+  return DlcInfo_case() == kSelect;
 }
-inline bool UnloadRequest::_internal_has_any_of() const {
-  return DlcInfo_case() == kAnyOf;
+inline bool UnloadRequest::_internal_has_select() const {
+  return DlcInfo_case() == kSelect;
 }
-inline void UnloadRequest::set_has_any_of() {
-  _impl_._oneof_case_[0] = kAnyOf;
+inline void UnloadRequest::set_has_select() {
+  _impl_._oneof_case_[0] = kSelect;
 }
-inline void UnloadRequest::clear_any_of() {
-  if (DlcInfo_case() == kAnyOf) {
+inline void UnloadRequest::clear_select() {
+  if (DlcInfo_case() == kSelect) {
     if (GetArenaForAllocation() == nullptr) {
-      delete _impl_.DlcInfo_.any_of_;
+      delete _impl_.DlcInfo_.select_;
     }
     clear_has_DlcInfo();
   }
 }
-inline ::dlcservice::UnloadRequest_SelectDlc* UnloadRequest::release_any_of() {
-  // @@protoc_insertion_point(field_release:dlcservice.UnloadRequest.any_of)
-  if (DlcInfo_case() == kAnyOf) {
+inline ::dlcservice::SelectDlc* UnloadRequest::release_select() {
+  // @@protoc_insertion_point(field_release:dlcservice.UnloadRequest.select)
+  if (DlcInfo_case() == kSelect) {
     clear_has_DlcInfo();
-    ::dlcservice::UnloadRequest_SelectDlc* temp = _impl_.DlcInfo_.any_of_;
+    ::dlcservice::SelectDlc* temp = _impl_.DlcInfo_.select_;
     if (GetArenaForAllocation() != nullptr) {
       temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
     }
-    _impl_.DlcInfo_.any_of_ = nullptr;
+    _impl_.DlcInfo_.select_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline const ::dlcservice::UnloadRequest_SelectDlc& UnloadRequest::_internal_any_of() const {
-  return DlcInfo_case() == kAnyOf
-      ? *_impl_.DlcInfo_.any_of_
-      : reinterpret_cast<::dlcservice::UnloadRequest_SelectDlc&>(::dlcservice::_UnloadRequest_SelectDlc_default_instance_);
+inline const ::dlcservice::SelectDlc& UnloadRequest::_internal_select() const {
+  return DlcInfo_case() == kSelect
+      ? *_impl_.DlcInfo_.select_
+      : reinterpret_cast<::dlcservice::SelectDlc&>(::dlcservice::_SelectDlc_default_instance_);
 }
-inline const ::dlcservice::UnloadRequest_SelectDlc& UnloadRequest::any_of() const {
-  // @@protoc_insertion_point(field_get:dlcservice.UnloadRequest.any_of)
-  return _internal_any_of();
+inline const ::dlcservice::SelectDlc& UnloadRequest::select() const {
+  // @@protoc_insertion_point(field_get:dlcservice.UnloadRequest.select)
+  return _internal_select();
 }
-inline ::dlcservice::UnloadRequest_SelectDlc* UnloadRequest::unsafe_arena_release_any_of() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:dlcservice.UnloadRequest.any_of)
-  if (DlcInfo_case() == kAnyOf) {
+inline ::dlcservice::SelectDlc* UnloadRequest::unsafe_arena_release_select() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:dlcservice.UnloadRequest.select)
+  if (DlcInfo_case() == kSelect) {
     clear_has_DlcInfo();
-    ::dlcservice::UnloadRequest_SelectDlc* temp = _impl_.DlcInfo_.any_of_;
-    _impl_.DlcInfo_.any_of_ = nullptr;
+    ::dlcservice::SelectDlc* temp = _impl_.DlcInfo_.select_;
+    _impl_.DlcInfo_.select_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void UnloadRequest::unsafe_arena_set_allocated_any_of(::dlcservice::UnloadRequest_SelectDlc* any_of) {
+inline void UnloadRequest::unsafe_arena_set_allocated_select(::dlcservice::SelectDlc* select) {
   clear_DlcInfo();
-  if (any_of) {
-    set_has_any_of();
-    _impl_.DlcInfo_.any_of_ = any_of;
+  if (select) {
+    set_has_select();
+    _impl_.DlcInfo_.select_ = select;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:dlcservice.UnloadRequest.any_of)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:dlcservice.UnloadRequest.select)
 }
-inline ::dlcservice::UnloadRequest_SelectDlc* UnloadRequest::_internal_mutable_any_of() {
-  if (DlcInfo_case() != kAnyOf) {
+inline ::dlcservice::SelectDlc* UnloadRequest::_internal_mutable_select() {
+  if (DlcInfo_case() != kSelect) {
     clear_DlcInfo();
-    set_has_any_of();
-    _impl_.DlcInfo_.any_of_ = CreateMaybeMessage< ::dlcservice::UnloadRequest_SelectDlc >(GetArenaForAllocation());
+    set_has_select();
+    _impl_.DlcInfo_.select_ = CreateMaybeMessage< ::dlcservice::SelectDlc >(GetArenaForAllocation());
   }
-  return _impl_.DlcInfo_.any_of_;
+  return _impl_.DlcInfo_.select_;
 }
-inline ::dlcservice::UnloadRequest_SelectDlc* UnloadRequest::mutable_any_of() {
-  ::dlcservice::UnloadRequest_SelectDlc* _msg = _internal_mutable_any_of();
-  // @@protoc_insertion_point(field_mutable:dlcservice.UnloadRequest.any_of)
+inline ::dlcservice::SelectDlc* UnloadRequest::mutable_select() {
+  ::dlcservice::SelectDlc* _msg = _internal_mutable_select();
+  // @@protoc_insertion_point(field_mutable:dlcservice.UnloadRequest.select)
   return _msg;
 }
 
@@ -1635,6 +1944,117 @@ inline void UnloadRequest::clear_has_DlcInfo() {
 inline UnloadRequest::DlcInfoCase UnloadRequest::DlcInfo_case() const {
   return UnloadRequest::DlcInfoCase(_impl_._oneof_case_[0]);
 }
+// -------------------------------------------------------------------
+
+// ListRequest
+
+// bool check_mount = 1;
+inline void ListRequest::clear_check_mount() {
+  _impl_.check_mount_ = false;
+}
+inline bool ListRequest::check_mount() const {
+  // @@protoc_insertion_point(field_get:dlcservice.ListRequest.check_mount)
+  return _internal_check_mount();
+}
+inline void ListRequest::set_check_mount(bool value) {
+  _internal_set_check_mount(value);
+  // @@protoc_insertion_point(field_set:dlcservice.ListRequest.check_mount)
+}
+inline bool ListRequest::_internal_check_mount() const {
+  return _impl_.check_mount_;
+}
+inline void ListRequest::_internal_set_check_mount(bool value) {
+  ;
+  _impl_.check_mount_ = value;
+}
+
+// .dlcservice.SelectDlc select = 2;
+inline bool ListRequest::has_select() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.select_ != nullptr);
+  return value;
+}
+inline void ListRequest::clear_select() {
+  if (_impl_.select_ != nullptr) _impl_.select_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::dlcservice::SelectDlc& ListRequest::_internal_select() const {
+  const ::dlcservice::SelectDlc* p = _impl_.select_;
+  return p != nullptr ? *p : reinterpret_cast<const ::dlcservice::SelectDlc&>(
+      ::dlcservice::_SelectDlc_default_instance_);
+}
+inline const ::dlcservice::SelectDlc& ListRequest::select() const {
+  // @@protoc_insertion_point(field_get:dlcservice.ListRequest.select)
+  return _internal_select();
+}
+inline void ListRequest::unsafe_arena_set_allocated_select(
+    ::dlcservice::SelectDlc* select) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.select_);
+  }
+  _impl_.select_ = select;
+  if (select) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:dlcservice.ListRequest.select)
+}
+inline ::dlcservice::SelectDlc* ListRequest::release_select() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::dlcservice::SelectDlc* temp = _impl_.select_;
+  _impl_.select_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::dlcservice::SelectDlc* ListRequest::unsafe_arena_release_select() {
+  // @@protoc_insertion_point(field_release:dlcservice.ListRequest.select)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::dlcservice::SelectDlc* temp = _impl_.select_;
+  _impl_.select_ = nullptr;
+  return temp;
+}
+inline ::dlcservice::SelectDlc* ListRequest::_internal_mutable_select() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.select_ == nullptr) {
+    auto* p = CreateMaybeMessage<::dlcservice::SelectDlc>(GetArenaForAllocation());
+    _impl_.select_ = p;
+  }
+  return _impl_.select_;
+}
+inline ::dlcservice::SelectDlc* ListRequest::mutable_select() {
+  ::dlcservice::SelectDlc* _msg = _internal_mutable_select();
+  // @@protoc_insertion_point(field_mutable:dlcservice.ListRequest.select)
+  return _msg;
+}
+inline void ListRequest::set_allocated_select(::dlcservice::SelectDlc* select) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.select_;
+  }
+  if (select) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(select);
+    if (message_arena != submessage_arena) {
+      select = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, select, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.select_ = select;
+  // @@protoc_insertion_point(field_set_allocated:dlcservice.ListRequest.select)
+}
+
 // -------------------------------------------------------------------
 
 // DlcsWithContent_DlcInfo
@@ -2122,6 +2542,58 @@ inline void DlcState::set_allocated_image_path(std::string* value) {
         }
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:dlcservice.DlcState.image_path)
+}
+
+// -------------------------------------------------------------------
+
+// DlcStateList
+
+// repeated .dlcservice.DlcState states = 1;
+inline int DlcStateList::_internal_states_size() const {
+  return _impl_.states_.size();
+}
+inline int DlcStateList::states_size() const {
+  return _internal_states_size();
+}
+inline void DlcStateList::clear_states() {
+  _internal_mutable_states()->Clear();
+}
+inline ::dlcservice::DlcState* DlcStateList::mutable_states(int index) {
+  // @@protoc_insertion_point(field_mutable:dlcservice.DlcStateList.states)
+  return _internal_mutable_states()->Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlcservice::DlcState >*
+DlcStateList::mutable_states() {
+  // @@protoc_insertion_point(field_mutable_list:dlcservice.DlcStateList.states)
+  return _internal_mutable_states();
+}
+inline const ::dlcservice::DlcState& DlcStateList::_internal_states(int index) const {
+  return _internal_states().Get(index);
+}
+inline const ::dlcservice::DlcState& DlcStateList::states(int index) const {
+  // @@protoc_insertion_point(field_get:dlcservice.DlcStateList.states)
+  return _internal_states(index);
+}
+inline ::dlcservice::DlcState* DlcStateList::_internal_add_states() {
+  return _internal_mutable_states()->Add();
+}
+inline ::dlcservice::DlcState* DlcStateList::add_states() {
+  ::dlcservice::DlcState* _add = _internal_add_states();
+  // @@protoc_insertion_point(field_add:dlcservice.DlcStateList.states)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlcservice::DlcState >&
+DlcStateList::states() const {
+  // @@protoc_insertion_point(field_list:dlcservice.DlcStateList.states)
+  return _internal_states();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::dlcservice::DlcState>&
+DlcStateList::_internal_states() const {
+  return _impl_.states_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::dlcservice::DlcState>*
+DlcStateList::_internal_mutable_states() {
+  return &_impl_.states_;
 }
 
 #ifdef __GNUC__
