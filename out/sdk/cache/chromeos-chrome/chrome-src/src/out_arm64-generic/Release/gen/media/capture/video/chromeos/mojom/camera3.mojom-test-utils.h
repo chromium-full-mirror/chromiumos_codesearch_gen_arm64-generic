@@ -49,6 +49,8 @@ class  Camera3DeviceOpsInterceptorForTesting : public Camera3DeviceOps {
   void Close(CloseCallback callback) override;
   void ConfigureStreamsAndGetAllocatedBuffers(Camera3StreamConfigurationPtr config, ConfigureStreamsAndGetAllocatedBuffersCallback callback) override;
   void SignalStreamFlush(const std::vector<uint64_t>& stream_ids) override;
+  void OnNewBuffer(CameraBufferHandlePtr buffer, OnNewBufferCallback callback) override;
+  void OnBufferRetired(uint64_t buffer_id) override;
 };
 class  Camera3DeviceOpsAsyncWaiter {
  public:
@@ -82,6 +84,9 @@ class  Camera3DeviceOpsAsyncWaiter {
   void ConfigureStreamsAndGetAllocatedBuffers(
       Camera3StreamConfigurationPtr config, int32_t* out_result, Camera3StreamConfigurationPtr* out_updated_config, base::flat_map<uint64_t, std::vector<Camera3StreamBufferPtr>>* out_allocated_buffers);
   
+  void OnNewBuffer(
+      CameraBufferHandlePtr buffer, int32_t* out_result);
+  int32_t OnNewBuffer(CameraBufferHandlePtr buffer);
 
  private:
   Camera3DeviceOps* const proxy_;

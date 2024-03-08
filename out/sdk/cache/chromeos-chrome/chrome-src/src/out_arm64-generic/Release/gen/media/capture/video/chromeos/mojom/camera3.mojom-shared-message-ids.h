@@ -28,6 +28,8 @@ constexpr uint32_t kCamera3DeviceOps_RegisterBuffer_Name = 6;
 constexpr uint32_t kCamera3DeviceOps_Close_Name = 7;
 constexpr uint32_t kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name = 8;
 constexpr uint32_t kCamera3DeviceOps_SignalStreamFlush_Name = 9;
+constexpr uint32_t kCamera3DeviceOps_OnNewBuffer_Name = 10;
+constexpr uint32_t kCamera3DeviceOps_OnBufferRetired_Name = 11;
 
 }  // namespace internal
 
