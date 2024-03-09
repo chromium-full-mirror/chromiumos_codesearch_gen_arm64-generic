@@ -292,6 +292,7 @@ kDirectSocketsAllowedForUrlsFieldNumber = 191,
 kDirectSocketsBlockedForUrlsFieldNumber = 192,
 kProductSpecificationsEnabledFieldNumber = 193,
 kPrefixedVideoFullscreenApiAvailabilityFieldNumber = 194,
+kPrivacySandboxIpProtectionEnabledFieldNumber = 195,
 };
 // optional .enterprise_management.BooleanPolicyProto NewBaseUrlInheritanceBehaviorAllowed = 1;
 bool has_newbaseurlinheritancebehaviorallowed() const;
@@ -2507,6 +2508,24 @@ void unsafe_arena_set_allocated_prefixedvideofullscreenapiavailability(
 ::enterprise_management::StringPolicyProto* prefixedvideofullscreenapiavailability);
 ::enterprise_management::StringPolicyProto* unsafe_arena_release_prefixedvideofullscreenapiavailability();
 
+// optional .enterprise_management.BooleanPolicyProto PrivacySandboxIpProtectionEnabled = 195;
+bool has_privacysandboxipprotectionenabled() const;
+private:
+bool _internal_has_privacysandboxipprotectionenabled() const;
+public:
+void clear_privacysandboxipprotectionenabled();
+const ::enterprise_management::BooleanPolicyProto& privacysandboxipprotectionenabled() const;
+PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_privacysandboxipprotectionenabled();
+::enterprise_management::BooleanPolicyProto* mutable_privacysandboxipprotectionenabled();
+void set_allocated_privacysandboxipprotectionenabled(::enterprise_management::BooleanPolicyProto* privacysandboxipprotectionenabled);
+private:
+const ::enterprise_management::BooleanPolicyProto& _internal_privacysandboxipprotectionenabled() const;
+::enterprise_management::BooleanPolicyProto* _internal_mutable_privacysandboxipprotectionenabled();
+public:
+void unsafe_arena_set_allocated_privacysandboxipprotectionenabled(
+::enterprise_management::BooleanPolicyProto* privacysandboxipprotectionenabled);
+::enterprise_management::BooleanPolicyProto* unsafe_arena_release_privacysandboxipprotectionenabled();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -2639,6 +2658,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::StringListPolicyProto* directsocketsblockedforurls_;
 ::enterprise_management::BooleanPolicyProto* productspecificationsenabled_;
 ::enterprise_management::StringPolicyProto* prefixedvideofullscreenapiavailability_;
+::enterprise_management::BooleanPolicyProto* privacysandboxipprotectionenabled_;
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
@@ -22228,6 +22248,93 @@ _has_bits_[0] &= ~0x00000020u;
 }
 privacysandboxadtopicsenabled_ = privacysandboxadtopicsenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.PrivacySandboxAdTopicsEnabled)
+}
+
+// optional .enterprise_management.BooleanPolicyProto PrivacySandboxIpProtectionEnabled = 195;
+inline bool CloudPolicySubProto1::_internal_has_privacysandboxipprotectionenabled() const {
+bool value = (_has_bits_[3] & 0x08000000u) != 0;
+PROTOBUF_ASSUME(!value || privacysandboxipprotectionenabled_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_privacysandboxipprotectionenabled() const {
+return _internal_has_privacysandboxipprotectionenabled();
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_privacysandboxipprotectionenabled() const {
+const ::enterprise_management::BooleanPolicyProto* p = privacysandboxipprotectionenabled_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::privacysandboxipprotectionenabled() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.PrivacySandboxIpProtectionEnabled)
+return _internal_privacysandboxipprotectionenabled();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_privacysandboxipprotectionenabled(
+::enterprise_management::BooleanPolicyProto* privacysandboxipprotectionenabled) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(privacysandboxipprotectionenabled_);
+}
+privacysandboxipprotectionenabled_ = privacysandboxipprotectionenabled;
+if (privacysandboxipprotectionenabled) {
+_has_bits_[3] |= 0x08000000u;
+} else {
+_has_bits_[3] &= ~0x08000000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.PrivacySandboxIpProtectionEnabled)
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_privacysandboxipprotectionenabled() {
+_has_bits_[3] &= ~0x08000000u;
+::enterprise_management::BooleanPolicyProto* temp = privacysandboxipprotectionenabled_;
+privacysandboxipprotectionenabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_privacysandboxipprotectionenabled() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.PrivacySandboxIpProtectionEnabled)
+_has_bits_[3] &= ~0x08000000u;
+::enterprise_management::BooleanPolicyProto* temp = privacysandboxipprotectionenabled_;
+privacysandboxipprotectionenabled_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_privacysandboxipprotectionenabled() {
+_has_bits_[3] |= 0x08000000u;
+if (privacysandboxipprotectionenabled_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+privacysandboxipprotectionenabled_ = p;
+}
+return privacysandboxipprotectionenabled_;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_privacysandboxipprotectionenabled() {
+::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_privacysandboxipprotectionenabled();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.PrivacySandboxIpProtectionEnabled)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_privacysandboxipprotectionenabled(::enterprise_management::BooleanPolicyProto* privacysandboxipprotectionenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(privacysandboxipprotectionenabled_);
+}
+if (privacysandboxipprotectionenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(privacysandboxipprotectionenabled));
+if (message_arena != submessage_arena) {
+privacysandboxipprotectionenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, privacysandboxipprotectionenabled, submessage_arena);
+}
+_has_bits_[3] |= 0x08000000u;
+} else {
+_has_bits_[3] &= ~0x08000000u;
+}
+privacysandboxipprotectionenabled_ = privacysandboxipprotectionenabled;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.PrivacySandboxIpProtectionEnabled)
 }
 
 // optional .enterprise_management.BooleanPolicyProto PrivacySandboxPromptEnabled = 8;

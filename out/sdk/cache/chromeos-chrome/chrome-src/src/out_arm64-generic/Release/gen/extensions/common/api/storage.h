@@ -515,8 +515,8 @@ struct Changes {
 
 // Object mapping each key that changed to its corresponding
 // $(ref:storage.StorageChange) for that item.
-// The name of the storage area (<code>"sync"</code>, <code>"local"</code> or
-// <code>"managed"</code>) the changes are for.
+// The name of the storage area (<code>"local"</code>, <code>"managed"</code>,
+// <code>"session"</code>, or <code>"sync"</code>) the changes are for.
 base::Value::List Create(const Changes& changes, const std::string& area_name);
 }  // namespace OnChanged
 

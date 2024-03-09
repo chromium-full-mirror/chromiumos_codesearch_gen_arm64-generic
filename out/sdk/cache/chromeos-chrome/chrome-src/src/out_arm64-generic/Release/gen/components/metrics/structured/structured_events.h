@@ -503,6 +503,118 @@ class AppDiscovery_Browser_CreateShortcut final : public ::metrics::structured::
   AppDiscovery_Browser_CreateShortcut& SetAppId(const std::string& value) &;
 };
 
+class CameraApp_StartSession final : public ::metrics::structured::Event {
+ public:
+  CameraApp_StartSession();
+  ~CameraApp_StartSession() override;
+
+    CameraApp_StartSession&& SetLaunchType(const int64_t value) &&;
+  CameraApp_StartSession& SetLaunchType(const int64_t value) &;
+  CameraApp_StartSession&& SetLanguage(const int64_t value) &&;
+  CameraApp_StartSession& SetLanguage(const int64_t value) &;
+};
+
+class CameraApp_Capture final : public ::metrics::structured::Event {
+ public:
+  CameraApp_Capture();
+  ~CameraApp_Capture() override;
+
+    CameraApp_Capture&& SetMode(const int64_t value) &&;
+  CameraApp_Capture& SetMode(const int64_t value) &;
+  CameraApp_Capture&& SetFacing(const int64_t value) &&;
+  CameraApp_Capture& SetFacing(const int64_t value) &;
+  CameraApp_Capture&& SetIsMirrored(const int64_t value) &&;
+  CameraApp_Capture& SetIsMirrored(const int64_t value) &;
+  CameraApp_Capture&& SetGridType(const int64_t value) &&;
+  CameraApp_Capture& SetGridType(const int64_t value) &;
+  CameraApp_Capture&& SetTimerType(const int64_t value) &&;
+  CameraApp_Capture& SetTimerType(const int64_t value) &;
+  CameraApp_Capture&& SetShutterType(const int64_t value) &&;
+  CameraApp_Capture& SetShutterType(const int64_t value) &;
+  CameraApp_Capture&& SetAndroidIntentResultType(const int64_t value) &&;
+  CameraApp_Capture& SetAndroidIntentResultType(const int64_t value) &;
+  CameraApp_Capture&& SetIsWindowMaximized(const int64_t value) &&;
+  CameraApp_Capture& SetIsWindowMaximized(const int64_t value) &;
+  CameraApp_Capture&& SetIsWindowPortrait(const int64_t value) &&;
+  CameraApp_Capture& SetIsWindowPortrait(const int64_t value) &;
+  CameraApp_Capture&& SetResolutionWidth(const int64_t value) &&;
+  CameraApp_Capture& SetResolutionWidth(const int64_t value) &;
+  CameraApp_Capture&& SetResolutionHeight(const int64_t value) &&;
+  CameraApp_Capture& SetResolutionHeight(const int64_t value) &;
+  CameraApp_Capture&& SetResolutionLevel(const int64_t value) &&;
+  CameraApp_Capture& SetResolutionLevel(const int64_t value) &;
+  CameraApp_Capture&& SetAspectRatioSet(const int64_t value) &&;
+  CameraApp_Capture& SetAspectRatioSet(const int64_t value) &;
+  CameraApp_Capture&& SetIsVideoSnapshot(const int64_t value) &&;
+  CameraApp_Capture& SetIsVideoSnapshot(const int64_t value) &;
+  CameraApp_Capture&& SetIsMuted(const int64_t value) &&;
+  CameraApp_Capture& SetIsMuted(const int64_t value) &;
+  CameraApp_Capture&& SetFps(const int64_t value) &&;
+  CameraApp_Capture& SetFps(const int64_t value) &;
+  CameraApp_Capture&& SetEverPaused(const int64_t value) &&;
+  CameraApp_Capture& SetEverPaused(const int64_t value) &;
+  CameraApp_Capture&& SetDuration(const int64_t value) &&;
+  CameraApp_Capture& SetDuration(const int64_t value) &;
+  CameraApp_Capture&& SetRecordType(const int64_t value) &&;
+  CameraApp_Capture& SetRecordType(const int64_t value) &;
+  CameraApp_Capture&& SetGifResultType(const int64_t value) &&;
+  CameraApp_Capture& SetGifResultType(const int64_t value) &;
+  CameraApp_Capture&& SetTimelapseSpeed(const int64_t value) &&;
+  CameraApp_Capture& SetTimelapseSpeed(const int64_t value) &;
+};
+
+class CameraApp_AndroidIntent final : public ::metrics::structured::Event {
+ public:
+  CameraApp_AndroidIntent();
+  ~CameraApp_AndroidIntent() override;
+
+    CameraApp_AndroidIntent&& SetMode(const int64_t value) &&;
+  CameraApp_AndroidIntent& SetMode(const int64_t value) &;
+  CameraApp_AndroidIntent&& SetShouldHandleResult(const int64_t value) &&;
+  CameraApp_AndroidIntent& SetShouldHandleResult(const int64_t value) &;
+  CameraApp_AndroidIntent&& SetShouldDownscale(const int64_t value) &&;
+  CameraApp_AndroidIntent& SetShouldDownscale(const int64_t value) &;
+  CameraApp_AndroidIntent&& SetIsSecure(const int64_t value) &&;
+  CameraApp_AndroidIntent& SetIsSecure(const int64_t value) &;
+};
+
+class CameraApp_OpenPTZPanel final : public ::metrics::structured::Event {
+ public:
+  CameraApp_OpenPTZPanel();
+  ~CameraApp_OpenPTZPanel() override;
+
+    CameraApp_OpenPTZPanel&& SetSupportPan(const int64_t value) &&;
+  CameraApp_OpenPTZPanel& SetSupportPan(const int64_t value) &;
+  CameraApp_OpenPTZPanel&& SetSupportTilt(const int64_t value) &&;
+  CameraApp_OpenPTZPanel& SetSupportTilt(const int64_t value) &;
+  CameraApp_OpenPTZPanel&& SetSupportZoom(const int64_t value) &&;
+  CameraApp_OpenPTZPanel& SetSupportZoom(const int64_t value) &;
+};
+
+class CameraApp_DocScanAction final : public ::metrics::structured::Event {
+ public:
+  CameraApp_DocScanAction();
+  ~CameraApp_DocScanAction() override;
+
+    CameraApp_DocScanAction&& SetActionType(const int64_t value) &&;
+  CameraApp_DocScanAction& SetActionType(const int64_t value) &;
+};
+
+class CameraApp_DocScanResult final : public ::metrics::structured::Event {
+ public:
+  CameraApp_DocScanResult();
+  ~CameraApp_DocScanResult() override;
+
+    CameraApp_DocScanResult&& SetResultType(const int64_t value) &&;
+  CameraApp_DocScanResult& SetResultType(const int64_t value) &;
+  CameraApp_DocScanResult&& SetFixTypes(const int64_t value) &&;
+  CameraApp_DocScanResult& SetFixTypes(const int64_t value) &;
+  CameraApp_DocScanResult&& SetFixCount(const int64_t value) &&;
+  CameraApp_DocScanResult& SetFixCount(const int64_t value) &;
+  CameraApp_DocScanResult&& SetPageCount(const int64_t value) &&;
+  CameraApp_DocScanResult& SetPageCount(const int64_t value) &;
+};
+
 class OOBE_GaiaSigninRequested final : public ::metrics::structured::Event {
  public:
   OOBE_GaiaSigninRequested();
