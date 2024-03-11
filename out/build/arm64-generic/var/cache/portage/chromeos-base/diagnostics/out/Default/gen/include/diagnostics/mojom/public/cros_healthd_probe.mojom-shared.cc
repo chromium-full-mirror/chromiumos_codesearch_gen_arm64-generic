@@ -3091,8 +3091,6 @@ bool CpuInfo_Data::Validate(
 
   if (!mojo::internal::ValidateStruct(object->virtualization, validation_context))
     return false;
-  if (object->header_.version < 1)
-    return true;
 
   constexpr const mojo::internal::ContainerValidateParams& vulnerabilities_validate_params =
       mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
@@ -3244,8 +3242,6 @@ bool PhysicalCpuInfo_Data::Validate(
                                          &flags_validate_params)) {
     return false;
   }
-  if (object->header_.version < 1)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->virtualization, validation_context))
     return false;
@@ -3650,8 +3646,6 @@ bool BluetoothAdapterInfo_Data::Validate(
                                          &connected_devices_validate_params)) {
     return false;
   }
-  if (object->header_.version < 1)
-    return true;
 
   constexpr const mojo::internal::ContainerValidateParams& uuids_validate_params =
       mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
@@ -3659,8 +3653,6 @@ bool BluetoothAdapterInfo_Data::Validate(
                                          &uuids_validate_params)) {
     return false;
   }
-  if (object->header_.version < 1)
-    return true;
 
   constexpr const mojo::internal::ContainerValidateParams& modalias_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
@@ -3677,8 +3669,6 @@ bool BluetoothAdapterInfo_Data::Validate(
                                          &service_allow_list_validate_params)) {
     return false;
   }
-  if (object->header_.version < 2)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->deprecated_capabilities, validation_context))
     return false;
@@ -4439,8 +4429,6 @@ bool AudioInfo_Data::Validate(
                                          &output_nodes_validate_params)) {
     return false;
   }
-  if (object->header_.version < 1)
-    return true;
 
   constexpr const mojo::internal::ContainerValidateParams& input_nodes_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
@@ -4749,8 +4737,6 @@ bool PciBusInfo_Data::Validate(
 
   if (!mojo::internal::ValidateStruct(object->sub_vendor_id, validation_context))
     return false;
-  if (object->header_.version < 1)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->sub_device_id, validation_context))
     return false;
@@ -4805,8 +4791,6 @@ bool UsbBusInfo_Data::Validate(
   if (!::ash::cros_healthd::mojom::internal::UsbVersion_Data
         ::Validate(object->version, validation_context))
     return false;
-  if (object->header_.version < 2)
-    return true;
 
 
   if (!::ash::cros_healthd::mojom::internal::UsbSpecSpeed_Data
@@ -5331,23 +5315,15 @@ bool EmbeddedDisplayInfo_Data::Validate(
 
   if (!mojo::internal::ValidateStruct(object->display_width, validation_context))
     return false;
-  if (object->header_.version < 1)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->display_height, validation_context))
     return false;
-  if (object->header_.version < 1)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->resolution_horizontal, validation_context))
     return false;
-  if (object->header_.version < 1)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->resolution_vertical, validation_context))
     return false;
-  if (object->header_.version < 1)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->refresh_rate, validation_context))
     return false;
@@ -5360,28 +5336,18 @@ bool EmbeddedDisplayInfo_Data::Validate(
                                          &manufacturer_validate_params)) {
     return false;
   }
-  if (object->header_.version < 2)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->model_id, validation_context))
     return false;
-  if (object->header_.version < 2)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->serial_number, validation_context))
     return false;
-  if (object->header_.version < 2)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->manufacture_week, validation_context))
     return false;
-  if (object->header_.version < 2)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->manufacture_year, validation_context))
     return false;
-  if (object->header_.version < 2)
-    return true;
 
   constexpr const mojo::internal::ContainerValidateParams& edid_version_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
@@ -5389,15 +5355,11 @@ bool EmbeddedDisplayInfo_Data::Validate(
                                          &edid_version_validate_params)) {
     return false;
   }
-  if (object->header_.version < 2)
-    return true;
 
 
   if (!::ash::cros_healthd::mojom::internal::DisplayInputType_Data
         ::Validate(object->input_type, validation_context))
     return false;
-  if (object->header_.version < 2)
-    return true;
 
   constexpr const mojo::internal::ContainerValidateParams& display_name_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
@@ -5456,28 +5418,18 @@ bool ExternalDisplayInfo_Data::Validate(
                                          &manufacturer_validate_params)) {
     return false;
   }
-  if (object->header_.version < 1)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->model_id, validation_context))
     return false;
-  if (object->header_.version < 1)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->serial_number, validation_context))
     return false;
-  if (object->header_.version < 1)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->manufacture_week, validation_context))
     return false;
-  if (object->header_.version < 1)
-    return true;
 
   if (!mojo::internal::ValidateStruct(object->manufacture_year, validation_context))
     return false;
-  if (object->header_.version < 1)
-    return true;
 
   constexpr const mojo::internal::ContainerValidateParams& edid_version_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
@@ -5485,15 +5437,11 @@ bool ExternalDisplayInfo_Data::Validate(
                                          &edid_version_validate_params)) {
     return false;
   }
-  if (object->header_.version < 1)
-    return true;
 
 
   if (!::ash::cros_healthd::mojom::internal::DisplayInputType_Data
         ::Validate(object->input_type, validation_context))
     return false;
-  if (object->header_.version < 1)
-    return true;
 
   constexpr const mojo::internal::ContainerValidateParams& display_name_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();

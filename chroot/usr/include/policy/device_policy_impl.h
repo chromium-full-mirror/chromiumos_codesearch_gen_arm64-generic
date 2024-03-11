@@ -62,11 +62,12 @@ class DevicePolicyImpl : public DevicePolicy {
   bool LoadPolicy(bool delete_invalid_files) override;
   bool IsEnterpriseEnrolled() const override;
   std::optional<int> GetPolicyRefreshRate() const override;
+  bool GetGuestModeEnabled(bool* guest_mode_enabled) const override;
   bool GetCameraEnabled(bool* camera_enabled) const override;
   bool GetShowUserNames(bool* show_user_names) const override;
   bool GetDataRoamingEnabled(bool* data_roaming_enabled) const override;
   bool GetAllowNewUsers(bool* allow_new_users) const override;
-  std::optional<bool> GetMetricsEnabled() const override;
+  bool GetMetricsEnabled(bool* metrics_enabled) const override;
   std::optional<bool> GetUnenrolledHwDataUsageEnabled() const override;
   std::optional<bool> GetEnrolledHwDataUsageEnabled() const override;
   bool GetReportSystemInfo(bool* report_system_info) const override;
