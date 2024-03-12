@@ -51997,7 +51997,7 @@ namespace pbzero {
 
 class Utsname;
 
-class SystemInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class SystemInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/8, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   SystemInfo_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit SystemInfo_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -52006,16 +52006,18 @@ class SystemInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=
   ::protozero::ConstBytes utsname() const { return at<1>().as_bytes(); }
   bool has_android_build_fingerprint() const { return at<2>().valid(); }
   ::protozero::ConstChars android_build_fingerprint() const { return at<2>().as_string(); }
-  bool has_hz() const { return at<3>().valid(); }
-  int64_t hz() const { return at<3>().as_int64(); }
   bool has_tracing_service_version() const { return at<4>().valid(); }
   ::protozero::ConstChars tracing_service_version() const { return at<4>().as_string(); }
   bool has_android_sdk_version() const { return at<5>().valid(); }
   uint64_t android_sdk_version() const { return at<5>().as_uint64(); }
   bool has_page_size() const { return at<6>().valid(); }
   uint32_t page_size() const { return at<6>().as_uint32(); }
+  bool has_num_cpus() const { return at<8>().valid(); }
+  uint32_t num_cpus() const { return at<8>().as_uint32(); }
   bool has_timezone_off_mins() const { return at<7>().valid(); }
   int32_t timezone_off_mins() const { return at<7>().as_int32(); }
+  bool has_hz() const { return at<3>().valid(); }
+  int64_t hz() const { return at<3>().as_int64(); }
 };
 
 class SystemInfo : public ::protozero::Message {
@@ -52024,11 +52026,12 @@ class SystemInfo : public ::protozero::Message {
   enum : int32_t {
     kUtsnameFieldNumber = 1,
     kAndroidBuildFingerprintFieldNumber = 2,
-    kHzFieldNumber = 3,
     kTracingServiceVersionFieldNumber = 4,
     kAndroidSdkVersionFieldNumber = 5,
     kPageSizeFieldNumber = 6,
+    kNumCpusFieldNumber = 8,
     kTimezoneOffMinsFieldNumber = 7,
+    kHzFieldNumber = 3,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.SystemInfo"; }
 
@@ -52068,24 +52071,6 @@ class SystemInfo : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kString>
-        ::Append(*this, field_id, value);
-  }
-
-  using FieldMetadata_Hz =
-    ::protozero::proto_utils::FieldMetadata<
-      3,
-      ::protozero::proto_utils::RepetitionType::kNotRepeated,
-      ::protozero::proto_utils::ProtoSchemaType::kInt64,
-      int64_t,
-      SystemInfo>;
-
-  static constexpr FieldMetadata_Hz kHz{};
-  void set_hz(int64_t value) {
-    static constexpr uint32_t field_id = FieldMetadata_Hz::kFieldId;
-    // Call the appropriate protozero::Message::Append(field_id, ...)
-    // method based on the type of the field.
-    ::protozero::internal::FieldWriter<
-      ::protozero::proto_utils::ProtoSchemaType::kInt64>
         ::Append(*this, field_id, value);
   }
 
@@ -52149,6 +52134,24 @@ class SystemInfo : public ::protozero::Message {
         ::Append(*this, field_id, value);
   }
 
+  using FieldMetadata_NumCpus =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      SystemInfo>;
+
+  static constexpr FieldMetadata_NumCpus kNumCpus{};
+  void set_num_cpus(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_NumCpus::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
   using FieldMetadata_TimezoneOffMins =
     ::protozero::proto_utils::FieldMetadata<
       7,
@@ -52164,6 +52167,24 @@ class SystemInfo : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Hz =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      SystemInfo>;
+
+  static constexpr FieldMetadata_Hz kHz{};
+  void set_hz(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Hz::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
         ::Append(*this, field_id, value);
   }
 };
@@ -52634,16 +52655,16 @@ class AndroidInputEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FI
   explicit AndroidInputEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_dispatcher_motion_event() const { return at<1>().valid(); }
   ::protozero::ConstBytes dispatcher_motion_event() const { return at<1>().as_bytes(); }
-  bool has_dispatcher_motion_event_sensitive() const { return at<2>().valid(); }
-  ::protozero::ConstBytes dispatcher_motion_event_sensitive() const { return at<2>().as_bytes(); }
+  bool has_dispatcher_motion_event_redacted() const { return at<2>().valid(); }
+  ::protozero::ConstBytes dispatcher_motion_event_redacted() const { return at<2>().as_bytes(); }
   bool has_dispatcher_key_event() const { return at<3>().valid(); }
   ::protozero::ConstBytes dispatcher_key_event() const { return at<3>().as_bytes(); }
-  bool has_dispatcher_key_event_sensitive() const { return at<4>().valid(); }
-  ::protozero::ConstBytes dispatcher_key_event_sensitive() const { return at<4>().as_bytes(); }
+  bool has_dispatcher_key_event_redacted() const { return at<4>().valid(); }
+  ::protozero::ConstBytes dispatcher_key_event_redacted() const { return at<4>().as_bytes(); }
   bool has_dispatcher_window_dispatch_event() const { return at<5>().valid(); }
   ::protozero::ConstBytes dispatcher_window_dispatch_event() const { return at<5>().as_bytes(); }
-  bool has_dispatcher_window_dispatch_event_sensitive() const { return at<6>().valid(); }
-  ::protozero::ConstBytes dispatcher_window_dispatch_event_sensitive() const { return at<6>().as_bytes(); }
+  bool has_dispatcher_window_dispatch_event_redacted() const { return at<6>().valid(); }
+  ::protozero::ConstBytes dispatcher_window_dispatch_event_redacted() const { return at<6>().as_bytes(); }
 };
 
 class AndroidInputEvent : public ::protozero::Message {
@@ -52651,11 +52672,11 @@ class AndroidInputEvent : public ::protozero::Message {
   using Decoder = AndroidInputEvent_Decoder;
   enum : int32_t {
     kDispatcherMotionEventFieldNumber = 1,
-    kDispatcherMotionEventSensitiveFieldNumber = 2,
+    kDispatcherMotionEventRedactedFieldNumber = 2,
     kDispatcherKeyEventFieldNumber = 3,
-    kDispatcherKeyEventSensitiveFieldNumber = 4,
+    kDispatcherKeyEventRedactedFieldNumber = 4,
     kDispatcherWindowDispatchEventFieldNumber = 5,
-    kDispatcherWindowDispatchEventSensitiveFieldNumber = 6,
+    kDispatcherWindowDispatchEventRedactedFieldNumber = 6,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.AndroidInputEvent"; }
 
@@ -52674,7 +52695,7 @@ class AndroidInputEvent : public ::protozero::Message {
   }
 
 
-  using FieldMetadata_DispatcherMotionEventSensitive =
+  using FieldMetadata_DispatcherMotionEventRedacted =
     ::protozero::proto_utils::FieldMetadata<
       2,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
@@ -52682,8 +52703,8 @@ class AndroidInputEvent : public ::protozero::Message {
       AndroidMotionEvent,
       AndroidInputEvent>;
 
-  static constexpr FieldMetadata_DispatcherMotionEventSensitive kDispatcherMotionEventSensitive{};
-  template <typename T = AndroidMotionEvent> T* set_dispatcher_motion_event_sensitive() {
+  static constexpr FieldMetadata_DispatcherMotionEventRedacted kDispatcherMotionEventRedacted{};
+  template <typename T = AndroidMotionEvent> T* set_dispatcher_motion_event_redacted() {
     return BeginNestedMessage<T>(2);
   }
 
@@ -52702,7 +52723,7 @@ class AndroidInputEvent : public ::protozero::Message {
   }
 
 
-  using FieldMetadata_DispatcherKeyEventSensitive =
+  using FieldMetadata_DispatcherKeyEventRedacted =
     ::protozero::proto_utils::FieldMetadata<
       4,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
@@ -52710,8 +52731,8 @@ class AndroidInputEvent : public ::protozero::Message {
       AndroidKeyEvent,
       AndroidInputEvent>;
 
-  static constexpr FieldMetadata_DispatcherKeyEventSensitive kDispatcherKeyEventSensitive{};
-  template <typename T = AndroidKeyEvent> T* set_dispatcher_key_event_sensitive() {
+  static constexpr FieldMetadata_DispatcherKeyEventRedacted kDispatcherKeyEventRedacted{};
+  template <typename T = AndroidKeyEvent> T* set_dispatcher_key_event_redacted() {
     return BeginNestedMessage<T>(4);
   }
 
@@ -52730,7 +52751,7 @@ class AndroidInputEvent : public ::protozero::Message {
   }
 
 
-  using FieldMetadata_DispatcherWindowDispatchEventSensitive =
+  using FieldMetadata_DispatcherWindowDispatchEventRedacted =
     ::protozero::proto_utils::FieldMetadata<
       6,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
@@ -52738,8 +52759,8 @@ class AndroidInputEvent : public ::protozero::Message {
       AndroidWindowInputDispatchEvent,
       AndroidInputEvent>;
 
-  static constexpr FieldMetadata_DispatcherWindowDispatchEventSensitive kDispatcherWindowDispatchEventSensitive{};
-  template <typename T = AndroidWindowInputDispatchEvent> T* set_dispatcher_window_dispatch_event_sensitive() {
+  static constexpr FieldMetadata_DispatcherWindowDispatchEventRedacted kDispatcherWindowDispatchEventRedacted{};
+  template <typename T = AndroidWindowInputDispatchEvent> T* set_dispatcher_window_dispatch_event_redacted() {
     return BeginNestedMessage<T>(6);
   }
 

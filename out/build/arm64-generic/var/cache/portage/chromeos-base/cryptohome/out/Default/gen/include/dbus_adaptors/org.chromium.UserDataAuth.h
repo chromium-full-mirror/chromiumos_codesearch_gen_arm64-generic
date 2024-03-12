@@ -142,6 +142,9 @@ class UserDataAuthInterfaceInterface {
   virtual void GetArcDiskFeatures(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetArcDiskFeaturesReply>> response,
       const user_data_auth::GetArcDiskFeaturesRequest& in_request) = 0;
+  virtual void MigrateLegacyFingerprints(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::MigrateLegacyFingerprintsReply>> response,
+      const user_data_auth::MigrateLegacyFingerprintsRequest& in_request) = 0;
 };
 
 // Interface adaptor for org::chromium::UserDataAuthInterface.
@@ -311,6 +314,10 @@ class UserDataAuthInterfaceAdaptor {
         "GetArcDiskFeatures",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::GetArcDiskFeatures);
+    itf->AddMethodHandler(
+        "MigrateLegacyFingerprints",
+        base::Unretained(interface_),
+        &UserDataAuthInterfaceInterface::MigrateLegacyFingerprints);
 
     signal_DircryptoMigrationProgress_ = itf->RegisterSignalOfType<SignalDircryptoMigrationProgressType>("DircryptoMigrationProgress");
     signal_AuthFactorStatusUpdate_ = itf->RegisterSignalOfType<SignalAuthFactorStatusUpdateType>("AuthFactorStatusUpdate");
@@ -573,6 +580,10 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"GetArcDiskFeatures\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"MigrateLegacyFingerprints\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

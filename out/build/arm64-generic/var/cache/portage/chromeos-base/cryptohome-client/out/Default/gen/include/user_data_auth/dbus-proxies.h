@@ -502,6 +502,18 @@ class UserDataAuthInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool MigrateLegacyFingerprints(
+      const user_data_auth::MigrateLegacyFingerprintsRequest& in_request,
+      user_data_auth::MigrateLegacyFingerprintsReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void MigrateLegacyFingerprintsAsync(
+      const user_data_auth::MigrateLegacyFingerprintsRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::MigrateLegacyFingerprintsReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual void RegisterDircryptoMigrationProgressSignalHandler(
       const base::RepeatingCallback<void(const user_data_auth::DircryptoMigrationProgress&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -1953,6 +1965,37 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "GetArcDiskFeatures",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  bool MigrateLegacyFingerprints(
+      const user_data_auth::MigrateLegacyFingerprintsRequest& in_request,
+      user_data_auth::MigrateLegacyFingerprintsReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "MigrateLegacyFingerprints",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  void MigrateLegacyFingerprintsAsync(
+      const user_data_auth::MigrateLegacyFingerprintsRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::MigrateLegacyFingerprintsReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "MigrateLegacyFingerprints",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

@@ -2128,14 +2128,12 @@ class StartVmRequest final :
     kVmFieldNumber = 1,
     kStartTerminaFieldNumber = 5,
     kEnableGpuFieldNumber = 8,
-    kSoftwareTpmFieldNumber = 9,
     kEnableAudioCaptureFieldNumber = 11,
-    kCpusFieldNumber = 12,
     kWritableRootfsFieldNumber = 15,
-    kEnableVulkanFieldNumber = 18,
+    kCpusFieldNumber = 12,
+    kTimeoutFieldNumber = 20,
     kEnableBigGlFieldNumber = 19,
     kVtpmProxyFieldNumber = 22,
-    kTimeoutFieldNumber = 20,
     kStorageBallooningFieldNumber = 23,
     kEnableVirtgpuNativeContextFieldNumber = 25,
     kEnableDgpuPassthroughFieldNumber = 27,
@@ -2357,16 +2355,6 @@ class StartVmRequest final :
   void _internal_set_enable_gpu(bool value);
 
   public:
-  // bool software_tpm = 9 [deprecated = true];
-  [[deprecated]]  void clear_software_tpm() ;
-  [[deprecated]] bool software_tpm() const;
-  [[deprecated]] void set_software_tpm(bool value);
-
-  private:
-  bool _internal_software_tpm() const;
-  void _internal_set_software_tpm(bool value);
-
-  public:
   // bool enable_audio_capture = 11;
   void clear_enable_audio_capture() ;
   bool enable_audio_capture() const;
@@ -2375,16 +2363,6 @@ class StartVmRequest final :
   private:
   bool _internal_enable_audio_capture() const;
   void _internal_set_enable_audio_capture(bool value);
-
-  public:
-  // uint32 cpus = 12;
-  void clear_cpus() ;
-  ::uint32_t cpus() const;
-  void set_cpus(::uint32_t value);
-
-  private:
-  ::uint32_t _internal_cpus() const;
-  void _internal_set_cpus(::uint32_t value);
 
   public:
   // bool writable_rootfs = 15;
@@ -2397,14 +2375,24 @@ class StartVmRequest final :
   void _internal_set_writable_rootfs(bool value);
 
   public:
-  // bool enable_vulkan = 18 [deprecated = true];
-  [[deprecated]]  void clear_enable_vulkan() ;
-  [[deprecated]] bool enable_vulkan() const;
-  [[deprecated]] void set_enable_vulkan(bool value);
+  // uint32 cpus = 12;
+  void clear_cpus() ;
+  ::uint32_t cpus() const;
+  void set_cpus(::uint32_t value);
 
   private:
-  bool _internal_enable_vulkan() const;
-  void _internal_set_enable_vulkan(bool value);
+  ::uint32_t _internal_cpus() const;
+  void _internal_set_cpus(::uint32_t value);
+
+  public:
+  // uint32 timeout = 20;
+  void clear_timeout() ;
+  ::uint32_t timeout() const;
+  void set_timeout(::uint32_t value);
+
+  private:
+  ::uint32_t _internal_timeout() const;
+  void _internal_set_timeout(::uint32_t value);
 
   public:
   // bool enable_big_gl = 19;
@@ -2425,16 +2413,6 @@ class StartVmRequest final :
   private:
   bool _internal_vtpm_proxy() const;
   void _internal_set_vtpm_proxy(bool value);
-
-  public:
-  // uint32 timeout = 20;
-  void clear_timeout() ;
-  ::uint32_t timeout() const;
-  void set_timeout(::uint32_t value);
-
-  private:
-  ::uint32_t _internal_timeout() const;
-  void _internal_set_timeout(::uint32_t value);
 
   public:
   // bool storage_ballooning = 23;
@@ -2500,14 +2478,12 @@ class StartVmRequest final :
     ::vm_tools::concierge::VirtualMachineSpec* vm_;
     bool start_termina_;
     bool enable_gpu_;
-    bool software_tpm_;
     bool enable_audio_capture_;
-    ::uint32_t cpus_;
     bool writable_rootfs_;
-    bool enable_vulkan_;
+    ::uint32_t cpus_;
+    ::uint32_t timeout_;
     bool enable_big_gl_;
     bool vtpm_proxy_;
-    ::uint32_t timeout_;
     bool storage_ballooning_;
     bool enable_virtgpu_native_context_;
     bool enable_dgpu_passthrough_;
@@ -2961,21 +2937,18 @@ class StartArcVmRequest final :
     kLockGuestMemoryFieldNumber = 18,
     kEnableKeyboardShortcutHelperIntegrationFieldNumber = 21,
     kEnableBroadcastAnrPrenotifyFieldNumber = 25,
-    kLogdConfigSizeFieldNumber = 26,
     kVmMemoryPsiPeriodFieldNumber = 28,
     kGuestSwappinessFieldNumber = 33,
     kMglruReclaimIntervalFieldNumber = 35,
     kMglruReclaimSwappinessFieldNumber = 36,
-    kEnableVirtioBlkDataFieldNumber = 27,
-    kUpdateO4CListViaA2C2FieldNumber = 37,
-    kEnableRwFieldNumber = 41,
-    kEnableWebViewZygoteLazyInitFieldNumber = 42,
     kUsapProfileFieldNumber = 38,
     kNativeBridgeExperimentFieldNumber = 39,
-    kUreadaheadModeFieldNumber = 40,
-    kGuestZramMibFieldNumber = 44,
+    kEnableVirtioBlkDataFieldNumber = 27,
+    kEnableWebViewZygoteLazyInitFieldNumber = 42,
     kEnableVmmSwapFieldNumber = 43,
     kRootfsODirectFieldNumber = 45,
+    kUreadaheadModeFieldNumber = 40,
+    kGuestZramMibFieldNumber = 44,
     kEnableS2IdleFieldNumber = 46,
     kRootfsMultipleWorkersFieldNumber = 47,
   };
@@ -3207,16 +3180,6 @@ class StartArcVmRequest final :
   void _internal_set_enable_broadcast_anr_prenotify(bool value);
 
   public:
-  // int32 logd_config_size = 26 [deprecated = true];
-  [[deprecated]]  void clear_logd_config_size() ;
-  [[deprecated]] ::int32_t logd_config_size() const;
-  [[deprecated]] void set_logd_config_size(::int32_t value);
-
-  private:
-  ::int32_t _internal_logd_config_size() const;
-  void _internal_set_logd_config_size(::int32_t value);
-
-  public:
   // int32 vm_memory_psi_period = 28;
   void clear_vm_memory_psi_period() ;
   ::int32_t vm_memory_psi_period() const;
@@ -3257,46 +3220,6 @@ class StartArcVmRequest final :
   void _internal_set_mglru_reclaim_swappiness(::int32_t value);
 
   public:
-  // bool enable_virtio_blk_data = 27;
-  void clear_enable_virtio_blk_data() ;
-  bool enable_virtio_blk_data() const;
-  void set_enable_virtio_blk_data(bool value);
-
-  private:
-  bool _internal_enable_virtio_blk_data() const;
-  void _internal_set_enable_virtio_blk_data(bool value);
-
-  public:
-  // bool update_o4c_list_via_a2c2 = 37 [deprecated = true];
-  [[deprecated]]  void clear_update_o4c_list_via_a2c2() ;
-  [[deprecated]] bool update_o4c_list_via_a2c2() const;
-  [[deprecated]] void set_update_o4c_list_via_a2c2(bool value);
-
-  private:
-  bool _internal_update_o4c_list_via_a2c2() const;
-  void _internal_set_update_o4c_list_via_a2c2(bool value);
-
-  public:
-  // bool enable_rw = 41 [deprecated = true];
-  [[deprecated]]  void clear_enable_rw() ;
-  [[deprecated]] bool enable_rw() const;
-  [[deprecated]] void set_enable_rw(bool value);
-
-  private:
-  bool _internal_enable_rw() const;
-  void _internal_set_enable_rw(bool value);
-
-  public:
-  // bool enable_web_view_zygote_lazy_init = 42;
-  void clear_enable_web_view_zygote_lazy_init() ;
-  bool enable_web_view_zygote_lazy_init() const;
-  void set_enable_web_view_zygote_lazy_init(bool value);
-
-  private:
-  bool _internal_enable_web_view_zygote_lazy_init() const;
-  void _internal_set_enable_web_view_zygote_lazy_init(bool value);
-
-  public:
   // .vm_tools.concierge.StartArcVmRequest.UsapProfileType usap_profile = 38;
   void clear_usap_profile() ;
   ::vm_tools::concierge::StartArcVmRequest_UsapProfileType usap_profile() const;
@@ -3317,24 +3240,24 @@ class StartArcVmRequest final :
   void _internal_set_native_bridge_experiment(::vm_tools::concierge::StartArcVmRequest_BinaryTranslationType value);
 
   public:
-  // .vm_tools.concierge.StartArcVmRequest.UreadaheadMode ureadahead_mode = 40;
-  void clear_ureadahead_mode() ;
-  ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode ureadahead_mode() const;
-  void set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value);
+  // bool enable_virtio_blk_data = 27;
+  void clear_enable_virtio_blk_data() ;
+  bool enable_virtio_blk_data() const;
+  void set_enable_virtio_blk_data(bool value);
 
   private:
-  ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode _internal_ureadahead_mode() const;
-  void _internal_set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value);
+  bool _internal_enable_virtio_blk_data() const;
+  void _internal_set_enable_virtio_blk_data(bool value);
 
   public:
-  // uint32 guest_zram_mib = 44;
-  void clear_guest_zram_mib() ;
-  ::uint32_t guest_zram_mib() const;
-  void set_guest_zram_mib(::uint32_t value);
+  // bool enable_web_view_zygote_lazy_init = 42;
+  void clear_enable_web_view_zygote_lazy_init() ;
+  bool enable_web_view_zygote_lazy_init() const;
+  void set_enable_web_view_zygote_lazy_init(bool value);
 
   private:
-  ::uint32_t _internal_guest_zram_mib() const;
-  void _internal_set_guest_zram_mib(::uint32_t value);
+  bool _internal_enable_web_view_zygote_lazy_init() const;
+  void _internal_set_enable_web_view_zygote_lazy_init(bool value);
 
   public:
   // bool enable_vmm_swap = 43;
@@ -3355,6 +3278,26 @@ class StartArcVmRequest final :
   private:
   bool _internal_rootfs_o_direct() const;
   void _internal_set_rootfs_o_direct(bool value);
+
+  public:
+  // .vm_tools.concierge.StartArcVmRequest.UreadaheadMode ureadahead_mode = 40;
+  void clear_ureadahead_mode() ;
+  ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode ureadahead_mode() const;
+  void set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value);
+
+  private:
+  ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode _internal_ureadahead_mode() const;
+  void _internal_set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value);
+
+  public:
+  // uint32 guest_zram_mib = 44;
+  void clear_guest_zram_mib() ;
+  ::uint32_t guest_zram_mib() const;
+  void set_guest_zram_mib(::uint32_t value);
+
+  private:
+  ::uint32_t _internal_guest_zram_mib() const;
+  void _internal_set_guest_zram_mib(::uint32_t value);
 
   public:
   // bool enable_s2idle = 46;
@@ -3405,21 +3348,18 @@ class StartArcVmRequest final :
     bool lock_guest_memory_;
     bool enable_keyboard_shortcut_helper_integration_;
     bool enable_broadcast_anr_prenotify_;
-    ::int32_t logd_config_size_;
     ::int32_t vm_memory_psi_period_;
     ::int32_t guest_swappiness_;
     ::int32_t mglru_reclaim_interval_;
     ::int32_t mglru_reclaim_swappiness_;
-    bool enable_virtio_blk_data_;
-    bool update_o4c_list_via_a2c2_;
-    bool enable_rw_;
-    bool enable_web_view_zygote_lazy_init_;
     int usap_profile_;
     int native_bridge_experiment_;
-    int ureadahead_mode_;
-    ::uint32_t guest_zram_mib_;
+    bool enable_virtio_blk_data_;
+    bool enable_web_view_zygote_lazy_init_;
     bool enable_vmm_swap_;
     bool rootfs_o_direct_;
+    int ureadahead_mode_;
+    ::uint32_t guest_zram_mib_;
     bool enable_s2idle_;
     bool rootfs_multiple_workers_;
   };
@@ -17692,26 +17632,6 @@ inline void StartVmRequest::_internal_set_enable_gpu(bool value) {
   _impl_.enable_gpu_ = value;
 }
 
-// bool software_tpm = 9 [deprecated = true];
-inline void StartVmRequest::clear_software_tpm() {
-  _impl_.software_tpm_ = false;
-}
-inline bool StartVmRequest::software_tpm() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartVmRequest.software_tpm)
-  return _internal_software_tpm();
-}
-inline void StartVmRequest::set_software_tpm(bool value) {
-  _internal_set_software_tpm(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.software_tpm)
-}
-inline bool StartVmRequest::_internal_software_tpm() const {
-  return _impl_.software_tpm_;
-}
-inline void StartVmRequest::_internal_set_software_tpm(bool value) {
-  ;
-  _impl_.software_tpm_ = value;
-}
-
 // bool enable_audio_capture = 11;
 inline void StartVmRequest::clear_enable_audio_capture() {
   _impl_.enable_audio_capture_ = false;
@@ -17906,26 +17826,6 @@ StartVmRequest::_internal_kernel_params() const {
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 StartVmRequest::_internal_mutable_kernel_params() {
   return &_impl_.kernel_params_;
-}
-
-// bool enable_vulkan = 18 [deprecated = true];
-inline void StartVmRequest::clear_enable_vulkan() {
-  _impl_.enable_vulkan_ = false;
-}
-inline bool StartVmRequest::enable_vulkan() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartVmRequest.enable_vulkan)
-  return _internal_enable_vulkan();
-}
-inline void StartVmRequest::set_enable_vulkan(bool value) {
-  _internal_set_enable_vulkan(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.enable_vulkan)
-}
-inline bool StartVmRequest::_internal_enable_vulkan() const {
-  return _impl_.enable_vulkan_;
-}
-inline void StartVmRequest::_internal_set_enable_vulkan(bool value) {
-  ;
-  _impl_.enable_vulkan_ = value;
 }
 
 // bool enable_big_gl = 19;
@@ -19089,26 +18989,6 @@ inline void StartArcVmRequest::_internal_set_enable_broadcast_anr_prenotify(bool
   _impl_.enable_broadcast_anr_prenotify_ = value;
 }
 
-// int32 logd_config_size = 26 [deprecated = true];
-inline void StartArcVmRequest::clear_logd_config_size() {
-  _impl_.logd_config_size_ = 0;
-}
-inline ::int32_t StartArcVmRequest::logd_config_size() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.logd_config_size)
-  return _internal_logd_config_size();
-}
-inline void StartArcVmRequest::set_logd_config_size(::int32_t value) {
-  _internal_set_logd_config_size(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.logd_config_size)
-}
-inline ::int32_t StartArcVmRequest::_internal_logd_config_size() const {
-  return _impl_.logd_config_size_;
-}
-inline void StartArcVmRequest::_internal_set_logd_config_size(::int32_t value) {
-  ;
-  _impl_.logd_config_size_ = value;
-}
-
 // bool enable_virtio_blk_data = 27;
 inline void StartArcVmRequest::clear_enable_virtio_blk_data() {
   _impl_.enable_virtio_blk_data_ = false;
@@ -19293,26 +19173,6 @@ inline void StartArcVmRequest::_internal_set_mglru_reclaim_swappiness(::int32_t 
   _impl_.mglru_reclaim_swappiness_ = value;
 }
 
-// bool update_o4c_list_via_a2c2 = 37 [deprecated = true];
-inline void StartArcVmRequest::clear_update_o4c_list_via_a2c2() {
-  _impl_.update_o4c_list_via_a2c2_ = false;
-}
-inline bool StartArcVmRequest::update_o4c_list_via_a2c2() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.update_o4c_list_via_a2c2)
-  return _internal_update_o4c_list_via_a2c2();
-}
-inline void StartArcVmRequest::set_update_o4c_list_via_a2c2(bool value) {
-  _internal_set_update_o4c_list_via_a2c2(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.update_o4c_list_via_a2c2)
-}
-inline bool StartArcVmRequest::_internal_update_o4c_list_via_a2c2() const {
-  return _impl_.update_o4c_list_via_a2c2_;
-}
-inline void StartArcVmRequest::_internal_set_update_o4c_list_via_a2c2(bool value) {
-  ;
-  _impl_.update_o4c_list_via_a2c2_ = value;
-}
-
 // .vm_tools.concierge.StartArcVmRequest.UsapProfileType usap_profile = 38;
 inline void StartArcVmRequest::clear_usap_profile() {
   _impl_.usap_profile_ = 0;
@@ -19371,26 +19231,6 @@ inline ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode StartArcVmRequest
 inline void StartArcVmRequest::_internal_set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value) {
   ;
   _impl_.ureadahead_mode_ = value;
-}
-
-// bool enable_rw = 41 [deprecated = true];
-inline void StartArcVmRequest::clear_enable_rw() {
-  _impl_.enable_rw_ = false;
-}
-inline bool StartArcVmRequest::enable_rw() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.enable_rw)
-  return _internal_enable_rw();
-}
-inline void StartArcVmRequest::set_enable_rw(bool value) {
-  _internal_set_enable_rw(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_rw)
-}
-inline bool StartArcVmRequest::_internal_enable_rw() const {
-  return _impl_.enable_rw_;
-}
-inline void StartArcVmRequest::_internal_set_enable_rw(bool value) {
-  ;
-  _impl_.enable_rw_ = value;
 }
 
 // bool enable_web_view_zygote_lazy_init = 42;
