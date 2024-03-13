@@ -599,13 +599,16 @@ enum StepName : int32_t {
   STEP_EXO_CONSTRUCT_COMPOSITOR_FRAME = 15,
   STEP_EXO_SUBMIT_COMPOSITOR_FRAME = 16,
   STEP_EXO_DISCARD_COMPOSITOR_FRAME = 17,
+  STEP_BACKEND_SEND_BUFFER_SWAP = 18,
+  STEP_BACKEND_SEND_BUFFER_POST_SUBMIT = 19,
+  STEP_BACKEND_FINISH_BUFFER_SWAP = 20,
 };
 } // namespace perfetto_pbzero_enum_ChromeGraphicsPipeline
 using ChromeGraphicsPipeline_StepName = perfetto_pbzero_enum_ChromeGraphicsPipeline::StepName;
 
 
 constexpr ChromeGraphicsPipeline_StepName ChromeGraphicsPipeline_StepName_MIN = ChromeGraphicsPipeline_StepName::STEP_UNKNOWN;
-constexpr ChromeGraphicsPipeline_StepName ChromeGraphicsPipeline_StepName_MAX = ChromeGraphicsPipeline_StepName::STEP_EXO_DISCARD_COMPOSITOR_FRAME;
+constexpr ChromeGraphicsPipeline_StepName ChromeGraphicsPipeline_StepName_MAX = ChromeGraphicsPipeline_StepName::STEP_BACKEND_FINISH_BUFFER_SWAP;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -664,6 +667,15 @@ const char* ChromeGraphicsPipeline_StepName_Name(::perfetto::protos::pbzero::Chr
 
   case ::perfetto::protos::pbzero::ChromeGraphicsPipeline_StepName::STEP_EXO_DISCARD_COMPOSITOR_FRAME:
     return "STEP_EXO_DISCARD_COMPOSITOR_FRAME";
+
+  case ::perfetto::protos::pbzero::ChromeGraphicsPipeline_StepName::STEP_BACKEND_SEND_BUFFER_SWAP:
+    return "STEP_BACKEND_SEND_BUFFER_SWAP";
+
+  case ::perfetto::protos::pbzero::ChromeGraphicsPipeline_StepName::STEP_BACKEND_SEND_BUFFER_POST_SUBMIT:
+    return "STEP_BACKEND_SEND_BUFFER_POST_SUBMIT";
+
+  case ::perfetto::protos::pbzero::ChromeGraphicsPipeline_StepName::STEP_BACKEND_FINISH_BUFFER_SWAP:
+    return "STEP_BACKEND_FINISH_BUFFER_SWAP";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -3362,7 +3374,7 @@ class LibunwindstackUnwinder : public ::protozero::Message {
   }
 };
 
-class ChromeGraphicsPipeline_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/6, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class ChromeGraphicsPipeline_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   ChromeGraphicsPipeline_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ChromeGraphicsPipeline_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -3379,6 +3391,8 @@ class ChromeGraphicsPipeline_Decoder : public ::protozero::TypedProtoDecoder</*M
   int64_t frame_sequence() const { return at<5>().as_int64(); }
   bool has_frame_skipped_reason() const { return at<6>().valid(); }
   int32_t frame_skipped_reason() const { return at<6>().as_int32(); }
+  bool has_backend_frame_id() const { return at<7>().valid(); }
+  int64_t backend_frame_id() const { return at<7>().as_int64(); }
 };
 
 class ChromeGraphicsPipeline : public ::protozero::Message {
@@ -3391,6 +3405,7 @@ class ChromeGraphicsPipeline : public ::protozero::Message {
     kLocalSurfaceIdFieldNumber = 4,
     kFrameSequenceFieldNumber = 5,
     kFrameSkippedReasonFieldNumber = 6,
+    kBackendFrameIdFieldNumber = 7,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ChromeGraphicsPipeline"; }
 
@@ -3422,6 +3437,9 @@ class ChromeGraphicsPipeline : public ::protozero::Message {
   static inline const StepName STEP_EXO_CONSTRUCT_COMPOSITOR_FRAME = StepName::STEP_EXO_CONSTRUCT_COMPOSITOR_FRAME;
   static inline const StepName STEP_EXO_SUBMIT_COMPOSITOR_FRAME = StepName::STEP_EXO_SUBMIT_COMPOSITOR_FRAME;
   static inline const StepName STEP_EXO_DISCARD_COMPOSITOR_FRAME = StepName::STEP_EXO_DISCARD_COMPOSITOR_FRAME;
+  static inline const StepName STEP_BACKEND_SEND_BUFFER_SWAP = StepName::STEP_BACKEND_SEND_BUFFER_SWAP;
+  static inline const StepName STEP_BACKEND_SEND_BUFFER_POST_SUBMIT = StepName::STEP_BACKEND_SEND_BUFFER_POST_SUBMIT;
+  static inline const StepName STEP_BACKEND_FINISH_BUFFER_SWAP = StepName::STEP_BACKEND_FINISH_BUFFER_SWAP;
   static inline const FrameSkippedReason SKIPPED_REASON_UNKNOWN = FrameSkippedReason::SKIPPED_REASON_UNKNOWN;
   static inline const FrameSkippedReason SKIPPED_REASON_RECOVER_LATENCY = FrameSkippedReason::SKIPPED_REASON_RECOVER_LATENCY;
   static inline const FrameSkippedReason SKIPPED_REASON_NO_DAMAGE = FrameSkippedReason::SKIPPED_REASON_NO_DAMAGE;
@@ -3525,6 +3543,24 @@ class ChromeGraphicsPipeline : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_BackendFrameId =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      ChromeGraphicsPipeline>;
+
+  static constexpr FieldMetadata_BackendFrameId kBackendFrameId{};
+  void set_backend_frame_id(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_BackendFrameId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
         ::Append(*this, field_id, value);
   }
 };
