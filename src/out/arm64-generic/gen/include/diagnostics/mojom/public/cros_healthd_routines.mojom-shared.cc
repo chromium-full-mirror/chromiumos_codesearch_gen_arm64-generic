@@ -700,20 +700,10 @@ bool RoutineDetail_Data::Validate(
         return false;
       return true;
     }
-    case RoutineDetail_Tag::kVolumeButton: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_volume_button, 3, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_volume_button, validation_context))
-        return false;
-      return true;
-    }
     case RoutineDetail_Tag::kFan: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_fan, 4, validation_context)) {
+              object->data.f_fan, 3, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_fan, validation_context))
@@ -723,87 +713,27 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kAudioDriver: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_audio_driver, 5, validation_context)) {
+              object->data.f_audio_driver, 4, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_audio_driver, validation_context))
         return false;
       return true;
     }
-    case RoutineDetail_Tag::kCpuStress: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_cpu_stress, 6, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_cpu_stress, validation_context))
-        return false;
-      return true;
-    }
     case RoutineDetail_Tag::kUfsLifetime: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_ufs_lifetime, 7, validation_context)) {
+              object->data.f_ufs_lifetime, 5, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_ufs_lifetime, validation_context))
         return false;
       return true;
     }
-    case RoutineDetail_Tag::kDiskRead: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_disk_read, 8, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_disk_read, validation_context))
-        return false;
-      return true;
-    }
-    case RoutineDetail_Tag::kCpuCache: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_cpu_cache, 9, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_cpu_cache, validation_context))
-        return false;
-      return true;
-    }
-    case RoutineDetail_Tag::kPrimeSearch: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_prime_search, 10, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_prime_search, validation_context))
-        return false;
-      return true;
-    }
-    case RoutineDetail_Tag::kLedLitUp: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_led_lit_up, 11, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_led_lit_up, validation_context))
-        return false;
-      return true;
-    }
-    case RoutineDetail_Tag::kFloatingPoint: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_floating_point, 12, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_floating_point, validation_context))
-        return false;
-      return true;
-    }
     case RoutineDetail_Tag::kBluetoothPower: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_bluetooth_power, 13, validation_context)) {
+              object->data.f_bluetooth_power, 6, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_power, validation_context))
@@ -813,7 +743,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kBluetoothDiscovery: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_bluetooth_discovery, 14, validation_context)) {
+              object->data.f_bluetooth_discovery, 7, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_discovery, validation_context))
@@ -823,7 +753,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kBluetoothScanning: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_bluetooth_scanning, 15, validation_context)) {
+              object->data.f_bluetooth_scanning, 8, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_scanning, validation_context))
@@ -833,7 +763,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kBluetoothPairing: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_bluetooth_pairing, 16, validation_context)) {
+              object->data.f_bluetooth_pairing, 9, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_pairing, validation_context))
@@ -843,20 +773,10 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kCameraAvailability: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_camera_availability, 17, validation_context)) {
+              object->data.f_camera_availability, 10, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_camera_availability, validation_context))
-        return false;
-      return true;
-    }
-    case RoutineDetail_Tag::kUrandom: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_urandom, 18, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_urandom, validation_context))
         return false;
       return true;
     }
@@ -1526,29 +1446,6 @@ AudioDriverRoutineDetail_Data::AudioDriverRoutineDetail_Data()
 
 
 // static
-bool CpuStressRoutineDetail_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CpuStressRoutineDetail_Data* object =
-      static_cast<const CpuStressRoutineDetail_Data*>(data);
-
-  return true;
-}
-
-CpuStressRoutineDetail_Data::CpuStressRoutineDetail_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool UfsLifetimeRoutineDetail_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1568,98 +1465,6 @@ bool UfsLifetimeRoutineDetail_Data::Validate(
 }
 
 UfsLifetimeRoutineDetail_Data::UfsLifetimeRoutineDetail_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool DiskReadRoutineDetail_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const DiskReadRoutineDetail_Data* object =
-      static_cast<const DiskReadRoutineDetail_Data*>(data);
-
-  return true;
-}
-
-DiskReadRoutineDetail_Data::DiskReadRoutineDetail_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CpuCacheRoutineDetail_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CpuCacheRoutineDetail_Data* object =
-      static_cast<const CpuCacheRoutineDetail_Data*>(data);
-
-  return true;
-}
-
-CpuCacheRoutineDetail_Data::CpuCacheRoutineDetail_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool PrimeSearchRoutineDetail_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const PrimeSearchRoutineDetail_Data* object =
-      static_cast<const PrimeSearchRoutineDetail_Data*>(data);
-
-  return true;
-}
-
-PrimeSearchRoutineDetail_Data::PrimeSearchRoutineDetail_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool FloatingPointRoutineDetail_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const FloatingPointRoutineDetail_Data* object =
-      static_cast<const FloatingPointRoutineDetail_Data*>(data);
-
-  return true;
-}
-
-FloatingPointRoutineDetail_Data::FloatingPointRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1705,52 +1510,6 @@ bool MemtesterResult_Data::Validate(
 }
 
 MemtesterResult_Data::MemtesterResult_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool VolumeButtonRoutineDetail_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const VolumeButtonRoutineDetail_Data* object =
-      static_cast<const VolumeButtonRoutineDetail_Data*>(data);
-
-  return true;
-}
-
-VolumeButtonRoutineDetail_Data::VolumeButtonRoutineDetail_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool LedLitUpRoutineDetail_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const LedLitUpRoutineDetail_Data* object =
-      static_cast<const LedLitUpRoutineDetail_Data*>(data);
-
-  return true;
-}
-
-LedLitUpRoutineDetail_Data::LedLitUpRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2102,29 +1861,6 @@ bool FanRoutineDetail_Data::Validate(
 }
 
 FanRoutineDetail_Data::FanRoutineDetail_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool UrandomRoutineDetail_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const UrandomRoutineDetail_Data* object =
-      static_cast<const UrandomRoutineDetail_Data*>(data);
-
-  return true;
-}
-
-UrandomRoutineDetail_Data::UrandomRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 

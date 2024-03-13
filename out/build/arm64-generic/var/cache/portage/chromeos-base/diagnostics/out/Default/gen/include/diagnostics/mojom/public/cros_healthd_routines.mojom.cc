@@ -792,23 +792,6 @@ bool AudioDriverRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-CpuStressRoutineDetail::CpuStressRoutineDetail() {}
-
-CpuStressRoutineDetail::~CpuStressRoutineDetail() = default;
-size_t CpuStressRoutineDetail::Hash(size_t seed) const {
-  return seed;
-}
-
-void CpuStressRoutineDetail::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-}
-
-bool CpuStressRoutineDetail::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
 UfsLifetimeRoutineDetail::UfsLifetimeRoutineDetail()
     : pre_eol_info(),
       device_life_time_est_a(),
@@ -867,74 +850,6 @@ bool UfsLifetimeRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-DiskReadRoutineDetail::DiskReadRoutineDetail() {}
-
-DiskReadRoutineDetail::~DiskReadRoutineDetail() = default;
-size_t DiskReadRoutineDetail::Hash(size_t seed) const {
-  return seed;
-}
-
-void DiskReadRoutineDetail::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-}
-
-bool DiskReadRoutineDetail::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-CpuCacheRoutineDetail::CpuCacheRoutineDetail() {}
-
-CpuCacheRoutineDetail::~CpuCacheRoutineDetail() = default;
-size_t CpuCacheRoutineDetail::Hash(size_t seed) const {
-  return seed;
-}
-
-void CpuCacheRoutineDetail::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-}
-
-bool CpuCacheRoutineDetail::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-PrimeSearchRoutineDetail::PrimeSearchRoutineDetail() {}
-
-PrimeSearchRoutineDetail::~PrimeSearchRoutineDetail() = default;
-size_t PrimeSearchRoutineDetail::Hash(size_t seed) const {
-  return seed;
-}
-
-void PrimeSearchRoutineDetail::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-}
-
-bool PrimeSearchRoutineDetail::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-FloatingPointRoutineDetail::FloatingPointRoutineDetail() {}
-
-FloatingPointRoutineDetail::~FloatingPointRoutineDetail() = default;
-size_t FloatingPointRoutineDetail::Hash(size_t seed) const {
-  return seed;
-}
-
-void FloatingPointRoutineDetail::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-}
-
-bool FloatingPointRoutineDetail::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
 MemtesterResult::MemtesterResult()
     : passed_items(),
       failed_items() {}
@@ -971,40 +886,6 @@ void MemtesterResult::WriteIntoTrace(
 }
 
 bool MemtesterResult::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-VolumeButtonRoutineDetail::VolumeButtonRoutineDetail() {}
-
-VolumeButtonRoutineDetail::~VolumeButtonRoutineDetail() = default;
-size_t VolumeButtonRoutineDetail::Hash(size_t seed) const {
-  return seed;
-}
-
-void VolumeButtonRoutineDetail::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-}
-
-bool VolumeButtonRoutineDetail::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-LedLitUpRoutineDetail::LedLitUpRoutineDetail() {}
-
-LedLitUpRoutineDetail::~LedLitUpRoutineDetail() = default;
-size_t LedLitUpRoutineDetail::Hash(size_t seed) const {
-  return seed;
-}
-
-void LedLitUpRoutineDetail::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-}
-
-bool LedLitUpRoutineDetail::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -1484,23 +1365,6 @@ bool FanRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-UrandomRoutineDetail::UrandomRoutineDetail() {}
-
-UrandomRoutineDetail::~UrandomRoutineDetail() = default;
-size_t UrandomRoutineDetail::Hash(size_t seed) const {
-  return seed;
-}
-
-void UrandomRoutineDetail::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-}
-
-bool UrandomRoutineDetail::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
 RoutineArgument::RoutineArgument() : tag_(Tag::kUnrecognizedArgument) {
   data_.unrecognizedArgument = bool();
 }
@@ -1908,17 +1772,6 @@ void RoutineDetail::set_memory(
         std::move(memory));
   }
 }
-void RoutineDetail::set_volume_button(
-    VolumeButtonRoutineDetailPtr volume_button) {
-  if (tag_ == Tag::kVolumeButton) {
-    *(data_.volume_button) = std::move(volume_button);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kVolumeButton;
-    data_.volume_button = new VolumeButtonRoutineDetailPtr(
-        std::move(volume_button));
-  }
-}
 void RoutineDetail::set_fan(
     FanRoutineDetailPtr fan) {
   if (tag_ == Tag::kFan) {
@@ -1941,17 +1794,6 @@ void RoutineDetail::set_audio_driver(
         std::move(audio_driver));
   }
 }
-void RoutineDetail::set_cpu_stress(
-    CpuStressRoutineDetailPtr cpu_stress) {
-  if (tag_ == Tag::kCpuStress) {
-    *(data_.cpu_stress) = std::move(cpu_stress);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kCpuStress;
-    data_.cpu_stress = new CpuStressRoutineDetailPtr(
-        std::move(cpu_stress));
-  }
-}
 void RoutineDetail::set_ufs_lifetime(
     UfsLifetimeRoutineDetailPtr ufs_lifetime) {
   if (tag_ == Tag::kUfsLifetime) {
@@ -1961,61 +1803,6 @@ void RoutineDetail::set_ufs_lifetime(
     tag_ = Tag::kUfsLifetime;
     data_.ufs_lifetime = new UfsLifetimeRoutineDetailPtr(
         std::move(ufs_lifetime));
-  }
-}
-void RoutineDetail::set_disk_read(
-    DiskReadRoutineDetailPtr disk_read) {
-  if (tag_ == Tag::kDiskRead) {
-    *(data_.disk_read) = std::move(disk_read);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kDiskRead;
-    data_.disk_read = new DiskReadRoutineDetailPtr(
-        std::move(disk_read));
-  }
-}
-void RoutineDetail::set_cpu_cache(
-    CpuCacheRoutineDetailPtr cpu_cache) {
-  if (tag_ == Tag::kCpuCache) {
-    *(data_.cpu_cache) = std::move(cpu_cache);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kCpuCache;
-    data_.cpu_cache = new CpuCacheRoutineDetailPtr(
-        std::move(cpu_cache));
-  }
-}
-void RoutineDetail::set_prime_search(
-    PrimeSearchRoutineDetailPtr prime_search) {
-  if (tag_ == Tag::kPrimeSearch) {
-    *(data_.prime_search) = std::move(prime_search);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kPrimeSearch;
-    data_.prime_search = new PrimeSearchRoutineDetailPtr(
-        std::move(prime_search));
-  }
-}
-void RoutineDetail::set_led_lit_up(
-    LedLitUpRoutineDetailPtr led_lit_up) {
-  if (tag_ == Tag::kLedLitUp) {
-    *(data_.led_lit_up) = std::move(led_lit_up);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kLedLitUp;
-    data_.led_lit_up = new LedLitUpRoutineDetailPtr(
-        std::move(led_lit_up));
-  }
-}
-void RoutineDetail::set_floating_point(
-    FloatingPointRoutineDetailPtr floating_point) {
-  if (tag_ == Tag::kFloatingPoint) {
-    *(data_.floating_point) = std::move(floating_point);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kFloatingPoint;
-    data_.floating_point = new FloatingPointRoutineDetailPtr(
-        std::move(floating_point));
   }
 }
 void RoutineDetail::set_bluetooth_power(
@@ -2073,17 +1860,6 @@ void RoutineDetail::set_camera_availability(
         std::move(camera_availability));
   }
 }
-void RoutineDetail::set_urandom(
-    UrandomRoutineDetailPtr urandom) {
-  if (tag_ == Tag::kUrandom) {
-    *(data_.urandom) = std::move(urandom);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kUrandom;
-    data_.urandom = new UrandomRoutineDetailPtr(
-        std::move(urandom));
-  }
-}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -2095,10 +1871,6 @@ void RoutineDetail::DestroyActive() {
 
       delete data_.memory;
       break;
-    case Tag::kVolumeButton:
-
-      delete data_.volume_button;
-      break;
     case Tag::kFan:
 
       delete data_.fan;
@@ -2107,33 +1879,9 @@ void RoutineDetail::DestroyActive() {
 
       delete data_.audio_driver;
       break;
-    case Tag::kCpuStress:
-
-      delete data_.cpu_stress;
-      break;
     case Tag::kUfsLifetime:
 
       delete data_.ufs_lifetime;
-      break;
-    case Tag::kDiskRead:
-
-      delete data_.disk_read;
-      break;
-    case Tag::kCpuCache:
-
-      delete data_.cpu_cache;
-      break;
-    case Tag::kPrimeSearch:
-
-      delete data_.prime_search;
-      break;
-    case Tag::kLedLitUp:
-
-      delete data_.led_lit_up;
-      break;
-    case Tag::kFloatingPoint:
-
-      delete data_.floating_point;
       break;
     case Tag::kBluetoothPower:
 
@@ -2154,10 +1902,6 @@ void RoutineDetail::DestroyActive() {
     case Tag::kCameraAvailability:
 
       delete data_.camera_availability;
-      break;
-    case Tag::kUrandom:
-
-      delete data_.urandom;
       break;
   }
 }
@@ -3836,18 +3580,6 @@ bool StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineDetail::DataView
 
 
 // static
-bool StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineDetail::DataView, ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr>::Read(
-    ::ash::cros_healthd::mojom::CpuStressRoutineDetail::DataView input,
-    ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr* output) {
-  bool success = true;
-  ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr result(::ash::cros_healthd::mojom::CpuStressRoutineDetail::New());
-  
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
 bool StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::DataView, ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr>::Read(
     ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::DataView input,
     ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr* output) {
@@ -3866,54 +3598,6 @@ bool StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::DataView
 
 
 // static
-bool StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineDetail::DataView, ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr>::Read(
-    ::ash::cros_healthd::mojom::DiskReadRoutineDetail::DataView input,
-    ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr* output) {
-  bool success = true;
-  ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr result(::ash::cros_healthd::mojom::DiskReadRoutineDetail::New());
-  
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineDetail::DataView, ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr>::Read(
-    ::ash::cros_healthd::mojom::CpuCacheRoutineDetail::DataView input,
-    ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr* output) {
-  bool success = true;
-  ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr result(::ash::cros_healthd::mojom::CpuCacheRoutineDetail::New());
-  
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineDetail::DataView, ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr>::Read(
-    ::ash::cros_healthd::mojom::PrimeSearchRoutineDetail::DataView input,
-    ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr* output) {
-  bool success = true;
-  ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr result(::ash::cros_healthd::mojom::PrimeSearchRoutineDetail::New());
-  
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::ash::cros_healthd::mojom::FloatingPointRoutineDetail::DataView, ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr>::Read(
-    ::ash::cros_healthd::mojom::FloatingPointRoutineDetail::DataView input,
-    ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr* output) {
-  bool success = true;
-  ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr result(::ash::cros_healthd::mojom::FloatingPointRoutineDetail::New());
-  
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
 bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::cros_healthd::mojom::MemtesterResultPtr>::Read(
     ::ash::cros_healthd::mojom::MemtesterResult::DataView input,
     ::ash::cros_healthd::mojom::MemtesterResultPtr* output) {
@@ -3924,30 +3608,6 @@ bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::
         success = false;
       if (success && !input.ReadFailedItems(&result->failed_items))
         success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::DataView, ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr>::Read(
-    ::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::DataView input,
-    ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr* output) {
-  bool success = true;
-  ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr result(::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::New());
-  
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::ash::cros_healthd::mojom::LedLitUpRoutineDetail::DataView, ::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr>::Read(
-    ::ash::cros_healthd::mojom::LedLitUpRoutineDetail::DataView input,
-    ::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr* output) {
-  bool success = true;
-  ::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr result(::ash::cros_healthd::mojom::LedLitUpRoutineDetail::New());
-  
   *output = std::move(result);
   return success;
 }
@@ -4119,18 +3779,6 @@ bool StructTraits<::ash::cros_healthd::mojom::FanRoutineDetail::DataView, ::ash:
         success = false;
       if (success && !input.ReadFanCountStatus(&result->fan_count_status))
         success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::ash::cros_healthd::mojom::UrandomRoutineDetail::DataView, ::ash::cros_healthd::mojom::UrandomRoutineDetailPtr>::Read(
-    ::ash::cros_healthd::mojom::UrandomRoutineDetail::DataView input,
-    ::ash::cros_healthd::mojom::UrandomRoutineDetailPtr* output) {
-  bool success = true;
-  ::ash::cros_healthd::mojom::UrandomRoutineDetailPtr result(::ash::cros_healthd::mojom::UrandomRoutineDetail::New());
-  
   *output = std::move(result);
   return success;
 }
@@ -4384,15 +4032,6 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
           std::move(result_memory));
       break;
     }
-    case Tag::kVolumeButton: {
-      ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr result_volume_button;
-      if (!input.ReadVolumeButton(&result_volume_button))
-        return false;
-
-      *output = UnionType::NewVolumeButton(
-          std::move(result_volume_button));
-      break;
-    }
     case Tag::kFan: {
       ::ash::cros_healthd::mojom::FanRoutineDetailPtr result_fan;
       if (!input.ReadFan(&result_fan))
@@ -4411,15 +4050,6 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
           std::move(result_audio_driver));
       break;
     }
-    case Tag::kCpuStress: {
-      ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr result_cpu_stress;
-      if (!input.ReadCpuStress(&result_cpu_stress))
-        return false;
-
-      *output = UnionType::NewCpuStress(
-          std::move(result_cpu_stress));
-      break;
-    }
     case Tag::kUfsLifetime: {
       ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr result_ufs_lifetime;
       if (!input.ReadUfsLifetime(&result_ufs_lifetime))
@@ -4427,51 +4057,6 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewUfsLifetime(
           std::move(result_ufs_lifetime));
-      break;
-    }
-    case Tag::kDiskRead: {
-      ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr result_disk_read;
-      if (!input.ReadDiskRead(&result_disk_read))
-        return false;
-
-      *output = UnionType::NewDiskRead(
-          std::move(result_disk_read));
-      break;
-    }
-    case Tag::kCpuCache: {
-      ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr result_cpu_cache;
-      if (!input.ReadCpuCache(&result_cpu_cache))
-        return false;
-
-      *output = UnionType::NewCpuCache(
-          std::move(result_cpu_cache));
-      break;
-    }
-    case Tag::kPrimeSearch: {
-      ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr result_prime_search;
-      if (!input.ReadPrimeSearch(&result_prime_search))
-        return false;
-
-      *output = UnionType::NewPrimeSearch(
-          std::move(result_prime_search));
-      break;
-    }
-    case Tag::kLedLitUp: {
-      ::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr result_led_lit_up;
-      if (!input.ReadLedLitUp(&result_led_lit_up))
-        return false;
-
-      *output = UnionType::NewLedLitUp(
-          std::move(result_led_lit_up));
-      break;
-    }
-    case Tag::kFloatingPoint: {
-      ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr result_floating_point;
-      if (!input.ReadFloatingPoint(&result_floating_point))
-        return false;
-
-      *output = UnionType::NewFloatingPoint(
-          std::move(result_floating_point));
       break;
     }
     case Tag::kBluetoothPower: {
@@ -4517,15 +4102,6 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewCameraAvailability(
           std::move(result_camera_availability));
-      break;
-    }
-    case Tag::kUrandom: {
-      ::ash::cros_healthd::mojom::UrandomRoutineDetailPtr result_urandom;
-      if (!input.ReadUrandom(&result_urandom))
-        return false;
-
-      *output = UnionType::NewUrandom(
-          std::move(result_urandom));
       break;
     }
     default:

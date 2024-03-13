@@ -1560,6 +1560,9 @@ struct emulateNetworkConditionsParams : public crdtp::DeserializableProtocolObje
     double downloadThroughput;
     double uploadThroughput;
     Maybe<String> connectionType;
+    Maybe<double> packetLoss;
+    Maybe<int> packetQueueLength;
+    Maybe<bool> packetReordering;
     DECLARE_DESERIALIZATION_SUPPORT();
 };
 
@@ -1568,6 +1571,9 @@ CRDTP_BEGIN_DESERIALIZER(emulateNetworkConditionsParams)
     CRDTP_DESERIALIZE_FIELD("downloadThroughput", downloadThroughput),
     CRDTP_DESERIALIZE_FIELD("latency", latency),
     CRDTP_DESERIALIZE_FIELD("offline", offline),
+    CRDTP_DESERIALIZE_FIELD_OPT("packetLoss", packetLoss),
+    CRDTP_DESERIALIZE_FIELD_OPT("packetQueueLength", packetQueueLength),
+    CRDTP_DESERIALIZE_FIELD_OPT("packetReordering", packetReordering),
     CRDTP_DESERIALIZE_FIELD("uploadThroughput", uploadThroughput),
 CRDTP_END_DESERIALIZER()
 
@@ -1584,7 +1590,7 @@ void DomainDispatcherImpl::emulateNetworkConditions(const crdtp::Dispatchable& d
     }
 
     std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
-    DispatchResponse response = m_backend->emulateNetworkConditions(params.offline, params.latency, params.downloadThroughput, params.uploadThroughput, std::move(params.connectionType));
+    DispatchResponse response = m_backend->emulateNetworkConditions(params.offline, params.latency, params.downloadThroughput, params.uploadThroughput, std::move(params.connectionType), std::move(params.packetLoss), std::move(params.packetQueueLength), std::move(params.packetReordering));
     if (response.IsFallThrough()) {
         channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Network.emulateNetworkConditions"), dispatchable.Serialized());
         return;

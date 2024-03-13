@@ -293,6 +293,7 @@ kDirectSocketsBlockedForUrlsFieldNumber = 192,
 kProductSpecificationsEnabledFieldNumber = 193,
 kPrefixedVideoFullscreenApiAvailabilityFieldNumber = 194,
 kPrivacySandboxIpProtectionEnabledFieldNumber = 195,
+kOrcaEnabledFieldNumber = 196,
 };
 // optional .enterprise_management.BooleanPolicyProto NewBaseUrlInheritanceBehaviorAllowed = 1;
 bool has_newbaseurlinheritancebehaviorallowed() const;
@@ -2526,6 +2527,24 @@ void unsafe_arena_set_allocated_privacysandboxipprotectionenabled(
 ::enterprise_management::BooleanPolicyProto* privacysandboxipprotectionenabled);
 ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_privacysandboxipprotectionenabled();
 
+// optional .enterprise_management.BooleanPolicyProto OrcaEnabled = 196;
+bool has_orcaenabled() const;
+private:
+bool _internal_has_orcaenabled() const;
+public:
+void clear_orcaenabled();
+const ::enterprise_management::BooleanPolicyProto& orcaenabled() const;
+PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_orcaenabled();
+::enterprise_management::BooleanPolicyProto* mutable_orcaenabled();
+void set_allocated_orcaenabled(::enterprise_management::BooleanPolicyProto* orcaenabled);
+private:
+const ::enterprise_management::BooleanPolicyProto& _internal_orcaenabled() const;
+::enterprise_management::BooleanPolicyProto* _internal_mutable_orcaenabled();
+public:
+void unsafe_arena_set_allocated_orcaenabled(
+::enterprise_management::BooleanPolicyProto* orcaenabled);
+::enterprise_management::BooleanPolicyProto* unsafe_arena_release_orcaenabled();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -2659,6 +2678,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::BooleanPolicyProto* productspecificationsenabled_;
 ::enterprise_management::StringPolicyProto* prefixedvideofullscreenapiavailability_;
 ::enterprise_management::BooleanPolicyProto* privacysandboxipprotectionenabled_;
+::enterprise_management::BooleanPolicyProto* orcaenabled_;
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
@@ -19377,6 +19397,93 @@ _has_bits_[0] &= ~0x00000001u;
 }
 newbaseurlinheritancebehaviorallowed_ = newbaseurlinheritancebehaviorallowed;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.NewBaseUrlInheritanceBehaviorAllowed)
+}
+
+// optional .enterprise_management.BooleanPolicyProto OrcaEnabled = 196;
+inline bool CloudPolicySubProto1::_internal_has_orcaenabled() const {
+bool value = (_has_bits_[3] & 0x10000000u) != 0;
+PROTOBUF_ASSUME(!value || orcaenabled_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_orcaenabled() const {
+return _internal_has_orcaenabled();
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_orcaenabled() const {
+const ::enterprise_management::BooleanPolicyProto* p = orcaenabled_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::orcaenabled() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.OrcaEnabled)
+return _internal_orcaenabled();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_orcaenabled(
+::enterprise_management::BooleanPolicyProto* orcaenabled) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(orcaenabled_);
+}
+orcaenabled_ = orcaenabled;
+if (orcaenabled) {
+_has_bits_[3] |= 0x10000000u;
+} else {
+_has_bits_[3] &= ~0x10000000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.OrcaEnabled)
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_orcaenabled() {
+_has_bits_[3] &= ~0x10000000u;
+::enterprise_management::BooleanPolicyProto* temp = orcaenabled_;
+orcaenabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_orcaenabled() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.OrcaEnabled)
+_has_bits_[3] &= ~0x10000000u;
+::enterprise_management::BooleanPolicyProto* temp = orcaenabled_;
+orcaenabled_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_orcaenabled() {
+_has_bits_[3] |= 0x10000000u;
+if (orcaenabled_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+orcaenabled_ = p;
+}
+return orcaenabled_;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_orcaenabled() {
+::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_orcaenabled();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.OrcaEnabled)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_orcaenabled(::enterprise_management::BooleanPolicyProto* orcaenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(orcaenabled_);
+}
+if (orcaenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(orcaenabled));
+if (message_arena != submessage_arena) {
+orcaenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, orcaenabled, submessage_arena);
+}
+_has_bits_[3] |= 0x10000000u;
+} else {
+_has_bits_[3] &= ~0x10000000u;
+}
+orcaenabled_ = orcaenabled;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.OrcaEnabled)
 }
 
 // optional .enterprise_management.IntegerPolicyProto PageUpAndPageDownKeysModifier = 166;

@@ -4443,7 +4443,7 @@ public:
     };
     virtual void DeleteCookies(const String& in_name, Maybe<String> in_url, Maybe<String> in_domain, Maybe<String> in_path, Maybe<String> in_partitionKey, std::unique_ptr<DeleteCookiesCallback> callback) = 0;
     virtual DispatchResponse Disable() = 0;
-    virtual DispatchResponse EmulateNetworkConditions(bool in_offline, double in_latency, double in_downloadThroughput, double in_uploadThroughput, Maybe<String> in_connectionType) = 0;
+    virtual DispatchResponse EmulateNetworkConditions(bool in_offline, double in_latency, double in_downloadThroughput, double in_uploadThroughput, Maybe<String> in_connectionType, Maybe<double> in_packetLoss, Maybe<int> in_packetQueueLength, Maybe<bool> in_packetReordering) = 0;
     virtual DispatchResponse Enable(Maybe<int> in_maxTotalBufferSize, Maybe<int> in_maxResourceBufferSize, Maybe<int> in_maxPostDataSize) = 0;
     class CONTENT_EXPORT GetAllCookiesCallback {
     public:

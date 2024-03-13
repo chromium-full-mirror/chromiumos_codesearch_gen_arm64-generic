@@ -51,15 +51,8 @@ class RoutineStateWaiting_Data;
 class RoutineStateFinished_Data;
 class MemoryRoutineDetail_Data;
 class AudioDriverRoutineDetail_Data;
-class CpuStressRoutineDetail_Data;
 class UfsLifetimeRoutineDetail_Data;
-class DiskReadRoutineDetail_Data;
-class CpuCacheRoutineDetail_Data;
-class PrimeSearchRoutineDetail_Data;
-class FloatingPointRoutineDetail_Data;
 class MemtesterResult_Data;
-class VolumeButtonRoutineDetail_Data;
-class LedLitUpRoutineDetail_Data;
 class BluetoothPoweredDetail_Data;
 class BluetoothPowerRoutineDetail_Data;
 class BluetoothDiscoveringDetail_Data;
@@ -70,7 +63,6 @@ class BluetoothPairingPeripheralInfo_Data;
 class BluetoothPairingRoutineDetail_Data;
 class CameraAvailabilityRoutineDetail_Data;
 class FanRoutineDetail_Data;
-class UrandomRoutineDetail_Data;
 class RoutineArgument_Data;
 class RoutineStateUnion_Data;
 class RoutineDetail_Data;
@@ -577,25 +569,11 @@ class  RoutineDetail_Data {
     
     kMemory,
     
-    kVolumeButton,
-    
     kFan,
     
     kAudioDriver,
     
-    kCpuStress,
-    
     kUfsLifetime,
-    
-    kDiskRead,
-    
-    kCpuCache,
-    
-    kPrimeSearch,
-    
-    kLedLitUp,
-    
-    kFloatingPoint,
     
     kBluetoothPower,
     
@@ -606,8 +584,6 @@ class  RoutineDetail_Data {
     kBluetoothPairing,
     
     kCameraAvailability,
-    
-    kUrandom,
   };
 
   // A note on layout:
@@ -617,22 +593,14 @@ class  RoutineDetail_Data {
     Union_() : unknown(0) {}
     uint8_t f_unrecognizedArgument : 1;
     mojo::internal::Pointer<internal::MemoryRoutineDetail_Data> f_memory;
-    mojo::internal::Pointer<internal::VolumeButtonRoutineDetail_Data> f_volume_button;
     mojo::internal::Pointer<internal::FanRoutineDetail_Data> f_fan;
     mojo::internal::Pointer<internal::AudioDriverRoutineDetail_Data> f_audio_driver;
-    mojo::internal::Pointer<internal::CpuStressRoutineDetail_Data> f_cpu_stress;
     mojo::internal::Pointer<internal::UfsLifetimeRoutineDetail_Data> f_ufs_lifetime;
-    mojo::internal::Pointer<internal::DiskReadRoutineDetail_Data> f_disk_read;
-    mojo::internal::Pointer<internal::CpuCacheRoutineDetail_Data> f_cpu_cache;
-    mojo::internal::Pointer<internal::PrimeSearchRoutineDetail_Data> f_prime_search;
-    mojo::internal::Pointer<internal::LedLitUpRoutineDetail_Data> f_led_lit_up;
-    mojo::internal::Pointer<internal::FloatingPointRoutineDetail_Data> f_floating_point;
     mojo::internal::Pointer<internal::BluetoothPowerRoutineDetail_Data> f_bluetooth_power;
     mojo::internal::Pointer<internal::BluetoothDiscoveryRoutineDetail_Data> f_bluetooth_discovery;
     mojo::internal::Pointer<internal::BluetoothScanningRoutineDetail_Data> f_bluetooth_scanning;
     mojo::internal::Pointer<internal::BluetoothPairingRoutineDetail_Data> f_bluetooth_pairing;
     mojo::internal::Pointer<internal::CameraAvailabilityRoutineDetail_Data> f_camera_availability;
-    mojo::internal::Pointer<internal::UrandomRoutineDetail_Data> f_urandom;
     uint64_t unknown;
   };
 
@@ -1806,53 +1774,6 @@ struct AudioDriverRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     AudioDriverRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  CpuStressRoutineDetail_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<CpuStressRoutineDetail_Data>;
-
-  CpuStressRoutineDetail_Data();
-  ~CpuStressRoutineDetail_Data() = delete;
-};
-static_assert(sizeof(CpuStressRoutineDetail_Data) == 8,
-              "Bad sizeof(CpuStressRoutineDetail_Data)");
-// Used by CpuStressRoutineDetail::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct CpuStressRoutineDetail_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  CpuStressRoutineDetail_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~CpuStressRoutineDetail_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<CpuStressRoutineDetail_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    CpuStressRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  UfsLifetimeRoutineDetail_Data {
  public:
   static bool Validate(const void* data,
@@ -1904,194 +1825,6 @@ struct UfsLifetimeRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     UfsLifetimeRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  DiskReadRoutineDetail_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<DiskReadRoutineDetail_Data>;
-
-  DiskReadRoutineDetail_Data();
-  ~DiskReadRoutineDetail_Data() = delete;
-};
-static_assert(sizeof(DiskReadRoutineDetail_Data) == 8,
-              "Bad sizeof(DiskReadRoutineDetail_Data)");
-// Used by DiskReadRoutineDetail::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct DiskReadRoutineDetail_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  DiskReadRoutineDetail_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~DiskReadRoutineDetail_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<DiskReadRoutineDetail_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    DiskReadRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  CpuCacheRoutineDetail_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<CpuCacheRoutineDetail_Data>;
-
-  CpuCacheRoutineDetail_Data();
-  ~CpuCacheRoutineDetail_Data() = delete;
-};
-static_assert(sizeof(CpuCacheRoutineDetail_Data) == 8,
-              "Bad sizeof(CpuCacheRoutineDetail_Data)");
-// Used by CpuCacheRoutineDetail::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct CpuCacheRoutineDetail_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  CpuCacheRoutineDetail_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~CpuCacheRoutineDetail_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<CpuCacheRoutineDetail_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    CpuCacheRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  PrimeSearchRoutineDetail_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<PrimeSearchRoutineDetail_Data>;
-
-  PrimeSearchRoutineDetail_Data();
-  ~PrimeSearchRoutineDetail_Data() = delete;
-};
-static_assert(sizeof(PrimeSearchRoutineDetail_Data) == 8,
-              "Bad sizeof(PrimeSearchRoutineDetail_Data)");
-// Used by PrimeSearchRoutineDetail::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct PrimeSearchRoutineDetail_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  PrimeSearchRoutineDetail_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~PrimeSearchRoutineDetail_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<PrimeSearchRoutineDetail_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    PrimeSearchRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  FloatingPointRoutineDetail_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<FloatingPointRoutineDetail_Data>;
-
-  FloatingPointRoutineDetail_Data();
-  ~FloatingPointRoutineDetail_Data() = delete;
-};
-static_assert(sizeof(FloatingPointRoutineDetail_Data) == 8,
-              "Bad sizeof(FloatingPointRoutineDetail_Data)");
-// Used by FloatingPointRoutineDetail::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct FloatingPointRoutineDetail_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  FloatingPointRoutineDetail_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~FloatingPointRoutineDetail_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<FloatingPointRoutineDetail_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    FloatingPointRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  MemtesterResult_Data {
  public:
   static bool Validate(const void* data,
@@ -2141,100 +1874,6 @@ struct MemtesterResult_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     MemtesterResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  VolumeButtonRoutineDetail_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<VolumeButtonRoutineDetail_Data>;
-
-  VolumeButtonRoutineDetail_Data();
-  ~VolumeButtonRoutineDetail_Data() = delete;
-};
-static_assert(sizeof(VolumeButtonRoutineDetail_Data) == 8,
-              "Bad sizeof(VolumeButtonRoutineDetail_Data)");
-// Used by VolumeButtonRoutineDetail::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct VolumeButtonRoutineDetail_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  VolumeButtonRoutineDetail_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~VolumeButtonRoutineDetail_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<VolumeButtonRoutineDetail_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    VolumeButtonRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  LedLitUpRoutineDetail_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<LedLitUpRoutineDetail_Data>;
-
-  LedLitUpRoutineDetail_Data();
-  ~LedLitUpRoutineDetail_Data() = delete;
-};
-static_assert(sizeof(LedLitUpRoutineDetail_Data) == 8,
-              "Bad sizeof(LedLitUpRoutineDetail_Data)");
-// Used by LedLitUpRoutineDetail::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct LedLitUpRoutineDetail_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  LedLitUpRoutineDetail_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~LedLitUpRoutineDetail_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<LedLitUpRoutineDetail_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    LedLitUpRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  BluetoothPoweredDetail_Data {
  public:
   static bool Validate(const void* data,
@@ -2736,53 +2375,6 @@ struct FanRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     FanRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  UrandomRoutineDetail_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<UrandomRoutineDetail_Data>;
-
-  UrandomRoutineDetail_Data();
-  ~UrandomRoutineDetail_Data() = delete;
-};
-static_assert(sizeof(UrandomRoutineDetail_Data) == 8,
-              "Bad sizeof(UrandomRoutineDetail_Data)");
-// Used by UrandomRoutineDetail::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct UrandomRoutineDetail_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  UrandomRoutineDetail_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~UrandomRoutineDetail_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<UrandomRoutineDetail_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    UrandomRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

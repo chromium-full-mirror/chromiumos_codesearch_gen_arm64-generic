@@ -3917,7 +3917,7 @@ public:
     virtual DispatchResponse canClearBrowserCache(bool* out_result) = 0;
     virtual DispatchResponse canClearBrowserCookies(bool* out_result) = 0;
     virtual DispatchResponse disable() = 0;
-    virtual DispatchResponse emulateNetworkConditions(bool in_offline, double in_latency, double in_downloadThroughput, double in_uploadThroughput, Maybe<String> in_connectionType) = 0;
+    virtual DispatchResponse emulateNetworkConditions(bool in_offline, double in_latency, double in_downloadThroughput, double in_uploadThroughput, Maybe<String> in_connectionType, Maybe<double> in_packetLoss, Maybe<int> in_packetQueueLength, Maybe<bool> in_packetReordering) = 0;
     virtual DispatchResponse enable(Maybe<int> in_maxTotalBufferSize, Maybe<int> in_maxResourceBufferSize, Maybe<int> in_maxPostDataSize) = 0;
     virtual DispatchResponse getCertificate(const String& in_origin, std::unique_ptr<protocol::Array<String>>* out_tableNames) = 0;
     class CORE_EXPORT GetResponseBodyCallback {

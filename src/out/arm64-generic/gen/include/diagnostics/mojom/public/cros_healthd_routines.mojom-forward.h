@@ -70,23 +70,9 @@ class MemoryRoutineDetailDataView;
 
 class AudioDriverRoutineDetailDataView;
 
-class CpuStressRoutineDetailDataView;
-
 class UfsLifetimeRoutineDetailDataView;
 
-class DiskReadRoutineDetailDataView;
-
-class CpuCacheRoutineDetailDataView;
-
-class PrimeSearchRoutineDetailDataView;
-
-class FloatingPointRoutineDetailDataView;
-
 class MemtesterResultDataView;
-
-class VolumeButtonRoutineDetailDataView;
-
-class LedLitUpRoutineDetailDataView;
 
 class BluetoothPoweredDetailDataView;
 
@@ -107,8 +93,6 @@ class BluetoothPairingRoutineDetailDataView;
 class CameraAvailabilityRoutineDetailDataView;
 
 class FanRoutineDetailDataView;
-
-class UrandomRoutineDetailDataView;
 
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
@@ -207,32 +191,11 @@ using MemoryRoutineDetailPtr = mojo::StructPtr<MemoryRoutineDetail>;
 class AudioDriverRoutineDetail;
 using AudioDriverRoutineDetailPtr = mojo::InlinedStructPtr<AudioDriverRoutineDetail>;
 
-class CpuStressRoutineDetail;
-using CpuStressRoutineDetailPtr = mojo::InlinedStructPtr<CpuStressRoutineDetail>;
-
 class UfsLifetimeRoutineDetail;
 using UfsLifetimeRoutineDetailPtr = mojo::InlinedStructPtr<UfsLifetimeRoutineDetail>;
 
-class DiskReadRoutineDetail;
-using DiskReadRoutineDetailPtr = mojo::InlinedStructPtr<DiskReadRoutineDetail>;
-
-class CpuCacheRoutineDetail;
-using CpuCacheRoutineDetailPtr = mojo::InlinedStructPtr<CpuCacheRoutineDetail>;
-
-class PrimeSearchRoutineDetail;
-using PrimeSearchRoutineDetailPtr = mojo::InlinedStructPtr<PrimeSearchRoutineDetail>;
-
-class FloatingPointRoutineDetail;
-using FloatingPointRoutineDetailPtr = mojo::InlinedStructPtr<FloatingPointRoutineDetail>;
-
 class MemtesterResult;
 using MemtesterResultPtr = mojo::StructPtr<MemtesterResult>;
-
-class VolumeButtonRoutineDetail;
-using VolumeButtonRoutineDetailPtr = mojo::InlinedStructPtr<VolumeButtonRoutineDetail>;
-
-class LedLitUpRoutineDetail;
-using LedLitUpRoutineDetailPtr = mojo::InlinedStructPtr<LedLitUpRoutineDetail>;
 
 class BluetoothPoweredDetail;
 using BluetoothPoweredDetailPtr = mojo::InlinedStructPtr<BluetoothPoweredDetail>;
@@ -263,9 +226,6 @@ using CameraAvailabilityRoutineDetailPtr = mojo::InlinedStructPtr<CameraAvailabi
 
 class FanRoutineDetail;
 using FanRoutineDetailPtr = mojo::StructPtr<FanRoutineDetail>;
-
-class UrandomRoutineDetail;
-using UrandomRoutineDetailPtr = mojo::InlinedStructPtr<UrandomRoutineDetail>;
 
 class RoutineArgument;
 

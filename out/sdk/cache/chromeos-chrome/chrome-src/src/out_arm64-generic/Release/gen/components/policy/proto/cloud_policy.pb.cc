@@ -143,7 +143,8 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , directsocketsblockedforurls_(nullptr)
   , productspecificationsenabled_(nullptr)
   , prefixedvideofullscreenapiavailability_(nullptr)
-  , privacysandboxipprotectionenabled_(nullptr){}
+  , privacysandboxipprotectionenabled_(nullptr)
+  , orcaenabled_(nullptr){}
 struct CloudPolicySubProto1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR CloudPolicySubProto1DefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -977,6 +978,10 @@ class CloudPolicySubProto1::_Internal {
   static void set_has_newbaseurlinheritancebehaviorallowed(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static const ::enterprise_management::BooleanPolicyProto& orcaenabled(const CloudPolicySubProto1* msg);
+  static void set_has_orcaenabled(HasBits* has_bits) {
+    (*has_bits)[3] |= 268435456u;
+  }
   static const ::enterprise_management::IntegerPolicyProto& pageupandpagedownkeysmodifier(const CloudPolicySubProto1* msg);
   static void set_has_pageupandpagedownkeysmodifier(HasBits* has_bits) {
     (*has_bits)[3] |= 128u;
@@ -1475,6 +1480,10 @@ const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::newbaseurlinheritancebehaviorallowed(const CloudPolicySubProto1* msg) {
   return *msg->newbaseurlinheritancebehaviorallowed_;
 }
+const ::enterprise_management::BooleanPolicyProto&
+CloudPolicySubProto1::_Internal::orcaenabled(const CloudPolicySubProto1* msg) {
+  return *msg->orcaenabled_;
+}
 const ::enterprise_management::IntegerPolicyProto&
 CloudPolicySubProto1::_Internal::pageupandpagedownkeysmodifier(const CloudPolicySubProto1* msg) {
   return *msg->pageupandpagedownkeysmodifier_;
@@ -1970,6 +1979,10 @@ void CloudPolicySubProto1::clear_nativeclientforceallowed() {
 void CloudPolicySubProto1::clear_newbaseurlinheritancebehaviorallowed() {
   if (newbaseurlinheritancebehaviorallowed_ != nullptr) newbaseurlinheritancebehaviorallowed_->Clear();
   _has_bits_[0] &= ~0x00000001u;
+}
+void CloudPolicySubProto1::clear_orcaenabled() {
+  if (orcaenabled_ != nullptr) orcaenabled_->Clear();
+  _has_bits_[3] &= ~0x10000000u;
 }
 void CloudPolicySubProto1::clear_pageupandpagedownkeysmodifier() {
   if (pageupandpagedownkeysmodifier_ != nullptr) pageupandpagedownkeysmodifier_->Clear();
@@ -2821,14 +2834,19 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
   } else {
     privacysandboxipprotectionenabled_ = nullptr;
   }
+  if (from._internal_has_orcaenabled()) {
+    orcaenabled_ = new ::enterprise_management::BooleanPolicyProto(*from.orcaenabled_);
+  } else {
+    orcaenabled_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CloudPolicySubProto1)
 }
 
 inline void CloudPolicySubProto1::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&privacysandboxipprotectionenabled_) -
-    reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_)) + sizeof(privacysandboxipprotectionenabled_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&orcaenabled_) -
+    reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_)) + sizeof(orcaenabled_));
 }
 
 CloudPolicySubProto1::~CloudPolicySubProto1() {
@@ -2966,6 +2984,7 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete productspecificationsenabled_;
   if (this != internal_default_instance()) delete prefixedvideofullscreenapiavailability_;
   if (this != internal_default_instance()) delete privacysandboxipprotectionenabled_;
+  if (this != internal_default_instance()) delete orcaenabled_;
 }
 
 void CloudPolicySubProto1::SetCachedSize(int size) const {
@@ -3492,7 +3511,7 @@ void CloudPolicySubProto1::Clear() {
       directsocketsallowedforurls_->Clear();
     }
   }
-  if (cached_has_bits & 0x0f000000u) {
+  if (cached_has_bits & 0x1f000000u) {
     if (cached_has_bits & 0x01000000u) {
       GOOGLE_DCHECK(directsocketsblockedforurls_ != nullptr);
       directsocketsblockedforurls_->Clear();
@@ -3508,6 +3527,10 @@ void CloudPolicySubProto1::Clear() {
     if (cached_has_bits & 0x08000000u) {
       GOOGLE_DCHECK(privacysandboxipprotectionenabled_ != nullptr);
       privacysandboxipprotectionenabled_->Clear();
+    }
+    if (cached_has_bits & 0x10000000u) {
+      GOOGLE_DCHECK(orcaenabled_ != nullptr);
+      orcaenabled_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -4512,6 +4535,14 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.BooleanPolicyProto OrcaEnabled = 196;
+      case 196:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_orcaenabled(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5413,6 +5444,13 @@ uint8_t* CloudPolicySubProto1::_InternalSerialize(
         _Internal::privacysandboxipprotectionenabled(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.BooleanPolicyProto OrcaEnabled = 196;
+  if (cached_has_bits & 0x10000000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(196, _Internal::orcaenabled(this),
+        _Internal::orcaenabled(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -6303,7 +6341,7 @@ size_t CloudPolicySubProto1::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x0f000000u) {
+  if (cached_has_bits & 0x1f000000u) {
     // optional .enterprise_management.StringListPolicyProto DirectSocketsBlockedForUrls = 192;
     if (cached_has_bits & 0x01000000u) {
       total_size += 2 +
@@ -6330,6 +6368,13 @@ size_t CloudPolicySubProto1::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *privacysandboxipprotectionenabled_);
+    }
+
+    // optional .enterprise_management.BooleanPolicyProto OrcaEnabled = 196;
+    if (cached_has_bits & 0x10000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *orcaenabled_);
     }
 
   }
@@ -6747,7 +6792,7 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
       _internal_mutable_directsocketsallowedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_directsocketsallowedforurls());
     }
   }
-  if (cached_has_bits & 0x0f000000u) {
+  if (cached_has_bits & 0x1f000000u) {
     if (cached_has_bits & 0x01000000u) {
       _internal_mutable_directsocketsblockedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_directsocketsblockedforurls());
     }
@@ -6759,6 +6804,9 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
     }
     if (cached_has_bits & 0x08000000u) {
       _internal_mutable_privacysandboxipprotectionenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_privacysandboxipprotectionenabled());
+    }
+    if (cached_has_bits & 0x10000000u) {
+      _internal_mutable_orcaenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_orcaenabled());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -6783,8 +6831,8 @@ void CloudPolicySubProto1::InternalSwap(CloudPolicySubProto1* other) {
   swap(_has_bits_[2], other->_has_bits_[2]);
   swap(_has_bits_[3], other->_has_bits_[3]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, privacysandboxipprotectionenabled_)
-      + sizeof(CloudPolicySubProto1::privacysandboxipprotectionenabled_)
+      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, orcaenabled_)
+      + sizeof(CloudPolicySubProto1::orcaenabled_)
       - PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, newbaseurlinheritancebehaviorallowed_)>(
           reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_),
           reinterpret_cast<char*>(&other->newbaseurlinheritancebehaviorallowed_));

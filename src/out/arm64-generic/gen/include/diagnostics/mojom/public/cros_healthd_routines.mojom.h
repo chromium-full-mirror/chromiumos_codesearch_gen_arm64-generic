@@ -2183,142 +2183,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  CpuStressRoutineDetail {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<CpuStressRoutineDetail, T>::value>;
-  using DataView = CpuStressRoutineDetailDataView;
-  using Data_ = internal::CpuStressRoutineDetail_Data;
-
-  template <typename... Args>
-  static CpuStressRoutineDetailPtr New(Args&&... args) {
-    return CpuStressRoutineDetailPtr(
-        std::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static CpuStressRoutineDetailPtr From(const U& u) {
-    return mojo::TypeConverter<CpuStressRoutineDetailPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, CpuStressRoutineDetail>::Convert(*this);
-  }
-
-
-  CpuStressRoutineDetail();
-
-
-  ~CpuStressRoutineDetail();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = CpuStressRoutineDetailPtr>
-  CpuStressRoutineDetailPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, CpuStressRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, CpuStressRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, CpuStressRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        CpuStressRoutineDetail::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        CpuStressRoutineDetail::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::CpuStressRoutineDetail_UnserializedMessageContext<
-            UserType, CpuStressRoutineDetail::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<CpuStressRoutineDetail::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return CpuStressRoutineDetail::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::CpuStressRoutineDetail_UnserializedMessageContext<
-            UserType, CpuStressRoutineDetail::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<CpuStressRoutineDetail::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, CpuStressRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, CpuStressRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, CpuStressRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, CpuStressRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
 class  UfsLifetimeRoutineDetail {
  public:
   template <typename T>
@@ -2462,822 +2326,6 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
-
-
-
-
-class  DiskReadRoutineDetail {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<DiskReadRoutineDetail, T>::value>;
-  using DataView = DiskReadRoutineDetailDataView;
-  using Data_ = internal::DiskReadRoutineDetail_Data;
-
-  template <typename... Args>
-  static DiskReadRoutineDetailPtr New(Args&&... args) {
-    return DiskReadRoutineDetailPtr(
-        std::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static DiskReadRoutineDetailPtr From(const U& u) {
-    return mojo::TypeConverter<DiskReadRoutineDetailPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, DiskReadRoutineDetail>::Convert(*this);
-  }
-
-
-  DiskReadRoutineDetail();
-
-
-  ~DiskReadRoutineDetail();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = DiskReadRoutineDetailPtr>
-  DiskReadRoutineDetailPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, DiskReadRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, DiskReadRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, DiskReadRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        DiskReadRoutineDetail::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        DiskReadRoutineDetail::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::DiskReadRoutineDetail_UnserializedMessageContext<
-            UserType, DiskReadRoutineDetail::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<DiskReadRoutineDetail::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return DiskReadRoutineDetail::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::DiskReadRoutineDetail_UnserializedMessageContext<
-            UserType, DiskReadRoutineDetail::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<DiskReadRoutineDetail::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, DiskReadRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, DiskReadRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, DiskReadRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, DiskReadRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
-class  CpuCacheRoutineDetail {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<CpuCacheRoutineDetail, T>::value>;
-  using DataView = CpuCacheRoutineDetailDataView;
-  using Data_ = internal::CpuCacheRoutineDetail_Data;
-
-  template <typename... Args>
-  static CpuCacheRoutineDetailPtr New(Args&&... args) {
-    return CpuCacheRoutineDetailPtr(
-        std::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static CpuCacheRoutineDetailPtr From(const U& u) {
-    return mojo::TypeConverter<CpuCacheRoutineDetailPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, CpuCacheRoutineDetail>::Convert(*this);
-  }
-
-
-  CpuCacheRoutineDetail();
-
-
-  ~CpuCacheRoutineDetail();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = CpuCacheRoutineDetailPtr>
-  CpuCacheRoutineDetailPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        CpuCacheRoutineDetail::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        CpuCacheRoutineDetail::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::CpuCacheRoutineDetail_UnserializedMessageContext<
-            UserType, CpuCacheRoutineDetail::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<CpuCacheRoutineDetail::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return CpuCacheRoutineDetail::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::CpuCacheRoutineDetail_UnserializedMessageContext<
-            UserType, CpuCacheRoutineDetail::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<CpuCacheRoutineDetail::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
-class  PrimeSearchRoutineDetail {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<PrimeSearchRoutineDetail, T>::value>;
-  using DataView = PrimeSearchRoutineDetailDataView;
-  using Data_ = internal::PrimeSearchRoutineDetail_Data;
-
-  template <typename... Args>
-  static PrimeSearchRoutineDetailPtr New(Args&&... args) {
-    return PrimeSearchRoutineDetailPtr(
-        std::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static PrimeSearchRoutineDetailPtr From(const U& u) {
-    return mojo::TypeConverter<PrimeSearchRoutineDetailPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, PrimeSearchRoutineDetail>::Convert(*this);
-  }
-
-
-  PrimeSearchRoutineDetail();
-
-
-  ~PrimeSearchRoutineDetail();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = PrimeSearchRoutineDetailPtr>
-  PrimeSearchRoutineDetailPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        PrimeSearchRoutineDetail::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        PrimeSearchRoutineDetail::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::PrimeSearchRoutineDetail_UnserializedMessageContext<
-            UserType, PrimeSearchRoutineDetail::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<PrimeSearchRoutineDetail::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return PrimeSearchRoutineDetail::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::PrimeSearchRoutineDetail_UnserializedMessageContext<
-            UserType, PrimeSearchRoutineDetail::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<PrimeSearchRoutineDetail::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
-class  FloatingPointRoutineDetail {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<FloatingPointRoutineDetail, T>::value>;
-  using DataView = FloatingPointRoutineDetailDataView;
-  using Data_ = internal::FloatingPointRoutineDetail_Data;
-
-  template <typename... Args>
-  static FloatingPointRoutineDetailPtr New(Args&&... args) {
-    return FloatingPointRoutineDetailPtr(
-        std::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static FloatingPointRoutineDetailPtr From(const U& u) {
-    return mojo::TypeConverter<FloatingPointRoutineDetailPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, FloatingPointRoutineDetail>::Convert(*this);
-  }
-
-
-  FloatingPointRoutineDetail();
-
-
-  ~FloatingPointRoutineDetail();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = FloatingPointRoutineDetailPtr>
-  FloatingPointRoutineDetailPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        FloatingPointRoutineDetail::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        FloatingPointRoutineDetail::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::FloatingPointRoutineDetail_UnserializedMessageContext<
-            UserType, FloatingPointRoutineDetail::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<FloatingPointRoutineDetail::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return FloatingPointRoutineDetail::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::FloatingPointRoutineDetail_UnserializedMessageContext<
-            UserType, FloatingPointRoutineDetail::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<FloatingPointRoutineDetail::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
-
-class  VolumeButtonRoutineDetail {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<VolumeButtonRoutineDetail, T>::value>;
-  using DataView = VolumeButtonRoutineDetailDataView;
-  using Data_ = internal::VolumeButtonRoutineDetail_Data;
-
-  template <typename... Args>
-  static VolumeButtonRoutineDetailPtr New(Args&&... args) {
-    return VolumeButtonRoutineDetailPtr(
-        std::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static VolumeButtonRoutineDetailPtr From(const U& u) {
-    return mojo::TypeConverter<VolumeButtonRoutineDetailPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, VolumeButtonRoutineDetail>::Convert(*this);
-  }
-
-
-  VolumeButtonRoutineDetail();
-
-
-  ~VolumeButtonRoutineDetail();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = VolumeButtonRoutineDetailPtr>
-  VolumeButtonRoutineDetailPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        VolumeButtonRoutineDetail::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        VolumeButtonRoutineDetail::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::VolumeButtonRoutineDetail_UnserializedMessageContext<
-            UserType, VolumeButtonRoutineDetail::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<VolumeButtonRoutineDetail::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return VolumeButtonRoutineDetail::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::VolumeButtonRoutineDetail_UnserializedMessageContext<
-            UserType, VolumeButtonRoutineDetail::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<VolumeButtonRoutineDetail::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
-class  LedLitUpRoutineDetail {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<LedLitUpRoutineDetail, T>::value>;
-  using DataView = LedLitUpRoutineDetailDataView;
-  using Data_ = internal::LedLitUpRoutineDetail_Data;
-
-  template <typename... Args>
-  static LedLitUpRoutineDetailPtr New(Args&&... args) {
-    return LedLitUpRoutineDetailPtr(
-        std::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static LedLitUpRoutineDetailPtr From(const U& u) {
-    return mojo::TypeConverter<LedLitUpRoutineDetailPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, LedLitUpRoutineDetail>::Convert(*this);
-  }
-
-
-  LedLitUpRoutineDetail();
-
-
-  ~LedLitUpRoutineDetail();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = LedLitUpRoutineDetailPtr>
-  LedLitUpRoutineDetailPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        LedLitUpRoutineDetail::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        LedLitUpRoutineDetail::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::LedLitUpRoutineDetail_UnserializedMessageContext<
-            UserType, LedLitUpRoutineDetail::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<LedLitUpRoutineDetail::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return LedLitUpRoutineDetail::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::LedLitUpRoutineDetail_UnserializedMessageContext<
-            UserType, LedLitUpRoutineDetail::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<LedLitUpRoutineDetail::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
 
 
 
@@ -3717,142 +2765,6 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
-
-
-
-
-
-class  UrandomRoutineDetail {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<UrandomRoutineDetail, T>::value>;
-  using DataView = UrandomRoutineDetailDataView;
-  using Data_ = internal::UrandomRoutineDetail_Data;
-
-  template <typename... Args>
-  static UrandomRoutineDetailPtr New(Args&&... args) {
-    return UrandomRoutineDetailPtr(
-        std::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static UrandomRoutineDetailPtr From(const U& u) {
-    return mojo::TypeConverter<UrandomRoutineDetailPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, UrandomRoutineDetail>::Convert(*this);
-  }
-
-
-  UrandomRoutineDetail();
-
-
-  ~UrandomRoutineDetail();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = UrandomRoutineDetailPtr>
-  UrandomRoutineDetailPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, UrandomRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, UrandomRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, UrandomRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        UrandomRoutineDetail::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        UrandomRoutineDetail::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::UrandomRoutineDetail_UnserializedMessageContext<
-            UserType, UrandomRoutineDetail::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<UrandomRoutineDetail::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return UrandomRoutineDetail::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::UrandomRoutineDetail_UnserializedMessageContext<
-            UserType, UrandomRoutineDetail::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<UrandomRoutineDetail::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, UrandomRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, UrandomRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, UrandomRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, UrandomRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
 
 
 
@@ -4549,14 +3461,6 @@ class  RoutineDetail {
     result->set_memory(std::move(value));
     return result;
   }
-  // Construct an instance holding |volume_button|.
-  static RoutineDetailPtr
-  NewVolumeButton(
-      VolumeButtonRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(std::in_place);
-    result->set_volume_button(std::move(value));
-    return result;
-  }
   // Construct an instance holding |fan|.
   static RoutineDetailPtr
   NewFan(
@@ -4573,60 +3477,12 @@ class  RoutineDetail {
     result->set_audio_driver(std::move(value));
     return result;
   }
-  // Construct an instance holding |cpu_stress|.
-  static RoutineDetailPtr
-  NewCpuStress(
-      CpuStressRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(std::in_place);
-    result->set_cpu_stress(std::move(value));
-    return result;
-  }
   // Construct an instance holding |ufs_lifetime|.
   static RoutineDetailPtr
   NewUfsLifetime(
       UfsLifetimeRoutineDetailPtr value) {
     auto result = RoutineDetailPtr(std::in_place);
     result->set_ufs_lifetime(std::move(value));
-    return result;
-  }
-  // Construct an instance holding |disk_read|.
-  static RoutineDetailPtr
-  NewDiskRead(
-      DiskReadRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(std::in_place);
-    result->set_disk_read(std::move(value));
-    return result;
-  }
-  // Construct an instance holding |cpu_cache|.
-  static RoutineDetailPtr
-  NewCpuCache(
-      CpuCacheRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(std::in_place);
-    result->set_cpu_cache(std::move(value));
-    return result;
-  }
-  // Construct an instance holding |prime_search|.
-  static RoutineDetailPtr
-  NewPrimeSearch(
-      PrimeSearchRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(std::in_place);
-    result->set_prime_search(std::move(value));
-    return result;
-  }
-  // Construct an instance holding |led_lit_up|.
-  static RoutineDetailPtr
-  NewLedLitUp(
-      LedLitUpRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(std::in_place);
-    result->set_led_lit_up(std::move(value));
-    return result;
-  }
-  // Construct an instance holding |floating_point|.
-  static RoutineDetailPtr
-  NewFloatingPoint(
-      FloatingPointRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(std::in_place);
-    result->set_floating_point(std::move(value));
     return result;
   }
   // Construct an instance holding |bluetooth_power|.
@@ -4667,14 +3523,6 @@ class  RoutineDetail {
       CameraAvailabilityRoutineDetailPtr value) {
     auto result = RoutineDetailPtr(std::in_place);
     result->set_camera_availability(std::move(value));
-    return result;
-  }
-  // Construct an instance holding |urandom|.
-  static RoutineDetailPtr
-  NewUrandom(
-      UrandomRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(std::in_place);
-    result->set_urandom(std::move(value));
     return result;
   }
 
@@ -4744,18 +3592,6 @@ class  RoutineDetail {
   void set_memory(
       MemoryRoutineDetailPtr memory);
   
-  bool is_volume_button() const { return tag_ == Tag::kVolumeButton; }
-
-  
-  VolumeButtonRoutineDetailPtr& get_volume_button() const {
-    CHECK(tag_ == Tag::kVolumeButton);
-    return *(data_.volume_button);
-  }
-
-  
-  void set_volume_button(
-      VolumeButtonRoutineDetailPtr volume_button);
-  
   bool is_fan() const { return tag_ == Tag::kFan; }
 
   
@@ -4780,18 +3616,6 @@ class  RoutineDetail {
   void set_audio_driver(
       AudioDriverRoutineDetailPtr audio_driver);
   
-  bool is_cpu_stress() const { return tag_ == Tag::kCpuStress; }
-
-  
-  CpuStressRoutineDetailPtr& get_cpu_stress() const {
-    CHECK(tag_ == Tag::kCpuStress);
-    return *(data_.cpu_stress);
-  }
-
-  
-  void set_cpu_stress(
-      CpuStressRoutineDetailPtr cpu_stress);
-  
   bool is_ufs_lifetime() const { return tag_ == Tag::kUfsLifetime; }
 
   
@@ -4803,66 +3627,6 @@ class  RoutineDetail {
   
   void set_ufs_lifetime(
       UfsLifetimeRoutineDetailPtr ufs_lifetime);
-  
-  bool is_disk_read() const { return tag_ == Tag::kDiskRead; }
-
-  
-  DiskReadRoutineDetailPtr& get_disk_read() const {
-    CHECK(tag_ == Tag::kDiskRead);
-    return *(data_.disk_read);
-  }
-
-  
-  void set_disk_read(
-      DiskReadRoutineDetailPtr disk_read);
-  
-  bool is_cpu_cache() const { return tag_ == Tag::kCpuCache; }
-
-  
-  CpuCacheRoutineDetailPtr& get_cpu_cache() const {
-    CHECK(tag_ == Tag::kCpuCache);
-    return *(data_.cpu_cache);
-  }
-
-  
-  void set_cpu_cache(
-      CpuCacheRoutineDetailPtr cpu_cache);
-  
-  bool is_prime_search() const { return tag_ == Tag::kPrimeSearch; }
-
-  
-  PrimeSearchRoutineDetailPtr& get_prime_search() const {
-    CHECK(tag_ == Tag::kPrimeSearch);
-    return *(data_.prime_search);
-  }
-
-  
-  void set_prime_search(
-      PrimeSearchRoutineDetailPtr prime_search);
-  
-  bool is_led_lit_up() const { return tag_ == Tag::kLedLitUp; }
-
-  
-  LedLitUpRoutineDetailPtr& get_led_lit_up() const {
-    CHECK(tag_ == Tag::kLedLitUp);
-    return *(data_.led_lit_up);
-  }
-
-  
-  void set_led_lit_up(
-      LedLitUpRoutineDetailPtr led_lit_up);
-  
-  bool is_floating_point() const { return tag_ == Tag::kFloatingPoint; }
-
-  
-  FloatingPointRoutineDetailPtr& get_floating_point() const {
-    CHECK(tag_ == Tag::kFloatingPoint);
-    return *(data_.floating_point);
-  }
-
-  
-  void set_floating_point(
-      FloatingPointRoutineDetailPtr floating_point);
   
   bool is_bluetooth_power() const { return tag_ == Tag::kBluetoothPower; }
 
@@ -4923,18 +3687,6 @@ class  RoutineDetail {
   
   void set_camera_availability(
       CameraAvailabilityRoutineDetailPtr camera_availability);
-  
-  bool is_urandom() const { return tag_ == Tag::kUrandom; }
-
-  
-  UrandomRoutineDetailPtr& get_urandom() const {
-    CHECK(tag_ == Tag::kUrandom);
-    return *(data_.urandom);
-  }
-
-  
-  void set_urandom(
-      UrandomRoutineDetailPtr urandom);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -4955,22 +3707,14 @@ class  RoutineDetail {
     ~Union_() = default;
     bool unrecognizedArgument;
     MemoryRoutineDetailPtr* memory;
-    VolumeButtonRoutineDetailPtr* volume_button;
     FanRoutineDetailPtr* fan;
     AudioDriverRoutineDetailPtr* audio_driver;
-    CpuStressRoutineDetailPtr* cpu_stress;
     UfsLifetimeRoutineDetailPtr* ufs_lifetime;
-    DiskReadRoutineDetailPtr* disk_read;
-    CpuCacheRoutineDetailPtr* cpu_cache;
-    PrimeSearchRoutineDetailPtr* prime_search;
-    LedLitUpRoutineDetailPtr* led_lit_up;
-    FloatingPointRoutineDetailPtr* floating_point;
     BluetoothPowerRoutineDetailPtr* bluetooth_power;
     BluetoothDiscoveryRoutineDetailPtr* bluetooth_discovery;
     BluetoothScanningRoutineDetailPtr* bluetooth_scanning;
     BluetoothPairingRoutineDetailPtr* bluetooth_pairing;
     CameraAvailabilityRoutineDetailPtr* camera_availability;
-    UrandomRoutineDetailPtr* urandom;
   };
 
   static bool Validate(const void* data,
@@ -6706,11 +5450,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-
-
-
-
-
 class  MemtesterResult {
  public:
   template <typename T>
@@ -6849,8 +5588,6 @@ template <typename T, MemtesterResult::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
-
-
 
 
 
@@ -7882,7 +6619,6 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
-
 template <typename UnionPtrType>
 RoutineArgumentPtr RoutineArgument::Clone() const {
   switch (tag_) {
@@ -8045,36 +6781,15 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kMemory:
       return NewMemory(
           mojo::Clone(*data_.memory));
-    case Tag::kVolumeButton:
-      return NewVolumeButton(
-          mojo::Clone(*data_.volume_button));
     case Tag::kFan:
       return NewFan(
           mojo::Clone(*data_.fan));
     case Tag::kAudioDriver:
       return NewAudioDriver(
           mojo::Clone(*data_.audio_driver));
-    case Tag::kCpuStress:
-      return NewCpuStress(
-          mojo::Clone(*data_.cpu_stress));
     case Tag::kUfsLifetime:
       return NewUfsLifetime(
           mojo::Clone(*data_.ufs_lifetime));
-    case Tag::kDiskRead:
-      return NewDiskRead(
-          mojo::Clone(*data_.disk_read));
-    case Tag::kCpuCache:
-      return NewCpuCache(
-          mojo::Clone(*data_.cpu_cache));
-    case Tag::kPrimeSearch:
-      return NewPrimeSearch(
-          mojo::Clone(*data_.prime_search));
-    case Tag::kLedLitUp:
-      return NewLedLitUp(
-          mojo::Clone(*data_.led_lit_up));
-    case Tag::kFloatingPoint:
-      return NewFloatingPoint(
-          mojo::Clone(*data_.floating_point));
     case Tag::kBluetoothPower:
       return NewBluetoothPower(
           mojo::Clone(*data_.bluetooth_power));
@@ -8090,9 +6805,6 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kCameraAvailability:
       return NewCameraAvailability(
           mojo::Clone(*data_.camera_availability));
-    case Tag::kUrandom:
-      return NewUrandom(
-          mojo::Clone(*data_.urandom));
   }
   return nullptr;
 }
@@ -8109,26 +6821,12 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
     case Tag::kMemory:
       return mojo::Equals(*(data_.memory), *(other.data_.memory));
-    case Tag::kVolumeButton:
-      return mojo::Equals(*(data_.volume_button), *(other.data_.volume_button));
     case Tag::kFan:
       return mojo::Equals(*(data_.fan), *(other.data_.fan));
     case Tag::kAudioDriver:
       return mojo::Equals(*(data_.audio_driver), *(other.data_.audio_driver));
-    case Tag::kCpuStress:
-      return mojo::Equals(*(data_.cpu_stress), *(other.data_.cpu_stress));
     case Tag::kUfsLifetime:
       return mojo::Equals(*(data_.ufs_lifetime), *(other.data_.ufs_lifetime));
-    case Tag::kDiskRead:
-      return mojo::Equals(*(data_.disk_read), *(other.data_.disk_read));
-    case Tag::kCpuCache:
-      return mojo::Equals(*(data_.cpu_cache), *(other.data_.cpu_cache));
-    case Tag::kPrimeSearch:
-      return mojo::Equals(*(data_.prime_search), *(other.data_.prime_search));
-    case Tag::kLedLitUp:
-      return mojo::Equals(*(data_.led_lit_up), *(other.data_.led_lit_up));
-    case Tag::kFloatingPoint:
-      return mojo::Equals(*(data_.floating_point), *(other.data_.floating_point));
     case Tag::kBluetoothPower:
       return mojo::Equals(*(data_.bluetooth_power), *(other.data_.bluetooth_power));
     case Tag::kBluetoothDiscovery:
@@ -8139,8 +6837,6 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(*(data_.bluetooth_pairing), *(other.data_.bluetooth_pairing));
     case Tag::kCameraAvailability:
       return mojo::Equals(*(data_.camera_availability), *(other.data_.camera_availability));
-    case Tag::kUrandom:
-      return mojo::Equals(*(data_.urandom), *(other.data_.urandom));
   }
 
   return false;
@@ -8702,21 +7398,6 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-CpuStressRoutineDetailPtr CpuStressRoutineDetail::Clone() const {
-  return New(
-  );
-}
-
-template <typename T, CpuStressRoutineDetail::EnableIfSame<T>*>
-bool CpuStressRoutineDetail::Equals(const T& other_struct) const {
-  return true;
-}
-
-template <typename T, CpuStressRoutineDetail::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  return false;
-}
-template <typename StructPtrType>
 UfsLifetimeRoutineDetailPtr UfsLifetimeRoutineDetail::Clone() const {
   return New(
       mojo::Clone(pre_eol_info),
@@ -8753,66 +7434,6 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-DiskReadRoutineDetailPtr DiskReadRoutineDetail::Clone() const {
-  return New(
-  );
-}
-
-template <typename T, DiskReadRoutineDetail::EnableIfSame<T>*>
-bool DiskReadRoutineDetail::Equals(const T& other_struct) const {
-  return true;
-}
-
-template <typename T, DiskReadRoutineDetail::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  return false;
-}
-template <typename StructPtrType>
-CpuCacheRoutineDetailPtr CpuCacheRoutineDetail::Clone() const {
-  return New(
-  );
-}
-
-template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>*>
-bool CpuCacheRoutineDetail::Equals(const T& other_struct) const {
-  return true;
-}
-
-template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  return false;
-}
-template <typename StructPtrType>
-PrimeSearchRoutineDetailPtr PrimeSearchRoutineDetail::Clone() const {
-  return New(
-  );
-}
-
-template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>*>
-bool PrimeSearchRoutineDetail::Equals(const T& other_struct) const {
-  return true;
-}
-
-template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  return false;
-}
-template <typename StructPtrType>
-FloatingPointRoutineDetailPtr FloatingPointRoutineDetail::Clone() const {
-  return New(
-  );
-}
-
-template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>*>
-bool FloatingPointRoutineDetail::Equals(const T& other_struct) const {
-  return true;
-}
-
-template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  return false;
-}
-template <typename StructPtrType>
 MemtesterResultPtr MemtesterResult::Clone() const {
   return New(
       mojo::Clone(passed_items),
@@ -8839,36 +7460,6 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.failed_items < lhs.failed_items)
     return false;
-  return false;
-}
-template <typename StructPtrType>
-VolumeButtonRoutineDetailPtr VolumeButtonRoutineDetail::Clone() const {
-  return New(
-  );
-}
-
-template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>*>
-bool VolumeButtonRoutineDetail::Equals(const T& other_struct) const {
-  return true;
-}
-
-template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  return false;
-}
-template <typename StructPtrType>
-LedLitUpRoutineDetailPtr LedLitUpRoutineDetail::Clone() const {
-  return New(
-  );
-}
-
-template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>*>
-bool LedLitUpRoutineDetail::Equals(const T& other_struct) const {
-  return true;
-}
-
-template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
@@ -9194,21 +7785,6 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.fan_count_status < lhs.fan_count_status)
     return false;
-  return false;
-}
-template <typename StructPtrType>
-UrandomRoutineDetailPtr UrandomRoutineDetail::Clone() const {
-  return New(
-  );
-}
-
-template <typename T, UrandomRoutineDetail::EnableIfSame<T>*>
-bool UrandomRoutineDetail::Equals(const T& other_struct) const {
-  return true;
-}
-
-template <typename T, UrandomRoutineDetail::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 
@@ -9599,16 +8175,6 @@ struct  StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineDetail::DataV
 
 
 template <>
-struct  StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineDetail::DataView,
-                                         ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr> {
-  static bool IsNull(const ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr& input) { return !input; }
-  static void SetToNull(::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr* output) { output->reset(); }
-
-  static bool Read(::ash::cros_healthd::mojom::CpuStressRoutineDetail::DataView input, ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr* output);
-};
-
-
-template <>
 struct  StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::DataView,
                                          ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr& input) { return !input; }
@@ -9634,46 +8200,6 @@ struct  StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::DataV
 
 
 template <>
-struct  StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineDetail::DataView,
-                                         ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr> {
-  static bool IsNull(const ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr& input) { return !input; }
-  static void SetToNull(::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr* output) { output->reset(); }
-
-  static bool Read(::ash::cros_healthd::mojom::DiskReadRoutineDetail::DataView input, ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr* output);
-};
-
-
-template <>
-struct  StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineDetail::DataView,
-                                         ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr> {
-  static bool IsNull(const ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr& input) { return !input; }
-  static void SetToNull(::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr* output) { output->reset(); }
-
-  static bool Read(::ash::cros_healthd::mojom::CpuCacheRoutineDetail::DataView input, ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr* output);
-};
-
-
-template <>
-struct  StructTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineDetail::DataView,
-                                         ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr> {
-  static bool IsNull(const ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr& input) { return !input; }
-  static void SetToNull(::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr* output) { output->reset(); }
-
-  static bool Read(::ash::cros_healthd::mojom::PrimeSearchRoutineDetail::DataView input, ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr* output);
-};
-
-
-template <>
-struct  StructTraits<::ash::cros_healthd::mojom::FloatingPointRoutineDetail::DataView,
-                                         ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr> {
-  static bool IsNull(const ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr& input) { return !input; }
-  static void SetToNull(::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr* output) { output->reset(); }
-
-  static bool Read(::ash::cros_healthd::mojom::FloatingPointRoutineDetail::DataView input, ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr* output);
-};
-
-
-template <>
 struct  StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView,
                                          ::ash::cros_healthd::mojom::MemtesterResultPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::MemtesterResultPtr& input) { return !input; }
@@ -9690,26 +8216,6 @@ struct  StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::MemtesterResult::DataView input, ::ash::cros_healthd::mojom::MemtesterResultPtr* output);
-};
-
-
-template <>
-struct  StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::DataView,
-                                         ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr> {
-  static bool IsNull(const ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr& input) { return !input; }
-  static void SetToNull(::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr* output) { output->reset(); }
-
-  static bool Read(::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::DataView input, ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr* output);
-};
-
-
-template <>
-struct  StructTraits<::ash::cros_healthd::mojom::LedLitUpRoutineDetail::DataView,
-                                         ::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr> {
-  static bool IsNull(const ::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr& input) { return !input; }
-  static void SetToNull(::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr* output) { output->reset(); }
-
-  static bool Read(::ash::cros_healthd::mojom::LedLitUpRoutineDetail::DataView input, ::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr* output);
 };
 
 
@@ -9939,16 +8445,6 @@ struct  StructTraits<::ash::cros_healthd::mojom::FanRoutineDetail::DataView,
 
 
 template <>
-struct  StructTraits<::ash::cros_healthd::mojom::UrandomRoutineDetail::DataView,
-                                         ::ash::cros_healthd::mojom::UrandomRoutineDetailPtr> {
-  static bool IsNull(const ::ash::cros_healthd::mojom::UrandomRoutineDetailPtr& input) { return !input; }
-  static void SetToNull(::ash::cros_healthd::mojom::UrandomRoutineDetailPtr* output) { output->reset(); }
-
-  static bool Read(::ash::cros_healthd::mojom::UrandomRoutineDetail::DataView input, ::ash::cros_healthd::mojom::UrandomRoutineDetailPtr* output);
-};
-
-
-template <>
 struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
                                         ::ash::cros_healthd::mojom::RoutineArgumentPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) { return !input; }
@@ -10086,10 +8582,6 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
     return input->get_memory();
   }
 
-  static const ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr& volume_button(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
-    return input->get_volume_button();
-  }
-
   static const ::ash::cros_healthd::mojom::FanRoutineDetailPtr& fan(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_fan();
   }
@@ -10098,32 +8590,8 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
     return input->get_audio_driver();
   }
 
-  static const ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr& cpu_stress(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
-    return input->get_cpu_stress();
-  }
-
   static const ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr& ufs_lifetime(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_ufs_lifetime();
-  }
-
-  static const ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr& disk_read(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
-    return input->get_disk_read();
-  }
-
-  static const ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr& cpu_cache(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
-    return input->get_cpu_cache();
-  }
-
-  static const ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr& prime_search(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
-    return input->get_prime_search();
-  }
-
-  static const ::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr& led_lit_up(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
-    return input->get_led_lit_up();
-  }
-
-  static const ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr& floating_point(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
-    return input->get_floating_point();
   }
 
   static const ::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailPtr& bluetooth_power(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
@@ -10144,10 +8612,6 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static const ::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetailPtr& camera_availability(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_camera_availability();
-  }
-
-  static const ::ash::cros_healthd::mojom::UrandomRoutineDetailPtr& urandom(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
-    return input->get_urandom();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineDetail::DataView input, ::ash::cros_healthd::mojom::RoutineDetailPtr* output);

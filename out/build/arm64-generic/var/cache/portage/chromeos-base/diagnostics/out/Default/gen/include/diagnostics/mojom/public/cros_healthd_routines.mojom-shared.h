@@ -84,23 +84,9 @@ class MemoryRoutineDetailDataView;
 
 class AudioDriverRoutineDetailDataView;
 
-class CpuStressRoutineDetailDataView;
-
 class UfsLifetimeRoutineDetailDataView;
 
-class DiskReadRoutineDetailDataView;
-
-class CpuCacheRoutineDetailDataView;
-
-class PrimeSearchRoutineDetailDataView;
-
-class FloatingPointRoutineDetailDataView;
-
 class MemtesterResultDataView;
-
-class VolumeButtonRoutineDetailDataView;
-
-class LedLitUpRoutineDetailDataView;
 
 class BluetoothPoweredDetailDataView;
 
@@ -121,8 +107,6 @@ class BluetoothPairingRoutineDetailDataView;
 class CameraAvailabilityRoutineDetailDataView;
 
 class FanRoutineDetailDataView;
-
-class UrandomRoutineDetailDataView;
 
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
@@ -303,13 +287,6 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataV
 };
 
 template <>
-struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView> {
-  using Data = ::ash::cros_healthd::mojom::internal::CpuStressRoutineDetail_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
@@ -317,50 +294,8 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataV
 };
 
 template <>
-struct MojomTypeTraits<::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView> {
-  using Data = ::ash::cros_healthd::mojom::internal::DiskReadRoutineDetail_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView> {
-  using Data = ::ash::cros_healthd::mojom::internal::CpuCacheRoutineDetail_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView> {
-  using Data = ::ash::cros_healthd::mojom::internal::PrimeSearchRoutineDetail_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::ash::cros_healthd::mojom::FloatingPointRoutineDetailDataView> {
-  using Data = ::ash::cros_healthd::mojom::internal::FloatingPointRoutineDetail_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::MemtesterResultDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::MemtesterResult_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView> {
-  using Data = ::ash::cros_healthd::mojom::internal::VolumeButtonRoutineDetail_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::ash::cros_healthd::mojom::LedLitUpRoutineDetailDataView> {
-  using Data = ::ash::cros_healthd::mojom::internal::LedLitUpRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -431,13 +366,6 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::CameraAvailabilityRoutineDeta
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::FanRoutineDetailDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::FanRoutineDetail_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::ash::cros_healthd::mojom::UrandomRoutineDetailDataView> {
-  using Data = ::ash::cros_healthd::mojom::internal::UrandomRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -1509,21 +1437,6 @@ class AudioDriverRoutineDetailDataView {
 };
 
 
-class CpuStressRoutineDetailDataView {
- public:
-  CpuStressRoutineDetailDataView() = default;
-
-  CpuStressRoutineDetailDataView(
-      internal::CpuStressRoutineDetail_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::CpuStressRoutineDetail_Data* data_ = nullptr;
-};
-
-
 class UfsLifetimeRoutineDetailDataView {
  public:
   UfsLifetimeRoutineDetailDataView() = default;
@@ -1545,66 +1458,6 @@ class UfsLifetimeRoutineDetailDataView {
   }
  private:
   internal::UfsLifetimeRoutineDetail_Data* data_ = nullptr;
-};
-
-
-class DiskReadRoutineDetailDataView {
- public:
-  DiskReadRoutineDetailDataView() = default;
-
-  DiskReadRoutineDetailDataView(
-      internal::DiskReadRoutineDetail_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::DiskReadRoutineDetail_Data* data_ = nullptr;
-};
-
-
-class CpuCacheRoutineDetailDataView {
- public:
-  CpuCacheRoutineDetailDataView() = default;
-
-  CpuCacheRoutineDetailDataView(
-      internal::CpuCacheRoutineDetail_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::CpuCacheRoutineDetail_Data* data_ = nullptr;
-};
-
-
-class PrimeSearchRoutineDetailDataView {
- public:
-  PrimeSearchRoutineDetailDataView() = default;
-
-  PrimeSearchRoutineDetailDataView(
-      internal::PrimeSearchRoutineDetail_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::PrimeSearchRoutineDetail_Data* data_ = nullptr;
-};
-
-
-class FloatingPointRoutineDetailDataView {
- public:
-  FloatingPointRoutineDetailDataView() = default;
-
-  FloatingPointRoutineDetailDataView(
-      internal::FloatingPointRoutineDetail_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::FloatingPointRoutineDetail_Data* data_ = nullptr;
 };
 
 
@@ -1641,36 +1494,6 @@ class MemtesterResultDataView {
  private:
   internal::MemtesterResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
-};
-
-
-class VolumeButtonRoutineDetailDataView {
- public:
-  VolumeButtonRoutineDetailDataView() = default;
-
-  VolumeButtonRoutineDetailDataView(
-      internal::VolumeButtonRoutineDetail_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::VolumeButtonRoutineDetail_Data* data_ = nullptr;
-};
-
-
-class LedLitUpRoutineDetailDataView {
- public:
-  LedLitUpRoutineDetailDataView() = default;
-
-  LedLitUpRoutineDetailDataView(
-      internal::LedLitUpRoutineDetail_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::LedLitUpRoutineDetail_Data* data_ = nullptr;
 };
 
 
@@ -2122,21 +1945,6 @@ class FanRoutineDetailDataView {
 };
 
 
-class UrandomRoutineDetailDataView {
- public:
-  UrandomRoutineDetailDataView() = default;
-
-  UrandomRoutineDetailDataView(
-      internal::UrandomRoutineDetail_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::UrandomRoutineDetail_Data* data_ = nullptr;
-};
-
-
 class RoutineArgumentDataView {
  public:
   using Tag = internal::RoutineArgument_Data::RoutineArgument_Tag;
@@ -2464,17 +2272,6 @@ class RoutineDetailDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView>(
         data_->data.f_memory.Get(), output, message_);
   }
-  bool is_volume_button() const { return data_->tag == Tag::kVolumeButton; }
-  inline void GetVolumeButtonDataView(
-      VolumeButtonRoutineDetailDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadVolumeButton(UserType* output) const {
-    
-    CHECK(is_volume_button());
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView>(
-        data_->data.f_volume_button.Get(), output, message_);
-  }
   bool is_fan() const { return data_->tag == Tag::kFan; }
   inline void GetFanDataView(
       FanRoutineDetailDataView* output) const;
@@ -2497,17 +2294,6 @@ class RoutineDetailDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView>(
         data_->data.f_audio_driver.Get(), output, message_);
   }
-  bool is_cpu_stress() const { return data_->tag == Tag::kCpuStress; }
-  inline void GetCpuStressDataView(
-      CpuStressRoutineDetailDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadCpuStress(UserType* output) const {
-    
-    CHECK(is_cpu_stress());
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView>(
-        data_->data.f_cpu_stress.Get(), output, message_);
-  }
   bool is_ufs_lifetime() const { return data_->tag == Tag::kUfsLifetime; }
   inline void GetUfsLifetimeDataView(
       UfsLifetimeRoutineDetailDataView* output) const;
@@ -2518,61 +2304,6 @@ class RoutineDetailDataView {
     CHECK(is_ufs_lifetime());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView>(
         data_->data.f_ufs_lifetime.Get(), output, message_);
-  }
-  bool is_disk_read() const { return data_->tag == Tag::kDiskRead; }
-  inline void GetDiskReadDataView(
-      DiskReadRoutineDetailDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadDiskRead(UserType* output) const {
-    
-    CHECK(is_disk_read());
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView>(
-        data_->data.f_disk_read.Get(), output, message_);
-  }
-  bool is_cpu_cache() const { return data_->tag == Tag::kCpuCache; }
-  inline void GetCpuCacheDataView(
-      CpuCacheRoutineDetailDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadCpuCache(UserType* output) const {
-    
-    CHECK(is_cpu_cache());
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView>(
-        data_->data.f_cpu_cache.Get(), output, message_);
-  }
-  bool is_prime_search() const { return data_->tag == Tag::kPrimeSearch; }
-  inline void GetPrimeSearchDataView(
-      PrimeSearchRoutineDetailDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadPrimeSearch(UserType* output) const {
-    
-    CHECK(is_prime_search());
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView>(
-        data_->data.f_prime_search.Get(), output, message_);
-  }
-  bool is_led_lit_up() const { return data_->tag == Tag::kLedLitUp; }
-  inline void GetLedLitUpDataView(
-      LedLitUpRoutineDetailDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadLedLitUp(UserType* output) const {
-    
-    CHECK(is_led_lit_up());
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedLitUpRoutineDetailDataView>(
-        data_->data.f_led_lit_up.Get(), output, message_);
-  }
-  bool is_floating_point() const { return data_->tag == Tag::kFloatingPoint; }
-  inline void GetFloatingPointDataView(
-      FloatingPointRoutineDetailDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadFloatingPoint(UserType* output) const {
-    
-    CHECK(is_floating_point());
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FloatingPointRoutineDetailDataView>(
-        data_->data.f_floating_point.Get(), output, message_);
   }
   bool is_bluetooth_power() const { return data_->tag == Tag::kBluetoothPower; }
   inline void GetBluetoothPowerDataView(
@@ -2628,17 +2359,6 @@ class RoutineDetailDataView {
     CHECK(is_camera_availability());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetailDataView>(
         data_->data.f_camera_availability.Get(), output, message_);
-  }
-  bool is_urandom() const { return data_->tag == Tag::kUrandom; }
-  inline void GetUrandomDataView(
-      UrandomRoutineDetailDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadUrandom(UserType* output) const {
-    
-    CHECK(is_urandom());
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UrandomRoutineDetailDataView>(
-        data_->data.f_urandom.Get(), output, message_);
   }
 
  private:
@@ -3773,35 +3493,6 @@ struct Serializer<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView, 
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CpuStressRoutineDetail_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-  }
-
-  static bool Deserialize(::ash::cros_healthd::mojom::internal::CpuStressRoutineDetail_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView, UserType>;
@@ -3824,122 +3515,6 @@ struct Serializer<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView, 
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::DiskReadRoutineDetail_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-  }
-
-  static bool Deserialize(::ash::cros_healthd::mojom::internal::DiskReadRoutineDetail_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CpuCacheRoutineDetail_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-  }
-
-  static bool Deserialize(::ash::cros_healthd::mojom::internal::CpuCacheRoutineDetail_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::PrimeSearchRoutineDetail_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-  }
-
-  static bool Deserialize(::ash::cros_healthd::mojom::internal::PrimeSearchRoutineDetail_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::FloatingPointRoutineDetailDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::ash::cros_healthd::mojom::FloatingPointRoutineDetailDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::FloatingPointRoutineDetail_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-  }
-
-  static bool Deserialize(::ash::cros_healthd::mojom::internal::FloatingPointRoutineDetail_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::ash::cros_healthd::mojom::FloatingPointRoutineDetailDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -3997,64 +3572,6 @@ struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeCons
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::MemtesterResultDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::VolumeButtonRoutineDetail_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-  }
-
-  static bool Deserialize(::ash::cros_healthd::mojom::internal::VolumeButtonRoutineDetail_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::LedLitUpRoutineDetailDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::ash::cros_healthd::mojom::LedLitUpRoutineDetailDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::LedLitUpRoutineDetail_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-  }
-
-  static bool Deserialize(::ash::cros_healthd::mojom::internal::LedLitUpRoutineDetail_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::ash::cros_healthd::mojom::LedLitUpRoutineDetailDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -4500,35 +4017,6 @@ struct Serializer<::ash::cros_healthd::mojom::FanRoutineDetailDataView, MaybeCon
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::FanRoutineDetailDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::UrandomRoutineDetailDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::ash::cros_healthd::mojom::UrandomRoutineDetailDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::UrandomRoutineDetail_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-  }
-
-  static bool Deserialize(::ash::cros_healthd::mojom::internal::UrandomRoutineDetail_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::ash::cros_healthd::mojom::UrandomRoutineDetailDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -5012,22 +4500,6 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kVolumeButton: {
-        decltype(Traits::volume_button(input))
-            in_volume_button = Traits::volume_button(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_volume_button)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView>(
-            in_volume_button, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null volume_button in RoutineDetail union");
-        fragment->data.f_volume_button.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
       case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kFan: {
         decltype(Traits::fan(input))
             in_fan = Traits::fan(input);
@@ -5060,22 +4532,6 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kCpuStress: {
-        decltype(Traits::cpu_stress(input))
-            in_cpu_stress = Traits::cpu_stress(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_cpu_stress)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView>(
-            in_cpu_stress, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null cpu_stress in RoutineDetail union");
-        fragment->data.f_cpu_stress.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
       case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kUfsLifetime: {
         decltype(Traits::ufs_lifetime(input))
             in_ufs_lifetime = Traits::ufs_lifetime(input);
@@ -5089,86 +4545,6 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null ufs_lifetime in RoutineDetail union");
         fragment->data.f_ufs_lifetime.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
-      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kDiskRead: {
-        decltype(Traits::disk_read(input))
-            in_disk_read = Traits::disk_read(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_disk_read)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView>(
-            in_disk_read, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null disk_read in RoutineDetail union");
-        fragment->data.f_disk_read.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
-      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kCpuCache: {
-        decltype(Traits::cpu_cache(input))
-            in_cpu_cache = Traits::cpu_cache(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_cpu_cache)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView>(
-            in_cpu_cache, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null cpu_cache in RoutineDetail union");
-        fragment->data.f_cpu_cache.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
-      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kPrimeSearch: {
-        decltype(Traits::prime_search(input))
-            in_prime_search = Traits::prime_search(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_prime_search)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView>(
-            in_prime_search, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null prime_search in RoutineDetail union");
-        fragment->data.f_prime_search.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
-      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kLedLitUp: {
-        decltype(Traits::led_lit_up(input))
-            in_led_lit_up = Traits::led_lit_up(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_led_lit_up)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::ash::cros_healthd::mojom::LedLitUpRoutineDetailDataView>(
-            in_led_lit_up, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null led_lit_up in RoutineDetail union");
-        fragment->data.f_led_lit_up.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
-      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kFloatingPoint: {
-        decltype(Traits::floating_point(input))
-            in_floating_point = Traits::floating_point(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_floating_point)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::ash::cros_healthd::mojom::FloatingPointRoutineDetailDataView>(
-            in_floating_point, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null floating_point in RoutineDetail union");
-        fragment->data.f_floating_point.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -5249,22 +4625,6 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null camera_availability in RoutineDetail union");
         fragment->data.f_camera_availability.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
-      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kUrandom: {
-        decltype(Traits::urandom(input))
-            in_urandom = Traits::urandom(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_urandom)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::ash::cros_healthd::mojom::UrandomRoutineDetailDataView>(
-            in_urandom, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null urandom in RoutineDetail union");
-        fragment->data.f_urandom.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -5404,16 +4764,6 @@ inline void MemoryRoutineDetailDataView::GetResultDataView(
 
 
 
-
-
-
-
-
-
-
-
-
-
 inline void MemtesterResultDataView::GetPassedItemsDataView(
     mojo::ArrayDataView<MemtesterTestItemEnum>* output) {
   auto pointer = data_->passed_items.Get();
@@ -5424,10 +4774,6 @@ inline void MemtesterResultDataView::GetFailedItemsDataView(
   auto pointer = data_->failed_items.Get();
   *output = mojo::ArrayDataView<MemtesterTestItemEnum>(pointer, message_);
 }
-
-
-
-
 
 
 
@@ -5513,8 +4859,6 @@ inline void FanRoutineDetailDataView::GetFailedFanIdsDataView(
   auto pointer = data_->failed_fan_ids.Get();
   *output = mojo::ArrayDataView<uint8_t>(pointer, message_);
 }
-
-
 
 
 inline void RoutineArgumentDataView::GetMemoryDataView(
@@ -5629,11 +4973,6 @@ inline void RoutineDetailDataView::GetMemoryDataView(
   CHECK(is_memory());
   *output = MemoryRoutineDetailDataView(data_->data.f_memory.Get(), message_);
 }
-inline void RoutineDetailDataView::GetVolumeButtonDataView(
-    VolumeButtonRoutineDetailDataView* output) const {
-  CHECK(is_volume_button());
-  *output = VolumeButtonRoutineDetailDataView(data_->data.f_volume_button.Get(), message_);
-}
 inline void RoutineDetailDataView::GetFanDataView(
     FanRoutineDetailDataView* output) const {
   CHECK(is_fan());
@@ -5644,40 +4983,10 @@ inline void RoutineDetailDataView::GetAudioDriverDataView(
   CHECK(is_audio_driver());
   *output = AudioDriverRoutineDetailDataView(data_->data.f_audio_driver.Get(), message_);
 }
-inline void RoutineDetailDataView::GetCpuStressDataView(
-    CpuStressRoutineDetailDataView* output) const {
-  CHECK(is_cpu_stress());
-  *output = CpuStressRoutineDetailDataView(data_->data.f_cpu_stress.Get(), message_);
-}
 inline void RoutineDetailDataView::GetUfsLifetimeDataView(
     UfsLifetimeRoutineDetailDataView* output) const {
   CHECK(is_ufs_lifetime());
   *output = UfsLifetimeRoutineDetailDataView(data_->data.f_ufs_lifetime.Get(), message_);
-}
-inline void RoutineDetailDataView::GetDiskReadDataView(
-    DiskReadRoutineDetailDataView* output) const {
-  CHECK(is_disk_read());
-  *output = DiskReadRoutineDetailDataView(data_->data.f_disk_read.Get(), message_);
-}
-inline void RoutineDetailDataView::GetCpuCacheDataView(
-    CpuCacheRoutineDetailDataView* output) const {
-  CHECK(is_cpu_cache());
-  *output = CpuCacheRoutineDetailDataView(data_->data.f_cpu_cache.Get(), message_);
-}
-inline void RoutineDetailDataView::GetPrimeSearchDataView(
-    PrimeSearchRoutineDetailDataView* output) const {
-  CHECK(is_prime_search());
-  *output = PrimeSearchRoutineDetailDataView(data_->data.f_prime_search.Get(), message_);
-}
-inline void RoutineDetailDataView::GetLedLitUpDataView(
-    LedLitUpRoutineDetailDataView* output) const {
-  CHECK(is_led_lit_up());
-  *output = LedLitUpRoutineDetailDataView(data_->data.f_led_lit_up.Get(), message_);
-}
-inline void RoutineDetailDataView::GetFloatingPointDataView(
-    FloatingPointRoutineDetailDataView* output) const {
-  CHECK(is_floating_point());
-  *output = FloatingPointRoutineDetailDataView(data_->data.f_floating_point.Get(), message_);
 }
 inline void RoutineDetailDataView::GetBluetoothPowerDataView(
     BluetoothPowerRoutineDetailDataView* output) const {
@@ -5703,11 +5012,6 @@ inline void RoutineDetailDataView::GetCameraAvailabilityDataView(
     CameraAvailabilityRoutineDetailDataView* output) const {
   CHECK(is_camera_availability());
   *output = CameraAvailabilityRoutineDetailDataView(data_->data.f_camera_availability.Get(), message_);
-}
-inline void RoutineDetailDataView::GetUrandomDataView(
-    UrandomRoutineDetailDataView* output) const {
-  CHECK(is_urandom());
-  *output = UrandomRoutineDetailDataView(data_->data.f_urandom.Get(), message_);
 }
 
 
