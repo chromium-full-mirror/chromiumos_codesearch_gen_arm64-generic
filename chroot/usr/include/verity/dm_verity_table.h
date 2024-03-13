@@ -83,6 +83,9 @@ class BRILLO_EXPORT DmVerityTable {
       return dev == o.dev && block_size == o.block_size &&
              block_count == o.block_count;
     }
+
+    // Returns the number of bytes used by device.
+    uint64_t NumBytes() const { return block_size * block_count; }
   };
 
   DmVerityTable(const std::string& alg,
@@ -104,6 +107,8 @@ class BRILLO_EXPORT DmVerityTable {
 
   DmVerityTable(DmVerityTable&&) = default;
   DmVerityTable& operator=(DmVerityTable&&) = default;
+
+  bool operator==(const DmVerityTable& o) const;
 
   static std::optional<DmVerityTable> Parse(const std::string& table_str,
                                             Format format);
