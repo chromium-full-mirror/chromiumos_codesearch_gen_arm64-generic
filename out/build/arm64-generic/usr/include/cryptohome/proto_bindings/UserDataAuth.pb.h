@@ -944,7 +944,7 @@ enum PrimaryAction : int {
   PRIMARY_TPM_NEEDS_REBOOT = 6,
   PRIMARY_TPM_LOCKOUT = 7,
   PRIMARY_INCORRECT_AUTH = 8,
-  PRIMARY_LE_LOCKED_OUT = 9,
+  PRIMARY_FACTOR_LOCKED_OUT = 9,
   PRIMARY_LE_EXPIRED = 10,
   PrimaryAction_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
