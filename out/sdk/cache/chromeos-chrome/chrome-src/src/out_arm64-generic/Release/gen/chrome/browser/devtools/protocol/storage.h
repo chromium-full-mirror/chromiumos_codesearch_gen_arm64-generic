@@ -48,6 +48,7 @@ class AttributionReportingAggregatableDedupKey;
 class AttributionReportingTriggerRegistration;
 using AttributionReportingEventLevelResult = String;
 using AttributionReportingAggregatableResult = String;
+class RelatedWebsiteSet;
 
 // ------------- Forward and enum declarations.
 
@@ -1827,6 +1828,87 @@ private:
 };
 
 
+class  RelatedWebsiteSet : public ::crdtp::ProtocolObject<RelatedWebsiteSet> {
+public:
+    ~RelatedWebsiteSet() override { }
+
+    protocol::Array<String>* GetPrimarySites() { return m_primarySites.get(); }
+    void SetPrimarySites(std::unique_ptr<protocol::Array<String>> value) { m_primarySites = std::move(value); }
+
+    protocol::Array<String>* GetAssociatedSites() { return m_associatedSites.get(); }
+    void SetAssociatedSites(std::unique_ptr<protocol::Array<String>> value) { m_associatedSites = std::move(value); }
+
+    protocol::Array<String>* GetServiceSites() { return m_serviceSites.get(); }
+    void SetServiceSites(std::unique_ptr<protocol::Array<String>> value) { m_serviceSites = std::move(value); }
+
+    template<int STATE>
+    class RelatedWebsiteSetBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            PrimarySitesSet = 1 << 1,
+            AssociatedSitesSet = 1 << 2,
+            ServiceSitesSet = 1 << 3,
+            AllFieldsSet = (PrimarySitesSet | AssociatedSitesSet | ServiceSitesSet | 0)};
+
+
+        RelatedWebsiteSetBuilder<STATE | PrimarySitesSet>& SetPrimarySites(std::unique_ptr<protocol::Array<String>> value)
+        {
+            static_assert(!(STATE & PrimarySitesSet), "property primarySites should not be set yet");
+            m_result->SetPrimarySites(std::move(value));
+            return castState<PrimarySitesSet>();
+        }
+
+        RelatedWebsiteSetBuilder<STATE | AssociatedSitesSet>& SetAssociatedSites(std::unique_ptr<protocol::Array<String>> value)
+        {
+            static_assert(!(STATE & AssociatedSitesSet), "property associatedSites should not be set yet");
+            m_result->SetAssociatedSites(std::move(value));
+            return castState<AssociatedSitesSet>();
+        }
+
+        RelatedWebsiteSetBuilder<STATE | ServiceSitesSet>& SetServiceSites(std::unique_ptr<protocol::Array<String>> value)
+        {
+            static_assert(!(STATE & ServiceSitesSet), "property serviceSites should not be set yet");
+            m_result->SetServiceSites(std::move(value));
+            return castState<ServiceSitesSet>();
+        }
+
+        std::unique_ptr<RelatedWebsiteSet> Build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class RelatedWebsiteSet;
+        RelatedWebsiteSetBuilder() : m_result(new RelatedWebsiteSet()) { }
+
+        template<int STEP> RelatedWebsiteSetBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<RelatedWebsiteSetBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::RelatedWebsiteSet> m_result;
+    };
+
+    static RelatedWebsiteSetBuilder<0> Create()
+    {
+        return RelatedWebsiteSetBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    RelatedWebsiteSet()
+    {
+    }
+
+    std::unique_ptr<protocol::Array<String>> m_primarySites;
+    std::unique_ptr<protocol::Array<String>> m_associatedSites;
+    std::unique_ptr<protocol::Array<String>> m_serviceSites;
+};
+
+
 // ------------- Backend interface.
 
 class  Backend {
@@ -1841,6 +1923,14 @@ public:
         virtual ~RunBounceTrackingMitigationsCallback() { }
     };
     virtual void RunBounceTrackingMitigations(std::unique_ptr<RunBounceTrackingMitigationsCallback> callback) = 0;
+    class  GetRelatedWebsiteSetsCallback {
+    public:
+        virtual void sendSuccess(std::unique_ptr<protocol::Array<protocol::Storage::RelatedWebsiteSet>> sets) = 0;
+        virtual void sendFailure(const DispatchResponse&) = 0;
+        virtual void fallThrough() = 0;
+        virtual ~GetRelatedWebsiteSetsCallback() { }
+    };
+    virtual void GetRelatedWebsiteSets(std::unique_ptr<GetRelatedWebsiteSetsCallback> callback) = 0;
 
     virtual DispatchResponse Disable()
     {

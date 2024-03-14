@@ -143,6 +143,7 @@ class HEADLESS_EXPORT Domain {
   static void HandleRunBounceTrackingMitigationsResponse(base::OnceCallback<void(std::unique_ptr<RunBounceTrackingMitigationsResult>)> callback, const base::Value& response);
   static void HandleSetAttributionReportingLocalTestingModeResponse(base::OnceCallback<void(std::unique_ptr<SetAttributionReportingLocalTestingModeResult>)> callback, const base::Value& response);
   static void HandleSetAttributionReportingTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetAttributionReportingTrackingResult>)> callback, const base::Value& response);
+  static void HandleGetRelatedWebsiteSetsResponse(base::OnceCallback<void(std::unique_ptr<GetRelatedWebsiteSetsResult>)> callback, const base::Value& response);
 
   void DispatchCacheStorageContentUpdatedEvent(const base::Value& params);
   void DispatchCacheStorageListUpdatedEvent(const base::Value& params);
@@ -283,6 +284,10 @@ class ExperimentalDomain : public Domain {
 
   // Enables/disables issuing of Attribution Reporting events.
   void SetAttributionReportingTracking(std::unique_ptr<SetAttributionReportingTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetAttributionReportingTrackingResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetAttributionReportingTrackingResult>)>());
+
+  // Returns the effective Related Website Sets in use by this profile for the browser
+  // session. The effective Related Website Sets will not change during a browser session.
+  void GetRelatedWebsiteSets(std::unique_ptr<GetRelatedWebsiteSetsParams> params, base::OnceCallback<void(std::unique_ptr<GetRelatedWebsiteSetsResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetRelatedWebsiteSetsResult>)>());
 
 };
 

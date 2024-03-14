@@ -179,6 +179,9 @@ void ExperimentalDomain::SetAttributionReportingLocalTestingMode(std::unique_ptr
 void ExperimentalDomain::SetAttributionReportingTracking(std::unique_ptr<SetAttributionReportingTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetAttributionReportingTrackingResult>)> callback) {
   dispatcher_->SendMessage("Storage.setAttributionReportingTracking", params->Serialize(), base::BindOnce(&Domain::HandleSetAttributionReportingTrackingResponse, std::move(callback)));
 }
+void ExperimentalDomain::GetRelatedWebsiteSets(std::unique_ptr<GetRelatedWebsiteSetsParams> params, base::OnceCallback<void(std::unique_ptr<GetRelatedWebsiteSetsResult>)> callback) {
+  dispatcher_->SendMessage("Storage.getRelatedWebsiteSets", params->Serialize(), base::BindOnce(&Domain::HandleGetRelatedWebsiteSetsResponse, std::move(callback)));
+}
 
 
 // static
@@ -672,6 +675,21 @@ void Domain::HandleSetAttributionReportingTrackingResponse(base::OnceCallback<vo
   }
   ErrorReporter errors;
   std::unique_ptr<SetAttributionReportingTrackingResult> result = SetAttributionReportingTrackingResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
+// static
+void Domain::HandleGetRelatedWebsiteSetsResponse(base::OnceCallback<void(std::unique_ptr<GetRelatedWebsiteSetsResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<GetRelatedWebsiteSetsResult> result = GetRelatedWebsiteSetsResult::Parse(response, &errors);
   DCHECK(!errors.HasErrors()) << errors.ToString();
   std::move(callback).Run(std::move(result));
 }

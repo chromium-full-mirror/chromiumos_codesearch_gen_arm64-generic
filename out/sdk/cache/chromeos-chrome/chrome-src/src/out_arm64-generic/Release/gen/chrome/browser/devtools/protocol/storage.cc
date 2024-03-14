@@ -426,6 +426,19 @@ const char ExcessiveReports[] = "excessiveReports";
 } // namespace AttributionReportingAggregatableResultEnum
 
 
+CRDTP_BEGIN_DESERIALIZER(RelatedWebsiteSet)
+    CRDTP_DESERIALIZE_FIELD("associatedSites", m_associatedSites),
+    CRDTP_DESERIALIZE_FIELD("primarySites", m_primarySites),
+    CRDTP_DESERIALIZE_FIELD("serviceSites", m_serviceSites),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(RelatedWebsiteSet)
+    CRDTP_SERIALIZE_FIELD("primarySites", m_primarySites);
+    CRDTP_SERIALIZE_FIELD("associatedSites", m_associatedSites);
+    CRDTP_SERIALIZE_FIELD("serviceSites", m_serviceSites);
+CRDTP_END_SERIALIZER();
+
+
 // ------------- Enum values from params.
 
 
@@ -594,6 +607,7 @@ public:
     std::function<void(const crdtp::Dispatchable&)> Dispatch(crdtp::span<uint8_t> command_name) override;
 
     void runBounceTrackingMitigations(const crdtp::Dispatchable& dispatchable);
+    void getRelatedWebsiteSets(const crdtp::Dispatchable& dispatchable);
  protected:
     Backend* m_backend;
 };
@@ -606,6 +620,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
   static auto* commands = [](){
     auto* commands = new std::vector<std::pair<crdtp::span<uint8_t>,
                               DomainDispatcherImpl::CallHandler>>{
+    {
+          crdtp::SpanFrom("getRelatedWebsiteSets"),
+          &DomainDispatcherImpl::getRelatedWebsiteSets
+    },
     {
           crdtp::SpanFrom("runBounceTrackingMitigations"),
           &DomainDispatcherImpl::runBounceTrackingMitigations
@@ -662,6 +680,43 @@ void DomainDispatcherImpl::runBounceTrackingMitigations(const crdtp::Dispatchabl
     // Prepare input parameters.
 
     m_backend->RunBounceTrackingMitigations(std::make_unique<RunBounceTrackingMitigationsCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
+}
+
+class GetRelatedWebsiteSetsCallbackImpl : public Backend::GetRelatedWebsiteSetsCallback, public DomainDispatcher::Callback {
+public:
+    GetRelatedWebsiteSetsCallbackImpl(std::unique_ptr<DomainDispatcher::WeakPtr> backendImpl, int callId, crdtp::span<uint8_t> message)
+        : DomainDispatcher::Callback(std::move(backendImpl), callId,
+crdtp::SpanFrom("Storage.getRelatedWebsiteSets"), message) { }
+
+    void sendSuccess(std::unique_ptr<protocol::Array<protocol::Storage::RelatedWebsiteSet>> sets) override
+    {
+        crdtp::ObjectSerializer serializer;
+        serializer.AddField(crdtp::MakeSpan("sets"), sets);
+        sendIfActive(serializer.Finish(), DispatchResponse::Success());
+    }
+
+    void fallThrough() override
+    {
+        fallThroughIfActive();
+    }
+
+    void sendFailure(const DispatchResponse& response) override
+    {
+        DCHECK(response.IsError());
+        sendIfActive(nullptr, response);
+    }
+};
+
+namespace {
+
+
+}  // namespace
+
+void DomainDispatcherImpl::getRelatedWebsiteSets(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+
+    m_backend->GetRelatedWebsiteSets(std::make_unique<GetRelatedWebsiteSetsCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
 }
 
 namespace {

@@ -493,6 +493,19 @@ const char ExcessiveReports[] = "excessiveReports";
 } // namespace AttributionReportingAggregatableResultEnum
 
 
+CRDTP_BEGIN_DESERIALIZER(RelatedWebsiteSet)
+    CRDTP_DESERIALIZE_FIELD("associatedSites", m_associatedSites),
+    CRDTP_DESERIALIZE_FIELD("primarySites", m_primarySites),
+    CRDTP_DESERIALIZE_FIELD("serviceSites", m_serviceSites),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(RelatedWebsiteSet)
+    CRDTP_SERIALIZE_FIELD("primarySites", m_primarySites);
+    CRDTP_SERIALIZE_FIELD("associatedSites", m_associatedSites);
+    CRDTP_SERIALIZE_FIELD("serviceSites", m_serviceSites);
+CRDTP_END_SERIALIZER();
+
+
 // ------------- Enum values from params.
 
 
@@ -693,6 +706,7 @@ public:
     void runBounceTrackingMitigations(const crdtp::Dispatchable& dispatchable);
     void setAttributionReportingLocalTestingMode(const crdtp::Dispatchable& dispatchable);
     void setAttributionReportingTracking(const crdtp::Dispatchable& dispatchable);
+    void getRelatedWebsiteSets(const crdtp::Dispatchable& dispatchable);
  protected:
     Backend* m_backend;
 };
@@ -740,6 +754,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("getInterestGroupDetails"),
           &DomainDispatcherImpl::getInterestGroupDetails
+    },
+    {
+          crdtp::SpanFrom("getRelatedWebsiteSets"),
+          &DomainDispatcherImpl::getRelatedWebsiteSets
     },
     {
           crdtp::SpanFrom("getSharedStorageEntries"),
@@ -2070,6 +2088,37 @@ void DomainDispatcherImpl::setAttributionReportingTracking(const crdtp::Dispatch
     }
     if (weak->get())
         weak->get()->sendResponse(dispatchable.CallId(), response);
+    return;
+}
+
+namespace {
+
+
+}  // namespace
+
+void DomainDispatcherImpl::getRelatedWebsiteSets(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    // Declare output parameters.
+    std::unique_ptr<protocol::Array<protocol::Storage::RelatedWebsiteSet>> out_sets;
+
+    std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
+    DispatchResponse response = m_backend->getRelatedWebsiteSets(&out_sets);
+    if (response.IsFallThrough()) {
+        channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Storage.getRelatedWebsiteSets"), dispatchable.Serialized());
+        return;
+    }
+      if (weak->get()) {
+        std::unique_ptr<crdtp::Serializable> result;
+        if (response.IsSuccess()) {
+          crdtp::ObjectSerializer serializer;
+          serializer.AddField(crdtp::MakeSpan("sets"), out_sets);
+          result = serializer.Finish();
+        } else {
+          result = Serializable::From({});
+        }
+        weak->get()->sendResponse(dispatchable.CallId(), response, std::move(result));
+      }
     return;
 }
 

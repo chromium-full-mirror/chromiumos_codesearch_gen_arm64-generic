@@ -55,6 +55,7 @@ class AttributionReportingAggregatableDedupKey;
 class AttributionReportingTriggerRegistration;
 using AttributionReportingEventLevelResult = String;
 using AttributionReportingAggregatableResult = String;
+class RelatedWebsiteSet;
 
 // ------------- Forward and enum declarations.
 
@@ -2157,6 +2158,87 @@ private:
 };
 
 
+class CORE_EXPORT RelatedWebsiteSet : public ::crdtp::ProtocolObject<RelatedWebsiteSet> {
+public:
+    ~RelatedWebsiteSet() override { }
+
+    protocol::Array<String>* getPrimarySites() { return m_primarySites.get(); }
+    void setPrimarySites(std::unique_ptr<protocol::Array<String>> value) { m_primarySites = std::move(value); }
+
+    protocol::Array<String>* getAssociatedSites() { return m_associatedSites.get(); }
+    void setAssociatedSites(std::unique_ptr<protocol::Array<String>> value) { m_associatedSites = std::move(value); }
+
+    protocol::Array<String>* getServiceSites() { return m_serviceSites.get(); }
+    void setServiceSites(std::unique_ptr<protocol::Array<String>> value) { m_serviceSites = std::move(value); }
+
+    template<int STATE>
+    class RelatedWebsiteSetBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            PrimarySitesSet = 1 << 1,
+            AssociatedSitesSet = 1 << 2,
+            ServiceSitesSet = 1 << 3,
+            AllFieldsSet = (PrimarySitesSet | AssociatedSitesSet | ServiceSitesSet | 0)};
+
+
+        RelatedWebsiteSetBuilder<STATE | PrimarySitesSet>& setPrimarySites(std::unique_ptr<protocol::Array<String>> value)
+        {
+            static_assert(!(STATE & PrimarySitesSet), "property primarySites should not be set yet");
+            m_result->setPrimarySites(std::move(value));
+            return castState<PrimarySitesSet>();
+        }
+
+        RelatedWebsiteSetBuilder<STATE | AssociatedSitesSet>& setAssociatedSites(std::unique_ptr<protocol::Array<String>> value)
+        {
+            static_assert(!(STATE & AssociatedSitesSet), "property associatedSites should not be set yet");
+            m_result->setAssociatedSites(std::move(value));
+            return castState<AssociatedSitesSet>();
+        }
+
+        RelatedWebsiteSetBuilder<STATE | ServiceSitesSet>& setServiceSites(std::unique_ptr<protocol::Array<String>> value)
+        {
+            static_assert(!(STATE & ServiceSitesSet), "property serviceSites should not be set yet");
+            m_result->setServiceSites(std::move(value));
+            return castState<ServiceSitesSet>();
+        }
+
+        std::unique_ptr<RelatedWebsiteSet> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class RelatedWebsiteSet;
+        RelatedWebsiteSetBuilder() : m_result(new RelatedWebsiteSet()) { }
+
+        template<int STEP> RelatedWebsiteSetBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<RelatedWebsiteSetBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::RelatedWebsiteSet> m_result;
+    };
+
+    static RelatedWebsiteSetBuilder<0> create()
+    {
+        return RelatedWebsiteSetBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    RelatedWebsiteSet()
+    {
+    }
+
+    std::unique_ptr<protocol::Array<String>> m_primarySites;
+    std::unique_ptr<protocol::Array<String>> m_associatedSites;
+    std::unique_ptr<protocol::Array<String>> m_serviceSites;
+};
+
+
 // ------------- Backend interface.
 
 class CORE_EXPORT Backend {
@@ -2196,6 +2278,7 @@ public:
     virtual DispatchResponse runBounceTrackingMitigations(std::unique_ptr<protocol::Array<String>>* out_deletedSites) = 0;
     virtual DispatchResponse setAttributionReportingLocalTestingMode(bool in_enabled) = 0;
     virtual DispatchResponse setAttributionReportingTracking(bool in_enable) = 0;
+    virtual DispatchResponse getRelatedWebsiteSets(std::unique_ptr<protocol::Array<protocol::Storage::RelatedWebsiteSet>>* out_sets) = 0;
 
     virtual DispatchResponse disable()
     {
