@@ -293,6 +293,12 @@ extern ListAuthFactorsReplyDefaultTypeInternal _ListAuthFactorsReply_default_ins
 class ListAuthFactorsRequest;
 struct ListAuthFactorsRequestDefaultTypeInternal;
 extern ListAuthFactorsRequestDefaultTypeInternal _ListAuthFactorsRequest_default_instance_;
+class LockFactorUntilRebootReply;
+struct LockFactorUntilRebootReplyDefaultTypeInternal;
+extern LockFactorUntilRebootReplyDefaultTypeInternal _LockFactorUntilRebootReply_default_instance_;
+class LockFactorUntilRebootRequest;
+struct LockFactorUntilRebootRequestDefaultTypeInternal;
+extern LockFactorUntilRebootRequestDefaultTypeInternal _LockFactorUntilRebootRequest_default_instance_;
 class LockToSingleUserMountUntilRebootReply;
 struct LockToSingleUserMountUntilRebootReplyDefaultTypeInternal;
 extern LockToSingleUserMountUntilRebootReplyDefaultTypeInternal _LockToSingleUserMountUntilRebootReply_default_instance_;
@@ -302,6 +308,12 @@ extern LockToSingleUserMountUntilRebootRequestDefaultTypeInternal _LockToSingleU
 class LowDiskSpace;
 struct LowDiskSpaceDefaultTypeInternal;
 extern LowDiskSpaceDefaultTypeInternal _LowDiskSpace_default_instance_;
+class MigrateLegacyFingerprintsReply;
+struct MigrateLegacyFingerprintsReplyDefaultTypeInternal;
+extern MigrateLegacyFingerprintsReplyDefaultTypeInternal _MigrateLegacyFingerprintsReply_default_instance_;
+class MigrateLegacyFingerprintsRequest;
+struct MigrateLegacyFingerprintsRequestDefaultTypeInternal;
+extern MigrateLegacyFingerprintsRequestDefaultTypeInternal _MigrateLegacyFingerprintsRequest_default_instance_;
 class ModifyAuthFactorIntentsReply;
 struct ModifyAuthFactorIntentsReplyDefaultTypeInternal;
 extern ModifyAuthFactorIntentsReplyDefaultTypeInternal _ModifyAuthFactorIntentsReply_default_instance_;
@@ -575,9 +587,13 @@ template<> ::user_data_auth::IsMountedReply* Arena::CreateMaybeMessage<::user_da
 template<> ::user_data_auth::IsMountedRequest* Arena::CreateMaybeMessage<::user_data_auth::IsMountedRequest>(Arena*);
 template<> ::user_data_auth::ListAuthFactorsReply* Arena::CreateMaybeMessage<::user_data_auth::ListAuthFactorsReply>(Arena*);
 template<> ::user_data_auth::ListAuthFactorsRequest* Arena::CreateMaybeMessage<::user_data_auth::ListAuthFactorsRequest>(Arena*);
+template<> ::user_data_auth::LockFactorUntilRebootReply* Arena::CreateMaybeMessage<::user_data_auth::LockFactorUntilRebootReply>(Arena*);
+template<> ::user_data_auth::LockFactorUntilRebootRequest* Arena::CreateMaybeMessage<::user_data_auth::LockFactorUntilRebootRequest>(Arena*);
 template<> ::user_data_auth::LockToSingleUserMountUntilRebootReply* Arena::CreateMaybeMessage<::user_data_auth::LockToSingleUserMountUntilRebootReply>(Arena*);
 template<> ::user_data_auth::LockToSingleUserMountUntilRebootRequest* Arena::CreateMaybeMessage<::user_data_auth::LockToSingleUserMountUntilRebootRequest>(Arena*);
 template<> ::user_data_auth::LowDiskSpace* Arena::CreateMaybeMessage<::user_data_auth::LowDiskSpace>(Arena*);
+template<> ::user_data_auth::MigrateLegacyFingerprintsReply* Arena::CreateMaybeMessage<::user_data_auth::MigrateLegacyFingerprintsReply>(Arena*);
+template<> ::user_data_auth::MigrateLegacyFingerprintsRequest* Arena::CreateMaybeMessage<::user_data_auth::MigrateLegacyFingerprintsRequest>(Arena*);
 template<> ::user_data_auth::ModifyAuthFactorIntentsReply* Arena::CreateMaybeMessage<::user_data_auth::ModifyAuthFactorIntentsReply>(Arena*);
 template<> ::user_data_auth::ModifyAuthFactorIntentsRequest* Arena::CreateMaybeMessage<::user_data_auth::ModifyAuthFactorIntentsRequest>(Arena*);
 template<> ::user_data_auth::MountCompleted* Arena::CreateMaybeMessage<::user_data_auth::MountCompleted>(Arena*);
@@ -18591,6 +18607,280 @@ class RecoveryExtendedInfoReply final :
 };
 // -------------------------------------------------------------------
 
+class LockFactorUntilRebootRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.LockFactorUntilRebootRequest) */ {
+ public:
+  inline LockFactorUntilRebootRequest() : LockFactorUntilRebootRequest(nullptr) {}
+  ~LockFactorUntilRebootRequest() override;
+  explicit PROTOBUF_CONSTEXPR LockFactorUntilRebootRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  LockFactorUntilRebootRequest(const LockFactorUntilRebootRequest& from);
+  LockFactorUntilRebootRequest(LockFactorUntilRebootRequest&& from) noexcept
+    : LockFactorUntilRebootRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline LockFactorUntilRebootRequest& operator=(const LockFactorUntilRebootRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline LockFactorUntilRebootRequest& operator=(LockFactorUntilRebootRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const LockFactorUntilRebootRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const LockFactorUntilRebootRequest* internal_default_instance() {
+    return reinterpret_cast<const LockFactorUntilRebootRequest*>(
+               &_LockFactorUntilRebootRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    122;
+
+  friend void swap(LockFactorUntilRebootRequest& a, LockFactorUntilRebootRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(LockFactorUntilRebootRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(LockFactorUntilRebootRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  LockFactorUntilRebootRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<LockFactorUntilRebootRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const LockFactorUntilRebootRequest& from);
+  void MergeFrom(const LockFactorUntilRebootRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(LockFactorUntilRebootRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.LockFactorUntilRebootRequest";
+  }
+  protected:
+  explicit LockFactorUntilRebootRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAuthFactorTypeFieldNumber = 1,
+  };
+  // .user_data_auth.AuthFactorType auth_factor_type = 1;
+  void clear_auth_factor_type();
+  ::user_data_auth::AuthFactorType auth_factor_type() const;
+  void set_auth_factor_type(::user_data_auth::AuthFactorType value);
+  private:
+  ::user_data_auth::AuthFactorType _internal_auth_factor_type() const;
+  void _internal_set_auth_factor_type(::user_data_auth::AuthFactorType value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.LockFactorUntilRebootRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  int auth_factor_type_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LockFactorUntilRebootReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.LockFactorUntilRebootReply) */ {
+ public:
+  inline LockFactorUntilRebootReply() : LockFactorUntilRebootReply(nullptr) {}
+  ~LockFactorUntilRebootReply() override;
+  explicit PROTOBUF_CONSTEXPR LockFactorUntilRebootReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  LockFactorUntilRebootReply(const LockFactorUntilRebootReply& from);
+  LockFactorUntilRebootReply(LockFactorUntilRebootReply&& from) noexcept
+    : LockFactorUntilRebootReply() {
+    *this = ::std::move(from);
+  }
+
+  inline LockFactorUntilRebootReply& operator=(const LockFactorUntilRebootReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline LockFactorUntilRebootReply& operator=(LockFactorUntilRebootReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const LockFactorUntilRebootReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const LockFactorUntilRebootReply* internal_default_instance() {
+    return reinterpret_cast<const LockFactorUntilRebootReply*>(
+               &_LockFactorUntilRebootReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    123;
+
+  friend void swap(LockFactorUntilRebootReply& a, LockFactorUntilRebootReply& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(LockFactorUntilRebootReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(LockFactorUntilRebootReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  LockFactorUntilRebootReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<LockFactorUntilRebootReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const LockFactorUntilRebootReply& from);
+  void MergeFrom(const LockFactorUntilRebootReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(LockFactorUntilRebootReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.LockFactorUntilRebootReply";
+  }
+  protected:
+  explicit LockFactorUntilRebootReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrorInfoFieldNumber = 2,
+    kErrorFieldNumber = 1,
+  };
+  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+  bool has_error_info() const;
+  private:
+  bool _internal_has_error_info() const;
+  public:
+  void clear_error_info();
+  const ::user_data_auth::CryptohomeErrorInfo& error_info() const;
+  PROTOBUF_NODISCARD ::user_data_auth::CryptohomeErrorInfo* release_error_info();
+  ::user_data_auth::CryptohomeErrorInfo* mutable_error_info();
+  void set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info);
+  private:
+  const ::user_data_auth::CryptohomeErrorInfo& _internal_error_info() const;
+  ::user_data_auth::CryptohomeErrorInfo* _internal_mutable_error_info();
+  public:
+  void unsafe_arena_set_allocated_error_info(
+      ::user_data_auth::CryptohomeErrorInfo* error_info);
+  ::user_data_auth::CryptohomeErrorInfo* unsafe_arena_release_error_info();
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  void clear_error();
+  ::user_data_auth::CryptohomeErrorCode error() const;
+  void set_error(::user_data_auth::CryptohomeErrorCode value);
+  private:
+  ::user_data_auth::CryptohomeErrorCode _internal_error() const;
+  void _internal_set_error(::user_data_auth::CryptohomeErrorCode value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.LockFactorUntilRebootReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::user_data_auth::CryptohomeErrorInfo* error_info_;
+  int error_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
+// -------------------------------------------------------------------
+
 class GetAuthFactorExtendedInfoRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.GetAuthFactorExtendedInfoRequest) */ {
  public:
@@ -18635,7 +18925,7 @@ class GetAuthFactorExtendedInfoRequest final :
                &_GetAuthFactorExtendedInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    122;
+    124;
 
   friend void swap(GetAuthFactorExtendedInfoRequest& a, GetAuthFactorExtendedInfoRequest& b) {
     a.Swap(&b);
@@ -18824,7 +19114,7 @@ class GetAuthFactorExtendedInfoReply final :
                &_GetAuthFactorExtendedInfoReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    123;
+    125;
 
   friend void swap(GetAuthFactorExtendedInfoReply& a, GetAuthFactorExtendedInfoReply& b) {
     a.Swap(&b);
@@ -19023,7 +19313,7 @@ class GetRecoveryRequestRequest final :
                &_GetRecoveryRequestRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    124;
+    126;
 
   friend void swap(GetRecoveryRequestRequest& a, GetRecoveryRequestRequest& b) {
     a.Swap(&b);
@@ -19272,7 +19562,7 @@ class GetRecoveryRequestReply final :
                &_GetRecoveryRequestReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    125;
+    127;
 
   friend void swap(GetRecoveryRequestReply& a, GetRecoveryRequestReply& b) {
     a.Swap(&b);
@@ -19435,7 +19725,7 @@ class CreateVaultKeysetRequest final :
                &_CreateVaultKeysetRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    126;
+    128;
 
   friend void swap(CreateVaultKeysetRequest& a, CreateVaultKeysetRequest& b) {
     a.Swap(&b);
@@ -19653,7 +19943,7 @@ class CreateVaultKeysetReply final :
                &_CreateVaultKeysetReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    127;
+    129;
 
   friend void swap(CreateVaultKeysetReply& a, CreateVaultKeysetReply& b) {
     a.Swap(&b);
@@ -19800,7 +20090,7 @@ class PrepareAuthFactorRequest final :
                &_PrepareAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    128;
+    130;
 
   friend void swap(PrepareAuthFactorRequest& a, PrepareAuthFactorRequest& b) {
     a.Swap(&b);
@@ -19954,7 +20244,7 @@ class PrepareAuthFactorReply final :
                &_PrepareAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    129;
+    131;
 
   friend void swap(PrepareAuthFactorReply& a, PrepareAuthFactorReply& b) {
     a.Swap(&b);
@@ -20101,7 +20391,7 @@ class TerminateAuthFactorRequest final :
                &_TerminateAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    130;
+    132;
 
   friend void swap(TerminateAuthFactorRequest& a, TerminateAuthFactorRequest& b) {
     a.Swap(&b);
@@ -20244,7 +20534,7 @@ class TerminateAuthFactorReply final :
                &_TerminateAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    131;
+    133;
 
   friend void swap(TerminateAuthFactorReply& a, TerminateAuthFactorReply& b) {
     a.Swap(&b);
@@ -20391,7 +20681,7 @@ class ModifyAuthFactorIntentsRequest final :
                &_ModifyAuthFactorIntentsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    132;
+    134;
 
   friend void swap(ModifyAuthFactorIntentsRequest& a, ModifyAuthFactorIntentsRequest& b) {
     a.Swap(&b);
@@ -20554,7 +20844,7 @@ class ModifyAuthFactorIntentsReply final :
                &_ModifyAuthFactorIntentsReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    133;
+    135;
 
   friend void swap(ModifyAuthFactorIntentsReply& a, ModifyAuthFactorIntentsReply& b) {
     a.Swap(&b);
@@ -20682,6 +20972,285 @@ class ModifyAuthFactorIntentsReply final :
 };
 // -------------------------------------------------------------------
 
+class MigrateLegacyFingerprintsRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.MigrateLegacyFingerprintsRequest) */ {
+ public:
+  inline MigrateLegacyFingerprintsRequest() : MigrateLegacyFingerprintsRequest(nullptr) {}
+  ~MigrateLegacyFingerprintsRequest() override;
+  explicit PROTOBUF_CONSTEXPR MigrateLegacyFingerprintsRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  MigrateLegacyFingerprintsRequest(const MigrateLegacyFingerprintsRequest& from);
+  MigrateLegacyFingerprintsRequest(MigrateLegacyFingerprintsRequest&& from) noexcept
+    : MigrateLegacyFingerprintsRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline MigrateLegacyFingerprintsRequest& operator=(const MigrateLegacyFingerprintsRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline MigrateLegacyFingerprintsRequest& operator=(MigrateLegacyFingerprintsRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const MigrateLegacyFingerprintsRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const MigrateLegacyFingerprintsRequest* internal_default_instance() {
+    return reinterpret_cast<const MigrateLegacyFingerprintsRequest*>(
+               &_MigrateLegacyFingerprintsRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    136;
+
+  friend void swap(MigrateLegacyFingerprintsRequest& a, MigrateLegacyFingerprintsRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(MigrateLegacyFingerprintsRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(MigrateLegacyFingerprintsRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  MigrateLegacyFingerprintsRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<MigrateLegacyFingerprintsRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const MigrateLegacyFingerprintsRequest& from);
+  void MergeFrom(const MigrateLegacyFingerprintsRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(MigrateLegacyFingerprintsRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.MigrateLegacyFingerprintsRequest";
+  }
+  protected:
+  explicit MigrateLegacyFingerprintsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAuthSessionIdFieldNumber = 1,
+  };
+  // bytes auth_session_id = 1;
+  void clear_auth_session_id();
+  const std::string& auth_session_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_auth_session_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_auth_session_id();
+  PROTOBUF_NODISCARD std::string* release_auth_session_id();
+  void set_allocated_auth_session_id(std::string* auth_session_id);
+  private:
+  const std::string& _internal_auth_session_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_auth_session_id(const std::string& value);
+  std::string* _internal_mutable_auth_session_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.MigrateLegacyFingerprintsRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr auth_session_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
+// -------------------------------------------------------------------
+
+class MigrateLegacyFingerprintsReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.MigrateLegacyFingerprintsReply) */ {
+ public:
+  inline MigrateLegacyFingerprintsReply() : MigrateLegacyFingerprintsReply(nullptr) {}
+  ~MigrateLegacyFingerprintsReply() override;
+  explicit PROTOBUF_CONSTEXPR MigrateLegacyFingerprintsReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  MigrateLegacyFingerprintsReply(const MigrateLegacyFingerprintsReply& from);
+  MigrateLegacyFingerprintsReply(MigrateLegacyFingerprintsReply&& from) noexcept
+    : MigrateLegacyFingerprintsReply() {
+    *this = ::std::move(from);
+  }
+
+  inline MigrateLegacyFingerprintsReply& operator=(const MigrateLegacyFingerprintsReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline MigrateLegacyFingerprintsReply& operator=(MigrateLegacyFingerprintsReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const MigrateLegacyFingerprintsReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const MigrateLegacyFingerprintsReply* internal_default_instance() {
+    return reinterpret_cast<const MigrateLegacyFingerprintsReply*>(
+               &_MigrateLegacyFingerprintsReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    137;
+
+  friend void swap(MigrateLegacyFingerprintsReply& a, MigrateLegacyFingerprintsReply& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(MigrateLegacyFingerprintsReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(MigrateLegacyFingerprintsReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  MigrateLegacyFingerprintsReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<MigrateLegacyFingerprintsReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const MigrateLegacyFingerprintsReply& from);
+  void MergeFrom(const MigrateLegacyFingerprintsReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(MigrateLegacyFingerprintsReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.MigrateLegacyFingerprintsReply";
+  }
+  protected:
+  explicit MigrateLegacyFingerprintsReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrorInfoFieldNumber = 2,
+    kErrorFieldNumber = 1,
+  };
+  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+  bool has_error_info() const;
+  private:
+  bool _internal_has_error_info() const;
+  public:
+  void clear_error_info();
+  const ::user_data_auth::CryptohomeErrorInfo& error_info() const;
+  PROTOBUF_NODISCARD ::user_data_auth::CryptohomeErrorInfo* release_error_info();
+  ::user_data_auth::CryptohomeErrorInfo* mutable_error_info();
+  void set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info);
+  private:
+  const ::user_data_auth::CryptohomeErrorInfo& _internal_error_info() const;
+  ::user_data_auth::CryptohomeErrorInfo* _internal_mutable_error_info();
+  public:
+  void unsafe_arena_set_allocated_error_info(
+      ::user_data_auth::CryptohomeErrorInfo* error_info);
+  ::user_data_auth::CryptohomeErrorInfo* unsafe_arena_release_error_info();
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  void clear_error();
+  ::user_data_auth::CryptohomeErrorCode error() const;
+  void set_error(::user_data_auth::CryptohomeErrorCode value);
+  private:
+  ::user_data_auth::CryptohomeErrorCode _internal_error() const;
+  void _internal_set_error(::user_data_auth::CryptohomeErrorCode value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.MigrateLegacyFingerprintsReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::user_data_auth::CryptohomeErrorInfo* error_info_;
+  int error_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
+// -------------------------------------------------------------------
+
 class AuthScanResult final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.AuthScanResult) */ {
  public:
@@ -20726,7 +21295,7 @@ class AuthScanResult final :
                &_AuthScanResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    134;
+    138;
 
   friend void swap(AuthScanResult& a, AuthScanResult& b) {
     a.Swap(&b);
@@ -20869,7 +21438,7 @@ class FingerprintEnrollmentProgress final :
                &_FingerprintEnrollmentProgress_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    135;
+    139;
 
   friend void swap(FingerprintEnrollmentProgress& a, FingerprintEnrollmentProgress& b) {
     a.Swap(&b);
@@ -21001,7 +21570,7 @@ class AuthEnrollmentProgress final :
                &_AuthEnrollmentProgress_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    136;
+    140;
 
   friend void swap(AuthEnrollmentProgress& a, AuthEnrollmentProgress& b) {
     a.Swap(&b);
@@ -21180,7 +21749,7 @@ class AuthScanDone final :
                &_AuthScanDone_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    137;
+    141;
 
   friend void swap(AuthScanDone& a, AuthScanDone& b) {
     a.Swap(&b);
@@ -21321,7 +21890,7 @@ class PrepareAuthFactorForAddProgress final :
                &_PrepareAuthFactorForAddProgress_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    138;
+    142;
 
   friend void swap(PrepareAuthFactorForAddProgress& a, PrepareAuthFactorForAddProgress& b) {
     a.Swap(&b);
@@ -21485,7 +22054,7 @@ class PrepareAuthFactorForAuthProgress final :
                &_PrepareAuthFactorForAuthProgress_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    139;
+    143;
 
   friend void swap(PrepareAuthFactorForAuthProgress& a, PrepareAuthFactorForAuthProgress& b) {
     a.Swap(&b);
@@ -21650,7 +22219,7 @@ class PrepareAuthFactorProgress final :
                &_PrepareAuthFactorProgress_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    140;
+    144;
 
   friend void swap(PrepareAuthFactorProgress& a, PrepareAuthFactorProgress& b) {
     a.Swap(&b);
@@ -21836,7 +22405,7 @@ class AuthenticateStarted final :
                &_AuthenticateStarted_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    141;
+    145;
 
   friend void swap(AuthenticateStarted& a, AuthenticateStarted& b) {
     a.Swap(&b);
@@ -22044,7 +22613,7 @@ class AuthenticateAuthFactorCompleted final :
                &_AuthenticateAuthFactorCompleted_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    142;
+    146;
 
   friend void swap(AuthenticateAuthFactorCompleted& a, AuthenticateAuthFactorCompleted& b) {
     a.Swap(&b);
@@ -22277,7 +22846,7 @@ class MountStarted final :
                &_MountStarted_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    143;
+    147;
 
   friend void swap(MountStarted& a, MountStarted& b) {
     a.Swap(&b);
@@ -22404,7 +22973,7 @@ class MountCompleted final :
                &_MountCompleted_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    144;
+    148;
 
   friend void swap(MountCompleted& a, MountCompleted& b) {
     a.Swap(&b);
@@ -22562,7 +23131,7 @@ class EvictedKeyRestored final :
                &_EvictedKeyRestored_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    145;
+    149;
 
   friend void swap(EvictedKeyRestored& a, EvictedKeyRestored& b) {
     a.Swap(&b);
@@ -22689,7 +23258,7 @@ class GetRecoverableKeyStoresRequest final :
                &_GetRecoverableKeyStoresRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    146;
+    150;
 
   friend void swap(GetRecoverableKeyStoresRequest& a, GetRecoverableKeyStoresRequest& b) {
     a.Swap(&b);
@@ -22825,7 +23394,7 @@ class GetRecoverableKeyStoresReply final :
                &_GetRecoverableKeyStoresReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    147;
+    151;
 
   friend void swap(GetRecoverableKeyStoresReply& a, GetRecoverableKeyStoresReply& b) {
     a.Swap(&b);
@@ -34618,6 +35187,144 @@ RecoveryExtendedInfoReply::mutable_recovery_ids() {
 
 // -------------------------------------------------------------------
 
+// LockFactorUntilRebootRequest
+
+// .user_data_auth.AuthFactorType auth_factor_type = 1;
+inline void LockFactorUntilRebootRequest::clear_auth_factor_type() {
+  auth_factor_type_ = 0;
+}
+inline ::user_data_auth::AuthFactorType LockFactorUntilRebootRequest::_internal_auth_factor_type() const {
+  return static_cast< ::user_data_auth::AuthFactorType >(auth_factor_type_);
+}
+inline ::user_data_auth::AuthFactorType LockFactorUntilRebootRequest::auth_factor_type() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.LockFactorUntilRebootRequest.auth_factor_type)
+  return _internal_auth_factor_type();
+}
+inline void LockFactorUntilRebootRequest::_internal_set_auth_factor_type(::user_data_auth::AuthFactorType value) {
+  
+  auth_factor_type_ = value;
+}
+inline void LockFactorUntilRebootRequest::set_auth_factor_type(::user_data_auth::AuthFactorType value) {
+  _internal_set_auth_factor_type(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.LockFactorUntilRebootRequest.auth_factor_type)
+}
+
+// -------------------------------------------------------------------
+
+// LockFactorUntilRebootReply
+
+// .user_data_auth.CryptohomeErrorCode error = 1;
+inline void LockFactorUntilRebootReply::clear_error() {
+  error_ = 0;
+}
+inline ::user_data_auth::CryptohomeErrorCode LockFactorUntilRebootReply::_internal_error() const {
+  return static_cast< ::user_data_auth::CryptohomeErrorCode >(error_);
+}
+inline ::user_data_auth::CryptohomeErrorCode LockFactorUntilRebootReply::error() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.LockFactorUntilRebootReply.error)
+  return _internal_error();
+}
+inline void LockFactorUntilRebootReply::_internal_set_error(::user_data_auth::CryptohomeErrorCode value) {
+  
+  error_ = value;
+}
+inline void LockFactorUntilRebootReply::set_error(::user_data_auth::CryptohomeErrorCode value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.LockFactorUntilRebootReply.error)
+}
+
+// .user_data_auth.CryptohomeErrorInfo error_info = 2;
+inline bool LockFactorUntilRebootReply::_internal_has_error_info() const {
+  return this != internal_default_instance() && error_info_ != nullptr;
+}
+inline bool LockFactorUntilRebootReply::has_error_info() const {
+  return _internal_has_error_info();
+}
+inline void LockFactorUntilRebootReply::clear_error_info() {
+  if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
+    delete error_info_;
+  }
+  error_info_ = nullptr;
+}
+inline const ::user_data_auth::CryptohomeErrorInfo& LockFactorUntilRebootReply::_internal_error_info() const {
+  const ::user_data_auth::CryptohomeErrorInfo* p = error_info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::CryptohomeErrorInfo&>(
+      ::user_data_auth::_CryptohomeErrorInfo_default_instance_);
+}
+inline const ::user_data_auth::CryptohomeErrorInfo& LockFactorUntilRebootReply::error_info() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.LockFactorUntilRebootReply.error_info)
+  return _internal_error_info();
+}
+inline void LockFactorUntilRebootReply::unsafe_arena_set_allocated_error_info(
+    ::user_data_auth::CryptohomeErrorInfo* error_info) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(error_info_);
+  }
+  error_info_ = error_info;
+  if (error_info) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.LockFactorUntilRebootReply.error_info)
+}
+inline ::user_data_auth::CryptohomeErrorInfo* LockFactorUntilRebootReply::release_error_info() {
+  
+  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
+  error_info_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* LockFactorUntilRebootReply::unsafe_arena_release_error_info() {
+  // @@protoc_insertion_point(field_release:user_data_auth.LockFactorUntilRebootReply.error_info)
+  
+  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
+  error_info_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* LockFactorUntilRebootReply::_internal_mutable_error_info() {
+  
+  if (error_info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::CryptohomeErrorInfo>(GetArenaForAllocation());
+    error_info_ = p;
+  }
+  return error_info_;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* LockFactorUntilRebootReply::mutable_error_info() {
+  ::user_data_auth::CryptohomeErrorInfo* _msg = _internal_mutable_error_info();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.LockFactorUntilRebootReply.error_info)
+  return _msg;
+}
+inline void LockFactorUntilRebootReply::set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete error_info_;
+  }
+  if (error_info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(error_info);
+    if (message_arena != submessage_arena) {
+      error_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, error_info, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  error_info_ = error_info;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.LockFactorUntilRebootReply.error_info)
+}
+
+// -------------------------------------------------------------------
+
 // GetAuthFactorExtendedInfoRequest
 
 // .cryptohome.AccountIdentifier account_id = 1;
@@ -36735,6 +37442,174 @@ inline void ModifyAuthFactorIntentsReply::set_allocated_auth_intents(::user_data
 
 // -------------------------------------------------------------------
 
+// MigrateLegacyFingerprintsRequest
+
+// bytes auth_session_id = 1;
+inline void MigrateLegacyFingerprintsRequest::clear_auth_session_id() {
+  auth_session_id_.ClearToEmpty();
+}
+inline const std::string& MigrateLegacyFingerprintsRequest::auth_session_id() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.MigrateLegacyFingerprintsRequest.auth_session_id)
+  return _internal_auth_session_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void MigrateLegacyFingerprintsRequest::set_auth_session_id(ArgT0&& arg0, ArgT... args) {
+ 
+ auth_session_id_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.MigrateLegacyFingerprintsRequest.auth_session_id)
+}
+inline std::string* MigrateLegacyFingerprintsRequest::mutable_auth_session_id() {
+  std::string* _s = _internal_mutable_auth_session_id();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.MigrateLegacyFingerprintsRequest.auth_session_id)
+  return _s;
+}
+inline const std::string& MigrateLegacyFingerprintsRequest::_internal_auth_session_id() const {
+  return auth_session_id_.Get();
+}
+inline void MigrateLegacyFingerprintsRequest::_internal_set_auth_session_id(const std::string& value) {
+  
+  auth_session_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* MigrateLegacyFingerprintsRequest::_internal_mutable_auth_session_id() {
+  
+  return auth_session_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* MigrateLegacyFingerprintsRequest::release_auth_session_id() {
+  // @@protoc_insertion_point(field_release:user_data_auth.MigrateLegacyFingerprintsRequest.auth_session_id)
+  return auth_session_id_.Release();
+}
+inline void MigrateLegacyFingerprintsRequest::set_allocated_auth_session_id(std::string* auth_session_id) {
+  if (auth_session_id != nullptr) {
+    
+  } else {
+    
+  }
+  auth_session_id_.SetAllocated(auth_session_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (auth_session_id_.IsDefault()) {
+    auth_session_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.MigrateLegacyFingerprintsRequest.auth_session_id)
+}
+
+// -------------------------------------------------------------------
+
+// MigrateLegacyFingerprintsReply
+
+// .user_data_auth.CryptohomeErrorCode error = 1;
+inline void MigrateLegacyFingerprintsReply::clear_error() {
+  error_ = 0;
+}
+inline ::user_data_auth::CryptohomeErrorCode MigrateLegacyFingerprintsReply::_internal_error() const {
+  return static_cast< ::user_data_auth::CryptohomeErrorCode >(error_);
+}
+inline ::user_data_auth::CryptohomeErrorCode MigrateLegacyFingerprintsReply::error() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.MigrateLegacyFingerprintsReply.error)
+  return _internal_error();
+}
+inline void MigrateLegacyFingerprintsReply::_internal_set_error(::user_data_auth::CryptohomeErrorCode value) {
+  
+  error_ = value;
+}
+inline void MigrateLegacyFingerprintsReply::set_error(::user_data_auth::CryptohomeErrorCode value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.MigrateLegacyFingerprintsReply.error)
+}
+
+// .user_data_auth.CryptohomeErrorInfo error_info = 2;
+inline bool MigrateLegacyFingerprintsReply::_internal_has_error_info() const {
+  return this != internal_default_instance() && error_info_ != nullptr;
+}
+inline bool MigrateLegacyFingerprintsReply::has_error_info() const {
+  return _internal_has_error_info();
+}
+inline void MigrateLegacyFingerprintsReply::clear_error_info() {
+  if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
+    delete error_info_;
+  }
+  error_info_ = nullptr;
+}
+inline const ::user_data_auth::CryptohomeErrorInfo& MigrateLegacyFingerprintsReply::_internal_error_info() const {
+  const ::user_data_auth::CryptohomeErrorInfo* p = error_info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::CryptohomeErrorInfo&>(
+      ::user_data_auth::_CryptohomeErrorInfo_default_instance_);
+}
+inline const ::user_data_auth::CryptohomeErrorInfo& MigrateLegacyFingerprintsReply::error_info() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.MigrateLegacyFingerprintsReply.error_info)
+  return _internal_error_info();
+}
+inline void MigrateLegacyFingerprintsReply::unsafe_arena_set_allocated_error_info(
+    ::user_data_auth::CryptohomeErrorInfo* error_info) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(error_info_);
+  }
+  error_info_ = error_info;
+  if (error_info) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.MigrateLegacyFingerprintsReply.error_info)
+}
+inline ::user_data_auth::CryptohomeErrorInfo* MigrateLegacyFingerprintsReply::release_error_info() {
+  
+  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
+  error_info_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* MigrateLegacyFingerprintsReply::unsafe_arena_release_error_info() {
+  // @@protoc_insertion_point(field_release:user_data_auth.MigrateLegacyFingerprintsReply.error_info)
+  
+  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
+  error_info_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* MigrateLegacyFingerprintsReply::_internal_mutable_error_info() {
+  
+  if (error_info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::CryptohomeErrorInfo>(GetArenaForAllocation());
+    error_info_ = p;
+  }
+  return error_info_;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* MigrateLegacyFingerprintsReply::mutable_error_info() {
+  ::user_data_auth::CryptohomeErrorInfo* _msg = _internal_mutable_error_info();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.MigrateLegacyFingerprintsReply.error_info)
+  return _msg;
+}
+inline void MigrateLegacyFingerprintsReply::set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete error_info_;
+  }
+  if (error_info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(error_info);
+    if (message_arena != submessage_arena) {
+      error_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, error_info, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  error_info_ = error_info;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.MigrateLegacyFingerprintsReply.error_info)
+}
+
+// -------------------------------------------------------------------
+
 // AuthScanResult
 
 // .user_data_auth.FingerprintScanResult fingerprint_result = 1;
@@ -38447,6 +39322,14 @@ GetRecoverableKeyStoresReply::key_stores() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

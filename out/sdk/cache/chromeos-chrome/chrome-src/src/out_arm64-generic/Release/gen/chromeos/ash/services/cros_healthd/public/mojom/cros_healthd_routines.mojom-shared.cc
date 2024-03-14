@@ -352,20 +352,10 @@ bool RoutineDetail_Data::Validate(
         return false;
       return true;
     }
-    case RoutineDetail_Tag::kVolumeButton: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_volume_button, 3, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_volume_button, validation_context))
-        return false;
-      return true;
-    }
     case RoutineDetail_Tag::kFan: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_fan, 4, validation_context)) {
+              object->data.f_fan, 3, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_fan, validation_context))
@@ -674,29 +664,6 @@ bool MemtesterResult_Data::Validate(
 }
 
 MemtesterResult_Data::MemtesterResult_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool VolumeButtonRoutineDetail_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const VolumeButtonRoutineDetail_Data* object =
-      static_cast<const VolumeButtonRoutineDetail_Data*>(data);
-
-  return true;
-}
-
-VolumeButtonRoutineDetail_Data::VolumeButtonRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 

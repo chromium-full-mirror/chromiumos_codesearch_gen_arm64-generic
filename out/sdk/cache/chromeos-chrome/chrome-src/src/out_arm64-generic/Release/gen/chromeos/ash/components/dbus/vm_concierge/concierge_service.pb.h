@@ -1904,14 +1904,12 @@ class StartVmRequest final :
     kVmFieldNumber = 1,
     kStartTerminaFieldNumber = 5,
     kEnableGpuFieldNumber = 8,
-    kSoftwareTpmFieldNumber = 9,
     kEnableAudioCaptureFieldNumber = 11,
-    kCpusFieldNumber = 12,
     kWritableRootfsFieldNumber = 15,
-    kEnableVulkanFieldNumber = 18,
+    kCpusFieldNumber = 12,
+    kTimeoutFieldNumber = 20,
     kEnableBigGlFieldNumber = 19,
     kVtpmProxyFieldNumber = 22,
-    kTimeoutFieldNumber = 20,
     kStorageBallooningFieldNumber = 23,
     kEnableVirtgpuNativeContextFieldNumber = 25,
     kEnableDgpuPassthroughFieldNumber = 27,
@@ -2095,15 +2093,6 @@ class StartVmRequest final :
   void _internal_set_enable_gpu(bool value);
   public:
 
-  // bool software_tpm = 9 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_software_tpm();
-  PROTOBUF_DEPRECATED bool software_tpm() const;
-  PROTOBUF_DEPRECATED void set_software_tpm(bool value);
-  private:
-  bool _internal_software_tpm() const;
-  void _internal_set_software_tpm(bool value);
-  public:
-
   // bool enable_audio_capture = 11;
   void clear_enable_audio_capture();
   bool enable_audio_capture() const;
@@ -2111,15 +2100,6 @@ class StartVmRequest final :
   private:
   bool _internal_enable_audio_capture() const;
   void _internal_set_enable_audio_capture(bool value);
-  public:
-
-  // uint32 cpus = 12;
-  void clear_cpus();
-  uint32_t cpus() const;
-  void set_cpus(uint32_t value);
-  private:
-  uint32_t _internal_cpus() const;
-  void _internal_set_cpus(uint32_t value);
   public:
 
   // bool writable_rootfs = 15;
@@ -2131,13 +2111,22 @@ class StartVmRequest final :
   void _internal_set_writable_rootfs(bool value);
   public:
 
-  // bool enable_vulkan = 18 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_enable_vulkan();
-  PROTOBUF_DEPRECATED bool enable_vulkan() const;
-  PROTOBUF_DEPRECATED void set_enable_vulkan(bool value);
+  // uint32 cpus = 12;
+  void clear_cpus();
+  uint32_t cpus() const;
+  void set_cpus(uint32_t value);
   private:
-  bool _internal_enable_vulkan() const;
-  void _internal_set_enable_vulkan(bool value);
+  uint32_t _internal_cpus() const;
+  void _internal_set_cpus(uint32_t value);
+  public:
+
+  // uint32 timeout = 20;
+  void clear_timeout();
+  uint32_t timeout() const;
+  void set_timeout(uint32_t value);
+  private:
+  uint32_t _internal_timeout() const;
+  void _internal_set_timeout(uint32_t value);
   public:
 
   // bool enable_big_gl = 19;
@@ -2156,15 +2145,6 @@ class StartVmRequest final :
   private:
   bool _internal_vtpm_proxy() const;
   void _internal_set_vtpm_proxy(bool value);
-  public:
-
-  // uint32 timeout = 20;
-  void clear_timeout();
-  uint32_t timeout() const;
-  void set_timeout(uint32_t value);
-  private:
-  uint32_t _internal_timeout() const;
-  void _internal_set_timeout(uint32_t value);
   public:
 
   // bool storage_ballooning = 23;
@@ -2223,14 +2203,12 @@ class StartVmRequest final :
   ::vm_tools::concierge::VirtualMachineSpec* vm_;
   bool start_termina_;
   bool enable_gpu_;
-  bool software_tpm_;
   bool enable_audio_capture_;
-  uint32_t cpus_;
   bool writable_rootfs_;
-  bool enable_vulkan_;
+  uint32_t cpus_;
+  uint32_t timeout_;
   bool enable_big_gl_;
   bool vtpm_proxy_;
-  uint32_t timeout_;
   bool storage_ballooning_;
   bool enable_virtgpu_native_context_;
   bool enable_dgpu_passthrough_;
@@ -2346,10 +2324,8 @@ class StartPluginVmRequest final :
     kParamsFieldNumber = 4,
     kNameFieldNumber = 1,
     kOwnerIdFieldNumber = 2,
-    kHostMacAddressFieldNumber = 6,
     kNetOptionsFieldNumber = 8,
     kCpusFieldNumber = 3,
-    kGuestIpv4AddressFieldNumber = 5,
     kSubnetIndexFieldNumber = 7,
   };
   // repeated string params = 4;
@@ -2404,20 +2380,6 @@ class StartPluginVmRequest final :
   std::string* _internal_mutable_owner_id();
   public:
 
-  // bytes host_mac_address = 6;
-  void clear_host_mac_address();
-  const std::string& host_mac_address() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_host_mac_address(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_host_mac_address();
-  PROTOBUF_NODISCARD std::string* release_host_mac_address();
-  void set_allocated_host_mac_address(std::string* host_mac_address);
-  private:
-  const std::string& _internal_host_mac_address() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_host_mac_address(const std::string& value);
-  std::string* _internal_mutable_host_mac_address();
-  public:
-
   // .vm_tools.concierge.NetworkOptions net_options = 8;
   bool has_net_options() const;
   private:
@@ -2445,15 +2407,6 @@ class StartPluginVmRequest final :
   void _internal_set_cpus(uint32_t value);
   public:
 
-  // fixed32 guest_ipv4_address = 5;
-  void clear_guest_ipv4_address();
-  uint32_t guest_ipv4_address() const;
-  void set_guest_ipv4_address(uint32_t value);
-  private:
-  uint32_t _internal_guest_ipv4_address() const;
-  void _internal_set_guest_ipv4_address(uint32_t value);
-  public:
-
   // uint32 subnet_index = 7;
   void clear_subnet_index();
   uint32_t subnet_index() const;
@@ -2473,10 +2426,8 @@ class StartPluginVmRequest final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> params_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr host_mac_address_;
   ::vm_tools::concierge::NetworkOptions* net_options_;
   uint32_t cpus_;
-  uint32_t guest_ipv4_address_;
   uint32_t subnet_index_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
@@ -2720,21 +2671,18 @@ class StartArcVmRequest final :
     kLockGuestMemoryFieldNumber = 18,
     kEnableKeyboardShortcutHelperIntegrationFieldNumber = 21,
     kEnableBroadcastAnrPrenotifyFieldNumber = 25,
-    kLogdConfigSizeFieldNumber = 26,
     kVmMemoryPsiPeriodFieldNumber = 28,
     kGuestSwappinessFieldNumber = 33,
     kMglruReclaimIntervalFieldNumber = 35,
     kMglruReclaimSwappinessFieldNumber = 36,
-    kEnableVirtioBlkDataFieldNumber = 27,
-    kUpdateO4CListViaA2C2FieldNumber = 37,
-    kEnableRwFieldNumber = 41,
-    kEnableWebViewZygoteLazyInitFieldNumber = 42,
     kUsapProfileFieldNumber = 38,
     kNativeBridgeExperimentFieldNumber = 39,
-    kUreadaheadModeFieldNumber = 40,
-    kGuestZramMibFieldNumber = 44,
+    kEnableVirtioBlkDataFieldNumber = 27,
+    kEnableWebViewZygoteLazyInitFieldNumber = 42,
     kEnableVmmSwapFieldNumber = 43,
     kRootfsODirectFieldNumber = 45,
+    kUreadaheadModeFieldNumber = 40,
+    kGuestZramMibFieldNumber = 44,
     kEnableS2IdleFieldNumber = 46,
     kRootfsMultipleWorkersFieldNumber = 47,
   };
@@ -2942,15 +2890,6 @@ class StartArcVmRequest final :
   void _internal_set_enable_broadcast_anr_prenotify(bool value);
   public:
 
-  // int32 logd_config_size = 26 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_logd_config_size();
-  PROTOBUF_DEPRECATED int32_t logd_config_size() const;
-  PROTOBUF_DEPRECATED void set_logd_config_size(int32_t value);
-  private:
-  int32_t _internal_logd_config_size() const;
-  void _internal_set_logd_config_size(int32_t value);
-  public:
-
   // int32 vm_memory_psi_period = 28;
   void clear_vm_memory_psi_period();
   int32_t vm_memory_psi_period() const;
@@ -2987,42 +2926,6 @@ class StartArcVmRequest final :
   void _internal_set_mglru_reclaim_swappiness(int32_t value);
   public:
 
-  // bool enable_virtio_blk_data = 27;
-  void clear_enable_virtio_blk_data();
-  bool enable_virtio_blk_data() const;
-  void set_enable_virtio_blk_data(bool value);
-  private:
-  bool _internal_enable_virtio_blk_data() const;
-  void _internal_set_enable_virtio_blk_data(bool value);
-  public:
-
-  // bool update_o4c_list_via_a2c2 = 37 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_update_o4c_list_via_a2c2();
-  PROTOBUF_DEPRECATED bool update_o4c_list_via_a2c2() const;
-  PROTOBUF_DEPRECATED void set_update_o4c_list_via_a2c2(bool value);
-  private:
-  bool _internal_update_o4c_list_via_a2c2() const;
-  void _internal_set_update_o4c_list_via_a2c2(bool value);
-  public:
-
-  // bool enable_rw = 41 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_enable_rw();
-  PROTOBUF_DEPRECATED bool enable_rw() const;
-  PROTOBUF_DEPRECATED void set_enable_rw(bool value);
-  private:
-  bool _internal_enable_rw() const;
-  void _internal_set_enable_rw(bool value);
-  public:
-
-  // bool enable_web_view_zygote_lazy_init = 42;
-  void clear_enable_web_view_zygote_lazy_init();
-  bool enable_web_view_zygote_lazy_init() const;
-  void set_enable_web_view_zygote_lazy_init(bool value);
-  private:
-  bool _internal_enable_web_view_zygote_lazy_init() const;
-  void _internal_set_enable_web_view_zygote_lazy_init(bool value);
-  public:
-
   // .vm_tools.concierge.StartArcVmRequest.UsapProfileType usap_profile = 38;
   void clear_usap_profile();
   ::vm_tools::concierge::StartArcVmRequest_UsapProfileType usap_profile() const;
@@ -3041,22 +2944,22 @@ class StartArcVmRequest final :
   void _internal_set_native_bridge_experiment(::vm_tools::concierge::StartArcVmRequest_BinaryTranslationType value);
   public:
 
-  // .vm_tools.concierge.StartArcVmRequest.UreadaheadMode ureadahead_mode = 40;
-  void clear_ureadahead_mode();
-  ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode ureadahead_mode() const;
-  void set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value);
+  // bool enable_virtio_blk_data = 27;
+  void clear_enable_virtio_blk_data();
+  bool enable_virtio_blk_data() const;
+  void set_enable_virtio_blk_data(bool value);
   private:
-  ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode _internal_ureadahead_mode() const;
-  void _internal_set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value);
+  bool _internal_enable_virtio_blk_data() const;
+  void _internal_set_enable_virtio_blk_data(bool value);
   public:
 
-  // uint32 guest_zram_mib = 44;
-  void clear_guest_zram_mib();
-  uint32_t guest_zram_mib() const;
-  void set_guest_zram_mib(uint32_t value);
+  // bool enable_web_view_zygote_lazy_init = 42;
+  void clear_enable_web_view_zygote_lazy_init();
+  bool enable_web_view_zygote_lazy_init() const;
+  void set_enable_web_view_zygote_lazy_init(bool value);
   private:
-  uint32_t _internal_guest_zram_mib() const;
-  void _internal_set_guest_zram_mib(uint32_t value);
+  bool _internal_enable_web_view_zygote_lazy_init() const;
+  void _internal_set_enable_web_view_zygote_lazy_init(bool value);
   public:
 
   // bool enable_vmm_swap = 43;
@@ -3075,6 +2978,24 @@ class StartArcVmRequest final :
   private:
   bool _internal_rootfs_o_direct() const;
   void _internal_set_rootfs_o_direct(bool value);
+  public:
+
+  // .vm_tools.concierge.StartArcVmRequest.UreadaheadMode ureadahead_mode = 40;
+  void clear_ureadahead_mode();
+  ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode ureadahead_mode() const;
+  void set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value);
+  private:
+  ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode _internal_ureadahead_mode() const;
+  void _internal_set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value);
+  public:
+
+  // uint32 guest_zram_mib = 44;
+  void clear_guest_zram_mib();
+  uint32_t guest_zram_mib() const;
+  void set_guest_zram_mib(uint32_t value);
+  private:
+  uint32_t _internal_guest_zram_mib() const;
+  void _internal_set_guest_zram_mib(uint32_t value);
   public:
 
   // bool enable_s2idle = 46;
@@ -3120,21 +3041,18 @@ class StartArcVmRequest final :
   bool lock_guest_memory_;
   bool enable_keyboard_shortcut_helper_integration_;
   bool enable_broadcast_anr_prenotify_;
-  int32_t logd_config_size_;
   int32_t vm_memory_psi_period_;
   int32_t guest_swappiness_;
   int32_t mglru_reclaim_interval_;
   int32_t mglru_reclaim_swappiness_;
-  bool enable_virtio_blk_data_;
-  bool update_o4c_list_via_a2c2_;
-  bool enable_rw_;
-  bool enable_web_view_zygote_lazy_init_;
   int usap_profile_;
   int native_bridge_experiment_;
-  int ureadahead_mode_;
-  uint32_t guest_zram_mib_;
+  bool enable_virtio_blk_data_;
+  bool enable_web_view_zygote_lazy_init_;
   bool enable_vmm_swap_;
   bool rootfs_o_direct_;
+  int ureadahead_mode_;
+  uint32_t guest_zram_mib_;
   bool enable_s2idle_;
   bool rootfs_multiple_workers_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -16016,26 +15934,6 @@ inline void StartVmRequest::set_enable_gpu(bool value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.enable_gpu)
 }
 
-// bool software_tpm = 9 [deprecated = true];
-inline void StartVmRequest::clear_software_tpm() {
-  software_tpm_ = false;
-}
-inline bool StartVmRequest::_internal_software_tpm() const {
-  return software_tpm_;
-}
-inline bool StartVmRequest::software_tpm() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartVmRequest.software_tpm)
-  return _internal_software_tpm();
-}
-inline void StartVmRequest::_internal_set_software_tpm(bool value) {
-  
-  software_tpm_ = value;
-}
-inline void StartVmRequest::set_software_tpm(bool value) {
-  _internal_set_software_tpm(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.software_tpm)
-}
-
 // bool enable_audio_capture = 11;
 inline void StartVmRequest::clear_enable_audio_capture() {
   enable_audio_capture_ = false;
@@ -16212,26 +16110,6 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 StartVmRequest::mutable_kernel_params() {
   // @@protoc_insertion_point(field_mutable_list:vm_tools.concierge.StartVmRequest.kernel_params)
   return &kernel_params_;
-}
-
-// bool enable_vulkan = 18 [deprecated = true];
-inline void StartVmRequest::clear_enable_vulkan() {
-  enable_vulkan_ = false;
-}
-inline bool StartVmRequest::_internal_enable_vulkan() const {
-  return enable_vulkan_;
-}
-inline bool StartVmRequest::enable_vulkan() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartVmRequest.enable_vulkan)
-  return _internal_enable_vulkan();
-}
-inline void StartVmRequest::_internal_set_enable_vulkan(bool value) {
-  
-  enable_vulkan_ = value;
-}
-inline void StartVmRequest::set_enable_vulkan(bool value) {
-  _internal_set_enable_vulkan(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.enable_vulkan)
 }
 
 // bool enable_big_gl = 19;
@@ -16739,76 +16617,6 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 StartPluginVmRequest::mutable_params() {
   // @@protoc_insertion_point(field_mutable_list:vm_tools.concierge.StartPluginVmRequest.params)
   return &params_;
-}
-
-// fixed32 guest_ipv4_address = 5;
-inline void StartPluginVmRequest::clear_guest_ipv4_address() {
-  guest_ipv4_address_ = 0u;
-}
-inline uint32_t StartPluginVmRequest::_internal_guest_ipv4_address() const {
-  return guest_ipv4_address_;
-}
-inline uint32_t StartPluginVmRequest::guest_ipv4_address() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartPluginVmRequest.guest_ipv4_address)
-  return _internal_guest_ipv4_address();
-}
-inline void StartPluginVmRequest::_internal_set_guest_ipv4_address(uint32_t value) {
-  
-  guest_ipv4_address_ = value;
-}
-inline void StartPluginVmRequest::set_guest_ipv4_address(uint32_t value) {
-  _internal_set_guest_ipv4_address(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartPluginVmRequest.guest_ipv4_address)
-}
-
-// bytes host_mac_address = 6;
-inline void StartPluginVmRequest::clear_host_mac_address() {
-  host_mac_address_.ClearToEmpty();
-}
-inline const std::string& StartPluginVmRequest::host_mac_address() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartPluginVmRequest.host_mac_address)
-  return _internal_host_mac_address();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void StartPluginVmRequest::set_host_mac_address(ArgT0&& arg0, ArgT... args) {
- 
- host_mac_address_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartPluginVmRequest.host_mac_address)
-}
-inline std::string* StartPluginVmRequest::mutable_host_mac_address() {
-  std::string* _s = _internal_mutable_host_mac_address();
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.StartPluginVmRequest.host_mac_address)
-  return _s;
-}
-inline const std::string& StartPluginVmRequest::_internal_host_mac_address() const {
-  return host_mac_address_.Get();
-}
-inline void StartPluginVmRequest::_internal_set_host_mac_address(const std::string& value) {
-  
-  host_mac_address_.Set(value, GetArenaForAllocation());
-}
-inline std::string* StartPluginVmRequest::_internal_mutable_host_mac_address() {
-  
-  return host_mac_address_.Mutable(GetArenaForAllocation());
-}
-inline std::string* StartPluginVmRequest::release_host_mac_address() {
-  // @@protoc_insertion_point(field_release:vm_tools.concierge.StartPluginVmRequest.host_mac_address)
-  return host_mac_address_.Release();
-}
-inline void StartPluginVmRequest::set_allocated_host_mac_address(std::string* host_mac_address) {
-  if (host_mac_address != nullptr) {
-    
-  } else {
-    
-  }
-  host_mac_address_.SetAllocated(host_mac_address, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (host_mac_address_.IsDefault()) {
-    host_mac_address_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.StartPluginVmRequest.host_mac_address)
 }
 
 // uint32 subnet_index = 7;
@@ -17445,26 +17253,6 @@ inline void StartArcVmRequest::set_enable_broadcast_anr_prenotify(bool value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_broadcast_anr_prenotify)
 }
 
-// int32 logd_config_size = 26 [deprecated = true];
-inline void StartArcVmRequest::clear_logd_config_size() {
-  logd_config_size_ = 0;
-}
-inline int32_t StartArcVmRequest::_internal_logd_config_size() const {
-  return logd_config_size_;
-}
-inline int32_t StartArcVmRequest::logd_config_size() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.logd_config_size)
-  return _internal_logd_config_size();
-}
-inline void StartArcVmRequest::_internal_set_logd_config_size(int32_t value) {
-  
-  logd_config_size_ = value;
-}
-inline void StartArcVmRequest::set_logd_config_size(int32_t value) {
-  _internal_set_logd_config_size(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.logd_config_size)
-}
-
 // bool enable_virtio_blk_data = 27;
 inline void StartArcVmRequest::clear_enable_virtio_blk_data() {
   enable_virtio_blk_data_ = false;
@@ -17650,26 +17438,6 @@ inline void StartArcVmRequest::set_mglru_reclaim_swappiness(int32_t value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_swappiness)
 }
 
-// bool update_o4c_list_via_a2c2 = 37 [deprecated = true];
-inline void StartArcVmRequest::clear_update_o4c_list_via_a2c2() {
-  update_o4c_list_via_a2c2_ = false;
-}
-inline bool StartArcVmRequest::_internal_update_o4c_list_via_a2c2() const {
-  return update_o4c_list_via_a2c2_;
-}
-inline bool StartArcVmRequest::update_o4c_list_via_a2c2() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.update_o4c_list_via_a2c2)
-  return _internal_update_o4c_list_via_a2c2();
-}
-inline void StartArcVmRequest::_internal_set_update_o4c_list_via_a2c2(bool value) {
-  
-  update_o4c_list_via_a2c2_ = value;
-}
-inline void StartArcVmRequest::set_update_o4c_list_via_a2c2(bool value) {
-  _internal_set_update_o4c_list_via_a2c2(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.update_o4c_list_via_a2c2)
-}
-
 // .vm_tools.concierge.StartArcVmRequest.UsapProfileType usap_profile = 38;
 inline void StartArcVmRequest::clear_usap_profile() {
   usap_profile_ = 0;
@@ -17728,26 +17496,6 @@ inline void StartArcVmRequest::_internal_set_ureadahead_mode(::vm_tools::concier
 inline void StartArcVmRequest::set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value) {
   _internal_set_ureadahead_mode(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.ureadahead_mode)
-}
-
-// bool enable_rw = 41 [deprecated = true];
-inline void StartArcVmRequest::clear_enable_rw() {
-  enable_rw_ = false;
-}
-inline bool StartArcVmRequest::_internal_enable_rw() const {
-  return enable_rw_;
-}
-inline bool StartArcVmRequest::enable_rw() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.enable_rw)
-  return _internal_enable_rw();
-}
-inline void StartArcVmRequest::_internal_set_enable_rw(bool value) {
-  
-  enable_rw_ = value;
-}
-inline void StartArcVmRequest::set_enable_rw(bool value) {
-  _internal_set_enable_rw(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_rw)
 }
 
 // bool enable_web_view_zygote_lazy_init = 42;

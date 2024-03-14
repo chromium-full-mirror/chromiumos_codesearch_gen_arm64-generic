@@ -36,7 +36,6 @@ class RoutineStateWaiting_Data;
 class RoutineStateFinished_Data;
 class MemoryRoutineDetail_Data;
 class MemtesterResult_Data;
-class VolumeButtonRoutineDetail_Data;
 class FanRoutineDetail_Data;
 class RoutineArgument_Data;
 class RoutineStateUnion_Data;
@@ -315,8 +314,6 @@ class  RoutineDetail_Data {
     
     kMemory,
     
-    kVolumeButton,
-    
     kFan,
   };
 
@@ -327,7 +324,6 @@ class  RoutineDetail_Data {
     Union_() : unknown(0) {}
     uint8_t f_unrecognizedArgument : 1;
     mojo::internal::Pointer<internal::MemoryRoutineDetail_Data> f_memory;
-    mojo::internal::Pointer<internal::VolumeButtonRoutineDetail_Data> f_volume_button;
     mojo::internal::Pointer<internal::FanRoutineDetail_Data> f_fan;
     uint64_t unknown;
   };
@@ -827,53 +823,6 @@ struct MemtesterResult_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     MemtesterResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  VolumeButtonRoutineDetail_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<VolumeButtonRoutineDetail_Data>;
-
-  VolumeButtonRoutineDetail_Data();
-  ~VolumeButtonRoutineDetail_Data() = delete;
-};
-static_assert(sizeof(VolumeButtonRoutineDetail_Data) == 8,
-              "Bad sizeof(VolumeButtonRoutineDetail_Data)");
-// Used by VolumeButtonRoutineDetail::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct VolumeButtonRoutineDetail_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  VolumeButtonRoutineDetail_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~VolumeButtonRoutineDetail_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<VolumeButtonRoutineDetail_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    VolumeButtonRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  FanRoutineDetail_Data {
  public:
   static bool Validate(const void* data,

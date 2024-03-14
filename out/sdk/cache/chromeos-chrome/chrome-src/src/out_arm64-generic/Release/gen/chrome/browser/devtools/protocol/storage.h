@@ -95,6 +95,10 @@ namespace SharedStorageAccessTypeEnum {
  extern const char WorkletEntries[];
  extern const char WorkletLength[];
  extern const char WorkletRemainingBudget[];
+ extern const char HeaderSet[];
+ extern const char HeaderAppend[];
+ extern const char HeaderDelete[];
+ extern const char HeaderClear[];
 } // namespace SharedStorageAccessTypeEnum
 
 namespace StorageBucketsDurabilityEnum {

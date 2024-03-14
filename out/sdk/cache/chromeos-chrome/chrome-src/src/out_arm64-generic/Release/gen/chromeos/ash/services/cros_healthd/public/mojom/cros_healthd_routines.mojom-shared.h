@@ -55,8 +55,6 @@ class MemoryRoutineDetailDataView;
 
 class MemtesterResultDataView;
 
-class VolumeButtonRoutineDetailDataView;
-
 class FanRoutineDetailDataView;
 
 class RoutineArgumentDataView;
@@ -135,13 +133,6 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView> 
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::MemtesterResultDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::MemtesterResult_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView> {
-  using Data = ::ash::cros_healthd::mojom::internal::VolumeButtonRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -619,21 +610,6 @@ class MemtesterResultDataView {
 };
 
 
-class VolumeButtonRoutineDetailDataView {
- public:
-  VolumeButtonRoutineDetailDataView() = default;
-
-  VolumeButtonRoutineDetailDataView(
-      internal::VolumeButtonRoutineDetail_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::VolumeButtonRoutineDetail_Data* data_ = nullptr;
-};
-
-
 class FanRoutineDetailDataView {
  public:
   FanRoutineDetailDataView() = default;
@@ -852,17 +828,6 @@ class RoutineDetailDataView {
     CHECK(is_memory());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView>(
         data_->data.f_memory.Get(), output, message_);
-  }
-  bool is_volume_button() const { return data_->tag == Tag::kVolumeButton; }
-  inline void GetVolumeButtonDataView(
-      VolumeButtonRoutineDetailDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadVolumeButton(UserType* output) const {
-    
-    CHECK(is_volume_button());
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView>(
-        data_->data.f_volume_button.Get(), output, message_);
   }
   bool is_fan() const { return data_->tag == Tag::kFan; }
   inline void GetFanDataView(
@@ -1372,35 +1337,6 @@ struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::VolumeButtonRoutineDetail_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-  }
-
-  static bool Deserialize(::ash::cros_healthd::mojom::internal::VolumeButtonRoutineDetail_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::FanRoutineDetailDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::FanRoutineDetailDataView, UserType>;
@@ -1709,22 +1645,6 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kVolumeButton: {
-        decltype(Traits::volume_button(input))
-            in_volume_button = Traits::volume_button(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_volume_button)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView>(
-            in_volume_button, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null volume_button in RoutineDetail union");
-        fragment->data.f_volume_button.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
       case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kFan: {
         decltype(Traits::fan(input))
             in_fan = Traits::fan(input);
@@ -1817,8 +1737,6 @@ inline void MemtesterResultDataView::GetFailedItemsDataView(
 }
 
 
-
-
 inline void FanRoutineDetailDataView::GetPassedFanIdsDataView(
     mojo::ArrayDataView<uint8_t>* output) {
   auto pointer = data_->passed_fan_ids.Get();
@@ -1872,11 +1790,6 @@ inline void RoutineDetailDataView::GetMemoryDataView(
     MemoryRoutineDetailDataView* output) const {
   CHECK(is_memory());
   *output = MemoryRoutineDetailDataView(data_->data.f_memory.Get(), message_);
-}
-inline void RoutineDetailDataView::GetVolumeButtonDataView(
-    VolumeButtonRoutineDetailDataView* output) const {
-  CHECK(is_volume_button());
-  *output = VolumeButtonRoutineDetailDataView(data_->data.f_volume_button.Get(), message_);
 }
 inline void RoutineDetailDataView::GetFanDataView(
     FanRoutineDetailDataView* output) const {

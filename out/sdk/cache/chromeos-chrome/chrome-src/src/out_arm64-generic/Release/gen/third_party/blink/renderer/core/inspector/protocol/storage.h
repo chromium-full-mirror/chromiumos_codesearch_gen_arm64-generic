@@ -24,8 +24,6 @@ using InterestGroupAuctionId = String;
 using InterestGroupAccessType = String;
 using InterestGroupAuctionEventType = String;
 using InterestGroupAuctionFetchType = String;
-class InterestGroupAd;
-class InterestGroupDetails;
 using SharedStorageAccessType = String;
 class SharedStorageEntry;
 class SharedStorageMetadata;
@@ -121,6 +119,10 @@ CORE_EXPORT extern const char WorkletKeys[];
 CORE_EXPORT extern const char WorkletEntries[];
 CORE_EXPORT extern const char WorkletLength[];
 CORE_EXPORT extern const char WorkletRemainingBudget[];
+CORE_EXPORT extern const char HeaderSet[];
+CORE_EXPORT extern const char HeaderAppend[];
+CORE_EXPORT extern const char HeaderDelete[];
+CORE_EXPORT extern const char HeaderClear[];
 } // namespace SharedStorageAccessTypeEnum
 
 namespace StorageBucketsDurabilityEnum {
@@ -336,271 +338,6 @@ private:
 
     String m_issuerOrigin;
     double m_count;
-};
-
-
-class CORE_EXPORT InterestGroupAd : public ::crdtp::ProtocolObject<InterestGroupAd> {
-public:
-    ~InterestGroupAd() override { }
-
-    String getRenderURL() { return m_renderURL; }
-    void setRenderURL(const String& value) { m_renderURL = value; }
-
-    bool hasMetadata() { return m_metadata.has_value(); }
-    String getMetadata(const String& defaultValue) const {
-       return m_metadata.value_or(defaultValue);
-    }
-    void setMetadata(const String& value) { m_metadata = value; }
-
-    template<int STATE>
-    class InterestGroupAdBuilder {
-    public:
-        enum {
-            NoFieldsSet = 0,
-            RenderURLSet = 1 << 1,
-            AllFieldsSet = (RenderURLSet | 0)};
-
-
-        InterestGroupAdBuilder<STATE | RenderURLSet>& setRenderURL(const String& value)
-        {
-            static_assert(!(STATE & RenderURLSet), "property renderURL should not be set yet");
-            m_result->setRenderURL(value);
-            return castState<RenderURLSet>();
-        }
-
-        InterestGroupAdBuilder<STATE>& setMetadata(const String& value)
-        {
-            m_result->setMetadata(value);
-            return *this;
-        }
-
-        std::unique_ptr<InterestGroupAd> build()
-        {
-            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
-            return std::move(m_result);
-        }
-
-    private:
-        friend class InterestGroupAd;
-        InterestGroupAdBuilder() : m_result(new InterestGroupAd()) { }
-
-        template<int STEP> InterestGroupAdBuilder<STATE | STEP>& castState()
-        {
-            return *reinterpret_cast<InterestGroupAdBuilder<STATE | STEP>*>(this);
-        }
-
-        std::unique_ptr<protocol::Storage::InterestGroupAd> m_result;
-    };
-
-    static InterestGroupAdBuilder<0> create()
-    {
-        return InterestGroupAdBuilder<0>();
-    }
-
-private:
-    DECLARE_SERIALIZATION_SUPPORT();
-
-    InterestGroupAd()
-    {
-    }
-
-    String m_renderURL;
-    Maybe<String> m_metadata;
-};
-
-
-class CORE_EXPORT InterestGroupDetails : public ::crdtp::ProtocolObject<InterestGroupDetails> {
-public:
-    ~InterestGroupDetails() override { }
-
-    String getOwnerOrigin() { return m_ownerOrigin; }
-    void setOwnerOrigin(const String& value) { m_ownerOrigin = value; }
-
-    String getName() { return m_name; }
-    void setName(const String& value) { m_name = value; }
-
-    double getExpirationTime() { return m_expirationTime; }
-    void setExpirationTime(double value) { m_expirationTime = value; }
-
-    String getJoiningOrigin() { return m_joiningOrigin; }
-    void setJoiningOrigin(const String& value) { m_joiningOrigin = value; }
-
-    bool hasBiddingLogicURL() { return m_biddingLogicURL.has_value(); }
-    String getBiddingLogicURL(const String& defaultValue) const {
-       return m_biddingLogicURL.value_or(defaultValue);
-    }
-    void setBiddingLogicURL(const String& value) { m_biddingLogicURL = value; }
-
-    bool hasBiddingWasmHelperURL() { return m_biddingWasmHelperURL.has_value(); }
-    String getBiddingWasmHelperURL(const String& defaultValue) const {
-       return m_biddingWasmHelperURL.value_or(defaultValue);
-    }
-    void setBiddingWasmHelperURL(const String& value) { m_biddingWasmHelperURL = value; }
-
-    bool hasUpdateURL() { return m_updateURL.has_value(); }
-    String getUpdateURL(const String& defaultValue) const {
-       return m_updateURL.value_or(defaultValue);
-    }
-    void setUpdateURL(const String& value) { m_updateURL = value; }
-
-    bool hasTrustedBiddingSignalsURL() { return m_trustedBiddingSignalsURL.has_value(); }
-    String getTrustedBiddingSignalsURL(const String& defaultValue) const {
-       return m_trustedBiddingSignalsURL.value_or(defaultValue);
-    }
-    void setTrustedBiddingSignalsURL(const String& value) { m_trustedBiddingSignalsURL = value; }
-
-    protocol::Array<String>* getTrustedBiddingSignalsKeys() { return m_trustedBiddingSignalsKeys.get(); }
-    void setTrustedBiddingSignalsKeys(std::unique_ptr<protocol::Array<String>> value) { m_trustedBiddingSignalsKeys = std::move(value); }
-
-    bool hasUserBiddingSignals() { return m_userBiddingSignals.has_value(); }
-    String getUserBiddingSignals(const String& defaultValue) const {
-       return m_userBiddingSignals.value_or(defaultValue);
-    }
-    void setUserBiddingSignals(const String& value) { m_userBiddingSignals = value; }
-
-    protocol::Array<protocol::Storage::InterestGroupAd>* getAds() { return m_ads.get(); }
-    void setAds(std::unique_ptr<protocol::Array<protocol::Storage::InterestGroupAd>> value) { m_ads = std::move(value); }
-
-    protocol::Array<protocol::Storage::InterestGroupAd>* getAdComponents() { return m_adComponents.get(); }
-    void setAdComponents(std::unique_ptr<protocol::Array<protocol::Storage::InterestGroupAd>> value) { m_adComponents = std::move(value); }
-
-    template<int STATE>
-    class InterestGroupDetailsBuilder {
-    public:
-        enum {
-            NoFieldsSet = 0,
-            OwnerOriginSet = 1 << 1,
-            NameSet = 1 << 2,
-            ExpirationTimeSet = 1 << 3,
-            JoiningOriginSet = 1 << 4,
-            TrustedBiddingSignalsKeysSet = 1 << 5,
-            AdsSet = 1 << 6,
-            AdComponentsSet = 1 << 7,
-            AllFieldsSet = (OwnerOriginSet | NameSet | ExpirationTimeSet | JoiningOriginSet | TrustedBiddingSignalsKeysSet | AdsSet | AdComponentsSet | 0)};
-
-
-        InterestGroupDetailsBuilder<STATE | OwnerOriginSet>& setOwnerOrigin(const String& value)
-        {
-            static_assert(!(STATE & OwnerOriginSet), "property ownerOrigin should not be set yet");
-            m_result->setOwnerOrigin(value);
-            return castState<OwnerOriginSet>();
-        }
-
-        InterestGroupDetailsBuilder<STATE | NameSet>& setName(const String& value)
-        {
-            static_assert(!(STATE & NameSet), "property name should not be set yet");
-            m_result->setName(value);
-            return castState<NameSet>();
-        }
-
-        InterestGroupDetailsBuilder<STATE | ExpirationTimeSet>& setExpirationTime(double value)
-        {
-            static_assert(!(STATE & ExpirationTimeSet), "property expirationTime should not be set yet");
-            m_result->setExpirationTime(value);
-            return castState<ExpirationTimeSet>();
-        }
-
-        InterestGroupDetailsBuilder<STATE | JoiningOriginSet>& setJoiningOrigin(const String& value)
-        {
-            static_assert(!(STATE & JoiningOriginSet), "property joiningOrigin should not be set yet");
-            m_result->setJoiningOrigin(value);
-            return castState<JoiningOriginSet>();
-        }
-
-        InterestGroupDetailsBuilder<STATE>& setBiddingLogicURL(const String& value)
-        {
-            m_result->setBiddingLogicURL(value);
-            return *this;
-        }
-
-        InterestGroupDetailsBuilder<STATE>& setBiddingWasmHelperURL(const String& value)
-        {
-            m_result->setBiddingWasmHelperURL(value);
-            return *this;
-        }
-
-        InterestGroupDetailsBuilder<STATE>& setUpdateURL(const String& value)
-        {
-            m_result->setUpdateURL(value);
-            return *this;
-        }
-
-        InterestGroupDetailsBuilder<STATE>& setTrustedBiddingSignalsURL(const String& value)
-        {
-            m_result->setTrustedBiddingSignalsURL(value);
-            return *this;
-        }
-
-        InterestGroupDetailsBuilder<STATE | TrustedBiddingSignalsKeysSet>& setTrustedBiddingSignalsKeys(std::unique_ptr<protocol::Array<String>> value)
-        {
-            static_assert(!(STATE & TrustedBiddingSignalsKeysSet), "property trustedBiddingSignalsKeys should not be set yet");
-            m_result->setTrustedBiddingSignalsKeys(std::move(value));
-            return castState<TrustedBiddingSignalsKeysSet>();
-        }
-
-        InterestGroupDetailsBuilder<STATE>& setUserBiddingSignals(const String& value)
-        {
-            m_result->setUserBiddingSignals(value);
-            return *this;
-        }
-
-        InterestGroupDetailsBuilder<STATE | AdsSet>& setAds(std::unique_ptr<protocol::Array<protocol::Storage::InterestGroupAd>> value)
-        {
-            static_assert(!(STATE & AdsSet), "property ads should not be set yet");
-            m_result->setAds(std::move(value));
-            return castState<AdsSet>();
-        }
-
-        InterestGroupDetailsBuilder<STATE | AdComponentsSet>& setAdComponents(std::unique_ptr<protocol::Array<protocol::Storage::InterestGroupAd>> value)
-        {
-            static_assert(!(STATE & AdComponentsSet), "property adComponents should not be set yet");
-            m_result->setAdComponents(std::move(value));
-            return castState<AdComponentsSet>();
-        }
-
-        std::unique_ptr<InterestGroupDetails> build()
-        {
-            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
-            return std::move(m_result);
-        }
-
-    private:
-        friend class InterestGroupDetails;
-        InterestGroupDetailsBuilder() : m_result(new InterestGroupDetails()) { }
-
-        template<int STEP> InterestGroupDetailsBuilder<STATE | STEP>& castState()
-        {
-            return *reinterpret_cast<InterestGroupDetailsBuilder<STATE | STEP>*>(this);
-        }
-
-        std::unique_ptr<protocol::Storage::InterestGroupDetails> m_result;
-    };
-
-    static InterestGroupDetailsBuilder<0> create()
-    {
-        return InterestGroupDetailsBuilder<0>();
-    }
-
-private:
-    DECLARE_SERIALIZATION_SUPPORT();
-
-    InterestGroupDetails()
-    {
-          m_expirationTime = 0;
-    }
-
-    String m_ownerOrigin;
-    String m_name;
-    double m_expirationTime;
-    String m_joiningOrigin;
-    Maybe<String> m_biddingLogicURL;
-    Maybe<String> m_biddingWasmHelperURL;
-    Maybe<String> m_updateURL;
-    Maybe<String> m_trustedBiddingSignalsURL;
-    std::unique_ptr<protocol::Array<String>> m_trustedBiddingSignalsKeys;
-    Maybe<String> m_userBiddingSignals;
-    std::unique_ptr<protocol::Array<protocol::Storage::InterestGroupAd>> m_ads;
-    std::unique_ptr<protocol::Array<protocol::Storage::InterestGroupAd>> m_adComponents;
 };
 
 
@@ -2444,7 +2181,7 @@ public:
     virtual DispatchResponse untrackIndexedDBForStorageKey(const String& in_storageKey) = 0;
     virtual DispatchResponse getTrustTokens(std::unique_ptr<protocol::Array<protocol::Storage::TrustTokens>>* out_tokens) = 0;
     virtual DispatchResponse clearTrustTokens(const String& in_issuerOrigin, bool* out_didDeleteTokens) = 0;
-    virtual DispatchResponse getInterestGroupDetails(const String& in_ownerOrigin, const String& in_name, std::unique_ptr<protocol::Storage::InterestGroupDetails>* out_details) = 0;
+    virtual DispatchResponse getInterestGroupDetails(const String& in_ownerOrigin, const String& in_name, std::unique_ptr<protocol::DictionaryValue>* out_details) = 0;
     virtual DispatchResponse setInterestGroupTracking(bool in_enable) = 0;
     virtual DispatchResponse setInterestGroupAuctionTracking(bool in_enable) = 0;
     virtual DispatchResponse getSharedStorageMetadata(const String& in_ownerOrigin, std::unique_ptr<protocol::Storage::SharedStorageMetadata>* out_metadata) = 0;

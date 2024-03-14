@@ -42182,7 +42182,7 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
           goto handle_unusual;
         }
         continue;
-      // optional .enterprise_management.DeviceWilcoDtcAllowedProto device_wilco_dtc_allowed = 80;
+      // optional .enterprise_management.DeviceWilcoDtcAllowedProto device_wilco_dtc_allowed = 80 [deprecated = true];
       case 80:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 130)) {
           ptr = ctx->ParseMessage(_internal_mutable_device_wilco_dtc_allowed(), ptr);
@@ -42191,7 +42191,7 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
           goto handle_unusual;
         }
         continue;
-      // optional .enterprise_management.DeviceWilcoDtcConfigurationProto device_wilco_dtc_configuration = 81;
+      // optional .enterprise_management.DeviceWilcoDtcConfigurationProto device_wilco_dtc_configuration = 81 [deprecated = true];
       case 81:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 138)) {
           ptr = ctx->ParseMessage(_internal_mutable_device_wilco_dtc_configuration(), ptr);
@@ -43482,14 +43482,14 @@ failure:
         _Internal::device_reboot_on_user_signout(this).GetCachedSize(), target, stream);
   }
 
-  // optional .enterprise_management.DeviceWilcoDtcAllowedProto device_wilco_dtc_allowed = 80;
+  // optional .enterprise_management.DeviceWilcoDtcAllowedProto device_wilco_dtc_allowed = 80 [deprecated = true];
   if (cached_has_bits & 0x00002000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(80, _Internal::device_wilco_dtc_allowed(this),
         _Internal::device_wilco_dtc_allowed(this).GetCachedSize(), target, stream);
   }
 
-  // optional .enterprise_management.DeviceWilcoDtcConfigurationProto device_wilco_dtc_configuration = 81;
+  // optional .enterprise_management.DeviceWilcoDtcConfigurationProto device_wilco_dtc_configuration = 81 [deprecated = true];
   if (cached_has_bits & 0x00004000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(81, _Internal::device_wilco_dtc_configuration(this),
@@ -44628,14 +44628,14 @@ failure:
           *_impl_.device_reboot_on_user_signout_);
     }
 
-    // optional .enterprise_management.DeviceWilcoDtcAllowedProto device_wilco_dtc_allowed = 80;
+    // optional .enterprise_management.DeviceWilcoDtcAllowedProto device_wilco_dtc_allowed = 80 [deprecated = true];
     if (cached_has_bits & 0x00002000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.device_wilco_dtc_allowed_);
     }
 
-    // optional .enterprise_management.DeviceWilcoDtcConfigurationProto device_wilco_dtc_configuration = 81;
+    // optional .enterprise_management.DeviceWilcoDtcConfigurationProto device_wilco_dtc_configuration = 81 [deprecated = true];
     if (cached_has_bits & 0x00004000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(

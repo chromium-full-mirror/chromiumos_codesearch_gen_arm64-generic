@@ -368,23 +368,6 @@ bool MemtesterResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-VolumeButtonRoutineDetail::VolumeButtonRoutineDetail() {}
-
-VolumeButtonRoutineDetail::~VolumeButtonRoutineDetail() = default;
-size_t VolumeButtonRoutineDetail::Hash(size_t seed) const {
-  return seed;
-}
-
-void VolumeButtonRoutineDetail::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-}
-
-bool VolumeButtonRoutineDetail::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
 FanRoutineDetail::FanRoutineDetail()
     : passed_fan_ids(),
       failed_fan_ids(),
@@ -634,17 +617,6 @@ void RoutineDetail::set_memory(
         std::move(memory));
   }
 }
-void RoutineDetail::set_volume_button(
-    VolumeButtonRoutineDetailPtr volume_button) {
-  if (tag_ == Tag::kVolumeButton) {
-    *(data_.volume_button) = std::move(volume_button);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kVolumeButton;
-    data_.volume_button = new VolumeButtonRoutineDetailPtr(
-        std::move(volume_button));
-  }
-}
 void RoutineDetail::set_fan(
     FanRoutineDetailPtr fan) {
   if (tag_ == Tag::kFan) {
@@ -666,10 +638,6 @@ void RoutineDetail::DestroyActive() {
     case Tag::kMemory:
 
       delete data_.memory;
-      break;
-    case Tag::kVolumeButton:
-
-      delete data_.volume_button;
       break;
     case Tag::kFan:
 
@@ -1855,18 +1823,6 @@ bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::
 
 
 // static
-bool StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::DataView, ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr>::Read(
-    ::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::DataView input,
-    ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr* output) {
-  bool success = true;
-  ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr result(::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::New());
-  
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
 bool StructTraits<::ash::cros_healthd::mojom::FanRoutineDetail::DataView, ::ash::cros_healthd::mojom::FanRoutineDetailPtr>::Read(
     ::ash::cros_healthd::mojom::FanRoutineDetail::DataView input,
     ::ash::cros_healthd::mojom::FanRoutineDetailPtr* output) {
@@ -2004,15 +1960,6 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewMemory(
           std::move(result_memory));
-      break;
-    }
-    case Tag::kVolumeButton: {
-      ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr result_volume_button;
-      if (!input.ReadVolumeButton(&result_volume_button))
-        return false;
-
-      *output = UnionType::NewVolumeButton(
-          std::move(result_volume_button));
       break;
     }
     case Tag::kFan: {

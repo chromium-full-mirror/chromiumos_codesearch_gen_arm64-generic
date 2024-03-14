@@ -97,48 +97,6 @@ const char SellerTrustedSignals[] = "sellerTrustedSignals";
 } // namespace InterestGroupAuctionFetchTypeEnum
 
 
-CRDTP_BEGIN_DESERIALIZER(InterestGroupAd)
-    CRDTP_DESERIALIZE_FIELD_OPT("metadata", m_metadata),
-    CRDTP_DESERIALIZE_FIELD("renderURL", m_renderURL),
-CRDTP_END_DESERIALIZER()
-
-CRDTP_BEGIN_SERIALIZER(InterestGroupAd)
-    CRDTP_SERIALIZE_FIELD("renderURL", m_renderURL);
-    CRDTP_SERIALIZE_FIELD("metadata", m_metadata);
-CRDTP_END_SERIALIZER();
-
-
-CRDTP_BEGIN_DESERIALIZER(InterestGroupDetails)
-    CRDTP_DESERIALIZE_FIELD("adComponents", m_adComponents),
-    CRDTP_DESERIALIZE_FIELD("ads", m_ads),
-    CRDTP_DESERIALIZE_FIELD_OPT("biddingLogicURL", m_biddingLogicURL),
-    CRDTP_DESERIALIZE_FIELD_OPT("biddingWasmHelperURL", m_biddingWasmHelperURL),
-    CRDTP_DESERIALIZE_FIELD("expirationTime", m_expirationTime),
-    CRDTP_DESERIALIZE_FIELD("joiningOrigin", m_joiningOrigin),
-    CRDTP_DESERIALIZE_FIELD("name", m_name),
-    CRDTP_DESERIALIZE_FIELD("ownerOrigin", m_ownerOrigin),
-    CRDTP_DESERIALIZE_FIELD("trustedBiddingSignalsKeys", m_trustedBiddingSignalsKeys),
-    CRDTP_DESERIALIZE_FIELD_OPT("trustedBiddingSignalsURL", m_trustedBiddingSignalsURL),
-    CRDTP_DESERIALIZE_FIELD_OPT("updateURL", m_updateURL),
-    CRDTP_DESERIALIZE_FIELD_OPT("userBiddingSignals", m_userBiddingSignals),
-CRDTP_END_DESERIALIZER()
-
-CRDTP_BEGIN_SERIALIZER(InterestGroupDetails)
-    CRDTP_SERIALIZE_FIELD("ownerOrigin", m_ownerOrigin);
-    CRDTP_SERIALIZE_FIELD("name", m_name);
-    CRDTP_SERIALIZE_FIELD("expirationTime", m_expirationTime);
-    CRDTP_SERIALIZE_FIELD("joiningOrigin", m_joiningOrigin);
-    CRDTP_SERIALIZE_FIELD("biddingLogicURL", m_biddingLogicURL);
-    CRDTP_SERIALIZE_FIELD("biddingWasmHelperURL", m_biddingWasmHelperURL);
-    CRDTP_SERIALIZE_FIELD("updateURL", m_updateURL);
-    CRDTP_SERIALIZE_FIELD("trustedBiddingSignalsURL", m_trustedBiddingSignalsURL);
-    CRDTP_SERIALIZE_FIELD("trustedBiddingSignalsKeys", m_trustedBiddingSignalsKeys);
-    CRDTP_SERIALIZE_FIELD("userBiddingSignals", m_userBiddingSignals);
-    CRDTP_SERIALIZE_FIELD("ads", m_ads);
-    CRDTP_SERIALIZE_FIELD("adComponents", m_adComponents);
-CRDTP_END_SERIALIZER();
-
-
 namespace SharedStorageAccessTypeEnum {
 const char DocumentAddModule[] = "documentAddModule";
 const char DocumentSelectURL[] = "documentSelectURL";
@@ -156,6 +114,10 @@ const char WorkletKeys[] = "workletKeys";
 const char WorkletEntries[] = "workletEntries";
 const char WorkletLength[] = "workletLength";
 const char WorkletRemainingBudget[] = "workletRemainingBudget";
+const char HeaderSet[] = "headerSet";
+const char HeaderAppend[] = "headerAppend";
+const char HeaderDelete[] = "headerDelete";
+const char HeaderClear[] = "headerClear";
 } // namespace SharedStorageAccessTypeEnum
 
 
@@ -1661,7 +1623,7 @@ public:
         : DomainDispatcher::Callback(std::move(backendImpl), callId,
 crdtp::SpanFrom("Storage.getInterestGroupDetails"), message) { }
 
-    void sendSuccess(std::unique_ptr<protocol::Storage::InterestGroupDetails> details) override
+    void sendSuccess(std::unique_ptr<protocol::DictionaryValue> details) override
     {
         crdtp::ObjectSerializer serializer;
         serializer.AddField(crdtp::MakeSpan("details"), details);

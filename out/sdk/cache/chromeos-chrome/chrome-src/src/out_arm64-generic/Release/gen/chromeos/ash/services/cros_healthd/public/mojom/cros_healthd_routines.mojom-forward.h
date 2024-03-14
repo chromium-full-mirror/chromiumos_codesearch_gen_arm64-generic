@@ -42,8 +42,6 @@ class MemoryRoutineDetailDataView;
 
 class MemtesterResultDataView;
 
-class VolumeButtonRoutineDetailDataView;
-
 class FanRoutineDetailDataView;
 
 class RoutineArgumentDataView;
@@ -86,9 +84,6 @@ using MemoryRoutineDetailPtr = mojo::StructPtr<MemoryRoutineDetail>;
 
 class MemtesterResult;
 using MemtesterResultPtr = mojo::StructPtr<MemtesterResult>;
-
-class VolumeButtonRoutineDetail;
-using VolumeButtonRoutineDetailPtr = mojo::InlinedStructPtr<VolumeButtonRoutineDetail>;
 
 class FanRoutineDetail;
 using FanRoutineDetailPtr = mojo::StructPtr<FanRoutineDetail>;

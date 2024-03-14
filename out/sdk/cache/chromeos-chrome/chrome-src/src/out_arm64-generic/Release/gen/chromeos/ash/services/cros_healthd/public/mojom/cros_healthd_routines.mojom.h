@@ -1090,142 +1090,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  VolumeButtonRoutineDetail {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<VolumeButtonRoutineDetail, T>::value>;
-  using DataView = VolumeButtonRoutineDetailDataView;
-  using Data_ = internal::VolumeButtonRoutineDetail_Data;
-
-  template <typename... Args>
-  static VolumeButtonRoutineDetailPtr New(Args&&... args) {
-    return VolumeButtonRoutineDetailPtr(
-        std::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static VolumeButtonRoutineDetailPtr From(const U& u) {
-    return mojo::TypeConverter<VolumeButtonRoutineDetailPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, VolumeButtonRoutineDetail>::Convert(*this);
-  }
-
-
-  VolumeButtonRoutineDetail();
-
-
-  ~VolumeButtonRoutineDetail();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = VolumeButtonRoutineDetailPtr>
-  VolumeButtonRoutineDetailPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        VolumeButtonRoutineDetail::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        VolumeButtonRoutineDetail::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::VolumeButtonRoutineDetail_UnserializedMessageContext<
-            UserType, VolumeButtonRoutineDetail::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<VolumeButtonRoutineDetail::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return VolumeButtonRoutineDetail::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::VolumeButtonRoutineDetail_UnserializedMessageContext<
-            UserType, VolumeButtonRoutineDetail::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<VolumeButtonRoutineDetail::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
 
 class  RoutineArgument {
  public:
@@ -1624,14 +1488,6 @@ class  RoutineDetail {
     result->set_memory(std::move(value));
     return result;
   }
-  // Construct an instance holding |volume_button|.
-  static RoutineDetailPtr
-  NewVolumeButton(
-      VolumeButtonRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(std::in_place);
-    result->set_volume_button(std::move(value));
-    return result;
-  }
   // Construct an instance holding |fan|.
   static RoutineDetailPtr
   NewFan(
@@ -1707,18 +1563,6 @@ class  RoutineDetail {
   void set_memory(
       MemoryRoutineDetailPtr memory);
   
-  bool is_volume_button() const { return tag_ == Tag::kVolumeButton; }
-
-  
-  VolumeButtonRoutineDetailPtr& get_volume_button() const {
-    CHECK(tag_ == Tag::kVolumeButton);
-    return *(data_.volume_button);
-  }
-
-  
-  void set_volume_button(
-      VolumeButtonRoutineDetailPtr volume_button);
-  
   bool is_fan() const { return tag_ == Tag::kFan; }
 
   
@@ -1750,7 +1594,6 @@ class  RoutineDetail {
     ~Union_() = default;
     bool unrecognizedArgument;
     MemoryRoutineDetailPtr* memory;
-    VolumeButtonRoutineDetailPtr* volume_button;
     FanRoutineDetailPtr* fan;
   };
 
@@ -2493,7 +2336,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-
 class  FanRoutineDetail {
  public:
   template <typename T>
@@ -2728,9 +2570,6 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kMemory:
       return NewMemory(
           mojo::Clone(*data_.memory));
-    case Tag::kVolumeButton:
-      return NewVolumeButton(
-          mojo::Clone(*data_.volume_button));
     case Tag::kFan:
       return NewFan(
           mojo::Clone(*data_.fan));
@@ -2750,8 +2589,6 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
     case Tag::kMemory:
       return mojo::Equals(*(data_.memory), *(other.data_.memory));
-    case Tag::kVolumeButton:
-      return mojo::Equals(*(data_.volume_button), *(other.data_.volume_button));
     case Tag::kFan:
       return mojo::Equals(*(data_.fan), *(other.data_.fan));
   }
@@ -3000,21 +2837,6 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-VolumeButtonRoutineDetailPtr VolumeButtonRoutineDetail::Clone() const {
-  return New(
-  );
-}
-
-template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>*>
-bool VolumeButtonRoutineDetail::Equals(const T& other_struct) const {
-  return true;
-}
-
-template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  return false;
-}
-template <typename StructPtrType>
 FanRoutineDetailPtr FanRoutineDetail::Clone() const {
   return New(
       mojo::Clone(passed_fan_ids),
@@ -3223,16 +3045,6 @@ struct  StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView,
 
 
 template <>
-struct  StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::DataView,
-                                         ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr> {
-  static bool IsNull(const ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr& input) { return !input; }
-  static void SetToNull(::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr* output) { output->reset(); }
-
-  static bool Read(::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::DataView input, ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr* output);
-};
-
-
-template <>
 struct  StructTraits<::ash::cros_healthd::mojom::FanRoutineDetail::DataView,
                                          ::ash::cros_healthd::mojom::FanRoutineDetailPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::FanRoutineDetailPtr& input) { return !input; }
@@ -3337,10 +3149,6 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static const ::ash::cros_healthd::mojom::MemoryRoutineDetailPtr& memory(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_memory();
-  }
-
-  static const ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr& volume_button(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
-    return input->get_volume_button();
   }
 
   static const ::ash::cros_healthd::mojom::FanRoutineDetailPtr& fan(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {

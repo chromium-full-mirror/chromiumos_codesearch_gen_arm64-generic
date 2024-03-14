@@ -73,6 +73,10 @@ const char WorkletKeys[] = "workletKeys";
 const char WorkletEntries[] = "workletEntries";
 const char WorkletLength[] = "workletLength";
 const char WorkletRemainingBudget[] = "workletRemainingBudget";
+const char HeaderSet[] = "headerSet";
+const char HeaderAppend[] = "headerAppend";
+const char HeaderDelete[] = "headerDelete";
+const char HeaderClear[] = "headerClear";
 } // namespace SharedStorageAccessTypeEnum
 
 
