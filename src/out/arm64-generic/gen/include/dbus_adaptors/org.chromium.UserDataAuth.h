@@ -922,6 +922,9 @@ class CryptohomeMiscInterfaceInterface {
   virtual void GetRsuDeviceId(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetRsuDeviceIdReply>> response,
       const user_data_auth::GetRsuDeviceIdRequest& in_request) = 0;
+  virtual void GetPinWeaverInfo(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetPinWeaverInfoReply>> response,
+      const user_data_auth::GetPinWeaverInfoRequest& in_request) = 0;
 };
 
 // Interface adaptor for org::chromium::CryptohomeMiscInterface.
@@ -959,6 +962,10 @@ class CryptohomeMiscInterfaceAdaptor {
         "GetRsuDeviceId",
         base::Unretained(interface_),
         &CryptohomeMiscInterfaceInterface::GetRsuDeviceId);
+    itf->AddMethodHandler(
+        "GetPinWeaverInfo",
+        base::Unretained(interface_),
+        &CryptohomeMiscInterfaceInterface::GetPinWeaverInfo);
   }
 
   static dbus::ObjectPath GetObjectPath() {
@@ -989,6 +996,10 @@ class CryptohomeMiscInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"GetRsuDeviceId\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"GetPinWeaverInfo\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
