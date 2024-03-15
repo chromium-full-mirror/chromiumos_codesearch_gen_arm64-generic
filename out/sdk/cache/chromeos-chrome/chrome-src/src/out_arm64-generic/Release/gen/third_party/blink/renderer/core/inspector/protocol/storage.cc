@@ -105,6 +105,7 @@ const char DocumentSet[] = "documentSet";
 const char DocumentAppend[] = "documentAppend";
 const char DocumentDelete[] = "documentDelete";
 const char DocumentClear[] = "documentClear";
+const char DocumentGet[] = "documentGet";
 const char WorkletSet[] = "workletSet";
 const char WorkletAppend[] = "workletAppend";
 const char WorkletDelete[] = "workletDelete";

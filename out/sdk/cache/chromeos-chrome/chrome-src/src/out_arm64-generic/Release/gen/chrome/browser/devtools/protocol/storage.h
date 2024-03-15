@@ -87,6 +87,7 @@ namespace SharedStorageAccessTypeEnum {
  extern const char DocumentAppend[];
  extern const char DocumentDelete[];
  extern const char DocumentClear[];
+ extern const char DocumentGet[];
  extern const char WorkletSet[];
  extern const char WorkletAppend[];
  extern const char WorkletDelete[];

@@ -111,6 +111,7 @@ CONTENT_EXPORT extern const char DocumentSet[];
 CONTENT_EXPORT extern const char DocumentAppend[];
 CONTENT_EXPORT extern const char DocumentDelete[];
 CONTENT_EXPORT extern const char DocumentClear[];
+CONTENT_EXPORT extern const char DocumentGet[];
 CONTENT_EXPORT extern const char WorkletSet[];
 CONTENT_EXPORT extern const char WorkletAppend[];
 CONTENT_EXPORT extern const char WorkletDelete[];
