@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "mojo/public/mojom/base/time.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/uuid.mojom-shared-internal.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
@@ -27,15 +28,40 @@ class ValidationContext;
 namespace ash::cros_healthd::mojom {
 namespace internal {
 class MemoryRoutineArgument_Data;
+class AudioDriverRoutineArgument_Data;
+class CpuStressRoutineArgument_Data;
+class UfsLifetimeRoutineArgument_Data;
+class DiskReadRoutineArgument_Data;
+class CpuCacheRoutineArgument_Data;
+class PrimeSearchRoutineArgument_Data;
 class VolumeButtonRoutineArgument_Data;
+class LedLitUpRoutineArgument_Data;
+class FloatingPointRoutineArgument_Data;
+class BluetoothPowerRoutineArgument_Data;
+class BluetoothDiscoveryRoutineArgument_Data;
 class FanRoutineArgument_Data;
+class BluetoothScanningRoutineArgument_Data;
+class BluetoothPairingRoutineArgument_Data;
+class CameraAvailabilityRoutineArgument_Data;
+class UrandomRoutineArgument_Data;
 class RoutineState_Data;
 class RoutineStateInitialized_Data;
 class RoutineStateRunning_Data;
 class RoutineStateWaiting_Data;
 class RoutineStateFinished_Data;
 class MemoryRoutineDetail_Data;
+class AudioDriverRoutineDetail_Data;
+class UfsLifetimeRoutineDetail_Data;
 class MemtesterResult_Data;
+class BluetoothPoweredDetail_Data;
+class BluetoothPowerRoutineDetail_Data;
+class BluetoothDiscoveringDetail_Data;
+class BluetoothDiscoveryRoutineDetail_Data;
+class BluetoothScannedPeripheralInfo_Data;
+class BluetoothScanningRoutineDetail_Data;
+class BluetoothPairingPeripheralInfo_Data;
+class BluetoothPairingRoutineDetail_Data;
+class CameraAvailabilityRoutineDetail_Data;
 class FanRoutineDetail_Data;
 class RoutineArgument_Data;
 class RoutineStateUnion_Data;
@@ -67,6 +93,113 @@ struct MemtesterTestItemEnum_Data {
       case 17:
       case 18:
       case 19:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct CameraSubtestResult_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct DiskReadTypeEnum_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct LedName_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct LedColor_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
         return true;
     }
     return false;
@@ -159,6 +292,86 @@ struct RoutineStateWaiting_Reason_Data {
   }
 };
 
+struct BluetoothPairingPeripheralInfo_PairError_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct BluetoothPairingPeripheralInfo_ConnectError_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct BluetoothPairingPeripheralInfo_AddressType_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 #pragma pack(push, 1)
 
 
@@ -198,6 +411,34 @@ class  RoutineArgument_Data {
     kVolumeButton,
     
     kFan,
+    
+    kAudioDriver,
+    
+    kCpuStress,
+    
+    kUfsLifetime,
+    
+    kDiskRead,
+    
+    kCpuCache,
+    
+    kPrimeSearch,
+    
+    kLedLitUp,
+    
+    kFloatingPoint,
+    
+    kBluetoothPower,
+    
+    kBluetoothDiscovery,
+    
+    kBluetoothScanning,
+    
+    kBluetoothPairing,
+    
+    kCameraAvailability,
+    
+    kUrandom,
   };
 
   // A note on layout:
@@ -209,6 +450,20 @@ class  RoutineArgument_Data {
     mojo::internal::Pointer<internal::MemoryRoutineArgument_Data> f_memory;
     mojo::internal::Pointer<internal::VolumeButtonRoutineArgument_Data> f_volume_button;
     mojo::internal::Pointer<internal::FanRoutineArgument_Data> f_fan;
+    mojo::internal::Pointer<internal::AudioDriverRoutineArgument_Data> f_audio_driver;
+    mojo::internal::Pointer<internal::CpuStressRoutineArgument_Data> f_cpu_stress;
+    mojo::internal::Pointer<internal::UfsLifetimeRoutineArgument_Data> f_ufs_lifetime;
+    mojo::internal::Pointer<internal::DiskReadRoutineArgument_Data> f_disk_read;
+    mojo::internal::Pointer<internal::CpuCacheRoutineArgument_Data> f_cpu_cache;
+    mojo::internal::Pointer<internal::PrimeSearchRoutineArgument_Data> f_prime_search;
+    mojo::internal::Pointer<internal::LedLitUpRoutineArgument_Data> f_led_lit_up;
+    mojo::internal::Pointer<internal::FloatingPointRoutineArgument_Data> f_floating_point;
+    mojo::internal::Pointer<internal::BluetoothPowerRoutineArgument_Data> f_bluetooth_power;
+    mojo::internal::Pointer<internal::BluetoothDiscoveryRoutineArgument_Data> f_bluetooth_discovery;
+    mojo::internal::Pointer<internal::BluetoothScanningRoutineArgument_Data> f_bluetooth_scanning;
+    mojo::internal::Pointer<internal::BluetoothPairingRoutineArgument_Data> f_bluetooth_pairing;
+    mojo::internal::Pointer<internal::CameraAvailabilityRoutineArgument_Data> f_camera_availability;
+    mojo::internal::Pointer<internal::UrandomRoutineArgument_Data> f_urandom;
     uint64_t unknown;
   };
 
@@ -315,6 +570,20 @@ class  RoutineDetail_Data {
     kMemory,
     
     kFan,
+    
+    kAudioDriver,
+    
+    kUfsLifetime,
+    
+    kBluetoothPower,
+    
+    kBluetoothDiscovery,
+    
+    kBluetoothScanning,
+    
+    kBluetoothPairing,
+    
+    kCameraAvailability,
   };
 
   // A note on layout:
@@ -325,6 +594,13 @@ class  RoutineDetail_Data {
     uint8_t f_unrecognizedArgument : 1;
     mojo::internal::Pointer<internal::MemoryRoutineDetail_Data> f_memory;
     mojo::internal::Pointer<internal::FanRoutineDetail_Data> f_fan;
+    mojo::internal::Pointer<internal::AudioDriverRoutineDetail_Data> f_audio_driver;
+    mojo::internal::Pointer<internal::UfsLifetimeRoutineDetail_Data> f_ufs_lifetime;
+    mojo::internal::Pointer<internal::BluetoothPowerRoutineDetail_Data> f_bluetooth_power;
+    mojo::internal::Pointer<internal::BluetoothDiscoveryRoutineDetail_Data> f_bluetooth_discovery;
+    mojo::internal::Pointer<internal::BluetoothScanningRoutineDetail_Data> f_bluetooth_scanning;
+    mojo::internal::Pointer<internal::BluetoothPairingRoutineDetail_Data> f_bluetooth_pairing;
+    mojo::internal::Pointer<internal::CameraAvailabilityRoutineDetail_Data> f_camera_availability;
     uint64_t unknown;
   };
 
@@ -384,6 +660,294 @@ struct MemoryRoutineArgument_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     MemoryRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  AudioDriverRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<AudioDriverRoutineArgument_Data>;
+
+  AudioDriverRoutineArgument_Data();
+  ~AudioDriverRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(AudioDriverRoutineArgument_Data) == 8,
+              "Bad sizeof(AudioDriverRoutineArgument_Data)");
+// Used by AudioDriverRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct AudioDriverRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  AudioDriverRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~AudioDriverRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<AudioDriverRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    AudioDriverRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  CpuStressRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> exec_duration;
+
+ private:
+  friend class mojo::internal::MessageFragment<CpuStressRoutineArgument_Data>;
+
+  CpuStressRoutineArgument_Data();
+  ~CpuStressRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(CpuStressRoutineArgument_Data) == 16,
+              "Bad sizeof(CpuStressRoutineArgument_Data)");
+// Used by CpuStressRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CpuStressRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CpuStressRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CpuStressRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CpuStressRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CpuStressRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  UfsLifetimeRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<UfsLifetimeRoutineArgument_Data>;
+
+  UfsLifetimeRoutineArgument_Data();
+  ~UfsLifetimeRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(UfsLifetimeRoutineArgument_Data) == 8,
+              "Bad sizeof(UfsLifetimeRoutineArgument_Data)");
+// Used by UfsLifetimeRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct UfsLifetimeRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  UfsLifetimeRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~UfsLifetimeRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<UfsLifetimeRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    UfsLifetimeRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  DiskReadRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t type;
+  uint32_t file_size_mib;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> disk_read_duration;
+
+ private:
+  friend class mojo::internal::MessageFragment<DiskReadRoutineArgument_Data>;
+
+  DiskReadRoutineArgument_Data();
+  ~DiskReadRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(DiskReadRoutineArgument_Data) == 24,
+              "Bad sizeof(DiskReadRoutineArgument_Data)");
+// Used by DiskReadRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct DiskReadRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  DiskReadRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~DiskReadRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<DiskReadRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    DiskReadRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  CpuCacheRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> exec_duration;
+
+ private:
+  friend class mojo::internal::MessageFragment<CpuCacheRoutineArgument_Data>;
+
+  CpuCacheRoutineArgument_Data();
+  ~CpuCacheRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(CpuCacheRoutineArgument_Data) == 16,
+              "Bad sizeof(CpuCacheRoutineArgument_Data)");
+// Used by CpuCacheRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CpuCacheRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CpuCacheRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CpuCacheRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CpuCacheRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CpuCacheRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  PrimeSearchRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> exec_duration;
+
+ private:
+  friend class mojo::internal::MessageFragment<PrimeSearchRoutineArgument_Data>;
+
+  PrimeSearchRoutineArgument_Data();
+  ~PrimeSearchRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(PrimeSearchRoutineArgument_Data) == 16,
+              "Bad sizeof(PrimeSearchRoutineArgument_Data)");
+// Used by PrimeSearchRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct PrimeSearchRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  PrimeSearchRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~PrimeSearchRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<PrimeSearchRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    PrimeSearchRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  VolumeButtonRoutineArgument_Data {
  public:
   static bool Validate(const void* data,
@@ -434,6 +998,198 @@ struct VolumeButtonRoutineArgument_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     VolumeButtonRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  LedLitUpRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t name;
+  int32_t color;
+  mojo::internal::Interface_Data replier;
+
+ private:
+  friend class mojo::internal::MessageFragment<LedLitUpRoutineArgument_Data>;
+
+  LedLitUpRoutineArgument_Data();
+  ~LedLitUpRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(LedLitUpRoutineArgument_Data) == 24,
+              "Bad sizeof(LedLitUpRoutineArgument_Data)");
+// Used by LedLitUpRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct LedLitUpRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  LedLitUpRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~LedLitUpRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<LedLitUpRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    LedLitUpRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  FloatingPointRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> exec_duration;
+
+ private:
+  friend class mojo::internal::MessageFragment<FloatingPointRoutineArgument_Data>;
+
+  FloatingPointRoutineArgument_Data();
+  ~FloatingPointRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(FloatingPointRoutineArgument_Data) == 16,
+              "Bad sizeof(FloatingPointRoutineArgument_Data)");
+// Used by FloatingPointRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct FloatingPointRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  FloatingPointRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~FloatingPointRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<FloatingPointRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    FloatingPointRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BluetoothPowerRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothPowerRoutineArgument_Data>;
+
+  BluetoothPowerRoutineArgument_Data();
+  ~BluetoothPowerRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(BluetoothPowerRoutineArgument_Data) == 8,
+              "Bad sizeof(BluetoothPowerRoutineArgument_Data)");
+// Used by BluetoothPowerRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BluetoothPowerRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BluetoothPowerRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BluetoothPowerRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BluetoothPowerRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BluetoothPowerRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BluetoothDiscoveryRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothDiscoveryRoutineArgument_Data>;
+
+  BluetoothDiscoveryRoutineArgument_Data();
+  ~BluetoothDiscoveryRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(BluetoothDiscoveryRoutineArgument_Data) == 8,
+              "Bad sizeof(BluetoothDiscoveryRoutineArgument_Data)");
+// Used by BluetoothDiscoveryRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BluetoothDiscoveryRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BluetoothDiscoveryRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BluetoothDiscoveryRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BluetoothDiscoveryRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BluetoothDiscoveryRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  FanRoutineArgument_Data {
  public:
   static bool Validate(const void* data,
@@ -481,6 +1237,200 @@ struct FanRoutineArgument_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     FanRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BluetoothScanningRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> exec_duration;
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothScanningRoutineArgument_Data>;
+
+  BluetoothScanningRoutineArgument_Data();
+  ~BluetoothScanningRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(BluetoothScanningRoutineArgument_Data) == 16,
+              "Bad sizeof(BluetoothScanningRoutineArgument_Data)");
+// Used by BluetoothScanningRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BluetoothScanningRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BluetoothScanningRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BluetoothScanningRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BluetoothScanningRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BluetoothScanningRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BluetoothPairingRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> peripheral_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothPairingRoutineArgument_Data>;
+
+  BluetoothPairingRoutineArgument_Data();
+  ~BluetoothPairingRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(BluetoothPairingRoutineArgument_Data) == 16,
+              "Bad sizeof(BluetoothPairingRoutineArgument_Data)");
+// Used by BluetoothPairingRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BluetoothPairingRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BluetoothPairingRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BluetoothPairingRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BluetoothPairingRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BluetoothPairingRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  CameraAvailabilityRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t run_camera_service_available_check : 1;
+  uint8_t run_camera_diagnostic_service_available_check : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraAvailabilityRoutineArgument_Data>;
+
+  CameraAvailabilityRoutineArgument_Data();
+  ~CameraAvailabilityRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(CameraAvailabilityRoutineArgument_Data) == 16,
+              "Bad sizeof(CameraAvailabilityRoutineArgument_Data)");
+// Used by CameraAvailabilityRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CameraAvailabilityRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CameraAvailabilityRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CameraAvailabilityRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CameraAvailabilityRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CameraAvailabilityRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  UrandomRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> exec_duration;
+
+ private:
+  friend class mojo::internal::MessageFragment<UrandomRoutineArgument_Data>;
+
+  UrandomRoutineArgument_Data();
+  ~UrandomRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(UrandomRoutineArgument_Data) == 16,
+              "Bad sizeof(UrandomRoutineArgument_Data)");
+// Used by UrandomRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct UrandomRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  UrandomRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~UrandomRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<UrandomRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    UrandomRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  RoutineState_Data {
  public:
   static bool Validate(const void* data,
@@ -774,6 +1724,107 @@ struct MemoryRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     MemoryRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  AudioDriverRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t internal_card_detected : 1;
+  uint8_t audio_devices_succeed_to_open : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<AudioDriverRoutineDetail_Data>;
+
+  AudioDriverRoutineDetail_Data();
+  ~AudioDriverRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(AudioDriverRoutineDetail_Data) == 16,
+              "Bad sizeof(AudioDriverRoutineDetail_Data)");
+// Used by AudioDriverRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct AudioDriverRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  AudioDriverRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~AudioDriverRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<AudioDriverRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    AudioDriverRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  UfsLifetimeRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t pre_eol_info;
+  uint8_t device_life_time_est_a;
+  uint8_t device_life_time_est_b;
+  uint8_t padfinal_[5];
+
+ private:
+  friend class mojo::internal::MessageFragment<UfsLifetimeRoutineDetail_Data>;
+
+  UfsLifetimeRoutineDetail_Data();
+  ~UfsLifetimeRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(UfsLifetimeRoutineDetail_Data) == 16,
+              "Bad sizeof(UfsLifetimeRoutineDetail_Data)");
+// Used by UfsLifetimeRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct UfsLifetimeRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  UfsLifetimeRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~UfsLifetimeRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<UfsLifetimeRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    UfsLifetimeRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  MemtesterResult_Data {
  public:
   static bool Validate(const void* data,
@@ -823,6 +1874,456 @@ struct MemtesterResult_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     MemtesterResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BluetoothPoweredDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t hci_powered : 1;
+  uint8_t dbus_powered : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothPoweredDetail_Data>;
+
+  BluetoothPoweredDetail_Data();
+  ~BluetoothPoweredDetail_Data() = delete;
+};
+static_assert(sizeof(BluetoothPoweredDetail_Data) == 16,
+              "Bad sizeof(BluetoothPoweredDetail_Data)");
+// Used by BluetoothPoweredDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BluetoothPoweredDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BluetoothPoweredDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BluetoothPoweredDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BluetoothPoweredDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BluetoothPoweredDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BluetoothPowerRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::BluetoothPoweredDetail_Data> power_off_result;
+  mojo::internal::Pointer<internal::BluetoothPoweredDetail_Data> power_on_result;
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothPowerRoutineDetail_Data>;
+
+  BluetoothPowerRoutineDetail_Data();
+  ~BluetoothPowerRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(BluetoothPowerRoutineDetail_Data) == 24,
+              "Bad sizeof(BluetoothPowerRoutineDetail_Data)");
+// Used by BluetoothPowerRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BluetoothPowerRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BluetoothPowerRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BluetoothPowerRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BluetoothPowerRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BluetoothPowerRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BluetoothDiscoveringDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t hci_discovering : 1;
+  uint8_t dbus_discovering : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothDiscoveringDetail_Data>;
+
+  BluetoothDiscoveringDetail_Data();
+  ~BluetoothDiscoveringDetail_Data() = delete;
+};
+static_assert(sizeof(BluetoothDiscoveringDetail_Data) == 16,
+              "Bad sizeof(BluetoothDiscoveringDetail_Data)");
+// Used by BluetoothDiscoveringDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BluetoothDiscoveringDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BluetoothDiscoveringDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BluetoothDiscoveringDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BluetoothDiscoveringDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BluetoothDiscoveringDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BluetoothDiscoveryRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::BluetoothDiscoveringDetail_Data> start_discovery_result;
+  mojo::internal::Pointer<internal::BluetoothDiscoveringDetail_Data> stop_discovery_result;
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothDiscoveryRoutineDetail_Data>;
+
+  BluetoothDiscoveryRoutineDetail_Data();
+  ~BluetoothDiscoveryRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(BluetoothDiscoveryRoutineDetail_Data) == 24,
+              "Bad sizeof(BluetoothDiscoveryRoutineDetail_Data)");
+// Used by BluetoothDiscoveryRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BluetoothDiscoveryRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BluetoothDiscoveryRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BluetoothDiscoveryRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BluetoothDiscoveryRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BluetoothDiscoveryRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BluetoothScannedPeripheralInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<int16_t>> rssi_history;
+  mojo::internal::Pointer<mojo::internal::String_Data> name;
+  mojo::internal::Pointer<mojo::internal::String_Data> peripheral_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothScannedPeripheralInfo_Data>;
+
+  BluetoothScannedPeripheralInfo_Data();
+  ~BluetoothScannedPeripheralInfo_Data() = delete;
+};
+static_assert(sizeof(BluetoothScannedPeripheralInfo_Data) == 32,
+              "Bad sizeof(BluetoothScannedPeripheralInfo_Data)");
+// Used by BluetoothScannedPeripheralInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BluetoothScannedPeripheralInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BluetoothScannedPeripheralInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BluetoothScannedPeripheralInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BluetoothScannedPeripheralInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BluetoothScannedPeripheralInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BluetoothScanningRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::BluetoothScannedPeripheralInfo_Data>>> peripherals;
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothScanningRoutineDetail_Data>;
+
+  BluetoothScanningRoutineDetail_Data();
+  ~BluetoothScanningRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(BluetoothScanningRoutineDetail_Data) == 16,
+              "Bad sizeof(BluetoothScanningRoutineDetail_Data)");
+// Used by BluetoothScanningRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BluetoothScanningRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BluetoothScanningRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BluetoothScanningRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BluetoothScanningRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BluetoothScanningRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BluetoothPairingPeripheralInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t pair_error;
+  int32_t connect_error;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::mojo_base::mojom::internal::Uuid_Data>>> uuids;
+  uint8_t bluetooth_class_$flag : 1;
+  uint8_t is_address_valid : 1;
+  uint8_t pad4_[3];
+  uint32_t bluetooth_class_$value;
+  int32_t address_type;
+  uint8_t pad6_[4];
+  mojo::internal::Pointer<mojo::internal::String_Data> failed_manufacturer_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothPairingPeripheralInfo_Data>;
+
+  BluetoothPairingPeripheralInfo_Data();
+  ~BluetoothPairingPeripheralInfo_Data() = delete;
+};
+static_assert(sizeof(BluetoothPairingPeripheralInfo_Data) == 48,
+              "Bad sizeof(BluetoothPairingPeripheralInfo_Data)");
+// Used by BluetoothPairingPeripheralInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BluetoothPairingPeripheralInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BluetoothPairingPeripheralInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BluetoothPairingPeripheralInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BluetoothPairingPeripheralInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BluetoothPairingPeripheralInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BluetoothPairingRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::BluetoothPairingPeripheralInfo_Data> pairing_peripheral;
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothPairingRoutineDetail_Data>;
+
+  BluetoothPairingRoutineDetail_Data();
+  ~BluetoothPairingRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(BluetoothPairingRoutineDetail_Data) == 16,
+              "Bad sizeof(BluetoothPairingRoutineDetail_Data)");
+// Used by BluetoothPairingRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BluetoothPairingRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BluetoothPairingRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BluetoothPairingRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BluetoothPairingRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BluetoothPairingRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  CameraAvailabilityRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t camera_service_available_check;
+  int32_t camera_diagnostic_service_available_check;
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraAvailabilityRoutineDetail_Data>;
+
+  CameraAvailabilityRoutineDetail_Data();
+  ~CameraAvailabilityRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(CameraAvailabilityRoutineDetail_Data) == 16,
+              "Bad sizeof(CameraAvailabilityRoutineDetail_Data)");
+// Used by CameraAvailabilityRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CameraAvailabilityRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CameraAvailabilityRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CameraAvailabilityRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CameraAvailabilityRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CameraAvailabilityRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  FanRoutineDetail_Data {
  public:
   static bool Validate(const void* data,

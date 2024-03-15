@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -259,8 +260,11 @@ void VideoFrameHandleReleaserProxy::ReleaseVideoFrame(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoFrameHandleReleaser_ReleaseVideoFrame_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoFrameHandleReleaser_ReleaseVideoFrame_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoFrameHandleReleaser_ReleaseVideoFrame_Params_Data> params(
           message);
@@ -624,8 +628,11 @@ bool VideoDecoderProxy::GetSupportedConfigs(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_GetSupportedConfigs_Params_Data> params(
           message);
@@ -674,8 +681,11 @@ void VideoDecoderProxy::GetSupportedConfigs(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_GetSupportedConfigs_Params_Data> params(
           message);
@@ -730,8 +740,11 @@ void VideoDecoderProxy::Construct(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoDecoder_Construct_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoDecoder_Construct_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_Construct_Params_Data> params(
           message);
@@ -818,8 +831,11 @@ void VideoDecoderProxy::Initialize(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoDecoder_Initialize_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoDecoder_Initialize_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_Initialize_Params_Data> params(
           message);
@@ -878,8 +894,11 @@ void VideoDecoderProxy::Decode(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoDecoder_Decode_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoDecoder_Decode_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_Decode_Params_Data> params(
           message);
@@ -923,8 +942,11 @@ void VideoDecoderProxy::Reset(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoDecoder_Reset_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoDecoder_Reset_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_Reset_Params_Data> params(
           message);
@@ -964,8 +986,11 @@ void VideoDecoderProxy::OnOverlayInfoChanged(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoDecoder_OnOverlayInfoChanged_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoDecoder_OnOverlayInfoChanged_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_OnOverlayInfoChanged_Params_Data> params(
           message);
@@ -1094,8 +1119,11 @@ void VideoDecoder_GetSupportedConfigs_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_GetSupportedConfigs_ResponseParams_Data> params(
           message);
@@ -1281,8 +1309,11 @@ void VideoDecoder_Initialize_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoDecoder_Initialize_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoDecoder_Initialize_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_Initialize_ResponseParams_Data> params(
           message);
@@ -1416,8 +1447,11 @@ void VideoDecoder_Decode_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoDecoder_Decode_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoDecoder_Decode_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_Decode_ResponseParams_Data> params(
           message);
@@ -1536,8 +1570,11 @@ void VideoDecoder_Reset_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoDecoder_Reset_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoDecoder_Reset_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_Reset_ResponseParams_Data> params(
           message);
@@ -1960,8 +1997,11 @@ void VideoDecoderClientProxy::OnVideoFrameDecoded(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoDecoderClient_OnVideoFrameDecoded_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoDecoderClient_OnVideoFrameDecoded_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoderClient_OnVideoFrameDecoded_Params_Data> params(
           message);
@@ -2019,8 +2059,11 @@ void VideoDecoderClientProxy::OnWaiting(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoDecoderClient_OnWaiting_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoDecoderClient_OnWaiting_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoderClient_OnWaiting_Params_Data> params(
           message);
@@ -2061,8 +2104,11 @@ void VideoDecoderClientProxy::RequestOverlayInfo(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoDecoderClient_RequestOverlayInfo_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoDecoderClient_RequestOverlayInfo_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoderClient_RequestOverlayInfo_Params_Data> params(
           message);

@@ -82,6 +82,124 @@ std::ostream& operator<<(std::ostream& os, MemtesterTestItemEnum value) {
   return os << MemtesterTestItemEnumToString(value);
 }
 
+NOINLINE static const char* CameraSubtestResultToStringHelper(CameraSubtestResult value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case CameraSubtestResult::kNotRun:
+      return "kNotRun";
+    case CameraSubtestResult::kPassed:
+      return "kPassed";
+    case CameraSubtestResult::kFailed:
+      return "kFailed";
+    default:
+      return nullptr;
+  }
+}
+
+std::string CameraSubtestResultToString(CameraSubtestResult value) {
+  const char *str = CameraSubtestResultToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown CameraSubtestResult value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, CameraSubtestResult value) {
+  return os << CameraSubtestResultToString(value);
+}
+
+NOINLINE static const char* DiskReadTypeEnumToStringHelper(DiskReadTypeEnum value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DiskReadTypeEnum::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case DiskReadTypeEnum::kLinearRead:
+      return "kLinearRead";
+    case DiskReadTypeEnum::kRandomRead:
+      return "kRandomRead";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DiskReadTypeEnumToString(DiskReadTypeEnum value) {
+  const char *str = DiskReadTypeEnumToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DiskReadTypeEnum value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DiskReadTypeEnum value) {
+  return os << DiskReadTypeEnumToString(value);
+}
+
+NOINLINE static const char* LedNameToStringHelper(LedName value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case LedName::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case LedName::kBattery:
+      return "kBattery";
+    case LedName::kPower:
+      return "kPower";
+    case LedName::kAdapter:
+      return "kAdapter";
+    case LedName::kLeft:
+      return "kLeft";
+    case LedName::kRight:
+      return "kRight";
+    default:
+      return nullptr;
+  }
+}
+
+std::string LedNameToString(LedName value) {
+  const char *str = LedNameToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown LedName value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, LedName value) {
+  return os << LedNameToString(value);
+}
+
+NOINLINE static const char* LedColorToStringHelper(LedColor value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case LedColor::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case LedColor::kRed:
+      return "kRed";
+    case LedColor::kGreen:
+      return "kGreen";
+    case LedColor::kBlue:
+      return "kBlue";
+    case LedColor::kYellow:
+      return "kYellow";
+    case LedColor::kWhite:
+      return "kWhite";
+    case LedColor::kAmber:
+      return "kAmber";
+    default:
+      return nullptr;
+  }
+}
+
+std::string LedColorToString(LedColor value) {
+  const char *str = LedColorToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown LedColor value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, LedColor value) {
+  return os << LedColorToString(value);
+}
+
 NOINLINE static const char* HardwarePresenceStatusToStringHelper(HardwarePresenceStatus value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -162,6 +280,94 @@ std::ostream& operator<<(std::ostream& os, RoutineStateWaiting_Reason value) {
   return os << RoutineStateWaiting_ReasonToString(value);
 }
 
+NOINLINE static const char* BluetoothPairingPeripheralInfo_PairErrorToStringHelper(BluetoothPairingPeripheralInfo_PairError value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case BluetoothPairingPeripheralInfo_PairError::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case BluetoothPairingPeripheralInfo_PairError::kNone:
+      return "kNone";
+    case BluetoothPairingPeripheralInfo_PairError::kBondFailed:
+      return "kBondFailed";
+    case BluetoothPairingPeripheralInfo_PairError::kBadStatus:
+      return "kBadStatus";
+    case BluetoothPairingPeripheralInfo_PairError::kSspFailed:
+      return "kSspFailed";
+    case BluetoothPairingPeripheralInfo_PairError::kTimeout:
+      return "kTimeout";
+    default:
+      return nullptr;
+  }
+}
+
+std::string BluetoothPairingPeripheralInfo_PairErrorToString(BluetoothPairingPeripheralInfo_PairError value) {
+  const char *str = BluetoothPairingPeripheralInfo_PairErrorToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown BluetoothPairingPeripheralInfo_PairError value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, BluetoothPairingPeripheralInfo_PairError value) {
+  return os << BluetoothPairingPeripheralInfo_PairErrorToString(value);
+}
+
+NOINLINE static const char* BluetoothPairingPeripheralInfo_ConnectErrorToStringHelper(BluetoothPairingPeripheralInfo_ConnectError value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case BluetoothPairingPeripheralInfo_ConnectError::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case BluetoothPairingPeripheralInfo_ConnectError::kNone:
+      return "kNone";
+    case BluetoothPairingPeripheralInfo_ConnectError::kNoConnectedEvent:
+      return "kNoConnectedEvent";
+    case BluetoothPairingPeripheralInfo_ConnectError::kNotConnected:
+      return "kNotConnected";
+    default:
+      return nullptr;
+  }
+}
+
+std::string BluetoothPairingPeripheralInfo_ConnectErrorToString(BluetoothPairingPeripheralInfo_ConnectError value) {
+  const char *str = BluetoothPairingPeripheralInfo_ConnectErrorToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown BluetoothPairingPeripheralInfo_ConnectError value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, BluetoothPairingPeripheralInfo_ConnectError value) {
+  return os << BluetoothPairingPeripheralInfo_ConnectErrorToString(value);
+}
+
+NOINLINE static const char* BluetoothPairingPeripheralInfo_AddressTypeToStringHelper(BluetoothPairingPeripheralInfo_AddressType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case BluetoothPairingPeripheralInfo_AddressType::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case BluetoothPairingPeripheralInfo_AddressType::kUnknown:
+      return "kUnknown";
+    case BluetoothPairingPeripheralInfo_AddressType::kPublic:
+      return "kPublic";
+    case BluetoothPairingPeripheralInfo_AddressType::kRandom:
+      return "kRandom";
+    default:
+      return nullptr;
+  }
+}
+
+std::string BluetoothPairingPeripheralInfo_AddressTypeToString(BluetoothPairingPeripheralInfo_AddressType value) {
+  const char *str = BluetoothPairingPeripheralInfo_AddressTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown BluetoothPairingPeripheralInfo_AddressType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, BluetoothPairingPeripheralInfo_AddressType value) {
+  return os << BluetoothPairingPeripheralInfo_AddressTypeToString(value);
+}
+
 namespace internal {
 // static
 bool RoutineArgument_Data::Validate(
@@ -221,6 +427,146 @@ bool RoutineArgument_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_fan, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kAudioDriver: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_audio_driver, 5, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_audio_driver, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kCpuStress: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_cpu_stress, 6, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_cpu_stress, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kUfsLifetime: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_ufs_lifetime, 7, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_ufs_lifetime, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kDiskRead: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_disk_read, 8, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_disk_read, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kCpuCache: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_cpu_cache, 9, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_cpu_cache, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kPrimeSearch: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_prime_search, 10, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_prime_search, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kLedLitUp: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_led_lit_up, 11, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_led_lit_up, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kFloatingPoint: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_floating_point, 12, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_floating_point, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kBluetoothPower: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bluetooth_power, 13, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_power, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kBluetoothDiscovery: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bluetooth_discovery, 14, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_discovery, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kBluetoothScanning: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bluetooth_scanning, 15, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_scanning, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kBluetoothPairing: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bluetooth_pairing, 16, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_pairing, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kCameraAvailability: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_camera_availability, 17, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_camera_availability, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kUrandom: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_urandom, 18, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_urandom, validation_context))
         return false;
       return true;
     }
@@ -362,6 +708,76 @@ bool RoutineDetail_Data::Validate(
         return false;
       return true;
     }
+    case RoutineDetail_Tag::kAudioDriver: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_audio_driver, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_audio_driver, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kUfsLifetime: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_ufs_lifetime, 5, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_ufs_lifetime, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kBluetoothPower: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bluetooth_power, 6, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_power, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kBluetoothDiscovery: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bluetooth_discovery, 7, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_discovery, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kBluetoothScanning: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bluetooth_scanning, 8, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_scanning, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kBluetoothPairing: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bluetooth_pairing, 9, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_pairing, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kCameraAvailability: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_camera_availability, 10, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_camera_availability, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       return true;
@@ -390,6 +806,165 @@ bool MemoryRoutineArgument_Data::Validate(
 }
 
 MemoryRoutineArgument_Data::MemoryRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AudioDriverRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AudioDriverRoutineArgument_Data* object =
+      static_cast<const AudioDriverRoutineArgument_Data*>(data);
+
+  return true;
+}
+
+AudioDriverRoutineArgument_Data::AudioDriverRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CpuStressRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CpuStressRoutineArgument_Data* object =
+      static_cast<const CpuStressRoutineArgument_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+CpuStressRoutineArgument_Data::CpuStressRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UfsLifetimeRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UfsLifetimeRoutineArgument_Data* object =
+      static_cast<const UfsLifetimeRoutineArgument_Data*>(data);
+
+  return true;
+}
+
+UfsLifetimeRoutineArgument_Data::UfsLifetimeRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool DiskReadRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DiskReadRoutineArgument_Data* object =
+      static_cast<const DiskReadRoutineArgument_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::DiskReadTypeEnum_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->disk_read_duration, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->disk_read_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+DiskReadRoutineArgument_Data::DiskReadRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CpuCacheRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CpuCacheRoutineArgument_Data* object =
+      static_cast<const CpuCacheRoutineArgument_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+CpuCacheRoutineArgument_Data::CpuCacheRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PrimeSearchRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PrimeSearchRoutineArgument_Data* object =
+      static_cast<const PrimeSearchRoutineArgument_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+PrimeSearchRoutineArgument_Data::PrimeSearchRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -429,6 +1004,120 @@ VolumeButtonRoutineArgument_Data::VolumeButtonRoutineArgument_Data()
 
 
 // static
+bool LedLitUpRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LedLitUpRoutineArgument_Data* object =
+      static_cast<const LedLitUpRoutineArgument_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::LedName_Data
+        ::Validate(object->name, validation_context))
+    return false;
+
+
+  if (!::ash::cros_healthd::mojom::internal::LedColor_Data
+        ::Validate(object->color, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->replier, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->replier,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+LedLitUpRoutineArgument_Data::LedLitUpRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool FloatingPointRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FloatingPointRoutineArgument_Data* object =
+      static_cast<const FloatingPointRoutineArgument_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+FloatingPointRoutineArgument_Data::FloatingPointRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothPowerRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothPowerRoutineArgument_Data* object =
+      static_cast<const BluetoothPowerRoutineArgument_Data*>(data);
+
+  return true;
+}
+
+BluetoothPowerRoutineArgument_Data::BluetoothPowerRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothDiscoveryRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothDiscoveryRoutineArgument_Data* object =
+      static_cast<const BluetoothDiscoveryRoutineArgument_Data*>(data);
+
+  return true;
+}
+
+BluetoothDiscoveryRoutineArgument_Data::BluetoothDiscoveryRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool FanRoutineArgument_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -448,6 +1137,115 @@ bool FanRoutineArgument_Data::Validate(
 }
 
 FanRoutineArgument_Data::FanRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothScanningRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothScanningRoutineArgument_Data* object =
+      static_cast<const BluetoothScanningRoutineArgument_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+BluetoothScanningRoutineArgument_Data::BluetoothScanningRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothPairingRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothPairingRoutineArgument_Data* object =
+      static_cast<const BluetoothPairingRoutineArgument_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->peripheral_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& peripheral_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->peripheral_id, validation_context,
+                                         &peripheral_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+BluetoothPairingRoutineArgument_Data::BluetoothPairingRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CameraAvailabilityRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CameraAvailabilityRoutineArgument_Data* object =
+      static_cast<const CameraAvailabilityRoutineArgument_Data*>(data);
+
+  return true;
+}
+
+CameraAvailabilityRoutineArgument_Data::CameraAvailabilityRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UrandomRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UrandomRoutineArgument_Data* object =
+      static_cast<const UrandomRoutineArgument_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+UrandomRoutineArgument_Data::UrandomRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -623,6 +1421,52 @@ MemoryRoutineDetail_Data::MemoryRoutineDetail_Data()
 
 
 // static
+bool AudioDriverRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AudioDriverRoutineDetail_Data* object =
+      static_cast<const AudioDriverRoutineDetail_Data*>(data);
+
+  return true;
+}
+
+AudioDriverRoutineDetail_Data::AudioDriverRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UfsLifetimeRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UfsLifetimeRoutineDetail_Data* object =
+      static_cast<const UfsLifetimeRoutineDetail_Data*>(data);
+
+  return true;
+}
+
+UfsLifetimeRoutineDetail_Data::UfsLifetimeRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool MemtesterResult_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -664,6 +1508,307 @@ bool MemtesterResult_Data::Validate(
 }
 
 MemtesterResult_Data::MemtesterResult_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothPoweredDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothPoweredDetail_Data* object =
+      static_cast<const BluetoothPoweredDetail_Data*>(data);
+
+  return true;
+}
+
+BluetoothPoweredDetail_Data::BluetoothPoweredDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothPowerRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothPowerRoutineDetail_Data* object =
+      static_cast<const BluetoothPowerRoutineDetail_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->power_off_result, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->power_on_result, validation_context))
+    return false;
+
+  return true;
+}
+
+BluetoothPowerRoutineDetail_Data::BluetoothPowerRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothDiscoveringDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothDiscoveringDetail_Data* object =
+      static_cast<const BluetoothDiscoveringDetail_Data*>(data);
+
+  return true;
+}
+
+BluetoothDiscoveringDetail_Data::BluetoothDiscoveringDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothDiscoveryRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothDiscoveryRoutineDetail_Data* object =
+      static_cast<const BluetoothDiscoveryRoutineDetail_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->start_discovery_result, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->stop_discovery_result, validation_context))
+    return false;
+
+  return true;
+}
+
+BluetoothDiscoveryRoutineDetail_Data::BluetoothDiscoveryRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothScannedPeripheralInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothScannedPeripheralInfo_Data* object =
+      static_cast<const BluetoothScannedPeripheralInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->rssi_history, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& rssi_history_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->rssi_history, validation_context,
+                                         &rssi_history_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->name, validation_context,
+                                         &name_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& peripheral_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->peripheral_id, validation_context,
+                                         &peripheral_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+BluetoothScannedPeripheralInfo_Data::BluetoothScannedPeripheralInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothScanningRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothScanningRoutineDetail_Data* object =
+      static_cast<const BluetoothScanningRoutineDetail_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->peripherals, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& peripherals_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->peripherals, validation_context,
+                                         &peripherals_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+BluetoothScanningRoutineDetail_Data::BluetoothScanningRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothPairingPeripheralInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 48, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothPairingPeripheralInfo_Data* object =
+      static_cast<const BluetoothPairingPeripheralInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::BluetoothPairingPeripheralInfo_PairError_Data
+        ::Validate(object->pair_error, validation_context))
+    return false;
+
+
+  if (!::ash::cros_healthd::mojom::internal::BluetoothPairingPeripheralInfo_ConnectError_Data
+        ::Validate(object->connect_error, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->uuids, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& uuids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->uuids, validation_context,
+                                         &uuids_validate_params)) {
+    return false;
+  }
+
+
+  if (!::ash::cros_healthd::mojom::internal::BluetoothPairingPeripheralInfo_AddressType_Data
+        ::Validate(object->address_type, validation_context))
+    return false;
+
+  constexpr const mojo::internal::ContainerValidateParams& failed_manufacturer_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->failed_manufacturer_id, validation_context,
+                                         &failed_manufacturer_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+BluetoothPairingPeripheralInfo_Data::BluetoothPairingPeripheralInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothPairingRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothPairingRoutineDetail_Data* object =
+      static_cast<const BluetoothPairingRoutineDetail_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->pairing_peripheral, validation_context))
+    return false;
+
+  return true;
+}
+
+BluetoothPairingRoutineDetail_Data::BluetoothPairingRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CameraAvailabilityRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CameraAvailabilityRoutineDetail_Data* object =
+      static_cast<const CameraAvailabilityRoutineDetail_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::CameraSubtestResult_Data
+        ::Validate(object->camera_service_available_check, validation_context))
+    return false;
+
+
+  if (!::ash::cros_healthd::mojom::internal::CameraSubtestResult_Data
+        ::Validate(object->camera_diagnostic_service_available_check, validation_context))
+    return false;
+
+  return true;
+}
+
+CameraAvailabilityRoutineDetail_Data::CameraAvailabilityRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -822,6 +1967,52 @@ CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data::CrosH
 
 
 // static
+bool LedLitUpRoutineReplier_GetColorMatched_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LedLitUpRoutineReplier_GetColorMatched_Params_Data* object =
+      static_cast<const LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(data);
+
+  return true;
+}
+
+LedLitUpRoutineReplier_GetColorMatched_Params_Data::LedLitUpRoutineReplier_GetColorMatched_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* object =
+      static_cast<const LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool RoutineControl_GetState_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -944,6 +2135,46 @@ void TraceFormatTraits<::ash::cros_healthd::mojom::MemtesterTestItemEnum>::Write
 namespace perfetto {
 
 // static
+void TraceFormatTraits<::ash::cros_healthd::mojom::CameraSubtestResult>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::CameraSubtestResult value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::CameraSubtestResultToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::DiskReadTypeEnum>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiskReadTypeEnum value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::DiskReadTypeEnumToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::LedName>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::LedName value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::LedNameToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::LedColor>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::LedColor value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::LedColorToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
 void TraceFormatTraits<::ash::cros_healthd::mojom::HardwarePresenceStatus>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::HardwarePresenceStatus value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::HardwarePresenceStatusToString(value));
@@ -967,6 +2198,36 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::RoutineStateWaiting_Reason value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::RoutineStateWaiting_ReasonToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairError>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairError value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairErrorToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectError>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectError value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectErrorToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressTypeToString(value));
 }
 
 } // namespace perfetto

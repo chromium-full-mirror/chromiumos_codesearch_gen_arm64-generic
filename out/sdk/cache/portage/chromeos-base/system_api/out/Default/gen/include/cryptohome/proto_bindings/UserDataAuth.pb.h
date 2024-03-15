@@ -1020,29 +1020,6 @@ const std::string& DircryptoMigrationStatus_Name(T value) {
 }
 const std::string& DircryptoMigrationStatus_Name(DircryptoMigrationStatus value);
 bool DircryptoMigrationStatus_Parse(absl::string_view name, DircryptoMigrationStatus* value);
-enum AuthSessionFlags : int {
-  AUTH_SESSION_FLAGS_NONE = 0,
-  AUTH_SESSION_FLAGS_EPHEMERAL_USER = 2,
-  AuthSessionFlags_INT_MIN_SENTINEL_DO_NOT_USE_ =
-      std::numeric_limits<::int32_t>::min(),
-  AuthSessionFlags_INT_MAX_SENTINEL_DO_NOT_USE_ =
-      std::numeric_limits<::int32_t>::max(),
-};
-
-bool AuthSessionFlags_IsValid(int value);
-constexpr AuthSessionFlags AuthSessionFlags_MIN = static_cast<AuthSessionFlags>(0);
-constexpr AuthSessionFlags AuthSessionFlags_MAX = static_cast<AuthSessionFlags>(2);
-constexpr int AuthSessionFlags_ARRAYSIZE = 2 + 1;
-const std::string& AuthSessionFlags_Name(AuthSessionFlags value);
-template <typename T>
-const std::string& AuthSessionFlags_Name(T value) {
-  static_assert(std::is_same<T, AuthSessionFlags>::value ||
-                    std::is_integral<T>::value,
-                "Incorrect type passed to AuthSessionFlags_Name().");
-  return AuthSessionFlags_Name(static_cast<AuthSessionFlags>(value));
-}
-const std::string& AuthSessionFlags_Name(AuthSessionFlags value);
-bool AuthSessionFlags_Parse(absl::string_view name, AuthSessionFlags* value);
 enum AuthSessionStatus : int {
   AUTH_SESSION_STATUS_NOT_SET = 0,
   AUTH_SESSION_STATUS_FURTHER_FACTOR_REQUIRED = 1,
@@ -6179,7 +6156,6 @@ class StartAuthSessionRequest final :
 
   enum : int {
     kAccountIdFieldNumber = 1,
-    kFlagsFieldNumber = 2,
     kIntentFieldNumber = 3,
     kIsEphemeralUserFieldNumber = 4,
   };
@@ -6197,16 +6173,6 @@ class StartAuthSessionRequest final :
   void unsafe_arena_set_allocated_account_id(
       ::cryptohome::AccountIdentifier* account_id);
   ::cryptohome::AccountIdentifier* unsafe_arena_release_account_id();
-  // uint32 flags = 2;
-  void clear_flags() ;
-  ::uint32_t flags() const;
-  void set_flags(::uint32_t value);
-
-  private:
-  ::uint32_t _internal_flags() const;
-  void _internal_set_flags(::uint32_t value);
-
-  public:
   // .user_data_auth.AuthIntent intent = 3;
   void clear_intent() ;
   ::user_data_auth::AuthIntent intent() const;
@@ -6238,7 +6204,6 @@ class StartAuthSessionRequest final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::cryptohome::AccountIdentifier* account_id_;
-    ::uint32_t flags_;
     int intent_;
     bool is_ephemeral_user_;
   };
@@ -28176,26 +28141,6 @@ inline void StartAuthSessionRequest::set_allocated_account_id(::cryptohome::Acco
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.StartAuthSessionRequest.account_id)
 }
 
-// uint32 flags = 2;
-inline void StartAuthSessionRequest::clear_flags() {
-  _impl_.flags_ = 0u;
-}
-inline ::uint32_t StartAuthSessionRequest::flags() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.StartAuthSessionRequest.flags)
-  return _internal_flags();
-}
-inline void StartAuthSessionRequest::set_flags(::uint32_t value) {
-  _internal_set_flags(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.StartAuthSessionRequest.flags)
-}
-inline ::uint32_t StartAuthSessionRequest::_internal_flags() const {
-  return _impl_.flags_;
-}
-inline void StartAuthSessionRequest::_internal_set_flags(::uint32_t value) {
-  ;
-  _impl_.flags_ = value;
-}
-
 // bool is_ephemeral_user = 4;
 inline void StartAuthSessionRequest::clear_is_ephemeral_user() {
   _impl_.is_ephemeral_user_ = false;
@@ -41314,8 +41259,6 @@ template <>
 struct is_proto_enum<::user_data_auth::PossibleAction> : std::true_type {};
 template <>
 struct is_proto_enum<::user_data_auth::DircryptoMigrationStatus> : std::true_type {};
-template <>
-struct is_proto_enum<::user_data_auth::AuthSessionFlags> : std::true_type {};
 template <>
 struct is_proto_enum<::user_data_auth::AuthSessionStatus> : std::true_type {};
 template <>

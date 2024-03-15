@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -127,8 +128,11 @@ void NetworkDiagnosticsProxy::RunNetworkDiagnostics(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnostics_RunNetworkDiagnostics_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnostics_RunNetworkDiagnostics_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chrome::mojom::internal::NetworkDiagnostics_RunNetworkDiagnostics_Params_Data> params(
           message);
@@ -321,8 +325,11 @@ void NetworkDiagnosticsClientProxy::SetCanShowNetworkDiagnosticsDialog(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chrome::mojom::internal::NetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Params_Data> params(
           message);
@@ -362,8 +369,11 @@ void NetworkDiagnosticsClientProxy::DNSProbeStatus(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsClient_DNSProbeStatus_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsClient_DNSProbeStatus_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chrome::mojom::internal::NetworkDiagnosticsClient_DNSProbeStatus_Params_Data> params(
           message);

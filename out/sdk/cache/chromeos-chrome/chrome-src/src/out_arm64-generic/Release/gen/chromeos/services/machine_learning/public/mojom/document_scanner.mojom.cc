@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -340,8 +341,11 @@ void DocumentScannerProxy::DetectCornersFromNV12Image(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDocumentScanner_DetectCornersFromNV12Image_Name, kFlags, 0, 0, nullptr);
+      internal::kDocumentScanner_DetectCornersFromNV12Image_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::DocumentScanner_DetectCornersFromNV12Image_Params_Data> params(
           message);
@@ -392,8 +396,11 @@ void DocumentScannerProxy::DetectCornersFromJPEGImage(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDocumentScanner_DetectCornersFromJPEGImage_Name, kFlags, 0, 0, nullptr);
+      internal::kDocumentScanner_DetectCornersFromJPEGImage_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::DocumentScanner_DetectCornersFromJPEGImage_Params_Data> params(
           message);
@@ -450,8 +457,11 @@ void DocumentScannerProxy::DoPostProcessing(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDocumentScanner_DoPostProcessing_Name, kFlags, 0, 0, nullptr);
+      internal::kDocumentScanner_DoPostProcessing_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::DocumentScanner_DoPostProcessing_Params_Data> params(
           message);
@@ -589,8 +599,11 @@ void DocumentScanner_DetectCornersFromNV12Image_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDocumentScanner_DetectCornersFromNV12Image_Name, kFlags, 0, 0, nullptr);
+      internal::kDocumentScanner_DetectCornersFromNV12Image_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::DocumentScanner_DetectCornersFromNV12Image_ResponseParams_Data> params(
           message);
@@ -720,8 +733,11 @@ void DocumentScanner_DetectCornersFromJPEGImage_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDocumentScanner_DetectCornersFromJPEGImage_Name, kFlags, 0, 0, nullptr);
+      internal::kDocumentScanner_DetectCornersFromJPEGImage_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::DocumentScanner_DetectCornersFromJPEGImage_ResponseParams_Data> params(
           message);
@@ -851,8 +867,11 @@ void DocumentScanner_DoPostProcessing_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDocumentScanner_DoPostProcessing_Name, kFlags, 0, 0, nullptr);
+      internal::kDocumentScanner_DoPostProcessing_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::DocumentScanner_DoPostProcessing_ResponseParams_Data> params(
           message);

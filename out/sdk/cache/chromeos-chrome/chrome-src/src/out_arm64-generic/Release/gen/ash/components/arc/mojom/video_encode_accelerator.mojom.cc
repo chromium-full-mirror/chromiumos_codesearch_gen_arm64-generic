@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -702,8 +703,11 @@ void VideoEncodeAcceleratorProxy::GetSupportedProfiles(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_GetSupportedProfiles_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeAccelerator_GetSupportedProfiles_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_GetSupportedProfiles_Params_Data> params(
           message);
@@ -746,8 +750,11 @@ void VideoEncodeAcceleratorProxy::Initialize(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_Initialize_Params_Data> params(
           message);
@@ -816,8 +823,11 @@ void VideoEncodeAcceleratorProxy::Encode(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Encode_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeAccelerator_Encode_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_Encode_Params_Data> params(
           message);
@@ -886,8 +896,11 @@ void VideoEncodeAcceleratorProxy::UseBitstreamBuffer(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_UseBitstreamBuffer_Params_Data> params(
           message);
@@ -938,8 +951,11 @@ void VideoEncodeAcceleratorProxy::RequestEncodingParametersChange(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_RequestEncodingParametersChange_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeAccelerator_RequestEncodingParametersChange_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_RequestEncodingParametersChange_Params_Data> params(
           message);
@@ -991,8 +1007,11 @@ void VideoEncodeAcceleratorProxy::RequestEncodingParametersChangeDeprecated(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Params_Data> params(
           message);
@@ -1026,8 +1045,11 @@ void VideoEncodeAcceleratorProxy::Flush(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Flush_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeAccelerator_Flush_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_Flush_Params_Data> params(
           message);
@@ -1139,8 +1161,11 @@ void VideoEncodeAccelerator_GetSupportedProfiles_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_GetSupportedProfiles_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeAccelerator_GetSupportedProfiles_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_GetSupportedProfiles_ResponseParams_Data> params(
           message);
@@ -1272,8 +1297,11 @@ void VideoEncodeAccelerator_Initialize_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_Initialize_ResponseParams_Data> params(
           message);
@@ -1383,8 +1411,11 @@ void VideoEncodeAccelerator_Encode_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Encode_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeAccelerator_Encode_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_Encode_ResponseParams_Data> params(
           message);
@@ -1517,8 +1548,11 @@ void VideoEncodeAccelerator_UseBitstreamBuffer_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_UseBitstreamBuffer_ResponseParams_Data> params(
           message);
@@ -1640,8 +1674,11 @@ void VideoEncodeAccelerator_Flush_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Flush_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeAccelerator_Flush_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_Flush_ResponseParams_Data> params(
           message);
@@ -2089,8 +2126,11 @@ void VideoEncodeClientProxy::RequireBitstreamBuffers(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoEncodeClient_RequireBitstreamBuffers_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeClient_RequireBitstreamBuffers_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeClient_RequireBitstreamBuffers_Params_Data> params(
           message);
@@ -2142,8 +2182,11 @@ void VideoEncodeClientProxy::NotifyError(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVideoEncodeClient_NotifyError_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeClient_NotifyError_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeClient_NotifyError_Params_Data> params(
           message);

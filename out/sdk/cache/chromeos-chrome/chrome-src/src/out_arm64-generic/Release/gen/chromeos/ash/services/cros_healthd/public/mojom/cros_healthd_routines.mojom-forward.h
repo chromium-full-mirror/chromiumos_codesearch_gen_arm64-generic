@@ -24,9 +24,37 @@
 namespace ash::cros_healthd::mojom {
 class MemoryRoutineArgumentDataView;
 
+class AudioDriverRoutineArgumentDataView;
+
+class CpuStressRoutineArgumentDataView;
+
+class UfsLifetimeRoutineArgumentDataView;
+
+class DiskReadRoutineArgumentDataView;
+
+class CpuCacheRoutineArgumentDataView;
+
+class PrimeSearchRoutineArgumentDataView;
+
 class VolumeButtonRoutineArgumentDataView;
 
+class LedLitUpRoutineArgumentDataView;
+
+class FloatingPointRoutineArgumentDataView;
+
+class BluetoothPowerRoutineArgumentDataView;
+
+class BluetoothDiscoveryRoutineArgumentDataView;
+
 class FanRoutineArgumentDataView;
+
+class BluetoothScanningRoutineArgumentDataView;
+
+class BluetoothPairingRoutineArgumentDataView;
+
+class CameraAvailabilityRoutineArgumentDataView;
+
+class UrandomRoutineArgumentDataView;
 
 class RoutineStateDataView;
 
@@ -40,7 +68,29 @@ class RoutineStateFinishedDataView;
 
 class MemoryRoutineDetailDataView;
 
+class AudioDriverRoutineDetailDataView;
+
+class UfsLifetimeRoutineDetailDataView;
+
 class MemtesterResultDataView;
+
+class BluetoothPoweredDetailDataView;
+
+class BluetoothPowerRoutineDetailDataView;
+
+class BluetoothDiscoveringDetailDataView;
+
+class BluetoothDiscoveryRoutineDetailDataView;
+
+class BluetoothScannedPeripheralInfoDataView;
+
+class BluetoothScanningRoutineDetailDataView;
+
+class BluetoothPairingPeripheralInfoDataView;
+
+class BluetoothPairingRoutineDetailDataView;
+
+class CameraAvailabilityRoutineDetailDataView;
 
 class FanRoutineDetailDataView;
 
@@ -50,19 +100,75 @@ class RoutineDetailDataView;
 
 enum class MemtesterTestItemEnum : int32_t;
 
+enum class CameraSubtestResult : int32_t;
+
+enum class DiskReadTypeEnum : int32_t;
+
+enum class LedName : int32_t;
+
+enum class LedColor : int32_t;
+
 enum class HardwarePresenceStatus : int32_t;
 
 enum class VolumeButtonRoutineArgument_ButtonType : int32_t;
 
 enum class RoutineStateWaiting_Reason : int32_t;
+
+enum class BluetoothPairingPeripheralInfo_PairError : int32_t;
+
+enum class BluetoothPairingPeripheralInfo_ConnectError : int32_t;
+
+enum class BluetoothPairingPeripheralInfo_AddressType : int32_t;
 class MemoryRoutineArgument;
 using MemoryRoutineArgumentPtr = mojo::InlinedStructPtr<MemoryRoutineArgument>;
+
+class AudioDriverRoutineArgument;
+using AudioDriverRoutineArgumentPtr = mojo::InlinedStructPtr<AudioDriverRoutineArgument>;
+
+class CpuStressRoutineArgument;
+using CpuStressRoutineArgumentPtr = mojo::StructPtr<CpuStressRoutineArgument>;
+
+class UfsLifetimeRoutineArgument;
+using UfsLifetimeRoutineArgumentPtr = mojo::InlinedStructPtr<UfsLifetimeRoutineArgument>;
+
+class DiskReadRoutineArgument;
+using DiskReadRoutineArgumentPtr = mojo::StructPtr<DiskReadRoutineArgument>;
+
+class CpuCacheRoutineArgument;
+using CpuCacheRoutineArgumentPtr = mojo::StructPtr<CpuCacheRoutineArgument>;
+
+class PrimeSearchRoutineArgument;
+using PrimeSearchRoutineArgumentPtr = mojo::StructPtr<PrimeSearchRoutineArgument>;
 
 class VolumeButtonRoutineArgument;
 using VolumeButtonRoutineArgumentPtr = mojo::StructPtr<VolumeButtonRoutineArgument>;
 
+class LedLitUpRoutineArgument;
+using LedLitUpRoutineArgumentPtr = mojo::StructPtr<LedLitUpRoutineArgument>;
+
+class FloatingPointRoutineArgument;
+using FloatingPointRoutineArgumentPtr = mojo::StructPtr<FloatingPointRoutineArgument>;
+
+class BluetoothPowerRoutineArgument;
+using BluetoothPowerRoutineArgumentPtr = mojo::InlinedStructPtr<BluetoothPowerRoutineArgument>;
+
+class BluetoothDiscoveryRoutineArgument;
+using BluetoothDiscoveryRoutineArgumentPtr = mojo::InlinedStructPtr<BluetoothDiscoveryRoutineArgument>;
+
 class FanRoutineArgument;
 using FanRoutineArgumentPtr = mojo::InlinedStructPtr<FanRoutineArgument>;
+
+class BluetoothScanningRoutineArgument;
+using BluetoothScanningRoutineArgumentPtr = mojo::StructPtr<BluetoothScanningRoutineArgument>;
+
+class BluetoothPairingRoutineArgument;
+using BluetoothPairingRoutineArgumentPtr = mojo::InlinedStructPtr<BluetoothPairingRoutineArgument>;
+
+class CameraAvailabilityRoutineArgument;
+using CameraAvailabilityRoutineArgumentPtr = mojo::InlinedStructPtr<CameraAvailabilityRoutineArgument>;
+
+class UrandomRoutineArgument;
+using UrandomRoutineArgumentPtr = mojo::StructPtr<UrandomRoutineArgument>;
 
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
@@ -82,8 +188,41 @@ using RoutineStateFinishedPtr = mojo::StructPtr<RoutineStateFinished>;
 class MemoryRoutineDetail;
 using MemoryRoutineDetailPtr = mojo::StructPtr<MemoryRoutineDetail>;
 
+class AudioDriverRoutineDetail;
+using AudioDriverRoutineDetailPtr = mojo::InlinedStructPtr<AudioDriverRoutineDetail>;
+
+class UfsLifetimeRoutineDetail;
+using UfsLifetimeRoutineDetailPtr = mojo::InlinedStructPtr<UfsLifetimeRoutineDetail>;
+
 class MemtesterResult;
 using MemtesterResultPtr = mojo::StructPtr<MemtesterResult>;
+
+class BluetoothPoweredDetail;
+using BluetoothPoweredDetailPtr = mojo::InlinedStructPtr<BluetoothPoweredDetail>;
+
+class BluetoothPowerRoutineDetail;
+using BluetoothPowerRoutineDetailPtr = mojo::StructPtr<BluetoothPowerRoutineDetail>;
+
+class BluetoothDiscoveringDetail;
+using BluetoothDiscoveringDetailPtr = mojo::InlinedStructPtr<BluetoothDiscoveringDetail>;
+
+class BluetoothDiscoveryRoutineDetail;
+using BluetoothDiscoveryRoutineDetailPtr = mojo::StructPtr<BluetoothDiscoveryRoutineDetail>;
+
+class BluetoothScannedPeripheralInfo;
+using BluetoothScannedPeripheralInfoPtr = mojo::StructPtr<BluetoothScannedPeripheralInfo>;
+
+class BluetoothScanningRoutineDetail;
+using BluetoothScanningRoutineDetailPtr = mojo::StructPtr<BluetoothScanningRoutineDetail>;
+
+class BluetoothPairingPeripheralInfo;
+using BluetoothPairingPeripheralInfoPtr = mojo::StructPtr<BluetoothPairingPeripheralInfo>;
+
+class BluetoothPairingRoutineDetail;
+using BluetoothPairingRoutineDetailPtr = mojo::StructPtr<BluetoothPairingRoutineDetail>;
+
+class CameraAvailabilityRoutineDetail;
+using CameraAvailabilityRoutineDetailPtr = mojo::InlinedStructPtr<CameraAvailabilityRoutineDetail>;
 
 class FanRoutineDetail;
 using FanRoutineDetailPtr = mojo::StructPtr<FanRoutineDetail>;
@@ -101,6 +240,8 @@ class RoutineDetail;
 using RoutineDetailPtr = mojo::StructPtr<RoutineDetail>;
 
 class CrosHealthdRoutinesService;
+
+class LedLitUpRoutineReplier;
 
 class RoutineControl;
 

@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -72,6 +73,176 @@ bool MemoryRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+AudioDriverRoutineArgument::AudioDriverRoutineArgument() {}
+
+AudioDriverRoutineArgument::~AudioDriverRoutineArgument() = default;
+size_t AudioDriverRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void AudioDriverRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool AudioDriverRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CpuStressRoutineArgument::CpuStressRoutineArgument()
+    : exec_duration() {}
+
+CpuStressRoutineArgument::CpuStressRoutineArgument(
+    std::optional<::base::TimeDelta> exec_duration_in)
+    : exec_duration(std::move(exec_duration_in)) {}
+
+CpuStressRoutineArgument::~CpuStressRoutineArgument() = default;
+
+void CpuStressRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "exec_duration"), this->exec_duration,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<::base::TimeDelta>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CpuStressRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+UfsLifetimeRoutineArgument::UfsLifetimeRoutineArgument() {}
+
+UfsLifetimeRoutineArgument::~UfsLifetimeRoutineArgument() = default;
+size_t UfsLifetimeRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void UfsLifetimeRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool UfsLifetimeRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+DiskReadRoutineArgument::DiskReadRoutineArgument()
+    : type(),
+      disk_read_duration(),
+      file_size_mib() {}
+
+DiskReadRoutineArgument::DiskReadRoutineArgument(
+    DiskReadTypeEnum type_in,
+    ::base::TimeDelta disk_read_duration_in,
+    uint32_t file_size_mib_in)
+    : type(std::move(type_in)),
+      disk_read_duration(std::move(disk_read_duration_in)),
+      file_size_mib(std::move(file_size_mib_in)) {}
+
+DiskReadRoutineArgument::~DiskReadRoutineArgument() = default;
+
+void DiskReadRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type DiskReadTypeEnum>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "disk_read_duration"), this->disk_read_duration,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::TimeDelta>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "file_size_mib"), this->file_size_mib,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool DiskReadRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CpuCacheRoutineArgument::CpuCacheRoutineArgument()
+    : exec_duration() {}
+
+CpuCacheRoutineArgument::CpuCacheRoutineArgument(
+    std::optional<::base::TimeDelta> exec_duration_in)
+    : exec_duration(std::move(exec_duration_in)) {}
+
+CpuCacheRoutineArgument::~CpuCacheRoutineArgument() = default;
+
+void CpuCacheRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "exec_duration"), this->exec_duration,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<::base::TimeDelta>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CpuCacheRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+PrimeSearchRoutineArgument::PrimeSearchRoutineArgument()
+    : exec_duration() {}
+
+PrimeSearchRoutineArgument::PrimeSearchRoutineArgument(
+    std::optional<::base::TimeDelta> exec_duration_in)
+    : exec_duration(std::move(exec_duration_in)) {}
+
+PrimeSearchRoutineArgument::~PrimeSearchRoutineArgument() = default;
+
+void PrimeSearchRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "exec_duration"), this->exec_duration,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<::base::TimeDelta>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool PrimeSearchRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 VolumeButtonRoutineArgument::VolumeButtonRoutineArgument()
     : type(),
       timeout() {}
@@ -112,6 +283,120 @@ bool VolumeButtonRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+LedLitUpRoutineArgument::LedLitUpRoutineArgument()
+    : name(),
+      color(),
+      replier() {}
+
+LedLitUpRoutineArgument::LedLitUpRoutineArgument(
+    LedName name_in,
+    LedColor color_in,
+    ::mojo::PendingRemote<LedLitUpRoutineReplier> replier_in)
+    : name(std::move(name_in)),
+      color(std::move(color_in)),
+      replier(std::move(replier_in)) {}
+
+LedLitUpRoutineArgument::~LedLitUpRoutineArgument() = default;
+
+void LedLitUpRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type LedName>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "color"), this->color,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type LedColor>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "replier"), this->replier,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::mojo::PendingRemote<LedLitUpRoutineReplier>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool LedLitUpRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+FloatingPointRoutineArgument::FloatingPointRoutineArgument()
+    : exec_duration() {}
+
+FloatingPointRoutineArgument::FloatingPointRoutineArgument(
+    std::optional<::base::TimeDelta> exec_duration_in)
+    : exec_duration(std::move(exec_duration_in)) {}
+
+FloatingPointRoutineArgument::~FloatingPointRoutineArgument() = default;
+
+void FloatingPointRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "exec_duration"), this->exec_duration,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<::base::TimeDelta>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool FloatingPointRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothPowerRoutineArgument::BluetoothPowerRoutineArgument() {}
+
+BluetoothPowerRoutineArgument::~BluetoothPowerRoutineArgument() = default;
+size_t BluetoothPowerRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void BluetoothPowerRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool BluetoothPowerRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothDiscoveryRoutineArgument::BluetoothDiscoveryRoutineArgument() {}
+
+BluetoothDiscoveryRoutineArgument::~BluetoothDiscoveryRoutineArgument() = default;
+size_t BluetoothDiscoveryRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void BluetoothDiscoveryRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool BluetoothDiscoveryRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 FanRoutineArgument::FanRoutineArgument() {}
 
 FanRoutineArgument::~FanRoutineArgument() = default;
@@ -125,6 +410,139 @@ void FanRoutineArgument::WriteIntoTrace(
 }
 
 bool FanRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothScanningRoutineArgument::BluetoothScanningRoutineArgument()
+    : exec_duration() {}
+
+BluetoothScanningRoutineArgument::BluetoothScanningRoutineArgument(
+    std::optional<::base::TimeDelta> exec_duration_in)
+    : exec_duration(std::move(exec_duration_in)) {}
+
+BluetoothScanningRoutineArgument::~BluetoothScanningRoutineArgument() = default;
+
+void BluetoothScanningRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "exec_duration"), this->exec_duration,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<::base::TimeDelta>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothScanningRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothPairingRoutineArgument::BluetoothPairingRoutineArgument()
+    : peripheral_id() {}
+
+BluetoothPairingRoutineArgument::BluetoothPairingRoutineArgument(
+    const std::string& peripheral_id_in)
+    : peripheral_id(std::move(peripheral_id_in)) {}
+
+BluetoothPairingRoutineArgument::~BluetoothPairingRoutineArgument() = default;
+size_t BluetoothPairingRoutineArgument::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->peripheral_id);
+  return seed;
+}
+
+void BluetoothPairingRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "peripheral_id"), this->peripheral_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothPairingRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CameraAvailabilityRoutineArgument::CameraAvailabilityRoutineArgument()
+    : run_camera_service_available_check(),
+      run_camera_diagnostic_service_available_check() {}
+
+CameraAvailabilityRoutineArgument::CameraAvailabilityRoutineArgument(
+    bool run_camera_service_available_check_in,
+    bool run_camera_diagnostic_service_available_check_in)
+    : run_camera_service_available_check(std::move(run_camera_service_available_check_in)),
+      run_camera_diagnostic_service_available_check(std::move(run_camera_diagnostic_service_available_check_in)) {}
+
+CameraAvailabilityRoutineArgument::~CameraAvailabilityRoutineArgument() = default;
+size_t CameraAvailabilityRoutineArgument::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->run_camera_service_available_check);
+  seed = mojo::internal::Hash(seed, this->run_camera_diagnostic_service_available_check);
+  return seed;
+}
+
+void CameraAvailabilityRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "run_camera_service_available_check"), this->run_camera_service_available_check,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "run_camera_diagnostic_service_available_check"), this->run_camera_diagnostic_service_available_check,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CameraAvailabilityRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+UrandomRoutineArgument::UrandomRoutineArgument()
+    : exec_duration() {}
+
+UrandomRoutineArgument::UrandomRoutineArgument(
+    std::optional<::base::TimeDelta> exec_duration_in)
+    : exec_duration(std::move(exec_duration_in)) {}
+
+UrandomRoutineArgument::~UrandomRoutineArgument() = default;
+
+void UrandomRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "exec_duration"), this->exec_duration,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<::base::TimeDelta>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool UrandomRoutineArgument::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -328,6 +746,109 @@ bool MemoryRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+AudioDriverRoutineDetail::AudioDriverRoutineDetail()
+    : internal_card_detected(),
+      audio_devices_succeed_to_open() {}
+
+AudioDriverRoutineDetail::AudioDriverRoutineDetail(
+    bool internal_card_detected_in,
+    bool audio_devices_succeed_to_open_in)
+    : internal_card_detected(std::move(internal_card_detected_in)),
+      audio_devices_succeed_to_open(std::move(audio_devices_succeed_to_open_in)) {}
+
+AudioDriverRoutineDetail::~AudioDriverRoutineDetail() = default;
+size_t AudioDriverRoutineDetail::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->internal_card_detected);
+  seed = mojo::internal::Hash(seed, this->audio_devices_succeed_to_open);
+  return seed;
+}
+
+void AudioDriverRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "internal_card_detected"), this->internal_card_detected,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "audio_devices_succeed_to_open"), this->audio_devices_succeed_to_open,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool AudioDriverRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+UfsLifetimeRoutineDetail::UfsLifetimeRoutineDetail()
+    : pre_eol_info(),
+      device_life_time_est_a(),
+      device_life_time_est_b() {}
+
+UfsLifetimeRoutineDetail::UfsLifetimeRoutineDetail(
+    uint8_t pre_eol_info_in,
+    uint8_t device_life_time_est_a_in,
+    uint8_t device_life_time_est_b_in)
+    : pre_eol_info(std::move(pre_eol_info_in)),
+      device_life_time_est_a(std::move(device_life_time_est_a_in)),
+      device_life_time_est_b(std::move(device_life_time_est_b_in)) {}
+
+UfsLifetimeRoutineDetail::~UfsLifetimeRoutineDetail() = default;
+size_t UfsLifetimeRoutineDetail::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->pre_eol_info);
+  seed = mojo::internal::Hash(seed, this->device_life_time_est_a);
+  seed = mojo::internal::Hash(seed, this->device_life_time_est_b);
+  return seed;
+}
+
+void UfsLifetimeRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "pre_eol_info"), this->pre_eol_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "device_life_time_est_a"), this->device_life_time_est_a,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "device_life_time_est_b"), this->device_life_time_est_b,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool UfsLifetimeRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 MemtesterResult::MemtesterResult()
     : passed_items(),
       failed_items() {}
@@ -364,6 +885,429 @@ void MemtesterResult::WriteIntoTrace(
 }
 
 bool MemtesterResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothPoweredDetail::BluetoothPoweredDetail()
+    : hci_powered(),
+      dbus_powered() {}
+
+BluetoothPoweredDetail::BluetoothPoweredDetail(
+    bool hci_powered_in,
+    bool dbus_powered_in)
+    : hci_powered(std::move(hci_powered_in)),
+      dbus_powered(std::move(dbus_powered_in)) {}
+
+BluetoothPoweredDetail::~BluetoothPoweredDetail() = default;
+size_t BluetoothPoweredDetail::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->hci_powered);
+  seed = mojo::internal::Hash(seed, this->dbus_powered);
+  return seed;
+}
+
+void BluetoothPoweredDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "hci_powered"), this->hci_powered,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "dbus_powered"), this->dbus_powered,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothPoweredDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothPowerRoutineDetail::BluetoothPowerRoutineDetail()
+    : power_off_result(),
+      power_on_result() {}
+
+BluetoothPowerRoutineDetail::BluetoothPowerRoutineDetail(
+    BluetoothPoweredDetailPtr power_off_result_in,
+    BluetoothPoweredDetailPtr power_on_result_in)
+    : power_off_result(std::move(power_off_result_in)),
+      power_on_result(std::move(power_on_result_in)) {}
+
+BluetoothPowerRoutineDetail::~BluetoothPowerRoutineDetail() = default;
+
+void BluetoothPowerRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "power_off_result"), this->power_off_result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BluetoothPoweredDetailPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "power_on_result"), this->power_on_result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BluetoothPoweredDetailPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothPowerRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothDiscoveringDetail::BluetoothDiscoveringDetail()
+    : hci_discovering(),
+      dbus_discovering() {}
+
+BluetoothDiscoveringDetail::BluetoothDiscoveringDetail(
+    bool hci_discovering_in,
+    bool dbus_discovering_in)
+    : hci_discovering(std::move(hci_discovering_in)),
+      dbus_discovering(std::move(dbus_discovering_in)) {}
+
+BluetoothDiscoveringDetail::~BluetoothDiscoveringDetail() = default;
+size_t BluetoothDiscoveringDetail::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->hci_discovering);
+  seed = mojo::internal::Hash(seed, this->dbus_discovering);
+  return seed;
+}
+
+void BluetoothDiscoveringDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "hci_discovering"), this->hci_discovering,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "dbus_discovering"), this->dbus_discovering,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothDiscoveringDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothDiscoveryRoutineDetail::BluetoothDiscoveryRoutineDetail()
+    : start_discovery_result(),
+      stop_discovery_result() {}
+
+BluetoothDiscoveryRoutineDetail::BluetoothDiscoveryRoutineDetail(
+    BluetoothDiscoveringDetailPtr start_discovery_result_in,
+    BluetoothDiscoveringDetailPtr stop_discovery_result_in)
+    : start_discovery_result(std::move(start_discovery_result_in)),
+      stop_discovery_result(std::move(stop_discovery_result_in)) {}
+
+BluetoothDiscoveryRoutineDetail::~BluetoothDiscoveryRoutineDetail() = default;
+
+void BluetoothDiscoveryRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "start_discovery_result"), this->start_discovery_result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BluetoothDiscoveringDetailPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "stop_discovery_result"), this->stop_discovery_result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BluetoothDiscoveringDetailPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothDiscoveryRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothScannedPeripheralInfo::BluetoothScannedPeripheralInfo()
+    : rssi_history(),
+      name(),
+      peripheral_id() {}
+
+BluetoothScannedPeripheralInfo::BluetoothScannedPeripheralInfo(
+    std::vector<int16_t> rssi_history_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& peripheral_id_in)
+    : rssi_history(std::move(rssi_history_in)),
+      name(std::move(name_in)),
+      peripheral_id(std::move(peripheral_id_in)) {}
+
+BluetoothScannedPeripheralInfo::~BluetoothScannedPeripheralInfo() = default;
+
+void BluetoothScannedPeripheralInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "rssi_history"), this->rssi_history,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<int16_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "peripheral_id"), this->peripheral_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothScannedPeripheralInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothScanningRoutineDetail::BluetoothScanningRoutineDetail()
+    : peripherals() {}
+
+BluetoothScanningRoutineDetail::BluetoothScanningRoutineDetail(
+    std::vector<BluetoothScannedPeripheralInfoPtr> peripherals_in)
+    : peripherals(std::move(peripherals_in)) {}
+
+BluetoothScanningRoutineDetail::~BluetoothScanningRoutineDetail() = default;
+
+void BluetoothScanningRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "peripherals"), this->peripherals,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<BluetoothScannedPeripheralInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothScanningRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothPairingPeripheralInfo::BluetoothPairingPeripheralInfo()
+    : pair_error(),
+      connect_error(),
+      uuids(),
+      bluetooth_class(),
+      address_type(),
+      is_address_valid(),
+      failed_manufacturer_id() {}
+
+BluetoothPairingPeripheralInfo::BluetoothPairingPeripheralInfo(
+    BluetoothPairingPeripheralInfo::PairError pair_error_in,
+    BluetoothPairingPeripheralInfo::ConnectError connect_error_in,
+    std::vector<::base::Uuid> uuids_in,
+    std::optional<uint32_t> bluetooth_class_in,
+    BluetoothPairingPeripheralInfo::AddressType address_type_in,
+    bool is_address_valid_in,
+    const std::optional<std::string>& failed_manufacturer_id_in)
+    : pair_error(std::move(pair_error_in)),
+      connect_error(std::move(connect_error_in)),
+      uuids(std::move(uuids_in)),
+      bluetooth_class(std::move(bluetooth_class_in)),
+      address_type(std::move(address_type_in)),
+      is_address_valid(std::move(is_address_valid_in)),
+      failed_manufacturer_id(std::move(failed_manufacturer_id_in)) {}
+
+BluetoothPairingPeripheralInfo::~BluetoothPairingPeripheralInfo() = default;
+
+void BluetoothPairingPeripheralInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "pair_error"), this->pair_error,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BluetoothPairingPeripheralInfo::PairError>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "connect_error"), this->connect_error,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BluetoothPairingPeripheralInfo::ConnectError>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "uuids"), this->uuids,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<::base::Uuid>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "bluetooth_class"), this->bluetooth_class,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint32_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "address_type"), this->address_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BluetoothPairingPeripheralInfo::AddressType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_address_valid"), this->is_address_valid,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "failed_manufacturer_id"), this->failed_manufacturer_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothPairingPeripheralInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothPairingRoutineDetail::BluetoothPairingRoutineDetail()
+    : pairing_peripheral() {}
+
+BluetoothPairingRoutineDetail::BluetoothPairingRoutineDetail(
+    BluetoothPairingPeripheralInfoPtr pairing_peripheral_in)
+    : pairing_peripheral(std::move(pairing_peripheral_in)) {}
+
+BluetoothPairingRoutineDetail::~BluetoothPairingRoutineDetail() = default;
+
+void BluetoothPairingRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "pairing_peripheral"), this->pairing_peripheral,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BluetoothPairingPeripheralInfoPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothPairingRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CameraAvailabilityRoutineDetail::CameraAvailabilityRoutineDetail()
+    : camera_service_available_check(),
+      camera_diagnostic_service_available_check() {}
+
+CameraAvailabilityRoutineDetail::CameraAvailabilityRoutineDetail(
+    CameraSubtestResult camera_service_available_check_in,
+    CameraSubtestResult camera_diagnostic_service_available_check_in)
+    : camera_service_available_check(std::move(camera_service_available_check_in)),
+      camera_diagnostic_service_available_check(std::move(camera_diagnostic_service_available_check_in)) {}
+
+CameraAvailabilityRoutineDetail::~CameraAvailabilityRoutineDetail() = default;
+size_t CameraAvailabilityRoutineDetail::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->camera_service_available_check);
+  seed = mojo::internal::Hash(seed, this->camera_diagnostic_service_available_check);
+  return seed;
+}
+
+void CameraAvailabilityRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "camera_service_available_check"), this->camera_service_available_check,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CameraSubtestResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "camera_diagnostic_service_available_check"), this->camera_diagnostic_service_available_check,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CameraSubtestResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CameraAvailabilityRoutineDetail::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -470,6 +1414,160 @@ void RoutineArgument::set_fan(
         std::move(fan));
   }
 }
+void RoutineArgument::set_audio_driver(
+    AudioDriverRoutineArgumentPtr audio_driver) {
+  if (tag_ == Tag::kAudioDriver) {
+    *(data_.audio_driver) = std::move(audio_driver);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kAudioDriver;
+    data_.audio_driver = new AudioDriverRoutineArgumentPtr(
+        std::move(audio_driver));
+  }
+}
+void RoutineArgument::set_cpu_stress(
+    CpuStressRoutineArgumentPtr cpu_stress) {
+  if (tag_ == Tag::kCpuStress) {
+    *(data_.cpu_stress) = std::move(cpu_stress);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCpuStress;
+    data_.cpu_stress = new CpuStressRoutineArgumentPtr(
+        std::move(cpu_stress));
+  }
+}
+void RoutineArgument::set_ufs_lifetime(
+    UfsLifetimeRoutineArgumentPtr ufs_lifetime) {
+  if (tag_ == Tag::kUfsLifetime) {
+    *(data_.ufs_lifetime) = std::move(ufs_lifetime);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kUfsLifetime;
+    data_.ufs_lifetime = new UfsLifetimeRoutineArgumentPtr(
+        std::move(ufs_lifetime));
+  }
+}
+void RoutineArgument::set_disk_read(
+    DiskReadRoutineArgumentPtr disk_read) {
+  if (tag_ == Tag::kDiskRead) {
+    *(data_.disk_read) = std::move(disk_read);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kDiskRead;
+    data_.disk_read = new DiskReadRoutineArgumentPtr(
+        std::move(disk_read));
+  }
+}
+void RoutineArgument::set_cpu_cache(
+    CpuCacheRoutineArgumentPtr cpu_cache) {
+  if (tag_ == Tag::kCpuCache) {
+    *(data_.cpu_cache) = std::move(cpu_cache);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCpuCache;
+    data_.cpu_cache = new CpuCacheRoutineArgumentPtr(
+        std::move(cpu_cache));
+  }
+}
+void RoutineArgument::set_prime_search(
+    PrimeSearchRoutineArgumentPtr prime_search) {
+  if (tag_ == Tag::kPrimeSearch) {
+    *(data_.prime_search) = std::move(prime_search);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kPrimeSearch;
+    data_.prime_search = new PrimeSearchRoutineArgumentPtr(
+        std::move(prime_search));
+  }
+}
+void RoutineArgument::set_led_lit_up(
+    LedLitUpRoutineArgumentPtr led_lit_up) {
+  if (tag_ == Tag::kLedLitUp) {
+    *(data_.led_lit_up) = std::move(led_lit_up);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kLedLitUp;
+    data_.led_lit_up = new LedLitUpRoutineArgumentPtr(
+        std::move(led_lit_up));
+  }
+}
+void RoutineArgument::set_floating_point(
+    FloatingPointRoutineArgumentPtr floating_point) {
+  if (tag_ == Tag::kFloatingPoint) {
+    *(data_.floating_point) = std::move(floating_point);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kFloatingPoint;
+    data_.floating_point = new FloatingPointRoutineArgumentPtr(
+        std::move(floating_point));
+  }
+}
+void RoutineArgument::set_bluetooth_power(
+    BluetoothPowerRoutineArgumentPtr bluetooth_power) {
+  if (tag_ == Tag::kBluetoothPower) {
+    *(data_.bluetooth_power) = std::move(bluetooth_power);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothPower;
+    data_.bluetooth_power = new BluetoothPowerRoutineArgumentPtr(
+        std::move(bluetooth_power));
+  }
+}
+void RoutineArgument::set_bluetooth_discovery(
+    BluetoothDiscoveryRoutineArgumentPtr bluetooth_discovery) {
+  if (tag_ == Tag::kBluetoothDiscovery) {
+    *(data_.bluetooth_discovery) = std::move(bluetooth_discovery);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothDiscovery;
+    data_.bluetooth_discovery = new BluetoothDiscoveryRoutineArgumentPtr(
+        std::move(bluetooth_discovery));
+  }
+}
+void RoutineArgument::set_bluetooth_scanning(
+    BluetoothScanningRoutineArgumentPtr bluetooth_scanning) {
+  if (tag_ == Tag::kBluetoothScanning) {
+    *(data_.bluetooth_scanning) = std::move(bluetooth_scanning);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothScanning;
+    data_.bluetooth_scanning = new BluetoothScanningRoutineArgumentPtr(
+        std::move(bluetooth_scanning));
+  }
+}
+void RoutineArgument::set_bluetooth_pairing(
+    BluetoothPairingRoutineArgumentPtr bluetooth_pairing) {
+  if (tag_ == Tag::kBluetoothPairing) {
+    *(data_.bluetooth_pairing) = std::move(bluetooth_pairing);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothPairing;
+    data_.bluetooth_pairing = new BluetoothPairingRoutineArgumentPtr(
+        std::move(bluetooth_pairing));
+  }
+}
+void RoutineArgument::set_camera_availability(
+    CameraAvailabilityRoutineArgumentPtr camera_availability) {
+  if (tag_ == Tag::kCameraAvailability) {
+    *(data_.camera_availability) = std::move(camera_availability);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCameraAvailability;
+    data_.camera_availability = new CameraAvailabilityRoutineArgumentPtr(
+        std::move(camera_availability));
+  }
+}
+void RoutineArgument::set_urandom(
+    UrandomRoutineArgumentPtr urandom) {
+  if (tag_ == Tag::kUrandom) {
+    *(data_.urandom) = std::move(urandom);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kUrandom;
+    data_.urandom = new UrandomRoutineArgumentPtr(
+        std::move(urandom));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -488,6 +1586,62 @@ void RoutineArgument::DestroyActive() {
     case Tag::kFan:
 
       delete data_.fan;
+      break;
+    case Tag::kAudioDriver:
+
+      delete data_.audio_driver;
+      break;
+    case Tag::kCpuStress:
+
+      delete data_.cpu_stress;
+      break;
+    case Tag::kUfsLifetime:
+
+      delete data_.ufs_lifetime;
+      break;
+    case Tag::kDiskRead:
+
+      delete data_.disk_read;
+      break;
+    case Tag::kCpuCache:
+
+      delete data_.cpu_cache;
+      break;
+    case Tag::kPrimeSearch:
+
+      delete data_.prime_search;
+      break;
+    case Tag::kLedLitUp:
+
+      delete data_.led_lit_up;
+      break;
+    case Tag::kFloatingPoint:
+
+      delete data_.floating_point;
+      break;
+    case Tag::kBluetoothPower:
+
+      delete data_.bluetooth_power;
+      break;
+    case Tag::kBluetoothDiscovery:
+
+      delete data_.bluetooth_discovery;
+      break;
+    case Tag::kBluetoothScanning:
+
+      delete data_.bluetooth_scanning;
+      break;
+    case Tag::kBluetoothPairing:
+
+      delete data_.bluetooth_pairing;
+      break;
+    case Tag::kCameraAvailability:
+
+      delete data_.camera_availability;
+      break;
+    case Tag::kUrandom:
+
+      delete data_.urandom;
       break;
   }
 }
@@ -628,6 +1782,83 @@ void RoutineDetail::set_fan(
         std::move(fan));
   }
 }
+void RoutineDetail::set_audio_driver(
+    AudioDriverRoutineDetailPtr audio_driver) {
+  if (tag_ == Tag::kAudioDriver) {
+    *(data_.audio_driver) = std::move(audio_driver);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kAudioDriver;
+    data_.audio_driver = new AudioDriverRoutineDetailPtr(
+        std::move(audio_driver));
+  }
+}
+void RoutineDetail::set_ufs_lifetime(
+    UfsLifetimeRoutineDetailPtr ufs_lifetime) {
+  if (tag_ == Tag::kUfsLifetime) {
+    *(data_.ufs_lifetime) = std::move(ufs_lifetime);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kUfsLifetime;
+    data_.ufs_lifetime = new UfsLifetimeRoutineDetailPtr(
+        std::move(ufs_lifetime));
+  }
+}
+void RoutineDetail::set_bluetooth_power(
+    BluetoothPowerRoutineDetailPtr bluetooth_power) {
+  if (tag_ == Tag::kBluetoothPower) {
+    *(data_.bluetooth_power) = std::move(bluetooth_power);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothPower;
+    data_.bluetooth_power = new BluetoothPowerRoutineDetailPtr(
+        std::move(bluetooth_power));
+  }
+}
+void RoutineDetail::set_bluetooth_discovery(
+    BluetoothDiscoveryRoutineDetailPtr bluetooth_discovery) {
+  if (tag_ == Tag::kBluetoothDiscovery) {
+    *(data_.bluetooth_discovery) = std::move(bluetooth_discovery);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothDiscovery;
+    data_.bluetooth_discovery = new BluetoothDiscoveryRoutineDetailPtr(
+        std::move(bluetooth_discovery));
+  }
+}
+void RoutineDetail::set_bluetooth_scanning(
+    BluetoothScanningRoutineDetailPtr bluetooth_scanning) {
+  if (tag_ == Tag::kBluetoothScanning) {
+    *(data_.bluetooth_scanning) = std::move(bluetooth_scanning);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothScanning;
+    data_.bluetooth_scanning = new BluetoothScanningRoutineDetailPtr(
+        std::move(bluetooth_scanning));
+  }
+}
+void RoutineDetail::set_bluetooth_pairing(
+    BluetoothPairingRoutineDetailPtr bluetooth_pairing) {
+  if (tag_ == Tag::kBluetoothPairing) {
+    *(data_.bluetooth_pairing) = std::move(bluetooth_pairing);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothPairing;
+    data_.bluetooth_pairing = new BluetoothPairingRoutineDetailPtr(
+        std::move(bluetooth_pairing));
+  }
+}
+void RoutineDetail::set_camera_availability(
+    CameraAvailabilityRoutineDetailPtr camera_availability) {
+  if (tag_ == Tag::kCameraAvailability) {
+    *(data_.camera_availability) = std::move(camera_availability);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCameraAvailability;
+    data_.camera_availability = new CameraAvailabilityRoutineDetailPtr(
+        std::move(camera_availability));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -642,6 +1873,34 @@ void RoutineDetail::DestroyActive() {
     case Tag::kFan:
 
       delete data_.fan;
+      break;
+    case Tag::kAudioDriver:
+
+      delete data_.audio_driver;
+      break;
+    case Tag::kUfsLifetime:
+
+      delete data_.ufs_lifetime;
+      break;
+    case Tag::kBluetoothPower:
+
+      delete data_.bluetooth_power;
+      break;
+    case Tag::kBluetoothDiscovery:
+
+      delete data_.bluetooth_discovery;
+      break;
+    case Tag::kBluetoothScanning:
+
+      delete data_.bluetooth_scanning;
+      break;
+    case Tag::kBluetoothPairing:
+
+      delete data_.bluetooth_pairing;
+      break;
+    case Tag::kCameraAvailability:
+
+      delete data_.camera_availability;
       break;
   }
 }
@@ -776,8 +2035,11 @@ void CrosHealthdRoutinesServiceProxy::CreateRoutine(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdRoutinesService_CreateRoutine_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdRoutinesService_CreateRoutine_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data> params(
           message);
@@ -833,8 +2095,11 @@ void CrosHealthdRoutinesServiceProxy::IsRoutineArgumentSupported(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data> params(
           message);
@@ -955,8 +2220,11 @@ void CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder::Run
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data> params(
           message);
@@ -1104,6 +2372,309 @@ bool CrosHealthdRoutinesServiceResponseValidator::Accept(mojo::Message* message)
   const char* name = ::ash::cros_healthd::mojom::CrosHealthdRoutinesService::Name_;
   return mojo::internal::ValidateResponseGenericPacked(message, name, kCrosHealthdRoutinesServiceValidationInfo);
 }
+const char LedLitUpRoutineReplier::Name_[] = "ash.cros_healthd.mojom.LedLitUpRoutineReplier";
+
+LedLitUpRoutineReplier::IPCStableHashFunction LedLitUpRoutineReplier::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kLedLitUpRoutineReplier_GetColorMatched_Name: {
+      return &LedLitUpRoutineReplier::GetColorMatched_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* LedLitUpRoutineReplier::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kLedLitUpRoutineReplier_GetColorMatched_Name:
+            return "Receive ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kLedLitUpRoutineReplier_GetColorMatched_Name:
+            return "Receive reply ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t LedLitUpRoutineReplier::GetColorMatched_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+class LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(
+      LedLitUpRoutineReplier::GetColorMatchedCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(const LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback&) = delete;
+  LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback& operator=(const LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  LedLitUpRoutineReplier::GetColorMatchedCallback callback_;
+};
+
+LedLitUpRoutineReplierProxy::LedLitUpRoutineReplierProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void LedLitUpRoutineReplierProxy::GetColorMatched(
+    GetColorMatchedCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      internal::kLedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LedLitUpRoutineReplier::Name_);
+  message.set_method_name("GetColorMatched");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+class LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static LedLitUpRoutineReplier::GetColorMatchedCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder> proxy(
+        new LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "LedLitUpRoutineReplier::GetColorMatchedCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_matched);
+};
+
+bool LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for LedLitUpRoutineReplier.0
+  bool success = true;
+  bool p_matched{};
+  LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_matched = input_data_view.matched();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        LedLitUpRoutineReplier::Name_, 0, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_matched));
+  return true;
+}
+
+void LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
+    bool in_matched) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("matched"), in_matched,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      internal::kLedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->matched = in_matched;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LedLitUpRoutineReplier::Name_);
+  message.set_method_name("GetColorMatched");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+
+// static
+bool LedLitUpRoutineReplierStubDispatch::Accept(
+    LedLitUpRoutineReplier* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kLedLitUpRoutineReplier_GetColorMatched_Name: {
+      break;
+    }
+  }
+  return false;
+}
+
+// static
+bool LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
+    LedLitUpRoutineReplier* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kLedLitUpRoutineReplier_GetColorMatched_Name: {
+
+      internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data* params =
+          reinterpret_cast<
+              internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for LedLitUpRoutineReplier.0
+      bool success = true;
+      LedLitUpRoutineReplier_GetColorMatched_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LedLitUpRoutineReplier::Name_, 0, false);
+        return false;
+      }
+      LedLitUpRoutineReplier::GetColorMatchedCallback callback =
+          LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetColorMatched(std::move(callback));
+      return true;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kLedLitUpRoutineReplierValidationInfo[] = {
+    { &internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data::Validate,
+     &internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::Validate},
+};
+
+bool LedLitUpRoutineReplierRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::LedLitUpRoutineReplier::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kLedLitUpRoutineReplierValidationInfo);
+}
+
+bool LedLitUpRoutineReplierResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::LedLitUpRoutineReplier::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kLedLitUpRoutineReplierValidationInfo);
+}
 const char RoutineControl::Name_[] = "ash.cros_healthd.mojom.RoutineControl";
 
 RoutineControl::IPCStableHashFunction RoutineControl::MessageToMethodInfo_(mojo::Message& message) {
@@ -1216,8 +2787,11 @@ void RoutineControlProxy::GetState(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kRoutineControl_GetState_Name, kFlags, 0, 0, nullptr);
+      internal::kRoutineControl_GetState_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::RoutineControl_GetState_Params_Data> params(
           message);
@@ -1250,8 +2824,11 @@ void RoutineControlProxy::Start(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kRoutineControl_Start_Name, kFlags, 0, 0, nullptr);
+      internal::kRoutineControl_Start_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::RoutineControl_Start_Params_Data> params(
           message);
@@ -1362,8 +2939,11 @@ void RoutineControl_GetState_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kRoutineControl_GetState_Name, kFlags, 0, 0, nullptr);
+      internal::kRoutineControl_GetState_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::RoutineControl_GetState_ResponseParams_Data> params(
           message);
@@ -1576,8 +3156,11 @@ void RoutineObserverProxy::OnRoutineStateChange(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kRoutineObserver_OnRoutineStateChange_Name, kFlags, 0, 0, nullptr);
+      internal::kRoutineObserver_OnRoutineStateChange_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::RoutineObserver_OnRoutineStateChange_Params_Data> params(
           message);
@@ -1691,6 +3274,90 @@ bool StructTraits<::ash::cros_healthd::mojom::MemoryRoutineArgument::DataView, :
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineArgument::DataView, ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::AudioDriverRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr result(::ash::cros_healthd::mojom::AudioDriverRoutineArgument::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineArgument::DataView, ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::CpuStressRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr result(::ash::cros_healthd::mojom::CpuStressRoutineArgument::New());
+  
+      if (success && !input.ReadExecDuration(&result->exec_duration))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgument::DataView, ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr result(::ash::cros_healthd::mojom::UfsLifetimeRoutineArgument::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineArgument::DataView, ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::DiskReadRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr result(::ash::cros_healthd::mojom::DiskReadRoutineArgument::New());
+  
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success && !input.ReadDiskReadDuration(&result->disk_read_duration))
+        success = false;
+      if (success)
+        result->file_size_mib = input.file_size_mib();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineArgument::DataView, ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::CpuCacheRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr result(::ash::cros_healthd::mojom::CpuCacheRoutineArgument::New());
+  
+      if (success && !input.ReadExecDuration(&result->exec_duration))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineArgument::DataView, ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::PrimeSearchRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr result(::ash::cros_healthd::mojom::PrimeSearchRoutineArgument::New());
+  
+      if (success && !input.ReadExecDuration(&result->exec_duration))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument::DataView, ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr>::Read(
     ::ash::cros_healthd::mojom::VolumeButtonRoutineArgument::DataView input,
     ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr* output) {
@@ -1707,12 +3374,128 @@ bool StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument::DataV
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::LedLitUpRoutineArgument::DataView, ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::LedLitUpRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr result(::ash::cros_healthd::mojom::LedLitUpRoutineArgument::New());
+  
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success && !input.ReadColor(&result->color))
+        success = false;
+      if (success) {
+        result->replier =
+            input.TakeReplier<decltype(result->replier)>();
+      }
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::FloatingPointRoutineArgument::DataView, ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::FloatingPointRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentPtr result(::ash::cros_healthd::mojom::FloatingPointRoutineArgument::New());
+  
+      if (success && !input.ReadExecDuration(&result->exec_duration))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothPowerRoutineArgument::DataView, ::ash::cros_healthd::mojom::BluetoothPowerRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothPowerRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothPowerRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothPowerRoutineArgumentPtr result(::ash::cros_healthd::mojom::BluetoothPowerRoutineArgument::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgument::DataView, ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgumentPtr result(::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgument::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::FanRoutineArgument::DataView, ::ash::cros_healthd::mojom::FanRoutineArgumentPtr>::Read(
     ::ash::cros_healthd::mojom::FanRoutineArgument::DataView input,
     ::ash::cros_healthd::mojom::FanRoutineArgumentPtr* output) {
   bool success = true;
   ::ash::cros_healthd::mojom::FanRoutineArgumentPtr result(::ash::cros_healthd::mojom::FanRoutineArgument::New());
   
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothScanningRoutineArgument::DataView, ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentPtr result(::ash::cros_healthd::mojom::BluetoothScanningRoutineArgument::New());
+  
+      if (success && !input.ReadExecDuration(&result->exec_duration))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothPairingRoutineArgument::DataView, ::ash::cros_healthd::mojom::BluetoothPairingRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothPairingRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothPairingRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothPairingRoutineArgumentPtr result(::ash::cros_healthd::mojom::BluetoothPairingRoutineArgument::New());
+  
+      if (success && !input.ReadPeripheralId(&result->peripheral_id))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::CameraAvailabilityRoutineArgument::DataView, ::ash::cros_healthd::mojom::CameraAvailabilityRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::CameraAvailabilityRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::CameraAvailabilityRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CameraAvailabilityRoutineArgumentPtr result(::ash::cros_healthd::mojom::CameraAvailabilityRoutineArgument::New());
+  
+      if (success)
+        result->run_camera_service_available_check = input.run_camera_service_available_check();
+      if (success)
+        result->run_camera_diagnostic_service_available_check = input.run_camera_diagnostic_service_available_check();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::UrandomRoutineArgument::DataView, ::ash::cros_healthd::mojom::UrandomRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::UrandomRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::UrandomRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::UrandomRoutineArgumentPtr result(::ash::cros_healthd::mojom::UrandomRoutineArgument::New());
+  
+      if (success && !input.ReadExecDuration(&result->exec_duration))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -1807,6 +3590,40 @@ bool StructTraits<::ash::cros_healthd::mojom::MemoryRoutineDetail::DataView, ::a
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineDetail::DataView, ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::AudioDriverRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr result(::ash::cros_healthd::mojom::AudioDriverRoutineDetail::New());
+  
+      if (success)
+        result->internal_card_detected = input.internal_card_detected();
+      if (success)
+        result->audio_devices_succeed_to_open = input.audio_devices_succeed_to_open();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::DataView, ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr result(::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::New());
+  
+      if (success)
+        result->pre_eol_info = input.pre_eol_info();
+      if (success)
+        result->device_life_time_est_a = input.device_life_time_est_a();
+      if (success)
+        result->device_life_time_est_b = input.device_life_time_est_b();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::cros_healthd::mojom::MemtesterResultPtr>::Read(
     ::ash::cros_healthd::mojom::MemtesterResult::DataView input,
     ::ash::cros_healthd::mojom::MemtesterResultPtr* output) {
@@ -1816,6 +3633,159 @@ bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::
       if (success && !input.ReadPassedItems(&result->passed_items))
         success = false;
       if (success && !input.ReadFailedItems(&result->failed_items))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothPoweredDetail::DataView, ::ash::cros_healthd::mojom::BluetoothPoweredDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothPoweredDetail::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothPoweredDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothPoweredDetailPtr result(::ash::cros_healthd::mojom::BluetoothPoweredDetail::New());
+  
+      if (success)
+        result->hci_powered = input.hci_powered();
+      if (success)
+        result->dbus_powered = input.dbus_powered();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothPowerRoutineDetail::DataView, ::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothPowerRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailPtr result(::ash::cros_healthd::mojom::BluetoothPowerRoutineDetail::New());
+  
+      if (success && !input.ReadPowerOffResult(&result->power_off_result))
+        success = false;
+      if (success && !input.ReadPowerOnResult(&result->power_on_result))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothDiscoveringDetail::DataView, ::ash::cros_healthd::mojom::BluetoothDiscoveringDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothDiscoveringDetail::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothDiscoveringDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothDiscoveringDetailPtr result(::ash::cros_healthd::mojom::BluetoothDiscoveringDetail::New());
+  
+      if (success)
+        result->hci_discovering = input.hci_discovering();
+      if (success)
+        result->dbus_discovering = input.dbus_discovering();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetail::DataView, ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetailPtr result(::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetail::New());
+  
+      if (success && !input.ReadStartDiscoveryResult(&result->start_discovery_result))
+        success = false;
+      if (success && !input.ReadStopDiscoveryResult(&result->stop_discovery_result))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::DataView, ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr result(::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::New());
+  
+      if (success && !input.ReadRssiHistory(&result->rssi_history))
+        success = false;
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success && !input.ReadPeripheralId(&result->peripheral_id))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothScanningRoutineDetail::DataView, ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailPtr result(::ash::cros_healthd::mojom::BluetoothScanningRoutineDetail::New());
+  
+      if (success && !input.ReadPeripherals(&result->peripherals))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo::DataView, ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfoPtr result(::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo::New());
+  
+      if (success && !input.ReadPairError(&result->pair_error))
+        success = false;
+      if (success && !input.ReadConnectError(&result->connect_error))
+        success = false;
+      if (success && !input.ReadUuids(&result->uuids))
+        success = false;
+      if (success) {
+        result->bluetooth_class = input.bluetooth_class();
+      }
+      if (success && !input.ReadAddressType(&result->address_type))
+        success = false;
+      if (success)
+        result->is_address_valid = input.is_address_valid();
+      if (success && !input.ReadFailedManufacturerId(&result->failed_manufacturer_id))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothPairingRoutineDetail::DataView, ::ash::cros_healthd::mojom::BluetoothPairingRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothPairingRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothPairingRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothPairingRoutineDetailPtr result(::ash::cros_healthd::mojom::BluetoothPairingRoutineDetail::New());
+  
+      if (success && !input.ReadPairingPeripheral(&result->pairing_peripheral))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetail::DataView, ::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetailPtr result(::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetail::New());
+  
+      if (success && !input.ReadCameraServiceAvailableCheck(&result->camera_service_available_check))
+        success = false;
+      if (success && !input.ReadCameraDiagnosticServiceAvailableCheck(&result->camera_diagnostic_service_available_check))
         success = false;
   *output = std::move(result);
   return success;
@@ -1876,6 +3846,132 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewFan(
           std::move(result_fan));
+      break;
+    }
+    case Tag::kAudioDriver: {
+      ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr result_audio_driver;
+      if (!input.ReadAudioDriver(&result_audio_driver))
+        return false;
+
+      *output = UnionType::NewAudioDriver(
+          std::move(result_audio_driver));
+      break;
+    }
+    case Tag::kCpuStress: {
+      ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr result_cpu_stress;
+      if (!input.ReadCpuStress(&result_cpu_stress))
+        return false;
+
+      *output = UnionType::NewCpuStress(
+          std::move(result_cpu_stress));
+      break;
+    }
+    case Tag::kUfsLifetime: {
+      ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr result_ufs_lifetime;
+      if (!input.ReadUfsLifetime(&result_ufs_lifetime))
+        return false;
+
+      *output = UnionType::NewUfsLifetime(
+          std::move(result_ufs_lifetime));
+      break;
+    }
+    case Tag::kDiskRead: {
+      ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr result_disk_read;
+      if (!input.ReadDiskRead(&result_disk_read))
+        return false;
+
+      *output = UnionType::NewDiskRead(
+          std::move(result_disk_read));
+      break;
+    }
+    case Tag::kCpuCache: {
+      ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr result_cpu_cache;
+      if (!input.ReadCpuCache(&result_cpu_cache))
+        return false;
+
+      *output = UnionType::NewCpuCache(
+          std::move(result_cpu_cache));
+      break;
+    }
+    case Tag::kPrimeSearch: {
+      ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr result_prime_search;
+      if (!input.ReadPrimeSearch(&result_prime_search))
+        return false;
+
+      *output = UnionType::NewPrimeSearch(
+          std::move(result_prime_search));
+      break;
+    }
+    case Tag::kLedLitUp: {
+      ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr result_led_lit_up;
+      if (!input.ReadLedLitUp(&result_led_lit_up))
+        return false;
+
+      *output = UnionType::NewLedLitUp(
+          std::move(result_led_lit_up));
+      break;
+    }
+    case Tag::kFloatingPoint: {
+      ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentPtr result_floating_point;
+      if (!input.ReadFloatingPoint(&result_floating_point))
+        return false;
+
+      *output = UnionType::NewFloatingPoint(
+          std::move(result_floating_point));
+      break;
+    }
+    case Tag::kBluetoothPower: {
+      ::ash::cros_healthd::mojom::BluetoothPowerRoutineArgumentPtr result_bluetooth_power;
+      if (!input.ReadBluetoothPower(&result_bluetooth_power))
+        return false;
+
+      *output = UnionType::NewBluetoothPower(
+          std::move(result_bluetooth_power));
+      break;
+    }
+    case Tag::kBluetoothDiscovery: {
+      ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgumentPtr result_bluetooth_discovery;
+      if (!input.ReadBluetoothDiscovery(&result_bluetooth_discovery))
+        return false;
+
+      *output = UnionType::NewBluetoothDiscovery(
+          std::move(result_bluetooth_discovery));
+      break;
+    }
+    case Tag::kBluetoothScanning: {
+      ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentPtr result_bluetooth_scanning;
+      if (!input.ReadBluetoothScanning(&result_bluetooth_scanning))
+        return false;
+
+      *output = UnionType::NewBluetoothScanning(
+          std::move(result_bluetooth_scanning));
+      break;
+    }
+    case Tag::kBluetoothPairing: {
+      ::ash::cros_healthd::mojom::BluetoothPairingRoutineArgumentPtr result_bluetooth_pairing;
+      if (!input.ReadBluetoothPairing(&result_bluetooth_pairing))
+        return false;
+
+      *output = UnionType::NewBluetoothPairing(
+          std::move(result_bluetooth_pairing));
+      break;
+    }
+    case Tag::kCameraAvailability: {
+      ::ash::cros_healthd::mojom::CameraAvailabilityRoutineArgumentPtr result_camera_availability;
+      if (!input.ReadCameraAvailability(&result_camera_availability))
+        return false;
+
+      *output = UnionType::NewCameraAvailability(
+          std::move(result_camera_availability));
+      break;
+    }
+    case Tag::kUrandom: {
+      ::ash::cros_healthd::mojom::UrandomRoutineArgumentPtr result_urandom;
+      if (!input.ReadUrandom(&result_urandom))
+        return false;
+
+      *output = UnionType::NewUrandom(
+          std::move(result_urandom));
       break;
     }
     default:
@@ -1971,6 +4067,69 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
           std::move(result_fan));
       break;
     }
+    case Tag::kAudioDriver: {
+      ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr result_audio_driver;
+      if (!input.ReadAudioDriver(&result_audio_driver))
+        return false;
+
+      *output = UnionType::NewAudioDriver(
+          std::move(result_audio_driver));
+      break;
+    }
+    case Tag::kUfsLifetime: {
+      ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr result_ufs_lifetime;
+      if (!input.ReadUfsLifetime(&result_ufs_lifetime))
+        return false;
+
+      *output = UnionType::NewUfsLifetime(
+          std::move(result_ufs_lifetime));
+      break;
+    }
+    case Tag::kBluetoothPower: {
+      ::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailPtr result_bluetooth_power;
+      if (!input.ReadBluetoothPower(&result_bluetooth_power))
+        return false;
+
+      *output = UnionType::NewBluetoothPower(
+          std::move(result_bluetooth_power));
+      break;
+    }
+    case Tag::kBluetoothDiscovery: {
+      ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetailPtr result_bluetooth_discovery;
+      if (!input.ReadBluetoothDiscovery(&result_bluetooth_discovery))
+        return false;
+
+      *output = UnionType::NewBluetoothDiscovery(
+          std::move(result_bluetooth_discovery));
+      break;
+    }
+    case Tag::kBluetoothScanning: {
+      ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailPtr result_bluetooth_scanning;
+      if (!input.ReadBluetoothScanning(&result_bluetooth_scanning))
+        return false;
+
+      *output = UnionType::NewBluetoothScanning(
+          std::move(result_bluetooth_scanning));
+      break;
+    }
+    case Tag::kBluetoothPairing: {
+      ::ash::cros_healthd::mojom::BluetoothPairingRoutineDetailPtr result_bluetooth_pairing;
+      if (!input.ReadBluetoothPairing(&result_bluetooth_pairing))
+        return false;
+
+      *output = UnionType::NewBluetoothPairing(
+          std::move(result_bluetooth_pairing));
+      break;
+    }
+    case Tag::kCameraAvailability: {
+      ::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetailPtr result_camera_availability;
+      if (!input.ReadCameraAvailability(&result_camera_availability))
+        return false;
+
+      *output = UnionType::NewCameraAvailability(
+          std::move(result_camera_availability));
+      break;
+    }
     default:
 
       *output = UnionType::NewUnrecognizedArgument({});
@@ -2020,6 +4179,40 @@ void CrosHealthdRoutinesServiceAsyncWaiter::IsRoutineArgumentSupported(
     RoutineArgumentPtr routine_argument) {
   ::ash::cros_healthd::mojom::SupportStatusPtr async_wait_result;
   IsRoutineArgumentSupported(std::move(routine_argument),&async_wait_result);
+  return async_wait_result;
+}
+
+
+
+
+void LedLitUpRoutineReplierInterceptorForTesting::GetColorMatched(GetColorMatchedCallback callback) {
+  GetForwardingInterface()->GetColorMatched(std::move(callback));
+}
+LedLitUpRoutineReplierAsyncWaiter::LedLitUpRoutineReplierAsyncWaiter(
+    LedLitUpRoutineReplier* proxy) : proxy_(proxy) {}
+
+LedLitUpRoutineReplierAsyncWaiter::~LedLitUpRoutineReplierAsyncWaiter() = default;
+
+void LedLitUpRoutineReplierAsyncWaiter::GetColorMatched(
+    bool* out_matched) {
+  base::RunLoop loop;
+  proxy_->GetColorMatched(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_matched
+,
+             bool matched) {*out_matched = std::move(matched);
+            loop->Quit();
+          },
+          &loop,
+          out_matched));
+  loop.Run();
+}
+
+bool LedLitUpRoutineReplierAsyncWaiter::GetColorMatched(
+    ) {
+  bool async_wait_result;
+  GetColorMatched(&async_wait_result);
   return async_wait_result;
 }
 

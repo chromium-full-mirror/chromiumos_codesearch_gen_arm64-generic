@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -1352,8 +1353,11 @@ void Camera3CallbackOpsProxy::ProcessCaptureResult(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3CallbackOps_ProcessCaptureResult_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3CallbackOps_ProcessCaptureResult_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3CallbackOps_ProcessCaptureResult_Params_Data> params(
           message);
@@ -1403,8 +1407,11 @@ void Camera3CallbackOpsProxy::Notify(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3CallbackOps_Notify_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3CallbackOps_Notify_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3CallbackOps_Notify_Params_Data> params(
           message);
@@ -1454,8 +1461,11 @@ void Camera3CallbackOpsProxy::RequestStreamBuffers(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3CallbackOps_RequestStreamBuffers_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3CallbackOps_RequestStreamBuffers_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3CallbackOps_RequestStreamBuffers_Params_Data> params(
           message);
@@ -1508,8 +1518,11 @@ void Camera3CallbackOpsProxy::ReturnStreamBuffers(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3CallbackOps_ReturnStreamBuffers_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3CallbackOps_ReturnStreamBuffers_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3CallbackOps_ReturnStreamBuffers_Params_Data> params(
           message);
@@ -1640,8 +1653,11 @@ void Camera3CallbackOps_RequestStreamBuffers_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3CallbackOps_RequestStreamBuffers_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3CallbackOps_RequestStreamBuffers_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data> params(
           message);
@@ -2240,8 +2256,11 @@ void Camera3DeviceOpsProxy::Initialize(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_Initialize_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_Initialize_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_Initialize_Params_Data> params(
           message);
@@ -2287,8 +2306,11 @@ void Camera3DeviceOpsProxy::ConfigureStreams(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ConfigureStreams_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_ConfigureStreams_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ConfigureStreams_Params_Data> params(
           message);
@@ -2339,8 +2361,11 @@ void Camera3DeviceOpsProxy::ConstructDefaultRequestSettings(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ConstructDefaultRequestSettings_Params_Data> params(
           message);
@@ -2382,8 +2407,11 @@ void Camera3DeviceOpsProxy::ProcessCaptureRequest(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ProcessCaptureRequest_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_ProcessCaptureRequest_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ProcessCaptureRequest_Params_Data> params(
           message);
@@ -2434,8 +2462,11 @@ void Camera3DeviceOpsProxy::Dump(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_Dump_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_Dump_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_Dump_Params_Data> params(
           message);
@@ -2473,8 +2504,11 @@ void Camera3DeviceOpsProxy::Flush(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_Flush_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_Flush_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_Flush_Params_Data> params(
           message);
@@ -2538,8 +2572,11 @@ void Camera3DeviceOpsProxy::RegisterBuffer(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_RegisterBuffer_Params_Data> params(
           message);
@@ -2619,8 +2656,11 @@ void Camera3DeviceOpsProxy::Close(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_Close_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_Close_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_Close_Params_Data> params(
           message);
@@ -2660,8 +2700,11 @@ void Camera3DeviceOpsProxy::ConfigureStreamsAndGetAllocatedBuffers(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Params_Data> params(
           message);
@@ -2712,8 +2755,11 @@ void Camera3DeviceOpsProxy::SignalStreamFlush(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_SignalStreamFlush_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_SignalStreamFlush_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_SignalStreamFlush_Params_Data> params(
           message);
@@ -2837,8 +2883,11 @@ void Camera3DeviceOps_Initialize_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_Initialize_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_Initialize_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_Initialize_ResponseParams_Data> params(
           message);
@@ -2965,8 +3014,11 @@ void Camera3DeviceOps_ConfigureStreams_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ConfigureStreams_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_ConfigureStreams_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ConfigureStreams_ResponseParams_Data> params(
           message);
@@ -3093,8 +3145,11 @@ void Camera3DeviceOps_ConstructDefaultRequestSettings_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ConstructDefaultRequestSettings_ResponseParams_Data> params(
           message);
@@ -3220,8 +3275,11 @@ void Camera3DeviceOps_ProcessCaptureRequest_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ProcessCaptureRequest_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_ProcessCaptureRequest_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ProcessCaptureRequest_ResponseParams_Data> params(
           message);
@@ -3341,8 +3399,11 @@ void Camera3DeviceOps_Flush_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_Flush_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_Flush_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_Flush_ResponseParams_Data> params(
           message);
@@ -3462,8 +3523,11 @@ void Camera3DeviceOps_RegisterBuffer_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_RegisterBuffer_ResponseParams_Data> params(
           message);
@@ -3583,8 +3647,11 @@ void Camera3DeviceOps_Close_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_Close_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_Close_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_Close_ResponseParams_Data> params(
           message);
@@ -3718,8 +3785,11 @@ void Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ProxyToResponder::R
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name, kFlags, 0, 0, nullptr);
+      internal::kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponseParams_Data> params(
           message);

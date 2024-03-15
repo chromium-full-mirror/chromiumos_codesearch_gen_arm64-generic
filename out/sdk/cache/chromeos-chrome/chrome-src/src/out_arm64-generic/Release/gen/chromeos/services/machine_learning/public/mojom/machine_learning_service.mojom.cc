@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -596,8 +597,11 @@ void MachineLearningServiceProxy::Clone(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_Clone_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_Clone_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_Clone_Params_Data> params(
           message);
@@ -645,8 +649,11 @@ void MachineLearningServiceProxy::LoadBuiltinModel(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadBuiltinModel_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadBuiltinModel_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadBuiltinModel_Params_Data> params(
           message);
@@ -706,8 +713,11 @@ void MachineLearningServiceProxy::LoadFlatBufferModel(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadFlatBufferModel_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadFlatBufferModel_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadFlatBufferModel_Params_Data> params(
           message);
@@ -764,8 +774,11 @@ void MachineLearningServiceProxy::LoadTextClassifier(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadTextClassifier_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadTextClassifier_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadTextClassifier_Params_Data> params(
           message);
@@ -814,8 +827,11 @@ void MachineLearningServiceProxy::LoadHandwritingModel(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadHandwritingModel_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadHandwritingModel_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadHandwritingModel_Params_Data> params(
           message);
@@ -878,8 +894,11 @@ void MachineLearningServiceProxy::LoadSpeechRecognizer(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadSpeechRecognizer_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadSpeechRecognizer_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadSpeechRecognizer_Params_Data> params(
           message);
@@ -942,8 +961,11 @@ void MachineLearningServiceProxy::LoadGrammarChecker(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadGrammarChecker_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadGrammarChecker_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadGrammarChecker_Params_Data> params(
           message);
@@ -992,8 +1014,11 @@ void MachineLearningServiceProxy::LoadTextSuggester(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadTextSuggester_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadTextSuggester_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadTextSuggester_Params_Data> params(
           message);
@@ -1049,8 +1074,11 @@ void MachineLearningServiceProxy::LoadWebPlatformHandwritingModel(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadWebPlatformHandwritingModel_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadWebPlatformHandwritingModel_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadWebPlatformHandwritingModel_Params_Data> params(
           message);
@@ -1110,8 +1138,11 @@ void MachineLearningServiceProxy::LoadDocumentScanner(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadDocumentScanner_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadDocumentScanner_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadDocumentScanner_Params_Data> params(
           message);
@@ -1167,8 +1198,11 @@ void MachineLearningServiceProxy::CreateWebPlatformModelLoader(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_CreateWebPlatformModelLoader_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_CreateWebPlatformModelLoader_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_CreateWebPlatformModelLoader_Params_Data> params(
           message);
@@ -1228,8 +1262,11 @@ void MachineLearningServiceProxy::LoadImageAnnotator(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadImageAnnotator_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadImageAnnotator_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadImageAnnotator_Params_Data> params(
           message);
@@ -1289,8 +1326,11 @@ void MachineLearningServiceProxy::LoadHeatmapPalmRejection(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadHeatmapPalmRejection_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadHeatmapPalmRejection_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadHeatmapPalmRejection_Params_Data> params(
           message);
@@ -1350,8 +1390,11 @@ void MachineLearningServiceProxy::REMOVED_4(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_REMOVED_4_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_REMOVED_4_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_REMOVED_4_Params_Data> params(
           message);
@@ -1480,8 +1523,11 @@ void MachineLearningService_LoadBuiltinModel_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadBuiltinModel_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadBuiltinModel_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadBuiltinModel_ResponseParams_Data> params(
           message);
@@ -1602,8 +1648,11 @@ void MachineLearningService_LoadFlatBufferModel_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadFlatBufferModel_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadFlatBufferModel_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadFlatBufferModel_ResponseParams_Data> params(
           message);
@@ -1724,8 +1773,11 @@ void MachineLearningService_LoadTextClassifier_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadTextClassifier_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadTextClassifier_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadTextClassifier_ResponseParams_Data> params(
           message);
@@ -1846,8 +1898,11 @@ void MachineLearningService_LoadHandwritingModel_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadHandwritingModel_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadHandwritingModel_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadHandwritingModel_ResponseParams_Data> params(
           message);
@@ -1968,8 +2023,11 @@ void MachineLearningService_LoadSpeechRecognizer_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadSpeechRecognizer_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadSpeechRecognizer_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadSpeechRecognizer_ResponseParams_Data> params(
           message);
@@ -2090,8 +2148,11 @@ void MachineLearningService_LoadGrammarChecker_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadGrammarChecker_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadGrammarChecker_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadGrammarChecker_ResponseParams_Data> params(
           message);
@@ -2212,8 +2273,11 @@ void MachineLearningService_LoadTextSuggester_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadTextSuggester_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadTextSuggester_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadTextSuggester_ResponseParams_Data> params(
           message);
@@ -2334,8 +2398,11 @@ void MachineLearningService_LoadWebPlatformHandwritingModel_ProxyToResponder::Ru
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadWebPlatformHandwritingModel_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadWebPlatformHandwritingModel_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadWebPlatformHandwritingModel_ResponseParams_Data> params(
           message);
@@ -2456,8 +2523,11 @@ void MachineLearningService_LoadDocumentScanner_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadDocumentScanner_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadDocumentScanner_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadDocumentScanner_ResponseParams_Data> params(
           message);
@@ -2578,8 +2648,11 @@ void MachineLearningService_CreateWebPlatformModelLoader_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_CreateWebPlatformModelLoader_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_CreateWebPlatformModelLoader_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_CreateWebPlatformModelLoader_ResponseParams_Data> params(
           message);
@@ -2700,8 +2773,11 @@ void MachineLearningService_LoadImageAnnotator_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadImageAnnotator_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadImageAnnotator_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadImageAnnotator_ResponseParams_Data> params(
           message);
@@ -2822,8 +2898,11 @@ void MachineLearningService_LoadHeatmapPalmRejection_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadHeatmapPalmRejection_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_LoadHeatmapPalmRejection_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data> params(
           message);
@@ -2944,8 +3023,11 @@ void MachineLearningService_REMOVED_4_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kMachineLearningService_REMOVED_4_Name, kFlags, 0, 0, nullptr);
+      internal::kMachineLearningService_REMOVED_4_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_REMOVED_4_ResponseParams_Data> params(
           message);

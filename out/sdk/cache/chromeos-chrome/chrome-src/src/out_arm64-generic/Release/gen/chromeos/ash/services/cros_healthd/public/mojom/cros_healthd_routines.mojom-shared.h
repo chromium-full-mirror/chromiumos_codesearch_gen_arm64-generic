@@ -25,6 +25,7 @@
 
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_routines.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/time.mojom-shared.h"
+#include "mojo/public/mojom/base/uuid.mojom-shared.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
@@ -37,9 +38,37 @@
 namespace ash::cros_healthd::mojom {
 class MemoryRoutineArgumentDataView;
 
+class AudioDriverRoutineArgumentDataView;
+
+class CpuStressRoutineArgumentDataView;
+
+class UfsLifetimeRoutineArgumentDataView;
+
+class DiskReadRoutineArgumentDataView;
+
+class CpuCacheRoutineArgumentDataView;
+
+class PrimeSearchRoutineArgumentDataView;
+
 class VolumeButtonRoutineArgumentDataView;
 
+class LedLitUpRoutineArgumentDataView;
+
+class FloatingPointRoutineArgumentDataView;
+
+class BluetoothPowerRoutineArgumentDataView;
+
+class BluetoothDiscoveryRoutineArgumentDataView;
+
 class FanRoutineArgumentDataView;
+
+class BluetoothScanningRoutineArgumentDataView;
+
+class BluetoothPairingRoutineArgumentDataView;
+
+class CameraAvailabilityRoutineArgumentDataView;
+
+class UrandomRoutineArgumentDataView;
 
 class RoutineStateDataView;
 
@@ -53,7 +82,29 @@ class RoutineStateFinishedDataView;
 
 class MemoryRoutineDetailDataView;
 
+class AudioDriverRoutineDetailDataView;
+
+class UfsLifetimeRoutineDetailDataView;
+
 class MemtesterResultDataView;
+
+class BluetoothPoweredDetailDataView;
+
+class BluetoothPowerRoutineDetailDataView;
+
+class BluetoothDiscoveringDetailDataView;
+
+class BluetoothDiscoveryRoutineDetailDataView;
+
+class BluetoothScannedPeripheralInfoDataView;
+
+class BluetoothScanningRoutineDetailDataView;
+
+class BluetoothPairingPeripheralInfoDataView;
+
+class BluetoothPairingRoutineDetailDataView;
+
+class CameraAvailabilityRoutineDetailDataView;
 
 class FanRoutineDetailDataView;
 
@@ -75,6 +126,48 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::AudioDriverRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CpuStressRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::DiskReadRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CpuCacheRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::PrimeSearchRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::VolumeButtonRoutineArgument_Data;
   using DataAsArrayElement = Pointer<Data>;
@@ -82,8 +175,64 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDa
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::LedLitUpRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::FloatingPointRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::FloatingPointRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothPowerRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothPowerRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothDiscoveryRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::FanRoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::FanRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothScanningRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothPairingRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothPairingRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CameraAvailabilityRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CameraAvailabilityRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::UrandomRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::UrandomRoutineArgument_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -131,8 +280,85 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView> 
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::AudioDriverRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::MemtesterResultDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::MemtesterResult_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothPoweredDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothPoweredDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothPowerRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothDiscoveringDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothDiscoveringDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothDiscoveryRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothScannedPeripheralInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothScanningRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothPairingPeripheralInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothPairingRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothPairingRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CameraAvailabilityRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -231,6 +457,120 @@ inline MemtesterTestItemEnum ToKnownEnumValue(MemtesterTestItemEnum value) {
 }
 
 
+enum class CameraSubtestResult : int32_t {
+  
+  kNotRun = 0,
+  
+  kPassed = 1,
+  
+  kFailed = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, CameraSubtestResult value);
+inline bool IsKnownEnumValue(CameraSubtestResult value) {
+  return internal::CameraSubtestResult_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline CameraSubtestResult ToKnownEnumValue(CameraSubtestResult value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return CameraSubtestResult::kDefaultValue;
+}
+
+
+enum class DiskReadTypeEnum : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kLinearRead = 1,
+  
+  kRandomRead = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, DiskReadTypeEnum value);
+inline bool IsKnownEnumValue(DiskReadTypeEnum value) {
+  return internal::DiskReadTypeEnum_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline DiskReadTypeEnum ToKnownEnumValue(DiskReadTypeEnum value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return DiskReadTypeEnum::kDefaultValue;
+}
+
+
+enum class LedName : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kBattery = 1,
+  
+  kPower = 2,
+  
+  kAdapter = 3,
+  
+  kLeft = 4,
+  
+  kRight = 5,
+  kMinValue = 0,
+  kMaxValue = 5,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, LedName value);
+inline bool IsKnownEnumValue(LedName value) {
+  return internal::LedName_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline LedName ToKnownEnumValue(LedName value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return LedName::kDefaultValue;
+}
+
+
+enum class LedColor : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kRed = 1,
+  
+  kGreen = 2,
+  
+  kBlue = 3,
+  
+  kYellow = 4,
+  
+  kWhite = 5,
+  
+  kAmber = 6,
+  kMinValue = 0,
+  kMaxValue = 6,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, LedColor value);
+inline bool IsKnownEnumValue(LedColor value) {
+  return internal::LedColor_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline LedColor ToKnownEnumValue(LedColor value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return LedColor::kDefaultValue;
+}
+
+
 enum class HardwarePresenceStatus : int32_t {
   
   kUnmappedEnumField = 0,
@@ -306,6 +646,91 @@ inline RoutineStateWaiting_Reason ToKnownEnumValue(RoutineStateWaiting_Reason va
   }
   return RoutineStateWaiting_Reason::kDefaultValue;
 }
+
+
+enum class BluetoothPairingPeripheralInfo_PairError : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kNone = 1,
+  
+  kBondFailed = 2,
+  
+  kBadStatus = 3,
+  
+  kSspFailed = 4,
+  
+  kTimeout = 5,
+  kMinValue = 0,
+  kMaxValue = 5,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, BluetoothPairingPeripheralInfo_PairError value);
+inline bool IsKnownEnumValue(BluetoothPairingPeripheralInfo_PairError value) {
+  return internal::BluetoothPairingPeripheralInfo_PairError_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline BluetoothPairingPeripheralInfo_PairError ToKnownEnumValue(BluetoothPairingPeripheralInfo_PairError value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return BluetoothPairingPeripheralInfo_PairError::kDefaultValue;
+}
+
+
+enum class BluetoothPairingPeripheralInfo_ConnectError : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kNone = 1,
+  
+  kNoConnectedEvent = 2,
+  
+  kNotConnected = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, BluetoothPairingPeripheralInfo_ConnectError value);
+inline bool IsKnownEnumValue(BluetoothPairingPeripheralInfo_ConnectError value) {
+  return internal::BluetoothPairingPeripheralInfo_ConnectError_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline BluetoothPairingPeripheralInfo_ConnectError ToKnownEnumValue(BluetoothPairingPeripheralInfo_ConnectError value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return BluetoothPairingPeripheralInfo_ConnectError::kDefaultValue;
+}
+
+
+enum class BluetoothPairingPeripheralInfo_AddressType : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kUnknown = 1,
+  
+  kPublic = 2,
+  
+  kRandom = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, BluetoothPairingPeripheralInfo_AddressType value);
+inline bool IsKnownEnumValue(BluetoothPairingPeripheralInfo_AddressType value) {
+  return internal::BluetoothPairingPeripheralInfo_AddressType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline BluetoothPairingPeripheralInfo_AddressType ToKnownEnumValue(BluetoothPairingPeripheralInfo_AddressType value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return BluetoothPairingPeripheralInfo_AddressType::kDefaultValue;
+}
 // Interface base classes. They are used for type safety check.
 class CrosHealthdRoutinesServiceInterfaceBase {};
 
@@ -317,6 +742,16 @@ using CrosHealthdRoutinesServiceAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<CrosHealthdRoutinesServiceInterfaceBase>;
 using CrosHealthdRoutinesServiceAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CrosHealthdRoutinesServiceInterfaceBase>;
+class LedLitUpRoutineReplierInterfaceBase {};
+
+using LedLitUpRoutineReplierPtrDataView =
+    mojo::InterfacePtrDataView<LedLitUpRoutineReplierInterfaceBase>;
+using LedLitUpRoutineReplierRequestDataView =
+    mojo::InterfaceRequestDataView<LedLitUpRoutineReplierInterfaceBase>;
+using LedLitUpRoutineReplierAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<LedLitUpRoutineReplierInterfaceBase>;
+using LedLitUpRoutineReplierAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<LedLitUpRoutineReplierInterfaceBase>;
 class RoutineControlInterfaceBase {};
 
 using RoutineControlPtrDataView =
@@ -360,6 +795,183 @@ class MemoryRoutineArgumentDataView {
 };
 
 
+class AudioDriverRoutineArgumentDataView {
+ public:
+  AudioDriverRoutineArgumentDataView() = default;
+
+  AudioDriverRoutineArgumentDataView(
+      internal::AudioDriverRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::AudioDriverRoutineArgument_Data* data_ = nullptr;
+};
+
+
+class CpuStressRoutineArgumentDataView {
+ public:
+  CpuStressRoutineArgumentDataView() = default;
+
+  CpuStressRoutineArgumentDataView(
+      internal::CpuStressRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExecDurationDataView(
+      ::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExecDuration(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
+    "Attempting to read the optional `exec_duration` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadExecDuration` instead "
+    "of `ReadExecDuration if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->exec_duration.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CpuStressRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class UfsLifetimeRoutineArgumentDataView {
+ public:
+  UfsLifetimeRoutineArgumentDataView() = default;
+
+  UfsLifetimeRoutineArgumentDataView(
+      internal::UfsLifetimeRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::UfsLifetimeRoutineArgument_Data* data_ = nullptr;
+};
+
+
+class DiskReadRoutineArgumentDataView {
+ public:
+  DiskReadRoutineArgumentDataView() = default;
+
+  DiskReadRoutineArgumentDataView(
+      internal::DiskReadRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DiskReadTypeEnum>(
+        data_value, output);
+  }
+  DiskReadTypeEnum type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::DiskReadTypeEnum>(data_->type));
+  }
+  inline void GetDiskReadDurationDataView(
+      ::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDiskReadDuration(UserType* output) {
+    
+    auto* pointer = data_->disk_read_duration.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+  uint32_t file_size_mib() const {
+    return data_->file_size_mib;
+  }
+ private:
+  internal::DiskReadRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class CpuCacheRoutineArgumentDataView {
+ public:
+  CpuCacheRoutineArgumentDataView() = default;
+
+  CpuCacheRoutineArgumentDataView(
+      internal::CpuCacheRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExecDurationDataView(
+      ::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExecDuration(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
+    "Attempting to read the optional `exec_duration` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadExecDuration` instead "
+    "of `ReadExecDuration if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->exec_duration.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CpuCacheRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PrimeSearchRoutineArgumentDataView {
+ public:
+  PrimeSearchRoutineArgumentDataView() = default;
+
+  PrimeSearchRoutineArgumentDataView(
+      internal::PrimeSearchRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExecDurationDataView(
+      ::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExecDuration(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
+    "Attempting to read the optional `exec_duration` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadExecDuration` instead "
+    "of `ReadExecDuration if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->exec_duration.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PrimeSearchRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class VolumeButtonRoutineArgumentDataView {
  public:
   VolumeButtonRoutineArgumentDataView() = default;
@@ -396,6 +1008,117 @@ class VolumeButtonRoutineArgumentDataView {
 };
 
 
+class LedLitUpRoutineArgumentDataView {
+ public:
+  LedLitUpRoutineArgumentDataView() = default;
+
+  LedLitUpRoutineArgumentDataView(
+      internal::LedLitUpRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) const {
+    auto data_value = data_->name;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedName>(
+        data_value, output);
+  }
+  LedName name() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::LedName>(data_->name));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadColor(UserType* output) const {
+    auto data_value = data_->color;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedColor>(
+        data_value, output);
+  }
+  LedColor color() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::LedColor>(data_->color));
+  }
+  template <typename UserType>
+  UserType TakeReplier() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::LedLitUpRoutineReplierInterfaceBase>>(
+            &data_->replier, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::LedLitUpRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class FloatingPointRoutineArgumentDataView {
+ public:
+  FloatingPointRoutineArgumentDataView() = default;
+
+  FloatingPointRoutineArgumentDataView(
+      internal::FloatingPointRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExecDurationDataView(
+      ::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExecDuration(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
+    "Attempting to read the optional `exec_duration` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadExecDuration` instead "
+    "of `ReadExecDuration if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->exec_duration.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::FloatingPointRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class BluetoothPowerRoutineArgumentDataView {
+ public:
+  BluetoothPowerRoutineArgumentDataView() = default;
+
+  BluetoothPowerRoutineArgumentDataView(
+      internal::BluetoothPowerRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::BluetoothPowerRoutineArgument_Data* data_ = nullptr;
+};
+
+
+class BluetoothDiscoveryRoutineArgumentDataView {
+ public:
+  BluetoothDiscoveryRoutineArgumentDataView() = default;
+
+  BluetoothDiscoveryRoutineArgumentDataView(
+      internal::BluetoothDiscoveryRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::BluetoothDiscoveryRoutineArgument_Data* data_ = nullptr;
+};
+
+
 class FanRoutineArgumentDataView {
  public:
   FanRoutineArgumentDataView() = default;
@@ -408,6 +1131,125 @@ class FanRoutineArgumentDataView {
   bool is_null() const { return !data_; }
  private:
   internal::FanRoutineArgument_Data* data_ = nullptr;
+};
+
+
+class BluetoothScanningRoutineArgumentDataView {
+ public:
+  BluetoothScanningRoutineArgumentDataView() = default;
+
+  BluetoothScanningRoutineArgumentDataView(
+      internal::BluetoothScanningRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExecDurationDataView(
+      ::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExecDuration(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
+    "Attempting to read the optional `exec_duration` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadExecDuration` instead "
+    "of `ReadExecDuration if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->exec_duration.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::BluetoothScanningRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class BluetoothPairingRoutineArgumentDataView {
+ public:
+  BluetoothPairingRoutineArgumentDataView() = default;
+
+  BluetoothPairingRoutineArgumentDataView(
+      internal::BluetoothPairingRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPeripheralIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPeripheralId(UserType* output) {
+    
+    auto* pointer = data_->peripheral_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::BluetoothPairingRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class CameraAvailabilityRoutineArgumentDataView {
+ public:
+  CameraAvailabilityRoutineArgumentDataView() = default;
+
+  CameraAvailabilityRoutineArgumentDataView(
+      internal::CameraAvailabilityRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool run_camera_service_available_check() const {
+    return data_->run_camera_service_available_check;
+  }
+  bool run_camera_diagnostic_service_available_check() const {
+    return data_->run_camera_diagnostic_service_available_check;
+  }
+ private:
+  internal::CameraAvailabilityRoutineArgument_Data* data_ = nullptr;
+};
+
+
+class UrandomRoutineArgumentDataView {
+ public:
+  UrandomRoutineArgumentDataView() = default;
+
+  UrandomRoutineArgumentDataView(
+      internal::UrandomRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExecDurationDataView(
+      ::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExecDuration(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
+    "Attempting to read the optional `exec_duration` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadExecDuration` instead "
+    "of `ReadExecDuration if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->exec_duration.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::UrandomRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -574,6 +1416,51 @@ class MemoryRoutineDetailDataView {
 };
 
 
+class AudioDriverRoutineDetailDataView {
+ public:
+  AudioDriverRoutineDetailDataView() = default;
+
+  AudioDriverRoutineDetailDataView(
+      internal::AudioDriverRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool internal_card_detected() const {
+    return data_->internal_card_detected;
+  }
+  bool audio_devices_succeed_to_open() const {
+    return data_->audio_devices_succeed_to_open;
+  }
+ private:
+  internal::AudioDriverRoutineDetail_Data* data_ = nullptr;
+};
+
+
+class UfsLifetimeRoutineDetailDataView {
+ public:
+  UfsLifetimeRoutineDetailDataView() = default;
+
+  UfsLifetimeRoutineDetailDataView(
+      internal::UfsLifetimeRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint8_t pre_eol_info() const {
+    return data_->pre_eol_info;
+  }
+  uint8_t device_life_time_est_a() const {
+    return data_->device_life_time_est_a;
+  }
+  uint8_t device_life_time_est_b() const {
+    return data_->device_life_time_est_b;
+  }
+ private:
+  internal::UfsLifetimeRoutineDetail_Data* data_ = nullptr;
+};
+
+
 class MemtesterResultDataView {
  public:
   MemtesterResultDataView() = default;
@@ -607,6 +1494,408 @@ class MemtesterResultDataView {
  private:
   internal::MemtesterResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+class BluetoothPoweredDetailDataView {
+ public:
+  BluetoothPoweredDetailDataView() = default;
+
+  BluetoothPoweredDetailDataView(
+      internal::BluetoothPoweredDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool hci_powered() const {
+    return data_->hci_powered;
+  }
+  bool dbus_powered() const {
+    return data_->dbus_powered;
+  }
+ private:
+  internal::BluetoothPoweredDetail_Data* data_ = nullptr;
+};
+
+
+class BluetoothPowerRoutineDetailDataView {
+ public:
+  BluetoothPowerRoutineDetailDataView() = default;
+
+  BluetoothPowerRoutineDetailDataView(
+      internal::BluetoothPowerRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPowerOffResultDataView(
+      BluetoothPoweredDetailDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPowerOffResult(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::BluetoothPoweredDetailDataView, UserType>(),
+    "Attempting to read the optional `power_off_result` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPowerOffResult` instead "
+    "of `ReadPowerOffResult if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->power_off_result.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothPoweredDetailDataView>(
+        pointer, output, message_);
+  }
+  inline void GetPowerOnResultDataView(
+      BluetoothPoweredDetailDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPowerOnResult(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::BluetoothPoweredDetailDataView, UserType>(),
+    "Attempting to read the optional `power_on_result` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPowerOnResult` instead "
+    "of `ReadPowerOnResult if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->power_on_result.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothPoweredDetailDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::BluetoothPowerRoutineDetail_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class BluetoothDiscoveringDetailDataView {
+ public:
+  BluetoothDiscoveringDetailDataView() = default;
+
+  BluetoothDiscoveringDetailDataView(
+      internal::BluetoothDiscoveringDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool hci_discovering() const {
+    return data_->hci_discovering;
+  }
+  bool dbus_discovering() const {
+    return data_->dbus_discovering;
+  }
+ private:
+  internal::BluetoothDiscoveringDetail_Data* data_ = nullptr;
+};
+
+
+class BluetoothDiscoveryRoutineDetailDataView {
+ public:
+  BluetoothDiscoveryRoutineDetailDataView() = default;
+
+  BluetoothDiscoveryRoutineDetailDataView(
+      internal::BluetoothDiscoveryRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetStartDiscoveryResultDataView(
+      BluetoothDiscoveringDetailDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadStartDiscoveryResult(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::BluetoothDiscoveringDetailDataView, UserType>(),
+    "Attempting to read the optional `start_discovery_result` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadStartDiscoveryResult` instead "
+    "of `ReadStartDiscoveryResult if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->start_discovery_result.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothDiscoveringDetailDataView>(
+        pointer, output, message_);
+  }
+  inline void GetStopDiscoveryResultDataView(
+      BluetoothDiscoveringDetailDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadStopDiscoveryResult(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::BluetoothDiscoveringDetailDataView, UserType>(),
+    "Attempting to read the optional `stop_discovery_result` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadStopDiscoveryResult` instead "
+    "of `ReadStopDiscoveryResult if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->stop_discovery_result.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothDiscoveringDetailDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::BluetoothDiscoveryRoutineDetail_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class BluetoothScannedPeripheralInfoDataView {
+ public:
+  BluetoothScannedPeripheralInfoDataView() = default;
+
+  BluetoothScannedPeripheralInfoDataView(
+      internal::BluetoothScannedPeripheralInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetRssiHistoryDataView(
+      mojo::ArrayDataView<int16_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRssiHistory(UserType* output) {
+    
+    auto* pointer = data_->rssi_history.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<int16_t>>(
+        pointer, output, message_);
+  }
+  inline void GetNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `name` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadName` instead "
+    "of `ReadName if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetPeripheralIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPeripheralId(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `peripheral_id` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPeripheralId` instead "
+    "of `ReadPeripheralId if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->peripheral_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::BluetoothScannedPeripheralInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class BluetoothScanningRoutineDetailDataView {
+ public:
+  BluetoothScanningRoutineDetailDataView() = default;
+
+  BluetoothScanningRoutineDetailDataView(
+      internal::BluetoothScanningRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPeripheralsDataView(
+      mojo::ArrayDataView<BluetoothScannedPeripheralInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPeripherals(UserType* output) {
+    
+    auto* pointer = data_->peripherals.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::BluetoothScanningRoutineDetail_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class BluetoothPairingPeripheralInfoDataView {
+ public:
+  BluetoothPairingPeripheralInfoDataView() = default;
+
+  BluetoothPairingPeripheralInfoDataView(
+      internal::BluetoothPairingPeripheralInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadPairError(UserType* output) const {
+    auto data_value = data_->pair_error;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairError>(
+        data_value, output);
+  }
+  BluetoothPairingPeripheralInfo_PairError pair_error() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairError>(data_->pair_error));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadConnectError(UserType* output) const {
+    auto data_value = data_->connect_error;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectError>(
+        data_value, output);
+  }
+  BluetoothPairingPeripheralInfo_ConnectError connect_error() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectError>(data_->connect_error));
+  }
+  inline void GetUuidsDataView(
+      mojo::ArrayDataView<::mojo_base::mojom::UuidDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUuids(UserType* output) {
+    
+    auto* pointer = data_->uuids.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::mojo_base::mojom::UuidDataView>>(
+        pointer, output, message_);
+  }
+  std::optional<uint32_t> bluetooth_class() const {
+
+    return data_->bluetooth_class_$flag
+        ? std::make_optional(data_->bluetooth_class_$value)
+        : std::nullopt;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadAddressType(UserType* output) const {
+    auto data_value = data_->address_type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType>(
+        data_value, output);
+  }
+  BluetoothPairingPeripheralInfo_AddressType address_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType>(data_->address_type));
+  }
+  bool is_address_valid() const {
+    return data_->is_address_valid;
+  }
+  inline void GetFailedManufacturerIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFailedManufacturerId(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `failed_manufacturer_id` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadFailedManufacturerId` instead "
+    "of `ReadFailedManufacturerId if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->failed_manufacturer_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::BluetoothPairingPeripheralInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class BluetoothPairingRoutineDetailDataView {
+ public:
+  BluetoothPairingRoutineDetailDataView() = default;
+
+  BluetoothPairingRoutineDetailDataView(
+      internal::BluetoothPairingRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPairingPeripheralDataView(
+      BluetoothPairingPeripheralInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPairingPeripheral(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfoDataView, UserType>(),
+    "Attempting to read the optional `pairing_peripheral` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPairingPeripheral` instead "
+    "of `ReadPairingPeripheral if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->pairing_peripheral.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfoDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::BluetoothPairingRoutineDetail_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class CameraAvailabilityRoutineDetailDataView {
+ public:
+  CameraAvailabilityRoutineDetailDataView() = default;
+
+  CameraAvailabilityRoutineDetailDataView(
+      internal::CameraAvailabilityRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadCameraServiceAvailableCheck(UserType* output) const {
+    auto data_value = data_->camera_service_available_check;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CameraSubtestResult>(
+        data_value, output);
+  }
+  CameraSubtestResult camera_service_available_check() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::CameraSubtestResult>(data_->camera_service_available_check));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadCameraDiagnosticServiceAvailableCheck(UserType* output) const {
+    auto data_value = data_->camera_diagnostic_service_available_check;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CameraSubtestResult>(
+        data_value, output);
+  }
+  CameraSubtestResult camera_diagnostic_service_available_check() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::CameraSubtestResult>(data_->camera_diagnostic_service_available_check));
+  }
+ private:
+  internal::CameraAvailabilityRoutineDetail_Data* data_ = nullptr;
 };
 
 
@@ -711,6 +2000,160 @@ class RoutineArgumentDataView {
     CHECK(is_fan());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FanRoutineArgumentDataView>(
         data_->data.f_fan.Get(), output, message_);
+  }
+  bool is_audio_driver() const { return data_->tag == Tag::kAudioDriver; }
+  inline void GetAudioDriverDataView(
+      AudioDriverRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAudioDriver(UserType* output) const {
+    
+    CHECK(is_audio_driver());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView>(
+        data_->data.f_audio_driver.Get(), output, message_);
+  }
+  bool is_cpu_stress() const { return data_->tag == Tag::kCpuStress; }
+  inline void GetCpuStressDataView(
+      CpuStressRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCpuStress(UserType* output) const {
+    
+    CHECK(is_cpu_stress());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView>(
+        data_->data.f_cpu_stress.Get(), output, message_);
+  }
+  bool is_ufs_lifetime() const { return data_->tag == Tag::kUfsLifetime; }
+  inline void GetUfsLifetimeDataView(
+      UfsLifetimeRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUfsLifetime(UserType* output) const {
+    
+    CHECK(is_ufs_lifetime());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView>(
+        data_->data.f_ufs_lifetime.Get(), output, message_);
+  }
+  bool is_disk_read() const { return data_->tag == Tag::kDiskRead; }
+  inline void GetDiskReadDataView(
+      DiskReadRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDiskRead(UserType* output) const {
+    
+    CHECK(is_disk_read());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView>(
+        data_->data.f_disk_read.Get(), output, message_);
+  }
+  bool is_cpu_cache() const { return data_->tag == Tag::kCpuCache; }
+  inline void GetCpuCacheDataView(
+      CpuCacheRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCpuCache(UserType* output) const {
+    
+    CHECK(is_cpu_cache());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView>(
+        data_->data.f_cpu_cache.Get(), output, message_);
+  }
+  bool is_prime_search() const { return data_->tag == Tag::kPrimeSearch; }
+  inline void GetPrimeSearchDataView(
+      PrimeSearchRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPrimeSearch(UserType* output) const {
+    
+    CHECK(is_prime_search());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView>(
+        data_->data.f_prime_search.Get(), output, message_);
+  }
+  bool is_led_lit_up() const { return data_->tag == Tag::kLedLitUp; }
+  inline void GetLedLitUpDataView(
+      LedLitUpRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLedLitUp(UserType* output) const {
+    
+    CHECK(is_led_lit_up());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView>(
+        data_->data.f_led_lit_up.Get(), output, message_);
+  }
+  bool is_floating_point() const { return data_->tag == Tag::kFloatingPoint; }
+  inline void GetFloatingPointDataView(
+      FloatingPointRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFloatingPoint(UserType* output) const {
+    
+    CHECK(is_floating_point());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FloatingPointRoutineArgumentDataView>(
+        data_->data.f_floating_point.Get(), output, message_);
+  }
+  bool is_bluetooth_power() const { return data_->tag == Tag::kBluetoothPower; }
+  inline void GetBluetoothPowerDataView(
+      BluetoothPowerRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBluetoothPower(UserType* output) const {
+    
+    CHECK(is_bluetooth_power());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothPowerRoutineArgumentDataView>(
+        data_->data.f_bluetooth_power.Get(), output, message_);
+  }
+  bool is_bluetooth_discovery() const { return data_->tag == Tag::kBluetoothDiscovery; }
+  inline void GetBluetoothDiscoveryDataView(
+      BluetoothDiscoveryRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBluetoothDiscovery(UserType* output) const {
+    
+    CHECK(is_bluetooth_discovery());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgumentDataView>(
+        data_->data.f_bluetooth_discovery.Get(), output, message_);
+  }
+  bool is_bluetooth_scanning() const { return data_->tag == Tag::kBluetoothScanning; }
+  inline void GetBluetoothScanningDataView(
+      BluetoothScanningRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBluetoothScanning(UserType* output) const {
+    
+    CHECK(is_bluetooth_scanning());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentDataView>(
+        data_->data.f_bluetooth_scanning.Get(), output, message_);
+  }
+  bool is_bluetooth_pairing() const { return data_->tag == Tag::kBluetoothPairing; }
+  inline void GetBluetoothPairingDataView(
+      BluetoothPairingRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBluetoothPairing(UserType* output) const {
+    
+    CHECK(is_bluetooth_pairing());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothPairingRoutineArgumentDataView>(
+        data_->data.f_bluetooth_pairing.Get(), output, message_);
+  }
+  bool is_camera_availability() const { return data_->tag == Tag::kCameraAvailability; }
+  inline void GetCameraAvailabilityDataView(
+      CameraAvailabilityRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCameraAvailability(UserType* output) const {
+    
+    CHECK(is_camera_availability());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CameraAvailabilityRoutineArgumentDataView>(
+        data_->data.f_camera_availability.Get(), output, message_);
+  }
+  bool is_urandom() const { return data_->tag == Tag::kUrandom; }
+  inline void GetUrandomDataView(
+      UrandomRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUrandom(UserType* output) const {
+    
+    CHECK(is_urandom());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UrandomRoutineArgumentDataView>(
+        data_->data.f_urandom.Get(), output, message_);
   }
 
  private:
@@ -840,6 +2283,83 @@ class RoutineDetailDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FanRoutineDetailDataView>(
         data_->data.f_fan.Get(), output, message_);
   }
+  bool is_audio_driver() const { return data_->tag == Tag::kAudioDriver; }
+  inline void GetAudioDriverDataView(
+      AudioDriverRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAudioDriver(UserType* output) const {
+    
+    CHECK(is_audio_driver());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView>(
+        data_->data.f_audio_driver.Get(), output, message_);
+  }
+  bool is_ufs_lifetime() const { return data_->tag == Tag::kUfsLifetime; }
+  inline void GetUfsLifetimeDataView(
+      UfsLifetimeRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUfsLifetime(UserType* output) const {
+    
+    CHECK(is_ufs_lifetime());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView>(
+        data_->data.f_ufs_lifetime.Get(), output, message_);
+  }
+  bool is_bluetooth_power() const { return data_->tag == Tag::kBluetoothPower; }
+  inline void GetBluetoothPowerDataView(
+      BluetoothPowerRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBluetoothPower(UserType* output) const {
+    
+    CHECK(is_bluetooth_power());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailDataView>(
+        data_->data.f_bluetooth_power.Get(), output, message_);
+  }
+  bool is_bluetooth_discovery() const { return data_->tag == Tag::kBluetoothDiscovery; }
+  inline void GetBluetoothDiscoveryDataView(
+      BluetoothDiscoveryRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBluetoothDiscovery(UserType* output) const {
+    
+    CHECK(is_bluetooth_discovery());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetailDataView>(
+        data_->data.f_bluetooth_discovery.Get(), output, message_);
+  }
+  bool is_bluetooth_scanning() const { return data_->tag == Tag::kBluetoothScanning; }
+  inline void GetBluetoothScanningDataView(
+      BluetoothScanningRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBluetoothScanning(UserType* output) const {
+    
+    CHECK(is_bluetooth_scanning());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailDataView>(
+        data_->data.f_bluetooth_scanning.Get(), output, message_);
+  }
+  bool is_bluetooth_pairing() const { return data_->tag == Tag::kBluetoothPairing; }
+  inline void GetBluetoothPairingDataView(
+      BluetoothPairingRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBluetoothPairing(UserType* output) const {
+    
+    CHECK(is_bluetooth_pairing());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothPairingRoutineDetailDataView>(
+        data_->data.f_bluetooth_pairing.Get(), output, message_);
+  }
+  bool is_camera_availability() const { return data_->tag == Tag::kCameraAvailability; }
+  inline void GetCameraAvailabilityDataView(
+      CameraAvailabilityRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCameraAvailability(UserType* output) const {
+    
+    CHECK(is_camera_availability());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetailDataView>(
+        data_->data.f_camera_availability.Get(), output, message_);
+  }
 
  private:
   internal::RoutineDetail_Data* data_ = nullptr;
@@ -857,6 +2377,22 @@ struct hash<::ash::cros_healthd::mojom::MemtesterTestItemEnum>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::MemtesterTestItemEnum> {};
 
 template <>
+struct hash<::ash::cros_healthd::mojom::CameraSubtestResult>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::CameraSubtestResult> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::DiskReadTypeEnum>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::DiskReadTypeEnum> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::LedName>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::LedName> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::LedColor>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::LedColor> {};
+
+template <>
 struct hash<::ash::cros_healthd::mojom::HardwarePresenceStatus>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::HardwarePresenceStatus> {};
 
@@ -867,6 +2403,18 @@ struct hash<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType>
 template <>
 struct hash<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairError>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairError> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectError>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectError> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType> {};
 
 }  // namespace std
 
@@ -887,6 +2435,86 @@ struct Serializer<::ash::cros_healthd::mojom::MemtesterTestItemEnum, MaybeConstU
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::MemtesterTestItemEnum>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CameraSubtestResult, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::CameraSubtestResult, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::CameraSubtestResult>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::DiskReadTypeEnum, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::DiskReadTypeEnum, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::DiskReadTypeEnum>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::LedName, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::LedName, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::LedName>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::LedColor, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::LedColor, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::LedColor>(input)), output);
   }
 };
 
@@ -956,6 +2584,66 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason, MaybeC
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairError, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairError, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairError>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectError, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectError, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectError>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView, UserType>;
@@ -979,6 +2667,219 @@ struct Serializer<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView, May
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::AudioDriverRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::AudioDriverRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CpuStressRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::exec_duration(input)) in_exec_duration = Traits::exec_duration(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->exec_duration)::BaseType> exec_duration_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
+        in_exec_duration, exec_duration_fragment);
+    fragment->exec_duration.Set(
+        exec_duration_fragment.is_null() ? nullptr : exec_duration_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CpuStressRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::DiskReadRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::DiskReadTypeEnum>(
+        Traits::type(input), &fragment->type);
+    decltype(Traits::disk_read_duration(input)) in_disk_read_duration = Traits::disk_read_duration(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->disk_read_duration)::BaseType> disk_read_duration_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
+        in_disk_read_duration, disk_read_duration_fragment);
+    fragment->disk_read_duration.Set(
+        disk_read_duration_fragment.is_null() ? nullptr : disk_read_duration_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->disk_read_duration.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null disk_read_duration in DiskReadRoutineArgument struct");
+    fragment->file_size_mib = Traits::file_size_mib(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::DiskReadRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CpuCacheRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::exec_duration(input)) in_exec_duration = Traits::exec_duration(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->exec_duration)::BaseType> exec_duration_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
+        in_exec_duration, exec_duration_fragment);
+    fragment->exec_duration.Set(
+        exec_duration_fragment.is_null() ? nullptr : exec_duration_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CpuCacheRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::PrimeSearchRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::exec_duration(input)) in_exec_duration = Traits::exec_duration(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->exec_duration)::BaseType> exec_duration_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
+        in_exec_duration, exec_duration_fragment);
+    fragment->exec_duration.Set(
+        exec_duration_fragment.is_null() ? nullptr : exec_duration_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::PrimeSearchRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1032,6 +2933,141 @@ struct Serializer<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataVie
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::LedLitUpRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::LedName>(
+        Traits::name(input), &fragment->name);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::LedColor>(
+        Traits::color(input), &fragment->color);
+    decltype(Traits::replier(input)) in_replier = Traits::replier(input);
+    mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::LedLitUpRoutineReplierInterfaceBase>>(
+        in_replier, &fragment->replier, &fragment.message());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        !mojo::internal::IsHandleOrInterfaceValid(fragment->replier),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+        "invalid replier in LedLitUpRoutineArgument struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::LedLitUpRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::FloatingPointRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::FloatingPointRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::FloatingPointRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::exec_duration(input)) in_exec_duration = Traits::exec_duration(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->exec_duration)::BaseType> exec_duration_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
+        in_exec_duration, exec_duration_fragment);
+    fragment->exec_duration.Set(
+        exec_duration_fragment.is_null() ? nullptr : exec_duration_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::FloatingPointRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothPowerRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothPowerRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothPowerRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothPowerRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::BluetoothPowerRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothDiscoveryRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothDiscoveryRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::FanRoutineArgumentDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::FanRoutineArgumentDataView, UserType>;
@@ -1051,6 +3087,152 @@ struct Serializer<::ash::cros_healthd::mojom::FanRoutineArgumentDataView, MaybeC
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::FanRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothScanningRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::exec_duration(input)) in_exec_duration = Traits::exec_duration(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->exec_duration)::BaseType> exec_duration_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
+        in_exec_duration, exec_duration_fragment);
+    fragment->exec_duration.Set(
+        exec_duration_fragment.is_null() ? nullptr : exec_duration_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothScanningRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothPairingRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothPairingRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothPairingRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::peripheral_id(input)) in_peripheral_id = Traits::peripheral_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->peripheral_id)::BaseType> peripheral_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_peripheral_id, peripheral_id_fragment);
+    fragment->peripheral_id.Set(
+        peripheral_id_fragment.is_null() ? nullptr : peripheral_id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->peripheral_id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null peripheral_id in BluetoothPairingRoutineArgument struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothPairingRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::BluetoothPairingRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CameraAvailabilityRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CameraAvailabilityRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CameraAvailabilityRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->run_camera_service_available_check = Traits::run_camera_service_available_check(input);
+    fragment->run_camera_diagnostic_service_available_check = Traits::run_camera_diagnostic_service_available_check(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CameraAvailabilityRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::CameraAvailabilityRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::UrandomRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::UrandomRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::UrandomRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::exec_duration(input)) in_exec_duration = Traits::exec_duration(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->exec_duration)::BaseType> exec_duration_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
+        in_exec_duration, exec_duration_fragment);
+    fragment->exec_duration.Set(
+        exec_duration_fragment.is_null() ? nullptr : exec_duration_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::UrandomRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::UrandomRoutineArgumentDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1280,6 +3462,69 @@ struct Serializer<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView, Maybe
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::AudioDriverRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->internal_card_detected = Traits::internal_card_detected(input);
+    fragment->audio_devices_succeed_to_open = Traits::audio_devices_succeed_to_open(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::AudioDriverRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->pre_eol_info = Traits::pre_eol_info(input);
+    fragment->device_life_time_est_a = Traits::device_life_time_est_a(input);
+    fragment->device_life_time_est_b = Traits::device_life_time_est_b(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::MemtesterResultDataView, UserType>;
@@ -1327,6 +3572,392 @@ struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeCons
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::MemtesterResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothPoweredDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothPoweredDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothPoweredDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->hci_powered = Traits::hci_powered(input);
+    fragment->dbus_powered = Traits::dbus_powered(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothPoweredDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::BluetoothPoweredDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothPowerRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::power_off_result(input)) in_power_off_result = Traits::power_off_result(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->power_off_result)::BaseType> power_off_result_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothPoweredDetailDataView>(
+        in_power_off_result, power_off_result_fragment);
+    fragment->power_off_result.Set(
+        power_off_result_fragment.is_null() ? nullptr : power_off_result_fragment.data());
+    decltype(Traits::power_on_result(input)) in_power_on_result = Traits::power_on_result(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->power_on_result)::BaseType> power_on_result_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothPoweredDetailDataView>(
+        in_power_on_result, power_on_result_fragment);
+    fragment->power_on_result.Set(
+        power_on_result_fragment.is_null() ? nullptr : power_on_result_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothPowerRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothDiscoveringDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothDiscoveringDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothDiscoveringDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->hci_discovering = Traits::hci_discovering(input);
+    fragment->dbus_discovering = Traits::dbus_discovering(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothDiscoveringDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::BluetoothDiscoveringDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothDiscoveryRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::start_discovery_result(input)) in_start_discovery_result = Traits::start_discovery_result(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->start_discovery_result)::BaseType> start_discovery_result_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothDiscoveringDetailDataView>(
+        in_start_discovery_result, start_discovery_result_fragment);
+    fragment->start_discovery_result.Set(
+        start_discovery_result_fragment.is_null() ? nullptr : start_discovery_result_fragment.data());
+    decltype(Traits::stop_discovery_result(input)) in_stop_discovery_result = Traits::stop_discovery_result(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->stop_discovery_result)::BaseType> stop_discovery_result_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothDiscoveringDetailDataView>(
+        in_stop_discovery_result, stop_discovery_result_fragment);
+    fragment->stop_discovery_result.Set(
+        stop_discovery_result_fragment.is_null() ? nullptr : stop_discovery_result_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothDiscoveryRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothScannedPeripheralInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::rssi_history(input)) in_rssi_history = Traits::rssi_history(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->rssi_history)::BaseType>
+        rssi_history_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& rssi_history_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<int16_t>>(
+        in_rssi_history, rssi_history_fragment, &rssi_history_validate_params);
+    fragment->rssi_history.Set(
+        rssi_history_fragment.is_null() ? nullptr : rssi_history_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->rssi_history.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null rssi_history in BluetoothScannedPeripheralInfo struct");
+    decltype(Traits::name(input)) in_name = Traits::name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->name)::BaseType> name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_name, name_fragment);
+    fragment->name.Set(
+        name_fragment.is_null() ? nullptr : name_fragment.data());
+    decltype(Traits::peripheral_id(input)) in_peripheral_id = Traits::peripheral_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->peripheral_id)::BaseType> peripheral_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_peripheral_id, peripheral_id_fragment);
+    fragment->peripheral_id.Set(
+        peripheral_id_fragment.is_null() ? nullptr : peripheral_id_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothScannedPeripheralInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothScanningRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::peripherals(input)) in_peripherals = Traits::peripherals(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->peripherals)::BaseType>
+        peripherals_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& peripherals_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoDataView>>(
+        in_peripherals, peripherals_fragment, &peripherals_validate_params);
+    fragment->peripherals.Set(
+        peripherals_fragment.is_null() ? nullptr : peripherals_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->peripherals.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null peripherals in BluetoothScanningRoutineDetail struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothScanningRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothPairingPeripheralInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairError>(
+        Traits::pair_error(input), &fragment->pair_error);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectError>(
+        Traits::connect_error(input), &fragment->connect_error);
+    decltype(Traits::uuids(input)) in_uuids = Traits::uuids(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->uuids)::BaseType>
+        uuids_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& uuids_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::mojo_base::mojom::UuidDataView>>(
+        in_uuids, uuids_fragment, &uuids_validate_params);
+    fragment->uuids.Set(
+        uuids_fragment.is_null() ? nullptr : uuids_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->uuids.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null uuids in BluetoothPairingPeripheralInfo struct");
+    fragment->bluetooth_class_$flag = Traits::bluetooth_class(input).has_value();
+    if (Traits::bluetooth_class(input).has_value()) {
+      fragment->bluetooth_class_$value = Traits::bluetooth_class(input).value();
+    }
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType>(
+        Traits::address_type(input), &fragment->address_type);
+    fragment->is_address_valid = Traits::is_address_valid(input);
+    decltype(Traits::failed_manufacturer_id(input)) in_failed_manufacturer_id = Traits::failed_manufacturer_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->failed_manufacturer_id)::BaseType> failed_manufacturer_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_failed_manufacturer_id, failed_manufacturer_id_fragment);
+    fragment->failed_manufacturer_id.Set(
+        failed_manufacturer_id_fragment.is_null() ? nullptr : failed_manufacturer_id_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothPairingPeripheralInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothPairingRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothPairingRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothPairingRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::pairing_peripheral(input)) in_pairing_peripheral = Traits::pairing_peripheral(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->pairing_peripheral)::BaseType> pairing_peripheral_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfoDataView>(
+        in_pairing_peripheral, pairing_peripheral_fragment);
+    fragment->pairing_peripheral.Set(
+        pairing_peripheral_fragment.is_null() ? nullptr : pairing_peripheral_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothPairingRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::BluetoothPairingRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CameraAvailabilityRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::CameraSubtestResult>(
+        Traits::camera_service_available_check(input), &fragment->camera_service_available_check);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::CameraSubtestResult>(
+        Traits::camera_diagnostic_service_available_check(input), &fragment->camera_diagnostic_service_available_check);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CameraAvailabilityRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetailDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1468,6 +4099,230 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null fan in RoutineArgument union");
         fragment->data.f_fan.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kAudioDriver: {
+        decltype(Traits::audio_driver(input))
+            in_audio_driver = Traits::audio_driver(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_audio_driver)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView>(
+            in_audio_driver, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null audio_driver in RoutineArgument union");
+        fragment->data.f_audio_driver.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kCpuStress: {
+        decltype(Traits::cpu_stress(input))
+            in_cpu_stress = Traits::cpu_stress(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_cpu_stress)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView>(
+            in_cpu_stress, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null cpu_stress in RoutineArgument union");
+        fragment->data.f_cpu_stress.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kUfsLifetime: {
+        decltype(Traits::ufs_lifetime(input))
+            in_ufs_lifetime = Traits::ufs_lifetime(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_ufs_lifetime)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView>(
+            in_ufs_lifetime, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null ufs_lifetime in RoutineArgument union");
+        fragment->data.f_ufs_lifetime.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kDiskRead: {
+        decltype(Traits::disk_read(input))
+            in_disk_read = Traits::disk_read(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_disk_read)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView>(
+            in_disk_read, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null disk_read in RoutineArgument union");
+        fragment->data.f_disk_read.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kCpuCache: {
+        decltype(Traits::cpu_cache(input))
+            in_cpu_cache = Traits::cpu_cache(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_cpu_cache)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView>(
+            in_cpu_cache, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null cpu_cache in RoutineArgument union");
+        fragment->data.f_cpu_cache.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kPrimeSearch: {
+        decltype(Traits::prime_search(input))
+            in_prime_search = Traits::prime_search(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_prime_search)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView>(
+            in_prime_search, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null prime_search in RoutineArgument union");
+        fragment->data.f_prime_search.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kLedLitUp: {
+        decltype(Traits::led_lit_up(input))
+            in_led_lit_up = Traits::led_lit_up(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_led_lit_up)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView>(
+            in_led_lit_up, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null led_lit_up in RoutineArgument union");
+        fragment->data.f_led_lit_up.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kFloatingPoint: {
+        decltype(Traits::floating_point(input))
+            in_floating_point = Traits::floating_point(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_floating_point)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::FloatingPointRoutineArgumentDataView>(
+            in_floating_point, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null floating_point in RoutineArgument union");
+        fragment->data.f_floating_point.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kBluetoothPower: {
+        decltype(Traits::bluetooth_power(input))
+            in_bluetooth_power = Traits::bluetooth_power(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_bluetooth_power)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothPowerRoutineArgumentDataView>(
+            in_bluetooth_power, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null bluetooth_power in RoutineArgument union");
+        fragment->data.f_bluetooth_power.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kBluetoothDiscovery: {
+        decltype(Traits::bluetooth_discovery(input))
+            in_bluetooth_discovery = Traits::bluetooth_discovery(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_bluetooth_discovery)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgumentDataView>(
+            in_bluetooth_discovery, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null bluetooth_discovery in RoutineArgument union");
+        fragment->data.f_bluetooth_discovery.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kBluetoothScanning: {
+        decltype(Traits::bluetooth_scanning(input))
+            in_bluetooth_scanning = Traits::bluetooth_scanning(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_bluetooth_scanning)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentDataView>(
+            in_bluetooth_scanning, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null bluetooth_scanning in RoutineArgument union");
+        fragment->data.f_bluetooth_scanning.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kBluetoothPairing: {
+        decltype(Traits::bluetooth_pairing(input))
+            in_bluetooth_pairing = Traits::bluetooth_pairing(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_bluetooth_pairing)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothPairingRoutineArgumentDataView>(
+            in_bluetooth_pairing, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null bluetooth_pairing in RoutineArgument union");
+        fragment->data.f_bluetooth_pairing.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kCameraAvailability: {
+        decltype(Traits::camera_availability(input))
+            in_camera_availability = Traits::camera_availability(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_camera_availability)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::CameraAvailabilityRoutineArgumentDataView>(
+            in_camera_availability, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null camera_availability in RoutineArgument union");
+        fragment->data.f_camera_availability.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kUrandom: {
+        decltype(Traits::urandom(input))
+            in_urandom = Traits::urandom(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_urandom)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::UrandomRoutineArgumentDataView>(
+            in_urandom, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null urandom in RoutineArgument union");
+        fragment->data.f_urandom.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -1661,6 +4516,118 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kAudioDriver: {
+        decltype(Traits::audio_driver(input))
+            in_audio_driver = Traits::audio_driver(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_audio_driver)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView>(
+            in_audio_driver, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null audio_driver in RoutineDetail union");
+        fragment->data.f_audio_driver.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kUfsLifetime: {
+        decltype(Traits::ufs_lifetime(input))
+            in_ufs_lifetime = Traits::ufs_lifetime(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_ufs_lifetime)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView>(
+            in_ufs_lifetime, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null ufs_lifetime in RoutineDetail union");
+        fragment->data.f_ufs_lifetime.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kBluetoothPower: {
+        decltype(Traits::bluetooth_power(input))
+            in_bluetooth_power = Traits::bluetooth_power(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_bluetooth_power)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailDataView>(
+            in_bluetooth_power, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null bluetooth_power in RoutineDetail union");
+        fragment->data.f_bluetooth_power.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kBluetoothDiscovery: {
+        decltype(Traits::bluetooth_discovery(input))
+            in_bluetooth_discovery = Traits::bluetooth_discovery(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_bluetooth_discovery)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetailDataView>(
+            in_bluetooth_discovery, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null bluetooth_discovery in RoutineDetail union");
+        fragment->data.f_bluetooth_discovery.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kBluetoothScanning: {
+        decltype(Traits::bluetooth_scanning(input))
+            in_bluetooth_scanning = Traits::bluetooth_scanning(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_bluetooth_scanning)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailDataView>(
+            in_bluetooth_scanning, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null bluetooth_scanning in RoutineDetail union");
+        fragment->data.f_bluetooth_scanning.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kBluetoothPairing: {
+        decltype(Traits::bluetooth_pairing(input))
+            in_bluetooth_pairing = Traits::bluetooth_pairing(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_bluetooth_pairing)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothPairingRoutineDetailDataView>(
+            in_bluetooth_pairing, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null bluetooth_pairing in RoutineDetail union");
+        fragment->data.f_bluetooth_pairing.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kCameraAvailability: {
+        decltype(Traits::camera_availability(input))
+            in_camera_availability = Traits::camera_availability(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_camera_availability)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetailDataView>(
+            in_camera_availability, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null camera_availability in RoutineDetail union");
+        fragment->data.f_camera_availability.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -1684,6 +4651,38 @@ namespace ash::cros_healthd::mojom {
 
 
 
+
+
+inline void CpuStressRoutineArgumentDataView::GetExecDurationDataView(
+    ::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->exec_duration.Get();
+  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+
+
+
+
+inline void DiskReadRoutineArgumentDataView::GetDiskReadDurationDataView(
+    ::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->disk_read_duration.Get();
+  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+
+
+inline void CpuCacheRoutineArgumentDataView::GetExecDurationDataView(
+    ::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->exec_duration.Get();
+  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+
+
+inline void PrimeSearchRoutineArgumentDataView::GetExecDurationDataView(
+    ::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->exec_duration.Get();
+  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+
+
 inline void VolumeButtonRoutineArgumentDataView::GetTimeoutDataView(
     ::mojo_base::mojom::TimeDeltaDataView* output) {
   auto pointer = data_->timeout.Get();
@@ -1691,6 +4690,42 @@ inline void VolumeButtonRoutineArgumentDataView::GetTimeoutDataView(
 }
 
 
+
+
+inline void FloatingPointRoutineArgumentDataView::GetExecDurationDataView(
+    ::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->exec_duration.Get();
+  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+
+
+
+
+
+
+
+
+inline void BluetoothScanningRoutineArgumentDataView::GetExecDurationDataView(
+    ::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->exec_duration.Get();
+  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+
+
+inline void BluetoothPairingRoutineArgumentDataView::GetPeripheralIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->peripheral_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void UrandomRoutineArgumentDataView::GetExecDurationDataView(
+    ::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->exec_duration.Get();
+  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
 
 
 inline void RoutineStateDataView::GetStateUnionDataView(
@@ -1725,6 +4760,10 @@ inline void MemoryRoutineDetailDataView::GetResultDataView(
 }
 
 
+
+
+
+
 inline void MemtesterResultDataView::GetPassedItemsDataView(
     mojo::ArrayDataView<MemtesterTestItemEnum>* output) {
   auto pointer = data_->passed_items.Get();
@@ -1735,6 +4774,79 @@ inline void MemtesterResultDataView::GetFailedItemsDataView(
   auto pointer = data_->failed_items.Get();
   *output = mojo::ArrayDataView<MemtesterTestItemEnum>(pointer, message_);
 }
+
+
+
+
+inline void BluetoothPowerRoutineDetailDataView::GetPowerOffResultDataView(
+    BluetoothPoweredDetailDataView* output) {
+  auto pointer = data_->power_off_result.Get();
+  *output = BluetoothPoweredDetailDataView(pointer, message_);
+}
+inline void BluetoothPowerRoutineDetailDataView::GetPowerOnResultDataView(
+    BluetoothPoweredDetailDataView* output) {
+  auto pointer = data_->power_on_result.Get();
+  *output = BluetoothPoweredDetailDataView(pointer, message_);
+}
+
+
+
+
+inline void BluetoothDiscoveryRoutineDetailDataView::GetStartDiscoveryResultDataView(
+    BluetoothDiscoveringDetailDataView* output) {
+  auto pointer = data_->start_discovery_result.Get();
+  *output = BluetoothDiscoveringDetailDataView(pointer, message_);
+}
+inline void BluetoothDiscoveryRoutineDetailDataView::GetStopDiscoveryResultDataView(
+    BluetoothDiscoveringDetailDataView* output) {
+  auto pointer = data_->stop_discovery_result.Get();
+  *output = BluetoothDiscoveringDetailDataView(pointer, message_);
+}
+
+
+inline void BluetoothScannedPeripheralInfoDataView::GetRssiHistoryDataView(
+    mojo::ArrayDataView<int16_t>* output) {
+  auto pointer = data_->rssi_history.Get();
+  *output = mojo::ArrayDataView<int16_t>(pointer, message_);
+}
+inline void BluetoothScannedPeripheralInfoDataView::GetNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void BluetoothScannedPeripheralInfoDataView::GetPeripheralIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->peripheral_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void BluetoothScanningRoutineDetailDataView::GetPeripheralsDataView(
+    mojo::ArrayDataView<BluetoothScannedPeripheralInfoDataView>* output) {
+  auto pointer = data_->peripherals.Get();
+  *output = mojo::ArrayDataView<BluetoothScannedPeripheralInfoDataView>(pointer, message_);
+}
+
+
+inline void BluetoothPairingPeripheralInfoDataView::GetUuidsDataView(
+    mojo::ArrayDataView<::mojo_base::mojom::UuidDataView>* output) {
+  auto pointer = data_->uuids.Get();
+  *output = mojo::ArrayDataView<::mojo_base::mojom::UuidDataView>(pointer, message_);
+}
+inline void BluetoothPairingPeripheralInfoDataView::GetFailedManufacturerIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->failed_manufacturer_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void BluetoothPairingRoutineDetailDataView::GetPairingPeripheralDataView(
+    BluetoothPairingPeripheralInfoDataView* output) {
+  auto pointer = data_->pairing_peripheral.Get();
+  *output = BluetoothPairingPeripheralInfoDataView(pointer, message_);
+}
+
+
 
 
 inline void FanRoutineDetailDataView::GetPassedFanIdsDataView(
@@ -1763,6 +4875,76 @@ inline void RoutineArgumentDataView::GetFanDataView(
     FanRoutineArgumentDataView* output) const {
   CHECK(is_fan());
   *output = FanRoutineArgumentDataView(data_->data.f_fan.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetAudioDriverDataView(
+    AudioDriverRoutineArgumentDataView* output) const {
+  CHECK(is_audio_driver());
+  *output = AudioDriverRoutineArgumentDataView(data_->data.f_audio_driver.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetCpuStressDataView(
+    CpuStressRoutineArgumentDataView* output) const {
+  CHECK(is_cpu_stress());
+  *output = CpuStressRoutineArgumentDataView(data_->data.f_cpu_stress.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetUfsLifetimeDataView(
+    UfsLifetimeRoutineArgumentDataView* output) const {
+  CHECK(is_ufs_lifetime());
+  *output = UfsLifetimeRoutineArgumentDataView(data_->data.f_ufs_lifetime.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetDiskReadDataView(
+    DiskReadRoutineArgumentDataView* output) const {
+  CHECK(is_disk_read());
+  *output = DiskReadRoutineArgumentDataView(data_->data.f_disk_read.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetCpuCacheDataView(
+    CpuCacheRoutineArgumentDataView* output) const {
+  CHECK(is_cpu_cache());
+  *output = CpuCacheRoutineArgumentDataView(data_->data.f_cpu_cache.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetPrimeSearchDataView(
+    PrimeSearchRoutineArgumentDataView* output) const {
+  CHECK(is_prime_search());
+  *output = PrimeSearchRoutineArgumentDataView(data_->data.f_prime_search.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetLedLitUpDataView(
+    LedLitUpRoutineArgumentDataView* output) const {
+  CHECK(is_led_lit_up());
+  *output = LedLitUpRoutineArgumentDataView(data_->data.f_led_lit_up.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetFloatingPointDataView(
+    FloatingPointRoutineArgumentDataView* output) const {
+  CHECK(is_floating_point());
+  *output = FloatingPointRoutineArgumentDataView(data_->data.f_floating_point.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetBluetoothPowerDataView(
+    BluetoothPowerRoutineArgumentDataView* output) const {
+  CHECK(is_bluetooth_power());
+  *output = BluetoothPowerRoutineArgumentDataView(data_->data.f_bluetooth_power.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetBluetoothDiscoveryDataView(
+    BluetoothDiscoveryRoutineArgumentDataView* output) const {
+  CHECK(is_bluetooth_discovery());
+  *output = BluetoothDiscoveryRoutineArgumentDataView(data_->data.f_bluetooth_discovery.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetBluetoothScanningDataView(
+    BluetoothScanningRoutineArgumentDataView* output) const {
+  CHECK(is_bluetooth_scanning());
+  *output = BluetoothScanningRoutineArgumentDataView(data_->data.f_bluetooth_scanning.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetBluetoothPairingDataView(
+    BluetoothPairingRoutineArgumentDataView* output) const {
+  CHECK(is_bluetooth_pairing());
+  *output = BluetoothPairingRoutineArgumentDataView(data_->data.f_bluetooth_pairing.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetCameraAvailabilityDataView(
+    CameraAvailabilityRoutineArgumentDataView* output) const {
+  CHECK(is_camera_availability());
+  *output = CameraAvailabilityRoutineArgumentDataView(data_->data.f_camera_availability.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetUrandomDataView(
+    UrandomRoutineArgumentDataView* output) const {
+  CHECK(is_urandom());
+  *output = UrandomRoutineArgumentDataView(data_->data.f_urandom.Get(), message_);
 }
 
 inline void RoutineStateUnionDataView::GetInitializedDataView(
@@ -1796,6 +4978,41 @@ inline void RoutineDetailDataView::GetFanDataView(
   CHECK(is_fan());
   *output = FanRoutineDetailDataView(data_->data.f_fan.Get(), message_);
 }
+inline void RoutineDetailDataView::GetAudioDriverDataView(
+    AudioDriverRoutineDetailDataView* output) const {
+  CHECK(is_audio_driver());
+  *output = AudioDriverRoutineDetailDataView(data_->data.f_audio_driver.Get(), message_);
+}
+inline void RoutineDetailDataView::GetUfsLifetimeDataView(
+    UfsLifetimeRoutineDetailDataView* output) const {
+  CHECK(is_ufs_lifetime());
+  *output = UfsLifetimeRoutineDetailDataView(data_->data.f_ufs_lifetime.Get(), message_);
+}
+inline void RoutineDetailDataView::GetBluetoothPowerDataView(
+    BluetoothPowerRoutineDetailDataView* output) const {
+  CHECK(is_bluetooth_power());
+  *output = BluetoothPowerRoutineDetailDataView(data_->data.f_bluetooth_power.Get(), message_);
+}
+inline void RoutineDetailDataView::GetBluetoothDiscoveryDataView(
+    BluetoothDiscoveryRoutineDetailDataView* output) const {
+  CHECK(is_bluetooth_discovery());
+  *output = BluetoothDiscoveryRoutineDetailDataView(data_->data.f_bluetooth_discovery.Get(), message_);
+}
+inline void RoutineDetailDataView::GetBluetoothScanningDataView(
+    BluetoothScanningRoutineDetailDataView* output) const {
+  CHECK(is_bluetooth_scanning());
+  *output = BluetoothScanningRoutineDetailDataView(data_->data.f_bluetooth_scanning.Get(), message_);
+}
+inline void RoutineDetailDataView::GetBluetoothPairingDataView(
+    BluetoothPairingRoutineDetailDataView* output) const {
+  CHECK(is_bluetooth_pairing());
+  *output = BluetoothPairingRoutineDetailDataView(data_->data.f_bluetooth_pairing.Get(), message_);
+}
+inline void RoutineDetailDataView::GetCameraAvailabilityDataView(
+    CameraAvailabilityRoutineDetailDataView* output) const {
+  CHECK(is_camera_availability());
+  *output = CameraAvailabilityRoutineDetailDataView(data_->data.f_camera_availability.Get(), message_);
+}
 
 
 }  // ash::cros_healthd::mojom
@@ -1808,6 +5025,42 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::MemtesterTestItemEnum> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::MemtesterTestItemEnum value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::CameraSubtestResult> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::CameraSubtestResult value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiskReadTypeEnum> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiskReadTypeEnum value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::LedName> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::LedName value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::LedColor> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::LedColor value);
 };
 
 } // namespace perfetto
@@ -1835,6 +5088,33 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::RoutineStateWaiting_Reason value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairError> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairError value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectError> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectError value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType value);
 };
 
 } // namespace perfetto

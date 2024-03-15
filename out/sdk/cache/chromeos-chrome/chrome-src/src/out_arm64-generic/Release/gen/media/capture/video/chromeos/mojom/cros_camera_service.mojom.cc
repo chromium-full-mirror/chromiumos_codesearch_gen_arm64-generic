@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -149,8 +150,11 @@ void CameraHalDispatcherProxy::RegisterClientWithToken(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraHalDispatcher_RegisterClientWithToken_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraHalDispatcher_RegisterClientWithToken_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraHalDispatcher_RegisterClientWithToken_Params_Data> params(
           message);
@@ -281,8 +285,11 @@ void CameraHalDispatcher_RegisterClientWithToken_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraHalDispatcher_RegisterClientWithToken_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraHalDispatcher_RegisterClientWithToken_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraHalDispatcher_RegisterClientWithToken_ResponseParams_Data> params(
           message);
@@ -538,8 +545,11 @@ void CrosCameraServiceObserverProxy::CameraDeviceActivityChange(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data> params(
           message);
@@ -585,8 +595,11 @@ void CrosCameraServiceObserverProxy::CameraPrivacySwitchStateChange(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data> params(
           message);
@@ -628,8 +641,11 @@ void CrosCameraServiceObserverProxy::CameraSWPrivacySwitchStateChange(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data> params(
           message);
@@ -670,8 +686,11 @@ void CrosCameraServiceObserverProxy::CameraEffectChange(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraServiceObserver_CameraEffectChange_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraServiceObserver_CameraEffectChange_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraServiceObserver_CameraEffectChange_Params_Data> params(
           message);
@@ -1159,8 +1178,11 @@ void CrosCameraServiceProxy::GetCameraModule(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraService_GetCameraModule_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraService_GetCameraModule_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_GetCameraModule_Params_Data> params(
           message);
@@ -1202,8 +1224,11 @@ void CrosCameraServiceProxy::SetTracingEnabled(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraService_SetTracingEnabled_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraService_SetTracingEnabled_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_SetTracingEnabled_Params_Data> params(
           message);
@@ -1243,8 +1268,11 @@ void CrosCameraServiceProxy::SetAutoFramingState(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraService_SetAutoFramingState_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraService_SetAutoFramingState_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_SetAutoFramingState_Params_Data> params(
           message);
@@ -1278,8 +1306,11 @@ void CrosCameraServiceProxy::GetCameraSWPrivacySwitchState(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data> params(
           message);
@@ -1319,8 +1350,11 @@ void CrosCameraServiceProxy::SetCameraSWPrivacySwitchState(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data> params(
           message);
@@ -1354,8 +1388,11 @@ void CrosCameraServiceProxy::GetAutoFramingSupported(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraService_GetAutoFramingSupported_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraService_GetAutoFramingSupported_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_GetAutoFramingSupported_Params_Data> params(
           message);
@@ -1395,8 +1432,11 @@ void CrosCameraServiceProxy::SetCameraEffect(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraService_SetCameraEffect_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraService_SetCameraEffect_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_SetCameraEffect_Params_Data> params(
           message);
@@ -1447,8 +1487,11 @@ void CrosCameraServiceProxy::AddCrosCameraServiceObserver(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraService_AddCrosCameraServiceObserver_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraService_AddCrosCameraServiceObserver_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_AddCrosCameraServiceObserver_Params_Data> params(
           message);
@@ -1567,8 +1610,11 @@ void CrosCameraService_GetCameraModule_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraService_GetCameraModule_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraService_GetCameraModule_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_GetCameraModule_ResponseParams_Data> params(
           message);
@@ -1693,8 +1739,11 @@ void CrosCameraService_GetCameraSWPrivacySwitchState_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data> params(
           message);
@@ -1815,8 +1864,11 @@ void CrosCameraService_GetAutoFramingSupported_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraService_GetAutoFramingSupported_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraService_GetAutoFramingSupported_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_GetAutoFramingSupported_ResponseParams_Data> params(
           message);
@@ -1936,8 +1988,11 @@ void CrosCameraService_SetCameraEffect_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosCameraService_SetCameraEffect_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraService_SetCameraEffect_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_SetCameraEffect_ResponseParams_Data> params(
           message);

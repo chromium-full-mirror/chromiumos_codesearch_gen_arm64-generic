@@ -8,6 +8,8 @@
 #define CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_ROUTINES_MOJOM_IMPORT_HEADERS_H_
 #include "mojo/public/mojom/base/time.mojom.h"
 #include "mojo/public/mojom/base/time.mojom-import-headers.h"
+#include "mojo/public/mojom/base/uuid.mojom.h"
+#include "mojo/public/mojom/base/uuid.mojom-import-headers.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-import-headers.h"
 

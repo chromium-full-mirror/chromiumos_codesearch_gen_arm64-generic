@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -1126,8 +1127,11 @@ void NetworkDiagnosticsRoutinesProxy::GetResult(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_GetResult_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_GetResult_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_GetResult_Params_Data> params(
           message);
@@ -1162,8 +1166,11 @@ void NetworkDiagnosticsRoutinesProxy::GetAllResults(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_GetAllResults_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_GetAllResults_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_GetAllResults_Params_Data> params(
           message);
@@ -1203,8 +1210,11 @@ void NetworkDiagnosticsRoutinesProxy::RunLanConnectivity(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data> params(
           message);
@@ -1252,8 +1262,11 @@ void NetworkDiagnosticsRoutinesProxy::RunSignalStrength(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data> params(
           message);
@@ -1301,8 +1314,11 @@ void NetworkDiagnosticsRoutinesProxy::RunGatewayCanBePinged(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data> params(
           message);
@@ -1350,8 +1366,11 @@ void NetworkDiagnosticsRoutinesProxy::RunHasSecureWiFiConnection(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data> params(
           message);
@@ -1399,8 +1418,11 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsResolverPresent(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data> params(
           message);
@@ -1448,8 +1470,11 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsLatency(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data> params(
           message);
@@ -1497,8 +1522,11 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsResolution(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data> params(
           message);
@@ -1546,8 +1574,11 @@ void NetworkDiagnosticsRoutinesProxy::RunCaptivePortal(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data> params(
           message);
@@ -1595,8 +1626,11 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpFirewall(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data> params(
           message);
@@ -1644,8 +1678,11 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsFirewall(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data> params(
           message);
@@ -1693,8 +1730,11 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsLatency(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data> params(
           message);
@@ -1745,8 +1785,11 @@ void NetworkDiagnosticsRoutinesProxy::RunVideoConferencing(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data> params(
           message);
@@ -1801,8 +1844,11 @@ void NetworkDiagnosticsRoutinesProxy::RunArcHttp(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcHttp_Params_Data> params(
           message);
@@ -1850,8 +1896,11 @@ void NetworkDiagnosticsRoutinesProxy::RunArcPing(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunArcPing_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunArcPing_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcPing_Params_Data> params(
           message);
@@ -1899,8 +1948,11 @@ void NetworkDiagnosticsRoutinesProxy::RunArcDnsResolution(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data> params(
           message);
@@ -2020,8 +2072,11 @@ void NetworkDiagnosticsRoutines_GetResult_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_GetResult_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_GetResult_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_GetResult_ResponseParams_Data> params(
           message);
@@ -2147,8 +2202,11 @@ void NetworkDiagnosticsRoutines_GetAllResults_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_GetAllResults_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_GetAllResults_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_GetAllResults_ResponseParams_Data> params(
           message);
@@ -2280,8 +2338,11 @@ void NetworkDiagnosticsRoutines_RunLanConnectivity_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParams_Data> params(
           message);
@@ -2411,8 +2472,11 @@ void NetworkDiagnosticsRoutines_RunSignalStrength_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParams_Data> params(
           message);
@@ -2542,8 +2606,11 @@ void NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParams_Data> params(
           message);
@@ -2673,8 +2740,11 @@ void NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ProxyToResponder::Run
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParams_Data> params(
           message);
@@ -2804,8 +2874,11 @@ void NetworkDiagnosticsRoutines_RunDnsResolverPresent_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParams_Data> params(
           message);
@@ -2935,8 +3008,11 @@ void NetworkDiagnosticsRoutines_RunDnsLatency_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParams_Data> params(
           message);
@@ -3066,8 +3142,11 @@ void NetworkDiagnosticsRoutines_RunDnsResolution_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParams_Data> params(
           message);
@@ -3197,8 +3276,11 @@ void NetworkDiagnosticsRoutines_RunCaptivePortal_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParams_Data> params(
           message);
@@ -3328,8 +3410,11 @@ void NetworkDiagnosticsRoutines_RunHttpFirewall_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParams_Data> params(
           message);
@@ -3459,8 +3544,11 @@ void NetworkDiagnosticsRoutines_RunHttpsFirewall_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParams_Data> params(
           message);
@@ -3590,8 +3678,11 @@ void NetworkDiagnosticsRoutines_RunHttpsLatency_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParams_Data> params(
           message);
@@ -3721,8 +3812,11 @@ void NetworkDiagnosticsRoutines_RunVideoConferencing_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParams_Data> params(
           message);
@@ -3852,8 +3946,11 @@ void NetworkDiagnosticsRoutines_RunArcHttp_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcHttp_ResponseParams_Data> params(
           message);
@@ -3983,8 +4080,11 @@ void NetworkDiagnosticsRoutines_RunArcPing_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunArcPing_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunArcPing_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcPing_ResponseParams_Data> params(
           message);
@@ -4114,8 +4214,11 @@ void NetworkDiagnosticsRoutines_RunArcDnsResolution_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParams_Data> params(
           message);

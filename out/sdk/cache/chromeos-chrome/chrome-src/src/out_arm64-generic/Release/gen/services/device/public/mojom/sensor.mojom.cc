@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -320,8 +321,11 @@ void SensorProxy::GetDefaultConfiguration(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensor_GetDefaultConfiguration_Name, kFlags, 0, 0, nullptr);
+      internal::kSensor_GetDefaultConfiguration_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_GetDefaultConfiguration_Params_Data> params(
           message);
@@ -361,8 +365,11 @@ void SensorProxy::AddConfiguration(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensor_AddConfiguration_Name, kFlags, 0, 0, nullptr);
+      internal::kSensor_AddConfiguration_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_AddConfiguration_Params_Data> params(
           message);
@@ -413,8 +420,11 @@ void SensorProxy::RemoveConfiguration(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensor_RemoveConfiguration_Name, kFlags, 0, 0, nullptr);
+      internal::kSensor_RemoveConfiguration_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_RemoveConfiguration_Params_Data> params(
           message);
@@ -457,8 +467,11 @@ void SensorProxy::Suspend(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensor_Suspend_Name, kFlags, 0, 0, nullptr);
+      internal::kSensor_Suspend_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_Suspend_Params_Data> params(
           message);
@@ -490,8 +503,11 @@ void SensorProxy::Resume(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensor_Resume_Name, kFlags, 0, 0, nullptr);
+      internal::kSensor_Resume_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_Resume_Params_Data> params(
           message);
@@ -530,8 +546,11 @@ void SensorProxy::ConfigureReadingChangeNotifications(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensor_ConfigureReadingChangeNotifications_Name, kFlags, 0, 0, nullptr);
+      internal::kSensor_ConfigureReadingChangeNotifications_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_ConfigureReadingChangeNotifications_Params_Data> params(
           message);
@@ -643,8 +662,11 @@ void Sensor_GetDefaultConfiguration_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensor_GetDefaultConfiguration_Name, kFlags, 0, 0, nullptr);
+      internal::kSensor_GetDefaultConfiguration_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_GetDefaultConfiguration_ResponseParams_Data> params(
           message);
@@ -774,8 +796,11 @@ void Sensor_AddConfiguration_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensor_AddConfiguration_Name, kFlags, 0, 0, nullptr);
+      internal::kSensor_AddConfiguration_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_AddConfiguration_ResponseParams_Data> params(
           message);
@@ -1122,8 +1147,11 @@ void SensorClientProxy::RaiseError(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorClient_RaiseError_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorClient_RaiseError_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::SensorClient_RaiseError_Params_Data> params(
           message);
@@ -1155,8 +1183,11 @@ void SensorClientProxy::SensorReadingChanged(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorClient_SensorReadingChanged_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorClient_SensorReadingChanged_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::SensorClient_SensorReadingChanged_Params_Data> params(
           message);

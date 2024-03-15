@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -282,8 +283,11 @@ void CameraModuleCallbacksProxy::CameraDeviceStatusChange(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModuleCallbacks_CameraDeviceStatusChange_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModuleCallbacks_CameraDeviceStatusChange_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModuleCallbacks_CameraDeviceStatusChange_Params_Data> params(
           message);
@@ -328,8 +332,11 @@ void CameraModuleCallbacksProxy::TorchModeStatusChange(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModuleCallbacks_TorchModeStatusChange_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModuleCallbacks_TorchModeStatusChange_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModuleCallbacks_TorchModeStatusChange_Params_Data> params(
           message);
@@ -688,8 +695,11 @@ void VendorTagOpsProxy::GetTagCount(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVendorTagOps_GetTagCount_Name, kFlags, 0, 0, nullptr);
+      internal::kVendorTagOps_GetTagCount_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetTagCount_Params_Data> params(
           message);
@@ -722,8 +732,11 @@ void VendorTagOpsProxy::GetAllTags(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVendorTagOps_GetAllTags_Name, kFlags, 0, 0, nullptr);
+      internal::kVendorTagOps_GetAllTags_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetAllTags_Params_Data> params(
           message);
@@ -763,8 +776,11 @@ void VendorTagOpsProxy::GetSectionName(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVendorTagOps_GetSectionName_Name, kFlags, 0, 0, nullptr);
+      internal::kVendorTagOps_GetSectionName_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetSectionName_Params_Data> params(
           message);
@@ -805,8 +821,11 @@ void VendorTagOpsProxy::GetTagName(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVendorTagOps_GetTagName_Name, kFlags, 0, 0, nullptr);
+      internal::kVendorTagOps_GetTagName_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetTagName_Params_Data> params(
           message);
@@ -847,8 +866,11 @@ void VendorTagOpsProxy::GetTagType(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVendorTagOps_GetTagType_Name, kFlags, 0, 0, nullptr);
+      internal::kVendorTagOps_GetTagType_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetTagType_Params_Data> params(
           message);
@@ -961,8 +983,11 @@ void VendorTagOps_GetTagCount_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVendorTagOps_GetTagCount_Name, kFlags, 0, 0, nullptr);
+      internal::kVendorTagOps_GetTagCount_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetTagCount_ResponseParams_Data> params(
           message);
@@ -1082,8 +1107,11 @@ void VendorTagOps_GetAllTags_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVendorTagOps_GetAllTags_Name, kFlags, 0, 0, nullptr);
+      internal::kVendorTagOps_GetAllTags_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetAllTags_ResponseParams_Data> params(
           message);
@@ -1215,8 +1243,11 @@ void VendorTagOps_GetSectionName_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVendorTagOps_GetSectionName_Name, kFlags, 0, 0, nullptr);
+      internal::kVendorTagOps_GetSectionName_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetSectionName_ResponseParams_Data> params(
           message);
@@ -1342,8 +1373,11 @@ void VendorTagOps_GetTagName_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVendorTagOps_GetTagName_Name, kFlags, 0, 0, nullptr);
+      internal::kVendorTagOps_GetTagName_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetTagName_ResponseParams_Data> params(
           message);
@@ -1469,8 +1503,11 @@ void VendorTagOps_GetTagType_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kVendorTagOps_GetTagType_Name, kFlags, 0, 0, nullptr);
+      internal::kVendorTagOps_GetTagType_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetTagType_ResponseParams_Data> params(
           message);
@@ -2055,8 +2092,11 @@ void CameraModuleProxy::OpenDevice(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_OpenDevice_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_OpenDevice_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_OpenDevice_Params_Data> params(
           message);
@@ -2096,8 +2136,11 @@ void CameraModuleProxy::GetNumberOfCameras(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_GetNumberOfCameras_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_GetNumberOfCameras_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_GetNumberOfCameras_Params_Data> params(
           message);
@@ -2137,8 +2180,11 @@ void CameraModuleProxy::GetCameraInfo(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_GetCameraInfo_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_GetCameraInfo_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_GetCameraInfo_Params_Data> params(
           message);
@@ -2179,8 +2225,11 @@ void CameraModuleProxy::SetCallbacks(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_SetCallbacks_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_SetCallbacks_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_SetCallbacks_Params_Data> params(
           message);
@@ -2229,8 +2278,11 @@ void CameraModuleProxy::SetTorchMode(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_SetTorchMode_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_SetTorchMode_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_SetTorchMode_Params_Data> params(
           message);
@@ -2265,8 +2317,11 @@ void CameraModuleProxy::Init(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_Init_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_Init_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_Init_Params_Data> params(
           message);
@@ -2306,8 +2361,11 @@ void CameraModuleProxy::GetVendorTagOps(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_GetVendorTagOps_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_GetVendorTagOps_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_GetVendorTagOps_Params_Data> params(
           message);
@@ -2353,8 +2411,11 @@ void CameraModuleProxy::SetCallbacksAssociated(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_SetCallbacksAssociated_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_SetCallbacksAssociated_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_SetCallbacksAssociated_Params_Data> params(
           message);
@@ -2472,8 +2533,11 @@ void CameraModule_OpenDevice_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_OpenDevice_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_OpenDevice_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_OpenDevice_ResponseParams_Data> params(
           message);
@@ -2593,8 +2657,11 @@ void CameraModule_GetNumberOfCameras_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_GetNumberOfCameras_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_GetNumberOfCameras_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_GetNumberOfCameras_ResponseParams_Data> params(
           message);
@@ -2721,8 +2788,11 @@ void CameraModule_GetCameraInfo_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_GetCameraInfo_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_GetCameraInfo_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_GetCameraInfo_ResponseParams_Data> params(
           message);
@@ -2849,8 +2919,11 @@ void CameraModule_SetCallbacks_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_SetCallbacks_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_SetCallbacks_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_SetCallbacks_ResponseParams_Data> params(
           message);
@@ -2970,8 +3043,11 @@ void CameraModule_SetTorchMode_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_SetTorchMode_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_SetTorchMode_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_SetTorchMode_ResponseParams_Data> params(
           message);
@@ -3091,8 +3167,11 @@ void CameraModule_Init_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_Init_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_Init_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_Init_ResponseParams_Data> params(
           message);
@@ -3201,8 +3280,11 @@ void CameraModule_GetVendorTagOps_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_GetVendorTagOps_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_GetVendorTagOps_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_GetVendorTagOps_ResponseParams_Data> params(
           message);
@@ -3321,8 +3403,11 @@ void CameraModule_SetCallbacksAssociated_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraModule_SetCallbacksAssociated_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraModule_SetCallbacksAssociated_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_SetCallbacksAssociated_ResponseParams_Data> params(
           message);

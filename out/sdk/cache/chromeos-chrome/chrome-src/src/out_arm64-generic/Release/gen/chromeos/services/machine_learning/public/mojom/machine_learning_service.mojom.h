@@ -41,6 +41,7 @@
 #include <vector>
 
 #include "mojo/public/cpp/bindings/lib/control_message_handler.h"
+#include "mojo/public/cpp/bindings/lib/message_size_estimator.h"
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
 
