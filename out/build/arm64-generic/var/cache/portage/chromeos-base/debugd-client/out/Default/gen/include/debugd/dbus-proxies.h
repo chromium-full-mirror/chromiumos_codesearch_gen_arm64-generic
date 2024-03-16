@@ -36,7 +36,7 @@ class debugdProxyInterface {
       const base::ScopedFD& in_shell_lifeline_fd,
       const base::ScopedFD& in_caller_lifeline_fd,
       const base::ScopedFD& in_infd,
-      const base::ScopedFD& in_outfd,
+      const base::ScopedFD& in_eventfd,
       std::string* out_handle,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -46,7 +46,7 @@ class debugdProxyInterface {
       const base::ScopedFD& in_shell_lifeline_fd,
       const base::ScopedFD& in_caller_lifeline_fd,
       const base::ScopedFD& in_infd,
-      const base::ScopedFD& in_outfd,
+      const base::ScopedFD& in_eventfd,
       base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -404,6 +404,23 @@ class debugdProxyInterface {
       const base::ScopedFD& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Writes the contents of the binary logs to a list of files (typically
+  // pipes) whose file descriptors are passed in the outfds argument.
+  virtual bool GetFeedbackBinaryLogs(
+      const std::string& in_username,
+      const std::map<int32_t, base::ScopedFD>& in_outfds,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Writes the contents of the binary logs to a list of files (typically
+  // pipes) whose file descriptors are passed in the outfds argument.
+  virtual void GetFeedbackBinaryLogsAsync(
+      const std::string& in_username,
+      const std::map<int32_t, base::ScopedFD>& in_outfds,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -1582,7 +1599,7 @@ class debugdProxy final : public debugdProxyInterface {
       const base::ScopedFD& in_shell_lifeline_fd,
       const base::ScopedFD& in_caller_lifeline_fd,
       const base::ScopedFD& in_infd,
-      const base::ScopedFD& in_outfd,
+      const base::ScopedFD& in_eventfd,
       std::string* out_handle,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -1595,7 +1612,7 @@ class debugdProxy final : public debugdProxyInterface {
         in_shell_lifeline_fd,
         in_caller_lifeline_fd,
         in_infd,
-        in_outfd);
+        in_eventfd);
     return response && brillo::dbus_utils::ExtractMethodCallResults(
         response.get(), error, out_handle);
   }
@@ -1605,7 +1622,7 @@ class debugdProxy final : public debugdProxyInterface {
       const base::ScopedFD& in_shell_lifeline_fd,
       const base::ScopedFD& in_caller_lifeline_fd,
       const base::ScopedFD& in_infd,
-      const base::ScopedFD& in_outfd,
+      const base::ScopedFD& in_eventfd,
       base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -1619,7 +1636,7 @@ class debugdProxy final : public debugdProxyInterface {
         in_shell_lifeline_fd,
         in_caller_lifeline_fd,
         in_infd,
-        in_outfd);
+        in_eventfd);
   }
 
   // Starts pinging the specified hostname with the specified options, with
@@ -2379,6 +2396,44 @@ class debugdProxy final : public debugdProxyInterface {
         in_outfd,
         in_username,
         in_requested_logs);
+  }
+
+  // Writes the contents of the binary logs to a list of files (typically
+  // pipes) whose file descriptors are passed in the outfds argument.
+  bool GetFeedbackBinaryLogs(
+      const std::string& in_username,
+      const std::map<int32_t, base::ScopedFD>& in_outfds,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "GetFeedbackBinaryLogs",
+        error,
+        in_username,
+        in_outfds);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // Writes the contents of the binary logs to a list of files (typically
+  // pipes) whose file descriptors are passed in the outfds argument.
+  void GetFeedbackBinaryLogsAsync(
+      const std::string& in_username,
+      const std::map<int32_t, base::ScopedFD>& in_outfds,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "GetFeedbackBinaryLogs",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_username,
+        in_outfds);
   }
 
   // Retrieves the ARC bug report and saves it in debugd daemon store.
