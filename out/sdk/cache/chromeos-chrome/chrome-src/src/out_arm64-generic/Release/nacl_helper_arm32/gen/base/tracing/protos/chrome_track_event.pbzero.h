@@ -12,6 +12,7 @@
 #include "perfetto/protozero/proto_decoder.h"
 #include "perfetto/protozero/proto_utils.h"
 #include "protos/perfetto/trace/track_event/debug_annotation.pbzero.h"
+#include "protos/perfetto/trace/track_event/source_location.pbzero.h"
 #include "protos/perfetto/trace/track_event/track_event.pbzero.h"
 
 namespace perfetto {
@@ -20,6 +21,11 @@ namespace pbzero {
 
 class AndroidActivity;
 class AndroidView;
+class BeginFrameArgsV2;
+class BeginFrameObserverStateV2;
+class BeginFrameSourceStateV2;
+class BeginImplFrameArgsV2;
+class BeginImplFrameArgsV2_TimestampsInUs;
 class BlinkExecutionContext;
 class BlinkHighEntropyAPI_CalledJsApi;
 class BlinkHighEntropyAPI_FontLookup;
@@ -27,7 +33,11 @@ class BlinkHighEntropyAPI_JSFunctionArgument;
 class BlinkSourceLocation;
 class BrowsingContextState;
 class ChromeBrowserContext;
+class ChromeCompositorStateMachineV2;
+class ChromeCompositorStateMachineV2_MajorStateV2;
+class ChromeCompositorStateMachineV2_MinorStateV2;
 class ChromeUnguessableToken;
+class CompositorTimingHistoryV2;
 class FrameSinkId;
 class FrameTreeNodeInfo;
 class GlobalRenderFrameHostId;
@@ -55,6 +65,14 @@ namespace perfetto_pbzero_enum_BackForwardCacheCanStoreDocumentResult {
 enum BackForwardCacheNotRestoredReason : int32_t;
 }  // namespace perfetto_pbzero_enum_BackForwardCacheCanStoreDocumentResult
 using BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason = perfetto_pbzero_enum_BackForwardCacheCanStoreDocumentResult::BackForwardCacheNotRestoredReason;
+namespace perfetto_pbzero_enum_BeginFrameArgsV2 {
+enum BeginFrameArgsType : int32_t;
+}  // namespace perfetto_pbzero_enum_BeginFrameArgsV2
+using BeginFrameArgsV2_BeginFrameArgsType = perfetto_pbzero_enum_BeginFrameArgsV2::BeginFrameArgsType;
+namespace perfetto_pbzero_enum_BeginImplFrameArgsV2 {
+enum State : int32_t;
+}  // namespace perfetto_pbzero_enum_BeginImplFrameArgsV2
+using BeginImplFrameArgsV2_State = perfetto_pbzero_enum_BeginImplFrameArgsV2::State;
 namespace perfetto_pbzero_enum_BlinkExecutionContext {
 enum ContextType : int32_t;
 }  // namespace perfetto_pbzero_enum_BlinkExecutionContext
@@ -79,6 +97,35 @@ namespace perfetto_pbzero_enum_ChildProcessLauncherPriority {
 enum Importance : int32_t;
 }  // namespace perfetto_pbzero_enum_ChildProcessLauncherPriority
 using ChildProcessLauncherPriority_Importance = perfetto_pbzero_enum_ChildProcessLauncherPriority::Importance;
+enum ChromeCompositorSchedulerActionV2 : int32_t;
+namespace perfetto_pbzero_enum_ChromeCompositorSchedulerStateV2 {
+enum BeginImplFrameDeadlineMode : int32_t;
+}  // namespace perfetto_pbzero_enum_ChromeCompositorSchedulerStateV2
+using ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode = perfetto_pbzero_enum_ChromeCompositorSchedulerStateV2::BeginImplFrameDeadlineMode;
+namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2 {
+enum BeginImplFrameState : int32_t;
+}  // namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2
+using ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState = perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2::BeginImplFrameState;
+namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2 {
+enum BeginMainFrameState : int32_t;
+}  // namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2
+using ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState = perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2::BeginMainFrameState;
+namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2 {
+enum ForcedRedrawOnTimeoutState : int32_t;
+}  // namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2
+using ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState = perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2::ForcedRedrawOnTimeoutState;
+namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2 {
+enum LayerTreeFrameSinkState : int32_t;
+}  // namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2
+using ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState = perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2::LayerTreeFrameSinkState;
+namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MinorStateV2 {
+enum ScrollHandlerState : int32_t;
+}  // namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MinorStateV2
+using ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState = perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MinorStateV2::ScrollHandlerState;
+namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MinorStateV2 {
+enum TreePriority : int32_t;
+}  // namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MinorStateV2
+using ChromeCompositorStateMachineV2_MinorStateV2_TreePriority = perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MinorStateV2::TreePriority;
 namespace perfetto_pbzero_enum_ChromeGraphicsPipeline {
 enum FrameSkippedReason : int32_t;
 }  // namespace perfetto_pbzero_enum_ChromeGraphicsPipeline
@@ -372,6 +419,384 @@ const char* DeviceThermalState_Name(::perfetto::protos::pbzero::DeviceThermalSta
 
   case ::perfetto::protos::pbzero::DeviceThermalState::DEVICE_THERMAL_STATE_CRITICAL:
     return "DEVICE_THERMAL_STATE_CRITICAL";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+enum ChromeCompositorSchedulerActionV2 : int32_t {
+  CC_SCHEDULER_ACTION_V2_UNSPECIFIED = 0,
+  CC_SCHEDULER_ACTION_V2_NONE = 1,
+  CC_SCHEDULER_ACTION_V2_SEND_BEGIN_MAIN_FRAME = 2,
+  CC_SCHEDULER_ACTION_V2_COMMIT = 3,
+  CC_SCHEDULER_ACTION_V2_POST_COMMIT = 14,
+  CC_SCHEDULER_ACTION_V2_ACTIVATE_SYNC_TREE = 4,
+  CC_SCHEDULER_ACTION_V2_DRAW_IF_POSSIBLE = 5,
+  CC_SCHEDULER_ACTION_V2_DRAW_FORCED = 6,
+  CC_SCHEDULER_ACTION_V2_DRAW_ABORT = 7,
+  CC_SCHEDULER_ACTION_V2_BEGIN_LAYER_TREE_FRAME_SINK_CREATION = 8,
+  CC_SCHEDULER_ACTION_V2_PREPARE_TILES = 9,
+  CC_SCHEDULER_ACTION_V2_INVALIDATE_LAYER_TREE_FRAME_SINK = 10,
+  CC_SCHEDULER_ACTION_V2_PERFORM_IMPL_SIDE_INVALIDATION = 11,
+  CC_SCHEDULER_ACTION_V2_NOTIFY_BEGIN_MAIN_FRAME_NOT_EXPECTED_UNTIL = 12,
+  CC_SCHEDULER_ACTION_V2_NOTIFY_BEGIN_MAIN_FRAME_NOT_EXPECTED_SOON = 13,
+};
+
+constexpr ChromeCompositorSchedulerActionV2 ChromeCompositorSchedulerActionV2_MIN = ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_UNSPECIFIED;
+constexpr ChromeCompositorSchedulerActionV2 ChromeCompositorSchedulerActionV2_MAX = ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_POST_COMMIT;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* ChromeCompositorSchedulerActionV2_Name(::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2 value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_UNSPECIFIED:
+    return "CC_SCHEDULER_ACTION_V2_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_NONE:
+    return "CC_SCHEDULER_ACTION_V2_NONE";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_SEND_BEGIN_MAIN_FRAME:
+    return "CC_SCHEDULER_ACTION_V2_SEND_BEGIN_MAIN_FRAME";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_COMMIT:
+    return "CC_SCHEDULER_ACTION_V2_COMMIT";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_POST_COMMIT:
+    return "CC_SCHEDULER_ACTION_V2_POST_COMMIT";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_ACTIVATE_SYNC_TREE:
+    return "CC_SCHEDULER_ACTION_V2_ACTIVATE_SYNC_TREE";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_DRAW_IF_POSSIBLE:
+    return "CC_SCHEDULER_ACTION_V2_DRAW_IF_POSSIBLE";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_DRAW_FORCED:
+    return "CC_SCHEDULER_ACTION_V2_DRAW_FORCED";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_DRAW_ABORT:
+    return "CC_SCHEDULER_ACTION_V2_DRAW_ABORT";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_BEGIN_LAYER_TREE_FRAME_SINK_CREATION:
+    return "CC_SCHEDULER_ACTION_V2_BEGIN_LAYER_TREE_FRAME_SINK_CREATION";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_PREPARE_TILES:
+    return "CC_SCHEDULER_ACTION_V2_PREPARE_TILES";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_INVALIDATE_LAYER_TREE_FRAME_SINK:
+    return "CC_SCHEDULER_ACTION_V2_INVALIDATE_LAYER_TREE_FRAME_SINK";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_PERFORM_IMPL_SIDE_INVALIDATION:
+    return "CC_SCHEDULER_ACTION_V2_PERFORM_IMPL_SIDE_INVALIDATION";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_NOTIFY_BEGIN_MAIN_FRAME_NOT_EXPECTED_UNTIL:
+    return "CC_SCHEDULER_ACTION_V2_NOTIFY_BEGIN_MAIN_FRAME_NOT_EXPECTED_UNTIL";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_NOTIFY_BEGIN_MAIN_FRAME_NOT_EXPECTED_SOON:
+    return "CC_SCHEDULER_ACTION_V2_NOTIFY_BEGIN_MAIN_FRAME_NOT_EXPECTED_SOON";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_BeginImplFrameArgsV2 {
+enum State : int32_t {
+  BEGIN_FRAME_FINISHED = 0,
+  BEGIN_FRAME_USING = 1,
+};
+} // namespace perfetto_pbzero_enum_BeginImplFrameArgsV2
+using BeginImplFrameArgsV2_State = perfetto_pbzero_enum_BeginImplFrameArgsV2::State;
+
+
+constexpr BeginImplFrameArgsV2_State BeginImplFrameArgsV2_State_MIN = BeginImplFrameArgsV2_State::BEGIN_FRAME_FINISHED;
+constexpr BeginImplFrameArgsV2_State BeginImplFrameArgsV2_State_MAX = BeginImplFrameArgsV2_State::BEGIN_FRAME_USING;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* BeginImplFrameArgsV2_State_Name(::perfetto::protos::pbzero::BeginImplFrameArgsV2_State value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::BeginImplFrameArgsV2_State::BEGIN_FRAME_FINISHED:
+    return "BEGIN_FRAME_FINISHED";
+
+  case ::perfetto::protos::pbzero::BeginImplFrameArgsV2_State::BEGIN_FRAME_USING:
+    return "BEGIN_FRAME_USING";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_BeginFrameArgsV2 {
+enum BeginFrameArgsType : int32_t {
+  BEGIN_FRAME_ARGS_TYPE_UNSPECIFIED = 0,
+  BEGIN_FRAME_ARGS_TYPE_INVALID = 1,
+  BEGIN_FRAME_ARGS_TYPE_NORMAL = 2,
+  BEGIN_FRAME_ARGS_TYPE_MISSED = 3,
+};
+} // namespace perfetto_pbzero_enum_BeginFrameArgsV2
+using BeginFrameArgsV2_BeginFrameArgsType = perfetto_pbzero_enum_BeginFrameArgsV2::BeginFrameArgsType;
+
+
+constexpr BeginFrameArgsV2_BeginFrameArgsType BeginFrameArgsV2_BeginFrameArgsType_MIN = BeginFrameArgsV2_BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_UNSPECIFIED;
+constexpr BeginFrameArgsV2_BeginFrameArgsType BeginFrameArgsV2_BeginFrameArgsType_MAX = BeginFrameArgsV2_BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_MISSED;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* BeginFrameArgsV2_BeginFrameArgsType_Name(::perfetto::protos::pbzero::BeginFrameArgsV2_BeginFrameArgsType value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::BeginFrameArgsV2_BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_UNSPECIFIED:
+    return "BEGIN_FRAME_ARGS_TYPE_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::BeginFrameArgsV2_BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_INVALID:
+    return "BEGIN_FRAME_ARGS_TYPE_INVALID";
+
+  case ::perfetto::protos::pbzero::BeginFrameArgsV2_BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_NORMAL:
+    return "BEGIN_FRAME_ARGS_TYPE_NORMAL";
+
+  case ::perfetto::protos::pbzero::BeginFrameArgsV2_BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_MISSED:
+    return "BEGIN_FRAME_ARGS_TYPE_MISSED";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MinorStateV2 {
+enum TreePriority : int32_t {
+  TREE_PRIORITY_UNSPECIFIED = 0,
+  TREE_PRIORITY_SAME_PRIORITY_FOR_BOTH_TREES = 1,
+  TREE_PRIORITY_SMOOTHNESS_TAKES_PRIORITY = 2,
+  TREE_PRIORITY_NEW_CONTENT_TAKES_PRIORITY = 3,
+};
+} // namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MinorStateV2
+using ChromeCompositorStateMachineV2_MinorStateV2_TreePriority = perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MinorStateV2::TreePriority;
+
+
+constexpr ChromeCompositorStateMachineV2_MinorStateV2_TreePriority ChromeCompositorStateMachineV2_MinorStateV2_TreePriority_MIN = ChromeCompositorStateMachineV2_MinorStateV2_TreePriority::TREE_PRIORITY_UNSPECIFIED;
+constexpr ChromeCompositorStateMachineV2_MinorStateV2_TreePriority ChromeCompositorStateMachineV2_MinorStateV2_TreePriority_MAX = ChromeCompositorStateMachineV2_MinorStateV2_TreePriority::TREE_PRIORITY_NEW_CONTENT_TAKES_PRIORITY;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* ChromeCompositorStateMachineV2_MinorStateV2_TreePriority_Name(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_TreePriority value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_TreePriority::TREE_PRIORITY_UNSPECIFIED:
+    return "TREE_PRIORITY_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_TreePriority::TREE_PRIORITY_SAME_PRIORITY_FOR_BOTH_TREES:
+    return "TREE_PRIORITY_SAME_PRIORITY_FOR_BOTH_TREES";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_TreePriority::TREE_PRIORITY_SMOOTHNESS_TAKES_PRIORITY:
+    return "TREE_PRIORITY_SMOOTHNESS_TAKES_PRIORITY";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_TreePriority::TREE_PRIORITY_NEW_CONTENT_TAKES_PRIORITY:
+    return "TREE_PRIORITY_NEW_CONTENT_TAKES_PRIORITY";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MinorStateV2 {
+enum ScrollHandlerState : int32_t {
+  SCROLL_HANDLER_UNSPECIFIED = 0,
+  SCROLL_AFFECTS_SCROLL_HANDLER = 1,
+  SCROLL_DOES_NOT_AFFECT_SCROLL_HANDLER = 2,
+};
+} // namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MinorStateV2
+using ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState = perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MinorStateV2::ScrollHandlerState;
+
+
+constexpr ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState_MIN = ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState::SCROLL_HANDLER_UNSPECIFIED;
+constexpr ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState_MAX = ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState::SCROLL_DOES_NOT_AFFECT_SCROLL_HANDLER;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState_Name(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState::SCROLL_HANDLER_UNSPECIFIED:
+    return "SCROLL_HANDLER_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState::SCROLL_AFFECTS_SCROLL_HANDLER:
+    return "SCROLL_AFFECTS_SCROLL_HANDLER";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState::SCROLL_DOES_NOT_AFFECT_SCROLL_HANDLER:
+    return "SCROLL_DOES_NOT_AFFECT_SCROLL_HANDLER";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2 {
+enum BeginImplFrameState : int32_t {
+  BEGIN_IMPL_FRAME_UNSPECIFIED = 0,
+  BEGIN_IMPL_FRAME_IDLE = 1,
+  BEGIN_IMPL_FRAME_INSIDE_BEGIN_FRAME = 2,
+  BEGIN_IMPL_FRAME_INSIDE_DEADLINE = 3,
+};
+} // namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2
+using ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState = perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2::BeginImplFrameState;
+
+
+constexpr ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState_MIN = ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState::BEGIN_IMPL_FRAME_UNSPECIFIED;
+constexpr ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState_MAX = ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState::BEGIN_IMPL_FRAME_INSIDE_DEADLINE;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState_Name(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState::BEGIN_IMPL_FRAME_UNSPECIFIED:
+    return "BEGIN_IMPL_FRAME_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState::BEGIN_IMPL_FRAME_IDLE:
+    return "BEGIN_IMPL_FRAME_IDLE";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState::BEGIN_IMPL_FRAME_INSIDE_BEGIN_FRAME:
+    return "BEGIN_IMPL_FRAME_INSIDE_BEGIN_FRAME";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState::BEGIN_IMPL_FRAME_INSIDE_DEADLINE:
+    return "BEGIN_IMPL_FRAME_INSIDE_DEADLINE";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2 {
+enum BeginMainFrameState : int32_t {
+  BEGIN_MAIN_FRAME_UNSPECIFIED = 0,
+  BEGIN_MAIN_FRAME_IDLE = 1,
+  BEGIN_MAIN_FRAME_SENT = 2,
+  BEGIN_MAIN_FRAME_READY_TO_COMMIT = 3,
+};
+} // namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2
+using ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState = perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2::BeginMainFrameState;
+
+
+constexpr ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState_MIN = ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState::BEGIN_MAIN_FRAME_UNSPECIFIED;
+constexpr ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState_MAX = ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState::BEGIN_MAIN_FRAME_READY_TO_COMMIT;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState_Name(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState::BEGIN_MAIN_FRAME_UNSPECIFIED:
+    return "BEGIN_MAIN_FRAME_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState::BEGIN_MAIN_FRAME_IDLE:
+    return "BEGIN_MAIN_FRAME_IDLE";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState::BEGIN_MAIN_FRAME_SENT:
+    return "BEGIN_MAIN_FRAME_SENT";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState::BEGIN_MAIN_FRAME_READY_TO_COMMIT:
+    return "BEGIN_MAIN_FRAME_READY_TO_COMMIT";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2 {
+enum LayerTreeFrameSinkState : int32_t {
+  LAYER_TREE_FRAME_UNSPECIFIED = 0,
+  LAYER_TREE_FRAME_NONE = 1,
+  LAYER_TREE_FRAME_ACTIVE = 2,
+  LAYER_TREE_FRAME_CREATING = 3,
+  LAYER_TREE_FRAME_WAITING_FOR_FIRST_COMMIT = 4,
+  LAYER_TREE_FRAME_WAITING_FOR_FIRST_ACTIVATION = 5,
+};
+} // namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2
+using ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState = perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2::LayerTreeFrameSinkState;
+
+
+constexpr ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState_MIN = ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState::LAYER_TREE_FRAME_UNSPECIFIED;
+constexpr ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState_MAX = ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState::LAYER_TREE_FRAME_WAITING_FOR_FIRST_ACTIVATION;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState_Name(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState::LAYER_TREE_FRAME_UNSPECIFIED:
+    return "LAYER_TREE_FRAME_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState::LAYER_TREE_FRAME_NONE:
+    return "LAYER_TREE_FRAME_NONE";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState::LAYER_TREE_FRAME_ACTIVE:
+    return "LAYER_TREE_FRAME_ACTIVE";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState::LAYER_TREE_FRAME_CREATING:
+    return "LAYER_TREE_FRAME_CREATING";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState::LAYER_TREE_FRAME_WAITING_FOR_FIRST_COMMIT:
+    return "LAYER_TREE_FRAME_WAITING_FOR_FIRST_COMMIT";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState::LAYER_TREE_FRAME_WAITING_FOR_FIRST_ACTIVATION:
+    return "LAYER_TREE_FRAME_WAITING_FOR_FIRST_ACTIVATION";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2 {
+enum ForcedRedrawOnTimeoutState : int32_t {
+  FORCED_REDRAW_UNSPECIFIED = 0,
+  FORCED_REDRAW_IDLE = 1,
+  FORCED_REDRAW_WAITING_FOR_COMMIT = 2,
+  FORCED_REDRAW_WAITING_FOR_ACTIVATION = 3,
+  FORCED_REDRAW_WAITING_FOR_DRAW = 4,
+};
+} // namespace perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2
+using ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState = perfetto_pbzero_enum_ChromeCompositorStateMachineV2_MajorStateV2::ForcedRedrawOnTimeoutState;
+
+
+constexpr ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState_MIN = ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState::FORCED_REDRAW_UNSPECIFIED;
+constexpr ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState_MAX = ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState::FORCED_REDRAW_WAITING_FOR_DRAW;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState_Name(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState::FORCED_REDRAW_UNSPECIFIED:
+    return "FORCED_REDRAW_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState::FORCED_REDRAW_IDLE:
+    return "FORCED_REDRAW_IDLE";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState::FORCED_REDRAW_WAITING_FOR_COMMIT:
+    return "FORCED_REDRAW_WAITING_FOR_COMMIT";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState::FORCED_REDRAW_WAITING_FOR_ACTIVATION:
+    return "FORCED_REDRAW_WAITING_FOR_ACTIVATION";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState::FORCED_REDRAW_WAITING_FOR_DRAW:
+    return "FORCED_REDRAW_WAITING_FOR_DRAW";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_ChromeCompositorSchedulerStateV2 {
+enum BeginImplFrameDeadlineMode : int32_t {
+  DEADLINE_MODE_UNSPECIFIED = 0,
+  DEADLINE_MODE_NONE = 1,
+  DEADLINE_MODE_IMMEDIATE = 2,
+  DEADLINE_MODE_REGULAR = 3,
+  DEADLINE_MODE_LATE = 4,
+  DEADLINE_MODE_BLOCKED = 5,
+};
+} // namespace perfetto_pbzero_enum_ChromeCompositorSchedulerStateV2
+using ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode = perfetto_pbzero_enum_ChromeCompositorSchedulerStateV2::BeginImplFrameDeadlineMode;
+
+
+constexpr ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode_MIN = ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode::DEADLINE_MODE_UNSPECIFIED;
+constexpr ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode_MAX = ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode::DEADLINE_MODE_BLOCKED;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode_Name(::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode::DEADLINE_MODE_UNSPECIFIED:
+    return "DEADLINE_MODE_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode::DEADLINE_MODE_NONE:
+    return "DEADLINE_MODE_NONE";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode::DEADLINE_MODE_IMMEDIATE:
+    return "DEADLINE_MODE_IMMEDIATE";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode::DEADLINE_MODE_REGULAR:
+    return "DEADLINE_MODE_REGULAR";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode::DEADLINE_MODE_LATE:
+    return "DEADLINE_MODE_LATE";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode::DEADLINE_MODE_BLOCKED:
+    return "DEADLINE_MODE_BLOCKED";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -2650,6 +3075,2405 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
+
+class CompositorTimingHistoryV2_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  CompositorTimingHistoryV2_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit CompositorTimingHistoryV2_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit CompositorTimingHistoryV2_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_begin_main_frame_queue_critical_estimate_delta_us() const { return at<1>().valid(); }
+  int64_t begin_main_frame_queue_critical_estimate_delta_us() const { return at<1>().as_int64(); }
+  bool has_begin_main_frame_queue_not_critical_estimate_delta_us() const { return at<2>().valid(); }
+  int64_t begin_main_frame_queue_not_critical_estimate_delta_us() const { return at<2>().as_int64(); }
+  bool has_begin_main_frame_start_to_ready_to_commit_estimate_delta_us() const { return at<3>().valid(); }
+  int64_t begin_main_frame_start_to_ready_to_commit_estimate_delta_us() const { return at<3>().as_int64(); }
+  bool has_commit_to_ready_to_activate_estimate_delta_us() const { return at<4>().valid(); }
+  int64_t commit_to_ready_to_activate_estimate_delta_us() const { return at<4>().as_int64(); }
+  bool has_prepare_tiles_estimate_delta_us() const { return at<5>().valid(); }
+  int64_t prepare_tiles_estimate_delta_us() const { return at<5>().as_int64(); }
+  bool has_activate_estimate_delta_us() const { return at<6>().valid(); }
+  int64_t activate_estimate_delta_us() const { return at<6>().as_int64(); }
+  bool has_draw_estimate_delta_us() const { return at<7>().valid(); }
+  int64_t draw_estimate_delta_us() const { return at<7>().as_int64(); }
+};
+
+class CompositorTimingHistoryV2 : public ::protozero::Message {
+ public:
+  using Decoder = CompositorTimingHistoryV2_Decoder;
+  enum : int32_t {
+    kBeginMainFrameQueueCriticalEstimateDeltaUsFieldNumber = 1,
+    kBeginMainFrameQueueNotCriticalEstimateDeltaUsFieldNumber = 2,
+    kBeginMainFrameStartToReadyToCommitEstimateDeltaUsFieldNumber = 3,
+    kCommitToReadyToActivateEstimateDeltaUsFieldNumber = 4,
+    kPrepareTilesEstimateDeltaUsFieldNumber = 5,
+    kActivateEstimateDeltaUsFieldNumber = 6,
+    kDrawEstimateDeltaUsFieldNumber = 7,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.CompositorTimingHistoryV2"; }
+
+
+  using FieldMetadata_BeginMainFrameQueueCriticalEstimateDeltaUs =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      CompositorTimingHistoryV2>;
+
+  static constexpr FieldMetadata_BeginMainFrameQueueCriticalEstimateDeltaUs kBeginMainFrameQueueCriticalEstimateDeltaUs{};
+  void set_begin_main_frame_queue_critical_estimate_delta_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_BeginMainFrameQueueCriticalEstimateDeltaUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_BeginMainFrameQueueNotCriticalEstimateDeltaUs =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      CompositorTimingHistoryV2>;
+
+  static constexpr FieldMetadata_BeginMainFrameQueueNotCriticalEstimateDeltaUs kBeginMainFrameQueueNotCriticalEstimateDeltaUs{};
+  void set_begin_main_frame_queue_not_critical_estimate_delta_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_BeginMainFrameQueueNotCriticalEstimateDeltaUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_BeginMainFrameStartToReadyToCommitEstimateDeltaUs =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      CompositorTimingHistoryV2>;
+
+  static constexpr FieldMetadata_BeginMainFrameStartToReadyToCommitEstimateDeltaUs kBeginMainFrameStartToReadyToCommitEstimateDeltaUs{};
+  void set_begin_main_frame_start_to_ready_to_commit_estimate_delta_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_BeginMainFrameStartToReadyToCommitEstimateDeltaUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_CommitToReadyToActivateEstimateDeltaUs =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      CompositorTimingHistoryV2>;
+
+  static constexpr FieldMetadata_CommitToReadyToActivateEstimateDeltaUs kCommitToReadyToActivateEstimateDeltaUs{};
+  void set_commit_to_ready_to_activate_estimate_delta_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_CommitToReadyToActivateEstimateDeltaUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PrepareTilesEstimateDeltaUs =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      CompositorTimingHistoryV2>;
+
+  static constexpr FieldMetadata_PrepareTilesEstimateDeltaUs kPrepareTilesEstimateDeltaUs{};
+  void set_prepare_tiles_estimate_delta_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_PrepareTilesEstimateDeltaUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ActivateEstimateDeltaUs =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      CompositorTimingHistoryV2>;
+
+  static constexpr FieldMetadata_ActivateEstimateDeltaUs kActivateEstimateDeltaUs{};
+  void set_activate_estimate_delta_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ActivateEstimateDeltaUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DrawEstimateDeltaUs =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      CompositorTimingHistoryV2>;
+
+  static constexpr FieldMetadata_DrawEstimateDeltaUs kDrawEstimateDeltaUs{};
+  void set_draw_estimate_delta_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DrawEstimateDeltaUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class BeginFrameSourceStateV2_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  BeginFrameSourceStateV2_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit BeginFrameSourceStateV2_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit BeginFrameSourceStateV2_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_source_id() const { return at<1>().valid(); }
+  uint32_t source_id() const { return at<1>().as_uint32(); }
+  bool has_paused() const { return at<2>().valid(); }
+  bool paused() const { return at<2>().as_bool(); }
+  bool has_num_observers() const { return at<3>().valid(); }
+  uint32_t num_observers() const { return at<3>().as_uint32(); }
+  bool has_last_begin_frame_args() const { return at<4>().valid(); }
+  ::protozero::ConstBytes last_begin_frame_args() const { return at<4>().as_bytes(); }
+};
+
+class BeginFrameSourceStateV2 : public ::protozero::Message {
+ public:
+  using Decoder = BeginFrameSourceStateV2_Decoder;
+  enum : int32_t {
+    kSourceIdFieldNumber = 1,
+    kPausedFieldNumber = 2,
+    kNumObserversFieldNumber = 3,
+    kLastBeginFrameArgsFieldNumber = 4,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.BeginFrameSourceStateV2"; }
+
+
+  using FieldMetadata_SourceId =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      BeginFrameSourceStateV2>;
+
+  static constexpr FieldMetadata_SourceId kSourceId{};
+  void set_source_id(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SourceId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Paused =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      BeginFrameSourceStateV2>;
+
+  static constexpr FieldMetadata_Paused kPaused{};
+  void set_paused(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_Paused::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NumObservers =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      BeginFrameSourceStateV2>;
+
+  static constexpr FieldMetadata_NumObservers kNumObservers{};
+  void set_num_observers(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_NumObservers::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LastBeginFrameArgs =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BeginFrameArgsV2,
+      BeginFrameSourceStateV2>;
+
+  static constexpr FieldMetadata_LastBeginFrameArgs kLastBeginFrameArgs{};
+  template <typename T = BeginFrameArgsV2> T* set_last_begin_frame_args() {
+    return BeginNestedMessage<T>(4);
+  }
+
+};
+
+class BeginFrameObserverStateV2_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  BeginFrameObserverStateV2_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit BeginFrameObserverStateV2_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit BeginFrameObserverStateV2_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_dropped_begin_frame_args() const { return at<1>().valid(); }
+  int64_t dropped_begin_frame_args() const { return at<1>().as_int64(); }
+  bool has_last_begin_frame_args() const { return at<2>().valid(); }
+  ::protozero::ConstBytes last_begin_frame_args() const { return at<2>().as_bytes(); }
+};
+
+class BeginFrameObserverStateV2 : public ::protozero::Message {
+ public:
+  using Decoder = BeginFrameObserverStateV2_Decoder;
+  enum : int32_t {
+    kDroppedBeginFrameArgsFieldNumber = 1,
+    kLastBeginFrameArgsFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.BeginFrameObserverStateV2"; }
+
+
+  using FieldMetadata_DroppedBeginFrameArgs =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BeginFrameObserverStateV2>;
+
+  static constexpr FieldMetadata_DroppedBeginFrameArgs kDroppedBeginFrameArgs{};
+  void set_dropped_begin_frame_args(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DroppedBeginFrameArgs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LastBeginFrameArgs =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BeginFrameArgsV2,
+      BeginFrameObserverStateV2>;
+
+  static constexpr FieldMetadata_LastBeginFrameArgs kLastBeginFrameArgs{};
+  template <typename T = BeginFrameArgsV2> T* set_last_begin_frame_args() {
+    return BeginNestedMessage<T>(2);
+  }
+
+};
+
+class BeginImplFrameArgsV2_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/6, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  BeginImplFrameArgsV2_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit BeginImplFrameArgsV2_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit BeginImplFrameArgsV2_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_updated_at_us() const { return at<1>().valid(); }
+  int64_t updated_at_us() const { return at<1>().as_int64(); }
+  bool has_finished_at_us() const { return at<2>().valid(); }
+  int64_t finished_at_us() const { return at<2>().as_int64(); }
+  bool has_state() const { return at<3>().valid(); }
+  int32_t state() const { return at<3>().as_int32(); }
+  bool has_current_args() const { return at<4>().valid(); }
+  ::protozero::ConstBytes current_args() const { return at<4>().as_bytes(); }
+  bool has_last_args() const { return at<5>().valid(); }
+  ::protozero::ConstBytes last_args() const { return at<5>().as_bytes(); }
+  bool has_timestamps_in_us() const { return at<6>().valid(); }
+  ::protozero::ConstBytes timestamps_in_us() const { return at<6>().as_bytes(); }
+};
+
+class BeginImplFrameArgsV2 : public ::protozero::Message {
+ public:
+  using Decoder = BeginImplFrameArgsV2_Decoder;
+  enum : int32_t {
+    kUpdatedAtUsFieldNumber = 1,
+    kFinishedAtUsFieldNumber = 2,
+    kStateFieldNumber = 3,
+    kCurrentArgsFieldNumber = 4,
+    kLastArgsFieldNumber = 5,
+    kTimestampsInUsFieldNumber = 6,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.BeginImplFrameArgsV2"; }
+
+  using TimestampsInUs = ::perfetto::protos::pbzero::BeginImplFrameArgsV2_TimestampsInUs;
+
+  using State = ::perfetto::protos::pbzero::BeginImplFrameArgsV2_State;
+  static inline const char* State_Name(State value) {
+    return ::perfetto::protos::pbzero::BeginImplFrameArgsV2_State_Name(value);
+  }
+  static inline const State BEGIN_FRAME_FINISHED = State::BEGIN_FRAME_FINISHED;
+  static inline const State BEGIN_FRAME_USING = State::BEGIN_FRAME_USING;
+
+  using FieldMetadata_UpdatedAtUs =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BeginImplFrameArgsV2>;
+
+  static constexpr FieldMetadata_UpdatedAtUs kUpdatedAtUs{};
+  void set_updated_at_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_UpdatedAtUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FinishedAtUs =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BeginImplFrameArgsV2>;
+
+  static constexpr FieldMetadata_FinishedAtUs kFinishedAtUs{};
+  void set_finished_at_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FinishedAtUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_State =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::BeginImplFrameArgsV2_State,
+      BeginImplFrameArgsV2>;
+
+  static constexpr FieldMetadata_State kState{};
+  void set_state(::perfetto::protos::pbzero::BeginImplFrameArgsV2_State value) {
+    static constexpr uint32_t field_id = FieldMetadata_State::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_CurrentArgs =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BeginFrameArgsV2,
+      BeginImplFrameArgsV2>;
+
+  static constexpr FieldMetadata_CurrentArgs kCurrentArgs{};
+  template <typename T = BeginFrameArgsV2> T* set_current_args() {
+    return BeginNestedMessage<T>(4);
+  }
+
+
+  using FieldMetadata_LastArgs =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BeginFrameArgsV2,
+      BeginImplFrameArgsV2>;
+
+  static constexpr FieldMetadata_LastArgs kLastArgs{};
+  template <typename T = BeginFrameArgsV2> T* set_last_args() {
+    return BeginNestedMessage<T>(5);
+  }
+
+
+  using FieldMetadata_TimestampsInUs =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BeginImplFrameArgsV2_TimestampsInUs,
+      BeginImplFrameArgsV2>;
+
+  static constexpr FieldMetadata_TimestampsInUs kTimestampsInUs{};
+  template <typename T = BeginImplFrameArgsV2_TimestampsInUs> T* set_timestamps_in_us() {
+    return BeginNestedMessage<T>(6);
+  }
+
+};
+
+class BeginImplFrameArgsV2_TimestampsInUs_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  BeginImplFrameArgsV2_TimestampsInUs_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit BeginImplFrameArgsV2_TimestampsInUs_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit BeginImplFrameArgsV2_TimestampsInUs_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_interval_delta() const { return at<1>().valid(); }
+  int64_t interval_delta() const { return at<1>().as_int64(); }
+  bool has_now_to_deadline_delta() const { return at<2>().valid(); }
+  int64_t now_to_deadline_delta() const { return at<2>().as_int64(); }
+  bool has_frame_time_to_now_delta() const { return at<3>().valid(); }
+  int64_t frame_time_to_now_delta() const { return at<3>().as_int64(); }
+  bool has_frame_time_to_deadline_delta() const { return at<4>().valid(); }
+  int64_t frame_time_to_deadline_delta() const { return at<4>().as_int64(); }
+  bool has_now() const { return at<5>().valid(); }
+  int64_t now() const { return at<5>().as_int64(); }
+  bool has_frame_time() const { return at<6>().valid(); }
+  int64_t frame_time() const { return at<6>().as_int64(); }
+  bool has_deadline() const { return at<7>().valid(); }
+  int64_t deadline() const { return at<7>().as_int64(); }
+};
+
+class BeginImplFrameArgsV2_TimestampsInUs : public ::protozero::Message {
+ public:
+  using Decoder = BeginImplFrameArgsV2_TimestampsInUs_Decoder;
+  enum : int32_t {
+    kIntervalDeltaFieldNumber = 1,
+    kNowToDeadlineDeltaFieldNumber = 2,
+    kFrameTimeToNowDeltaFieldNumber = 3,
+    kFrameTimeToDeadlineDeltaFieldNumber = 4,
+    kNowFieldNumber = 5,
+    kFrameTimeFieldNumber = 6,
+    kDeadlineFieldNumber = 7,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.BeginImplFrameArgsV2.TimestampsInUs"; }
+
+
+  using FieldMetadata_IntervalDelta =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BeginImplFrameArgsV2_TimestampsInUs>;
+
+  static constexpr FieldMetadata_IntervalDelta kIntervalDelta{};
+  void set_interval_delta(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_IntervalDelta::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NowToDeadlineDelta =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BeginImplFrameArgsV2_TimestampsInUs>;
+
+  static constexpr FieldMetadata_NowToDeadlineDelta kNowToDeadlineDelta{};
+  void set_now_to_deadline_delta(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_NowToDeadlineDelta::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FrameTimeToNowDelta =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BeginImplFrameArgsV2_TimestampsInUs>;
+
+  static constexpr FieldMetadata_FrameTimeToNowDelta kFrameTimeToNowDelta{};
+  void set_frame_time_to_now_delta(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FrameTimeToNowDelta::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FrameTimeToDeadlineDelta =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BeginImplFrameArgsV2_TimestampsInUs>;
+
+  static constexpr FieldMetadata_FrameTimeToDeadlineDelta kFrameTimeToDeadlineDelta{};
+  void set_frame_time_to_deadline_delta(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FrameTimeToDeadlineDelta::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Now =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BeginImplFrameArgsV2_TimestampsInUs>;
+
+  static constexpr FieldMetadata_Now kNow{};
+  void set_now(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Now::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FrameTime =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BeginImplFrameArgsV2_TimestampsInUs>;
+
+  static constexpr FieldMetadata_FrameTime kFrameTime{};
+  void set_frame_time(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FrameTime::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Deadline =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BeginImplFrameArgsV2_TimestampsInUs>;
+
+  static constexpr FieldMetadata_Deadline kDeadline{};
+  void set_deadline(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Deadline::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class BeginFrameArgsV2_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/11, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  BeginFrameArgsV2_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit BeginFrameArgsV2_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit BeginFrameArgsV2_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_type() const { return at<1>().valid(); }
+  int32_t type() const { return at<1>().as_int32(); }
+  bool has_source_id() const { return at<2>().valid(); }
+  uint64_t source_id() const { return at<2>().as_uint64(); }
+  bool has_sequence_number() const { return at<3>().valid(); }
+  uint64_t sequence_number() const { return at<3>().as_uint64(); }
+  bool has_frame_time_us() const { return at<4>().valid(); }
+  int64_t frame_time_us() const { return at<4>().as_int64(); }
+  bool has_deadline_us() const { return at<5>().valid(); }
+  int64_t deadline_us() const { return at<5>().as_int64(); }
+  bool has_interval_delta_us() const { return at<6>().valid(); }
+  int64_t interval_delta_us() const { return at<6>().as_int64(); }
+  bool has_on_critical_path() const { return at<7>().valid(); }
+  bool on_critical_path() const { return at<7>().as_bool(); }
+  bool has_animate_only() const { return at<8>().valid(); }
+  bool animate_only() const { return at<8>().as_bool(); }
+  bool has_source_location_iid() const { return at<9>().valid(); }
+  uint64_t source_location_iid() const { return at<9>().as_uint64(); }
+  bool has_source_location() const { return at<10>().valid(); }
+  ::protozero::ConstBytes source_location() const { return at<10>().as_bytes(); }
+  bool has_frames_throttled_since_last() const { return at<11>().valid(); }
+  int64_t frames_throttled_since_last() const { return at<11>().as_int64(); }
+};
+
+class BeginFrameArgsV2 : public ::protozero::Message {
+ public:
+  using Decoder = BeginFrameArgsV2_Decoder;
+  enum : int32_t {
+    kTypeFieldNumber = 1,
+    kSourceIdFieldNumber = 2,
+    kSequenceNumberFieldNumber = 3,
+    kFrameTimeUsFieldNumber = 4,
+    kDeadlineUsFieldNumber = 5,
+    kIntervalDeltaUsFieldNumber = 6,
+    kOnCriticalPathFieldNumber = 7,
+    kAnimateOnlyFieldNumber = 8,
+    kSourceLocationIidFieldNumber = 9,
+    kSourceLocationFieldNumber = 10,
+    kFramesThrottledSinceLastFieldNumber = 11,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.BeginFrameArgsV2"; }
+
+
+  using BeginFrameArgsType = ::perfetto::protos::pbzero::BeginFrameArgsV2_BeginFrameArgsType;
+  static inline const char* BeginFrameArgsType_Name(BeginFrameArgsType value) {
+    return ::perfetto::protos::pbzero::BeginFrameArgsV2_BeginFrameArgsType_Name(value);
+  }
+  static inline const BeginFrameArgsType BEGIN_FRAME_ARGS_TYPE_UNSPECIFIED = BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_UNSPECIFIED;
+  static inline const BeginFrameArgsType BEGIN_FRAME_ARGS_TYPE_INVALID = BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_INVALID;
+  static inline const BeginFrameArgsType BEGIN_FRAME_ARGS_TYPE_NORMAL = BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_NORMAL;
+  static inline const BeginFrameArgsType BEGIN_FRAME_ARGS_TYPE_MISSED = BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_MISSED;
+
+  using FieldMetadata_Type =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::BeginFrameArgsV2_BeginFrameArgsType,
+      BeginFrameArgsV2>;
+
+  static constexpr FieldMetadata_Type kType{};
+  void set_type(::perfetto::protos::pbzero::BeginFrameArgsV2_BeginFrameArgsType value) {
+    static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SourceId =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      BeginFrameArgsV2>;
+
+  static constexpr FieldMetadata_SourceId kSourceId{};
+  void set_source_id(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SourceId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SequenceNumber =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      BeginFrameArgsV2>;
+
+  static constexpr FieldMetadata_SequenceNumber kSequenceNumber{};
+  void set_sequence_number(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SequenceNumber::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FrameTimeUs =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BeginFrameArgsV2>;
+
+  static constexpr FieldMetadata_FrameTimeUs kFrameTimeUs{};
+  void set_frame_time_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FrameTimeUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DeadlineUs =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BeginFrameArgsV2>;
+
+  static constexpr FieldMetadata_DeadlineUs kDeadlineUs{};
+  void set_deadline_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DeadlineUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_IntervalDeltaUs =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BeginFrameArgsV2>;
+
+  static constexpr FieldMetadata_IntervalDeltaUs kIntervalDeltaUs{};
+  void set_interval_delta_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_IntervalDeltaUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_OnCriticalPath =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      BeginFrameArgsV2>;
+
+  static constexpr FieldMetadata_OnCriticalPath kOnCriticalPath{};
+  void set_on_critical_path(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_OnCriticalPath::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_AnimateOnly =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      BeginFrameArgsV2>;
+
+  static constexpr FieldMetadata_AnimateOnly kAnimateOnly{};
+  void set_animate_only(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_AnimateOnly::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SourceLocationIid =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      BeginFrameArgsV2>;
+
+  static constexpr FieldMetadata_SourceLocationIid kSourceLocationIid{};
+  void set_source_location_iid(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SourceLocationIid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SourceLocation =
+    ::protozero::proto_utils::FieldMetadata<
+      10,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      SourceLocation,
+      BeginFrameArgsV2>;
+
+  static constexpr FieldMetadata_SourceLocation kSourceLocation{};
+  template <typename T = SourceLocation> T* set_source_location() {
+    return BeginNestedMessage<T>(10);
+  }
+
+
+  using FieldMetadata_FramesThrottledSinceLast =
+    ::protozero::proto_utils::FieldMetadata<
+      11,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BeginFrameArgsV2>;
+
+  static constexpr FieldMetadata_FramesThrottledSinceLast kFramesThrottledSinceLast{};
+  void set_frames_throttled_since_last(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FramesThrottledSinceLast::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class ChromeCompositorStateMachineV2_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  ChromeCompositorStateMachineV2_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit ChromeCompositorStateMachineV2_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit ChromeCompositorStateMachineV2_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_major_state() const { return at<1>().valid(); }
+  ::protozero::ConstBytes major_state() const { return at<1>().as_bytes(); }
+  bool has_minor_state() const { return at<2>().valid(); }
+  ::protozero::ConstBytes minor_state() const { return at<2>().as_bytes(); }
+};
+
+class ChromeCompositorStateMachineV2 : public ::protozero::Message {
+ public:
+  using Decoder = ChromeCompositorStateMachineV2_Decoder;
+  enum : int32_t {
+    kMajorStateFieldNumber = 1,
+    kMinorStateFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.ChromeCompositorStateMachineV2"; }
+
+  using MajorStateV2 = ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2;
+  using MinorStateV2 = ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2;
+
+  using FieldMetadata_MajorState =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ChromeCompositorStateMachineV2_MajorStateV2,
+      ChromeCompositorStateMachineV2>;
+
+  static constexpr FieldMetadata_MajorState kMajorState{};
+  template <typename T = ChromeCompositorStateMachineV2_MajorStateV2> T* set_major_state() {
+    return BeginNestedMessage<T>(1);
+  }
+
+
+  using FieldMetadata_MinorState =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ChromeCompositorStateMachineV2_MinorStateV2,
+      ChromeCompositorStateMachineV2>;
+
+  static constexpr FieldMetadata_MinorState kMinorState{};
+  template <typename T = ChromeCompositorStateMachineV2_MinorStateV2> T* set_minor_state() {
+    return BeginNestedMessage<T>(2);
+  }
+
+};
+
+class ChromeCompositorStateMachineV2_MinorStateV2_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/46, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  ChromeCompositorStateMachineV2_MinorStateV2_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit ChromeCompositorStateMachineV2_MinorStateV2_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit ChromeCompositorStateMachineV2_MinorStateV2_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_commit_count() const { return at<1>().valid(); }
+  int32_t commit_count() const { return at<1>().as_int32(); }
+  bool has_current_frame_number() const { return at<2>().valid(); }
+  int32_t current_frame_number() const { return at<2>().as_int32(); }
+  bool has_last_frame_number_submit_performed() const { return at<3>().valid(); }
+  int32_t last_frame_number_submit_performed() const { return at<3>().as_int32(); }
+  bool has_last_frame_number_draw_performed() const { return at<4>().valid(); }
+  int32_t last_frame_number_draw_performed() const { return at<4>().as_int32(); }
+  bool has_last_frame_number_begin_main_frame_sent() const { return at<5>().valid(); }
+  int32_t last_frame_number_begin_main_frame_sent() const { return at<5>().as_int32(); }
+  bool has_did_draw() const { return at<6>().valid(); }
+  bool did_draw() const { return at<6>().as_bool(); }
+  bool has_did_send_begin_main_frame_for_current_frame() const { return at<7>().valid(); }
+  bool did_send_begin_main_frame_for_current_frame() const { return at<7>().as_bool(); }
+  bool has_did_notify_begin_main_frame_not_expected_until() const { return at<8>().valid(); }
+  bool did_notify_begin_main_frame_not_expected_until() const { return at<8>().as_bool(); }
+  bool has_did_notify_begin_main_frame_not_expected_soon() const { return at<9>().valid(); }
+  bool did_notify_begin_main_frame_not_expected_soon() const { return at<9>().as_bool(); }
+  bool has_wants_begin_main_frame_not_expected() const { return at<10>().valid(); }
+  bool wants_begin_main_frame_not_expected() const { return at<10>().as_bool(); }
+  bool has_did_commit_during_frame() const { return at<11>().valid(); }
+  bool did_commit_during_frame() const { return at<11>().as_bool(); }
+  bool has_did_invalidate_layer_tree_frame_sink() const { return at<12>().valid(); }
+  bool did_invalidate_layer_tree_frame_sink() const { return at<12>().as_bool(); }
+  bool has_did_perform_impl_side_invalidaion() const { return at<13>().valid(); }
+  bool did_perform_impl_side_invalidaion() const { return at<13>().as_bool(); }
+  bool has_did_prepare_tiles() const { return at<14>().valid(); }
+  bool did_prepare_tiles() const { return at<14>().as_bool(); }
+  bool has_consecutive_checkerboard_animations() const { return at<15>().valid(); }
+  int32_t consecutive_checkerboard_animations() const { return at<15>().as_int32(); }
+  bool has_pending_submit_frames() const { return at<16>().valid(); }
+  int32_t pending_submit_frames() const { return at<16>().as_int32(); }
+  bool has_submit_frames_with_current_layer_tree_frame_sink() const { return at<17>().valid(); }
+  int32_t submit_frames_with_current_layer_tree_frame_sink() const { return at<17>().as_int32(); }
+  bool has_needs_redraw() const { return at<18>().valid(); }
+  bool needs_redraw() const { return at<18>().as_bool(); }
+  bool has_needs_prepare_tiles() const { return at<19>().valid(); }
+  bool needs_prepare_tiles() const { return at<19>().as_bool(); }
+  bool has_needs_begin_main_frame() const { return at<20>().valid(); }
+  bool needs_begin_main_frame() const { return at<20>().as_bool(); }
+  bool has_needs_one_begin_impl_frame() const { return at<21>().valid(); }
+  bool needs_one_begin_impl_frame() const { return at<21>().as_bool(); }
+  bool has_visible() const { return at<22>().valid(); }
+  bool visible() const { return at<22>().as_bool(); }
+  bool has_begin_frame_source_paused() const { return at<23>().valid(); }
+  bool begin_frame_source_paused() const { return at<23>().as_bool(); }
+  bool has_can_draw() const { return at<24>().valid(); }
+  bool can_draw() const { return at<24>().as_bool(); }
+  bool has_resourceless_draw() const { return at<25>().valid(); }
+  bool resourceless_draw() const { return at<25>().as_bool(); }
+  bool has_has_pending_tree() const { return at<26>().valid(); }
+  bool has_pending_tree() const { return at<26>().as_bool(); }
+  bool has_pending_tree_is_ready_for_activation() const { return at<27>().valid(); }
+  bool pending_tree_is_ready_for_activation() const { return at<27>().as_bool(); }
+  bool has_active_tree_needs_first_draw() const { return at<28>().valid(); }
+  bool active_tree_needs_first_draw() const { return at<28>().as_bool(); }
+  bool has_active_tree_is_ready_to_draw() const { return at<29>().valid(); }
+  bool active_tree_is_ready_to_draw() const { return at<29>().as_bool(); }
+  bool has_did_create_and_initialize_first_layer_tree_frame_sink() const { return at<30>().valid(); }
+  bool did_create_and_initialize_first_layer_tree_frame_sink() const { return at<30>().as_bool(); }
+  bool has_tree_priority() const { return at<31>().valid(); }
+  int32_t tree_priority() const { return at<31>().as_int32(); }
+  bool has_scroll_handler_state() const { return at<32>().valid(); }
+  int32_t scroll_handler_state() const { return at<32>().as_int32(); }
+  bool has_critical_begin_main_frame_to_activate_is_fast() const { return at<33>().valid(); }
+  bool critical_begin_main_frame_to_activate_is_fast() const { return at<33>().as_bool(); }
+  bool has_main_thread_missed_last_deadline() const { return at<34>().valid(); }
+  bool main_thread_missed_last_deadline() const { return at<34>().as_bool(); }
+  bool has_video_needs_begin_frames() const { return at<36>().valid(); }
+  bool video_needs_begin_frames() const { return at<36>().as_bool(); }
+  bool has_defer_begin_main_frame() const { return at<37>().valid(); }
+  bool defer_begin_main_frame() const { return at<37>().as_bool(); }
+  bool has_last_commit_had_no_updates() const { return at<38>().valid(); }
+  bool last_commit_had_no_updates() const { return at<38>().as_bool(); }
+  bool has_did_draw_in_last_frame() const { return at<39>().valid(); }
+  bool did_draw_in_last_frame() const { return at<39>().as_bool(); }
+  bool has_did_submit_in_last_frame() const { return at<40>().valid(); }
+  bool did_submit_in_last_frame() const { return at<40>().as_bool(); }
+  bool has_needs_impl_side_invalidation() const { return at<41>().valid(); }
+  bool needs_impl_side_invalidation() const { return at<41>().as_bool(); }
+  bool has_current_pending_tree_is_impl_side() const { return at<42>().valid(); }
+  bool current_pending_tree_is_impl_side() const { return at<42>().as_bool(); }
+  bool has_previous_pending_tree_was_impl_side() const { return at<43>().valid(); }
+  bool previous_pending_tree_was_impl_side() const { return at<43>().as_bool(); }
+  bool has_processing_animation_worklets_for_active_tree() const { return at<44>().valid(); }
+  bool processing_animation_worklets_for_active_tree() const { return at<44>().as_bool(); }
+  bool has_processing_animation_worklets_for_pending_tree() const { return at<45>().valid(); }
+  bool processing_animation_worklets_for_pending_tree() const { return at<45>().as_bool(); }
+  bool has_processing_paint_worklets_for_pending_tree() const { return at<46>().valid(); }
+  bool processing_paint_worklets_for_pending_tree() const { return at<46>().as_bool(); }
+};
+
+class ChromeCompositorStateMachineV2_MinorStateV2 : public ::protozero::Message {
+ public:
+  using Decoder = ChromeCompositorStateMachineV2_MinorStateV2_Decoder;
+  enum : int32_t {
+    kCommitCountFieldNumber = 1,
+    kCurrentFrameNumberFieldNumber = 2,
+    kLastFrameNumberSubmitPerformedFieldNumber = 3,
+    kLastFrameNumberDrawPerformedFieldNumber = 4,
+    kLastFrameNumberBeginMainFrameSentFieldNumber = 5,
+    kDidDrawFieldNumber = 6,
+    kDidSendBeginMainFrameForCurrentFrameFieldNumber = 7,
+    kDidNotifyBeginMainFrameNotExpectedUntilFieldNumber = 8,
+    kDidNotifyBeginMainFrameNotExpectedSoonFieldNumber = 9,
+    kWantsBeginMainFrameNotExpectedFieldNumber = 10,
+    kDidCommitDuringFrameFieldNumber = 11,
+    kDidInvalidateLayerTreeFrameSinkFieldNumber = 12,
+    kDidPerformImplSideInvalidaionFieldNumber = 13,
+    kDidPrepareTilesFieldNumber = 14,
+    kConsecutiveCheckerboardAnimationsFieldNumber = 15,
+    kPendingSubmitFramesFieldNumber = 16,
+    kSubmitFramesWithCurrentLayerTreeFrameSinkFieldNumber = 17,
+    kNeedsRedrawFieldNumber = 18,
+    kNeedsPrepareTilesFieldNumber = 19,
+    kNeedsBeginMainFrameFieldNumber = 20,
+    kNeedsOneBeginImplFrameFieldNumber = 21,
+    kVisibleFieldNumber = 22,
+    kBeginFrameSourcePausedFieldNumber = 23,
+    kCanDrawFieldNumber = 24,
+    kResourcelessDrawFieldNumber = 25,
+    kHasPendingTreeFieldNumber = 26,
+    kPendingTreeIsReadyForActivationFieldNumber = 27,
+    kActiveTreeNeedsFirstDrawFieldNumber = 28,
+    kActiveTreeIsReadyToDrawFieldNumber = 29,
+    kDidCreateAndInitializeFirstLayerTreeFrameSinkFieldNumber = 30,
+    kTreePriorityFieldNumber = 31,
+    kScrollHandlerStateFieldNumber = 32,
+    kCriticalBeginMainFrameToActivateIsFastFieldNumber = 33,
+    kMainThreadMissedLastDeadlineFieldNumber = 34,
+    kVideoNeedsBeginFramesFieldNumber = 36,
+    kDeferBeginMainFrameFieldNumber = 37,
+    kLastCommitHadNoUpdatesFieldNumber = 38,
+    kDidDrawInLastFrameFieldNumber = 39,
+    kDidSubmitInLastFrameFieldNumber = 40,
+    kNeedsImplSideInvalidationFieldNumber = 41,
+    kCurrentPendingTreeIsImplSideFieldNumber = 42,
+    kPreviousPendingTreeWasImplSideFieldNumber = 43,
+    kProcessingAnimationWorkletsForActiveTreeFieldNumber = 44,
+    kProcessingAnimationWorkletsForPendingTreeFieldNumber = 45,
+    kProcessingPaintWorkletsForPendingTreeFieldNumber = 46,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.ChromeCompositorStateMachineV2.MinorStateV2"; }
+
+
+  using TreePriority = ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_TreePriority;
+  static inline const char* TreePriority_Name(TreePriority value) {
+    return ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_TreePriority_Name(value);
+  }
+
+  using ScrollHandlerState = ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState;
+  static inline const char* ScrollHandlerState_Name(ScrollHandlerState value) {
+    return ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState_Name(value);
+  }
+  static inline const TreePriority TREE_PRIORITY_UNSPECIFIED = TreePriority::TREE_PRIORITY_UNSPECIFIED;
+  static inline const TreePriority TREE_PRIORITY_SAME_PRIORITY_FOR_BOTH_TREES = TreePriority::TREE_PRIORITY_SAME_PRIORITY_FOR_BOTH_TREES;
+  static inline const TreePriority TREE_PRIORITY_SMOOTHNESS_TAKES_PRIORITY = TreePriority::TREE_PRIORITY_SMOOTHNESS_TAKES_PRIORITY;
+  static inline const TreePriority TREE_PRIORITY_NEW_CONTENT_TAKES_PRIORITY = TreePriority::TREE_PRIORITY_NEW_CONTENT_TAKES_PRIORITY;
+  static inline const ScrollHandlerState SCROLL_HANDLER_UNSPECIFIED = ScrollHandlerState::SCROLL_HANDLER_UNSPECIFIED;
+  static inline const ScrollHandlerState SCROLL_AFFECTS_SCROLL_HANDLER = ScrollHandlerState::SCROLL_AFFECTS_SCROLL_HANDLER;
+  static inline const ScrollHandlerState SCROLL_DOES_NOT_AFFECT_SCROLL_HANDLER = ScrollHandlerState::SCROLL_DOES_NOT_AFFECT_SCROLL_HANDLER;
+
+  using FieldMetadata_CommitCount =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_CommitCount kCommitCount{};
+  void set_commit_count(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_CommitCount::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_CurrentFrameNumber =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_CurrentFrameNumber kCurrentFrameNumber{};
+  void set_current_frame_number(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_CurrentFrameNumber::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LastFrameNumberSubmitPerformed =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_LastFrameNumberSubmitPerformed kLastFrameNumberSubmitPerformed{};
+  void set_last_frame_number_submit_performed(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_LastFrameNumberSubmitPerformed::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LastFrameNumberDrawPerformed =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_LastFrameNumberDrawPerformed kLastFrameNumberDrawPerformed{};
+  void set_last_frame_number_draw_performed(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_LastFrameNumberDrawPerformed::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LastFrameNumberBeginMainFrameSent =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_LastFrameNumberBeginMainFrameSent kLastFrameNumberBeginMainFrameSent{};
+  void set_last_frame_number_begin_main_frame_sent(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_LastFrameNumberBeginMainFrameSent::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DidDraw =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_DidDraw kDidDraw{};
+  void set_did_draw(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DidDraw::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DidSendBeginMainFrameForCurrentFrame =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_DidSendBeginMainFrameForCurrentFrame kDidSendBeginMainFrameForCurrentFrame{};
+  void set_did_send_begin_main_frame_for_current_frame(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DidSendBeginMainFrameForCurrentFrame::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DidNotifyBeginMainFrameNotExpectedUntil =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_DidNotifyBeginMainFrameNotExpectedUntil kDidNotifyBeginMainFrameNotExpectedUntil{};
+  void set_did_notify_begin_main_frame_not_expected_until(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DidNotifyBeginMainFrameNotExpectedUntil::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DidNotifyBeginMainFrameNotExpectedSoon =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_DidNotifyBeginMainFrameNotExpectedSoon kDidNotifyBeginMainFrameNotExpectedSoon{};
+  void set_did_notify_begin_main_frame_not_expected_soon(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DidNotifyBeginMainFrameNotExpectedSoon::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_WantsBeginMainFrameNotExpected =
+    ::protozero::proto_utils::FieldMetadata<
+      10,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_WantsBeginMainFrameNotExpected kWantsBeginMainFrameNotExpected{};
+  void set_wants_begin_main_frame_not_expected(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_WantsBeginMainFrameNotExpected::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DidCommitDuringFrame =
+    ::protozero::proto_utils::FieldMetadata<
+      11,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_DidCommitDuringFrame kDidCommitDuringFrame{};
+  void set_did_commit_during_frame(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DidCommitDuringFrame::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DidInvalidateLayerTreeFrameSink =
+    ::protozero::proto_utils::FieldMetadata<
+      12,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_DidInvalidateLayerTreeFrameSink kDidInvalidateLayerTreeFrameSink{};
+  void set_did_invalidate_layer_tree_frame_sink(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DidInvalidateLayerTreeFrameSink::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DidPerformImplSideInvalidaion =
+    ::protozero::proto_utils::FieldMetadata<
+      13,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_DidPerformImplSideInvalidaion kDidPerformImplSideInvalidaion{};
+  void set_did_perform_impl_side_invalidaion(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DidPerformImplSideInvalidaion::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DidPrepareTiles =
+    ::protozero::proto_utils::FieldMetadata<
+      14,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_DidPrepareTiles kDidPrepareTiles{};
+  void set_did_prepare_tiles(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DidPrepareTiles::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ConsecutiveCheckerboardAnimations =
+    ::protozero::proto_utils::FieldMetadata<
+      15,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_ConsecutiveCheckerboardAnimations kConsecutiveCheckerboardAnimations{};
+  void set_consecutive_checkerboard_animations(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ConsecutiveCheckerboardAnimations::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PendingSubmitFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      16,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_PendingSubmitFrames kPendingSubmitFrames{};
+  void set_pending_submit_frames(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_PendingSubmitFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SubmitFramesWithCurrentLayerTreeFrameSink =
+    ::protozero::proto_utils::FieldMetadata<
+      17,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_SubmitFramesWithCurrentLayerTreeFrameSink kSubmitFramesWithCurrentLayerTreeFrameSink{};
+  void set_submit_frames_with_current_layer_tree_frame_sink(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SubmitFramesWithCurrentLayerTreeFrameSink::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NeedsRedraw =
+    ::protozero::proto_utils::FieldMetadata<
+      18,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_NeedsRedraw kNeedsRedraw{};
+  void set_needs_redraw(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_NeedsRedraw::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NeedsPrepareTiles =
+    ::protozero::proto_utils::FieldMetadata<
+      19,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_NeedsPrepareTiles kNeedsPrepareTiles{};
+  void set_needs_prepare_tiles(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_NeedsPrepareTiles::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NeedsBeginMainFrame =
+    ::protozero::proto_utils::FieldMetadata<
+      20,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_NeedsBeginMainFrame kNeedsBeginMainFrame{};
+  void set_needs_begin_main_frame(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_NeedsBeginMainFrame::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NeedsOneBeginImplFrame =
+    ::protozero::proto_utils::FieldMetadata<
+      21,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_NeedsOneBeginImplFrame kNeedsOneBeginImplFrame{};
+  void set_needs_one_begin_impl_frame(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_NeedsOneBeginImplFrame::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Visible =
+    ::protozero::proto_utils::FieldMetadata<
+      22,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_Visible kVisible{};
+  void set_visible(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_Visible::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_BeginFrameSourcePaused =
+    ::protozero::proto_utils::FieldMetadata<
+      23,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_BeginFrameSourcePaused kBeginFrameSourcePaused{};
+  void set_begin_frame_source_paused(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_BeginFrameSourcePaused::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_CanDraw =
+    ::protozero::proto_utils::FieldMetadata<
+      24,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_CanDraw kCanDraw{};
+  void set_can_draw(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_CanDraw::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ResourcelessDraw =
+    ::protozero::proto_utils::FieldMetadata<
+      25,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_ResourcelessDraw kResourcelessDraw{};
+  void set_resourceless_draw(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_ResourcelessDraw::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_HasPendingTree =
+    ::protozero::proto_utils::FieldMetadata<
+      26,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_HasPendingTree kHasPendingTree{};
+  void set_has_pending_tree(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_HasPendingTree::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PendingTreeIsReadyForActivation =
+    ::protozero::proto_utils::FieldMetadata<
+      27,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_PendingTreeIsReadyForActivation kPendingTreeIsReadyForActivation{};
+  void set_pending_tree_is_ready_for_activation(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_PendingTreeIsReadyForActivation::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ActiveTreeNeedsFirstDraw =
+    ::protozero::proto_utils::FieldMetadata<
+      28,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_ActiveTreeNeedsFirstDraw kActiveTreeNeedsFirstDraw{};
+  void set_active_tree_needs_first_draw(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_ActiveTreeNeedsFirstDraw::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ActiveTreeIsReadyToDraw =
+    ::protozero::proto_utils::FieldMetadata<
+      29,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_ActiveTreeIsReadyToDraw kActiveTreeIsReadyToDraw{};
+  void set_active_tree_is_ready_to_draw(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_ActiveTreeIsReadyToDraw::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DidCreateAndInitializeFirstLayerTreeFrameSink =
+    ::protozero::proto_utils::FieldMetadata<
+      30,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_DidCreateAndInitializeFirstLayerTreeFrameSink kDidCreateAndInitializeFirstLayerTreeFrameSink{};
+  void set_did_create_and_initialize_first_layer_tree_frame_sink(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DidCreateAndInitializeFirstLayerTreeFrameSink::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_TreePriority =
+    ::protozero::proto_utils::FieldMetadata<
+      31,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_TreePriority,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_TreePriority kTreePriority{};
+  void set_tree_priority(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_TreePriority value) {
+    static constexpr uint32_t field_id = FieldMetadata_TreePriority::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ScrollHandlerState =
+    ::protozero::proto_utils::FieldMetadata<
+      32,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_ScrollHandlerState kScrollHandlerState{};
+  void set_scroll_handler_state(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState value) {
+    static constexpr uint32_t field_id = FieldMetadata_ScrollHandlerState::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_CriticalBeginMainFrameToActivateIsFast =
+    ::protozero::proto_utils::FieldMetadata<
+      33,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_CriticalBeginMainFrameToActivateIsFast kCriticalBeginMainFrameToActivateIsFast{};
+  void set_critical_begin_main_frame_to_activate_is_fast(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_CriticalBeginMainFrameToActivateIsFast::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_MainThreadMissedLastDeadline =
+    ::protozero::proto_utils::FieldMetadata<
+      34,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_MainThreadMissedLastDeadline kMainThreadMissedLastDeadline{};
+  void set_main_thread_missed_last_deadline(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_MainThreadMissedLastDeadline::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_VideoNeedsBeginFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      36,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_VideoNeedsBeginFrames kVideoNeedsBeginFrames{};
+  void set_video_needs_begin_frames(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_VideoNeedsBeginFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DeferBeginMainFrame =
+    ::protozero::proto_utils::FieldMetadata<
+      37,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_DeferBeginMainFrame kDeferBeginMainFrame{};
+  void set_defer_begin_main_frame(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DeferBeginMainFrame::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LastCommitHadNoUpdates =
+    ::protozero::proto_utils::FieldMetadata<
+      38,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_LastCommitHadNoUpdates kLastCommitHadNoUpdates{};
+  void set_last_commit_had_no_updates(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_LastCommitHadNoUpdates::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DidDrawInLastFrame =
+    ::protozero::proto_utils::FieldMetadata<
+      39,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_DidDrawInLastFrame kDidDrawInLastFrame{};
+  void set_did_draw_in_last_frame(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DidDrawInLastFrame::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DidSubmitInLastFrame =
+    ::protozero::proto_utils::FieldMetadata<
+      40,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_DidSubmitInLastFrame kDidSubmitInLastFrame{};
+  void set_did_submit_in_last_frame(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DidSubmitInLastFrame::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NeedsImplSideInvalidation =
+    ::protozero::proto_utils::FieldMetadata<
+      41,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_NeedsImplSideInvalidation kNeedsImplSideInvalidation{};
+  void set_needs_impl_side_invalidation(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_NeedsImplSideInvalidation::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_CurrentPendingTreeIsImplSide =
+    ::protozero::proto_utils::FieldMetadata<
+      42,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_CurrentPendingTreeIsImplSide kCurrentPendingTreeIsImplSide{};
+  void set_current_pending_tree_is_impl_side(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_CurrentPendingTreeIsImplSide::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PreviousPendingTreeWasImplSide =
+    ::protozero::proto_utils::FieldMetadata<
+      43,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_PreviousPendingTreeWasImplSide kPreviousPendingTreeWasImplSide{};
+  void set_previous_pending_tree_was_impl_side(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_PreviousPendingTreeWasImplSide::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ProcessingAnimationWorkletsForActiveTree =
+    ::protozero::proto_utils::FieldMetadata<
+      44,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_ProcessingAnimationWorkletsForActiveTree kProcessingAnimationWorkletsForActiveTree{};
+  void set_processing_animation_worklets_for_active_tree(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_ProcessingAnimationWorkletsForActiveTree::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ProcessingAnimationWorkletsForPendingTree =
+    ::protozero::proto_utils::FieldMetadata<
+      45,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_ProcessingAnimationWorkletsForPendingTree kProcessingAnimationWorkletsForPendingTree{};
+  void set_processing_animation_worklets_for_pending_tree(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_ProcessingAnimationWorkletsForPendingTree::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ProcessingPaintWorkletsForPendingTree =
+    ::protozero::proto_utils::FieldMetadata<
+      46,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorStateMachineV2_MinorStateV2>;
+
+  static constexpr FieldMetadata_ProcessingPaintWorkletsForPendingTree kProcessingPaintWorkletsForPendingTree{};
+  void set_processing_paint_worklets_for_pending_tree(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_ProcessingPaintWorkletsForPendingTree::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class ChromeCompositorStateMachineV2_MajorStateV2_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  ChromeCompositorStateMachineV2_MajorStateV2_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit ChromeCompositorStateMachineV2_MajorStateV2_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit ChromeCompositorStateMachineV2_MajorStateV2_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_next_action() const { return at<1>().valid(); }
+  int32_t next_action() const { return at<1>().as_int32(); }
+  bool has_begin_impl_frame_state() const { return at<2>().valid(); }
+  int32_t begin_impl_frame_state() const { return at<2>().as_int32(); }
+  bool has_begin_main_frame_state() const { return at<3>().valid(); }
+  int32_t begin_main_frame_state() const { return at<3>().as_int32(); }
+  bool has_layer_tree_frame_sink_state() const { return at<4>().valid(); }
+  int32_t layer_tree_frame_sink_state() const { return at<4>().as_int32(); }
+  bool has_forced_redraw_state() const { return at<5>().valid(); }
+  int32_t forced_redraw_state() const { return at<5>().as_int32(); }
+};
+
+class ChromeCompositorStateMachineV2_MajorStateV2 : public ::protozero::Message {
+ public:
+  using Decoder = ChromeCompositorStateMachineV2_MajorStateV2_Decoder;
+  enum : int32_t {
+    kNextActionFieldNumber = 1,
+    kBeginImplFrameStateFieldNumber = 2,
+    kBeginMainFrameStateFieldNumber = 3,
+    kLayerTreeFrameSinkStateFieldNumber = 4,
+    kForcedRedrawStateFieldNumber = 5,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.ChromeCompositorStateMachineV2.MajorStateV2"; }
+
+
+  using BeginImplFrameState = ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState;
+  static inline const char* BeginImplFrameState_Name(BeginImplFrameState value) {
+    return ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState_Name(value);
+  }
+
+  using BeginMainFrameState = ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState;
+  static inline const char* BeginMainFrameState_Name(BeginMainFrameState value) {
+    return ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState_Name(value);
+  }
+
+  using LayerTreeFrameSinkState = ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState;
+  static inline const char* LayerTreeFrameSinkState_Name(LayerTreeFrameSinkState value) {
+    return ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState_Name(value);
+  }
+
+  using ForcedRedrawOnTimeoutState = ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState;
+  static inline const char* ForcedRedrawOnTimeoutState_Name(ForcedRedrawOnTimeoutState value) {
+    return ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState_Name(value);
+  }
+  static inline const BeginImplFrameState BEGIN_IMPL_FRAME_UNSPECIFIED = BeginImplFrameState::BEGIN_IMPL_FRAME_UNSPECIFIED;
+  static inline const BeginImplFrameState BEGIN_IMPL_FRAME_IDLE = BeginImplFrameState::BEGIN_IMPL_FRAME_IDLE;
+  static inline const BeginImplFrameState BEGIN_IMPL_FRAME_INSIDE_BEGIN_FRAME = BeginImplFrameState::BEGIN_IMPL_FRAME_INSIDE_BEGIN_FRAME;
+  static inline const BeginImplFrameState BEGIN_IMPL_FRAME_INSIDE_DEADLINE = BeginImplFrameState::BEGIN_IMPL_FRAME_INSIDE_DEADLINE;
+  static inline const BeginMainFrameState BEGIN_MAIN_FRAME_UNSPECIFIED = BeginMainFrameState::BEGIN_MAIN_FRAME_UNSPECIFIED;
+  static inline const BeginMainFrameState BEGIN_MAIN_FRAME_IDLE = BeginMainFrameState::BEGIN_MAIN_FRAME_IDLE;
+  static inline const BeginMainFrameState BEGIN_MAIN_FRAME_SENT = BeginMainFrameState::BEGIN_MAIN_FRAME_SENT;
+  static inline const BeginMainFrameState BEGIN_MAIN_FRAME_READY_TO_COMMIT = BeginMainFrameState::BEGIN_MAIN_FRAME_READY_TO_COMMIT;
+  static inline const LayerTreeFrameSinkState LAYER_TREE_FRAME_UNSPECIFIED = LayerTreeFrameSinkState::LAYER_TREE_FRAME_UNSPECIFIED;
+  static inline const LayerTreeFrameSinkState LAYER_TREE_FRAME_NONE = LayerTreeFrameSinkState::LAYER_TREE_FRAME_NONE;
+  static inline const LayerTreeFrameSinkState LAYER_TREE_FRAME_ACTIVE = LayerTreeFrameSinkState::LAYER_TREE_FRAME_ACTIVE;
+  static inline const LayerTreeFrameSinkState LAYER_TREE_FRAME_CREATING = LayerTreeFrameSinkState::LAYER_TREE_FRAME_CREATING;
+  static inline const LayerTreeFrameSinkState LAYER_TREE_FRAME_WAITING_FOR_FIRST_COMMIT = LayerTreeFrameSinkState::LAYER_TREE_FRAME_WAITING_FOR_FIRST_COMMIT;
+  static inline const LayerTreeFrameSinkState LAYER_TREE_FRAME_WAITING_FOR_FIRST_ACTIVATION = LayerTreeFrameSinkState::LAYER_TREE_FRAME_WAITING_FOR_FIRST_ACTIVATION;
+  static inline const ForcedRedrawOnTimeoutState FORCED_REDRAW_UNSPECIFIED = ForcedRedrawOnTimeoutState::FORCED_REDRAW_UNSPECIFIED;
+  static inline const ForcedRedrawOnTimeoutState FORCED_REDRAW_IDLE = ForcedRedrawOnTimeoutState::FORCED_REDRAW_IDLE;
+  static inline const ForcedRedrawOnTimeoutState FORCED_REDRAW_WAITING_FOR_COMMIT = ForcedRedrawOnTimeoutState::FORCED_REDRAW_WAITING_FOR_COMMIT;
+  static inline const ForcedRedrawOnTimeoutState FORCED_REDRAW_WAITING_FOR_ACTIVATION = ForcedRedrawOnTimeoutState::FORCED_REDRAW_WAITING_FOR_ACTIVATION;
+  static inline const ForcedRedrawOnTimeoutState FORCED_REDRAW_WAITING_FOR_DRAW = ForcedRedrawOnTimeoutState::FORCED_REDRAW_WAITING_FOR_DRAW;
+
+  using FieldMetadata_NextAction =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2,
+      ChromeCompositorStateMachineV2_MajorStateV2>;
+
+  static constexpr FieldMetadata_NextAction kNextAction{};
+  void set_next_action(::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2 value) {
+    static constexpr uint32_t field_id = FieldMetadata_NextAction::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_BeginImplFrameState =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState,
+      ChromeCompositorStateMachineV2_MajorStateV2>;
+
+  static constexpr FieldMetadata_BeginImplFrameState kBeginImplFrameState{};
+  void set_begin_impl_frame_state(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState value) {
+    static constexpr uint32_t field_id = FieldMetadata_BeginImplFrameState::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_BeginMainFrameState =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState,
+      ChromeCompositorStateMachineV2_MajorStateV2>;
+
+  static constexpr FieldMetadata_BeginMainFrameState kBeginMainFrameState{};
+  void set_begin_main_frame_state(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState value) {
+    static constexpr uint32_t field_id = FieldMetadata_BeginMainFrameState::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LayerTreeFrameSinkState =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState,
+      ChromeCompositorStateMachineV2_MajorStateV2>;
+
+  static constexpr FieldMetadata_LayerTreeFrameSinkState kLayerTreeFrameSinkState{};
+  void set_layer_tree_frame_sink_state(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState value) {
+    static constexpr uint32_t field_id = FieldMetadata_LayerTreeFrameSinkState::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ForcedRedrawState =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState,
+      ChromeCompositorStateMachineV2_MajorStateV2>;
+
+  static constexpr FieldMetadata_ForcedRedrawState kForcedRedrawState{};
+  void set_forced_redraw_state(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState value) {
+    static constexpr uint32_t field_id = FieldMetadata_ForcedRedrawState::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class ChromeCompositorSchedulerStateV2_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/17, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  ChromeCompositorSchedulerStateV2_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit ChromeCompositorSchedulerStateV2_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit ChromeCompositorSchedulerStateV2_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_state_machine() const { return at<1>().valid(); }
+  ::protozero::ConstBytes state_machine() const { return at<1>().as_bytes(); }
+  bool has_observing_begin_frame_source() const { return at<2>().valid(); }
+  bool observing_begin_frame_source() const { return at<2>().as_bool(); }
+  bool has_begin_impl_frame_deadline_task() const { return at<3>().valid(); }
+  bool begin_impl_frame_deadline_task() const { return at<3>().as_bool(); }
+  bool has_pending_begin_frame_task() const { return at<4>().valid(); }
+  bool pending_begin_frame_task() const { return at<4>().as_bool(); }
+  bool has_skipped_last_frame_missed_exceeded_deadline() const { return at<5>().valid(); }
+  bool skipped_last_frame_missed_exceeded_deadline() const { return at<5>().as_bool(); }
+  bool has_inside_action() const { return at<7>().valid(); }
+  int32_t inside_action() const { return at<7>().as_int32(); }
+  bool has_deadline_mode() const { return at<8>().valid(); }
+  int32_t deadline_mode() const { return at<8>().as_int32(); }
+  bool has_deadline_us() const { return at<9>().valid(); }
+  int64_t deadline_us() const { return at<9>().as_int64(); }
+  bool has_deadline_scheduled_at_us() const { return at<10>().valid(); }
+  int64_t deadline_scheduled_at_us() const { return at<10>().as_int64(); }
+  bool has_now_us() const { return at<11>().valid(); }
+  int64_t now_us() const { return at<11>().as_int64(); }
+  bool has_now_to_deadline_delta_us() const { return at<12>().valid(); }
+  int64_t now_to_deadline_delta_us() const { return at<12>().as_int64(); }
+  bool has_now_to_deadline_scheduled_at_delta_us() const { return at<13>().valid(); }
+  int64_t now_to_deadline_scheduled_at_delta_us() const { return at<13>().as_int64(); }
+  bool has_begin_impl_frame_args() const { return at<14>().valid(); }
+  ::protozero::ConstBytes begin_impl_frame_args() const { return at<14>().as_bytes(); }
+  bool has_begin_frame_observer_state() const { return at<15>().valid(); }
+  ::protozero::ConstBytes begin_frame_observer_state() const { return at<15>().as_bytes(); }
+  bool has_begin_frame_source_state() const { return at<16>().valid(); }
+  ::protozero::ConstBytes begin_frame_source_state() const { return at<16>().as_bytes(); }
+  bool has_compositor_timing_history() const { return at<17>().valid(); }
+  ::protozero::ConstBytes compositor_timing_history() const { return at<17>().as_bytes(); }
+};
+
+class ChromeCompositorSchedulerStateV2 : public ::protozero::Message {
+ public:
+  using Decoder = ChromeCompositorSchedulerStateV2_Decoder;
+  enum : int32_t {
+    kStateMachineFieldNumber = 1,
+    kObservingBeginFrameSourceFieldNumber = 2,
+    kBeginImplFrameDeadlineTaskFieldNumber = 3,
+    kPendingBeginFrameTaskFieldNumber = 4,
+    kSkippedLastFrameMissedExceededDeadlineFieldNumber = 5,
+    kInsideActionFieldNumber = 7,
+    kDeadlineModeFieldNumber = 8,
+    kDeadlineUsFieldNumber = 9,
+    kDeadlineScheduledAtUsFieldNumber = 10,
+    kNowUsFieldNumber = 11,
+    kNowToDeadlineDeltaUsFieldNumber = 12,
+    kNowToDeadlineScheduledAtDeltaUsFieldNumber = 13,
+    kBeginImplFrameArgsFieldNumber = 14,
+    kBeginFrameObserverStateFieldNumber = 15,
+    kBeginFrameSourceStateFieldNumber = 16,
+    kCompositorTimingHistoryFieldNumber = 17,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.ChromeCompositorSchedulerStateV2"; }
+
+
+  using BeginImplFrameDeadlineMode = ::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode;
+  static inline const char* BeginImplFrameDeadlineMode_Name(BeginImplFrameDeadlineMode value) {
+    return ::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode_Name(value);
+  }
+  static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_UNSPECIFIED = BeginImplFrameDeadlineMode::DEADLINE_MODE_UNSPECIFIED;
+  static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_NONE = BeginImplFrameDeadlineMode::DEADLINE_MODE_NONE;
+  static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_IMMEDIATE = BeginImplFrameDeadlineMode::DEADLINE_MODE_IMMEDIATE;
+  static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_REGULAR = BeginImplFrameDeadlineMode::DEADLINE_MODE_REGULAR;
+  static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_LATE = BeginImplFrameDeadlineMode::DEADLINE_MODE_LATE;
+  static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_BLOCKED = BeginImplFrameDeadlineMode::DEADLINE_MODE_BLOCKED;
+
+  using FieldMetadata_StateMachine =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ChromeCompositorStateMachineV2,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_StateMachine kStateMachine{};
+  template <typename T = ChromeCompositorStateMachineV2> T* set_state_machine() {
+    return BeginNestedMessage<T>(1);
+  }
+
+
+  using FieldMetadata_ObservingBeginFrameSource =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_ObservingBeginFrameSource kObservingBeginFrameSource{};
+  void set_observing_begin_frame_source(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_ObservingBeginFrameSource::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_BeginImplFrameDeadlineTask =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_BeginImplFrameDeadlineTask kBeginImplFrameDeadlineTask{};
+  void set_begin_impl_frame_deadline_task(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_BeginImplFrameDeadlineTask::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PendingBeginFrameTask =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_PendingBeginFrameTask kPendingBeginFrameTask{};
+  void set_pending_begin_frame_task(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_PendingBeginFrameTask::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SkippedLastFrameMissedExceededDeadline =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_SkippedLastFrameMissedExceededDeadline kSkippedLastFrameMissedExceededDeadline{};
+  void set_skipped_last_frame_missed_exceeded_deadline(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_SkippedLastFrameMissedExceededDeadline::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_InsideAction =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_InsideAction kInsideAction{};
+  void set_inside_action(::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2 value) {
+    static constexpr uint32_t field_id = FieldMetadata_InsideAction::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DeadlineMode =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_DeadlineMode kDeadlineMode{};
+  void set_deadline_mode(::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode value) {
+    static constexpr uint32_t field_id = FieldMetadata_DeadlineMode::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DeadlineUs =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_DeadlineUs kDeadlineUs{};
+  void set_deadline_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DeadlineUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DeadlineScheduledAtUs =
+    ::protozero::proto_utils::FieldMetadata<
+      10,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_DeadlineScheduledAtUs kDeadlineScheduledAtUs{};
+  void set_deadline_scheduled_at_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DeadlineScheduledAtUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NowUs =
+    ::protozero::proto_utils::FieldMetadata<
+      11,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_NowUs kNowUs{};
+  void set_now_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_NowUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NowToDeadlineDeltaUs =
+    ::protozero::proto_utils::FieldMetadata<
+      12,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_NowToDeadlineDeltaUs kNowToDeadlineDeltaUs{};
+  void set_now_to_deadline_delta_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_NowToDeadlineDeltaUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NowToDeadlineScheduledAtDeltaUs =
+    ::protozero::proto_utils::FieldMetadata<
+      13,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_NowToDeadlineScheduledAtDeltaUs kNowToDeadlineScheduledAtDeltaUs{};
+  void set_now_to_deadline_scheduled_at_delta_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_NowToDeadlineScheduledAtDeltaUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_BeginImplFrameArgs =
+    ::protozero::proto_utils::FieldMetadata<
+      14,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BeginImplFrameArgsV2,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_BeginImplFrameArgs kBeginImplFrameArgs{};
+  template <typename T = BeginImplFrameArgsV2> T* set_begin_impl_frame_args() {
+    return BeginNestedMessage<T>(14);
+  }
+
+
+  using FieldMetadata_BeginFrameObserverState =
+    ::protozero::proto_utils::FieldMetadata<
+      15,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BeginFrameObserverStateV2,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_BeginFrameObserverState kBeginFrameObserverState{};
+  template <typename T = BeginFrameObserverStateV2> T* set_begin_frame_observer_state() {
+    return BeginNestedMessage<T>(15);
+  }
+
+
+  using FieldMetadata_BeginFrameSourceState =
+    ::protozero::proto_utils::FieldMetadata<
+      16,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BeginFrameSourceStateV2,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_BeginFrameSourceState kBeginFrameSourceState{};
+  template <typename T = BeginFrameSourceStateV2> T* set_begin_frame_source_state() {
+    return BeginNestedMessage<T>(16);
+  }
+
+
+  using FieldMetadata_CompositorTimingHistory =
+    ::protozero::proto_utils::FieldMetadata<
+      17,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      CompositorTimingHistoryV2,
+      ChromeCompositorSchedulerStateV2>;
+
+  static constexpr FieldMetadata_CompositorTimingHistory kCompositorTimingHistory{};
+  template <typename T = CompositorTimingHistoryV2> T* set_compositor_timing_history() {
+    return BeginNestedMessage<T>(17);
+  }
+
+};
 
 class ViewClassName_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
@@ -11924,6 +14748,20 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_ViewClassName kViewClassName{};
   template <typename T = ViewClassName> T* set_view_class_name() {
     return BeginNestedMessage<T>(1061);
+  }
+
+
+  using FieldMetadata_CcSchedulerState =
+    ::protozero::proto_utils::FieldMetadata<
+      1062,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ChromeCompositorSchedulerStateV2,
+      ChromeTrackEvent>;
+
+  static constexpr FieldMetadata_CcSchedulerState kCcSchedulerState{};
+  template <typename T = ChromeCompositorSchedulerStateV2> T* set_cc_scheduler_state() {
+    return BeginNestedMessage<T>(1062);
   }
 
 };

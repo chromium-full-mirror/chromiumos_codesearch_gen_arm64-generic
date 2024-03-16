@@ -32,6 +32,7 @@
 
 
 
+#include "device/bluetooth/public/mojom/gatt_characteristic_mojom_traits.h"
 #include "device/bluetooth/public/mojom/uuid_mojom_traits.h"
 
 

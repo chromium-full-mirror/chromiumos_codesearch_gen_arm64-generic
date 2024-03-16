@@ -203,6 +203,12 @@ extern GetLoginStatusReplyDefaultTypeInternal _GetLoginStatusReply_default_insta
 class GetLoginStatusRequest;
 struct GetLoginStatusRequestDefaultTypeInternal;
 extern GetLoginStatusRequestDefaultTypeInternal _GetLoginStatusRequest_default_instance_;
+class GetPinWeaverInfoReply;
+struct GetPinWeaverInfoReplyDefaultTypeInternal;
+extern GetPinWeaverInfoReplyDefaultTypeInternal _GetPinWeaverInfoReply_default_instance_;
+class GetPinWeaverInfoRequest;
+struct GetPinWeaverInfoRequestDefaultTypeInternal;
+extern GetPinWeaverInfoRequestDefaultTypeInternal _GetPinWeaverInfoRequest_default_instance_;
 class GetRecoverableKeyStoresReply;
 struct GetRecoverableKeyStoresReplyDefaultTypeInternal;
 extern GetRecoverableKeyStoresReplyDefaultTypeInternal _GetRecoverableKeyStoresReply_default_instance_;
@@ -557,6 +563,8 @@ template<> ::user_data_auth::GetHibernateSecretReply* Arena::CreateMaybeMessage<
 template<> ::user_data_auth::GetHibernateSecretRequest* Arena::CreateMaybeMessage<::user_data_auth::GetHibernateSecretRequest>(Arena*);
 template<> ::user_data_auth::GetLoginStatusReply* Arena::CreateMaybeMessage<::user_data_auth::GetLoginStatusReply>(Arena*);
 template<> ::user_data_auth::GetLoginStatusRequest* Arena::CreateMaybeMessage<::user_data_auth::GetLoginStatusRequest>(Arena*);
+template<> ::user_data_auth::GetPinWeaverInfoReply* Arena::CreateMaybeMessage<::user_data_auth::GetPinWeaverInfoReply>(Arena*);
+template<> ::user_data_auth::GetPinWeaverInfoRequest* Arena::CreateMaybeMessage<::user_data_auth::GetPinWeaverInfoRequest>(Arena*);
 template<> ::user_data_auth::GetRecoverableKeyStoresReply* Arena::CreateMaybeMessage<::user_data_auth::GetRecoverableKeyStoresReply>(Arena*);
 template<> ::user_data_auth::GetRecoverableKeyStoresRequest* Arena::CreateMaybeMessage<::user_data_auth::GetRecoverableKeyStoresRequest>(Arena*);
 template<> ::user_data_auth::GetRecoveryRequestReply* Arena::CreateMaybeMessage<::user_data_auth::GetRecoveryRequestReply>(Arena*);
@@ -773,7 +781,7 @@ enum PrimaryAction : int {
   PRIMARY_TPM_NEEDS_REBOOT = 6,
   PRIMARY_TPM_LOCKOUT = 7,
   PRIMARY_INCORRECT_AUTH = 8,
-  PRIMARY_LE_LOCKED_OUT = 9,
+  PRIMARY_FACTOR_LOCKED_OUT = 9,
   PRIMARY_LE_EXPIRED = 10,
   PrimaryAction_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   PrimaryAction_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
@@ -843,27 +851,6 @@ inline const std::string& DircryptoMigrationStatus_Name(T enum_t_value) {
 }
 bool DircryptoMigrationStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DircryptoMigrationStatus* value);
-enum AuthSessionFlags : int {
-  AUTH_SESSION_FLAGS_NONE = 0,
-  AUTH_SESSION_FLAGS_EPHEMERAL_USER = 2,
-  AuthSessionFlags_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
-  AuthSessionFlags_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
-};
-bool AuthSessionFlags_IsValid(int value);
-constexpr AuthSessionFlags AuthSessionFlags_MIN = AUTH_SESSION_FLAGS_NONE;
-constexpr AuthSessionFlags AuthSessionFlags_MAX = AUTH_SESSION_FLAGS_EPHEMERAL_USER;
-constexpr int AuthSessionFlags_ARRAYSIZE = AuthSessionFlags_MAX + 1;
-
-const std::string& AuthSessionFlags_Name(AuthSessionFlags value);
-template<typename T>
-inline const std::string& AuthSessionFlags_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, AuthSessionFlags>::value ||
-    ::std::is_integral<T>::value,
-    "Incorrect type passed to function AuthSessionFlags_Name.");
-  return AuthSessionFlags_Name(static_cast<AuthSessionFlags>(enum_t_value));
-}
-bool AuthSessionFlags_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthSessionFlags* value);
 enum AuthSessionStatus : int {
   AUTH_SESSION_STATUS_NOT_SET = 0,
   AUTH_SESSION_STATUS_FURTHER_FACTOR_REQUIRED = 1,
@@ -5636,7 +5623,6 @@ class StartAuthSessionRequest final :
 
   enum : int {
     kAccountIdFieldNumber = 1,
-    kFlagsFieldNumber = 2,
     kIntentFieldNumber = 3,
     kIsEphemeralUserFieldNumber = 4,
   };
@@ -5657,15 +5643,6 @@ class StartAuthSessionRequest final :
   void unsafe_arena_set_allocated_account_id(
       ::cryptohome::AccountIdentifier* account_id);
   ::cryptohome::AccountIdentifier* unsafe_arena_release_account_id();
-
-  // uint32 flags = 2;
-  void clear_flags();
-  uint32_t flags() const;
-  void set_flags(uint32_t value);
-  private:
-  uint32_t _internal_flags() const;
-  void _internal_set_flags(uint32_t value);
-  public:
 
   // .user_data_auth.AuthIntent intent = 3;
   void clear_intent();
@@ -5693,7 +5670,6 @@ class StartAuthSessionRequest final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::cryptohome::AccountIdentifier* account_id_;
-  uint32_t flags_;
   int intent_;
   bool is_ephemeral_user_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -23520,6 +23496,278 @@ class GetRecoverableKeyStoresReply final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_UserDataAuth_2eproto;
 };
+// -------------------------------------------------------------------
+
+class GetPinWeaverInfoRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.GetPinWeaverInfoRequest) */ {
+ public:
+  inline GetPinWeaverInfoRequest() : GetPinWeaverInfoRequest(nullptr) {}
+  ~GetPinWeaverInfoRequest() override;
+  explicit PROTOBUF_CONSTEXPR GetPinWeaverInfoRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetPinWeaverInfoRequest(const GetPinWeaverInfoRequest& from);
+  GetPinWeaverInfoRequest(GetPinWeaverInfoRequest&& from) noexcept
+    : GetPinWeaverInfoRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetPinWeaverInfoRequest& operator=(const GetPinWeaverInfoRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetPinWeaverInfoRequest& operator=(GetPinWeaverInfoRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetPinWeaverInfoRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetPinWeaverInfoRequest* internal_default_instance() {
+    return reinterpret_cast<const GetPinWeaverInfoRequest*>(
+               &_GetPinWeaverInfoRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    152;
+
+  friend void swap(GetPinWeaverInfoRequest& a, GetPinWeaverInfoRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(GetPinWeaverInfoRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetPinWeaverInfoRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetPinWeaverInfoRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetPinWeaverInfoRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetPinWeaverInfoRequest& from);
+  void MergeFrom(const GetPinWeaverInfoRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetPinWeaverInfoRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.GetPinWeaverInfoRequest";
+  }
+  protected:
+  explicit GetPinWeaverInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.GetPinWeaverInfoRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetPinWeaverInfoReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.GetPinWeaverInfoReply) */ {
+ public:
+  inline GetPinWeaverInfoReply() : GetPinWeaverInfoReply(nullptr) {}
+  ~GetPinWeaverInfoReply() override;
+  explicit PROTOBUF_CONSTEXPR GetPinWeaverInfoReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetPinWeaverInfoReply(const GetPinWeaverInfoReply& from);
+  GetPinWeaverInfoReply(GetPinWeaverInfoReply&& from) noexcept
+    : GetPinWeaverInfoReply() {
+    *this = ::std::move(from);
+  }
+
+  inline GetPinWeaverInfoReply& operator=(const GetPinWeaverInfoReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetPinWeaverInfoReply& operator=(GetPinWeaverInfoReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetPinWeaverInfoReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetPinWeaverInfoReply* internal_default_instance() {
+    return reinterpret_cast<const GetPinWeaverInfoReply*>(
+               &_GetPinWeaverInfoReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    153;
+
+  friend void swap(GetPinWeaverInfoReply& a, GetPinWeaverInfoReply& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(GetPinWeaverInfoReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetPinWeaverInfoReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetPinWeaverInfoReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetPinWeaverInfoReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetPinWeaverInfoReply& from);
+  void MergeFrom(const GetPinWeaverInfoReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetPinWeaverInfoReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.GetPinWeaverInfoReply";
+  }
+  protected:
+  explicit GetPinWeaverInfoReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrorInfoFieldNumber = 2,
+    kErrorFieldNumber = 1,
+    kHasCredentialFieldNumber = 3,
+  };
+  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+  bool has_error_info() const;
+  private:
+  bool _internal_has_error_info() const;
+  public:
+  void clear_error_info();
+  const ::user_data_auth::CryptohomeErrorInfo& error_info() const;
+  PROTOBUF_NODISCARD ::user_data_auth::CryptohomeErrorInfo* release_error_info();
+  ::user_data_auth::CryptohomeErrorInfo* mutable_error_info();
+  void set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info);
+  private:
+  const ::user_data_auth::CryptohomeErrorInfo& _internal_error_info() const;
+  ::user_data_auth::CryptohomeErrorInfo* _internal_mutable_error_info();
+  public:
+  void unsafe_arena_set_allocated_error_info(
+      ::user_data_auth::CryptohomeErrorInfo* error_info);
+  ::user_data_auth::CryptohomeErrorInfo* unsafe_arena_release_error_info();
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  void clear_error();
+  ::user_data_auth::CryptohomeErrorCode error() const;
+  void set_error(::user_data_auth::CryptohomeErrorCode value);
+  private:
+  ::user_data_auth::CryptohomeErrorCode _internal_error() const;
+  void _internal_set_error(::user_data_auth::CryptohomeErrorCode value);
+  public:
+
+  // bool has_credential = 3;
+  void clear_has_credential();
+  bool has_credential() const;
+  void set_has_credential(bool value);
+  private:
+  bool _internal_has_credential() const;
+  void _internal_set_has_credential(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.GetPinWeaverInfoReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::user_data_auth::CryptohomeErrorInfo* error_info_;
+  int error_;
+  bool has_credential_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
 // ===================================================================
 
 
@@ -26029,26 +26277,6 @@ inline void StartAuthSessionRequest::set_allocated_account_id(::cryptohome::Acco
   }
   account_id_ = account_id;
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.StartAuthSessionRequest.account_id)
-}
-
-// uint32 flags = 2;
-inline void StartAuthSessionRequest::clear_flags() {
-  flags_ = 0u;
-}
-inline uint32_t StartAuthSessionRequest::_internal_flags() const {
-  return flags_;
-}
-inline uint32_t StartAuthSessionRequest::flags() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.StartAuthSessionRequest.flags)
-  return _internal_flags();
-}
-inline void StartAuthSessionRequest::_internal_set_flags(uint32_t value) {
-  
-  flags_ = value;
-}
-inline void StartAuthSessionRequest::set_flags(uint32_t value) {
-  _internal_set_flags(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.StartAuthSessionRequest.flags)
 }
 
 // bool is_ephemeral_user = 4;
@@ -39319,9 +39547,151 @@ GetRecoverableKeyStoresReply::key_stores() const {
   return key_stores_;
 }
 
+// -------------------------------------------------------------------
+
+// GetPinWeaverInfoRequest
+
+// -------------------------------------------------------------------
+
+// GetPinWeaverInfoReply
+
+// .user_data_auth.CryptohomeErrorCode error = 1;
+inline void GetPinWeaverInfoReply::clear_error() {
+  error_ = 0;
+}
+inline ::user_data_auth::CryptohomeErrorCode GetPinWeaverInfoReply::_internal_error() const {
+  return static_cast< ::user_data_auth::CryptohomeErrorCode >(error_);
+}
+inline ::user_data_auth::CryptohomeErrorCode GetPinWeaverInfoReply::error() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.GetPinWeaverInfoReply.error)
+  return _internal_error();
+}
+inline void GetPinWeaverInfoReply::_internal_set_error(::user_data_auth::CryptohomeErrorCode value) {
+  
+  error_ = value;
+}
+inline void GetPinWeaverInfoReply::set_error(::user_data_auth::CryptohomeErrorCode value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.GetPinWeaverInfoReply.error)
+}
+
+// .user_data_auth.CryptohomeErrorInfo error_info = 2;
+inline bool GetPinWeaverInfoReply::_internal_has_error_info() const {
+  return this != internal_default_instance() && error_info_ != nullptr;
+}
+inline bool GetPinWeaverInfoReply::has_error_info() const {
+  return _internal_has_error_info();
+}
+inline void GetPinWeaverInfoReply::clear_error_info() {
+  if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
+    delete error_info_;
+  }
+  error_info_ = nullptr;
+}
+inline const ::user_data_auth::CryptohomeErrorInfo& GetPinWeaverInfoReply::_internal_error_info() const {
+  const ::user_data_auth::CryptohomeErrorInfo* p = error_info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::CryptohomeErrorInfo&>(
+      ::user_data_auth::_CryptohomeErrorInfo_default_instance_);
+}
+inline const ::user_data_auth::CryptohomeErrorInfo& GetPinWeaverInfoReply::error_info() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.GetPinWeaverInfoReply.error_info)
+  return _internal_error_info();
+}
+inline void GetPinWeaverInfoReply::unsafe_arena_set_allocated_error_info(
+    ::user_data_auth::CryptohomeErrorInfo* error_info) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(error_info_);
+  }
+  error_info_ = error_info;
+  if (error_info) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.GetPinWeaverInfoReply.error_info)
+}
+inline ::user_data_auth::CryptohomeErrorInfo* GetPinWeaverInfoReply::release_error_info() {
+  
+  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
+  error_info_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* GetPinWeaverInfoReply::unsafe_arena_release_error_info() {
+  // @@protoc_insertion_point(field_release:user_data_auth.GetPinWeaverInfoReply.error_info)
+  
+  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
+  error_info_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* GetPinWeaverInfoReply::_internal_mutable_error_info() {
+  
+  if (error_info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::CryptohomeErrorInfo>(GetArenaForAllocation());
+    error_info_ = p;
+  }
+  return error_info_;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* GetPinWeaverInfoReply::mutable_error_info() {
+  ::user_data_auth::CryptohomeErrorInfo* _msg = _internal_mutable_error_info();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.GetPinWeaverInfoReply.error_info)
+  return _msg;
+}
+inline void GetPinWeaverInfoReply::set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete error_info_;
+  }
+  if (error_info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(error_info);
+    if (message_arena != submessage_arena) {
+      error_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, error_info, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  error_info_ = error_info;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.GetPinWeaverInfoReply.error_info)
+}
+
+// bool has_credential = 3;
+inline void GetPinWeaverInfoReply::clear_has_credential() {
+  has_credential_ = false;
+}
+inline bool GetPinWeaverInfoReply::_internal_has_credential() const {
+  return has_credential_;
+}
+inline bool GetPinWeaverInfoReply::has_credential() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.GetPinWeaverInfoReply.has_credential)
+  return _internal_has_credential();
+}
+inline void GetPinWeaverInfoReply::_internal_set_has_credential(bool value) {
+  
+  has_credential_ = value;
+}
+inline void GetPinWeaverInfoReply::set_has_credential(bool value) {
+  _internal_set_has_credential(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.GetPinWeaverInfoReply.has_credential)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -39636,7 +40006,6 @@ template <> struct is_proto_enum< ::user_data_auth::CryptohomeErrorCode> : ::std
 template <> struct is_proto_enum< ::user_data_auth::PrimaryAction> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::PossibleAction> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::DircryptoMigrationStatus> : ::std::true_type {};
-template <> struct is_proto_enum< ::user_data_auth::AuthSessionFlags> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::AuthSessionStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::VaultEncryptionType> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::InstallAttributesState> : ::std::true_type {};

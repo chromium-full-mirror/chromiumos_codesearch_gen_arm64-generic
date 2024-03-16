@@ -970,42 +970,11 @@ class VirtualMachineSpec final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kKernelFieldNumber = 1,
-    kRootfsFieldNumber = 2,
     kDlcIdFieldNumber = 3,
-    kInitrdFieldNumber = 4,
     kToolsDlcIdFieldNumber = 5,
     kWaylandServerFieldNumber = 6,
     kBiosDlcIdFieldNumber = 7,
   };
-  // string kernel = 1;
-  void clear_kernel();
-  const std::string& kernel() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_kernel(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_kernel();
-  PROTOBUF_NODISCARD std::string* release_kernel();
-  void set_allocated_kernel(std::string* kernel);
-  private:
-  const std::string& _internal_kernel() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_kernel(const std::string& value);
-  std::string* _internal_mutable_kernel();
-  public:
-
-  // string rootfs = 2;
-  void clear_rootfs();
-  const std::string& rootfs() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_rootfs(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_rootfs();
-  PROTOBUF_NODISCARD std::string* release_rootfs();
-  void set_allocated_rootfs(std::string* rootfs);
-  private:
-  const std::string& _internal_rootfs() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_rootfs(const std::string& value);
-  std::string* _internal_mutable_rootfs();
-  public:
-
   // string dlc_id = 3;
   void clear_dlc_id();
   const std::string& dlc_id() const;
@@ -1018,20 +987,6 @@ class VirtualMachineSpec final :
   const std::string& _internal_dlc_id() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_dlc_id(const std::string& value);
   std::string* _internal_mutable_dlc_id();
-  public:
-
-  // string initrd = 4;
-  void clear_initrd();
-  const std::string& initrd() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_initrd(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_initrd();
-  PROTOBUF_NODISCARD std::string* release_initrd();
-  void set_allocated_initrd(std::string* initrd);
-  private:
-  const std::string& _internal_initrd() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_initrd(const std::string& value);
-  std::string* _internal_mutable_initrd();
   public:
 
   // string tools_dlc_id = 5;
@@ -1083,10 +1038,7 @@ class VirtualMachineSpec final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr kernel_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr rootfs_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dlc_id_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr initrd_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tools_dlc_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr wayland_server_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr bios_dlc_id_;
@@ -14748,106 +14700,6 @@ class GetVmMemoryManagementKillsConnectionResponse final :
 #endif  // __GNUC__
 // VirtualMachineSpec
 
-// string kernel = 1;
-inline void VirtualMachineSpec::clear_kernel() {
-  kernel_.ClearToEmpty();
-}
-inline const std::string& VirtualMachineSpec::kernel() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.VirtualMachineSpec.kernel)
-  return _internal_kernel();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void VirtualMachineSpec::set_kernel(ArgT0&& arg0, ArgT... args) {
- 
- kernel_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.VirtualMachineSpec.kernel)
-}
-inline std::string* VirtualMachineSpec::mutable_kernel() {
-  std::string* _s = _internal_mutable_kernel();
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.VirtualMachineSpec.kernel)
-  return _s;
-}
-inline const std::string& VirtualMachineSpec::_internal_kernel() const {
-  return kernel_.Get();
-}
-inline void VirtualMachineSpec::_internal_set_kernel(const std::string& value) {
-  
-  kernel_.Set(value, GetArenaForAllocation());
-}
-inline std::string* VirtualMachineSpec::_internal_mutable_kernel() {
-  
-  return kernel_.Mutable(GetArenaForAllocation());
-}
-inline std::string* VirtualMachineSpec::release_kernel() {
-  // @@protoc_insertion_point(field_release:vm_tools.concierge.VirtualMachineSpec.kernel)
-  return kernel_.Release();
-}
-inline void VirtualMachineSpec::set_allocated_kernel(std::string* kernel) {
-  if (kernel != nullptr) {
-    
-  } else {
-    
-  }
-  kernel_.SetAllocated(kernel, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (kernel_.IsDefault()) {
-    kernel_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.VirtualMachineSpec.kernel)
-}
-
-// string rootfs = 2;
-inline void VirtualMachineSpec::clear_rootfs() {
-  rootfs_.ClearToEmpty();
-}
-inline const std::string& VirtualMachineSpec::rootfs() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.VirtualMachineSpec.rootfs)
-  return _internal_rootfs();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void VirtualMachineSpec::set_rootfs(ArgT0&& arg0, ArgT... args) {
- 
- rootfs_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.VirtualMachineSpec.rootfs)
-}
-inline std::string* VirtualMachineSpec::mutable_rootfs() {
-  std::string* _s = _internal_mutable_rootfs();
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.VirtualMachineSpec.rootfs)
-  return _s;
-}
-inline const std::string& VirtualMachineSpec::_internal_rootfs() const {
-  return rootfs_.Get();
-}
-inline void VirtualMachineSpec::_internal_set_rootfs(const std::string& value) {
-  
-  rootfs_.Set(value, GetArenaForAllocation());
-}
-inline std::string* VirtualMachineSpec::_internal_mutable_rootfs() {
-  
-  return rootfs_.Mutable(GetArenaForAllocation());
-}
-inline std::string* VirtualMachineSpec::release_rootfs() {
-  // @@protoc_insertion_point(field_release:vm_tools.concierge.VirtualMachineSpec.rootfs)
-  return rootfs_.Release();
-}
-inline void VirtualMachineSpec::set_allocated_rootfs(std::string* rootfs) {
-  if (rootfs != nullptr) {
-    
-  } else {
-    
-  }
-  rootfs_.SetAllocated(rootfs, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (rootfs_.IsDefault()) {
-    rootfs_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.VirtualMachineSpec.rootfs)
-}
-
 // string dlc_id = 3;
 inline void VirtualMachineSpec::clear_dlc_id() {
   dlc_id_.ClearToEmpty();
@@ -14896,56 +14748,6 @@ inline void VirtualMachineSpec::set_allocated_dlc_id(std::string* dlc_id) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.VirtualMachineSpec.dlc_id)
-}
-
-// string initrd = 4;
-inline void VirtualMachineSpec::clear_initrd() {
-  initrd_.ClearToEmpty();
-}
-inline const std::string& VirtualMachineSpec::initrd() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.VirtualMachineSpec.initrd)
-  return _internal_initrd();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void VirtualMachineSpec::set_initrd(ArgT0&& arg0, ArgT... args) {
- 
- initrd_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.VirtualMachineSpec.initrd)
-}
-inline std::string* VirtualMachineSpec::mutable_initrd() {
-  std::string* _s = _internal_mutable_initrd();
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.VirtualMachineSpec.initrd)
-  return _s;
-}
-inline const std::string& VirtualMachineSpec::_internal_initrd() const {
-  return initrd_.Get();
-}
-inline void VirtualMachineSpec::_internal_set_initrd(const std::string& value) {
-  
-  initrd_.Set(value, GetArenaForAllocation());
-}
-inline std::string* VirtualMachineSpec::_internal_mutable_initrd() {
-  
-  return initrd_.Mutable(GetArenaForAllocation());
-}
-inline std::string* VirtualMachineSpec::release_initrd() {
-  // @@protoc_insertion_point(field_release:vm_tools.concierge.VirtualMachineSpec.initrd)
-  return initrd_.Release();
-}
-inline void VirtualMachineSpec::set_allocated_initrd(std::string* initrd) {
-  if (initrd != nullptr) {
-    
-  } else {
-    
-  }
-  initrd_.SetAllocated(initrd, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (initrd_.IsDefault()) {
-    initrd_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.VirtualMachineSpec.initrd)
 }
 
 // string tools_dlc_id = 5;

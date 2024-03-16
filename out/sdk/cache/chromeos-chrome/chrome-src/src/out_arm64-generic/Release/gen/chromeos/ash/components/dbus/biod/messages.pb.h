@@ -196,6 +196,25 @@ inline const std::string& DeleteCredentialReply_DeleteCredentialStatus_Name(T en
 }
 bool DeleteCredentialReply_DeleteCredentialStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeleteCredentialReply_DeleteCredentialStatus* value);
+enum ListLegacyRecordsReply_ListLegacyRecordsStatus : int {
+  ListLegacyRecordsReply_ListLegacyRecordsStatus_UNKNOWN = 0,
+  ListLegacyRecordsReply_ListLegacyRecordsStatus_SUCCESS = 1
+};
+bool ListLegacyRecordsReply_ListLegacyRecordsStatus_IsValid(int value);
+constexpr ListLegacyRecordsReply_ListLegacyRecordsStatus ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_MIN = ListLegacyRecordsReply_ListLegacyRecordsStatus_UNKNOWN;
+constexpr ListLegacyRecordsReply_ListLegacyRecordsStatus ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_MAX = ListLegacyRecordsReply_ListLegacyRecordsStatus_SUCCESS;
+constexpr int ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_ARRAYSIZE = ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_MAX + 1;
+
+const std::string& ListLegacyRecordsReply_ListLegacyRecordsStatus_Name(ListLegacyRecordsReply_ListLegacyRecordsStatus value);
+template<typename T>
+inline const std::string& ListLegacyRecordsReply_ListLegacyRecordsStatus_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, ListLegacyRecordsReply_ListLegacyRecordsStatus>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function ListLegacyRecordsReply_ListLegacyRecordsStatus_Name.");
+  return ListLegacyRecordsReply_ListLegacyRecordsStatus_Name(static_cast<ListLegacyRecordsReply_ListLegacyRecordsStatus>(enum_t_value));
+}
+bool ListLegacyRecordsReply_ListLegacyRecordsStatus_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ListLegacyRecordsReply_ListLegacyRecordsStatus* value);
 // ===================================================================
 
 class FingerprintMessage final :
@@ -3441,10 +3460,37 @@ class ListLegacyRecordsReply final :
 
   // nested types ----------------------------------------------------
 
+  typedef ListLegacyRecordsReply_ListLegacyRecordsStatus ListLegacyRecordsStatus;
+  static constexpr ListLegacyRecordsStatus UNKNOWN =
+    ListLegacyRecordsReply_ListLegacyRecordsStatus_UNKNOWN;
+  static constexpr ListLegacyRecordsStatus SUCCESS =
+    ListLegacyRecordsReply_ListLegacyRecordsStatus_SUCCESS;
+  static inline bool ListLegacyRecordsStatus_IsValid(int value) {
+    return ListLegacyRecordsReply_ListLegacyRecordsStatus_IsValid(value);
+  }
+  static constexpr ListLegacyRecordsStatus ListLegacyRecordsStatus_MIN =
+    ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_MIN;
+  static constexpr ListLegacyRecordsStatus ListLegacyRecordsStatus_MAX =
+    ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_MAX;
+  static constexpr int ListLegacyRecordsStatus_ARRAYSIZE =
+    ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& ListLegacyRecordsStatus_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, ListLegacyRecordsStatus>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function ListLegacyRecordsStatus_Name.");
+    return ListLegacyRecordsReply_ListLegacyRecordsStatus_Name(enum_t_value);
+  }
+  static inline bool ListLegacyRecordsStatus_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      ListLegacyRecordsStatus* value) {
+    return ListLegacyRecordsReply_ListLegacyRecordsStatus_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kLegacyRecordsFieldNumber = 1,
+    kStatusFieldNumber = 2,
   };
   // repeated .biod.LegacyRecord legacy_records = 1;
   int legacy_records_size() const;
@@ -3464,6 +3510,19 @@ class ListLegacyRecordsReply final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::biod::LegacyRecord >&
       legacy_records() const;
 
+  // optional .biod.ListLegacyRecordsReply.ListLegacyRecordsStatus status = 2;
+  bool has_status() const;
+  private:
+  bool _internal_has_status() const;
+  public:
+  void clear_status();
+  ::biod::ListLegacyRecordsReply_ListLegacyRecordsStatus status() const;
+  void set_status(::biod::ListLegacyRecordsReply_ListLegacyRecordsStatus value);
+  private:
+  ::biod::ListLegacyRecordsReply_ListLegacyRecordsStatus _internal_status() const;
+  void _internal_set_status(::biod::ListLegacyRecordsReply_ListLegacyRecordsStatus value);
+  public:
+
   // @@protoc_insertion_point(class_scope:biod.ListLegacyRecordsReply)
  private:
   class _Internal;
@@ -3471,8 +3530,10 @@ class ListLegacyRecordsReply final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::biod::LegacyRecord > legacy_records_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::biod::LegacyRecord > legacy_records_;
+  int status_;
   friend struct ::TableStruct_messages_2eproto;
 };
 // ===================================================================
@@ -6061,6 +6122,35 @@ inline void LegacyRecord::set_allocated_label(std::string* label) {
 
 // ListLegacyRecordsReply
 
+// optional .biod.ListLegacyRecordsReply.ListLegacyRecordsStatus status = 2;
+inline bool ListLegacyRecordsReply::_internal_has_status() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ListLegacyRecordsReply::has_status() const {
+  return _internal_has_status();
+}
+inline void ListLegacyRecordsReply::clear_status() {
+  status_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::biod::ListLegacyRecordsReply_ListLegacyRecordsStatus ListLegacyRecordsReply::_internal_status() const {
+  return static_cast< ::biod::ListLegacyRecordsReply_ListLegacyRecordsStatus >(status_);
+}
+inline ::biod::ListLegacyRecordsReply_ListLegacyRecordsStatus ListLegacyRecordsReply::status() const {
+  // @@protoc_insertion_point(field_get:biod.ListLegacyRecordsReply.status)
+  return _internal_status();
+}
+inline void ListLegacyRecordsReply::_internal_set_status(::biod::ListLegacyRecordsReply_ListLegacyRecordsStatus value) {
+  assert(::biod::ListLegacyRecordsReply_ListLegacyRecordsStatus_IsValid(value));
+  _has_bits_[0] |= 0x00000001u;
+  status_ = value;
+}
+inline void ListLegacyRecordsReply::set_status(::biod::ListLegacyRecordsReply_ListLegacyRecordsStatus value) {
+  _internal_set_status(value);
+  // @@protoc_insertion_point(field_set:biod.ListLegacyRecordsReply.status)
+}
+
 // repeated .biod.LegacyRecord legacy_records = 1;
 inline int ListLegacyRecordsReply::_internal_legacy_records_size() const {
   return legacy_records_.size();
@@ -6150,6 +6240,7 @@ PROTOBUF_NAMESPACE_OPEN
 template <> struct is_proto_enum< ::biod::CreateCredentialReply_CreateCredentialStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::biod::AuthenticateCredentialReply_AuthenticateCredentialStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::biod::DeleteCredentialReply_DeleteCredentialStatus> : ::std::true_type {};
+template <> struct is_proto_enum< ::biod::ListLegacyRecordsReply_ListLegacyRecordsStatus> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 
