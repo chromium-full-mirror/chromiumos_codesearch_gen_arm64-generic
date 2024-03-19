@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -374,8 +375,11 @@ void DEPRECATED_LedLitUpRoutineReplierProxy::GetColorMatched(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr);
+      internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data> params(
           message);
@@ -487,8 +491,11 @@ void DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr);
+      internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data> params(
           message);

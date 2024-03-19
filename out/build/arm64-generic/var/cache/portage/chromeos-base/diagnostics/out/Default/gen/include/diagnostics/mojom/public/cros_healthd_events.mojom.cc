@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -1664,8 +1665,11 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterAdded(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdBluetoothObserver_OnAdapterAdded_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdBluetoothObserver_OnAdapterAdded_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnAdapterAdded_Params_Data> params(
           message);
@@ -1697,8 +1701,11 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterRemoved(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnAdapterRemoved_Params_Data> params(
           message);
@@ -1730,8 +1737,11 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterPropertyChanged(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Params_Data> params(
           message);
@@ -1763,8 +1773,11 @@ void CrosHealthdBluetoothObserverProxy::OnDeviceAdded(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnDeviceAdded_Params_Data> params(
           message);
@@ -1796,8 +1809,11 @@ void CrosHealthdBluetoothObserverProxy::OnDeviceRemoved(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnDeviceRemoved_Params_Data> params(
           message);
@@ -1829,8 +1845,11 @@ void CrosHealthdBluetoothObserverProxy::OnDevicePropertyChanged(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnDevicePropertyChanged_Params_Data> params(
           message);
@@ -2146,8 +2165,11 @@ void CrosHealthdLidObserverProxy::OnLidClosed(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdLidObserver_OnLidClosed_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdLidObserver_OnLidClosed_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdLidObserver_OnLidClosed_Params_Data> params(
           message);
@@ -2179,8 +2201,11 @@ void CrosHealthdLidObserverProxy::OnLidOpened(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdLidObserver_OnLidOpened_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdLidObserver_OnLidOpened_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdLidObserver_OnLidOpened_Params_Data> params(
           message);
@@ -2420,8 +2445,11 @@ void CrosHealthdPowerObserverProxy::OnAcInserted(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdPowerObserver_OnAcInserted_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdPowerObserver_OnAcInserted_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnAcInserted_Params_Data> params(
           message);
@@ -2453,8 +2481,11 @@ void CrosHealthdPowerObserverProxy::OnAcRemoved(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdPowerObserver_OnAcRemoved_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdPowerObserver_OnAcRemoved_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnAcRemoved_Params_Data> params(
           message);
@@ -2486,8 +2517,11 @@ void CrosHealthdPowerObserverProxy::OnOsSuspend(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdPowerObserver_OnOsSuspend_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdPowerObserver_OnOsSuspend_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnOsSuspend_Params_Data> params(
           message);
@@ -2519,8 +2553,11 @@ void CrosHealthdPowerObserverProxy::OnOsResume(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdPowerObserver_OnOsResume_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdPowerObserver_OnOsResume_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnOsResume_Params_Data> params(
           message);
@@ -2778,8 +2815,11 @@ void CrosHealthdAudioObserverProxy::OnUnderrun(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdAudioObserver_OnUnderrun_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdAudioObserver_OnUnderrun_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdAudioObserver_OnUnderrun_Params_Data> params(
           message);
@@ -2811,8 +2851,11 @@ void CrosHealthdAudioObserverProxy::OnSevereUnderrun(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdAudioObserver_OnSevereUnderrun_Params_Data> params(
           message);
@@ -3052,8 +3095,11 @@ void CrosHealthdThunderboltObserverProxy::OnAdd(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdThunderboltObserver_OnAdd_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdThunderboltObserver_OnAdd_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnAdd_Params_Data> params(
           message);
@@ -3085,8 +3131,11 @@ void CrosHealthdThunderboltObserverProxy::OnRemove(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdThunderboltObserver_OnRemove_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdThunderboltObserver_OnRemove_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnRemove_Params_Data> params(
           message);
@@ -3118,8 +3167,11 @@ void CrosHealthdThunderboltObserverProxy::OnAuthorized(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnAuthorized_Params_Data> params(
           message);
@@ -3151,8 +3203,11 @@ void CrosHealthdThunderboltObserverProxy::OnUnAuthorized(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnUnAuthorized_Params_Data> params(
           message);
@@ -3417,8 +3472,11 @@ void CrosHealthdUsbObserverProxy::OnAdd(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdUsbObserver_OnAdd_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdUsbObserver_OnAdd_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdUsbObserver_OnAdd_Params_Data> params(
           message);
@@ -3468,8 +3526,11 @@ void CrosHealthdUsbObserverProxy::OnRemove(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdUsbObserver_OnRemove_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdUsbObserver_OnRemove_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdUsbObserver_OnRemove_Params_Data> params(
           message);
@@ -3688,8 +3749,11 @@ void CrosHealthdSdCardObserverProxy::OnAdd(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdSdCardObserver_OnAdd_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdSdCardObserver_OnAdd_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdSdCardObserver_OnAdd_Params_Data> params(
           message);
@@ -3721,8 +3785,11 @@ void CrosHealthdSdCardObserverProxy::OnRemove(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdSdCardObserver_OnRemove_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdSdCardObserver_OnRemove_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdSdCardObserver_OnRemove_Params_Data> params(
           message);
@@ -3909,8 +3976,11 @@ void EventObserverProxy::OnEvent(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kEventObserver_OnEvent_Name, kFlags, 0, 0, nullptr);
+      internal::kEventObserver_OnEvent_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::EventObserver_OnEvent_Params_Data> params(
           message);

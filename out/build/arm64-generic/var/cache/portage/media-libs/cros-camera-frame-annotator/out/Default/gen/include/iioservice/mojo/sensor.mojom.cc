@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -322,8 +323,11 @@ void SensorServiceProxy::GetDeviceIds(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorService_GetDeviceIds_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorService_GetDeviceIds_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorService_GetDeviceIds_Params_Data> params(
           message);
@@ -358,8 +362,11 @@ void SensorServiceProxy::GetAllDeviceIds(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorService_GetAllDeviceIds_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorService_GetAllDeviceIds_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorService_GetAllDeviceIds_Params_Data> params(
           message);
@@ -402,8 +409,11 @@ void SensorServiceProxy::GetDevice(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorService_GetDevice_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorService_GetDevice_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorService_GetDevice_Params_Data> params(
           message);
@@ -449,8 +459,11 @@ void SensorServiceProxy::RegisterNewDevicesObserver(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorService_RegisterNewDevicesObserver_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorService_RegisterNewDevicesObserver_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorService_RegisterNewDevicesObserver_Params_Data> params(
           message);
@@ -567,8 +580,11 @@ void SensorService_GetDeviceIds_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorService_GetDeviceIds_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorService_GetDeviceIds_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorService_GetDeviceIds_ResponseParams_Data> params(
           message);
@@ -700,8 +716,11 @@ void SensorService_GetAllDeviceIds_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorService_GetAllDeviceIds_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorService_GetAllDeviceIds_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorService_GetAllDeviceIds_ResponseParams_Data> params(
           message);
@@ -1345,8 +1364,11 @@ void SensorDeviceProxy::SetTimeout(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_SetTimeout_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_SetTimeout_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_SetTimeout_Params_Data> params(
           message);
@@ -1386,8 +1408,11 @@ void SensorDeviceProxy::GetAttributes(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_GetAttributes_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_GetAttributes_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_GetAttributes_Params_Data> params(
           message);
@@ -1440,8 +1465,11 @@ void SensorDeviceProxy::SetFrequency(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_SetFrequency_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_SetFrequency_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_SetFrequency_Params_Data> params(
           message);
@@ -1482,8 +1510,11 @@ void SensorDeviceProxy::StartReadingSamples(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_StartReadingSamples_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_StartReadingSamples_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_StartReadingSamples_Params_Data> params(
           message);
@@ -1521,8 +1552,11 @@ void SensorDeviceProxy::StopReadingSamples(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_StopReadingSamples_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_StopReadingSamples_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_StopReadingSamples_Params_Data> params(
           message);
@@ -1554,8 +1588,11 @@ void SensorDeviceProxy::GetAllChannelIds(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_GetAllChannelIds_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_GetAllChannelIds_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_GetAllChannelIds_Params_Data> params(
           message);
@@ -1598,8 +1635,11 @@ void SensorDeviceProxy::SetChannelsEnabled(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_SetChannelsEnabled_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_SetChannelsEnabled_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_SetChannelsEnabled_Params_Data> params(
           message);
@@ -1653,8 +1693,11 @@ void SensorDeviceProxy::GetChannelsEnabled(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_GetChannelsEnabled_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_GetChannelsEnabled_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_GetChannelsEnabled_Params_Data> params(
           message);
@@ -1710,8 +1753,11 @@ void SensorDeviceProxy::GetChannelsAttributes(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_GetChannelsAttributes_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_GetChannelsAttributes_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_GetChannelsAttributes_Params_Data> params(
           message);
@@ -1768,8 +1814,11 @@ void SensorDeviceProxy::GetAllEvents(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_GetAllEvents_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_GetAllEvents_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_GetAllEvents_Params_Data> params(
           message);
@@ -1812,8 +1861,11 @@ void SensorDeviceProxy::GetEventsAttributes(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_GetEventsAttributes_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_GetEventsAttributes_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_GetEventsAttributes_Params_Data> params(
           message);
@@ -1880,8 +1932,11 @@ void SensorDeviceProxy::StartReadingEvents(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_StartReadingEvents_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_StartReadingEvents_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_StartReadingEvents_Params_Data> params(
           message);
@@ -2011,8 +2066,11 @@ void SensorDevice_GetAttributes_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_GetAttributes_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_GetAttributes_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_GetAttributes_ResponseParams_Data> params(
           message);
@@ -2144,8 +2202,11 @@ void SensorDevice_SetFrequency_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_SetFrequency_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_SetFrequency_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_SetFrequency_ResponseParams_Data> params(
           message);
@@ -2265,8 +2326,11 @@ void SensorDevice_GetAllChannelIds_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_GetAllChannelIds_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_GetAllChannelIds_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_GetAllChannelIds_ResponseParams_Data> params(
           message);
@@ -2398,8 +2462,11 @@ void SensorDevice_SetChannelsEnabled_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_SetChannelsEnabled_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_SetChannelsEnabled_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_SetChannelsEnabled_ResponseParams_Data> params(
           message);
@@ -2531,8 +2598,11 @@ void SensorDevice_GetChannelsEnabled_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_GetChannelsEnabled_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_GetChannelsEnabled_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_GetChannelsEnabled_ResponseParams_Data> params(
           message);
@@ -2664,8 +2734,11 @@ void SensorDevice_GetChannelsAttributes_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_GetChannelsAttributes_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_GetChannelsAttributes_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_GetChannelsAttributes_ResponseParams_Data> params(
           message);
@@ -2797,8 +2870,11 @@ void SensorDevice_GetAllEvents_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_GetAllEvents_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_GetAllEvents_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_GetAllEvents_ResponseParams_Data> params(
           message);
@@ -2930,8 +3006,11 @@ void SensorDevice_GetEventsAttributes_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDevice_GetEventsAttributes_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDevice_GetEventsAttributes_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDevice_GetEventsAttributes_ResponseParams_Data> params(
           message);
@@ -3537,8 +3616,11 @@ void SensorDeviceSamplesObserverProxy::OnSampleUpdated(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDeviceSamplesObserver_OnSampleUpdated_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDeviceSamplesObserver_OnSampleUpdated_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDeviceSamplesObserver_OnSampleUpdated_Params_Data> params(
           message);
@@ -3590,8 +3672,11 @@ void SensorDeviceSamplesObserverProxy::OnErrorOccurred(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDeviceSamplesObserver_OnErrorOccurred_Params_Data> params(
           message);
@@ -3811,8 +3896,11 @@ void SensorServiceNewDevicesObserverProxy::OnNewDeviceAdded(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data> params(
           message);
@@ -3865,8 +3953,11 @@ void SensorServiceNewDevicesObserverProxy::OnDeviceRemoved(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorServiceNewDevicesObserver_OnDeviceRemoved_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorServiceNewDevicesObserver_OnDeviceRemoved_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data> params(
           message);
@@ -4086,8 +4177,11 @@ void SensorDeviceEventsObserverProxy::OnEventUpdated(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDeviceEventsObserver_OnEventUpdated_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDeviceEventsObserver_OnEventUpdated_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDeviceEventsObserver_OnEventUpdated_Params_Data> params(
           message);
@@ -4137,8 +4231,11 @@ void SensorDeviceEventsObserverProxy::OnErrorOccurred(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSensorDeviceEventsObserver_OnErrorOccurred_Name, kFlags, 0, 0, nullptr);
+      internal::kSensorDeviceEventsObserver_OnErrorOccurred_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorDeviceEventsObserver_OnErrorOccurred_Params_Data> params(
           message);

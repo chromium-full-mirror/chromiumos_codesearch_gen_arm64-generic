@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -964,8 +965,11 @@ void SodaClientProxy::OnStart(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSodaClient_OnStart_Name, kFlags, 0, 0, nullptr);
+      internal::kSodaClient_OnStart_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::SodaClient_OnStart_Params_Data> params(
           message);
@@ -997,8 +1001,11 @@ void SodaClientProxy::OnStop(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSodaClient_OnStop_Name, kFlags, 0, 0, nullptr);
+      internal::kSodaClient_OnStop_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::SodaClient_OnStop_Params_Data> params(
           message);
@@ -1037,8 +1044,11 @@ void SodaClientProxy::OnSpeechRecognizerEvent(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSodaClient_OnSpeechRecognizerEvent_Name, kFlags, 0, 0, nullptr);
+      internal::kSodaClient_OnSpeechRecognizerEvent_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::SodaClient_OnSpeechRecognizerEvent_Params_Data> params(
           message);
@@ -1327,8 +1337,11 @@ void SodaRecognizerProxy::AddAudio(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSodaRecognizer_AddAudio_Name, kFlags, 0, 0, nullptr);
+      internal::kSodaRecognizer_AddAudio_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::SodaRecognizer_AddAudio_Params_Data> params(
           message);
@@ -1373,8 +1386,11 @@ void SodaRecognizerProxy::Stop(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSodaRecognizer_Stop_Name, kFlags, 0, 0, nullptr);
+      internal::kSodaRecognizer_Stop_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::SodaRecognizer_Stop_Params_Data> params(
           message);
@@ -1406,8 +1422,11 @@ void SodaRecognizerProxy::Start(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSodaRecognizer_Start_Name, kFlags, 0, 0, nullptr);
+      internal::kSodaRecognizer_Start_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::SodaRecognizer_Start_Params_Data> params(
           message);
@@ -1439,8 +1458,11 @@ void SodaRecognizerProxy::MarkDone(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kSodaRecognizer_MarkDone_Name, kFlags, 0, 0, nullptr);
+      internal::kSodaRecognizer_MarkDone_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::SodaRecognizer_MarkDone_Params_Data> params(
           message);

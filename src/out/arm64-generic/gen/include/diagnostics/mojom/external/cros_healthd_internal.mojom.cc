@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -399,8 +400,11 @@ void ChromiumDataCollectorProxy::GetTouchscreenDevices(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kChromiumDataCollector_GetTouchscreenDevices_Name, kFlags, 0, 0, nullptr);
+      internal::kChromiumDataCollector_GetTouchscreenDevices_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchscreenDevices_Params_Data> params(
           message);
@@ -433,8 +437,11 @@ void ChromiumDataCollectorProxy::GetTouchpadLibraryName(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kChromiumDataCollector_GetTouchpadLibraryName_Name, kFlags, 0, 0, nullptr);
+      internal::kChromiumDataCollector_GetTouchpadLibraryName_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchpadLibraryName_Params_Data> params(
           message);
@@ -474,8 +481,11 @@ void ChromiumDataCollectorProxy::SetPrivacyScreenState(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kChromiumDataCollector_SetPrivacyScreenState_Name, kFlags, 0, 0, nullptr);
+      internal::kChromiumDataCollector_SetPrivacyScreenState_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_SetPrivacyScreenState_Params_Data> params(
           message);
@@ -516,8 +526,11 @@ void ChromiumDataCollectorProxy::DEPRECATED_SetAudioOutputMute(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Name, kFlags, 0, 0, nullptr);
+      internal::kChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data> params(
           message);
@@ -630,8 +643,11 @@ void ChromiumDataCollector_GetTouchscreenDevices_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kChromiumDataCollector_GetTouchscreenDevices_Name, kFlags, 0, 0, nullptr);
+      internal::kChromiumDataCollector_GetTouchscreenDevices_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchscreenDevices_ResponseParams_Data> params(
           message);
@@ -763,8 +779,11 @@ void ChromiumDataCollector_GetTouchpadLibraryName_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kChromiumDataCollector_GetTouchpadLibraryName_Name, kFlags, 0, 0, nullptr);
+      internal::kChromiumDataCollector_GetTouchpadLibraryName_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data> params(
           message);
@@ -894,8 +913,11 @@ void ChromiumDataCollector_SetPrivacyScreenState_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kChromiumDataCollector_SetPrivacyScreenState_Name, kFlags, 0, 0, nullptr);
+      internal::kChromiumDataCollector_SetPrivacyScreenState_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data> params(
           message);
@@ -1015,8 +1037,11 @@ void ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Name, kFlags, 0, 0, nullptr);
+      internal::kChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data> params(
           message);

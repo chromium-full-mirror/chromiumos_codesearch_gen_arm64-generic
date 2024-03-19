@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -2036,8 +2037,11 @@ void CrosHealthdRoutinesServiceProxy::CreateRoutine(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdRoutinesService_CreateRoutine_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdRoutinesService_CreateRoutine_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data> params(
           message);
@@ -2093,8 +2097,11 @@ void CrosHealthdRoutinesServiceProxy::IsRoutineArgumentSupported(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data> params(
           message);
@@ -2215,8 +2222,11 @@ void CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder::Run
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data> params(
           message);
@@ -2456,8 +2466,11 @@ void LedLitUpRoutineReplierProxy::GetColorMatched(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kLedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr);
+      internal::kLedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data> params(
           message);
@@ -2569,8 +2582,11 @@ void LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kLedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr);
+      internal::kLedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data> params(
           message);
@@ -2773,8 +2789,11 @@ void RoutineControlProxy::GetState(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kRoutineControl_GetState_Name, kFlags, 0, 0, nullptr);
+      internal::kRoutineControl_GetState_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::RoutineControl_GetState_Params_Data> params(
           message);
@@ -2807,8 +2826,11 @@ void RoutineControlProxy::Start(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kRoutineControl_Start_Name, kFlags, 0, 0, nullptr);
+      internal::kRoutineControl_Start_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::RoutineControl_Start_Params_Data> params(
           message);
@@ -2919,8 +2941,11 @@ void RoutineControl_GetState_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kRoutineControl_GetState_Name, kFlags, 0, 0, nullptr);
+      internal::kRoutineControl_GetState_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::RoutineControl_GetState_ResponseParams_Data> params(
           message);
@@ -3133,8 +3158,11 @@ void RoutineObserverProxy::OnRoutineStateChange(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kRoutineObserver_OnRoutineStateChange_Name, kFlags, 0, 0, nullptr);
+      internal::kRoutineObserver_OnRoutineStateChange_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::RoutineObserver_OnRoutineStateChange_Params_Data> params(
           message);

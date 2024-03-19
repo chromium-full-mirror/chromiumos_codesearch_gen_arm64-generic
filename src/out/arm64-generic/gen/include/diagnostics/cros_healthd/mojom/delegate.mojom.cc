@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -968,8 +969,11 @@ void DelegateProxy::GetFingerprintFrame(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetFingerprintFrame_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetFingerprintFrame_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetFingerprintFrame_Params_Data> params(
           message);
@@ -1004,8 +1008,11 @@ void DelegateProxy::GetFingerprintInfo(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetFingerprintInfo_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetFingerprintInfo_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetFingerprintInfo_Params_Data> params(
           message);
@@ -1048,8 +1055,11 @@ void DelegateProxy::SetLedColor(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_SetLedColor_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_SetLedColor_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_SetLedColor_Params_Data> params(
           message);
@@ -1093,8 +1103,11 @@ void DelegateProxy::ResetLedColor(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_ResetLedColor_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_ResetLedColor_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_ResetLedColor_Params_Data> params(
           message);
@@ -1136,8 +1149,11 @@ void DelegateProxy::MonitorAudioJack(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_MonitorAudioJack_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_MonitorAudioJack_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_MonitorAudioJack_Params_Data> params(
           message);
@@ -1182,8 +1198,11 @@ void DelegateProxy::MonitorTouchpad(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_MonitorTouchpad_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_MonitorTouchpad_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_MonitorTouchpad_Params_Data> params(
           message);
@@ -1221,8 +1240,11 @@ void DelegateProxy::FetchBootPerformance(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_FetchBootPerformance_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_FetchBootPerformance_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_FetchBootPerformance_Params_Data> params(
           message);
@@ -1262,8 +1284,11 @@ void DelegateProxy::MonitorTouchscreen(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_MonitorTouchscreen_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_MonitorTouchscreen_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_MonitorTouchscreen_Params_Data> params(
           message);
@@ -1308,8 +1333,11 @@ void DelegateProxy::MonitorStylusGarage(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_MonitorStylusGarage_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_MonitorStylusGarage_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_MonitorStylusGarage_Params_Data> params(
           message);
@@ -1354,8 +1382,11 @@ void DelegateProxy::MonitorStylus(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_MonitorStylus_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_MonitorStylus_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_MonitorStylus_Params_Data> params(
           message);
@@ -1393,8 +1424,11 @@ void DelegateProxy::GetLidAngle(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetLidAngle_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetLidAngle_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetLidAngle_Params_Data> params(
           message);
@@ -1427,8 +1461,11 @@ void DelegateProxy::GetPsr(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetPsr_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetPsr_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetPsr_Params_Data> params(
           message);
@@ -1468,8 +1505,11 @@ void DelegateProxy::GetConnectedExternalDisplayConnectors(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetConnectedExternalDisplayConnectors_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetConnectedExternalDisplayConnectors_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data> params(
           message);
@@ -1511,8 +1551,11 @@ void DelegateProxy::GetPrivacyScreenInfo(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetPrivacyScreenInfo_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetPrivacyScreenInfo_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetPrivacyScreenInfo_Params_Data> params(
           message);
@@ -1545,8 +1588,11 @@ void DelegateProxy::FetchDisplayInfo(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_FetchDisplayInfo_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_FetchDisplayInfo_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_FetchDisplayInfo_Params_Data> params(
           message);
@@ -1586,8 +1632,11 @@ void DelegateProxy::MonitorPowerButton(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_MonitorPowerButton_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_MonitorPowerButton_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_MonitorPowerButton_Params_Data> params(
           message);
@@ -1635,8 +1684,11 @@ void DelegateProxy::RunPrimeSearch(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_RunPrimeSearch_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_RunPrimeSearch_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_RunPrimeSearch_Params_Data> params(
           message);
@@ -1688,8 +1740,11 @@ void DelegateProxy::MonitorVolumeButton(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_MonitorVolumeButton_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_MonitorVolumeButton_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_MonitorVolumeButton_Params_Data> params(
           message);
@@ -1734,8 +1789,11 @@ void DelegateProxy::RunFloatingPoint(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_RunFloatingPoint_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_RunFloatingPoint_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_RunFloatingPoint_Params_Data> params(
           message);
@@ -1779,8 +1837,11 @@ void DelegateProxy::GetAllFanSpeed(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetAllFanSpeed_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetAllFanSpeed_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetAllFanSpeed_Params_Data> params(
           message);
@@ -1820,8 +1881,11 @@ void DelegateProxy::SetFanSpeed(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_SetFanSpeed_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_SetFanSpeed_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_SetFanSpeed_Params_Data> params(
           message);
@@ -1867,8 +1931,11 @@ void DelegateProxy::SetAllFanAutoControl(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_SetAllFanAutoControl_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_SetAllFanAutoControl_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_SetAllFanAutoControl_Params_Data> params(
           message);
@@ -1901,8 +1968,11 @@ void DelegateProxy::GetEcThermalSensors(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetEcThermalSensors_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetEcThermalSensors_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetEcThermalSensors_Params_Data> params(
           message);
@@ -1935,8 +2005,11 @@ void DelegateProxy::GetTouchpadDevices(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetTouchpadDevices_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetTouchpadDevices_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetTouchpadDevices_Params_Data> params(
           message);
@@ -1976,8 +2049,11 @@ void DelegateProxy::GetSmartBatteryManufactureDate(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetSmartBatteryManufactureDate_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetSmartBatteryManufactureDate_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetSmartBatteryManufactureDate_Params_Data> params(
           message);
@@ -2018,8 +2094,11 @@ void DelegateProxy::GetSmartBatteryTemperature(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetSmartBatteryTemperature_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetSmartBatteryTemperature_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetSmartBatteryTemperature_Params_Data> params(
           message);
@@ -2060,8 +2139,11 @@ void DelegateProxy::RunUrandom(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_RunUrandom_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_RunUrandom_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_RunUrandom_Params_Data> params(
           message);
@@ -2191,8 +2273,11 @@ void Delegate_GetFingerprintFrame_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetFingerprintFrame_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetFingerprintFrame_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetFingerprintFrame_ResponseParams_Data> params(
           message);
@@ -2336,8 +2421,11 @@ void Delegate_GetFingerprintInfo_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetFingerprintInfo_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetFingerprintInfo_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetFingerprintInfo_ResponseParams_Data> params(
           message);
@@ -2474,8 +2562,11 @@ void Delegate_SetLedColor_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_SetLedColor_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_SetLedColor_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_SetLedColor_ResponseParams_Data> params(
           message);
@@ -2601,8 +2692,11 @@ void Delegate_ResetLedColor_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_ResetLedColor_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_ResetLedColor_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_ResetLedColor_ResponseParams_Data> params(
           message);
@@ -2728,8 +2822,11 @@ void Delegate_FetchBootPerformance_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_FetchBootPerformance_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_FetchBootPerformance_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_FetchBootPerformance_ResponseParams_Data> params(
           message);
@@ -2858,8 +2955,11 @@ void Delegate_GetLidAngle_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetLidAngle_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetLidAngle_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetLidAngle_ResponseParams_Data> params(
           message);
@@ -2982,8 +3082,11 @@ void Delegate_GetPsr_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetPsr_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetPsr_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetPsr_ResponseParams_Data> params(
           message);
@@ -3118,8 +3221,11 @@ void Delegate_GetConnectedExternalDisplayConnectors_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetConnectedExternalDisplayConnectors_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetConnectedExternalDisplayConnectors_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data> params(
           message);
@@ -3258,8 +3364,11 @@ void Delegate_GetPrivacyScreenInfo_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetPrivacyScreenInfo_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetPrivacyScreenInfo_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetPrivacyScreenInfo_ResponseParams_Data> params(
           message);
@@ -3387,8 +3496,11 @@ void Delegate_FetchDisplayInfo_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_FetchDisplayInfo_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_FetchDisplayInfo_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_FetchDisplayInfo_ResponseParams_Data> params(
           message);
@@ -3516,8 +3628,11 @@ void Delegate_RunPrimeSearch_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_RunPrimeSearch_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_RunPrimeSearch_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_RunPrimeSearch_ResponseParams_Data> params(
           message);
@@ -3637,8 +3752,11 @@ void Delegate_RunFloatingPoint_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_RunFloatingPoint_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_RunFloatingPoint_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_RunFloatingPoint_ResponseParams_Data> params(
           message);
@@ -3765,8 +3883,11 @@ void Delegate_GetAllFanSpeed_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetAllFanSpeed_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetAllFanSpeed_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetAllFanSpeed_ResponseParams_Data> params(
           message);
@@ -3905,8 +4026,11 @@ void Delegate_SetFanSpeed_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_SetFanSpeed_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_SetFanSpeed_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_SetFanSpeed_ResponseParams_Data> params(
           message);
@@ -4032,8 +4156,11 @@ void Delegate_SetAllFanAutoControl_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_SetAllFanAutoControl_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_SetAllFanAutoControl_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_SetAllFanAutoControl_ResponseParams_Data> params(
           message);
@@ -4166,8 +4293,11 @@ void Delegate_GetEcThermalSensors_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetEcThermalSensors_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetEcThermalSensors_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetEcThermalSensors_ResponseParams_Data> params(
           message);
@@ -4313,8 +4443,11 @@ void Delegate_GetTouchpadDevices_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetTouchpadDevices_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetTouchpadDevices_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetTouchpadDevices_ResponseParams_Data> params(
           message);
@@ -4454,8 +4587,11 @@ void Delegate_GetSmartBatteryManufactureDate_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetSmartBatteryManufactureDate_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetSmartBatteryManufactureDate_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data> params(
           message);
@@ -4579,8 +4715,11 @@ void Delegate_GetSmartBatteryTemperature_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_GetSmartBatteryTemperature_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetSmartBatteryTemperature_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetSmartBatteryTemperature_ResponseParams_Data> params(
           message);
@@ -4703,8 +4842,11 @@ void Delegate_RunUrandom_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kDelegate_RunUrandom_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_RunUrandom_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_RunUrandom_ResponseParams_Data> params(
           message);

@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -259,8 +260,11 @@ void CameraAlgorithmOpsProxy::Initialize(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_Initialize_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraAlgorithmOps_Initialize_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_Initialize_Params_Data> params(
           message);
@@ -306,8 +310,11 @@ void CameraAlgorithmOpsProxy::RegisterBuffer(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraAlgorithmOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_RegisterBuffer_Params_Data> params(
           message);
@@ -359,8 +366,11 @@ void CameraAlgorithmOpsProxy::Request(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_Request_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraAlgorithmOps_Request_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_Request_Params_Data> params(
           message);
@@ -414,8 +424,11 @@ void CameraAlgorithmOpsProxy::DeregisterBuffers(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_DeregisterBuffers_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraAlgorithmOps_DeregisterBuffers_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_DeregisterBuffers_Params_Data> params(
           message);
@@ -473,8 +486,11 @@ void CameraAlgorithmOpsProxy::UpdateReturn(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_UpdateReturn_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraAlgorithmOps_UpdateReturn_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_UpdateReturn_Params_Data> params(
           message);
@@ -514,8 +530,11 @@ void CameraAlgorithmOpsProxy::Deinitialize(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_Deinitialize_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraAlgorithmOps_Deinitialize_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_Deinitialize_Params_Data> params(
           message);
@@ -626,8 +645,11 @@ void CameraAlgorithmOps_Initialize_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_Initialize_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraAlgorithmOps_Initialize_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_Initialize_ResponseParams_Data> params(
           message);
@@ -747,8 +769,11 @@ void CameraAlgorithmOps_RegisterBuffer_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraAlgorithmOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_RegisterBuffer_ResponseParams_Data> params(
           message);
@@ -1134,8 +1159,11 @@ void CameraAlgorithmCallbackOpsProxy::Return(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraAlgorithmCallbackOps_Return_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraAlgorithmCallbackOps_Return_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmCallbackOps_Return_Params_Data> params(
           message);
@@ -1183,8 +1211,11 @@ void CameraAlgorithmCallbackOpsProxy::Update(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kCameraAlgorithmCallbackOps_Update_Name, kFlags, 0, 0, nullptr);
+      internal::kCameraAlgorithmCallbackOps_Update_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmCallbackOps_Update_Params_Data> params(
           message);

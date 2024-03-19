@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -261,8 +262,11 @@ void HeartdControlProxy::EnableNormalRebootAction(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kHeartdControl_EnableNormalRebootAction_Name, kFlags, 0, 0, nullptr);
+      internal::kHeartdControl_EnableNormalRebootAction_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::HeartdControl_EnableNormalRebootAction_Params_Data> params(
           message);
@@ -294,8 +298,11 @@ void HeartdControlProxy::EnableForceRebootAction(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kHeartdControl_EnableForceRebootAction_Name, kFlags, 0, 0, nullptr);
+      internal::kHeartdControl_EnableForceRebootAction_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::HeartdControl_EnableForceRebootAction_Params_Data> params(
           message);
@@ -334,8 +341,11 @@ void HeartdControlProxy::RunAction(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kHeartdControl_RunAction_Name, kFlags, 0, 0, nullptr);
+      internal::kHeartdControl_RunAction_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::HeartdControl_RunAction_Params_Data> params(
           message);
@@ -449,8 +459,11 @@ void HeartdControl_RunAction_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kHeartdControl_RunAction_Name, kFlags, 0, 0, nullptr);
+      internal::kHeartdControl_RunAction_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::HeartdControl_RunAction_ResponseParams_Data> params(
           message);
@@ -708,8 +721,11 @@ void HeartbeatServiceProxy::Register(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kHeartbeatService_Register_Name, kFlags, 0, 0, nullptr);
+      internal::kHeartbeatService_Register_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::HeartbeatService_Register_Params_Data> params(
           message);
@@ -840,8 +856,11 @@ void HeartbeatService_Register_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kHeartbeatService_Register_Name, kFlags, 0, 0, nullptr);
+      internal::kHeartbeatService_Register_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::HeartbeatService_Register_ResponseParams_Data> params(
           message);
@@ -1074,8 +1093,11 @@ void PacemakerProxy::SendHeartbeat(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kPacemaker_SendHeartbeat_Name, kFlags, 0, 0, nullptr);
+      internal::kPacemaker_SendHeartbeat_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::Pacemaker_SendHeartbeat_Params_Data> params(
           message);
@@ -1108,8 +1130,11 @@ void PacemakerProxy::StopMonitor(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kPacemaker_StopMonitor_Name, kFlags, 0, 0, nullptr);
+      internal::kPacemaker_StopMonitor_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::Pacemaker_StopMonitor_Params_Data> params(
           message);
@@ -1221,8 +1246,11 @@ void Pacemaker_SendHeartbeat_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kPacemaker_SendHeartbeat_Name, kFlags, 0, 0, nullptr);
+      internal::kPacemaker_SendHeartbeat_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::Pacemaker_SendHeartbeat_ResponseParams_Data> params(
           message);
@@ -1332,8 +1360,11 @@ void Pacemaker_StopMonitor_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kPacemaker_StopMonitor_Name, kFlags, 0, 0, nullptr);
+      internal::kPacemaker_StopMonitor_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::Pacemaker_StopMonitor_ResponseParams_Data> params(
           message);

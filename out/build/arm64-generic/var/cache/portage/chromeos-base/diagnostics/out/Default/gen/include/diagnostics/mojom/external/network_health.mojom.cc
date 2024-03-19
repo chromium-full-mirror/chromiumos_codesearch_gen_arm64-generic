@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -150,8 +151,11 @@ void NetworkEventsObserverProxy::OnConnectionStateChanged(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkEventsObserver_OnConnectionStateChanged_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkEventsObserver_OnConnectionStateChanged_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_health::mojom::internal::NetworkEventsObserver_OnConnectionStateChanged_Params_Data> params(
           message);
@@ -206,8 +210,11 @@ void NetworkEventsObserverProxy::OnSignalStrengthChanged(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_health::mojom::internal::NetworkEventsObserver_OnSignalStrengthChanged_Params_Data> params(
           message);
@@ -504,8 +511,11 @@ void NetworkHealthServiceProxy::AddObserver(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkHealthService_AddObserver_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkHealthService_AddObserver_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_health::mojom::internal::NetworkHealthService_AddObserver_Params_Data> params(
           message);
@@ -543,8 +553,11 @@ void NetworkHealthServiceProxy::GetNetworkList(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkHealthService_GetNetworkList_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkHealthService_GetNetworkList_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_health::mojom::internal::NetworkHealthService_GetNetworkList_Params_Data> params(
           message);
@@ -577,8 +590,11 @@ void NetworkHealthServiceProxy::GetHealthSnapshot(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkHealthService_GetHealthSnapshot_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkHealthService_GetHealthSnapshot_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_health::mojom::internal::NetworkHealthService_GetHealthSnapshot_Params_Data> params(
           message);
@@ -690,8 +706,11 @@ void NetworkHealthService_GetNetworkList_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkHealthService_GetNetworkList_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkHealthService_GetNetworkList_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_health::mojom::internal::NetworkHealthService_GetNetworkList_ResponseParams_Data> params(
           message);
@@ -823,8 +842,11 @@ void NetworkHealthService_GetHealthSnapshot_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kNetworkHealthService_GetHealthSnapshot_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkHealthService_GetHealthSnapshot_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_health::mojom::internal::NetworkHealthService_GetHealthSnapshot_ResponseParams_Data> params(
           message);

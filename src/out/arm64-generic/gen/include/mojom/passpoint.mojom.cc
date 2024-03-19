@@ -22,11 +22,12 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
-#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
 #include "mojo/public/cpp/bindings/lib/serialization_util.h"
 #include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
@@ -235,8 +236,11 @@ void PasspointEventsListenerProxy::OnPasspointSubscriptionAdded(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kPasspointEventsListener_OnPasspointSubscriptionAdded_Name, kFlags, 0, 0, nullptr);
+      internal::kPasspointEventsListener_OnPasspointSubscriptionAdded_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data> params(
           message);
@@ -286,8 +290,11 @@ void PasspointEventsListenerProxy::OnPasspointSubscriptionRemoved(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kPasspointEventsListener_OnPasspointSubscriptionRemoved_Name, kFlags, 0, 0, nullptr);
+      internal::kPasspointEventsListener_OnPasspointSubscriptionRemoved_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data> params(
           message);
@@ -601,8 +608,11 @@ void PasspointServiceProxy::GetPasspointSubscription(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kPasspointService_GetPasspointSubscription_Name, kFlags, 0, 0, nullptr);
+      internal::kPasspointService_GetPasspointSubscription_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointService_GetPasspointSubscription_Params_Data> params(
           message);
@@ -646,8 +656,11 @@ void PasspointServiceProxy::ListPasspointSubscriptions(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kPasspointService_ListPasspointSubscriptions_Name, kFlags, 0, 0, nullptr);
+      internal::kPasspointService_ListPasspointSubscriptions_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointService_ListPasspointSubscriptions_Params_Data> params(
           message);
@@ -687,8 +700,11 @@ void PasspointServiceProxy::DeletePasspointSubscription(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kPasspointService_DeletePasspointSubscription_Name, kFlags, 0, 0, nullptr);
+      internal::kPasspointService_DeletePasspointSubscription_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointService_DeletePasspointSubscription_Params_Data> params(
           message);
@@ -739,8 +755,11 @@ void PasspointServiceProxy::RegisterPasspointListener(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kPasspointService_RegisterPasspointListener_Name, kFlags, 0, 0, nullptr);
+      internal::kPasspointService_RegisterPasspointListener_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointService_RegisterPasspointListener_Params_Data> params(
           message);
@@ -857,8 +876,11 @@ void PasspointService_GetPasspointSubscription_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kPasspointService_GetPasspointSubscription_Name, kFlags, 0, 0, nullptr);
+      internal::kPasspointService_GetPasspointSubscription_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointService_GetPasspointSubscription_ResponseParams_Data> params(
           message);
@@ -984,8 +1006,11 @@ void PasspointService_ListPasspointSubscriptions_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kPasspointService_ListPasspointSubscriptions_Name, kFlags, 0, 0, nullptr);
+      internal::kPasspointService_ListPasspointSubscriptions_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointService_ListPasspointSubscriptions_ResponseParams_Data> params(
           message);
@@ -1117,8 +1142,11 @@ void PasspointService_DeletePasspointSubscription_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
+  const size_t estimated_payload_size =
+    0;
   mojo::Message message(
-      internal::kPasspointService_DeletePasspointSubscription_Name, kFlags, 0, 0, nullptr);
+      internal::kPasspointService_DeletePasspointSubscription_Name, kFlags, 0, 0, nullptr,
+      estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointService_DeletePasspointSubscription_ResponseParams_Data> params(
           message);
