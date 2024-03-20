@@ -1000,31 +1000,6 @@ const std::string& DircryptoMigrationStatus_Name(T value) {
 }
 const std::string& DircryptoMigrationStatus_Name(DircryptoMigrationStatus value);
 bool DircryptoMigrationStatus_Parse(absl::string_view name, DircryptoMigrationStatus* value);
-enum AuthSessionStatus : int {
-  AUTH_SESSION_STATUS_NOT_SET = 0,
-  AUTH_SESSION_STATUS_FURTHER_FACTOR_REQUIRED = 1,
-  AUTH_SESSION_STATUS_AUTHENTICATED = 2,
-  AUTH_SESSION_STATUS_INVALID_AUTH_SESSION = 3,
-  AuthSessionStatus_INT_MIN_SENTINEL_DO_NOT_USE_ =
-      std::numeric_limits<::int32_t>::min(),
-  AuthSessionStatus_INT_MAX_SENTINEL_DO_NOT_USE_ =
-      std::numeric_limits<::int32_t>::max(),
-};
-
-bool AuthSessionStatus_IsValid(int value);
-constexpr AuthSessionStatus AuthSessionStatus_MIN = static_cast<AuthSessionStatus>(0);
-constexpr AuthSessionStatus AuthSessionStatus_MAX = static_cast<AuthSessionStatus>(3);
-constexpr int AuthSessionStatus_ARRAYSIZE = 3 + 1;
-const std::string& AuthSessionStatus_Name(AuthSessionStatus value);
-template <typename T>
-const std::string& AuthSessionStatus_Name(T value) {
-  static_assert(std::is_same<T, AuthSessionStatus>::value ||
-                    std::is_integral<T>::value,
-                "Incorrect type passed to AuthSessionStatus_Name().");
-  return AuthSessionStatus_Name(static_cast<AuthSessionStatus>(value));
-}
-const std::string& AuthSessionStatus_Name(AuthSessionStatus value);
-bool AuthSessionStatus_Parse(absl::string_view name, AuthSessionStatus* value);
 enum VaultEncryptionType : int {
   CRYPTOHOME_VAULT_ENCRYPTION_ANY = 0,
   CRYPTOHOME_VAULT_ENCRYPTION_ECRYPTFS = 1,
@@ -9076,34 +9051,10 @@ class GetAuthSessionStatusReply final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kAuthorizedForFieldNumber = 4,
     kErrorInfoFieldNumber = 5,
     kAuthPropertiesFieldNumber = 6,
     kErrorFieldNumber = 1,
-    kStatusFieldNumber = 2,
-    kTimeLeftFieldNumber = 3,
   };
-  // repeated .user_data_auth.AuthIntent authorized_for = 4;
-  int authorized_for_size() const;
-  private:
-  int _internal_authorized_for_size() const;
-
-  public:
-  void clear_authorized_for() ;
-  public:
-  ::user_data_auth::AuthIntent authorized_for(int index) const;
-  void set_authorized_for(int index, ::user_data_auth::AuthIntent value);
-  void add_authorized_for(::user_data_auth::AuthIntent value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& authorized_for() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_authorized_for();
-
-  private:
-  ::user_data_auth::AuthIntent _internal_authorized_for(int index) const;
-  void _internal_add_authorized_for(::user_data_auth::AuthIntent value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& _internal_authorized_for() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_authorized_for();
-
-  public:
   // .user_data_auth.CryptohomeErrorInfo error_info = 5;
   bool has_error_info() const;
   void clear_error_info() ;
@@ -9142,26 +9093,6 @@ class GetAuthSessionStatusReply final :
   void _internal_set_error(::user_data_auth::CryptohomeErrorCode value);
 
   public:
-  // .user_data_auth.AuthSessionStatus status = 2;
-  void clear_status() ;
-  ::user_data_auth::AuthSessionStatus status() const;
-  void set_status(::user_data_auth::AuthSessionStatus value);
-
-  private:
-  ::user_data_auth::AuthSessionStatus _internal_status() const;
-  void _internal_set_status(::user_data_auth::AuthSessionStatus value);
-
-  public:
-  // uint32 time_left = 3;
-  void clear_time_left() ;
-  ::uint32_t time_left() const;
-  void set_time_left(::uint32_t value);
-
-  private:
-  ::uint32_t _internal_time_left() const;
-  void _internal_set_time_left(::uint32_t value);
-
-  public:
   // @@protoc_insertion_point(class_scope:user_data_auth.GetAuthSessionStatusReply)
  private:
   class _Internal;
@@ -9172,13 +9103,9 @@ class GetAuthSessionStatusReply final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> authorized_for_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _authorized_for_cached_byte_size_;
     ::user_data_auth::CryptohomeErrorInfo* error_info_;
     ::user_data_auth::AuthSessionProperties* auth_properties_;
     int error_;
-    int status_;
-    ::uint32_t time_left_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_UserDataAuth_2eproto;
@@ -16790,33 +16717,10 @@ class AuthenticateAuthFactorReply final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kAuthorizedForFieldNumber = 4,
     kErrorInfoFieldNumber = 2,
     kAuthPropertiesFieldNumber = 6,
     kErrorFieldNumber = 1,
-    kSecondsLeftFieldNumber = 5,
   };
-  // repeated .user_data_auth.AuthIntent authorized_for = 4;
-  int authorized_for_size() const;
-  private:
-  int _internal_authorized_for_size() const;
-
-  public:
-  void clear_authorized_for() ;
-  public:
-  ::user_data_auth::AuthIntent authorized_for(int index) const;
-  void set_authorized_for(int index, ::user_data_auth::AuthIntent value);
-  void add_authorized_for(::user_data_auth::AuthIntent value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& authorized_for() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_authorized_for();
-
-  private:
-  ::user_data_auth::AuthIntent _internal_authorized_for(int index) const;
-  void _internal_add_authorized_for(::user_data_auth::AuthIntent value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& _internal_authorized_for() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_authorized_for();
-
-  public:
   // .user_data_auth.CryptohomeErrorInfo error_info = 2;
   bool has_error_info() const;
   void clear_error_info() ;
@@ -16855,17 +16759,6 @@ class AuthenticateAuthFactorReply final :
   void _internal_set_error(::user_data_auth::CryptohomeErrorCode value);
 
   public:
-  // optional uint32 seconds_left = 5;
-  bool has_seconds_left() const;
-  void clear_seconds_left() ;
-  ::uint32_t seconds_left() const;
-  void set_seconds_left(::uint32_t value);
-
-  private:
-  ::uint32_t _internal_seconds_left() const;
-  void _internal_set_seconds_left(::uint32_t value);
-
-  public:
   // @@protoc_insertion_point(class_scope:user_data_auth.AuthenticateAuthFactorReply)
  private:
   class _Internal;
@@ -16876,12 +16769,9 @@ class AuthenticateAuthFactorReply final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> authorized_for_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _authorized_for_cached_byte_size_;
     ::user_data_auth::CryptohomeErrorInfo* error_info_;
     ::user_data_auth::AuthSessionProperties* auth_properties_;
     int error_;
-    ::uint32_t seconds_left_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_UserDataAuth_2eproto;
@@ -30033,89 +29923,6 @@ inline void GetAuthSessionStatusReply::set_allocated_error_info(::user_data_auth
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.GetAuthSessionStatusReply.error_info)
 }
 
-// .user_data_auth.AuthSessionStatus status = 2;
-inline void GetAuthSessionStatusReply::clear_status() {
-  _impl_.status_ = 0;
-}
-inline ::user_data_auth::AuthSessionStatus GetAuthSessionStatusReply::status() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.GetAuthSessionStatusReply.status)
-  return _internal_status();
-}
-inline void GetAuthSessionStatusReply::set_status(::user_data_auth::AuthSessionStatus value) {
-   _internal_set_status(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.GetAuthSessionStatusReply.status)
-}
-inline ::user_data_auth::AuthSessionStatus GetAuthSessionStatusReply::_internal_status() const {
-  return static_cast<::user_data_auth::AuthSessionStatus>(_impl_.status_);
-}
-inline void GetAuthSessionStatusReply::_internal_set_status(::user_data_auth::AuthSessionStatus value) {
-  ;
-  _impl_.status_ = value;
-}
-
-// uint32 time_left = 3;
-inline void GetAuthSessionStatusReply::clear_time_left() {
-  _impl_.time_left_ = 0u;
-}
-inline ::uint32_t GetAuthSessionStatusReply::time_left() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.GetAuthSessionStatusReply.time_left)
-  return _internal_time_left();
-}
-inline void GetAuthSessionStatusReply::set_time_left(::uint32_t value) {
-  _internal_set_time_left(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.GetAuthSessionStatusReply.time_left)
-}
-inline ::uint32_t GetAuthSessionStatusReply::_internal_time_left() const {
-  return _impl_.time_left_;
-}
-inline void GetAuthSessionStatusReply::_internal_set_time_left(::uint32_t value) {
-  ;
-  _impl_.time_left_ = value;
-}
-
-// repeated .user_data_auth.AuthIntent authorized_for = 4;
-inline int GetAuthSessionStatusReply::_internal_authorized_for_size() const {
-  return _impl_.authorized_for_.size();
-}
-inline int GetAuthSessionStatusReply::authorized_for_size() const {
-  return _internal_authorized_for_size();
-}
-inline void GetAuthSessionStatusReply::clear_authorized_for() {
-  _internal_mutable_authorized_for()->Clear();
-}
-inline ::user_data_auth::AuthIntent GetAuthSessionStatusReply::authorized_for(int index) const {
-  // @@protoc_insertion_point(field_get:user_data_auth.GetAuthSessionStatusReply.authorized_for)
-  return _internal_authorized_for(index);
-}
-inline void GetAuthSessionStatusReply::set_authorized_for(int index, ::user_data_auth::AuthIntent value) {
-  _internal_mutable_authorized_for()->Set(index, value);
-  // @@protoc_insertion_point(field_set:user_data_auth.GetAuthSessionStatusReply.authorized_for)
-}
-inline void GetAuthSessionStatusReply::add_authorized_for(::user_data_auth::AuthIntent value) {
-  _internal_add_authorized_for(value);
-  // @@protoc_insertion_point(field_add:user_data_auth.GetAuthSessionStatusReply.authorized_for)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& GetAuthSessionStatusReply::authorized_for() const {
-  // @@protoc_insertion_point(field_list:user_data_auth.GetAuthSessionStatusReply.authorized_for)
-  return _internal_authorized_for();
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* GetAuthSessionStatusReply::mutable_authorized_for() {
-  // @@protoc_insertion_point(field_mutable_list:user_data_auth.GetAuthSessionStatusReply.authorized_for)
-  return _internal_mutable_authorized_for();
-}
-inline ::user_data_auth::AuthIntent GetAuthSessionStatusReply::_internal_authorized_for(int index) const {
-  return static_cast<::user_data_auth::AuthIntent>(_internal_authorized_for().Get(index));
-}
-inline void GetAuthSessionStatusReply::_internal_add_authorized_for(::user_data_auth::AuthIntent value) {
-  _internal_mutable_authorized_for()->Add(value);
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& GetAuthSessionStatusReply::_internal_authorized_for() const {
-  return _impl_.authorized_for_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* GetAuthSessionStatusReply::_internal_mutable_authorized_for() {
-  return &_impl_.authorized_for_;
-}
-
 // .user_data_auth.AuthSessionProperties auth_properties = 6;
 inline bool GetAuthSessionStatusReply::has_auth_properties() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
@@ -33712,74 +33519,6 @@ inline void AuthenticateAuthFactorReply::set_allocated_error_info(::user_data_au
   }
   _impl_.error_info_ = error_info;
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.AuthenticateAuthFactorReply.error_info)
-}
-
-// repeated .user_data_auth.AuthIntent authorized_for = 4;
-inline int AuthenticateAuthFactorReply::_internal_authorized_for_size() const {
-  return _impl_.authorized_for_.size();
-}
-inline int AuthenticateAuthFactorReply::authorized_for_size() const {
-  return _internal_authorized_for_size();
-}
-inline void AuthenticateAuthFactorReply::clear_authorized_for() {
-  _internal_mutable_authorized_for()->Clear();
-}
-inline ::user_data_auth::AuthIntent AuthenticateAuthFactorReply::authorized_for(int index) const {
-  // @@protoc_insertion_point(field_get:user_data_auth.AuthenticateAuthFactorReply.authorized_for)
-  return _internal_authorized_for(index);
-}
-inline void AuthenticateAuthFactorReply::set_authorized_for(int index, ::user_data_auth::AuthIntent value) {
-  _internal_mutable_authorized_for()->Set(index, value);
-  // @@protoc_insertion_point(field_set:user_data_auth.AuthenticateAuthFactorReply.authorized_for)
-}
-inline void AuthenticateAuthFactorReply::add_authorized_for(::user_data_auth::AuthIntent value) {
-  _internal_add_authorized_for(value);
-  // @@protoc_insertion_point(field_add:user_data_auth.AuthenticateAuthFactorReply.authorized_for)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& AuthenticateAuthFactorReply::authorized_for() const {
-  // @@protoc_insertion_point(field_list:user_data_auth.AuthenticateAuthFactorReply.authorized_for)
-  return _internal_authorized_for();
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* AuthenticateAuthFactorReply::mutable_authorized_for() {
-  // @@protoc_insertion_point(field_mutable_list:user_data_auth.AuthenticateAuthFactorReply.authorized_for)
-  return _internal_mutable_authorized_for();
-}
-inline ::user_data_auth::AuthIntent AuthenticateAuthFactorReply::_internal_authorized_for(int index) const {
-  return static_cast<::user_data_auth::AuthIntent>(_internal_authorized_for().Get(index));
-}
-inline void AuthenticateAuthFactorReply::_internal_add_authorized_for(::user_data_auth::AuthIntent value) {
-  _internal_mutable_authorized_for()->Add(value);
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& AuthenticateAuthFactorReply::_internal_authorized_for() const {
-  return _impl_.authorized_for_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* AuthenticateAuthFactorReply::_internal_mutable_authorized_for() {
-  return &_impl_.authorized_for_;
-}
-
-// optional uint32 seconds_left = 5;
-inline bool AuthenticateAuthFactorReply::has_seconds_left() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
-  return value;
-}
-inline void AuthenticateAuthFactorReply::clear_seconds_left() {
-  _impl_.seconds_left_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000004u;
-}
-inline ::uint32_t AuthenticateAuthFactorReply::seconds_left() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.AuthenticateAuthFactorReply.seconds_left)
-  return _internal_seconds_left();
-}
-inline void AuthenticateAuthFactorReply::set_seconds_left(::uint32_t value) {
-  _internal_set_seconds_left(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.AuthenticateAuthFactorReply.seconds_left)
-}
-inline ::uint32_t AuthenticateAuthFactorReply::_internal_seconds_left() const {
-  return _impl_.seconds_left_;
-}
-inline void AuthenticateAuthFactorReply::_internal_set_seconds_left(::uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000004u;
-  _impl_.seconds_left_ = value;
 }
 
 // .user_data_auth.AuthSessionProperties auth_properties = 6;
@@ -40560,8 +40299,6 @@ template <>
 struct is_proto_enum<::user_data_auth::PossibleAction> : std::true_type {};
 template <>
 struct is_proto_enum<::user_data_auth::DircryptoMigrationStatus> : std::true_type {};
-template <>
-struct is_proto_enum<::user_data_auth::AuthSessionStatus> : std::true_type {};
 template <>
 struct is_proto_enum<::user_data_auth::VaultEncryptionType> : std::true_type {};
 template <>
