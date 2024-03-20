@@ -5917,6 +5917,12 @@ class  BluetoothScannedPeripheralInfo {
       const std::optional<std::string>& name,
       const std::optional<std::string>& peripheral_id);
 
+  BluetoothScannedPeripheralInfo(
+      std::vector<int16_t> rssi_history,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& peripheral_id,
+      std::optional<std::vector<base::Uuid>> uuids);
+
 
   ~BluetoothScannedPeripheralInfo();
 
@@ -5998,6 +6004,8 @@ class  BluetoothScannedPeripheralInfo {
   std::optional<std::string> name;
   
   std::optional<std::string> peripheral_id;
+  
+  std::optional<std::vector<base::Uuid>> uuids;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -7584,7 +7592,8 @@ BluetoothScannedPeripheralInfoPtr BluetoothScannedPeripheralInfo::Clone() const 
   return New(
       mojo::Clone(rssi_history),
       mojo::Clone(name),
-      mojo::Clone(peripheral_id)
+      mojo::Clone(peripheral_id),
+      mojo::Clone(uuids)
   );
 }
 
@@ -7595,6 +7604,8 @@ bool BluetoothScannedPeripheralInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->name, other_struct.name))
     return false;
   if (!mojo::Equals(this->peripheral_id, other_struct.peripheral_id))
+    return false;
+  if (!mojo::Equals(this->uuids, other_struct.uuids))
     return false;
   return true;
 }
@@ -7612,6 +7623,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.peripheral_id < rhs.peripheral_id)
     return true;
   if (rhs.peripheral_id < lhs.peripheral_id)
+    return false;
+  if (lhs.uuids < rhs.uuids)
+    return true;
+  if (rhs.uuids < lhs.uuids)
     return false;
   return false;
 }
@@ -8319,6 +8334,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo:
   static const decltype(::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::peripheral_id)& peripheral_id(
       const ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr& input) {
     return input->peripheral_id;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::uuids)& uuids(
+      const ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr& input) {
+    return input->uuids;
   }
 
   static bool Read(::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::DataView input, ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr* output);

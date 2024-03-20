@@ -333,6 +333,7 @@ class UserDataAuthInterfaceAdaptor {
     signal_AuthFactorUpdated_ = itf->RegisterSignalOfType<SignalAuthFactorUpdatedType>("AuthFactorUpdated");
     signal_AuthSessionExpiring_ = itf->RegisterSignalOfType<SignalAuthSessionExpiringType>("AuthSessionExpiring");
     signal_EvictedKeyRestored_ = itf->RegisterSignalOfType<SignalEvictedKeyRestoredType>("EvictedKeyRestored");
+    signal_RemoveCompleted_ = itf->RegisterSignalOfType<SignalRemoveCompletedType>("RemoveCompleted");
   }
 
   void SendDircryptoMigrationProgressSignal(
@@ -416,6 +417,12 @@ class UserDataAuthInterfaceAdaptor {
   void SendEvictedKeyRestoredSignal(
       const user_data_auth::EvictedKeyRestored& in_status) {
     auto signal = signal_EvictedKeyRestored_.lock();
+    if (signal)
+      signal->Send(in_status);
+  }
+  void SendRemoveCompletedSignal(
+      const user_data_auth::RemoveCompleted& in_status) {
+    auto signal = signal_RemoveCompleted_.lock();
     if (signal)
       signal->Send(in_status);
   }
@@ -629,6 +636,9 @@ class UserDataAuthInterfaceAdaptor {
         "    <signal name=\"EvictedKeyRestored\">\n"
         "      <arg name=\"status\" type=\"ay\"/>\n"
         "    </signal>\n"
+        "    <signal name=\"RemoveCompleted\">\n"
+        "      <arg name=\"status\" type=\"ay\"/>\n"
+        "    </signal>\n"
         "  </interface>\n";
   }
 
@@ -688,6 +698,10 @@ class UserDataAuthInterfaceAdaptor {
   using SignalEvictedKeyRestoredType = brillo::dbus_utils::DBusSignal<
       user_data_auth::EvictedKeyRestored /*status*/>;
   std::weak_ptr<SignalEvictedKeyRestoredType> signal_EvictedKeyRestored_;
+
+  using SignalRemoveCompletedType = brillo::dbus_utils::DBusSignal<
+      user_data_auth::RemoveCompleted /*status*/>;
+  std::weak_ptr<SignalRemoveCompletedType> signal_RemoveCompleted_;
 
   UserDataAuthInterfaceInterface* interface_;  // Owned by container of this adapter.
 };

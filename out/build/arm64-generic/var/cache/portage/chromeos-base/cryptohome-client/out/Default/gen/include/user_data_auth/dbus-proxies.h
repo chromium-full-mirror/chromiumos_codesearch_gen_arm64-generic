@@ -570,6 +570,10 @@ class UserDataAuthInterfaceProxyInterface {
       const base::RepeatingCallback<void(const user_data_auth::EvictedKeyRestored&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
+  virtual void RegisterRemoveCompletedSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::RemoveCompleted&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
 };
@@ -745,6 +749,17 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "EvictedKeyRestored",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterRemoveCompletedSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::RemoveCompleted&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "RemoveCompleted",
         signal_callback,
         std::move(on_connected_callback));
   }

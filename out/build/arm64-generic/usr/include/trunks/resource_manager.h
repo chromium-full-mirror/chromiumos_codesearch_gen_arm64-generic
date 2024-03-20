@@ -126,9 +126,10 @@ class ResourceManager : public CommandTransceiver {
     void Init(TPM_HANDLE handle, uint64_t sender);
 
     bool is_loaded;
+    bool has_context;
     // Valid only if |is_loaded| is true.
     TPM_HANDLE tpm_handle;
-    // Valid only if |is_loaded| is false.
+    // Valid only if |has_context| is true.
     TPMS_CONTEXT context;
     // Time when the handle is create.
     base::TimeTicks time_of_create;
@@ -145,12 +146,11 @@ class ResourceManager : public CommandTransceiver {
     HandleInfo info;
   };
 
-  // Chooses an appropriate session for eviction (or flush) which is not one of
-  // |sessions_to_retain| and assigns it to |session_to_evict|. Returns true on
+  // Chooses an appropriate session for eviction (or flush) from the
+  // |command_info| and assigns it to |session_to_evict|. Returns true on
   // success.
-  bool ChooseSessionToEvict(
-      const std::vector<SessionHandle>& sessions_to_retain,
-      SessionHandle* session_to_evict);
+  bool ChooseSessionToEvict(const MessageInfo& command_info,
+                            SessionHandle* session_to_evict);
 
   // Cleans up all references to and information about |flushed_session_handle|.
   void CleanupFlushedHandle(const SessionHandle& flushed_session_handle);
@@ -172,7 +172,8 @@ class ResourceManager : public CommandTransceiver {
 
   // Evicts one loaded object except those required by |command_info|. The
   // eviction is best effort; any errors will be ignored.
-  void EvictOneObject(const MessageInfo& command_info);
+  void EvictOneObject(const MessageInfo& command_info,
+                      bool ignore_same_sender = true);
 
   // Evicts a session other than those required by |command_info|. The eviction
   // is best effort; any errors will be ignored.
