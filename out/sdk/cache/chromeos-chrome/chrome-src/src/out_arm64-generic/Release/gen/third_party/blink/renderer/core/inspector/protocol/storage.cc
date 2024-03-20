@@ -707,6 +707,7 @@ public:
     void runBounceTrackingMitigations(const crdtp::Dispatchable& dispatchable);
     void setAttributionReportingLocalTestingMode(const crdtp::Dispatchable& dispatchable);
     void setAttributionReportingTracking(const crdtp::Dispatchable& dispatchable);
+    void sendPendingAttributionReports(const crdtp::Dispatchable& dispatchable);
     void getRelatedWebsiteSets(const crdtp::Dispatchable& dispatchable);
  protected:
     Backend* m_backend;
@@ -791,6 +792,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("runBounceTrackingMitigations"),
           &DomainDispatcherImpl::runBounceTrackingMitigations
+    },
+    {
+          crdtp::SpanFrom("sendPendingAttributionReports"),
+          &DomainDispatcherImpl::sendPendingAttributionReports
     },
     {
           crdtp::SpanFrom("setAttributionReportingLocalTestingMode"),
@@ -2089,6 +2094,37 @@ void DomainDispatcherImpl::setAttributionReportingTracking(const crdtp::Dispatch
     }
     if (weak->get())
         weak->get()->sendResponse(dispatchable.CallId(), response);
+    return;
+}
+
+namespace {
+
+
+}  // namespace
+
+void DomainDispatcherImpl::sendPendingAttributionReports(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    // Declare output parameters.
+    int out_numSent;
+
+    std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
+    DispatchResponse response = m_backend->sendPendingAttributionReports(&out_numSent);
+    if (response.IsFallThrough()) {
+        channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Storage.sendPendingAttributionReports"), dispatchable.Serialized());
+        return;
+    }
+      if (weak->get()) {
+        std::unique_ptr<crdtp::Serializable> result;
+        if (response.IsSuccess()) {
+          crdtp::ObjectSerializer serializer;
+          serializer.AddField(crdtp::MakeSpan("numSent"), out_numSent);
+          result = serializer.Finish();
+        } else {
+          result = Serializable::From({});
+        }
+        weak->get()->sendResponse(dispatchable.CallId(), response, std::move(result));
+      }
     return;
 }
 

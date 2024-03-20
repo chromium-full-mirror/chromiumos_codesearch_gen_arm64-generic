@@ -2279,6 +2279,7 @@ public:
     virtual DispatchResponse runBounceTrackingMitigations(std::unique_ptr<protocol::Array<String>>* out_deletedSites) = 0;
     virtual DispatchResponse setAttributionReportingLocalTestingMode(bool in_enabled) = 0;
     virtual DispatchResponse setAttributionReportingTracking(bool in_enable) = 0;
+    virtual DispatchResponse sendPendingAttributionReports(int* out_numSent) = 0;
     virtual DispatchResponse getRelatedWebsiteSets(std::unique_ptr<protocol::Array<protocol::Storage::RelatedWebsiteSet>>* out_sets) = 0;
 
     virtual DispatchResponse disable()

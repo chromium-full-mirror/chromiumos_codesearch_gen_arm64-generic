@@ -2316,6 +2316,14 @@ public:
     };
     virtual void SetAttributionReportingLocalTestingMode(bool in_enabled, std::unique_ptr<SetAttributionReportingLocalTestingModeCallback> callback) = 0;
     virtual DispatchResponse SetAttributionReportingTracking(bool in_enable) = 0;
+    class CONTENT_EXPORT SendPendingAttributionReportsCallback {
+    public:
+        virtual void sendSuccess(int numSent) = 0;
+        virtual void sendFailure(const DispatchResponse&) = 0;
+        virtual void fallThrough() = 0;
+        virtual ~SendPendingAttributionReportsCallback() { }
+    };
+    virtual void SendPendingAttributionReports(std::unique_ptr<SendPendingAttributionReportsCallback> callback) = 0;
 
     virtual DispatchResponse Disable()
     {

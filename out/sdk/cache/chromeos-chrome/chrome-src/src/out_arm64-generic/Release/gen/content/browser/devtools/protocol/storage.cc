@@ -693,6 +693,7 @@ public:
     void deleteStorageBucket(const crdtp::Dispatchable& dispatchable);
     void setAttributionReportingLocalTestingMode(const crdtp::Dispatchable& dispatchable);
     void setAttributionReportingTracking(const crdtp::Dispatchable& dispatchable);
+    void sendPendingAttributionReports(const crdtp::Dispatchable& dispatchable);
  protected:
     Backend* m_backend;
 };
@@ -768,6 +769,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("resetSharedStorageBudget"),
           &DomainDispatcherImpl::resetSharedStorageBudget
+    },
+    {
+          crdtp::SpanFrom("sendPendingAttributionReports"),
+          &DomainDispatcherImpl::sendPendingAttributionReports
     },
     {
           crdtp::SpanFrom("setAttributionReportingLocalTestingMode"),
@@ -2235,6 +2240,43 @@ void DomainDispatcherImpl::setAttributionReportingTracking(const crdtp::Dispatch
     if (weak->get())
         weak->get()->sendResponse(dispatchable.CallId(), response);
     return;
+}
+
+class SendPendingAttributionReportsCallbackImpl : public Backend::SendPendingAttributionReportsCallback, public DomainDispatcher::Callback {
+public:
+    SendPendingAttributionReportsCallbackImpl(std::unique_ptr<DomainDispatcher::WeakPtr> backendImpl, int callId, crdtp::span<uint8_t> message)
+        : DomainDispatcher::Callback(std::move(backendImpl), callId,
+crdtp::SpanFrom("Storage.sendPendingAttributionReports"), message) { }
+
+    void sendSuccess(int numSent) override
+    {
+        crdtp::ObjectSerializer serializer;
+        serializer.AddField(crdtp::MakeSpan("numSent"), numSent);
+        sendIfActive(serializer.Finish(), DispatchResponse::Success());
+    }
+
+    void fallThrough() override
+    {
+        fallThroughIfActive();
+    }
+
+    void sendFailure(const DispatchResponse& response) override
+    {
+        DCHECK(response.IsError());
+        sendIfActive(nullptr, response);
+    }
+};
+
+namespace {
+
+
+}  // namespace
+
+void DomainDispatcherImpl::sendPendingAttributionReports(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+
+    m_backend->SendPendingAttributionReports(std::make_unique<SendPendingAttributionReportsCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
 }
 
 namespace {

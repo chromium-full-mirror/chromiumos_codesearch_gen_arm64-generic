@@ -294,6 +294,7 @@ kProductSpecificationsEnabledFieldNumber = 193,
 kPrefixedVideoFullscreenApiAvailabilityFieldNumber = 194,
 kPrivacySandboxIpProtectionEnabledFieldNumber = 195,
 kOrcaEnabledFieldNumber = 196,
+kPrivacySandboxFingerprintingProtectionEnabledFieldNumber = 200,
 };
 // optional .enterprise_management.BooleanPolicyProto NewBaseUrlInheritanceBehaviorAllowed = 1;
 bool has_newbaseurlinheritancebehaviorallowed() const;
@@ -2545,6 +2546,24 @@ void unsafe_arena_set_allocated_orcaenabled(
 ::enterprise_management::BooleanPolicyProto* orcaenabled);
 ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_orcaenabled();
 
+// optional .enterprise_management.BooleanPolicyProto PrivacySandboxFingerprintingProtectionEnabled = 200;
+bool has_privacysandboxfingerprintingprotectionenabled() const;
+private:
+bool _internal_has_privacysandboxfingerprintingprotectionenabled() const;
+public:
+void clear_privacysandboxfingerprintingprotectionenabled();
+const ::enterprise_management::BooleanPolicyProto& privacysandboxfingerprintingprotectionenabled() const;
+PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_privacysandboxfingerprintingprotectionenabled();
+::enterprise_management::BooleanPolicyProto* mutable_privacysandboxfingerprintingprotectionenabled();
+void set_allocated_privacysandboxfingerprintingprotectionenabled(::enterprise_management::BooleanPolicyProto* privacysandboxfingerprintingprotectionenabled);
+private:
+const ::enterprise_management::BooleanPolicyProto& _internal_privacysandboxfingerprintingprotectionenabled() const;
+::enterprise_management::BooleanPolicyProto* _internal_mutable_privacysandboxfingerprintingprotectionenabled();
+public:
+void unsafe_arena_set_allocated_privacysandboxfingerprintingprotectionenabled(
+::enterprise_management::BooleanPolicyProto* privacysandboxfingerprintingprotectionenabled);
+::enterprise_management::BooleanPolicyProto* unsafe_arena_release_privacysandboxfingerprintingprotectionenabled();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -2679,6 +2698,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::StringPolicyProto* prefixedvideofullscreenapiavailability_;
 ::enterprise_management::BooleanPolicyProto* privacysandboxipprotectionenabled_;
 ::enterprise_management::BooleanPolicyProto* orcaenabled_;
+::enterprise_management::BooleanPolicyProto* privacysandboxfingerprintingprotectionenabled_;
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
@@ -22355,6 +22375,93 @@ _has_bits_[0] &= ~0x00000020u;
 }
 privacysandboxadtopicsenabled_ = privacysandboxadtopicsenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.PrivacySandboxAdTopicsEnabled)
+}
+
+// optional .enterprise_management.BooleanPolicyProto PrivacySandboxFingerprintingProtectionEnabled = 200;
+inline bool CloudPolicySubProto1::_internal_has_privacysandboxfingerprintingprotectionenabled() const {
+bool value = (_has_bits_[3] & 0x20000000u) != 0;
+PROTOBUF_ASSUME(!value || privacysandboxfingerprintingprotectionenabled_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_privacysandboxfingerprintingprotectionenabled() const {
+return _internal_has_privacysandboxfingerprintingprotectionenabled();
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_privacysandboxfingerprintingprotectionenabled() const {
+const ::enterprise_management::BooleanPolicyProto* p = privacysandboxfingerprintingprotectionenabled_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::privacysandboxfingerprintingprotectionenabled() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.PrivacySandboxFingerprintingProtectionEnabled)
+return _internal_privacysandboxfingerprintingprotectionenabled();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_privacysandboxfingerprintingprotectionenabled(
+::enterprise_management::BooleanPolicyProto* privacysandboxfingerprintingprotectionenabled) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(privacysandboxfingerprintingprotectionenabled_);
+}
+privacysandboxfingerprintingprotectionenabled_ = privacysandboxfingerprintingprotectionenabled;
+if (privacysandboxfingerprintingprotectionenabled) {
+_has_bits_[3] |= 0x20000000u;
+} else {
+_has_bits_[3] &= ~0x20000000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.PrivacySandboxFingerprintingProtectionEnabled)
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_privacysandboxfingerprintingprotectionenabled() {
+_has_bits_[3] &= ~0x20000000u;
+::enterprise_management::BooleanPolicyProto* temp = privacysandboxfingerprintingprotectionenabled_;
+privacysandboxfingerprintingprotectionenabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_privacysandboxfingerprintingprotectionenabled() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.PrivacySandboxFingerprintingProtectionEnabled)
+_has_bits_[3] &= ~0x20000000u;
+::enterprise_management::BooleanPolicyProto* temp = privacysandboxfingerprintingprotectionenabled_;
+privacysandboxfingerprintingprotectionenabled_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_privacysandboxfingerprintingprotectionenabled() {
+_has_bits_[3] |= 0x20000000u;
+if (privacysandboxfingerprintingprotectionenabled_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+privacysandboxfingerprintingprotectionenabled_ = p;
+}
+return privacysandboxfingerprintingprotectionenabled_;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_privacysandboxfingerprintingprotectionenabled() {
+::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_privacysandboxfingerprintingprotectionenabled();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.PrivacySandboxFingerprintingProtectionEnabled)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_privacysandboxfingerprintingprotectionenabled(::enterprise_management::BooleanPolicyProto* privacysandboxfingerprintingprotectionenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(privacysandboxfingerprintingprotectionenabled_);
+}
+if (privacysandboxfingerprintingprotectionenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(privacysandboxfingerprintingprotectionenabled));
+if (message_arena != submessage_arena) {
+privacysandboxfingerprintingprotectionenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, privacysandboxfingerprintingprotectionenabled, submessage_arena);
+}
+_has_bits_[3] |= 0x20000000u;
+} else {
+_has_bits_[3] &= ~0x20000000u;
+}
+privacysandboxfingerprintingprotectionenabled_ = privacysandboxfingerprintingprotectionenabled;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.PrivacySandboxFingerprintingProtectionEnabled)
 }
 
 // optional .enterprise_management.BooleanPolicyProto PrivacySandboxIpProtectionEnabled = 195;

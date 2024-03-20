@@ -13679,7 +13679,7 @@ class ChromeTaskAnnotator : public ::protozero::Message {
   }
 };
 
-class BlinkTaskScope_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class BlinkTaskScope_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   BlinkTaskScope_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit BlinkTaskScope_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -13690,10 +13690,6 @@ class BlinkTaskScope_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD
   int64_t scope_task_id() const { return at<2>().as_int64(); }
   bool has_running_task_id_to_be_restored() const { return at<3>().valid(); }
   int64_t running_task_id_to_be_restored() const { return at<3>().as_int64(); }
-  bool has_continuation_task_id_to_be_restored() const { return at<4>().valid(); }
-  int64_t continuation_task_id_to_be_restored() const { return at<4>().as_int64(); }
-  bool has_parent_task_id() const { return at<5>().valid(); }
-  int64_t parent_task_id() const { return at<5>().as_int64(); }
 };
 
 class BlinkTaskScope : public ::protozero::Message {
@@ -13703,8 +13699,6 @@ class BlinkTaskScope : public ::protozero::Message {
     kTypeFieldNumber = 1,
     kScopeTaskIdFieldNumber = 2,
     kRunningTaskIdToBeRestoredFieldNumber = 3,
-    kContinuationTaskIdToBeRestoredFieldNumber = 4,
-    kParentTaskIdFieldNumber = 5,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.BlinkTaskScope"; }
 
@@ -13770,42 +13764,6 @@ class BlinkTaskScope : public ::protozero::Message {
   static constexpr FieldMetadata_RunningTaskIdToBeRestored kRunningTaskIdToBeRestored{};
   void set_running_task_id_to_be_restored(int64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_RunningTaskIdToBeRestored::kFieldId;
-    // Call the appropriate protozero::Message::Append(field_id, ...)
-    // method based on the type of the field.
-    ::protozero::internal::FieldWriter<
-      ::protozero::proto_utils::ProtoSchemaType::kInt64>
-        ::Append(*this, field_id, value);
-  }
-
-  using FieldMetadata_ContinuationTaskIdToBeRestored =
-    ::protozero::proto_utils::FieldMetadata<
-      4,
-      ::protozero::proto_utils::RepetitionType::kNotRepeated,
-      ::protozero::proto_utils::ProtoSchemaType::kInt64,
-      int64_t,
-      BlinkTaskScope>;
-
-  static constexpr FieldMetadata_ContinuationTaskIdToBeRestored kContinuationTaskIdToBeRestored{};
-  void set_continuation_task_id_to_be_restored(int64_t value) {
-    static constexpr uint32_t field_id = FieldMetadata_ContinuationTaskIdToBeRestored::kFieldId;
-    // Call the appropriate protozero::Message::Append(field_id, ...)
-    // method based on the type of the field.
-    ::protozero::internal::FieldWriter<
-      ::protozero::proto_utils::ProtoSchemaType::kInt64>
-        ::Append(*this, field_id, value);
-  }
-
-  using FieldMetadata_ParentTaskId =
-    ::protozero::proto_utils::FieldMetadata<
-      5,
-      ::protozero::proto_utils::RepetitionType::kNotRepeated,
-      ::protozero::proto_utils::ProtoSchemaType::kInt64,
-      int64_t,
-      BlinkTaskScope>;
-
-  static constexpr FieldMetadata_ParentTaskId kParentTaskId{};
-  void set_parent_task_id(int64_t value) {
-    static constexpr uint32_t field_id = FieldMetadata_ParentTaskId::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
