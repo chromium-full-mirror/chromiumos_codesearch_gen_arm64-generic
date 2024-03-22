@@ -143,13 +143,13 @@ void CameraHalDispatcherProxy::RegisterClientWithToken(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -239,7 +239,6 @@ class CameraHalDispatcher_RegisterClientWithToken_ProxyToResponder : public ::mo
 
 bool CameraHalDispatcher_RegisterClientWithToken_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CameraHalDispatcher_RegisterClientWithToken_ResponseParams_Data* params =
       reinterpret_cast<
@@ -279,12 +278,12 @@ void CameraHalDispatcher_RegisterClientWithToken_ProxyToResponder::Run(
                         "<value of type int32_t>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -335,7 +334,6 @@ bool CameraHalDispatcherStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kCameraHalDispatcher_RegisterClientWithToken_Name: {
-
       internal::CameraHalDispatcher_RegisterClientWithToken_Params_Data* params =
           reinterpret_cast<
               internal::CameraHalDispatcher_RegisterClientWithToken_Params_Data*>(
@@ -538,13 +536,13 @@ void CrosCameraServiceObserverProxy::CameraDeviceActivityChange(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -588,13 +586,13 @@ void CrosCameraServiceObserverProxy::CameraPrivacySwitchStateChange(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -634,13 +632,13 @@ void CrosCameraServiceObserverProxy::CameraSWPrivacySwitchStateChange(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -679,13 +677,13 @@ void CrosCameraServiceObserverProxy::CameraEffectChange(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -722,7 +720,6 @@ bool CrosCameraServiceObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data* params =
           reinterpret_cast<internal::CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data*>(
@@ -758,7 +755,6 @@ bool CrosCameraServiceObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data* params =
           reinterpret_cast<internal::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data*>(
@@ -790,7 +786,6 @@ bool CrosCameraServiceObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data* params =
           reinterpret_cast<internal::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data*>(
@@ -818,7 +813,6 @@ bool CrosCameraServiceObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosCameraServiceObserver_CameraEffectChange_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosCameraServiceObserver_CameraEffectChange_Params_Data* params =
           reinterpret_cast<internal::CrosCameraServiceObserver_CameraEffectChange_Params_Data*>(
@@ -1171,13 +1165,13 @@ void CrosCameraServiceProxy::GetCameraModule(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1217,13 +1211,13 @@ void CrosCameraServiceProxy::SetTracingEnabled(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1261,13 +1255,13 @@ void CrosCameraServiceProxy::SetAutoFramingState(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1299,13 +1293,13 @@ void CrosCameraServiceProxy::GetCameraSWPrivacySwitchState(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1343,13 +1337,13 @@ void CrosCameraServiceProxy::SetCameraSWPrivacySwitchState(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1381,13 +1375,13 @@ void CrosCameraServiceProxy::GetAutoFramingSupported(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1425,13 +1419,13 @@ void CrosCameraServiceProxy::SetCameraEffect(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1480,13 +1474,13 @@ void CrosCameraServiceProxy::AddCrosCameraServiceObserver(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1562,7 +1556,6 @@ class CrosCameraService_GetCameraModule_ProxyToResponder : public ::mojo::intern
 
 bool CrosCameraService_GetCameraModule_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CrosCameraService_GetCameraModule_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1604,12 +1597,12 @@ void CrosCameraService_GetCameraModule_ProxyToResponder::Run(
                         "<value of type ::mojo::PendingRemote<::cros::mojom::CameraModule>>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1693,7 +1686,6 @@ class CrosCameraService_GetCameraSWPrivacySwitchState_ProxyToResponder : public 
 
 bool CrosCameraService_GetCameraSWPrivacySwitchState_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1733,12 +1725,12 @@ void CrosCameraService_GetCameraSWPrivacySwitchState_ProxyToResponder::Run(
                         "<value of type CameraPrivacySwitchState>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1818,7 +1810,6 @@ class CrosCameraService_GetAutoFramingSupported_ProxyToResponder : public ::mojo
 
 bool CrosCameraService_GetAutoFramingSupported_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CrosCameraService_GetAutoFramingSupported_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1858,12 +1849,12 @@ void CrosCameraService_GetAutoFramingSupported_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1942,7 +1933,6 @@ class CrosCameraService_SetCameraEffect_ProxyToResponder : public ::mojo::intern
 
 bool CrosCameraService_SetCameraEffect_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CrosCameraService_SetCameraEffect_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1982,12 +1972,12 @@ void CrosCameraService_SetCameraEffect_ProxyToResponder::Run(
                         "<value of type ::cros::mojom::SetEffectResult>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2026,7 +2016,6 @@ bool CrosCameraServiceStubDispatch::Accept(
       break;
     }
     case internal::kCrosCameraService_SetTracingEnabled_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosCameraService_SetTracingEnabled_Params_Data* params =
           reinterpret_cast<internal::CrosCameraService_SetTracingEnabled_Params_Data*>(
@@ -2054,7 +2043,6 @@ bool CrosCameraServiceStubDispatch::Accept(
       return true;
     }
     case internal::kCrosCameraService_SetAutoFramingState_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosCameraService_SetAutoFramingState_Params_Data* params =
           reinterpret_cast<internal::CrosCameraService_SetAutoFramingState_Params_Data*>(
@@ -2085,7 +2073,6 @@ bool CrosCameraServiceStubDispatch::Accept(
       break;
     }
     case internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data* params =
           reinterpret_cast<internal::CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data*>(
@@ -2119,7 +2106,6 @@ bool CrosCameraServiceStubDispatch::Accept(
       break;
     }
     case internal::kCrosCameraService_AddCrosCameraServiceObserver_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosCameraService_AddCrosCameraServiceObserver_Params_Data* params =
           reinterpret_cast<internal::CrosCameraService_AddCrosCameraServiceObserver_Params_Data*>(
@@ -2162,7 +2148,6 @@ bool CrosCameraServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kCrosCameraService_GetCameraModule_Name: {
-
       internal::CrosCameraService_GetCameraModule_Params_Data* params =
           reinterpret_cast<
               internal::CrosCameraService_GetCameraModule_Params_Data*>(
@@ -2199,7 +2184,6 @@ bool CrosCameraServiceStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name: {
-
       internal::CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data* params =
           reinterpret_cast<
               internal::CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data*>(
@@ -2229,7 +2213,6 @@ bool CrosCameraServiceStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kCrosCameraService_GetAutoFramingSupported_Name: {
-
       internal::CrosCameraService_GetAutoFramingSupported_Params_Data* params =
           reinterpret_cast<
               internal::CrosCameraService_GetAutoFramingSupported_Params_Data*>(
@@ -2256,7 +2239,6 @@ bool CrosCameraServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kCrosCameraService_SetCameraEffect_Name: {
-
       internal::CrosCameraService_SetCameraEffect_Params_Data* params =
           reinterpret_cast<
               internal::CrosCameraService_SetCameraEffect_Params_Data*>(

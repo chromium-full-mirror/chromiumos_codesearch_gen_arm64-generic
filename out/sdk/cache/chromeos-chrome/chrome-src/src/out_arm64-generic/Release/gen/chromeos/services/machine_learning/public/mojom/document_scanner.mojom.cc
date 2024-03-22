@@ -334,13 +334,13 @@ void DocumentScannerProxy::DetectCornersFromNV12Image(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -389,13 +389,13 @@ void DocumentScannerProxy::DetectCornersFromJPEGImage(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -450,13 +450,13 @@ void DocumentScannerProxy::DoPostProcessing(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -553,7 +553,6 @@ class DocumentScanner_DetectCornersFromNV12Image_ProxyToResponder : public ::moj
 
 bool DocumentScanner_DetectCornersFromNV12Image_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::DocumentScanner_DetectCornersFromNV12Image_ResponseParams_Data* params =
       reinterpret_cast<
@@ -593,12 +592,12 @@ void DocumentScanner_DetectCornersFromNV12Image_ProxyToResponder::Run(
                         "<value of type DetectCornersResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -687,7 +686,6 @@ class DocumentScanner_DetectCornersFromJPEGImage_ProxyToResponder : public ::moj
 
 bool DocumentScanner_DetectCornersFromJPEGImage_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::DocumentScanner_DetectCornersFromJPEGImage_ResponseParams_Data* params =
       reinterpret_cast<
@@ -727,12 +725,12 @@ void DocumentScanner_DetectCornersFromJPEGImage_ProxyToResponder::Run(
                         "<value of type DetectCornersResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -821,7 +819,6 @@ class DocumentScanner_DoPostProcessing_ProxyToResponder : public ::mojo::interna
 
 bool DocumentScanner_DoPostProcessing_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::DocumentScanner_DoPostProcessing_ResponseParams_Data* params =
       reinterpret_cast<
@@ -861,12 +858,12 @@ void DocumentScanner_DoPostProcessing_ProxyToResponder::Run(
                         "<value of type DoPostProcessingResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -933,7 +930,6 @@ bool DocumentScannerStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kDocumentScanner_DetectCornersFromNV12Image_Name: {
-
       internal::DocumentScanner_DetectCornersFromNV12Image_Params_Data* params =
           reinterpret_cast<
               internal::DocumentScanner_DetectCornersFromNV12Image_Params_Data*>(
@@ -964,7 +960,6 @@ bool DocumentScannerStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kDocumentScanner_DetectCornersFromJPEGImage_Name: {
-
       internal::DocumentScanner_DetectCornersFromJPEGImage_Params_Data* params =
           reinterpret_cast<
               internal::DocumentScanner_DetectCornersFromJPEGImage_Params_Data*>(
@@ -995,7 +990,6 @@ bool DocumentScannerStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kDocumentScanner_DoPostProcessing_Name: {
-
       internal::DocumentScanner_DoPostProcessing_Params_Data* params =
           reinterpret_cast<
               internal::DocumentScanner_DoPostProcessing_Params_Data*>(

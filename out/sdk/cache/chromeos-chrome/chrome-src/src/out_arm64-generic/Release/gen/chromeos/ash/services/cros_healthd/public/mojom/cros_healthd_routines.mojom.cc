@@ -2049,13 +2049,13 @@ void CrosHealthdRoutinesServiceProxy::CreateRoutine(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2109,13 +2109,13 @@ void CrosHealthdRoutinesServiceProxy::IsRoutineArgumentSupported(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2195,7 +2195,6 @@ class CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder : p
 
 bool CrosHealthdRoutinesService_IsRoutineArgumentSupported_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2235,12 +2234,12 @@ void CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder::Run
                         "<value of type ::ash::cros_healthd::mojom::SupportStatusPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2283,7 +2282,6 @@ bool CrosHealthdRoutinesServiceStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kCrosHealthdRoutinesService_CreateRoutine_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data*>(
@@ -2342,7 +2340,6 @@ bool CrosHealthdRoutinesServiceStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name: {
-
       internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data*>(
@@ -2478,13 +2475,13 @@ void LedLitUpRoutineReplierProxy::GetColorMatched(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2555,7 +2552,6 @@ class LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder : public ::mojo::i
 
 bool LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2595,12 +2591,12 @@ void LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2651,7 +2647,6 @@ bool LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kLedLitUpRoutineReplier_GetColorMatched_Name: {
-
       internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data* params =
           reinterpret_cast<
               internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(
@@ -2801,13 +2796,13 @@ void RoutineControlProxy::GetState(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2838,13 +2833,13 @@ void RoutineControlProxy::Start(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2914,7 +2909,6 @@ class RoutineControl_GetState_ProxyToResponder : public ::mojo::internal::ProxyT
 
 bool RoutineControl_GetState_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::RoutineControl_GetState_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2954,12 +2948,12 @@ void RoutineControl_GetState_ProxyToResponder::Run(
                         "<value of type RoutineStatePtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3007,7 +3001,6 @@ bool RoutineControlStubDispatch::Accept(
       break;
     }
     case internal::kRoutineControl_Start_Name: {
-
       DCHECK(message->is_serialized());
       internal::RoutineControl_Start_Params_Data* params =
           reinterpret_cast<internal::RoutineControl_Start_Params_Data*>(
@@ -3044,7 +3037,6 @@ bool RoutineControlStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kRoutineControl_GetState_Name: {
-
       internal::RoutineControl_GetState_Params_Data* params =
           reinterpret_cast<
               internal::RoutineControl_GetState_Params_Data*>(
@@ -3170,13 +3162,13 @@ void RoutineObserverProxy::OnRoutineStateChange(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3213,7 +3205,6 @@ bool RoutineObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kRoutineObserver_OnRoutineStateChange_Name: {
-
       DCHECK(message->is_serialized());
       internal::RoutineObserver_OnRoutineStateChange_Params_Data* params =
           reinterpret_cast<internal::RoutineObserver_OnRoutineStateChange_Params_Data*>(

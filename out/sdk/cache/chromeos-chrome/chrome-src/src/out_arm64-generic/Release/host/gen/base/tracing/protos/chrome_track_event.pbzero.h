@@ -18,7 +18,6 @@
 namespace perfetto {
 namespace protos {
 namespace pbzero {
-
 class AndroidActivity;
 class AndroidView;
 class BeginFrameArgsV2;
@@ -213,6 +212,13 @@ namespace perfetto_pbzero_enum_WebContentInteraction {
 enum Type : int32_t;
 }  // namespace perfetto_pbzero_enum_WebContentInteraction
 using WebContentInteraction_Type = perfetto_pbzero_enum_WebContentInteraction::Type;
+} // Namespace pbzero.
+} // Namespace protos.
+} // Namespace perfetto.
+
+namespace perfetto {
+namespace protos {
+namespace pbzero {
 
 enum ChromeAppState : int32_t {
   APP_STATE_FOREGROUND = 1,
@@ -3471,11 +3477,11 @@ class BeginImplFrameArgsV2 : public ::protozero::Message {
       3,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::BeginImplFrameArgsV2_State,
+      BeginImplFrameArgsV2_State,
       BeginImplFrameArgsV2>;
 
   static constexpr FieldMetadata_State kState{};
-  void set_state(::perfetto::protos::pbzero::BeginImplFrameArgsV2_State value) {
+  void set_state(BeginImplFrameArgsV2_State value) {
     static constexpr uint32_t field_id = FieldMetadata_State::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -3752,11 +3758,11 @@ class BeginFrameArgsV2 : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::BeginFrameArgsV2_BeginFrameArgsType,
+      BeginFrameArgsV2_BeginFrameArgsType,
       BeginFrameArgsV2>;
 
   static constexpr FieldMetadata_Type kType{};
-  void set_type(::perfetto::protos::pbzero::BeginFrameArgsV2_BeginFrameArgsType value) {
+  void set_type(BeginFrameArgsV2_BeginFrameArgsType value) {
     static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -4706,11 +4712,11 @@ class ChromeCompositorStateMachineV2_MinorStateV2 : public ::protozero::Message 
       31,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_TreePriority,
+      ChromeCompositorStateMachineV2_MinorStateV2_TreePriority,
       ChromeCompositorStateMachineV2_MinorStateV2>;
 
   static constexpr FieldMetadata_TreePriority kTreePriority{};
-  void set_tree_priority(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_TreePriority value) {
+  void set_tree_priority(ChromeCompositorStateMachineV2_MinorStateV2_TreePriority value) {
     static constexpr uint32_t field_id = FieldMetadata_TreePriority::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -4724,11 +4730,11 @@ class ChromeCompositorStateMachineV2_MinorStateV2 : public ::protozero::Message 
       32,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState,
+      ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState,
       ChromeCompositorStateMachineV2_MinorStateV2>;
 
   static constexpr FieldMetadata_ScrollHandlerState kScrollHandlerState{};
-  void set_scroll_handler_state(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState value) {
+  void set_scroll_handler_state(ChromeCompositorStateMachineV2_MinorStateV2_ScrollHandlerState value) {
     static constexpr uint32_t field_id = FieldMetadata_ScrollHandlerState::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -5046,11 +5052,11 @@ class ChromeCompositorStateMachineV2_MajorStateV2 : public ::protozero::Message 
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2,
+      ChromeCompositorSchedulerActionV2,
       ChromeCompositorStateMachineV2_MajorStateV2>;
 
   static constexpr FieldMetadata_NextAction kNextAction{};
-  void set_next_action(::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2 value) {
+  void set_next_action(ChromeCompositorSchedulerActionV2 value) {
     static constexpr uint32_t field_id = FieldMetadata_NextAction::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -5064,11 +5070,11 @@ class ChromeCompositorStateMachineV2_MajorStateV2 : public ::protozero::Message 
       2,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState,
+      ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState,
       ChromeCompositorStateMachineV2_MajorStateV2>;
 
   static constexpr FieldMetadata_BeginImplFrameState kBeginImplFrameState{};
-  void set_begin_impl_frame_state(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState value) {
+  void set_begin_impl_frame_state(ChromeCompositorStateMachineV2_MajorStateV2_BeginImplFrameState value) {
     static constexpr uint32_t field_id = FieldMetadata_BeginImplFrameState::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -5082,11 +5088,11 @@ class ChromeCompositorStateMachineV2_MajorStateV2 : public ::protozero::Message 
       3,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState,
+      ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState,
       ChromeCompositorStateMachineV2_MajorStateV2>;
 
   static constexpr FieldMetadata_BeginMainFrameState kBeginMainFrameState{};
-  void set_begin_main_frame_state(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState value) {
+  void set_begin_main_frame_state(ChromeCompositorStateMachineV2_MajorStateV2_BeginMainFrameState value) {
     static constexpr uint32_t field_id = FieldMetadata_BeginMainFrameState::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -5100,11 +5106,11 @@ class ChromeCompositorStateMachineV2_MajorStateV2 : public ::protozero::Message 
       4,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState,
+      ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState,
       ChromeCompositorStateMachineV2_MajorStateV2>;
 
   static constexpr FieldMetadata_LayerTreeFrameSinkState kLayerTreeFrameSinkState{};
-  void set_layer_tree_frame_sink_state(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState value) {
+  void set_layer_tree_frame_sink_state(ChromeCompositorStateMachineV2_MajorStateV2_LayerTreeFrameSinkState value) {
     static constexpr uint32_t field_id = FieldMetadata_LayerTreeFrameSinkState::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -5118,11 +5124,11 @@ class ChromeCompositorStateMachineV2_MajorStateV2 : public ::protozero::Message 
       5,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState,
+      ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState,
       ChromeCompositorStateMachineV2_MajorStateV2>;
 
   static constexpr FieldMetadata_ForcedRedrawState kForcedRedrawState{};
-  void set_forced_redraw_state(::perfetto::protos::pbzero::ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState value) {
+  void set_forced_redraw_state(ChromeCompositorStateMachineV2_MajorStateV2_ForcedRedrawOnTimeoutState value) {
     static constexpr uint32_t field_id = FieldMetadata_ForcedRedrawState::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -5297,11 +5303,11 @@ class ChromeCompositorSchedulerStateV2 : public ::protozero::Message {
       7,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2,
+      ChromeCompositorSchedulerActionV2,
       ChromeCompositorSchedulerStateV2>;
 
   static constexpr FieldMetadata_InsideAction kInsideAction{};
-  void set_inside_action(::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2 value) {
+  void set_inside_action(ChromeCompositorSchedulerActionV2 value) {
     static constexpr uint32_t field_id = FieldMetadata_InsideAction::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -5315,11 +5321,11 @@ class ChromeCompositorSchedulerStateV2 : public ::protozero::Message {
       8,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode,
+      ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode,
       ChromeCompositorSchedulerStateV2>;
 
   static constexpr FieldMetadata_DeadlineMode kDeadlineMode{};
-  void set_deadline_mode(::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode value) {
+  void set_deadline_mode(ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode value) {
     static constexpr uint32_t field_id = FieldMetadata_DeadlineMode::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -5753,11 +5759,11 @@ class WebContentInteraction : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::WebContentInteraction_Type,
+      WebContentInteraction_Type,
       WebContentInteraction>;
 
   static constexpr FieldMetadata_Type kType{};
-  void set_type(::perfetto::protos::pbzero::WebContentInteraction_Type value) {
+  void set_type(WebContentInteraction_Type value) {
     static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -5853,11 +5859,11 @@ class StartUp : public ::protozero::Message {
       3,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::StartUp_LaunchCauseType,
+      StartUp_LaunchCauseType,
       StartUp>;
 
   static constexpr FieldMetadata_LaunchCause kLaunchCause{};
-  void set_launch_cause(::perfetto::protos::pbzero::StartUp_LaunchCauseType value) {
+  void set_launch_cause(StartUp_LaunchCauseType value) {
     static constexpr uint32_t field_id = FieldMetadata_LaunchCause::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -6166,11 +6172,11 @@ class LibunwindstackUnwinder : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::LibunwindstackUnwinder_ErrorCode,
+      LibunwindstackUnwinder_ErrorCode,
       LibunwindstackUnwinder>;
 
   static constexpr FieldMetadata_ErrorCode kErrorCode{};
-  void set_error_code(::perfetto::protos::pbzero::LibunwindstackUnwinder_ErrorCode value) {
+  void set_error_code(LibunwindstackUnwinder_ErrorCode value) {
     static constexpr uint32_t field_id = FieldMetadata_ErrorCode::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -6275,11 +6281,11 @@ class ChromeGraphicsPipeline : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeGraphicsPipeline_StepName,
+      ChromeGraphicsPipeline_StepName,
       ChromeGraphicsPipeline>;
 
   static constexpr FieldMetadata_Step kStep{};
-  void set_step(::perfetto::protos::pbzero::ChromeGraphicsPipeline_StepName value) {
+  void set_step(ChromeGraphicsPipeline_StepName value) {
     static constexpr uint32_t field_id = FieldMetadata_Step::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -6357,11 +6363,11 @@ class ChromeGraphicsPipeline : public ::protozero::Message {
       6,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeGraphicsPipeline_FrameSkippedReason,
+      ChromeGraphicsPipeline_FrameSkippedReason,
       ChromeGraphicsPipeline>;
 
   static constexpr FieldMetadata_FrameSkippedReason kFrameSkippedReason{};
-  void set_frame_skipped_reason(::perfetto::protos::pbzero::ChromeGraphicsPipeline_FrameSkippedReason value) {
+  void set_frame_skipped_reason(ChromeGraphicsPipeline_FrameSkippedReason value) {
     static constexpr uint32_t field_id = FieldMetadata_FrameSkippedReason::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -7938,11 +7944,11 @@ class TabSwitchMeasurement : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::TabSwitchMeasurement_Result,
+      TabSwitchMeasurement_Result,
       TabSwitchMeasurement>;
 
   static constexpr FieldMetadata_Result kResult{};
-  void set_result(::perfetto::protos::pbzero::TabSwitchMeasurement_Result value) {
+  void set_result(TabSwitchMeasurement_Result value) {
     static constexpr uint32_t field_id = FieldMetadata_Result::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -7956,11 +7962,11 @@ class TabSwitchMeasurement : public ::protozero::Message {
       2,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::TabSwitchMeasurement_TabState,
+      TabSwitchMeasurement_TabState,
       TabSwitchMeasurement>;
 
   static constexpr FieldMetadata_TabState kTabState{};
-  void set_tab_state(::perfetto::protos::pbzero::TabSwitchMeasurement_TabState value) {
+  void set_tab_state(TabSwitchMeasurement_TabState value) {
     static constexpr uint32_t field_id = FieldMetadata_TabState::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -8100,11 +8106,11 @@ class BlinkHighEntropyAPI_FontLookup : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::BlinkHighEntropyAPI_FontLookup_FontLookupType,
+      BlinkHighEntropyAPI_FontLookup_FontLookupType,
       BlinkHighEntropyAPI_FontLookup>;
 
   static constexpr FieldMetadata_Type kType{};
-  void set_type(::perfetto::protos::pbzero::BlinkHighEntropyAPI_FontLookup_FontLookupType value) {
+  void set_type(BlinkHighEntropyAPI_FontLookup_FontLookupType value) {
     static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -8310,11 +8316,11 @@ class BlinkHighEntropyAPI_JSFunctionArgument : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType,
+      BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType,
       BlinkHighEntropyAPI_JSFunctionArgument>;
 
   static constexpr FieldMetadata_Type kType{};
-  void set_type(::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType value) {
+  void set_type(BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType value) {
     static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -8581,11 +8587,11 @@ class BlinkExecutionContext : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::BlinkExecutionContext_ContextType,
+      BlinkExecutionContext_ContextType,
       BlinkExecutionContext>;
 
   static constexpr FieldMetadata_Type kType{};
-  void set_type(::perfetto::protos::pbzero::BlinkExecutionContext_ContextType value) {
+  void set_type(BlinkExecutionContext_ContextType value) {
     static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -8647,11 +8653,11 @@ class BlinkExecutionContext : public ::protozero::Message {
       4,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType,
+      BlinkExecutionContext_WorldType,
       BlinkExecutionContext>;
 
   static constexpr FieldMetadata_WorldType kWorldType{};
-  void set_world_type(::perfetto::protos::pbzero::BlinkExecutionContext_WorldType value) {
+  void set_world_type(BlinkExecutionContext_WorldType value) {
     static constexpr uint32_t field_id = FieldMetadata_WorldType::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -9051,11 +9057,11 @@ class AndroidToolbar : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason,
+      AndroidToolbar_BlockCaptureReason,
       AndroidToolbar>;
 
   static constexpr FieldMetadata_BlockCaptureReason kBlockCaptureReason{};
-  void set_block_capture_reason(::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason value) {
+  void set_block_capture_reason(AndroidToolbar_BlockCaptureReason value) {
     static constexpr uint32_t field_id = FieldMetadata_BlockCaptureReason::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -9069,11 +9075,11 @@ class AndroidToolbar : public ::protozero::Message {
       2,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::AndroidToolbar_AllowCaptureReason,
+      AndroidToolbar_AllowCaptureReason,
       AndroidToolbar>;
 
   static constexpr FieldMetadata_AllowCaptureReason kAllowCaptureReason{};
-  void set_allow_capture_reason(::perfetto::protos::pbzero::AndroidToolbar_AllowCaptureReason value) {
+  void set_allow_capture_reason(AndroidToolbar_AllowCaptureReason value) {
     static constexpr uint32_t field_id = FieldMetadata_AllowCaptureReason::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -9087,11 +9093,11 @@ class AndroidToolbar : public ::protozero::Message {
       3,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference,
+      AndroidToolbar_SnapshotDifference,
       AndroidToolbar>;
 
   static constexpr FieldMetadata_SnapshotDifference kSnapshotDifference{};
-  void set_snapshot_difference(::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference value) {
+  void set_snapshot_difference(AndroidToolbar_SnapshotDifference value) {
     static constexpr uint32_t field_id = FieldMetadata_SnapshotDifference::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -9206,11 +9212,11 @@ class SequenceManagerTask : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::SequenceManagerTask_Priority,
+      SequenceManagerTask_Priority,
       SequenceManagerTask>;
 
   static constexpr FieldMetadata_Priority kPriority{};
-  void set_priority(::perfetto::protos::pbzero::SequenceManagerTask_Priority value) {
+  void set_priority(SequenceManagerTask_Priority value) {
     static constexpr uint32_t field_id = FieldMetadata_Priority::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -9224,11 +9230,11 @@ class SequenceManagerTask : public ::protozero::Message {
       2,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::SequenceManagerTask_QueueName,
+      SequenceManagerTask_QueueName,
       SequenceManagerTask>;
 
   static constexpr FieldMetadata_QueueName kQueueName{};
-  void set_queue_name(::perfetto::protos::pbzero::SequenceManagerTask_QueueName value) {
+  void set_queue_name(SequenceManagerTask_QueueName value) {
     static constexpr uint32_t field_id = FieldMetadata_QueueName::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -9490,11 +9496,11 @@ class ProcessSingleton : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ProcessSingleton_RemoteProcessInteractionResult,
+      ProcessSingleton_RemoteProcessInteractionResult,
       ProcessSingleton>;
 
   static constexpr FieldMetadata_RemoteProcessInteractionResult kRemoteProcessInteractionResult{};
-  void set_remote_process_interaction_result(::perfetto::protos::pbzero::ProcessSingleton_RemoteProcessInteractionResult value) {
+  void set_remote_process_interaction_result(ProcessSingleton_RemoteProcessInteractionResult value) {
     static constexpr uint32_t field_id = FieldMetadata_RemoteProcessInteractionResult::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -9508,11 +9514,11 @@ class ProcessSingleton : public ::protozero::Message {
       2,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ProcessSingleton_RemoteHungProcessTerminateReason,
+      ProcessSingleton_RemoteHungProcessTerminateReason,
       ProcessSingleton>;
 
   static constexpr FieldMetadata_RemoteProcessTerminateReason kRemoteProcessTerminateReason{};
-  void set_remote_process_terminate_reason(::perfetto::protos::pbzero::ProcessSingleton_RemoteHungProcessTerminateReason value) {
+  void set_remote_process_terminate_reason(ProcessSingleton_RemoteHungProcessTerminateReason value) {
     static constexpr uint32_t field_id = FieldMetadata_RemoteProcessTerminateReason::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -9593,11 +9599,11 @@ class EventLatency : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::EventLatency_EventType,
+      EventLatency_EventType,
       EventLatency>;
 
   static constexpr FieldMetadata_EventType kEventType{};
-  void set_event_type(::perfetto::protos::pbzero::EventLatency_EventType value) {
+  void set_event_type(EventLatency_EventType value) {
     static constexpr uint32_t field_id = FieldMetadata_EventType::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -9828,11 +9834,11 @@ class RendererMainThreadTaskExecution : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_TaskType,
+      RendererMainThreadTaskExecution_TaskType,
       RendererMainThreadTaskExecution>;
 
   static constexpr FieldMetadata_TaskType kTaskType{};
-  void set_task_type(::perfetto::protos::pbzero::RendererMainThreadTaskExecution_TaskType value) {
+  void set_task_type(RendererMainThreadTaskExecution_TaskType value) {
     static constexpr uint32_t field_id = FieldMetadata_TaskType::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -9882,11 +9888,11 @@ class RendererMainThreadTaskExecution : public ::protozero::Message {
       4,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_FrameType,
+      RendererMainThreadTaskExecution_FrameType,
       RendererMainThreadTaskExecution>;
 
   static constexpr FieldMetadata_FrameType kFrameType{};
-  void set_frame_type(::perfetto::protos::pbzero::RendererMainThreadTaskExecution_FrameType value) {
+  void set_frame_type(RendererMainThreadTaskExecution_FrameType value) {
     static constexpr uint32_t field_id = FieldMetadata_FrameType::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -10000,11 +10006,11 @@ class BackForwardCacheCanStoreDocumentResult : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason,
+      BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason,
       BackForwardCacheCanStoreDocumentResult>;
 
   static constexpr FieldMetadata_BackForwardCacheNotRestoredReason kBackForwardCacheNotRestoredReason{};
-  void set_back_forward_cache_not_restored_reason(::perfetto::protos::pbzero::BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason value) {
+  void set_back_forward_cache_not_restored_reason(BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason value) {
     static constexpr uint32_t field_id = FieldMetadata_BackForwardCacheNotRestoredReason::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -10074,11 +10080,11 @@ class ChromeThreadPoolTask : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeThreadPoolTask_Priority,
+      ChromeThreadPoolTask_Priority,
       ChromeThreadPoolTask>;
 
   static constexpr FieldMetadata_TaskPriority kTaskPriority{};
-  void set_task_priority(::perfetto::protos::pbzero::ChromeThreadPoolTask_Priority value) {
+  void set_task_priority(ChromeThreadPoolTask_Priority value) {
     static constexpr uint32_t field_id = FieldMetadata_TaskPriority::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -10092,11 +10098,11 @@ class ChromeThreadPoolTask : public ::protozero::Message {
       2,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeThreadPoolTask_ExecutionMode,
+      ChromeThreadPoolTask_ExecutionMode,
       ChromeThreadPoolTask>;
 
   static constexpr FieldMetadata_ExecutionMode kExecutionMode{};
-  void set_execution_mode(::perfetto::protos::pbzero::ChromeThreadPoolTask_ExecutionMode value) {
+  void set_execution_mode(ChromeThreadPoolTask_ExecutionMode value) {
     static constexpr uint32_t field_id = FieldMetadata_ExecutionMode::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -10128,11 +10134,11 @@ class ChromeThreadPoolTask : public ::protozero::Message {
       4,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeThreadPoolTask_ShutdownBehavior,
+      ChromeThreadPoolTask_ShutdownBehavior,
       ChromeThreadPoolTask>;
 
   static constexpr FieldMetadata_ShutdownBehavior kShutdownBehavior{};
-  void set_shutdown_behavior(::perfetto::protos::pbzero::ChromeThreadPoolTask_ShutdownBehavior value) {
+  void set_shutdown_behavior(ChromeThreadPoolTask_ShutdownBehavior value) {
     static constexpr uint32_t field_id = FieldMetadata_ShutdownBehavior::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -10242,11 +10248,11 @@ class RenderFrameHost : public ::protozero::Message {
       3,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::RenderFrameHost_LifecycleState,
+      RenderFrameHost_LifecycleState,
       RenderFrameHost>;
 
   static constexpr FieldMetadata_LifecycleState kLifecycleState{};
-  void set_lifecycle_state(::perfetto::protos::pbzero::RenderFrameHost_LifecycleState value) {
+  void set_lifecycle_state(RenderFrameHost_LifecycleState value) {
     static constexpr uint32_t field_id = FieldMetadata_LifecycleState::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -10396,11 +10402,11 @@ class RenderFrameHost : public ::protozero::Message {
       12,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType,
+      FrameTreeNodeInfo_FrameType,
       RenderFrameHost>;
 
   static constexpr FieldMetadata_FrameType kFrameType{};
-  void set_frame_type(::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType value) {
+  void set_frame_type(FrameTreeNodeInfo_FrameType value) {
     static constexpr uint32_t field_id = FieldMetadata_FrameType::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -10908,11 +10914,11 @@ class ChromeSamplingProfilerSampleCollected : public ::protozero::Message {
       2,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeSamplingProfilerSampleCollected_WriteStatus,
+      ChromeSamplingProfilerSampleCollected_WriteStatus,
       ChromeSamplingProfilerSampleCollected>;
 
   static constexpr FieldMetadata_WriteStatus kWriteStatus{};
-  void set_write_status(::perfetto::protos::pbzero::ChromeSamplingProfilerSampleCollected_WriteStatus value) {
+  void set_write_status(ChromeSamplingProfilerSampleCollected_WriteStatus value) {
     static constexpr uint32_t field_id = FieldMetadata_WriteStatus::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -12001,11 +12007,11 @@ class ChildProcessLauncherPriority : public ::protozero::Message {
       3,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChildProcessLauncherPriority_Importance,
+      ChildProcessLauncherPriority_Importance,
       ChildProcessLauncherPriority>;
 
   static constexpr FieldMetadata_Importance kImportance{};
-  void set_importance(::perfetto::protos::pbzero::ChildProcessLauncherPriority_Importance value) {
+  void set_importance(ChildProcessLauncherPriority_Importance value) {
     static constexpr uint32_t field_id = FieldMetadata_Importance::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -13014,11 +13020,11 @@ class FrameTreeNodeInfo : public ::protozero::Message {
       6,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType,
+      FrameTreeNodeInfo_FrameType,
       FrameTreeNodeInfo>;
 
   static constexpr FieldMetadata_FrameType kFrameType{};
-  void set_frame_type(::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType value) {
+  void set_frame_type(FrameTreeNodeInfo_FrameType value) {
     static constexpr uint32_t field_id = FieldMetadata_FrameType::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -13086,11 +13092,11 @@ class ShouldSwapBrowsingInstancesResult : public ::protozero::Message {
       2,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ShouldSwapBrowsingInstance,
+      ShouldSwapBrowsingInstance,
       ShouldSwapBrowsingInstancesResult>;
 
   static constexpr FieldMetadata_Result kResult{};
-  void set_result(::perfetto::protos::pbzero::ShouldSwapBrowsingInstance value) {
+  void set_result(ShouldSwapBrowsingInstance value) {
     static constexpr uint32_t field_id = FieldMetadata_Result::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -13132,11 +13138,11 @@ class RenderFrameImplDeletion : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::FrameDeleteIntention,
+      FrameDeleteIntention,
       RenderFrameImplDeletion>;
 
   static constexpr FieldMetadata_Intent kIntent{};
-  void set_intent(::perfetto::protos::pbzero::FrameDeleteIntention value) {
+  void set_intent(FrameDeleteIntention value) {
     static constexpr uint32_t field_id = FieldMetadata_Intent::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -13665,11 +13671,11 @@ class ChromeTaskAnnotator : public ::protozero::Message {
       3,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeTaskAnnotator_DelayPolicy,
+      ChromeTaskAnnotator_DelayPolicy,
       ChromeTaskAnnotator>;
 
   static constexpr FieldMetadata_DelayPolicy kDelayPolicy{};
-  void set_delay_policy(::perfetto::protos::pbzero::ChromeTaskAnnotator_DelayPolicy value) {
+  void set_delay_policy(ChromeTaskAnnotator_DelayPolicy value) {
     static constexpr uint32_t field_id = FieldMetadata_DelayPolicy::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -13722,11 +13728,11 @@ class BlinkTaskScope : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType,
+      BlinkTaskScope_TaskScopeType,
       BlinkTaskScope>;
 
   static constexpr FieldMetadata_Type kType{};
-  void set_type(::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType value) {
+  void set_type(BlinkTaskScope_TaskScopeType value) {
     static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -13798,11 +13804,11 @@ class ChromeMemoryPressureNotification : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::MemoryPressureLevel,
+      MemoryPressureLevel,
       ChromeMemoryPressureNotification>;
 
   static constexpr FieldMetadata_Level kLevel{};
-  void set_level(::perfetto::protos::pbzero::MemoryPressureLevel value) {
+  void set_level(MemoryPressureLevel value) {
     static constexpr uint32_t field_id = FieldMetadata_Level::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -13838,11 +13844,11 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
       1000,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::ChromeAppState,
+      ChromeAppState,
       ChromeTrackEvent>;
 
   static constexpr FieldMetadata_ChromeAppState kChromeAppState{};
-  void set_chrome_app_state(::perfetto::protos::pbzero::ChromeAppState value) {
+  void set_chrome_app_state(ChromeAppState value) {
     static constexpr uint32_t field_id = FieldMetadata_ChromeAppState::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -14346,11 +14352,11 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
       1036,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::DeviceThermalState,
+      DeviceThermalState,
       ChromeTrackEvent>;
 
   static constexpr FieldMetadata_DeviceThermalState kDeviceThermalState{};
-  void set_device_thermal_state(::perfetto::protos::pbzero::DeviceThermalState value) {
+  void set_device_thermal_state(DeviceThermalState value) {
     static constexpr uint32_t field_id = FieldMetadata_DeviceThermalState::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.

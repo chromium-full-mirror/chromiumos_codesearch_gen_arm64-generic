@@ -314,13 +314,13 @@ void SensorProxy::GetDefaultConfiguration(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -358,13 +358,13 @@ void SensorProxy::AddConfiguration(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -413,13 +413,13 @@ void SensorProxy::RemoveConfiguration(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -460,13 +460,13 @@ void SensorProxy::Suspend(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -496,13 +496,13 @@ void SensorProxy::Resume(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -539,13 +539,13 @@ void SensorProxy::ConfigureReadingChangeNotifications(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -616,7 +616,6 @@ class Sensor_GetDefaultConfiguration_ProxyToResponder : public ::mojo::internal:
 
 bool Sensor_GetDefaultConfiguration_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Sensor_GetDefaultConfiguration_ResponseParams_Data* params =
       reinterpret_cast<
@@ -656,12 +655,12 @@ void Sensor_GetDefaultConfiguration_ProxyToResponder::Run(
                         "<value of type const ::device::PlatformSensorConfiguration&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -750,7 +749,6 @@ class Sensor_AddConfiguration_ProxyToResponder : public ::mojo::internal::ProxyT
 
 bool Sensor_AddConfiguration_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Sensor_AddConfiguration_ResponseParams_Data* params =
       reinterpret_cast<
@@ -790,12 +788,12 @@ void Sensor_AddConfiguration_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -836,7 +834,6 @@ bool SensorStubDispatch::Accept(
       break;
     }
     case internal::kSensor_RemoveConfiguration_Name: {
-
       DCHECK(message->is_serialized());
       internal::Sensor_RemoveConfiguration_Params_Data* params =
           reinterpret_cast<internal::Sensor_RemoveConfiguration_Params_Data*>(
@@ -864,7 +861,6 @@ bool SensorStubDispatch::Accept(
       return true;
     }
     case internal::kSensor_Suspend_Name: {
-
       DCHECK(message->is_serialized());
       internal::Sensor_Suspend_Params_Data* params =
           reinterpret_cast<internal::Sensor_Suspend_Params_Data*>(
@@ -888,7 +884,6 @@ bool SensorStubDispatch::Accept(
       return true;
     }
     case internal::kSensor_Resume_Name: {
-
       DCHECK(message->is_serialized());
       internal::Sensor_Resume_Params_Data* params =
           reinterpret_cast<internal::Sensor_Resume_Params_Data*>(
@@ -912,7 +907,6 @@ bool SensorStubDispatch::Accept(
       return true;
     }
     case internal::kSensor_ConfigureReadingChangeNotifications_Name: {
-
       DCHECK(message->is_serialized());
       internal::Sensor_ConfigureReadingChangeNotifications_Params_Data* params =
           reinterpret_cast<internal::Sensor_ConfigureReadingChangeNotifications_Params_Data*>(
@@ -953,7 +947,6 @@ bool SensorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kSensor_GetDefaultConfiguration_Name: {
-
       internal::Sensor_GetDefaultConfiguration_Params_Data* params =
           reinterpret_cast<
               internal::Sensor_GetDefaultConfiguration_Params_Data*>(
@@ -980,7 +973,6 @@ bool SensorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kSensor_AddConfiguration_Name: {
-
       internal::Sensor_AddConfiguration_Params_Data* params =
           reinterpret_cast<
               internal::Sensor_AddConfiguration_Params_Data*>(
@@ -1140,13 +1132,13 @@ void SensorClientProxy::RaiseError(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1176,13 +1168,13 @@ void SensorClientProxy::SensorReadingChanged(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1208,7 +1200,6 @@ bool SensorClientStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kSensorClient_RaiseError_Name: {
-
       DCHECK(message->is_serialized());
       internal::SensorClient_RaiseError_Params_Data* params =
           reinterpret_cast<internal::SensorClient_RaiseError_Params_Data*>(
@@ -1232,7 +1223,6 @@ bool SensorClientStubDispatch::Accept(
       return true;
     }
     case internal::kSensorClient_SensorReadingChanged_Name: {
-
       DCHECK(message->is_serialized());
       internal::SensorClient_SensorReadingChanged_Params_Data* params =
           reinterpret_cast<internal::SensorClient_SensorReadingChanged_Params_Data*>(

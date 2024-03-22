@@ -130,13 +130,13 @@ void VideoHostProxy::OnBootstrapVideoAcceleratorFactory(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -207,7 +207,6 @@ class VideoHost_OnBootstrapVideoAcceleratorFactory_ProxyToResponder : public ::m
 
 bool VideoHost_OnBootstrapVideoAcceleratorFactory_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VideoHost_OnBootstrapVideoAcceleratorFactory_ResponseParams_Data* params =
       reinterpret_cast<
@@ -254,12 +253,12 @@ void VideoHost_OnBootstrapVideoAcceleratorFactory_ProxyToResponder::Run(
                         "<value of type const std::string&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -326,7 +325,6 @@ bool VideoHostStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kVideoHost_OnBootstrapVideoAcceleratorFactory_Name: {
-
       internal::VideoHost_OnBootstrapVideoAcceleratorFactory_Params_Data* params =
           reinterpret_cast<
               internal::VideoHost_OnBootstrapVideoAcceleratorFactory_Params_Data*>(
@@ -464,13 +462,13 @@ void VideoInstanceProxy::Init(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -547,7 +545,6 @@ class VideoInstance_Init_ProxyToResponder : public ::mojo::internal::ProxyToResp
 
 bool VideoInstance_Init_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VideoInstance_Init_ResponseParams_Data* params =
       reinterpret_cast<
@@ -576,12 +573,12 @@ void VideoInstance_Init_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send reply arc::mojom::VideoInstance::Init");
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -631,7 +628,6 @@ bool VideoInstanceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kVideoInstance_Init_Name: {
-
       internal::VideoInstance_Init_Params_Data* params =
           reinterpret_cast<
               internal::VideoInstance_Init_Params_Data*>(
@@ -819,13 +815,13 @@ void VideoAcceleratorFactoryProxy::CreateEncodeAccelerator(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -874,13 +870,13 @@ void VideoAcceleratorFactoryProxy::CreateDecodeAccelerator(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -927,13 +923,13 @@ void VideoAcceleratorFactoryProxy::CreateVideoDecoder(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -976,13 +972,13 @@ void VideoAcceleratorFactoryProxy::CreateProtectedBufferAllocator(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1014,7 +1010,6 @@ bool VideoAcceleratorFactoryStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kVideoAcceleratorFactory_CreateEncodeAccelerator_Name: {
-
       DCHECK(message->is_serialized());
       internal::VideoAcceleratorFactory_CreateEncodeAccelerator_Params_Data* params =
           reinterpret_cast<internal::VideoAcceleratorFactory_CreateEncodeAccelerator_Params_Data*>(
@@ -1044,7 +1039,6 @@ bool VideoAcceleratorFactoryStubDispatch::Accept(
       return true;
     }
     case internal::kVideoAcceleratorFactory_CreateDecodeAccelerator_Name: {
-
       DCHECK(message->is_serialized());
       internal::VideoAcceleratorFactory_CreateDecodeAccelerator_Params_Data* params =
           reinterpret_cast<internal::VideoAcceleratorFactory_CreateDecodeAccelerator_Params_Data*>(
@@ -1086,7 +1080,6 @@ bool VideoAcceleratorFactoryStubDispatch::Accept(
       return true;
     }
     case internal::kVideoAcceleratorFactory_CreateVideoDecoder_Name: {
-
       DCHECK(message->is_serialized());
       internal::VideoAcceleratorFactory_CreateVideoDecoder_Params_Data* params =
           reinterpret_cast<internal::VideoAcceleratorFactory_CreateVideoDecoder_Params_Data*>(
@@ -1116,7 +1109,6 @@ bool VideoAcceleratorFactoryStubDispatch::Accept(
       return true;
     }
     case internal::kVideoAcceleratorFactory_CreateProtectedBufferAllocator_Name: {
-
       DCHECK(message->is_serialized());
       internal::VideoAcceleratorFactory_CreateProtectedBufferAllocator_Params_Data* params =
           reinterpret_cast<internal::VideoAcceleratorFactory_CreateProtectedBufferAllocator_Params_Data*>(

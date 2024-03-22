@@ -202,13 +202,13 @@ void JpegEncodeAcceleratorProxy::Initialize(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -270,13 +270,13 @@ void JpegEncodeAcceleratorProxy::EncodeWithFD(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -368,13 +368,13 @@ void JpegEncodeAcceleratorProxy::EncodeWithDmaBuf(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -485,7 +485,6 @@ class JpegEncodeAccelerator_Initialize_ProxyToResponder : public ::mojo::interna
 
 bool JpegEncodeAccelerator_Initialize_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::JpegEncodeAccelerator_Initialize_ResponseParams_Data* params =
       reinterpret_cast<
@@ -525,12 +524,12 @@ void JpegEncodeAccelerator_Initialize_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -609,7 +608,6 @@ class JpegEncodeAccelerator_EncodeWithFD_ProxyToResponder : public ::mojo::inter
 
 bool JpegEncodeAccelerator_EncodeWithFD_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::JpegEncodeAccelerator_EncodeWithFD_ResponseParams_Data* params =
       reinterpret_cast<
@@ -663,12 +661,12 @@ void JpegEncodeAccelerator_EncodeWithFD_ProxyToResponder::Run(
                         "<value of type ::chromeos_camera::JpegEncodeAccelerator::Status>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -750,7 +748,6 @@ class JpegEncodeAccelerator_EncodeWithDmaBuf_ProxyToResponder : public ::mojo::i
 
 bool JpegEncodeAccelerator_EncodeWithDmaBuf_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::JpegEncodeAccelerator_EncodeWithDmaBuf_ResponseParams_Data* params =
       reinterpret_cast<
@@ -797,12 +794,12 @@ void JpegEncodeAccelerator_EncodeWithDmaBuf_ProxyToResponder::Run(
                         "<value of type ::chromeos_camera::JpegEncodeAccelerator::Status>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -861,7 +858,6 @@ bool JpegEncodeAcceleratorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kJpegEncodeAccelerator_Initialize_Name: {
-
       internal::JpegEncodeAccelerator_Initialize_Params_Data* params =
           reinterpret_cast<
               internal::JpegEncodeAccelerator_Initialize_Params_Data*>(
@@ -888,7 +884,6 @@ bool JpegEncodeAcceleratorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kJpegEncodeAccelerator_EncodeWithFD_Name: {
-
       internal::JpegEncodeAccelerator_EncodeWithFD_Params_Data* params =
           reinterpret_cast<
               internal::JpegEncodeAccelerator_EncodeWithFD_Params_Data*>(
@@ -951,7 +946,6 @@ bool JpegEncodeAcceleratorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kJpegEncodeAccelerator_EncodeWithDmaBuf_Name: {
-
       internal::JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data* params =
           reinterpret_cast<
               internal::JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data*>(

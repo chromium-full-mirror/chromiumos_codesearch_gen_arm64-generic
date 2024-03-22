@@ -590,13 +590,13 @@ void MachineLearningServiceProxy::Clone(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -642,13 +642,13 @@ void MachineLearningServiceProxy::LoadBuiltinModel(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -706,13 +706,13 @@ void MachineLearningServiceProxy::LoadFlatBufferModel(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -767,13 +767,13 @@ void MachineLearningServiceProxy::LoadTextClassifier(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -820,13 +820,13 @@ void MachineLearningServiceProxy::LoadHandwritingModel(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -887,13 +887,13 @@ void MachineLearningServiceProxy::LoadSpeechRecognizer(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -954,13 +954,13 @@ void MachineLearningServiceProxy::LoadGrammarChecker(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1007,13 +1007,13 @@ void MachineLearningServiceProxy::LoadTextSuggester(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1067,13 +1067,13 @@ void MachineLearningServiceProxy::LoadWebPlatformHandwritingModel(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1131,13 +1131,13 @@ void MachineLearningServiceProxy::LoadDocumentScanner(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1191,13 +1191,13 @@ void MachineLearningServiceProxy::CreateWebPlatformModelLoader(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1255,13 +1255,13 @@ void MachineLearningServiceProxy::LoadImageAnnotator(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1319,13 +1319,13 @@ void MachineLearningServiceProxy::LoadHeatmapPalmRejection(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1383,13 +1383,13 @@ void MachineLearningServiceProxy::REMOVED_4(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1477,7 +1477,6 @@ class MachineLearningService_LoadBuiltinModel_ProxyToResponder : public ::mojo::
 
 bool MachineLearningService_LoadBuiltinModel_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::MachineLearningService_LoadBuiltinModel_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1517,12 +1516,12 @@ void MachineLearningService_LoadBuiltinModel_ProxyToResponder::Run(
                         "<value of type LoadModelResult>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1602,7 +1601,6 @@ class MachineLearningService_LoadFlatBufferModel_ProxyToResponder : public ::moj
 
 bool MachineLearningService_LoadFlatBufferModel_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::MachineLearningService_LoadFlatBufferModel_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1642,12 +1640,12 @@ void MachineLearningService_LoadFlatBufferModel_ProxyToResponder::Run(
                         "<value of type LoadModelResult>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1727,7 +1725,6 @@ class MachineLearningService_LoadTextClassifier_ProxyToResponder : public ::mojo
 
 bool MachineLearningService_LoadTextClassifier_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::MachineLearningService_LoadTextClassifier_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1767,12 +1764,12 @@ void MachineLearningService_LoadTextClassifier_ProxyToResponder::Run(
                         "<value of type LoadModelResult>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1852,7 +1849,6 @@ class MachineLearningService_LoadHandwritingModel_ProxyToResponder : public ::mo
 
 bool MachineLearningService_LoadHandwritingModel_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::MachineLearningService_LoadHandwritingModel_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1892,12 +1888,12 @@ void MachineLearningService_LoadHandwritingModel_ProxyToResponder::Run(
                         "<value of type ::chromeos::machine_learning::mojom::LoadHandwritingModelResult>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1977,7 +1973,6 @@ class MachineLearningService_LoadSpeechRecognizer_ProxyToResponder : public ::mo
 
 bool MachineLearningService_LoadSpeechRecognizer_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::MachineLearningService_LoadSpeechRecognizer_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2017,12 +2012,12 @@ void MachineLearningService_LoadSpeechRecognizer_ProxyToResponder::Run(
                         "<value of type LoadModelResult>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2102,7 +2097,6 @@ class MachineLearningService_LoadGrammarChecker_ProxyToResponder : public ::mojo
 
 bool MachineLearningService_LoadGrammarChecker_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::MachineLearningService_LoadGrammarChecker_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2142,12 +2136,12 @@ void MachineLearningService_LoadGrammarChecker_ProxyToResponder::Run(
                         "<value of type LoadModelResult>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2227,7 +2221,6 @@ class MachineLearningService_LoadTextSuggester_ProxyToResponder : public ::mojo:
 
 bool MachineLearningService_LoadTextSuggester_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::MachineLearningService_LoadTextSuggester_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2267,12 +2260,12 @@ void MachineLearningService_LoadTextSuggester_ProxyToResponder::Run(
                         "<value of type LoadModelResult>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2352,7 +2345,6 @@ class MachineLearningService_LoadWebPlatformHandwritingModel_ProxyToResponder : 
 
 bool MachineLearningService_LoadWebPlatformHandwritingModel_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::MachineLearningService_LoadWebPlatformHandwritingModel_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2392,12 +2384,12 @@ void MachineLearningService_LoadWebPlatformHandwritingModel_ProxyToResponder::Ru
                         "<value of type ::chromeos::machine_learning::mojom::LoadHandwritingModelResult>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2477,7 +2469,6 @@ class MachineLearningService_LoadDocumentScanner_ProxyToResponder : public ::moj
 
 bool MachineLearningService_LoadDocumentScanner_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::MachineLearningService_LoadDocumentScanner_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2517,12 +2508,12 @@ void MachineLearningService_LoadDocumentScanner_ProxyToResponder::Run(
                         "<value of type LoadModelResult>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2602,7 +2593,6 @@ class MachineLearningService_CreateWebPlatformModelLoader_ProxyToResponder : pub
 
 bool MachineLearningService_CreateWebPlatformModelLoader_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::MachineLearningService_CreateWebPlatformModelLoader_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2642,12 +2632,12 @@ void MachineLearningService_CreateWebPlatformModelLoader_ProxyToResponder::Run(
                         "<value of type ::ml::model_loader::mojom::CreateModelLoaderResult>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2727,7 +2717,6 @@ class MachineLearningService_LoadImageAnnotator_ProxyToResponder : public ::mojo
 
 bool MachineLearningService_LoadImageAnnotator_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::MachineLearningService_LoadImageAnnotator_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2767,12 +2756,12 @@ void MachineLearningService_LoadImageAnnotator_ProxyToResponder::Run(
                         "<value of type LoadModelResult>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2852,7 +2841,6 @@ class MachineLearningService_LoadHeatmapPalmRejection_ProxyToResponder : public 
 
 bool MachineLearningService_LoadHeatmapPalmRejection_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2892,12 +2880,12 @@ void MachineLearningService_LoadHeatmapPalmRejection_ProxyToResponder::Run(
                         "<value of type ::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2977,7 +2965,6 @@ class MachineLearningService_REMOVED_4_ProxyToResponder : public ::mojo::interna
 
 bool MachineLearningService_REMOVED_4_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::MachineLearningService_REMOVED_4_ResponseParams_Data* params =
       reinterpret_cast<
@@ -3017,12 +3004,12 @@ void MachineLearningService_REMOVED_4_ProxyToResponder::Run(
                         "<value of type LoadModelResult>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3058,7 +3045,6 @@ bool MachineLearningServiceStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kMachineLearningService_Clone_Name: {
-
       DCHECK(message->is_serialized());
       internal::MachineLearningService_Clone_Params_Data* params =
           reinterpret_cast<internal::MachineLearningService_Clone_Params_Data*>(
@@ -3143,7 +3129,6 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kMachineLearningService_LoadBuiltinModel_Name: {
-
       internal::MachineLearningService_LoadBuiltinModel_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadBuiltinModel_Params_Data*>(
@@ -3180,7 +3165,6 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kMachineLearningService_LoadFlatBufferModel_Name: {
-
       internal::MachineLearningService_LoadFlatBufferModel_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadFlatBufferModel_Params_Data*>(
@@ -3217,7 +3201,6 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kMachineLearningService_LoadTextClassifier_Name: {
-
       internal::MachineLearningService_LoadTextClassifier_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadTextClassifier_Params_Data*>(
@@ -3250,7 +3233,6 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kMachineLearningService_LoadHandwritingModel_Name: {
-
       internal::MachineLearningService_LoadHandwritingModel_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadHandwritingModel_Params_Data*>(
@@ -3287,7 +3269,6 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kMachineLearningService_LoadSpeechRecognizer_Name: {
-
       internal::MachineLearningService_LoadSpeechRecognizer_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadSpeechRecognizer_Params_Data*>(
@@ -3330,7 +3311,6 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kMachineLearningService_LoadGrammarChecker_Name: {
-
       internal::MachineLearningService_LoadGrammarChecker_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadGrammarChecker_Params_Data*>(
@@ -3363,7 +3343,6 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kMachineLearningService_LoadTextSuggester_Name: {
-
       internal::MachineLearningService_LoadTextSuggester_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadTextSuggester_Params_Data*>(
@@ -3400,7 +3379,6 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kMachineLearningService_LoadWebPlatformHandwritingModel_Name: {
-
       internal::MachineLearningService_LoadWebPlatformHandwritingModel_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadWebPlatformHandwritingModel_Params_Data*>(
@@ -3437,7 +3415,6 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kMachineLearningService_LoadDocumentScanner_Name: {
-
       internal::MachineLearningService_LoadDocumentScanner_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadDocumentScanner_Params_Data*>(
@@ -3474,7 +3451,6 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kMachineLearningService_CreateWebPlatformModelLoader_Name: {
-
       internal::MachineLearningService_CreateWebPlatformModelLoader_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_CreateWebPlatformModelLoader_Params_Data*>(
@@ -3511,7 +3487,6 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kMachineLearningService_LoadImageAnnotator_Name: {
-
       internal::MachineLearningService_LoadImageAnnotator_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadImageAnnotator_Params_Data*>(
@@ -3548,7 +3523,6 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kMachineLearningService_LoadHeatmapPalmRejection_Name: {
-
       internal::MachineLearningService_LoadHeatmapPalmRejection_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadHeatmapPalmRejection_Params_Data*>(
@@ -3585,7 +3559,6 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kMachineLearningService_REMOVED_4_Name: {
-
       internal::MachineLearningService_REMOVED_4_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_REMOVED_4_Params_Data*>(

@@ -301,13 +301,13 @@ void PageHandlerFactoryProxy::CreatePageHandler(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -339,7 +339,6 @@ bool PageHandlerFactoryStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kPageHandlerFactory_CreatePageHandler_Name: {
-
       DCHECK(message->is_serialized());
       internal::PageHandlerFactory_CreatePageHandler_Params_Data* params =
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
@@ -488,13 +487,13 @@ void PageHandlerProxy::StartRecordingUpdate(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -524,13 +523,13 @@ void PageHandlerProxy::StopRecordingUpdate(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -556,7 +555,6 @@ bool PageHandlerStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kPageHandler_StartRecordingUpdate_Name: {
-
       DCHECK(message->is_serialized());
       internal::PageHandler_StartRecordingUpdate_Params_Data* params =
           reinterpret_cast<internal::PageHandler_StartRecordingUpdate_Params_Data*>(
@@ -580,7 +578,6 @@ bool PageHandlerStubDispatch::Accept(
       return true;
     }
     case internal::kPageHandler_StopRecordingUpdate_Name: {
-
       DCHECK(message->is_serialized());
       internal::PageHandler_StopRecordingUpdate_Params_Data* params =
           reinterpret_cast<internal::PageHandler_StopRecordingUpdate_Params_Data*>(

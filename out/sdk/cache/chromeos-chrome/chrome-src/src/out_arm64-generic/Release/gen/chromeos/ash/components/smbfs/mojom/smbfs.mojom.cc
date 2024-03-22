@@ -463,13 +463,13 @@ void SmbFsBootstrapProxy::MountShare(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -557,7 +557,6 @@ class SmbFsBootstrap_MountShare_ProxyToResponder : public ::mojo::internal::Prox
 
 bool SmbFsBootstrap_MountShare_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::SmbFsBootstrap_MountShare_ResponseParams_Data* params =
       reinterpret_cast<
@@ -606,12 +605,12 @@ void SmbFsBootstrap_MountShare_ProxyToResponder::Run(
                         "<value of type ::mojo::PendingRemote<SmbFs>>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -665,7 +664,6 @@ bool SmbFsBootstrapStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kSmbFsBootstrap_MountShare_Name: {
-
       internal::SmbFsBootstrap_MountShare_Params_Data* params =
           reinterpret_cast<
               internal::SmbFsBootstrap_MountShare_Params_Data*>(
@@ -841,13 +839,13 @@ void SmbFsProxy::RemoveSavedCredentials(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -885,13 +883,13 @@ void SmbFsProxy::DeleteRecursively(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -973,7 +971,6 @@ class SmbFs_RemoveSavedCredentials_ProxyToResponder : public ::mojo::internal::P
 
 bool SmbFs_RemoveSavedCredentials_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::SmbFs_RemoveSavedCredentials_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1013,12 +1010,12 @@ void SmbFs_RemoveSavedCredentials_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1097,7 +1094,6 @@ class SmbFs_DeleteRecursively_ProxyToResponder : public ::mojo::internal::ProxyT
 
 bool SmbFs_DeleteRecursively_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::SmbFs_DeleteRecursively_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1137,12 +1133,12 @@ void SmbFs_DeleteRecursively_ProxyToResponder::Run(
                         "<value of type DeleteRecursivelyError>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1197,7 +1193,6 @@ bool SmbFsStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kSmbFs_RemoveSavedCredentials_Name: {
-
       internal::SmbFs_RemoveSavedCredentials_Params_Data* params =
           reinterpret_cast<
               internal::SmbFs_RemoveSavedCredentials_Params_Data*>(
@@ -1224,7 +1219,6 @@ bool SmbFsStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kSmbFs_DeleteRecursively_Name: {
-
       internal::SmbFs_DeleteRecursively_Params_Data* params =
           reinterpret_cast<
               internal::SmbFs_DeleteRecursively_Params_Data*>(
@@ -1360,13 +1354,13 @@ void SmbFsDelegateProxy::RequestCredentials(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1437,7 +1431,6 @@ class SmbFsDelegate_RequestCredentials_ProxyToResponder : public ::mojo::interna
 
 bool SmbFsDelegate_RequestCredentials_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::SmbFsDelegate_RequestCredentials_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1477,12 +1470,12 @@ void SmbFsDelegate_RequestCredentials_ProxyToResponder::Run(
                         "<value of type CredentialsPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1539,7 +1532,6 @@ bool SmbFsDelegateStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kSmbFsDelegate_RequestCredentials_Name: {
-
       internal::SmbFsDelegate_RequestCredentials_Params_Data* params =
           reinterpret_cast<
               internal::SmbFsDelegate_RequestCredentials_Params_Data*>(

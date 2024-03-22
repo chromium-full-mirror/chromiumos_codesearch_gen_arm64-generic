@@ -15,13 +15,19 @@
 namespace perfetto {
 namespace protos {
 namespace pbzero {
-
 class DebugAnnotation;
 class DebugAnnotation_NestedValue;
 namespace perfetto_pbzero_enum_DebugAnnotation_NestedValue {
 enum NestedType : int32_t;
 }  // namespace perfetto_pbzero_enum_DebugAnnotation_NestedValue
 using DebugAnnotation_NestedValue_NestedType = perfetto_pbzero_enum_DebugAnnotation_NestedValue::NestedType;
+} // Namespace pbzero.
+} // Namespace protos.
+} // Namespace perfetto.
+
+namespace perfetto {
+namespace protos {
+namespace pbzero {
 
 namespace perfetto_pbzero_enum_DebugAnnotation_NestedValue {
 enum NestedType : int32_t {
@@ -603,11 +609,11 @@ class DebugAnnotation_NestedValue : public ::protozero::Message {
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::DebugAnnotation_NestedValue_NestedType,
+      DebugAnnotation_NestedValue_NestedType,
       DebugAnnotation_NestedValue>;
 
   static constexpr FieldMetadata_NestedType kNestedType{};
-  void set_nested_type(::perfetto::protos::pbzero::DebugAnnotation_NestedValue_NestedType value) {
+  void set_nested_type(DebugAnnotation_NestedValue_NestedType value) {
     static constexpr uint32_t field_id = FieldMetadata_NestedType::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.

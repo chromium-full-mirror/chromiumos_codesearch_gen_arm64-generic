@@ -121,13 +121,13 @@ void NetworkDiagnosticsProxy::RunNetworkDiagnostics(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -164,7 +164,6 @@ bool NetworkDiagnosticsStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kNetworkDiagnostics_RunNetworkDiagnostics_Name: {
-
       DCHECK(message->is_serialized());
       internal::NetworkDiagnostics_RunNetworkDiagnostics_Params_Data* params =
           reinterpret_cast<internal::NetworkDiagnostics_RunNetworkDiagnostics_Params_Data*>(
@@ -318,13 +317,13 @@ void NetworkDiagnosticsClientProxy::SetCanShowNetworkDiagnosticsDialog(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -362,13 +361,13 @@ void NetworkDiagnosticsClientProxy::DNSProbeStatus(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -395,7 +394,6 @@ bool NetworkDiagnosticsClientStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kNetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Name: {
-
       DCHECK(message->is_serialized());
       internal::NetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Params_Data* params =
           reinterpret_cast<internal::NetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Params_Data*>(
@@ -423,7 +421,6 @@ bool NetworkDiagnosticsClientStubDispatch::Accept(
       return true;
     }
     case internal::kNetworkDiagnosticsClient_DNSProbeStatus_Name: {
-
       DCHECK(message->is_serialized());
       internal::NetworkDiagnosticsClient_DNSProbeStatus_Params_Data* params =
           reinterpret_cast<internal::NetworkDiagnosticsClient_DNSProbeStatus_Params_Data*>(

@@ -15,11 +15,17 @@
 namespace perfetto {
 namespace protos {
 namespace pbzero {
-
 namespace perfetto_pbzero_enum_LogMessage {
 enum Priority : int32_t;
 }  // namespace perfetto_pbzero_enum_LogMessage
 using LogMessage_Priority = perfetto_pbzero_enum_LogMessage::Priority;
+} // Namespace pbzero.
+} // Namespace protos.
+} // Namespace perfetto.
+
+namespace perfetto {
+namespace protos {
+namespace pbzero {
 
 namespace perfetto_pbzero_enum_LogMessage {
 enum Priority : int32_t {
@@ -212,11 +218,11 @@ class LogMessage : public ::protozero::Message {
       3,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::LogMessage_Priority,
+      LogMessage_Priority,
       LogMessage>;
 
   static constexpr FieldMetadata_Prio kPrio{};
-  void set_prio(::perfetto::protos::pbzero::LogMessage_Priority value) {
+  void set_prio(LogMessage_Priority value) {
     static constexpr uint32_t field_id = FieldMetadata_Prio::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.

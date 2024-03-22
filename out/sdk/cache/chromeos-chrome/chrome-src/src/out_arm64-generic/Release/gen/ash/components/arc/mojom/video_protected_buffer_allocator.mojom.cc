@@ -196,13 +196,13 @@ void VideoProtectedBufferAllocatorProxy::AllocateProtectedSharedMemory(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -253,13 +253,13 @@ void VideoProtectedBufferAllocatorProxy::AllocateProtectedNativePixmap(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -316,13 +316,13 @@ void VideoProtectedBufferAllocatorProxy::ReleaseProtectedBuffer(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -398,7 +398,6 @@ class VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ProxyToRespond
 
 bool VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ResponseParams_Data* params =
       reinterpret_cast<
@@ -438,12 +437,12 @@ void VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ProxyToResponde
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -522,7 +521,6 @@ class VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ProxyToRespond
 
 bool VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ResponseParams_Data* params =
       reinterpret_cast<
@@ -562,12 +560,12 @@ void VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ProxyToResponde
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -608,7 +606,6 @@ bool VideoProtectedBufferAllocatorStubDispatch::Accept(
       break;
     }
     case internal::kVideoProtectedBufferAllocator_ReleaseProtectedBuffer_Name: {
-
       DCHECK(message->is_serialized());
       internal::VideoProtectedBufferAllocator_ReleaseProtectedBuffer_Params_Data* params =
           reinterpret_cast<internal::VideoProtectedBufferAllocator_ReleaseProtectedBuffer_Params_Data*>(
@@ -649,7 +646,6 @@ bool VideoProtectedBufferAllocatorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kVideoProtectedBufferAllocator_AllocateProtectedSharedMemory_Name: {
-
       internal::VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_Params_Data* params =
           reinterpret_cast<
               internal::VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_Params_Data*>(
@@ -684,7 +680,6 @@ bool VideoProtectedBufferAllocatorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kVideoProtectedBufferAllocator_AllocateProtectedNativePixmap_Name: {
-
       internal::VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_Params_Data* params =
           reinterpret_cast<
               internal::VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_Params_Data*>(

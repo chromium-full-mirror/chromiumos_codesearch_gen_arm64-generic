@@ -1120,13 +1120,13 @@ void NetworkDiagnosticsRoutinesProxy::GetResult(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1159,13 +1159,13 @@ void NetworkDiagnosticsRoutinesProxy::GetAllResults(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1203,13 +1203,13 @@ void NetworkDiagnosticsRoutinesProxy::RunLanConnectivity(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1255,13 +1255,13 @@ void NetworkDiagnosticsRoutinesProxy::RunSignalStrength(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1307,13 +1307,13 @@ void NetworkDiagnosticsRoutinesProxy::RunGatewayCanBePinged(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1359,13 +1359,13 @@ void NetworkDiagnosticsRoutinesProxy::RunHasSecureWiFiConnection(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1411,13 +1411,13 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsResolverPresent(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1463,13 +1463,13 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsLatency(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1515,13 +1515,13 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsResolution(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1567,13 +1567,13 @@ void NetworkDiagnosticsRoutinesProxy::RunCaptivePortal(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1619,13 +1619,13 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpFirewall(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1671,13 +1671,13 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsFirewall(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1723,13 +1723,13 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsLatency(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1778,13 +1778,13 @@ void NetworkDiagnosticsRoutinesProxy::RunVideoConferencing(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1837,13 +1837,13 @@ void NetworkDiagnosticsRoutinesProxy::RunArcHttp(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1889,13 +1889,13 @@ void NetworkDiagnosticsRoutinesProxy::RunArcPing(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1941,13 +1941,13 @@ void NetworkDiagnosticsRoutinesProxy::RunArcDnsResolution(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2026,7 +2026,6 @@ class NetworkDiagnosticsRoutines_GetResult_ProxyToResponder : public ::mojo::int
 
 bool NetworkDiagnosticsRoutines_GetResult_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_GetResult_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2066,12 +2065,12 @@ void NetworkDiagnosticsRoutines_GetResult_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2156,7 +2155,6 @@ class NetworkDiagnosticsRoutines_GetAllResults_ProxyToResponder : public ::mojo:
 
 bool NetworkDiagnosticsRoutines_GetAllResults_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_GetAllResults_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2196,12 +2194,12 @@ void NetworkDiagnosticsRoutines_GetAllResults_ProxyToResponder::Run(
                         "<value of type base::flat_map<RoutineType, RoutineResultPtr>>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2292,7 +2290,6 @@ class NetworkDiagnosticsRoutines_RunLanConnectivity_ProxyToResponder : public ::
 
 bool NetworkDiagnosticsRoutines_RunLanConnectivity_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2332,12 +2329,12 @@ void NetworkDiagnosticsRoutines_RunLanConnectivity_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2426,7 +2423,6 @@ class NetworkDiagnosticsRoutines_RunSignalStrength_ProxyToResponder : public ::m
 
 bool NetworkDiagnosticsRoutines_RunSignalStrength_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2466,12 +2462,12 @@ void NetworkDiagnosticsRoutines_RunSignalStrength_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2560,7 +2556,6 @@ class NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ProxyToResponder : public
 
 bool NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2600,12 +2595,12 @@ void NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2694,7 +2689,6 @@ class NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ProxyToResponder : p
 
 bool NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2734,12 +2728,12 @@ void NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ProxyToResponder::Run
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2828,7 +2822,6 @@ class NetworkDiagnosticsRoutines_RunDnsResolverPresent_ProxyToResponder : public
 
 bool NetworkDiagnosticsRoutines_RunDnsResolverPresent_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2868,12 +2861,12 @@ void NetworkDiagnosticsRoutines_RunDnsResolverPresent_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2962,7 +2955,6 @@ class NetworkDiagnosticsRoutines_RunDnsLatency_ProxyToResponder : public ::mojo:
 
 bool NetworkDiagnosticsRoutines_RunDnsLatency_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParams_Data* params =
       reinterpret_cast<
@@ -3002,12 +2994,12 @@ void NetworkDiagnosticsRoutines_RunDnsLatency_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3096,7 +3088,6 @@ class NetworkDiagnosticsRoutines_RunDnsResolution_ProxyToResponder : public ::mo
 
 bool NetworkDiagnosticsRoutines_RunDnsResolution_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParams_Data* params =
       reinterpret_cast<
@@ -3136,12 +3127,12 @@ void NetworkDiagnosticsRoutines_RunDnsResolution_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3230,7 +3221,6 @@ class NetworkDiagnosticsRoutines_RunCaptivePortal_ProxyToResponder : public ::mo
 
 bool NetworkDiagnosticsRoutines_RunCaptivePortal_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParams_Data* params =
       reinterpret_cast<
@@ -3270,12 +3260,12 @@ void NetworkDiagnosticsRoutines_RunCaptivePortal_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3364,7 +3354,6 @@ class NetworkDiagnosticsRoutines_RunHttpFirewall_ProxyToResponder : public ::moj
 
 bool NetworkDiagnosticsRoutines_RunHttpFirewall_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParams_Data* params =
       reinterpret_cast<
@@ -3404,12 +3393,12 @@ void NetworkDiagnosticsRoutines_RunHttpFirewall_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3498,7 +3487,6 @@ class NetworkDiagnosticsRoutines_RunHttpsFirewall_ProxyToResponder : public ::mo
 
 bool NetworkDiagnosticsRoutines_RunHttpsFirewall_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParams_Data* params =
       reinterpret_cast<
@@ -3538,12 +3526,12 @@ void NetworkDiagnosticsRoutines_RunHttpsFirewall_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3632,7 +3620,6 @@ class NetworkDiagnosticsRoutines_RunHttpsLatency_ProxyToResponder : public ::moj
 
 bool NetworkDiagnosticsRoutines_RunHttpsLatency_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParams_Data* params =
       reinterpret_cast<
@@ -3672,12 +3659,12 @@ void NetworkDiagnosticsRoutines_RunHttpsLatency_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3766,7 +3753,6 @@ class NetworkDiagnosticsRoutines_RunVideoConferencing_ProxyToResponder : public 
 
 bool NetworkDiagnosticsRoutines_RunVideoConferencing_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParams_Data* params =
       reinterpret_cast<
@@ -3806,12 +3792,12 @@ void NetworkDiagnosticsRoutines_RunVideoConferencing_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3900,7 +3886,6 @@ class NetworkDiagnosticsRoutines_RunArcHttp_ProxyToResponder : public ::mojo::in
 
 bool NetworkDiagnosticsRoutines_RunArcHttp_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunArcHttp_ResponseParams_Data* params =
       reinterpret_cast<
@@ -3940,12 +3925,12 @@ void NetworkDiagnosticsRoutines_RunArcHttp_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -4034,7 +4019,6 @@ class NetworkDiagnosticsRoutines_RunArcPing_ProxyToResponder : public ::mojo::in
 
 bool NetworkDiagnosticsRoutines_RunArcPing_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunArcPing_ResponseParams_Data* params =
       reinterpret_cast<
@@ -4074,12 +4058,12 @@ void NetworkDiagnosticsRoutines_RunArcPing_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -4168,7 +4152,6 @@ class NetworkDiagnosticsRoutines_RunArcDnsResolution_ProxyToResponder : public :
 
 bool NetworkDiagnosticsRoutines_RunArcDnsResolution_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParams_Data* params =
       reinterpret_cast<
@@ -4208,12 +4191,12 @@ void NetworkDiagnosticsRoutines_RunArcDnsResolution_ProxyToResponder::Run(
                         "<value of type RoutineResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -4322,7 +4305,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kNetworkDiagnosticsRoutines_GetResult_Name: {
-
       internal::NetworkDiagnosticsRoutines_GetResult_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_GetResult_Params_Data*>(
@@ -4353,7 +4335,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_GetAllResults_Name: {
-
       internal::NetworkDiagnosticsRoutines_GetAllResults_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_GetAllResults_Params_Data*>(
@@ -4380,7 +4361,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data*>(
@@ -4412,7 +4392,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data*>(
@@ -4444,7 +4423,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data*>(
@@ -4476,7 +4454,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data*>(
@@ -4508,7 +4485,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data*>(
@@ -4540,7 +4516,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data*>(
@@ -4572,7 +4547,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data*>(
@@ -4604,7 +4578,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data*>(
@@ -4636,7 +4609,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data*>(
@@ -4668,7 +4640,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data*>(
@@ -4700,7 +4671,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data*>(
@@ -4732,7 +4702,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data*>(
@@ -4768,7 +4737,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunArcHttp_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunArcHttp_Params_Data*>(
@@ -4800,7 +4768,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunArcPing_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunArcPing_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunArcPing_Params_Data*>(
@@ -4832,7 +4799,6 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name: {
-
       internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data*>(

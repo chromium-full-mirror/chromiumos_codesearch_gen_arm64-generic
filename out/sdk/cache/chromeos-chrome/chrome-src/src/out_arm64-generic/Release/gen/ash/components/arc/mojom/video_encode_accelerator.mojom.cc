@@ -696,13 +696,13 @@ void VideoEncodeAcceleratorProxy::GetSupportedProfiles(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -743,13 +743,13 @@ void VideoEncodeAcceleratorProxy::Initialize(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -816,13 +816,13 @@ void VideoEncodeAcceleratorProxy::Encode(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -889,13 +889,13 @@ void VideoEncodeAcceleratorProxy::UseBitstreamBuffer(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -944,13 +944,13 @@ void VideoEncodeAcceleratorProxy::RequestEncodingParametersChange(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1000,13 +1000,13 @@ void VideoEncodeAcceleratorProxy::RequestEncodingParametersChangeDeprecated(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1038,13 +1038,13 @@ void VideoEncodeAcceleratorProxy::Flush(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1115,7 +1115,6 @@ class VideoEncodeAccelerator_GetSupportedProfiles_ProxyToResponder : public ::mo
 
 bool VideoEncodeAccelerator_GetSupportedProfiles_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VideoEncodeAccelerator_GetSupportedProfiles_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1155,12 +1154,12 @@ void VideoEncodeAccelerator_GetSupportedProfiles_ProxyToResponder::Run(
                         "<value of type const std::vector<::media::VideoEncodeAccelerator::SupportedProfile>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1251,7 +1250,6 @@ class VideoEncodeAccelerator_Initialize_ProxyToResponder : public ::mojo::intern
 
 bool VideoEncodeAccelerator_Initialize_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VideoEncodeAccelerator_Initialize_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1291,12 +1289,12 @@ void VideoEncodeAccelerator_Initialize_ProxyToResponder::Run(
                         "<value of type VideoEncodeAccelerator::Result>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1376,7 +1374,6 @@ class VideoEncodeAccelerator_Encode_ProxyToResponder : public ::mojo::internal::
 
 bool VideoEncodeAccelerator_Encode_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VideoEncodeAccelerator_Encode_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1405,12 +1402,12 @@ void VideoEncodeAccelerator_Encode_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send reply arc::mojom::VideoEncodeAccelerator::Encode");
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1488,7 +1485,6 @@ class VideoEncodeAccelerator_UseBitstreamBuffer_ProxyToResponder : public ::mojo
 
 bool VideoEncodeAccelerator_UseBitstreamBuffer_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VideoEncodeAccelerator_UseBitstreamBuffer_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1542,12 +1538,12 @@ void VideoEncodeAccelerator_UseBitstreamBuffer_ProxyToResponder::Run(
                         "<value of type int64_t>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1628,7 +1624,6 @@ class VideoEncodeAccelerator_Flush_ProxyToResponder : public ::mojo::internal::P
 
 bool VideoEncodeAccelerator_Flush_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VideoEncodeAccelerator_Flush_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1668,12 +1663,12 @@ void VideoEncodeAccelerator_Flush_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1720,7 +1715,6 @@ bool VideoEncodeAcceleratorStubDispatch::Accept(
       break;
     }
     case internal::kVideoEncodeAccelerator_RequestEncodingParametersChange_Name: {
-
       DCHECK(message->is_serialized());
       internal::VideoEncodeAccelerator_RequestEncodingParametersChange_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeAccelerator_RequestEncodingParametersChange_Params_Data*>(
@@ -1752,7 +1746,6 @@ bool VideoEncodeAcceleratorStubDispatch::Accept(
       return true;
     }
     case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Name: {
-
       DCHECK(message->is_serialized());
       internal::VideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Params_Data*>(
@@ -1800,7 +1793,6 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kVideoEncodeAccelerator_GetSupportedProfiles_Name: {
-
       internal::VideoEncodeAccelerator_GetSupportedProfiles_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_GetSupportedProfiles_Params_Data*>(
@@ -1827,7 +1819,6 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kVideoEncodeAccelerator_Initialize_Name: {
-
       internal::VideoEncodeAccelerator_Initialize_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_Initialize_Params_Data*>(
@@ -1864,7 +1855,6 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kVideoEncodeAccelerator_Encode_Name: {
-
       internal::VideoEncodeAccelerator_Encode_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_Encode_Params_Data*>(
@@ -1911,7 +1901,6 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name: {
-
       internal::VideoEncodeAccelerator_UseBitstreamBuffer_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_UseBitstreamBuffer_Params_Data*>(
@@ -1956,7 +1945,6 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kVideoEncodeAccelerator_Flush_Name: {
-
       internal::VideoEncodeAccelerator_Flush_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_Flush_Params_Data*>(
@@ -2119,13 +2107,13 @@ void VideoEncodeClientProxy::RequireBitstreamBuffers(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2175,13 +2163,13 @@ void VideoEncodeClientProxy::NotifyError(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2209,7 +2197,6 @@ bool VideoEncodeClientStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kVideoEncodeClient_RequireBitstreamBuffers_Name: {
-
       DCHECK(message->is_serialized());
       internal::VideoEncodeClient_RequireBitstreamBuffers_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeClient_RequireBitstreamBuffers_Params_Data*>(
@@ -2245,7 +2232,6 @@ bool VideoEncodeClientStubDispatch::Accept(
       return true;
     }
     case internal::kVideoEncodeClient_NotifyError_Name: {
-
       DCHECK(message->is_serialized());
       internal::VideoEncodeClient_NotifyError_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeClient_NotifyError_Params_Data*>(

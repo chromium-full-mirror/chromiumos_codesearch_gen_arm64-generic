@@ -229,13 +229,13 @@ void PasspointEventsListenerProxy::OnPasspointSubscriptionAdded(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -283,13 +283,13 @@ void PasspointEventsListenerProxy::OnPasspointSubscriptionRemoved(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -326,7 +326,6 @@ bool PasspointEventsListenerStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kPasspointEventsListener_OnPasspointSubscriptionAdded_Name: {
-
       DCHECK(message->is_serialized());
       internal::PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data* params =
           reinterpret_cast<internal::PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data*>(
@@ -354,7 +353,6 @@ bool PasspointEventsListenerStubDispatch::Accept(
       return true;
     }
     case internal::kPasspointEventsListener_OnPasspointSubscriptionRemoved_Name: {
-
       DCHECK(message->is_serialized());
       internal::PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data* params =
           reinterpret_cast<internal::PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data*>(
@@ -601,13 +599,13 @@ void PasspointServiceProxy::GetPasspointSubscription(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -649,13 +647,13 @@ void PasspointServiceProxy::ListPasspointSubscriptions(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -693,13 +691,13 @@ void PasspointServiceProxy::DeletePasspointSubscription(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -748,13 +746,13 @@ void PasspointServiceProxy::RegisterPasspointListener(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -830,7 +828,6 @@ class PasspointService_GetPasspointSubscription_ProxyToResponder : public ::mojo
 
 bool PasspointService_GetPasspointSubscription_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::PasspointService_GetPasspointSubscription_ResponseParams_Data* params =
       reinterpret_cast<
@@ -870,12 +867,12 @@ void PasspointService_GetPasspointSubscription_ProxyToResponder::Run(
                         "<value of type PasspointSubscriptionPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -960,7 +957,6 @@ class PasspointService_ListPasspointSubscriptions_ProxyToResponder : public ::mo
 
 bool PasspointService_ListPasspointSubscriptions_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::PasspointService_ListPasspointSubscriptions_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1000,12 +996,12 @@ void PasspointService_ListPasspointSubscriptions_ProxyToResponder::Run(
                         "<value of type std::vector<PasspointSubscriptionPtr>>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1096,7 +1092,6 @@ class PasspointService_DeletePasspointSubscription_ProxyToResponder : public ::m
 
 bool PasspointService_DeletePasspointSubscription_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::PasspointService_DeletePasspointSubscription_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1136,12 +1131,12 @@ void PasspointService_DeletePasspointSubscription_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1185,7 +1180,6 @@ bool PasspointServiceStubDispatch::Accept(
       break;
     }
     case internal::kPasspointService_RegisterPasspointListener_Name: {
-
       DCHECK(message->is_serialized());
       internal::PasspointService_RegisterPasspointListener_Params_Data* params =
           reinterpret_cast<internal::PasspointService_RegisterPasspointListener_Params_Data*>(
@@ -1228,7 +1222,6 @@ bool PasspointServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kPasspointService_GetPasspointSubscription_Name: {
-
       internal::PasspointService_GetPasspointSubscription_Params_Data* params =
           reinterpret_cast<
               internal::PasspointService_GetPasspointSubscription_Params_Data*>(
@@ -1259,7 +1252,6 @@ bool PasspointServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kPasspointService_ListPasspointSubscriptions_Name: {
-
       internal::PasspointService_ListPasspointSubscriptions_Params_Data* params =
           reinterpret_cast<
               internal::PasspointService_ListPasspointSubscriptions_Params_Data*>(
@@ -1286,7 +1278,6 @@ bool PasspointServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kPasspointService_DeletePasspointSubscription_Name: {
-
       internal::PasspointService_DeletePasspointSubscription_Params_Data* params =
           reinterpret_cast<
               internal::PasspointService_DeletePasspointSubscription_Params_Data*>(

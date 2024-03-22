@@ -318,13 +318,13 @@ void ImageContentAnnotatorProxy::AnnotateRawImage(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -376,13 +376,13 @@ void ImageContentAnnotatorProxy::AnnotateEncodedImage(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -464,7 +464,6 @@ class ImageContentAnnotator_AnnotateRawImage_ProxyToResponder : public ::mojo::i
 
 bool ImageContentAnnotator_AnnotateRawImage_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::ImageContentAnnotator_AnnotateRawImage_ResponseParams_Data* params =
       reinterpret_cast<
@@ -504,12 +503,12 @@ void ImageContentAnnotator_AnnotateRawImage_ProxyToResponder::Run(
                         "<value of type ImageAnnotationResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -598,7 +597,6 @@ class ImageContentAnnotator_AnnotateEncodedImage_ProxyToResponder : public ::moj
 
 bool ImageContentAnnotator_AnnotateEncodedImage_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::ImageContentAnnotator_AnnotateEncodedImage_ResponseParams_Data* params =
       reinterpret_cast<
@@ -638,12 +636,12 @@ void ImageContentAnnotator_AnnotateEncodedImage_ProxyToResponder::Run(
                         "<value of type ImageAnnotationResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -707,7 +705,6 @@ bool ImageContentAnnotatorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kImageContentAnnotator_AnnotateRawImage_Name: {
-
       internal::ImageContentAnnotator_AnnotateRawImage_Params_Data* params =
           reinterpret_cast<
               internal::ImageContentAnnotator_AnnotateRawImage_Params_Data*>(
@@ -750,7 +747,6 @@ bool ImageContentAnnotatorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kImageContentAnnotator_AnnotateEncodedImage_Name: {
-
       internal::ImageContentAnnotator_AnnotateEncodedImage_Params_Data* params =
           reinterpret_cast<
               internal::ImageContentAnnotator_AnnotateEncodedImage_Params_Data*>(
