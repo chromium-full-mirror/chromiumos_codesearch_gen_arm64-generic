@@ -1062,7 +1062,8 @@ bool BluetoothDiscoveryRoutineDetail::Validate(
 BluetoothScannedPeripheralInfo::BluetoothScannedPeripheralInfo()
     : rssi_history(),
       name(),
-      peripheral_id() {}
+      peripheral_id(),
+      uuids() {}
 
 BluetoothScannedPeripheralInfo::BluetoothScannedPeripheralInfo(
     std::vector<int16_t> rssi_history_in,
@@ -1070,7 +1071,18 @@ BluetoothScannedPeripheralInfo::BluetoothScannedPeripheralInfo(
     const std::optional<std::string>& peripheral_id_in)
     : rssi_history(std::move(rssi_history_in)),
       name(std::move(name_in)),
-      peripheral_id(std::move(peripheral_id_in)) {}
+      peripheral_id(std::move(peripheral_id_in)),
+      uuids() {}
+
+BluetoothScannedPeripheralInfo::BluetoothScannedPeripheralInfo(
+    std::vector<int16_t> rssi_history_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& peripheral_id_in,
+    std::optional<std::vector<::base::Uuid>> uuids_in)
+    : rssi_history(std::move(rssi_history_in)),
+      name(std::move(name_in)),
+      peripheral_id(std::move(peripheral_id_in)),
+      uuids(std::move(uuids_in)) {}
 
 BluetoothScannedPeripheralInfo::~BluetoothScannedPeripheralInfo() = default;
 
@@ -1100,6 +1112,15 @@ void BluetoothScannedPeripheralInfo::WriteIntoTrace(
       "peripheral_id"), this->peripheral_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "uuids"), this->uuids,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::vector<::base::Uuid>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3715,6 +3736,8 @@ bool StructTraits<::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::Da
       if (success && !input.ReadName(&result->name))
         success = false;
       if (success && !input.ReadPeripheralId(&result->peripheral_id))
+        success = false;
+      if (success && !input.ReadUuids(&result->uuids))
         success = false;
   *output = std::move(result);
   return success;

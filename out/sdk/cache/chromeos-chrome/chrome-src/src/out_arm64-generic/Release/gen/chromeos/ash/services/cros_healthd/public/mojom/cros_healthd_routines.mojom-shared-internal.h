@@ -2081,6 +2081,7 @@ class  BluetoothScannedPeripheralInfo_Data {
   mojo::internal::Pointer<mojo::internal::Array_Data<int16_t>> rssi_history;
   mojo::internal::Pointer<mojo::internal::String_Data> name;
   mojo::internal::Pointer<mojo::internal::String_Data> peripheral_id;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::mojo_base::mojom::internal::Uuid_Data>>> uuids;
 
  private:
   friend class mojo::internal::MessageFragment<BluetoothScannedPeripheralInfo_Data>;
@@ -2088,7 +2089,7 @@ class  BluetoothScannedPeripheralInfo_Data {
   BluetoothScannedPeripheralInfo_Data();
   ~BluetoothScannedPeripheralInfo_Data() = delete;
 };
-static_assert(sizeof(BluetoothScannedPeripheralInfo_Data) == 32,
+static_assert(sizeof(BluetoothScannedPeripheralInfo_Data) == 40,
               "Bad sizeof(BluetoothScannedPeripheralInfo_Data)");
 // Used by BluetoothScannedPeripheralInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

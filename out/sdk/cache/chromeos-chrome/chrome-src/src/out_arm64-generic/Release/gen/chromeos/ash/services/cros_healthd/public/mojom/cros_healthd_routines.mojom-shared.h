@@ -1711,6 +1711,27 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetUuidsDataView(
+      mojo::ArrayDataView<::mojo_base::mojom::UuidDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUuids(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::mojo_base::mojom::UuidDataView>, UserType>(),
+    "Attempting to read the optional `uuids` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadUuids` instead "
+    "of `ReadUuids if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->uuids.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::mojo_base::mojom::UuidDataView>>(
+        pointer, output, message_);
+  }
  private:
   internal::BluetoothScannedPeripheralInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -3774,6 +3795,16 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoData
         in_peripheral_id, peripheral_id_fragment);
     fragment->peripheral_id.Set(
         peripheral_id_fragment.is_null() ? nullptr : peripheral_id_fragment.data());
+    decltype(Traits::uuids(input)) in_uuids = Traits::uuids(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->uuids)::BaseType>
+        uuids_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& uuids_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::mojo_base::mojom::UuidDataView>>(
+        in_uuids, uuids_fragment, &uuids_validate_params);
+    fragment->uuids.Set(
+        uuids_fragment.is_null() ? nullptr : uuids_fragment.data());
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothScannedPeripheralInfo_Data* input,
@@ -4818,6 +4849,12 @@ inline void BluetoothScannedPeripheralInfoDataView::GetPeripheralIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->peripheral_id.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void BluetoothScannedPeripheralInfoDataView::GetUuidsDataView(
+    mojo::ArrayDataView<::mojo_base::mojom::UuidDataView>* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->uuids.Get() : nullptr;
+  *output = mojo::ArrayDataView<::mojo_base::mojom::UuidDataView>(pointer, message_);
 }
 
 
