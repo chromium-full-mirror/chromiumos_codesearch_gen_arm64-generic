@@ -21287,6 +21287,7 @@ class PrepareAuthFactorRequest final :
 
   enum : int {
     kAuthSessionIdFieldNumber = 1,
+    kPrepareInputFieldNumber = 4,
     kAuthFactorTypeFieldNumber = 2,
     kPurposeFieldNumber = 3,
   };
@@ -21310,6 +21311,20 @@ class PrepareAuthFactorRequest final :
   std::string* _internal_mutable_auth_session_id();
 
   public:
+  // .user_data_auth.PrepareInput prepare_input = 4;
+  bool has_prepare_input() const;
+  void clear_prepare_input() ;
+  const ::user_data_auth::PrepareInput& prepare_input() const;
+  PROTOBUF_NODISCARD ::user_data_auth::PrepareInput* release_prepare_input();
+  ::user_data_auth::PrepareInput* mutable_prepare_input();
+  void set_allocated_prepare_input(::user_data_auth::PrepareInput* prepare_input);
+  private:
+  const ::user_data_auth::PrepareInput& _internal_prepare_input() const;
+  ::user_data_auth::PrepareInput* _internal_mutable_prepare_input();
+  public:
+  void unsafe_arena_set_allocated_prepare_input(
+      ::user_data_auth::PrepareInput* prepare_input);
+  ::user_data_auth::PrepareInput* unsafe_arena_release_prepare_input();
   // .user_data_auth.AuthFactorType auth_factor_type = 2;
   void clear_auth_factor_type() ;
   ::user_data_auth::AuthFactorType auth_factor_type() const;
@@ -21338,10 +21353,12 @@ class PrepareAuthFactorRequest final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr auth_session_id_;
+    ::user_data_auth::PrepareInput* prepare_input_;
     int auth_factor_type_;
     int purpose_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_UserDataAuth_2eproto;
@@ -21458,6 +21475,7 @@ class PrepareAuthFactorReply final :
 
   enum : int {
     kErrorInfoFieldNumber = 2,
+    kPrepareOutputFieldNumber = 3,
     kErrorFieldNumber = 1,
   };
   // .user_data_auth.CryptohomeErrorInfo error_info = 2;
@@ -21474,6 +21492,20 @@ class PrepareAuthFactorReply final :
   void unsafe_arena_set_allocated_error_info(
       ::user_data_auth::CryptohomeErrorInfo* error_info);
   ::user_data_auth::CryptohomeErrorInfo* unsafe_arena_release_error_info();
+  // .user_data_auth.PrepareOutput prepare_output = 3;
+  bool has_prepare_output() const;
+  void clear_prepare_output() ;
+  const ::user_data_auth::PrepareOutput& prepare_output() const;
+  PROTOBUF_NODISCARD ::user_data_auth::PrepareOutput* release_prepare_output();
+  ::user_data_auth::PrepareOutput* mutable_prepare_output();
+  void set_allocated_prepare_output(::user_data_auth::PrepareOutput* prepare_output);
+  private:
+  const ::user_data_auth::PrepareOutput& _internal_prepare_output() const;
+  ::user_data_auth::PrepareOutput* _internal_mutable_prepare_output();
+  public:
+  void unsafe_arena_set_allocated_prepare_output(
+      ::user_data_auth::PrepareOutput* prepare_output);
+  ::user_data_auth::PrepareOutput* unsafe_arena_release_prepare_output();
   // .user_data_auth.CryptohomeErrorCode error = 1;
   void clear_error() ;
   ::user_data_auth::CryptohomeErrorCode error() const;
@@ -21495,6 +21527,7 @@ class PrepareAuthFactorReply final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::user_data_auth::CryptohomeErrorInfo* error_info_;
+    ::user_data_auth::PrepareOutput* prepare_output_;
     int error_;
   };
   union { Impl_ _impl_; };
@@ -37904,6 +37937,90 @@ inline void PrepareAuthFactorRequest::_internal_set_purpose(::user_data_auth::Au
   _impl_.purpose_ = value;
 }
 
+// .user_data_auth.PrepareInput prepare_input = 4;
+inline bool PrepareAuthFactorRequest::has_prepare_input() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.prepare_input_ != nullptr);
+  return value;
+}
+inline const ::user_data_auth::PrepareInput& PrepareAuthFactorRequest::_internal_prepare_input() const {
+  const ::user_data_auth::PrepareInput* p = _impl_.prepare_input_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::PrepareInput&>(
+      ::user_data_auth::_PrepareInput_default_instance_);
+}
+inline const ::user_data_auth::PrepareInput& PrepareAuthFactorRequest::prepare_input() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PrepareAuthFactorRequest.prepare_input)
+  return _internal_prepare_input();
+}
+inline void PrepareAuthFactorRequest::unsafe_arena_set_allocated_prepare_input(
+    ::user_data_auth::PrepareInput* prepare_input) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.prepare_input_);
+  }
+  _impl_.prepare_input_ = prepare_input;
+  if (prepare_input) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.PrepareAuthFactorRequest.prepare_input)
+}
+inline ::user_data_auth::PrepareInput* PrepareAuthFactorRequest::release_prepare_input() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::user_data_auth::PrepareInput* temp = _impl_.prepare_input_;
+  _impl_.prepare_input_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::PrepareInput* PrepareAuthFactorRequest::unsafe_arena_release_prepare_input() {
+  // @@protoc_insertion_point(field_release:user_data_auth.PrepareAuthFactorRequest.prepare_input)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::user_data_auth::PrepareInput* temp = _impl_.prepare_input_;
+  _impl_.prepare_input_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::PrepareInput* PrepareAuthFactorRequest::_internal_mutable_prepare_input() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.prepare_input_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::PrepareInput>(GetArenaForAllocation());
+    _impl_.prepare_input_ = p;
+  }
+  return _impl_.prepare_input_;
+}
+inline ::user_data_auth::PrepareInput* PrepareAuthFactorRequest::mutable_prepare_input() {
+  ::user_data_auth::PrepareInput* _msg = _internal_mutable_prepare_input();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.PrepareAuthFactorRequest.prepare_input)
+  return _msg;
+}
+inline void PrepareAuthFactorRequest::set_allocated_prepare_input(::user_data_auth::PrepareInput* prepare_input) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.prepare_input_);
+  }
+  if (prepare_input) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(prepare_input));
+    if (message_arena != submessage_arena) {
+      prepare_input = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, prepare_input, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.prepare_input_ = prepare_input;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareAuthFactorRequest.prepare_input)
+}
+
 // -------------------------------------------------------------------
 
 // PrepareAuthFactorReply
@@ -38013,6 +38130,90 @@ inline void PrepareAuthFactorReply::set_allocated_error_info(::user_data_auth::C
   }
   _impl_.error_info_ = error_info;
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareAuthFactorReply.error_info)
+}
+
+// .user_data_auth.PrepareOutput prepare_output = 3;
+inline bool PrepareAuthFactorReply::has_prepare_output() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.prepare_output_ != nullptr);
+  return value;
+}
+inline const ::user_data_auth::PrepareOutput& PrepareAuthFactorReply::_internal_prepare_output() const {
+  const ::user_data_auth::PrepareOutput* p = _impl_.prepare_output_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::PrepareOutput&>(
+      ::user_data_auth::_PrepareOutput_default_instance_);
+}
+inline const ::user_data_auth::PrepareOutput& PrepareAuthFactorReply::prepare_output() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PrepareAuthFactorReply.prepare_output)
+  return _internal_prepare_output();
+}
+inline void PrepareAuthFactorReply::unsafe_arena_set_allocated_prepare_output(
+    ::user_data_auth::PrepareOutput* prepare_output) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.prepare_output_);
+  }
+  _impl_.prepare_output_ = prepare_output;
+  if (prepare_output) {
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.PrepareAuthFactorReply.prepare_output)
+}
+inline ::user_data_auth::PrepareOutput* PrepareAuthFactorReply::release_prepare_output() {
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::user_data_auth::PrepareOutput* temp = _impl_.prepare_output_;
+  _impl_.prepare_output_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::PrepareOutput* PrepareAuthFactorReply::unsafe_arena_release_prepare_output() {
+  // @@protoc_insertion_point(field_release:user_data_auth.PrepareAuthFactorReply.prepare_output)
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::user_data_auth::PrepareOutput* temp = _impl_.prepare_output_;
+  _impl_.prepare_output_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::PrepareOutput* PrepareAuthFactorReply::_internal_mutable_prepare_output() {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  if (_impl_.prepare_output_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::PrepareOutput>(GetArenaForAllocation());
+    _impl_.prepare_output_ = p;
+  }
+  return _impl_.prepare_output_;
+}
+inline ::user_data_auth::PrepareOutput* PrepareAuthFactorReply::mutable_prepare_output() {
+  ::user_data_auth::PrepareOutput* _msg = _internal_mutable_prepare_output();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.PrepareAuthFactorReply.prepare_output)
+  return _msg;
+}
+inline void PrepareAuthFactorReply::set_allocated_prepare_output(::user_data_auth::PrepareOutput* prepare_output) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.prepare_output_);
+  }
+  if (prepare_output) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(prepare_output));
+    if (message_arena != submessage_arena) {
+      prepare_output = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, prepare_output, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  _impl_.prepare_output_ = prepare_output;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareAuthFactorReply.prepare_output)
 }
 
 // -------------------------------------------------------------------
