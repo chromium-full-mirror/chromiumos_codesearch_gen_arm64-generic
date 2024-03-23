@@ -1309,6 +1309,147 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  DropFrameMetadata {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<DropFrameMetadata, T>::value>;
+  using DataView = DropFrameMetadataDataView;
+  using Data_ = internal::DropFrameMetadata_Data;
+
+  template <typename... Args>
+  static DropFrameMetadataPtr New(Args&&... args) {
+    return DropFrameMetadataPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static DropFrameMetadataPtr From(const U& u) {
+    return mojo::TypeConverter<DropFrameMetadataPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, DropFrameMetadata>::Convert(*this);
+  }
+
+
+  DropFrameMetadata();
+
+  explicit DropFrameMetadata(
+      uint8_t spatial_idx);
+
+
+  ~DropFrameMetadata();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = DropFrameMetadataPtr>
+  DropFrameMetadataPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, DropFrameMetadata::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, DropFrameMetadata::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, DropFrameMetadata::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        DropFrameMetadata::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        DropFrameMetadata::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::DropFrameMetadata_UnserializedMessageContext<
+            UserType, DropFrameMetadata::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<DropFrameMetadata::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return DropFrameMetadata::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::DropFrameMetadata_UnserializedMessageContext<
+            UserType, DropFrameMetadata::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<DropFrameMetadata::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint8_t spatial_idx;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, DropFrameMetadata::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, DropFrameMetadata::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, DropFrameMetadata::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, DropFrameMetadata::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  H264Metadata {
  public:
   template <typename T>
@@ -2034,14 +2175,14 @@ class  Bitrate {
 
 
 
-class  CodecMetadata {
+class  OptionalMetadata {
  public:
-  using DataView = CodecMetadataDataView;
-  using Data_ = internal::CodecMetadata_Data;
-  using Tag = Data_::CodecMetadata_Tag;
+  using DataView = OptionalMetadataDataView;
+  using Data_ = internal::OptionalMetadata_Data;
+  using Tag = Data_::OptionalMetadata_Tag;
 
   template <typename... Args>
-  static CodecMetadataPtr New(Args&&... args) {
+  static OptionalMetadataPtr New(Args&&... args) {
     static_assert(
         sizeof...(args) < 0,
         "Do not use Union::New(); to create a union of a given subtype, use "
@@ -2050,81 +2191,89 @@ class  CodecMetadata {
         "definition.");
     return nullptr;
   }
+  // Construct an instance holding |drop|.
+  static OptionalMetadataPtr
+  NewDrop(
+      DropFrameMetadataPtr value) {
+    auto result = OptionalMetadataPtr(std::in_place);
+    result->set_drop(std::move(value));
+    return result;
+  }
   // Construct an instance holding |h264|.
-  static CodecMetadataPtr
+  static OptionalMetadataPtr
   NewH264(
       H264MetadataPtr value) {
-    auto result = CodecMetadataPtr(std::in_place);
+    auto result = OptionalMetadataPtr(std::in_place);
     result->set_h264(std::move(value));
     return result;
   }
   // Construct an instance holding |h265|.
-  static CodecMetadataPtr
+  static OptionalMetadataPtr
   NewH265(
       H265MetadataPtr value) {
-    auto result = CodecMetadataPtr(std::in_place);
+    auto result = OptionalMetadataPtr(std::in_place);
     result->set_h265(std::move(value));
     return result;
   }
   // Construct an instance holding |vp8|.
-  static CodecMetadataPtr
+  static OptionalMetadataPtr
   NewVp8(
       const ::media::Vp8Metadata& value) {
-    auto result = CodecMetadataPtr(std::in_place);
+    auto result = OptionalMetadataPtr(std::in_place);
     result->set_vp8(std::move(value));
     return result;
   }
   // Construct an instance holding |vp9|.
-  static CodecMetadataPtr
+  static OptionalMetadataPtr
   NewVp9(
       const ::media::Vp9Metadata& value) {
-    auto result = CodecMetadataPtr(std::in_place);
+    auto result = OptionalMetadataPtr(std::in_place);
     result->set_vp9(std::move(value));
     return result;
   }
   // Construct an instance holding |av1|.
-  static CodecMetadataPtr
+  static OptionalMetadataPtr
   NewAv1(
       Av1MetadataPtr value) {
-    auto result = CodecMetadataPtr(std::in_place);
+    auto result = OptionalMetadataPtr(std::in_place);
     result->set_av1(std::move(value));
     return result;
   }
 
   template <typename U>
-  static CodecMetadataPtr From(const U& u) {
-    return mojo::TypeConverter<CodecMetadataPtr, U>::Convert(u);
+  static OptionalMetadataPtr From(const U& u) {
+    return mojo::TypeConverter<OptionalMetadataPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, CodecMetadata>::Convert(*this);
+    return mojo::TypeConverter<U, OptionalMetadata>::Convert(*this);
   }
 
-  CodecMetadata();
-  ~CodecMetadata();
+  OptionalMetadata();
+  ~OptionalMetadata();
   // Delete the copy constructor and copy assignment operators because `data_`
   // contains raw pointers that must not be copied.
-  CodecMetadata(const CodecMetadata& other) = delete;
-  CodecMetadata& operator=(const CodecMetadata& other) = delete;
+  OptionalMetadata(const OptionalMetadata& other) = delete;
+  OptionalMetadata& operator=(const OptionalMetadata& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename UnionPtrType = CodecMetadataPtr>
-  CodecMetadataPtr Clone() const;
+  template <typename UnionPtrType = OptionalMetadataPtr>
+  OptionalMetadataPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
   template <typename T,
             typename std::enable_if<std::is_same<
-                T, CodecMetadata>::value>::type* = nullptr>
+                T, OptionalMetadata>::value>::type* = nullptr>
   bool Equals(const T& other) const;
 
   template <typename T,
             typename std::enable_if<std::is_same<
-                T, CodecMetadata>::value>::type* = nullptr>
+                T, OptionalMetadata>::value>::type* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
   Tag which() const {
@@ -2132,6 +2281,18 @@ class  CodecMetadata {
   }
 
 
+  
+  bool is_drop() const { return tag_ == Tag::kDrop; }
+
+  
+  DropFrameMetadataPtr& get_drop() const {
+    CHECK(tag_ == Tag::kDrop);
+    return *(data_.drop);
+  }
+
+  
+  void set_drop(
+      DropFrameMetadataPtr drop);
   
   bool is_h264() const { return tag_ == Tag::kH264; }
 
@@ -2196,13 +2357,13 @@ class  CodecMetadata {
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        CodecMetadata::DataView>(input);
+        OptionalMetadata::DataView>(input);
   }
 
   template <typename UserType>
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
-    return mojo::internal::DeserializeImpl<CodecMetadata::DataView>(
+    return mojo::internal::DeserializeImpl<OptionalMetadata::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
@@ -2210,6 +2371,7 @@ class  CodecMetadata {
   union Union_ {
     Union_() = default;
     ~Union_() = default;
+    DropFrameMetadataPtr* drop;
     H264MetadataPtr* h264;
     H265MetadataPtr* h265;
     ::media::Vp8Metadata* vp8;
@@ -2889,6 +3051,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  Vp9Metadata {
  public:
   template <typename T>
@@ -3089,7 +3252,7 @@ class  BitstreamBufferMetadata {
       ::base::TimeDelta timestamp,
       bool end_of_picture,
       int32_t qp,
-      CodecMetadataPtr codec_metadata,
+      OptionalMetadataPtr optional_metadata,
       const std::optional<::gfx::Size>& encoded_size,
       const std::optional<::gfx::ColorSpace>& encoded_color_space);
 
@@ -3181,7 +3344,7 @@ BitstreamBufferMetadata& operator=(const BitstreamBufferMetadata&) = delete;
   
   int32_t qp;
   
-  CodecMetadataPtr codec_metadata;
+  OptionalMetadataPtr optional_metadata;
   
   std::optional<::gfx::Size> encoded_size;
   
@@ -3251,8 +3414,11 @@ bool Bitrate::Equals(const T& other) const {
   return false;
 }
 template <typename UnionPtrType>
-CodecMetadataPtr CodecMetadata::Clone() const {
+OptionalMetadataPtr OptionalMetadata::Clone() const {
   switch (tag_) {
+    case Tag::kDrop:
+      return NewDrop(
+          mojo::Clone(*data_.drop));
     case Tag::kH264:
       return NewH264(
           mojo::Clone(*data_.h264));
@@ -3274,12 +3440,14 @@ CodecMetadataPtr CodecMetadata::Clone() const {
 
 template <typename T,
           typename std::enable_if<std::is_same<
-              T, CodecMetadata>::value>::type*>
-bool CodecMetadata::Equals(const T& other) const {
+              T, OptionalMetadata>::value>::type*>
+bool OptionalMetadata::Equals(const T& other) const {
   if (tag_ != other.which())
     return false;
 
   switch (tag_) {
+    case Tag::kDrop:
+      return mojo::Equals(*(data_.drop), *(other.data_.drop));
     case Tag::kH264:
       return mojo::Equals(*(data_.h264), *(other.data_.h264));
     case Tag::kH265:
@@ -3703,6 +3871,28 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+DropFrameMetadataPtr DropFrameMetadata::Clone() const {
+  return New(
+      mojo::Clone(spatial_idx)
+  );
+}
+
+template <typename T, DropFrameMetadata::EnableIfSame<T>*>
+bool DropFrameMetadata::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->spatial_idx, other_struct.spatial_idx))
+    return false;
+  return true;
+}
+
+template <typename T, DropFrameMetadata::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.spatial_idx < rhs.spatial_idx)
+    return true;
+  if (rhs.spatial_idx < lhs.spatial_idx)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 H264MetadataPtr H264Metadata::Clone() const {
   return New(
       mojo::Clone(temporal_idx),
@@ -3904,7 +4094,7 @@ BitstreamBufferMetadataPtr BitstreamBufferMetadata::Clone() const {
       mojo::Clone(timestamp),
       mojo::Clone(end_of_picture),
       mojo::Clone(qp),
-      mojo::Clone(codec_metadata),
+      mojo::Clone(optional_metadata),
       mojo::Clone(encoded_size),
       mojo::Clone(encoded_color_space)
   );
@@ -3922,7 +4112,7 @@ bool BitstreamBufferMetadata::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->qp, other_struct.qp))
     return false;
-  if (!mojo::Equals(this->codec_metadata, other_struct.codec_metadata))
+  if (!mojo::Equals(this->optional_metadata, other_struct.optional_metadata))
     return false;
   if (!mojo::Equals(this->encoded_size, other_struct.encoded_size))
     return false;
@@ -3953,9 +4143,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.qp < lhs.qp)
     return false;
-  if (lhs.codec_metadata < rhs.codec_metadata)
+  if (lhs.optional_metadata < rhs.optional_metadata)
     return true;
-  if (rhs.codec_metadata < lhs.codec_metadata)
+  if (rhs.optional_metadata < lhs.optional_metadata)
     return false;
   if (lhs.encoded_size < rhs.encoded_size)
     return true;
@@ -4260,6 +4450,21 @@ struct  StructTraits<::media::mojom::VideoEncodeOptions::DataView,
 
 
 template <>
+struct  StructTraits<::media::mojom::DropFrameMetadata::DataView,
+                                         ::media::mojom::DropFrameMetadataPtr> {
+  static bool IsNull(const ::media::mojom::DropFrameMetadataPtr& input) { return !input; }
+  static void SetToNull(::media::mojom::DropFrameMetadataPtr* output) { output->reset(); }
+
+  static decltype(::media::mojom::DropFrameMetadata::spatial_idx) spatial_idx(
+      const ::media::mojom::DropFrameMetadataPtr& input) {
+    return input->spatial_idx;
+  }
+
+  static bool Read(::media::mojom::DropFrameMetadata::DataView input, ::media::mojom::DropFrameMetadataPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::media::mojom::H264Metadata::DataView,
                                          ::media::mojom::H264MetadataPtr> {
   static bool IsNull(const ::media::mojom::H264MetadataPtr& input) { return !input; }
@@ -4425,9 +4630,9 @@ struct  StructTraits<::media::mojom::BitstreamBufferMetadata::DataView,
     return input->qp;
   }
 
-  static const decltype(::media::mojom::BitstreamBufferMetadata::codec_metadata)& codec_metadata(
+  static const decltype(::media::mojom::BitstreamBufferMetadata::optional_metadata)& optional_metadata(
       const ::media::mojom::BitstreamBufferMetadataPtr& input) {
-    return input->codec_metadata;
+    return input->optional_metadata;
   }
 
   static const decltype(::media::mojom::BitstreamBufferMetadata::encoded_size)& encoded_size(
@@ -4471,36 +4676,40 @@ struct  UnionTraits<::media::mojom::Bitrate::DataView,
 
 
 template <>
-struct  UnionTraits<::media::mojom::CodecMetadata::DataView,
-                                        ::media::mojom::CodecMetadataPtr> {
-  static bool IsNull(const ::media::mojom::CodecMetadataPtr& input) { return !input; }
-  static void SetToNull(::media::mojom::CodecMetadataPtr* output) { output->reset(); }
+struct  UnionTraits<::media::mojom::OptionalMetadata::DataView,
+                                        ::media::mojom::OptionalMetadataPtr> {
+  static bool IsNull(const ::media::mojom::OptionalMetadataPtr& input) { return !input; }
+  static void SetToNull(::media::mojom::OptionalMetadataPtr* output) { output->reset(); }
 
-  static ::media::mojom::CodecMetadata::Tag GetTag(const ::media::mojom::CodecMetadataPtr& input) {
+  static ::media::mojom::OptionalMetadata::Tag GetTag(const ::media::mojom::OptionalMetadataPtr& input) {
     return input->which();
   }
 
-  static const ::media::mojom::H264MetadataPtr& h264(const ::media::mojom::CodecMetadataPtr& input) {
+  static const ::media::mojom::DropFrameMetadataPtr& drop(const ::media::mojom::OptionalMetadataPtr& input) {
+    return input->get_drop();
+  }
+
+  static const ::media::mojom::H264MetadataPtr& h264(const ::media::mojom::OptionalMetadataPtr& input) {
     return input->get_h264();
   }
 
-  static const ::media::mojom::H265MetadataPtr& h265(const ::media::mojom::CodecMetadataPtr& input) {
+  static const ::media::mojom::H265MetadataPtr& h265(const ::media::mojom::OptionalMetadataPtr& input) {
     return input->get_h265();
   }
 
-  static const ::media::Vp8Metadata& vp8(const ::media::mojom::CodecMetadataPtr& input) {
+  static const ::media::Vp8Metadata& vp8(const ::media::mojom::OptionalMetadataPtr& input) {
     return input->get_vp8();
   }
 
-  static const ::media::Vp9Metadata& vp9(const ::media::mojom::CodecMetadataPtr& input) {
+  static const ::media::Vp9Metadata& vp9(const ::media::mojom::OptionalMetadataPtr& input) {
     return input->get_vp9();
   }
 
-  static const ::media::mojom::Av1MetadataPtr& av1(const ::media::mojom::CodecMetadataPtr& input) {
+  static const ::media::mojom::Av1MetadataPtr& av1(const ::media::mojom::OptionalMetadataPtr& input) {
     return input->get_av1();
   }
 
-  static bool Read(::media::mojom::CodecMetadata::DataView input, ::media::mojom::CodecMetadataPtr* output);
+  static bool Read(::media::mojom::OptionalMetadata::DataView input, ::media::mojom::OptionalMetadataPtr* output);
 };
 
 }  // namespace mojo

@@ -61,6 +61,8 @@ class VideoEncodeAcceleratorConfigDataView;
 
 class VideoEncodeOptionsDataView;
 
+class DropFrameMetadataDataView;
+
 class H264MetadataDataView;
 
 class H265MetadataDataView;
@@ -74,7 +76,7 @@ class Av1MetadataDataView;
 class BitstreamBufferMetadataDataView;
 
 class BitrateDataView;
-class CodecMetadataDataView;
+class OptionalMetadataDataView;
 
 
 }  // media::mojom
@@ -146,6 +148,13 @@ struct MojomTypeTraits<::media::mojom::VideoEncodeOptionsDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::media::mojom::DropFrameMetadataDataView> {
+  using Data = ::media::mojom::internal::DropFrameMetadata_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::media::mojom::H264MetadataDataView> {
   using Data = ::media::mojom::internal::H264Metadata_Data;
   using DataAsArrayElement = Pointer<Data>;
@@ -195,8 +204,8 @@ struct MojomTypeTraits<::media::mojom::BitrateDataView> {
 };
 
 template <>
-struct MojomTypeTraits<::media::mojom::CodecMetadataDataView> {
-  using Data = ::media::mojom::internal::CodecMetadata_Data;
+struct MojomTypeTraits<::media::mojom::OptionalMetadataDataView> {
+  using Data = ::media::mojom::internal::OptionalMetadata_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
@@ -696,6 +705,24 @@ class VideoEncodeOptionsDataView {
 };
 
 
+class DropFrameMetadataDataView {
+ public:
+  DropFrameMetadataDataView() = default;
+
+  DropFrameMetadataDataView(
+      internal::DropFrameMetadata_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint8_t spatial_idx() const {
+    return data_->spatial_idx;
+  }
+ private:
+  internal::DropFrameMetadata_Data* data_ = nullptr;
+};
+
+
 class H264MetadataDataView {
  public:
   H264MetadataDataView() = default;
@@ -869,24 +896,24 @@ class BitstreamBufferMetadataDataView {
   int32_t qp() const {
     return data_->qp;
   }
-  inline void GetCodecMetadataDataView(
-      CodecMetadataDataView* output);
+  inline void GetOptionalMetadataDataView(
+      OptionalMetadataDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadCodecMetadata(UserType* output) {
+  [[nodiscard]] bool ReadOptionalMetadata(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::media::mojom::CodecMetadataDataView, UserType>(),
-    "Attempting to read the optional `codec_metadata` field into a type which "
+        ::media::mojom::OptionalMetadataDataView, UserType>(),
+    "Attempting to read the optional `optional_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadCodecMetadata` instead "
-    "of `ReadCodecMetadata if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadOptionalMetadata` instead "
+    "of `ReadOptionalMetadata if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = !data_->codec_metadata.is_null() ? &data_->codec_metadata : nullptr;
-    return mojo::internal::Deserialize<::media::mojom::CodecMetadataDataView>(
+    auto* pointer = !data_->optional_metadata.is_null() ? &data_->optional_metadata : nullptr;
+    return mojo::internal::Deserialize<::media::mojom::OptionalMetadataDataView>(
         pointer, output, message_);
   }
   inline void GetEncodedSizeDataView(
@@ -994,14 +1021,14 @@ class BitrateDataView {
 
 
 
-class CodecMetadataDataView {
+class OptionalMetadataDataView {
  public:
-  using Tag = internal::CodecMetadata_Data::CodecMetadata_Tag;
+  using Tag = internal::OptionalMetadata_Data::OptionalMetadata_Tag;
 
-  CodecMetadataDataView() = default;
+  OptionalMetadataDataView() = default;
 
-  CodecMetadataDataView(
-      internal::CodecMetadata_Data* data,
+  OptionalMetadataDataView(
+      internal::OptionalMetadata_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -1012,6 +1039,17 @@ class CodecMetadataDataView {
   }
 
   Tag tag() const { return data_->tag; }
+  bool is_drop() const { return data_->tag == Tag::kDrop; }
+  inline void GetDropDataView(
+      DropFrameMetadataDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDrop(UserType* output) const {
+    
+    CHECK(is_drop());
+    return mojo::internal::Deserialize<::media::mojom::DropFrameMetadataDataView>(
+        data_->data.f_drop.Get(), output, message_);
+  }
   bool is_h264() const { return data_->tag == Tag::kH264; }
   inline void GetH264DataView(
       H264MetadataDataView* output) const;
@@ -1069,7 +1107,7 @@ class CodecMetadataDataView {
   }
 
  private:
-  internal::CodecMetadata_Data* data_ = nullptr;
+  internal::OptionalMetadata_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1591,6 +1629,36 @@ struct Serializer<::media::mojom::VideoEncodeOptionsDataView, MaybeConstUserType
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::media::mojom::DropFrameMetadataDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::media::mojom::DropFrameMetadataDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::media::mojom::internal::DropFrameMetadata_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->spatial_idx = Traits::spatial_idx(input);
+  }
+
+  static bool Deserialize(::media::mojom::internal::DropFrameMetadata_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::media::mojom::DropFrameMetadataDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::media::mojom::H264MetadataDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::media::mojom::H264MetadataDataView, UserType>;
@@ -1805,12 +1873,12 @@ struct Serializer<::media::mojom::BitstreamBufferMetadataDataView, MaybeConstUse
         "null timestamp in BitstreamBufferMetadata struct");
     fragment->end_of_picture = Traits::end_of_picture(input);
     fragment->qp = Traits::qp(input);
-    decltype(Traits::codec_metadata(input)) in_codec_metadata = Traits::codec_metadata(input);
-    mojo::internal::MessageFragment<decltype(fragment->codec_metadata)>
-        codec_metadata_fragment(fragment.message());
-    codec_metadata_fragment.Claim(&fragment->codec_metadata);
-    mojo::internal::Serialize<::media::mojom::CodecMetadataDataView>(
-        in_codec_metadata, codec_metadata_fragment, true);
+    decltype(Traits::optional_metadata(input)) in_optional_metadata = Traits::optional_metadata(input);
+    mojo::internal::MessageFragment<decltype(fragment->optional_metadata)>
+        optional_metadata_fragment(fragment.message());
+    optional_metadata_fragment.Claim(&fragment->optional_metadata);
+    mojo::internal::Serialize<::media::mojom::OptionalMetadataDataView>(
+        in_optional_metadata, optional_metadata_fragment, true);
     decltype(Traits::encoded_size(input)) in_encoded_size = Traits::encoded_size(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->encoded_size)::BaseType> encoded_size_fragment(
@@ -1935,12 +2003,12 @@ struct Serializer<::media::mojom::BitrateDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::media::mojom::CodecMetadataDataView, MaybeConstUserType> {
+struct Serializer<::media::mojom::OptionalMetadataDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::media::mojom::CodecMetadataDataView, UserType>;
+  using Traits = UnionTraits<::media::mojom::OptionalMetadataDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::media::mojom::internal::CodecMetadata_Data>& fragment,
+                        MessageFragment<::media::mojom::internal::OptionalMetadata_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -1956,7 +2024,23 @@ struct Serializer<::media::mojom::CodecMetadataDataView, MaybeConstUserType> {
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::media::mojom::CodecMetadataDataView::Tag::kH264: {
+      case ::media::mojom::OptionalMetadataDataView::Tag::kDrop: {
+        decltype(Traits::drop(input))
+            in_drop = Traits::drop(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_drop)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::media::mojom::DropFrameMetadataDataView>(
+            in_drop, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null drop in OptionalMetadata union");
+        fragment->data.f_drop.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::media::mojom::OptionalMetadataDataView::Tag::kH264: {
         decltype(Traits::h264(input))
             in_h264 = Traits::h264(input);
         mojo::internal::MessageFragment<
@@ -1967,12 +2051,12 @@ struct Serializer<::media::mojom::CodecMetadataDataView, MaybeConstUserType> {
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null h264 in CodecMetadata union");
+            "null h264 in OptionalMetadata union");
         fragment->data.f_h264.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::media::mojom::CodecMetadataDataView::Tag::kH265: {
+      case ::media::mojom::OptionalMetadataDataView::Tag::kH265: {
         decltype(Traits::h265(input))
             in_h265 = Traits::h265(input);
         mojo::internal::MessageFragment<
@@ -1983,12 +2067,12 @@ struct Serializer<::media::mojom::CodecMetadataDataView, MaybeConstUserType> {
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null h265 in CodecMetadata union");
+            "null h265 in OptionalMetadata union");
         fragment->data.f_h265.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::media::mojom::CodecMetadataDataView::Tag::kVp8: {
+      case ::media::mojom::OptionalMetadataDataView::Tag::kVp8: {
         decltype(Traits::vp8(input))
             in_vp8 = Traits::vp8(input);
         mojo::internal::MessageFragment<
@@ -1999,12 +2083,12 @@ struct Serializer<::media::mojom::CodecMetadataDataView, MaybeConstUserType> {
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null vp8 in CodecMetadata union");
+            "null vp8 in OptionalMetadata union");
         fragment->data.f_vp8.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::media::mojom::CodecMetadataDataView::Tag::kVp9: {
+      case ::media::mojom::OptionalMetadataDataView::Tag::kVp9: {
         decltype(Traits::vp9(input))
             in_vp9 = Traits::vp9(input);
         mojo::internal::MessageFragment<
@@ -2015,12 +2099,12 @@ struct Serializer<::media::mojom::CodecMetadataDataView, MaybeConstUserType> {
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null vp9 in CodecMetadata union");
+            "null vp9 in OptionalMetadata union");
         fragment->data.f_vp9.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::media::mojom::CodecMetadataDataView::Tag::kAv1: {
+      case ::media::mojom::OptionalMetadataDataView::Tag::kAv1: {
         decltype(Traits::av1(input))
             in_av1 = Traits::av1(input);
         mojo::internal::MessageFragment<
@@ -2031,7 +2115,7 @@ struct Serializer<::media::mojom::CodecMetadataDataView, MaybeConstUserType> {
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null av1 in CodecMetadata union");
+            "null av1 in OptionalMetadata union");
         fragment->data.f_av1.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
@@ -2039,13 +2123,13 @@ struct Serializer<::media::mojom::CodecMetadataDataView, MaybeConstUserType> {
     }
   }
 
-  static bool Deserialize(::media::mojom::internal::CodecMetadata_Data* input,
+  static bool Deserialize(::media::mojom::internal::OptionalMetadata_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::media::mojom::CodecMetadataDataView data_view(input, message);
+    ::media::mojom::OptionalMetadataDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -2126,6 +2210,8 @@ inline void VideoEncodeAcceleratorConfigDataView::GetSpatialLayersDataView(
 
 
 
+
+
 inline void Vp9MetadataDataView::GetSpatialLayerResolutionsDataView(
     mojo::ArrayDataView<::gfx::mojom::SizeDataView>* output) {
   auto pointer = data_->spatial_layer_resolutions.Get();
@@ -2145,10 +2231,10 @@ inline void BitstreamBufferMetadataDataView::GetTimestampDataView(
   auto pointer = data_->timestamp.Get();
   *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
 }
-inline void BitstreamBufferMetadataDataView::GetCodecMetadataDataView(
-    CodecMetadataDataView* output) {
-  auto pointer = &data_->codec_metadata;
-  *output = CodecMetadataDataView(pointer, message_);
+inline void BitstreamBufferMetadataDataView::GetOptionalMetadataDataView(
+    OptionalMetadataDataView* output) {
+  auto pointer = &data_->optional_metadata;
+  *output = OptionalMetadataDataView(pointer, message_);
 }
 inline void BitstreamBufferMetadataDataView::GetEncodedSizeDataView(
     ::gfx::mojom::SizeDataView* output) {
@@ -2178,27 +2264,32 @@ inline void BitrateDataView::GetExternalDataView(
   *output = ExternalBitrateDataView(data_->data.f_external.Get(), message_);
 }
 
-inline void CodecMetadataDataView::GetH264DataView(
+inline void OptionalMetadataDataView::GetDropDataView(
+    DropFrameMetadataDataView* output) const {
+  CHECK(is_drop());
+  *output = DropFrameMetadataDataView(data_->data.f_drop.Get(), message_);
+}
+inline void OptionalMetadataDataView::GetH264DataView(
     H264MetadataDataView* output) const {
   CHECK(is_h264());
   *output = H264MetadataDataView(data_->data.f_h264.Get(), message_);
 }
-inline void CodecMetadataDataView::GetH265DataView(
+inline void OptionalMetadataDataView::GetH265DataView(
     H265MetadataDataView* output) const {
   CHECK(is_h265());
   *output = H265MetadataDataView(data_->data.f_h265.Get(), message_);
 }
-inline void CodecMetadataDataView::GetVp8DataView(
+inline void OptionalMetadataDataView::GetVp8DataView(
     Vp8MetadataDataView* output) const {
   CHECK(is_vp8());
   *output = Vp8MetadataDataView(data_->data.f_vp8.Get(), message_);
 }
-inline void CodecMetadataDataView::GetVp9DataView(
+inline void OptionalMetadataDataView::GetVp9DataView(
     Vp9MetadataDataView* output) const {
   CHECK(is_vp9());
   *output = Vp9MetadataDataView(data_->data.f_vp9.Get(), message_);
 }
-inline void CodecMetadataDataView::GetAv1DataView(
+inline void OptionalMetadataDataView::GetAv1DataView(
     Av1MetadataDataView* output) const {
   CHECK(is_av1());
   *output = Av1MetadataDataView(data_->data.f_av1.Get(), message_);

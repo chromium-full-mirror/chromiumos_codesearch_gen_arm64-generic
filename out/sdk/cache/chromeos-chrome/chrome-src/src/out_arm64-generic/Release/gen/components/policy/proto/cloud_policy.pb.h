@@ -295,6 +295,7 @@ kPrefixedVideoFullscreenApiAvailabilityFieldNumber = 194,
 kPrivacySandboxIpProtectionEnabledFieldNumber = 195,
 kOrcaEnabledFieldNumber = 196,
 kPrivacySandboxFingerprintingProtectionEnabledFieldNumber = 200,
+kMultiScreenCaptureAllowedForUrlsFieldNumber = 201,
 };
 // optional .enterprise_management.BooleanPolicyProto NewBaseUrlInheritanceBehaviorAllowed = 1;
 bool has_newbaseurlinheritancebehaviorallowed() const;
@@ -2564,6 +2565,24 @@ void unsafe_arena_set_allocated_privacysandboxfingerprintingprotectionenabled(
 ::enterprise_management::BooleanPolicyProto* privacysandboxfingerprintingprotectionenabled);
 ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_privacysandboxfingerprintingprotectionenabled();
 
+// optional .enterprise_management.StringListPolicyProto MultiScreenCaptureAllowedForUrls = 201;
+bool has_multiscreencaptureallowedforurls() const;
+private:
+bool _internal_has_multiscreencaptureallowedforurls() const;
+public:
+void clear_multiscreencaptureallowedforurls();
+const ::enterprise_management::StringListPolicyProto& multiscreencaptureallowedforurls() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_multiscreencaptureallowedforurls();
+::enterprise_management::StringListPolicyProto* mutable_multiscreencaptureallowedforurls();
+void set_allocated_multiscreencaptureallowedforurls(::enterprise_management::StringListPolicyProto* multiscreencaptureallowedforurls);
+private:
+const ::enterprise_management::StringListPolicyProto& _internal_multiscreencaptureallowedforurls() const;
+::enterprise_management::StringListPolicyProto* _internal_mutable_multiscreencaptureallowedforurls();
+public:
+void unsafe_arena_set_allocated_multiscreencaptureallowedforurls(
+::enterprise_management::StringListPolicyProto* multiscreencaptureallowedforurls);
+::enterprise_management::StringListPolicyProto* unsafe_arena_release_multiscreencaptureallowedforurls();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -2699,6 +2718,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::BooleanPolicyProto* privacysandboxipprotectionenabled_;
 ::enterprise_management::BooleanPolicyProto* orcaenabled_;
 ::enterprise_management::BooleanPolicyProto* privacysandboxfingerprintingprotectionenabled_;
+::enterprise_management::StringListPolicyProto* multiscreencaptureallowedforurls_;
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
@@ -23419,6 +23439,93 @@ _has_bits_[1] &= ~0x80000000u;
 }
 safebrowsingsurveysenabled_ = safebrowsingsurveysenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.SafeBrowsingSurveysEnabled)
+}
+
+// optional .enterprise_management.StringListPolicyProto MultiScreenCaptureAllowedForUrls = 201;
+inline bool CloudPolicySubProto1::_internal_has_multiscreencaptureallowedforurls() const {
+bool value = (_has_bits_[3] & 0x40000000u) != 0;
+PROTOBUF_ASSUME(!value || multiscreencaptureallowedforurls_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_multiscreencaptureallowedforurls() const {
+return _internal_has_multiscreencaptureallowedforurls();
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::_internal_multiscreencaptureallowedforurls() const {
+const ::enterprise_management::StringListPolicyProto* p = multiscreencaptureallowedforurls_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::multiscreencaptureallowedforurls() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.MultiScreenCaptureAllowedForUrls)
+return _internal_multiscreencaptureallowedforurls();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_multiscreencaptureallowedforurls(
+::enterprise_management::StringListPolicyProto* multiscreencaptureallowedforurls) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(multiscreencaptureallowedforurls_);
+}
+multiscreencaptureallowedforurls_ = multiscreencaptureallowedforurls;
+if (multiscreencaptureallowedforurls) {
+_has_bits_[3] |= 0x40000000u;
+} else {
+_has_bits_[3] &= ~0x40000000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.MultiScreenCaptureAllowedForUrls)
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::release_multiscreencaptureallowedforurls() {
+_has_bits_[3] &= ~0x40000000u;
+::enterprise_management::StringListPolicyProto* temp = multiscreencaptureallowedforurls_;
+multiscreencaptureallowedforurls_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::unsafe_arena_release_multiscreencaptureallowedforurls() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.MultiScreenCaptureAllowedForUrls)
+_has_bits_[3] &= ~0x40000000u;
+::enterprise_management::StringListPolicyProto* temp = multiscreencaptureallowedforurls_;
+multiscreencaptureallowedforurls_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::_internal_mutable_multiscreencaptureallowedforurls() {
+_has_bits_[3] |= 0x40000000u;
+if (multiscreencaptureallowedforurls_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+multiscreencaptureallowedforurls_ = p;
+}
+return multiscreencaptureallowedforurls_;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::mutable_multiscreencaptureallowedforurls() {
+::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_multiscreencaptureallowedforurls();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.MultiScreenCaptureAllowedForUrls)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_multiscreencaptureallowedforurls(::enterprise_management::StringListPolicyProto* multiscreencaptureallowedforurls) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(multiscreencaptureallowedforurls_);
+}
+if (multiscreencaptureallowedforurls) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(multiscreencaptureallowedforurls));
+if (message_arena != submessage_arena) {
+multiscreencaptureallowedforurls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, multiscreencaptureallowedforurls, submessage_arena);
+}
+_has_bits_[3] |= 0x40000000u;
+} else {
+_has_bits_[3] &= ~0x40000000u;
+}
+multiscreencaptureallowedforurls_ = multiscreencaptureallowedforurls;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.MultiScreenCaptureAllowedForUrls)
 }
 
 // optional .enterprise_management.BooleanPolicyProto ScreensaverLockScreenEnabled = 19;

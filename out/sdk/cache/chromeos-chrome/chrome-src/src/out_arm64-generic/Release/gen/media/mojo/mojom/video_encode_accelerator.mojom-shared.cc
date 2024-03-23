@@ -192,7 +192,7 @@ bool Bitrate_Data::Validate(
   }
 }
 // static
-bool CodecMetadata_Data::Validate(
+bool OptionalMetadata_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context,
     bool inlined) {
@@ -211,57 +211,67 @@ bool CodecMetadata_Data::Validate(
     return false;
   }
 
-  const CodecMetadata_Data* object = static_cast<const CodecMetadata_Data*>(data);
+  const OptionalMetadata_Data* object = static_cast<const OptionalMetadata_Data*>(data);
 
   if (inlined && object->is_null())
     return true;
 
   switch (object->tag) {
 
-    case CodecMetadata_Tag::kH264: {
+    case OptionalMetadata_Tag::kDrop: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_h264, 1, validation_context)) {
+              object->data.f_drop, 1, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_drop, validation_context))
+        return false;
+      return true;
+    }
+    case OptionalMetadata_Tag::kH264: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_h264, 2, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_h264, validation_context))
         return false;
       return true;
     }
-    case CodecMetadata_Tag::kH265: {
+    case OptionalMetadata_Tag::kH265: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_h265, 2, validation_context)) {
+              object->data.f_h265, 3, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_h265, validation_context))
         return false;
       return true;
     }
-    case CodecMetadata_Tag::kVp8: {
+    case OptionalMetadata_Tag::kVp8: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_vp8, 3, validation_context)) {
+              object->data.f_vp8, 4, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_vp8, validation_context))
         return false;
       return true;
     }
-    case CodecMetadata_Tag::kVp9: {
+    case OptionalMetadata_Tag::kVp9: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_vp9, 4, validation_context)) {
+              object->data.f_vp9, 5, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_vp9, validation_context))
         return false;
       return true;
     }
-    case CodecMetadata_Tag::kAv1: {
+    case OptionalMetadata_Tag::kAv1: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_av1, 5, validation_context)) {
+              object->data.f_av1, 6, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_av1, validation_context))
@@ -273,7 +283,7 @@ bool CodecMetadata_Data::Validate(
       ReportValidationError(
           validation_context,
           mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
-          "unknown tag in CodecMetadata");
+          "unknown tag in OptionalMetadata");
       return false;
     }
   }
@@ -598,6 +608,29 @@ VideoEncodeOptions_Data::VideoEncodeOptions_Data()
 
 
 // static
+bool DropFrameMetadata_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DropFrameMetadata_Data* object =
+      static_cast<const DropFrameMetadata_Data*>(data);
+
+  return true;
+}
+
+DropFrameMetadata_Data::DropFrameMetadata_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool H264Metadata_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -757,7 +790,7 @@ bool BitstreamBufferMetadata_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->timestamp, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateInlinedUnion(object->codec_metadata, validation_context))
+  if (!mojo::internal::ValidateInlinedUnion(object->optional_metadata, validation_context))
     return false;
 
   if (!mojo::internal::ValidateStruct(object->encoded_size, validation_context))

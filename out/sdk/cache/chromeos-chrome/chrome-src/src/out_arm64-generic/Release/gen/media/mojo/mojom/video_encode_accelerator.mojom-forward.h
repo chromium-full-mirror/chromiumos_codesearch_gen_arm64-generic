@@ -42,6 +42,8 @@ class VideoEncodeAcceleratorConfigDataView;
 
 class VideoEncodeOptionsDataView;
 
+class DropFrameMetadataDataView;
+
 class H264MetadataDataView;
 
 class H265MetadataDataView;
@@ -55,7 +57,7 @@ class Av1MetadataDataView;
 class BitstreamBufferMetadataDataView;
 
 class BitrateDataView;
-class CodecMetadataDataView;
+class OptionalMetadataDataView;
 
 enum class VideoEncodeAcceleratorSupportedRateControlMode : int32_t;
 
@@ -91,6 +93,9 @@ using VideoEncodeAcceleratorConfigPtr = mojo::StructPtr<VideoEncodeAcceleratorCo
 class VideoEncodeOptions;
 using VideoEncodeOptionsPtr = mojo::InlinedStructPtr<VideoEncodeOptions>;
 
+class DropFrameMetadata;
+using DropFrameMetadataPtr = mojo::InlinedStructPtr<DropFrameMetadata>;
+
 class H264Metadata;
 using H264MetadataPtr = mojo::InlinedStructPtr<H264Metadata>;
 
@@ -113,9 +118,9 @@ class Bitrate;
 
 using BitratePtr = mojo::StructPtr<Bitrate>;
 
-class CodecMetadata;
+class OptionalMetadata;
 
-using CodecMetadataPtr = mojo::StructPtr<CodecMetadata>;
+using OptionalMetadataPtr = mojo::StructPtr<OptionalMetadata>;
 
 class VideoEncodeAcceleratorProvider;
 

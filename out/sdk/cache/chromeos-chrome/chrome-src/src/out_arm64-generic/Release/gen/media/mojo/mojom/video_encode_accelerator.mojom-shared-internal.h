@@ -41,6 +41,7 @@ class VariableBitrate_Data;
 class ExternalBitrate_Data;
 class VideoEncodeAcceleratorConfig_Data;
 class VideoEncodeOptions_Data;
+class DropFrameMetadata_Data;
 class H264Metadata_Data;
 class H265Metadata_Data;
 class Vp8Metadata_Data;
@@ -48,7 +49,7 @@ class Vp9Metadata_Data;
 class Av1Metadata_Data;
 class BitstreamBufferMetadata_Data;
 class Bitrate_Data;
-class CodecMetadata_Data;
+class OptionalMetadata_Data;
 
 struct VideoEncodeAcceleratorSupportedRateControlMode_Data {
  public:
@@ -207,15 +208,15 @@ static_assert(sizeof(Bitrate_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(Bitrate_Data)");
 
 
-class  CodecMetadata_Data {
+class  OptionalMetadata_Data {
  public:
   // Used to identify Mojom Union Data Classes.
   typedef void MojomUnionDataType;
 
-  CodecMetadata_Data() = default;
+  OptionalMetadata_Data() = default;
   // Do nothing in the destructor since it won't be called when it is a
   // non-inlined union.
-  ~CodecMetadata_Data() = default;
+  ~OptionalMetadata_Data() = default;
 
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context,
@@ -225,7 +226,7 @@ class  CodecMetadata_Data {
 
   void set_null() {
     size = 0U;
-    tag = static_cast<CodecMetadata_Tag>(0);
+    tag = static_cast<OptionalMetadata_Tag>(0);
     data.unknown = 0U;
   }
 
@@ -233,8 +234,10 @@ class  CodecMetadata_Data {
   // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
   // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
   // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
-  enum class CodecMetadata_Tag : uint32_t {
+  enum class OptionalMetadata_Tag : uint32_t {
 
+    
+    kDrop,
     
     kH264,
     
@@ -252,6 +255,7 @@ class  CodecMetadata_Data {
   // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
+    mojo::internal::Pointer<internal::DropFrameMetadata_Data> f_drop;
     mojo::internal::Pointer<internal::H264Metadata_Data> f_h264;
     mojo::internal::Pointer<internal::H265Metadata_Data> f_h265;
     mojo::internal::Pointer<internal::Vp8Metadata_Data> f_vp8;
@@ -261,11 +265,11 @@ class  CodecMetadata_Data {
   };
 
   uint32_t size;
-  CodecMetadata_Tag tag;
+  OptionalMetadata_Tag tag;
   Union_ data;
 };
-static_assert(sizeof(CodecMetadata_Data) == mojo::internal::kUnionDataSize,
-              "Bad sizeof(CodecMetadata_Data)");
+static_assert(sizeof(OptionalMetadata_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(OptionalMetadata_Data)");
 class  VideoEncodeAcceleratorSupportedProfile_Data {
  public:
   static bool Validate(const void* data,
@@ -735,6 +739,55 @@ struct VideoEncodeOptions_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     VideoEncodeOptions_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  DropFrameMetadata_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t spatial_idx;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<DropFrameMetadata_Data>;
+
+  DropFrameMetadata_Data();
+  ~DropFrameMetadata_Data() = delete;
+};
+static_assert(sizeof(DropFrameMetadata_Data) == 16,
+              "Bad sizeof(DropFrameMetadata_Data)");
+// Used by DropFrameMetadata::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct DropFrameMetadata_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  DropFrameMetadata_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~DropFrameMetadata_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<DropFrameMetadata_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    DropFrameMetadata_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  H264Metadata_Data {
  public:
   static bool Validate(const void* data,
@@ -1005,7 +1058,7 @@ class  BitstreamBufferMetadata_Data {
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> timestamp;
   int32_t qp;
   uint8_t pad4_[4];
-  internal::CodecMetadata_Data codec_metadata;
+  internal::OptionalMetadata_Data optional_metadata;
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> encoded_size;
   mojo::internal::Pointer<::gfx::mojom::internal::ColorSpace_Data> encoded_color_space;
 

@@ -662,6 +662,38 @@ bool VideoEncodeOptions::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+DropFrameMetadata::DropFrameMetadata()
+    : spatial_idx() {}
+
+DropFrameMetadata::DropFrameMetadata(
+    uint8_t spatial_idx_in)
+    : spatial_idx(std::move(spatial_idx_in)) {}
+
+DropFrameMetadata::~DropFrameMetadata() = default;
+size_t DropFrameMetadata::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->spatial_idx);
+  return seed;
+}
+
+void DropFrameMetadata::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "spatial_idx"), this->spatial_idx,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool DropFrameMetadata::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 H264Metadata::H264Metadata()
     : temporal_idx(),
       layer_sync() {}
@@ -965,7 +997,7 @@ BitstreamBufferMetadata::BitstreamBufferMetadata()
       timestamp(),
       end_of_picture(),
       qp(),
-      codec_metadata(),
+      optional_metadata(),
       encoded_size(),
       encoded_color_space() {}
 
@@ -975,7 +1007,7 @@ BitstreamBufferMetadata::BitstreamBufferMetadata(
     ::base::TimeDelta timestamp_in,
     bool end_of_picture_in,
     int32_t qp_in,
-    CodecMetadataPtr codec_metadata_in,
+    OptionalMetadataPtr optional_metadata_in,
     const std::optional<::gfx::Size>& encoded_size_in,
     const std::optional<::gfx::ColorSpace>& encoded_color_space_in)
     : payload_size_bytes(std::move(payload_size_bytes_in)),
@@ -983,7 +1015,7 @@ BitstreamBufferMetadata::BitstreamBufferMetadata(
       timestamp(std::move(timestamp_in)),
       end_of_picture(std::move(end_of_picture_in)),
       qp(std::move(qp_in)),
-      codec_metadata(std::move(codec_metadata_in)),
+      optional_metadata(std::move(optional_metadata_in)),
       encoded_size(std::move(encoded_size_in)),
       encoded_color_space(std::move(encoded_color_space_in)) {}
 
@@ -1039,9 +1071,9 @@ void BitstreamBufferMetadata::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "codec_metadata"), this->codec_metadata,
+      "optional_metadata"), this->optional_metadata,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type CodecMetadataPtr>"
+      "<value of type OptionalMetadataPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1137,16 +1169,27 @@ bool Bitrate::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-CodecMetadata::CodecMetadata() : tag_(Tag::kH264) {
-  data_.h264 = new H264MetadataPtr;
+OptionalMetadata::OptionalMetadata() : tag_(Tag::kDrop) {
+  data_.drop = new DropFrameMetadataPtr;
 }
 
-CodecMetadata::~CodecMetadata() {
+OptionalMetadata::~OptionalMetadata() {
   DestroyActive();
 }
 
 
-void CodecMetadata::set_h264(
+void OptionalMetadata::set_drop(
+    DropFrameMetadataPtr drop) {
+  if (tag_ == Tag::kDrop) {
+    *(data_.drop) = std::move(drop);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kDrop;
+    data_.drop = new DropFrameMetadataPtr(
+        std::move(drop));
+  }
+}
+void OptionalMetadata::set_h264(
     H264MetadataPtr h264) {
   if (tag_ == Tag::kH264) {
     *(data_.h264) = std::move(h264);
@@ -1157,7 +1200,7 @@ void CodecMetadata::set_h264(
         std::move(h264));
   }
 }
-void CodecMetadata::set_h265(
+void OptionalMetadata::set_h265(
     H265MetadataPtr h265) {
   if (tag_ == Tag::kH265) {
     *(data_.h265) = std::move(h265);
@@ -1168,7 +1211,7 @@ void CodecMetadata::set_h265(
         std::move(h265));
   }
 }
-void CodecMetadata::set_vp8(
+void OptionalMetadata::set_vp8(
     const ::media::Vp8Metadata& vp8) {
   if (tag_ == Tag::kVp8) {
     *(data_.vp8) = std::move(vp8);
@@ -1179,7 +1222,7 @@ void CodecMetadata::set_vp8(
         std::move(vp8));
   }
 }
-void CodecMetadata::set_vp9(
+void OptionalMetadata::set_vp9(
     const ::media::Vp9Metadata& vp9) {
   if (tag_ == Tag::kVp9) {
     *(data_.vp9) = std::move(vp9);
@@ -1190,7 +1233,7 @@ void CodecMetadata::set_vp9(
         std::move(vp9));
   }
 }
-void CodecMetadata::set_av1(
+void OptionalMetadata::set_av1(
     Av1MetadataPtr av1) {
   if (tag_ == Tag::kAv1) {
     *(data_.av1) = std::move(av1);
@@ -1202,9 +1245,13 @@ void CodecMetadata::set_av1(
   }
 }
 
-void CodecMetadata::DestroyActive() {
+void OptionalMetadata::DestroyActive() {
   switch (tag_) {
 
+    case Tag::kDrop:
+
+      delete data_.drop;
+      break;
     case Tag::kH264:
 
       delete data_.h264;
@@ -1228,7 +1275,7 @@ void CodecMetadata::DestroyActive() {
   }
 }
 
-bool CodecMetadata::Validate(
+bool OptionalMetadata::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
@@ -4197,6 +4244,20 @@ bool StructTraits<::media::mojom::VideoEncodeOptions::DataView, ::media::mojom::
 
 
 // static
+bool StructTraits<::media::mojom::DropFrameMetadata::DataView, ::media::mojom::DropFrameMetadataPtr>::Read(
+    ::media::mojom::DropFrameMetadata::DataView input,
+    ::media::mojom::DropFrameMetadataPtr* output) {
+  bool success = true;
+  ::media::mojom::DropFrameMetadataPtr result(::media::mojom::DropFrameMetadata::New());
+  
+      if (success)
+        result->spatial_idx = input.spatial_idx();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::media::mojom::H264Metadata::DataView, ::media::mojom::H264MetadataPtr>::Read(
     ::media::mojom::H264Metadata::DataView input,
     ::media::mojom::H264MetadataPtr* output) {
@@ -4307,7 +4368,7 @@ bool StructTraits<::media::mojom::BitstreamBufferMetadata::DataView, ::media::mo
         result->end_of_picture = input.end_of_picture();
       if (success)
         result->qp = input.qp();
-      if (success && !input.ReadCodecMetadata(&result->codec_metadata))
+      if (success && !input.ReadOptionalMetadata(&result->optional_metadata))
         success = false;
       if (success && !input.ReadEncodedSize(&result->encoded_size))
         success = false;
@@ -4360,13 +4421,22 @@ bool UnionTraits<::media::mojom::Bitrate::DataView, ::media::mojom::BitratePtr>:
 }
 
 // static
-bool UnionTraits<::media::mojom::CodecMetadata::DataView, ::media::mojom::CodecMetadataPtr>::Read(
-    ::media::mojom::CodecMetadata::DataView input,
-    ::media::mojom::CodecMetadataPtr* output) {
-  using UnionType = ::media::mojom::CodecMetadata;
+bool UnionTraits<::media::mojom::OptionalMetadata::DataView, ::media::mojom::OptionalMetadataPtr>::Read(
+    ::media::mojom::OptionalMetadata::DataView input,
+    ::media::mojom::OptionalMetadataPtr* output) {
+  using UnionType = ::media::mojom::OptionalMetadata;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
+    case Tag::kDrop: {
+      ::media::mojom::DropFrameMetadataPtr result_drop;
+      if (!input.ReadDrop(&result_drop))
+        return false;
+
+      *output = UnionType::NewDrop(
+          std::move(result_drop));
+      break;
+    }
     case Tag::kH264: {
       ::media::mojom::H264MetadataPtr result_h264;
       if (!input.ReadH264(&result_h264))
