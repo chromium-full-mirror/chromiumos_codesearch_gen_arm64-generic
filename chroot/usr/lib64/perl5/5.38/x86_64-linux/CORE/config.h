@@ -9,7 +9,7 @@
 
 /* Package name      : perl5
  * Source directory  : .
- * Configuration time: Fri Mar 22 09:21:25 PDT 2024
+ * Configuration time: Fri Mar 22 21:56:39 PDT 2024
  * Configured by     : Gentoo
  * Target system     : linux chromeos-ci-sdk-us-central1-b-x64-0-gbml 6.5.0-25-generic #25~22.04.1-ubuntu smp preempt_dynamic tue feb 20 16:09:15 utc 2 x86_64 amd epyc 7b12 authenticamd gnulinux 
  */
