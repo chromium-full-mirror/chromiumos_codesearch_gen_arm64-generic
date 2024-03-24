@@ -7,6 +7,7 @@
 #include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_RTC_USE_H264() (0)
+#define BUILDFLAG_INTERNAL_RTC_USE_H265() (0)
 #define BUILDFLAG_INTERNAL_ENABLE_RUST_CRASH() (1)
 #define BUILDFLAG_INTERNAL_USE_FONTATIONS_BACKEND() (1)
 
