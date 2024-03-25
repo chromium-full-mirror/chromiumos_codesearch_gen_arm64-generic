@@ -146,7 +146,8 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , /*decltype(_impl_.prefixedvideofullscreenapiavailability_)*/nullptr
   , /*decltype(_impl_.privacysandboxipprotectionenabled_)*/nullptr
   , /*decltype(_impl_.orcaenabled_)*/nullptr
-  , /*decltype(_impl_.privacysandboxfingerprintingprotectionenabled_)*/nullptr} {}
+  , /*decltype(_impl_.privacysandboxfingerprintingprotectionenabled_)*/nullptr
+  , /*decltype(_impl_.multiscreencaptureallowedforurls_)*/nullptr} {}
 struct CloudPolicySubProto1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR CloudPolicySubProto1DefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CloudPolicySubProto1DefaultTypeInternal() {}
@@ -1170,6 +1171,10 @@ class CloudPolicySubProto1::_Internal {
   static void set_has_safebrowsingsurveysenabled(HasBits* has_bits) {
     (*has_bits)[1] |= 2147483648u;
   }
+  static const ::enterprise_management::StringListPolicyProto& multiscreencaptureallowedforurls(const CloudPolicySubProto1* msg);
+  static void set_has_multiscreencaptureallowedforurls(HasBits* has_bits) {
+    (*has_bits)[3] |= 1073741824u;
+  }
   static const ::enterprise_management::BooleanPolicyProto& screensaverlockscreenenabled(const CloudPolicySubProto1* msg);
   static void set_has_screensaverlockscreenenabled(HasBits* has_bits) {
     (*has_bits)[0] |= 2048u;
@@ -1676,6 +1681,10 @@ const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::safebrowsingsurveysenabled(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.safebrowsingsurveysenabled_;
 }
+const ::enterprise_management::StringListPolicyProto&
+CloudPolicySubProto1::_Internal::multiscreencaptureallowedforurls(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.multiscreencaptureallowedforurls_;
+}
 const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::screensaverlockscreenenabled(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.screensaverlockscreenenabled_;
@@ -2180,6 +2189,10 @@ void CloudPolicySubProto1::clear_safebrowsingsurveysenabled() {
   if (_impl_.safebrowsingsurveysenabled_ != nullptr) _impl_.safebrowsingsurveysenabled_->Clear();
   _impl_._has_bits_[1] &= ~0x80000000u;
 }
+void CloudPolicySubProto1::clear_multiscreencaptureallowedforurls() {
+  if (_impl_.multiscreencaptureallowedforurls_ != nullptr) _impl_.multiscreencaptureallowedforurls_->Clear();
+  _impl_._has_bits_[3] &= ~0x40000000u;
+}
 void CloudPolicySubProto1::clear_screensaverlockscreenenabled() {
   if (_impl_.screensaverlockscreenenabled_ != nullptr) _impl_.screensaverlockscreenenabled_->Clear();
   _impl_._has_bits_[0] &= ~0x00000800u;
@@ -2360,7 +2373,8 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
     , decltype(_impl_.prefixedvideofullscreenapiavailability_){nullptr}
     , decltype(_impl_.privacysandboxipprotectionenabled_){nullptr}
     , decltype(_impl_.orcaenabled_){nullptr}
-    , decltype(_impl_.privacysandboxfingerprintingprotectionenabled_){nullptr}};
+    , decltype(_impl_.privacysandboxfingerprintingprotectionenabled_){nullptr}
+    , decltype(_impl_.multiscreencaptureallowedforurls_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
@@ -2741,6 +2755,9 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
   if ((from._impl_._has_bits_[3] & 0x20000000u) != 0) {
     _this->_impl_.privacysandboxfingerprintingprotectionenabled_ = new ::enterprise_management::BooleanPolicyProto(*from._impl_.privacysandboxfingerprintingprotectionenabled_);
   }
+  if ((from._impl_._has_bits_[3] & 0x40000000u) != 0) {
+    _this->_impl_.multiscreencaptureallowedforurls_ = new ::enterprise_management::StringListPolicyProto(*from._impl_.multiscreencaptureallowedforurls_);
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CloudPolicySubProto1)
 }
 
@@ -2875,6 +2892,7 @@ inline void CloudPolicySubProto1::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.privacysandboxipprotectionenabled_){nullptr}
     , decltype(_impl_.orcaenabled_){nullptr}
     , decltype(_impl_.privacysandboxfingerprintingprotectionenabled_){nullptr}
+    , decltype(_impl_.multiscreencaptureallowedforurls_){nullptr}
   };
 }
 
@@ -3015,6 +3033,7 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.privacysandboxipprotectionenabled_;
   if (this != internal_default_instance()) delete _impl_.orcaenabled_;
   if (this != internal_default_instance()) delete _impl_.privacysandboxfingerprintingprotectionenabled_;
+  if (this != internal_default_instance()) delete _impl_.multiscreencaptureallowedforurls_;
 }
 
 void CloudPolicySubProto1::SetCachedSize(int size) const {
@@ -3541,7 +3560,7 @@ void CloudPolicySubProto1::Clear() {
       _impl_.directsocketsallowedforurls_->Clear();
     }
   }
-  if (cached_has_bits & 0x3f000000u) {
+  if (cached_has_bits & 0x7f000000u) {
     if (cached_has_bits & 0x01000000u) {
       ABSL_DCHECK(_impl_.directsocketsblockedforurls_ != nullptr);
       _impl_.directsocketsblockedforurls_->Clear();
@@ -3565,6 +3584,10 @@ void CloudPolicySubProto1::Clear() {
     if (cached_has_bits & 0x20000000u) {
       ABSL_DCHECK(_impl_.privacysandboxfingerprintingprotectionenabled_ != nullptr);
       _impl_.privacysandboxfingerprintingprotectionenabled_->Clear();
+    }
+    if (cached_has_bits & 0x40000000u) {
+      ABSL_DCHECK(_impl_.multiscreencaptureallowedforurls_ != nullptr);
+      _impl_.multiscreencaptureallowedforurls_->Clear();
     }
   }
   _impl_._has_bits_.Clear();
@@ -4711,6 +4734,15 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
           goto handle_unusual;
         }
         continue;
+      // optional .enterprise_management.StringListPolicyProto MultiScreenCaptureAllowedForUrls = 201;
+      case 201:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 74)) {
+          ptr = ctx->ParseMessage(_internal_mutable_multiscreencaptureallowedforurls(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5626,6 +5658,13 @@ failure:
         _Internal::privacysandboxfingerprintingprotectionenabled(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.StringListPolicyProto MultiScreenCaptureAllowedForUrls = 201;
+  if (cached_has_bits & 0x40000000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(201, _Internal::multiscreencaptureallowedforurls(this),
+        _Internal::multiscreencaptureallowedforurls(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -6516,7 +6555,7 @@ failure:
     }
 
   }
-  if (cached_has_bits & 0x3f000000u) {
+  if (cached_has_bits & 0x7f000000u) {
     // optional .enterprise_management.StringListPolicyProto DirectSocketsBlockedForUrls = 192;
     if (cached_has_bits & 0x01000000u) {
       total_size += 2 +
@@ -6557,6 +6596,13 @@ failure:
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.privacysandboxfingerprintingprotectionenabled_);
+    }
+
+    // optional .enterprise_management.StringListPolicyProto MultiScreenCaptureAllowedForUrls = 201;
+    if (cached_has_bits & 0x40000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.multiscreencaptureallowedforurls_);
     }
 
   }
@@ -7095,7 +7141,7 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
           from._internal_directsocketsallowedforurls());
     }
   }
-  if (cached_has_bits & 0x3f000000u) {
+  if (cached_has_bits & 0x7f000000u) {
     if (cached_has_bits & 0x01000000u) {
       _this->_internal_mutable_directsocketsblockedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(
           from._internal_directsocketsblockedforurls());
@@ -7120,6 +7166,10 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
       _this->_internal_mutable_privacysandboxfingerprintingprotectionenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(
           from._internal_privacysandboxfingerprintingprotectionenabled());
     }
+    if (cached_has_bits & 0x40000000u) {
+      _this->_internal_mutable_multiscreencaptureallowedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(
+          from._internal_multiscreencaptureallowedforurls());
+    }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -7143,8 +7193,8 @@ void CloudPolicySubProto1::InternalSwap(CloudPolicySubProto1* other) {
   swap(_impl_._has_bits_[2], other->_impl_._has_bits_[2]);
   swap(_impl_._has_bits_[3], other->_impl_._has_bits_[3]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.privacysandboxfingerprintingprotectionenabled_)
-      + sizeof(CloudPolicySubProto1::_impl_.privacysandboxfingerprintingprotectionenabled_)
+      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.multiscreencaptureallowedforurls_)
+      + sizeof(CloudPolicySubProto1::_impl_.multiscreencaptureallowedforurls_)
       - PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.newbaseurlinheritancebehaviorallowed_)>(
           reinterpret_cast<char*>(&_impl_.newbaseurlinheritancebehaviorallowed_),
           reinterpret_cast<char*>(&other->_impl_.newbaseurlinheritancebehaviorallowed_));

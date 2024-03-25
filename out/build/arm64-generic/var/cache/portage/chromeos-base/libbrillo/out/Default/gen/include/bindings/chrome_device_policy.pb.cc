@@ -42902,9 +42902,9 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
           goto handle_unusual;
         }
         continue;
-      // optional .enterprise_management.StringPolicyProto DeviceWeeklyScheduledSuspend = 1196;
-      case 1196:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 98)) {
+      // optional .enterprise_management.StringPolicyProto DeviceWeeklyScheduledSuspend = 1209;
+      case 1209:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 202)) {
           ptr = ctx->ParseMessage(_internal_mutable_deviceweeklyscheduledsuspend(), ptr);
           CHK_(ptr);
         } else {
@@ -44044,10 +44044,10 @@ failure:
         _Internal::deviceextendedautoupdateenabled(this).GetCachedSize(), target, stream);
   }
 
-  // optional .enterprise_management.StringPolicyProto DeviceWeeklyScheduledSuspend = 1196;
+  // optional .enterprise_management.StringPolicyProto DeviceWeeklyScheduledSuspend = 1209;
   if (cached_has_bits & 0x20000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1196, _Internal::deviceweeklyscheduledsuspend(this),
+      InternalWriteMessage(1209, _Internal::deviceweeklyscheduledsuspend(this),
         _Internal::deviceweeklyscheduledsuspend(this).GetCachedSize(), target, stream);
   }
 
@@ -45210,7 +45210,7 @@ failure:
           *_impl_.deviceextendedautoupdateenabled_);
     }
 
-    // optional .enterprise_management.StringPolicyProto DeviceWeeklyScheduledSuspend = 1196;
+    // optional .enterprise_management.StringPolicyProto DeviceWeeklyScheduledSuspend = 1209;
     if (cached_has_bits & 0x20000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(

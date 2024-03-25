@@ -24856,7 +24856,7 @@ class ChromeDeviceSettingsProto final :
     kDeviceHardwareVideoDecodingEnabledFieldNumber = 1185,
     kDeviceLoginScreenTouchVirtualKeyboardEnabledFieldNumber = 1194,
     kDeviceExtendedAutoUpdateEnabledFieldNumber = 1195,
-    kDeviceWeeklyScheduledSuspendFieldNumber = 1196,
+    kDeviceWeeklyScheduledSuspendFieldNumber = 1209,
   };
   // optional .enterprise_management.DevicePolicyRefreshRateProto device_policy_refresh_rate = 1;
   bool has_device_policy_refresh_rate() const;
@@ -27056,7 +27056,7 @@ class ChromeDeviceSettingsProto final :
   void unsafe_arena_set_allocated_deviceextendedautoupdateenabled(
       ::enterprise_management::BooleanPolicyProto* deviceextendedautoupdateenabled);
   ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_deviceextendedautoupdateenabled();
-  // optional .enterprise_management.StringPolicyProto DeviceWeeklyScheduledSuspend = 1196;
+  // optional .enterprise_management.StringPolicyProto DeviceWeeklyScheduledSuspend = 1209;
   bool has_deviceweeklyscheduledsuspend() const;
   void clear_deviceweeklyscheduledsuspend() ;
   const ::enterprise_management::StringPolicyProto& deviceweeklyscheduledsuspend() const;
@@ -53309,7 +53309,7 @@ inline void ChromeDeviceSettingsProto::set_allocated_deviceextendedautoupdateena
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.DeviceExtendedAutoUpdateEnabled)
 }
 
-// optional .enterprise_management.StringPolicyProto DeviceWeeklyScheduledSuspend = 1196;
+// optional .enterprise_management.StringPolicyProto DeviceWeeklyScheduledSuspend = 1209;
 inline bool ChromeDeviceSettingsProto::has_deviceweeklyscheduledsuspend() const {
   bool value = (_impl_._has_bits_[4] & 0x20000000u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.deviceweeklyscheduledsuspend_ != nullptr);
