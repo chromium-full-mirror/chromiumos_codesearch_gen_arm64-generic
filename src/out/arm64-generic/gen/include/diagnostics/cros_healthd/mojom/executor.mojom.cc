@@ -676,13 +676,13 @@ void ProcessControlProxy::GetStdout(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -713,13 +713,13 @@ void ProcessControlProxy::GetStderr(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -750,13 +750,13 @@ void ProcessControlProxy::GetReturnCode(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -787,13 +787,13 @@ void ProcessControlProxy::Kill(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -863,7 +863,6 @@ class ProcessControl_GetStdout_ProxyToResponder : public ::mojo::internal::Proxy
 
 bool ProcessControl_GetStdout_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::ProcessControl_GetStdout_ResponseParams_Data* params =
       reinterpret_cast<
@@ -903,12 +902,12 @@ void ProcessControl_GetStdout_ProxyToResponder::Run(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -992,7 +991,6 @@ class ProcessControl_GetStderr_ProxyToResponder : public ::mojo::internal::Proxy
 
 bool ProcessControl_GetStderr_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::ProcessControl_GetStderr_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1032,12 +1030,12 @@ void ProcessControl_GetStderr_ProxyToResponder::Run(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1121,7 +1119,6 @@ class ProcessControl_GetReturnCode_ProxyToResponder : public ::mojo::internal::P
 
 bool ProcessControl_GetReturnCode_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::ProcessControl_GetReturnCode_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1161,12 +1158,12 @@ void ProcessControl_GetReturnCode_ProxyToResponder::Run(
                         "<value of type int32_t>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1210,7 +1207,6 @@ bool ProcessControlStubDispatch::Accept(
       break;
     }
     case internal::kProcessControl_Kill_Name: {
-
       DCHECK(message->is_serialized());
       internal::ProcessControl_Kill_Params_Data* params =
           reinterpret_cast<internal::ProcessControl_Kill_Params_Data*>(
@@ -1247,7 +1243,6 @@ bool ProcessControlStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kProcessControl_GetStdout_Name: {
-
       internal::ProcessControl_GetStdout_Params_Data* params =
           reinterpret_cast<
               internal::ProcessControl_GetStdout_Params_Data*>(
@@ -1274,7 +1269,6 @@ bool ProcessControlStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kProcessControl_GetStderr_Name: {
-
       internal::ProcessControl_GetStderr_Params_Data* params =
           reinterpret_cast<
               internal::ProcessControl_GetStderr_Params_Data*>(
@@ -1301,7 +1295,6 @@ bool ProcessControlStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kProcessControl_GetReturnCode_Name: {
-
       internal::ProcessControl_GetReturnCode_Params_Data* params =
           reinterpret_cast<
               internal::ProcessControl_GetReturnCode_Params_Data*>(
@@ -1451,13 +1444,13 @@ void AudioJackObserverProxy::OnAdd(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1496,13 +1489,13 @@ void AudioJackObserverProxy::OnRemove(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1530,7 +1523,6 @@ bool AudioJackObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kAudioJackObserver_OnAdd_Name: {
-
       DCHECK(message->is_serialized());
       internal::AudioJackObserver_OnAdd_Params_Data* params =
           reinterpret_cast<internal::AudioJackObserver_OnAdd_Params_Data*>(
@@ -1558,7 +1550,6 @@ bool AudioJackObserverStubDispatch::Accept(
       return true;
     }
     case internal::kAudioJackObserver_OnRemove_Name: {
-
       DCHECK(message->is_serialized());
       internal::AudioJackObserver_OnRemove_Params_Data* params =
           reinterpret_cast<internal::AudioJackObserver_OnRemove_Params_Data*>(
@@ -1737,13 +1728,13 @@ void TouchpadObserverProxy::OnButton(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1791,13 +1782,13 @@ void TouchpadObserverProxy::OnTouch(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1845,13 +1836,13 @@ void TouchpadObserverProxy::OnConnected(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1888,7 +1879,6 @@ bool TouchpadObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kTouchpadObserver_OnButton_Name: {
-
       DCHECK(message->is_serialized());
       internal::TouchpadObserver_OnButton_Params_Data* params =
           reinterpret_cast<internal::TouchpadObserver_OnButton_Params_Data*>(
@@ -1916,7 +1906,6 @@ bool TouchpadObserverStubDispatch::Accept(
       return true;
     }
     case internal::kTouchpadObserver_OnTouch_Name: {
-
       DCHECK(message->is_serialized());
       internal::TouchpadObserver_OnTouch_Params_Data* params =
           reinterpret_cast<internal::TouchpadObserver_OnTouch_Params_Data*>(
@@ -1944,7 +1933,6 @@ bool TouchpadObserverStubDispatch::Accept(
       return true;
     }
     case internal::kTouchpadObserver_OnConnected_Name: {
-
       DCHECK(message->is_serialized());
       internal::TouchpadObserver_OnConnected_Params_Data* params =
           reinterpret_cast<internal::TouchpadObserver_OnConnected_Params_Data*>(
@@ -2108,13 +2096,13 @@ void TouchscreenObserverProxy::OnTouch(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2162,13 +2150,13 @@ void TouchscreenObserverProxy::OnConnected(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2205,7 +2193,6 @@ bool TouchscreenObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kTouchscreenObserver_OnTouch_Name: {
-
       DCHECK(message->is_serialized());
       internal::TouchscreenObserver_OnTouch_Params_Data* params =
           reinterpret_cast<internal::TouchscreenObserver_OnTouch_Params_Data*>(
@@ -2233,7 +2220,6 @@ bool TouchscreenObserverStubDispatch::Accept(
       return true;
     }
     case internal::kTouchscreenObserver_OnConnected_Name: {
-
       DCHECK(message->is_serialized());
       internal::TouchscreenObserver_OnConnected_Params_Data* params =
           reinterpret_cast<internal::TouchscreenObserver_OnConnected_Params_Data*>(
@@ -2385,13 +2371,13 @@ void StylusGarageObserverProxy::OnInsert(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2421,13 +2407,13 @@ void StylusGarageObserverProxy::OnRemove(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2453,7 +2439,6 @@ bool StylusGarageObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kStylusGarageObserver_OnInsert_Name: {
-
       DCHECK(message->is_serialized());
       internal::StylusGarageObserver_OnInsert_Params_Data* params =
           reinterpret_cast<internal::StylusGarageObserver_OnInsert_Params_Data*>(
@@ -2477,7 +2462,6 @@ bool StylusGarageObserverStubDispatch::Accept(
       return true;
     }
     case internal::kStylusGarageObserver_OnRemove_Name: {
-
       DCHECK(message->is_serialized());
       internal::StylusGarageObserver_OnRemove_Params_Data* params =
           reinterpret_cast<internal::StylusGarageObserver_OnRemove_Params_Data*>(
@@ -2632,13 +2616,13 @@ void StylusObserverProxy::OnTouch(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2686,13 +2670,13 @@ void StylusObserverProxy::OnConnected(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2729,7 +2713,6 @@ bool StylusObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kStylusObserver_OnTouch_Name: {
-
       DCHECK(message->is_serialized());
       internal::StylusObserver_OnTouch_Params_Data* params =
           reinterpret_cast<internal::StylusObserver_OnTouch_Params_Data*>(
@@ -2757,7 +2740,6 @@ bool StylusObserverStubDispatch::Accept(
       return true;
     }
     case internal::kStylusObserver_OnConnected_Name: {
-
       DCHECK(message->is_serialized());
       internal::StylusObserver_OnConnected_Params_Data* params =
           reinterpret_cast<internal::StylusObserver_OnConnected_Params_Data*>(
@@ -2916,13 +2898,13 @@ void PowerButtonObserverProxy::OnEvent(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2954,13 +2936,13 @@ void PowerButtonObserverProxy::OnConnectedToEventNode(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2986,7 +2968,6 @@ bool PowerButtonObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kPowerButtonObserver_OnEvent_Name: {
-
       DCHECK(message->is_serialized());
       internal::PowerButtonObserver_OnEvent_Params_Data* params =
           reinterpret_cast<internal::PowerButtonObserver_OnEvent_Params_Data*>(
@@ -3014,7 +2995,6 @@ bool PowerButtonObserverStubDispatch::Accept(
       return true;
     }
     case internal::kPowerButtonObserver_OnConnectedToEventNode_Name: {
-
       DCHECK(message->is_serialized());
       internal::PowerButtonObserver_OnConnectedToEventNode_Params_Data* params =
           reinterpret_cast<internal::PowerButtonObserver_OnConnectedToEventNode_Params_Data*>(
@@ -3152,13 +3132,13 @@ void VolumeButtonObserverProxy::OnEvent(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3188,7 +3168,6 @@ bool VolumeButtonObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kVolumeButtonObserver_OnEvent_Name: {
-
       DCHECK(message->is_serialized());
       internal::VolumeButtonObserver_OnEvent_Params_Data* params =
           reinterpret_cast<internal::VolumeButtonObserver_OnEvent_Params_Data*>(
@@ -4642,13 +4621,13 @@ void ExecutorProxy::ReadFile(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -4694,13 +4673,13 @@ void ExecutorProxy::ReadFilePart(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -4745,13 +4724,13 @@ void ExecutorProxy::GetFileInfo(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -4784,13 +4763,13 @@ void ExecutorProxy::GetAllFanSpeed(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -4831,13 +4810,13 @@ void ExecutorProxy::RunIw(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -4891,13 +4870,13 @@ void ExecutorProxy::RunMemtester(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -4941,13 +4920,13 @@ void ExecutorProxy::GetProcessIOContents(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5001,13 +4980,13 @@ void ExecutorProxy::ReadMsr(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5040,13 +5019,13 @@ void ExecutorProxy::GetLidAngle(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5084,13 +5063,13 @@ void ExecutorProxy::GetFingerprintFrame(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5123,13 +5102,13 @@ void ExecutorProxy::GetFingerprintInfo(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5170,13 +5149,13 @@ void ExecutorProxy::SetLedColor(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5218,13 +5197,13 @@ void ExecutorProxy::ResetLedColor(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5264,13 +5243,13 @@ void ExecutorProxy::GetHciDeviceConfig(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5312,13 +5291,13 @@ void ExecutorProxy::MonitorAudioJack(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5370,13 +5349,13 @@ void ExecutorProxy::MonitorTouchpad(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5434,13 +5413,13 @@ void ExecutorProxy::RunStressAppTest(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5480,13 +5459,13 @@ void ExecutorProxy::FetchBootPerformance(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5527,13 +5506,13 @@ void ExecutorProxy::MonitorTouchscreen(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5585,13 +5564,13 @@ void ExecutorProxy::MonitorStylusGarage(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5643,13 +5622,13 @@ void ExecutorProxy::MonitorStylus(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5691,13 +5670,13 @@ void ExecutorProxy::GetPsr(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5738,13 +5717,13 @@ void ExecutorProxy::RunFio(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5789,13 +5768,13 @@ void ExecutorProxy::RemoveFioTestFile(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5833,13 +5812,13 @@ void ExecutorProxy::GetConnectedExternalDisplayConnectors(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5879,13 +5858,13 @@ void ExecutorProxy::GetPrivacyScreenInfo(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5916,13 +5895,13 @@ void ExecutorProxy::FetchDisplayInfo(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -5953,13 +5932,13 @@ void ExecutorProxy::FetchCrashFromCrashSender(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6000,13 +5979,13 @@ void ExecutorProxy::MonitorPowerButton(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6061,13 +6040,13 @@ void ExecutorProxy::RunPrimeSearch(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6126,13 +6105,13 @@ void ExecutorProxy::MonitorVolumeButton(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6184,13 +6163,13 @@ void ExecutorProxy::RunFloatingPoint(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6248,13 +6227,13 @@ void ExecutorProxy::StartBtmon(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6291,13 +6270,13 @@ void ExecutorProxy::ReadBtmonLog(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6328,13 +6307,13 @@ void ExecutorProxy::RemoveBtmonLog(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6372,13 +6351,13 @@ void ExecutorProxy::SetFanSpeed(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6422,13 +6401,13 @@ void ExecutorProxy::SetAllFanAutoControl(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6459,13 +6438,13 @@ void ExecutorProxy::GetEcThermalSensors(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6496,13 +6475,13 @@ void ExecutorProxy::GetTouchpadDevices(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6540,13 +6519,13 @@ void ExecutorProxy::GetSmartBatteryManufactureDate(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6585,13 +6564,13 @@ void ExecutorProxy::GetSmartBatteryTemperature(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6633,13 +6612,13 @@ void ExecutorProxy::RunUrandom(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6727,7 +6706,6 @@ class Executor_ReadFile_ProxyToResponder : public ::mojo::internal::ProxyToRespo
 
 bool Executor_ReadFile_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_ReadFile_ResponseParams_Data* params =
       reinterpret_cast<
@@ -6767,12 +6745,12 @@ void Executor_ReadFile_ProxyToResponder::Run(
                         "<value of type const std::optional<std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6857,7 +6835,6 @@ class Executor_ReadFilePart_ProxyToResponder : public ::mojo::internal::ProxyToR
 
 bool Executor_ReadFilePart_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_ReadFilePart_ResponseParams_Data* params =
       reinterpret_cast<
@@ -6897,12 +6874,12 @@ void Executor_ReadFilePart_ProxyToResponder::Run(
                         "<value of type const std::optional<std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -6987,7 +6964,6 @@ class Executor_GetFileInfo_ProxyToResponder : public ::mojo::internal::ProxyToRe
 
 bool Executor_GetFileInfo_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetFileInfo_ResponseParams_Data* params =
       reinterpret_cast<
@@ -7027,12 +7003,12 @@ void Executor_GetFileInfo_ProxyToResponder::Run(
                         "<value of type FileInfoPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -7117,7 +7093,6 @@ class Executor_GetAllFanSpeed_ProxyToResponder : public ::mojo::internal::ProxyT
 
 bool Executor_GetAllFanSpeed_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetAllFanSpeed_ResponseParams_Data* params =
       reinterpret_cast<
@@ -7164,12 +7139,12 @@ void Executor_GetAllFanSpeed_ProxyToResponder::Run(
                         "<value of type const std::optional<std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -7267,7 +7242,6 @@ class Executor_RunIw_ProxyToResponder : public ::mojo::internal::ProxyToResponde
 
 bool Executor_RunIw_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_RunIw_ResponseParams_Data* params =
       reinterpret_cast<
@@ -7307,12 +7281,12 @@ void Executor_RunIw_ProxyToResponder::Run(
                         "<value of type ExecutedProcessResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -7401,7 +7375,6 @@ class Executor_GetProcessIOContents_ProxyToResponder : public ::mojo::internal::
 
 bool Executor_GetProcessIOContents_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetProcessIOContents_ResponseParams_Data* params =
       reinterpret_cast<
@@ -7441,12 +7414,12 @@ void Executor_GetProcessIOContents_ProxyToResponder::Run(
                         "<value of type const base::flat_map<uint32_t, std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -7537,7 +7510,6 @@ class Executor_ReadMsr_ProxyToResponder : public ::mojo::internal::ProxyToRespon
 
 bool Executor_ReadMsr_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_ReadMsr_ResponseParams_Data* params =
       reinterpret_cast<
@@ -7578,12 +7550,12 @@ void Executor_ReadMsr_ProxyToResponder::Run(
                         "<value of type std::optional<uint64_t>>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -7665,7 +7637,6 @@ class Executor_GetLidAngle_ProxyToResponder : public ::mojo::internal::ProxyToRe
 
 bool Executor_GetLidAngle_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetLidAngle_ResponseParams_Data* params =
       reinterpret_cast<
@@ -7706,12 +7677,12 @@ void Executor_GetLidAngle_ProxyToResponder::Run(
                         "<value of type std::optional<uint16_t>>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -7793,7 +7764,6 @@ class Executor_GetFingerprintFrame_ProxyToResponder : public ::mojo::internal::P
 
 bool Executor_GetFingerprintFrame_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetFingerprintFrame_ResponseParams_Data* params =
       reinterpret_cast<
@@ -7840,12 +7810,12 @@ void Executor_GetFingerprintFrame_ProxyToResponder::Run(
                         "<value of type const std::optional<std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -7941,7 +7911,6 @@ class Executor_GetFingerprintInfo_ProxyToResponder : public ::mojo::internal::Pr
 
 bool Executor_GetFingerprintInfo_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetFingerprintInfo_ResponseParams_Data* params =
       reinterpret_cast<
@@ -7988,12 +7957,12 @@ void Executor_GetFingerprintInfo_ProxyToResponder::Run(
                         "<value of type const std::optional<std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -8089,7 +8058,6 @@ class Executor_SetLedColor_ProxyToResponder : public ::mojo::internal::ProxyToRe
 
 bool Executor_SetLedColor_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_SetLedColor_ResponseParams_Data* params =
       reinterpret_cast<
@@ -8129,12 +8097,12 @@ void Executor_SetLedColor_ProxyToResponder::Run(
                         "<value of type const std::optional<std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -8219,7 +8187,6 @@ class Executor_ResetLedColor_ProxyToResponder : public ::mojo::internal::ProxyTo
 
 bool Executor_ResetLedColor_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_ResetLedColor_ResponseParams_Data* params =
       reinterpret_cast<
@@ -8259,12 +8226,12 @@ void Executor_ResetLedColor_ProxyToResponder::Run(
                         "<value of type const std::optional<std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -8349,7 +8316,6 @@ class Executor_GetHciDeviceConfig_ProxyToResponder : public ::mojo::internal::Pr
 
 bool Executor_GetHciDeviceConfig_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetHciDeviceConfig_ResponseParams_Data* params =
       reinterpret_cast<
@@ -8389,12 +8355,12 @@ void Executor_GetHciDeviceConfig_ProxyToResponder::Run(
                         "<value of type ExecutedProcessResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -8483,7 +8449,6 @@ class Executor_FetchBootPerformance_ProxyToResponder : public ::mojo::internal::
 
 bool Executor_FetchBootPerformance_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_FetchBootPerformance_ResponseParams_Data* params =
       reinterpret_cast<
@@ -8523,12 +8488,12 @@ void Executor_FetchBootPerformance_ProxyToResponder::Run(
                         "<value of type ::ash::cros_healthd::mojom::BootPerformanceResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -8615,7 +8580,6 @@ class Executor_GetPsr_ProxyToResponder : public ::mojo::internal::ProxyToRespond
 
 bool Executor_GetPsr_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetPsr_ResponseParams_Data* params =
       reinterpret_cast<
@@ -8655,12 +8619,12 @@ void Executor_GetPsr_ProxyToResponder::Run(
                         "<value of type GetPsrResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -8747,7 +8711,6 @@ class Executor_RemoveFioTestFile_ProxyToResponder : public ::mojo::internal::Pro
 
 bool Executor_RemoveFioTestFile_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_RemoveFioTestFile_ResponseParams_Data* params =
       reinterpret_cast<
@@ -8787,12 +8750,12 @@ void Executor_RemoveFioTestFile_ProxyToResponder::Run(
                         "<value of type ExecutedProcessResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -8881,7 +8844,6 @@ class Executor_GetConnectedExternalDisplayConnectors_ProxyToResponder : public :
 
 bool Executor_GetConnectedExternalDisplayConnectors_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetConnectedExternalDisplayConnectors_ResponseParams_Data* params =
       reinterpret_cast<
@@ -8928,12 +8890,12 @@ void Executor_GetConnectedExternalDisplayConnectors_ProxyToResponder::Run(
                         "<value of type const std::optional<std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -9031,7 +8993,6 @@ class Executor_GetPrivacyScreenInfo_ProxyToResponder : public ::mojo::internal::
 
 bool Executor_GetPrivacyScreenInfo_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetPrivacyScreenInfo_ResponseParams_Data* params =
       reinterpret_cast<
@@ -9071,12 +9032,12 @@ void Executor_GetPrivacyScreenInfo_ProxyToResponder::Run(
                         "<value of type GetPrivacyScreenInfoResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -9163,7 +9124,6 @@ class Executor_FetchDisplayInfo_ProxyToResponder : public ::mojo::internal::Prox
 
 bool Executor_FetchDisplayInfo_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_FetchDisplayInfo_ResponseParams_Data* params =
       reinterpret_cast<
@@ -9203,12 +9163,12 @@ void Executor_FetchDisplayInfo_ProxyToResponder::Run(
                         "<value of type ::ash::cros_healthd::mojom::DisplayResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -9295,7 +9255,6 @@ class Executor_FetchCrashFromCrashSender_ProxyToResponder : public ::mojo::inter
 
 bool Executor_FetchCrashFromCrashSender_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_FetchCrashFromCrashSender_ResponseParams_Data* params =
       reinterpret_cast<
@@ -9335,12 +9294,12 @@ void Executor_FetchCrashFromCrashSender_ProxyToResponder::Run(
                         "<value of type ExecutedProcessResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -9429,7 +9388,6 @@ class Executor_RunPrimeSearch_ProxyToResponder : public ::mojo::internal::ProxyT
 
 bool Executor_RunPrimeSearch_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_RunPrimeSearch_ResponseParams_Data* params =
       reinterpret_cast<
@@ -9469,12 +9427,12 @@ void Executor_RunPrimeSearch_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -9553,7 +9511,6 @@ class Executor_RunFloatingPoint_ProxyToResponder : public ::mojo::internal::Prox
 
 bool Executor_RunFloatingPoint_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_RunFloatingPoint_ResponseParams_Data* params =
       reinterpret_cast<
@@ -9593,12 +9550,12 @@ void Executor_RunFloatingPoint_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -9677,7 +9634,6 @@ class Executor_ReadBtmonLog_ProxyToResponder : public ::mojo::internal::ProxyToR
 
 bool Executor_ReadBtmonLog_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_ReadBtmonLog_ResponseParams_Data* params =
       reinterpret_cast<
@@ -9717,12 +9673,12 @@ void Executor_ReadBtmonLog_ProxyToResponder::Run(
                         "<value of type ExecutedProcessResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -9811,7 +9767,6 @@ class Executor_RemoveBtmonLog_ProxyToResponder : public ::mojo::internal::ProxyT
 
 bool Executor_RemoveBtmonLog_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_RemoveBtmonLog_ResponseParams_Data* params =
       reinterpret_cast<
@@ -9851,12 +9806,12 @@ void Executor_RemoveBtmonLog_ProxyToResponder::Run(
                         "<value of type ExecutedProcessResultPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -9945,7 +9900,6 @@ class Executor_SetFanSpeed_ProxyToResponder : public ::mojo::internal::ProxyToRe
 
 bool Executor_SetFanSpeed_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_SetFanSpeed_ResponseParams_Data* params =
       reinterpret_cast<
@@ -9985,12 +9939,12 @@ void Executor_SetFanSpeed_ProxyToResponder::Run(
                         "<value of type const std::optional<std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -10075,7 +10029,6 @@ class Executor_SetAllFanAutoControl_ProxyToResponder : public ::mojo::internal::
 
 bool Executor_SetAllFanAutoControl_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_SetAllFanAutoControl_ResponseParams_Data* params =
       reinterpret_cast<
@@ -10115,12 +10068,12 @@ void Executor_SetAllFanAutoControl_ProxyToResponder::Run(
                         "<value of type const std::optional<std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -10205,7 +10158,6 @@ class Executor_GetEcThermalSensors_ProxyToResponder : public ::mojo::internal::P
 
 bool Executor_GetEcThermalSensors_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetEcThermalSensors_ResponseParams_Data* params =
       reinterpret_cast<
@@ -10252,12 +10204,12 @@ void Executor_GetEcThermalSensors_ProxyToResponder::Run(
                         "<value of type const std::optional<std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -10355,7 +10307,6 @@ class Executor_GetTouchpadDevices_ProxyToResponder : public ::mojo::internal::Pr
 
 bool Executor_GetTouchpadDevices_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetTouchpadDevices_ResponseParams_Data* params =
       reinterpret_cast<
@@ -10402,12 +10353,12 @@ void Executor_GetTouchpadDevices_ProxyToResponder::Run(
                         "<value of type const std::optional<std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -10505,7 +10456,6 @@ class Executor_GetSmartBatteryManufactureDate_ProxyToResponder : public ::mojo::
 
 bool Executor_GetSmartBatteryManufactureDate_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetSmartBatteryManufactureDate_ResponseParams_Data* params =
       reinterpret_cast<
@@ -10546,12 +10496,12 @@ void Executor_GetSmartBatteryManufactureDate_ProxyToResponder::Run(
                         "<value of type std::optional<uint32_t>>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -10633,7 +10583,6 @@ class Executor_GetSmartBatteryTemperature_ProxyToResponder : public ::mojo::inte
 
 bool Executor_GetSmartBatteryTemperature_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetSmartBatteryTemperature_ResponseParams_Data* params =
       reinterpret_cast<
@@ -10674,12 +10623,12 @@ void Executor_GetSmartBatteryTemperature_ProxyToResponder::Run(
                         "<value of type std::optional<uint32_t>>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -10761,7 +10710,6 @@ class Executor_RunUrandom_ProxyToResponder : public ::mojo::internal::ProxyToRes
 
 bool Executor_RunUrandom_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_RunUrandom_ResponseParams_Data* params =
       reinterpret_cast<
@@ -10801,12 +10749,12 @@ void Executor_RunUrandom_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -10856,7 +10804,6 @@ bool ExecutorStubDispatch::Accept(
       break;
     }
     case internal::kExecutor_RunMemtester_Name: {
-
       DCHECK(message->is_serialized());
       internal::Executor_RunMemtester_Params_Data* params =
           reinterpret_cast<internal::Executor_RunMemtester_Params_Data*>(
@@ -10914,7 +10861,6 @@ bool ExecutorStubDispatch::Accept(
       break;
     }
     case internal::kExecutor_MonitorAudioJack_Name: {
-
       DCHECK(message->is_serialized());
       internal::Executor_MonitorAudioJack_Params_Data* params =
           reinterpret_cast<internal::Executor_MonitorAudioJack_Params_Data*>(
@@ -10950,7 +10896,6 @@ bool ExecutorStubDispatch::Accept(
       return true;
     }
     case internal::kExecutor_MonitorTouchpad_Name: {
-
       DCHECK(message->is_serialized());
       internal::Executor_MonitorTouchpad_Params_Data* params =
           reinterpret_cast<internal::Executor_MonitorTouchpad_Params_Data*>(
@@ -10986,7 +10931,6 @@ bool ExecutorStubDispatch::Accept(
       return true;
     }
     case internal::kExecutor_RunStressAppTest_Name: {
-
       DCHECK(message->is_serialized());
       internal::Executor_RunStressAppTest_Params_Data* params =
           reinterpret_cast<internal::Executor_RunStressAppTest_Params_Data*>(
@@ -11031,7 +10975,6 @@ bool ExecutorStubDispatch::Accept(
       break;
     }
     case internal::kExecutor_MonitorTouchscreen_Name: {
-
       DCHECK(message->is_serialized());
       internal::Executor_MonitorTouchscreen_Params_Data* params =
           reinterpret_cast<internal::Executor_MonitorTouchscreen_Params_Data*>(
@@ -11067,7 +11010,6 @@ bool ExecutorStubDispatch::Accept(
       return true;
     }
     case internal::kExecutor_MonitorStylusGarage_Name: {
-
       DCHECK(message->is_serialized());
       internal::Executor_MonitorStylusGarage_Params_Data* params =
           reinterpret_cast<internal::Executor_MonitorStylusGarage_Params_Data*>(
@@ -11103,7 +11045,6 @@ bool ExecutorStubDispatch::Accept(
       return true;
     }
     case internal::kExecutor_MonitorStylus_Name: {
-
       DCHECK(message->is_serialized());
       internal::Executor_MonitorStylus_Params_Data* params =
           reinterpret_cast<internal::Executor_MonitorStylus_Params_Data*>(
@@ -11142,7 +11083,6 @@ bool ExecutorStubDispatch::Accept(
       break;
     }
     case internal::kExecutor_RunFio_Name: {
-
       DCHECK(message->is_serialized());
       internal::Executor_RunFio_Params_Data* params =
           reinterpret_cast<internal::Executor_RunFio_Params_Data*>(
@@ -11191,7 +11131,6 @@ bool ExecutorStubDispatch::Accept(
       break;
     }
     case internal::kExecutor_MonitorPowerButton_Name: {
-
       DCHECK(message->is_serialized());
       internal::Executor_MonitorPowerButton_Params_Data* params =
           reinterpret_cast<internal::Executor_MonitorPowerButton_Params_Data*>(
@@ -11230,7 +11169,6 @@ bool ExecutorStubDispatch::Accept(
       break;
     }
     case internal::kExecutor_MonitorVolumeButton_Name: {
-
       DCHECK(message->is_serialized());
       internal::Executor_MonitorVolumeButton_Params_Data* params =
           reinterpret_cast<internal::Executor_MonitorVolumeButton_Params_Data*>(
@@ -11269,7 +11207,6 @@ bool ExecutorStubDispatch::Accept(
       break;
     }
     case internal::kExecutor_StartBtmon_Name: {
-
       DCHECK(message->is_serialized());
       internal::Executor_StartBtmon_Params_Data* params =
           reinterpret_cast<internal::Executor_StartBtmon_Params_Data*>(
@@ -11343,7 +11280,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kExecutor_ReadFile_Name: {
-
       internal::Executor_ReadFile_Params_Data* params =
           reinterpret_cast<
               internal::Executor_ReadFile_Params_Data*>(
@@ -11374,7 +11310,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_ReadFilePart_Name: {
-
       internal::Executor_ReadFilePart_Params_Data* params =
           reinterpret_cast<
               internal::Executor_ReadFilePart_Params_Data*>(
@@ -11414,7 +11349,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_GetFileInfo_Name: {
-
       internal::Executor_GetFileInfo_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetFileInfo_Params_Data*>(
@@ -11445,7 +11379,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_GetAllFanSpeed_Name: {
-
       internal::Executor_GetAllFanSpeed_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetAllFanSpeed_Params_Data*>(
@@ -11472,7 +11405,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_RunIw_Name: {
-
       internal::Executor_RunIw_Params_Data* params =
           reinterpret_cast<
               internal::Executor_RunIw_Params_Data*>(
@@ -11510,7 +11442,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kExecutor_GetProcessIOContents_Name: {
-
       internal::Executor_GetProcessIOContents_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetProcessIOContents_Params_Data*>(
@@ -11541,7 +11472,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_ReadMsr_Name: {
-
       internal::Executor_ReadMsr_Params_Data* params =
           reinterpret_cast<
               internal::Executor_ReadMsr_Params_Data*>(
@@ -11576,7 +11506,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_GetLidAngle_Name: {
-
       internal::Executor_GetLidAngle_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetLidAngle_Params_Data*>(
@@ -11603,7 +11532,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_GetFingerprintFrame_Name: {
-
       internal::Executor_GetFingerprintFrame_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetFingerprintFrame_Params_Data*>(
@@ -11634,7 +11562,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_GetFingerprintInfo_Name: {
-
       internal::Executor_GetFingerprintInfo_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetFingerprintInfo_Params_Data*>(
@@ -11661,7 +11588,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_SetLedColor_Name: {
-
       internal::Executor_SetLedColor_Params_Data* params =
           reinterpret_cast<
               internal::Executor_SetLedColor_Params_Data*>(
@@ -11696,7 +11622,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_ResetLedColor_Name: {
-
       internal::Executor_ResetLedColor_Params_Data* params =
           reinterpret_cast<
               internal::Executor_ResetLedColor_Params_Data*>(
@@ -11727,7 +11652,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_GetHciDeviceConfig_Name: {
-
       internal::Executor_GetHciDeviceConfig_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetHciDeviceConfig_Params_Data*>(
@@ -11767,7 +11691,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kExecutor_FetchBootPerformance_Name: {
-
       internal::Executor_FetchBootPerformance_Params_Data* params =
           reinterpret_cast<
               internal::Executor_FetchBootPerformance_Params_Data*>(
@@ -11803,7 +11726,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kExecutor_GetPsr_Name: {
-
       internal::Executor_GetPsr_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetPsr_Params_Data*>(
@@ -11833,7 +11755,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kExecutor_RemoveFioTestFile_Name: {
-
       internal::Executor_RemoveFioTestFile_Params_Data* params =
           reinterpret_cast<
               internal::Executor_RemoveFioTestFile_Params_Data*>(
@@ -11860,7 +11781,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_GetConnectedExternalDisplayConnectors_Name: {
-
       internal::Executor_GetConnectedExternalDisplayConnectors_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetConnectedExternalDisplayConnectors_Params_Data*>(
@@ -11891,7 +11811,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_GetPrivacyScreenInfo_Name: {
-
       internal::Executor_GetPrivacyScreenInfo_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetPrivacyScreenInfo_Params_Data*>(
@@ -11918,7 +11837,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_FetchDisplayInfo_Name: {
-
       internal::Executor_FetchDisplayInfo_Params_Data* params =
           reinterpret_cast<
               internal::Executor_FetchDisplayInfo_Params_Data*>(
@@ -11945,7 +11863,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_FetchCrashFromCrashSender_Name: {
-
       internal::Executor_FetchCrashFromCrashSender_Params_Data* params =
           reinterpret_cast<
               internal::Executor_FetchCrashFromCrashSender_Params_Data*>(
@@ -11975,7 +11892,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kExecutor_RunPrimeSearch_Name: {
-
       internal::Executor_RunPrimeSearch_Params_Data* params =
           reinterpret_cast<
               internal::Executor_RunPrimeSearch_Params_Data*>(
@@ -12019,7 +11935,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kExecutor_RunFloatingPoint_Name: {
-
       internal::Executor_RunFloatingPoint_Params_Data* params =
           reinterpret_cast<
               internal::Executor_RunFloatingPoint_Params_Data*>(
@@ -12059,7 +11974,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kExecutor_ReadBtmonLog_Name: {
-
       internal::Executor_ReadBtmonLog_Params_Data* params =
           reinterpret_cast<
               internal::Executor_ReadBtmonLog_Params_Data*>(
@@ -12086,7 +12000,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_RemoveBtmonLog_Name: {
-
       internal::Executor_RemoveBtmonLog_Params_Data* params =
           reinterpret_cast<
               internal::Executor_RemoveBtmonLog_Params_Data*>(
@@ -12113,7 +12026,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_SetFanSpeed_Name: {
-
       internal::Executor_SetFanSpeed_Params_Data* params =
           reinterpret_cast<
               internal::Executor_SetFanSpeed_Params_Data*>(
@@ -12144,7 +12056,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_SetAllFanAutoControl_Name: {
-
       internal::Executor_SetAllFanAutoControl_Params_Data* params =
           reinterpret_cast<
               internal::Executor_SetAllFanAutoControl_Params_Data*>(
@@ -12171,7 +12082,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_GetEcThermalSensors_Name: {
-
       internal::Executor_GetEcThermalSensors_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetEcThermalSensors_Params_Data*>(
@@ -12198,7 +12108,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_GetTouchpadDevices_Name: {
-
       internal::Executor_GetTouchpadDevices_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetTouchpadDevices_Params_Data*>(
@@ -12225,7 +12134,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_GetSmartBatteryManufactureDate_Name: {
-
       internal::Executor_GetSmartBatteryManufactureDate_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetSmartBatteryManufactureDate_Params_Data*>(
@@ -12256,7 +12164,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_GetSmartBatteryTemperature_Name: {
-
       internal::Executor_GetSmartBatteryTemperature_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetSmartBatteryTemperature_Params_Data*>(
@@ -12287,7 +12194,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_RunUrandom_Name: {
-
       internal::Executor_RunUrandom_Params_Data* params =
           reinterpret_cast<
               internal::Executor_RunUrandom_Params_Data*>(

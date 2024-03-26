@@ -1658,13 +1658,13 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterAdded(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1694,13 +1694,13 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterRemoved(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1730,13 +1730,13 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterPropertyChanged(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1766,13 +1766,13 @@ void CrosHealthdBluetoothObserverProxy::OnDeviceAdded(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1802,13 +1802,13 @@ void CrosHealthdBluetoothObserverProxy::OnDeviceRemoved(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1838,13 +1838,13 @@ void CrosHealthdBluetoothObserverProxy::OnDevicePropertyChanged(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1870,7 +1870,6 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kCrosHealthdBluetoothObserver_OnAdapterAdded_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdBluetoothObserver_OnAdapterAdded_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnAdapterAdded_Params_Data*>(
@@ -1894,7 +1893,6 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdBluetoothObserver_OnAdapterRemoved_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnAdapterRemoved_Params_Data*>(
@@ -1918,7 +1916,6 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Params_Data*>(
@@ -1942,7 +1939,6 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdBluetoothObserver_OnDeviceAdded_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnDeviceAdded_Params_Data*>(
@@ -1966,7 +1962,6 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdBluetoothObserver_OnDeviceRemoved_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnDeviceRemoved_Params_Data*>(
@@ -1990,7 +1985,6 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdBluetoothObserver_OnDevicePropertyChanged_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnDevicePropertyChanged_Params_Data*>(
@@ -2158,13 +2152,13 @@ void CrosHealthdLidObserverProxy::OnLidClosed(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2194,13 +2188,13 @@ void CrosHealthdLidObserverProxy::OnLidOpened(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2226,7 +2220,6 @@ bool CrosHealthdLidObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kCrosHealthdLidObserver_OnLidClosed_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdLidObserver_OnLidClosed_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdLidObserver_OnLidClosed_Params_Data*>(
@@ -2250,7 +2243,6 @@ bool CrosHealthdLidObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdLidObserver_OnLidOpened_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdLidObserver_OnLidOpened_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdLidObserver_OnLidOpened_Params_Data*>(
@@ -2438,13 +2430,13 @@ void CrosHealthdPowerObserverProxy::OnAcInserted(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2474,13 +2466,13 @@ void CrosHealthdPowerObserverProxy::OnAcRemoved(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2510,13 +2502,13 @@ void CrosHealthdPowerObserverProxy::OnOsSuspend(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2546,13 +2538,13 @@ void CrosHealthdPowerObserverProxy::OnOsResume(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2578,7 +2570,6 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kCrosHealthdPowerObserver_OnAcInserted_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdPowerObserver_OnAcInserted_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdPowerObserver_OnAcInserted_Params_Data*>(
@@ -2602,7 +2593,6 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdPowerObserver_OnAcRemoved_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdPowerObserver_OnAcRemoved_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdPowerObserver_OnAcRemoved_Params_Data*>(
@@ -2626,7 +2616,6 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdPowerObserver_OnOsSuspend_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdPowerObserver_OnOsSuspend_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdPowerObserver_OnOsSuspend_Params_Data*>(
@@ -2650,7 +2639,6 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdPowerObserver_OnOsResume_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdPowerObserver_OnOsResume_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdPowerObserver_OnOsResume_Params_Data*>(
@@ -2808,13 +2796,13 @@ void CrosHealthdAudioObserverProxy::OnUnderrun(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2844,13 +2832,13 @@ void CrosHealthdAudioObserverProxy::OnSevereUnderrun(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2876,7 +2864,6 @@ bool CrosHealthdAudioObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kCrosHealthdAudioObserver_OnUnderrun_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdAudioObserver_OnUnderrun_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdAudioObserver_OnUnderrun_Params_Data*>(
@@ -2900,7 +2887,6 @@ bool CrosHealthdAudioObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdAudioObserver_OnSevereUnderrun_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdAudioObserver_OnSevereUnderrun_Params_Data*>(
@@ -3088,13 +3074,13 @@ void CrosHealthdThunderboltObserverProxy::OnAdd(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3124,13 +3110,13 @@ void CrosHealthdThunderboltObserverProxy::OnRemove(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3160,13 +3146,13 @@ void CrosHealthdThunderboltObserverProxy::OnAuthorized(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3196,13 +3182,13 @@ void CrosHealthdThunderboltObserverProxy::OnUnAuthorized(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3228,7 +3214,6 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kCrosHealthdThunderboltObserver_OnAdd_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdThunderboltObserver_OnAdd_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdThunderboltObserver_OnAdd_Params_Data*>(
@@ -3252,7 +3237,6 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdThunderboltObserver_OnRemove_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdThunderboltObserver_OnRemove_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdThunderboltObserver_OnRemove_Params_Data*>(
@@ -3276,7 +3260,6 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdThunderboltObserver_OnAuthorized_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdThunderboltObserver_OnAuthorized_Params_Data*>(
@@ -3300,7 +3283,6 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdThunderboltObserver_OnUnAuthorized_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdThunderboltObserver_OnUnAuthorized_Params_Data*>(
@@ -3465,13 +3447,13 @@ void CrosHealthdUsbObserverProxy::OnAdd(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3519,13 +3501,13 @@ void CrosHealthdUsbObserverProxy::OnRemove(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3562,7 +3544,6 @@ bool CrosHealthdUsbObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kCrosHealthdUsbObserver_OnAdd_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdUsbObserver_OnAdd_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdUsbObserver_OnAdd_Params_Data*>(
@@ -3590,7 +3571,6 @@ bool CrosHealthdUsbObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdUsbObserver_OnRemove_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdUsbObserver_OnRemove_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdUsbObserver_OnRemove_Params_Data*>(
@@ -3742,13 +3722,13 @@ void CrosHealthdSdCardObserverProxy::OnAdd(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3778,13 +3758,13 @@ void CrosHealthdSdCardObserverProxy::OnRemove(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3810,7 +3790,6 @@ bool CrosHealthdSdCardObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kCrosHealthdSdCardObserver_OnAdd_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdSdCardObserver_OnAdd_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdSdCardObserver_OnAdd_Params_Data*>(
@@ -3834,7 +3813,6 @@ bool CrosHealthdSdCardObserverStubDispatch::Accept(
       return true;
     }
     case internal::kCrosHealthdSdCardObserver_OnRemove_Name: {
-
       DCHECK(message->is_serialized());
       internal::CrosHealthdSdCardObserver_OnRemove_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdSdCardObserver_OnRemove_Params_Data*>(
@@ -3969,13 +3947,13 @@ void EventObserverProxy::OnEvent(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -4010,7 +3988,6 @@ bool EventObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kEventObserver_OnEvent_Name: {
-
       DCHECK(message->is_serialized());
       internal::EventObserver_OnEvent_Params_Data* params =
           reinterpret_cast<internal::EventObserver_OnEvent_Params_Data*>(

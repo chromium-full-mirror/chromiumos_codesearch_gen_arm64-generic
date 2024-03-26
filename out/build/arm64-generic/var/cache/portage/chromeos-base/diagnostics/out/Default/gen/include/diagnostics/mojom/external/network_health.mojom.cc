@@ -144,13 +144,13 @@ void NetworkEventsObserverProxy::OnConnectionStateChanged(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -203,13 +203,13 @@ void NetworkEventsObserverProxy::OnSignalStrengthChanged(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -257,7 +257,6 @@ bool NetworkEventsObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kNetworkEventsObserver_OnConnectionStateChanged_Name: {
-
       DCHECK(message->is_serialized());
       internal::NetworkEventsObserver_OnConnectionStateChanged_Params_Data* params =
           reinterpret_cast<internal::NetworkEventsObserver_OnConnectionStateChanged_Params_Data*>(
@@ -289,7 +288,6 @@ bool NetworkEventsObserverStubDispatch::Accept(
       return true;
     }
     case internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name: {
-
       DCHECK(message->is_serialized());
       internal::NetworkEventsObserver_OnSignalStrengthChanged_Params_Data* params =
           reinterpret_cast<internal::NetworkEventsObserver_OnSignalStrengthChanged_Params_Data*>(
@@ -504,13 +502,13 @@ void NetworkHealthServiceProxy::AddObserver(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -546,13 +544,13 @@ void NetworkHealthServiceProxy::GetNetworkList(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -583,13 +581,13 @@ void NetworkHealthServiceProxy::GetHealthSnapshot(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -660,7 +658,6 @@ class NetworkHealthService_GetNetworkList_ProxyToResponder : public ::mojo::inte
 
 bool NetworkHealthService_GetNetworkList_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkHealthService_GetNetworkList_ResponseParams_Data* params =
       reinterpret_cast<
@@ -700,12 +697,12 @@ void NetworkHealthService_GetNetworkList_ProxyToResponder::Run(
                         "<value of type std::vector<::chromeos::network_health::mojom::NetworkPtr>>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -796,7 +793,6 @@ class NetworkHealthService_GetHealthSnapshot_ProxyToResponder : public ::mojo::i
 
 bool NetworkHealthService_GetHealthSnapshot_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::NetworkHealthService_GetHealthSnapshot_ResponseParams_Data* params =
       reinterpret_cast<
@@ -836,12 +832,12 @@ void NetworkHealthService_GetHealthSnapshot_ProxyToResponder::Run(
                         "<value of type ::chromeos::network_health::mojom::NetworkHealthStatePtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -886,7 +882,6 @@ bool NetworkHealthServiceStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kNetworkHealthService_AddObserver_Name: {
-
       DCHECK(message->is_serialized());
       internal::NetworkHealthService_AddObserver_Params_Data* params =
           reinterpret_cast<internal::NetworkHealthService_AddObserver_Params_Data*>(
@@ -938,7 +933,6 @@ bool NetworkHealthServiceStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kNetworkHealthService_GetNetworkList_Name: {
-
       internal::NetworkHealthService_GetNetworkList_Params_Data* params =
           reinterpret_cast<
               internal::NetworkHealthService_GetNetworkList_Params_Data*>(
@@ -965,7 +959,6 @@ bool NetworkHealthServiceStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kNetworkHealthService_GetHealthSnapshot_Name: {
-
       internal::NetworkHealthService_GetHealthSnapshot_Params_Data* params =
           reinterpret_cast<
               internal::NetworkHealthService_GetHealthSnapshot_Params_Data*>(

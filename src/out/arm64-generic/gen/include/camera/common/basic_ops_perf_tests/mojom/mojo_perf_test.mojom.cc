@@ -137,13 +137,13 @@ void MojoPerfTestProxy::CallWithBuffer(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -227,7 +227,6 @@ class MojoPerfTest_CallWithBuffer_ProxyToResponder : public ::mojo::internal::Pr
 
 bool MojoPerfTest_CallWithBuffer_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::MojoPerfTest_CallWithBuffer_ResponseParams_Data* params =
       reinterpret_cast<
@@ -256,12 +255,12 @@ void MojoPerfTest_CallWithBuffer_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send reply cros::mojom::MojoPerfTest::CallWithBuffer");
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -311,7 +310,6 @@ bool MojoPerfTestStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kMojoPerfTest_CallWithBuffer_Name: {
-
       internal::MojoPerfTest_CallWithBuffer_Params_Data* params =
           reinterpret_cast<
               internal::MojoPerfTest_CallWithBuffer_Params_Data*>(

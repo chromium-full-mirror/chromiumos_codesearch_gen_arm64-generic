@@ -15,7 +15,6 @@
 namespace perfetto {
 namespace protos {
 namespace pbzero {
-
 class Callstack;
 class DebugAnnotationName;
 class DebugAnnotationValueTypeName;
@@ -37,6 +36,13 @@ class NetworkPacketContext;
 class ProfiledFrameSymbols;
 class SourceLocation;
 class UnsymbolizedSourceLocation;
+} // Namespace pbzero.
+} // Namespace protos.
+} // Namespace perfetto.
+
+namespace perfetto {
+namespace protos {
+namespace pbzero {
 
 class InternedData_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/37, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:

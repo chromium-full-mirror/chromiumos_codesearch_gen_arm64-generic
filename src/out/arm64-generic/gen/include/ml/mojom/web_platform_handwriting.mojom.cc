@@ -486,13 +486,13 @@ void HandwritingRecognizerProxy::GetPrediction(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -587,7 +587,6 @@ class HandwritingRecognizer_GetPrediction_ProxyToResponder : public ::mojo::inte
 
 bool HandwritingRecognizer_GetPrediction_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::HandwritingRecognizer_GetPrediction_ResponseParams_Data* params =
       reinterpret_cast<
@@ -627,12 +626,12 @@ void HandwritingRecognizer_GetPrediction_ProxyToResponder::Run(
                         "<value of type std::optional<std::vector<HandwritingPredictionPtr>>>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -691,7 +690,6 @@ bool HandwritingRecognizerStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kHandwritingRecognizer_GetPrediction_Name: {
-
       internal::HandwritingRecognizer_GetPrediction_Params_Data* params =
           reinterpret_cast<
               internal::HandwritingRecognizer_GetPrediction_Params_Data*>(

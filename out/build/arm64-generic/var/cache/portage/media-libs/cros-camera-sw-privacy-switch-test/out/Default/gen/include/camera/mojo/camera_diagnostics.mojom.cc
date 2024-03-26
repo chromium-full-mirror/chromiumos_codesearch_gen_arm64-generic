@@ -293,13 +293,13 @@ void CameraDiagnosticsProxy::SetYuvAnalysisEnabled(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -330,13 +330,13 @@ void CameraDiagnosticsProxy::GetYuvAnalysisEnabled(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -374,13 +374,13 @@ void CameraDiagnosticsProxy::AnalyzeYuvFrame(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -422,13 +422,13 @@ void CameraDiagnosticsProxy::GetDiagnosticsResult(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -499,7 +499,6 @@ class CameraDiagnostics_GetYuvAnalysisEnabled_ProxyToResponder : public ::mojo::
 
 bool CameraDiagnostics_GetYuvAnalysisEnabled_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CameraDiagnostics_GetYuvAnalysisEnabled_ResponseParams_Data* params =
       reinterpret_cast<
@@ -539,12 +538,12 @@ void CameraDiagnostics_GetYuvAnalysisEnabled_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -623,7 +622,6 @@ class CameraDiagnostics_AnalyzeYuvFrame_ProxyToResponder : public ::mojo::intern
 
 bool CameraDiagnostics_AnalyzeYuvFrame_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CameraDiagnostics_AnalyzeYuvFrame_ResponseParams_Data* params =
       reinterpret_cast<
@@ -663,12 +661,12 @@ void CameraDiagnostics_AnalyzeYuvFrame_ProxyToResponder::Run(
                         "<value of type Response>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -748,7 +746,6 @@ class CameraDiagnostics_GetDiagnosticsResult_ProxyToResponder : public ::mojo::i
 
 bool CameraDiagnostics_GetDiagnosticsResult_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CameraDiagnostics_GetDiagnosticsResult_ResponseParams_Data* params =
       reinterpret_cast<
@@ -788,12 +785,12 @@ void CameraDiagnostics_GetDiagnosticsResult_ProxyToResponder::Run(
                         "<value of type uint32_t>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -828,7 +825,6 @@ bool CameraDiagnosticsStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kCameraDiagnostics_SetYuvAnalysisEnabled_Name: {
-
       DCHECK(message->is_serialized());
       internal::CameraDiagnostics_SetYuvAnalysisEnabled_Params_Data* params =
           reinterpret_cast<internal::CameraDiagnostics_SetYuvAnalysisEnabled_Params_Data*>(
@@ -881,7 +877,6 @@ bool CameraDiagnosticsStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kCameraDiagnostics_GetYuvAnalysisEnabled_Name: {
-
       internal::CameraDiagnostics_GetYuvAnalysisEnabled_Params_Data* params =
           reinterpret_cast<
               internal::CameraDiagnostics_GetYuvAnalysisEnabled_Params_Data*>(
@@ -908,7 +903,6 @@ bool CameraDiagnosticsStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kCameraDiagnostics_AnalyzeYuvFrame_Name: {
-
       internal::CameraDiagnostics_AnalyzeYuvFrame_Params_Data* params =
           reinterpret_cast<
               internal::CameraDiagnostics_AnalyzeYuvFrame_Params_Data*>(
@@ -939,7 +933,6 @@ bool CameraDiagnosticsStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kCameraDiagnostics_GetDiagnosticsResult_Name: {
-
       internal::CameraDiagnostics_GetDiagnosticsResult_Params_Data* params =
           reinterpret_cast<
               internal::CameraDiagnostics_GetDiagnosticsResult_Params_Data*>(

@@ -151,6 +151,22 @@ class  RoutineControl_Start_Params_Data {
 };
 static_assert(sizeof(RoutineControl_Start_Params_Data) == 8,
               "Bad sizeof(RoutineControl_Start_Params_Data)");
+class  RoutineControl_ReplyInquiry_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  internal::RoutineInquiryReply_Data reply;
+
+ private:
+  friend class mojo::internal::MessageFragment<RoutineControl_ReplyInquiry_Params_Data>;
+
+  RoutineControl_ReplyInquiry_Params_Data();
+  ~RoutineControl_ReplyInquiry_Params_Data() = delete;
+};
+static_assert(sizeof(RoutineControl_ReplyInquiry_Params_Data) == 24,
+              "Bad sizeof(RoutineControl_ReplyInquiry_Params_Data)");
 class  RoutineObserver_OnRoutineStateChange_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -356,6 +372,32 @@ class RoutineControl_Start_ParamsDataView {
 };
 
 
+class RoutineControl_ReplyInquiry_ParamsDataView {
+ public:
+  RoutineControl_ReplyInquiry_ParamsDataView() = default;
+
+  RoutineControl_ReplyInquiry_ParamsDataView(
+      internal::RoutineControl_ReplyInquiry_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetReplyDataView(
+      RoutineInquiryReplyDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadReply(UserType* output) {
+    
+    auto* pointer = !data_->reply.is_null() ? &data_->reply : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RoutineInquiryReplyDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::RoutineControl_ReplyInquiry_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class RoutineObserver_OnRoutineStateChange_ParamsDataView {
  public:
   RoutineObserver_OnRoutineStateChange_ParamsDataView() = default;
@@ -415,6 +457,13 @@ inline void RoutineControl_GetState_ResponseParamsDataView::GetStateDataView(
 }
 
 
+
+
+inline void RoutineControl_ReplyInquiry_ParamsDataView::GetReplyDataView(
+    RoutineInquiryReplyDataView* output) {
+  auto pointer = &data_->reply;
+  *output = RoutineInquiryReplyDataView(pointer, message_);
+}
 
 
 inline void RoutineObserver_OnRoutineStateChange_ParamsDataView::GetStateDataView(

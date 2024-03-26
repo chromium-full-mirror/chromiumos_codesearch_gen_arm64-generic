@@ -173,13 +173,13 @@ void ExecutorProxy::RestartUpstartJob(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -219,13 +219,13 @@ void ExecutorProxy::GetPpdFile(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -307,7 +307,6 @@ class Executor_RestartUpstartJob_ProxyToResponder : public ::mojo::internal::Pro
 
 bool Executor_RestartUpstartJob_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_RestartUpstartJob_ResponseParams_Data* params =
       reinterpret_cast<
@@ -354,12 +353,12 @@ void Executor_RestartUpstartJob_ProxyToResponder::Run(
                         "<value of type const std::string&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -449,7 +448,6 @@ class Executor_GetPpdFile_ProxyToResponder : public ::mojo::internal::ProxyToRes
 
 bool Executor_GetPpdFile_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Executor_GetPpdFile_ResponseParams_Data* params =
       reinterpret_cast<
@@ -496,12 +494,12 @@ void Executor_GetPpdFile_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -566,7 +564,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kExecutor_RestartUpstartJob_Name: {
-
       internal::Executor_RestartUpstartJob_Params_Data* params =
           reinterpret_cast<
               internal::Executor_RestartUpstartJob_Params_Data*>(
@@ -597,7 +594,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kExecutor_GetPpdFile_Name: {
-
       internal::Executor_GetPpdFile_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetPpdFile_Params_Data*>(

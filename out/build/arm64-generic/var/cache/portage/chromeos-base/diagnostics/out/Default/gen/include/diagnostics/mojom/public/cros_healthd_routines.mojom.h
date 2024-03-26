@@ -163,7 +163,7 @@ class RoutineControl
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 1;
+  static constexpr uint32_t Version_ = 2;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -178,6 +178,7 @@ class RoutineControl
   enum MethodMinVersions : uint32_t {
     kGetStateMinVersion = 1,
     kStartMinVersion = 1,
+    kReplyInquiryMinVersion = 2,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -187,6 +188,9 @@ class RoutineControl
     NOINLINE static uint32_t IPCStableHash();
   };
   struct Start_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ReplyInquiry_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -199,6 +203,9 @@ class RoutineControl
 
   
   virtual void Start() = 0;
+
+  
+  virtual void ReplyInquiry(RoutineInquiryReplyPtr reply) = 0;
 };
 
 class RoutineObserverProxy;
@@ -290,6 +297,8 @@ class  RoutineControlProxy
   void GetState(GetStateCallback callback) final;
   
   void Start() final;
+  
+  void ReplyInquiry(RoutineInquiryReplyPtr reply) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1893,68 +1902,64 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  RoutineStateWaiting {
+
+class  CheckLedLitUpStateInquiry {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<RoutineStateWaiting, T>::value>;
-  using DataView = RoutineStateWaitingDataView;
-  using Data_ = internal::RoutineStateWaiting_Data;
-  using Reason = RoutineStateWaiting_Reason;
+  using EnableIfSame = std::enable_if_t<std::is_same<CheckLedLitUpStateInquiry, T>::value>;
+  using DataView = CheckLedLitUpStateInquiryDataView;
+  using Data_ = internal::CheckLedLitUpStateInquiry_Data;
 
   template <typename... Args>
-  static RoutineStateWaitingPtr New(Args&&... args) {
-    return RoutineStateWaitingPtr(
+  static CheckLedLitUpStateInquiryPtr New(Args&&... args) {
+    return CheckLedLitUpStateInquiryPtr(
         std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static RoutineStateWaitingPtr From(const U& u) {
-    return mojo::TypeConverter<RoutineStateWaitingPtr, U>::Convert(u);
+  static CheckLedLitUpStateInquiryPtr From(const U& u) {
+    return mojo::TypeConverter<CheckLedLitUpStateInquiryPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, RoutineStateWaiting>::Convert(*this);
+    return mojo::TypeConverter<U, CheckLedLitUpStateInquiry>::Convert(*this);
   }
 
 
-  RoutineStateWaiting();
-
-  RoutineStateWaiting(
-      RoutineStateWaiting::Reason reason,
-      const std::string& message);
+  CheckLedLitUpStateInquiry();
 
 
-  ~RoutineStateWaiting();
+  ~CheckLedLitUpStateInquiry();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = RoutineStateWaitingPtr>
-  RoutineStateWaitingPtr Clone() const;
+  template <typename StructPtrType = CheckLedLitUpStateInquiryPtr>
+  CheckLedLitUpStateInquiryPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+  template <typename T, CheckLedLitUpStateInquiry::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+  template <typename T, CheckLedLitUpStateInquiry::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+  template <typename T, CheckLedLitUpStateInquiry::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        RoutineStateWaiting::DataView, std::vector<uint8_t>>(input);
+        CheckLedLitUpStateInquiry::DataView, std::vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        RoutineStateWaiting::DataView>(input);
+        CheckLedLitUpStateInquiry::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -1964,8 +1969,8 @@ class  RoutineStateWaiting {
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::RoutineStateWaiting_UnserializedMessageContext<
-            UserType, RoutineStateWaiting::DataView>>(0, 0, std::move(input)),
+        internal::CheckLedLitUpStateInquiry_UnserializedMessageContext<
+            UserType, CheckLedLitUpStateInquiry::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -1974,14 +1979,14 @@ class  RoutineStateWaiting {
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<RoutineStateWaiting::DataView>(
+    return mojo::internal::DeserializeImpl<CheckLedLitUpStateInquiry::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const std::vector<uint8_t>& input,
                           UserType* output) {
-    return RoutineStateWaiting::Deserialize(
+    return CheckLedLitUpStateInquiry::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -1989,21 +1994,17 @@ class  RoutineStateWaiting {
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::RoutineStateWaiting_UnserializedMessageContext<
-            UserType, RoutineStateWaiting::DataView>>();
+        internal::CheckLedLitUpStateInquiry_UnserializedMessageContext<
+            UserType, CheckLedLitUpStateInquiry::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<RoutineStateWaiting::DataView>(
+    return mojo::internal::DeserializeImpl<CheckLedLitUpStateInquiry::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
-  
-  RoutineStateWaiting::Reason reason;
-  
-  std::string message;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2016,20 +2017,162 @@ class  RoutineStateWaiting {
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+template <typename T, CheckLedLitUpStateInquiry::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+template <typename T, CheckLedLitUpStateInquiry::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+template <typename T, CheckLedLitUpStateInquiry::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+template <typename T, CheckLedLitUpStateInquiry::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  CheckLedLitUpStateReply {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CheckLedLitUpStateReply, T>::value>;
+  using DataView = CheckLedLitUpStateReplyDataView;
+  using Data_ = internal::CheckLedLitUpStateReply_Data;
+  using State = CheckLedLitUpStateReply_State;
+
+  template <typename... Args>
+  static CheckLedLitUpStateReplyPtr New(Args&&... args) {
+    return CheckLedLitUpStateReplyPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CheckLedLitUpStateReplyPtr From(const U& u) {
+    return mojo::TypeConverter<CheckLedLitUpStateReplyPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CheckLedLitUpStateReply>::Convert(*this);
+  }
+
+
+  CheckLedLitUpStateReply();
+
+  explicit CheckLedLitUpStateReply(
+      CheckLedLitUpStateReply::State state);
+
+
+  ~CheckLedLitUpStateReply();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CheckLedLitUpStateReplyPtr>
+  CheckLedLitUpStateReplyPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CheckLedLitUpStateReply::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CheckLedLitUpStateReply::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, CheckLedLitUpStateReply::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CheckLedLitUpStateReply::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CheckLedLitUpStateReply::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CheckLedLitUpStateReply_UnserializedMessageContext<
+            UserType, CheckLedLitUpStateReply::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CheckLedLitUpStateReply::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CheckLedLitUpStateReply::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CheckLedLitUpStateReply_UnserializedMessageContext<
+            UserType, CheckLedLitUpStateReply::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CheckLedLitUpStateReply::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  CheckLedLitUpStateReply::State state;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CheckLedLitUpStateReply::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CheckLedLitUpStateReply::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CheckLedLitUpStateReply::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CheckLedLitUpStateReply::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -3418,6 +3561,399 @@ class  RoutineStateUnion {
     RoutineStateRunningPtr* running;
     RoutineStateWaitingPtr* waiting;
     RoutineStateFinishedPtr* finished;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+class  RoutineInteraction {
+ public:
+  using DataView = RoutineInteractionDataView;
+  using Data_ = internal::RoutineInteraction_Data;
+  using Tag = Data_::RoutineInteraction_Tag;
+
+  template <typename... Args>
+  static RoutineInteractionPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |unrecognizedInteraction|.
+  static RoutineInteractionPtr
+  NewUnrecognizedInteraction(
+      bool value) {
+    auto result = RoutineInteractionPtr(std::in_place);
+    result->set_unrecognizedInteraction(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |inquiry|.
+  static RoutineInteractionPtr
+  NewInquiry(
+      RoutineInquiryPtr value) {
+    auto result = RoutineInteractionPtr(std::in_place);
+    result->set_inquiry(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static RoutineInteractionPtr From(const U& u) {
+    return mojo::TypeConverter<RoutineInteractionPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RoutineInteraction>::Convert(*this);
+  }
+
+  RoutineInteraction();
+  ~RoutineInteraction();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  RoutineInteraction(const RoutineInteraction& other) = delete;
+  RoutineInteraction& operator=(const RoutineInteraction& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = RoutineInteractionPtr>
+  RoutineInteractionPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, RoutineInteraction>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, RoutineInteraction>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_unrecognizedInteraction() const { return tag_ == Tag::kUnrecognizedInteraction; }
+
+  
+  bool get_unrecognizedInteraction() const {
+    CHECK(tag_ == Tag::kUnrecognizedInteraction);
+    return data_.unrecognizedInteraction;
+  }
+
+  
+  void set_unrecognizedInteraction(
+      bool unrecognizedInteraction);
+  
+  bool is_inquiry() const { return tag_ == Tag::kInquiry; }
+
+  
+  RoutineInquiryPtr& get_inquiry() const {
+    CHECK(tag_ == Tag::kInquiry);
+    return *(data_.inquiry);
+  }
+
+  
+  void set_inquiry(
+      RoutineInquiryPtr inquiry);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RoutineInteraction::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<RoutineInteraction::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    bool unrecognizedInteraction;
+    RoutineInquiryPtr* inquiry;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+class  RoutineInquiry {
+ public:
+  using DataView = RoutineInquiryDataView;
+  using Data_ = internal::RoutineInquiry_Data;
+  using Tag = Data_::RoutineInquiry_Tag;
+
+  template <typename... Args>
+  static RoutineInquiryPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |unrecognizedInquiry|.
+  static RoutineInquiryPtr
+  NewUnrecognizedInquiry(
+      bool value) {
+    auto result = RoutineInquiryPtr(std::in_place);
+    result->set_unrecognizedInquiry(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |check_led_lit_up_state|.
+  static RoutineInquiryPtr
+  NewCheckLedLitUpState(
+      CheckLedLitUpStateInquiryPtr value) {
+    auto result = RoutineInquiryPtr(std::in_place);
+    result->set_check_led_lit_up_state(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static RoutineInquiryPtr From(const U& u) {
+    return mojo::TypeConverter<RoutineInquiryPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RoutineInquiry>::Convert(*this);
+  }
+
+  RoutineInquiry();
+  ~RoutineInquiry();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  RoutineInquiry(const RoutineInquiry& other) = delete;
+  RoutineInquiry& operator=(const RoutineInquiry& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = RoutineInquiryPtr>
+  RoutineInquiryPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, RoutineInquiry>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, RoutineInquiry>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_unrecognizedInquiry() const { return tag_ == Tag::kUnrecognizedInquiry; }
+
+  
+  bool get_unrecognizedInquiry() const {
+    CHECK(tag_ == Tag::kUnrecognizedInquiry);
+    return data_.unrecognizedInquiry;
+  }
+
+  
+  void set_unrecognizedInquiry(
+      bool unrecognizedInquiry);
+  
+  bool is_check_led_lit_up_state() const { return tag_ == Tag::kCheckLedLitUpState; }
+
+  
+  CheckLedLitUpStateInquiryPtr& get_check_led_lit_up_state() const {
+    CHECK(tag_ == Tag::kCheckLedLitUpState);
+    return *(data_.check_led_lit_up_state);
+  }
+
+  
+  void set_check_led_lit_up_state(
+      CheckLedLitUpStateInquiryPtr check_led_lit_up_state);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RoutineInquiry::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<RoutineInquiry::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    bool unrecognizedInquiry;
+    CheckLedLitUpStateInquiryPtr* check_led_lit_up_state;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+class  RoutineInquiryReply {
+ public:
+  using DataView = RoutineInquiryReplyDataView;
+  using Data_ = internal::RoutineInquiryReply_Data;
+  using Tag = Data_::RoutineInquiryReply_Tag;
+
+  template <typename... Args>
+  static RoutineInquiryReplyPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |unrecognizedReply|.
+  static RoutineInquiryReplyPtr
+  NewUnrecognizedReply(
+      bool value) {
+    auto result = RoutineInquiryReplyPtr(std::in_place);
+    result->set_unrecognizedReply(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |check_led_lit_up_state|.
+  static RoutineInquiryReplyPtr
+  NewCheckLedLitUpState(
+      CheckLedLitUpStateReplyPtr value) {
+    auto result = RoutineInquiryReplyPtr(std::in_place);
+    result->set_check_led_lit_up_state(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static RoutineInquiryReplyPtr From(const U& u) {
+    return mojo::TypeConverter<RoutineInquiryReplyPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RoutineInquiryReply>::Convert(*this);
+  }
+
+  RoutineInquiryReply();
+  ~RoutineInquiryReply();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  RoutineInquiryReply(const RoutineInquiryReply& other) = delete;
+  RoutineInquiryReply& operator=(const RoutineInquiryReply& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = RoutineInquiryReplyPtr>
+  RoutineInquiryReplyPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, RoutineInquiryReply>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, RoutineInquiryReply>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_unrecognizedReply() const { return tag_ == Tag::kUnrecognizedReply; }
+
+  
+  bool get_unrecognizedReply() const {
+    CHECK(tag_ == Tag::kUnrecognizedReply);
+    return data_.unrecognizedReply;
+  }
+
+  
+  void set_unrecognizedReply(
+      bool unrecognizedReply);
+  
+  bool is_check_led_lit_up_state() const { return tag_ == Tag::kCheckLedLitUpState; }
+
+  
+  CheckLedLitUpStateReplyPtr& get_check_led_lit_up_state() const {
+    CHECK(tag_ == Tag::kCheckLedLitUpState);
+    return *(data_.check_led_lit_up_state);
+  }
+
+  
+  void set_check_led_lit_up_state(
+      CheckLedLitUpStateReplyPtr check_led_lit_up_state);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RoutineInquiryReply::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<RoutineInquiryReply::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    bool unrecognizedReply;
+    CheckLedLitUpStateReplyPtr* check_led_lit_up_state;
   };
 
   static bool Validate(const void* data,
@@ -5158,6 +5694,160 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  RoutineStateWaiting {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<RoutineStateWaiting, T>::value>;
+  using DataView = RoutineStateWaitingDataView;
+  using Data_ = internal::RoutineStateWaiting_Data;
+  using Reason = RoutineStateWaiting_Reason;
+
+  template <typename... Args>
+  static RoutineStateWaitingPtr New(Args&&... args) {
+    return RoutineStateWaitingPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static RoutineStateWaitingPtr From(const U& u) {
+    return mojo::TypeConverter<RoutineStateWaitingPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RoutineStateWaiting>::Convert(*this);
+  }
+
+
+  RoutineStateWaiting();
+
+  RoutineStateWaiting(
+      RoutineStateWaiting::Reason reason,
+      const std::string& message);
+
+  RoutineStateWaiting(
+      RoutineStateWaiting::Reason reason,
+      const std::string& message,
+      RoutineInteractionPtr interaction);
+
+RoutineStateWaiting(const RoutineStateWaiting&) = delete;
+RoutineStateWaiting& operator=(const RoutineStateWaiting&) = delete;
+
+  ~RoutineStateWaiting();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = RoutineStateWaitingPtr>
+  RoutineStateWaitingPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        RoutineStateWaiting::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RoutineStateWaiting::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::RoutineStateWaiting_UnserializedMessageContext<
+            UserType, RoutineStateWaiting::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<RoutineStateWaiting::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return RoutineStateWaiting::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::RoutineStateWaiting_UnserializedMessageContext<
+            UserType, RoutineStateWaiting::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<RoutineStateWaiting::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  RoutineStateWaiting::Reason reason;
+  
+  std::string message;
+  
+  RoutineInteractionPtr interaction;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
 
 class  RoutineStateFinished {
  public:
@@ -6782,6 +7472,93 @@ bool RoutineStateUnion::Equals(const T& other) const {
   return false;
 }
 template <typename UnionPtrType>
+RoutineInteractionPtr RoutineInteraction::Clone() const {
+  switch (tag_) {
+    case Tag::kUnrecognizedInteraction:
+      return NewUnrecognizedInteraction(
+          mojo::Clone(data_.unrecognizedInteraction));
+    case Tag::kInquiry:
+      return NewInquiry(
+          mojo::Clone(*data_.inquiry));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, RoutineInteraction>::value>::type*>
+bool RoutineInteraction::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kUnrecognizedInteraction:
+      return mojo::Equals(data_.unrecognizedInteraction, other.data_.unrecognizedInteraction);
+    case Tag::kInquiry:
+      return mojo::Equals(*(data_.inquiry), *(other.data_.inquiry));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
+RoutineInquiryPtr RoutineInquiry::Clone() const {
+  switch (tag_) {
+    case Tag::kUnrecognizedInquiry:
+      return NewUnrecognizedInquiry(
+          mojo::Clone(data_.unrecognizedInquiry));
+    case Tag::kCheckLedLitUpState:
+      return NewCheckLedLitUpState(
+          mojo::Clone(*data_.check_led_lit_up_state));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, RoutineInquiry>::value>::type*>
+bool RoutineInquiry::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kUnrecognizedInquiry:
+      return mojo::Equals(data_.unrecognizedInquiry, other.data_.unrecognizedInquiry);
+    case Tag::kCheckLedLitUpState:
+      return mojo::Equals(*(data_.check_led_lit_up_state), *(other.data_.check_led_lit_up_state));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
+RoutineInquiryReplyPtr RoutineInquiryReply::Clone() const {
+  switch (tag_) {
+    case Tag::kUnrecognizedReply:
+      return NewUnrecognizedReply(
+          mojo::Clone(data_.unrecognizedReply));
+    case Tag::kCheckLedLitUpState:
+      return NewCheckLedLitUpState(
+          mojo::Clone(*data_.check_led_lit_up_state));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, RoutineInquiryReply>::value>::type*>
+bool RoutineInquiryReply::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kUnrecognizedReply:
+      return mojo::Equals(data_.unrecognizedReply, other.data_.unrecognizedReply);
+    case Tag::kCheckLedLitUpState:
+      return mojo::Equals(*(data_.check_led_lit_up_state), *(other.data_.check_led_lit_up_state));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
 RoutineDetailPtr RoutineDetail::Clone() const {
   switch (tag_) {
     case Tag::kUnrecognizedArgument:
@@ -7294,7 +8071,8 @@ template <typename StructPtrType>
 RoutineStateWaitingPtr RoutineStateWaiting::Clone() const {
   return New(
       mojo::Clone(reason),
-      mojo::Clone(message)
+      mojo::Clone(message),
+      mojo::Clone(interaction)
   );
 }
 
@@ -7303,6 +8081,8 @@ bool RoutineStateWaiting::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->reason, other_struct.reason))
     return false;
   if (!mojo::Equals(this->message, other_struct.message))
+    return false;
+  if (!mojo::Equals(this->interaction, other_struct.interaction))
     return false;
   return true;
 }
@@ -7316,6 +8096,47 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.message < rhs.message)
     return true;
   if (rhs.message < lhs.message)
+    return false;
+  if (lhs.interaction < rhs.interaction)
+    return true;
+  if (rhs.interaction < lhs.interaction)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+CheckLedLitUpStateInquiryPtr CheckLedLitUpStateInquiry::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, CheckLedLitUpStateInquiry::EnableIfSame<T>*>
+bool CheckLedLitUpStateInquiry::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, CheckLedLitUpStateInquiry::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
+CheckLedLitUpStateReplyPtr CheckLedLitUpStateReply::Clone() const {
+  return New(
+      mojo::Clone(state)
+  );
+}
+
+template <typename T, CheckLedLitUpStateReply::EnableIfSame<T>*>
+bool CheckLedLitUpStateReply::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->state, other_struct.state))
+    return false;
+  return true;
+}
+
+template <typename T, CheckLedLitUpStateReply::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.state < rhs.state)
+    return true;
+  if (rhs.state < lhs.state)
     return false;
   return false;
 }
@@ -8126,7 +8947,37 @@ struct  StructTraits<::ash::cros_healthd::mojom::RoutineStateWaiting::DataView,
     return input->message;
   }
 
+  static const decltype(::ash::cros_healthd::mojom::RoutineStateWaiting::interaction)& interaction(
+      const ::ash::cros_healthd::mojom::RoutineStateWaitingPtr& input) {
+    return input->interaction;
+  }
+
   static bool Read(::ash::cros_healthd::mojom::RoutineStateWaiting::DataView input, ::ash::cros_healthd::mojom::RoutineStateWaitingPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::CheckLedLitUpStateInquiry::DataView,
+                                         ::ash::cros_healthd::mojom::CheckLedLitUpStateInquiryPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CheckLedLitUpStateInquiryPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CheckLedLitUpStateInquiryPtr* output) { output->reset(); }
+
+  static bool Read(::ash::cros_healthd::mojom::CheckLedLitUpStateInquiry::DataView input, ::ash::cros_healthd::mojom::CheckLedLitUpStateInquiryPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::CheckLedLitUpStateReply::DataView,
+                                         ::ash::cros_healthd::mojom::CheckLedLitUpStateReplyPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CheckLedLitUpStateReplyPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CheckLedLitUpStateReplyPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::CheckLedLitUpStateReply::state) state(
+      const ::ash::cros_healthd::mojom::CheckLedLitUpStateReplyPtr& input) {
+    return input->state;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::CheckLedLitUpStateReply::DataView input, ::ash::cros_healthd::mojom::CheckLedLitUpStateReplyPtr* output);
 };
 
 
@@ -8582,6 +9433,72 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineStateUnion::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineStateUnion::DataView input, ::ash::cros_healthd::mojom::RoutineStateUnionPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ash::cros_healthd::mojom::RoutineInteraction::DataView,
+                                        ::ash::cros_healthd::mojom::RoutineInteractionPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RoutineInteractionPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RoutineInteractionPtr* output) { output->reset(); }
+
+  static ::ash::cros_healthd::mojom::RoutineInteraction::Tag GetTag(const ::ash::cros_healthd::mojom::RoutineInteractionPtr& input) {
+    return input->which();
+  }
+
+  static  bool unrecognizedInteraction(const ::ash::cros_healthd::mojom::RoutineInteractionPtr& input) {
+    return input->get_unrecognizedInteraction();
+  }
+
+  static const ::ash::cros_healthd::mojom::RoutineInquiryPtr& inquiry(const ::ash::cros_healthd::mojom::RoutineInteractionPtr& input) {
+    return input->get_inquiry();
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::RoutineInteraction::DataView input, ::ash::cros_healthd::mojom::RoutineInteractionPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ash::cros_healthd::mojom::RoutineInquiry::DataView,
+                                        ::ash::cros_healthd::mojom::RoutineInquiryPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RoutineInquiryPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RoutineInquiryPtr* output) { output->reset(); }
+
+  static ::ash::cros_healthd::mojom::RoutineInquiry::Tag GetTag(const ::ash::cros_healthd::mojom::RoutineInquiryPtr& input) {
+    return input->which();
+  }
+
+  static  bool unrecognizedInquiry(const ::ash::cros_healthd::mojom::RoutineInquiryPtr& input) {
+    return input->get_unrecognizedInquiry();
+  }
+
+  static const ::ash::cros_healthd::mojom::CheckLedLitUpStateInquiryPtr& check_led_lit_up_state(const ::ash::cros_healthd::mojom::RoutineInquiryPtr& input) {
+    return input->get_check_led_lit_up_state();
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::RoutineInquiry::DataView input, ::ash::cros_healthd::mojom::RoutineInquiryPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ash::cros_healthd::mojom::RoutineInquiryReply::DataView,
+                                        ::ash::cros_healthd::mojom::RoutineInquiryReplyPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RoutineInquiryReplyPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RoutineInquiryReplyPtr* output) { output->reset(); }
+
+  static ::ash::cros_healthd::mojom::RoutineInquiryReply::Tag GetTag(const ::ash::cros_healthd::mojom::RoutineInquiryReplyPtr& input) {
+    return input->which();
+  }
+
+  static  bool unrecognizedReply(const ::ash::cros_healthd::mojom::RoutineInquiryReplyPtr& input) {
+    return input->get_unrecognizedReply();
+  }
+
+  static const ::ash::cros_healthd::mojom::CheckLedLitUpStateReplyPtr& check_led_lit_up_state(const ::ash::cros_healthd::mojom::RoutineInquiryReplyPtr& input) {
+    return input->get_check_led_lit_up_state();
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::RoutineInquiryReply::DataView input, ::ash::cros_healthd::mojom::RoutineInquiryReplyPtr* output);
 };
 
 

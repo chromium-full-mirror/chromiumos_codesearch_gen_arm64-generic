@@ -958,13 +958,13 @@ void SodaClientProxy::OnStart(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -994,13 +994,13 @@ void SodaClientProxy::OnStop(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1037,13 +1037,13 @@ void SodaClientProxy::OnSpeechRecognizerEvent(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1078,7 +1078,6 @@ bool SodaClientStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kSodaClient_OnStart_Name: {
-
       DCHECK(message->is_serialized());
       internal::SodaClient_OnStart_Params_Data* params =
           reinterpret_cast<internal::SodaClient_OnStart_Params_Data*>(
@@ -1102,7 +1101,6 @@ bool SodaClientStubDispatch::Accept(
       return true;
     }
     case internal::kSodaClient_OnStop_Name: {
-
       DCHECK(message->is_serialized());
       internal::SodaClient_OnStop_Params_Data* params =
           reinterpret_cast<internal::SodaClient_OnStop_Params_Data*>(
@@ -1126,7 +1124,6 @@ bool SodaClientStubDispatch::Accept(
       return true;
     }
     case internal::kSodaClient_OnSpeechRecognizerEvent_Name: {
-
       DCHECK(message->is_serialized());
       internal::SodaClient_OnSpeechRecognizerEvent_Params_Data* params =
           reinterpret_cast<internal::SodaClient_OnSpeechRecognizerEvent_Params_Data*>(
@@ -1330,13 +1327,13 @@ void SodaRecognizerProxy::AddAudio(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1379,13 +1376,13 @@ void SodaRecognizerProxy::Stop(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1415,13 +1412,13 @@ void SodaRecognizerProxy::Start(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1451,13 +1448,13 @@ void SodaRecognizerProxy::MarkDone(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1483,7 +1480,6 @@ bool SodaRecognizerStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kSodaRecognizer_AddAudio_Name: {
-
       DCHECK(message->is_serialized());
       internal::SodaRecognizer_AddAudio_Params_Data* params =
           reinterpret_cast<internal::SodaRecognizer_AddAudio_Params_Data*>(
@@ -1511,7 +1507,6 @@ bool SodaRecognizerStubDispatch::Accept(
       return true;
     }
     case internal::kSodaRecognizer_Stop_Name: {
-
       DCHECK(message->is_serialized());
       internal::SodaRecognizer_Stop_Params_Data* params =
           reinterpret_cast<internal::SodaRecognizer_Stop_Params_Data*>(
@@ -1535,7 +1530,6 @@ bool SodaRecognizerStubDispatch::Accept(
       return true;
     }
     case internal::kSodaRecognizer_Start_Name: {
-
       DCHECK(message->is_serialized());
       internal::SodaRecognizer_Start_Params_Data* params =
           reinterpret_cast<internal::SodaRecognizer_Start_Params_Data*>(
@@ -1559,7 +1553,6 @@ bool SodaRecognizerStubDispatch::Accept(
       return true;
     }
     case internal::kSodaRecognizer_MarkDone_Name: {
-
       DCHECK(message->is_serialized());
       internal::SodaRecognizer_MarkDone_Params_Data* params =
           reinterpret_cast<internal::SodaRecognizer_MarkDone_Params_Data*>(

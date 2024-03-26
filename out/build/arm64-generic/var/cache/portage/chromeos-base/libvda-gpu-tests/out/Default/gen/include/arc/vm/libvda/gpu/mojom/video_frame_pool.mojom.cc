@@ -245,13 +245,13 @@ void VideoFramePoolProxy::Initialize(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -294,13 +294,13 @@ void VideoFramePoolProxy::AddVideoFrame(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -382,7 +382,6 @@ class VideoFramePool_AddVideoFrame_ProxyToResponder : public ::mojo::internal::P
 
 bool VideoFramePool_AddVideoFrame_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VideoFramePool_AddVideoFrame_ResponseParams_Data* params =
       reinterpret_cast<
@@ -422,12 +421,12 @@ void VideoFramePool_AddVideoFrame_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -462,7 +461,6 @@ bool VideoFramePoolStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kVideoFramePool_Initialize_Name: {
-
       DCHECK(message->is_serialized());
       internal::VideoFramePool_Initialize_Params_Data* params =
           reinterpret_cast<internal::VideoFramePool_Initialize_Params_Data*>(
@@ -511,7 +509,6 @@ bool VideoFramePoolStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kVideoFramePool_AddVideoFrame_Name: {
-
       internal::VideoFramePool_AddVideoFrame_Params_Data* params =
           reinterpret_cast<
               internal::VideoFramePool_AddVideoFrame_Params_Data*>(
@@ -647,13 +644,13 @@ void VideoFramePoolClientProxy::RequestVideoFrames(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -704,7 +701,6 @@ bool VideoFramePoolClientStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kVideoFramePoolClient_RequestVideoFrames_Name: {
-
       DCHECK(message->is_serialized());
       internal::VideoFramePoolClient_RequestVideoFrames_Params_Data* params =
           reinterpret_cast<internal::VideoFramePoolClient_RequestVideoFrames_Params_Data*>(

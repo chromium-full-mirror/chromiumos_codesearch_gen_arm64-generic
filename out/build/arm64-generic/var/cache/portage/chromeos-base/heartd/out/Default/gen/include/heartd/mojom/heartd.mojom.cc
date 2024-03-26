@@ -255,13 +255,13 @@ void HeartdControlProxy::EnableNormalRebootAction(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -291,13 +291,13 @@ void HeartdControlProxy::EnableForceRebootAction(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -334,13 +334,13 @@ void HeartdControlProxy::RunAction(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -413,7 +413,6 @@ class HeartdControl_RunAction_ProxyToResponder : public ::mojo::internal::ProxyT
 
 bool HeartdControl_RunAction_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::HeartdControl_RunAction_ResponseParams_Data* params =
       reinterpret_cast<
@@ -453,12 +452,12 @@ void HeartdControl_RunAction_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -493,7 +492,6 @@ bool HeartdControlStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kHeartdControl_EnableNormalRebootAction_Name: {
-
       DCHECK(message->is_serialized());
       internal::HeartdControl_EnableNormalRebootAction_Params_Data* params =
           reinterpret_cast<internal::HeartdControl_EnableNormalRebootAction_Params_Data*>(
@@ -517,7 +515,6 @@ bool HeartdControlStubDispatch::Accept(
       return true;
     }
     case internal::kHeartdControl_EnableForceRebootAction_Name: {
-
       DCHECK(message->is_serialized());
       internal::HeartdControl_EnableForceRebootAction_Params_Data* params =
           reinterpret_cast<internal::HeartdControl_EnableForceRebootAction_Params_Data*>(
@@ -563,7 +560,6 @@ bool HeartdControlStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kHeartdControl_RunAction_Name: {
-
       internal::HeartdControl_RunAction_Params_Data* params =
           reinterpret_cast<
               internal::HeartdControl_RunAction_Params_Data*>(
@@ -714,13 +710,13 @@ void HeartbeatServiceProxy::Register(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -810,7 +806,6 @@ class HeartbeatService_Register_ProxyToResponder : public ::mojo::internal::Prox
 
 bool HeartbeatService_Register_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::HeartbeatService_Register_ResponseParams_Data* params =
       reinterpret_cast<
@@ -850,12 +845,12 @@ void HeartbeatService_Register_ProxyToResponder::Run(
                         "<value of type bool>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -906,7 +901,6 @@ bool HeartbeatServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kHeartbeatService_Register_Name: {
-
       internal::HeartbeatService_Register_Params_Data* params =
           reinterpret_cast<
               internal::HeartbeatService_Register_Params_Data*>(
@@ -1086,13 +1080,13 @@ void PacemakerProxy::SendHeartbeat(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1123,13 +1117,13 @@ void PacemakerProxy::StopMonitor(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1200,7 +1194,6 @@ class Pacemaker_SendHeartbeat_ProxyToResponder : public ::mojo::internal::ProxyT
 
 bool Pacemaker_SendHeartbeat_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Pacemaker_SendHeartbeat_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1240,12 +1233,12 @@ void Pacemaker_SendHeartbeat_ProxyToResponder::Run(
                         "<value of type HeartbeatResponse>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1325,7 +1318,6 @@ class Pacemaker_StopMonitor_ProxyToResponder : public ::mojo::internal::ProxyToR
 
 bool Pacemaker_StopMonitor_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::Pacemaker_StopMonitor_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1354,12 +1346,12 @@ void Pacemaker_StopMonitor_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send reply ash::heartd::mojom::Pacemaker::StopMonitor");
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1412,7 +1404,6 @@ bool PacemakerStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kPacemaker_SendHeartbeat_Name: {
-
       internal::Pacemaker_SendHeartbeat_Params_Data* params =
           reinterpret_cast<
               internal::Pacemaker_SendHeartbeat_Params_Data*>(
@@ -1439,7 +1430,6 @@ bool PacemakerStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kPacemaker_StopMonitor_Name: {
-
       internal::Pacemaker_StopMonitor_Params_Data* params =
           reinterpret_cast<
               internal::Pacemaker_StopMonitor_Params_Data*>(

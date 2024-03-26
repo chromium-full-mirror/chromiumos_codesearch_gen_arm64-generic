@@ -15,7 +15,6 @@
 namespace perfetto {
 namespace protos {
 namespace pbzero {
-
 class ChromeActiveProcesses;
 class ChromeApplicationStateInfo;
 class ChromeCompositorSchedulerState;
@@ -48,6 +47,13 @@ namespace perfetto_pbzero_enum_TrackEvent {
 enum Type : int32_t;
 }  // namespace perfetto_pbzero_enum_TrackEvent
 using TrackEvent_Type = perfetto_pbzero_enum_TrackEvent::Type;
+} // Namespace pbzero.
+} // Namespace protos.
+} // Namespace perfetto.
+
+namespace perfetto {
+namespace protos {
+namespace pbzero {
 
 namespace perfetto_pbzero_enum_TrackEvent {
 enum Type : int32_t {
@@ -603,11 +609,11 @@ class TrackEvent : public ::protozero::Message {
       9,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::TrackEvent_Type,
+      TrackEvent_Type,
       TrackEvent>;
 
   static constexpr FieldMetadata_Type kType{};
-  void set_type(::perfetto::protos::pbzero::TrackEvent_Type value) {
+  void set_type(TrackEvent_Type value) {
     static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -1529,11 +1535,11 @@ class TrackEvent_LegacyEvent : public ::protozero::Message {
       13,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::TrackEvent_LegacyEvent_FlowDirection,
+      TrackEvent_LegacyEvent_FlowDirection,
       TrackEvent_LegacyEvent>;
 
   static constexpr FieldMetadata_FlowDirection kFlowDirection{};
-  void set_flow_direction(::perfetto::protos::pbzero::TrackEvent_LegacyEvent_FlowDirection value) {
+  void set_flow_direction(TrackEvent_LegacyEvent_FlowDirection value) {
     static constexpr uint32_t field_id = FieldMetadata_FlowDirection::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
@@ -1547,11 +1553,11 @@ class TrackEvent_LegacyEvent : public ::protozero::Message {
       14,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kEnum,
-      ::perfetto::protos::pbzero::TrackEvent_LegacyEvent_InstantEventScope,
+      TrackEvent_LegacyEvent_InstantEventScope,
       TrackEvent_LegacyEvent>;
 
   static constexpr FieldMetadata_InstantEventScope kInstantEventScope{};
-  void set_instant_event_scope(::perfetto::protos::pbzero::TrackEvent_LegacyEvent_InstantEventScope value) {
+  void set_instant_event_scope(TrackEvent_LegacyEvent_InstantEventScope value) {
     static constexpr uint32_t field_id = FieldMetadata_InstantEventScope::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.

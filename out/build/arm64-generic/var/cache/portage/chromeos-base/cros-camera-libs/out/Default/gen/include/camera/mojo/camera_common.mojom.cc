@@ -276,13 +276,13 @@ void CameraModuleCallbacksProxy::CameraDeviceStatusChange(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -325,13 +325,13 @@ void CameraModuleCallbacksProxy::TorchModeStatusChange(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -360,7 +360,6 @@ bool CameraModuleCallbacksStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kCameraModuleCallbacks_CameraDeviceStatusChange_Name: {
-
       DCHECK(message->is_serialized());
       internal::CameraModuleCallbacks_CameraDeviceStatusChange_Params_Data* params =
           reinterpret_cast<internal::CameraModuleCallbacks_CameraDeviceStatusChange_Params_Data*>(
@@ -392,7 +391,6 @@ bool CameraModuleCallbacksStubDispatch::Accept(
       return true;
     }
     case internal::kCameraModuleCallbacks_TorchModeStatusChange_Name: {
-
       DCHECK(message->is_serialized());
       internal::CameraModuleCallbacks_TorchModeStatusChange_Params_Data* params =
           reinterpret_cast<internal::CameraModuleCallbacks_TorchModeStatusChange_Params_Data*>(
@@ -688,13 +686,13 @@ void VendorTagOpsProxy::GetTagCount(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -725,13 +723,13 @@ void VendorTagOpsProxy::GetAllTags(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -769,13 +767,13 @@ void VendorTagOpsProxy::GetSectionName(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -814,13 +812,13 @@ void VendorTagOpsProxy::GetTagName(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -859,13 +857,13 @@ void VendorTagOpsProxy::GetTagType(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -937,7 +935,6 @@ class VendorTagOps_GetTagCount_ProxyToResponder : public ::mojo::internal::Proxy
 
 bool VendorTagOps_GetTagCount_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VendorTagOps_GetTagCount_ResponseParams_Data* params =
       reinterpret_cast<
@@ -977,12 +974,12 @@ void VendorTagOps_GetTagCount_ProxyToResponder::Run(
                         "<value of type int32_t>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1061,7 +1058,6 @@ class VendorTagOps_GetAllTags_ProxyToResponder : public ::mojo::internal::ProxyT
 
 bool VendorTagOps_GetAllTags_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VendorTagOps_GetAllTags_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1101,12 +1097,12 @@ void VendorTagOps_GetAllTags_ProxyToResponder::Run(
                         "<value of type const std::vector<uint32_t>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1197,7 +1193,6 @@ class VendorTagOps_GetSectionName_ProxyToResponder : public ::mojo::internal::Pr
 
 bool VendorTagOps_GetSectionName_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VendorTagOps_GetSectionName_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1237,12 +1232,12 @@ void VendorTagOps_GetSectionName_ProxyToResponder::Run(
                         "<value of type const std::optional<std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1327,7 +1322,6 @@ class VendorTagOps_GetTagName_ProxyToResponder : public ::mojo::internal::ProxyT
 
 bool VendorTagOps_GetTagName_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VendorTagOps_GetTagName_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1367,12 +1361,12 @@ void VendorTagOps_GetTagName_ProxyToResponder::Run(
                         "<value of type const std::optional<std::string>&>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1457,7 +1451,6 @@ class VendorTagOps_GetTagType_ProxyToResponder : public ::mojo::internal::ProxyT
 
 bool VendorTagOps_GetTagType_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::VendorTagOps_GetTagType_ResponseParams_Data* params =
       reinterpret_cast<
@@ -1497,12 +1490,12 @@ void VendorTagOps_GetTagType_ProxyToResponder::Run(
                         "<value of type int32_t>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1565,7 +1558,6 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kVendorTagOps_GetTagCount_Name: {
-
       internal::VendorTagOps_GetTagCount_Params_Data* params =
           reinterpret_cast<
               internal::VendorTagOps_GetTagCount_Params_Data*>(
@@ -1592,7 +1584,6 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kVendorTagOps_GetAllTags_Name: {
-
       internal::VendorTagOps_GetAllTags_Params_Data* params =
           reinterpret_cast<
               internal::VendorTagOps_GetAllTags_Params_Data*>(
@@ -1619,7 +1610,6 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kVendorTagOps_GetSectionName_Name: {
-
       internal::VendorTagOps_GetSectionName_Params_Data* params =
           reinterpret_cast<
               internal::VendorTagOps_GetSectionName_Params_Data*>(
@@ -1650,7 +1640,6 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kVendorTagOps_GetTagName_Name: {
-
       internal::VendorTagOps_GetTagName_Params_Data* params =
           reinterpret_cast<
               internal::VendorTagOps_GetTagName_Params_Data*>(
@@ -1681,7 +1670,6 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kVendorTagOps_GetTagType_Name: {
-
       internal::VendorTagOps_GetTagType_Params_Data* params =
           reinterpret_cast<
               internal::VendorTagOps_GetTagType_Params_Data*>(
@@ -2085,13 +2073,13 @@ void CameraModuleProxy::OpenDevice(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2129,13 +2117,13 @@ void CameraModuleProxy::GetNumberOfCameras(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2173,13 +2161,13 @@ void CameraModuleProxy::GetCameraInfo(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2218,13 +2206,13 @@ void CameraModuleProxy::SetCallbacks(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2271,13 +2259,13 @@ void CameraModuleProxy::SetTorchMode(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2310,13 +2298,13 @@ void CameraModuleProxy::Init(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2354,13 +2342,13 @@ void CameraModuleProxy::GetVendorTagOps(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2404,13 +2392,13 @@ void CameraModuleProxy::SetCallbacksAssociated(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2487,7 +2475,6 @@ class CameraModule_OpenDevice_ProxyToResponder : public ::mojo::internal::ProxyT
 
 bool CameraModule_OpenDevice_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CameraModule_OpenDevice_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2527,12 +2514,12 @@ void CameraModule_OpenDevice_ProxyToResponder::Run(
                         "<value of type int32_t>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2611,7 +2598,6 @@ class CameraModule_GetNumberOfCameras_ProxyToResponder : public ::mojo::internal
 
 bool CameraModule_GetNumberOfCameras_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CameraModule_GetNumberOfCameras_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2651,12 +2637,12 @@ void CameraModule_GetNumberOfCameras_ProxyToResponder::Run(
                         "<value of type int32_t>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2735,7 +2721,6 @@ class CameraModule_GetCameraInfo_ProxyToResponder : public ::mojo::internal::Pro
 
 bool CameraModule_GetCameraInfo_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CameraModule_GetCameraInfo_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2782,12 +2767,12 @@ void CameraModule_GetCameraInfo_ProxyToResponder::Run(
                         "<value of type CameraInfoPtr>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2873,7 +2858,6 @@ class CameraModule_SetCallbacks_ProxyToResponder : public ::mojo::internal::Prox
 
 bool CameraModule_SetCallbacks_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CameraModule_SetCallbacks_ResponseParams_Data* params =
       reinterpret_cast<
@@ -2913,12 +2897,12 @@ void CameraModule_SetCallbacks_ProxyToResponder::Run(
                         "<value of type int32_t>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -2997,7 +2981,6 @@ class CameraModule_SetTorchMode_ProxyToResponder : public ::mojo::internal::Prox
 
 bool CameraModule_SetTorchMode_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CameraModule_SetTorchMode_ResponseParams_Data* params =
       reinterpret_cast<
@@ -3037,12 +3020,12 @@ void CameraModule_SetTorchMode_ProxyToResponder::Run(
                         "<value of type int32_t>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3121,7 +3104,6 @@ class CameraModule_Init_ProxyToResponder : public ::mojo::internal::ProxyToRespo
 
 bool CameraModule_Init_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CameraModule_Init_ResponseParams_Data* params =
       reinterpret_cast<
@@ -3161,12 +3143,12 @@ void CameraModule_Init_ProxyToResponder::Run(
                         "<value of type int32_t>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3245,7 +3227,6 @@ class CameraModule_GetVendorTagOps_ProxyToResponder : public ::mojo::internal::P
 
 bool CameraModule_GetVendorTagOps_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CameraModule_GetVendorTagOps_ResponseParams_Data* params =
       reinterpret_cast<
@@ -3274,12 +3255,12 @@ void CameraModule_GetVendorTagOps_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send reply cros::mojom::CameraModule::GetVendorTagOps");
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3357,7 +3338,6 @@ class CameraModule_SetCallbacksAssociated_ProxyToResponder : public ::mojo::inte
 
 bool CameraModule_SetCallbacksAssociated_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CameraModule_SetCallbacksAssociated_ResponseParams_Data* params =
       reinterpret_cast<
@@ -3397,12 +3377,12 @@ void CameraModule_SetCallbacksAssociated_ProxyToResponder::Run(
                         "<value of type int32_t>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -3474,7 +3454,6 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kCameraModule_OpenDevice_Name: {
-
       internal::CameraModule_OpenDevice_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_OpenDevice_Params_Data*>(
@@ -3511,7 +3490,6 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kCameraModule_GetNumberOfCameras_Name: {
-
       internal::CameraModule_GetNumberOfCameras_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_GetNumberOfCameras_Params_Data*>(
@@ -3538,7 +3516,6 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kCameraModule_GetCameraInfo_Name: {
-
       internal::CameraModule_GetCameraInfo_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_GetCameraInfo_Params_Data*>(
@@ -3569,7 +3546,6 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kCameraModule_SetCallbacks_Name: {
-
       internal::CameraModule_SetCallbacks_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_SetCallbacks_Params_Data*>(
@@ -3602,7 +3578,6 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kCameraModule_SetTorchMode_Name: {
-
       internal::CameraModule_SetTorchMode_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_SetTorchMode_Params_Data*>(
@@ -3637,7 +3612,6 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kCameraModule_Init_Name: {
-
       internal::CameraModule_Init_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_Init_Params_Data*>(
@@ -3664,7 +3638,6 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kCameraModule_GetVendorTagOps_Name: {
-
       internal::CameraModule_GetVendorTagOps_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_GetVendorTagOps_Params_Data*>(
@@ -3697,7 +3670,6 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kCameraModule_SetCallbacksAssociated_Name: {
-
       internal::CameraModule_SetCallbacksAssociated_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_SetCallbacksAssociated_Params_Data*>(

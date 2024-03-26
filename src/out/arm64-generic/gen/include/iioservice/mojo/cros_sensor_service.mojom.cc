@@ -121,13 +121,13 @@ void SensorHalServerProxy::CreateChannel(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -159,7 +159,6 @@ bool SensorHalServerStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kSensorHalServer_CreateChannel_Name: {
-
       DCHECK(message->is_serialized());
       internal::SensorHalServer_CreateChannel_Params_Data* params =
           reinterpret_cast<internal::SensorHalServer_CreateChannel_Params_Data*>(
@@ -295,13 +294,13 @@ void SensorHalClientProxy::SetUpChannel(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -333,7 +332,6 @@ bool SensorHalClientStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kSensorHalClient_SetUpChannel_Name: {
-
       DCHECK(message->is_serialized());
       internal::SensorHalClient_SetUpChannel_Params_Data* params =
           reinterpret_cast<internal::SensorHalClient_SetUpChannel_Params_Data*>(

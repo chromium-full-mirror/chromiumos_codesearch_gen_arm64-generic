@@ -253,13 +253,13 @@ void CameraAlgorithmOpsProxy::Initialize(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -303,13 +303,13 @@ void CameraAlgorithmOpsProxy::RegisterBuffer(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -359,13 +359,13 @@ void CameraAlgorithmOpsProxy::Request(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -417,13 +417,13 @@ void CameraAlgorithmOpsProxy::DeregisterBuffers(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -479,13 +479,13 @@ void CameraAlgorithmOpsProxy::UpdateReturn(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -523,13 +523,13 @@ void CameraAlgorithmOpsProxy::Deinitialize(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -599,7 +599,6 @@ class CameraAlgorithmOps_Initialize_ProxyToResponder : public ::mojo::internal::
 
 bool CameraAlgorithmOps_Initialize_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CameraAlgorithmOps_Initialize_ResponseParams_Data* params =
       reinterpret_cast<
@@ -639,12 +638,12 @@ void CameraAlgorithmOps_Initialize_ProxyToResponder::Run(
                         "<value of type int32_t>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -723,7 +722,6 @@ class CameraAlgorithmOps_RegisterBuffer_ProxyToResponder : public ::mojo::intern
 
 bool CameraAlgorithmOps_RegisterBuffer_ForwardToCallback::Accept(
     mojo::Message* message) {
-
   DCHECK(message->is_serialized());
   internal::CameraAlgorithmOps_RegisterBuffer_ResponseParams_Data* params =
       reinterpret_cast<
@@ -763,12 +761,12 @@ void CameraAlgorithmOps_RegisterBuffer_ProxyToResponder::Run(
                         "<value of type int32_t>");
    });
 #endif
-  
+
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -809,7 +807,6 @@ bool CameraAlgorithmOpsStubDispatch::Accept(
       break;
     }
     case internal::kCameraAlgorithmOps_Request_Name: {
-
       DCHECK(message->is_serialized());
       internal::CameraAlgorithmOps_Request_Params_Data* params =
           reinterpret_cast<internal::CameraAlgorithmOps_Request_Params_Data*>(
@@ -845,7 +842,6 @@ bool CameraAlgorithmOpsStubDispatch::Accept(
       return true;
     }
     case internal::kCameraAlgorithmOps_DeregisterBuffers_Name: {
-
       DCHECK(message->is_serialized());
       internal::CameraAlgorithmOps_DeregisterBuffers_Params_Data* params =
           reinterpret_cast<internal::CameraAlgorithmOps_DeregisterBuffers_Params_Data*>(
@@ -873,7 +869,6 @@ bool CameraAlgorithmOpsStubDispatch::Accept(
       return true;
     }
     case internal::kCameraAlgorithmOps_UpdateReturn_Name: {
-
       DCHECK(message->is_serialized());
       internal::CameraAlgorithmOps_UpdateReturn_Params_Data* params =
           reinterpret_cast<internal::CameraAlgorithmOps_UpdateReturn_Params_Data*>(
@@ -909,7 +904,6 @@ bool CameraAlgorithmOpsStubDispatch::Accept(
       return true;
     }
     case internal::kCameraAlgorithmOps_Deinitialize_Name: {
-
       DCHECK(message->is_serialized());
       internal::CameraAlgorithmOps_Deinitialize_Params_Data* params =
           reinterpret_cast<internal::CameraAlgorithmOps_Deinitialize_Params_Data*>(
@@ -946,7 +940,6 @@ bool CameraAlgorithmOpsStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kCameraAlgorithmOps_Initialize_Name: {
-
       internal::CameraAlgorithmOps_Initialize_Params_Data* params =
           reinterpret_cast<
               internal::CameraAlgorithmOps_Initialize_Params_Data*>(
@@ -979,7 +972,6 @@ bool CameraAlgorithmOpsStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kCameraAlgorithmOps_RegisterBuffer_Name: {
-
       internal::CameraAlgorithmOps_RegisterBuffer_Params_Data* params =
           reinterpret_cast<
               internal::CameraAlgorithmOps_RegisterBuffer_Params_Data*>(
@@ -1152,13 +1144,13 @@ void CameraAlgorithmCallbackOpsProxy::Return(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1204,13 +1196,13 @@ void CameraAlgorithmCallbackOpsProxy::Update(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -1256,7 +1248,6 @@ bool CameraAlgorithmCallbackOpsStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kCameraAlgorithmCallbackOps_Return_Name: {
-
       DCHECK(message->is_serialized());
       internal::CameraAlgorithmCallbackOps_Return_Params_Data* params =
           reinterpret_cast<internal::CameraAlgorithmCallbackOps_Return_Params_Data*>(
@@ -1292,7 +1283,6 @@ bool CameraAlgorithmCallbackOpsStubDispatch::Accept(
       return true;
     }
     case internal::kCameraAlgorithmCallbackOps_Update_Name: {
-
       DCHECK(message->is_serialized());
       internal::CameraAlgorithmCallbackOps_Update_Params_Data* params =
           reinterpret_cast<internal::CameraAlgorithmCallbackOps_Update_Params_Data*>(

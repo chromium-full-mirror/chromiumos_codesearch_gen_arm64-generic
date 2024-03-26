@@ -141,13 +141,13 @@ void JpegAcceleratorProviderProxy::GetJpegEncodeAccelerator(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -190,13 +190,13 @@ void JpegAcceleratorProviderProxy::GetMjpegDecodeAccelerator(
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
-  
+
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
+
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
@@ -228,7 +228,6 @@ bool JpegAcceleratorProviderStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kJpegAcceleratorProvider_GetJpegEncodeAccelerator_Name: {
-
       DCHECK(message->is_serialized());
       internal::JpegAcceleratorProvider_GetJpegEncodeAccelerator_Params_Data* params =
           reinterpret_cast<internal::JpegAcceleratorProvider_GetJpegEncodeAccelerator_Params_Data*>(
@@ -258,7 +257,6 @@ bool JpegAcceleratorProviderStubDispatch::Accept(
       return true;
     }
     case internal::kJpegAcceleratorProvider_GetMjpegDecodeAccelerator_Name: {
-
       DCHECK(message->is_serialized());
       internal::JpegAcceleratorProvider_GetMjpegDecodeAccelerator_Params_Data* params =
           reinterpret_cast<internal::JpegAcceleratorProvider_GetMjpegDecodeAccelerator_Params_Data*>(
