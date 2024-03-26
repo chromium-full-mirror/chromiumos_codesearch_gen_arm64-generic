@@ -916,16 +916,6 @@ class ManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool GetState(
-      std::string* out_1,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void GetStateAsync(
-      base::OnceCallback<void(const std::string&)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool CreateProfile(
       const std::string& in_1,
       dbus::ObjectPath* out_2,
@@ -1413,10 +1403,6 @@ class ManagerProxyInterface {
                                          const brillo::Any&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
-  virtual void RegisterStateChangedSignalHandler(
-      const base::RepeatingCallback<void(const std::string&)>& signal_callback,
-      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
-
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
 };
@@ -1452,17 +1438,6 @@ class ManagerProxy final : public ManagerProxyInterface {
         dbus_object_proxy_,
         "org.chromium.flimflam.Manager",
         "PropertyChanged",
-        signal_callback,
-        std::move(on_connected_callback));
-  }
-
-  void RegisterStateChangedSignalHandler(
-      const base::RepeatingCallback<void(const std::string&)>& signal_callback,
-      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
-    brillo::dbus_utils::ConnectToSignal(
-        dbus_object_proxy_,
-        "org.chromium.flimflam.Manager",
-        "StateChanged",
         signal_callback,
         std::move(on_connected_callback));
   }
@@ -1538,33 +1513,6 @@ class ManagerProxy final : public ManagerProxyInterface {
         std::move(error_callback),
         in_1,
         in_2);
-  }
-
-  bool GetState(
-      std::string* out_1,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.flimflam.Manager",
-        "GetState",
-        error);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_1);
-  }
-
-  void GetStateAsync(
-      base::OnceCallback<void(const std::string&)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.flimflam.Manager",
-        "GetState",
-        std::move(success_callback),
-        std::move(error_callback));
   }
 
   bool CreateProfile(

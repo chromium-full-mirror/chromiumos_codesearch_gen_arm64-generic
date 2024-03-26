@@ -718,6 +718,9 @@ class DropFrameMetadataDataView {
   uint8_t spatial_idx() const {
     return data_->spatial_idx;
   }
+  bool end_of_picture() const {
+    return data_->end_of_picture;
+  }
  private:
   internal::DropFrameMetadata_Data* data_ = nullptr;
 };
@@ -808,6 +811,9 @@ class Vp9MetadataDataView {
   bool reference_lower_spatial_layers() const {
     return data_->reference_lower_spatial_layers;
   }
+  bool end_of_picture() const {
+    return data_->end_of_picture;
+  }
   uint8_t temporal_idx() const {
     return data_->temporal_idx;
   }
@@ -889,9 +895,6 @@ class BitstreamBufferMetadataDataView {
     auto* pointer = data_->timestamp.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
         pointer, output, message_);
-  }
-  bool end_of_picture() const {
-    return data_->end_of_picture;
   }
   int32_t qp() const {
     return data_->qp;
@@ -1640,6 +1643,7 @@ struct Serializer<::media::mojom::DropFrameMetadataDataView, MaybeConstUserType>
       return;
     fragment.Allocate();
     fragment->spatial_idx = Traits::spatial_idx(input);
+    fragment->end_of_picture = Traits::end_of_picture(input);
   }
 
   static bool Deserialize(::media::mojom::internal::DropFrameMetadata_Data* input,
@@ -1766,6 +1770,7 @@ struct Serializer<::media::mojom::Vp9MetadataDataView, MaybeConstUserType> {
     fragment->temporal_up_switch = Traits::temporal_up_switch(input);
     fragment->referenced_by_upper_spatial_layers = Traits::referenced_by_upper_spatial_layers(input);
     fragment->reference_lower_spatial_layers = Traits::reference_lower_spatial_layers(input);
+    fragment->end_of_picture = Traits::end_of_picture(input);
     fragment->temporal_idx = Traits::temporal_idx(input);
     fragment->spatial_idx = Traits::spatial_idx(input);
     decltype(Traits::spatial_layer_resolutions(input)) in_spatial_layer_resolutions = Traits::spatial_layer_resolutions(input);
@@ -1871,7 +1876,6 @@ struct Serializer<::media::mojom::BitstreamBufferMetadataDataView, MaybeConstUse
         fragment->timestamp.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null timestamp in BitstreamBufferMetadata struct");
-    fragment->end_of_picture = Traits::end_of_picture(input);
     fragment->qp = Traits::qp(input);
     decltype(Traits::optional_metadata(input)) in_optional_metadata = Traits::optional_metadata(input);
     mojo::internal::MessageFragment<decltype(fragment->optional_metadata)>

@@ -746,7 +746,8 @@ class  DropFrameMetadata_Data {
 
   mojo::internal::StructHeader header_;
   uint8_t spatial_idx;
-  uint8_t padfinal_[7];
+  uint8_t end_of_picture : 1;
+  uint8_t padfinal_[6];
 
  private:
   friend class mojo::internal::MessageFragment<DropFrameMetadata_Data>;
@@ -948,11 +949,12 @@ class  Vp9Metadata_Data {
   uint8_t temporal_up_switch : 1;
   uint8_t referenced_by_upper_spatial_layers : 1;
   uint8_t reference_lower_spatial_layers : 1;
+  uint8_t end_of_picture : 1;
   uint8_t temporal_idx;
   uint8_t spatial_idx;
   uint8_t begin_active_spatial_layer_index;
   uint8_t end_active_spatial_layer_index;
-  uint8_t pad7_[3];
+  uint8_t pad8_[3];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::gfx::mojom::internal::Size_Data>>> spatial_layer_resolutions;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> p_diffs;
 
@@ -1053,11 +1055,10 @@ class  BitstreamBufferMetadata_Data {
   mojo::internal::StructHeader header_;
   uint32_t payload_size_bytes;
   uint8_t key_frame : 1;
-  uint8_t end_of_picture : 1;
-  uint8_t pad2_[3];
+  uint8_t pad1_[3];
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> timestamp;
   int32_t qp;
-  uint8_t pad4_[4];
+  uint8_t pad3_[4];
   internal::OptionalMetadata_Data optional_metadata;
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> encoded_size;
   mojo::internal::Pointer<::gfx::mojom::internal::ColorSpace_Data> encoded_color_space;

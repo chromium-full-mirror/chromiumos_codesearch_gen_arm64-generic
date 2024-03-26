@@ -663,15 +663,19 @@ bool VideoEncodeOptions::Validate(
   return Data_::Validate(data, validation_context);
 }
 DropFrameMetadata::DropFrameMetadata()
-    : spatial_idx() {}
+    : spatial_idx(),
+      end_of_picture() {}
 
 DropFrameMetadata::DropFrameMetadata(
-    uint8_t spatial_idx_in)
-    : spatial_idx(std::move(spatial_idx_in)) {}
+    uint8_t spatial_idx_in,
+    bool end_of_picture_in)
+    : spatial_idx(std::move(spatial_idx_in)),
+      end_of_picture(std::move(end_of_picture_in)) {}
 
 DropFrameMetadata::~DropFrameMetadata() = default;
 size_t DropFrameMetadata::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->spatial_idx);
+  seed = mojo::internal::Hash(seed, this->end_of_picture);
   return seed;
 }
 
@@ -683,6 +687,15 @@ void DropFrameMetadata::WriteIntoTrace(
       "spatial_idx"), this->spatial_idx,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "end_of_picture"), this->end_of_picture,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -828,6 +841,7 @@ Vp9Metadata::Vp9Metadata()
       temporal_up_switch(),
       referenced_by_upper_spatial_layers(),
       reference_lower_spatial_layers(),
+      end_of_picture(),
       temporal_idx(),
       spatial_idx(),
       spatial_layer_resolutions(),
@@ -840,6 +854,7 @@ Vp9Metadata::Vp9Metadata(
     bool temporal_up_switch_in,
     bool referenced_by_upper_spatial_layers_in,
     bool reference_lower_spatial_layers_in,
+    bool end_of_picture_in,
     uint8_t temporal_idx_in,
     uint8_t spatial_idx_in,
     std::vector<::gfx::Size> spatial_layer_resolutions_in,
@@ -850,6 +865,7 @@ Vp9Metadata::Vp9Metadata(
       temporal_up_switch(std::move(temporal_up_switch_in)),
       referenced_by_upper_spatial_layers(std::move(referenced_by_upper_spatial_layers_in)),
       reference_lower_spatial_layers(std::move(reference_lower_spatial_layers_in)),
+      end_of_picture(std::move(end_of_picture_in)),
       temporal_idx(std::move(temporal_idx_in)),
       spatial_idx(std::move(spatial_idx_in)),
       spatial_layer_resolutions(std::move(spatial_layer_resolutions_in)),
@@ -892,6 +908,15 @@ void Vp9Metadata::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "reference_lower_spatial_layers"), this->reference_lower_spatial_layers,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "end_of_picture"), this->end_of_picture,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -995,7 +1020,6 @@ BitstreamBufferMetadata::BitstreamBufferMetadata()
     : payload_size_bytes(),
       key_frame(),
       timestamp(),
-      end_of_picture(),
       qp(),
       optional_metadata(),
       encoded_size(),
@@ -1005,7 +1029,6 @@ BitstreamBufferMetadata::BitstreamBufferMetadata(
     uint32_t payload_size_bytes_in,
     bool key_frame_in,
     ::base::TimeDelta timestamp_in,
-    bool end_of_picture_in,
     int32_t qp_in,
     OptionalMetadataPtr optional_metadata_in,
     const std::optional<::gfx::Size>& encoded_size_in,
@@ -1013,7 +1036,6 @@ BitstreamBufferMetadata::BitstreamBufferMetadata(
     : payload_size_bytes(std::move(payload_size_bytes_in)),
       key_frame(std::move(key_frame_in)),
       timestamp(std::move(timestamp_in)),
-      end_of_picture(std::move(end_of_picture_in)),
       qp(std::move(qp_in)),
       optional_metadata(std::move(optional_metadata_in)),
       encoded_size(std::move(encoded_size_in)),
@@ -1047,15 +1069,6 @@ void BitstreamBufferMetadata::WriteIntoTrace(
       "timestamp"), this->timestamp,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::base::TimeDelta>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "end_of_picture"), this->end_of_picture,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4252,6 +4265,8 @@ bool StructTraits<::media::mojom::DropFrameMetadata::DataView, ::media::mojom::D
   
       if (success)
         result->spatial_idx = input.spatial_idx();
+      if (success)
+        result->end_of_picture = input.end_of_picture();
   *output = std::move(result);
   return success;
 }
@@ -4321,6 +4336,8 @@ bool StructTraits<::media::mojom::Vp9Metadata::DataView, ::media::mojom::Vp9Meta
       if (success)
         result->reference_lower_spatial_layers = input.reference_lower_spatial_layers();
       if (success)
+        result->end_of_picture = input.end_of_picture();
+      if (success)
         result->temporal_idx = input.temporal_idx();
       if (success)
         result->spatial_idx = input.spatial_idx();
@@ -4364,8 +4381,6 @@ bool StructTraits<::media::mojom::BitstreamBufferMetadata::DataView, ::media::mo
         result->key_frame = input.key_frame();
       if (success && !input.ReadTimestamp(&result->timestamp))
         success = false;
-      if (success)
-        result->end_of_picture = input.end_of_picture();
       if (success)
         result->qp = input.qp();
       if (success && !input.ReadOptionalMetadata(&result->optional_metadata))
