@@ -930,7 +930,6 @@ enum PrimaryAction : int {
   PRIMARY_TPM_LOCKOUT = 7,
   PRIMARY_INCORRECT_AUTH = 8,
   PRIMARY_FACTOR_LOCKED_OUT = 9,
-  PRIMARY_LE_EXPIRED = 10,
   PrimaryAction_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   PrimaryAction_INT_MAX_SENTINEL_DO_NOT_USE_ =
@@ -939,8 +938,8 @@ enum PrimaryAction : int {
 
 bool PrimaryAction_IsValid(int value);
 constexpr PrimaryAction PrimaryAction_MIN = static_cast<PrimaryAction>(0);
-constexpr PrimaryAction PrimaryAction_MAX = static_cast<PrimaryAction>(10);
-constexpr int PrimaryAction_ARRAYSIZE = 10 + 1;
+constexpr PrimaryAction PrimaryAction_MAX = static_cast<PrimaryAction>(9);
+constexpr int PrimaryAction_ARRAYSIZE = 9 + 1;
 const std::string& PrimaryAction_Name(PrimaryAction value);
 template <typename T>
 const std::string& PrimaryAction_Name(T value) {
