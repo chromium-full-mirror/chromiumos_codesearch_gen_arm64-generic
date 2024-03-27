@@ -31,6 +31,7 @@
  * Log messages are output with different macros.
  **/
 
+#include <stdio.h>
 #include <stdlib.h>
 
 #include <nih/macros.h>
@@ -146,6 +147,7 @@ typedef int (*NihLogger) (NihLogLevel priority, const char *message);
 	if (! NIH_LIKELY(expr)) { \
 		nih_fatal ("%s:%d: Assertion failed in %s: %s", \
 			   __FILE__, __LINE__, __FUNCTION__, #expr); \
+		fflush (NULL); \
 		abort (); \
 	}
 
@@ -159,6 +161,7 @@ typedef int (*NihLogger) (NihLogLevel priority, const char *message);
 	do { \
 		nih_fatal ("%s:%d: Not reached assertion failed in %s", \
 			   __FILE__, __LINE__, __FUNCTION__); \
+		fflush (NULL); \
 		abort (); \
 	} while (0)
 
