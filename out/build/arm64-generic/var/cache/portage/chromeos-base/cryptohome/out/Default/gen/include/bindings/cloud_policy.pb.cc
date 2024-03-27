@@ -147,7 +147,9 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , /*decltype(_impl_.privacysandboxipprotectionenabled_)*/nullptr
   , /*decltype(_impl_.orcaenabled_)*/nullptr
   , /*decltype(_impl_.privacysandboxfingerprintingprotectionenabled_)*/nullptr
-  , /*decltype(_impl_.multiscreencaptureallowedforurls_)*/nullptr} {}
+  , /*decltype(_impl_.multiscreencaptureallowedforurls_)*/nullptr
+  , /*decltype(_impl_.classroomintegrationenabled_)*/nullptr
+  , /*decltype(_impl_.tasksintegrationenabled_)*/nullptr} {}
 struct CloudPolicySubProto1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR CloudPolicySubProto1DefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CloudPolicySubProto1DefaultTypeInternal() {}
@@ -887,6 +889,10 @@ class CloudPolicySubProto1::_Internal {
   static void set_has_beforeunloadeventcancelbypreventdefaultenabled(HasBits* has_bits) {
     (*has_bits)[1] |= 4096u;
   }
+  static const ::enterprise_management::BooleanPolicyProto& classroomintegrationenabled(const CloudPolicySubProto1* msg);
+  static void set_has_classroomintegrationenabled(HasBits* has_bits) {
+    (*has_bits)[3] |= 2147483648u;
+  }
   static const ::enterprise_management::StringPolicyProto& datacontrolsrules(const CloudPolicySubProto1* msg);
   static void set_has_datacontrolsrules(HasBits* has_bits) {
     (*has_bits)[2] |= 4096u;
@@ -1058,6 +1064,10 @@ class CloudPolicySubProto1::_Internal {
   static const ::enterprise_management::StringListPolicyProto& subappsapisallowedwithoutgestureandauthorizationfororigins(const CloudPolicySubProto1* msg);
   static void set_has_subappsapisallowedwithoutgestureandauthorizationfororigins(HasBits* has_bits) {
     (*has_bits)[3] |= 8192u;
+  }
+  static const ::enterprise_management::BooleanPolicyProto& tasksintegrationenabled(const CloudPolicySubProto1* msg);
+  static void set_has_tasksintegrationenabled(HasBits* has_bits) {
+    (*has_bits)[4] |= 1u;
   }
   static const ::enterprise_management::BooleanPolicyProto& urlkeyedmetricsallowed(const CloudPolicySubProto1* msg);
   static void set_has_urlkeyedmetricsallowed(HasBits* has_bits) {
@@ -1397,6 +1407,10 @@ const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::beforeunloadeventcancelbypreventdefaultenabled(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.beforeunloadeventcancelbypreventdefaultenabled_;
 }
+const ::enterprise_management::BooleanPolicyProto&
+CloudPolicySubProto1::_Internal::classroomintegrationenabled(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.classroomintegrationenabled_;
+}
 const ::enterprise_management::StringPolicyProto&
 CloudPolicySubProto1::_Internal::datacontrolsrules(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.datacontrolsrules_;
@@ -1568,6 +1582,10 @@ CloudPolicySubProto1::_Internal::sitesearchsettings(const CloudPolicySubProto1* 
 const ::enterprise_management::StringListPolicyProto&
 CloudPolicySubProto1::_Internal::subappsapisallowedwithoutgestureandauthorizationfororigins(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_;
+}
+const ::enterprise_management::BooleanPolicyProto&
+CloudPolicySubProto1::_Internal::tasksintegrationenabled(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.tasksintegrationenabled_;
 }
 const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::urlkeyedmetricsallowed(const CloudPolicySubProto1* msg) {
@@ -1905,6 +1923,10 @@ void CloudPolicySubProto1::clear_beforeunloadeventcancelbypreventdefaultenabled(
   if (_impl_.beforeunloadeventcancelbypreventdefaultenabled_ != nullptr) _impl_.beforeunloadeventcancelbypreventdefaultenabled_->Clear();
   _impl_._has_bits_[1] &= ~0x00001000u;
 }
+void CloudPolicySubProto1::clear_classroomintegrationenabled() {
+  if (_impl_.classroomintegrationenabled_ != nullptr) _impl_.classroomintegrationenabled_->Clear();
+  _impl_._has_bits_[3] &= ~0x80000000u;
+}
 void CloudPolicySubProto1::clear_datacontrolsrules() {
   if (_impl_.datacontrolsrules_ != nullptr) _impl_.datacontrolsrules_->Clear();
   _impl_._has_bits_[2] &= ~0x00001000u;
@@ -2076,6 +2098,10 @@ void CloudPolicySubProto1::clear_sitesearchsettings() {
 void CloudPolicySubProto1::clear_subappsapisallowedwithoutgestureandauthorizationfororigins() {
   if (_impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_ != nullptr) _impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_->Clear();
   _impl_._has_bits_[3] &= ~0x00002000u;
+}
+void CloudPolicySubProto1::clear_tasksintegrationenabled() {
+  if (_impl_.tasksintegrationenabled_ != nullptr) _impl_.tasksintegrationenabled_->Clear();
+  _impl_._has_bits_[4] &= ~0x00000001u;
 }
 void CloudPolicySubProto1::clear_urlkeyedmetricsallowed() {
   if (_impl_.urlkeyedmetricsallowed_ != nullptr) _impl_.urlkeyedmetricsallowed_->Clear();
@@ -2374,7 +2400,9 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
     , decltype(_impl_.privacysandboxipprotectionenabled_){nullptr}
     , decltype(_impl_.orcaenabled_){nullptr}
     , decltype(_impl_.privacysandboxfingerprintingprotectionenabled_){nullptr}
-    , decltype(_impl_.multiscreencaptureallowedforurls_){nullptr}};
+    , decltype(_impl_.multiscreencaptureallowedforurls_){nullptr}
+    , decltype(_impl_.classroomintegrationenabled_){nullptr}
+    , decltype(_impl_.tasksintegrationenabled_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
@@ -2758,6 +2786,12 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
   if ((from._impl_._has_bits_[3] & 0x40000000u) != 0) {
     _this->_impl_.multiscreencaptureallowedforurls_ = new ::enterprise_management::StringListPolicyProto(*from._impl_.multiscreencaptureallowedforurls_);
   }
+  if ((from._impl_._has_bits_[3] & 0x80000000u) != 0) {
+    _this->_impl_.classroomintegrationenabled_ = new ::enterprise_management::BooleanPolicyProto(*from._impl_.classroomintegrationenabled_);
+  }
+  if ((from._impl_._has_bits_[4] & 0x00000001u) != 0) {
+    _this->_impl_.tasksintegrationenabled_ = new ::enterprise_management::BooleanPolicyProto(*from._impl_.tasksintegrationenabled_);
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CloudPolicySubProto1)
 }
 
@@ -2893,6 +2927,8 @@ inline void CloudPolicySubProto1::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.orcaenabled_){nullptr}
     , decltype(_impl_.privacysandboxfingerprintingprotectionenabled_){nullptr}
     , decltype(_impl_.multiscreencaptureallowedforurls_){nullptr}
+    , decltype(_impl_.classroomintegrationenabled_){nullptr}
+    , decltype(_impl_.tasksintegrationenabled_){nullptr}
   };
 }
 
@@ -3034,6 +3070,8 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.orcaenabled_;
   if (this != internal_default_instance()) delete _impl_.privacysandboxfingerprintingprotectionenabled_;
   if (this != internal_default_instance()) delete _impl_.multiscreencaptureallowedforurls_;
+  if (this != internal_default_instance()) delete _impl_.classroomintegrationenabled_;
+  if (this != internal_default_instance()) delete _impl_.tasksintegrationenabled_;
 }
 
 void CloudPolicySubProto1::SetCachedSize(int size) const {
@@ -3560,7 +3598,7 @@ void CloudPolicySubProto1::Clear() {
       _impl_.directsocketsallowedforurls_->Clear();
     }
   }
-  if (cached_has_bits & 0x7f000000u) {
+  if (cached_has_bits & 0xff000000u) {
     if (cached_has_bits & 0x01000000u) {
       ABSL_DCHECK(_impl_.directsocketsblockedforurls_ != nullptr);
       _impl_.directsocketsblockedforurls_->Clear();
@@ -3589,6 +3627,15 @@ void CloudPolicySubProto1::Clear() {
       ABSL_DCHECK(_impl_.multiscreencaptureallowedforurls_ != nullptr);
       _impl_.multiscreencaptureallowedforurls_->Clear();
     }
+    if (cached_has_bits & 0x80000000u) {
+      ABSL_DCHECK(_impl_.classroomintegrationenabled_ != nullptr);
+      _impl_.classroomintegrationenabled_->Clear();
+    }
+  }
+  cached_has_bits = _impl_._has_bits_[4];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.tasksintegrationenabled_ != nullptr);
+    _impl_.tasksintegrationenabled_->Clear();
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -4743,6 +4790,24 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
           goto handle_unusual;
         }
         continue;
+      // optional .enterprise_management.BooleanPolicyProto ClassroomIntegrationEnabled = 202;
+      case 202:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 82)) {
+          ptr = ctx->ParseMessage(_internal_mutable_classroomintegrationenabled(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // optional .enterprise_management.BooleanPolicyProto TasksIntegrationEnabled = 203;
+      case 203:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 90)) {
+          ptr = ctx->ParseMessage(_internal_mutable_tasksintegrationenabled(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5665,6 +5730,21 @@ failure:
         _Internal::multiscreencaptureallowedforurls(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.BooleanPolicyProto ClassroomIntegrationEnabled = 202;
+  if (cached_has_bits & 0x80000000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(202, _Internal::classroomintegrationenabled(this),
+        _Internal::classroomintegrationenabled(this).GetCachedSize(), target, stream);
+  }
+
+  cached_has_bits = _impl_._has_bits_[4];
+  // optional .enterprise_management.BooleanPolicyProto TasksIntegrationEnabled = 203;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(203, _Internal::tasksintegrationenabled(this),
+        _Internal::tasksintegrationenabled(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -6555,7 +6635,7 @@ failure:
     }
 
   }
-  if (cached_has_bits & 0x7f000000u) {
+  if (cached_has_bits & 0xff000000u) {
     // optional .enterprise_management.StringListPolicyProto DirectSocketsBlockedForUrls = 192;
     if (cached_has_bits & 0x01000000u) {
       total_size += 2 +
@@ -6605,7 +6685,22 @@ failure:
           *_impl_.multiscreencaptureallowedforurls_);
     }
 
+    // optional .enterprise_management.BooleanPolicyProto ClassroomIntegrationEnabled = 202;
+    if (cached_has_bits & 0x80000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.classroomintegrationenabled_);
+    }
+
   }
+  // optional .enterprise_management.BooleanPolicyProto TasksIntegrationEnabled = 203;
+  cached_has_bits = _impl_._has_bits_[4];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.tasksintegrationenabled_);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -7141,7 +7236,7 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
           from._internal_directsocketsallowedforurls());
     }
   }
-  if (cached_has_bits & 0x7f000000u) {
+  if (cached_has_bits & 0xff000000u) {
     if (cached_has_bits & 0x01000000u) {
       _this->_internal_mutable_directsocketsblockedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(
           from._internal_directsocketsblockedforurls());
@@ -7170,6 +7265,14 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
       _this->_internal_mutable_multiscreencaptureallowedforurls()->::enterprise_management::StringListPolicyProto::MergeFrom(
           from._internal_multiscreencaptureallowedforurls());
     }
+    if (cached_has_bits & 0x80000000u) {
+      _this->_internal_mutable_classroomintegrationenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(
+          from._internal_classroomintegrationenabled());
+    }
+  }
+  if ((from._impl_._has_bits_[4] & 0x00000001u) != 0) {
+    _this->_internal_mutable_tasksintegrationenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(
+        from._internal_tasksintegrationenabled());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -7192,9 +7295,10 @@ void CloudPolicySubProto1::InternalSwap(CloudPolicySubProto1* other) {
   swap(_impl_._has_bits_[1], other->_impl_._has_bits_[1]);
   swap(_impl_._has_bits_[2], other->_impl_._has_bits_[2]);
   swap(_impl_._has_bits_[3], other->_impl_._has_bits_[3]);
+  swap(_impl_._has_bits_[4], other->_impl_._has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.multiscreencaptureallowedforurls_)
-      + sizeof(CloudPolicySubProto1::_impl_.multiscreencaptureallowedforurls_)
+      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.tasksintegrationenabled_)
+      + sizeof(CloudPolicySubProto1::_impl_.tasksintegrationenabled_)
       - PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.newbaseurlinheritancebehaviorallowed_)>(
           reinterpret_cast<char*>(&_impl_.newbaseurlinheritancebehaviorallowed_),
           reinterpret_cast<char*>(&other->_impl_.newbaseurlinheritancebehaviorallowed_));
