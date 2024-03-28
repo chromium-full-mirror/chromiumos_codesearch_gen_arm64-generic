@@ -287,8 +287,8 @@ const char DEPRECATED_LedLitUpRoutineReplier::Name_[] = "ash.cros_healthd.mojom.
 
 DEPRECATED_LedLitUpRoutineReplier::IPCStableHashFunction DEPRECATED_LedLitUpRoutineReplier::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name: {
+  switch (static_cast<messages::DEPRECATED_LedLitUpRoutineReplier>(message.name())) {
+    case messages::DEPRECATED_LedLitUpRoutineReplier::kGetColorMatched: {
       return &DEPRECATED_LedLitUpRoutineReplier::GetColorMatched_Sym::IPCStableHash;
     }
   }
@@ -301,13 +301,13 @@ const char* DEPRECATED_LedLitUpRoutineReplier::MessageToMethodName_(mojo::Messag
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name:
+    switch (static_cast<messages::DEPRECATED_LedLitUpRoutineReplier>(message.name())) {
+      case messages::DEPRECATED_LedLitUpRoutineReplier::kGetColorMatched:
             return "Receive ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier::GetColorMatched";
     }
   } else {
-    switch (message.name()) {
-      case internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name:
+    switch (static_cast<messages::DEPRECATED_LedLitUpRoutineReplier>(message.name())) {
+      case messages::DEPRECATED_LedLitUpRoutineReplier::kGetColorMatched:
             return "Receive reply ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier::GetColorMatched";
     }
   }
@@ -378,8 +378,7 @@ void DEPRECATED_LedLitUpRoutineReplierProxy::GetColorMatched(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::DEPRECATED_LedLitUpRoutineReplier::kGetColorMatched), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data> params(
           message);
@@ -493,8 +492,7 @@ void DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::DEPRECATED_LedLitUpRoutineReplier::kGetColorMatched), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data> params(
           message);
@@ -522,8 +520,8 @@ void DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
 bool DEPRECATED_LedLitUpRoutineReplierStubDispatch::Accept(
     DEPRECATED_LedLitUpRoutineReplier* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name: {
+  switch (static_cast<messages::DEPRECATED_LedLitUpRoutineReplier>(message->header()->name)) {
+    case messages::DEPRECATED_LedLitUpRoutineReplier::kGetColorMatched: {
       break;
     }
   }
@@ -538,8 +536,8 @@ bool DEPRECATED_LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name: {
+  switch (static_cast<messages::DEPRECATED_LedLitUpRoutineReplier>(message->header()->name)) {
+    case messages::DEPRECATED_LedLitUpRoutineReplier::kGetColorMatched: {
       internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data* params =
           reinterpret_cast<
               internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(

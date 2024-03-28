@@ -49,8 +49,8 @@ const char AshEventReporter::Name_[] = "ash.cros_healthd.mojom.AshEventReporter"
 
 AshEventReporter::IPCStableHashFunction AshEventReporter::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kAshEventReporter_SendKeyboardDiagnosticEvent_Name: {
+  switch (static_cast<messages::AshEventReporter>(message.name())) {
+    case messages::AshEventReporter::kSendKeyboardDiagnosticEvent: {
       return &AshEventReporter::SendKeyboardDiagnosticEvent_Sym::IPCStableHash;
     }
   }
@@ -63,13 +63,13 @@ const char* AshEventReporter::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kAshEventReporter_SendKeyboardDiagnosticEvent_Name:
+    switch (static_cast<messages::AshEventReporter>(message.name())) {
+      case messages::AshEventReporter::kSendKeyboardDiagnosticEvent:
             return "Receive ash::cros_healthd::mojom::AshEventReporter::SendKeyboardDiagnosticEvent";
     }
   } else {
-    switch (message.name()) {
-      case internal::kAshEventReporter_SendKeyboardDiagnosticEvent_Name:
+    switch (static_cast<messages::AshEventReporter>(message.name())) {
+      case messages::AshEventReporter::kSendKeyboardDiagnosticEvent:
             return "Receive reply ash::cros_healthd::mojom::AshEventReporter::SendKeyboardDiagnosticEvent";
     }
   }
@@ -131,8 +131,7 @@ void AshEventReporterProxy::SendKeyboardDiagnosticEvent(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kAshEventReporter_SendKeyboardDiagnosticEvent_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::AshEventReporter::kSendKeyboardDiagnosticEvent), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::AshEventReporter_SendKeyboardDiagnosticEvent_Params_Data> params(
           message);
@@ -162,8 +161,8 @@ void AshEventReporterProxy::SendKeyboardDiagnosticEvent(
 bool AshEventReporterStubDispatch::Accept(
     AshEventReporter* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kAshEventReporter_SendKeyboardDiagnosticEvent_Name: {
+  switch (static_cast<messages::AshEventReporter>(message->header()->name)) {
+    case messages::AshEventReporter::kSendKeyboardDiagnosticEvent: {
       DCHECK(message->is_serialized());
       internal::AshEventReporter_SendKeyboardDiagnosticEvent_Params_Data* params =
           reinterpret_cast<internal::AshEventReporter_SendKeyboardDiagnosticEvent_Params_Data*>(
@@ -202,8 +201,8 @@ bool AshEventReporterStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kAshEventReporter_SendKeyboardDiagnosticEvent_Name: {
+  switch (static_cast<messages::AshEventReporter>(message->header()->name)) {
+    case messages::AshEventReporter::kSendKeyboardDiagnosticEvent: {
       break;
     }
   }

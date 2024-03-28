@@ -11,17 +11,23 @@
 
 
 namespace ash::heartd::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kHeartdControl_EnableNormalRebootAction_Name = 0;
-constexpr uint32_t kHeartdControl_EnableForceRebootAction_Name = 1;
-constexpr uint32_t kHeartdControl_RunAction_Name = 2;
-constexpr uint32_t kHeartbeatService_Register_Name = 0;
-constexpr uint32_t kPacemaker_SendHeartbeat_Name = 0;
-constexpr uint32_t kPacemaker_StopMonitor_Name = 1;
+enum class HeartdControl : uint32_t {
+  kEnableNormalRebootAction = 0,
+  kEnableForceRebootAction = 1,
+  kRunAction = 2,
+};
+enum class HeartbeatService : uint32_t {
+  kRegister = 0,
+};
+enum class Pacemaker : uint32_t {
+  kSendHeartbeat = 0,
+  kStopMonitor = 1,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // ash::heartd::mojom
 

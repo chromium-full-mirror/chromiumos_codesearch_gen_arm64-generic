@@ -11,11 +11,11 @@
 
 
 namespace chromeos::machine_learning::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::machine_learning::mojom
 

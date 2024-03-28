@@ -50,87 +50,90 @@ const char Delegate::Name_[] = "ash.cros_healthd.mojom.Delegate";
 
 Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kDelegate_GetFingerprintFrame_Name: {
+  switch (static_cast<messages::Delegate>(message.name())) {
+    case messages::Delegate::kGetFingerprintFrame: {
       return &Delegate::GetFingerprintFrame_Sym::IPCStableHash;
     }
-    case internal::kDelegate_GetFingerprintInfo_Name: {
+    case messages::Delegate::kGetFingerprintInfo: {
       return &Delegate::GetFingerprintInfo_Sym::IPCStableHash;
     }
-    case internal::kDelegate_SetLedColor_Name: {
+    case messages::Delegate::kSetLedColor: {
       return &Delegate::SetLedColor_Sym::IPCStableHash;
     }
-    case internal::kDelegate_ResetLedColor_Name: {
+    case messages::Delegate::kResetLedColor: {
       return &Delegate::ResetLedColor_Sym::IPCStableHash;
     }
-    case internal::kDelegate_MonitorAudioJack_Name: {
+    case messages::Delegate::kMonitorAudioJack: {
       return &Delegate::MonitorAudioJack_Sym::IPCStableHash;
     }
-    case internal::kDelegate_MonitorTouchpad_Name: {
+    case messages::Delegate::kMonitorTouchpad: {
       return &Delegate::MonitorTouchpad_Sym::IPCStableHash;
     }
-    case internal::kDelegate_FetchBootPerformance_Name: {
+    case messages::Delegate::kFetchBootPerformance: {
       return &Delegate::FetchBootPerformance_Sym::IPCStableHash;
     }
-    case internal::kDelegate_MonitorTouchscreen_Name: {
+    case messages::Delegate::kMonitorTouchscreen: {
       return &Delegate::MonitorTouchscreen_Sym::IPCStableHash;
     }
-    case internal::kDelegate_MonitorStylusGarage_Name: {
+    case messages::Delegate::kMonitorStylusGarage: {
       return &Delegate::MonitorStylusGarage_Sym::IPCStableHash;
     }
-    case internal::kDelegate_MonitorStylus_Name: {
+    case messages::Delegate::kMonitorStylus: {
       return &Delegate::MonitorStylus_Sym::IPCStableHash;
     }
-    case internal::kDelegate_GetLidAngle_Name: {
+    case messages::Delegate::kGetLidAngle: {
       return &Delegate::GetLidAngle_Sym::IPCStableHash;
     }
-    case internal::kDelegate_GetPsr_Name: {
+    case messages::Delegate::kGetPsr: {
       return &Delegate::GetPsr_Sym::IPCStableHash;
     }
-    case internal::kDelegate_GetConnectedExternalDisplayConnectors_Name: {
+    case messages::Delegate::kGetConnectedExternalDisplayConnectors: {
       return &Delegate::GetConnectedExternalDisplayConnectors_Sym::IPCStableHash;
     }
-    case internal::kDelegate_GetPrivacyScreenInfo_Name: {
+    case messages::Delegate::kGetPrivacyScreenInfo: {
       return &Delegate::GetPrivacyScreenInfo_Sym::IPCStableHash;
     }
-    case internal::kDelegate_FetchDisplayInfo_Name: {
+    case messages::Delegate::kFetchDisplayInfo: {
       return &Delegate::FetchDisplayInfo_Sym::IPCStableHash;
     }
-    case internal::kDelegate_MonitorPowerButton_Name: {
+    case messages::Delegate::kMonitorPowerButton: {
       return &Delegate::MonitorPowerButton_Sym::IPCStableHash;
     }
-    case internal::kDelegate_RunPrimeSearch_Name: {
+    case messages::Delegate::kRunPrimeSearch: {
       return &Delegate::RunPrimeSearch_Sym::IPCStableHash;
     }
-    case internal::kDelegate_MonitorVolumeButton_Name: {
+    case messages::Delegate::kMonitorVolumeButton: {
       return &Delegate::MonitorVolumeButton_Sym::IPCStableHash;
     }
-    case internal::kDelegate_RunFloatingPoint_Name: {
+    case messages::Delegate::kRunFloatingPoint: {
       return &Delegate::RunFloatingPoint_Sym::IPCStableHash;
     }
-    case internal::kDelegate_GetAllFanSpeed_Name: {
+    case messages::Delegate::kGetAllFanSpeed: {
       return &Delegate::GetAllFanSpeed_Sym::IPCStableHash;
     }
-    case internal::kDelegate_SetFanSpeed_Name: {
+    case messages::Delegate::kSetFanSpeed: {
       return &Delegate::SetFanSpeed_Sym::IPCStableHash;
     }
-    case internal::kDelegate_SetAllFanAutoControl_Name: {
+    case messages::Delegate::kSetAllFanAutoControl: {
       return &Delegate::SetAllFanAutoControl_Sym::IPCStableHash;
     }
-    case internal::kDelegate_GetEcThermalSensors_Name: {
+    case messages::Delegate::kGetEcThermalSensors: {
       return &Delegate::GetEcThermalSensors_Sym::IPCStableHash;
     }
-    case internal::kDelegate_GetTouchpadDevices_Name: {
+    case messages::Delegate::kGetTouchpadDevices: {
       return &Delegate::GetTouchpadDevices_Sym::IPCStableHash;
     }
-    case internal::kDelegate_GetSmartBatteryManufactureDate_Name: {
+    case messages::Delegate::kGetSmartBatteryManufactureDate: {
       return &Delegate::GetSmartBatteryManufactureDate_Sym::IPCStableHash;
     }
-    case internal::kDelegate_GetSmartBatteryTemperature_Name: {
+    case messages::Delegate::kGetSmartBatteryTemperature: {
       return &Delegate::GetSmartBatteryTemperature_Sym::IPCStableHash;
     }
-    case internal::kDelegate_RunUrandom_Name: {
+    case messages::Delegate::kRunUrandom: {
       return &Delegate::RunUrandom_Sym::IPCStableHash;
+    }
+    case messages::Delegate::kRunNetworkBandwidthTest: {
+      return &Delegate::RunNetworkBandwidthTest_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -142,118 +145,122 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kDelegate_GetFingerprintFrame_Name:
+    switch (static_cast<messages::Delegate>(message.name())) {
+      case messages::Delegate::kGetFingerprintFrame:
             return "Receive ash::cros_healthd::mojom::Delegate::GetFingerprintFrame";
-      case internal::kDelegate_GetFingerprintInfo_Name:
+      case messages::Delegate::kGetFingerprintInfo:
             return "Receive ash::cros_healthd::mojom::Delegate::GetFingerprintInfo";
-      case internal::kDelegate_SetLedColor_Name:
+      case messages::Delegate::kSetLedColor:
             return "Receive ash::cros_healthd::mojom::Delegate::SetLedColor";
-      case internal::kDelegate_ResetLedColor_Name:
+      case messages::Delegate::kResetLedColor:
             return "Receive ash::cros_healthd::mojom::Delegate::ResetLedColor";
-      case internal::kDelegate_MonitorAudioJack_Name:
+      case messages::Delegate::kMonitorAudioJack:
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorAudioJack";
-      case internal::kDelegate_MonitorTouchpad_Name:
+      case messages::Delegate::kMonitorTouchpad:
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorTouchpad";
-      case internal::kDelegate_FetchBootPerformance_Name:
+      case messages::Delegate::kFetchBootPerformance:
             return "Receive ash::cros_healthd::mojom::Delegate::FetchBootPerformance";
-      case internal::kDelegate_MonitorTouchscreen_Name:
+      case messages::Delegate::kMonitorTouchscreen:
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorTouchscreen";
-      case internal::kDelegate_MonitorStylusGarage_Name:
+      case messages::Delegate::kMonitorStylusGarage:
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorStylusGarage";
-      case internal::kDelegate_MonitorStylus_Name:
+      case messages::Delegate::kMonitorStylus:
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorStylus";
-      case internal::kDelegate_GetLidAngle_Name:
+      case messages::Delegate::kGetLidAngle:
             return "Receive ash::cros_healthd::mojom::Delegate::GetLidAngle";
-      case internal::kDelegate_GetPsr_Name:
+      case messages::Delegate::kGetPsr:
             return "Receive ash::cros_healthd::mojom::Delegate::GetPsr";
-      case internal::kDelegate_GetConnectedExternalDisplayConnectors_Name:
+      case messages::Delegate::kGetConnectedExternalDisplayConnectors:
             return "Receive ash::cros_healthd::mojom::Delegate::GetConnectedExternalDisplayConnectors";
-      case internal::kDelegate_GetPrivacyScreenInfo_Name:
+      case messages::Delegate::kGetPrivacyScreenInfo:
             return "Receive ash::cros_healthd::mojom::Delegate::GetPrivacyScreenInfo";
-      case internal::kDelegate_FetchDisplayInfo_Name:
+      case messages::Delegate::kFetchDisplayInfo:
             return "Receive ash::cros_healthd::mojom::Delegate::FetchDisplayInfo";
-      case internal::kDelegate_MonitorPowerButton_Name:
+      case messages::Delegate::kMonitorPowerButton:
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorPowerButton";
-      case internal::kDelegate_RunPrimeSearch_Name:
+      case messages::Delegate::kRunPrimeSearch:
             return "Receive ash::cros_healthd::mojom::Delegate::RunPrimeSearch";
-      case internal::kDelegate_MonitorVolumeButton_Name:
+      case messages::Delegate::kMonitorVolumeButton:
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorVolumeButton";
-      case internal::kDelegate_RunFloatingPoint_Name:
+      case messages::Delegate::kRunFloatingPoint:
             return "Receive ash::cros_healthd::mojom::Delegate::RunFloatingPoint";
-      case internal::kDelegate_GetAllFanSpeed_Name:
+      case messages::Delegate::kGetAllFanSpeed:
             return "Receive ash::cros_healthd::mojom::Delegate::GetAllFanSpeed";
-      case internal::kDelegate_SetFanSpeed_Name:
+      case messages::Delegate::kSetFanSpeed:
             return "Receive ash::cros_healthd::mojom::Delegate::SetFanSpeed";
-      case internal::kDelegate_SetAllFanAutoControl_Name:
+      case messages::Delegate::kSetAllFanAutoControl:
             return "Receive ash::cros_healthd::mojom::Delegate::SetAllFanAutoControl";
-      case internal::kDelegate_GetEcThermalSensors_Name:
+      case messages::Delegate::kGetEcThermalSensors:
             return "Receive ash::cros_healthd::mojom::Delegate::GetEcThermalSensors";
-      case internal::kDelegate_GetTouchpadDevices_Name:
+      case messages::Delegate::kGetTouchpadDevices:
             return "Receive ash::cros_healthd::mojom::Delegate::GetTouchpadDevices";
-      case internal::kDelegate_GetSmartBatteryManufactureDate_Name:
+      case messages::Delegate::kGetSmartBatteryManufactureDate:
             return "Receive ash::cros_healthd::mojom::Delegate::GetSmartBatteryManufactureDate";
-      case internal::kDelegate_GetSmartBatteryTemperature_Name:
+      case messages::Delegate::kGetSmartBatteryTemperature:
             return "Receive ash::cros_healthd::mojom::Delegate::GetSmartBatteryTemperature";
-      case internal::kDelegate_RunUrandom_Name:
+      case messages::Delegate::kRunUrandom:
             return "Receive ash::cros_healthd::mojom::Delegate::RunUrandom";
+      case messages::Delegate::kRunNetworkBandwidthTest:
+            return "Receive ash::cros_healthd::mojom::Delegate::RunNetworkBandwidthTest";
     }
   } else {
-    switch (message.name()) {
-      case internal::kDelegate_GetFingerprintFrame_Name:
+    switch (static_cast<messages::Delegate>(message.name())) {
+      case messages::Delegate::kGetFingerprintFrame:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetFingerprintFrame";
-      case internal::kDelegate_GetFingerprintInfo_Name:
+      case messages::Delegate::kGetFingerprintInfo:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetFingerprintInfo";
-      case internal::kDelegate_SetLedColor_Name:
+      case messages::Delegate::kSetLedColor:
             return "Receive reply ash::cros_healthd::mojom::Delegate::SetLedColor";
-      case internal::kDelegate_ResetLedColor_Name:
+      case messages::Delegate::kResetLedColor:
             return "Receive reply ash::cros_healthd::mojom::Delegate::ResetLedColor";
-      case internal::kDelegate_MonitorAudioJack_Name:
+      case messages::Delegate::kMonitorAudioJack:
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorAudioJack";
-      case internal::kDelegate_MonitorTouchpad_Name:
+      case messages::Delegate::kMonitorTouchpad:
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorTouchpad";
-      case internal::kDelegate_FetchBootPerformance_Name:
+      case messages::Delegate::kFetchBootPerformance:
             return "Receive reply ash::cros_healthd::mojom::Delegate::FetchBootPerformance";
-      case internal::kDelegate_MonitorTouchscreen_Name:
+      case messages::Delegate::kMonitorTouchscreen:
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorTouchscreen";
-      case internal::kDelegate_MonitorStylusGarage_Name:
+      case messages::Delegate::kMonitorStylusGarage:
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorStylusGarage";
-      case internal::kDelegate_MonitorStylus_Name:
+      case messages::Delegate::kMonitorStylus:
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorStylus";
-      case internal::kDelegate_GetLidAngle_Name:
+      case messages::Delegate::kGetLidAngle:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetLidAngle";
-      case internal::kDelegate_GetPsr_Name:
+      case messages::Delegate::kGetPsr:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetPsr";
-      case internal::kDelegate_GetConnectedExternalDisplayConnectors_Name:
+      case messages::Delegate::kGetConnectedExternalDisplayConnectors:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetConnectedExternalDisplayConnectors";
-      case internal::kDelegate_GetPrivacyScreenInfo_Name:
+      case messages::Delegate::kGetPrivacyScreenInfo:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetPrivacyScreenInfo";
-      case internal::kDelegate_FetchDisplayInfo_Name:
+      case messages::Delegate::kFetchDisplayInfo:
             return "Receive reply ash::cros_healthd::mojom::Delegate::FetchDisplayInfo";
-      case internal::kDelegate_MonitorPowerButton_Name:
+      case messages::Delegate::kMonitorPowerButton:
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorPowerButton";
-      case internal::kDelegate_RunPrimeSearch_Name:
+      case messages::Delegate::kRunPrimeSearch:
             return "Receive reply ash::cros_healthd::mojom::Delegate::RunPrimeSearch";
-      case internal::kDelegate_MonitorVolumeButton_Name:
+      case messages::Delegate::kMonitorVolumeButton:
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorVolumeButton";
-      case internal::kDelegate_RunFloatingPoint_Name:
+      case messages::Delegate::kRunFloatingPoint:
             return "Receive reply ash::cros_healthd::mojom::Delegate::RunFloatingPoint";
-      case internal::kDelegate_GetAllFanSpeed_Name:
+      case messages::Delegate::kGetAllFanSpeed:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetAllFanSpeed";
-      case internal::kDelegate_SetFanSpeed_Name:
+      case messages::Delegate::kSetFanSpeed:
             return "Receive reply ash::cros_healthd::mojom::Delegate::SetFanSpeed";
-      case internal::kDelegate_SetAllFanAutoControl_Name:
+      case messages::Delegate::kSetAllFanAutoControl:
             return "Receive reply ash::cros_healthd::mojom::Delegate::SetAllFanAutoControl";
-      case internal::kDelegate_GetEcThermalSensors_Name:
+      case messages::Delegate::kGetEcThermalSensors:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetEcThermalSensors";
-      case internal::kDelegate_GetTouchpadDevices_Name:
+      case messages::Delegate::kGetTouchpadDevices:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetTouchpadDevices";
-      case internal::kDelegate_GetSmartBatteryManufactureDate_Name:
+      case messages::Delegate::kGetSmartBatteryManufactureDate:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetSmartBatteryManufactureDate";
-      case internal::kDelegate_GetSmartBatteryTemperature_Name:
+      case messages::Delegate::kGetSmartBatteryTemperature:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetSmartBatteryTemperature";
-      case internal::kDelegate_RunUrandom_Name:
+      case messages::Delegate::kRunUrandom:
             return "Receive reply ash::cros_healthd::mojom::Delegate::RunUrandom";
+      case messages::Delegate::kRunNetworkBandwidthTest:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::RunNetworkBandwidthTest";
     }
   }
   return "Receive unknown mojo message";
@@ -619,6 +626,19 @@ uint32_t Delegate::RunUrandom_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Delegate::RunNetworkBandwidthTest_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::RunNetworkBandwidthTest");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Delegate_GetFingerprintFrame_ForwardToCallback
@@ -941,6 +961,22 @@ class Delegate_RunUrandom_ForwardToCallback
   Delegate::RunUrandomCallback callback_;
 };
 
+class Delegate_RunNetworkBandwidthTest_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_RunNetworkBandwidthTest_ForwardToCallback(
+      Delegate::RunNetworkBandwidthTestCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_RunNetworkBandwidthTest_ForwardToCallback(const Delegate_RunNetworkBandwidthTest_ForwardToCallback&) = delete;
+  Delegate_RunNetworkBandwidthTest_ForwardToCallback& operator=(const Delegate_RunNetworkBandwidthTest_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::RunNetworkBandwidthTestCallback callback_;
+};
+
 DelegateProxy::DelegateProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -972,8 +1008,7 @@ void DelegateProxy::GetFingerprintFrame(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetFingerprintFrame_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetFingerprintFrame), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetFingerprintFrame_Params_Data> params(
           message);
@@ -1011,8 +1046,7 @@ void DelegateProxy::GetFingerprintInfo(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetFingerprintInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetFingerprintInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetFingerprintInfo_Params_Data> params(
           message);
@@ -1058,8 +1092,7 @@ void DelegateProxy::SetLedColor(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_SetLedColor_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kSetLedColor), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_SetLedColor_Params_Data> params(
           message);
@@ -1106,8 +1139,7 @@ void DelegateProxy::ResetLedColor(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_ResetLedColor_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kResetLedColor), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_ResetLedColor_Params_Data> params(
           message);
@@ -1152,8 +1184,7 @@ void DelegateProxy::MonitorAudioJack(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_MonitorAudioJack_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kMonitorAudioJack), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_MonitorAudioJack_Params_Data> params(
           message);
@@ -1201,8 +1232,7 @@ void DelegateProxy::MonitorTouchpad(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_MonitorTouchpad_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kMonitorTouchpad), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_MonitorTouchpad_Params_Data> params(
           message);
@@ -1243,8 +1273,7 @@ void DelegateProxy::FetchBootPerformance(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_FetchBootPerformance_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kFetchBootPerformance), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_FetchBootPerformance_Params_Data> params(
           message);
@@ -1287,8 +1316,7 @@ void DelegateProxy::MonitorTouchscreen(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_MonitorTouchscreen_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kMonitorTouchscreen), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_MonitorTouchscreen_Params_Data> params(
           message);
@@ -1336,8 +1364,7 @@ void DelegateProxy::MonitorStylusGarage(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_MonitorStylusGarage_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kMonitorStylusGarage), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_MonitorStylusGarage_Params_Data> params(
           message);
@@ -1385,8 +1412,7 @@ void DelegateProxy::MonitorStylus(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_MonitorStylus_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kMonitorStylus), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_MonitorStylus_Params_Data> params(
           message);
@@ -1427,8 +1453,7 @@ void DelegateProxy::GetLidAngle(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetLidAngle_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetLidAngle), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetLidAngle_Params_Data> params(
           message);
@@ -1464,8 +1489,7 @@ void DelegateProxy::GetPsr(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetPsr_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetPsr), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetPsr_Params_Data> params(
           message);
@@ -1508,8 +1532,7 @@ void DelegateProxy::GetConnectedExternalDisplayConnectors(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetConnectedExternalDisplayConnectors_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetConnectedExternalDisplayConnectors), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data> params(
           message);
@@ -1554,8 +1577,7 @@ void DelegateProxy::GetPrivacyScreenInfo(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetPrivacyScreenInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetPrivacyScreenInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetPrivacyScreenInfo_Params_Data> params(
           message);
@@ -1591,8 +1613,7 @@ void DelegateProxy::FetchDisplayInfo(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_FetchDisplayInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kFetchDisplayInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_FetchDisplayInfo_Params_Data> params(
           message);
@@ -1635,8 +1656,7 @@ void DelegateProxy::MonitorPowerButton(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_MonitorPowerButton_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kMonitorPowerButton), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_MonitorPowerButton_Params_Data> params(
           message);
@@ -1687,8 +1707,7 @@ void DelegateProxy::RunPrimeSearch(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_RunPrimeSearch_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kRunPrimeSearch), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_RunPrimeSearch_Params_Data> params(
           message);
@@ -1743,8 +1762,7 @@ void DelegateProxy::MonitorVolumeButton(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_MonitorVolumeButton_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kMonitorVolumeButton), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_MonitorVolumeButton_Params_Data> params(
           message);
@@ -1792,8 +1810,7 @@ void DelegateProxy::RunFloatingPoint(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_RunFloatingPoint_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kRunFloatingPoint), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_RunFloatingPoint_Params_Data> params(
           message);
@@ -1840,8 +1857,7 @@ void DelegateProxy::GetAllFanSpeed(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetAllFanSpeed_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetAllFanSpeed), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetAllFanSpeed_Params_Data> params(
           message);
@@ -1884,8 +1900,7 @@ void DelegateProxy::SetFanSpeed(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_SetFanSpeed_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kSetFanSpeed), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_SetFanSpeed_Params_Data> params(
           message);
@@ -1934,8 +1949,7 @@ void DelegateProxy::SetAllFanAutoControl(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_SetAllFanAutoControl_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kSetAllFanAutoControl), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_SetAllFanAutoControl_Params_Data> params(
           message);
@@ -1971,8 +1985,7 @@ void DelegateProxy::GetEcThermalSensors(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetEcThermalSensors_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetEcThermalSensors), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetEcThermalSensors_Params_Data> params(
           message);
@@ -2008,8 +2021,7 @@ void DelegateProxy::GetTouchpadDevices(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetTouchpadDevices_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetTouchpadDevices), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetTouchpadDevices_Params_Data> params(
           message);
@@ -2052,8 +2064,7 @@ void DelegateProxy::GetSmartBatteryManufactureDate(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetSmartBatteryManufactureDate_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetSmartBatteryManufactureDate), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetSmartBatteryManufactureDate_Params_Data> params(
           message);
@@ -2097,8 +2108,7 @@ void DelegateProxy::GetSmartBatteryTemperature(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetSmartBatteryTemperature_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetSmartBatteryTemperature), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetSmartBatteryTemperature_Params_Data> params(
           message);
@@ -2142,8 +2152,7 @@ void DelegateProxy::RunUrandom(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_RunUrandom_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kRunUrandom), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_RunUrandom_Params_Data> params(
           message);
@@ -2166,6 +2175,60 @@ void DelegateProxy::RunUrandom(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Delegate_RunUrandom_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::RunNetworkBandwidthTest(
+    ::ash::cros_healthd::mojom::NetworkBandwidthTestType in_type, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> in_observer, RunNetworkBandwidthTestCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Delegate::RunNetworkBandwidthTest", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("type"), in_type,
+                        "<value of type ::ash::cros_healthd::mojom::NetworkBandwidthTestType>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver>>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::Delegate::kRunNetworkBandwidthTest), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_RunNetworkBandwidthTest_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::NetworkBandwidthTestType>(
+      in_type, &params->type);
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::NetworkBandwidthObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in Delegate.RunNetworkBandwidthTest request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("RunNetworkBandwidthTest");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_RunNetworkBandwidthTest_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -2275,8 +2338,7 @@ void Delegate_GetFingerprintFrame_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetFingerprintFrame_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetFingerprintFrame), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetFingerprintFrame_ResponseParams_Data> params(
           message);
@@ -2422,8 +2484,7 @@ void Delegate_GetFingerprintInfo_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetFingerprintInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetFingerprintInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetFingerprintInfo_ResponseParams_Data> params(
           message);
@@ -2562,8 +2623,7 @@ void Delegate_SetLedColor_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_SetLedColor_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kSetLedColor), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_SetLedColor_ResponseParams_Data> params(
           message);
@@ -2691,8 +2751,7 @@ void Delegate_ResetLedColor_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_ResetLedColor_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kResetLedColor), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_ResetLedColor_ResponseParams_Data> params(
           message);
@@ -2820,8 +2879,7 @@ void Delegate_FetchBootPerformance_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_FetchBootPerformance_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kFetchBootPerformance), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_FetchBootPerformance_ResponseParams_Data> params(
           message);
@@ -2952,8 +3010,7 @@ void Delegate_GetLidAngle_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetLidAngle_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetLidAngle), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetLidAngle_ResponseParams_Data> params(
           message);
@@ -3078,8 +3135,7 @@ void Delegate_GetPsr_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetPsr_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetPsr), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetPsr_ResponseParams_Data> params(
           message);
@@ -3216,8 +3272,7 @@ void Delegate_GetConnectedExternalDisplayConnectors_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetConnectedExternalDisplayConnectors_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetConnectedExternalDisplayConnectors), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data> params(
           message);
@@ -3358,8 +3413,7 @@ void Delegate_GetPrivacyScreenInfo_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetPrivacyScreenInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetPrivacyScreenInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetPrivacyScreenInfo_ResponseParams_Data> params(
           message);
@@ -3489,8 +3543,7 @@ void Delegate_FetchDisplayInfo_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_FetchDisplayInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kFetchDisplayInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_FetchDisplayInfo_ResponseParams_Data> params(
           message);
@@ -3620,8 +3673,7 @@ void Delegate_RunPrimeSearch_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_RunPrimeSearch_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kRunPrimeSearch), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_RunPrimeSearch_ResponseParams_Data> params(
           message);
@@ -3743,8 +3795,7 @@ void Delegate_RunFloatingPoint_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_RunFloatingPoint_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kRunFloatingPoint), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_RunFloatingPoint_ResponseParams_Data> params(
           message);
@@ -3873,8 +3924,7 @@ void Delegate_GetAllFanSpeed_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetAllFanSpeed_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetAllFanSpeed), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetAllFanSpeed_ResponseParams_Data> params(
           message);
@@ -4015,8 +4065,7 @@ void Delegate_SetFanSpeed_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_SetFanSpeed_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kSetFanSpeed), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_SetFanSpeed_ResponseParams_Data> params(
           message);
@@ -4144,8 +4193,7 @@ void Delegate_SetAllFanAutoControl_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_SetAllFanAutoControl_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kSetAllFanAutoControl), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_SetAllFanAutoControl_ResponseParams_Data> params(
           message);
@@ -4280,8 +4328,7 @@ void Delegate_GetEcThermalSensors_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetEcThermalSensors_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetEcThermalSensors), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetEcThermalSensors_ResponseParams_Data> params(
           message);
@@ -4429,8 +4476,7 @@ void Delegate_GetTouchpadDevices_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetTouchpadDevices_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetTouchpadDevices), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetTouchpadDevices_ResponseParams_Data> params(
           message);
@@ -4572,8 +4618,7 @@ void Delegate_GetSmartBatteryManufactureDate_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetSmartBatteryManufactureDate_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetSmartBatteryManufactureDate), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data> params(
           message);
@@ -4699,8 +4744,7 @@ void Delegate_GetSmartBatteryTemperature_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_GetSmartBatteryTemperature_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kGetSmartBatteryTemperature), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_GetSmartBatteryTemperature_ResponseParams_Data> params(
           message);
@@ -4825,8 +4869,7 @@ void Delegate_RunUrandom_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDelegate_RunUrandom_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Delegate::kRunUrandom), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Delegate_RunUrandom_ResponseParams_Data> params(
           message);
@@ -4849,25 +4892,151 @@ void Delegate_RunUrandom_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Delegate_RunNetworkBandwidthTest_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::RunNetworkBandwidthTestCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_RunNetworkBandwidthTest_ProxyToResponder> proxy(
+        new Delegate_RunNetworkBandwidthTest_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_RunNetworkBandwidthTest_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_RunNetworkBandwidthTest_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_RunNetworkBandwidthTest_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::RunNetworkBandwidthTestCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::optional<double> in_average_speed);
+};
+
+bool Delegate_RunNetworkBandwidthTest_ForwardToCallback::Accept(
+    mojo::Message* message) {
+  DCHECK(message->is_serialized());
+  internal::Delegate_RunNetworkBandwidthTest_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_RunNetworkBandwidthTest_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for Delegate.27
+  bool success = true;
+  std::optional<double> p_average_speed{};
+  Delegate_RunNetworkBandwidthTest_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success) {
+    p_average_speed = input_data_view.average_speed();
+  }
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 27, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_average_speed));
+  return true;
+}
+
+void Delegate_RunNetworkBandwidthTest_ProxyToResponder::Run(
+    std::optional<double> in_average_speed) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::RunNetworkBandwidthTest", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("average_speed"), in_average_speed,
+                        "<value of type std::optional<double>>");
+   });
+#endif
+
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::Delegate::kRunNetworkBandwidthTest), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_RunNetworkBandwidthTest_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->average_speed_$flag = in_average_speed.has_value();
+  if (in_average_speed.has_value()) {
+    params->average_speed_$value = in_average_speed.value();
+  }
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("RunNetworkBandwidthTest");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool DelegateStubDispatch::Accept(
     Delegate* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kDelegate_GetFingerprintFrame_Name: {
+  switch (static_cast<messages::Delegate>(message->header()->name)) {
+    case messages::Delegate::kGetFingerprintFrame: {
       break;
     }
-    case internal::kDelegate_GetFingerprintInfo_Name: {
+    case messages::Delegate::kGetFingerprintInfo: {
       break;
     }
-    case internal::kDelegate_SetLedColor_Name: {
+    case messages::Delegate::kSetLedColor: {
       break;
     }
-    case internal::kDelegate_ResetLedColor_Name: {
+    case messages::Delegate::kResetLedColor: {
       break;
     }
-    case internal::kDelegate_MonitorAudioJack_Name: {
+    case messages::Delegate::kMonitorAudioJack: {
       DCHECK(message->is_serialized());
       internal::Delegate_MonitorAudioJack_Params_Data* params =
           reinterpret_cast<internal::Delegate_MonitorAudioJack_Params_Data*>(
@@ -4896,7 +5065,7 @@ bool DelegateStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kDelegate_MonitorTouchpad_Name: {
+    case messages::Delegate::kMonitorTouchpad: {
       DCHECK(message->is_serialized());
       internal::Delegate_MonitorTouchpad_Params_Data* params =
           reinterpret_cast<internal::Delegate_MonitorTouchpad_Params_Data*>(
@@ -4925,10 +5094,10 @@ bool DelegateStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kDelegate_FetchBootPerformance_Name: {
+    case messages::Delegate::kFetchBootPerformance: {
       break;
     }
-    case internal::kDelegate_MonitorTouchscreen_Name: {
+    case messages::Delegate::kMonitorTouchscreen: {
       DCHECK(message->is_serialized());
       internal::Delegate_MonitorTouchscreen_Params_Data* params =
           reinterpret_cast<internal::Delegate_MonitorTouchscreen_Params_Data*>(
@@ -4957,7 +5126,7 @@ bool DelegateStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kDelegate_MonitorStylusGarage_Name: {
+    case messages::Delegate::kMonitorStylusGarage: {
       DCHECK(message->is_serialized());
       internal::Delegate_MonitorStylusGarage_Params_Data* params =
           reinterpret_cast<internal::Delegate_MonitorStylusGarage_Params_Data*>(
@@ -4986,7 +5155,7 @@ bool DelegateStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kDelegate_MonitorStylus_Name: {
+    case messages::Delegate::kMonitorStylus: {
       DCHECK(message->is_serialized());
       internal::Delegate_MonitorStylus_Params_Data* params =
           reinterpret_cast<internal::Delegate_MonitorStylus_Params_Data*>(
@@ -5015,22 +5184,22 @@ bool DelegateStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kDelegate_GetLidAngle_Name: {
+    case messages::Delegate::kGetLidAngle: {
       break;
     }
-    case internal::kDelegate_GetPsr_Name: {
+    case messages::Delegate::kGetPsr: {
       break;
     }
-    case internal::kDelegate_GetConnectedExternalDisplayConnectors_Name: {
+    case messages::Delegate::kGetConnectedExternalDisplayConnectors: {
       break;
     }
-    case internal::kDelegate_GetPrivacyScreenInfo_Name: {
+    case messages::Delegate::kGetPrivacyScreenInfo: {
       break;
     }
-    case internal::kDelegate_FetchDisplayInfo_Name: {
+    case messages::Delegate::kFetchDisplayInfo: {
       break;
     }
-    case internal::kDelegate_MonitorPowerButton_Name: {
+    case messages::Delegate::kMonitorPowerButton: {
       DCHECK(message->is_serialized());
       internal::Delegate_MonitorPowerButton_Params_Data* params =
           reinterpret_cast<internal::Delegate_MonitorPowerButton_Params_Data*>(
@@ -5059,10 +5228,10 @@ bool DelegateStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kDelegate_RunPrimeSearch_Name: {
+    case messages::Delegate::kRunPrimeSearch: {
       break;
     }
-    case internal::kDelegate_MonitorVolumeButton_Name: {
+    case messages::Delegate::kMonitorVolumeButton: {
       DCHECK(message->is_serialized());
       internal::Delegate_MonitorVolumeButton_Params_Data* params =
           reinterpret_cast<internal::Delegate_MonitorVolumeButton_Params_Data*>(
@@ -5091,31 +5260,34 @@ bool DelegateStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kDelegate_RunFloatingPoint_Name: {
+    case messages::Delegate::kRunFloatingPoint: {
       break;
     }
-    case internal::kDelegate_GetAllFanSpeed_Name: {
+    case messages::Delegate::kGetAllFanSpeed: {
       break;
     }
-    case internal::kDelegate_SetFanSpeed_Name: {
+    case messages::Delegate::kSetFanSpeed: {
       break;
     }
-    case internal::kDelegate_SetAllFanAutoControl_Name: {
+    case messages::Delegate::kSetAllFanAutoControl: {
       break;
     }
-    case internal::kDelegate_GetEcThermalSensors_Name: {
+    case messages::Delegate::kGetEcThermalSensors: {
       break;
     }
-    case internal::kDelegate_GetTouchpadDevices_Name: {
+    case messages::Delegate::kGetTouchpadDevices: {
       break;
     }
-    case internal::kDelegate_GetSmartBatteryManufactureDate_Name: {
+    case messages::Delegate::kGetSmartBatteryManufactureDate: {
       break;
     }
-    case internal::kDelegate_GetSmartBatteryTemperature_Name: {
+    case messages::Delegate::kGetSmartBatteryTemperature: {
       break;
     }
-    case internal::kDelegate_RunUrandom_Name: {
+    case messages::Delegate::kRunUrandom: {
+      break;
+    }
+    case messages::Delegate::kRunNetworkBandwidthTest: {
       break;
     }
   }
@@ -5130,8 +5302,8 @@ bool DelegateStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kDelegate_GetFingerprintFrame_Name: {
+  switch (static_cast<messages::Delegate>(message->header()->name)) {
+    case messages::Delegate::kGetFingerprintFrame: {
       internal::Delegate_GetFingerprintFrame_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_GetFingerprintFrame_Params_Data*>(
@@ -5161,7 +5333,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
         std::move(p_type), std::move(callback));
       return true;
     }
-    case internal::kDelegate_GetFingerprintInfo_Name: {
+    case messages::Delegate::kGetFingerprintInfo: {
       internal::Delegate_GetFingerprintInfo_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_GetFingerprintInfo_Params_Data*>(
@@ -5187,7 +5359,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
       impl->GetFingerprintInfo(std::move(callback));
       return true;
     }
-    case internal::kDelegate_SetLedColor_Name: {
+    case messages::Delegate::kSetLedColor: {
       internal::Delegate_SetLedColor_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_SetLedColor_Params_Data*>(
@@ -5221,7 +5393,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
         std::move(p_color), std::move(callback));
       return true;
     }
-    case internal::kDelegate_ResetLedColor_Name: {
+    case messages::Delegate::kResetLedColor: {
       internal::Delegate_ResetLedColor_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_ResetLedColor_Params_Data*>(
@@ -5251,13 +5423,13 @@ bool DelegateStubDispatch::AcceptWithResponder(
         std::move(p_name), std::move(callback));
       return true;
     }
-    case internal::kDelegate_MonitorAudioJack_Name: {
+    case messages::Delegate::kMonitorAudioJack: {
       break;
     }
-    case internal::kDelegate_MonitorTouchpad_Name: {
+    case messages::Delegate::kMonitorTouchpad: {
       break;
     }
-    case internal::kDelegate_FetchBootPerformance_Name: {
+    case messages::Delegate::kFetchBootPerformance: {
       internal::Delegate_FetchBootPerformance_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_FetchBootPerformance_Params_Data*>(
@@ -5283,16 +5455,16 @@ bool DelegateStubDispatch::AcceptWithResponder(
       impl->FetchBootPerformance(std::move(callback));
       return true;
     }
-    case internal::kDelegate_MonitorTouchscreen_Name: {
+    case messages::Delegate::kMonitorTouchscreen: {
       break;
     }
-    case internal::kDelegate_MonitorStylusGarage_Name: {
+    case messages::Delegate::kMonitorStylusGarage: {
       break;
     }
-    case internal::kDelegate_MonitorStylus_Name: {
+    case messages::Delegate::kMonitorStylus: {
       break;
     }
-    case internal::kDelegate_GetLidAngle_Name: {
+    case messages::Delegate::kGetLidAngle: {
       internal::Delegate_GetLidAngle_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_GetLidAngle_Params_Data*>(
@@ -5318,7 +5490,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
       impl->GetLidAngle(std::move(callback));
       return true;
     }
-    case internal::kDelegate_GetPsr_Name: {
+    case messages::Delegate::kGetPsr: {
       internal::Delegate_GetPsr_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_GetPsr_Params_Data*>(
@@ -5344,7 +5516,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
       impl->GetPsr(std::move(callback));
       return true;
     }
-    case internal::kDelegate_GetConnectedExternalDisplayConnectors_Name: {
+    case messages::Delegate::kGetConnectedExternalDisplayConnectors: {
       internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data*>(
@@ -5374,7 +5546,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
         std::move(p_last_known_connectors), std::move(callback));
       return true;
     }
-    case internal::kDelegate_GetPrivacyScreenInfo_Name: {
+    case messages::Delegate::kGetPrivacyScreenInfo: {
       internal::Delegate_GetPrivacyScreenInfo_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_GetPrivacyScreenInfo_Params_Data*>(
@@ -5400,7 +5572,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
       impl->GetPrivacyScreenInfo(std::move(callback));
       return true;
     }
-    case internal::kDelegate_FetchDisplayInfo_Name: {
+    case messages::Delegate::kFetchDisplayInfo: {
       internal::Delegate_FetchDisplayInfo_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_FetchDisplayInfo_Params_Data*>(
@@ -5426,10 +5598,10 @@ bool DelegateStubDispatch::AcceptWithResponder(
       impl->FetchDisplayInfo(std::move(callback));
       return true;
     }
-    case internal::kDelegate_MonitorPowerButton_Name: {
+    case messages::Delegate::kMonitorPowerButton: {
       break;
     }
-    case internal::kDelegate_RunPrimeSearch_Name: {
+    case messages::Delegate::kRunPrimeSearch: {
       internal::Delegate_RunPrimeSearch_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_RunPrimeSearch_Params_Data*>(
@@ -5463,10 +5635,10 @@ bool DelegateStubDispatch::AcceptWithResponder(
         std::move(p_max_num), std::move(callback));
       return true;
     }
-    case internal::kDelegate_MonitorVolumeButton_Name: {
+    case messages::Delegate::kMonitorVolumeButton: {
       break;
     }
-    case internal::kDelegate_RunFloatingPoint_Name: {
+    case messages::Delegate::kRunFloatingPoint: {
       internal::Delegate_RunFloatingPoint_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_RunFloatingPoint_Params_Data*>(
@@ -5496,7 +5668,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
         std::move(p_exec_duration), std::move(callback));
       return true;
     }
-    case internal::kDelegate_GetAllFanSpeed_Name: {
+    case messages::Delegate::kGetAllFanSpeed: {
       internal::Delegate_GetAllFanSpeed_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_GetAllFanSpeed_Params_Data*>(
@@ -5522,7 +5694,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
       impl->GetAllFanSpeed(std::move(callback));
       return true;
     }
-    case internal::kDelegate_SetFanSpeed_Name: {
+    case messages::Delegate::kSetFanSpeed: {
       internal::Delegate_SetFanSpeed_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_SetFanSpeed_Params_Data*>(
@@ -5552,7 +5724,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
         std::move(p_fan_id_to_rpm), std::move(callback));
       return true;
     }
-    case internal::kDelegate_SetAllFanAutoControl_Name: {
+    case messages::Delegate::kSetAllFanAutoControl: {
       internal::Delegate_SetAllFanAutoControl_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_SetAllFanAutoControl_Params_Data*>(
@@ -5578,7 +5750,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
       impl->SetAllFanAutoControl(std::move(callback));
       return true;
     }
-    case internal::kDelegate_GetEcThermalSensors_Name: {
+    case messages::Delegate::kGetEcThermalSensors: {
       internal::Delegate_GetEcThermalSensors_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_GetEcThermalSensors_Params_Data*>(
@@ -5604,7 +5776,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
       impl->GetEcThermalSensors(std::move(callback));
       return true;
     }
-    case internal::kDelegate_GetTouchpadDevices_Name: {
+    case messages::Delegate::kGetTouchpadDevices: {
       internal::Delegate_GetTouchpadDevices_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_GetTouchpadDevices_Params_Data*>(
@@ -5630,7 +5802,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
       impl->GetTouchpadDevices(std::move(callback));
       return true;
     }
-    case internal::kDelegate_GetSmartBatteryManufactureDate_Name: {
+    case messages::Delegate::kGetSmartBatteryManufactureDate: {
       internal::Delegate_GetSmartBatteryManufactureDate_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_GetSmartBatteryManufactureDate_Params_Data*>(
@@ -5660,7 +5832,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
         std::move(p_i2c_port), std::move(callback));
       return true;
     }
-    case internal::kDelegate_GetSmartBatteryTemperature_Name: {
+    case messages::Delegate::kGetSmartBatteryTemperature: {
       internal::Delegate_GetSmartBatteryTemperature_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_GetSmartBatteryTemperature_Params_Data*>(
@@ -5690,7 +5862,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
         std::move(p_i2c_port), std::move(callback));
       return true;
     }
-    case internal::kDelegate_RunUrandom_Name: {
+    case messages::Delegate::kRunUrandom: {
       internal::Delegate_RunUrandom_Params_Data* params =
           reinterpret_cast<
               internal::Delegate_RunUrandom_Params_Data*>(
@@ -5718,6 +5890,42 @@ bool DelegateStubDispatch::AcceptWithResponder(
       DCHECK(impl);
       impl->RunUrandom(        
         std::move(p_exec_duration), std::move(callback));
+      return true;
+    }
+    case messages::Delegate::kRunNetworkBandwidthTest: {
+      internal::Delegate_RunNetworkBandwidthTest_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_RunNetworkBandwidthTest_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for Delegate.27
+      bool success = true;
+      ::ash::cros_healthd::mojom::NetworkBandwidthTestType p_type{};
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> p_observer{};
+      Delegate_RunNetworkBandwidthTest_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadType(&p_type))
+        success = false;
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 27, false);
+        return false;
+      }
+      Delegate::RunNetworkBandwidthTestCallback callback =
+          Delegate_RunNetworkBandwidthTest_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunNetworkBandwidthTest(        
+        std::move(p_type), 
+        std::move(p_observer), std::move(callback));
       return true;
     }
   }
@@ -5780,6 +5988,8 @@ static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
      &internal::Delegate_GetSmartBatteryTemperature_ResponseParams_Data::Validate},
     { &internal::Delegate_RunUrandom_Params_Data::Validate,
      &internal::Delegate_RunUrandom_ResponseParams_Data::Validate},
+    { &internal::Delegate_RunNetworkBandwidthTest_Params_Data::Validate,
+     &internal::Delegate_RunNetworkBandwidthTest_ResponseParams_Data::Validate},
 };
 
 bool DelegateRequestValidator::Accept(mojo::Message* message) {
@@ -5888,6 +6098,9 @@ void DelegateInterceptorForTesting::GetSmartBatteryTemperature(uint8_t i2c_port,
 }
 void DelegateInterceptorForTesting::RunUrandom(base::TimeDelta exec_duration, RunUrandomCallback callback) {
   GetForwardingInterface()->RunUrandom(std::move(exec_duration), std::move(callback));
+}
+void DelegateInterceptorForTesting::RunNetworkBandwidthTest(::ash::cros_healthd::mojom::NetworkBandwidthTestType type, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, RunNetworkBandwidthTestCallback callback) {
+  GetForwardingInterface()->RunNetworkBandwidthTest(std::move(type), std::move(observer), std::move(callback));
 }
 DelegateAsyncWaiter::DelegateAsyncWaiter(
     Delegate* proxy) : proxy_(proxy) {}
@@ -6345,6 +6558,29 @@ bool DelegateAsyncWaiter::RunUrandom(
     base::TimeDelta exec_duration) {
   bool async_wait_result;
   RunUrandom(std::move(exec_duration),&async_wait_result);
+  return async_wait_result;
+}
+
+void DelegateAsyncWaiter::RunNetworkBandwidthTest(
+    ::ash::cros_healthd::mojom::NetworkBandwidthTestType type, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, std::optional<double>* out_average_speed) {
+  base::RunLoop loop;
+  proxy_->RunNetworkBandwidthTest(std::move(type),std::move(observer),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::optional<double>* out_average_speed
+,
+             std::optional<double> average_speed) {*out_average_speed = std::move(average_speed);
+            loop->Quit();
+          },
+          &loop,
+          out_average_speed));
+  loop.Run();
+}
+
+std::optional<double> DelegateAsyncWaiter::RunNetworkBandwidthTest(
+    ::ash::cros_healthd::mojom::NetworkBandwidthTestType type, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer) {
+  std::optional<double> async_wait_result;
+  RunNetworkBandwidthTest(std::move(type),std::move(observer),&async_wait_result);
   return async_wait_result;
 }
 

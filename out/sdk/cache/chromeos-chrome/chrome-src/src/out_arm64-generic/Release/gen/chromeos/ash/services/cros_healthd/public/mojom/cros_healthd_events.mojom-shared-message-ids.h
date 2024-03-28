@@ -11,34 +11,50 @@
 
 
 namespace ash::cros_healthd::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kCrosHealthdBluetoothObserver_OnAdapterAdded_Name = 0;
-constexpr uint32_t kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name = 1;
-constexpr uint32_t kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name = 2;
-constexpr uint32_t kCrosHealthdBluetoothObserver_OnDeviceAdded_Name = 3;
-constexpr uint32_t kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name = 4;
-constexpr uint32_t kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name = 5;
-constexpr uint32_t kCrosHealthdLidObserver_OnLidClosed_Name = 0;
-constexpr uint32_t kCrosHealthdLidObserver_OnLidOpened_Name = 1;
-constexpr uint32_t kCrosHealthdPowerObserver_OnAcInserted_Name = 0;
-constexpr uint32_t kCrosHealthdPowerObserver_OnAcRemoved_Name = 1;
-constexpr uint32_t kCrosHealthdPowerObserver_OnOsSuspend_Name = 2;
-constexpr uint32_t kCrosHealthdPowerObserver_OnOsResume_Name = 3;
-constexpr uint32_t kCrosHealthdAudioObserver_OnUnderrun_Name = 0;
-constexpr uint32_t kCrosHealthdAudioObserver_OnSevereUnderrun_Name = 1;
-constexpr uint32_t kCrosHealthdThunderboltObserver_OnAdd_Name = 0;
-constexpr uint32_t kCrosHealthdThunderboltObserver_OnRemove_Name = 1;
-constexpr uint32_t kCrosHealthdThunderboltObserver_OnAuthorized_Name = 2;
-constexpr uint32_t kCrosHealthdThunderboltObserver_OnUnAuthorized_Name = 3;
-constexpr uint32_t kCrosHealthdUsbObserver_OnAdd_Name = 0;
-constexpr uint32_t kCrosHealthdUsbObserver_OnRemove_Name = 1;
-constexpr uint32_t kCrosHealthdSdCardObserver_OnAdd_Name = 0;
-constexpr uint32_t kCrosHealthdSdCardObserver_OnRemove_Name = 1;
-constexpr uint32_t kEventObserver_OnEvent_Name = 0;
+enum class CrosHealthdBluetoothObserver : uint32_t {
+  kOnAdapterAdded = 0,
+  kOnAdapterRemoved = 1,
+  kOnAdapterPropertyChanged = 2,
+  kOnDeviceAdded = 3,
+  kOnDeviceRemoved = 4,
+  kOnDevicePropertyChanged = 5,
+};
+enum class CrosHealthdLidObserver : uint32_t {
+  kOnLidClosed = 0,
+  kOnLidOpened = 1,
+};
+enum class CrosHealthdPowerObserver : uint32_t {
+  kOnAcInserted = 0,
+  kOnAcRemoved = 1,
+  kOnOsSuspend = 2,
+  kOnOsResume = 3,
+};
+enum class CrosHealthdAudioObserver : uint32_t {
+  kOnUnderrun = 0,
+  kOnSevereUnderrun = 1,
+};
+enum class CrosHealthdThunderboltObserver : uint32_t {
+  kOnAdd = 0,
+  kOnRemove = 1,
+  kOnAuthorized = 2,
+  kOnUnAuthorized = 3,
+};
+enum class CrosHealthdUsbObserver : uint32_t {
+  kOnAdd = 0,
+  kOnRemove = 1,
+};
+enum class CrosHealthdSdCardObserver : uint32_t {
+  kOnAdd = 0,
+  kOnRemove = 1,
+};
+enum class EventObserver : uint32_t {
+  kOnEvent = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // ash::cros_healthd::mojom
 

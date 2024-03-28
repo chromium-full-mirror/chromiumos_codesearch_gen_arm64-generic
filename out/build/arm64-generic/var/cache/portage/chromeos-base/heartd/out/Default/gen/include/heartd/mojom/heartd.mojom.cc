@@ -134,14 +134,14 @@ const char HeartdControl::Name_[] = "ash.heartd.mojom.HeartdControl";
 
 HeartdControl::IPCStableHashFunction HeartdControl::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kHeartdControl_EnableNormalRebootAction_Name: {
+  switch (static_cast<messages::HeartdControl>(message.name())) {
+    case messages::HeartdControl::kEnableNormalRebootAction: {
       return &HeartdControl::EnableNormalRebootAction_Sym::IPCStableHash;
     }
-    case internal::kHeartdControl_EnableForceRebootAction_Name: {
+    case messages::HeartdControl::kEnableForceRebootAction: {
       return &HeartdControl::EnableForceRebootAction_Sym::IPCStableHash;
     }
-    case internal::kHeartdControl_RunAction_Name: {
+    case messages::HeartdControl::kRunAction: {
       return &HeartdControl::RunAction_Sym::IPCStableHash;
     }
   }
@@ -154,21 +154,21 @@ const char* HeartdControl::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kHeartdControl_EnableNormalRebootAction_Name:
+    switch (static_cast<messages::HeartdControl>(message.name())) {
+      case messages::HeartdControl::kEnableNormalRebootAction:
             return "Receive ash::heartd::mojom::HeartdControl::EnableNormalRebootAction";
-      case internal::kHeartdControl_EnableForceRebootAction_Name:
+      case messages::HeartdControl::kEnableForceRebootAction:
             return "Receive ash::heartd::mojom::HeartdControl::EnableForceRebootAction";
-      case internal::kHeartdControl_RunAction_Name:
+      case messages::HeartdControl::kRunAction:
             return "Receive ash::heartd::mojom::HeartdControl::RunAction";
     }
   } else {
-    switch (message.name()) {
-      case internal::kHeartdControl_EnableNormalRebootAction_Name:
+    switch (static_cast<messages::HeartdControl>(message.name())) {
+      case messages::HeartdControl::kEnableNormalRebootAction:
             return "Receive reply ash::heartd::mojom::HeartdControl::EnableNormalRebootAction";
-      case internal::kHeartdControl_EnableForceRebootAction_Name:
+      case messages::HeartdControl::kEnableForceRebootAction:
             return "Receive reply ash::heartd::mojom::HeartdControl::EnableForceRebootAction";
-      case internal::kHeartdControl_RunAction_Name:
+      case messages::HeartdControl::kRunAction:
             return "Receive reply ash::heartd::mojom::HeartdControl::RunAction";
     }
   }
@@ -265,8 +265,7 @@ void HeartdControlProxy::EnableNormalRebootAction(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kHeartdControl_EnableNormalRebootAction_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::HeartdControl::kEnableNormalRebootAction), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::HeartdControl_EnableNormalRebootAction_Params_Data> params(
           message);
@@ -301,8 +300,7 @@ void HeartdControlProxy::EnableForceRebootAction(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kHeartdControl_EnableForceRebootAction_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::HeartdControl::kEnableForceRebootAction), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::HeartdControl_EnableForceRebootAction_Params_Data> params(
           message);
@@ -344,8 +342,7 @@ void HeartdControlProxy::RunAction(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kHeartdControl_RunAction_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::HeartdControl::kRunAction), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::HeartdControl_RunAction_Params_Data> params(
           message);
@@ -461,8 +458,7 @@ void HeartdControl_RunAction_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kHeartdControl_RunAction_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::HeartdControl::kRunAction), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::HeartdControl_RunAction_ResponseParams_Data> params(
           message);
@@ -490,8 +486,8 @@ void HeartdControl_RunAction_ProxyToResponder::Run(
 bool HeartdControlStubDispatch::Accept(
     HeartdControl* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kHeartdControl_EnableNormalRebootAction_Name: {
+  switch (static_cast<messages::HeartdControl>(message->header()->name)) {
+    case messages::HeartdControl::kEnableNormalRebootAction: {
       DCHECK(message->is_serialized());
       internal::HeartdControl_EnableNormalRebootAction_Params_Data* params =
           reinterpret_cast<internal::HeartdControl_EnableNormalRebootAction_Params_Data*>(
@@ -514,7 +510,7 @@ bool HeartdControlStubDispatch::Accept(
       impl->EnableNormalRebootAction(        );
       return true;
     }
-    case internal::kHeartdControl_EnableForceRebootAction_Name: {
+    case messages::HeartdControl::kEnableForceRebootAction: {
       DCHECK(message->is_serialized());
       internal::HeartdControl_EnableForceRebootAction_Params_Data* params =
           reinterpret_cast<internal::HeartdControl_EnableForceRebootAction_Params_Data*>(
@@ -537,7 +533,7 @@ bool HeartdControlStubDispatch::Accept(
       impl->EnableForceRebootAction(        );
       return true;
     }
-    case internal::kHeartdControl_RunAction_Name: {
+    case messages::HeartdControl::kRunAction: {
       break;
     }
   }
@@ -552,14 +548,14 @@ bool HeartdControlStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kHeartdControl_EnableNormalRebootAction_Name: {
+  switch (static_cast<messages::HeartdControl>(message->header()->name)) {
+    case messages::HeartdControl::kEnableNormalRebootAction: {
       break;
     }
-    case internal::kHeartdControl_EnableForceRebootAction_Name: {
+    case messages::HeartdControl::kEnableForceRebootAction: {
       break;
     }
-    case internal::kHeartdControl_RunAction_Name: {
+    case messages::HeartdControl::kRunAction: {
       internal::HeartdControl_RunAction_Params_Data* params =
           reinterpret_cast<
               internal::HeartdControl_RunAction_Params_Data*>(
@@ -616,8 +612,8 @@ const char HeartbeatService::Name_[] = "ash.heartd.mojom.HeartbeatService";
 
 HeartbeatService::IPCStableHashFunction HeartbeatService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kHeartbeatService_Register_Name: {
+  switch (static_cast<messages::HeartbeatService>(message.name())) {
+    case messages::HeartbeatService::kRegister: {
       return &HeartbeatService::Register_Sym::IPCStableHash;
     }
   }
@@ -630,13 +626,13 @@ const char* HeartbeatService::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kHeartbeatService_Register_Name:
+    switch (static_cast<messages::HeartbeatService>(message.name())) {
+      case messages::HeartbeatService::kRegister:
             return "Receive ash::heartd::mojom::HeartbeatService::Register";
     }
   } else {
-    switch (message.name()) {
-      case internal::kHeartbeatService_Register_Name:
+    switch (static_cast<messages::HeartbeatService>(message.name())) {
+      case messages::HeartbeatService::kRegister:
             return "Receive reply ash::heartd::mojom::HeartbeatService::Register";
     }
   }
@@ -720,8 +716,7 @@ void HeartbeatServiceProxy::Register(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kHeartbeatService_Register_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::HeartbeatService::kRegister), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::HeartbeatService_Register_Params_Data> params(
           message);
@@ -854,8 +849,7 @@ void HeartbeatService_Register_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kHeartbeatService_Register_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::HeartbeatService::kRegister), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::HeartbeatService_Register_ResponseParams_Data> params(
           message);
@@ -883,8 +877,8 @@ void HeartbeatService_Register_ProxyToResponder::Run(
 bool HeartbeatServiceStubDispatch::Accept(
     HeartbeatService* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kHeartbeatService_Register_Name: {
+  switch (static_cast<messages::HeartbeatService>(message->header()->name)) {
+    case messages::HeartbeatService::kRegister: {
       break;
     }
   }
@@ -899,8 +893,8 @@ bool HeartbeatServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kHeartbeatService_Register_Name: {
+  switch (static_cast<messages::HeartbeatService>(message->header()->name)) {
+    case messages::HeartbeatService::kRegister: {
       internal::HeartbeatService_Register_Params_Data* params =
           reinterpret_cast<
               internal::HeartbeatService_Register_Params_Data*>(
@@ -963,11 +957,11 @@ const char Pacemaker::Name_[] = "ash.heartd.mojom.Pacemaker";
 
 Pacemaker::IPCStableHashFunction Pacemaker::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kPacemaker_SendHeartbeat_Name: {
+  switch (static_cast<messages::Pacemaker>(message.name())) {
+    case messages::Pacemaker::kSendHeartbeat: {
       return &Pacemaker::SendHeartbeat_Sym::IPCStableHash;
     }
-    case internal::kPacemaker_StopMonitor_Name: {
+    case messages::Pacemaker::kStopMonitor: {
       return &Pacemaker::StopMonitor_Sym::IPCStableHash;
     }
   }
@@ -980,17 +974,17 @@ const char* Pacemaker::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kPacemaker_SendHeartbeat_Name:
+    switch (static_cast<messages::Pacemaker>(message.name())) {
+      case messages::Pacemaker::kSendHeartbeat:
             return "Receive ash::heartd::mojom::Pacemaker::SendHeartbeat";
-      case internal::kPacemaker_StopMonitor_Name:
+      case messages::Pacemaker::kStopMonitor:
             return "Receive ash::heartd::mojom::Pacemaker::StopMonitor";
     }
   } else {
-    switch (message.name()) {
-      case internal::kPacemaker_SendHeartbeat_Name:
+    switch (static_cast<messages::Pacemaker>(message.name())) {
+      case messages::Pacemaker::kSendHeartbeat:
             return "Receive reply ash::heartd::mojom::Pacemaker::SendHeartbeat";
-      case internal::kPacemaker_StopMonitor_Name:
+      case messages::Pacemaker::kStopMonitor:
             return "Receive reply ash::heartd::mojom::Pacemaker::StopMonitor";
     }
   }
@@ -1090,8 +1084,7 @@ void PacemakerProxy::SendHeartbeat(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPacemaker_SendHeartbeat_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Pacemaker::kSendHeartbeat), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::Pacemaker_SendHeartbeat_Params_Data> params(
           message);
@@ -1127,8 +1120,7 @@ void PacemakerProxy::StopMonitor(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPacemaker_StopMonitor_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Pacemaker::kStopMonitor), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::Pacemaker_StopMonitor_Params_Data> params(
           message);
@@ -1242,8 +1234,7 @@ void Pacemaker_SendHeartbeat_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPacemaker_SendHeartbeat_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Pacemaker::kSendHeartbeat), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::Pacemaker_SendHeartbeat_ResponseParams_Data> params(
           message);
@@ -1355,8 +1346,7 @@ void Pacemaker_StopMonitor_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPacemaker_StopMonitor_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Pacemaker::kStopMonitor), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::heartd::mojom::internal::Pacemaker_StopMonitor_ResponseParams_Data> params(
           message);
@@ -1383,11 +1373,11 @@ void Pacemaker_StopMonitor_ProxyToResponder::Run(
 bool PacemakerStubDispatch::Accept(
     Pacemaker* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kPacemaker_SendHeartbeat_Name: {
+  switch (static_cast<messages::Pacemaker>(message->header()->name)) {
+    case messages::Pacemaker::kSendHeartbeat: {
       break;
     }
-    case internal::kPacemaker_StopMonitor_Name: {
+    case messages::Pacemaker::kStopMonitor: {
       break;
     }
   }
@@ -1402,8 +1392,8 @@ bool PacemakerStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kPacemaker_SendHeartbeat_Name: {
+  switch (static_cast<messages::Pacemaker>(message->header()->name)) {
+    case messages::Pacemaker::kSendHeartbeat: {
       internal::Pacemaker_SendHeartbeat_Params_Data* params =
           reinterpret_cast<
               internal::Pacemaker_SendHeartbeat_Params_Data*>(
@@ -1429,7 +1419,7 @@ bool PacemakerStubDispatch::AcceptWithResponder(
       impl->SendHeartbeat(std::move(callback));
       return true;
     }
-    case internal::kPacemaker_StopMonitor_Name: {
+    case messages::Pacemaker::kStopMonitor: {
       internal::Pacemaker_StopMonitor_Params_Data* params =
           reinterpret_cast<
               internal::Pacemaker_StopMonitor_Params_Data*>(

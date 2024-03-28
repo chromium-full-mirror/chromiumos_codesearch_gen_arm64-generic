@@ -503,17 +503,17 @@ const char ProcessControl::Name_[] = "ash.cros_healthd.mojom.ProcessControl";
 
 ProcessControl::IPCStableHashFunction ProcessControl::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kProcessControl_GetStdout_Name: {
+  switch (static_cast<messages::ProcessControl>(message.name())) {
+    case messages::ProcessControl::kGetStdout: {
       return &ProcessControl::GetStdout_Sym::IPCStableHash;
     }
-    case internal::kProcessControl_GetStderr_Name: {
+    case messages::ProcessControl::kGetStderr: {
       return &ProcessControl::GetStderr_Sym::IPCStableHash;
     }
-    case internal::kProcessControl_GetReturnCode_Name: {
+    case messages::ProcessControl::kGetReturnCode: {
       return &ProcessControl::GetReturnCode_Sym::IPCStableHash;
     }
-    case internal::kProcessControl_Kill_Name: {
+    case messages::ProcessControl::kKill: {
       return &ProcessControl::Kill_Sym::IPCStableHash;
     }
   }
@@ -526,25 +526,25 @@ const char* ProcessControl::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kProcessControl_GetStdout_Name:
+    switch (static_cast<messages::ProcessControl>(message.name())) {
+      case messages::ProcessControl::kGetStdout:
             return "Receive ash::cros_healthd::mojom::ProcessControl::GetStdout";
-      case internal::kProcessControl_GetStderr_Name:
+      case messages::ProcessControl::kGetStderr:
             return "Receive ash::cros_healthd::mojom::ProcessControl::GetStderr";
-      case internal::kProcessControl_GetReturnCode_Name:
+      case messages::ProcessControl::kGetReturnCode:
             return "Receive ash::cros_healthd::mojom::ProcessControl::GetReturnCode";
-      case internal::kProcessControl_Kill_Name:
+      case messages::ProcessControl::kKill:
             return "Receive ash::cros_healthd::mojom::ProcessControl::Kill";
     }
   } else {
-    switch (message.name()) {
-      case internal::kProcessControl_GetStdout_Name:
+    switch (static_cast<messages::ProcessControl>(message.name())) {
+      case messages::ProcessControl::kGetStdout:
             return "Receive reply ash::cros_healthd::mojom::ProcessControl::GetStdout";
-      case internal::kProcessControl_GetStderr_Name:
+      case messages::ProcessControl::kGetStderr:
             return "Receive reply ash::cros_healthd::mojom::ProcessControl::GetStderr";
-      case internal::kProcessControl_GetReturnCode_Name:
+      case messages::ProcessControl::kGetReturnCode:
             return "Receive reply ash::cros_healthd::mojom::ProcessControl::GetReturnCode";
-      case internal::kProcessControl_Kill_Name:
+      case messages::ProcessControl::kKill:
             return "Receive reply ash::cros_healthd::mojom::ProcessControl::Kill";
     }
   }
@@ -686,8 +686,7 @@ void ProcessControlProxy::GetStdout(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kProcessControl_GetStdout_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ProcessControl::kGetStdout), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::ProcessControl_GetStdout_Params_Data> params(
           message);
@@ -723,8 +722,7 @@ void ProcessControlProxy::GetStderr(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kProcessControl_GetStderr_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ProcessControl::kGetStderr), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::ProcessControl_GetStderr_Params_Data> params(
           message);
@@ -760,8 +758,7 @@ void ProcessControlProxy::GetReturnCode(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kProcessControl_GetReturnCode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ProcessControl::kGetReturnCode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::ProcessControl_GetReturnCode_Params_Data> params(
           message);
@@ -797,8 +794,7 @@ void ProcessControlProxy::Kill(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kProcessControl_Kill_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ProcessControl::kKill), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::ProcessControl_Kill_Params_Data> params(
           message);
@@ -911,8 +907,7 @@ void ProcessControl_GetStdout_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kProcessControl_GetStdout_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ProcessControl::kGetStdout), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::ProcessControl_GetStdout_ResponseParams_Data> params(
           message);
@@ -1039,8 +1034,7 @@ void ProcessControl_GetStderr_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kProcessControl_GetStderr_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ProcessControl::kGetStderr), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::ProcessControl_GetStderr_ResponseParams_Data> params(
           message);
@@ -1167,8 +1161,7 @@ void ProcessControl_GetReturnCode_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kProcessControl_GetReturnCode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ProcessControl::kGetReturnCode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::ProcessControl_GetReturnCode_ResponseParams_Data> params(
           message);
@@ -1196,17 +1189,17 @@ void ProcessControl_GetReturnCode_ProxyToResponder::Run(
 bool ProcessControlStubDispatch::Accept(
     ProcessControl* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kProcessControl_GetStdout_Name: {
+  switch (static_cast<messages::ProcessControl>(message->header()->name)) {
+    case messages::ProcessControl::kGetStdout: {
       break;
     }
-    case internal::kProcessControl_GetStderr_Name: {
+    case messages::ProcessControl::kGetStderr: {
       break;
     }
-    case internal::kProcessControl_GetReturnCode_Name: {
+    case messages::ProcessControl::kGetReturnCode: {
       break;
     }
-    case internal::kProcessControl_Kill_Name: {
+    case messages::ProcessControl::kKill: {
       DCHECK(message->is_serialized());
       internal::ProcessControl_Kill_Params_Data* params =
           reinterpret_cast<internal::ProcessControl_Kill_Params_Data*>(
@@ -1241,8 +1234,8 @@ bool ProcessControlStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kProcessControl_GetStdout_Name: {
+  switch (static_cast<messages::ProcessControl>(message->header()->name)) {
+    case messages::ProcessControl::kGetStdout: {
       internal::ProcessControl_GetStdout_Params_Data* params =
           reinterpret_cast<
               internal::ProcessControl_GetStdout_Params_Data*>(
@@ -1268,7 +1261,7 @@ bool ProcessControlStubDispatch::AcceptWithResponder(
       impl->GetStdout(std::move(callback));
       return true;
     }
-    case internal::kProcessControl_GetStderr_Name: {
+    case messages::ProcessControl::kGetStderr: {
       internal::ProcessControl_GetStderr_Params_Data* params =
           reinterpret_cast<
               internal::ProcessControl_GetStderr_Params_Data*>(
@@ -1294,7 +1287,7 @@ bool ProcessControlStubDispatch::AcceptWithResponder(
       impl->GetStderr(std::move(callback));
       return true;
     }
-    case internal::kProcessControl_GetReturnCode_Name: {
+    case messages::ProcessControl::kGetReturnCode: {
       internal::ProcessControl_GetReturnCode_Params_Data* params =
           reinterpret_cast<
               internal::ProcessControl_GetReturnCode_Params_Data*>(
@@ -1320,7 +1313,7 @@ bool ProcessControlStubDispatch::AcceptWithResponder(
       impl->GetReturnCode(std::move(callback));
       return true;
     }
-    case internal::kProcessControl_Kill_Name: {
+    case messages::ProcessControl::kKill: {
       break;
     }
   }
@@ -1352,11 +1345,11 @@ const char AudioJackObserver::Name_[] = "ash.cros_healthd.mojom.AudioJackObserve
 
 AudioJackObserver::IPCStableHashFunction AudioJackObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kAudioJackObserver_OnAdd_Name: {
+  switch (static_cast<messages::AudioJackObserver>(message.name())) {
+    case messages::AudioJackObserver::kOnAdd: {
       return &AudioJackObserver::OnAdd_Sym::IPCStableHash;
     }
-    case internal::kAudioJackObserver_OnRemove_Name: {
+    case messages::AudioJackObserver::kOnRemove: {
       return &AudioJackObserver::OnRemove_Sym::IPCStableHash;
     }
   }
@@ -1369,17 +1362,17 @@ const char* AudioJackObserver::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kAudioJackObserver_OnAdd_Name:
+    switch (static_cast<messages::AudioJackObserver>(message.name())) {
+      case messages::AudioJackObserver::kOnAdd:
             return "Receive ash::cros_healthd::mojom::AudioJackObserver::OnAdd";
-      case internal::kAudioJackObserver_OnRemove_Name:
+      case messages::AudioJackObserver::kOnRemove:
             return "Receive ash::cros_healthd::mojom::AudioJackObserver::OnRemove";
     }
   } else {
-    switch (message.name()) {
-      case internal::kAudioJackObserver_OnAdd_Name:
+    switch (static_cast<messages::AudioJackObserver>(message.name())) {
+      case messages::AudioJackObserver::kOnAdd:
             return "Receive reply ash::cros_healthd::mojom::AudioJackObserver::OnAdd";
-      case internal::kAudioJackObserver_OnRemove_Name:
+      case messages::AudioJackObserver::kOnRemove:
             return "Receive reply ash::cros_healthd::mojom::AudioJackObserver::OnRemove";
     }
   }
@@ -1454,8 +1447,7 @@ void AudioJackObserverProxy::OnAdd(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kAudioJackObserver_OnAdd_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::AudioJackObserver::kOnAdd), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::AudioJackObserver_OnAdd_Params_Data> params(
           message);
@@ -1499,8 +1491,7 @@ void AudioJackObserverProxy::OnRemove(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kAudioJackObserver_OnRemove_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::AudioJackObserver::kOnRemove), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::AudioJackObserver_OnRemove_Params_Data> params(
           message);
@@ -1521,8 +1512,8 @@ void AudioJackObserverProxy::OnRemove(
 bool AudioJackObserverStubDispatch::Accept(
     AudioJackObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kAudioJackObserver_OnAdd_Name: {
+  switch (static_cast<messages::AudioJackObserver>(message->header()->name)) {
+    case messages::AudioJackObserver::kOnAdd: {
       DCHECK(message->is_serialized());
       internal::AudioJackObserver_OnAdd_Params_Data* params =
           reinterpret_cast<internal::AudioJackObserver_OnAdd_Params_Data*>(
@@ -1549,7 +1540,7 @@ bool AudioJackObserverStubDispatch::Accept(
         std::move(p_device_type));
       return true;
     }
-    case internal::kAudioJackObserver_OnRemove_Name: {
+    case messages::AudioJackObserver::kOnRemove: {
       DCHECK(message->is_serialized());
       internal::AudioJackObserver_OnRemove_Params_Data* params =
           reinterpret_cast<internal::AudioJackObserver_OnRemove_Params_Data*>(
@@ -1588,11 +1579,11 @@ bool AudioJackObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kAudioJackObserver_OnAdd_Name: {
+  switch (static_cast<messages::AudioJackObserver>(message->header()->name)) {
+    case messages::AudioJackObserver::kOnAdd: {
       break;
     }
-    case internal::kAudioJackObserver_OnRemove_Name: {
+    case messages::AudioJackObserver::kOnRemove: {
       break;
     }
   }
@@ -1616,14 +1607,14 @@ const char TouchpadObserver::Name_[] = "ash.cros_healthd.mojom.TouchpadObserver"
 
 TouchpadObserver::IPCStableHashFunction TouchpadObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kTouchpadObserver_OnButton_Name: {
+  switch (static_cast<messages::TouchpadObserver>(message.name())) {
+    case messages::TouchpadObserver::kOnButton: {
       return &TouchpadObserver::OnButton_Sym::IPCStableHash;
     }
-    case internal::kTouchpadObserver_OnTouch_Name: {
+    case messages::TouchpadObserver::kOnTouch: {
       return &TouchpadObserver::OnTouch_Sym::IPCStableHash;
     }
-    case internal::kTouchpadObserver_OnConnected_Name: {
+    case messages::TouchpadObserver::kOnConnected: {
       return &TouchpadObserver::OnConnected_Sym::IPCStableHash;
     }
   }
@@ -1636,21 +1627,21 @@ const char* TouchpadObserver::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kTouchpadObserver_OnButton_Name:
+    switch (static_cast<messages::TouchpadObserver>(message.name())) {
+      case messages::TouchpadObserver::kOnButton:
             return "Receive ash::cros_healthd::mojom::TouchpadObserver::OnButton";
-      case internal::kTouchpadObserver_OnTouch_Name:
+      case messages::TouchpadObserver::kOnTouch:
             return "Receive ash::cros_healthd::mojom::TouchpadObserver::OnTouch";
-      case internal::kTouchpadObserver_OnConnected_Name:
+      case messages::TouchpadObserver::kOnConnected:
             return "Receive ash::cros_healthd::mojom::TouchpadObserver::OnConnected";
     }
   } else {
-    switch (message.name()) {
-      case internal::kTouchpadObserver_OnButton_Name:
+    switch (static_cast<messages::TouchpadObserver>(message.name())) {
+      case messages::TouchpadObserver::kOnButton:
             return "Receive reply ash::cros_healthd::mojom::TouchpadObserver::OnButton";
-      case internal::kTouchpadObserver_OnTouch_Name:
+      case messages::TouchpadObserver::kOnTouch:
             return "Receive reply ash::cros_healthd::mojom::TouchpadObserver::OnTouch";
-      case internal::kTouchpadObserver_OnConnected_Name:
+      case messages::TouchpadObserver::kOnConnected:
             return "Receive reply ash::cros_healthd::mojom::TouchpadObserver::OnConnected";
     }
   }
@@ -1738,8 +1729,7 @@ void TouchpadObserverProxy::OnButton(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kTouchpadObserver_OnButton_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::TouchpadObserver::kOnButton), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::TouchpadObserver_OnButton_Params_Data> params(
           message);
@@ -1792,8 +1782,7 @@ void TouchpadObserverProxy::OnTouch(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kTouchpadObserver_OnTouch_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::TouchpadObserver::kOnTouch), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::TouchpadObserver_OnTouch_Params_Data> params(
           message);
@@ -1846,8 +1835,7 @@ void TouchpadObserverProxy::OnConnected(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kTouchpadObserver_OnConnected_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::TouchpadObserver::kOnConnected), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::TouchpadObserver_OnConnected_Params_Data> params(
           message);
@@ -1877,8 +1865,8 @@ void TouchpadObserverProxy::OnConnected(
 bool TouchpadObserverStubDispatch::Accept(
     TouchpadObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kTouchpadObserver_OnButton_Name: {
+  switch (static_cast<messages::TouchpadObserver>(message->header()->name)) {
+    case messages::TouchpadObserver::kOnButton: {
       DCHECK(message->is_serialized());
       internal::TouchpadObserver_OnButton_Params_Data* params =
           reinterpret_cast<internal::TouchpadObserver_OnButton_Params_Data*>(
@@ -1905,7 +1893,7 @@ bool TouchpadObserverStubDispatch::Accept(
         std::move(p_button_event));
       return true;
     }
-    case internal::kTouchpadObserver_OnTouch_Name: {
+    case messages::TouchpadObserver::kOnTouch: {
       DCHECK(message->is_serialized());
       internal::TouchpadObserver_OnTouch_Params_Data* params =
           reinterpret_cast<internal::TouchpadObserver_OnTouch_Params_Data*>(
@@ -1932,7 +1920,7 @@ bool TouchpadObserverStubDispatch::Accept(
         std::move(p_touch_event));
       return true;
     }
-    case internal::kTouchpadObserver_OnConnected_Name: {
+    case messages::TouchpadObserver::kOnConnected: {
       DCHECK(message->is_serialized());
       internal::TouchpadObserver_OnConnected_Params_Data* params =
           reinterpret_cast<internal::TouchpadObserver_OnConnected_Params_Data*>(
@@ -1971,14 +1959,14 @@ bool TouchpadObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kTouchpadObserver_OnButton_Name: {
+  switch (static_cast<messages::TouchpadObserver>(message->header()->name)) {
+    case messages::TouchpadObserver::kOnButton: {
       break;
     }
-    case internal::kTouchpadObserver_OnTouch_Name: {
+    case messages::TouchpadObserver::kOnTouch: {
       break;
     }
-    case internal::kTouchpadObserver_OnConnected_Name: {
+    case messages::TouchpadObserver::kOnConnected: {
       break;
     }
   }
@@ -2004,11 +1992,11 @@ const char TouchscreenObserver::Name_[] = "ash.cros_healthd.mojom.TouchscreenObs
 
 TouchscreenObserver::IPCStableHashFunction TouchscreenObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kTouchscreenObserver_OnTouch_Name: {
+  switch (static_cast<messages::TouchscreenObserver>(message.name())) {
+    case messages::TouchscreenObserver::kOnTouch: {
       return &TouchscreenObserver::OnTouch_Sym::IPCStableHash;
     }
-    case internal::kTouchscreenObserver_OnConnected_Name: {
+    case messages::TouchscreenObserver::kOnConnected: {
       return &TouchscreenObserver::OnConnected_Sym::IPCStableHash;
     }
   }
@@ -2021,17 +2009,17 @@ const char* TouchscreenObserver::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kTouchscreenObserver_OnTouch_Name:
+    switch (static_cast<messages::TouchscreenObserver>(message.name())) {
+      case messages::TouchscreenObserver::kOnTouch:
             return "Receive ash::cros_healthd::mojom::TouchscreenObserver::OnTouch";
-      case internal::kTouchscreenObserver_OnConnected_Name:
+      case messages::TouchscreenObserver::kOnConnected:
             return "Receive ash::cros_healthd::mojom::TouchscreenObserver::OnConnected";
     }
   } else {
-    switch (message.name()) {
-      case internal::kTouchscreenObserver_OnTouch_Name:
+    switch (static_cast<messages::TouchscreenObserver>(message.name())) {
+      case messages::TouchscreenObserver::kOnTouch:
             return "Receive reply ash::cros_healthd::mojom::TouchscreenObserver::OnTouch";
-      case internal::kTouchscreenObserver_OnConnected_Name:
+      case messages::TouchscreenObserver::kOnConnected:
             return "Receive reply ash::cros_healthd::mojom::TouchscreenObserver::OnConnected";
     }
   }
@@ -2106,8 +2094,7 @@ void TouchscreenObserverProxy::OnTouch(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kTouchscreenObserver_OnTouch_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::TouchscreenObserver::kOnTouch), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::TouchscreenObserver_OnTouch_Params_Data> params(
           message);
@@ -2160,8 +2147,7 @@ void TouchscreenObserverProxy::OnConnected(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kTouchscreenObserver_OnConnected_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::TouchscreenObserver::kOnConnected), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::TouchscreenObserver_OnConnected_Params_Data> params(
           message);
@@ -2191,8 +2177,8 @@ void TouchscreenObserverProxy::OnConnected(
 bool TouchscreenObserverStubDispatch::Accept(
     TouchscreenObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kTouchscreenObserver_OnTouch_Name: {
+  switch (static_cast<messages::TouchscreenObserver>(message->header()->name)) {
+    case messages::TouchscreenObserver::kOnTouch: {
       DCHECK(message->is_serialized());
       internal::TouchscreenObserver_OnTouch_Params_Data* params =
           reinterpret_cast<internal::TouchscreenObserver_OnTouch_Params_Data*>(
@@ -2219,7 +2205,7 @@ bool TouchscreenObserverStubDispatch::Accept(
         std::move(p_touch_event));
       return true;
     }
-    case internal::kTouchscreenObserver_OnConnected_Name: {
+    case messages::TouchscreenObserver::kOnConnected: {
       DCHECK(message->is_serialized());
       internal::TouchscreenObserver_OnConnected_Params_Data* params =
           reinterpret_cast<internal::TouchscreenObserver_OnConnected_Params_Data*>(
@@ -2258,11 +2244,11 @@ bool TouchscreenObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kTouchscreenObserver_OnTouch_Name: {
+  switch (static_cast<messages::TouchscreenObserver>(message->header()->name)) {
+    case messages::TouchscreenObserver::kOnTouch: {
       break;
     }
-    case internal::kTouchscreenObserver_OnConnected_Name: {
+    case messages::TouchscreenObserver::kOnConnected: {
       break;
     }
   }
@@ -2286,11 +2272,11 @@ const char StylusGarageObserver::Name_[] = "ash.cros_healthd.mojom.StylusGarageO
 
 StylusGarageObserver::IPCStableHashFunction StylusGarageObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kStylusGarageObserver_OnInsert_Name: {
+  switch (static_cast<messages::StylusGarageObserver>(message.name())) {
+    case messages::StylusGarageObserver::kOnInsert: {
       return &StylusGarageObserver::OnInsert_Sym::IPCStableHash;
     }
-    case internal::kStylusGarageObserver_OnRemove_Name: {
+    case messages::StylusGarageObserver::kOnRemove: {
       return &StylusGarageObserver::OnRemove_Sym::IPCStableHash;
     }
   }
@@ -2303,17 +2289,17 @@ const char* StylusGarageObserver::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kStylusGarageObserver_OnInsert_Name:
+    switch (static_cast<messages::StylusGarageObserver>(message.name())) {
+      case messages::StylusGarageObserver::kOnInsert:
             return "Receive ash::cros_healthd::mojom::StylusGarageObserver::OnInsert";
-      case internal::kStylusGarageObserver_OnRemove_Name:
+      case messages::StylusGarageObserver::kOnRemove:
             return "Receive ash::cros_healthd::mojom::StylusGarageObserver::OnRemove";
     }
   } else {
-    switch (message.name()) {
-      case internal::kStylusGarageObserver_OnInsert_Name:
+    switch (static_cast<messages::StylusGarageObserver>(message.name())) {
+      case messages::StylusGarageObserver::kOnInsert:
             return "Receive reply ash::cros_healthd::mojom::StylusGarageObserver::OnInsert";
-      case internal::kStylusGarageObserver_OnRemove_Name:
+      case messages::StylusGarageObserver::kOnRemove:
             return "Receive reply ash::cros_healthd::mojom::StylusGarageObserver::OnRemove";
     }
   }
@@ -2381,8 +2367,7 @@ void StylusGarageObserverProxy::OnInsert(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kStylusGarageObserver_OnInsert_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::StylusGarageObserver::kOnInsert), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::StylusGarageObserver_OnInsert_Params_Data> params(
           message);
@@ -2417,8 +2402,7 @@ void StylusGarageObserverProxy::OnRemove(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kStylusGarageObserver_OnRemove_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::StylusGarageObserver::kOnRemove), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::StylusGarageObserver_OnRemove_Params_Data> params(
           message);
@@ -2437,8 +2421,8 @@ void StylusGarageObserverProxy::OnRemove(
 bool StylusGarageObserverStubDispatch::Accept(
     StylusGarageObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kStylusGarageObserver_OnInsert_Name: {
+  switch (static_cast<messages::StylusGarageObserver>(message->header()->name)) {
+    case messages::StylusGarageObserver::kOnInsert: {
       DCHECK(message->is_serialized());
       internal::StylusGarageObserver_OnInsert_Params_Data* params =
           reinterpret_cast<internal::StylusGarageObserver_OnInsert_Params_Data*>(
@@ -2461,7 +2445,7 @@ bool StylusGarageObserverStubDispatch::Accept(
       impl->OnInsert(        );
       return true;
     }
-    case internal::kStylusGarageObserver_OnRemove_Name: {
+    case messages::StylusGarageObserver::kOnRemove: {
       DCHECK(message->is_serialized());
       internal::StylusGarageObserver_OnRemove_Params_Data* params =
           reinterpret_cast<internal::StylusGarageObserver_OnRemove_Params_Data*>(
@@ -2496,11 +2480,11 @@ bool StylusGarageObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kStylusGarageObserver_OnInsert_Name: {
+  switch (static_cast<messages::StylusGarageObserver>(message->header()->name)) {
+    case messages::StylusGarageObserver::kOnInsert: {
       break;
     }
-    case internal::kStylusGarageObserver_OnRemove_Name: {
+    case messages::StylusGarageObserver::kOnRemove: {
       break;
     }
   }
@@ -2524,11 +2508,11 @@ const char StylusObserver::Name_[] = "ash.cros_healthd.mojom.StylusObserver";
 
 StylusObserver::IPCStableHashFunction StylusObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kStylusObserver_OnTouch_Name: {
+  switch (static_cast<messages::StylusObserver>(message.name())) {
+    case messages::StylusObserver::kOnTouch: {
       return &StylusObserver::OnTouch_Sym::IPCStableHash;
     }
-    case internal::kStylusObserver_OnConnected_Name: {
+    case messages::StylusObserver::kOnConnected: {
       return &StylusObserver::OnConnected_Sym::IPCStableHash;
     }
   }
@@ -2541,17 +2525,17 @@ const char* StylusObserver::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kStylusObserver_OnTouch_Name:
+    switch (static_cast<messages::StylusObserver>(message.name())) {
+      case messages::StylusObserver::kOnTouch:
             return "Receive ash::cros_healthd::mojom::StylusObserver::OnTouch";
-      case internal::kStylusObserver_OnConnected_Name:
+      case messages::StylusObserver::kOnConnected:
             return "Receive ash::cros_healthd::mojom::StylusObserver::OnConnected";
     }
   } else {
-    switch (message.name()) {
-      case internal::kStylusObserver_OnTouch_Name:
+    switch (static_cast<messages::StylusObserver>(message.name())) {
+      case messages::StylusObserver::kOnTouch:
             return "Receive reply ash::cros_healthd::mojom::StylusObserver::OnTouch";
-      case internal::kStylusObserver_OnConnected_Name:
+      case messages::StylusObserver::kOnConnected:
             return "Receive reply ash::cros_healthd::mojom::StylusObserver::OnConnected";
     }
   }
@@ -2626,8 +2610,7 @@ void StylusObserverProxy::OnTouch(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kStylusObserver_OnTouch_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::StylusObserver::kOnTouch), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::StylusObserver_OnTouch_Params_Data> params(
           message);
@@ -2680,8 +2663,7 @@ void StylusObserverProxy::OnConnected(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kStylusObserver_OnConnected_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::StylusObserver::kOnConnected), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::StylusObserver_OnConnected_Params_Data> params(
           message);
@@ -2711,8 +2693,8 @@ void StylusObserverProxy::OnConnected(
 bool StylusObserverStubDispatch::Accept(
     StylusObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kStylusObserver_OnTouch_Name: {
+  switch (static_cast<messages::StylusObserver>(message->header()->name)) {
+    case messages::StylusObserver::kOnTouch: {
       DCHECK(message->is_serialized());
       internal::StylusObserver_OnTouch_Params_Data* params =
           reinterpret_cast<internal::StylusObserver_OnTouch_Params_Data*>(
@@ -2739,7 +2721,7 @@ bool StylusObserverStubDispatch::Accept(
         std::move(p_touch_event));
       return true;
     }
-    case internal::kStylusObserver_OnConnected_Name: {
+    case messages::StylusObserver::kOnConnected: {
       DCHECK(message->is_serialized());
       internal::StylusObserver_OnConnected_Params_Data* params =
           reinterpret_cast<internal::StylusObserver_OnConnected_Params_Data*>(
@@ -2778,11 +2760,11 @@ bool StylusObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kStylusObserver_OnTouch_Name: {
+  switch (static_cast<messages::StylusObserver>(message->header()->name)) {
+    case messages::StylusObserver::kOnTouch: {
       break;
     }
-    case internal::kStylusObserver_OnConnected_Name: {
+    case messages::StylusObserver::kOnConnected: {
       break;
     }
   }
@@ -2802,15 +2784,188 @@ bool StylusObserverRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kStylusObserverValidationInfo);
 }
 
+const char NetworkBandwidthObserver::Name_[] = "ash.cros_healthd.mojom.NetworkBandwidthObserver";
+
+NetworkBandwidthObserver::IPCStableHashFunction NetworkBandwidthObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (static_cast<messages::NetworkBandwidthObserver>(message.name())) {
+    case messages::NetworkBandwidthObserver::kOnProgress: {
+      return &NetworkBandwidthObserver::OnProgress_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* NetworkBandwidthObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (static_cast<messages::NetworkBandwidthObserver>(message.name())) {
+      case messages::NetworkBandwidthObserver::kOnProgress:
+            return "Receive ash::cros_healthd::mojom::NetworkBandwidthObserver::OnProgress";
+    }
+  } else {
+    switch (static_cast<messages::NetworkBandwidthObserver>(message.name())) {
+      case messages::NetworkBandwidthObserver::kOnProgress:
+            return "Receive reply ash::cros_healthd::mojom::NetworkBandwidthObserver::OnProgress";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t NetworkBandwidthObserver::OnProgress_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::NetworkBandwidthObserver::OnProgress");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+NetworkBandwidthObserverProxy::NetworkBandwidthObserverProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void NetworkBandwidthObserverProxy::OnProgress(
+    double in_speed_kbps, double in_percentage) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::NetworkBandwidthObserver::OnProgress", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("speed_kbps"), in_speed_kbps,
+                        "<value of type double>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("percentage"), in_percentage,
+                        "<value of type double>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::NetworkBandwidthObserver::kOnProgress), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::NetworkBandwidthObserver_OnProgress_Params_Data> params(
+          message);
+  params.Allocate();
+  params->speed_kbps = in_speed_kbps;
+  params->percentage = in_percentage;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NetworkBandwidthObserver::Name_);
+  message.set_method_name("OnProgress");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool NetworkBandwidthObserverStubDispatch::Accept(
+    NetworkBandwidthObserver* impl,
+    mojo::Message* message) {
+  switch (static_cast<messages::NetworkBandwidthObserver>(message->header()->name)) {
+    case messages::NetworkBandwidthObserver::kOnProgress: {
+      DCHECK(message->is_serialized());
+      internal::NetworkBandwidthObserver_OnProgress_Params_Data* params =
+          reinterpret_cast<internal::NetworkBandwidthObserver_OnProgress_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for NetworkBandwidthObserver.0
+      bool success = true;
+      double p_speed_kbps{};
+      double p_percentage{};
+      NetworkBandwidthObserver_OnProgress_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_speed_kbps = input_data_view.speed_kbps();
+      if (success)
+        p_percentage = input_data_view.percentage();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            NetworkBandwidthObserver::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnProgress(        
+        std::move(p_speed_kbps), 
+        std::move(p_percentage));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool NetworkBandwidthObserverStubDispatch::AcceptWithResponder(
+    NetworkBandwidthObserver* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (static_cast<messages::NetworkBandwidthObserver>(message->header()->name)) {
+    case messages::NetworkBandwidthObserver::kOnProgress: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kNetworkBandwidthObserverValidationInfo[] = {
+    { &internal::NetworkBandwidthObserver_OnProgress_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool NetworkBandwidthObserverRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::NetworkBandwidthObserver::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kNetworkBandwidthObserverValidationInfo);
+}
+
 const char PowerButtonObserver::Name_[] = "ash.cros_healthd.mojom.PowerButtonObserver";
 
 PowerButtonObserver::IPCStableHashFunction PowerButtonObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kPowerButtonObserver_OnEvent_Name: {
+  switch (static_cast<messages::PowerButtonObserver>(message.name())) {
+    case messages::PowerButtonObserver::kOnEvent: {
       return &PowerButtonObserver::OnEvent_Sym::IPCStableHash;
     }
-    case internal::kPowerButtonObserver_OnConnectedToEventNode_Name: {
+    case messages::PowerButtonObserver::kOnConnectedToEventNode: {
       return &PowerButtonObserver::OnConnectedToEventNode_Sym::IPCStableHash;
     }
   }
@@ -2823,17 +2978,17 @@ const char* PowerButtonObserver::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kPowerButtonObserver_OnEvent_Name:
+    switch (static_cast<messages::PowerButtonObserver>(message.name())) {
+      case messages::PowerButtonObserver::kOnEvent:
             return "Receive ash::cros_healthd::mojom::PowerButtonObserver::OnEvent";
-      case internal::kPowerButtonObserver_OnConnectedToEventNode_Name:
+      case messages::PowerButtonObserver::kOnConnectedToEventNode:
             return "Receive ash::cros_healthd::mojom::PowerButtonObserver::OnConnectedToEventNode";
     }
   } else {
-    switch (message.name()) {
-      case internal::kPowerButtonObserver_OnEvent_Name:
+    switch (static_cast<messages::PowerButtonObserver>(message.name())) {
+      case messages::PowerButtonObserver::kOnEvent:
             return "Receive reply ash::cros_healthd::mojom::PowerButtonObserver::OnEvent";
-      case internal::kPowerButtonObserver_OnConnectedToEventNode_Name:
+      case messages::PowerButtonObserver::kOnConnectedToEventNode:
             return "Receive reply ash::cros_healthd::mojom::PowerButtonObserver::OnConnectedToEventNode";
     }
   }
@@ -2908,8 +3063,7 @@ void PowerButtonObserverProxy::OnEvent(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPowerButtonObserver_OnEvent_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::PowerButtonObserver::kOnEvent), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::PowerButtonObserver_OnEvent_Params_Data> params(
           message);
@@ -2946,8 +3100,7 @@ void PowerButtonObserverProxy::OnConnectedToEventNode(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPowerButtonObserver_OnConnectedToEventNode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::PowerButtonObserver::kOnConnectedToEventNode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::PowerButtonObserver_OnConnectedToEventNode_Params_Data> params(
           message);
@@ -2966,8 +3119,8 @@ void PowerButtonObserverProxy::OnConnectedToEventNode(
 bool PowerButtonObserverStubDispatch::Accept(
     PowerButtonObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kPowerButtonObserver_OnEvent_Name: {
+  switch (static_cast<messages::PowerButtonObserver>(message->header()->name)) {
+    case messages::PowerButtonObserver::kOnEvent: {
       DCHECK(message->is_serialized());
       internal::PowerButtonObserver_OnEvent_Params_Data* params =
           reinterpret_cast<internal::PowerButtonObserver_OnEvent_Params_Data*>(
@@ -2994,7 +3147,7 @@ bool PowerButtonObserverStubDispatch::Accept(
         std::move(p_button_state));
       return true;
     }
-    case internal::kPowerButtonObserver_OnConnectedToEventNode_Name: {
+    case messages::PowerButtonObserver::kOnConnectedToEventNode: {
       DCHECK(message->is_serialized());
       internal::PowerButtonObserver_OnConnectedToEventNode_Params_Data* params =
           reinterpret_cast<internal::PowerButtonObserver_OnConnectedToEventNode_Params_Data*>(
@@ -3029,11 +3182,11 @@ bool PowerButtonObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kPowerButtonObserver_OnEvent_Name: {
+  switch (static_cast<messages::PowerButtonObserver>(message->header()->name)) {
+    case messages::PowerButtonObserver::kOnEvent: {
       break;
     }
-    case internal::kPowerButtonObserver_OnConnectedToEventNode_Name: {
+    case messages::PowerButtonObserver::kOnConnectedToEventNode: {
       break;
     }
   }
@@ -3057,8 +3210,8 @@ const char VolumeButtonObserver::Name_[] = "ash.cros_healthd.mojom.VolumeButtonO
 
 VolumeButtonObserver::IPCStableHashFunction VolumeButtonObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVolumeButtonObserver_OnEvent_Name: {
+  switch (static_cast<messages::VolumeButtonObserver>(message.name())) {
+    case messages::VolumeButtonObserver::kOnEvent: {
       return &VolumeButtonObserver::OnEvent_Sym::IPCStableHash;
     }
   }
@@ -3071,13 +3224,13 @@ const char* VolumeButtonObserver::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVolumeButtonObserver_OnEvent_Name:
+    switch (static_cast<messages::VolumeButtonObserver>(message.name())) {
+      case messages::VolumeButtonObserver::kOnEvent:
             return "Receive ash::cros_healthd::mojom::VolumeButtonObserver::OnEvent";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVolumeButtonObserver_OnEvent_Name:
+    switch (static_cast<messages::VolumeButtonObserver>(message.name())) {
+      case messages::VolumeButtonObserver::kOnEvent:
             return "Receive reply ash::cros_healthd::mojom::VolumeButtonObserver::OnEvent";
     }
   }
@@ -3142,8 +3295,7 @@ void VolumeButtonObserverProxy::OnEvent(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVolumeButtonObserver_OnEvent_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VolumeButtonObserver::kOnEvent), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::VolumeButtonObserver_OnEvent_Params_Data> params(
           message);
@@ -3166,8 +3318,8 @@ void VolumeButtonObserverProxy::OnEvent(
 bool VolumeButtonObserverStubDispatch::Accept(
     VolumeButtonObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVolumeButtonObserver_OnEvent_Name: {
+  switch (static_cast<messages::VolumeButtonObserver>(message->header()->name)) {
+    case messages::VolumeButtonObserver::kOnEvent: {
       DCHECK(message->is_serialized());
       internal::VolumeButtonObserver_OnEvent_Params_Data* params =
           reinterpret_cast<internal::VolumeButtonObserver_OnEvent_Params_Data*>(
@@ -3210,8 +3362,8 @@ bool VolumeButtonObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVolumeButtonObserver_OnEvent_Name: {
+  switch (static_cast<messages::VolumeButtonObserver>(message->header()->name)) {
+    case messages::VolumeButtonObserver::kOnEvent: {
       break;
     }
   }
@@ -3233,132 +3385,135 @@ const char Executor::Name_[] = "ash.cros_healthd.mojom.Executor";
 
 Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kExecutor_ReadFile_Name: {
+  switch (static_cast<messages::Executor>(message.name())) {
+    case messages::Executor::kReadFile: {
       return &Executor::ReadFile_Sym::IPCStableHash;
     }
-    case internal::kExecutor_ReadFilePart_Name: {
+    case messages::Executor::kReadFilePart: {
       return &Executor::ReadFilePart_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetFileInfo_Name: {
+    case messages::Executor::kGetFileInfo: {
       return &Executor::GetFileInfo_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetAllFanSpeed_Name: {
+    case messages::Executor::kGetAllFanSpeed: {
       return &Executor::GetAllFanSpeed_Sym::IPCStableHash;
     }
-    case internal::kExecutor_RunIw_Name: {
+    case messages::Executor::kRunIw: {
       return &Executor::RunIw_Sym::IPCStableHash;
     }
-    case internal::kExecutor_RunMemtester_Name: {
+    case messages::Executor::kRunMemtester: {
       return &Executor::RunMemtester_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetProcessIOContents_Name: {
+    case messages::Executor::kGetProcessIOContents: {
       return &Executor::GetProcessIOContents_Sym::IPCStableHash;
     }
-    case internal::kExecutor_ReadMsr_Name: {
+    case messages::Executor::kReadMsr: {
       return &Executor::ReadMsr_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetLidAngle_Name: {
+    case messages::Executor::kGetLidAngle: {
       return &Executor::GetLidAngle_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetFingerprintFrame_Name: {
+    case messages::Executor::kGetFingerprintFrame: {
       return &Executor::GetFingerprintFrame_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetFingerprintInfo_Name: {
+    case messages::Executor::kGetFingerprintInfo: {
       return &Executor::GetFingerprintInfo_Sym::IPCStableHash;
     }
-    case internal::kExecutor_SetLedColor_Name: {
+    case messages::Executor::kSetLedColor: {
       return &Executor::SetLedColor_Sym::IPCStableHash;
     }
-    case internal::kExecutor_ResetLedColor_Name: {
+    case messages::Executor::kResetLedColor: {
       return &Executor::ResetLedColor_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetHciDeviceConfig_Name: {
+    case messages::Executor::kGetHciDeviceConfig: {
       return &Executor::GetHciDeviceConfig_Sym::IPCStableHash;
     }
-    case internal::kExecutor_MonitorAudioJack_Name: {
+    case messages::Executor::kMonitorAudioJack: {
       return &Executor::MonitorAudioJack_Sym::IPCStableHash;
     }
-    case internal::kExecutor_MonitorTouchpad_Name: {
+    case messages::Executor::kMonitorTouchpad: {
       return &Executor::MonitorTouchpad_Sym::IPCStableHash;
     }
-    case internal::kExecutor_RunStressAppTest_Name: {
+    case messages::Executor::kRunStressAppTest: {
       return &Executor::RunStressAppTest_Sym::IPCStableHash;
     }
-    case internal::kExecutor_FetchBootPerformance_Name: {
+    case messages::Executor::kFetchBootPerformance: {
       return &Executor::FetchBootPerformance_Sym::IPCStableHash;
     }
-    case internal::kExecutor_MonitorTouchscreen_Name: {
+    case messages::Executor::kMonitorTouchscreen: {
       return &Executor::MonitorTouchscreen_Sym::IPCStableHash;
     }
-    case internal::kExecutor_MonitorStylusGarage_Name: {
+    case messages::Executor::kMonitorStylusGarage: {
       return &Executor::MonitorStylusGarage_Sym::IPCStableHash;
     }
-    case internal::kExecutor_MonitorStylus_Name: {
+    case messages::Executor::kMonitorStylus: {
       return &Executor::MonitorStylus_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetPsr_Name: {
+    case messages::Executor::kGetPsr: {
       return &Executor::GetPsr_Sym::IPCStableHash;
     }
-    case internal::kExecutor_RunFio_Name: {
+    case messages::Executor::kRunFio: {
       return &Executor::RunFio_Sym::IPCStableHash;
     }
-    case internal::kExecutor_RemoveFioTestFile_Name: {
+    case messages::Executor::kRemoveFioTestFile: {
       return &Executor::RemoveFioTestFile_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetConnectedExternalDisplayConnectors_Name: {
+    case messages::Executor::kGetConnectedExternalDisplayConnectors: {
       return &Executor::GetConnectedExternalDisplayConnectors_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetPrivacyScreenInfo_Name: {
+    case messages::Executor::kGetPrivacyScreenInfo: {
       return &Executor::GetPrivacyScreenInfo_Sym::IPCStableHash;
     }
-    case internal::kExecutor_FetchDisplayInfo_Name: {
+    case messages::Executor::kFetchDisplayInfo: {
       return &Executor::FetchDisplayInfo_Sym::IPCStableHash;
     }
-    case internal::kExecutor_FetchCrashFromCrashSender_Name: {
+    case messages::Executor::kFetchCrashFromCrashSender: {
       return &Executor::FetchCrashFromCrashSender_Sym::IPCStableHash;
     }
-    case internal::kExecutor_MonitorPowerButton_Name: {
+    case messages::Executor::kMonitorPowerButton: {
       return &Executor::MonitorPowerButton_Sym::IPCStableHash;
     }
-    case internal::kExecutor_RunPrimeSearch_Name: {
+    case messages::Executor::kRunPrimeSearch: {
       return &Executor::RunPrimeSearch_Sym::IPCStableHash;
     }
-    case internal::kExecutor_MonitorVolumeButton_Name: {
+    case messages::Executor::kMonitorVolumeButton: {
       return &Executor::MonitorVolumeButton_Sym::IPCStableHash;
     }
-    case internal::kExecutor_RunFloatingPoint_Name: {
+    case messages::Executor::kRunFloatingPoint: {
       return &Executor::RunFloatingPoint_Sym::IPCStableHash;
     }
-    case internal::kExecutor_StartBtmon_Name: {
+    case messages::Executor::kStartBtmon: {
       return &Executor::StartBtmon_Sym::IPCStableHash;
     }
-    case internal::kExecutor_ReadBtmonLog_Name: {
+    case messages::Executor::kReadBtmonLog: {
       return &Executor::ReadBtmonLog_Sym::IPCStableHash;
     }
-    case internal::kExecutor_RemoveBtmonLog_Name: {
+    case messages::Executor::kRemoveBtmonLog: {
       return &Executor::RemoveBtmonLog_Sym::IPCStableHash;
     }
-    case internal::kExecutor_SetFanSpeed_Name: {
+    case messages::Executor::kSetFanSpeed: {
       return &Executor::SetFanSpeed_Sym::IPCStableHash;
     }
-    case internal::kExecutor_SetAllFanAutoControl_Name: {
+    case messages::Executor::kSetAllFanAutoControl: {
       return &Executor::SetAllFanAutoControl_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetEcThermalSensors_Name: {
+    case messages::Executor::kGetEcThermalSensors: {
       return &Executor::GetEcThermalSensors_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetTouchpadDevices_Name: {
+    case messages::Executor::kGetTouchpadDevices: {
       return &Executor::GetTouchpadDevices_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetSmartBatteryManufactureDate_Name: {
+    case messages::Executor::kGetSmartBatteryManufactureDate: {
       return &Executor::GetSmartBatteryManufactureDate_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetSmartBatteryTemperature_Name: {
+    case messages::Executor::kGetSmartBatteryTemperature: {
       return &Executor::GetSmartBatteryTemperature_Sym::IPCStableHash;
     }
-    case internal::kExecutor_RunUrandom_Name: {
+    case messages::Executor::kRunUrandom: {
       return &Executor::RunUrandom_Sym::IPCStableHash;
+    }
+    case messages::Executor::kRunNetworkBandwidthTest: {
+      return &Executor::RunNetworkBandwidthTest_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -3370,178 +3525,182 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kExecutor_ReadFile_Name:
+    switch (static_cast<messages::Executor>(message.name())) {
+      case messages::Executor::kReadFile:
             return "Receive ash::cros_healthd::mojom::Executor::ReadFile";
-      case internal::kExecutor_ReadFilePart_Name:
+      case messages::Executor::kReadFilePart:
             return "Receive ash::cros_healthd::mojom::Executor::ReadFilePart";
-      case internal::kExecutor_GetFileInfo_Name:
+      case messages::Executor::kGetFileInfo:
             return "Receive ash::cros_healthd::mojom::Executor::GetFileInfo";
-      case internal::kExecutor_GetAllFanSpeed_Name:
+      case messages::Executor::kGetAllFanSpeed:
             return "Receive ash::cros_healthd::mojom::Executor::GetAllFanSpeed";
-      case internal::kExecutor_RunIw_Name:
+      case messages::Executor::kRunIw:
             return "Receive ash::cros_healthd::mojom::Executor::RunIw";
-      case internal::kExecutor_RunMemtester_Name:
+      case messages::Executor::kRunMemtester:
             return "Receive ash::cros_healthd::mojom::Executor::RunMemtester";
-      case internal::kExecutor_GetProcessIOContents_Name:
+      case messages::Executor::kGetProcessIOContents:
             return "Receive ash::cros_healthd::mojom::Executor::GetProcessIOContents";
-      case internal::kExecutor_ReadMsr_Name:
+      case messages::Executor::kReadMsr:
             return "Receive ash::cros_healthd::mojom::Executor::ReadMsr";
-      case internal::kExecutor_GetLidAngle_Name:
+      case messages::Executor::kGetLidAngle:
             return "Receive ash::cros_healthd::mojom::Executor::GetLidAngle";
-      case internal::kExecutor_GetFingerprintFrame_Name:
+      case messages::Executor::kGetFingerprintFrame:
             return "Receive ash::cros_healthd::mojom::Executor::GetFingerprintFrame";
-      case internal::kExecutor_GetFingerprintInfo_Name:
+      case messages::Executor::kGetFingerprintInfo:
             return "Receive ash::cros_healthd::mojom::Executor::GetFingerprintInfo";
-      case internal::kExecutor_SetLedColor_Name:
+      case messages::Executor::kSetLedColor:
             return "Receive ash::cros_healthd::mojom::Executor::SetLedColor";
-      case internal::kExecutor_ResetLedColor_Name:
+      case messages::Executor::kResetLedColor:
             return "Receive ash::cros_healthd::mojom::Executor::ResetLedColor";
-      case internal::kExecutor_GetHciDeviceConfig_Name:
+      case messages::Executor::kGetHciDeviceConfig:
             return "Receive ash::cros_healthd::mojom::Executor::GetHciDeviceConfig";
-      case internal::kExecutor_MonitorAudioJack_Name:
+      case messages::Executor::kMonitorAudioJack:
             return "Receive ash::cros_healthd::mojom::Executor::MonitorAudioJack";
-      case internal::kExecutor_MonitorTouchpad_Name:
+      case messages::Executor::kMonitorTouchpad:
             return "Receive ash::cros_healthd::mojom::Executor::MonitorTouchpad";
-      case internal::kExecutor_RunStressAppTest_Name:
+      case messages::Executor::kRunStressAppTest:
             return "Receive ash::cros_healthd::mojom::Executor::RunStressAppTest";
-      case internal::kExecutor_FetchBootPerformance_Name:
+      case messages::Executor::kFetchBootPerformance:
             return "Receive ash::cros_healthd::mojom::Executor::FetchBootPerformance";
-      case internal::kExecutor_MonitorTouchscreen_Name:
+      case messages::Executor::kMonitorTouchscreen:
             return "Receive ash::cros_healthd::mojom::Executor::MonitorTouchscreen";
-      case internal::kExecutor_MonitorStylusGarage_Name:
+      case messages::Executor::kMonitorStylusGarage:
             return "Receive ash::cros_healthd::mojom::Executor::MonitorStylusGarage";
-      case internal::kExecutor_MonitorStylus_Name:
+      case messages::Executor::kMonitorStylus:
             return "Receive ash::cros_healthd::mojom::Executor::MonitorStylus";
-      case internal::kExecutor_GetPsr_Name:
+      case messages::Executor::kGetPsr:
             return "Receive ash::cros_healthd::mojom::Executor::GetPsr";
-      case internal::kExecutor_RunFio_Name:
+      case messages::Executor::kRunFio:
             return "Receive ash::cros_healthd::mojom::Executor::RunFio";
-      case internal::kExecutor_RemoveFioTestFile_Name:
+      case messages::Executor::kRemoveFioTestFile:
             return "Receive ash::cros_healthd::mojom::Executor::RemoveFioTestFile";
-      case internal::kExecutor_GetConnectedExternalDisplayConnectors_Name:
+      case messages::Executor::kGetConnectedExternalDisplayConnectors:
             return "Receive ash::cros_healthd::mojom::Executor::GetConnectedExternalDisplayConnectors";
-      case internal::kExecutor_GetPrivacyScreenInfo_Name:
+      case messages::Executor::kGetPrivacyScreenInfo:
             return "Receive ash::cros_healthd::mojom::Executor::GetPrivacyScreenInfo";
-      case internal::kExecutor_FetchDisplayInfo_Name:
+      case messages::Executor::kFetchDisplayInfo:
             return "Receive ash::cros_healthd::mojom::Executor::FetchDisplayInfo";
-      case internal::kExecutor_FetchCrashFromCrashSender_Name:
+      case messages::Executor::kFetchCrashFromCrashSender:
             return "Receive ash::cros_healthd::mojom::Executor::FetchCrashFromCrashSender";
-      case internal::kExecutor_MonitorPowerButton_Name:
+      case messages::Executor::kMonitorPowerButton:
             return "Receive ash::cros_healthd::mojom::Executor::MonitorPowerButton";
-      case internal::kExecutor_RunPrimeSearch_Name:
+      case messages::Executor::kRunPrimeSearch:
             return "Receive ash::cros_healthd::mojom::Executor::RunPrimeSearch";
-      case internal::kExecutor_MonitorVolumeButton_Name:
+      case messages::Executor::kMonitorVolumeButton:
             return "Receive ash::cros_healthd::mojom::Executor::MonitorVolumeButton";
-      case internal::kExecutor_RunFloatingPoint_Name:
+      case messages::Executor::kRunFloatingPoint:
             return "Receive ash::cros_healthd::mojom::Executor::RunFloatingPoint";
-      case internal::kExecutor_StartBtmon_Name:
+      case messages::Executor::kStartBtmon:
             return "Receive ash::cros_healthd::mojom::Executor::StartBtmon";
-      case internal::kExecutor_ReadBtmonLog_Name:
+      case messages::Executor::kReadBtmonLog:
             return "Receive ash::cros_healthd::mojom::Executor::ReadBtmonLog";
-      case internal::kExecutor_RemoveBtmonLog_Name:
+      case messages::Executor::kRemoveBtmonLog:
             return "Receive ash::cros_healthd::mojom::Executor::RemoveBtmonLog";
-      case internal::kExecutor_SetFanSpeed_Name:
+      case messages::Executor::kSetFanSpeed:
             return "Receive ash::cros_healthd::mojom::Executor::SetFanSpeed";
-      case internal::kExecutor_SetAllFanAutoControl_Name:
+      case messages::Executor::kSetAllFanAutoControl:
             return "Receive ash::cros_healthd::mojom::Executor::SetAllFanAutoControl";
-      case internal::kExecutor_GetEcThermalSensors_Name:
+      case messages::Executor::kGetEcThermalSensors:
             return "Receive ash::cros_healthd::mojom::Executor::GetEcThermalSensors";
-      case internal::kExecutor_GetTouchpadDevices_Name:
+      case messages::Executor::kGetTouchpadDevices:
             return "Receive ash::cros_healthd::mojom::Executor::GetTouchpadDevices";
-      case internal::kExecutor_GetSmartBatteryManufactureDate_Name:
+      case messages::Executor::kGetSmartBatteryManufactureDate:
             return "Receive ash::cros_healthd::mojom::Executor::GetSmartBatteryManufactureDate";
-      case internal::kExecutor_GetSmartBatteryTemperature_Name:
+      case messages::Executor::kGetSmartBatteryTemperature:
             return "Receive ash::cros_healthd::mojom::Executor::GetSmartBatteryTemperature";
-      case internal::kExecutor_RunUrandom_Name:
+      case messages::Executor::kRunUrandom:
             return "Receive ash::cros_healthd::mojom::Executor::RunUrandom";
+      case messages::Executor::kRunNetworkBandwidthTest:
+            return "Receive ash::cros_healthd::mojom::Executor::RunNetworkBandwidthTest";
     }
   } else {
-    switch (message.name()) {
-      case internal::kExecutor_ReadFile_Name:
+    switch (static_cast<messages::Executor>(message.name())) {
+      case messages::Executor::kReadFile:
             return "Receive reply ash::cros_healthd::mojom::Executor::ReadFile";
-      case internal::kExecutor_ReadFilePart_Name:
+      case messages::Executor::kReadFilePart:
             return "Receive reply ash::cros_healthd::mojom::Executor::ReadFilePart";
-      case internal::kExecutor_GetFileInfo_Name:
+      case messages::Executor::kGetFileInfo:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetFileInfo";
-      case internal::kExecutor_GetAllFanSpeed_Name:
+      case messages::Executor::kGetAllFanSpeed:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetAllFanSpeed";
-      case internal::kExecutor_RunIw_Name:
+      case messages::Executor::kRunIw:
             return "Receive reply ash::cros_healthd::mojom::Executor::RunIw";
-      case internal::kExecutor_RunMemtester_Name:
+      case messages::Executor::kRunMemtester:
             return "Receive reply ash::cros_healthd::mojom::Executor::RunMemtester";
-      case internal::kExecutor_GetProcessIOContents_Name:
+      case messages::Executor::kGetProcessIOContents:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetProcessIOContents";
-      case internal::kExecutor_ReadMsr_Name:
+      case messages::Executor::kReadMsr:
             return "Receive reply ash::cros_healthd::mojom::Executor::ReadMsr";
-      case internal::kExecutor_GetLidAngle_Name:
+      case messages::Executor::kGetLidAngle:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetLidAngle";
-      case internal::kExecutor_GetFingerprintFrame_Name:
+      case messages::Executor::kGetFingerprintFrame:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetFingerprintFrame";
-      case internal::kExecutor_GetFingerprintInfo_Name:
+      case messages::Executor::kGetFingerprintInfo:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetFingerprintInfo";
-      case internal::kExecutor_SetLedColor_Name:
+      case messages::Executor::kSetLedColor:
             return "Receive reply ash::cros_healthd::mojom::Executor::SetLedColor";
-      case internal::kExecutor_ResetLedColor_Name:
+      case messages::Executor::kResetLedColor:
             return "Receive reply ash::cros_healthd::mojom::Executor::ResetLedColor";
-      case internal::kExecutor_GetHciDeviceConfig_Name:
+      case messages::Executor::kGetHciDeviceConfig:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetHciDeviceConfig";
-      case internal::kExecutor_MonitorAudioJack_Name:
+      case messages::Executor::kMonitorAudioJack:
             return "Receive reply ash::cros_healthd::mojom::Executor::MonitorAudioJack";
-      case internal::kExecutor_MonitorTouchpad_Name:
+      case messages::Executor::kMonitorTouchpad:
             return "Receive reply ash::cros_healthd::mojom::Executor::MonitorTouchpad";
-      case internal::kExecutor_RunStressAppTest_Name:
+      case messages::Executor::kRunStressAppTest:
             return "Receive reply ash::cros_healthd::mojom::Executor::RunStressAppTest";
-      case internal::kExecutor_FetchBootPerformance_Name:
+      case messages::Executor::kFetchBootPerformance:
             return "Receive reply ash::cros_healthd::mojom::Executor::FetchBootPerformance";
-      case internal::kExecutor_MonitorTouchscreen_Name:
+      case messages::Executor::kMonitorTouchscreen:
             return "Receive reply ash::cros_healthd::mojom::Executor::MonitorTouchscreen";
-      case internal::kExecutor_MonitorStylusGarage_Name:
+      case messages::Executor::kMonitorStylusGarage:
             return "Receive reply ash::cros_healthd::mojom::Executor::MonitorStylusGarage";
-      case internal::kExecutor_MonitorStylus_Name:
+      case messages::Executor::kMonitorStylus:
             return "Receive reply ash::cros_healthd::mojom::Executor::MonitorStylus";
-      case internal::kExecutor_GetPsr_Name:
+      case messages::Executor::kGetPsr:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetPsr";
-      case internal::kExecutor_RunFio_Name:
+      case messages::Executor::kRunFio:
             return "Receive reply ash::cros_healthd::mojom::Executor::RunFio";
-      case internal::kExecutor_RemoveFioTestFile_Name:
+      case messages::Executor::kRemoveFioTestFile:
             return "Receive reply ash::cros_healthd::mojom::Executor::RemoveFioTestFile";
-      case internal::kExecutor_GetConnectedExternalDisplayConnectors_Name:
+      case messages::Executor::kGetConnectedExternalDisplayConnectors:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetConnectedExternalDisplayConnectors";
-      case internal::kExecutor_GetPrivacyScreenInfo_Name:
+      case messages::Executor::kGetPrivacyScreenInfo:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetPrivacyScreenInfo";
-      case internal::kExecutor_FetchDisplayInfo_Name:
+      case messages::Executor::kFetchDisplayInfo:
             return "Receive reply ash::cros_healthd::mojom::Executor::FetchDisplayInfo";
-      case internal::kExecutor_FetchCrashFromCrashSender_Name:
+      case messages::Executor::kFetchCrashFromCrashSender:
             return "Receive reply ash::cros_healthd::mojom::Executor::FetchCrashFromCrashSender";
-      case internal::kExecutor_MonitorPowerButton_Name:
+      case messages::Executor::kMonitorPowerButton:
             return "Receive reply ash::cros_healthd::mojom::Executor::MonitorPowerButton";
-      case internal::kExecutor_RunPrimeSearch_Name:
+      case messages::Executor::kRunPrimeSearch:
             return "Receive reply ash::cros_healthd::mojom::Executor::RunPrimeSearch";
-      case internal::kExecutor_MonitorVolumeButton_Name:
+      case messages::Executor::kMonitorVolumeButton:
             return "Receive reply ash::cros_healthd::mojom::Executor::MonitorVolumeButton";
-      case internal::kExecutor_RunFloatingPoint_Name:
+      case messages::Executor::kRunFloatingPoint:
             return "Receive reply ash::cros_healthd::mojom::Executor::RunFloatingPoint";
-      case internal::kExecutor_StartBtmon_Name:
+      case messages::Executor::kStartBtmon:
             return "Receive reply ash::cros_healthd::mojom::Executor::StartBtmon";
-      case internal::kExecutor_ReadBtmonLog_Name:
+      case messages::Executor::kReadBtmonLog:
             return "Receive reply ash::cros_healthd::mojom::Executor::ReadBtmonLog";
-      case internal::kExecutor_RemoveBtmonLog_Name:
+      case messages::Executor::kRemoveBtmonLog:
             return "Receive reply ash::cros_healthd::mojom::Executor::RemoveBtmonLog";
-      case internal::kExecutor_SetFanSpeed_Name:
+      case messages::Executor::kSetFanSpeed:
             return "Receive reply ash::cros_healthd::mojom::Executor::SetFanSpeed";
-      case internal::kExecutor_SetAllFanAutoControl_Name:
+      case messages::Executor::kSetAllFanAutoControl:
             return "Receive reply ash::cros_healthd::mojom::Executor::SetAllFanAutoControl";
-      case internal::kExecutor_GetEcThermalSensors_Name:
+      case messages::Executor::kGetEcThermalSensors:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetEcThermalSensors";
-      case internal::kExecutor_GetTouchpadDevices_Name:
+      case messages::Executor::kGetTouchpadDevices:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetTouchpadDevices";
-      case internal::kExecutor_GetSmartBatteryManufactureDate_Name:
+      case messages::Executor::kGetSmartBatteryManufactureDate:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetSmartBatteryManufactureDate";
-      case internal::kExecutor_GetSmartBatteryTemperature_Name:
+      case messages::Executor::kGetSmartBatteryTemperature:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetSmartBatteryTemperature";
-      case internal::kExecutor_RunUrandom_Name:
+      case messages::Executor::kRunUrandom:
             return "Receive reply ash::cros_healthd::mojom::Executor::RunUrandom";
+      case messages::Executor::kRunNetworkBandwidthTest:
+            return "Receive reply ash::cros_healthd::mojom::Executor::RunNetworkBandwidthTest";
     }
   }
   return "Receive unknown mojo message";
@@ -4102,6 +4261,19 @@ uint32_t Executor::RunUrandom_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Executor::RunNetworkBandwidthTest_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::RunNetworkBandwidthTest");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Executor_ReadFile_ForwardToCallback
@@ -4600,6 +4772,22 @@ class Executor_RunUrandom_ForwardToCallback
   Executor::RunUrandomCallback callback_;
 };
 
+class Executor_RunNetworkBandwidthTest_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Executor_RunNetworkBandwidthTest_ForwardToCallback(
+      Executor::RunNetworkBandwidthTestCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Executor_RunNetworkBandwidthTest_ForwardToCallback(const Executor_RunNetworkBandwidthTest_ForwardToCallback&) = delete;
+  Executor_RunNetworkBandwidthTest_ForwardToCallback& operator=(const Executor_RunNetworkBandwidthTest_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Executor::RunNetworkBandwidthTestCallback callback_;
+};
+
 ExecutorProxy::ExecutorProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -4631,8 +4819,7 @@ void ExecutorProxy::ReadFile(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_ReadFile_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kReadFile), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_ReadFile_Params_Data> params(
           message);
@@ -4683,8 +4870,7 @@ void ExecutorProxy::ReadFilePart(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_ReadFilePart_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kReadFilePart), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_ReadFilePart_Params_Data> params(
           message);
@@ -4734,8 +4920,7 @@ void ExecutorProxy::GetFileInfo(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetFileInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetFileInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetFileInfo_Params_Data> params(
           message);
@@ -4773,8 +4958,7 @@ void ExecutorProxy::GetAllFanSpeed(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetAllFanSpeed_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetAllFanSpeed), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetAllFanSpeed_Params_Data> params(
           message);
@@ -4820,8 +5004,7 @@ void ExecutorProxy::RunIw(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RunIw_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRunIw), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RunIw_Params_Data> params(
           message);
@@ -4880,8 +5063,7 @@ void ExecutorProxy::RunMemtester(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RunMemtester_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRunMemtester), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RunMemtester_Params_Data> params(
           message);
@@ -4930,8 +5112,7 @@ void ExecutorProxy::GetProcessIOContents(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetProcessIOContents_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetProcessIOContents), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetProcessIOContents_Params_Data> params(
           message);
@@ -4990,8 +5171,7 @@ void ExecutorProxy::ReadMsr(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_ReadMsr_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kReadMsr), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_ReadMsr_Params_Data> params(
           message);
@@ -5029,8 +5209,7 @@ void ExecutorProxy::GetLidAngle(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetLidAngle_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetLidAngle), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetLidAngle_Params_Data> params(
           message);
@@ -5073,8 +5252,7 @@ void ExecutorProxy::GetFingerprintFrame(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetFingerprintFrame_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetFingerprintFrame), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetFingerprintFrame_Params_Data> params(
           message);
@@ -5112,8 +5290,7 @@ void ExecutorProxy::GetFingerprintInfo(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetFingerprintInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetFingerprintInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetFingerprintInfo_Params_Data> params(
           message);
@@ -5159,8 +5336,7 @@ void ExecutorProxy::SetLedColor(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_SetLedColor_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kSetLedColor), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_SetLedColor_Params_Data> params(
           message);
@@ -5207,8 +5383,7 @@ void ExecutorProxy::ResetLedColor(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_ResetLedColor_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kResetLedColor), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_ResetLedColor_Params_Data> params(
           message);
@@ -5253,8 +5428,7 @@ void ExecutorProxy::GetHciDeviceConfig(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetHciDeviceConfig_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetHciDeviceConfig), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetHciDeviceConfig_Params_Data> params(
           message);
@@ -5301,8 +5475,7 @@ void ExecutorProxy::MonitorAudioJack(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_MonitorAudioJack_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kMonitorAudioJack), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_MonitorAudioJack_Params_Data> params(
           message);
@@ -5359,8 +5532,7 @@ void ExecutorProxy::MonitorTouchpad(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_MonitorTouchpad_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kMonitorTouchpad), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_MonitorTouchpad_Params_Data> params(
           message);
@@ -5423,8 +5595,7 @@ void ExecutorProxy::RunStressAppTest(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RunStressAppTest_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRunStressAppTest), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RunStressAppTest_Params_Data> params(
           message);
@@ -5469,8 +5640,7 @@ void ExecutorProxy::FetchBootPerformance(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_FetchBootPerformance_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kFetchBootPerformance), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_FetchBootPerformance_Params_Data> params(
           message);
@@ -5516,8 +5686,7 @@ void ExecutorProxy::MonitorTouchscreen(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_MonitorTouchscreen_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kMonitorTouchscreen), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_MonitorTouchscreen_Params_Data> params(
           message);
@@ -5574,8 +5743,7 @@ void ExecutorProxy::MonitorStylusGarage(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_MonitorStylusGarage_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kMonitorStylusGarage), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_MonitorStylusGarage_Params_Data> params(
           message);
@@ -5632,8 +5800,7 @@ void ExecutorProxy::MonitorStylus(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_MonitorStylus_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kMonitorStylus), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_MonitorStylus_Params_Data> params(
           message);
@@ -5680,8 +5847,7 @@ void ExecutorProxy::GetPsr(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetPsr_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetPsr), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetPsr_Params_Data> params(
           message);
@@ -5727,8 +5893,7 @@ void ExecutorProxy::RunFio(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RunFio_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRunFio), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RunFio_Params_Data> params(
           message);
@@ -5778,8 +5943,7 @@ void ExecutorProxy::RemoveFioTestFile(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RemoveFioTestFile_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRemoveFioTestFile), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RemoveFioTestFile_Params_Data> params(
           message);
@@ -5822,8 +5986,7 @@ void ExecutorProxy::GetConnectedExternalDisplayConnectors(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetConnectedExternalDisplayConnectors_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetConnectedExternalDisplayConnectors), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetConnectedExternalDisplayConnectors_Params_Data> params(
           message);
@@ -5868,8 +6031,7 @@ void ExecutorProxy::GetPrivacyScreenInfo(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetPrivacyScreenInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetPrivacyScreenInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetPrivacyScreenInfo_Params_Data> params(
           message);
@@ -5905,8 +6067,7 @@ void ExecutorProxy::FetchDisplayInfo(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_FetchDisplayInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kFetchDisplayInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_FetchDisplayInfo_Params_Data> params(
           message);
@@ -5942,8 +6103,7 @@ void ExecutorProxy::FetchCrashFromCrashSender(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_FetchCrashFromCrashSender_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kFetchCrashFromCrashSender), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_FetchCrashFromCrashSender_Params_Data> params(
           message);
@@ -5989,8 +6149,7 @@ void ExecutorProxy::MonitorPowerButton(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_MonitorPowerButton_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kMonitorPowerButton), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_MonitorPowerButton_Params_Data> params(
           message);
@@ -6050,8 +6209,7 @@ void ExecutorProxy::RunPrimeSearch(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RunPrimeSearch_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRunPrimeSearch), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RunPrimeSearch_Params_Data> params(
           message);
@@ -6115,8 +6273,7 @@ void ExecutorProxy::MonitorVolumeButton(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_MonitorVolumeButton_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kMonitorVolumeButton), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_MonitorVolumeButton_Params_Data> params(
           message);
@@ -6173,8 +6330,7 @@ void ExecutorProxy::RunFloatingPoint(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RunFloatingPoint_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRunFloatingPoint), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RunFloatingPoint_Params_Data> params(
           message);
@@ -6237,8 +6393,7 @@ void ExecutorProxy::StartBtmon(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_StartBtmon_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kStartBtmon), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_StartBtmon_Params_Data> params(
           message);
@@ -6280,8 +6435,7 @@ void ExecutorProxy::ReadBtmonLog(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_ReadBtmonLog_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kReadBtmonLog), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_ReadBtmonLog_Params_Data> params(
           message);
@@ -6317,8 +6471,7 @@ void ExecutorProxy::RemoveBtmonLog(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RemoveBtmonLog_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRemoveBtmonLog), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RemoveBtmonLog_Params_Data> params(
           message);
@@ -6361,8 +6514,7 @@ void ExecutorProxy::SetFanSpeed(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_SetFanSpeed_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kSetFanSpeed), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_SetFanSpeed_Params_Data> params(
           message);
@@ -6411,8 +6563,7 @@ void ExecutorProxy::SetAllFanAutoControl(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_SetAllFanAutoControl_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kSetAllFanAutoControl), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_SetAllFanAutoControl_Params_Data> params(
           message);
@@ -6448,8 +6599,7 @@ void ExecutorProxy::GetEcThermalSensors(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetEcThermalSensors_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetEcThermalSensors), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetEcThermalSensors_Params_Data> params(
           message);
@@ -6485,8 +6635,7 @@ void ExecutorProxy::GetTouchpadDevices(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetTouchpadDevices_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetTouchpadDevices), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetTouchpadDevices_Params_Data> params(
           message);
@@ -6529,8 +6678,7 @@ void ExecutorProxy::GetSmartBatteryManufactureDate(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetSmartBatteryManufactureDate_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetSmartBatteryManufactureDate), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetSmartBatteryManufactureDate_Params_Data> params(
           message);
@@ -6574,8 +6722,7 @@ void ExecutorProxy::GetSmartBatteryTemperature(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetSmartBatteryTemperature_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetSmartBatteryTemperature), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetSmartBatteryTemperature_Params_Data> params(
           message);
@@ -6622,8 +6769,7 @@ void ExecutorProxy::RunUrandom(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RunUrandom_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRunUrandom), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RunUrandom_Params_Data> params(
           message);
@@ -6652,6 +6798,69 @@ void ExecutorProxy::RunUrandom(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_RunUrandom_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::RunNetworkBandwidthTest(
+    NetworkBandwidthTestType in_type, ::mojo::PendingRemote<NetworkBandwidthObserver> in_observer, ::mojo::PendingReceiver<ProcessControl> in_process_control, RunNetworkBandwidthTestCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Executor::RunNetworkBandwidthTest", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("type"), in_type,
+                        "<value of type NetworkBandwidthTestType>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<NetworkBandwidthObserver>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("process_control"), in_process_control,
+                        "<value of type ::mojo::PendingReceiver<ProcessControl>>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::Executor::kRunNetworkBandwidthTest), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_RunNetworkBandwidthTest_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::NetworkBandwidthTestType>(
+      in_type, &params->type);
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::NetworkBandwidthObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in Executor.RunNetworkBandwidthTest request");
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+      in_process_control, &params->process_control, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->process_control),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid process_control in Executor.RunNetworkBandwidthTest request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("RunNetworkBandwidthTest");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Executor_RunNetworkBandwidthTest_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -6754,8 +6963,7 @@ void Executor_ReadFile_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_ReadFile_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kReadFile), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_ReadFile_ResponseParams_Data> params(
           message);
@@ -6883,8 +7091,7 @@ void Executor_ReadFilePart_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_ReadFilePart_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kReadFilePart), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_ReadFilePart_ResponseParams_Data> params(
           message);
@@ -7012,8 +7219,7 @@ void Executor_GetFileInfo_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetFileInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetFileInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetFileInfo_ResponseParams_Data> params(
           message);
@@ -7148,8 +7354,7 @@ void Executor_GetAllFanSpeed_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetAllFanSpeed_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetAllFanSpeed), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetAllFanSpeed_ResponseParams_Data> params(
           message);
@@ -7290,8 +7495,7 @@ void Executor_RunIw_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RunIw_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRunIw), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RunIw_ResponseParams_Data> params(
           message);
@@ -7423,8 +7627,7 @@ void Executor_GetProcessIOContents_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetProcessIOContents_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetProcessIOContents), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetProcessIOContents_ResponseParams_Data> params(
           message);
@@ -7559,8 +7762,7 @@ void Executor_ReadMsr_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_ReadMsr_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kReadMsr), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_ReadMsr_ResponseParams_Data> params(
           message);
@@ -7686,8 +7888,7 @@ void Executor_GetLidAngle_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetLidAngle_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetLidAngle), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetLidAngle_ResponseParams_Data> params(
           message);
@@ -7819,8 +8020,7 @@ void Executor_GetFingerprintFrame_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetFingerprintFrame_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetFingerprintFrame), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetFingerprintFrame_ResponseParams_Data> params(
           message);
@@ -7966,8 +8166,7 @@ void Executor_GetFingerprintInfo_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetFingerprintInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetFingerprintInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetFingerprintInfo_ResponseParams_Data> params(
           message);
@@ -8106,8 +8305,7 @@ void Executor_SetLedColor_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_SetLedColor_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kSetLedColor), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_SetLedColor_ResponseParams_Data> params(
           message);
@@ -8235,8 +8433,7 @@ void Executor_ResetLedColor_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_ResetLedColor_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kResetLedColor), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_ResetLedColor_ResponseParams_Data> params(
           message);
@@ -8364,8 +8561,7 @@ void Executor_GetHciDeviceConfig_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetHciDeviceConfig_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetHciDeviceConfig), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetHciDeviceConfig_ResponseParams_Data> params(
           message);
@@ -8497,8 +8693,7 @@ void Executor_FetchBootPerformance_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_FetchBootPerformance_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kFetchBootPerformance), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_FetchBootPerformance_ResponseParams_Data> params(
           message);
@@ -8628,8 +8823,7 @@ void Executor_GetPsr_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetPsr_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetPsr), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetPsr_ResponseParams_Data> params(
           message);
@@ -8759,8 +8953,7 @@ void Executor_RemoveFioTestFile_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RemoveFioTestFile_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRemoveFioTestFile), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RemoveFioTestFile_ResponseParams_Data> params(
           message);
@@ -8899,8 +9092,7 @@ void Executor_GetConnectedExternalDisplayConnectors_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetConnectedExternalDisplayConnectors_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetConnectedExternalDisplayConnectors), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetConnectedExternalDisplayConnectors_ResponseParams_Data> params(
           message);
@@ -9041,8 +9233,7 @@ void Executor_GetPrivacyScreenInfo_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetPrivacyScreenInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetPrivacyScreenInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetPrivacyScreenInfo_ResponseParams_Data> params(
           message);
@@ -9172,8 +9363,7 @@ void Executor_FetchDisplayInfo_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_FetchDisplayInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kFetchDisplayInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_FetchDisplayInfo_ResponseParams_Data> params(
           message);
@@ -9303,8 +9493,7 @@ void Executor_FetchCrashFromCrashSender_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_FetchCrashFromCrashSender_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kFetchCrashFromCrashSender), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_FetchCrashFromCrashSender_ResponseParams_Data> params(
           message);
@@ -9436,8 +9625,7 @@ void Executor_RunPrimeSearch_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RunPrimeSearch_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRunPrimeSearch), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RunPrimeSearch_ResponseParams_Data> params(
           message);
@@ -9559,8 +9747,7 @@ void Executor_RunFloatingPoint_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RunFloatingPoint_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRunFloatingPoint), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RunFloatingPoint_ResponseParams_Data> params(
           message);
@@ -9682,8 +9869,7 @@ void Executor_ReadBtmonLog_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_ReadBtmonLog_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kReadBtmonLog), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_ReadBtmonLog_ResponseParams_Data> params(
           message);
@@ -9815,8 +10001,7 @@ void Executor_RemoveBtmonLog_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RemoveBtmonLog_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRemoveBtmonLog), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RemoveBtmonLog_ResponseParams_Data> params(
           message);
@@ -9948,8 +10133,7 @@ void Executor_SetFanSpeed_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_SetFanSpeed_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kSetFanSpeed), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_SetFanSpeed_ResponseParams_Data> params(
           message);
@@ -10077,8 +10261,7 @@ void Executor_SetAllFanAutoControl_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_SetAllFanAutoControl_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kSetAllFanAutoControl), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_SetAllFanAutoControl_ResponseParams_Data> params(
           message);
@@ -10213,8 +10396,7 @@ void Executor_GetEcThermalSensors_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetEcThermalSensors_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetEcThermalSensors), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetEcThermalSensors_ResponseParams_Data> params(
           message);
@@ -10362,8 +10544,7 @@ void Executor_GetTouchpadDevices_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetTouchpadDevices_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetTouchpadDevices), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetTouchpadDevices_ResponseParams_Data> params(
           message);
@@ -10505,8 +10686,7 @@ void Executor_GetSmartBatteryManufactureDate_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetSmartBatteryManufactureDate_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetSmartBatteryManufactureDate), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetSmartBatteryManufactureDate_ResponseParams_Data> params(
           message);
@@ -10632,8 +10812,7 @@ void Executor_GetSmartBatteryTemperature_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetSmartBatteryTemperature_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetSmartBatteryTemperature), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_GetSmartBatteryTemperature_ResponseParams_Data> params(
           message);
@@ -10758,8 +10937,7 @@ void Executor_RunUrandom_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RunUrandom_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRunUrandom), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::Executor_RunUrandom_ResponseParams_Data> params(
           message);
@@ -10782,28 +10960,154 @@ void Executor_RunUrandom_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Executor_RunNetworkBandwidthTest_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Executor::RunNetworkBandwidthTestCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Executor_RunNetworkBandwidthTest_ProxyToResponder> proxy(
+        new Executor_RunNetworkBandwidthTest_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Executor_RunNetworkBandwidthTest_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Executor_RunNetworkBandwidthTest_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Executor_RunNetworkBandwidthTest_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Executor::RunNetworkBandwidthTestCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::optional<double> in_average_speed);
+};
+
+bool Executor_RunNetworkBandwidthTest_ForwardToCallback::Accept(
+    mojo::Message* message) {
+  DCHECK(message->is_serialized());
+  internal::Executor_RunNetworkBandwidthTest_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Executor_RunNetworkBandwidthTest_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for Executor.42
+  bool success = true;
+  std::optional<double> p_average_speed{};
+  Executor_RunNetworkBandwidthTest_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success) {
+    p_average_speed = input_data_view.average_speed();
+  }
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Executor::Name_, 42, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_average_speed));
+  return true;
+}
+
+void Executor_RunNetworkBandwidthTest_ProxyToResponder::Run(
+    std::optional<double> in_average_speed) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::RunNetworkBandwidthTest", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("average_speed"), in_average_speed,
+                        "<value of type std::optional<double>>");
+   });
+#endif
+
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::Executor::kRunNetworkBandwidthTest), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_RunNetworkBandwidthTest_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->average_speed_$flag = in_average_speed.has_value();
+  if (in_average_speed.has_value()) {
+    params->average_speed_$value = in_average_speed.value();
+  }
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("RunNetworkBandwidthTest");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool ExecutorStubDispatch::Accept(
     Executor* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kExecutor_ReadFile_Name: {
+  switch (static_cast<messages::Executor>(message->header()->name)) {
+    case messages::Executor::kReadFile: {
       break;
     }
-    case internal::kExecutor_ReadFilePart_Name: {
+    case messages::Executor::kReadFilePart: {
       break;
     }
-    case internal::kExecutor_GetFileInfo_Name: {
+    case messages::Executor::kGetFileInfo: {
       break;
     }
-    case internal::kExecutor_GetAllFanSpeed_Name: {
+    case messages::Executor::kGetAllFanSpeed: {
       break;
     }
-    case internal::kExecutor_RunIw_Name: {
+    case messages::Executor::kRunIw: {
       break;
     }
-    case internal::kExecutor_RunMemtester_Name: {
+    case messages::Executor::kRunMemtester: {
       DCHECK(message->is_serialized());
       internal::Executor_RunMemtester_Params_Data* params =
           reinterpret_cast<internal::Executor_RunMemtester_Params_Data*>(
@@ -10836,31 +11140,31 @@ bool ExecutorStubDispatch::Accept(
         std::move(p_receiver));
       return true;
     }
-    case internal::kExecutor_GetProcessIOContents_Name: {
+    case messages::Executor::kGetProcessIOContents: {
       break;
     }
-    case internal::kExecutor_ReadMsr_Name: {
+    case messages::Executor::kReadMsr: {
       break;
     }
-    case internal::kExecutor_GetLidAngle_Name: {
+    case messages::Executor::kGetLidAngle: {
       break;
     }
-    case internal::kExecutor_GetFingerprintFrame_Name: {
+    case messages::Executor::kGetFingerprintFrame: {
       break;
     }
-    case internal::kExecutor_GetFingerprintInfo_Name: {
+    case messages::Executor::kGetFingerprintInfo: {
       break;
     }
-    case internal::kExecutor_SetLedColor_Name: {
+    case messages::Executor::kSetLedColor: {
       break;
     }
-    case internal::kExecutor_ResetLedColor_Name: {
+    case messages::Executor::kResetLedColor: {
       break;
     }
-    case internal::kExecutor_GetHciDeviceConfig_Name: {
+    case messages::Executor::kGetHciDeviceConfig: {
       break;
     }
-    case internal::kExecutor_MonitorAudioJack_Name: {
+    case messages::Executor::kMonitorAudioJack: {
       DCHECK(message->is_serialized());
       internal::Executor_MonitorAudioJack_Params_Data* params =
           reinterpret_cast<internal::Executor_MonitorAudioJack_Params_Data*>(
@@ -10895,7 +11199,7 @@ bool ExecutorStubDispatch::Accept(
         std::move(p_process_control));
       return true;
     }
-    case internal::kExecutor_MonitorTouchpad_Name: {
+    case messages::Executor::kMonitorTouchpad: {
       DCHECK(message->is_serialized());
       internal::Executor_MonitorTouchpad_Params_Data* params =
           reinterpret_cast<internal::Executor_MonitorTouchpad_Params_Data*>(
@@ -10930,7 +11234,7 @@ bool ExecutorStubDispatch::Accept(
         std::move(p_process_control));
       return true;
     }
-    case internal::kExecutor_RunStressAppTest_Name: {
+    case messages::Executor::kRunStressAppTest: {
       DCHECK(message->is_serialized());
       internal::Executor_RunStressAppTest_Params_Data* params =
           reinterpret_cast<internal::Executor_RunStressAppTest_Params_Data*>(
@@ -10971,10 +11275,10 @@ bool ExecutorStubDispatch::Accept(
         std::move(p_receiver));
       return true;
     }
-    case internal::kExecutor_FetchBootPerformance_Name: {
+    case messages::Executor::kFetchBootPerformance: {
       break;
     }
-    case internal::kExecutor_MonitorTouchscreen_Name: {
+    case messages::Executor::kMonitorTouchscreen: {
       DCHECK(message->is_serialized());
       internal::Executor_MonitorTouchscreen_Params_Data* params =
           reinterpret_cast<internal::Executor_MonitorTouchscreen_Params_Data*>(
@@ -11009,7 +11313,7 @@ bool ExecutorStubDispatch::Accept(
         std::move(p_process_control));
       return true;
     }
-    case internal::kExecutor_MonitorStylusGarage_Name: {
+    case messages::Executor::kMonitorStylusGarage: {
       DCHECK(message->is_serialized());
       internal::Executor_MonitorStylusGarage_Params_Data* params =
           reinterpret_cast<internal::Executor_MonitorStylusGarage_Params_Data*>(
@@ -11044,7 +11348,7 @@ bool ExecutorStubDispatch::Accept(
         std::move(p_process_control));
       return true;
     }
-    case internal::kExecutor_MonitorStylus_Name: {
+    case messages::Executor::kMonitorStylus: {
       DCHECK(message->is_serialized());
       internal::Executor_MonitorStylus_Params_Data* params =
           reinterpret_cast<internal::Executor_MonitorStylus_Params_Data*>(
@@ -11079,10 +11383,10 @@ bool ExecutorStubDispatch::Accept(
         std::move(p_process_control));
       return true;
     }
-    case internal::kExecutor_GetPsr_Name: {
+    case messages::Executor::kGetPsr: {
       break;
     }
-    case internal::kExecutor_RunFio_Name: {
+    case messages::Executor::kRunFio: {
       DCHECK(message->is_serialized());
       internal::Executor_RunFio_Params_Data* params =
           reinterpret_cast<internal::Executor_RunFio_Params_Data*>(
@@ -11115,22 +11419,22 @@ bool ExecutorStubDispatch::Accept(
         std::move(p_receiver));
       return true;
     }
-    case internal::kExecutor_RemoveFioTestFile_Name: {
+    case messages::Executor::kRemoveFioTestFile: {
       break;
     }
-    case internal::kExecutor_GetConnectedExternalDisplayConnectors_Name: {
+    case messages::Executor::kGetConnectedExternalDisplayConnectors: {
       break;
     }
-    case internal::kExecutor_GetPrivacyScreenInfo_Name: {
+    case messages::Executor::kGetPrivacyScreenInfo: {
       break;
     }
-    case internal::kExecutor_FetchDisplayInfo_Name: {
+    case messages::Executor::kFetchDisplayInfo: {
       break;
     }
-    case internal::kExecutor_FetchCrashFromCrashSender_Name: {
+    case messages::Executor::kFetchCrashFromCrashSender: {
       break;
     }
-    case internal::kExecutor_MonitorPowerButton_Name: {
+    case messages::Executor::kMonitorPowerButton: {
       DCHECK(message->is_serialized());
       internal::Executor_MonitorPowerButton_Params_Data* params =
           reinterpret_cast<internal::Executor_MonitorPowerButton_Params_Data*>(
@@ -11165,10 +11469,10 @@ bool ExecutorStubDispatch::Accept(
         std::move(p_process_control));
       return true;
     }
-    case internal::kExecutor_RunPrimeSearch_Name: {
+    case messages::Executor::kRunPrimeSearch: {
       break;
     }
-    case internal::kExecutor_MonitorVolumeButton_Name: {
+    case messages::Executor::kMonitorVolumeButton: {
       DCHECK(message->is_serialized());
       internal::Executor_MonitorVolumeButton_Params_Data* params =
           reinterpret_cast<internal::Executor_MonitorVolumeButton_Params_Data*>(
@@ -11203,10 +11507,10 @@ bool ExecutorStubDispatch::Accept(
         std::move(p_process_control));
       return true;
     }
-    case internal::kExecutor_RunFloatingPoint_Name: {
+    case messages::Executor::kRunFloatingPoint: {
       break;
     }
-    case internal::kExecutor_StartBtmon_Name: {
+    case messages::Executor::kStartBtmon: {
       DCHECK(message->is_serialized());
       internal::Executor_StartBtmon_Params_Data* params =
           reinterpret_cast<internal::Executor_StartBtmon_Params_Data*>(
@@ -11239,31 +11543,34 @@ bool ExecutorStubDispatch::Accept(
         std::move(p_receiver));
       return true;
     }
-    case internal::kExecutor_ReadBtmonLog_Name: {
+    case messages::Executor::kReadBtmonLog: {
       break;
     }
-    case internal::kExecutor_RemoveBtmonLog_Name: {
+    case messages::Executor::kRemoveBtmonLog: {
       break;
     }
-    case internal::kExecutor_SetFanSpeed_Name: {
+    case messages::Executor::kSetFanSpeed: {
       break;
     }
-    case internal::kExecutor_SetAllFanAutoControl_Name: {
+    case messages::Executor::kSetAllFanAutoControl: {
       break;
     }
-    case internal::kExecutor_GetEcThermalSensors_Name: {
+    case messages::Executor::kGetEcThermalSensors: {
       break;
     }
-    case internal::kExecutor_GetTouchpadDevices_Name: {
+    case messages::Executor::kGetTouchpadDevices: {
       break;
     }
-    case internal::kExecutor_GetSmartBatteryManufactureDate_Name: {
+    case messages::Executor::kGetSmartBatteryManufactureDate: {
       break;
     }
-    case internal::kExecutor_GetSmartBatteryTemperature_Name: {
+    case messages::Executor::kGetSmartBatteryTemperature: {
       break;
     }
-    case internal::kExecutor_RunUrandom_Name: {
+    case messages::Executor::kRunUrandom: {
+      break;
+    }
+    case messages::Executor::kRunNetworkBandwidthTest: {
       break;
     }
   }
@@ -11278,8 +11585,8 @@ bool ExecutorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kExecutor_ReadFile_Name: {
+  switch (static_cast<messages::Executor>(message->header()->name)) {
+    case messages::Executor::kReadFile: {
       internal::Executor_ReadFile_Params_Data* params =
           reinterpret_cast<
               internal::Executor_ReadFile_Params_Data*>(
@@ -11309,7 +11616,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_file_enum), std::move(callback));
       return true;
     }
-    case internal::kExecutor_ReadFilePart_Name: {
+    case messages::Executor::kReadFilePart: {
       internal::Executor_ReadFilePart_Params_Data* params =
           reinterpret_cast<
               internal::Executor_ReadFilePart_Params_Data*>(
@@ -11348,7 +11655,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_size), std::move(callback));
       return true;
     }
-    case internal::kExecutor_GetFileInfo_Name: {
+    case messages::Executor::kGetFileInfo: {
       internal::Executor_GetFileInfo_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetFileInfo_Params_Data*>(
@@ -11378,7 +11685,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_file_enum), std::move(callback));
       return true;
     }
-    case internal::kExecutor_GetAllFanSpeed_Name: {
+    case messages::Executor::kGetAllFanSpeed: {
       internal::Executor_GetAllFanSpeed_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetAllFanSpeed_Params_Data*>(
@@ -11404,7 +11711,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       impl->GetAllFanSpeed(std::move(callback));
       return true;
     }
-    case internal::kExecutor_RunIw_Name: {
+    case messages::Executor::kRunIw: {
       internal::Executor_RunIw_Params_Data* params =
           reinterpret_cast<
               internal::Executor_RunIw_Params_Data*>(
@@ -11438,10 +11745,10 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_interface_name), std::move(callback));
       return true;
     }
-    case internal::kExecutor_RunMemtester_Name: {
+    case messages::Executor::kRunMemtester: {
       break;
     }
-    case internal::kExecutor_GetProcessIOContents_Name: {
+    case messages::Executor::kGetProcessIOContents: {
       internal::Executor_GetProcessIOContents_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetProcessIOContents_Params_Data*>(
@@ -11471,7 +11778,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_pids), std::move(callback));
       return true;
     }
-    case internal::kExecutor_ReadMsr_Name: {
+    case messages::Executor::kReadMsr: {
       internal::Executor_ReadMsr_Params_Data* params =
           reinterpret_cast<
               internal::Executor_ReadMsr_Params_Data*>(
@@ -11505,7 +11812,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_cpu_index), std::move(callback));
       return true;
     }
-    case internal::kExecutor_GetLidAngle_Name: {
+    case messages::Executor::kGetLidAngle: {
       internal::Executor_GetLidAngle_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetLidAngle_Params_Data*>(
@@ -11531,7 +11838,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       impl->GetLidAngle(std::move(callback));
       return true;
     }
-    case internal::kExecutor_GetFingerprintFrame_Name: {
+    case messages::Executor::kGetFingerprintFrame: {
       internal::Executor_GetFingerprintFrame_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetFingerprintFrame_Params_Data*>(
@@ -11561,7 +11868,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_type), std::move(callback));
       return true;
     }
-    case internal::kExecutor_GetFingerprintInfo_Name: {
+    case messages::Executor::kGetFingerprintInfo: {
       internal::Executor_GetFingerprintInfo_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetFingerprintInfo_Params_Data*>(
@@ -11587,7 +11894,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       impl->GetFingerprintInfo(std::move(callback));
       return true;
     }
-    case internal::kExecutor_SetLedColor_Name: {
+    case messages::Executor::kSetLedColor: {
       internal::Executor_SetLedColor_Params_Data* params =
           reinterpret_cast<
               internal::Executor_SetLedColor_Params_Data*>(
@@ -11621,7 +11928,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_color), std::move(callback));
       return true;
     }
-    case internal::kExecutor_ResetLedColor_Name: {
+    case messages::Executor::kResetLedColor: {
       internal::Executor_ResetLedColor_Params_Data* params =
           reinterpret_cast<
               internal::Executor_ResetLedColor_Params_Data*>(
@@ -11651,7 +11958,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_name), std::move(callback));
       return true;
     }
-    case internal::kExecutor_GetHciDeviceConfig_Name: {
+    case messages::Executor::kGetHciDeviceConfig: {
       internal::Executor_GetHciDeviceConfig_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetHciDeviceConfig_Params_Data*>(
@@ -11681,16 +11988,16 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_hci_interface), std::move(callback));
       return true;
     }
-    case internal::kExecutor_MonitorAudioJack_Name: {
+    case messages::Executor::kMonitorAudioJack: {
       break;
     }
-    case internal::kExecutor_MonitorTouchpad_Name: {
+    case messages::Executor::kMonitorTouchpad: {
       break;
     }
-    case internal::kExecutor_RunStressAppTest_Name: {
+    case messages::Executor::kRunStressAppTest: {
       break;
     }
-    case internal::kExecutor_FetchBootPerformance_Name: {
+    case messages::Executor::kFetchBootPerformance: {
       internal::Executor_FetchBootPerformance_Params_Data* params =
           reinterpret_cast<
               internal::Executor_FetchBootPerformance_Params_Data*>(
@@ -11716,16 +12023,16 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       impl->FetchBootPerformance(std::move(callback));
       return true;
     }
-    case internal::kExecutor_MonitorTouchscreen_Name: {
+    case messages::Executor::kMonitorTouchscreen: {
       break;
     }
-    case internal::kExecutor_MonitorStylusGarage_Name: {
+    case messages::Executor::kMonitorStylusGarage: {
       break;
     }
-    case internal::kExecutor_MonitorStylus_Name: {
+    case messages::Executor::kMonitorStylus: {
       break;
     }
-    case internal::kExecutor_GetPsr_Name: {
+    case messages::Executor::kGetPsr: {
       internal::Executor_GetPsr_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetPsr_Params_Data*>(
@@ -11751,10 +12058,10 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       impl->GetPsr(std::move(callback));
       return true;
     }
-    case internal::kExecutor_RunFio_Name: {
+    case messages::Executor::kRunFio: {
       break;
     }
-    case internal::kExecutor_RemoveFioTestFile_Name: {
+    case messages::Executor::kRemoveFioTestFile: {
       internal::Executor_RemoveFioTestFile_Params_Data* params =
           reinterpret_cast<
               internal::Executor_RemoveFioTestFile_Params_Data*>(
@@ -11780,7 +12087,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       impl->RemoveFioTestFile(std::move(callback));
       return true;
     }
-    case internal::kExecutor_GetConnectedExternalDisplayConnectors_Name: {
+    case messages::Executor::kGetConnectedExternalDisplayConnectors: {
       internal::Executor_GetConnectedExternalDisplayConnectors_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetConnectedExternalDisplayConnectors_Params_Data*>(
@@ -11810,7 +12117,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_last_known_connectors), std::move(callback));
       return true;
     }
-    case internal::kExecutor_GetPrivacyScreenInfo_Name: {
+    case messages::Executor::kGetPrivacyScreenInfo: {
       internal::Executor_GetPrivacyScreenInfo_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetPrivacyScreenInfo_Params_Data*>(
@@ -11836,7 +12143,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       impl->GetPrivacyScreenInfo(std::move(callback));
       return true;
     }
-    case internal::kExecutor_FetchDisplayInfo_Name: {
+    case messages::Executor::kFetchDisplayInfo: {
       internal::Executor_FetchDisplayInfo_Params_Data* params =
           reinterpret_cast<
               internal::Executor_FetchDisplayInfo_Params_Data*>(
@@ -11862,7 +12169,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       impl->FetchDisplayInfo(std::move(callback));
       return true;
     }
-    case internal::kExecutor_FetchCrashFromCrashSender_Name: {
+    case messages::Executor::kFetchCrashFromCrashSender: {
       internal::Executor_FetchCrashFromCrashSender_Params_Data* params =
           reinterpret_cast<
               internal::Executor_FetchCrashFromCrashSender_Params_Data*>(
@@ -11888,10 +12195,10 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       impl->FetchCrashFromCrashSender(std::move(callback));
       return true;
     }
-    case internal::kExecutor_MonitorPowerButton_Name: {
+    case messages::Executor::kMonitorPowerButton: {
       break;
     }
-    case internal::kExecutor_RunPrimeSearch_Name: {
+    case messages::Executor::kRunPrimeSearch: {
       internal::Executor_RunPrimeSearch_Params_Data* params =
           reinterpret_cast<
               internal::Executor_RunPrimeSearch_Params_Data*>(
@@ -11931,10 +12238,10 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_process_control), std::move(callback));
       return true;
     }
-    case internal::kExecutor_MonitorVolumeButton_Name: {
+    case messages::Executor::kMonitorVolumeButton: {
       break;
     }
-    case internal::kExecutor_RunFloatingPoint_Name: {
+    case messages::Executor::kRunFloatingPoint: {
       internal::Executor_RunFloatingPoint_Params_Data* params =
           reinterpret_cast<
               internal::Executor_RunFloatingPoint_Params_Data*>(
@@ -11970,10 +12277,10 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_process_control), std::move(callback));
       return true;
     }
-    case internal::kExecutor_StartBtmon_Name: {
+    case messages::Executor::kStartBtmon: {
       break;
     }
-    case internal::kExecutor_ReadBtmonLog_Name: {
+    case messages::Executor::kReadBtmonLog: {
       internal::Executor_ReadBtmonLog_Params_Data* params =
           reinterpret_cast<
               internal::Executor_ReadBtmonLog_Params_Data*>(
@@ -11999,7 +12306,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       impl->ReadBtmonLog(std::move(callback));
       return true;
     }
-    case internal::kExecutor_RemoveBtmonLog_Name: {
+    case messages::Executor::kRemoveBtmonLog: {
       internal::Executor_RemoveBtmonLog_Params_Data* params =
           reinterpret_cast<
               internal::Executor_RemoveBtmonLog_Params_Data*>(
@@ -12025,7 +12332,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       impl->RemoveBtmonLog(std::move(callback));
       return true;
     }
-    case internal::kExecutor_SetFanSpeed_Name: {
+    case messages::Executor::kSetFanSpeed: {
       internal::Executor_SetFanSpeed_Params_Data* params =
           reinterpret_cast<
               internal::Executor_SetFanSpeed_Params_Data*>(
@@ -12055,7 +12362,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_fan_id_to_rpm), std::move(callback));
       return true;
     }
-    case internal::kExecutor_SetAllFanAutoControl_Name: {
+    case messages::Executor::kSetAllFanAutoControl: {
       internal::Executor_SetAllFanAutoControl_Params_Data* params =
           reinterpret_cast<
               internal::Executor_SetAllFanAutoControl_Params_Data*>(
@@ -12081,7 +12388,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       impl->SetAllFanAutoControl(std::move(callback));
       return true;
     }
-    case internal::kExecutor_GetEcThermalSensors_Name: {
+    case messages::Executor::kGetEcThermalSensors: {
       internal::Executor_GetEcThermalSensors_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetEcThermalSensors_Params_Data*>(
@@ -12107,7 +12414,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       impl->GetEcThermalSensors(std::move(callback));
       return true;
     }
-    case internal::kExecutor_GetTouchpadDevices_Name: {
+    case messages::Executor::kGetTouchpadDevices: {
       internal::Executor_GetTouchpadDevices_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetTouchpadDevices_Params_Data*>(
@@ -12133,7 +12440,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       impl->GetTouchpadDevices(std::move(callback));
       return true;
     }
-    case internal::kExecutor_GetSmartBatteryManufactureDate_Name: {
+    case messages::Executor::kGetSmartBatteryManufactureDate: {
       internal::Executor_GetSmartBatteryManufactureDate_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetSmartBatteryManufactureDate_Params_Data*>(
@@ -12163,7 +12470,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_i2c_port), std::move(callback));
       return true;
     }
-    case internal::kExecutor_GetSmartBatteryTemperature_Name: {
+    case messages::Executor::kGetSmartBatteryTemperature: {
       internal::Executor_GetSmartBatteryTemperature_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetSmartBatteryTemperature_Params_Data*>(
@@ -12193,7 +12500,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_i2c_port), std::move(callback));
       return true;
     }
-    case internal::kExecutor_RunUrandom_Name: {
+    case messages::Executor::kRunUrandom: {
       internal::Executor_RunUrandom_Params_Data* params =
           reinterpret_cast<
               internal::Executor_RunUrandom_Params_Data*>(
@@ -12226,6 +12533,48 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       DCHECK(impl);
       impl->RunUrandom(        
         std::move(p_exec_duration), 
+        std::move(p_process_control), std::move(callback));
+      return true;
+    }
+    case messages::Executor::kRunNetworkBandwidthTest: {
+      internal::Executor_RunNetworkBandwidthTest_Params_Data* params =
+          reinterpret_cast<
+              internal::Executor_RunNetworkBandwidthTest_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for Executor.42
+      bool success = true;
+      NetworkBandwidthTestType p_type{};
+      ::mojo::PendingRemote<NetworkBandwidthObserver> p_observer{};
+      ::mojo::PendingReceiver<ProcessControl> p_process_control{};
+      Executor_RunNetworkBandwidthTest_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadType(&p_type))
+        success = false;
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (success) {
+        p_process_control =
+            input_data_view.TakeProcessControl<decltype(p_process_control)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 42, false);
+        return false;
+      }
+      Executor::RunNetworkBandwidthTestCallback callback =
+          Executor_RunNetworkBandwidthTest_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunNetworkBandwidthTest(        
+        std::move(p_type), 
+        std::move(p_observer), 
         std::move(p_process_control), std::move(callback));
       return true;
     }
@@ -12319,6 +12668,8 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
      &internal::Executor_GetSmartBatteryTemperature_ResponseParams_Data::Validate},
     { &internal::Executor_RunUrandom_Params_Data::Validate,
      &internal::Executor_RunUrandom_ResponseParams_Data::Validate},
+    { &internal::Executor_RunNetworkBandwidthTest_Params_Data::Validate,
+     &internal::Executor_RunNetworkBandwidthTest_ResponseParams_Data::Validate},
 };
 
 bool ExecutorRequestValidator::Accept(mojo::Message* message) {
@@ -12718,6 +13069,17 @@ StylusObserverAsyncWaiter::~StylusObserverAsyncWaiter() = default;
 
 
 
+void NetworkBandwidthObserverInterceptorForTesting::OnProgress(double speed_kbps, double percentage) {
+  GetForwardingInterface()->OnProgress(std::move(speed_kbps), std::move(percentage));
+}
+NetworkBandwidthObserverAsyncWaiter::NetworkBandwidthObserverAsyncWaiter(
+    NetworkBandwidthObserver* proxy) : proxy_(proxy) {}
+
+NetworkBandwidthObserverAsyncWaiter::~NetworkBandwidthObserverAsyncWaiter() = default;
+
+
+
+
 void PowerButtonObserverInterceptorForTesting::OnEvent(PowerButtonObserver::ButtonState button_state) {
   GetForwardingInterface()->OnEvent(std::move(button_state));
 }
@@ -12868,6 +13230,9 @@ void ExecutorInterceptorForTesting::GetSmartBatteryTemperature(uint8_t i2c_port,
 }
 void ExecutorInterceptorForTesting::RunUrandom(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, RunUrandomCallback callback) {
   GetForwardingInterface()->RunUrandom(std::move(exec_duration), std::move(process_control), std::move(callback));
+}
+void ExecutorInterceptorForTesting::RunNetworkBandwidthTest(NetworkBandwidthTestType type, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control, RunNetworkBandwidthTestCallback callback) {
+  GetForwardingInterface()->RunNetworkBandwidthTest(std::move(type), std::move(observer), std::move(process_control), std::move(callback));
 }
 ExecutorAsyncWaiter::ExecutorAsyncWaiter(
     Executor* proxy) : proxy_(proxy) {}
@@ -13578,6 +13943,29 @@ bool ExecutorAsyncWaiter::RunUrandom(
     base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control) {
   bool async_wait_result;
   RunUrandom(std::move(exec_duration),std::move(process_control),&async_wait_result);
+  return async_wait_result;
+}
+
+void ExecutorAsyncWaiter::RunNetworkBandwidthTest(
+    NetworkBandwidthTestType type, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control, std::optional<double>* out_average_speed) {
+  base::RunLoop loop;
+  proxy_->RunNetworkBandwidthTest(std::move(type),std::move(observer),std::move(process_control),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::optional<double>* out_average_speed
+,
+             std::optional<double> average_speed) {*out_average_speed = std::move(average_speed);
+            loop->Quit();
+          },
+          &loop,
+          out_average_speed));
+  loop.Run();
+}
+
+std::optional<double> ExecutorAsyncWaiter::RunNetworkBandwidthTest(
+    NetworkBandwidthTestType type, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
+  std::optional<double> async_wait_result;
+  RunNetworkBandwidthTest(std::move(type),std::move(observer),std::move(process_control),&async_wait_result);
   return async_wait_result;
 }
 

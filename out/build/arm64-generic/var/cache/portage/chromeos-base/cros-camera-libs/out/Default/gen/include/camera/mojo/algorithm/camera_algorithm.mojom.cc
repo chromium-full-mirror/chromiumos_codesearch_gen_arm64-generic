@@ -49,23 +49,23 @@ const char CameraAlgorithmOps::Name_[] = "cros.mojom.CameraAlgorithmOps";
 
 CameraAlgorithmOps::IPCStableHashFunction CameraAlgorithmOps::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCameraAlgorithmOps_Initialize_Name: {
+  switch (static_cast<messages::CameraAlgorithmOps>(message.name())) {
+    case messages::CameraAlgorithmOps::kInitialize: {
       return &CameraAlgorithmOps::Initialize_Sym::IPCStableHash;
     }
-    case internal::kCameraAlgorithmOps_RegisterBuffer_Name: {
+    case messages::CameraAlgorithmOps::kRegisterBuffer: {
       return &CameraAlgorithmOps::RegisterBuffer_Sym::IPCStableHash;
     }
-    case internal::kCameraAlgorithmOps_Request_Name: {
+    case messages::CameraAlgorithmOps::kRequest: {
       return &CameraAlgorithmOps::Request_Sym::IPCStableHash;
     }
-    case internal::kCameraAlgorithmOps_DeregisterBuffers_Name: {
+    case messages::CameraAlgorithmOps::kDeregisterBuffers: {
       return &CameraAlgorithmOps::DeregisterBuffers_Sym::IPCStableHash;
     }
-    case internal::kCameraAlgorithmOps_UpdateReturn_Name: {
+    case messages::CameraAlgorithmOps::kUpdateReturn: {
       return &CameraAlgorithmOps::UpdateReturn_Sym::IPCStableHash;
     }
-    case internal::kCameraAlgorithmOps_Deinitialize_Name: {
+    case messages::CameraAlgorithmOps::kDeinitialize: {
       return &CameraAlgorithmOps::Deinitialize_Sym::IPCStableHash;
     }
   }
@@ -78,33 +78,33 @@ const char* CameraAlgorithmOps::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCameraAlgorithmOps_Initialize_Name:
+    switch (static_cast<messages::CameraAlgorithmOps>(message.name())) {
+      case messages::CameraAlgorithmOps::kInitialize:
             return "Receive cros::mojom::CameraAlgorithmOps::Initialize";
-      case internal::kCameraAlgorithmOps_RegisterBuffer_Name:
+      case messages::CameraAlgorithmOps::kRegisterBuffer:
             return "Receive cros::mojom::CameraAlgorithmOps::RegisterBuffer";
-      case internal::kCameraAlgorithmOps_Request_Name:
+      case messages::CameraAlgorithmOps::kRequest:
             return "Receive cros::mojom::CameraAlgorithmOps::Request";
-      case internal::kCameraAlgorithmOps_DeregisterBuffers_Name:
+      case messages::CameraAlgorithmOps::kDeregisterBuffers:
             return "Receive cros::mojom::CameraAlgorithmOps::DeregisterBuffers";
-      case internal::kCameraAlgorithmOps_UpdateReturn_Name:
+      case messages::CameraAlgorithmOps::kUpdateReturn:
             return "Receive cros::mojom::CameraAlgorithmOps::UpdateReturn";
-      case internal::kCameraAlgorithmOps_Deinitialize_Name:
+      case messages::CameraAlgorithmOps::kDeinitialize:
             return "Receive cros::mojom::CameraAlgorithmOps::Deinitialize";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCameraAlgorithmOps_Initialize_Name:
+    switch (static_cast<messages::CameraAlgorithmOps>(message.name())) {
+      case messages::CameraAlgorithmOps::kInitialize:
             return "Receive reply cros::mojom::CameraAlgorithmOps::Initialize";
-      case internal::kCameraAlgorithmOps_RegisterBuffer_Name:
+      case messages::CameraAlgorithmOps::kRegisterBuffer:
             return "Receive reply cros::mojom::CameraAlgorithmOps::RegisterBuffer";
-      case internal::kCameraAlgorithmOps_Request_Name:
+      case messages::CameraAlgorithmOps::kRequest:
             return "Receive reply cros::mojom::CameraAlgorithmOps::Request";
-      case internal::kCameraAlgorithmOps_DeregisterBuffers_Name:
+      case messages::CameraAlgorithmOps::kDeregisterBuffers:
             return "Receive reply cros::mojom::CameraAlgorithmOps::DeregisterBuffers";
-      case internal::kCameraAlgorithmOps_UpdateReturn_Name:
+      case messages::CameraAlgorithmOps::kUpdateReturn:
             return "Receive reply cros::mojom::CameraAlgorithmOps::UpdateReturn";
-      case internal::kCameraAlgorithmOps_Deinitialize_Name:
+      case messages::CameraAlgorithmOps::kDeinitialize:
             return "Receive reply cros::mojom::CameraAlgorithmOps::Deinitialize";
     }
   }
@@ -263,8 +263,7 @@ void CameraAlgorithmOpsProxy::Initialize(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraAlgorithmOps::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_Initialize_Params_Data> params(
           message);
@@ -313,8 +312,7 @@ void CameraAlgorithmOpsProxy::RegisterBuffer(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraAlgorithmOps::kRegisterBuffer), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_RegisterBuffer_Params_Data> params(
           message);
@@ -369,8 +367,7 @@ void CameraAlgorithmOpsProxy::Request(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_Request_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraAlgorithmOps::kRequest), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_Request_Params_Data> params(
           message);
@@ -427,8 +424,7 @@ void CameraAlgorithmOpsProxy::DeregisterBuffers(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_DeregisterBuffers_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraAlgorithmOps::kDeregisterBuffers), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_DeregisterBuffers_Params_Data> params(
           message);
@@ -489,8 +485,7 @@ void CameraAlgorithmOpsProxy::UpdateReturn(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_UpdateReturn_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraAlgorithmOps::kUpdateReturn), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_UpdateReturn_Params_Data> params(
           message);
@@ -533,8 +528,7 @@ void CameraAlgorithmOpsProxy::Deinitialize(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_Deinitialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraAlgorithmOps::kDeinitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_Deinitialize_Params_Data> params(
           message);
@@ -647,8 +641,7 @@ void CameraAlgorithmOps_Initialize_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraAlgorithmOps::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_Initialize_ResponseParams_Data> params(
           message);
@@ -770,8 +763,7 @@ void CameraAlgorithmOps_RegisterBuffer_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraAlgorithmOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraAlgorithmOps::kRegisterBuffer), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmOps_RegisterBuffer_ResponseParams_Data> params(
           message);
@@ -799,14 +791,14 @@ void CameraAlgorithmOps_RegisterBuffer_ProxyToResponder::Run(
 bool CameraAlgorithmOpsStubDispatch::Accept(
     CameraAlgorithmOps* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCameraAlgorithmOps_Initialize_Name: {
+  switch (static_cast<messages::CameraAlgorithmOps>(message->header()->name)) {
+    case messages::CameraAlgorithmOps::kInitialize: {
       break;
     }
-    case internal::kCameraAlgorithmOps_RegisterBuffer_Name: {
+    case messages::CameraAlgorithmOps::kRegisterBuffer: {
       break;
     }
-    case internal::kCameraAlgorithmOps_Request_Name: {
+    case messages::CameraAlgorithmOps::kRequest: {
       DCHECK(message->is_serialized());
       internal::CameraAlgorithmOps_Request_Params_Data* params =
           reinterpret_cast<internal::CameraAlgorithmOps_Request_Params_Data*>(
@@ -841,7 +833,7 @@ bool CameraAlgorithmOpsStubDispatch::Accept(
         std::move(p_buffer_handle));
       return true;
     }
-    case internal::kCameraAlgorithmOps_DeregisterBuffers_Name: {
+    case messages::CameraAlgorithmOps::kDeregisterBuffers: {
       DCHECK(message->is_serialized());
       internal::CameraAlgorithmOps_DeregisterBuffers_Params_Data* params =
           reinterpret_cast<internal::CameraAlgorithmOps_DeregisterBuffers_Params_Data*>(
@@ -868,7 +860,7 @@ bool CameraAlgorithmOpsStubDispatch::Accept(
         std::move(p_buffer_handles));
       return true;
     }
-    case internal::kCameraAlgorithmOps_UpdateReturn_Name: {
+    case messages::CameraAlgorithmOps::kUpdateReturn: {
       DCHECK(message->is_serialized());
       internal::CameraAlgorithmOps_UpdateReturn_Params_Data* params =
           reinterpret_cast<internal::CameraAlgorithmOps_UpdateReturn_Params_Data*>(
@@ -903,7 +895,7 @@ bool CameraAlgorithmOpsStubDispatch::Accept(
         std::move(p_buffer_fd));
       return true;
     }
-    case internal::kCameraAlgorithmOps_Deinitialize_Name: {
+    case messages::CameraAlgorithmOps::kDeinitialize: {
       DCHECK(message->is_serialized());
       internal::CameraAlgorithmOps_Deinitialize_Params_Data* params =
           reinterpret_cast<internal::CameraAlgorithmOps_Deinitialize_Params_Data*>(
@@ -938,8 +930,8 @@ bool CameraAlgorithmOpsStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCameraAlgorithmOps_Initialize_Name: {
+  switch (static_cast<messages::CameraAlgorithmOps>(message->header()->name)) {
+    case messages::CameraAlgorithmOps::kInitialize: {
       internal::CameraAlgorithmOps_Initialize_Params_Data* params =
           reinterpret_cast<
               internal::CameraAlgorithmOps_Initialize_Params_Data*>(
@@ -971,7 +963,7 @@ bool CameraAlgorithmOpsStubDispatch::AcceptWithResponder(
         std::move(p_callbacks), std::move(callback));
       return true;
     }
-    case internal::kCameraAlgorithmOps_RegisterBuffer_Name: {
+    case messages::CameraAlgorithmOps::kRegisterBuffer: {
       internal::CameraAlgorithmOps_RegisterBuffer_Params_Data* params =
           reinterpret_cast<
               internal::CameraAlgorithmOps_RegisterBuffer_Params_Data*>(
@@ -1001,16 +993,16 @@ bool CameraAlgorithmOpsStubDispatch::AcceptWithResponder(
         std::move(p_buffer_fd), std::move(callback));
       return true;
     }
-    case internal::kCameraAlgorithmOps_Request_Name: {
+    case messages::CameraAlgorithmOps::kRequest: {
       break;
     }
-    case internal::kCameraAlgorithmOps_DeregisterBuffers_Name: {
+    case messages::CameraAlgorithmOps::kDeregisterBuffers: {
       break;
     }
-    case internal::kCameraAlgorithmOps_UpdateReturn_Name: {
+    case messages::CameraAlgorithmOps::kUpdateReturn: {
       break;
     }
-    case internal::kCameraAlgorithmOps_Deinitialize_Name: {
+    case messages::CameraAlgorithmOps::kDeinitialize: {
       break;
     }
   }
@@ -1046,11 +1038,11 @@ const char CameraAlgorithmCallbackOps::Name_[] = "cros.mojom.CameraAlgorithmCall
 
 CameraAlgorithmCallbackOps::IPCStableHashFunction CameraAlgorithmCallbackOps::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCameraAlgorithmCallbackOps_Return_Name: {
+  switch (static_cast<messages::CameraAlgorithmCallbackOps>(message.name())) {
+    case messages::CameraAlgorithmCallbackOps::kReturn: {
       return &CameraAlgorithmCallbackOps::Return_Sym::IPCStableHash;
     }
-    case internal::kCameraAlgorithmCallbackOps_Update_Name: {
+    case messages::CameraAlgorithmCallbackOps::kUpdate: {
       return &CameraAlgorithmCallbackOps::Update_Sym::IPCStableHash;
     }
   }
@@ -1063,17 +1055,17 @@ const char* CameraAlgorithmCallbackOps::MessageToMethodName_(mojo::Message& mess
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCameraAlgorithmCallbackOps_Return_Name:
+    switch (static_cast<messages::CameraAlgorithmCallbackOps>(message.name())) {
+      case messages::CameraAlgorithmCallbackOps::kReturn:
             return "Receive cros::mojom::CameraAlgorithmCallbackOps::Return";
-      case internal::kCameraAlgorithmCallbackOps_Update_Name:
+      case messages::CameraAlgorithmCallbackOps::kUpdate:
             return "Receive cros::mojom::CameraAlgorithmCallbackOps::Update";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCameraAlgorithmCallbackOps_Return_Name:
+    switch (static_cast<messages::CameraAlgorithmCallbackOps>(message.name())) {
+      case messages::CameraAlgorithmCallbackOps::kReturn:
             return "Receive reply cros::mojom::CameraAlgorithmCallbackOps::Return";
-      case internal::kCameraAlgorithmCallbackOps_Update_Name:
+      case messages::CameraAlgorithmCallbackOps::kUpdate:
             return "Receive reply cros::mojom::CameraAlgorithmCallbackOps::Update";
     }
   }
@@ -1154,8 +1146,7 @@ void CameraAlgorithmCallbackOpsProxy::Return(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraAlgorithmCallbackOps_Return_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraAlgorithmCallbackOps::kReturn), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmCallbackOps_Return_Params_Data> params(
           message);
@@ -1206,8 +1197,7 @@ void CameraAlgorithmCallbackOpsProxy::Update(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraAlgorithmCallbackOps_Update_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraAlgorithmCallbackOps::kUpdate), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraAlgorithmCallbackOps_Update_Params_Data> params(
           message);
@@ -1246,8 +1236,8 @@ void CameraAlgorithmCallbackOpsProxy::Update(
 bool CameraAlgorithmCallbackOpsStubDispatch::Accept(
     CameraAlgorithmCallbackOps* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCameraAlgorithmCallbackOps_Return_Name: {
+  switch (static_cast<messages::CameraAlgorithmCallbackOps>(message->header()->name)) {
+    case messages::CameraAlgorithmCallbackOps::kReturn: {
       DCHECK(message->is_serialized());
       internal::CameraAlgorithmCallbackOps_Return_Params_Data* params =
           reinterpret_cast<internal::CameraAlgorithmCallbackOps_Return_Params_Data*>(
@@ -1282,7 +1272,7 @@ bool CameraAlgorithmCallbackOpsStubDispatch::Accept(
         std::move(p_buffer_handle));
       return true;
     }
-    case internal::kCameraAlgorithmCallbackOps_Update_Name: {
+    case messages::CameraAlgorithmCallbackOps::kUpdate: {
       DCHECK(message->is_serialized());
       internal::CameraAlgorithmCallbackOps_Update_Params_Data* params =
           reinterpret_cast<internal::CameraAlgorithmCallbackOps_Update_Params_Data*>(
@@ -1329,11 +1319,11 @@ bool CameraAlgorithmCallbackOpsStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCameraAlgorithmCallbackOps_Return_Name: {
+  switch (static_cast<messages::CameraAlgorithmCallbackOps>(message->header()->name)) {
+    case messages::CameraAlgorithmCallbackOps::kReturn: {
       break;
     }
-    case internal::kCameraAlgorithmCallbackOps_Update_Name: {
+    case messages::CameraAlgorithmCallbackOps::kUpdate: {
       break;
     }
   }

@@ -11,11 +11,11 @@
 
 
 namespace chromeos_camera::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos_camera::mojom
 

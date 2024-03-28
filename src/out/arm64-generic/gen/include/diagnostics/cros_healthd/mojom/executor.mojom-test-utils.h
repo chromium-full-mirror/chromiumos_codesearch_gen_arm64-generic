@@ -139,6 +139,24 @@ class  StylusObserverAsyncWaiter {
 };
 
 
+class  NetworkBandwidthObserverInterceptorForTesting : public NetworkBandwidthObserver {
+  virtual NetworkBandwidthObserver* GetForwardingInterface() = 0;
+  void OnProgress(double speed_kbps, double percentage) override;
+};
+class  NetworkBandwidthObserverAsyncWaiter {
+ public:
+  explicit NetworkBandwidthObserverAsyncWaiter(NetworkBandwidthObserver* proxy);
+
+  NetworkBandwidthObserverAsyncWaiter(const NetworkBandwidthObserverAsyncWaiter&) = delete;
+  NetworkBandwidthObserverAsyncWaiter& operator=(const NetworkBandwidthObserverAsyncWaiter&) = delete;
+
+  ~NetworkBandwidthObserverAsyncWaiter();
+
+ private:
+  NetworkBandwidthObserver* const proxy_;
+};
+
+
 class  PowerButtonObserverInterceptorForTesting : public PowerButtonObserver {
   virtual PowerButtonObserver* GetForwardingInterface() = 0;
   void OnEvent(PowerButtonObserver::ButtonState button_state) override;
@@ -220,6 +238,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetSmartBatteryManufactureDate(uint8_t i2c_port, GetSmartBatteryManufactureDateCallback callback) override;
   void GetSmartBatteryTemperature(uint8_t i2c_port, GetSmartBatteryTemperatureCallback callback) override;
   void RunUrandom(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, RunUrandomCallback callback) override;
+  void RunNetworkBandwidthTest(NetworkBandwidthTestType type, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control, RunNetworkBandwidthTestCallback callback) override;
 };
 class  ExecutorAsyncWaiter {
  public:
@@ -322,6 +341,9 @@ class  ExecutorAsyncWaiter {
   void RunUrandom(
       base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, bool* out_passed);
   bool RunUrandom(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control);
+  void RunNetworkBandwidthTest(
+      NetworkBandwidthTestType type, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control, std::optional<double>* out_average_speed);
+  std::optional<double> RunNetworkBandwidthTest(NetworkBandwidthTestType type, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control);
 
  private:
   Executor* const proxy_;

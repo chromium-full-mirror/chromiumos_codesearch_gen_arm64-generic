@@ -244,8 +244,8 @@ const char GrammarChecker::Name_[] = "chromeos.machine_learning.mojom.GrammarChe
 
 GrammarChecker::IPCStableHashFunction GrammarChecker::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kGrammarChecker_Check_Name: {
+  switch (static_cast<messages::GrammarChecker>(message.name())) {
+    case messages::GrammarChecker::kCheck: {
       return &GrammarChecker::Check_Sym::IPCStableHash;
     }
   }
@@ -258,13 +258,13 @@ const char* GrammarChecker::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kGrammarChecker_Check_Name:
+    switch (static_cast<messages::GrammarChecker>(message.name())) {
+      case messages::GrammarChecker::kCheck:
             return "Receive chromeos::machine_learning::mojom::GrammarChecker::Check";
     }
   } else {
-    switch (message.name()) {
-      case internal::kGrammarChecker_Check_Name:
+    switch (static_cast<messages::GrammarChecker>(message.name())) {
+      case messages::GrammarChecker::kCheck:
             return "Receive reply chromeos::machine_learning::mojom::GrammarChecker::Check";
     }
   }
@@ -342,8 +342,7 @@ void GrammarCheckerProxy::Check(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kGrammarChecker_Check_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::GrammarChecker::kCheck), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::GrammarChecker_Check_Params_Data> params(
           message);
@@ -468,8 +467,7 @@ void GrammarChecker_Check_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kGrammarChecker_Check_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::GrammarChecker::kCheck), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::GrammarChecker_Check_ResponseParams_Data> params(
           message);
@@ -507,8 +505,8 @@ void GrammarChecker_Check_ProxyToResponder::Run(
 bool GrammarCheckerStubDispatch::Accept(
     GrammarChecker* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kGrammarChecker_Check_Name: {
+  switch (static_cast<messages::GrammarChecker>(message->header()->name)) {
+    case messages::GrammarChecker::kCheck: {
       break;
     }
   }
@@ -523,8 +521,8 @@ bool GrammarCheckerStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kGrammarChecker_Check_Name: {
+  switch (static_cast<messages::GrammarChecker>(message->header()->name)) {
+    case messages::GrammarChecker::kCheck: {
       internal::GrammarChecker_Check_Params_Data* params =
           reinterpret_cast<
               internal::GrammarChecker_Check_Params_Data*>(

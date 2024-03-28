@@ -199,8 +199,8 @@ const char ModelLoader::Name_[] = "ml.model_loader.mojom.ModelLoader";
 
 ModelLoader::IPCStableHashFunction ModelLoader::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kModelLoader_Load_Name: {
+  switch (static_cast<messages::ModelLoader>(message.name())) {
+    case messages::ModelLoader::kLoad: {
       return &ModelLoader::Load_Sym::IPCStableHash;
     }
   }
@@ -213,13 +213,13 @@ const char* ModelLoader::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kModelLoader_Load_Name:
+    switch (static_cast<messages::ModelLoader>(message.name())) {
+      case messages::ModelLoader::kLoad:
             return "Receive ml::model_loader::mojom::ModelLoader::Load";
     }
   } else {
-    switch (message.name()) {
-      case internal::kModelLoader_Load_Name:
+    switch (static_cast<messages::ModelLoader>(message.name())) {
+      case messages::ModelLoader::kLoad:
             return "Receive reply ml::model_loader::mojom::ModelLoader::Load";
     }
   }
@@ -297,8 +297,7 @@ void ModelLoaderProxy::Load(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kModelLoader_Load_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ModelLoader::kLoad), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ml::model_loader::mojom::internal::ModelLoader_Load_Params_Data> params(
           message);
@@ -437,8 +436,7 @@ void ModelLoader_Load_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kModelLoader_Load_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ModelLoader::kLoad), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ml::model_loader::mojom::internal::ModelLoader_Load_ResponseParams_Data> params(
           message);
@@ -476,8 +474,8 @@ void ModelLoader_Load_ProxyToResponder::Run(
 bool ModelLoaderStubDispatch::Accept(
     ModelLoader* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kModelLoader_Load_Name: {
+  switch (static_cast<messages::ModelLoader>(message->header()->name)) {
+    case messages::ModelLoader::kLoad: {
       break;
     }
   }
@@ -492,8 +490,8 @@ bool ModelLoaderStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kModelLoader_Load_Name: {
+  switch (static_cast<messages::ModelLoader>(message->header()->name)) {
+    case messages::ModelLoader::kLoad: {
       internal::ModelLoader_Load_Params_Data* params =
           reinterpret_cast<
               internal::ModelLoader_Load_Params_Data*>(
@@ -546,8 +544,8 @@ const char Model::Name_[] = "ml.model_loader.mojom.Model";
 
 Model::IPCStableHashFunction Model::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kModel_Compute_Name: {
+  switch (static_cast<messages::Model>(message.name())) {
+    case messages::Model::kCompute: {
       return &Model::Compute_Sym::IPCStableHash;
     }
   }
@@ -560,13 +558,13 @@ const char* Model::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kModel_Compute_Name:
+    switch (static_cast<messages::Model>(message.name())) {
+      case messages::Model::kCompute:
             return "Receive ml::model_loader::mojom::Model::Compute";
     }
   } else {
-    switch (message.name()) {
-      case internal::kModel_Compute_Name:
+    switch (static_cast<messages::Model>(message.name())) {
+      case messages::Model::kCompute:
             return "Receive reply ml::model_loader::mojom::Model::Compute";
     }
   }
@@ -644,8 +642,7 @@ void ModelProxy::Compute(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kModel_Compute_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Model::kCompute), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ml::model_loader::mojom::internal::Model_Compute_Params_Data> params(
           message);
@@ -779,8 +776,7 @@ void Model_Compute_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kModel_Compute_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Model::kCompute), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ml::model_loader::mojom::internal::Model_Compute_ResponseParams_Data> params(
           message);
@@ -818,8 +814,8 @@ void Model_Compute_ProxyToResponder::Run(
 bool ModelStubDispatch::Accept(
     Model* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kModel_Compute_Name: {
+  switch (static_cast<messages::Model>(message->header()->name)) {
+    case messages::Model::kCompute: {
       break;
     }
   }
@@ -834,8 +830,8 @@ bool ModelStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kModel_Compute_Name: {
+  switch (static_cast<messages::Model>(message->header()->name)) {
+    case messages::Model::kCompute: {
       internal::Model_Compute_Params_Data* params =
           reinterpret_cast<
               internal::Model_Compute_Params_Data*>(

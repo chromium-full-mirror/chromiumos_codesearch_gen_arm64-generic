@@ -1492,23 +1492,23 @@ const char CrosHealthdBluetoothObserver::Name_[] = "ash.cros_healthd.mojom.CrosH
 
 CrosHealthdBluetoothObserver::IPCStableHashFunction CrosHealthdBluetoothObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCrosHealthdBluetoothObserver_OnAdapterAdded_Name: {
+  switch (static_cast<messages::CrosHealthdBluetoothObserver>(message.name())) {
+    case messages::CrosHealthdBluetoothObserver::kOnAdapterAdded: {
       return &CrosHealthdBluetoothObserver::OnAdapterAdded_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnAdapterRemoved: {
       return &CrosHealthdBluetoothObserver::OnAdapterRemoved_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnAdapterPropertyChanged: {
       return &CrosHealthdBluetoothObserver::OnAdapterPropertyChanged_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnDeviceAdded: {
       return &CrosHealthdBluetoothObserver::OnDeviceAdded_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnDeviceRemoved: {
       return &CrosHealthdBluetoothObserver::OnDeviceRemoved_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnDevicePropertyChanged: {
       return &CrosHealthdBluetoothObserver::OnDevicePropertyChanged_Sym::IPCStableHash;
     }
   }
@@ -1521,33 +1521,33 @@ const char* CrosHealthdBluetoothObserver::MessageToMethodName_(mojo::Message& me
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCrosHealthdBluetoothObserver_OnAdapterAdded_Name:
+    switch (static_cast<messages::CrosHealthdBluetoothObserver>(message.name())) {
+      case messages::CrosHealthdBluetoothObserver::kOnAdapterAdded:
             return "Receive ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterAdded";
-      case internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name:
+      case messages::CrosHealthdBluetoothObserver::kOnAdapterRemoved:
             return "Receive ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterRemoved";
-      case internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name:
+      case messages::CrosHealthdBluetoothObserver::kOnAdapterPropertyChanged:
             return "Receive ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterPropertyChanged";
-      case internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name:
+      case messages::CrosHealthdBluetoothObserver::kOnDeviceAdded:
             return "Receive ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceAdded";
-      case internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name:
+      case messages::CrosHealthdBluetoothObserver::kOnDeviceRemoved:
             return "Receive ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceRemoved";
-      case internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name:
+      case messages::CrosHealthdBluetoothObserver::kOnDevicePropertyChanged:
             return "Receive ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDevicePropertyChanged";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCrosHealthdBluetoothObserver_OnAdapterAdded_Name:
+    switch (static_cast<messages::CrosHealthdBluetoothObserver>(message.name())) {
+      case messages::CrosHealthdBluetoothObserver::kOnAdapterAdded:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterAdded";
-      case internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name:
+      case messages::CrosHealthdBluetoothObserver::kOnAdapterRemoved:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterRemoved";
-      case internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name:
+      case messages::CrosHealthdBluetoothObserver::kOnAdapterPropertyChanged:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterPropertyChanged";
-      case internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name:
+      case messages::CrosHealthdBluetoothObserver::kOnDeviceAdded:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceAdded";
-      case internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name:
+      case messages::CrosHealthdBluetoothObserver::kOnDeviceRemoved:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceRemoved";
-      case internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name:
+      case messages::CrosHealthdBluetoothObserver::kOnDevicePropertyChanged:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDevicePropertyChanged";
     }
   }
@@ -1667,8 +1667,7 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterAdded(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdBluetoothObserver_OnAdapterAdded_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdBluetoothObserver::kOnAdapterAdded), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnAdapterAdded_Params_Data> params(
           message);
@@ -1703,8 +1702,7 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterRemoved(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdBluetoothObserver::kOnAdapterRemoved), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnAdapterRemoved_Params_Data> params(
           message);
@@ -1739,8 +1737,7 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterPropertyChanged(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdBluetoothObserver::kOnAdapterPropertyChanged), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Params_Data> params(
           message);
@@ -1775,8 +1772,7 @@ void CrosHealthdBluetoothObserverProxy::OnDeviceAdded(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdBluetoothObserver::kOnDeviceAdded), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnDeviceAdded_Params_Data> params(
           message);
@@ -1811,8 +1807,7 @@ void CrosHealthdBluetoothObserverProxy::OnDeviceRemoved(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdBluetoothObserver::kOnDeviceRemoved), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnDeviceRemoved_Params_Data> params(
           message);
@@ -1847,8 +1842,7 @@ void CrosHealthdBluetoothObserverProxy::OnDevicePropertyChanged(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdBluetoothObserver::kOnDevicePropertyChanged), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnDevicePropertyChanged_Params_Data> params(
           message);
@@ -1867,8 +1861,8 @@ void CrosHealthdBluetoothObserverProxy::OnDevicePropertyChanged(
 bool CrosHealthdBluetoothObserverStubDispatch::Accept(
     CrosHealthdBluetoothObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCrosHealthdBluetoothObserver_OnAdapterAdded_Name: {
+  switch (static_cast<messages::CrosHealthdBluetoothObserver>(message->header()->name)) {
+    case messages::CrosHealthdBluetoothObserver::kOnAdapterAdded: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdBluetoothObserver_OnAdapterAdded_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnAdapterAdded_Params_Data*>(
@@ -1891,7 +1885,7 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       impl->OnAdapterAdded(        );
       return true;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnAdapterRemoved: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdBluetoothObserver_OnAdapterRemoved_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnAdapterRemoved_Params_Data*>(
@@ -1914,7 +1908,7 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       impl->OnAdapterRemoved(        );
       return true;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnAdapterPropertyChanged: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Params_Data*>(
@@ -1937,7 +1931,7 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       impl->OnAdapterPropertyChanged(        );
       return true;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnDeviceAdded: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdBluetoothObserver_OnDeviceAdded_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnDeviceAdded_Params_Data*>(
@@ -1960,7 +1954,7 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       impl->OnDeviceAdded(        );
       return true;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnDeviceRemoved: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdBluetoothObserver_OnDeviceRemoved_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnDeviceRemoved_Params_Data*>(
@@ -1983,7 +1977,7 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       impl->OnDeviceRemoved(        );
       return true;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnDevicePropertyChanged: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdBluetoothObserver_OnDevicePropertyChanged_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnDevicePropertyChanged_Params_Data*>(
@@ -2018,23 +2012,23 @@ bool CrosHealthdBluetoothObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCrosHealthdBluetoothObserver_OnAdapterAdded_Name: {
+  switch (static_cast<messages::CrosHealthdBluetoothObserver>(message->header()->name)) {
+    case messages::CrosHealthdBluetoothObserver::kOnAdapterAdded: {
       break;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnAdapterRemoved: {
       break;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnAdapterPropertyChanged: {
       break;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnDeviceAdded: {
       break;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnDeviceRemoved: {
       break;
     }
-    case internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name: {
+    case messages::CrosHealthdBluetoothObserver::kOnDevicePropertyChanged: {
       break;
     }
   }
@@ -2066,11 +2060,11 @@ const char CrosHealthdLidObserver::Name_[] = "ash.cros_healthd.mojom.CrosHealthd
 
 CrosHealthdLidObserver::IPCStableHashFunction CrosHealthdLidObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCrosHealthdLidObserver_OnLidClosed_Name: {
+  switch (static_cast<messages::CrosHealthdLidObserver>(message.name())) {
+    case messages::CrosHealthdLidObserver::kOnLidClosed: {
       return &CrosHealthdLidObserver::OnLidClosed_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdLidObserver_OnLidOpened_Name: {
+    case messages::CrosHealthdLidObserver::kOnLidOpened: {
       return &CrosHealthdLidObserver::OnLidOpened_Sym::IPCStableHash;
     }
   }
@@ -2083,17 +2077,17 @@ const char* CrosHealthdLidObserver::MessageToMethodName_(mojo::Message& message)
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCrosHealthdLidObserver_OnLidClosed_Name:
+    switch (static_cast<messages::CrosHealthdLidObserver>(message.name())) {
+      case messages::CrosHealthdLidObserver::kOnLidClosed:
             return "Receive ash::cros_healthd::mojom::CrosHealthdLidObserver::OnLidClosed";
-      case internal::kCrosHealthdLidObserver_OnLidOpened_Name:
+      case messages::CrosHealthdLidObserver::kOnLidOpened:
             return "Receive ash::cros_healthd::mojom::CrosHealthdLidObserver::OnLidOpened";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCrosHealthdLidObserver_OnLidClosed_Name:
+    switch (static_cast<messages::CrosHealthdLidObserver>(message.name())) {
+      case messages::CrosHealthdLidObserver::kOnLidClosed:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdLidObserver::OnLidClosed";
-      case internal::kCrosHealthdLidObserver_OnLidOpened_Name:
+      case messages::CrosHealthdLidObserver::kOnLidOpened:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdLidObserver::OnLidOpened";
     }
   }
@@ -2161,8 +2155,7 @@ void CrosHealthdLidObserverProxy::OnLidClosed(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdLidObserver_OnLidClosed_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdLidObserver::kOnLidClosed), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdLidObserver_OnLidClosed_Params_Data> params(
           message);
@@ -2197,8 +2190,7 @@ void CrosHealthdLidObserverProxy::OnLidOpened(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdLidObserver_OnLidOpened_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdLidObserver::kOnLidOpened), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdLidObserver_OnLidOpened_Params_Data> params(
           message);
@@ -2217,8 +2209,8 @@ void CrosHealthdLidObserverProxy::OnLidOpened(
 bool CrosHealthdLidObserverStubDispatch::Accept(
     CrosHealthdLidObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCrosHealthdLidObserver_OnLidClosed_Name: {
+  switch (static_cast<messages::CrosHealthdLidObserver>(message->header()->name)) {
+    case messages::CrosHealthdLidObserver::kOnLidClosed: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdLidObserver_OnLidClosed_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdLidObserver_OnLidClosed_Params_Data*>(
@@ -2241,7 +2233,7 @@ bool CrosHealthdLidObserverStubDispatch::Accept(
       impl->OnLidClosed(        );
       return true;
     }
-    case internal::kCrosHealthdLidObserver_OnLidOpened_Name: {
+    case messages::CrosHealthdLidObserver::kOnLidOpened: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdLidObserver_OnLidOpened_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdLidObserver_OnLidOpened_Params_Data*>(
@@ -2276,11 +2268,11 @@ bool CrosHealthdLidObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCrosHealthdLidObserver_OnLidClosed_Name: {
+  switch (static_cast<messages::CrosHealthdLidObserver>(message->header()->name)) {
+    case messages::CrosHealthdLidObserver::kOnLidClosed: {
       break;
     }
-    case internal::kCrosHealthdLidObserver_OnLidOpened_Name: {
+    case messages::CrosHealthdLidObserver::kOnLidOpened: {
       break;
     }
   }
@@ -2304,17 +2296,17 @@ const char CrosHealthdPowerObserver::Name_[] = "ash.cros_healthd.mojom.CrosHealt
 
 CrosHealthdPowerObserver::IPCStableHashFunction CrosHealthdPowerObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCrosHealthdPowerObserver_OnAcInserted_Name: {
+  switch (static_cast<messages::CrosHealthdPowerObserver>(message.name())) {
+    case messages::CrosHealthdPowerObserver::kOnAcInserted: {
       return &CrosHealthdPowerObserver::OnAcInserted_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdPowerObserver_OnAcRemoved_Name: {
+    case messages::CrosHealthdPowerObserver::kOnAcRemoved: {
       return &CrosHealthdPowerObserver::OnAcRemoved_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdPowerObserver_OnOsSuspend_Name: {
+    case messages::CrosHealthdPowerObserver::kOnOsSuspend: {
       return &CrosHealthdPowerObserver::OnOsSuspend_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdPowerObserver_OnOsResume_Name: {
+    case messages::CrosHealthdPowerObserver::kOnOsResume: {
       return &CrosHealthdPowerObserver::OnOsResume_Sym::IPCStableHash;
     }
   }
@@ -2327,25 +2319,25 @@ const char* CrosHealthdPowerObserver::MessageToMethodName_(mojo::Message& messag
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCrosHealthdPowerObserver_OnAcInserted_Name:
+    switch (static_cast<messages::CrosHealthdPowerObserver>(message.name())) {
+      case messages::CrosHealthdPowerObserver::kOnAcInserted:
             return "Receive ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcInserted";
-      case internal::kCrosHealthdPowerObserver_OnAcRemoved_Name:
+      case messages::CrosHealthdPowerObserver::kOnAcRemoved:
             return "Receive ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcRemoved";
-      case internal::kCrosHealthdPowerObserver_OnOsSuspend_Name:
+      case messages::CrosHealthdPowerObserver::kOnOsSuspend:
             return "Receive ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsSuspend";
-      case internal::kCrosHealthdPowerObserver_OnOsResume_Name:
+      case messages::CrosHealthdPowerObserver::kOnOsResume:
             return "Receive ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsResume";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCrosHealthdPowerObserver_OnAcInserted_Name:
+    switch (static_cast<messages::CrosHealthdPowerObserver>(message.name())) {
+      case messages::CrosHealthdPowerObserver::kOnAcInserted:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcInserted";
-      case internal::kCrosHealthdPowerObserver_OnAcRemoved_Name:
+      case messages::CrosHealthdPowerObserver::kOnAcRemoved:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcRemoved";
-      case internal::kCrosHealthdPowerObserver_OnOsSuspend_Name:
+      case messages::CrosHealthdPowerObserver::kOnOsSuspend:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsSuspend";
-      case internal::kCrosHealthdPowerObserver_OnOsResume_Name:
+      case messages::CrosHealthdPowerObserver::kOnOsResume:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsResume";
     }
   }
@@ -2439,8 +2431,7 @@ void CrosHealthdPowerObserverProxy::OnAcInserted(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdPowerObserver_OnAcInserted_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdPowerObserver::kOnAcInserted), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnAcInserted_Params_Data> params(
           message);
@@ -2475,8 +2466,7 @@ void CrosHealthdPowerObserverProxy::OnAcRemoved(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdPowerObserver_OnAcRemoved_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdPowerObserver::kOnAcRemoved), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnAcRemoved_Params_Data> params(
           message);
@@ -2511,8 +2501,7 @@ void CrosHealthdPowerObserverProxy::OnOsSuspend(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdPowerObserver_OnOsSuspend_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdPowerObserver::kOnOsSuspend), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnOsSuspend_Params_Data> params(
           message);
@@ -2547,8 +2536,7 @@ void CrosHealthdPowerObserverProxy::OnOsResume(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdPowerObserver_OnOsResume_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdPowerObserver::kOnOsResume), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnOsResume_Params_Data> params(
           message);
@@ -2567,8 +2555,8 @@ void CrosHealthdPowerObserverProxy::OnOsResume(
 bool CrosHealthdPowerObserverStubDispatch::Accept(
     CrosHealthdPowerObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCrosHealthdPowerObserver_OnAcInserted_Name: {
+  switch (static_cast<messages::CrosHealthdPowerObserver>(message->header()->name)) {
+    case messages::CrosHealthdPowerObserver::kOnAcInserted: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdPowerObserver_OnAcInserted_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdPowerObserver_OnAcInserted_Params_Data*>(
@@ -2591,7 +2579,7 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
       impl->OnAcInserted(        );
       return true;
     }
-    case internal::kCrosHealthdPowerObserver_OnAcRemoved_Name: {
+    case messages::CrosHealthdPowerObserver::kOnAcRemoved: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdPowerObserver_OnAcRemoved_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdPowerObserver_OnAcRemoved_Params_Data*>(
@@ -2614,7 +2602,7 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
       impl->OnAcRemoved(        );
       return true;
     }
-    case internal::kCrosHealthdPowerObserver_OnOsSuspend_Name: {
+    case messages::CrosHealthdPowerObserver::kOnOsSuspend: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdPowerObserver_OnOsSuspend_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdPowerObserver_OnOsSuspend_Params_Data*>(
@@ -2637,7 +2625,7 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
       impl->OnOsSuspend(        );
       return true;
     }
-    case internal::kCrosHealthdPowerObserver_OnOsResume_Name: {
+    case messages::CrosHealthdPowerObserver::kOnOsResume: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdPowerObserver_OnOsResume_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdPowerObserver_OnOsResume_Params_Data*>(
@@ -2672,17 +2660,17 @@ bool CrosHealthdPowerObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCrosHealthdPowerObserver_OnAcInserted_Name: {
+  switch (static_cast<messages::CrosHealthdPowerObserver>(message->header()->name)) {
+    case messages::CrosHealthdPowerObserver::kOnAcInserted: {
       break;
     }
-    case internal::kCrosHealthdPowerObserver_OnAcRemoved_Name: {
+    case messages::CrosHealthdPowerObserver::kOnAcRemoved: {
       break;
     }
-    case internal::kCrosHealthdPowerObserver_OnOsSuspend_Name: {
+    case messages::CrosHealthdPowerObserver::kOnOsSuspend: {
       break;
     }
-    case internal::kCrosHealthdPowerObserver_OnOsResume_Name: {
+    case messages::CrosHealthdPowerObserver::kOnOsResume: {
       break;
     }
   }
@@ -2710,11 +2698,11 @@ const char CrosHealthdAudioObserver::Name_[] = "ash.cros_healthd.mojom.CrosHealt
 
 CrosHealthdAudioObserver::IPCStableHashFunction CrosHealthdAudioObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCrosHealthdAudioObserver_OnUnderrun_Name: {
+  switch (static_cast<messages::CrosHealthdAudioObserver>(message.name())) {
+    case messages::CrosHealthdAudioObserver::kOnUnderrun: {
       return &CrosHealthdAudioObserver::OnUnderrun_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name: {
+    case messages::CrosHealthdAudioObserver::kOnSevereUnderrun: {
       return &CrosHealthdAudioObserver::OnSevereUnderrun_Sym::IPCStableHash;
     }
   }
@@ -2727,17 +2715,17 @@ const char* CrosHealthdAudioObserver::MessageToMethodName_(mojo::Message& messag
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCrosHealthdAudioObserver_OnUnderrun_Name:
+    switch (static_cast<messages::CrosHealthdAudioObserver>(message.name())) {
+      case messages::CrosHealthdAudioObserver::kOnUnderrun:
             return "Receive ash::cros_healthd::mojom::CrosHealthdAudioObserver::OnUnderrun";
-      case internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name:
+      case messages::CrosHealthdAudioObserver::kOnSevereUnderrun:
             return "Receive ash::cros_healthd::mojom::CrosHealthdAudioObserver::OnSevereUnderrun";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCrosHealthdAudioObserver_OnUnderrun_Name:
+    switch (static_cast<messages::CrosHealthdAudioObserver>(message.name())) {
+      case messages::CrosHealthdAudioObserver::kOnUnderrun:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdAudioObserver::OnUnderrun";
-      case internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name:
+      case messages::CrosHealthdAudioObserver::kOnSevereUnderrun:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdAudioObserver::OnSevereUnderrun";
     }
   }
@@ -2805,8 +2793,7 @@ void CrosHealthdAudioObserverProxy::OnUnderrun(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdAudioObserver_OnUnderrun_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdAudioObserver::kOnUnderrun), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdAudioObserver_OnUnderrun_Params_Data> params(
           message);
@@ -2841,8 +2828,7 @@ void CrosHealthdAudioObserverProxy::OnSevereUnderrun(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdAudioObserver::kOnSevereUnderrun), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdAudioObserver_OnSevereUnderrun_Params_Data> params(
           message);
@@ -2861,8 +2847,8 @@ void CrosHealthdAudioObserverProxy::OnSevereUnderrun(
 bool CrosHealthdAudioObserverStubDispatch::Accept(
     CrosHealthdAudioObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCrosHealthdAudioObserver_OnUnderrun_Name: {
+  switch (static_cast<messages::CrosHealthdAudioObserver>(message->header()->name)) {
+    case messages::CrosHealthdAudioObserver::kOnUnderrun: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdAudioObserver_OnUnderrun_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdAudioObserver_OnUnderrun_Params_Data*>(
@@ -2885,7 +2871,7 @@ bool CrosHealthdAudioObserverStubDispatch::Accept(
       impl->OnUnderrun(        );
       return true;
     }
-    case internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name: {
+    case messages::CrosHealthdAudioObserver::kOnSevereUnderrun: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdAudioObserver_OnSevereUnderrun_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdAudioObserver_OnSevereUnderrun_Params_Data*>(
@@ -2920,11 +2906,11 @@ bool CrosHealthdAudioObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCrosHealthdAudioObserver_OnUnderrun_Name: {
+  switch (static_cast<messages::CrosHealthdAudioObserver>(message->header()->name)) {
+    case messages::CrosHealthdAudioObserver::kOnUnderrun: {
       break;
     }
-    case internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name: {
+    case messages::CrosHealthdAudioObserver::kOnSevereUnderrun: {
       break;
     }
   }
@@ -2948,17 +2934,17 @@ const char CrosHealthdThunderboltObserver::Name_[] = "ash.cros_healthd.mojom.Cro
 
 CrosHealthdThunderboltObserver::IPCStableHashFunction CrosHealthdThunderboltObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCrosHealthdThunderboltObserver_OnAdd_Name: {
+  switch (static_cast<messages::CrosHealthdThunderboltObserver>(message.name())) {
+    case messages::CrosHealthdThunderboltObserver::kOnAdd: {
       return &CrosHealthdThunderboltObserver::OnAdd_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdThunderboltObserver_OnRemove_Name: {
+    case messages::CrosHealthdThunderboltObserver::kOnRemove: {
       return &CrosHealthdThunderboltObserver::OnRemove_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name: {
+    case messages::CrosHealthdThunderboltObserver::kOnAuthorized: {
       return &CrosHealthdThunderboltObserver::OnAuthorized_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name: {
+    case messages::CrosHealthdThunderboltObserver::kOnUnAuthorized: {
       return &CrosHealthdThunderboltObserver::OnUnAuthorized_Sym::IPCStableHash;
     }
   }
@@ -2971,25 +2957,25 @@ const char* CrosHealthdThunderboltObserver::MessageToMethodName_(mojo::Message& 
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCrosHealthdThunderboltObserver_OnAdd_Name:
+    switch (static_cast<messages::CrosHealthdThunderboltObserver>(message.name())) {
+      case messages::CrosHealthdThunderboltObserver::kOnAdd:
             return "Receive ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAdd";
-      case internal::kCrosHealthdThunderboltObserver_OnRemove_Name:
+      case messages::CrosHealthdThunderboltObserver::kOnRemove:
             return "Receive ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnRemove";
-      case internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name:
+      case messages::CrosHealthdThunderboltObserver::kOnAuthorized:
             return "Receive ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAuthorized";
-      case internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name:
+      case messages::CrosHealthdThunderboltObserver::kOnUnAuthorized:
             return "Receive ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnUnAuthorized";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCrosHealthdThunderboltObserver_OnAdd_Name:
+    switch (static_cast<messages::CrosHealthdThunderboltObserver>(message.name())) {
+      case messages::CrosHealthdThunderboltObserver::kOnAdd:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAdd";
-      case internal::kCrosHealthdThunderboltObserver_OnRemove_Name:
+      case messages::CrosHealthdThunderboltObserver::kOnRemove:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnRemove";
-      case internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name:
+      case messages::CrosHealthdThunderboltObserver::kOnAuthorized:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAuthorized";
-      case internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name:
+      case messages::CrosHealthdThunderboltObserver::kOnUnAuthorized:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnUnAuthorized";
     }
   }
@@ -3083,8 +3069,7 @@ void CrosHealthdThunderboltObserverProxy::OnAdd(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdThunderboltObserver_OnAdd_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdThunderboltObserver::kOnAdd), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnAdd_Params_Data> params(
           message);
@@ -3119,8 +3104,7 @@ void CrosHealthdThunderboltObserverProxy::OnRemove(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdThunderboltObserver_OnRemove_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdThunderboltObserver::kOnRemove), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnRemove_Params_Data> params(
           message);
@@ -3155,8 +3139,7 @@ void CrosHealthdThunderboltObserverProxy::OnAuthorized(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdThunderboltObserver::kOnAuthorized), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnAuthorized_Params_Data> params(
           message);
@@ -3191,8 +3174,7 @@ void CrosHealthdThunderboltObserverProxy::OnUnAuthorized(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdThunderboltObserver::kOnUnAuthorized), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnUnAuthorized_Params_Data> params(
           message);
@@ -3211,8 +3193,8 @@ void CrosHealthdThunderboltObserverProxy::OnUnAuthorized(
 bool CrosHealthdThunderboltObserverStubDispatch::Accept(
     CrosHealthdThunderboltObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCrosHealthdThunderboltObserver_OnAdd_Name: {
+  switch (static_cast<messages::CrosHealthdThunderboltObserver>(message->header()->name)) {
+    case messages::CrosHealthdThunderboltObserver::kOnAdd: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdThunderboltObserver_OnAdd_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdThunderboltObserver_OnAdd_Params_Data*>(
@@ -3235,7 +3217,7 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
       impl->OnAdd(        );
       return true;
     }
-    case internal::kCrosHealthdThunderboltObserver_OnRemove_Name: {
+    case messages::CrosHealthdThunderboltObserver::kOnRemove: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdThunderboltObserver_OnRemove_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdThunderboltObserver_OnRemove_Params_Data*>(
@@ -3258,7 +3240,7 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
       impl->OnRemove(        );
       return true;
     }
-    case internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name: {
+    case messages::CrosHealthdThunderboltObserver::kOnAuthorized: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdThunderboltObserver_OnAuthorized_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdThunderboltObserver_OnAuthorized_Params_Data*>(
@@ -3281,7 +3263,7 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
       impl->OnAuthorized(        );
       return true;
     }
-    case internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name: {
+    case messages::CrosHealthdThunderboltObserver::kOnUnAuthorized: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdThunderboltObserver_OnUnAuthorized_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdThunderboltObserver_OnUnAuthorized_Params_Data*>(
@@ -3316,17 +3298,17 @@ bool CrosHealthdThunderboltObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCrosHealthdThunderboltObserver_OnAdd_Name: {
+  switch (static_cast<messages::CrosHealthdThunderboltObserver>(message->header()->name)) {
+    case messages::CrosHealthdThunderboltObserver::kOnAdd: {
       break;
     }
-    case internal::kCrosHealthdThunderboltObserver_OnRemove_Name: {
+    case messages::CrosHealthdThunderboltObserver::kOnRemove: {
       break;
     }
-    case internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name: {
+    case messages::CrosHealthdThunderboltObserver::kOnAuthorized: {
       break;
     }
-    case internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name: {
+    case messages::CrosHealthdThunderboltObserver::kOnUnAuthorized: {
       break;
     }
   }
@@ -3354,11 +3336,11 @@ const char CrosHealthdUsbObserver::Name_[] = "ash.cros_healthd.mojom.CrosHealthd
 
 CrosHealthdUsbObserver::IPCStableHashFunction CrosHealthdUsbObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCrosHealthdUsbObserver_OnAdd_Name: {
+  switch (static_cast<messages::CrosHealthdUsbObserver>(message.name())) {
+    case messages::CrosHealthdUsbObserver::kOnAdd: {
       return &CrosHealthdUsbObserver::OnAdd_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdUsbObserver_OnRemove_Name: {
+    case messages::CrosHealthdUsbObserver::kOnRemove: {
       return &CrosHealthdUsbObserver::OnRemove_Sym::IPCStableHash;
     }
   }
@@ -3371,17 +3353,17 @@ const char* CrosHealthdUsbObserver::MessageToMethodName_(mojo::Message& message)
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCrosHealthdUsbObserver_OnAdd_Name:
+    switch (static_cast<messages::CrosHealthdUsbObserver>(message.name())) {
+      case messages::CrosHealthdUsbObserver::kOnAdd:
             return "Receive ash::cros_healthd::mojom::CrosHealthdUsbObserver::OnAdd";
-      case internal::kCrosHealthdUsbObserver_OnRemove_Name:
+      case messages::CrosHealthdUsbObserver::kOnRemove:
             return "Receive ash::cros_healthd::mojom::CrosHealthdUsbObserver::OnRemove";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCrosHealthdUsbObserver_OnAdd_Name:
+    switch (static_cast<messages::CrosHealthdUsbObserver>(message.name())) {
+      case messages::CrosHealthdUsbObserver::kOnAdd:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdUsbObserver::OnAdd";
-      case internal::kCrosHealthdUsbObserver_OnRemove_Name:
+      case messages::CrosHealthdUsbObserver::kOnRemove:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdUsbObserver::OnRemove";
     }
   }
@@ -3456,8 +3438,7 @@ void CrosHealthdUsbObserverProxy::OnAdd(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdUsbObserver_OnAdd_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdUsbObserver::kOnAdd), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdUsbObserver_OnAdd_Params_Data> params(
           message);
@@ -3510,8 +3491,7 @@ void CrosHealthdUsbObserverProxy::OnRemove(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdUsbObserver_OnRemove_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdUsbObserver::kOnRemove), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdUsbObserver_OnRemove_Params_Data> params(
           message);
@@ -3541,8 +3521,8 @@ void CrosHealthdUsbObserverProxy::OnRemove(
 bool CrosHealthdUsbObserverStubDispatch::Accept(
     CrosHealthdUsbObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCrosHealthdUsbObserver_OnAdd_Name: {
+  switch (static_cast<messages::CrosHealthdUsbObserver>(message->header()->name)) {
+    case messages::CrosHealthdUsbObserver::kOnAdd: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdUsbObserver_OnAdd_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdUsbObserver_OnAdd_Params_Data*>(
@@ -3569,7 +3549,7 @@ bool CrosHealthdUsbObserverStubDispatch::Accept(
         std::move(p_info));
       return true;
     }
-    case internal::kCrosHealthdUsbObserver_OnRemove_Name: {
+    case messages::CrosHealthdUsbObserver::kOnRemove: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdUsbObserver_OnRemove_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdUsbObserver_OnRemove_Params_Data*>(
@@ -3608,11 +3588,11 @@ bool CrosHealthdUsbObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCrosHealthdUsbObserver_OnAdd_Name: {
+  switch (static_cast<messages::CrosHealthdUsbObserver>(message->header()->name)) {
+    case messages::CrosHealthdUsbObserver::kOnAdd: {
       break;
     }
-    case internal::kCrosHealthdUsbObserver_OnRemove_Name: {
+    case messages::CrosHealthdUsbObserver::kOnRemove: {
       break;
     }
   }
@@ -3636,11 +3616,11 @@ const char CrosHealthdSdCardObserver::Name_[] = "ash.cros_healthd.mojom.CrosHeal
 
 CrosHealthdSdCardObserver::IPCStableHashFunction CrosHealthdSdCardObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCrosHealthdSdCardObserver_OnAdd_Name: {
+  switch (static_cast<messages::CrosHealthdSdCardObserver>(message.name())) {
+    case messages::CrosHealthdSdCardObserver::kOnAdd: {
       return &CrosHealthdSdCardObserver::OnAdd_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdSdCardObserver_OnRemove_Name: {
+    case messages::CrosHealthdSdCardObserver::kOnRemove: {
       return &CrosHealthdSdCardObserver::OnRemove_Sym::IPCStableHash;
     }
   }
@@ -3653,17 +3633,17 @@ const char* CrosHealthdSdCardObserver::MessageToMethodName_(mojo::Message& messa
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCrosHealthdSdCardObserver_OnAdd_Name:
+    switch (static_cast<messages::CrosHealthdSdCardObserver>(message.name())) {
+      case messages::CrosHealthdSdCardObserver::kOnAdd:
             return "Receive ash::cros_healthd::mojom::CrosHealthdSdCardObserver::OnAdd";
-      case internal::kCrosHealthdSdCardObserver_OnRemove_Name:
+      case messages::CrosHealthdSdCardObserver::kOnRemove:
             return "Receive ash::cros_healthd::mojom::CrosHealthdSdCardObserver::OnRemove";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCrosHealthdSdCardObserver_OnAdd_Name:
+    switch (static_cast<messages::CrosHealthdSdCardObserver>(message.name())) {
+      case messages::CrosHealthdSdCardObserver::kOnAdd:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdSdCardObserver::OnAdd";
-      case internal::kCrosHealthdSdCardObserver_OnRemove_Name:
+      case messages::CrosHealthdSdCardObserver::kOnRemove:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdSdCardObserver::OnRemove";
     }
   }
@@ -3731,8 +3711,7 @@ void CrosHealthdSdCardObserverProxy::OnAdd(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdSdCardObserver_OnAdd_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdSdCardObserver::kOnAdd), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdSdCardObserver_OnAdd_Params_Data> params(
           message);
@@ -3767,8 +3746,7 @@ void CrosHealthdSdCardObserverProxy::OnRemove(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdSdCardObserver_OnRemove_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdSdCardObserver::kOnRemove), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdSdCardObserver_OnRemove_Params_Data> params(
           message);
@@ -3787,8 +3765,8 @@ void CrosHealthdSdCardObserverProxy::OnRemove(
 bool CrosHealthdSdCardObserverStubDispatch::Accept(
     CrosHealthdSdCardObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCrosHealthdSdCardObserver_OnAdd_Name: {
+  switch (static_cast<messages::CrosHealthdSdCardObserver>(message->header()->name)) {
+    case messages::CrosHealthdSdCardObserver::kOnAdd: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdSdCardObserver_OnAdd_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdSdCardObserver_OnAdd_Params_Data*>(
@@ -3811,7 +3789,7 @@ bool CrosHealthdSdCardObserverStubDispatch::Accept(
       impl->OnAdd(        );
       return true;
     }
-    case internal::kCrosHealthdSdCardObserver_OnRemove_Name: {
+    case messages::CrosHealthdSdCardObserver::kOnRemove: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdSdCardObserver_OnRemove_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdSdCardObserver_OnRemove_Params_Data*>(
@@ -3846,11 +3824,11 @@ bool CrosHealthdSdCardObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCrosHealthdSdCardObserver_OnAdd_Name: {
+  switch (static_cast<messages::CrosHealthdSdCardObserver>(message->header()->name)) {
+    case messages::CrosHealthdSdCardObserver::kOnAdd: {
       break;
     }
-    case internal::kCrosHealthdSdCardObserver_OnRemove_Name: {
+    case messages::CrosHealthdSdCardObserver::kOnRemove: {
       break;
     }
   }
@@ -3874,8 +3852,8 @@ const char EventObserver::Name_[] = "ash.cros_healthd.mojom.EventObserver";
 
 EventObserver::IPCStableHashFunction EventObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kEventObserver_OnEvent_Name: {
+  switch (static_cast<messages::EventObserver>(message.name())) {
+    case messages::EventObserver::kOnEvent: {
       return &EventObserver::OnEvent_Sym::IPCStableHash;
     }
   }
@@ -3888,13 +3866,13 @@ const char* EventObserver::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kEventObserver_OnEvent_Name:
+    switch (static_cast<messages::EventObserver>(message.name())) {
+      case messages::EventObserver::kOnEvent:
             return "Receive ash::cros_healthd::mojom::EventObserver::OnEvent";
     }
   } else {
-    switch (message.name()) {
-      case internal::kEventObserver_OnEvent_Name:
+    switch (static_cast<messages::EventObserver>(message.name())) {
+      case messages::EventObserver::kOnEvent:
             return "Receive reply ash::cros_healthd::mojom::EventObserver::OnEvent";
     }
   }
@@ -3956,8 +3934,7 @@ void EventObserverProxy::OnEvent(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kEventObserver_OnEvent_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::EventObserver::kOnEvent), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::EventObserver_OnEvent_Params_Data> params(
           message);
@@ -3985,8 +3962,8 @@ void EventObserverProxy::OnEvent(
 bool EventObserverStubDispatch::Accept(
     EventObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kEventObserver_OnEvent_Name: {
+  switch (static_cast<messages::EventObserver>(message->header()->name)) {
+    case messages::EventObserver::kOnEvent: {
       DCHECK(message->is_serialized());
       internal::EventObserver_OnEvent_Params_Data* params =
           reinterpret_cast<internal::EventObserver_OnEvent_Params_Data*>(
@@ -4025,8 +4002,8 @@ bool EventObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kEventObserver_OnEvent_Name: {
+  switch (static_cast<messages::EventObserver>(message->header()->name)) {
+    case messages::EventObserver::kOnEvent: {
       break;
     }
   }

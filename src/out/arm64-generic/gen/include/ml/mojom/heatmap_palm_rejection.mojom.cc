@@ -185,8 +185,8 @@ const char HeatmapPalmRejectionClient::Name_[] = "chromeos.machine_learning.mojo
 
 HeatmapPalmRejectionClient::IPCStableHashFunction HeatmapPalmRejectionClient::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kHeatmapPalmRejectionClient_OnHeatmapProcessedEvent_Name: {
+  switch (static_cast<messages::HeatmapPalmRejectionClient>(message.name())) {
+    case messages::HeatmapPalmRejectionClient::kOnHeatmapProcessedEvent: {
       return &HeatmapPalmRejectionClient::OnHeatmapProcessedEvent_Sym::IPCStableHash;
     }
   }
@@ -199,13 +199,13 @@ const char* HeatmapPalmRejectionClient::MessageToMethodName_(mojo::Message& mess
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kHeatmapPalmRejectionClient_OnHeatmapProcessedEvent_Name:
+    switch (static_cast<messages::HeatmapPalmRejectionClient>(message.name())) {
+      case messages::HeatmapPalmRejectionClient::kOnHeatmapProcessedEvent:
             return "Receive chromeos::machine_learning::mojom::HeatmapPalmRejectionClient::OnHeatmapProcessedEvent";
     }
   } else {
-    switch (message.name()) {
-      case internal::kHeatmapPalmRejectionClient_OnHeatmapProcessedEvent_Name:
+    switch (static_cast<messages::HeatmapPalmRejectionClient>(message.name())) {
+      case messages::HeatmapPalmRejectionClient::kOnHeatmapProcessedEvent:
             return "Receive reply chromeos::machine_learning::mojom::HeatmapPalmRejectionClient::OnHeatmapProcessedEvent";
     }
   }
@@ -267,8 +267,7 @@ void HeatmapPalmRejectionClientProxy::OnHeatmapProcessedEvent(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kHeatmapPalmRejectionClient_OnHeatmapProcessedEvent_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::HeatmapPalmRejectionClient::kOnHeatmapProcessedEvent), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::HeatmapPalmRejectionClient_OnHeatmapProcessedEvent_Params_Data> params(
           message);
@@ -298,8 +297,8 @@ void HeatmapPalmRejectionClientProxy::OnHeatmapProcessedEvent(
 bool HeatmapPalmRejectionClientStubDispatch::Accept(
     HeatmapPalmRejectionClient* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kHeatmapPalmRejectionClient_OnHeatmapProcessedEvent_Name: {
+  switch (static_cast<messages::HeatmapPalmRejectionClient>(message->header()->name)) {
+    case messages::HeatmapPalmRejectionClient::kOnHeatmapProcessedEvent: {
       DCHECK(message->is_serialized());
       internal::HeatmapPalmRejectionClient_OnHeatmapProcessedEvent_Params_Data* params =
           reinterpret_cast<internal::HeatmapPalmRejectionClient_OnHeatmapProcessedEvent_Params_Data*>(
@@ -338,8 +337,8 @@ bool HeatmapPalmRejectionClientStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kHeatmapPalmRejectionClient_OnHeatmapProcessedEvent_Name: {
+  switch (static_cast<messages::HeatmapPalmRejectionClient>(message->header()->name)) {
+    case messages::HeatmapPalmRejectionClient::kOnHeatmapProcessedEvent: {
       break;
     }
   }

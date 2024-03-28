@@ -11,11 +11,11 @@
 
 
 namespace smbfs::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // smbfs::mojom
 

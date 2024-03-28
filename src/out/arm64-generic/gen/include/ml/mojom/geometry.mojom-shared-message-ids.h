@@ -11,11 +11,11 @@
 
 
 namespace gfx::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // gfx::mojom
 

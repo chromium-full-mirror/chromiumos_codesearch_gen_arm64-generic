@@ -229,8 +229,8 @@ const char PageHandlerFactory::Name_[] = "sensor.mojom.PageHandlerFactory";
 
 PageHandlerFactory::IPCStableHashFunction PageHandlerFactory::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kPageHandlerFactory_CreatePageHandler_Name: {
+  switch (static_cast<messages::PageHandlerFactory>(message.name())) {
+    case messages::PageHandlerFactory::kCreatePageHandler: {
       return &PageHandlerFactory::CreatePageHandler_Sym::IPCStableHash;
     }
   }
@@ -243,13 +243,13 @@ const char* PageHandlerFactory::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kPageHandlerFactory_CreatePageHandler_Name:
+    switch (static_cast<messages::PageHandlerFactory>(message.name())) {
+      case messages::PageHandlerFactory::kCreatePageHandler:
             return "Receive sensor::mojom::PageHandlerFactory::CreatePageHandler";
     }
   } else {
-    switch (message.name()) {
-      case internal::kPageHandlerFactory_CreatePageHandler_Name:
+    switch (static_cast<messages::PageHandlerFactory>(message.name())) {
+      case messages::PageHandlerFactory::kCreatePageHandler:
             return "Receive reply sensor::mojom::PageHandlerFactory::CreatePageHandler";
     }
   }
@@ -311,8 +311,7 @@ void PageHandlerFactoryProxy::CreatePageHandler(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::PageHandlerFactory::kCreatePageHandler), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::sensor::mojom::internal::PageHandlerFactory_CreatePageHandler_Params_Data> params(
           message);
@@ -337,8 +336,8 @@ void PageHandlerFactoryProxy::CreatePageHandler(
 bool PageHandlerFactoryStubDispatch::Accept(
     PageHandlerFactory* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kPageHandlerFactory_CreatePageHandler_Name: {
+  switch (static_cast<messages::PageHandlerFactory>(message->header()->name)) {
+    case messages::PageHandlerFactory::kCreatePageHandler: {
       DCHECK(message->is_serialized());
       internal::PageHandlerFactory_CreatePageHandler_Params_Data* params =
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
@@ -379,8 +378,8 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kPageHandlerFactory_CreatePageHandler_Name: {
+  switch (static_cast<messages::PageHandlerFactory>(message->header()->name)) {
+    case messages::PageHandlerFactory::kCreatePageHandler: {
       break;
     }
   }
@@ -402,11 +401,11 @@ const char PageHandler::Name_[] = "sensor.mojom.PageHandler";
 
 PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kPageHandler_StartRecordingUpdate_Name: {
+  switch (static_cast<messages::PageHandler>(message.name())) {
+    case messages::PageHandler::kStartRecordingUpdate: {
       return &PageHandler::StartRecordingUpdate_Sym::IPCStableHash;
     }
-    case internal::kPageHandler_StopRecordingUpdate_Name: {
+    case messages::PageHandler::kStopRecordingUpdate: {
       return &PageHandler::StopRecordingUpdate_Sym::IPCStableHash;
     }
   }
@@ -419,17 +418,17 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kPageHandler_StartRecordingUpdate_Name:
+    switch (static_cast<messages::PageHandler>(message.name())) {
+      case messages::PageHandler::kStartRecordingUpdate:
             return "Receive sensor::mojom::PageHandler::StartRecordingUpdate";
-      case internal::kPageHandler_StopRecordingUpdate_Name:
+      case messages::PageHandler::kStopRecordingUpdate:
             return "Receive sensor::mojom::PageHandler::StopRecordingUpdate";
     }
   } else {
-    switch (message.name()) {
-      case internal::kPageHandler_StartRecordingUpdate_Name:
+    switch (static_cast<messages::PageHandler>(message.name())) {
+      case messages::PageHandler::kStartRecordingUpdate:
             return "Receive reply sensor::mojom::PageHandler::StartRecordingUpdate";
-      case internal::kPageHandler_StopRecordingUpdate_Name:
+      case messages::PageHandler::kStopRecordingUpdate:
             return "Receive reply sensor::mojom::PageHandler::StopRecordingUpdate";
     }
   }
@@ -497,8 +496,7 @@ void PageHandlerProxy::StartRecordingUpdate(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPageHandler_StartRecordingUpdate_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::PageHandler::kStartRecordingUpdate), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::sensor::mojom::internal::PageHandler_StartRecordingUpdate_Params_Data> params(
           message);
@@ -533,8 +531,7 @@ void PageHandlerProxy::StopRecordingUpdate(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPageHandler_StopRecordingUpdate_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::PageHandler::kStopRecordingUpdate), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::sensor::mojom::internal::PageHandler_StopRecordingUpdate_Params_Data> params(
           message);
@@ -553,8 +550,8 @@ void PageHandlerProxy::StopRecordingUpdate(
 bool PageHandlerStubDispatch::Accept(
     PageHandler* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kPageHandler_StartRecordingUpdate_Name: {
+  switch (static_cast<messages::PageHandler>(message->header()->name)) {
+    case messages::PageHandler::kStartRecordingUpdate: {
       DCHECK(message->is_serialized());
       internal::PageHandler_StartRecordingUpdate_Params_Data* params =
           reinterpret_cast<internal::PageHandler_StartRecordingUpdate_Params_Data*>(
@@ -577,7 +574,7 @@ bool PageHandlerStubDispatch::Accept(
       impl->StartRecordingUpdate(        );
       return true;
     }
-    case internal::kPageHandler_StopRecordingUpdate_Name: {
+    case messages::PageHandler::kStopRecordingUpdate: {
       DCHECK(message->is_serialized());
       internal::PageHandler_StopRecordingUpdate_Params_Data* params =
           reinterpret_cast<internal::PageHandler_StopRecordingUpdate_Params_Data*>(
@@ -612,11 +609,11 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kPageHandler_StartRecordingUpdate_Name: {
+  switch (static_cast<messages::PageHandler>(message->header()->name)) {
+    case messages::PageHandler::kStartRecordingUpdate: {
       break;
     }
-    case internal::kPageHandler_StopRecordingUpdate_Name: {
+    case messages::PageHandler::kStopRecordingUpdate: {
       break;
     }
   }

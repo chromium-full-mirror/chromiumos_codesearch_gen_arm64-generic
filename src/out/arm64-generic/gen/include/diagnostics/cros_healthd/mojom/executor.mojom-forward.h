@@ -44,6 +44,8 @@ enum class FingerprintCaptureType : int32_t;
 
 enum class StressAppTestType : int32_t;
 
+enum class NetworkBandwidthTestType : int32_t;
+
 enum class PowerButtonObserver_ButtonState : int32_t;
 
 enum class VolumeButtonObserver_Button : int32_t;
@@ -97,6 +99,8 @@ class TouchscreenObserver;
 class StylusGarageObserver;
 
 class StylusObserver;
+
+class NetworkBandwidthObserver;
 
 class PowerButtonObserver;
 

@@ -11,13 +11,17 @@
 
 
 namespace chromeos::sensors::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kSensorHalServer_CreateChannel_Name = 0;
-constexpr uint32_t kSensorHalClient_SetUpChannel_Name = 0;
+enum class SensorHalServer : uint32_t {
+  kCreateChannel = 0,
+};
+enum class SensorHalClient : uint32_t {
+  kSetUpChannel = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::sensors::mojom
 

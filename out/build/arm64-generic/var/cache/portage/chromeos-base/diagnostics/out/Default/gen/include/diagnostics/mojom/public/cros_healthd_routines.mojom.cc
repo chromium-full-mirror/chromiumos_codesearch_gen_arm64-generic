@@ -2180,11 +2180,11 @@ const char CrosHealthdRoutinesService::Name_[] = "ash.cros_healthd.mojom.CrosHea
 
 CrosHealthdRoutinesService::IPCStableHashFunction CrosHealthdRoutinesService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCrosHealthdRoutinesService_CreateRoutine_Name: {
+  switch (static_cast<messages::CrosHealthdRoutinesService>(message.name())) {
+    case messages::CrosHealthdRoutinesService::kCreateRoutine: {
       return &CrosHealthdRoutinesService::CreateRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name: {
+    case messages::CrosHealthdRoutinesService::kIsRoutineArgumentSupported: {
       return &CrosHealthdRoutinesService::IsRoutineArgumentSupported_Sym::IPCStableHash;
     }
   }
@@ -2197,17 +2197,17 @@ const char* CrosHealthdRoutinesService::MessageToMethodName_(mojo::Message& mess
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCrosHealthdRoutinesService_CreateRoutine_Name:
+    switch (static_cast<messages::CrosHealthdRoutinesService>(message.name())) {
+      case messages::CrosHealthdRoutinesService::kCreateRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdRoutinesService::CreateRoutine";
-      case internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name:
+      case messages::CrosHealthdRoutinesService::kIsRoutineArgumentSupported:
             return "Receive ash::cros_healthd::mojom::CrosHealthdRoutinesService::IsRoutineArgumentSupported";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCrosHealthdRoutinesService_CreateRoutine_Name:
+    switch (static_cast<messages::CrosHealthdRoutinesService>(message.name())) {
+      case messages::CrosHealthdRoutinesService::kCreateRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdRoutinesService::CreateRoutine";
-      case internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name:
+      case messages::CrosHealthdRoutinesService::kIsRoutineArgumentSupported:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdRoutinesService::IsRoutineArgumentSupported";
     }
   }
@@ -2304,8 +2304,7 @@ void CrosHealthdRoutinesServiceProxy::CreateRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdRoutinesService_CreateRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdRoutinesService::kCreateRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data> params(
           message);
@@ -2364,8 +2363,7 @@ void CrosHealthdRoutinesServiceProxy::IsRoutineArgumentSupported(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdRoutinesService::kIsRoutineArgumentSupported), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data> params(
           message);
@@ -2488,8 +2486,7 @@ void CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder::Run
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdRoutinesService::kIsRoutineArgumentSupported), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data> params(
           message);
@@ -2525,8 +2522,8 @@ void CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder::Run
 bool CrosHealthdRoutinesServiceStubDispatch::Accept(
     CrosHealthdRoutinesService* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCrosHealthdRoutinesService_CreateRoutine_Name: {
+  switch (static_cast<messages::CrosHealthdRoutinesService>(message->header()->name)) {
+    case messages::CrosHealthdRoutinesService::kCreateRoutine: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data*>(
@@ -2565,7 +2562,7 @@ bool CrosHealthdRoutinesServiceStubDispatch::Accept(
         std::move(p_routine_observer));
       return true;
     }
-    case internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name: {
+    case messages::CrosHealthdRoutinesService::kIsRoutineArgumentSupported: {
       break;
     }
   }
@@ -2580,11 +2577,11 @@ bool CrosHealthdRoutinesServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCrosHealthdRoutinesService_CreateRoutine_Name: {
+  switch (static_cast<messages::CrosHealthdRoutinesService>(message->header()->name)) {
+    case messages::CrosHealthdRoutinesService::kCreateRoutine: {
       break;
     }
-    case internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name: {
+    case messages::CrosHealthdRoutinesService::kIsRoutineArgumentSupported: {
       internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data*>(
@@ -2639,8 +2636,8 @@ const char LedLitUpRoutineReplier::Name_[] = "ash.cros_healthd.mojom.LedLitUpRou
 
 LedLitUpRoutineReplier::IPCStableHashFunction LedLitUpRoutineReplier::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kLedLitUpRoutineReplier_GetColorMatched_Name: {
+  switch (static_cast<messages::LedLitUpRoutineReplier>(message.name())) {
+    case messages::LedLitUpRoutineReplier::kGetColorMatched: {
       return &LedLitUpRoutineReplier::GetColorMatched_Sym::IPCStableHash;
     }
   }
@@ -2653,13 +2650,13 @@ const char* LedLitUpRoutineReplier::MessageToMethodName_(mojo::Message& message)
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kLedLitUpRoutineReplier_GetColorMatched_Name:
+    switch (static_cast<messages::LedLitUpRoutineReplier>(message.name())) {
+      case messages::LedLitUpRoutineReplier::kGetColorMatched:
             return "Receive ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched";
     }
   } else {
-    switch (message.name()) {
-      case internal::kLedLitUpRoutineReplier_GetColorMatched_Name:
+    switch (static_cast<messages::LedLitUpRoutineReplier>(message.name())) {
+      case messages::LedLitUpRoutineReplier::kGetColorMatched:
             return "Receive reply ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched";
     }
   }
@@ -2730,8 +2727,7 @@ void LedLitUpRoutineReplierProxy::GetColorMatched(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kLedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::LedLitUpRoutineReplier::kGetColorMatched), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data> params(
           message);
@@ -2845,8 +2841,7 @@ void LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kLedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::LedLitUpRoutineReplier::kGetColorMatched), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data> params(
           message);
@@ -2874,8 +2869,8 @@ void LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
 bool LedLitUpRoutineReplierStubDispatch::Accept(
     LedLitUpRoutineReplier* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kLedLitUpRoutineReplier_GetColorMatched_Name: {
+  switch (static_cast<messages::LedLitUpRoutineReplier>(message->header()->name)) {
+    case messages::LedLitUpRoutineReplier::kGetColorMatched: {
       break;
     }
   }
@@ -2890,8 +2885,8 @@ bool LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kLedLitUpRoutineReplier_GetColorMatched_Name: {
+  switch (static_cast<messages::LedLitUpRoutineReplier>(message->header()->name)) {
+    case messages::LedLitUpRoutineReplier::kGetColorMatched: {
       internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data* params =
           reinterpret_cast<
               internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(
@@ -2940,14 +2935,14 @@ const char RoutineControl::Name_[] = "ash.cros_healthd.mojom.RoutineControl";
 
 RoutineControl::IPCStableHashFunction RoutineControl::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kRoutineControl_GetState_Name: {
+  switch (static_cast<messages::RoutineControl>(message.name())) {
+    case messages::RoutineControl::kGetState: {
       return &RoutineControl::GetState_Sym::IPCStableHash;
     }
-    case internal::kRoutineControl_Start_Name: {
+    case messages::RoutineControl::kStart: {
       return &RoutineControl::Start_Sym::IPCStableHash;
     }
-    case internal::kRoutineControl_ReplyInquiry_Name: {
+    case messages::RoutineControl::kReplyInquiry: {
       return &RoutineControl::ReplyInquiry_Sym::IPCStableHash;
     }
   }
@@ -2960,21 +2955,21 @@ const char* RoutineControl::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kRoutineControl_GetState_Name:
+    switch (static_cast<messages::RoutineControl>(message.name())) {
+      case messages::RoutineControl::kGetState:
             return "Receive ash::cros_healthd::mojom::RoutineControl::GetState";
-      case internal::kRoutineControl_Start_Name:
+      case messages::RoutineControl::kStart:
             return "Receive ash::cros_healthd::mojom::RoutineControl::Start";
-      case internal::kRoutineControl_ReplyInquiry_Name:
+      case messages::RoutineControl::kReplyInquiry:
             return "Receive ash::cros_healthd::mojom::RoutineControl::ReplyInquiry";
     }
   } else {
-    switch (message.name()) {
-      case internal::kRoutineControl_GetState_Name:
+    switch (static_cast<messages::RoutineControl>(message.name())) {
+      case messages::RoutineControl::kGetState:
             return "Receive reply ash::cros_healthd::mojom::RoutineControl::GetState";
-      case internal::kRoutineControl_Start_Name:
+      case messages::RoutineControl::kStart:
             return "Receive reply ash::cros_healthd::mojom::RoutineControl::Start";
-      case internal::kRoutineControl_ReplyInquiry_Name:
+      case messages::RoutineControl::kReplyInquiry:
             return "Receive reply ash::cros_healthd::mojom::RoutineControl::ReplyInquiry";
     }
   }
@@ -3071,8 +3066,7 @@ void RoutineControlProxy::GetState(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kRoutineControl_GetState_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::RoutineControl::kGetState), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::RoutineControl_GetState_Params_Data> params(
           message);
@@ -3108,8 +3102,7 @@ void RoutineControlProxy::Start(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kRoutineControl_Start_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::RoutineControl::kStart), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::RoutineControl_Start_Params_Data> params(
           message);
@@ -3151,8 +3144,7 @@ void RoutineControlProxy::ReplyInquiry(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kRoutineControl_ReplyInquiry_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::RoutineControl::kReplyInquiry), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::RoutineControl_ReplyInquiry_Params_Data> params(
           message);
@@ -3274,8 +3266,7 @@ void RoutineControl_GetState_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kRoutineControl_GetState_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::RoutineControl::kGetState), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::RoutineControl_GetState_ResponseParams_Data> params(
           message);
@@ -3313,11 +3304,11 @@ void RoutineControl_GetState_ProxyToResponder::Run(
 bool RoutineControlStubDispatch::Accept(
     RoutineControl* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kRoutineControl_GetState_Name: {
+  switch (static_cast<messages::RoutineControl>(message->header()->name)) {
+    case messages::RoutineControl::kGetState: {
       break;
     }
-    case internal::kRoutineControl_Start_Name: {
+    case messages::RoutineControl::kStart: {
       DCHECK(message->is_serialized());
       internal::RoutineControl_Start_Params_Data* params =
           reinterpret_cast<internal::RoutineControl_Start_Params_Data*>(
@@ -3340,7 +3331,7 @@ bool RoutineControlStubDispatch::Accept(
       impl->Start(        );
       return true;
     }
-    case internal::kRoutineControl_ReplyInquiry_Name: {
+    case messages::RoutineControl::kReplyInquiry: {
       DCHECK(message->is_serialized());
       internal::RoutineControl_ReplyInquiry_Params_Data* params =
           reinterpret_cast<internal::RoutineControl_ReplyInquiry_Params_Data*>(
@@ -3379,8 +3370,8 @@ bool RoutineControlStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kRoutineControl_GetState_Name: {
+  switch (static_cast<messages::RoutineControl>(message->header()->name)) {
+    case messages::RoutineControl::kGetState: {
       internal::RoutineControl_GetState_Params_Data* params =
           reinterpret_cast<
               internal::RoutineControl_GetState_Params_Data*>(
@@ -3406,10 +3397,10 @@ bool RoutineControlStubDispatch::AcceptWithResponder(
       impl->GetState(std::move(callback));
       return true;
     }
-    case internal::kRoutineControl_Start_Name: {
+    case messages::RoutineControl::kStart: {
       break;
     }
-    case internal::kRoutineControl_ReplyInquiry_Name: {
+    case messages::RoutineControl::kReplyInquiry: {
       break;
     }
   }
@@ -3439,8 +3430,8 @@ const char RoutineObserver::Name_[] = "ash.cros_healthd.mojom.RoutineObserver";
 
 RoutineObserver::IPCStableHashFunction RoutineObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kRoutineObserver_OnRoutineStateChange_Name: {
+  switch (static_cast<messages::RoutineObserver>(message.name())) {
+    case messages::RoutineObserver::kOnRoutineStateChange: {
       return &RoutineObserver::OnRoutineStateChange_Sym::IPCStableHash;
     }
   }
@@ -3453,13 +3444,13 @@ const char* RoutineObserver::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kRoutineObserver_OnRoutineStateChange_Name:
+    switch (static_cast<messages::RoutineObserver>(message.name())) {
+      case messages::RoutineObserver::kOnRoutineStateChange:
             return "Receive ash::cros_healthd::mojom::RoutineObserver::OnRoutineStateChange";
     }
   } else {
-    switch (message.name()) {
-      case internal::kRoutineObserver_OnRoutineStateChange_Name:
+    switch (static_cast<messages::RoutineObserver>(message.name())) {
+      case messages::RoutineObserver::kOnRoutineStateChange:
             return "Receive reply ash::cros_healthd::mojom::RoutineObserver::OnRoutineStateChange";
     }
   }
@@ -3521,8 +3512,7 @@ void RoutineObserverProxy::OnRoutineStateChange(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kRoutineObserver_OnRoutineStateChange_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::RoutineObserver::kOnRoutineStateChange), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::RoutineObserver_OnRoutineStateChange_Params_Data> params(
           message);
@@ -3552,8 +3542,8 @@ void RoutineObserverProxy::OnRoutineStateChange(
 bool RoutineObserverStubDispatch::Accept(
     RoutineObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kRoutineObserver_OnRoutineStateChange_Name: {
+  switch (static_cast<messages::RoutineObserver>(message->header()->name)) {
+    case messages::RoutineObserver::kOnRoutineStateChange: {
       DCHECK(message->is_serialized());
       internal::RoutineObserver_OnRoutineStateChange_Params_Data* params =
           reinterpret_cast<internal::RoutineObserver_OnRoutineStateChange_Params_Data*>(
@@ -3592,8 +3582,8 @@ bool RoutineObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kRoutineObserver_OnRoutineStateChange_Name: {
+  switch (static_cast<messages::RoutineObserver>(message->header()->name)) {
+    case messages::RoutineObserver::kOnRoutineStateChange: {
       break;
     }
   }

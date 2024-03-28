@@ -173,6 +173,22 @@ inline bool IsKnownEnumValue(StressAppTestType value) {
 }
 
 
+enum class NetworkBandwidthTestType : int32_t {
+  
+  kDownload = 0,
+  
+  kUpload = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, NetworkBandwidthTestType value);
+inline bool IsKnownEnumValue(NetworkBandwidthTestType value) {
+  return internal::NetworkBandwidthTestType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class PowerButtonObserver_ButtonState : int32_t {
   
   kUp = 0,
@@ -324,6 +340,16 @@ using StylusObserverAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<StylusObserverInterfaceBase>;
 using StylusObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<StylusObserverInterfaceBase>;
+class NetworkBandwidthObserverInterfaceBase {};
+
+using NetworkBandwidthObserverPtrDataView =
+    mojo::InterfacePtrDataView<NetworkBandwidthObserverInterfaceBase>;
+using NetworkBandwidthObserverRequestDataView =
+    mojo::InterfaceRequestDataView<NetworkBandwidthObserverInterfaceBase>;
+using NetworkBandwidthObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<NetworkBandwidthObserverInterfaceBase>;
+using NetworkBandwidthObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<NetworkBandwidthObserverInterfaceBase>;
 class PowerButtonObserverInterfaceBase {};
 
 using PowerButtonObserverPtrDataView =
@@ -703,6 +729,10 @@ struct hash<::ash::cros_healthd::mojom::StressAppTestType>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::StressAppTestType> {};
 
 template <>
+struct hash<::ash::cros_healthd::mojom::NetworkBandwidthTestType>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::NetworkBandwidthTestType> {};
+
+template <>
 struct hash<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState> {};
 
@@ -761,6 +791,26 @@ struct Serializer<::ash::cros_healthd::mojom::StressAppTestType, MaybeConstUserT
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::StressAppTestType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::NetworkBandwidthTestType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::NetworkBandwidthTestType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::NetworkBandwidthTestType>(input)), output);
   }
 };
 
@@ -1456,6 +1506,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::StressAppTestType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::StressAppTestType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::NetworkBandwidthTestType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::NetworkBandwidthTestType value);
 };
 
 } // namespace perfetto

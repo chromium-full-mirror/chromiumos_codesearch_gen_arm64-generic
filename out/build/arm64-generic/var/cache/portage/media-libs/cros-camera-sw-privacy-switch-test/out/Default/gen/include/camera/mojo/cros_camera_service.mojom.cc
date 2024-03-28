@@ -49,8 +49,8 @@ const char CameraHalDispatcher::Name_[] = "cros.mojom.CameraHalDispatcher";
 
 CameraHalDispatcher::IPCStableHashFunction CameraHalDispatcher::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCameraHalDispatcher_RegisterClientWithToken_Name: {
+  switch (static_cast<messages::CameraHalDispatcher>(message.name())) {
+    case messages::CameraHalDispatcher::kRegisterClientWithToken: {
       return &CameraHalDispatcher::RegisterClientWithToken_Sym::IPCStableHash;
     }
   }
@@ -63,13 +63,13 @@ const char* CameraHalDispatcher::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCameraHalDispatcher_RegisterClientWithToken_Name:
+    switch (static_cast<messages::CameraHalDispatcher>(message.name())) {
+      case messages::CameraHalDispatcher::kRegisterClientWithToken:
             return "Receive cros::mojom::CameraHalDispatcher::RegisterClientWithToken";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCameraHalDispatcher_RegisterClientWithToken_Name:
+    switch (static_cast<messages::CameraHalDispatcher>(message.name())) {
+      case messages::CameraHalDispatcher::kRegisterClientWithToken:
             return "Receive reply cros::mojom::CameraHalDispatcher::RegisterClientWithToken";
     }
   }
@@ -153,8 +153,7 @@ void CameraHalDispatcherProxy::RegisterClientWithToken(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraHalDispatcher_RegisterClientWithToken_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraHalDispatcher::kRegisterClientWithToken), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraHalDispatcher_RegisterClientWithToken_Params_Data> params(
           message);
@@ -287,8 +286,7 @@ void CameraHalDispatcher_RegisterClientWithToken_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraHalDispatcher_RegisterClientWithToken_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraHalDispatcher::kRegisterClientWithToken), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraHalDispatcher_RegisterClientWithToken_ResponseParams_Data> params(
           message);
@@ -316,8 +314,8 @@ void CameraHalDispatcher_RegisterClientWithToken_ProxyToResponder::Run(
 bool CameraHalDispatcherStubDispatch::Accept(
     CameraHalDispatcher* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCameraHalDispatcher_RegisterClientWithToken_Name: {
+  switch (static_cast<messages::CameraHalDispatcher>(message->header()->name)) {
+    case messages::CameraHalDispatcher::kRegisterClientWithToken: {
       break;
     }
   }
@@ -332,8 +330,8 @@ bool CameraHalDispatcherStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCameraHalDispatcher_RegisterClientWithToken_Name: {
+  switch (static_cast<messages::CameraHalDispatcher>(message->header()->name)) {
+    case messages::CameraHalDispatcher::kRegisterClientWithToken: {
       internal::CameraHalDispatcher_RegisterClientWithToken_Params_Data* params =
           reinterpret_cast<
               internal::CameraHalDispatcher_RegisterClientWithToken_Params_Data*>(
@@ -379,7 +377,7 @@ bool CameraHalDispatcherStubDispatch::AcceptWithResponder(
 namespace {
 }  // namespace
 static const std::pair<uint32_t, mojo::internal::GenericValidationInfo> kCameraHalDispatcherValidationInfo[] = {
-    {internal::kCameraHalDispatcher_RegisterClientWithToken_Name,
+    {base::to_underlying(messages::CameraHalDispatcher::kRegisterClientWithToken),
      { &internal::CameraHalDispatcher_RegisterClientWithToken_Params_Data::Validate,
       &internal::CameraHalDispatcher_RegisterClientWithToken_ResponseParams_Data::Validate}},
 };
@@ -398,8 +396,8 @@ const char CameraHalClient::Name_[] = "cros.mojom.CameraHalClient";
 
 CameraHalClient::IPCStableHashFunction CameraHalClient::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCameraHalClient_SetUpChannel_Name: {
+  switch (static_cast<messages::CameraHalClient>(message.name())) {
+    case messages::CameraHalClient::kSetUpChannel: {
       return &CameraHalClient::SetUpChannel_Sym::IPCStableHash;
     }
   }
@@ -412,13 +410,13 @@ const char* CameraHalClient::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCameraHalClient_SetUpChannel_Name:
+    switch (static_cast<messages::CameraHalClient>(message.name())) {
+      case messages::CameraHalClient::kSetUpChannel:
             return "Receive cros::mojom::CameraHalClient::SetUpChannel";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCameraHalClient_SetUpChannel_Name:
+    switch (static_cast<messages::CameraHalClient>(message.name())) {
+      case messages::CameraHalClient::kSetUpChannel:
             return "Receive reply cros::mojom::CameraHalClient::SetUpChannel";
     }
   }
@@ -480,8 +478,7 @@ void CameraHalClientProxy::SetUpChannel(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraHalClient_SetUpChannel_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraHalClient::kSetUpChannel), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraHalClient_SetUpChannel_Params_Data> params(
           message);
@@ -506,8 +503,8 @@ void CameraHalClientProxy::SetUpChannel(
 bool CameraHalClientStubDispatch::Accept(
     CameraHalClient* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCameraHalClient_SetUpChannel_Name: {
+  switch (static_cast<messages::CameraHalClient>(message->header()->name)) {
+    case messages::CameraHalClient::kSetUpChannel: {
       DCHECK(message->is_serialized());
       internal::CameraHalClient_SetUpChannel_Params_Data* params =
           reinterpret_cast<internal::CameraHalClient_SetUpChannel_Params_Data*>(
@@ -548,8 +545,8 @@ bool CameraHalClientStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCameraHalClient_SetUpChannel_Name: {
+  switch (static_cast<messages::CameraHalClient>(message->header()->name)) {
+    case messages::CameraHalClient::kSetUpChannel: {
       break;
     }
   }
@@ -571,17 +568,17 @@ const char CrosCameraServiceObserver::Name_[] = "cros.mojom.CrosCameraServiceObs
 
 CrosCameraServiceObserver::IPCStableHashFunction CrosCameraServiceObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name: {
+  switch (static_cast<messages::CrosCameraServiceObserver>(message.name())) {
+    case messages::CrosCameraServiceObserver::kCameraDeviceActivityChange: {
       return &CrosCameraServiceObserver::CameraDeviceActivityChange_Sym::IPCStableHash;
     }
-    case internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name: {
+    case messages::CrosCameraServiceObserver::kCameraPrivacySwitchStateChange: {
       return &CrosCameraServiceObserver::CameraPrivacySwitchStateChange_Sym::IPCStableHash;
     }
-    case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name: {
+    case messages::CrosCameraServiceObserver::kCameraSWPrivacySwitchStateChange: {
       return &CrosCameraServiceObserver::CameraSWPrivacySwitchStateChange_Sym::IPCStableHash;
     }
-    case internal::kCrosCameraServiceObserver_CameraEffectChange_Name: {
+    case messages::CrosCameraServiceObserver::kCameraEffectChange: {
       return &CrosCameraServiceObserver::CameraEffectChange_Sym::IPCStableHash;
     }
   }
@@ -594,25 +591,25 @@ const char* CrosCameraServiceObserver::MessageToMethodName_(mojo::Message& messa
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name:
+    switch (static_cast<messages::CrosCameraServiceObserver>(message.name())) {
+      case messages::CrosCameraServiceObserver::kCameraDeviceActivityChange:
             return "Receive cros::mojom::CrosCameraServiceObserver::CameraDeviceActivityChange";
-      case internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name:
+      case messages::CrosCameraServiceObserver::kCameraPrivacySwitchStateChange:
             return "Receive cros::mojom::CrosCameraServiceObserver::CameraPrivacySwitchStateChange";
-      case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name:
+      case messages::CrosCameraServiceObserver::kCameraSWPrivacySwitchStateChange:
             return "Receive cros::mojom::CrosCameraServiceObserver::CameraSWPrivacySwitchStateChange";
-      case internal::kCrosCameraServiceObserver_CameraEffectChange_Name:
+      case messages::CrosCameraServiceObserver::kCameraEffectChange:
             return "Receive cros::mojom::CrosCameraServiceObserver::CameraEffectChange";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name:
+    switch (static_cast<messages::CrosCameraServiceObserver>(message.name())) {
+      case messages::CrosCameraServiceObserver::kCameraDeviceActivityChange:
             return "Receive reply cros::mojom::CrosCameraServiceObserver::CameraDeviceActivityChange";
-      case internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name:
+      case messages::CrosCameraServiceObserver::kCameraPrivacySwitchStateChange:
             return "Receive reply cros::mojom::CrosCameraServiceObserver::CameraPrivacySwitchStateChange";
-      case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name:
+      case messages::CrosCameraServiceObserver::kCameraSWPrivacySwitchStateChange:
             return "Receive reply cros::mojom::CrosCameraServiceObserver::CameraSWPrivacySwitchStateChange";
-      case internal::kCrosCameraServiceObserver_CameraEffectChange_Name:
+      case messages::CrosCameraServiceObserver::kCameraEffectChange:
             return "Receive reply cros::mojom::CrosCameraServiceObserver::CameraEffectChange";
     }
   }
@@ -719,8 +716,7 @@ void CrosCameraServiceObserverProxy::CameraDeviceActivityChange(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraServiceObserver::kCameraDeviceActivityChange), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data> params(
           message);
@@ -769,8 +765,7 @@ void CrosCameraServiceObserverProxy::CameraPrivacySwitchStateChange(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraServiceObserver::kCameraPrivacySwitchStateChange), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data> params(
           message);
@@ -815,8 +810,7 @@ void CrosCameraServiceObserverProxy::CameraSWPrivacySwitchStateChange(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraServiceObserver::kCameraSWPrivacySwitchStateChange), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data> params(
           message);
@@ -860,8 +854,7 @@ void CrosCameraServiceObserverProxy::CameraEffectChange(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraServiceObserver_CameraEffectChange_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraServiceObserver::kCameraEffectChange), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraServiceObserver_CameraEffectChange_Params_Data> params(
           message);
@@ -891,8 +884,8 @@ void CrosCameraServiceObserverProxy::CameraEffectChange(
 bool CrosCameraServiceObserverStubDispatch::Accept(
     CrosCameraServiceObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name: {
+  switch (static_cast<messages::CrosCameraServiceObserver>(message->header()->name)) {
+    case messages::CrosCameraServiceObserver::kCameraDeviceActivityChange: {
       DCHECK(message->is_serialized());
       internal::CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data* params =
           reinterpret_cast<internal::CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data*>(
@@ -927,7 +920,7 @@ bool CrosCameraServiceObserverStubDispatch::Accept(
         std::move(p_type));
       return true;
     }
-    case internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name: {
+    case messages::CrosCameraServiceObserver::kCameraPrivacySwitchStateChange: {
       DCHECK(message->is_serialized());
       internal::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data* params =
           reinterpret_cast<internal::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data*>(
@@ -958,7 +951,7 @@ bool CrosCameraServiceObserverStubDispatch::Accept(
         std::move(p_camera_id));
       return true;
     }
-    case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name: {
+    case messages::CrosCameraServiceObserver::kCameraSWPrivacySwitchStateChange: {
       DCHECK(message->is_serialized());
       internal::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data* params =
           reinterpret_cast<internal::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data*>(
@@ -985,7 +978,7 @@ bool CrosCameraServiceObserverStubDispatch::Accept(
         std::move(p_state));
       return true;
     }
-    case internal::kCrosCameraServiceObserver_CameraEffectChange_Name: {
+    case messages::CrosCameraServiceObserver::kCameraEffectChange: {
       DCHECK(message->is_serialized());
       internal::CrosCameraServiceObserver_CameraEffectChange_Params_Data* params =
           reinterpret_cast<internal::CrosCameraServiceObserver_CameraEffectChange_Params_Data*>(
@@ -1024,17 +1017,17 @@ bool CrosCameraServiceObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name: {
+  switch (static_cast<messages::CrosCameraServiceObserver>(message->header()->name)) {
+    case messages::CrosCameraServiceObserver::kCameraDeviceActivityChange: {
       break;
     }
-    case internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name: {
+    case messages::CrosCameraServiceObserver::kCameraPrivacySwitchStateChange: {
       break;
     }
-    case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name: {
+    case messages::CrosCameraServiceObserver::kCameraSWPrivacySwitchStateChange: {
       break;
     }
-    case internal::kCrosCameraServiceObserver_CameraEffectChange_Name: {
+    case messages::CrosCameraServiceObserver::kCameraEffectChange: {
       break;
     }
   }
@@ -1062,29 +1055,29 @@ const char CrosCameraService::Name_[] = "cros.mojom.CrosCameraService";
 
 CrosCameraService::IPCStableHashFunction CrosCameraService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCrosCameraService_GetCameraModule_Name: {
+  switch (static_cast<messages::CrosCameraService>(message.name())) {
+    case messages::CrosCameraService::kGetCameraModule: {
       return &CrosCameraService::GetCameraModule_Sym::IPCStableHash;
     }
-    case internal::kCrosCameraService_SetTracingEnabled_Name: {
+    case messages::CrosCameraService::kSetTracingEnabled: {
       return &CrosCameraService::SetTracingEnabled_Sym::IPCStableHash;
     }
-    case internal::kCrosCameraService_SetAutoFramingState_Name: {
+    case messages::CrosCameraService::kSetAutoFramingState: {
       return &CrosCameraService::SetAutoFramingState_Sym::IPCStableHash;
     }
-    case internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name: {
+    case messages::CrosCameraService::kGetCameraSWPrivacySwitchState: {
       return &CrosCameraService::GetCameraSWPrivacySwitchState_Sym::IPCStableHash;
     }
-    case internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name: {
+    case messages::CrosCameraService::kSetCameraSWPrivacySwitchState: {
       return &CrosCameraService::SetCameraSWPrivacySwitchState_Sym::IPCStableHash;
     }
-    case internal::kCrosCameraService_GetAutoFramingSupported_Name: {
+    case messages::CrosCameraService::kGetAutoFramingSupported: {
       return &CrosCameraService::GetAutoFramingSupported_Sym::IPCStableHash;
     }
-    case internal::kCrosCameraService_SetCameraEffect_Name: {
+    case messages::CrosCameraService::kSetCameraEffect: {
       return &CrosCameraService::SetCameraEffect_Sym::IPCStableHash;
     }
-    case internal::kCrosCameraService_AddCrosCameraServiceObserver_Name: {
+    case messages::CrosCameraService::kAddCrosCameraServiceObserver: {
       return &CrosCameraService::AddCrosCameraServiceObserver_Sym::IPCStableHash;
     }
   }
@@ -1097,41 +1090,41 @@ const char* CrosCameraService::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCrosCameraService_GetCameraModule_Name:
+    switch (static_cast<messages::CrosCameraService>(message.name())) {
+      case messages::CrosCameraService::kGetCameraModule:
             return "Receive cros::mojom::CrosCameraService::GetCameraModule";
-      case internal::kCrosCameraService_SetTracingEnabled_Name:
+      case messages::CrosCameraService::kSetTracingEnabled:
             return "Receive cros::mojom::CrosCameraService::SetTracingEnabled";
-      case internal::kCrosCameraService_SetAutoFramingState_Name:
+      case messages::CrosCameraService::kSetAutoFramingState:
             return "Receive cros::mojom::CrosCameraService::SetAutoFramingState";
-      case internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name:
+      case messages::CrosCameraService::kGetCameraSWPrivacySwitchState:
             return "Receive cros::mojom::CrosCameraService::GetCameraSWPrivacySwitchState";
-      case internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name:
+      case messages::CrosCameraService::kSetCameraSWPrivacySwitchState:
             return "Receive cros::mojom::CrosCameraService::SetCameraSWPrivacySwitchState";
-      case internal::kCrosCameraService_GetAutoFramingSupported_Name:
+      case messages::CrosCameraService::kGetAutoFramingSupported:
             return "Receive cros::mojom::CrosCameraService::GetAutoFramingSupported";
-      case internal::kCrosCameraService_SetCameraEffect_Name:
+      case messages::CrosCameraService::kSetCameraEffect:
             return "Receive cros::mojom::CrosCameraService::SetCameraEffect";
-      case internal::kCrosCameraService_AddCrosCameraServiceObserver_Name:
+      case messages::CrosCameraService::kAddCrosCameraServiceObserver:
             return "Receive cros::mojom::CrosCameraService::AddCrosCameraServiceObserver";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCrosCameraService_GetCameraModule_Name:
+    switch (static_cast<messages::CrosCameraService>(message.name())) {
+      case messages::CrosCameraService::kGetCameraModule:
             return "Receive reply cros::mojom::CrosCameraService::GetCameraModule";
-      case internal::kCrosCameraService_SetTracingEnabled_Name:
+      case messages::CrosCameraService::kSetTracingEnabled:
             return "Receive reply cros::mojom::CrosCameraService::SetTracingEnabled";
-      case internal::kCrosCameraService_SetAutoFramingState_Name:
+      case messages::CrosCameraService::kSetAutoFramingState:
             return "Receive reply cros::mojom::CrosCameraService::SetAutoFramingState";
-      case internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name:
+      case messages::CrosCameraService::kGetCameraSWPrivacySwitchState:
             return "Receive reply cros::mojom::CrosCameraService::GetCameraSWPrivacySwitchState";
-      case internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name:
+      case messages::CrosCameraService::kSetCameraSWPrivacySwitchState:
             return "Receive reply cros::mojom::CrosCameraService::SetCameraSWPrivacySwitchState";
-      case internal::kCrosCameraService_GetAutoFramingSupported_Name:
+      case messages::CrosCameraService::kGetAutoFramingSupported:
             return "Receive reply cros::mojom::CrosCameraService::GetAutoFramingSupported";
-      case internal::kCrosCameraService_SetCameraEffect_Name:
+      case messages::CrosCameraService::kSetCameraEffect:
             return "Receive reply cros::mojom::CrosCameraService::SetCameraEffect";
-      case internal::kCrosCameraService_AddCrosCameraServiceObserver_Name:
+      case messages::CrosCameraService::kAddCrosCameraServiceObserver:
             return "Receive reply cros::mojom::CrosCameraService::AddCrosCameraServiceObserver";
     }
   }
@@ -1348,8 +1341,7 @@ void CrosCameraServiceProxy::GetCameraModule(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraService_GetCameraModule_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraService::kGetCameraModule), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_GetCameraModule_Params_Data> params(
           message);
@@ -1394,8 +1386,7 @@ void CrosCameraServiceProxy::SetTracingEnabled(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraService_SetTracingEnabled_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraService::kSetTracingEnabled), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_SetTracingEnabled_Params_Data> params(
           message);
@@ -1438,8 +1429,7 @@ void CrosCameraServiceProxy::SetAutoFramingState(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraService_SetAutoFramingState_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraService::kSetAutoFramingState), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_SetAutoFramingState_Params_Data> params(
           message);
@@ -1476,8 +1466,7 @@ void CrosCameraServiceProxy::GetCameraSWPrivacySwitchState(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraService::kGetCameraSWPrivacySwitchState), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data> params(
           message);
@@ -1520,8 +1509,7 @@ void CrosCameraServiceProxy::SetCameraSWPrivacySwitchState(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraService::kSetCameraSWPrivacySwitchState), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data> params(
           message);
@@ -1558,8 +1546,7 @@ void CrosCameraServiceProxy::GetAutoFramingSupported(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraService_GetAutoFramingSupported_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraService::kGetAutoFramingSupported), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_GetAutoFramingSupported_Params_Data> params(
           message);
@@ -1602,8 +1589,7 @@ void CrosCameraServiceProxy::SetCameraEffect(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraService_SetCameraEffect_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraService::kSetCameraEffect), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_SetCameraEffect_Params_Data> params(
           message);
@@ -1657,8 +1643,7 @@ void CrosCameraServiceProxy::AddCrosCameraServiceObserver(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraService_AddCrosCameraServiceObserver_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraService::kAddCrosCameraServiceObserver), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_AddCrosCameraServiceObserver_Params_Data> params(
           message);
@@ -1779,8 +1764,7 @@ void CrosCameraService_GetCameraModule_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraService_GetCameraModule_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraService::kGetCameraModule), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_GetCameraModule_ResponseParams_Data> params(
           message);
@@ -1907,8 +1891,7 @@ void CrosCameraService_GetCameraSWPrivacySwitchState_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraService::kGetCameraSWPrivacySwitchState), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data> params(
           message);
@@ -2031,8 +2014,7 @@ void CrosCameraService_GetAutoFramingSupported_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraService_GetAutoFramingSupported_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraService::kGetAutoFramingSupported), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_GetAutoFramingSupported_ResponseParams_Data> params(
           message);
@@ -2154,8 +2136,7 @@ void CrosCameraService_SetCameraEffect_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraService_SetCameraEffect_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraService::kSetCameraEffect), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CrosCameraService_SetCameraEffect_ResponseParams_Data> params(
           message);
@@ -2184,11 +2165,11 @@ void CrosCameraService_SetCameraEffect_ProxyToResponder::Run(
 bool CrosCameraServiceStubDispatch::Accept(
     CrosCameraService* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCrosCameraService_GetCameraModule_Name: {
+  switch (static_cast<messages::CrosCameraService>(message->header()->name)) {
+    case messages::CrosCameraService::kGetCameraModule: {
       break;
     }
-    case internal::kCrosCameraService_SetTracingEnabled_Name: {
+    case messages::CrosCameraService::kSetTracingEnabled: {
       DCHECK(message->is_serialized());
       internal::CrosCameraService_SetTracingEnabled_Params_Data* params =
           reinterpret_cast<internal::CrosCameraService_SetTracingEnabled_Params_Data*>(
@@ -2215,7 +2196,7 @@ bool CrosCameraServiceStubDispatch::Accept(
         std::move(p_enabled));
       return true;
     }
-    case internal::kCrosCameraService_SetAutoFramingState_Name: {
+    case messages::CrosCameraService::kSetAutoFramingState: {
       DCHECK(message->is_serialized());
       internal::CrosCameraService_SetAutoFramingState_Params_Data* params =
           reinterpret_cast<internal::CrosCameraService_SetAutoFramingState_Params_Data*>(
@@ -2242,10 +2223,10 @@ bool CrosCameraServiceStubDispatch::Accept(
         std::move(p_state));
       return true;
     }
-    case internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name: {
+    case messages::CrosCameraService::kGetCameraSWPrivacySwitchState: {
       break;
     }
-    case internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name: {
+    case messages::CrosCameraService::kSetCameraSWPrivacySwitchState: {
       DCHECK(message->is_serialized());
       internal::CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data* params =
           reinterpret_cast<internal::CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data*>(
@@ -2272,13 +2253,13 @@ bool CrosCameraServiceStubDispatch::Accept(
         std::move(p_state));
       return true;
     }
-    case internal::kCrosCameraService_GetAutoFramingSupported_Name: {
+    case messages::CrosCameraService::kGetAutoFramingSupported: {
       break;
     }
-    case internal::kCrosCameraService_SetCameraEffect_Name: {
+    case messages::CrosCameraService::kSetCameraEffect: {
       break;
     }
-    case internal::kCrosCameraService_AddCrosCameraServiceObserver_Name: {
+    case messages::CrosCameraService::kAddCrosCameraServiceObserver: {
       DCHECK(message->is_serialized());
       internal::CrosCameraService_AddCrosCameraServiceObserver_Params_Data* params =
           reinterpret_cast<internal::CrosCameraService_AddCrosCameraServiceObserver_Params_Data*>(
@@ -2319,8 +2300,8 @@ bool CrosCameraServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCrosCameraService_GetCameraModule_Name: {
+  switch (static_cast<messages::CrosCameraService>(message->header()->name)) {
+    case messages::CrosCameraService::kGetCameraModule: {
       internal::CrosCameraService_GetCameraModule_Params_Data* params =
           reinterpret_cast<
               internal::CrosCameraService_GetCameraModule_Params_Data*>(
@@ -2350,13 +2331,13 @@ bool CrosCameraServiceStubDispatch::AcceptWithResponder(
         std::move(p_type), std::move(callback));
       return true;
     }
-    case internal::kCrosCameraService_SetTracingEnabled_Name: {
+    case messages::CrosCameraService::kSetTracingEnabled: {
       break;
     }
-    case internal::kCrosCameraService_SetAutoFramingState_Name: {
+    case messages::CrosCameraService::kSetAutoFramingState: {
       break;
     }
-    case internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name: {
+    case messages::CrosCameraService::kGetCameraSWPrivacySwitchState: {
       internal::CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data* params =
           reinterpret_cast<
               internal::CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data*>(
@@ -2382,10 +2363,10 @@ bool CrosCameraServiceStubDispatch::AcceptWithResponder(
       impl->GetCameraSWPrivacySwitchState(std::move(callback));
       return true;
     }
-    case internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name: {
+    case messages::CrosCameraService::kSetCameraSWPrivacySwitchState: {
       break;
     }
-    case internal::kCrosCameraService_GetAutoFramingSupported_Name: {
+    case messages::CrosCameraService::kGetAutoFramingSupported: {
       internal::CrosCameraService_GetAutoFramingSupported_Params_Data* params =
           reinterpret_cast<
               internal::CrosCameraService_GetAutoFramingSupported_Params_Data*>(
@@ -2411,7 +2392,7 @@ bool CrosCameraServiceStubDispatch::AcceptWithResponder(
       impl->GetAutoFramingSupported(std::move(callback));
       return true;
     }
-    case internal::kCrosCameraService_SetCameraEffect_Name: {
+    case messages::CrosCameraService::kSetCameraEffect: {
       internal::CrosCameraService_SetCameraEffect_Params_Data* params =
           reinterpret_cast<
               internal::CrosCameraService_SetCameraEffect_Params_Data*>(
@@ -2441,7 +2422,7 @@ bool CrosCameraServiceStubDispatch::AcceptWithResponder(
         std::move(p_config), std::move(callback));
       return true;
     }
-    case internal::kCrosCameraService_AddCrosCameraServiceObserver_Name: {
+    case messages::CrosCameraService::kAddCrosCameraServiceObserver: {
       break;
     }
   }

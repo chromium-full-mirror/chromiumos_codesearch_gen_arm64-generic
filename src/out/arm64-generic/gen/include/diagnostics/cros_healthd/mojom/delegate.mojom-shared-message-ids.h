@@ -11,38 +11,41 @@
 
 
 namespace ash::cros_healthd::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kDelegate_GetFingerprintFrame_Name = 0;
-constexpr uint32_t kDelegate_GetFingerprintInfo_Name = 1;
-constexpr uint32_t kDelegate_SetLedColor_Name = 2;
-constexpr uint32_t kDelegate_ResetLedColor_Name = 3;
-constexpr uint32_t kDelegate_MonitorAudioJack_Name = 4;
-constexpr uint32_t kDelegate_MonitorTouchpad_Name = 5;
-constexpr uint32_t kDelegate_FetchBootPerformance_Name = 6;
-constexpr uint32_t kDelegate_MonitorTouchscreen_Name = 7;
-constexpr uint32_t kDelegate_MonitorStylusGarage_Name = 8;
-constexpr uint32_t kDelegate_MonitorStylus_Name = 9;
-constexpr uint32_t kDelegate_GetLidAngle_Name = 10;
-constexpr uint32_t kDelegate_GetPsr_Name = 11;
-constexpr uint32_t kDelegate_GetConnectedExternalDisplayConnectors_Name = 12;
-constexpr uint32_t kDelegate_GetPrivacyScreenInfo_Name = 13;
-constexpr uint32_t kDelegate_FetchDisplayInfo_Name = 14;
-constexpr uint32_t kDelegate_MonitorPowerButton_Name = 15;
-constexpr uint32_t kDelegate_RunPrimeSearch_Name = 16;
-constexpr uint32_t kDelegate_MonitorVolumeButton_Name = 17;
-constexpr uint32_t kDelegate_RunFloatingPoint_Name = 18;
-constexpr uint32_t kDelegate_GetAllFanSpeed_Name = 19;
-constexpr uint32_t kDelegate_SetFanSpeed_Name = 20;
-constexpr uint32_t kDelegate_SetAllFanAutoControl_Name = 21;
-constexpr uint32_t kDelegate_GetEcThermalSensors_Name = 22;
-constexpr uint32_t kDelegate_GetTouchpadDevices_Name = 23;
-constexpr uint32_t kDelegate_GetSmartBatteryManufactureDate_Name = 24;
-constexpr uint32_t kDelegate_GetSmartBatteryTemperature_Name = 25;
-constexpr uint32_t kDelegate_RunUrandom_Name = 26;
+enum class Delegate : uint32_t {
+  kGetFingerprintFrame = 0,
+  kGetFingerprintInfo = 1,
+  kSetLedColor = 2,
+  kResetLedColor = 3,
+  kMonitorAudioJack = 4,
+  kMonitorTouchpad = 5,
+  kFetchBootPerformance = 6,
+  kMonitorTouchscreen = 7,
+  kMonitorStylusGarage = 8,
+  kMonitorStylus = 9,
+  kGetLidAngle = 10,
+  kGetPsr = 11,
+  kGetConnectedExternalDisplayConnectors = 12,
+  kGetPrivacyScreenInfo = 13,
+  kFetchDisplayInfo = 14,
+  kMonitorPowerButton = 15,
+  kRunPrimeSearch = 16,
+  kMonitorVolumeButton = 17,
+  kRunFloatingPoint = 18,
+  kGetAllFanSpeed = 19,
+  kSetFanSpeed = 20,
+  kSetAllFanAutoControl = 21,
+  kGetEcThermalSensors = 22,
+  kGetTouchpadDevices = 23,
+  kGetSmartBatteryManufactureDate = 24,
+  kGetSmartBatteryTemperature = 25,
+  kRunUrandom = 26,
+  kRunNetworkBandwidthTest = 27,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // ash::cros_healthd::mojom
 

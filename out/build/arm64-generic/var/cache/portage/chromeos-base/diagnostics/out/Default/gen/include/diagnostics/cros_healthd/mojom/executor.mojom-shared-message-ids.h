@@ -11,71 +11,93 @@
 
 
 namespace ash::cros_healthd::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kProcessControl_GetStdout_Name = 0;
-constexpr uint32_t kProcessControl_GetStderr_Name = 1;
-constexpr uint32_t kProcessControl_GetReturnCode_Name = 2;
-constexpr uint32_t kProcessControl_Kill_Name = 3;
-constexpr uint32_t kAudioJackObserver_OnAdd_Name = 0;
-constexpr uint32_t kAudioJackObserver_OnRemove_Name = 1;
-constexpr uint32_t kTouchpadObserver_OnButton_Name = 0;
-constexpr uint32_t kTouchpadObserver_OnTouch_Name = 1;
-constexpr uint32_t kTouchpadObserver_OnConnected_Name = 2;
-constexpr uint32_t kTouchscreenObserver_OnTouch_Name = 0;
-constexpr uint32_t kTouchscreenObserver_OnConnected_Name = 1;
-constexpr uint32_t kStylusGarageObserver_OnInsert_Name = 0;
-constexpr uint32_t kStylusGarageObserver_OnRemove_Name = 1;
-constexpr uint32_t kStylusObserver_OnTouch_Name = 0;
-constexpr uint32_t kStylusObserver_OnConnected_Name = 1;
-constexpr uint32_t kPowerButtonObserver_OnEvent_Name = 0;
-constexpr uint32_t kPowerButtonObserver_OnConnectedToEventNode_Name = 1;
-constexpr uint32_t kVolumeButtonObserver_OnEvent_Name = 0;
-constexpr uint32_t kExecutor_ReadFile_Name = 0;
-constexpr uint32_t kExecutor_ReadFilePart_Name = 1;
-constexpr uint32_t kExecutor_GetFileInfo_Name = 2;
-constexpr uint32_t kExecutor_GetAllFanSpeed_Name = 3;
-constexpr uint32_t kExecutor_RunIw_Name = 4;
-constexpr uint32_t kExecutor_RunMemtester_Name = 5;
-constexpr uint32_t kExecutor_GetProcessIOContents_Name = 6;
-constexpr uint32_t kExecutor_ReadMsr_Name = 7;
-constexpr uint32_t kExecutor_GetLidAngle_Name = 8;
-constexpr uint32_t kExecutor_GetFingerprintFrame_Name = 9;
-constexpr uint32_t kExecutor_GetFingerprintInfo_Name = 10;
-constexpr uint32_t kExecutor_SetLedColor_Name = 11;
-constexpr uint32_t kExecutor_ResetLedColor_Name = 12;
-constexpr uint32_t kExecutor_GetHciDeviceConfig_Name = 13;
-constexpr uint32_t kExecutor_MonitorAudioJack_Name = 14;
-constexpr uint32_t kExecutor_MonitorTouchpad_Name = 15;
-constexpr uint32_t kExecutor_RunStressAppTest_Name = 16;
-constexpr uint32_t kExecutor_FetchBootPerformance_Name = 17;
-constexpr uint32_t kExecutor_MonitorTouchscreen_Name = 18;
-constexpr uint32_t kExecutor_MonitorStylusGarage_Name = 19;
-constexpr uint32_t kExecutor_MonitorStylus_Name = 20;
-constexpr uint32_t kExecutor_GetPsr_Name = 21;
-constexpr uint32_t kExecutor_RunFio_Name = 22;
-constexpr uint32_t kExecutor_RemoveFioTestFile_Name = 23;
-constexpr uint32_t kExecutor_GetConnectedExternalDisplayConnectors_Name = 24;
-constexpr uint32_t kExecutor_GetPrivacyScreenInfo_Name = 25;
-constexpr uint32_t kExecutor_FetchDisplayInfo_Name = 26;
-constexpr uint32_t kExecutor_FetchCrashFromCrashSender_Name = 27;
-constexpr uint32_t kExecutor_MonitorPowerButton_Name = 28;
-constexpr uint32_t kExecutor_RunPrimeSearch_Name = 29;
-constexpr uint32_t kExecutor_MonitorVolumeButton_Name = 30;
-constexpr uint32_t kExecutor_RunFloatingPoint_Name = 31;
-constexpr uint32_t kExecutor_StartBtmon_Name = 32;
-constexpr uint32_t kExecutor_ReadBtmonLog_Name = 33;
-constexpr uint32_t kExecutor_RemoveBtmonLog_Name = 34;
-constexpr uint32_t kExecutor_SetFanSpeed_Name = 35;
-constexpr uint32_t kExecutor_SetAllFanAutoControl_Name = 36;
-constexpr uint32_t kExecutor_GetEcThermalSensors_Name = 37;
-constexpr uint32_t kExecutor_GetTouchpadDevices_Name = 38;
-constexpr uint32_t kExecutor_GetSmartBatteryManufactureDate_Name = 39;
-constexpr uint32_t kExecutor_GetSmartBatteryTemperature_Name = 40;
-constexpr uint32_t kExecutor_RunUrandom_Name = 41;
+enum class ProcessControl : uint32_t {
+  kGetStdout = 0,
+  kGetStderr = 1,
+  kGetReturnCode = 2,
+  kKill = 3,
+};
+enum class AudioJackObserver : uint32_t {
+  kOnAdd = 0,
+  kOnRemove = 1,
+};
+enum class TouchpadObserver : uint32_t {
+  kOnButton = 0,
+  kOnTouch = 1,
+  kOnConnected = 2,
+};
+enum class TouchscreenObserver : uint32_t {
+  kOnTouch = 0,
+  kOnConnected = 1,
+};
+enum class StylusGarageObserver : uint32_t {
+  kOnInsert = 0,
+  kOnRemove = 1,
+};
+enum class StylusObserver : uint32_t {
+  kOnTouch = 0,
+  kOnConnected = 1,
+};
+enum class NetworkBandwidthObserver : uint32_t {
+  kOnProgress = 0,
+};
+enum class PowerButtonObserver : uint32_t {
+  kOnEvent = 0,
+  kOnConnectedToEventNode = 1,
+};
+enum class VolumeButtonObserver : uint32_t {
+  kOnEvent = 0,
+};
+enum class Executor : uint32_t {
+  kReadFile = 0,
+  kReadFilePart = 1,
+  kGetFileInfo = 2,
+  kGetAllFanSpeed = 3,
+  kRunIw = 4,
+  kRunMemtester = 5,
+  kGetProcessIOContents = 6,
+  kReadMsr = 7,
+  kGetLidAngle = 8,
+  kGetFingerprintFrame = 9,
+  kGetFingerprintInfo = 10,
+  kSetLedColor = 11,
+  kResetLedColor = 12,
+  kGetHciDeviceConfig = 13,
+  kMonitorAudioJack = 14,
+  kMonitorTouchpad = 15,
+  kRunStressAppTest = 16,
+  kFetchBootPerformance = 17,
+  kMonitorTouchscreen = 18,
+  kMonitorStylusGarage = 19,
+  kMonitorStylus = 20,
+  kGetPsr = 21,
+  kRunFio = 22,
+  kRemoveFioTestFile = 23,
+  kGetConnectedExternalDisplayConnectors = 24,
+  kGetPrivacyScreenInfo = 25,
+  kFetchDisplayInfo = 26,
+  kFetchCrashFromCrashSender = 27,
+  kMonitorPowerButton = 28,
+  kRunPrimeSearch = 29,
+  kMonitorVolumeButton = 30,
+  kRunFloatingPoint = 31,
+  kStartBtmon = 32,
+  kReadBtmonLog = 33,
+  kRemoveBtmonLog = 34,
+  kSetFanSpeed = 35,
+  kSetAllFanAutoControl = 36,
+  kGetEcThermalSensors = 37,
+  kGetTouchpadDevices = 38,
+  kGetSmartBatteryManufactureDate = 39,
+  kGetSmartBatteryTemperature = 40,
+  kRunUrandom = 41,
+  kRunNetworkBandwidthTest = 42,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // ash::cros_healthd::mojom
 

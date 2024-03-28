@@ -49,8 +49,8 @@ const char Foo::Name_[] = "chromeos.mojo_service_manager.mojom.Foo";
 
 Foo::IPCStableHashFunction Foo::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kFoo_Ping_Name: {
+  switch (static_cast<messages::Foo>(message.name())) {
+    case messages::Foo::kPing: {
       return &Foo::Ping_Sym::IPCStableHash;
     }
   }
@@ -63,13 +63,13 @@ const char* Foo::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kFoo_Ping_Name:
+    switch (static_cast<messages::Foo>(message.name())) {
+      case messages::Foo::kPing:
             return "Receive chromeos::mojo_service_manager::mojom::Foo::Ping";
     }
   } else {
-    switch (message.name()) {
-      case internal::kFoo_Ping_Name:
+    switch (static_cast<messages::Foo>(message.name())) {
+      case messages::Foo::kPing:
             return "Receive reply chromeos::mojo_service_manager::mojom::Foo::Ping";
     }
   }
@@ -140,8 +140,7 @@ void FooProxy::Ping(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kFoo_Ping_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Foo::kPing), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::mojo_service_manager::mojom::internal::Foo_Ping_Params_Data> params(
           message);
@@ -244,8 +243,7 @@ void Foo_Ping_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kFoo_Ping_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Foo::kPing), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::mojo_service_manager::mojom::internal::Foo_Ping_ResponseParams_Data> params(
           message);
@@ -272,8 +270,8 @@ void Foo_Ping_ProxyToResponder::Run(
 bool FooStubDispatch::Accept(
     Foo* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kFoo_Ping_Name: {
+  switch (static_cast<messages::Foo>(message->header()->name)) {
+    case messages::Foo::kPing: {
       break;
     }
   }
@@ -288,8 +286,8 @@ bool FooStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kFoo_Ping_Name: {
+  switch (static_cast<messages::Foo>(message->header()->name)) {
+    case messages::Foo::kPing: {
       internal::Foo_Ping_Params_Data* params =
           reinterpret_cast<
               internal::Foo_Ping_Params_Data*>(

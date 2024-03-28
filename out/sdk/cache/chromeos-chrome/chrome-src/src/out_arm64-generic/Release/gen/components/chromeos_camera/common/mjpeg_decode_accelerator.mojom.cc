@@ -161,17 +161,17 @@ const char MjpegDecodeAccelerator::Name_[] = "chromeos_camera.mojom.MjpegDecodeA
 
 MjpegDecodeAccelerator::IPCStableHashFunction MjpegDecodeAccelerator::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kMjpegDecodeAccelerator_Initialize_Name: {
+  switch (static_cast<messages::MjpegDecodeAccelerator>(message.name())) {
+    case messages::MjpegDecodeAccelerator::kInitialize: {
       return &MjpegDecodeAccelerator::Initialize_Sym::IPCStableHash;
     }
-    case internal::kMjpegDecodeAccelerator_Decode_Name: {
+    case messages::MjpegDecodeAccelerator::kDecode: {
       return &MjpegDecodeAccelerator::Decode_Sym::IPCStableHash;
     }
-    case internal::kMjpegDecodeAccelerator_DecodeWithDmaBuf_Name: {
+    case messages::MjpegDecodeAccelerator::kDecodeWithDmaBuf: {
       return &MjpegDecodeAccelerator::DecodeWithDmaBuf_Sym::IPCStableHash;
     }
-    case internal::kMjpegDecodeAccelerator_Uninitialize_Name: {
+    case messages::MjpegDecodeAccelerator::kUninitialize: {
       return &MjpegDecodeAccelerator::Uninitialize_Sym::IPCStableHash;
     }
   }
@@ -184,25 +184,25 @@ const char* MjpegDecodeAccelerator::MessageToMethodName_(mojo::Message& message)
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kMjpegDecodeAccelerator_Initialize_Name:
+    switch (static_cast<messages::MjpegDecodeAccelerator>(message.name())) {
+      case messages::MjpegDecodeAccelerator::kInitialize:
             return "Receive chromeos_camera::mojom::MjpegDecodeAccelerator::Initialize";
-      case internal::kMjpegDecodeAccelerator_Decode_Name:
+      case messages::MjpegDecodeAccelerator::kDecode:
             return "Receive chromeos_camera::mojom::MjpegDecodeAccelerator::Decode";
-      case internal::kMjpegDecodeAccelerator_DecodeWithDmaBuf_Name:
+      case messages::MjpegDecodeAccelerator::kDecodeWithDmaBuf:
             return "Receive chromeos_camera::mojom::MjpegDecodeAccelerator::DecodeWithDmaBuf";
-      case internal::kMjpegDecodeAccelerator_Uninitialize_Name:
+      case messages::MjpegDecodeAccelerator::kUninitialize:
             return "Receive chromeos_camera::mojom::MjpegDecodeAccelerator::Uninitialize";
     }
   } else {
-    switch (message.name()) {
-      case internal::kMjpegDecodeAccelerator_Initialize_Name:
+    switch (static_cast<messages::MjpegDecodeAccelerator>(message.name())) {
+      case messages::MjpegDecodeAccelerator::kInitialize:
             return "Receive reply chromeos_camera::mojom::MjpegDecodeAccelerator::Initialize";
-      case internal::kMjpegDecodeAccelerator_Decode_Name:
+      case messages::MjpegDecodeAccelerator::kDecode:
             return "Receive reply chromeos_camera::mojom::MjpegDecodeAccelerator::Decode";
-      case internal::kMjpegDecodeAccelerator_DecodeWithDmaBuf_Name:
+      case messages::MjpegDecodeAccelerator::kDecodeWithDmaBuf:
             return "Receive reply chromeos_camera::mojom::MjpegDecodeAccelerator::DecodeWithDmaBuf";
-      case internal::kMjpegDecodeAccelerator_Uninitialize_Name:
+      case messages::MjpegDecodeAccelerator::kUninitialize:
             return "Receive reply chromeos_camera::mojom::MjpegDecodeAccelerator::Uninitialize";
     }
   }
@@ -344,8 +344,7 @@ void MjpegDecodeAcceleratorProxy::Initialize(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMjpegDecodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MjpegDecodeAccelerator::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos_camera::mojom::internal::MjpegDecodeAccelerator_Initialize_Params_Data> params(
           message);
@@ -397,8 +396,7 @@ void MjpegDecodeAcceleratorProxy::Decode(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMjpegDecodeAccelerator_Decode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MjpegDecodeAccelerator::kDecode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos_camera::mojom::internal::MjpegDecodeAccelerator_Decode_Params_Data> params(
           message);
@@ -482,8 +480,7 @@ void MjpegDecodeAcceleratorProxy::DecodeWithDmaBuf(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMjpegDecodeAccelerator_DecodeWithDmaBuf_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MjpegDecodeAccelerator::kDecodeWithDmaBuf), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos_camera::mojom::internal::MjpegDecodeAccelerator_DecodeWithDmaBuf_Params_Data> params(
           message);
@@ -539,8 +536,7 @@ void MjpegDecodeAcceleratorProxy::Uninitialize(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMjpegDecodeAccelerator_Uninitialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MjpegDecodeAccelerator::kUninitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos_camera::mojom::internal::MjpegDecodeAccelerator_Uninitialize_Params_Data> params(
           message);
@@ -653,8 +649,7 @@ void MjpegDecodeAccelerator_Initialize_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMjpegDecodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MjpegDecodeAccelerator::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos_camera::mojom::internal::MjpegDecodeAccelerator_Initialize_ResponseParams_Data> params(
           message);
@@ -783,8 +778,7 @@ void MjpegDecodeAccelerator_Decode_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMjpegDecodeAccelerator_Decode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MjpegDecodeAccelerator::kDecode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos_camera::mojom::internal::MjpegDecodeAccelerator_Decode_ResponseParams_Data> params(
           message);
@@ -908,8 +902,7 @@ void MjpegDecodeAccelerator_DecodeWithDmaBuf_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMjpegDecodeAccelerator_DecodeWithDmaBuf_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MjpegDecodeAccelerator::kDecodeWithDmaBuf), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos_camera::mojom::internal::MjpegDecodeAccelerator_DecodeWithDmaBuf_ResponseParams_Data> params(
           message);
@@ -938,17 +931,17 @@ void MjpegDecodeAccelerator_DecodeWithDmaBuf_ProxyToResponder::Run(
 bool MjpegDecodeAcceleratorStubDispatch::Accept(
     MjpegDecodeAccelerator* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kMjpegDecodeAccelerator_Initialize_Name: {
+  switch (static_cast<messages::MjpegDecodeAccelerator>(message->header()->name)) {
+    case messages::MjpegDecodeAccelerator::kInitialize: {
       break;
     }
-    case internal::kMjpegDecodeAccelerator_Decode_Name: {
+    case messages::MjpegDecodeAccelerator::kDecode: {
       break;
     }
-    case internal::kMjpegDecodeAccelerator_DecodeWithDmaBuf_Name: {
+    case messages::MjpegDecodeAccelerator::kDecodeWithDmaBuf: {
       break;
     }
-    case internal::kMjpegDecodeAccelerator_Uninitialize_Name: {
+    case messages::MjpegDecodeAccelerator::kUninitialize: {
       DCHECK(message->is_serialized());
       internal::MjpegDecodeAccelerator_Uninitialize_Params_Data* params =
           reinterpret_cast<internal::MjpegDecodeAccelerator_Uninitialize_Params_Data*>(
@@ -983,8 +976,8 @@ bool MjpegDecodeAcceleratorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kMjpegDecodeAccelerator_Initialize_Name: {
+  switch (static_cast<messages::MjpegDecodeAccelerator>(message->header()->name)) {
+    case messages::MjpegDecodeAccelerator::kInitialize: {
       internal::MjpegDecodeAccelerator_Initialize_Params_Data* params =
           reinterpret_cast<
               internal::MjpegDecodeAccelerator_Initialize_Params_Data*>(
@@ -1010,7 +1003,7 @@ bool MjpegDecodeAcceleratorStubDispatch::AcceptWithResponder(
       impl->Initialize(std::move(callback));
       return true;
     }
-    case internal::kMjpegDecodeAccelerator_Decode_Name: {
+    case messages::MjpegDecodeAccelerator::kDecode: {
       internal::MjpegDecodeAccelerator_Decode_Params_Data* params =
           reinterpret_cast<
               internal::MjpegDecodeAccelerator_Decode_Params_Data*>(
@@ -1052,7 +1045,7 @@ bool MjpegDecodeAcceleratorStubDispatch::AcceptWithResponder(
         std::move(p_output_buffer_size), std::move(callback));
       return true;
     }
-    case internal::kMjpegDecodeAccelerator_DecodeWithDmaBuf_Name: {
+    case messages::MjpegDecodeAccelerator::kDecodeWithDmaBuf: {
       internal::MjpegDecodeAccelerator_DecodeWithDmaBuf_Params_Data* params =
           reinterpret_cast<
               internal::MjpegDecodeAccelerator_DecodeWithDmaBuf_Params_Data*>(
@@ -1098,7 +1091,7 @@ bool MjpegDecodeAcceleratorStubDispatch::AcceptWithResponder(
         std::move(p_dst_frame), std::move(callback));
       return true;
     }
-    case internal::kMjpegDecodeAccelerator_Uninitialize_Name: {
+    case messages::MjpegDecodeAccelerator::kUninitialize: {
       break;
     }
   }

@@ -174,14 +174,14 @@ const char DocumentScanner::Name_[] = "chromeos.machine_learning.mojom.DocumentS
 
 DocumentScanner::IPCStableHashFunction DocumentScanner::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kDocumentScanner_DetectCornersFromNV12Image_Name: {
+  switch (static_cast<messages::DocumentScanner>(message.name())) {
+    case messages::DocumentScanner::kDetectCornersFromNV12Image: {
       return &DocumentScanner::DetectCornersFromNV12Image_Sym::IPCStableHash;
     }
-    case internal::kDocumentScanner_DetectCornersFromJPEGImage_Name: {
+    case messages::DocumentScanner::kDetectCornersFromJPEGImage: {
       return &DocumentScanner::DetectCornersFromJPEGImage_Sym::IPCStableHash;
     }
-    case internal::kDocumentScanner_DoPostProcessing_Name: {
+    case messages::DocumentScanner::kDoPostProcessing: {
       return &DocumentScanner::DoPostProcessing_Sym::IPCStableHash;
     }
   }
@@ -194,21 +194,21 @@ const char* DocumentScanner::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kDocumentScanner_DetectCornersFromNV12Image_Name:
+    switch (static_cast<messages::DocumentScanner>(message.name())) {
+      case messages::DocumentScanner::kDetectCornersFromNV12Image:
             return "Receive chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromNV12Image";
-      case internal::kDocumentScanner_DetectCornersFromJPEGImage_Name:
+      case messages::DocumentScanner::kDetectCornersFromJPEGImage:
             return "Receive chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromJPEGImage";
-      case internal::kDocumentScanner_DoPostProcessing_Name:
+      case messages::DocumentScanner::kDoPostProcessing:
             return "Receive chromeos::machine_learning::mojom::DocumentScanner::DoPostProcessing";
     }
   } else {
-    switch (message.name()) {
-      case internal::kDocumentScanner_DetectCornersFromNV12Image_Name:
+    switch (static_cast<messages::DocumentScanner>(message.name())) {
+      case messages::DocumentScanner::kDetectCornersFromNV12Image:
             return "Receive reply chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromNV12Image";
-      case internal::kDocumentScanner_DetectCornersFromJPEGImage_Name:
+      case messages::DocumentScanner::kDetectCornersFromJPEGImage:
             return "Receive reply chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromJPEGImage";
-      case internal::kDocumentScanner_DoPostProcessing_Name:
+      case messages::DocumentScanner::kDoPostProcessing:
             return "Receive reply chromeos::machine_learning::mojom::DocumentScanner::DoPostProcessing";
     }
   }
@@ -344,8 +344,7 @@ void DocumentScannerProxy::DetectCornersFromNV12Image(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDocumentScanner_DetectCornersFromNV12Image_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::DocumentScanner::kDetectCornersFromNV12Image), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::DocumentScanner_DetectCornersFromNV12Image_Params_Data> params(
           message);
@@ -399,8 +398,7 @@ void DocumentScannerProxy::DetectCornersFromJPEGImage(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDocumentScanner_DetectCornersFromJPEGImage_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::DocumentScanner::kDetectCornersFromJPEGImage), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::DocumentScanner_DetectCornersFromJPEGImage_Params_Data> params(
           message);
@@ -460,8 +458,7 @@ void DocumentScannerProxy::DoPostProcessing(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDocumentScanner_DoPostProcessing_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::DocumentScanner::kDoPostProcessing), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::DocumentScanner_DoPostProcessing_Params_Data> params(
           message);
@@ -601,8 +598,7 @@ void DocumentScanner_DetectCornersFromNV12Image_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDocumentScanner_DetectCornersFromNV12Image_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::DocumentScanner::kDetectCornersFromNV12Image), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::DocumentScanner_DetectCornersFromNV12Image_ResponseParams_Data> params(
           message);
@@ -734,8 +730,7 @@ void DocumentScanner_DetectCornersFromJPEGImage_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDocumentScanner_DetectCornersFromJPEGImage_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::DocumentScanner::kDetectCornersFromJPEGImage), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::DocumentScanner_DetectCornersFromJPEGImage_ResponseParams_Data> params(
           message);
@@ -867,8 +862,7 @@ void DocumentScanner_DoPostProcessing_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kDocumentScanner_DoPostProcessing_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::DocumentScanner::kDoPostProcessing), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::DocumentScanner_DoPostProcessing_ResponseParams_Data> params(
           message);
@@ -906,14 +900,14 @@ void DocumentScanner_DoPostProcessing_ProxyToResponder::Run(
 bool DocumentScannerStubDispatch::Accept(
     DocumentScanner* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kDocumentScanner_DetectCornersFromNV12Image_Name: {
+  switch (static_cast<messages::DocumentScanner>(message->header()->name)) {
+    case messages::DocumentScanner::kDetectCornersFromNV12Image: {
       break;
     }
-    case internal::kDocumentScanner_DetectCornersFromJPEGImage_Name: {
+    case messages::DocumentScanner::kDetectCornersFromJPEGImage: {
       break;
     }
-    case internal::kDocumentScanner_DoPostProcessing_Name: {
+    case messages::DocumentScanner::kDoPostProcessing: {
       break;
     }
   }
@@ -928,8 +922,8 @@ bool DocumentScannerStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kDocumentScanner_DetectCornersFromNV12Image_Name: {
+  switch (static_cast<messages::DocumentScanner>(message->header()->name)) {
+    case messages::DocumentScanner::kDetectCornersFromNV12Image: {
       internal::DocumentScanner_DetectCornersFromNV12Image_Params_Data* params =
           reinterpret_cast<
               internal::DocumentScanner_DetectCornersFromNV12Image_Params_Data*>(
@@ -959,7 +953,7 @@ bool DocumentScannerStubDispatch::AcceptWithResponder(
         std::move(p_nv12_image), std::move(callback));
       return true;
     }
-    case internal::kDocumentScanner_DetectCornersFromJPEGImage_Name: {
+    case messages::DocumentScanner::kDetectCornersFromJPEGImage: {
       internal::DocumentScanner_DetectCornersFromJPEGImage_Params_Data* params =
           reinterpret_cast<
               internal::DocumentScanner_DetectCornersFromJPEGImage_Params_Data*>(
@@ -989,7 +983,7 @@ bool DocumentScannerStubDispatch::AcceptWithResponder(
         std::move(p_jpeg_image), std::move(callback));
       return true;
     }
-    case internal::kDocumentScanner_DoPostProcessing_Name: {
+    case messages::DocumentScanner::kDoPostProcessing: {
       internal::DocumentScanner_DoPostProcessing_Params_Data* params =
           reinterpret_cast<
               internal::DocumentScanner_DoPostProcessing_Params_Data*>(

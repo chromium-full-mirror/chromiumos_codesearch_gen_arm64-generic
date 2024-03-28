@@ -49,11 +49,11 @@ const char JpegAcceleratorProvider::Name_[] = "cros.mojom.JpegAcceleratorProvide
 
 JpegAcceleratorProvider::IPCStableHashFunction JpegAcceleratorProvider::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kJpegAcceleratorProvider_GetJpegEncodeAccelerator_Name: {
+  switch (static_cast<messages::JpegAcceleratorProvider>(message.name())) {
+    case messages::JpegAcceleratorProvider::kGetJpegEncodeAccelerator: {
       return &JpegAcceleratorProvider::GetJpegEncodeAccelerator_Sym::IPCStableHash;
     }
-    case internal::kJpegAcceleratorProvider_GetMjpegDecodeAccelerator_Name: {
+    case messages::JpegAcceleratorProvider::kGetMjpegDecodeAccelerator: {
       return &JpegAcceleratorProvider::GetMjpegDecodeAccelerator_Sym::IPCStableHash;
     }
   }
@@ -66,17 +66,17 @@ const char* JpegAcceleratorProvider::MessageToMethodName_(mojo::Message& message
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kJpegAcceleratorProvider_GetJpegEncodeAccelerator_Name:
+    switch (static_cast<messages::JpegAcceleratorProvider>(message.name())) {
+      case messages::JpegAcceleratorProvider::kGetJpegEncodeAccelerator:
             return "Receive cros::mojom::JpegAcceleratorProvider::GetJpegEncodeAccelerator";
-      case internal::kJpegAcceleratorProvider_GetMjpegDecodeAccelerator_Name:
+      case messages::JpegAcceleratorProvider::kGetMjpegDecodeAccelerator:
             return "Receive cros::mojom::JpegAcceleratorProvider::GetMjpegDecodeAccelerator";
     }
   } else {
-    switch (message.name()) {
-      case internal::kJpegAcceleratorProvider_GetJpegEncodeAccelerator_Name:
+    switch (static_cast<messages::JpegAcceleratorProvider>(message.name())) {
+      case messages::JpegAcceleratorProvider::kGetJpegEncodeAccelerator:
             return "Receive reply cros::mojom::JpegAcceleratorProvider::GetJpegEncodeAccelerator";
-      case internal::kJpegAcceleratorProvider_GetMjpegDecodeAccelerator_Name:
+      case messages::JpegAcceleratorProvider::kGetMjpegDecodeAccelerator:
             return "Receive reply cros::mojom::JpegAcceleratorProvider::GetMjpegDecodeAccelerator";
     }
   }
@@ -151,8 +151,7 @@ void JpegAcceleratorProviderProxy::GetJpegEncodeAccelerator(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kJpegAcceleratorProvider_GetJpegEncodeAccelerator_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::JpegAcceleratorProvider::kGetJpegEncodeAccelerator), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::JpegAcceleratorProvider_GetJpegEncodeAccelerator_Params_Data> params(
           message);
@@ -200,8 +199,7 @@ void JpegAcceleratorProviderProxy::GetMjpegDecodeAccelerator(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kJpegAcceleratorProvider_GetMjpegDecodeAccelerator_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::JpegAcceleratorProvider::kGetMjpegDecodeAccelerator), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::JpegAcceleratorProvider_GetMjpegDecodeAccelerator_Params_Data> params(
           message);
@@ -226,8 +224,8 @@ void JpegAcceleratorProviderProxy::GetMjpegDecodeAccelerator(
 bool JpegAcceleratorProviderStubDispatch::Accept(
     JpegAcceleratorProvider* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kJpegAcceleratorProvider_GetJpegEncodeAccelerator_Name: {
+  switch (static_cast<messages::JpegAcceleratorProvider>(message->header()->name)) {
+    case messages::JpegAcceleratorProvider::kGetJpegEncodeAccelerator: {
       DCHECK(message->is_serialized());
       internal::JpegAcceleratorProvider_GetJpegEncodeAccelerator_Params_Data* params =
           reinterpret_cast<internal::JpegAcceleratorProvider_GetJpegEncodeAccelerator_Params_Data*>(
@@ -256,7 +254,7 @@ bool JpegAcceleratorProviderStubDispatch::Accept(
         std::move(p_jea));
       return true;
     }
-    case internal::kJpegAcceleratorProvider_GetMjpegDecodeAccelerator_Name: {
+    case messages::JpegAcceleratorProvider::kGetMjpegDecodeAccelerator: {
       DCHECK(message->is_serialized());
       internal::JpegAcceleratorProvider_GetMjpegDecodeAccelerator_Params_Data* params =
           reinterpret_cast<internal::JpegAcceleratorProvider_GetMjpegDecodeAccelerator_Params_Data*>(
@@ -297,11 +295,11 @@ bool JpegAcceleratorProviderStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kJpegAcceleratorProvider_GetJpegEncodeAccelerator_Name: {
+  switch (static_cast<messages::JpegAcceleratorProvider>(message->header()->name)) {
+    case messages::JpegAcceleratorProvider::kGetJpegEncodeAccelerator: {
       break;
     }
-    case internal::kJpegAcceleratorProvider_GetMjpegDecodeAccelerator_Name: {
+    case messages::JpegAcceleratorProvider::kGetMjpegDecodeAccelerator: {
       break;
     }
   }

@@ -11,13 +11,17 @@
 
 
 namespace cros::camera_diag::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kCameraDiagnostics_RunFrameAnalysis_Name = 0;
-constexpr uint32_t kCrosCameraDiagnosticsService_SendFrame_Name = 0;
+enum class CameraDiagnostics : uint32_t {
+  kRunFrameAnalysis = 0,
+};
+enum class CrosCameraDiagnosticsService : uint32_t {
+  kSendFrame = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // cros::camera_diag::mojom
 

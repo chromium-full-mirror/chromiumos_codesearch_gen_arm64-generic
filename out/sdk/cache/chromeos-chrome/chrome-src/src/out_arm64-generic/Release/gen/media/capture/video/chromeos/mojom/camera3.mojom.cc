@@ -1198,17 +1198,17 @@ const char Camera3CallbackOps::Name_[] = "cros.mojom.Camera3CallbackOps";
 
 Camera3CallbackOps::IPCStableHashFunction Camera3CallbackOps::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCamera3CallbackOps_ProcessCaptureResult_Name: {
+  switch (static_cast<messages::Camera3CallbackOps>(message.name())) {
+    case messages::Camera3CallbackOps::kProcessCaptureResult: {
       return &Camera3CallbackOps::ProcessCaptureResult_Sym::IPCStableHash;
     }
-    case internal::kCamera3CallbackOps_Notify_Name: {
+    case messages::Camera3CallbackOps::kNotify: {
       return &Camera3CallbackOps::Notify_Sym::IPCStableHash;
     }
-    case internal::kCamera3CallbackOps_RequestStreamBuffers_Name: {
+    case messages::Camera3CallbackOps::kRequestStreamBuffers: {
       return &Camera3CallbackOps::RequestStreamBuffers_Sym::IPCStableHash;
     }
-    case internal::kCamera3CallbackOps_ReturnStreamBuffers_Name: {
+    case messages::Camera3CallbackOps::kReturnStreamBuffers: {
       return &Camera3CallbackOps::ReturnStreamBuffers_Sym::IPCStableHash;
     }
   }
@@ -1221,25 +1221,25 @@ const char* Camera3CallbackOps::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCamera3CallbackOps_ProcessCaptureResult_Name:
+    switch (static_cast<messages::Camera3CallbackOps>(message.name())) {
+      case messages::Camera3CallbackOps::kProcessCaptureResult:
             return "Receive cros::mojom::Camera3CallbackOps::ProcessCaptureResult";
-      case internal::kCamera3CallbackOps_Notify_Name:
+      case messages::Camera3CallbackOps::kNotify:
             return "Receive cros::mojom::Camera3CallbackOps::Notify";
-      case internal::kCamera3CallbackOps_RequestStreamBuffers_Name:
+      case messages::Camera3CallbackOps::kRequestStreamBuffers:
             return "Receive cros::mojom::Camera3CallbackOps::RequestStreamBuffers";
-      case internal::kCamera3CallbackOps_ReturnStreamBuffers_Name:
+      case messages::Camera3CallbackOps::kReturnStreamBuffers:
             return "Receive cros::mojom::Camera3CallbackOps::ReturnStreamBuffers";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCamera3CallbackOps_ProcessCaptureResult_Name:
+    switch (static_cast<messages::Camera3CallbackOps>(message.name())) {
+      case messages::Camera3CallbackOps::kProcessCaptureResult:
             return "Receive reply cros::mojom::Camera3CallbackOps::ProcessCaptureResult";
-      case internal::kCamera3CallbackOps_Notify_Name:
+      case messages::Camera3CallbackOps::kNotify:
             return "Receive reply cros::mojom::Camera3CallbackOps::Notify";
-      case internal::kCamera3CallbackOps_RequestStreamBuffers_Name:
+      case messages::Camera3CallbackOps::kRequestStreamBuffers:
             return "Receive reply cros::mojom::Camera3CallbackOps::RequestStreamBuffers";
-      case internal::kCamera3CallbackOps_ReturnStreamBuffers_Name:
+      case messages::Camera3CallbackOps::kReturnStreamBuffers:
             return "Receive reply cros::mojom::Camera3CallbackOps::ReturnStreamBuffers";
     }
   }
@@ -1356,8 +1356,7 @@ void Camera3CallbackOpsProxy::ProcessCaptureResult(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3CallbackOps_ProcessCaptureResult_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3CallbackOps::kProcessCaptureResult), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3CallbackOps_ProcessCaptureResult_Params_Data> params(
           message);
@@ -1410,8 +1409,7 @@ void Camera3CallbackOpsProxy::Notify(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3CallbackOps_Notify_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3CallbackOps::kNotify), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3CallbackOps_Notify_Params_Data> params(
           message);
@@ -1464,8 +1462,7 @@ void Camera3CallbackOpsProxy::RequestStreamBuffers(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3CallbackOps_RequestStreamBuffers_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3CallbackOps::kRequestStreamBuffers), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3CallbackOps_RequestStreamBuffers_Params_Data> params(
           message);
@@ -1521,8 +1518,7 @@ void Camera3CallbackOpsProxy::ReturnStreamBuffers(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3CallbackOps_ReturnStreamBuffers_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3CallbackOps::kReturnStreamBuffers), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3CallbackOps_ReturnStreamBuffers_Params_Data> params(
           message);
@@ -1655,8 +1651,7 @@ void Camera3CallbackOps_RequestStreamBuffers_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3CallbackOps_RequestStreamBuffers_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3CallbackOps::kRequestStreamBuffers), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data> params(
           message);
@@ -1698,8 +1693,8 @@ void Camera3CallbackOps_RequestStreamBuffers_ProxyToResponder::Run(
 bool Camera3CallbackOpsStubDispatch::Accept(
     Camera3CallbackOps* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCamera3CallbackOps_ProcessCaptureResult_Name: {
+  switch (static_cast<messages::Camera3CallbackOps>(message->header()->name)) {
+    case messages::Camera3CallbackOps::kProcessCaptureResult: {
       DCHECK(message->is_serialized());
       internal::Camera3CallbackOps_ProcessCaptureResult_Params_Data* params =
           reinterpret_cast<internal::Camera3CallbackOps_ProcessCaptureResult_Params_Data*>(
@@ -1726,7 +1721,7 @@ bool Camera3CallbackOpsStubDispatch::Accept(
         std::move(p_result));
       return true;
     }
-    case internal::kCamera3CallbackOps_Notify_Name: {
+    case messages::Camera3CallbackOps::kNotify: {
       DCHECK(message->is_serialized());
       internal::Camera3CallbackOps_Notify_Params_Data* params =
           reinterpret_cast<internal::Camera3CallbackOps_Notify_Params_Data*>(
@@ -1753,10 +1748,10 @@ bool Camera3CallbackOpsStubDispatch::Accept(
         std::move(p_msg));
       return true;
     }
-    case internal::kCamera3CallbackOps_RequestStreamBuffers_Name: {
+    case messages::Camera3CallbackOps::kRequestStreamBuffers: {
       break;
     }
-    case internal::kCamera3CallbackOps_ReturnStreamBuffers_Name: {
+    case messages::Camera3CallbackOps::kReturnStreamBuffers: {
       DCHECK(message->is_serialized());
       internal::Camera3CallbackOps_ReturnStreamBuffers_Params_Data* params =
           reinterpret_cast<internal::Camera3CallbackOps_ReturnStreamBuffers_Params_Data*>(
@@ -1795,14 +1790,14 @@ bool Camera3CallbackOpsStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCamera3CallbackOps_ProcessCaptureResult_Name: {
+  switch (static_cast<messages::Camera3CallbackOps>(message->header()->name)) {
+    case messages::Camera3CallbackOps::kProcessCaptureResult: {
       break;
     }
-    case internal::kCamera3CallbackOps_Notify_Name: {
+    case messages::Camera3CallbackOps::kNotify: {
       break;
     }
-    case internal::kCamera3CallbackOps_RequestStreamBuffers_Name: {
+    case messages::Camera3CallbackOps::kRequestStreamBuffers: {
       internal::Camera3CallbackOps_RequestStreamBuffers_Params_Data* params =
           reinterpret_cast<
               internal::Camera3CallbackOps_RequestStreamBuffers_Params_Data*>(
@@ -1832,7 +1827,7 @@ bool Camera3CallbackOpsStubDispatch::AcceptWithResponder(
         std::move(p_buffer_reqs), std::move(callback));
       return true;
     }
-    case internal::kCamera3CallbackOps_ReturnStreamBuffers_Name: {
+    case messages::Camera3CallbackOps::kReturnStreamBuffers: {
       break;
     }
   }
@@ -1864,35 +1859,35 @@ const char Camera3DeviceOps::Name_[] = "cros.mojom.Camera3DeviceOps";
 
 Camera3DeviceOps::IPCStableHashFunction Camera3DeviceOps::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCamera3DeviceOps_Initialize_Name: {
+  switch (static_cast<messages::Camera3DeviceOps>(message.name())) {
+    case messages::Camera3DeviceOps::kInitialize: {
       return &Camera3DeviceOps::Initialize_Sym::IPCStableHash;
     }
-    case internal::kCamera3DeviceOps_ConfigureStreams_Name: {
+    case messages::Camera3DeviceOps::kConfigureStreams: {
       return &Camera3DeviceOps::ConfigureStreams_Sym::IPCStableHash;
     }
-    case internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name: {
+    case messages::Camera3DeviceOps::kConstructDefaultRequestSettings: {
       return &Camera3DeviceOps::ConstructDefaultRequestSettings_Sym::IPCStableHash;
     }
-    case internal::kCamera3DeviceOps_ProcessCaptureRequest_Name: {
+    case messages::Camera3DeviceOps::kProcessCaptureRequest: {
       return &Camera3DeviceOps::ProcessCaptureRequest_Sym::IPCStableHash;
     }
-    case internal::kCamera3DeviceOps_Dump_Name: {
+    case messages::Camera3DeviceOps::kDump: {
       return &Camera3DeviceOps::Dump_Sym::IPCStableHash;
     }
-    case internal::kCamera3DeviceOps_Flush_Name: {
+    case messages::Camera3DeviceOps::kFlush: {
       return &Camera3DeviceOps::Flush_Sym::IPCStableHash;
     }
-    case internal::kCamera3DeviceOps_RegisterBuffer_Name: {
+    case messages::Camera3DeviceOps::kRegisterBuffer: {
       return &Camera3DeviceOps::RegisterBuffer_Sym::IPCStableHash;
     }
-    case internal::kCamera3DeviceOps_Close_Name: {
+    case messages::Camera3DeviceOps::kClose: {
       return &Camera3DeviceOps::Close_Sym::IPCStableHash;
     }
-    case internal::kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name: {
+    case messages::Camera3DeviceOps::kConfigureStreamsAndGetAllocatedBuffers: {
       return &Camera3DeviceOps::ConfigureStreamsAndGetAllocatedBuffers_Sym::IPCStableHash;
     }
-    case internal::kCamera3DeviceOps_SignalStreamFlush_Name: {
+    case messages::Camera3DeviceOps::kSignalStreamFlush: {
       return &Camera3DeviceOps::SignalStreamFlush_Sym::IPCStableHash;
     }
   }
@@ -1905,49 +1900,49 @@ const char* Camera3DeviceOps::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCamera3DeviceOps_Initialize_Name:
+    switch (static_cast<messages::Camera3DeviceOps>(message.name())) {
+      case messages::Camera3DeviceOps::kInitialize:
             return "Receive cros::mojom::Camera3DeviceOps::Initialize";
-      case internal::kCamera3DeviceOps_ConfigureStreams_Name:
+      case messages::Camera3DeviceOps::kConfigureStreams:
             return "Receive cros::mojom::Camera3DeviceOps::ConfigureStreams";
-      case internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name:
+      case messages::Camera3DeviceOps::kConstructDefaultRequestSettings:
             return "Receive cros::mojom::Camera3DeviceOps::ConstructDefaultRequestSettings";
-      case internal::kCamera3DeviceOps_ProcessCaptureRequest_Name:
+      case messages::Camera3DeviceOps::kProcessCaptureRequest:
             return "Receive cros::mojom::Camera3DeviceOps::ProcessCaptureRequest";
-      case internal::kCamera3DeviceOps_Dump_Name:
+      case messages::Camera3DeviceOps::kDump:
             return "Receive cros::mojom::Camera3DeviceOps::Dump";
-      case internal::kCamera3DeviceOps_Flush_Name:
+      case messages::Camera3DeviceOps::kFlush:
             return "Receive cros::mojom::Camera3DeviceOps::Flush";
-      case internal::kCamera3DeviceOps_RegisterBuffer_Name:
+      case messages::Camera3DeviceOps::kRegisterBuffer:
             return "Receive cros::mojom::Camera3DeviceOps::RegisterBuffer";
-      case internal::kCamera3DeviceOps_Close_Name:
+      case messages::Camera3DeviceOps::kClose:
             return "Receive cros::mojom::Camera3DeviceOps::Close";
-      case internal::kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name:
+      case messages::Camera3DeviceOps::kConfigureStreamsAndGetAllocatedBuffers:
             return "Receive cros::mojom::Camera3DeviceOps::ConfigureStreamsAndGetAllocatedBuffers";
-      case internal::kCamera3DeviceOps_SignalStreamFlush_Name:
+      case messages::Camera3DeviceOps::kSignalStreamFlush:
             return "Receive cros::mojom::Camera3DeviceOps::SignalStreamFlush";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCamera3DeviceOps_Initialize_Name:
+    switch (static_cast<messages::Camera3DeviceOps>(message.name())) {
+      case messages::Camera3DeviceOps::kInitialize:
             return "Receive reply cros::mojom::Camera3DeviceOps::Initialize";
-      case internal::kCamera3DeviceOps_ConfigureStreams_Name:
+      case messages::Camera3DeviceOps::kConfigureStreams:
             return "Receive reply cros::mojom::Camera3DeviceOps::ConfigureStreams";
-      case internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name:
+      case messages::Camera3DeviceOps::kConstructDefaultRequestSettings:
             return "Receive reply cros::mojom::Camera3DeviceOps::ConstructDefaultRequestSettings";
-      case internal::kCamera3DeviceOps_ProcessCaptureRequest_Name:
+      case messages::Camera3DeviceOps::kProcessCaptureRequest:
             return "Receive reply cros::mojom::Camera3DeviceOps::ProcessCaptureRequest";
-      case internal::kCamera3DeviceOps_Dump_Name:
+      case messages::Camera3DeviceOps::kDump:
             return "Receive reply cros::mojom::Camera3DeviceOps::Dump";
-      case internal::kCamera3DeviceOps_Flush_Name:
+      case messages::Camera3DeviceOps::kFlush:
             return "Receive reply cros::mojom::Camera3DeviceOps::Flush";
-      case internal::kCamera3DeviceOps_RegisterBuffer_Name:
+      case messages::Camera3DeviceOps::kRegisterBuffer:
             return "Receive reply cros::mojom::Camera3DeviceOps::RegisterBuffer";
-      case internal::kCamera3DeviceOps_Close_Name:
+      case messages::Camera3DeviceOps::kClose:
             return "Receive reply cros::mojom::Camera3DeviceOps::Close";
-      case internal::kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name:
+      case messages::Camera3DeviceOps::kConfigureStreamsAndGetAllocatedBuffers:
             return "Receive reply cros::mojom::Camera3DeviceOps::ConfigureStreamsAndGetAllocatedBuffers";
-      case internal::kCamera3DeviceOps_SignalStreamFlush_Name:
+      case messages::Camera3DeviceOps::kSignalStreamFlush:
             return "Receive reply cros::mojom::Camera3DeviceOps::SignalStreamFlush";
     }
   }
@@ -2254,8 +2249,7 @@ void Camera3DeviceOpsProxy::Initialize(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_Initialize_Params_Data> params(
           message);
@@ -2304,8 +2298,7 @@ void Camera3DeviceOpsProxy::ConfigureStreams(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ConfigureStreams_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kConfigureStreams), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ConfigureStreams_Params_Data> params(
           message);
@@ -2359,8 +2352,7 @@ void Camera3DeviceOpsProxy::ConstructDefaultRequestSettings(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kConstructDefaultRequestSettings), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ConstructDefaultRequestSettings_Params_Data> params(
           message);
@@ -2405,8 +2397,7 @@ void Camera3DeviceOpsProxy::ProcessCaptureRequest(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ProcessCaptureRequest_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kProcessCaptureRequest), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ProcessCaptureRequest_Params_Data> params(
           message);
@@ -2460,8 +2451,7 @@ void Camera3DeviceOpsProxy::Dump(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_Dump_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kDump), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_Dump_Params_Data> params(
           message);
@@ -2502,8 +2492,7 @@ void Camera3DeviceOpsProxy::Flush(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_Flush_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kFlush), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_Flush_Params_Data> params(
           message);
@@ -2570,8 +2559,7 @@ void Camera3DeviceOpsProxy::RegisterBuffer(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kRegisterBuffer), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_RegisterBuffer_Params_Data> params(
           message);
@@ -2654,8 +2642,7 @@ void Camera3DeviceOpsProxy::Close(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_Close_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kClose), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_Close_Params_Data> params(
           message);
@@ -2698,8 +2685,7 @@ void Camera3DeviceOpsProxy::ConfigureStreamsAndGetAllocatedBuffers(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kConfigureStreamsAndGetAllocatedBuffers), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Params_Data> params(
           message);
@@ -2753,8 +2739,7 @@ void Camera3DeviceOpsProxy::SignalStreamFlush(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_SignalStreamFlush_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kSignalStreamFlush), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_SignalStreamFlush_Params_Data> params(
           message);
@@ -2880,8 +2865,7 @@ void Camera3DeviceOps_Initialize_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_Initialize_ResponseParams_Data> params(
           message);
@@ -3010,8 +2994,7 @@ void Camera3DeviceOps_ConfigureStreams_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ConfigureStreams_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kConfigureStreams), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ConfigureStreams_ResponseParams_Data> params(
           message);
@@ -3140,8 +3123,7 @@ void Camera3DeviceOps_ConstructDefaultRequestSettings_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kConstructDefaultRequestSettings), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ConstructDefaultRequestSettings_ResponseParams_Data> params(
           message);
@@ -3269,8 +3251,7 @@ void Camera3DeviceOps_ProcessCaptureRequest_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ProcessCaptureRequest_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kProcessCaptureRequest), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ProcessCaptureRequest_ResponseParams_Data> params(
           message);
@@ -3392,8 +3373,7 @@ void Camera3DeviceOps_Flush_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_Flush_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kFlush), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_Flush_ResponseParams_Data> params(
           message);
@@ -3515,8 +3495,7 @@ void Camera3DeviceOps_RegisterBuffer_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kRegisterBuffer), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_RegisterBuffer_ResponseParams_Data> params(
           message);
@@ -3638,8 +3617,7 @@ void Camera3DeviceOps_Close_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_Close_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kClose), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_Close_ResponseParams_Data> params(
           message);
@@ -3775,8 +3753,7 @@ void Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ProxyToResponder::R
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Camera3DeviceOps::kConfigureStreamsAndGetAllocatedBuffers), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponseParams_Data> params(
           message);
@@ -3824,20 +3801,20 @@ void Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ProxyToResponder::R
 bool Camera3DeviceOpsStubDispatch::Accept(
     Camera3DeviceOps* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCamera3DeviceOps_Initialize_Name: {
+  switch (static_cast<messages::Camera3DeviceOps>(message->header()->name)) {
+    case messages::Camera3DeviceOps::kInitialize: {
       break;
     }
-    case internal::kCamera3DeviceOps_ConfigureStreams_Name: {
+    case messages::Camera3DeviceOps::kConfigureStreams: {
       break;
     }
-    case internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name: {
+    case messages::Camera3DeviceOps::kConstructDefaultRequestSettings: {
       break;
     }
-    case internal::kCamera3DeviceOps_ProcessCaptureRequest_Name: {
+    case messages::Camera3DeviceOps::kProcessCaptureRequest: {
       break;
     }
-    case internal::kCamera3DeviceOps_Dump_Name: {
+    case messages::Camera3DeviceOps::kDump: {
       DCHECK(message->is_serialized());
       internal::Camera3DeviceOps_Dump_Params_Data* params =
           reinterpret_cast<internal::Camera3DeviceOps_Dump_Params_Data*>(
@@ -3864,19 +3841,19 @@ bool Camera3DeviceOpsStubDispatch::Accept(
         std::move(p_fd));
       return true;
     }
-    case internal::kCamera3DeviceOps_Flush_Name: {
+    case messages::Camera3DeviceOps::kFlush: {
       break;
     }
-    case internal::kCamera3DeviceOps_RegisterBuffer_Name: {
+    case messages::Camera3DeviceOps::kRegisterBuffer: {
       break;
     }
-    case internal::kCamera3DeviceOps_Close_Name: {
+    case messages::Camera3DeviceOps::kClose: {
       break;
     }
-    case internal::kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name: {
+    case messages::Camera3DeviceOps::kConfigureStreamsAndGetAllocatedBuffers: {
       break;
     }
-    case internal::kCamera3DeviceOps_SignalStreamFlush_Name: {
+    case messages::Camera3DeviceOps::kSignalStreamFlush: {
       DCHECK(message->is_serialized());
       internal::Camera3DeviceOps_SignalStreamFlush_Params_Data* params =
           reinterpret_cast<internal::Camera3DeviceOps_SignalStreamFlush_Params_Data*>(
@@ -3915,8 +3892,8 @@ bool Camera3DeviceOpsStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCamera3DeviceOps_Initialize_Name: {
+  switch (static_cast<messages::Camera3DeviceOps>(message->header()->name)) {
+    case messages::Camera3DeviceOps::kInitialize: {
       internal::Camera3DeviceOps_Initialize_Params_Data* params =
           reinterpret_cast<
               internal::Camera3DeviceOps_Initialize_Params_Data*>(
@@ -3948,7 +3925,7 @@ bool Camera3DeviceOpsStubDispatch::AcceptWithResponder(
         std::move(p_callback_ops), std::move(callback));
       return true;
     }
-    case internal::kCamera3DeviceOps_ConfigureStreams_Name: {
+    case messages::Camera3DeviceOps::kConfigureStreams: {
       internal::Camera3DeviceOps_ConfigureStreams_Params_Data* params =
           reinterpret_cast<
               internal::Camera3DeviceOps_ConfigureStreams_Params_Data*>(
@@ -3978,7 +3955,7 @@ bool Camera3DeviceOpsStubDispatch::AcceptWithResponder(
         std::move(p_config), std::move(callback));
       return true;
     }
-    case internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name: {
+    case messages::Camera3DeviceOps::kConstructDefaultRequestSettings: {
       internal::Camera3DeviceOps_ConstructDefaultRequestSettings_Params_Data* params =
           reinterpret_cast<
               internal::Camera3DeviceOps_ConstructDefaultRequestSettings_Params_Data*>(
@@ -4008,7 +3985,7 @@ bool Camera3DeviceOpsStubDispatch::AcceptWithResponder(
         std::move(p_type), std::move(callback));
       return true;
     }
-    case internal::kCamera3DeviceOps_ProcessCaptureRequest_Name: {
+    case messages::Camera3DeviceOps::kProcessCaptureRequest: {
       internal::Camera3DeviceOps_ProcessCaptureRequest_Params_Data* params =
           reinterpret_cast<
               internal::Camera3DeviceOps_ProcessCaptureRequest_Params_Data*>(
@@ -4038,10 +4015,10 @@ bool Camera3DeviceOpsStubDispatch::AcceptWithResponder(
         std::move(p_request), std::move(callback));
       return true;
     }
-    case internal::kCamera3DeviceOps_Dump_Name: {
+    case messages::Camera3DeviceOps::kDump: {
       break;
     }
-    case internal::kCamera3DeviceOps_Flush_Name: {
+    case messages::Camera3DeviceOps::kFlush: {
       internal::Camera3DeviceOps_Flush_Params_Data* params =
           reinterpret_cast<
               internal::Camera3DeviceOps_Flush_Params_Data*>(
@@ -4067,7 +4044,7 @@ bool Camera3DeviceOpsStubDispatch::AcceptWithResponder(
       impl->Flush(std::move(callback));
       return true;
     }
-    case internal::kCamera3DeviceOps_RegisterBuffer_Name: {
+    case messages::Camera3DeviceOps::kRegisterBuffer: {
       internal::Camera3DeviceOps_RegisterBuffer_Params_Data* params =
           reinterpret_cast<
               internal::Camera3DeviceOps_RegisterBuffer_Params_Data*>(
@@ -4129,7 +4106,7 @@ bool Camera3DeviceOpsStubDispatch::AcceptWithResponder(
         std::move(p_offsets), std::move(callback));
       return true;
     }
-    case internal::kCamera3DeviceOps_Close_Name: {
+    case messages::Camera3DeviceOps::kClose: {
       internal::Camera3DeviceOps_Close_Params_Data* params =
           reinterpret_cast<
               internal::Camera3DeviceOps_Close_Params_Data*>(
@@ -4155,7 +4132,7 @@ bool Camera3DeviceOpsStubDispatch::AcceptWithResponder(
       impl->Close(std::move(callback));
       return true;
     }
-    case internal::kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name: {
+    case messages::Camera3DeviceOps::kConfigureStreamsAndGetAllocatedBuffers: {
       internal::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Params_Data* params =
           reinterpret_cast<
               internal::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Params_Data*>(
@@ -4185,7 +4162,7 @@ bool Camera3DeviceOpsStubDispatch::AcceptWithResponder(
         std::move(p_config), std::move(callback));
       return true;
     }
-    case internal::kCamera3DeviceOps_SignalStreamFlush_Name: {
+    case messages::Camera3DeviceOps::kSignalStreamFlush: {
       break;
     }
   }

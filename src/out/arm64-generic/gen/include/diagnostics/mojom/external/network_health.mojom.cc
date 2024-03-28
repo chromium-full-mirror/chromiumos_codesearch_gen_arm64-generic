@@ -49,11 +49,11 @@ const char NetworkEventsObserver::Name_[] = "chromeos.network_health.mojom.Netwo
 
 NetworkEventsObserver::IPCStableHashFunction NetworkEventsObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kNetworkEventsObserver_OnConnectionStateChanged_Name: {
+  switch (static_cast<messages::NetworkEventsObserver>(message.name())) {
+    case messages::NetworkEventsObserver::kOnConnectionStateChanged: {
       return &NetworkEventsObserver::OnConnectionStateChanged_Sym::IPCStableHash;
     }
-    case internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name: {
+    case messages::NetworkEventsObserver::kOnSignalStrengthChanged: {
       return &NetworkEventsObserver::OnSignalStrengthChanged_Sym::IPCStableHash;
     }
   }
@@ -66,17 +66,17 @@ const char* NetworkEventsObserver::MessageToMethodName_(mojo::Message& message) 
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kNetworkEventsObserver_OnConnectionStateChanged_Name:
+    switch (static_cast<messages::NetworkEventsObserver>(message.name())) {
+      case messages::NetworkEventsObserver::kOnConnectionStateChanged:
             return "Receive chromeos::network_health::mojom::NetworkEventsObserver::OnConnectionStateChanged";
-      case internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name:
+      case messages::NetworkEventsObserver::kOnSignalStrengthChanged:
             return "Receive chromeos::network_health::mojom::NetworkEventsObserver::OnSignalStrengthChanged";
     }
   } else {
-    switch (message.name()) {
-      case internal::kNetworkEventsObserver_OnConnectionStateChanged_Name:
+    switch (static_cast<messages::NetworkEventsObserver>(message.name())) {
+      case messages::NetworkEventsObserver::kOnConnectionStateChanged:
             return "Receive reply chromeos::network_health::mojom::NetworkEventsObserver::OnConnectionStateChanged";
-      case internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name:
+      case messages::NetworkEventsObserver::kOnSignalStrengthChanged:
             return "Receive reply chromeos::network_health::mojom::NetworkEventsObserver::OnSignalStrengthChanged";
     }
   }
@@ -154,8 +154,7 @@ void NetworkEventsObserverProxy::OnConnectionStateChanged(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkEventsObserver_OnConnectionStateChanged_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkEventsObserver::kOnConnectionStateChanged), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_health::mojom::internal::NetworkEventsObserver_OnConnectionStateChanged_Params_Data> params(
           message);
@@ -213,8 +212,7 @@ void NetworkEventsObserverProxy::OnSignalStrengthChanged(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkEventsObserver::kOnSignalStrengthChanged), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_health::mojom::internal::NetworkEventsObserver_OnSignalStrengthChanged_Params_Data> params(
           message);
@@ -255,8 +253,8 @@ void NetworkEventsObserverProxy::OnSignalStrengthChanged(
 bool NetworkEventsObserverStubDispatch::Accept(
     NetworkEventsObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kNetworkEventsObserver_OnConnectionStateChanged_Name: {
+  switch (static_cast<messages::NetworkEventsObserver>(message->header()->name)) {
+    case messages::NetworkEventsObserver::kOnConnectionStateChanged: {
       DCHECK(message->is_serialized());
       internal::NetworkEventsObserver_OnConnectionStateChanged_Params_Data* params =
           reinterpret_cast<internal::NetworkEventsObserver_OnConnectionStateChanged_Params_Data*>(
@@ -287,7 +285,7 @@ bool NetworkEventsObserverStubDispatch::Accept(
         std::move(p_state));
       return true;
     }
-    case internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name: {
+    case messages::NetworkEventsObserver::kOnSignalStrengthChanged: {
       DCHECK(message->is_serialized());
       internal::NetworkEventsObserver_OnSignalStrengthChanged_Params_Data* params =
           reinterpret_cast<internal::NetworkEventsObserver_OnSignalStrengthChanged_Params_Data*>(
@@ -330,11 +328,11 @@ bool NetworkEventsObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kNetworkEventsObserver_OnConnectionStateChanged_Name: {
+  switch (static_cast<messages::NetworkEventsObserver>(message->header()->name)) {
+    case messages::NetworkEventsObserver::kOnConnectionStateChanged: {
       break;
     }
-    case internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name: {
+    case messages::NetworkEventsObserver::kOnSignalStrengthChanged: {
       break;
     }
   }
@@ -358,14 +356,14 @@ const char NetworkHealthService::Name_[] = "chromeos.network_health.mojom.Networ
 
 NetworkHealthService::IPCStableHashFunction NetworkHealthService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kNetworkHealthService_AddObserver_Name: {
+  switch (static_cast<messages::NetworkHealthService>(message.name())) {
+    case messages::NetworkHealthService::kAddObserver: {
       return &NetworkHealthService::AddObserver_Sym::IPCStableHash;
     }
-    case internal::kNetworkHealthService_GetNetworkList_Name: {
+    case messages::NetworkHealthService::kGetNetworkList: {
       return &NetworkHealthService::GetNetworkList_Sym::IPCStableHash;
     }
-    case internal::kNetworkHealthService_GetHealthSnapshot_Name: {
+    case messages::NetworkHealthService::kGetHealthSnapshot: {
       return &NetworkHealthService::GetHealthSnapshot_Sym::IPCStableHash;
     }
   }
@@ -378,21 +376,21 @@ const char* NetworkHealthService::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kNetworkHealthService_AddObserver_Name:
+    switch (static_cast<messages::NetworkHealthService>(message.name())) {
+      case messages::NetworkHealthService::kAddObserver:
             return "Receive chromeos::network_health::mojom::NetworkHealthService::AddObserver";
-      case internal::kNetworkHealthService_GetNetworkList_Name:
+      case messages::NetworkHealthService::kGetNetworkList:
             return "Receive chromeos::network_health::mojom::NetworkHealthService::GetNetworkList";
-      case internal::kNetworkHealthService_GetHealthSnapshot_Name:
+      case messages::NetworkHealthService::kGetHealthSnapshot:
             return "Receive chromeos::network_health::mojom::NetworkHealthService::GetHealthSnapshot";
     }
   } else {
-    switch (message.name()) {
-      case internal::kNetworkHealthService_AddObserver_Name:
+    switch (static_cast<messages::NetworkHealthService>(message.name())) {
+      case messages::NetworkHealthService::kAddObserver:
             return "Receive reply chromeos::network_health::mojom::NetworkHealthService::AddObserver";
-      case internal::kNetworkHealthService_GetNetworkList_Name:
+      case messages::NetworkHealthService::kGetNetworkList:
             return "Receive reply chromeos::network_health::mojom::NetworkHealthService::GetNetworkList";
-      case internal::kNetworkHealthService_GetHealthSnapshot_Name:
+      case messages::NetworkHealthService::kGetHealthSnapshot:
             return "Receive reply chromeos::network_health::mojom::NetworkHealthService::GetHealthSnapshot";
     }
   }
@@ -512,8 +510,7 @@ void NetworkHealthServiceProxy::AddObserver(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkHealthService_AddObserver_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkHealthService::kAddObserver), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_health::mojom::internal::NetworkHealthService_AddObserver_Params_Data> params(
           message);
@@ -554,8 +551,7 @@ void NetworkHealthServiceProxy::GetNetworkList(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkHealthService_GetNetworkList_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkHealthService::kGetNetworkList), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_health::mojom::internal::NetworkHealthService_GetNetworkList_Params_Data> params(
           message);
@@ -591,8 +587,7 @@ void NetworkHealthServiceProxy::GetHealthSnapshot(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkHealthService_GetHealthSnapshot_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkHealthService::kGetHealthSnapshot), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_health::mojom::internal::NetworkHealthService_GetHealthSnapshot_Params_Data> params(
           message);
@@ -706,8 +701,7 @@ void NetworkHealthService_GetNetworkList_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkHealthService_GetNetworkList_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkHealthService::kGetNetworkList), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_health::mojom::internal::NetworkHealthService_GetNetworkList_ResponseParams_Data> params(
           message);
@@ -841,8 +835,7 @@ void NetworkHealthService_GetHealthSnapshot_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkHealthService_GetHealthSnapshot_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkHealthService::kGetHealthSnapshot), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_health::mojom::internal::NetworkHealthService_GetHealthSnapshot_ResponseParams_Data> params(
           message);
@@ -880,8 +873,8 @@ void NetworkHealthService_GetHealthSnapshot_ProxyToResponder::Run(
 bool NetworkHealthServiceStubDispatch::Accept(
     NetworkHealthService* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kNetworkHealthService_AddObserver_Name: {
+  switch (static_cast<messages::NetworkHealthService>(message->header()->name)) {
+    case messages::NetworkHealthService::kAddObserver: {
       DCHECK(message->is_serialized());
       internal::NetworkHealthService_AddObserver_Params_Data* params =
           reinterpret_cast<internal::NetworkHealthService_AddObserver_Params_Data*>(
@@ -910,10 +903,10 @@ bool NetworkHealthServiceStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kNetworkHealthService_GetNetworkList_Name: {
+    case messages::NetworkHealthService::kGetNetworkList: {
       break;
     }
-    case internal::kNetworkHealthService_GetHealthSnapshot_Name: {
+    case messages::NetworkHealthService::kGetHealthSnapshot: {
       break;
     }
   }
@@ -928,11 +921,11 @@ bool NetworkHealthServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kNetworkHealthService_AddObserver_Name: {
+  switch (static_cast<messages::NetworkHealthService>(message->header()->name)) {
+    case messages::NetworkHealthService::kAddObserver: {
       break;
     }
-    case internal::kNetworkHealthService_GetNetworkList_Name: {
+    case messages::NetworkHealthService::kGetNetworkList: {
       internal::NetworkHealthService_GetNetworkList_Params_Data* params =
           reinterpret_cast<
               internal::NetworkHealthService_GetNetworkList_Params_Data*>(
@@ -958,7 +951,7 @@ bool NetworkHealthServiceStubDispatch::AcceptWithResponder(
       impl->GetNetworkList(std::move(callback));
       return true;
     }
-    case internal::kNetworkHealthService_GetHealthSnapshot_Name: {
+    case messages::NetworkHealthService::kGetHealthSnapshot: {
       internal::NetworkHealthService_GetHealthSnapshot_Params_Data* params =
           reinterpret_cast<
               internal::NetworkHealthService_GetHealthSnapshot_Params_Data*>(

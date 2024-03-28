@@ -68,17 +68,17 @@ const char SensorService::Name_[] = "chromeos.sensors.mojom.SensorService";
 
 SensorService::IPCStableHashFunction SensorService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kSensorService_GetDeviceIds_Name: {
+  switch (static_cast<messages::SensorService>(message.name())) {
+    case messages::SensorService::kGetDeviceIds: {
       return &SensorService::GetDeviceIds_Sym::IPCStableHash;
     }
-    case internal::kSensorService_GetAllDeviceIds_Name: {
+    case messages::SensorService::kGetAllDeviceIds: {
       return &SensorService::GetAllDeviceIds_Sym::IPCStableHash;
     }
-    case internal::kSensorService_GetDevice_Name: {
+    case messages::SensorService::kGetDevice: {
       return &SensorService::GetDevice_Sym::IPCStableHash;
     }
-    case internal::kSensorService_RegisterNewDevicesObserver_Name: {
+    case messages::SensorService::kRegisterNewDevicesObserver: {
       return &SensorService::RegisterNewDevicesObserver_Sym::IPCStableHash;
     }
   }
@@ -91,25 +91,25 @@ const char* SensorService::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kSensorService_GetDeviceIds_Name:
+    switch (static_cast<messages::SensorService>(message.name())) {
+      case messages::SensorService::kGetDeviceIds:
             return "Receive chromeos::sensors::mojom::SensorService::GetDeviceIds";
-      case internal::kSensorService_GetAllDeviceIds_Name:
+      case messages::SensorService::kGetAllDeviceIds:
             return "Receive chromeos::sensors::mojom::SensorService::GetAllDeviceIds";
-      case internal::kSensorService_GetDevice_Name:
+      case messages::SensorService::kGetDevice:
             return "Receive chromeos::sensors::mojom::SensorService::GetDevice";
-      case internal::kSensorService_RegisterNewDevicesObserver_Name:
+      case messages::SensorService::kRegisterNewDevicesObserver:
             return "Receive chromeos::sensors::mojom::SensorService::RegisterNewDevicesObserver";
     }
   } else {
-    switch (message.name()) {
-      case internal::kSensorService_GetDeviceIds_Name:
+    switch (static_cast<messages::SensorService>(message.name())) {
+      case messages::SensorService::kGetDeviceIds:
             return "Receive reply chromeos::sensors::mojom::SensorService::GetDeviceIds";
-      case internal::kSensorService_GetAllDeviceIds_Name:
+      case messages::SensorService::kGetAllDeviceIds:
             return "Receive reply chromeos::sensors::mojom::SensorService::GetAllDeviceIds";
-      case internal::kSensorService_GetDevice_Name:
+      case messages::SensorService::kGetDevice:
             return "Receive reply chromeos::sensors::mojom::SensorService::GetDevice";
-      case internal::kSensorService_RegisterNewDevicesObserver_Name:
+      case messages::SensorService::kRegisterNewDevicesObserver:
             return "Receive reply chromeos::sensors::mojom::SensorService::RegisterNewDevicesObserver";
     }
   }
@@ -242,8 +242,7 @@ void SensorServiceProxy::GetDeviceIds(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorService_GetDeviceIds_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorService::kGetDeviceIds), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorService_GetDeviceIds_Params_Data> params(
           message);
@@ -281,8 +280,7 @@ void SensorServiceProxy::GetAllDeviceIds(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorService_GetAllDeviceIds_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorService::kGetAllDeviceIds), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorService_GetAllDeviceIds_Params_Data> params(
           message);
@@ -328,8 +326,7 @@ void SensorServiceProxy::GetDevice(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorService_GetDevice_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorService::kGetDevice), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorService_GetDevice_Params_Data> params(
           message);
@@ -378,8 +375,7 @@ void SensorServiceProxy::RegisterNewDevicesObserver(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorService_RegisterNewDevicesObserver_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorService::kRegisterNewDevicesObserver), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorService_RegisterNewDevicesObserver_Params_Data> params(
           message);
@@ -498,8 +494,7 @@ void SensorService_GetDeviceIds_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorService_GetDeviceIds_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorService::kGetDeviceIds), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorService_GetDeviceIds_ResponseParams_Data> params(
           message);
@@ -633,8 +628,7 @@ void SensorService_GetAllDeviceIds_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorService_GetAllDeviceIds_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorService::kGetAllDeviceIds), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorService_GetAllDeviceIds_ResponseParams_Data> params(
           message);
@@ -674,14 +668,14 @@ void SensorService_GetAllDeviceIds_ProxyToResponder::Run(
 bool SensorServiceStubDispatch::Accept(
     SensorService* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kSensorService_GetDeviceIds_Name: {
+  switch (static_cast<messages::SensorService>(message->header()->name)) {
+    case messages::SensorService::kGetDeviceIds: {
       break;
     }
-    case internal::kSensorService_GetAllDeviceIds_Name: {
+    case messages::SensorService::kGetAllDeviceIds: {
       break;
     }
-    case internal::kSensorService_GetDevice_Name: {
+    case messages::SensorService::kGetDevice: {
       DCHECK(message->is_serialized());
       internal::SensorService_GetDevice_Params_Data* params =
           reinterpret_cast<internal::SensorService_GetDevice_Params_Data*>(
@@ -714,7 +708,7 @@ bool SensorServiceStubDispatch::Accept(
         std::move(p_device_request));
       return true;
     }
-    case internal::kSensorService_RegisterNewDevicesObserver_Name: {
+    case messages::SensorService::kRegisterNewDevicesObserver: {
       DCHECK(message->is_serialized());
       internal::SensorService_RegisterNewDevicesObserver_Params_Data* params =
           reinterpret_cast<internal::SensorService_RegisterNewDevicesObserver_Params_Data*>(
@@ -755,8 +749,8 @@ bool SensorServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kSensorService_GetDeviceIds_Name: {
+  switch (static_cast<messages::SensorService>(message->header()->name)) {
+    case messages::SensorService::kGetDeviceIds: {
       internal::SensorService_GetDeviceIds_Params_Data* params =
           reinterpret_cast<
               internal::SensorService_GetDeviceIds_Params_Data*>(
@@ -786,7 +780,7 @@ bool SensorServiceStubDispatch::AcceptWithResponder(
         std::move(p_type), std::move(callback));
       return true;
     }
-    case internal::kSensorService_GetAllDeviceIds_Name: {
+    case messages::SensorService::kGetAllDeviceIds: {
       internal::SensorService_GetAllDeviceIds_Params_Data* params =
           reinterpret_cast<
               internal::SensorService_GetAllDeviceIds_Params_Data*>(
@@ -812,10 +806,10 @@ bool SensorServiceStubDispatch::AcceptWithResponder(
       impl->GetAllDeviceIds(std::move(callback));
       return true;
     }
-    case internal::kSensorService_GetDevice_Name: {
+    case messages::SensorService::kGetDevice: {
       break;
     }
-    case internal::kSensorService_RegisterNewDevicesObserver_Name: {
+    case messages::SensorService::kRegisterNewDevicesObserver: {
       break;
     }
   }
@@ -847,32 +841,32 @@ const char SensorDevice::Name_[] = "chromeos.sensors.mojom.SensorDevice";
 
 SensorDevice::IPCStableHashFunction SensorDevice::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kSensorDevice_SetTimeout_Name: {
+  switch (static_cast<messages::SensorDevice>(message.name())) {
+    case messages::SensorDevice::kSetTimeout: {
       return &SensorDevice::SetTimeout_Sym::IPCStableHash;
     }
-    case internal::kSensorDevice_GetAttributes_Name: {
+    case messages::SensorDevice::kGetAttributes: {
       return &SensorDevice::GetAttributes_Sym::IPCStableHash;
     }
-    case internal::kSensorDevice_SetFrequency_Name: {
+    case messages::SensorDevice::kSetFrequency: {
       return &SensorDevice::SetFrequency_Sym::IPCStableHash;
     }
-    case internal::kSensorDevice_StartReadingSamples_Name: {
+    case messages::SensorDevice::kStartReadingSamples: {
       return &SensorDevice::StartReadingSamples_Sym::IPCStableHash;
     }
-    case internal::kSensorDevice_StopReadingSamples_Name: {
+    case messages::SensorDevice::kStopReadingSamples: {
       return &SensorDevice::StopReadingSamples_Sym::IPCStableHash;
     }
-    case internal::kSensorDevice_GetAllChannelIds_Name: {
+    case messages::SensorDevice::kGetAllChannelIds: {
       return &SensorDevice::GetAllChannelIds_Sym::IPCStableHash;
     }
-    case internal::kSensorDevice_SetChannelsEnabled_Name: {
+    case messages::SensorDevice::kSetChannelsEnabled: {
       return &SensorDevice::SetChannelsEnabled_Sym::IPCStableHash;
     }
-    case internal::kSensorDevice_GetChannelsEnabled_Name: {
+    case messages::SensorDevice::kGetChannelsEnabled: {
       return &SensorDevice::GetChannelsEnabled_Sym::IPCStableHash;
     }
-    case internal::kSensorDevice_GetChannelsAttributes_Name: {
+    case messages::SensorDevice::kGetChannelsAttributes: {
       return &SensorDevice::GetChannelsAttributes_Sym::IPCStableHash;
     }
   }
@@ -885,45 +879,45 @@ const char* SensorDevice::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kSensorDevice_SetTimeout_Name:
+    switch (static_cast<messages::SensorDevice>(message.name())) {
+      case messages::SensorDevice::kSetTimeout:
             return "Receive chromeos::sensors::mojom::SensorDevice::SetTimeout";
-      case internal::kSensorDevice_GetAttributes_Name:
+      case messages::SensorDevice::kGetAttributes:
             return "Receive chromeos::sensors::mojom::SensorDevice::GetAttributes";
-      case internal::kSensorDevice_SetFrequency_Name:
+      case messages::SensorDevice::kSetFrequency:
             return "Receive chromeos::sensors::mojom::SensorDevice::SetFrequency";
-      case internal::kSensorDevice_StartReadingSamples_Name:
+      case messages::SensorDevice::kStartReadingSamples:
             return "Receive chromeos::sensors::mojom::SensorDevice::StartReadingSamples";
-      case internal::kSensorDevice_StopReadingSamples_Name:
+      case messages::SensorDevice::kStopReadingSamples:
             return "Receive chromeos::sensors::mojom::SensorDevice::StopReadingSamples";
-      case internal::kSensorDevice_GetAllChannelIds_Name:
+      case messages::SensorDevice::kGetAllChannelIds:
             return "Receive chromeos::sensors::mojom::SensorDevice::GetAllChannelIds";
-      case internal::kSensorDevice_SetChannelsEnabled_Name:
+      case messages::SensorDevice::kSetChannelsEnabled:
             return "Receive chromeos::sensors::mojom::SensorDevice::SetChannelsEnabled";
-      case internal::kSensorDevice_GetChannelsEnabled_Name:
+      case messages::SensorDevice::kGetChannelsEnabled:
             return "Receive chromeos::sensors::mojom::SensorDevice::GetChannelsEnabled";
-      case internal::kSensorDevice_GetChannelsAttributes_Name:
+      case messages::SensorDevice::kGetChannelsAttributes:
             return "Receive chromeos::sensors::mojom::SensorDevice::GetChannelsAttributes";
     }
   } else {
-    switch (message.name()) {
-      case internal::kSensorDevice_SetTimeout_Name:
+    switch (static_cast<messages::SensorDevice>(message.name())) {
+      case messages::SensorDevice::kSetTimeout:
             return "Receive reply chromeos::sensors::mojom::SensorDevice::SetTimeout";
-      case internal::kSensorDevice_GetAttributes_Name:
+      case messages::SensorDevice::kGetAttributes:
             return "Receive reply chromeos::sensors::mojom::SensorDevice::GetAttributes";
-      case internal::kSensorDevice_SetFrequency_Name:
+      case messages::SensorDevice::kSetFrequency:
             return "Receive reply chromeos::sensors::mojom::SensorDevice::SetFrequency";
-      case internal::kSensorDevice_StartReadingSamples_Name:
+      case messages::SensorDevice::kStartReadingSamples:
             return "Receive reply chromeos::sensors::mojom::SensorDevice::StartReadingSamples";
-      case internal::kSensorDevice_StopReadingSamples_Name:
+      case messages::SensorDevice::kStopReadingSamples:
             return "Receive reply chromeos::sensors::mojom::SensorDevice::StopReadingSamples";
-      case internal::kSensorDevice_GetAllChannelIds_Name:
+      case messages::SensorDevice::kGetAllChannelIds:
             return "Receive reply chromeos::sensors::mojom::SensorDevice::GetAllChannelIds";
-      case internal::kSensorDevice_SetChannelsEnabled_Name:
+      case messages::SensorDevice::kSetChannelsEnabled:
             return "Receive reply chromeos::sensors::mojom::SensorDevice::SetChannelsEnabled";
-      case internal::kSensorDevice_GetChannelsEnabled_Name:
+      case messages::SensorDevice::kGetChannelsEnabled:
             return "Receive reply chromeos::sensors::mojom::SensorDevice::GetChannelsEnabled";
-      case internal::kSensorDevice_GetChannelsAttributes_Name:
+      case messages::SensorDevice::kGetChannelsAttributes:
             return "Receive reply chromeos::sensors::mojom::SensorDevice::GetChannelsAttributes";
     }
   }
@@ -1185,8 +1179,7 @@ void SensorDeviceProxy::SetTimeout(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_SetTimeout_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kSetTimeout), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_SetTimeout_Params_Data> params(
           message);
@@ -1229,8 +1222,7 @@ void SensorDeviceProxy::GetAttributes(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_GetAttributes_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kGetAttributes), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_GetAttributes_Params_Data> params(
           message);
@@ -1286,8 +1278,7 @@ void SensorDeviceProxy::SetFrequency(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_SetFrequency_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kSetFrequency), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_SetFrequency_Params_Data> params(
           message);
@@ -1331,8 +1322,7 @@ void SensorDeviceProxy::StartReadingSamples(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_StartReadingSamples_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kStartReadingSamples), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_StartReadingSamples_Params_Data> params(
           message);
@@ -1373,8 +1363,7 @@ void SensorDeviceProxy::StopReadingSamples(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_StopReadingSamples_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kStopReadingSamples), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_StopReadingSamples_Params_Data> params(
           message);
@@ -1409,8 +1398,7 @@ void SensorDeviceProxy::GetAllChannelIds(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_GetAllChannelIds_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kGetAllChannelIds), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_GetAllChannelIds_Params_Data> params(
           message);
@@ -1456,8 +1444,7 @@ void SensorDeviceProxy::SetChannelsEnabled(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_SetChannelsEnabled_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kSetChannelsEnabled), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_SetChannelsEnabled_Params_Data> params(
           message);
@@ -1514,8 +1501,7 @@ void SensorDeviceProxy::GetChannelsEnabled(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_GetChannelsEnabled_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kGetChannelsEnabled), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_GetChannelsEnabled_Params_Data> params(
           message);
@@ -1574,8 +1560,7 @@ void SensorDeviceProxy::GetChannelsAttributes(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_GetChannelsAttributes_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kGetChannelsAttributes), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_GetChannelsAttributes_Params_Data> params(
           message);
@@ -1713,8 +1698,7 @@ void SensorDevice_GetAttributes_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_GetAttributes_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kGetAttributes), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_GetAttributes_ResponseParams_Data> params(
           message);
@@ -1848,8 +1832,7 @@ void SensorDevice_SetFrequency_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_SetFrequency_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kSetFrequency), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_SetFrequency_ResponseParams_Data> params(
           message);
@@ -1971,8 +1954,7 @@ void SensorDevice_GetAllChannelIds_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_GetAllChannelIds_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kGetAllChannelIds), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_GetAllChannelIds_ResponseParams_Data> params(
           message);
@@ -2106,8 +2088,7 @@ void SensorDevice_SetChannelsEnabled_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_SetChannelsEnabled_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kSetChannelsEnabled), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_SetChannelsEnabled_ResponseParams_Data> params(
           message);
@@ -2241,8 +2222,7 @@ void SensorDevice_GetChannelsEnabled_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_GetChannelsEnabled_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kGetChannelsEnabled), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_GetChannelsEnabled_ResponseParams_Data> params(
           message);
@@ -2376,8 +2356,7 @@ void SensorDevice_GetChannelsAttributes_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDevice_GetChannelsAttributes_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDevice::kGetChannelsAttributes), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDevice_GetChannelsAttributes_ResponseParams_Data> params(
           message);
@@ -2417,8 +2396,8 @@ void SensorDevice_GetChannelsAttributes_ProxyToResponder::Run(
 bool SensorDeviceStubDispatch::Accept(
     SensorDevice* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kSensorDevice_SetTimeout_Name: {
+  switch (static_cast<messages::SensorDevice>(message->header()->name)) {
+    case messages::SensorDevice::kSetTimeout: {
       DCHECK(message->is_serialized());
       internal::SensorDevice_SetTimeout_Params_Data* params =
           reinterpret_cast<internal::SensorDevice_SetTimeout_Params_Data*>(
@@ -2445,13 +2424,13 @@ bool SensorDeviceStubDispatch::Accept(
         std::move(p_timeout));
       return true;
     }
-    case internal::kSensorDevice_GetAttributes_Name: {
+    case messages::SensorDevice::kGetAttributes: {
       break;
     }
-    case internal::kSensorDevice_SetFrequency_Name: {
+    case messages::SensorDevice::kSetFrequency: {
       break;
     }
-    case internal::kSensorDevice_StartReadingSamples_Name: {
+    case messages::SensorDevice::kStartReadingSamples: {
       DCHECK(message->is_serialized());
       internal::SensorDevice_StartReadingSamples_Params_Data* params =
           reinterpret_cast<internal::SensorDevice_StartReadingSamples_Params_Data*>(
@@ -2480,7 +2459,7 @@ bool SensorDeviceStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kSensorDevice_StopReadingSamples_Name: {
+    case messages::SensorDevice::kStopReadingSamples: {
       DCHECK(message->is_serialized());
       internal::SensorDevice_StopReadingSamples_Params_Data* params =
           reinterpret_cast<internal::SensorDevice_StopReadingSamples_Params_Data*>(
@@ -2503,16 +2482,16 @@ bool SensorDeviceStubDispatch::Accept(
       impl->StopReadingSamples(        );
       return true;
     }
-    case internal::kSensorDevice_GetAllChannelIds_Name: {
+    case messages::SensorDevice::kGetAllChannelIds: {
       break;
     }
-    case internal::kSensorDevice_SetChannelsEnabled_Name: {
+    case messages::SensorDevice::kSetChannelsEnabled: {
       break;
     }
-    case internal::kSensorDevice_GetChannelsEnabled_Name: {
+    case messages::SensorDevice::kGetChannelsEnabled: {
       break;
     }
-    case internal::kSensorDevice_GetChannelsAttributes_Name: {
+    case messages::SensorDevice::kGetChannelsAttributes: {
       break;
     }
   }
@@ -2527,11 +2506,11 @@ bool SensorDeviceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kSensorDevice_SetTimeout_Name: {
+  switch (static_cast<messages::SensorDevice>(message->header()->name)) {
+    case messages::SensorDevice::kSetTimeout: {
       break;
     }
-    case internal::kSensorDevice_GetAttributes_Name: {
+    case messages::SensorDevice::kGetAttributes: {
       internal::SensorDevice_GetAttributes_Params_Data* params =
           reinterpret_cast<
               internal::SensorDevice_GetAttributes_Params_Data*>(
@@ -2561,7 +2540,7 @@ bool SensorDeviceStubDispatch::AcceptWithResponder(
         std::move(p_attr_names), std::move(callback));
       return true;
     }
-    case internal::kSensorDevice_SetFrequency_Name: {
+    case messages::SensorDevice::kSetFrequency: {
       internal::SensorDevice_SetFrequency_Params_Data* params =
           reinterpret_cast<
               internal::SensorDevice_SetFrequency_Params_Data*>(
@@ -2591,13 +2570,13 @@ bool SensorDeviceStubDispatch::AcceptWithResponder(
         std::move(p_frequency), std::move(callback));
       return true;
     }
-    case internal::kSensorDevice_StartReadingSamples_Name: {
+    case messages::SensorDevice::kStartReadingSamples: {
       break;
     }
-    case internal::kSensorDevice_StopReadingSamples_Name: {
+    case messages::SensorDevice::kStopReadingSamples: {
       break;
     }
-    case internal::kSensorDevice_GetAllChannelIds_Name: {
+    case messages::SensorDevice::kGetAllChannelIds: {
       internal::SensorDevice_GetAllChannelIds_Params_Data* params =
           reinterpret_cast<
               internal::SensorDevice_GetAllChannelIds_Params_Data*>(
@@ -2623,7 +2602,7 @@ bool SensorDeviceStubDispatch::AcceptWithResponder(
       impl->GetAllChannelIds(std::move(callback));
       return true;
     }
-    case internal::kSensorDevice_SetChannelsEnabled_Name: {
+    case messages::SensorDevice::kSetChannelsEnabled: {
       internal::SensorDevice_SetChannelsEnabled_Params_Data* params =
           reinterpret_cast<
               internal::SensorDevice_SetChannelsEnabled_Params_Data*>(
@@ -2657,7 +2636,7 @@ bool SensorDeviceStubDispatch::AcceptWithResponder(
         std::move(p_en), std::move(callback));
       return true;
     }
-    case internal::kSensorDevice_GetChannelsEnabled_Name: {
+    case messages::SensorDevice::kGetChannelsEnabled: {
       internal::SensorDevice_GetChannelsEnabled_Params_Data* params =
           reinterpret_cast<
               internal::SensorDevice_GetChannelsEnabled_Params_Data*>(
@@ -2687,7 +2666,7 @@ bool SensorDeviceStubDispatch::AcceptWithResponder(
         std::move(p_iio_chn_indices), std::move(callback));
       return true;
     }
-    case internal::kSensorDevice_GetChannelsAttributes_Name: {
+    case messages::SensorDevice::kGetChannelsAttributes: {
       internal::SensorDevice_GetChannelsAttributes_Params_Data* params =
           reinterpret_cast<
               internal::SensorDevice_GetChannelsAttributes_Params_Data*>(
@@ -2760,11 +2739,11 @@ const char SensorDeviceSamplesObserver::Name_[] = "chromeos.sensors.mojom.Sensor
 
 SensorDeviceSamplesObserver::IPCStableHashFunction SensorDeviceSamplesObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kSensorDeviceSamplesObserver_OnSampleUpdated_Name: {
+  switch (static_cast<messages::SensorDeviceSamplesObserver>(message.name())) {
+    case messages::SensorDeviceSamplesObserver::kOnSampleUpdated: {
       return &SensorDeviceSamplesObserver::OnSampleUpdated_Sym::IPCStableHash;
     }
-    case internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name: {
+    case messages::SensorDeviceSamplesObserver::kOnErrorOccurred: {
       return &SensorDeviceSamplesObserver::OnErrorOccurred_Sym::IPCStableHash;
     }
   }
@@ -2777,17 +2756,17 @@ const char* SensorDeviceSamplesObserver::MessageToMethodName_(mojo::Message& mes
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kSensorDeviceSamplesObserver_OnSampleUpdated_Name:
+    switch (static_cast<messages::SensorDeviceSamplesObserver>(message.name())) {
+      case messages::SensorDeviceSamplesObserver::kOnSampleUpdated:
             return "Receive chromeos::sensors::mojom::SensorDeviceSamplesObserver::OnSampleUpdated";
-      case internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name:
+      case messages::SensorDeviceSamplesObserver::kOnErrorOccurred:
             return "Receive chromeos::sensors::mojom::SensorDeviceSamplesObserver::OnErrorOccurred";
     }
   } else {
-    switch (message.name()) {
-      case internal::kSensorDeviceSamplesObserver_OnSampleUpdated_Name:
+    switch (static_cast<messages::SensorDeviceSamplesObserver>(message.name())) {
+      case messages::SensorDeviceSamplesObserver::kOnSampleUpdated:
             return "Receive reply chromeos::sensors::mojom::SensorDeviceSamplesObserver::OnSampleUpdated";
-      case internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name:
+      case messages::SensorDeviceSamplesObserver::kOnErrorOccurred:
             return "Receive reply chromeos::sensors::mojom::SensorDeviceSamplesObserver::OnErrorOccurred";
     }
   }
@@ -2862,8 +2841,7 @@ void SensorDeviceSamplesObserverProxy::OnSampleUpdated(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDeviceSamplesObserver_OnSampleUpdated_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDeviceSamplesObserver::kOnSampleUpdated), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDeviceSamplesObserver_OnSampleUpdated_Params_Data> params(
           message);
@@ -2918,8 +2896,7 @@ void SensorDeviceSamplesObserverProxy::OnErrorOccurred(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorDeviceSamplesObserver::kOnErrorOccurred), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorDeviceSamplesObserver_OnErrorOccurred_Params_Data> params(
           message);
@@ -2940,8 +2917,8 @@ void SensorDeviceSamplesObserverProxy::OnErrorOccurred(
 bool SensorDeviceSamplesObserverStubDispatch::Accept(
     SensorDeviceSamplesObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kSensorDeviceSamplesObserver_OnSampleUpdated_Name: {
+  switch (static_cast<messages::SensorDeviceSamplesObserver>(message->header()->name)) {
+    case messages::SensorDeviceSamplesObserver::kOnSampleUpdated: {
       DCHECK(message->is_serialized());
       internal::SensorDeviceSamplesObserver_OnSampleUpdated_Params_Data* params =
           reinterpret_cast<internal::SensorDeviceSamplesObserver_OnSampleUpdated_Params_Data*>(
@@ -2968,7 +2945,7 @@ bool SensorDeviceSamplesObserverStubDispatch::Accept(
         std::move(p_sample));
       return true;
     }
-    case internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name: {
+    case messages::SensorDeviceSamplesObserver::kOnErrorOccurred: {
       DCHECK(message->is_serialized());
       internal::SensorDeviceSamplesObserver_OnErrorOccurred_Params_Data* params =
           reinterpret_cast<internal::SensorDeviceSamplesObserver_OnErrorOccurred_Params_Data*>(
@@ -3007,11 +2984,11 @@ bool SensorDeviceSamplesObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kSensorDeviceSamplesObserver_OnSampleUpdated_Name: {
+  switch (static_cast<messages::SensorDeviceSamplesObserver>(message->header()->name)) {
+    case messages::SensorDeviceSamplesObserver::kOnSampleUpdated: {
       break;
     }
-    case internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name: {
+    case messages::SensorDeviceSamplesObserver::kOnErrorOccurred: {
       break;
     }
   }
@@ -3035,8 +3012,8 @@ const char SensorServiceNewDevicesObserver::Name_[] = "chromeos.sensors.mojom.Se
 
 SensorServiceNewDevicesObserver::IPCStableHashFunction SensorServiceNewDevicesObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name: {
+  switch (static_cast<messages::SensorServiceNewDevicesObserver>(message.name())) {
+    case messages::SensorServiceNewDevicesObserver::kOnNewDeviceAdded: {
       return &SensorServiceNewDevicesObserver::OnNewDeviceAdded_Sym::IPCStableHash;
     }
   }
@@ -3049,13 +3026,13 @@ const char* SensorServiceNewDevicesObserver::MessageToMethodName_(mojo::Message&
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name:
+    switch (static_cast<messages::SensorServiceNewDevicesObserver>(message.name())) {
+      case messages::SensorServiceNewDevicesObserver::kOnNewDeviceAdded:
             return "Receive chromeos::sensors::mojom::SensorServiceNewDevicesObserver::OnNewDeviceAdded";
     }
   } else {
-    switch (message.name()) {
-      case internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name:
+    switch (static_cast<messages::SensorServiceNewDevicesObserver>(message.name())) {
+      case messages::SensorServiceNewDevicesObserver::kOnNewDeviceAdded:
             return "Receive reply chromeos::sensors::mojom::SensorServiceNewDevicesObserver::OnNewDeviceAdded";
     }
   }
@@ -3120,8 +3097,7 @@ void SensorServiceNewDevicesObserverProxy::OnNewDeviceAdded(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorServiceNewDevicesObserver::kOnNewDeviceAdded), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::sensors::mojom::internal::SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data> params(
           message);
@@ -3154,8 +3130,8 @@ void SensorServiceNewDevicesObserverProxy::OnNewDeviceAdded(
 bool SensorServiceNewDevicesObserverStubDispatch::Accept(
     SensorServiceNewDevicesObserver* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name: {
+  switch (static_cast<messages::SensorServiceNewDevicesObserver>(message->header()->name)) {
+    case messages::SensorServiceNewDevicesObserver::kOnNewDeviceAdded: {
       DCHECK(message->is_serialized());
       internal::SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data* params =
           reinterpret_cast<internal::SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data*>(
@@ -3198,8 +3174,8 @@ bool SensorServiceNewDevicesObserverStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name: {
+  switch (static_cast<messages::SensorServiceNewDevicesObserver>(message->header()->name)) {
+    case messages::SensorServiceNewDevicesObserver::kOnNewDeviceAdded: {
       break;
     }
   }

@@ -11,14 +11,16 @@
 
 
 namespace chromeos::machine_learning::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kDocumentScanner_DetectCornersFromNV12Image_Name = 0;
-constexpr uint32_t kDocumentScanner_DetectCornersFromJPEGImage_Name = 1;
-constexpr uint32_t kDocumentScanner_DoPostProcessing_Name = 2;
+enum class DocumentScanner : uint32_t {
+  kDetectCornersFromNV12Image = 0,
+  kDetectCornersFromJPEGImage = 1,
+  kDoPostProcessing = 2,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::machine_learning::mojom
 

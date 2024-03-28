@@ -11,72 +11,78 @@
 
 
 namespace ash::cros_healthd::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name = 0;
-constexpr uint32_t kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name = 1;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name = 2;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name = 3;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Name = 4;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Name = 5;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name = 6;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name = 7;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name = 8;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name = 9;
-constexpr uint32_t kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name = 10;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name = 32;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name = 11;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name = 12;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name = 13;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name = 14;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name = 15;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name = 16;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name = 17;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Name = 18;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Name = 19;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Name = 20;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Name = 21;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Name = 22;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Name = 23;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Name = 24;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Name = 25;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Name = 26;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Name = 27;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Name = 28;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name = 29;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name = 30;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name = 31;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name = 33;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name = 34;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name = 35;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name = 36;
-constexpr uint32_t kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name = 37;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name = 38;
-constexpr uint32_t kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Name = 39;
-constexpr uint32_t kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Name = 40;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name = 41;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name = 42;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name = 43;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name = 44;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunPowerButtonRoutine_Name = 45;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunAudioDriverRoutine_Name = 46;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Name = 47;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunFanRoutine_Name = 48;
-constexpr uint32_t kCrosHealthdEventService_AddBluetoothObserver_Name = 0;
-constexpr uint32_t kCrosHealthdEventService_AddLidObserver_Name = 1;
-constexpr uint32_t kCrosHealthdEventService_AddPowerObserver_Name = 2;
-constexpr uint32_t kCrosHealthdEventService_AddNetworkObserver_Name = 3;
-constexpr uint32_t kCrosHealthdEventService_AddAudioObserver_Name = 4;
-constexpr uint32_t kCrosHealthdEventService_AddThunderboltObserver_Name = 5;
-constexpr uint32_t kCrosHealthdEventService_AddUsbObserver_Name = 6;
-constexpr uint32_t kCrosHealthdEventService_AddEventObserver_Name = 7;
-constexpr uint32_t kCrosHealthdEventService_IsEventSupported_Name = 8;
-constexpr uint32_t kCrosHealthdProbeService_ProbeProcessInfo_Name = 0;
-constexpr uint32_t kCrosHealthdProbeService_ProbeTelemetryInfo_Name = 1;
-constexpr uint32_t kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name = 2;
+enum class CrosHealthdDiagnosticsService : uint32_t {
+  kGetAvailableRoutines = 0,
+  kGetRoutineUpdate = 1,
+  kRunUrandomRoutine = 2,
+  kRunBatteryCapacityRoutine = 3,
+  kRunBatteryHealthRoutine = 4,
+  kRunSmartctlCheckRoutine = 5,
+  kRunAcPowerRoutine = 6,
+  kRunCpuCacheRoutine = 7,
+  kRunCpuStressRoutine = 8,
+  kRunFloatingPointAccuracyRoutine = 9,
+  kDEPRECATED_RunNvmeWearLevelRoutine = 10,
+  kRunNvmeWearLevelRoutine = 32,
+  kRunNvmeSelfTestRoutine = 11,
+  kRunDiskReadRoutine = 12,
+  kRunPrimeSearchRoutine = 13,
+  kRunBatteryDischargeRoutine = 14,
+  kRunBatteryChargeRoutine = 15,
+  kRunMemoryRoutine = 16,
+  kRunLanConnectivityRoutine = 17,
+  kRunSignalStrengthRoutine = 18,
+  kRunGatewayCanBePingedRoutine = 19,
+  kRunHasSecureWiFiConnectionRoutine = 20,
+  kRunDnsResolverPresentRoutine = 21,
+  kRunDnsLatencyRoutine = 22,
+  kRunDnsResolutionRoutine = 23,
+  kRunCaptivePortalRoutine = 24,
+  kRunHttpFirewallRoutine = 25,
+  kRunHttpsFirewallRoutine = 26,
+  kRunHttpsLatencyRoutine = 27,
+  kRunVideoConferencingRoutine = 28,
+  kRunArcHttpRoutine = 29,
+  kRunArcPingRoutine = 30,
+  kRunArcDnsResolutionRoutine = 31,
+  kRunSensitiveSensorRoutine = 33,
+  kRunFingerprintRoutine = 34,
+  kRunFingerprintAliveRoutine = 35,
+  kRunPrivacyScreenRoutine = 36,
+  kDEPRECATED_RunLedLitUpRoutine = 37,
+  kRunEmmcLifetimeRoutine = 38,
+  kDEPRECATED_RunAudioSetVolumeRoutine = 39,
+  kDEPRECATED_RunAudioSetGainRoutine = 40,
+  kRunBluetoothPowerRoutine = 41,
+  kRunBluetoothDiscoveryRoutine = 42,
+  kRunBluetoothScanningRoutine = 43,
+  kRunBluetoothPairingRoutine = 44,
+  kRunPowerButtonRoutine = 45,
+  kRunAudioDriverRoutine = 46,
+  kRunUfsLifetimeRoutine = 47,
+  kRunFanRoutine = 48,
+};
+enum class CrosHealthdEventService : uint32_t {
+  kAddBluetoothObserver = 0,
+  kAddLidObserver = 1,
+  kAddPowerObserver = 2,
+  kAddNetworkObserver = 3,
+  kAddAudioObserver = 4,
+  kAddThunderboltObserver = 5,
+  kAddUsbObserver = 6,
+  kAddEventObserver = 7,
+  kIsEventSupported = 8,
+};
+enum class CrosHealthdProbeService : uint32_t {
+  kProbeProcessInfo = 0,
+  kProbeTelemetryInfo = 1,
+  kProbeMultipleProcessInfo = 2,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // ash::cros_healthd::mojom
 

@@ -11,14 +11,16 @@
 
 
 namespace chromeos::machine_learning::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kTextClassifier_Annotate_Name = 0;
-constexpr uint32_t kTextClassifier_FindLanguages_Name = 2;
-constexpr uint32_t kTextClassifier_REMOVED_1_Name = 1;
+enum class TextClassifier : uint32_t {
+  kAnnotate = 0,
+  kFindLanguages = 2,
+  kREMOVED_1 = 1,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::machine_learning::mojom
 

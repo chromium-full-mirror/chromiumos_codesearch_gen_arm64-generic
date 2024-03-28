@@ -11,17 +11,21 @@
 
 
 namespace chromeos::connectivity::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kPasspointEventsListener_OnPasspointSubscriptionAdded_Name = 0;
-constexpr uint32_t kPasspointEventsListener_OnPasspointSubscriptionRemoved_Name = 1;
-constexpr uint32_t kPasspointService_GetPasspointSubscription_Name = 0;
-constexpr uint32_t kPasspointService_ListPasspointSubscriptions_Name = 1;
-constexpr uint32_t kPasspointService_DeletePasspointSubscription_Name = 2;
-constexpr uint32_t kPasspointService_RegisterPasspointListener_Name = 3;
+enum class PasspointEventsListener : uint32_t {
+  kOnPasspointSubscriptionAdded = 0,
+  kOnPasspointSubscriptionRemoved = 1,
+};
+enum class PasspointService : uint32_t {
+  kGetPasspointSubscription = 0,
+  kListPasspointSubscriptions = 1,
+  kDeletePasspointSubscription = 2,
+  kRegisterPasspointListener = 3,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::connectivity::mojom
 

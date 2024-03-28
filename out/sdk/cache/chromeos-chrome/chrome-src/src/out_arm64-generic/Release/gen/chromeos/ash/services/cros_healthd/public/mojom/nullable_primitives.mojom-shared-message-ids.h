@@ -11,11 +11,11 @@
 
 
 namespace ash::cros_healthd::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // ash::cros_healthd::mojom
 

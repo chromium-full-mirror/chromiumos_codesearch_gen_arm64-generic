@@ -10,10 +10,11 @@
 #include <stdint.h>
 
 #include <limits>
+#include <optional>
 #include <type_traits>
 #include <utility>
 
-#include <optional>
+#include "base/types/cxx23_to_underlying.h"
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"

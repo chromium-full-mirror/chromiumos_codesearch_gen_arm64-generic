@@ -11,13 +11,15 @@
 
 
 namespace cros::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kJpegAcceleratorProvider_GetJpegEncodeAccelerator_Name = 0;
-constexpr uint32_t kJpegAcceleratorProvider_GetMjpegDecodeAccelerator_Name = 1;
+enum class JpegAcceleratorProvider : uint32_t {
+  kGetJpegEncodeAccelerator = 0,
+  kGetMjpegDecodeAccelerator = 1,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // cros::mojom
 

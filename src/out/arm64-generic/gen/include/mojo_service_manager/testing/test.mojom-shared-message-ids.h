@@ -11,12 +11,14 @@
 
 
 namespace chromeos::mojo_service_manager::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kFoo_Ping_Name = 0;
+enum class Foo : uint32_t {
+  kPing = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::mojo_service_manager::mojom
 

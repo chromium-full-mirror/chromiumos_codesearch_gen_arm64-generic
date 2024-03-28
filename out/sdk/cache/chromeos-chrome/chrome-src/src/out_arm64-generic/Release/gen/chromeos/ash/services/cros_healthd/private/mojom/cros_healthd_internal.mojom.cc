@@ -204,17 +204,17 @@ const char ChromiumDataCollector::Name_[] = "ash.cros_healthd.internal.mojom.Chr
 
 ChromiumDataCollector::IPCStableHashFunction ChromiumDataCollector::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kChromiumDataCollector_GetTouchscreenDevices_Name: {
+  switch (static_cast<messages::ChromiumDataCollector>(message.name())) {
+    case messages::ChromiumDataCollector::kGetTouchscreenDevices: {
       return &ChromiumDataCollector::GetTouchscreenDevices_Sym::IPCStableHash;
     }
-    case internal::kChromiumDataCollector_GetTouchpadLibraryName_Name: {
+    case messages::ChromiumDataCollector::kGetTouchpadLibraryName: {
       return &ChromiumDataCollector::GetTouchpadLibraryName_Sym::IPCStableHash;
     }
-    case internal::kChromiumDataCollector_SetPrivacyScreenState_Name: {
+    case messages::ChromiumDataCollector::kSetPrivacyScreenState: {
       return &ChromiumDataCollector::SetPrivacyScreenState_Sym::IPCStableHash;
     }
-    case internal::kChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Name: {
+    case messages::ChromiumDataCollector::kDEPRECATED_SetAudioOutputMute: {
       return &ChromiumDataCollector::DEPRECATED_SetAudioOutputMute_Sym::IPCStableHash;
     }
   }
@@ -227,25 +227,25 @@ const char* ChromiumDataCollector::MessageToMethodName_(mojo::Message& message) 
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kChromiumDataCollector_GetTouchscreenDevices_Name:
+    switch (static_cast<messages::ChromiumDataCollector>(message.name())) {
+      case messages::ChromiumDataCollector::kGetTouchscreenDevices:
             return "Receive ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices";
-      case internal::kChromiumDataCollector_GetTouchpadLibraryName_Name:
+      case messages::ChromiumDataCollector::kGetTouchpadLibraryName:
             return "Receive ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName";
-      case internal::kChromiumDataCollector_SetPrivacyScreenState_Name:
+      case messages::ChromiumDataCollector::kSetPrivacyScreenState:
             return "Receive ash::cros_healthd::internal::mojom::ChromiumDataCollector::SetPrivacyScreenState";
-      case internal::kChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Name:
+      case messages::ChromiumDataCollector::kDEPRECATED_SetAudioOutputMute:
             return "Receive ash::cros_healthd::internal::mojom::ChromiumDataCollector::DEPRECATED_SetAudioOutputMute";
     }
   } else {
-    switch (message.name()) {
-      case internal::kChromiumDataCollector_GetTouchscreenDevices_Name:
+    switch (static_cast<messages::ChromiumDataCollector>(message.name())) {
+      case messages::ChromiumDataCollector::kGetTouchscreenDevices:
             return "Receive reply ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices";
-      case internal::kChromiumDataCollector_GetTouchpadLibraryName_Name:
+      case messages::ChromiumDataCollector::kGetTouchpadLibraryName:
             return "Receive reply ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName";
-      case internal::kChromiumDataCollector_SetPrivacyScreenState_Name:
+      case messages::ChromiumDataCollector::kSetPrivacyScreenState:
             return "Receive reply ash::cros_healthd::internal::mojom::ChromiumDataCollector::SetPrivacyScreenState";
-      case internal::kChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Name:
+      case messages::ChromiumDataCollector::kDEPRECATED_SetAudioOutputMute:
             return "Receive reply ash::cros_healthd::internal::mojom::ChromiumDataCollector::DEPRECATED_SetAudioOutputMute";
     }
   }
@@ -403,8 +403,7 @@ void ChromiumDataCollectorProxy::GetTouchscreenDevices(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kChromiumDataCollector_GetTouchscreenDevices_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ChromiumDataCollector::kGetTouchscreenDevices), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchscreenDevices_Params_Data> params(
           message);
@@ -440,8 +439,7 @@ void ChromiumDataCollectorProxy::GetTouchpadLibraryName(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kChromiumDataCollector_GetTouchpadLibraryName_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ChromiumDataCollector::kGetTouchpadLibraryName), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchpadLibraryName_Params_Data> params(
           message);
@@ -484,8 +482,7 @@ void ChromiumDataCollectorProxy::SetPrivacyScreenState(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kChromiumDataCollector_SetPrivacyScreenState_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ChromiumDataCollector::kSetPrivacyScreenState), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_SetPrivacyScreenState_Params_Data> params(
           message);
@@ -529,8 +526,7 @@ void ChromiumDataCollectorProxy::DEPRECATED_SetAudioOutputMute(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ChromiumDataCollector::kDEPRECATED_SetAudioOutputMute), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data> params(
           message);
@@ -645,8 +641,7 @@ void ChromiumDataCollector_GetTouchscreenDevices_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kChromiumDataCollector_GetTouchscreenDevices_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ChromiumDataCollector::kGetTouchscreenDevices), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchscreenDevices_ResponseParams_Data> params(
           message);
@@ -780,8 +775,7 @@ void ChromiumDataCollector_GetTouchpadLibraryName_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kChromiumDataCollector_GetTouchpadLibraryName_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ChromiumDataCollector::kGetTouchpadLibraryName), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data> params(
           message);
@@ -913,8 +907,7 @@ void ChromiumDataCollector_SetPrivacyScreenState_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kChromiumDataCollector_SetPrivacyScreenState_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ChromiumDataCollector::kSetPrivacyScreenState), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data> params(
           message);
@@ -1036,8 +1029,7 @@ void ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ChromiumDataCollector::kDEPRECATED_SetAudioOutputMute), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data> params(
           message);
@@ -1065,17 +1057,17 @@ void ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ProxyToResponder::Run(
 bool ChromiumDataCollectorStubDispatch::Accept(
     ChromiumDataCollector* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kChromiumDataCollector_GetTouchscreenDevices_Name: {
+  switch (static_cast<messages::ChromiumDataCollector>(message->header()->name)) {
+    case messages::ChromiumDataCollector::kGetTouchscreenDevices: {
       break;
     }
-    case internal::kChromiumDataCollector_GetTouchpadLibraryName_Name: {
+    case messages::ChromiumDataCollector::kGetTouchpadLibraryName: {
       break;
     }
-    case internal::kChromiumDataCollector_SetPrivacyScreenState_Name: {
+    case messages::ChromiumDataCollector::kSetPrivacyScreenState: {
       break;
     }
-    case internal::kChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Name: {
+    case messages::ChromiumDataCollector::kDEPRECATED_SetAudioOutputMute: {
       break;
     }
   }
@@ -1090,8 +1082,8 @@ bool ChromiumDataCollectorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kChromiumDataCollector_GetTouchscreenDevices_Name: {
+  switch (static_cast<messages::ChromiumDataCollector>(message->header()->name)) {
+    case messages::ChromiumDataCollector::kGetTouchscreenDevices: {
       internal::ChromiumDataCollector_GetTouchscreenDevices_Params_Data* params =
           reinterpret_cast<
               internal::ChromiumDataCollector_GetTouchscreenDevices_Params_Data*>(
@@ -1117,7 +1109,7 @@ bool ChromiumDataCollectorStubDispatch::AcceptWithResponder(
       impl->GetTouchscreenDevices(std::move(callback));
       return true;
     }
-    case internal::kChromiumDataCollector_GetTouchpadLibraryName_Name: {
+    case messages::ChromiumDataCollector::kGetTouchpadLibraryName: {
       internal::ChromiumDataCollector_GetTouchpadLibraryName_Params_Data* params =
           reinterpret_cast<
               internal::ChromiumDataCollector_GetTouchpadLibraryName_Params_Data*>(
@@ -1143,7 +1135,7 @@ bool ChromiumDataCollectorStubDispatch::AcceptWithResponder(
       impl->GetTouchpadLibraryName(std::move(callback));
       return true;
     }
-    case internal::kChromiumDataCollector_SetPrivacyScreenState_Name: {
+    case messages::ChromiumDataCollector::kSetPrivacyScreenState: {
       internal::ChromiumDataCollector_SetPrivacyScreenState_Params_Data* params =
           reinterpret_cast<
               internal::ChromiumDataCollector_SetPrivacyScreenState_Params_Data*>(
@@ -1173,7 +1165,7 @@ bool ChromiumDataCollectorStubDispatch::AcceptWithResponder(
         std::move(p_state), std::move(callback));
       return true;
     }
-    case internal::kChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Name: {
+    case messages::ChromiumDataCollector::kDEPRECATED_SetAudioOutputMute: {
       internal::ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data* params =
           reinterpret_cast<
               internal::ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data*>(

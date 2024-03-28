@@ -11,24 +11,30 @@
 
 
 namespace cros::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kCameraHalDispatcher_RegisterClientWithToken_Name = 5;
-constexpr uint32_t kCrosCameraServiceObserver_CameraDeviceActivityChange_Name = 0;
-constexpr uint32_t kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name = 1;
-constexpr uint32_t kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name = 2;
-constexpr uint32_t kCrosCameraServiceObserver_CameraEffectChange_Name = 3;
-constexpr uint32_t kCrosCameraService_GetCameraModule_Name = 0;
-constexpr uint32_t kCrosCameraService_SetTracingEnabled_Name = 1;
-constexpr uint32_t kCrosCameraService_SetAutoFramingState_Name = 2;
-constexpr uint32_t kCrosCameraService_GetCameraSWPrivacySwitchState_Name = 3;
-constexpr uint32_t kCrosCameraService_SetCameraSWPrivacySwitchState_Name = 4;
-constexpr uint32_t kCrosCameraService_GetAutoFramingSupported_Name = 5;
-constexpr uint32_t kCrosCameraService_SetCameraEffect_Name = 6;
-constexpr uint32_t kCrosCameraService_AddCrosCameraServiceObserver_Name = 7;
+enum class CameraHalDispatcher : uint32_t {
+  kRegisterClientWithToken = 5,
+};
+enum class CrosCameraServiceObserver : uint32_t {
+  kCameraDeviceActivityChange = 0,
+  kCameraPrivacySwitchStateChange = 1,
+  kCameraSWPrivacySwitchStateChange = 2,
+  kCameraEffectChange = 3,
+};
+enum class CrosCameraService : uint32_t {
+  kGetCameraModule = 0,
+  kSetTracingEnabled = 1,
+  kSetAutoFramingState = 2,
+  kGetCameraSWPrivacySwitchState = 3,
+  kSetCameraSWPrivacySwitchState = 4,
+  kGetAutoFramingSupported = 5,
+  kSetCameraEffect = 6,
+  kAddCrosCameraServiceObserver = 7,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // cros::mojom
 

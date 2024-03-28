@@ -11,11 +11,11 @@
 
 
 namespace cros::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // cros::mojom
 

@@ -11,13 +11,17 @@
 
 
 namespace ml::model_loader::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kModelLoader_Load_Name = 0;
-constexpr uint32_t kModel_Compute_Name = 0;
+enum class ModelLoader : uint32_t {
+  kLoad = 0,
+};
+enum class Model : uint32_t {
+  kCompute = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // ml::model_loader::mojom
 

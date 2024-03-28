@@ -137,11 +137,11 @@ const char PasspointEventsListener::Name_[] = "chromeos.connectivity.mojom.Passp
 
 PasspointEventsListener::IPCStableHashFunction PasspointEventsListener::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kPasspointEventsListener_OnPasspointSubscriptionAdded_Name: {
+  switch (static_cast<messages::PasspointEventsListener>(message.name())) {
+    case messages::PasspointEventsListener::kOnPasspointSubscriptionAdded: {
       return &PasspointEventsListener::OnPasspointSubscriptionAdded_Sym::IPCStableHash;
     }
-    case internal::kPasspointEventsListener_OnPasspointSubscriptionRemoved_Name: {
+    case messages::PasspointEventsListener::kOnPasspointSubscriptionRemoved: {
       return &PasspointEventsListener::OnPasspointSubscriptionRemoved_Sym::IPCStableHash;
     }
   }
@@ -154,17 +154,17 @@ const char* PasspointEventsListener::MessageToMethodName_(mojo::Message& message
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kPasspointEventsListener_OnPasspointSubscriptionAdded_Name:
+    switch (static_cast<messages::PasspointEventsListener>(message.name())) {
+      case messages::PasspointEventsListener::kOnPasspointSubscriptionAdded:
             return "Receive chromeos::connectivity::mojom::PasspointEventsListener::OnPasspointSubscriptionAdded";
-      case internal::kPasspointEventsListener_OnPasspointSubscriptionRemoved_Name:
+      case messages::PasspointEventsListener::kOnPasspointSubscriptionRemoved:
             return "Receive chromeos::connectivity::mojom::PasspointEventsListener::OnPasspointSubscriptionRemoved";
     }
   } else {
-    switch (message.name()) {
-      case internal::kPasspointEventsListener_OnPasspointSubscriptionAdded_Name:
+    switch (static_cast<messages::PasspointEventsListener>(message.name())) {
+      case messages::PasspointEventsListener::kOnPasspointSubscriptionAdded:
             return "Receive reply chromeos::connectivity::mojom::PasspointEventsListener::OnPasspointSubscriptionAdded";
-      case internal::kPasspointEventsListener_OnPasspointSubscriptionRemoved_Name:
+      case messages::PasspointEventsListener::kOnPasspointSubscriptionRemoved:
             return "Receive reply chromeos::connectivity::mojom::PasspointEventsListener::OnPasspointSubscriptionRemoved";
     }
   }
@@ -239,8 +239,7 @@ void PasspointEventsListenerProxy::OnPasspointSubscriptionAdded(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPasspointEventsListener_OnPasspointSubscriptionAdded_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::PasspointEventsListener::kOnPasspointSubscriptionAdded), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data> params(
           message);
@@ -293,8 +292,7 @@ void PasspointEventsListenerProxy::OnPasspointSubscriptionRemoved(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPasspointEventsListener_OnPasspointSubscriptionRemoved_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::PasspointEventsListener::kOnPasspointSubscriptionRemoved), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data> params(
           message);
@@ -324,8 +322,8 @@ void PasspointEventsListenerProxy::OnPasspointSubscriptionRemoved(
 bool PasspointEventsListenerStubDispatch::Accept(
     PasspointEventsListener* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kPasspointEventsListener_OnPasspointSubscriptionAdded_Name: {
+  switch (static_cast<messages::PasspointEventsListener>(message->header()->name)) {
+    case messages::PasspointEventsListener::kOnPasspointSubscriptionAdded: {
       DCHECK(message->is_serialized());
       internal::PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data* params =
           reinterpret_cast<internal::PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data*>(
@@ -352,7 +350,7 @@ bool PasspointEventsListenerStubDispatch::Accept(
         std::move(p_subscription));
       return true;
     }
-    case internal::kPasspointEventsListener_OnPasspointSubscriptionRemoved_Name: {
+    case messages::PasspointEventsListener::kOnPasspointSubscriptionRemoved: {
       DCHECK(message->is_serialized());
       internal::PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data* params =
           reinterpret_cast<internal::PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data*>(
@@ -391,11 +389,11 @@ bool PasspointEventsListenerStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kPasspointEventsListener_OnPasspointSubscriptionAdded_Name: {
+  switch (static_cast<messages::PasspointEventsListener>(message->header()->name)) {
+    case messages::PasspointEventsListener::kOnPasspointSubscriptionAdded: {
       break;
     }
-    case internal::kPasspointEventsListener_OnPasspointSubscriptionRemoved_Name: {
+    case messages::PasspointEventsListener::kOnPasspointSubscriptionRemoved: {
       break;
     }
   }
@@ -419,17 +417,17 @@ const char PasspointService::Name_[] = "chromeos.connectivity.mojom.PasspointSer
 
 PasspointService::IPCStableHashFunction PasspointService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kPasspointService_GetPasspointSubscription_Name: {
+  switch (static_cast<messages::PasspointService>(message.name())) {
+    case messages::PasspointService::kGetPasspointSubscription: {
       return &PasspointService::GetPasspointSubscription_Sym::IPCStableHash;
     }
-    case internal::kPasspointService_ListPasspointSubscriptions_Name: {
+    case messages::PasspointService::kListPasspointSubscriptions: {
       return &PasspointService::ListPasspointSubscriptions_Sym::IPCStableHash;
     }
-    case internal::kPasspointService_DeletePasspointSubscription_Name: {
+    case messages::PasspointService::kDeletePasspointSubscription: {
       return &PasspointService::DeletePasspointSubscription_Sym::IPCStableHash;
     }
-    case internal::kPasspointService_RegisterPasspointListener_Name: {
+    case messages::PasspointService::kRegisterPasspointListener: {
       return &PasspointService::RegisterPasspointListener_Sym::IPCStableHash;
     }
   }
@@ -442,25 +440,25 @@ const char* PasspointService::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kPasspointService_GetPasspointSubscription_Name:
+    switch (static_cast<messages::PasspointService>(message.name())) {
+      case messages::PasspointService::kGetPasspointSubscription:
             return "Receive chromeos::connectivity::mojom::PasspointService::GetPasspointSubscription";
-      case internal::kPasspointService_ListPasspointSubscriptions_Name:
+      case messages::PasspointService::kListPasspointSubscriptions:
             return "Receive chromeos::connectivity::mojom::PasspointService::ListPasspointSubscriptions";
-      case internal::kPasspointService_DeletePasspointSubscription_Name:
+      case messages::PasspointService::kDeletePasspointSubscription:
             return "Receive chromeos::connectivity::mojom::PasspointService::DeletePasspointSubscription";
-      case internal::kPasspointService_RegisterPasspointListener_Name:
+      case messages::PasspointService::kRegisterPasspointListener:
             return "Receive chromeos::connectivity::mojom::PasspointService::RegisterPasspointListener";
     }
   } else {
-    switch (message.name()) {
-      case internal::kPasspointService_GetPasspointSubscription_Name:
+    switch (static_cast<messages::PasspointService>(message.name())) {
+      case messages::PasspointService::kGetPasspointSubscription:
             return "Receive reply chromeos::connectivity::mojom::PasspointService::GetPasspointSubscription";
-      case internal::kPasspointService_ListPasspointSubscriptions_Name:
+      case messages::PasspointService::kListPasspointSubscriptions:
             return "Receive reply chromeos::connectivity::mojom::PasspointService::ListPasspointSubscriptions";
-      case internal::kPasspointService_DeletePasspointSubscription_Name:
+      case messages::PasspointService::kDeletePasspointSubscription:
             return "Receive reply chromeos::connectivity::mojom::PasspointService::DeletePasspointSubscription";
-      case internal::kPasspointService_RegisterPasspointListener_Name:
+      case messages::PasspointService::kRegisterPasspointListener:
             return "Receive reply chromeos::connectivity::mojom::PasspointService::RegisterPasspointListener";
     }
   }
@@ -609,8 +607,7 @@ void PasspointServiceProxy::GetPasspointSubscription(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPasspointService_GetPasspointSubscription_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::PasspointService::kGetPasspointSubscription), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointService_GetPasspointSubscription_Params_Data> params(
           message);
@@ -657,8 +654,7 @@ void PasspointServiceProxy::ListPasspointSubscriptions(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPasspointService_ListPasspointSubscriptions_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::PasspointService::kListPasspointSubscriptions), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointService_ListPasspointSubscriptions_Params_Data> params(
           message);
@@ -701,8 +697,7 @@ void PasspointServiceProxy::DeletePasspointSubscription(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPasspointService_DeletePasspointSubscription_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::PasspointService::kDeletePasspointSubscription), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointService_DeletePasspointSubscription_Params_Data> params(
           message);
@@ -756,8 +751,7 @@ void PasspointServiceProxy::RegisterPasspointListener(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPasspointService_RegisterPasspointListener_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::PasspointService::kRegisterPasspointListener), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointService_RegisterPasspointListener_Params_Data> params(
           message);
@@ -876,8 +870,7 @@ void PasspointService_GetPasspointSubscription_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPasspointService_GetPasspointSubscription_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::PasspointService::kGetPasspointSubscription), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointService_GetPasspointSubscription_ResponseParams_Data> params(
           message);
@@ -1005,8 +998,7 @@ void PasspointService_ListPasspointSubscriptions_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPasspointService_ListPasspointSubscriptions_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::PasspointService::kListPasspointSubscriptions), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointService_ListPasspointSubscriptions_ResponseParams_Data> params(
           message);
@@ -1140,8 +1132,7 @@ void PasspointService_DeletePasspointSubscription_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kPasspointService_DeletePasspointSubscription_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::PasspointService::kDeletePasspointSubscription), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::connectivity::mojom::internal::PasspointService_DeletePasspointSubscription_ResponseParams_Data> params(
           message);
@@ -1169,17 +1160,17 @@ void PasspointService_DeletePasspointSubscription_ProxyToResponder::Run(
 bool PasspointServiceStubDispatch::Accept(
     PasspointService* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kPasspointService_GetPasspointSubscription_Name: {
+  switch (static_cast<messages::PasspointService>(message->header()->name)) {
+    case messages::PasspointService::kGetPasspointSubscription: {
       break;
     }
-    case internal::kPasspointService_ListPasspointSubscriptions_Name: {
+    case messages::PasspointService::kListPasspointSubscriptions: {
       break;
     }
-    case internal::kPasspointService_DeletePasspointSubscription_Name: {
+    case messages::PasspointService::kDeletePasspointSubscription: {
       break;
     }
-    case internal::kPasspointService_RegisterPasspointListener_Name: {
+    case messages::PasspointService::kRegisterPasspointListener: {
       DCHECK(message->is_serialized());
       internal::PasspointService_RegisterPasspointListener_Params_Data* params =
           reinterpret_cast<internal::PasspointService_RegisterPasspointListener_Params_Data*>(
@@ -1220,8 +1211,8 @@ bool PasspointServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kPasspointService_GetPasspointSubscription_Name: {
+  switch (static_cast<messages::PasspointService>(message->header()->name)) {
+    case messages::PasspointService::kGetPasspointSubscription: {
       internal::PasspointService_GetPasspointSubscription_Params_Data* params =
           reinterpret_cast<
               internal::PasspointService_GetPasspointSubscription_Params_Data*>(
@@ -1251,7 +1242,7 @@ bool PasspointServiceStubDispatch::AcceptWithResponder(
         std::move(p_id), std::move(callback));
       return true;
     }
-    case internal::kPasspointService_ListPasspointSubscriptions_Name: {
+    case messages::PasspointService::kListPasspointSubscriptions: {
       internal::PasspointService_ListPasspointSubscriptions_Params_Data* params =
           reinterpret_cast<
               internal::PasspointService_ListPasspointSubscriptions_Params_Data*>(
@@ -1277,7 +1268,7 @@ bool PasspointServiceStubDispatch::AcceptWithResponder(
       impl->ListPasspointSubscriptions(std::move(callback));
       return true;
     }
-    case internal::kPasspointService_DeletePasspointSubscription_Name: {
+    case messages::PasspointService::kDeletePasspointSubscription: {
       internal::PasspointService_DeletePasspointSubscription_Params_Data* params =
           reinterpret_cast<
               internal::PasspointService_DeletePasspointSubscription_Params_Data*>(
@@ -1307,7 +1298,7 @@ bool PasspointServiceStubDispatch::AcceptWithResponder(
         std::move(p_id), std::move(callback));
       return true;
     }
-    case internal::kPasspointService_RegisterPasspointListener_Name: {
+    case messages::PasspointService::kRegisterPasspointListener: {
       break;
     }
   }

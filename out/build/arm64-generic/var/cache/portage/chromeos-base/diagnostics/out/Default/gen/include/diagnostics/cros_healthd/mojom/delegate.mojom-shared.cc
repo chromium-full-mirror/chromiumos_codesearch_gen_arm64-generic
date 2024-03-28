@@ -1384,6 +1384,66 @@ bool Delegate_RunUrandom_ResponseParams_Data::Validate(
 Delegate_RunUrandom_ResponseParams_Data::Delegate_RunUrandom_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool Delegate_RunNetworkBandwidthTest_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_RunNetworkBandwidthTest_Params_Data* object =
+      static_cast<const Delegate_RunNetworkBandwidthTest_Params_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::NetworkBandwidthTestType_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Delegate_RunNetworkBandwidthTest_Params_Data::Delegate_RunNetworkBandwidthTest_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_RunNetworkBandwidthTest_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_RunNetworkBandwidthTest_ResponseParams_Data* object =
+      static_cast<const Delegate_RunNetworkBandwidthTest_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+Delegate_RunNetworkBandwidthTest_ResponseParams_Data::Delegate_RunNetworkBandwidthTest_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd

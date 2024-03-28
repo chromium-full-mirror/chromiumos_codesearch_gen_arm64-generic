@@ -11,18 +11,22 @@
 
 
 namespace chromeos::machine_learning::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kSodaClient_OnStart_Name = 0;
-constexpr uint32_t kSodaClient_OnStop_Name = 1;
-constexpr uint32_t kSodaClient_OnSpeechRecognizerEvent_Name = 2;
-constexpr uint32_t kSodaRecognizer_AddAudio_Name = 0;
-constexpr uint32_t kSodaRecognizer_Stop_Name = 1;
-constexpr uint32_t kSodaRecognizer_Start_Name = 2;
-constexpr uint32_t kSodaRecognizer_MarkDone_Name = 3;
+enum class SodaClient : uint32_t {
+  kOnStart = 0,
+  kOnStop = 1,
+  kOnSpeechRecognizerEvent = 2,
+};
+enum class SodaRecognizer : uint32_t {
+  kAddAudio = 0,
+  kStop = 1,
+  kStart = 2,
+  kMarkDone = 3,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::machine_learning::mojom
 

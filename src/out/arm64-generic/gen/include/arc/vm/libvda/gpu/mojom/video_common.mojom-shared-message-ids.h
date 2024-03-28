@@ -11,11 +11,11 @@
 
 
 namespace arc::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // arc::mojom
 

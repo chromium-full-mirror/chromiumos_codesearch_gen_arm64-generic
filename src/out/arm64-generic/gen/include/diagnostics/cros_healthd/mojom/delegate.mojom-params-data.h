@@ -786,6 +786,42 @@ class  Delegate_RunUrandom_ResponseParams_Data {
 };
 static_assert(sizeof(Delegate_RunUrandom_ResponseParams_Data) == 16,
               "Bad sizeof(Delegate_RunUrandom_ResponseParams_Data)");
+class  Delegate_RunNetworkBandwidthTest_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t type;
+  mojo::internal::Interface_Data observer;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_RunNetworkBandwidthTest_Params_Data>;
+
+  Delegate_RunNetworkBandwidthTest_Params_Data();
+  ~Delegate_RunNetworkBandwidthTest_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_RunNetworkBandwidthTest_Params_Data) == 24,
+              "Bad sizeof(Delegate_RunNetworkBandwidthTest_Params_Data)");
+class  Delegate_RunNetworkBandwidthTest_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t average_speed_$flag : 1;
+  uint8_t pad0_[7];
+  double average_speed_$value;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_RunNetworkBandwidthTest_ResponseParams_Data>;
+
+  Delegate_RunNetworkBandwidthTest_ResponseParams_Data();
+  ~Delegate_RunNetworkBandwidthTest_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_RunNetworkBandwidthTest_ResponseParams_Data) == 24,
+              "Bad sizeof(Delegate_RunNetworkBandwidthTest_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -2020,6 +2056,62 @@ class Delegate_RunUrandom_ResponseParamsDataView {
 };
 
 
+class Delegate_RunNetworkBandwidthTest_ParamsDataView {
+ public:
+  Delegate_RunNetworkBandwidthTest_ParamsDataView() = default;
+
+  Delegate_RunNetworkBandwidthTest_ParamsDataView(
+      internal::Delegate_RunNetworkBandwidthTest_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NetworkBandwidthTestType>(
+        data_value, output);
+  }
+  ::ash::cros_healthd::mojom::NetworkBandwidthTestType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::NetworkBandwidthTestType>(data_->type));
+  }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::NetworkBandwidthObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Delegate_RunNetworkBandwidthTest_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Delegate_RunNetworkBandwidthTest_ResponseParamsDataView {
+ public:
+  Delegate_RunNetworkBandwidthTest_ResponseParamsDataView() = default;
+
+  Delegate_RunNetworkBandwidthTest_ResponseParamsDataView(
+      internal::Delegate_RunNetworkBandwidthTest_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  std::optional<double> average_speed() const {
+
+    return data_->average_speed_$flag
+        ? std::make_optional(data_->average_speed_$value)
+        : std::nullopt;
+  }
+ private:
+  internal::Delegate_RunNetworkBandwidthTest_ResponseParams_Data* data_ = nullptr;
+};
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -2234,6 +2326,10 @@ inline void Delegate_RunUrandom_ParamsDataView::GetExecDurationDataView(
   auto pointer = data_->exec_duration.Get();
   *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
 }
+
+
+
+
 
 
 

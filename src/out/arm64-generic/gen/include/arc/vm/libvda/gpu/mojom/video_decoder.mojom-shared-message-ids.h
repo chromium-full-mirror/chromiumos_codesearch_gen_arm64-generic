@@ -11,17 +11,21 @@
 
 
 namespace arc::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kVideoDecoder_Initialize_Name = 0;
-constexpr uint32_t kVideoDecoder_Decode_Name = 1;
-constexpr uint32_t kVideoDecoder_Reset_Name = 2;
-constexpr uint32_t kVideoDecoder_ReleaseVideoFrame_Name = 3;
-constexpr uint32_t kVideoDecoderClient_OnVideoFrameDecoded_Name = 0;
-constexpr uint32_t kVideoDecoderClient_OnError_Name = 1;
+enum class VideoDecoder : uint32_t {
+  kInitialize = 0,
+  kDecode = 1,
+  kReset = 2,
+  kReleaseVideoFrame = 3,
+};
+enum class VideoDecoderClient : uint32_t {
+  kOnVideoFrameDecoded = 0,
+  kOnError = 1,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // arc::mojom
 

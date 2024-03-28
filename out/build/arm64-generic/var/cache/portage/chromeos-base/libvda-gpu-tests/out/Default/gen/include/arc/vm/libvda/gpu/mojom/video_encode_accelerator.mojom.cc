@@ -438,29 +438,29 @@ const char VideoEncodeAccelerator::Name_[] = "arc.mojom.VideoEncodeAccelerator";
 
 VideoEncodeAccelerator::IPCStableHashFunction VideoEncodeAccelerator::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoEncodeAccelerator_GetSupportedProfiles_Name: {
+  switch (static_cast<messages::VideoEncodeAccelerator>(message.name())) {
+    case messages::VideoEncodeAccelerator::kGetSupportedProfiles: {
       return &VideoEncodeAccelerator::GetSupportedProfiles_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAccelerator_Initialize_Name: {
+    case messages::VideoEncodeAccelerator::kInitialize: {
       return &VideoEncodeAccelerator::Initialize_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAccelerator_InitializeDeprecated_Name: {
+    case messages::VideoEncodeAccelerator::kInitializeDeprecated: {
       return &VideoEncodeAccelerator::InitializeDeprecated_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAccelerator_Encode_Name: {
+    case messages::VideoEncodeAccelerator::kEncode: {
       return &VideoEncodeAccelerator::Encode_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name: {
+    case messages::VideoEncodeAccelerator::kUseBitstreamBuffer: {
       return &VideoEncodeAccelerator::UseBitstreamBuffer_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAccelerator_RequestEncodingParametersChange_Name: {
+    case messages::VideoEncodeAccelerator::kRequestEncodingParametersChange: {
       return &VideoEncodeAccelerator::RequestEncodingParametersChange_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Name: {
+    case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeDeprecated: {
       return &VideoEncodeAccelerator::RequestEncodingParametersChangeDeprecated_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAccelerator_Flush_Name: {
+    case messages::VideoEncodeAccelerator::kFlush: {
       return &VideoEncodeAccelerator::Flush_Sym::IPCStableHash;
     }
   }
@@ -473,41 +473,41 @@ const char* VideoEncodeAccelerator::MessageToMethodName_(mojo::Message& message)
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoEncodeAccelerator_GetSupportedProfiles_Name:
+    switch (static_cast<messages::VideoEncodeAccelerator>(message.name())) {
+      case messages::VideoEncodeAccelerator::kGetSupportedProfiles:
             return "Receive arc::mojom::VideoEncodeAccelerator::GetSupportedProfiles";
-      case internal::kVideoEncodeAccelerator_Initialize_Name:
+      case messages::VideoEncodeAccelerator::kInitialize:
             return "Receive arc::mojom::VideoEncodeAccelerator::Initialize";
-      case internal::kVideoEncodeAccelerator_InitializeDeprecated_Name:
+      case messages::VideoEncodeAccelerator::kInitializeDeprecated:
             return "Receive arc::mojom::VideoEncodeAccelerator::InitializeDeprecated";
-      case internal::kVideoEncodeAccelerator_Encode_Name:
+      case messages::VideoEncodeAccelerator::kEncode:
             return "Receive arc::mojom::VideoEncodeAccelerator::Encode";
-      case internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name:
+      case messages::VideoEncodeAccelerator::kUseBitstreamBuffer:
             return "Receive arc::mojom::VideoEncodeAccelerator::UseBitstreamBuffer";
-      case internal::kVideoEncodeAccelerator_RequestEncodingParametersChange_Name:
+      case messages::VideoEncodeAccelerator::kRequestEncodingParametersChange:
             return "Receive arc::mojom::VideoEncodeAccelerator::RequestEncodingParametersChange";
-      case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Name:
+      case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeDeprecated:
             return "Receive arc::mojom::VideoEncodeAccelerator::RequestEncodingParametersChangeDeprecated";
-      case internal::kVideoEncodeAccelerator_Flush_Name:
+      case messages::VideoEncodeAccelerator::kFlush:
             return "Receive arc::mojom::VideoEncodeAccelerator::Flush";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoEncodeAccelerator_GetSupportedProfiles_Name:
+    switch (static_cast<messages::VideoEncodeAccelerator>(message.name())) {
+      case messages::VideoEncodeAccelerator::kGetSupportedProfiles:
             return "Receive reply arc::mojom::VideoEncodeAccelerator::GetSupportedProfiles";
-      case internal::kVideoEncodeAccelerator_Initialize_Name:
+      case messages::VideoEncodeAccelerator::kInitialize:
             return "Receive reply arc::mojom::VideoEncodeAccelerator::Initialize";
-      case internal::kVideoEncodeAccelerator_InitializeDeprecated_Name:
+      case messages::VideoEncodeAccelerator::kInitializeDeprecated:
             return "Receive reply arc::mojom::VideoEncodeAccelerator::InitializeDeprecated";
-      case internal::kVideoEncodeAccelerator_Encode_Name:
+      case messages::VideoEncodeAccelerator::kEncode:
             return "Receive reply arc::mojom::VideoEncodeAccelerator::Encode";
-      case internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name:
+      case messages::VideoEncodeAccelerator::kUseBitstreamBuffer:
             return "Receive reply arc::mojom::VideoEncodeAccelerator::UseBitstreamBuffer";
-      case internal::kVideoEncodeAccelerator_RequestEncodingParametersChange_Name:
+      case messages::VideoEncodeAccelerator::kRequestEncodingParametersChange:
             return "Receive reply arc::mojom::VideoEncodeAccelerator::RequestEncodingParametersChange";
-      case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Name:
+      case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeDeprecated:
             return "Receive reply arc::mojom::VideoEncodeAccelerator::RequestEncodingParametersChangeDeprecated";
-      case internal::kVideoEncodeAccelerator_Flush_Name:
+      case messages::VideoEncodeAccelerator::kFlush:
             return "Receive reply arc::mojom::VideoEncodeAccelerator::Flush";
     }
   }
@@ -749,8 +749,7 @@ void VideoEncodeAcceleratorProxy::GetSupportedProfiles(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_GetSupportedProfiles_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kGetSupportedProfiles), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_GetSupportedProfiles_Params_Data> params(
           message);
@@ -796,8 +795,7 @@ void VideoEncodeAcceleratorProxy::Initialize(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_Initialize_Params_Data> params(
           message);
@@ -860,8 +858,7 @@ void VideoEncodeAcceleratorProxy::InitializeDeprecated(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_InitializeDeprecated_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kInitializeDeprecated), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_InitializeDeprecated_Params_Data> params(
           message);
@@ -933,8 +930,7 @@ void VideoEncodeAcceleratorProxy::Encode(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Encode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kEncode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_Encode_Params_Data> params(
           message);
@@ -1006,8 +1002,7 @@ void VideoEncodeAcceleratorProxy::UseBitstreamBuffer(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kUseBitstreamBuffer), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_UseBitstreamBuffer_Params_Data> params(
           message);
@@ -1061,8 +1056,7 @@ void VideoEncodeAcceleratorProxy::RequestEncodingParametersChange(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_RequestEncodingParametersChange_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kRequestEncodingParametersChange), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_RequestEncodingParametersChange_Params_Data> params(
           message);
@@ -1117,8 +1111,7 @@ void VideoEncodeAcceleratorProxy::RequestEncodingParametersChangeDeprecated(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeDeprecated), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Params_Data> params(
           message);
@@ -1155,8 +1148,7 @@ void VideoEncodeAcceleratorProxy::Flush(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Flush_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kFlush), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_Flush_Params_Data> params(
           message);
@@ -1270,8 +1262,7 @@ void VideoEncodeAccelerator_GetSupportedProfiles_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_GetSupportedProfiles_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kGetSupportedProfiles), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_GetSupportedProfiles_ResponseParams_Data> params(
           message);
@@ -1405,8 +1396,7 @@ void VideoEncodeAccelerator_Initialize_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_Initialize_ResponseParams_Data> params(
           message);
@@ -1529,8 +1519,7 @@ void VideoEncodeAccelerator_InitializeDeprecated_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_InitializeDeprecated_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kInitializeDeprecated), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_InitializeDeprecated_ResponseParams_Data> params(
           message);
@@ -1641,8 +1630,7 @@ void VideoEncodeAccelerator_Encode_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Encode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kEncode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_Encode_ResponseParams_Data> params(
           message);
@@ -1777,8 +1765,7 @@ void VideoEncodeAccelerator_UseBitstreamBuffer_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kUseBitstreamBuffer), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_UseBitstreamBuffer_ResponseParams_Data> params(
           message);
@@ -1902,8 +1889,7 @@ void VideoEncodeAccelerator_Flush_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Flush_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kFlush), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeAccelerator_Flush_ResponseParams_Data> params(
           message);
@@ -1931,23 +1917,23 @@ void VideoEncodeAccelerator_Flush_ProxyToResponder::Run(
 bool VideoEncodeAcceleratorStubDispatch::Accept(
     VideoEncodeAccelerator* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoEncodeAccelerator_GetSupportedProfiles_Name: {
+  switch (static_cast<messages::VideoEncodeAccelerator>(message->header()->name)) {
+    case messages::VideoEncodeAccelerator::kGetSupportedProfiles: {
       break;
     }
-    case internal::kVideoEncodeAccelerator_Initialize_Name: {
+    case messages::VideoEncodeAccelerator::kInitialize: {
       break;
     }
-    case internal::kVideoEncodeAccelerator_InitializeDeprecated_Name: {
+    case messages::VideoEncodeAccelerator::kInitializeDeprecated: {
       break;
     }
-    case internal::kVideoEncodeAccelerator_Encode_Name: {
+    case messages::VideoEncodeAccelerator::kEncode: {
       break;
     }
-    case internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name: {
+    case messages::VideoEncodeAccelerator::kUseBitstreamBuffer: {
       break;
     }
-    case internal::kVideoEncodeAccelerator_RequestEncodingParametersChange_Name: {
+    case messages::VideoEncodeAccelerator::kRequestEncodingParametersChange: {
       DCHECK(message->is_serialized());
       internal::VideoEncodeAccelerator_RequestEncodingParametersChange_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeAccelerator_RequestEncodingParametersChange_Params_Data*>(
@@ -1978,7 +1964,7 @@ bool VideoEncodeAcceleratorStubDispatch::Accept(
         std::move(p_framerate));
       return true;
     }
-    case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Name: {
+    case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeDeprecated: {
       DCHECK(message->is_serialized());
       internal::VideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Params_Data*>(
@@ -2009,7 +1995,7 @@ bool VideoEncodeAcceleratorStubDispatch::Accept(
         std::move(p_framerate));
       return true;
     }
-    case internal::kVideoEncodeAccelerator_Flush_Name: {
+    case messages::VideoEncodeAccelerator::kFlush: {
       break;
     }
   }
@@ -2024,8 +2010,8 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoEncodeAccelerator_GetSupportedProfiles_Name: {
+  switch (static_cast<messages::VideoEncodeAccelerator>(message->header()->name)) {
+    case messages::VideoEncodeAccelerator::kGetSupportedProfiles: {
       internal::VideoEncodeAccelerator_GetSupportedProfiles_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_GetSupportedProfiles_Params_Data*>(
@@ -2051,7 +2037,7 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
       impl->GetSupportedProfiles(std::move(callback));
       return true;
     }
-    case internal::kVideoEncodeAccelerator_Initialize_Name: {
+    case messages::VideoEncodeAccelerator::kInitialize: {
       internal::VideoEncodeAccelerator_Initialize_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_Initialize_Params_Data*>(
@@ -2087,7 +2073,7 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
         std::move(p_client), std::move(callback));
       return true;
     }
-    case internal::kVideoEncodeAccelerator_InitializeDeprecated_Name: {
+    case messages::VideoEncodeAccelerator::kInitializeDeprecated: {
       internal::VideoEncodeAccelerator_InitializeDeprecated_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_InitializeDeprecated_Params_Data*>(
@@ -2123,7 +2109,7 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
         std::move(p_client), std::move(callback));
       return true;
     }
-    case internal::kVideoEncodeAccelerator_Encode_Name: {
+    case messages::VideoEncodeAccelerator::kEncode: {
       internal::VideoEncodeAccelerator_Encode_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_Encode_Params_Data*>(
@@ -2169,7 +2155,7 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
         std::move(p_force_keyframe), std::move(callback));
       return true;
     }
-    case internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name: {
+    case messages::VideoEncodeAccelerator::kUseBitstreamBuffer: {
       internal::VideoEncodeAccelerator_UseBitstreamBuffer_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_UseBitstreamBuffer_Params_Data*>(
@@ -2207,13 +2193,13 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
         std::move(p_size), std::move(callback));
       return true;
     }
-    case internal::kVideoEncodeAccelerator_RequestEncodingParametersChange_Name: {
+    case messages::VideoEncodeAccelerator::kRequestEncodingParametersChange: {
       break;
     }
-    case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Name: {
+    case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeDeprecated: {
       break;
     }
-    case internal::kVideoEncodeAccelerator_Flush_Name: {
+    case messages::VideoEncodeAccelerator::kFlush: {
       internal::VideoEncodeAccelerator_Flush_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_Flush_Params_Data*>(
@@ -2279,11 +2265,11 @@ const char VideoEncodeClient::Name_[] = "arc.mojom.VideoEncodeClient";
 
 VideoEncodeClient::IPCStableHashFunction VideoEncodeClient::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoEncodeClient_RequireBitstreamBuffers_Name: {
+  switch (static_cast<messages::VideoEncodeClient>(message.name())) {
+    case messages::VideoEncodeClient::kRequireBitstreamBuffers: {
       return &VideoEncodeClient::RequireBitstreamBuffers_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeClient_NotifyError_Name: {
+    case messages::VideoEncodeClient::kNotifyError: {
       return &VideoEncodeClient::NotifyError_Sym::IPCStableHash;
     }
   }
@@ -2296,17 +2282,17 @@ const char* VideoEncodeClient::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoEncodeClient_RequireBitstreamBuffers_Name:
+    switch (static_cast<messages::VideoEncodeClient>(message.name())) {
+      case messages::VideoEncodeClient::kRequireBitstreamBuffers:
             return "Receive arc::mojom::VideoEncodeClient::RequireBitstreamBuffers";
-      case internal::kVideoEncodeClient_NotifyError_Name:
+      case messages::VideoEncodeClient::kNotifyError:
             return "Receive arc::mojom::VideoEncodeClient::NotifyError";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoEncodeClient_RequireBitstreamBuffers_Name:
+    switch (static_cast<messages::VideoEncodeClient>(message.name())) {
+      case messages::VideoEncodeClient::kRequireBitstreamBuffers:
             return "Receive reply arc::mojom::VideoEncodeClient::RequireBitstreamBuffers";
-      case internal::kVideoEncodeClient_NotifyError_Name:
+      case messages::VideoEncodeClient::kNotifyError:
             return "Receive reply arc::mojom::VideoEncodeClient::NotifyError";
     }
   }
@@ -2387,8 +2373,7 @@ void VideoEncodeClientProxy::RequireBitstreamBuffers(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeClient_RequireBitstreamBuffers_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeClient::kRequireBitstreamBuffers), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeClient_RequireBitstreamBuffers_Params_Data> params(
           message);
@@ -2443,8 +2428,7 @@ void VideoEncodeClientProxy::NotifyError(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeClient_NotifyError_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeClient::kNotifyError), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoEncodeClient_NotifyError_Params_Data> params(
           message);
@@ -2465,8 +2449,8 @@ void VideoEncodeClientProxy::NotifyError(
 bool VideoEncodeClientStubDispatch::Accept(
     VideoEncodeClient* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoEncodeClient_RequireBitstreamBuffers_Name: {
+  switch (static_cast<messages::VideoEncodeClient>(message->header()->name)) {
+    case messages::VideoEncodeClient::kRequireBitstreamBuffers: {
       DCHECK(message->is_serialized());
       internal::VideoEncodeClient_RequireBitstreamBuffers_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeClient_RequireBitstreamBuffers_Params_Data*>(
@@ -2501,7 +2485,7 @@ bool VideoEncodeClientStubDispatch::Accept(
         std::move(p_output_buffer_size));
       return true;
     }
-    case internal::kVideoEncodeClient_NotifyError_Name: {
+    case messages::VideoEncodeClient::kNotifyError: {
       DCHECK(message->is_serialized());
       internal::VideoEncodeClient_NotifyError_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeClient_NotifyError_Params_Data*>(
@@ -2540,11 +2524,11 @@ bool VideoEncodeClientStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoEncodeClient_RequireBitstreamBuffers_Name: {
+  switch (static_cast<messages::VideoEncodeClient>(message->header()->name)) {
+    case messages::VideoEncodeClient::kRequireBitstreamBuffers: {
       break;
     }
-    case internal::kVideoEncodeClient_NotifyError_Name: {
+    case messages::VideoEncodeClient::kNotifyError: {
       break;
     }
   }

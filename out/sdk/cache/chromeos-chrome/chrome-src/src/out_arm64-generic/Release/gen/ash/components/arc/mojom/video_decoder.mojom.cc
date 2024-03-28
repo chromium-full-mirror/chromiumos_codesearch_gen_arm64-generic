@@ -200,17 +200,17 @@ const char VideoDecoder::Name_[] = "arc.mojom.VideoDecoder";
 
 VideoDecoder::IPCStableHashFunction VideoDecoder::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoDecoder_Initialize_Name: {
+  switch (static_cast<messages::VideoDecoder>(message.name())) {
+    case messages::VideoDecoder::kInitialize: {
       return &VideoDecoder::Initialize_Sym::IPCStableHash;
     }
-    case internal::kVideoDecoder_Decode_Name: {
+    case messages::VideoDecoder::kDecode: {
       return &VideoDecoder::Decode_Sym::IPCStableHash;
     }
-    case internal::kVideoDecoder_Reset_Name: {
+    case messages::VideoDecoder::kReset: {
       return &VideoDecoder::Reset_Sym::IPCStableHash;
     }
-    case internal::kVideoDecoder_ReleaseVideoFrame_Name: {
+    case messages::VideoDecoder::kReleaseVideoFrame: {
       return &VideoDecoder::ReleaseVideoFrame_Sym::IPCStableHash;
     }
   }
@@ -223,25 +223,25 @@ const char* VideoDecoder::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoDecoder_Initialize_Name:
+    switch (static_cast<messages::VideoDecoder>(message.name())) {
+      case messages::VideoDecoder::kInitialize:
             return "Receive arc::mojom::VideoDecoder::Initialize";
-      case internal::kVideoDecoder_Decode_Name:
+      case messages::VideoDecoder::kDecode:
             return "Receive arc::mojom::VideoDecoder::Decode";
-      case internal::kVideoDecoder_Reset_Name:
+      case messages::VideoDecoder::kReset:
             return "Receive arc::mojom::VideoDecoder::Reset";
-      case internal::kVideoDecoder_ReleaseVideoFrame_Name:
+      case messages::VideoDecoder::kReleaseVideoFrame:
             return "Receive arc::mojom::VideoDecoder::ReleaseVideoFrame";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoDecoder_Initialize_Name:
+    switch (static_cast<messages::VideoDecoder>(message.name())) {
+      case messages::VideoDecoder::kInitialize:
             return "Receive reply arc::mojom::VideoDecoder::Initialize";
-      case internal::kVideoDecoder_Decode_Name:
+      case messages::VideoDecoder::kDecode:
             return "Receive reply arc::mojom::VideoDecoder::Decode";
-      case internal::kVideoDecoder_Reset_Name:
+      case messages::VideoDecoder::kReset:
             return "Receive reply arc::mojom::VideoDecoder::Reset";
-      case internal::kVideoDecoder_ReleaseVideoFrame_Name:
+      case messages::VideoDecoder::kReleaseVideoFrame:
             return "Receive reply arc::mojom::VideoDecoder::ReleaseVideoFrame";
     }
   }
@@ -396,8 +396,7 @@ void VideoDecoderProxy::Initialize(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecoder_Initialize_Params_Data> params(
           message);
@@ -463,8 +462,7 @@ void VideoDecoderProxy::Decode(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_Decode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kDecode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecoder_Decode_Params_Data> params(
           message);
@@ -509,8 +507,7 @@ void VideoDecoderProxy::Reset(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_Reset_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kReset), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecoder_Reset_Params_Data> params(
           message);
@@ -553,8 +550,7 @@ void VideoDecoderProxy::ReleaseVideoFrame(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_ReleaseVideoFrame_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kReleaseVideoFrame), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecoder_ReleaseVideoFrame_Params_Data> params(
           message);
@@ -668,8 +664,7 @@ void VideoDecoder_Initialize_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecoder_Initialize_ResponseParams_Data> params(
           message);
@@ -792,8 +787,7 @@ void VideoDecoder_Decode_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_Decode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kDecode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecoder_Decode_ResponseParams_Data> params(
           message);
@@ -905,8 +899,7 @@ void VideoDecoder_Reset_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_Reset_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kReset), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecoder_Reset_ResponseParams_Data> params(
           message);
@@ -933,17 +926,17 @@ void VideoDecoder_Reset_ProxyToResponder::Run(
 bool VideoDecoderStubDispatch::Accept(
     VideoDecoder* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoDecoder_Initialize_Name: {
+  switch (static_cast<messages::VideoDecoder>(message->header()->name)) {
+    case messages::VideoDecoder::kInitialize: {
       break;
     }
-    case internal::kVideoDecoder_Decode_Name: {
+    case messages::VideoDecoder::kDecode: {
       break;
     }
-    case internal::kVideoDecoder_Reset_Name: {
+    case messages::VideoDecoder::kReset: {
       break;
     }
-    case internal::kVideoDecoder_ReleaseVideoFrame_Name: {
+    case messages::VideoDecoder::kReleaseVideoFrame: {
       DCHECK(message->is_serialized());
       internal::VideoDecoder_ReleaseVideoFrame_Params_Data* params =
           reinterpret_cast<internal::VideoDecoder_ReleaseVideoFrame_Params_Data*>(
@@ -982,8 +975,8 @@ bool VideoDecoderStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoDecoder_Initialize_Name: {
+  switch (static_cast<messages::VideoDecoder>(message->header()->name)) {
+    case messages::VideoDecoder::kInitialize: {
       internal::VideoDecoder_Initialize_Params_Data* params =
           reinterpret_cast<
               internal::VideoDecoder_Initialize_Params_Data*>(
@@ -1025,7 +1018,7 @@ bool VideoDecoderStubDispatch::AcceptWithResponder(
         std::move(p_video_frame_pool), std::move(callback));
       return true;
     }
-    case internal::kVideoDecoder_Decode_Name: {
+    case messages::VideoDecoder::kDecode: {
       internal::VideoDecoder_Decode_Params_Data* params =
           reinterpret_cast<
               internal::VideoDecoder_Decode_Params_Data*>(
@@ -1055,7 +1048,7 @@ bool VideoDecoderStubDispatch::AcceptWithResponder(
         std::move(p_buffer), std::move(callback));
       return true;
     }
-    case internal::kVideoDecoder_Reset_Name: {
+    case messages::VideoDecoder::kReset: {
       internal::VideoDecoder_Reset_Params_Data* params =
           reinterpret_cast<
               internal::VideoDecoder_Reset_Params_Data*>(
@@ -1081,7 +1074,7 @@ bool VideoDecoderStubDispatch::AcceptWithResponder(
       impl->Reset(std::move(callback));
       return true;
     }
-    case internal::kVideoDecoder_ReleaseVideoFrame_Name: {
+    case messages::VideoDecoder::kReleaseVideoFrame: {
       break;
     }
   }
@@ -1113,11 +1106,11 @@ const char VideoDecoderClient::Name_[] = "arc.mojom.VideoDecoderClient";
 
 VideoDecoderClient::IPCStableHashFunction VideoDecoderClient::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoDecoderClient_OnVideoFrameDecoded_Name: {
+  switch (static_cast<messages::VideoDecoderClient>(message.name())) {
+    case messages::VideoDecoderClient::kOnVideoFrameDecoded: {
       return &VideoDecoderClient::OnVideoFrameDecoded_Sym::IPCStableHash;
     }
-    case internal::kVideoDecoderClient_OnError_Name: {
+    case messages::VideoDecoderClient::kOnError: {
       return &VideoDecoderClient::OnError_Sym::IPCStableHash;
     }
   }
@@ -1130,17 +1123,17 @@ const char* VideoDecoderClient::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoDecoderClient_OnVideoFrameDecoded_Name:
+    switch (static_cast<messages::VideoDecoderClient>(message.name())) {
+      case messages::VideoDecoderClient::kOnVideoFrameDecoded:
             return "Receive arc::mojom::VideoDecoderClient::OnVideoFrameDecoded";
-      case internal::kVideoDecoderClient_OnError_Name:
+      case messages::VideoDecoderClient::kOnError:
             return "Receive arc::mojom::VideoDecoderClient::OnError";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoDecoderClient_OnVideoFrameDecoded_Name:
+    switch (static_cast<messages::VideoDecoderClient>(message.name())) {
+      case messages::VideoDecoderClient::kOnVideoFrameDecoded:
             return "Receive reply arc::mojom::VideoDecoderClient::OnVideoFrameDecoded";
-      case internal::kVideoDecoderClient_OnError_Name:
+      case messages::VideoDecoderClient::kOnError:
             return "Receive reply arc::mojom::VideoDecoderClient::OnError";
     }
   }
@@ -1221,8 +1214,7 @@ void VideoDecoderClientProxy::OnVideoFrameDecoded(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoderClient_OnVideoFrameDecoded_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoderClient::kOnVideoFrameDecoded), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecoderClient_OnVideoFrameDecoded_Params_Data> params(
           message);
@@ -1277,8 +1269,7 @@ void VideoDecoderClientProxy::OnError(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoderClient_OnError_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoderClient::kOnError), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecoderClient_OnError_Params_Data> params(
           message);
@@ -1299,8 +1290,8 @@ void VideoDecoderClientProxy::OnError(
 bool VideoDecoderClientStubDispatch::Accept(
     VideoDecoderClient* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoDecoderClient_OnVideoFrameDecoded_Name: {
+  switch (static_cast<messages::VideoDecoderClient>(message->header()->name)) {
+    case messages::VideoDecoderClient::kOnVideoFrameDecoded: {
       DCHECK(message->is_serialized());
       internal::VideoDecoderClient_OnVideoFrameDecoded_Params_Data* params =
           reinterpret_cast<internal::VideoDecoderClient_OnVideoFrameDecoded_Params_Data*>(
@@ -1335,7 +1326,7 @@ bool VideoDecoderClientStubDispatch::Accept(
         std::move(p_timestamp));
       return true;
     }
-    case internal::kVideoDecoderClient_OnError_Name: {
+    case messages::VideoDecoderClient::kOnError: {
       DCHECK(message->is_serialized());
       internal::VideoDecoderClient_OnError_Params_Data* params =
           reinterpret_cast<internal::VideoDecoderClient_OnError_Params_Data*>(
@@ -1374,11 +1365,11 @@ bool VideoDecoderClientStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoDecoderClient_OnVideoFrameDecoded_Name: {
+  switch (static_cast<messages::VideoDecoderClient>(message->header()->name)) {
+    case messages::VideoDecoderClient::kOnVideoFrameDecoded: {
       break;
     }
-    case internal::kVideoDecoderClient_OnError_Name: {
+    case messages::VideoDecoderClient::kOnError: {
       break;
     }
   }

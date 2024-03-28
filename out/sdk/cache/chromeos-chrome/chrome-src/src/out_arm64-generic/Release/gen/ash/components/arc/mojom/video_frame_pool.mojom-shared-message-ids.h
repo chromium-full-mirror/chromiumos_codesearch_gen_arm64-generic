@@ -11,14 +11,18 @@
 
 
 namespace arc::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kVideoFramePool_Initialize_Name = 0;
-constexpr uint32_t kVideoFramePool_AddVideoFrame_Name = 1;
-constexpr uint32_t kVideoFramePoolClient_RequestVideoFrames_Name = 0;
+enum class VideoFramePool : uint32_t {
+  kInitialize = 0,
+  kAddVideoFrame = 1,
+};
+enum class VideoFramePoolClient : uint32_t {
+  kRequestVideoFrames = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // arc::mojom
 

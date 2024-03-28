@@ -185,11 +185,11 @@ const char ImageContentAnnotator::Name_[] = "chromeos.machine_learning.mojom.Ima
 
 ImageContentAnnotator::IPCStableHashFunction ImageContentAnnotator::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kImageContentAnnotator_AnnotateRawImage_Name: {
+  switch (static_cast<messages::ImageContentAnnotator>(message.name())) {
+    case messages::ImageContentAnnotator::kAnnotateRawImage: {
       return &ImageContentAnnotator::AnnotateRawImage_Sym::IPCStableHash;
     }
-    case internal::kImageContentAnnotator_AnnotateEncodedImage_Name: {
+    case messages::ImageContentAnnotator::kAnnotateEncodedImage: {
       return &ImageContentAnnotator::AnnotateEncodedImage_Sym::IPCStableHash;
     }
   }
@@ -202,17 +202,17 @@ const char* ImageContentAnnotator::MessageToMethodName_(mojo::Message& message) 
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kImageContentAnnotator_AnnotateRawImage_Name:
+    switch (static_cast<messages::ImageContentAnnotator>(message.name())) {
+      case messages::ImageContentAnnotator::kAnnotateRawImage:
             return "Receive chromeos::machine_learning::mojom::ImageContentAnnotator::AnnotateRawImage";
-      case internal::kImageContentAnnotator_AnnotateEncodedImage_Name:
+      case messages::ImageContentAnnotator::kAnnotateEncodedImage:
             return "Receive chromeos::machine_learning::mojom::ImageContentAnnotator::AnnotateEncodedImage";
     }
   } else {
-    switch (message.name()) {
-      case internal::kImageContentAnnotator_AnnotateRawImage_Name:
+    switch (static_cast<messages::ImageContentAnnotator>(message.name())) {
+      case messages::ImageContentAnnotator::kAnnotateRawImage:
             return "Receive reply chromeos::machine_learning::mojom::ImageContentAnnotator::AnnotateRawImage";
-      case internal::kImageContentAnnotator_AnnotateEncodedImage_Name:
+      case messages::ImageContentAnnotator::kAnnotateEncodedImage:
             return "Receive reply chromeos::machine_learning::mojom::ImageContentAnnotator::AnnotateEncodedImage";
     }
   }
@@ -328,8 +328,7 @@ void ImageContentAnnotatorProxy::AnnotateRawImage(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kImageContentAnnotator_AnnotateRawImage_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ImageContentAnnotator::kAnnotateRawImage), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::ImageContentAnnotator_AnnotateRawImage_Params_Data> params(
           message);
@@ -386,8 +385,7 @@ void ImageContentAnnotatorProxy::AnnotateEncodedImage(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kImageContentAnnotator_AnnotateEncodedImage_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ImageContentAnnotator::kAnnotateEncodedImage), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::ImageContentAnnotator_AnnotateEncodedImage_Params_Data> params(
           message);
@@ -512,8 +510,7 @@ void ImageContentAnnotator_AnnotateRawImage_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kImageContentAnnotator_AnnotateRawImage_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ImageContentAnnotator::kAnnotateRawImage), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::ImageContentAnnotator_AnnotateRawImage_ResponseParams_Data> params(
           message);
@@ -645,8 +642,7 @@ void ImageContentAnnotator_AnnotateEncodedImage_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kImageContentAnnotator_AnnotateEncodedImage_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::ImageContentAnnotator::kAnnotateEncodedImage), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::ImageContentAnnotator_AnnotateEncodedImage_ResponseParams_Data> params(
           message);
@@ -684,11 +680,11 @@ void ImageContentAnnotator_AnnotateEncodedImage_ProxyToResponder::Run(
 bool ImageContentAnnotatorStubDispatch::Accept(
     ImageContentAnnotator* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kImageContentAnnotator_AnnotateRawImage_Name: {
+  switch (static_cast<messages::ImageContentAnnotator>(message->header()->name)) {
+    case messages::ImageContentAnnotator::kAnnotateRawImage: {
       break;
     }
-    case internal::kImageContentAnnotator_AnnotateEncodedImage_Name: {
+    case messages::ImageContentAnnotator::kAnnotateEncodedImage: {
       break;
     }
   }
@@ -703,8 +699,8 @@ bool ImageContentAnnotatorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kImageContentAnnotator_AnnotateRawImage_Name: {
+  switch (static_cast<messages::ImageContentAnnotator>(message->header()->name)) {
+    case messages::ImageContentAnnotator::kAnnotateRawImage: {
       internal::ImageContentAnnotator_AnnotateRawImage_Params_Data* params =
           reinterpret_cast<
               internal::ImageContentAnnotator_AnnotateRawImage_Params_Data*>(
@@ -746,7 +742,7 @@ bool ImageContentAnnotatorStubDispatch::AcceptWithResponder(
         std::move(p_line_stride), std::move(callback));
       return true;
     }
-    case internal::kImageContentAnnotator_AnnotateEncodedImage_Name: {
+    case messages::ImageContentAnnotator::kAnnotateEncodedImage: {
       internal::ImageContentAnnotator_AnnotateEncodedImage_Params_Data* params =
           reinterpret_cast<
               internal::ImageContentAnnotator_AnnotateEncodedImage_Params_Data*>(

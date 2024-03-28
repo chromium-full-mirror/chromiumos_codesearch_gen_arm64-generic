@@ -11,15 +11,17 @@
 
 
 namespace ash::cros_healthd::internal::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kChromiumDataCollector_GetTouchscreenDevices_Name = 0;
-constexpr uint32_t kChromiumDataCollector_GetTouchpadLibraryName_Name = 1;
-constexpr uint32_t kChromiumDataCollector_SetPrivacyScreenState_Name = 2;
-constexpr uint32_t kChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Name = 3;
+enum class ChromiumDataCollector : uint32_t {
+  kGetTouchscreenDevices = 0,
+  kGetTouchpadLibraryName = 1,
+  kSetPrivacyScreenState = 2,
+  kDEPRECATED_SetAudioOutputMute = 3,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // ash::cros_healthd::internal::mojom
 

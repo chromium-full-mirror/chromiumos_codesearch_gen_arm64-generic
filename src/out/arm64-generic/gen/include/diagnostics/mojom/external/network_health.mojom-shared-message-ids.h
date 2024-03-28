@@ -11,16 +11,20 @@
 
 
 namespace chromeos::network_health::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kNetworkEventsObserver_OnConnectionStateChanged_Name = 0;
-constexpr uint32_t kNetworkEventsObserver_OnSignalStrengthChanged_Name = 1;
-constexpr uint32_t kNetworkHealthService_AddObserver_Name = 0;
-constexpr uint32_t kNetworkHealthService_GetNetworkList_Name = 1;
-constexpr uint32_t kNetworkHealthService_GetHealthSnapshot_Name = 2;
+enum class NetworkEventsObserver : uint32_t {
+  kOnConnectionStateChanged = 0,
+  kOnSignalStrengthChanged = 1,
+};
+enum class NetworkHealthService : uint32_t {
+  kAddObserver = 0,
+  kGetNetworkList = 1,
+  kGetHealthSnapshot = 2,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::network_health::mojom
 

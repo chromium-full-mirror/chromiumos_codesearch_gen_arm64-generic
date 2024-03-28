@@ -1297,11 +1297,11 @@ const char VideoEncodeAcceleratorProvider::Name_[] = "media.mojom.VideoEncodeAcc
 
 VideoEncodeAcceleratorProvider::IPCStableHashFunction VideoEncodeAcceleratorProvider::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoEncodeAcceleratorProvider_CreateVideoEncodeAccelerator_Name: {
+  switch (static_cast<messages::VideoEncodeAcceleratorProvider>(message.name())) {
+    case messages::VideoEncodeAcceleratorProvider::kCreateVideoEncodeAccelerator: {
       return &VideoEncodeAcceleratorProvider::CreateVideoEncodeAccelerator_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_Name: {
+    case messages::VideoEncodeAcceleratorProvider::kGetVideoEncodeAcceleratorSupportedProfiles: {
       return &VideoEncodeAcceleratorProvider::GetVideoEncodeAcceleratorSupportedProfiles_Sym::IPCStableHash;
     }
   }
@@ -1314,17 +1314,17 @@ const char* VideoEncodeAcceleratorProvider::MessageToMethodName_(mojo::Message& 
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoEncodeAcceleratorProvider_CreateVideoEncodeAccelerator_Name:
+    switch (static_cast<messages::VideoEncodeAcceleratorProvider>(message.name())) {
+      case messages::VideoEncodeAcceleratorProvider::kCreateVideoEncodeAccelerator:
             return "Receive media::mojom::VideoEncodeAcceleratorProvider::CreateVideoEncodeAccelerator";
-      case internal::kVideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_Name:
+      case messages::VideoEncodeAcceleratorProvider::kGetVideoEncodeAcceleratorSupportedProfiles:
             return "Receive media::mojom::VideoEncodeAcceleratorProvider::GetVideoEncodeAcceleratorSupportedProfiles";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoEncodeAcceleratorProvider_CreateVideoEncodeAccelerator_Name:
+    switch (static_cast<messages::VideoEncodeAcceleratorProvider>(message.name())) {
+      case messages::VideoEncodeAcceleratorProvider::kCreateVideoEncodeAccelerator:
             return "Receive reply media::mojom::VideoEncodeAcceleratorProvider::CreateVideoEncodeAccelerator";
-      case internal::kVideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_Name:
+      case messages::VideoEncodeAcceleratorProvider::kGetVideoEncodeAcceleratorSupportedProfiles:
             return "Receive reply media::mojom::VideoEncodeAcceleratorProvider::GetVideoEncodeAcceleratorSupportedProfiles";
     }
   }
@@ -1415,8 +1415,7 @@ void VideoEncodeAcceleratorProviderProxy::CreateVideoEncodeAccelerator(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAcceleratorProvider_CreateVideoEncodeAccelerator_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAcceleratorProvider::kCreateVideoEncodeAccelerator), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAcceleratorProvider_CreateVideoEncodeAccelerator_Params_Data> params(
           message);
@@ -1457,8 +1456,7 @@ void VideoEncodeAcceleratorProviderProxy::GetVideoEncodeAcceleratorSupportedProf
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAcceleratorProvider::kGetVideoEncodeAcceleratorSupportedProfiles), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_Params_Data> params(
           message);
@@ -1572,8 +1570,7 @@ void VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_P
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAcceleratorProvider::kGetVideoEncodeAcceleratorSupportedProfiles), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_ResponseParams_Data> params(
           message);
@@ -1613,8 +1610,8 @@ void VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_P
 bool VideoEncodeAcceleratorProviderStubDispatch::Accept(
     VideoEncodeAcceleratorProvider* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoEncodeAcceleratorProvider_CreateVideoEncodeAccelerator_Name: {
+  switch (static_cast<messages::VideoEncodeAcceleratorProvider>(message->header()->name)) {
+    case messages::VideoEncodeAcceleratorProvider::kCreateVideoEncodeAccelerator: {
       DCHECK(message->is_serialized());
       internal::VideoEncodeAcceleratorProvider_CreateVideoEncodeAccelerator_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeAcceleratorProvider_CreateVideoEncodeAccelerator_Params_Data*>(
@@ -1643,7 +1640,7 @@ bool VideoEncodeAcceleratorProviderStubDispatch::Accept(
         std::move(p_receiver));
       return true;
     }
-    case internal::kVideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_Name: {
+    case messages::VideoEncodeAcceleratorProvider::kGetVideoEncodeAcceleratorSupportedProfiles: {
       break;
     }
   }
@@ -1658,11 +1655,11 @@ bool VideoEncodeAcceleratorProviderStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoEncodeAcceleratorProvider_CreateVideoEncodeAccelerator_Name: {
+  switch (static_cast<messages::VideoEncodeAcceleratorProvider>(message->header()->name)) {
+    case messages::VideoEncodeAcceleratorProvider::kCreateVideoEncodeAccelerator: {
       break;
     }
-    case internal::kVideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_Name: {
+    case messages::VideoEncodeAcceleratorProvider::kGetVideoEncodeAcceleratorSupportedProfiles: {
       internal::VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_Params_Data*>(
@@ -1713,8 +1710,8 @@ const char VideoEncodeAcceleratorProviderFactory::Name_[] = "media.mojom.VideoEn
 
 VideoEncodeAcceleratorProviderFactory::IPCStableHashFunction VideoEncodeAcceleratorProviderFactory::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Name: {
+  switch (static_cast<messages::VideoEncodeAcceleratorProviderFactory>(message.name())) {
+    case messages::VideoEncodeAcceleratorProviderFactory::kCreateVideoEncodeAcceleratorProvider: {
       return &VideoEncodeAcceleratorProviderFactory::CreateVideoEncodeAcceleratorProvider_Sym::IPCStableHash;
     }
   }
@@ -1727,13 +1724,13 @@ const char* VideoEncodeAcceleratorProviderFactory::MessageToMethodName_(mojo::Me
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Name:
+    switch (static_cast<messages::VideoEncodeAcceleratorProviderFactory>(message.name())) {
+      case messages::VideoEncodeAcceleratorProviderFactory::kCreateVideoEncodeAcceleratorProvider:
             return "Receive media::mojom::VideoEncodeAcceleratorProviderFactory::CreateVideoEncodeAcceleratorProvider";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Name:
+    switch (static_cast<messages::VideoEncodeAcceleratorProviderFactory>(message.name())) {
+      case messages::VideoEncodeAcceleratorProviderFactory::kCreateVideoEncodeAcceleratorProvider:
             return "Receive reply media::mojom::VideoEncodeAcceleratorProviderFactory::CreateVideoEncodeAcceleratorProvider";
     }
   }
@@ -1795,8 +1792,7 @@ void VideoEncodeAcceleratorProviderFactoryProxy::CreateVideoEncodeAcceleratorPro
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAcceleratorProviderFactory::kCreateVideoEncodeAcceleratorProvider), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data> params(
           message);
@@ -1821,8 +1817,8 @@ void VideoEncodeAcceleratorProviderFactoryProxy::CreateVideoEncodeAcceleratorPro
 bool VideoEncodeAcceleratorProviderFactoryStubDispatch::Accept(
     VideoEncodeAcceleratorProviderFactory* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Name: {
+  switch (static_cast<messages::VideoEncodeAcceleratorProviderFactory>(message->header()->name)) {
+    case messages::VideoEncodeAcceleratorProviderFactory::kCreateVideoEncodeAcceleratorProvider: {
       DCHECK(message->is_serialized());
       internal::VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data*>(
@@ -1863,8 +1859,8 @@ bool VideoEncodeAcceleratorProviderFactoryStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Name: {
+  switch (static_cast<messages::VideoEncodeAcceleratorProviderFactory>(message->header()->name)) {
+    case messages::VideoEncodeAcceleratorProviderFactory::kCreateVideoEncodeAcceleratorProvider: {
       break;
     }
   }
@@ -1886,26 +1882,26 @@ const char VideoEncodeAccelerator::Name_[] = "media.mojom.VideoEncodeAccelerator
 
 VideoEncodeAccelerator::IPCStableHashFunction VideoEncodeAccelerator::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoEncodeAccelerator_Initialize_Name: {
+  switch (static_cast<messages::VideoEncodeAccelerator>(message.name())) {
+    case messages::VideoEncodeAccelerator::kInitialize: {
       return &VideoEncodeAccelerator::Initialize_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAccelerator_Encode_Name: {
+    case messages::VideoEncodeAccelerator::kEncode: {
       return &VideoEncodeAccelerator::Encode_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAccelerator_UseOutputBitstreamBuffer_Name: {
+    case messages::VideoEncodeAccelerator::kUseOutputBitstreamBuffer: {
       return &VideoEncodeAccelerator::UseOutputBitstreamBuffer_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Name: {
+    case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeWithLayers: {
       return &VideoEncodeAccelerator::RequestEncodingParametersChangeWithLayers_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Name: {
+    case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeWithBitrate: {
       return &VideoEncodeAccelerator::RequestEncodingParametersChangeWithBitrate_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAccelerator_IsFlushSupported_Name: {
+    case messages::VideoEncodeAccelerator::kIsFlushSupported: {
       return &VideoEncodeAccelerator::IsFlushSupported_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAccelerator_Flush_Name: {
+    case messages::VideoEncodeAccelerator::kFlush: {
       return &VideoEncodeAccelerator::Flush_Sym::IPCStableHash;
     }
   }
@@ -1918,37 +1914,37 @@ const char* VideoEncodeAccelerator::MessageToMethodName_(mojo::Message& message)
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoEncodeAccelerator_Initialize_Name:
+    switch (static_cast<messages::VideoEncodeAccelerator>(message.name())) {
+      case messages::VideoEncodeAccelerator::kInitialize:
             return "Receive media::mojom::VideoEncodeAccelerator::Initialize";
-      case internal::kVideoEncodeAccelerator_Encode_Name:
+      case messages::VideoEncodeAccelerator::kEncode:
             return "Receive media::mojom::VideoEncodeAccelerator::Encode";
-      case internal::kVideoEncodeAccelerator_UseOutputBitstreamBuffer_Name:
+      case messages::VideoEncodeAccelerator::kUseOutputBitstreamBuffer:
             return "Receive media::mojom::VideoEncodeAccelerator::UseOutputBitstreamBuffer";
-      case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Name:
+      case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeWithLayers:
             return "Receive media::mojom::VideoEncodeAccelerator::RequestEncodingParametersChangeWithLayers";
-      case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Name:
+      case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeWithBitrate:
             return "Receive media::mojom::VideoEncodeAccelerator::RequestEncodingParametersChangeWithBitrate";
-      case internal::kVideoEncodeAccelerator_IsFlushSupported_Name:
+      case messages::VideoEncodeAccelerator::kIsFlushSupported:
             return "Receive media::mojom::VideoEncodeAccelerator::IsFlushSupported";
-      case internal::kVideoEncodeAccelerator_Flush_Name:
+      case messages::VideoEncodeAccelerator::kFlush:
             return "Receive media::mojom::VideoEncodeAccelerator::Flush";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoEncodeAccelerator_Initialize_Name:
+    switch (static_cast<messages::VideoEncodeAccelerator>(message.name())) {
+      case messages::VideoEncodeAccelerator::kInitialize:
             return "Receive reply media::mojom::VideoEncodeAccelerator::Initialize";
-      case internal::kVideoEncodeAccelerator_Encode_Name:
+      case messages::VideoEncodeAccelerator::kEncode:
             return "Receive reply media::mojom::VideoEncodeAccelerator::Encode";
-      case internal::kVideoEncodeAccelerator_UseOutputBitstreamBuffer_Name:
+      case messages::VideoEncodeAccelerator::kUseOutputBitstreamBuffer:
             return "Receive reply media::mojom::VideoEncodeAccelerator::UseOutputBitstreamBuffer";
-      case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Name:
+      case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeWithLayers:
             return "Receive reply media::mojom::VideoEncodeAccelerator::RequestEncodingParametersChangeWithLayers";
-      case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Name:
+      case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeWithBitrate:
             return "Receive reply media::mojom::VideoEncodeAccelerator::RequestEncodingParametersChangeWithBitrate";
-      case internal::kVideoEncodeAccelerator_IsFlushSupported_Name:
+      case messages::VideoEncodeAccelerator::kIsFlushSupported:
             return "Receive reply media::mojom::VideoEncodeAccelerator::IsFlushSupported";
-      case internal::kVideoEncodeAccelerator_Flush_Name:
+      case messages::VideoEncodeAccelerator::kFlush:
             return "Receive reply media::mojom::VideoEncodeAccelerator::Flush";
     }
   }
@@ -2200,8 +2196,7 @@ bool VideoEncodeAcceleratorProxy::Initialize(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAccelerator_Initialize_Params_Data> params(
           message);
@@ -2286,8 +2281,7 @@ void VideoEncodeAcceleratorProxy::Initialize(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAccelerator_Initialize_Params_Data> params(
           message);
@@ -2356,8 +2350,7 @@ void VideoEncodeAcceleratorProxy::Encode(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Encode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kEncode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAccelerator_Encode_Params_Data> params(
           message);
@@ -2425,8 +2418,7 @@ void VideoEncodeAcceleratorProxy::UseOutputBitstreamBuffer(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_UseOutputBitstreamBuffer_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kUseOutputBitstreamBuffer), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAccelerator_UseOutputBitstreamBuffer_Params_Data> params(
           message);
@@ -2486,8 +2478,7 @@ void VideoEncodeAcceleratorProxy::RequestEncodingParametersChangeWithLayers(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeWithLayers), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params_Data> params(
           message);
@@ -2554,8 +2545,7 @@ void VideoEncodeAcceleratorProxy::RequestEncodingParametersChangeWithBitrate(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeWithBitrate), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_Data> params(
           message);
@@ -2609,8 +2599,7 @@ bool VideoEncodeAcceleratorProxy::IsFlushSupported(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_IsFlushSupported_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kIsFlushSupported), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAccelerator_IsFlushSupported_Params_Data> params(
           message);
@@ -2659,8 +2648,7 @@ void VideoEncodeAcceleratorProxy::IsFlushSupported(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_IsFlushSupported_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kIsFlushSupported), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAccelerator_IsFlushSupported_Params_Data> params(
           message);
@@ -2696,8 +2684,7 @@ void VideoEncodeAcceleratorProxy::Flush(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Flush_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kFlush), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAccelerator_Flush_Params_Data> params(
           message);
@@ -2811,8 +2798,7 @@ void VideoEncodeAccelerator_Initialize_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAccelerator_Initialize_ResponseParams_Data> params(
           message);
@@ -2949,8 +2935,7 @@ void VideoEncodeAccelerator_Encode_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Encode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kEncode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAccelerator_Encode_ResponseParams_Data> params(
           message);
@@ -3071,8 +3056,7 @@ void VideoEncodeAccelerator_IsFlushSupported_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_IsFlushSupported_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kIsFlushSupported), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAccelerator_IsFlushSupported_ResponseParams_Data> params(
           message);
@@ -3220,8 +3204,7 @@ void VideoEncodeAccelerator_Flush_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAccelerator_Flush_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAccelerator::kFlush), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAccelerator_Flush_ResponseParams_Data> params(
           message);
@@ -3249,14 +3232,14 @@ void VideoEncodeAccelerator_Flush_ProxyToResponder::Run(
 bool VideoEncodeAcceleratorStubDispatch::Accept(
     VideoEncodeAccelerator* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoEncodeAccelerator_Initialize_Name: {
+  switch (static_cast<messages::VideoEncodeAccelerator>(message->header()->name)) {
+    case messages::VideoEncodeAccelerator::kInitialize: {
       break;
     }
-    case internal::kVideoEncodeAccelerator_Encode_Name: {
+    case messages::VideoEncodeAccelerator::kEncode: {
       break;
     }
-    case internal::kVideoEncodeAccelerator_UseOutputBitstreamBuffer_Name: {
+    case messages::VideoEncodeAccelerator::kUseOutputBitstreamBuffer: {
       DCHECK(message->is_serialized());
       internal::VideoEncodeAccelerator_UseOutputBitstreamBuffer_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeAccelerator_UseOutputBitstreamBuffer_Params_Data*>(
@@ -3287,7 +3270,7 @@ bool VideoEncodeAcceleratorStubDispatch::Accept(
         std::move(p_region));
       return true;
     }
-    case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Name: {
+    case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeWithLayers: {
       DCHECK(message->is_serialized());
       internal::VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params_Data*>(
@@ -3322,7 +3305,7 @@ bool VideoEncodeAcceleratorStubDispatch::Accept(
         std::move(p_size));
       return true;
     }
-    case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Name: {
+    case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeWithBitrate: {
       DCHECK(message->is_serialized());
       internal::VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_Data*>(
@@ -3357,10 +3340,10 @@ bool VideoEncodeAcceleratorStubDispatch::Accept(
         std::move(p_size));
       return true;
     }
-    case internal::kVideoEncodeAccelerator_IsFlushSupported_Name: {
+    case messages::VideoEncodeAccelerator::kIsFlushSupported: {
       break;
     }
-    case internal::kVideoEncodeAccelerator_Flush_Name: {
+    case messages::VideoEncodeAccelerator::kFlush: {
       break;
     }
   }
@@ -3375,8 +3358,8 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoEncodeAccelerator_Initialize_Name: {
+  switch (static_cast<messages::VideoEncodeAccelerator>(message->header()->name)) {
+    case messages::VideoEncodeAccelerator::kInitialize: {
       internal::VideoEncodeAccelerator_Initialize_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_Initialize_Params_Data*>(
@@ -3418,7 +3401,7 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
         std::move(p_media_log), std::move(callback));
       return true;
     }
-    case internal::kVideoEncodeAccelerator_Encode_Name: {
+    case messages::VideoEncodeAccelerator::kEncode: {
       internal::VideoEncodeAccelerator_Encode_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_Encode_Params_Data*>(
@@ -3452,16 +3435,16 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
         std::move(p_options), std::move(callback));
       return true;
     }
-    case internal::kVideoEncodeAccelerator_UseOutputBitstreamBuffer_Name: {
+    case messages::VideoEncodeAccelerator::kUseOutputBitstreamBuffer: {
       break;
     }
-    case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Name: {
+    case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeWithLayers: {
       break;
     }
-    case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Name: {
+    case messages::VideoEncodeAccelerator::kRequestEncodingParametersChangeWithBitrate: {
       break;
     }
-    case internal::kVideoEncodeAccelerator_IsFlushSupported_Name: {
+    case messages::VideoEncodeAccelerator::kIsFlushSupported: {
       internal::VideoEncodeAccelerator_IsFlushSupported_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_IsFlushSupported_Params_Data*>(
@@ -3487,7 +3470,7 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
       impl->IsFlushSupported(std::move(callback));
       return true;
     }
-    case internal::kVideoEncodeAccelerator_Flush_Name: {
+    case messages::VideoEncodeAccelerator::kFlush: {
       internal::VideoEncodeAccelerator_Flush_Params_Data* params =
           reinterpret_cast<
               internal::VideoEncodeAccelerator_Flush_Params_Data*>(
@@ -3548,17 +3531,17 @@ const char VideoEncodeAcceleratorClient::Name_[] = "media.mojom.VideoEncodeAccel
 
 VideoEncodeAcceleratorClient::IPCStableHashFunction VideoEncodeAcceleratorClient::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoEncodeAcceleratorClient_RequireBitstreamBuffers_Name: {
+  switch (static_cast<messages::VideoEncodeAcceleratorClient>(message.name())) {
+    case messages::VideoEncodeAcceleratorClient::kRequireBitstreamBuffers: {
       return &VideoEncodeAcceleratorClient::RequireBitstreamBuffers_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAcceleratorClient_BitstreamBufferReady_Name: {
+    case messages::VideoEncodeAcceleratorClient::kBitstreamBufferReady: {
       return &VideoEncodeAcceleratorClient::BitstreamBufferReady_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name: {
+    case messages::VideoEncodeAcceleratorClient::kNotifyErrorStatus: {
       return &VideoEncodeAcceleratorClient::NotifyErrorStatus_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Name: {
+    case messages::VideoEncodeAcceleratorClient::kNotifyEncoderInfoChange: {
       return &VideoEncodeAcceleratorClient::NotifyEncoderInfoChange_Sym::IPCStableHash;
     }
   }
@@ -3571,25 +3554,25 @@ const char* VideoEncodeAcceleratorClient::MessageToMethodName_(mojo::Message& me
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoEncodeAcceleratorClient_RequireBitstreamBuffers_Name:
+    switch (static_cast<messages::VideoEncodeAcceleratorClient>(message.name())) {
+      case messages::VideoEncodeAcceleratorClient::kRequireBitstreamBuffers:
             return "Receive media::mojom::VideoEncodeAcceleratorClient::RequireBitstreamBuffers";
-      case internal::kVideoEncodeAcceleratorClient_BitstreamBufferReady_Name:
+      case messages::VideoEncodeAcceleratorClient::kBitstreamBufferReady:
             return "Receive media::mojom::VideoEncodeAcceleratorClient::BitstreamBufferReady";
-      case internal::kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name:
+      case messages::VideoEncodeAcceleratorClient::kNotifyErrorStatus:
             return "Receive media::mojom::VideoEncodeAcceleratorClient::NotifyErrorStatus";
-      case internal::kVideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Name:
+      case messages::VideoEncodeAcceleratorClient::kNotifyEncoderInfoChange:
             return "Receive media::mojom::VideoEncodeAcceleratorClient::NotifyEncoderInfoChange";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoEncodeAcceleratorClient_RequireBitstreamBuffers_Name:
+    switch (static_cast<messages::VideoEncodeAcceleratorClient>(message.name())) {
+      case messages::VideoEncodeAcceleratorClient::kRequireBitstreamBuffers:
             return "Receive reply media::mojom::VideoEncodeAcceleratorClient::RequireBitstreamBuffers";
-      case internal::kVideoEncodeAcceleratorClient_BitstreamBufferReady_Name:
+      case messages::VideoEncodeAcceleratorClient::kBitstreamBufferReady:
             return "Receive reply media::mojom::VideoEncodeAcceleratorClient::BitstreamBufferReady";
-      case internal::kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name:
+      case messages::VideoEncodeAcceleratorClient::kNotifyErrorStatus:
             return "Receive reply media::mojom::VideoEncodeAcceleratorClient::NotifyErrorStatus";
-      case internal::kVideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Name:
+      case messages::VideoEncodeAcceleratorClient::kNotifyEncoderInfoChange:
             return "Receive reply media::mojom::VideoEncodeAcceleratorClient::NotifyEncoderInfoChange";
     }
   }
@@ -3696,8 +3679,7 @@ void VideoEncodeAcceleratorClientProxy::RequireBitstreamBuffers(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAcceleratorClient_RequireBitstreamBuffers_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAcceleratorClient::kRequireBitstreamBuffers), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAcceleratorClient_RequireBitstreamBuffers_Params_Data> params(
           message);
@@ -3755,8 +3737,7 @@ void VideoEncodeAcceleratorClientProxy::BitstreamBufferReady(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAcceleratorClient_BitstreamBufferReady_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAcceleratorClient::kBitstreamBufferReady), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAcceleratorClient_BitstreamBufferReady_Params_Data> params(
           message);
@@ -3810,8 +3791,7 @@ void VideoEncodeAcceleratorClientProxy::NotifyErrorStatus(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAcceleratorClient::kNotifyErrorStatus), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data> params(
           message);
@@ -3864,8 +3844,7 @@ void VideoEncodeAcceleratorClientProxy::NotifyEncoderInfoChange(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoEncodeAcceleratorClient::kNotifyEncoderInfoChange), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Params_Data> params(
           message);
@@ -3895,8 +3874,8 @@ void VideoEncodeAcceleratorClientProxy::NotifyEncoderInfoChange(
 bool VideoEncodeAcceleratorClientStubDispatch::Accept(
     VideoEncodeAcceleratorClient* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoEncodeAcceleratorClient_RequireBitstreamBuffers_Name: {
+  switch (static_cast<messages::VideoEncodeAcceleratorClient>(message->header()->name)) {
+    case messages::VideoEncodeAcceleratorClient::kRequireBitstreamBuffers: {
       DCHECK(message->is_serialized());
       internal::VideoEncodeAcceleratorClient_RequireBitstreamBuffers_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeAcceleratorClient_RequireBitstreamBuffers_Params_Data*>(
@@ -3931,7 +3910,7 @@ bool VideoEncodeAcceleratorClientStubDispatch::Accept(
         std::move(p_output_buffer_size));
       return true;
     }
-    case internal::kVideoEncodeAcceleratorClient_BitstreamBufferReady_Name: {
+    case messages::VideoEncodeAcceleratorClient::kBitstreamBufferReady: {
       DCHECK(message->is_serialized());
       internal::VideoEncodeAcceleratorClient_BitstreamBufferReady_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeAcceleratorClient_BitstreamBufferReady_Params_Data*>(
@@ -3962,7 +3941,7 @@ bool VideoEncodeAcceleratorClientStubDispatch::Accept(
         std::move(p_metadata));
       return true;
     }
-    case internal::kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name: {
+    case messages::VideoEncodeAcceleratorClient::kNotifyErrorStatus: {
       DCHECK(message->is_serialized());
       internal::VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data*>(
@@ -3989,7 +3968,7 @@ bool VideoEncodeAcceleratorClientStubDispatch::Accept(
         std::move(p_status));
       return true;
     }
-    case internal::kVideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Name: {
+    case messages::VideoEncodeAcceleratorClient::kNotifyEncoderInfoChange: {
       DCHECK(message->is_serialized());
       internal::VideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Params_Data* params =
           reinterpret_cast<internal::VideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Params_Data*>(
@@ -4028,17 +4007,17 @@ bool VideoEncodeAcceleratorClientStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoEncodeAcceleratorClient_RequireBitstreamBuffers_Name: {
+  switch (static_cast<messages::VideoEncodeAcceleratorClient>(message->header()->name)) {
+    case messages::VideoEncodeAcceleratorClient::kRequireBitstreamBuffers: {
       break;
     }
-    case internal::kVideoEncodeAcceleratorClient_BitstreamBufferReady_Name: {
+    case messages::VideoEncodeAcceleratorClient::kBitstreamBufferReady: {
       break;
     }
-    case internal::kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name: {
+    case messages::VideoEncodeAcceleratorClient::kNotifyErrorStatus: {
       break;
     }
-    case internal::kVideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Name: {
+    case messages::VideoEncodeAcceleratorClient::kNotifyEncoderInfoChange: {
       break;
     }
   }

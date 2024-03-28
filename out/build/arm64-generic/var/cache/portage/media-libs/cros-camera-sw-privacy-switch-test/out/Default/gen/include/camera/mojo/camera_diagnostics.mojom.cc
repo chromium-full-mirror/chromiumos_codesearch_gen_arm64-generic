@@ -368,8 +368,8 @@ const char CameraDiagnostics::Name_[] = "cros.camera_diag.mojom.CameraDiagnostic
 
 CameraDiagnostics::IPCStableHashFunction CameraDiagnostics::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCameraDiagnostics_RunFrameAnalysis_Name: {
+  switch (static_cast<messages::CameraDiagnostics>(message.name())) {
+    case messages::CameraDiagnostics::kRunFrameAnalysis: {
       return &CameraDiagnostics::RunFrameAnalysis_Sym::IPCStableHash;
     }
   }
@@ -382,13 +382,13 @@ const char* CameraDiagnostics::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCameraDiagnostics_RunFrameAnalysis_Name:
+    switch (static_cast<messages::CameraDiagnostics>(message.name())) {
+      case messages::CameraDiagnostics::kRunFrameAnalysis:
             return "Receive cros::camera_diag::mojom::CameraDiagnostics::RunFrameAnalysis";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCameraDiagnostics_RunFrameAnalysis_Name:
+    switch (static_cast<messages::CameraDiagnostics>(message.name())) {
+      case messages::CameraDiagnostics::kRunFrameAnalysis:
             return "Receive reply cros::camera_diag::mojom::CameraDiagnostics::RunFrameAnalysis";
     }
   }
@@ -466,8 +466,7 @@ void CameraDiagnosticsProxy::RunFrameAnalysis(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraDiagnostics_RunFrameAnalysis_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraDiagnostics::kRunFrameAnalysis), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::camera_diag::mojom::internal::CameraDiagnostics_RunFrameAnalysis_Params_Data> params(
           message);
@@ -592,8 +591,7 @@ void CameraDiagnostics_RunFrameAnalysis_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraDiagnostics_RunFrameAnalysis_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraDiagnostics::kRunFrameAnalysis), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::camera_diag::mojom::internal::CameraDiagnostics_RunFrameAnalysis_ResponseParams_Data> params(
           message);
@@ -629,8 +627,8 @@ void CameraDiagnostics_RunFrameAnalysis_ProxyToResponder::Run(
 bool CameraDiagnosticsStubDispatch::Accept(
     CameraDiagnostics* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCameraDiagnostics_RunFrameAnalysis_Name: {
+  switch (static_cast<messages::CameraDiagnostics>(message->header()->name)) {
+    case messages::CameraDiagnostics::kRunFrameAnalysis: {
       break;
     }
   }
@@ -645,8 +643,8 @@ bool CameraDiagnosticsStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCameraDiagnostics_RunFrameAnalysis_Name: {
+  switch (static_cast<messages::CameraDiagnostics>(message->header()->name)) {
+    case messages::CameraDiagnostics::kRunFrameAnalysis: {
       internal::CameraDiagnostics_RunFrameAnalysis_Params_Data* params =
           reinterpret_cast<
               internal::CameraDiagnostics_RunFrameAnalysis_Params_Data*>(
@@ -699,8 +697,8 @@ const char CrosCameraDiagnosticsService::Name_[] = "cros.camera_diag.mojom.CrosC
 
 CrosCameraDiagnosticsService::IPCStableHashFunction CrosCameraDiagnosticsService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCrosCameraDiagnosticsService_SendFrame_Name: {
+  switch (static_cast<messages::CrosCameraDiagnosticsService>(message.name())) {
+    case messages::CrosCameraDiagnosticsService::kSendFrame: {
       return &CrosCameraDiagnosticsService::SendFrame_Sym::IPCStableHash;
     }
   }
@@ -713,13 +711,13 @@ const char* CrosCameraDiagnosticsService::MessageToMethodName_(mojo::Message& me
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCrosCameraDiagnosticsService_SendFrame_Name:
+    switch (static_cast<messages::CrosCameraDiagnosticsService>(message.name())) {
+      case messages::CrosCameraDiagnosticsService::kSendFrame:
             return "Receive cros::camera_diag::mojom::CrosCameraDiagnosticsService::SendFrame";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCrosCameraDiagnosticsService_SendFrame_Name:
+    switch (static_cast<messages::CrosCameraDiagnosticsService>(message.name())) {
+      case messages::CrosCameraDiagnosticsService::kSendFrame:
             return "Receive reply cros::camera_diag::mojom::CrosCameraDiagnosticsService::SendFrame";
     }
   }
@@ -781,8 +779,7 @@ void CrosCameraDiagnosticsServiceProxy::SendFrame(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosCameraDiagnosticsService_SendFrame_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosCameraDiagnosticsService::kSendFrame), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::camera_diag::mojom::internal::CrosCameraDiagnosticsService_SendFrame_Params_Data> params(
           message);
@@ -812,8 +809,8 @@ void CrosCameraDiagnosticsServiceProxy::SendFrame(
 bool CrosCameraDiagnosticsServiceStubDispatch::Accept(
     CrosCameraDiagnosticsService* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCrosCameraDiagnosticsService_SendFrame_Name: {
+  switch (static_cast<messages::CrosCameraDiagnosticsService>(message->header()->name)) {
+    case messages::CrosCameraDiagnosticsService::kSendFrame: {
       DCHECK(message->is_serialized());
       internal::CrosCameraDiagnosticsService_SendFrame_Params_Data* params =
           reinterpret_cast<internal::CrosCameraDiagnosticsService_SendFrame_Params_Data*>(
@@ -852,8 +849,8 @@ bool CrosCameraDiagnosticsServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCrosCameraDiagnosticsService_SendFrame_Name: {
+  switch (static_cast<messages::CrosCameraDiagnosticsService>(message->header()->name)) {
+    case messages::CrosCameraDiagnosticsService::kSendFrame: {
       break;
     }
   }

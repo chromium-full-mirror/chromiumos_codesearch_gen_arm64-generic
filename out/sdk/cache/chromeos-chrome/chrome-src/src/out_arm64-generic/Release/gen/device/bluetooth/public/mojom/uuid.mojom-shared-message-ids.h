@@ -11,11 +11,11 @@
 
 
 namespace bluetooth::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // bluetooth::mojom
 

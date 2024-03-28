@@ -11,15 +11,21 @@
 
 
 namespace smbfs::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kSmbFsBootstrap_MountShare_Name = 0;
-constexpr uint32_t kSmbFs_RemoveSavedCredentials_Name = 0;
-constexpr uint32_t kSmbFs_DeleteRecursively_Name = 1;
-constexpr uint32_t kSmbFsDelegate_RequestCredentials_Name = 0;
+enum class SmbFsBootstrap : uint32_t {
+  kMountShare = 0,
+};
+enum class SmbFs : uint32_t {
+  kRemoveSavedCredentials = 0,
+  kDeleteRecursively = 1,
+};
+enum class SmbFsDelegate : uint32_t {
+  kRequestCredentials = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // smbfs::mojom
 

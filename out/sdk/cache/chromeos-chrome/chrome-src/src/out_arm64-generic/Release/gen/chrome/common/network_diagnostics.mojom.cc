@@ -49,8 +49,8 @@ const char NetworkDiagnostics::Name_[] = "chrome.mojom.NetworkDiagnostics";
 
 NetworkDiagnostics::IPCStableHashFunction NetworkDiagnostics::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kNetworkDiagnostics_RunNetworkDiagnostics_Name: {
+  switch (static_cast<messages::NetworkDiagnostics>(message.name())) {
+    case messages::NetworkDiagnostics::kRunNetworkDiagnostics: {
       return &NetworkDiagnostics::RunNetworkDiagnostics_Sym::IPCStableHash;
     }
   }
@@ -63,13 +63,13 @@ const char* NetworkDiagnostics::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kNetworkDiagnostics_RunNetworkDiagnostics_Name:
+    switch (static_cast<messages::NetworkDiagnostics>(message.name())) {
+      case messages::NetworkDiagnostics::kRunNetworkDiagnostics:
             return "Receive chrome::mojom::NetworkDiagnostics::RunNetworkDiagnostics";
     }
   } else {
-    switch (message.name()) {
-      case internal::kNetworkDiagnostics_RunNetworkDiagnostics_Name:
+    switch (static_cast<messages::NetworkDiagnostics>(message.name())) {
+      case messages::NetworkDiagnostics::kRunNetworkDiagnostics:
             return "Receive reply chrome::mojom::NetworkDiagnostics::RunNetworkDiagnostics";
     }
   }
@@ -131,8 +131,7 @@ void NetworkDiagnosticsProxy::RunNetworkDiagnostics(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnostics_RunNetworkDiagnostics_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnostics::kRunNetworkDiagnostics), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chrome::mojom::internal::NetworkDiagnostics_RunNetworkDiagnostics_Params_Data> params(
           message);
@@ -162,8 +161,8 @@ void NetworkDiagnosticsProxy::RunNetworkDiagnostics(
 bool NetworkDiagnosticsStubDispatch::Accept(
     NetworkDiagnostics* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kNetworkDiagnostics_RunNetworkDiagnostics_Name: {
+  switch (static_cast<messages::NetworkDiagnostics>(message->header()->name)) {
+    case messages::NetworkDiagnostics::kRunNetworkDiagnostics: {
       DCHECK(message->is_serialized());
       internal::NetworkDiagnostics_RunNetworkDiagnostics_Params_Data* params =
           reinterpret_cast<internal::NetworkDiagnostics_RunNetworkDiagnostics_Params_Data*>(
@@ -202,8 +201,8 @@ bool NetworkDiagnosticsStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kNetworkDiagnostics_RunNetworkDiagnostics_Name: {
+  switch (static_cast<messages::NetworkDiagnostics>(message->header()->name)) {
+    case messages::NetworkDiagnostics::kRunNetworkDiagnostics: {
       break;
     }
   }
@@ -225,11 +224,11 @@ const char NetworkDiagnosticsClient::Name_[] = "chrome.mojom.NetworkDiagnosticsC
 
 NetworkDiagnosticsClient::IPCStableHashFunction NetworkDiagnosticsClient::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kNetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Name: {
+  switch (static_cast<messages::NetworkDiagnosticsClient>(message.name())) {
+    case messages::NetworkDiagnosticsClient::kSetCanShowNetworkDiagnosticsDialog: {
       return &NetworkDiagnosticsClient::SetCanShowNetworkDiagnosticsDialog_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsClient_DNSProbeStatus_Name: {
+    case messages::NetworkDiagnosticsClient::kDNSProbeStatus: {
       return &NetworkDiagnosticsClient::DNSProbeStatus_Sym::IPCStableHash;
     }
   }
@@ -242,17 +241,17 @@ const char* NetworkDiagnosticsClient::MessageToMethodName_(mojo::Message& messag
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kNetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Name:
+    switch (static_cast<messages::NetworkDiagnosticsClient>(message.name())) {
+      case messages::NetworkDiagnosticsClient::kSetCanShowNetworkDiagnosticsDialog:
             return "Receive chrome::mojom::NetworkDiagnosticsClient::SetCanShowNetworkDiagnosticsDialog";
-      case internal::kNetworkDiagnosticsClient_DNSProbeStatus_Name:
+      case messages::NetworkDiagnosticsClient::kDNSProbeStatus:
             return "Receive chrome::mojom::NetworkDiagnosticsClient::DNSProbeStatus";
     }
   } else {
-    switch (message.name()) {
-      case internal::kNetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Name:
+    switch (static_cast<messages::NetworkDiagnosticsClient>(message.name())) {
+      case messages::NetworkDiagnosticsClient::kSetCanShowNetworkDiagnosticsDialog:
             return "Receive reply chrome::mojom::NetworkDiagnosticsClient::SetCanShowNetworkDiagnosticsDialog";
-      case internal::kNetworkDiagnosticsClient_DNSProbeStatus_Name:
+      case messages::NetworkDiagnosticsClient::kDNSProbeStatus:
             return "Receive reply chrome::mojom::NetworkDiagnosticsClient::DNSProbeStatus";
     }
   }
@@ -327,8 +326,7 @@ void NetworkDiagnosticsClientProxy::SetCanShowNetworkDiagnosticsDialog(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsClient::kSetCanShowNetworkDiagnosticsDialog), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chrome::mojom::internal::NetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Params_Data> params(
           message);
@@ -371,8 +369,7 @@ void NetworkDiagnosticsClientProxy::DNSProbeStatus(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsClient_DNSProbeStatus_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsClient::kDNSProbeStatus), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chrome::mojom::internal::NetworkDiagnosticsClient_DNSProbeStatus_Params_Data> params(
           message);
@@ -392,8 +389,8 @@ void NetworkDiagnosticsClientProxy::DNSProbeStatus(
 bool NetworkDiagnosticsClientStubDispatch::Accept(
     NetworkDiagnosticsClient* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kNetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Name: {
+  switch (static_cast<messages::NetworkDiagnosticsClient>(message->header()->name)) {
+    case messages::NetworkDiagnosticsClient::kSetCanShowNetworkDiagnosticsDialog: {
       DCHECK(message->is_serialized());
       internal::NetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Params_Data* params =
           reinterpret_cast<internal::NetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Params_Data*>(
@@ -420,7 +417,7 @@ bool NetworkDiagnosticsClientStubDispatch::Accept(
         std::move(p_can_show));
       return true;
     }
-    case internal::kNetworkDiagnosticsClient_DNSProbeStatus_Name: {
+    case messages::NetworkDiagnosticsClient::kDNSProbeStatus: {
       DCHECK(message->is_serialized());
       internal::NetworkDiagnosticsClient_DNSProbeStatus_Params_Data* params =
           reinterpret_cast<internal::NetworkDiagnosticsClient_DNSProbeStatus_Params_Data*>(
@@ -459,11 +456,11 @@ bool NetworkDiagnosticsClientStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kNetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Name: {
+  switch (static_cast<messages::NetworkDiagnosticsClient>(message->header()->name)) {
+    case messages::NetworkDiagnosticsClient::kSetCanShowNetworkDiagnosticsDialog: {
       break;
     }
-    case internal::kNetworkDiagnosticsClient_DNSProbeStatus_Name: {
+    case messages::NetworkDiagnosticsClient::kDNSProbeStatus: {
       break;
     }
   }

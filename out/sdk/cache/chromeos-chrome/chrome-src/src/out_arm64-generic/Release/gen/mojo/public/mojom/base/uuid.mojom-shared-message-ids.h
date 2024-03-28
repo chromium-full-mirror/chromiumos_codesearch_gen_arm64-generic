@@ -11,11 +11,11 @@
 
 
 namespace mojo_base::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // mojo_base::mojom
 

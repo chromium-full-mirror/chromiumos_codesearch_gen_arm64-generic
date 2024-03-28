@@ -11,11 +11,11 @@
 
 
 namespace lens::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // lens::mojom
 

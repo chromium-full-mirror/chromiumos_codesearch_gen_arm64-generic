@@ -49,11 +49,11 @@ const char Executor::Name_[] = "printscanmgr.mojom.Executor";
 
 Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kExecutor_RestartUpstartJob_Name: {
+  switch (static_cast<messages::Executor>(message.name())) {
+    case messages::Executor::kRestartUpstartJob: {
       return &Executor::RestartUpstartJob_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetPpdFile_Name: {
+    case messages::Executor::kGetPpdFile: {
       return &Executor::GetPpdFile_Sym::IPCStableHash;
     }
   }
@@ -66,17 +66,17 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kExecutor_RestartUpstartJob_Name:
+    switch (static_cast<messages::Executor>(message.name())) {
+      case messages::Executor::kRestartUpstartJob:
             return "Receive printscanmgr::mojom::Executor::RestartUpstartJob";
-      case internal::kExecutor_GetPpdFile_Name:
+      case messages::Executor::kGetPpdFile:
             return "Receive printscanmgr::mojom::Executor::GetPpdFile";
     }
   } else {
-    switch (message.name()) {
-      case internal::kExecutor_RestartUpstartJob_Name:
+    switch (static_cast<messages::Executor>(message.name())) {
+      case messages::Executor::kRestartUpstartJob:
             return "Receive reply printscanmgr::mojom::Executor::RestartUpstartJob";
-      case internal::kExecutor_GetPpdFile_Name:
+      case messages::Executor::kGetPpdFile:
             return "Receive reply printscanmgr::mojom::Executor::GetPpdFile";
     }
   }
@@ -183,8 +183,7 @@ void ExecutorProxy::RestartUpstartJob(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RestartUpstartJob_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRestartUpstartJob), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::printscanmgr::mojom::internal::Executor_RestartUpstartJob_Params_Data> params(
           message);
@@ -229,8 +228,7 @@ void ExecutorProxy::GetPpdFile(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetPpdFile_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetPpdFile), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::printscanmgr::mojom::internal::Executor_GetPpdFile_Params_Data> params(
           message);
@@ -362,8 +360,7 @@ void Executor_RestartUpstartJob_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_RestartUpstartJob_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kRestartUpstartJob), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::printscanmgr::mojom::internal::Executor_RestartUpstartJob_ResponseParams_Data> params(
           message);
@@ -503,8 +500,7 @@ void Executor_GetPpdFile_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kExecutor_GetPpdFile_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Executor::kGetPpdFile), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::printscanmgr::mojom::internal::Executor_GetPpdFile_ResponseParams_Data> params(
           message);
@@ -543,11 +539,11 @@ void Executor_GetPpdFile_ProxyToResponder::Run(
 bool ExecutorStubDispatch::Accept(
     Executor* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kExecutor_RestartUpstartJob_Name: {
+  switch (static_cast<messages::Executor>(message->header()->name)) {
+    case messages::Executor::kRestartUpstartJob: {
       break;
     }
-    case internal::kExecutor_GetPpdFile_Name: {
+    case messages::Executor::kGetPpdFile: {
       break;
     }
   }
@@ -562,8 +558,8 @@ bool ExecutorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kExecutor_RestartUpstartJob_Name: {
+  switch (static_cast<messages::Executor>(message->header()->name)) {
+    case messages::Executor::kRestartUpstartJob: {
       internal::Executor_RestartUpstartJob_Params_Data* params =
           reinterpret_cast<
               internal::Executor_RestartUpstartJob_Params_Data*>(
@@ -593,7 +589,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_job), std::move(callback));
       return true;
     }
-    case internal::kExecutor_GetPpdFile_Name: {
+    case messages::Executor::kGetPpdFile: {
       internal::Executor_GetPpdFile_Params_Data* params =
           reinterpret_cast<
               internal::Executor_GetPpdFile_Params_Data*>(

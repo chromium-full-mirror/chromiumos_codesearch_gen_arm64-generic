@@ -49,14 +49,14 @@ const char JpegEncodeAccelerator::Name_[] = "chromeos_camera.mojom.JpegEncodeAcc
 
 JpegEncodeAccelerator::IPCStableHashFunction JpegEncodeAccelerator::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kJpegEncodeAccelerator_Initialize_Name: {
+  switch (static_cast<messages::JpegEncodeAccelerator>(message.name())) {
+    case messages::JpegEncodeAccelerator::kInitialize: {
       return &JpegEncodeAccelerator::Initialize_Sym::IPCStableHash;
     }
-    case internal::kJpegEncodeAccelerator_EncodeWithFD_Name: {
+    case messages::JpegEncodeAccelerator::kEncodeWithFD: {
       return &JpegEncodeAccelerator::EncodeWithFD_Sym::IPCStableHash;
     }
-    case internal::kJpegEncodeAccelerator_EncodeWithDmaBuf_Name: {
+    case messages::JpegEncodeAccelerator::kEncodeWithDmaBuf: {
       return &JpegEncodeAccelerator::EncodeWithDmaBuf_Sym::IPCStableHash;
     }
   }
@@ -69,21 +69,21 @@ const char* JpegEncodeAccelerator::MessageToMethodName_(mojo::Message& message) 
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kJpegEncodeAccelerator_Initialize_Name:
+    switch (static_cast<messages::JpegEncodeAccelerator>(message.name())) {
+      case messages::JpegEncodeAccelerator::kInitialize:
             return "Receive chromeos_camera::mojom::JpegEncodeAccelerator::Initialize";
-      case internal::kJpegEncodeAccelerator_EncodeWithFD_Name:
+      case messages::JpegEncodeAccelerator::kEncodeWithFD:
             return "Receive chromeos_camera::mojom::JpegEncodeAccelerator::EncodeWithFD";
-      case internal::kJpegEncodeAccelerator_EncodeWithDmaBuf_Name:
+      case messages::JpegEncodeAccelerator::kEncodeWithDmaBuf:
             return "Receive chromeos_camera::mojom::JpegEncodeAccelerator::EncodeWithDmaBuf";
     }
   } else {
-    switch (message.name()) {
-      case internal::kJpegEncodeAccelerator_Initialize_Name:
+    switch (static_cast<messages::JpegEncodeAccelerator>(message.name())) {
+      case messages::JpegEncodeAccelerator::kInitialize:
             return "Receive reply chromeos_camera::mojom::JpegEncodeAccelerator::Initialize";
-      case internal::kJpegEncodeAccelerator_EncodeWithFD_Name:
+      case messages::JpegEncodeAccelerator::kEncodeWithFD:
             return "Receive reply chromeos_camera::mojom::JpegEncodeAccelerator::EncodeWithFD";
-      case internal::kJpegEncodeAccelerator_EncodeWithDmaBuf_Name:
+      case messages::JpegEncodeAccelerator::kEncodeWithDmaBuf:
             return "Receive reply chromeos_camera::mojom::JpegEncodeAccelerator::EncodeWithDmaBuf";
     }
   }
@@ -212,8 +212,7 @@ void JpegEncodeAcceleratorProxy::Initialize(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kJpegEncodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::JpegEncodeAccelerator::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos_camera::mojom::internal::JpegEncodeAccelerator_Initialize_Params_Data> params(
           message);
@@ -280,8 +279,7 @@ void JpegEncodeAcceleratorProxy::EncodeWithFD(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kJpegEncodeAccelerator_EncodeWithFD_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::JpegEncodeAccelerator::kEncodeWithFD), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos_camera::mojom::internal::JpegEncodeAccelerator_EncodeWithFD_Params_Data> params(
           message);
@@ -378,8 +376,7 @@ void JpegEncodeAcceleratorProxy::EncodeWithDmaBuf(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kJpegEncodeAccelerator_EncodeWithDmaBuf_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::JpegEncodeAccelerator::kEncodeWithDmaBuf), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos_camera::mojom::internal::JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data> params(
           message);
@@ -533,8 +530,7 @@ void JpegEncodeAccelerator_Initialize_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kJpegEncodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::JpegEncodeAccelerator::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos_camera::mojom::internal::JpegEncodeAccelerator_Initialize_ResponseParams_Data> params(
           message);
@@ -670,8 +666,7 @@ void JpegEncodeAccelerator_EncodeWithFD_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kJpegEncodeAccelerator_EncodeWithFD_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::JpegEncodeAccelerator::kEncodeWithFD), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos_camera::mojom::internal::JpegEncodeAccelerator_EncodeWithFD_ResponseParams_Data> params(
           message);
@@ -803,8 +798,7 @@ void JpegEncodeAccelerator_EncodeWithDmaBuf_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kJpegEncodeAccelerator_EncodeWithDmaBuf_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::JpegEncodeAccelerator::kEncodeWithDmaBuf), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos_camera::mojom::internal::JpegEncodeAccelerator_EncodeWithDmaBuf_ResponseParams_Data> params(
           message);
@@ -834,14 +828,14 @@ void JpegEncodeAccelerator_EncodeWithDmaBuf_ProxyToResponder::Run(
 bool JpegEncodeAcceleratorStubDispatch::Accept(
     JpegEncodeAccelerator* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kJpegEncodeAccelerator_Initialize_Name: {
+  switch (static_cast<messages::JpegEncodeAccelerator>(message->header()->name)) {
+    case messages::JpegEncodeAccelerator::kInitialize: {
       break;
     }
-    case internal::kJpegEncodeAccelerator_EncodeWithFD_Name: {
+    case messages::JpegEncodeAccelerator::kEncodeWithFD: {
       break;
     }
-    case internal::kJpegEncodeAccelerator_EncodeWithDmaBuf_Name: {
+    case messages::JpegEncodeAccelerator::kEncodeWithDmaBuf: {
       break;
     }
   }
@@ -856,8 +850,8 @@ bool JpegEncodeAcceleratorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kJpegEncodeAccelerator_Initialize_Name: {
+  switch (static_cast<messages::JpegEncodeAccelerator>(message->header()->name)) {
+    case messages::JpegEncodeAccelerator::kInitialize: {
       internal::JpegEncodeAccelerator_Initialize_Params_Data* params =
           reinterpret_cast<
               internal::JpegEncodeAccelerator_Initialize_Params_Data*>(
@@ -883,7 +877,7 @@ bool JpegEncodeAcceleratorStubDispatch::AcceptWithResponder(
       impl->Initialize(std::move(callback));
       return true;
     }
-    case internal::kJpegEncodeAccelerator_EncodeWithFD_Name: {
+    case messages::JpegEncodeAccelerator::kEncodeWithFD: {
       internal::JpegEncodeAccelerator_EncodeWithFD_Params_Data* params =
           reinterpret_cast<
               internal::JpegEncodeAccelerator_EncodeWithFD_Params_Data*>(
@@ -945,7 +939,7 @@ bool JpegEncodeAcceleratorStubDispatch::AcceptWithResponder(
         std::move(p_output_buffer_size), std::move(callback));
       return true;
     }
-    case internal::kJpegEncodeAccelerator_EncodeWithDmaBuf_Name: {
+    case messages::JpegEncodeAccelerator::kEncodeWithDmaBuf: {
       internal::JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data* params =
           reinterpret_cast<
               internal::JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data*>(

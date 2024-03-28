@@ -11,12 +11,14 @@
 
 
 namespace chromeos::machine_learning::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kHandwritingRecognizer_Recognize_Name = 0;
+enum class HandwritingRecognizer : uint32_t {
+  kRecognize = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::machine_learning::mojom
 

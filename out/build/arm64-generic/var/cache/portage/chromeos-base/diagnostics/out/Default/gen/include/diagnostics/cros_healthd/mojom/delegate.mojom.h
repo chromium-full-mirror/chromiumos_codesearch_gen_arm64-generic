@@ -10,10 +10,11 @@
 #include <stdint.h>
 
 #include <limits>
+#include <optional>
 #include <type_traits>
 #include <utility>
 
-#include <optional>
+#include "base/types/cxx23_to_underlying.h"
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -102,6 +103,7 @@ class Delegate
     kGetSmartBatteryManufactureDateMinVersion = 0,
     kGetSmartBatteryTemperatureMinVersion = 0,
     kRunUrandomMinVersion = 0,
+    kRunNetworkBandwidthTestMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -186,6 +188,9 @@ class Delegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunUrandom_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunNetworkBandwidthTest_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -311,6 +316,11 @@ class Delegate
   using RunUrandomCallback = base::OnceCallback<void(bool)>;
   
   virtual void RunUrandom(base::TimeDelta exec_duration, RunUrandomCallback callback) = 0;
+
+
+  using RunNetworkBandwidthTestCallback = base::OnceCallback<void(std::optional<double>)>;
+  
+  virtual void RunNetworkBandwidthTest(::ash::cros_healthd::mojom::NetworkBandwidthTestType type, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, RunNetworkBandwidthTestCallback callback) = 0;
 };
 
 
@@ -375,6 +385,8 @@ class  DelegateProxy
   void GetSmartBatteryTemperature(uint8_t i2c_port, GetSmartBatteryTemperatureCallback callback) final;
   
   void RunUrandom(base::TimeDelta exec_duration, RunUrandomCallback callback) final;
+  
+  void RunNetworkBandwidthTest(::ash::cros_healthd::mojom::NetworkBandwidthTestType type, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, RunNetworkBandwidthTestCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

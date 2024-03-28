@@ -433,56 +433,56 @@ const char NetworkDiagnosticsRoutines::Name_[] = "chromeos.network_diagnostics.m
 
 NetworkDiagnosticsRoutines::IPCStableHashFunction NetworkDiagnosticsRoutines::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kNetworkDiagnosticsRoutines_GetResult_Name: {
+  switch (static_cast<messages::NetworkDiagnosticsRoutines>(message.name())) {
+    case messages::NetworkDiagnosticsRoutines::kGetResult: {
       return &NetworkDiagnosticsRoutines::GetResult_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_GetAllResults_Name: {
+    case messages::NetworkDiagnosticsRoutines::kGetAllResults: {
       return &NetworkDiagnosticsRoutines::GetAllResults_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunLanConnectivity: {
       return &NetworkDiagnosticsRoutines::RunLanConnectivity_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunSignalStrength: {
       return &NetworkDiagnosticsRoutines::RunSignalStrength_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunGatewayCanBePinged: {
       return &NetworkDiagnosticsRoutines::RunGatewayCanBePinged_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunHasSecureWiFiConnection: {
       return &NetworkDiagnosticsRoutines::RunHasSecureWiFiConnection_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunDnsResolverPresent: {
       return &NetworkDiagnosticsRoutines::RunDnsResolverPresent_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunDnsLatency: {
       return &NetworkDiagnosticsRoutines::RunDnsLatency_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunDnsResolution: {
       return &NetworkDiagnosticsRoutines::RunDnsResolution_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunCaptivePortal: {
       return &NetworkDiagnosticsRoutines::RunCaptivePortal_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunHttpFirewall: {
       return &NetworkDiagnosticsRoutines::RunHttpFirewall_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunHttpsFirewall: {
       return &NetworkDiagnosticsRoutines::RunHttpsFirewall_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunHttpsLatency: {
       return &NetworkDiagnosticsRoutines::RunHttpsLatency_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunVideoConferencing: {
       return &NetworkDiagnosticsRoutines::RunVideoConferencing_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunArcHttp: {
       return &NetworkDiagnosticsRoutines::RunArcHttp_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunArcPing_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunArcPing: {
       return &NetworkDiagnosticsRoutines::RunArcPing_Sym::IPCStableHash;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunArcDnsResolution: {
       return &NetworkDiagnosticsRoutines::RunArcDnsResolution_Sym::IPCStableHash;
     }
   }
@@ -495,77 +495,77 @@ const char* NetworkDiagnosticsRoutines::MessageToMethodName_(mojo::Message& mess
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kNetworkDiagnosticsRoutines_GetResult_Name:
+    switch (static_cast<messages::NetworkDiagnosticsRoutines>(message.name())) {
+      case messages::NetworkDiagnosticsRoutines::kGetResult:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::GetResult";
-      case internal::kNetworkDiagnosticsRoutines_GetAllResults_Name:
+      case messages::NetworkDiagnosticsRoutines::kGetAllResults:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::GetAllResults";
-      case internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunLanConnectivity:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunLanConnectivity";
-      case internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunSignalStrength:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunSignalStrength";
-      case internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunGatewayCanBePinged:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunGatewayCanBePinged";
-      case internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunHasSecureWiFiConnection:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHasSecureWiFiConnection";
-      case internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunDnsResolverPresent:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsResolverPresent";
-      case internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunDnsLatency:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsLatency";
-      case internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunDnsResolution:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsResolution";
-      case internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunCaptivePortal:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunCaptivePortal";
-      case internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunHttpFirewall:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpFirewall";
-      case internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunHttpsFirewall:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpsFirewall";
-      case internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunHttpsLatency:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpsLatency";
-      case internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunVideoConferencing:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunVideoConferencing";
-      case internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunArcHttp:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcHttp";
-      case internal::kNetworkDiagnosticsRoutines_RunArcPing_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunArcPing:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcPing";
-      case internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunArcDnsResolution:
             return "Receive chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcDnsResolution";
     }
   } else {
-    switch (message.name()) {
-      case internal::kNetworkDiagnosticsRoutines_GetResult_Name:
+    switch (static_cast<messages::NetworkDiagnosticsRoutines>(message.name())) {
+      case messages::NetworkDiagnosticsRoutines::kGetResult:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::GetResult";
-      case internal::kNetworkDiagnosticsRoutines_GetAllResults_Name:
+      case messages::NetworkDiagnosticsRoutines::kGetAllResults:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::GetAllResults";
-      case internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunLanConnectivity:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunLanConnectivity";
-      case internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunSignalStrength:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunSignalStrength";
-      case internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunGatewayCanBePinged:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunGatewayCanBePinged";
-      case internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunHasSecureWiFiConnection:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHasSecureWiFiConnection";
-      case internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunDnsResolverPresent:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsResolverPresent";
-      case internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunDnsLatency:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsLatency";
-      case internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunDnsResolution:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsResolution";
-      case internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunCaptivePortal:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunCaptivePortal";
-      case internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunHttpFirewall:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpFirewall";
-      case internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunHttpsFirewall:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpsFirewall";
-      case internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunHttpsLatency:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpsLatency";
-      case internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunVideoConferencing:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunVideoConferencing";
-      case internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunArcHttp:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcHttp";
-      case internal::kNetworkDiagnosticsRoutines_RunArcPing_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunArcPing:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcPing";
-      case internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name:
+      case messages::NetworkDiagnosticsRoutines::kRunArcDnsResolution:
             return "Receive reply chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcDnsResolution";
     }
   }
@@ -1107,8 +1107,7 @@ void NetworkDiagnosticsRoutinesProxy::GetResult(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_GetResult_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kGetResult), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_GetResult_Params_Data> params(
           message);
@@ -1146,8 +1145,7 @@ void NetworkDiagnosticsRoutinesProxy::GetAllResults(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_GetAllResults_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kGetAllResults), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_GetAllResults_Params_Data> params(
           message);
@@ -1183,8 +1181,7 @@ void NetworkDiagnosticsRoutinesProxy::RunLanConnectivity(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunLanConnectivity), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data> params(
           message);
@@ -1220,8 +1217,7 @@ void NetworkDiagnosticsRoutinesProxy::RunSignalStrength(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunSignalStrength), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data> params(
           message);
@@ -1257,8 +1253,7 @@ void NetworkDiagnosticsRoutinesProxy::RunGatewayCanBePinged(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunGatewayCanBePinged), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data> params(
           message);
@@ -1294,8 +1289,7 @@ void NetworkDiagnosticsRoutinesProxy::RunHasSecureWiFiConnection(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunHasSecureWiFiConnection), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data> params(
           message);
@@ -1331,8 +1325,7 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsResolverPresent(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunDnsResolverPresent), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data> params(
           message);
@@ -1368,8 +1361,7 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsLatency(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunDnsLatency), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data> params(
           message);
@@ -1405,8 +1397,7 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsResolution(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunDnsResolution), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data> params(
           message);
@@ -1442,8 +1433,7 @@ void NetworkDiagnosticsRoutinesProxy::RunCaptivePortal(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunCaptivePortal), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data> params(
           message);
@@ -1479,8 +1469,7 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpFirewall(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunHttpFirewall), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data> params(
           message);
@@ -1516,8 +1505,7 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsFirewall(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunHttpsFirewall), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data> params(
           message);
@@ -1553,8 +1541,7 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsLatency(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunHttpsLatency), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data> params(
           message);
@@ -1597,8 +1584,7 @@ void NetworkDiagnosticsRoutinesProxy::RunVideoConferencing(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunVideoConferencing), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data> params(
           message);
@@ -1641,8 +1627,7 @@ void NetworkDiagnosticsRoutinesProxy::RunArcHttp(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunArcHttp), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcHttp_Params_Data> params(
           message);
@@ -1678,8 +1663,7 @@ void NetworkDiagnosticsRoutinesProxy::RunArcPing(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunArcPing_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunArcPing), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcPing_Params_Data> params(
           message);
@@ -1715,8 +1699,7 @@ void NetworkDiagnosticsRoutinesProxy::RunArcDnsResolution(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunArcDnsResolution), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data> params(
           message);
@@ -1830,8 +1813,7 @@ void NetworkDiagnosticsRoutines_GetResult_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_GetResult_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kGetResult), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_GetResult_ResponseParams_Data> params(
           message);
@@ -1959,8 +1941,7 @@ void NetworkDiagnosticsRoutines_GetAllResults_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_GetAllResults_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kGetAllResults), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_GetAllResults_ResponseParams_Data> params(
           message);
@@ -2094,8 +2075,7 @@ void NetworkDiagnosticsRoutines_RunLanConnectivity_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunLanConnectivity), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParams_Data> params(
           message);
@@ -2227,8 +2207,7 @@ void NetworkDiagnosticsRoutines_RunSignalStrength_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunSignalStrength), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParams_Data> params(
           message);
@@ -2360,8 +2339,7 @@ void NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunGatewayCanBePinged), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParams_Data> params(
           message);
@@ -2493,8 +2471,7 @@ void NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ProxyToResponder::Run
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunHasSecureWiFiConnection), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParams_Data> params(
           message);
@@ -2626,8 +2603,7 @@ void NetworkDiagnosticsRoutines_RunDnsResolverPresent_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunDnsResolverPresent), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParams_Data> params(
           message);
@@ -2759,8 +2735,7 @@ void NetworkDiagnosticsRoutines_RunDnsLatency_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunDnsLatency), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParams_Data> params(
           message);
@@ -2892,8 +2867,7 @@ void NetworkDiagnosticsRoutines_RunDnsResolution_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunDnsResolution), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParams_Data> params(
           message);
@@ -3025,8 +2999,7 @@ void NetworkDiagnosticsRoutines_RunCaptivePortal_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunCaptivePortal), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParams_Data> params(
           message);
@@ -3158,8 +3131,7 @@ void NetworkDiagnosticsRoutines_RunHttpFirewall_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunHttpFirewall), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParams_Data> params(
           message);
@@ -3291,8 +3263,7 @@ void NetworkDiagnosticsRoutines_RunHttpsFirewall_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunHttpsFirewall), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParams_Data> params(
           message);
@@ -3424,8 +3395,7 @@ void NetworkDiagnosticsRoutines_RunHttpsLatency_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunHttpsLatency), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParams_Data> params(
           message);
@@ -3557,8 +3527,7 @@ void NetworkDiagnosticsRoutines_RunVideoConferencing_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunVideoConferencing), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParams_Data> params(
           message);
@@ -3690,8 +3659,7 @@ void NetworkDiagnosticsRoutines_RunArcHttp_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunArcHttp), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcHttp_ResponseParams_Data> params(
           message);
@@ -3823,8 +3791,7 @@ void NetworkDiagnosticsRoutines_RunArcPing_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunArcPing_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunArcPing), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcPing_ResponseParams_Data> params(
           message);
@@ -3956,8 +3923,7 @@ void NetworkDiagnosticsRoutines_RunArcDnsResolution_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::NetworkDiagnosticsRoutines::kRunArcDnsResolution), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParams_Data> params(
           message);
@@ -3995,56 +3961,56 @@ void NetworkDiagnosticsRoutines_RunArcDnsResolution_ProxyToResponder::Run(
 bool NetworkDiagnosticsRoutinesStubDispatch::Accept(
     NetworkDiagnosticsRoutines* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kNetworkDiagnosticsRoutines_GetResult_Name: {
+  switch (static_cast<messages::NetworkDiagnosticsRoutines>(message->header()->name)) {
+    case messages::NetworkDiagnosticsRoutines::kGetResult: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_GetAllResults_Name: {
+    case messages::NetworkDiagnosticsRoutines::kGetAllResults: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunLanConnectivity: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunSignalStrength: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunGatewayCanBePinged: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunHasSecureWiFiConnection: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunDnsResolverPresent: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunDnsLatency: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunDnsResolution: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunCaptivePortal: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunHttpFirewall: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunHttpsFirewall: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunHttpsLatency: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunVideoConferencing: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunArcHttp: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunArcPing_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunArcPing: {
       break;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunArcDnsResolution: {
       break;
     }
   }
@@ -4059,8 +4025,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kNetworkDiagnosticsRoutines_GetResult_Name: {
+  switch (static_cast<messages::NetworkDiagnosticsRoutines>(message->header()->name)) {
+    case messages::NetworkDiagnosticsRoutines::kGetResult: {
       internal::NetworkDiagnosticsRoutines_GetResult_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_GetResult_Params_Data*>(
@@ -4090,7 +4056,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
         std::move(p_routine), std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_GetAllResults_Name: {
+    case messages::NetworkDiagnosticsRoutines::kGetAllResults: {
       internal::NetworkDiagnosticsRoutines_GetAllResults_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_GetAllResults_Params_Data*>(
@@ -4116,7 +4082,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       impl->GetAllResults(std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunLanConnectivity: {
       internal::NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data*>(
@@ -4142,7 +4108,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       impl->RunLanConnectivity(std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunSignalStrength: {
       internal::NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data*>(
@@ -4168,7 +4134,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       impl->RunSignalStrength(std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunGatewayCanBePinged: {
       internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data*>(
@@ -4194,7 +4160,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       impl->RunGatewayCanBePinged(std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunHasSecureWiFiConnection: {
       internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data*>(
@@ -4220,7 +4186,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       impl->RunHasSecureWiFiConnection(std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunDnsResolverPresent: {
       internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data*>(
@@ -4246,7 +4212,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       impl->RunDnsResolverPresent(std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunDnsLatency: {
       internal::NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data*>(
@@ -4272,7 +4238,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       impl->RunDnsLatency(std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunDnsResolution: {
       internal::NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data*>(
@@ -4298,7 +4264,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       impl->RunDnsResolution(std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunCaptivePortal: {
       internal::NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data*>(
@@ -4324,7 +4290,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       impl->RunCaptivePortal(std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunHttpFirewall: {
       internal::NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data*>(
@@ -4350,7 +4316,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       impl->RunHttpFirewall(std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunHttpsFirewall: {
       internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data*>(
@@ -4376,7 +4342,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       impl->RunHttpsFirewall(std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunHttpsLatency: {
       internal::NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data*>(
@@ -4402,7 +4368,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       impl->RunHttpsLatency(std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunVideoConferencing: {
       internal::NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data*>(
@@ -4432,7 +4398,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
         std::move(p_stun_server_hostname), std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunArcHttp: {
       internal::NetworkDiagnosticsRoutines_RunArcHttp_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunArcHttp_Params_Data*>(
@@ -4458,7 +4424,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       impl->RunArcHttp(std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunArcPing_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunArcPing: {
       internal::NetworkDiagnosticsRoutines_RunArcPing_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunArcPing_Params_Data*>(
@@ -4484,7 +4450,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       impl->RunArcPing(std::move(callback));
       return true;
     }
-    case internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name: {
+    case messages::NetworkDiagnosticsRoutines::kRunArcDnsResolution: {
       internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data* params =
           reinterpret_cast<
               internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data*>(

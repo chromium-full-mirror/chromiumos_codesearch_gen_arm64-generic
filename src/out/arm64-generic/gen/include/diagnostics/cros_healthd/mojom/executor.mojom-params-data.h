@@ -309,6 +309,23 @@ class  StylusObserver_OnConnected_Params_Data {
 };
 static_assert(sizeof(StylusObserver_OnConnected_Params_Data) == 16,
               "Bad sizeof(StylusObserver_OnConnected_Params_Data)");
+class  NetworkBandwidthObserver_OnProgress_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  double speed_kbps;
+  double percentage;
+
+ private:
+  friend class mojo::internal::MessageFragment<NetworkBandwidthObserver_OnProgress_Params_Data>;
+
+  NetworkBandwidthObserver_OnProgress_Params_Data();
+  ~NetworkBandwidthObserver_OnProgress_Params_Data() = delete;
+};
+static_assert(sizeof(NetworkBandwidthObserver_OnProgress_Params_Data) == 24,
+              "Bad sizeof(NetworkBandwidthObserver_OnProgress_Params_Data)");
 class  PowerButtonObserver_OnEvent_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1573,6 +1590,42 @@ class  Executor_RunUrandom_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_RunUrandom_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_RunUrandom_ResponseParams_Data)");
+class  Executor_RunNetworkBandwidthTest_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t type;
+  mojo::internal::Interface_Data observer;
+  mojo::internal::Handle_Data process_control;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_RunNetworkBandwidthTest_Params_Data>;
+
+  Executor_RunNetworkBandwidthTest_Params_Data();
+  ~Executor_RunNetworkBandwidthTest_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_RunNetworkBandwidthTest_Params_Data) == 24,
+              "Bad sizeof(Executor_RunNetworkBandwidthTest_Params_Data)");
+class  Executor_RunNetworkBandwidthTest_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t average_speed_$flag : 1;
+  uint8_t pad0_[7];
+  double average_speed_$value;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_RunNetworkBandwidthTest_ResponseParams_Data>;
+
+  Executor_RunNetworkBandwidthTest_ResponseParams_Data();
+  ~Executor_RunNetworkBandwidthTest_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_RunNetworkBandwidthTest_ResponseParams_Data) == 24,
+              "Bad sizeof(Executor_RunNetworkBandwidthTest_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -1962,6 +2015,27 @@ class StylusObserver_OnConnected_ParamsDataView {
  private:
   internal::StylusObserver_OnConnected_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+class NetworkBandwidthObserver_OnProgress_ParamsDataView {
+ public:
+  NetworkBandwidthObserver_OnProgress_ParamsDataView() = default;
+
+  NetworkBandwidthObserver_OnProgress_ParamsDataView(
+      internal::NetworkBandwidthObserver_OnProgress_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  double speed_kbps() const {
+    return data_->speed_kbps;
+  }
+  double percentage() const {
+    return data_->percentage;
+  }
+ private:
+  internal::NetworkBandwidthObserver_OnProgress_Params_Data* data_ = nullptr;
 };
 
 
@@ -4048,6 +4122,71 @@ class Executor_RunUrandom_ResponseParamsDataView {
 };
 
 
+class Executor_RunNetworkBandwidthTest_ParamsDataView {
+ public:
+  Executor_RunNetworkBandwidthTest_ParamsDataView() = default;
+
+  Executor_RunNetworkBandwidthTest_ParamsDataView(
+      internal::Executor_RunNetworkBandwidthTest_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NetworkBandwidthTestType>(
+        data_value, output);
+  }
+  NetworkBandwidthTestType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::NetworkBandwidthTestType>(data_->type));
+  }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::NetworkBandwidthObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeProcessControl() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+            &data_->process_control, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Executor_RunNetworkBandwidthTest_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Executor_RunNetworkBandwidthTest_ResponseParamsDataView {
+ public:
+  Executor_RunNetworkBandwidthTest_ResponseParamsDataView() = default;
+
+  Executor_RunNetworkBandwidthTest_ResponseParamsDataView(
+      internal::Executor_RunNetworkBandwidthTest_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  std::optional<double> average_speed() const {
+
+    return data_->average_speed_$flag
+        ? std::make_optional(data_->average_speed_$value)
+        : std::nullopt;
+  }
+ private:
+  internal::Executor_RunNetworkBandwidthTest_ResponseParams_Data* data_ = nullptr;
+};
+
+
 
 
 
@@ -4116,6 +4255,8 @@ inline void StylusObserver_OnConnected_ParamsDataView::GetConnectedEventDataView
   auto pointer = data_->connected_event.Get();
   *output = ::ash::cros_healthd::mojom::StylusConnectedEventDataView(pointer, message_);
 }
+
+
 
 
 
@@ -4456,6 +4597,10 @@ inline void Executor_RunUrandom_ParamsDataView::GetExecDurationDataView(
   auto pointer = data_->exec_duration.Get();
   *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
 }
+
+
+
+
 
 
 

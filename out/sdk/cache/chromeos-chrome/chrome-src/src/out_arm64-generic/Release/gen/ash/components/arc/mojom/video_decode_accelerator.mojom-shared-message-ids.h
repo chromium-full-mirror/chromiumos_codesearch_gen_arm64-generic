@@ -11,22 +11,26 @@
 
 
 namespace arc::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kVideoDecodeAccelerator_Initialize_Name = 0;
-constexpr uint32_t kVideoDecodeAccelerator_Decode_Name = 1;
-constexpr uint32_t kVideoDecodeAccelerator_AssignPictureBuffers_Name = 2;
-constexpr uint32_t kVideoDecodeAccelerator_ImportBufferForPicture_Name = 9;
-constexpr uint32_t kVideoDecodeAccelerator_ReusePictureBuffer_Name = 4;
-constexpr uint32_t kVideoDecodeAccelerator_Reset_Name = 5;
-constexpr uint32_t kVideoDecodeAccelerator_Flush_Name = 6;
-constexpr uint32_t kVideoDecodeClient_PictureReady_Name = 1;
-constexpr uint32_t kVideoDecodeClient_NotifyEndOfBitstreamBuffer_Name = 2;
-constexpr uint32_t kVideoDecodeClient_NotifyError_Name = 3;
-constexpr uint32_t kVideoDecodeClient_ProvidePictureBuffers_Name = 5;
+enum class VideoDecodeAccelerator : uint32_t {
+  kInitialize = 0,
+  kDecode = 1,
+  kAssignPictureBuffers = 2,
+  kImportBufferForPicture = 9,
+  kReusePictureBuffer = 4,
+  kReset = 5,
+  kFlush = 6,
+};
+enum class VideoDecodeClient : uint32_t {
+  kPictureReady = 1,
+  kNotifyEndOfBitstreamBuffer = 2,
+  kNotifyError = 3,
+  kProvidePictureBuffers = 5,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // arc::mojom
 

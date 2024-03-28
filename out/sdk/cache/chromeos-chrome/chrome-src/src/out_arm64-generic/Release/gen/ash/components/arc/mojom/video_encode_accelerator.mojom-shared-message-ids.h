@@ -11,20 +11,24 @@
 
 
 namespace arc::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kVideoEncodeAccelerator_GetSupportedProfiles_Name = 0;
-constexpr uint32_t kVideoEncodeAccelerator_Initialize_Name = 9;
-constexpr uint32_t kVideoEncodeAccelerator_Encode_Name = 8;
-constexpr uint32_t kVideoEncodeAccelerator_UseBitstreamBuffer_Name = 3;
-constexpr uint32_t kVideoEncodeAccelerator_RequestEncodingParametersChange_Name = 10;
-constexpr uint32_t kVideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Name = 4;
-constexpr uint32_t kVideoEncodeAccelerator_Flush_Name = 5;
-constexpr uint32_t kVideoEncodeClient_RequireBitstreamBuffers_Name = 0;
-constexpr uint32_t kVideoEncodeClient_NotifyError_Name = 2;
+enum class VideoEncodeAccelerator : uint32_t {
+  kGetSupportedProfiles = 0,
+  kInitialize = 9,
+  kEncode = 8,
+  kUseBitstreamBuffer = 3,
+  kRequestEncodingParametersChange = 10,
+  kRequestEncodingParametersChangeDeprecated = 4,
+  kFlush = 5,
+};
+enum class VideoEncodeClient : uint32_t {
+  kRequireBitstreamBuffers = 0,
+  kNotifyError = 2,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // arc::mojom
 

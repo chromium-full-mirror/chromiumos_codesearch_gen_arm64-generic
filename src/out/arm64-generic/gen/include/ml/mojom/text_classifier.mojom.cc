@@ -515,14 +515,14 @@ const char TextClassifier::Name_[] = "chromeos.machine_learning.mojom.TextClassi
 
 TextClassifier::IPCStableHashFunction TextClassifier::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kTextClassifier_Annotate_Name: {
+  switch (static_cast<messages::TextClassifier>(message.name())) {
+    case messages::TextClassifier::kAnnotate: {
       return &TextClassifier::Annotate_Sym::IPCStableHash;
     }
-    case internal::kTextClassifier_FindLanguages_Name: {
+    case messages::TextClassifier::kFindLanguages: {
       return &TextClassifier::FindLanguages_Sym::IPCStableHash;
     }
-    case internal::kTextClassifier_REMOVED_1_Name: {
+    case messages::TextClassifier::kREMOVED_1: {
       return &TextClassifier::REMOVED_1_Sym::IPCStableHash;
     }
   }
@@ -535,21 +535,21 @@ const char* TextClassifier::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kTextClassifier_Annotate_Name:
+    switch (static_cast<messages::TextClassifier>(message.name())) {
+      case messages::TextClassifier::kAnnotate:
             return "Receive chromeos::machine_learning::mojom::TextClassifier::Annotate";
-      case internal::kTextClassifier_FindLanguages_Name:
+      case messages::TextClassifier::kFindLanguages:
             return "Receive chromeos::machine_learning::mojom::TextClassifier::FindLanguages";
-      case internal::kTextClassifier_REMOVED_1_Name:
+      case messages::TextClassifier::kREMOVED_1:
             return "Receive chromeos::machine_learning::mojom::TextClassifier::REMOVED_1";
     }
   } else {
-    switch (message.name()) {
-      case internal::kTextClassifier_Annotate_Name:
+    switch (static_cast<messages::TextClassifier>(message.name())) {
+      case messages::TextClassifier::kAnnotate:
             return "Receive reply chromeos::machine_learning::mojom::TextClassifier::Annotate";
-      case internal::kTextClassifier_FindLanguages_Name:
+      case messages::TextClassifier::kFindLanguages:
             return "Receive reply chromeos::machine_learning::mojom::TextClassifier::FindLanguages";
-      case internal::kTextClassifier_REMOVED_1_Name:
+      case messages::TextClassifier::kREMOVED_1:
             return "Receive reply chromeos::machine_learning::mojom::TextClassifier::REMOVED_1";
     }
   }
@@ -685,8 +685,7 @@ void TextClassifierProxy::Annotate(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kTextClassifier_Annotate_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::TextClassifier::kAnnotate), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::TextClassifier_Annotate_Params_Data> params(
           message);
@@ -740,8 +739,7 @@ void TextClassifierProxy::FindLanguages(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kTextClassifier_FindLanguages_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::TextClassifier::kFindLanguages), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::TextClassifier_FindLanguages_Params_Data> params(
           message);
@@ -795,8 +793,7 @@ void TextClassifierProxy::REMOVED_1(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kTextClassifier_REMOVED_1_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::TextClassifier::kREMOVED_1), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::TextClassifier_REMOVED_1_Params_Data> params(
           message);
@@ -921,8 +918,7 @@ void TextClassifier_Annotate_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kTextClassifier_Annotate_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::TextClassifier::kAnnotate), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::TextClassifier_Annotate_ResponseParams_Data> params(
           message);
@@ -1056,8 +1052,7 @@ void TextClassifier_FindLanguages_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kTextClassifier_FindLanguages_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::TextClassifier::kFindLanguages), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::TextClassifier_FindLanguages_ResponseParams_Data> params(
           message);
@@ -1191,8 +1186,7 @@ void TextClassifier_REMOVED_1_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kTextClassifier_REMOVED_1_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::TextClassifier::kREMOVED_1), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::TextClassifier_REMOVED_1_ResponseParams_Data> params(
           message);
@@ -1230,14 +1224,14 @@ void TextClassifier_REMOVED_1_ProxyToResponder::Run(
 bool TextClassifierStubDispatch::Accept(
     TextClassifier* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kTextClassifier_Annotate_Name: {
+  switch (static_cast<messages::TextClassifier>(message->header()->name)) {
+    case messages::TextClassifier::kAnnotate: {
       break;
     }
-    case internal::kTextClassifier_FindLanguages_Name: {
+    case messages::TextClassifier::kFindLanguages: {
       break;
     }
-    case internal::kTextClassifier_REMOVED_1_Name: {
+    case messages::TextClassifier::kREMOVED_1: {
       break;
     }
   }
@@ -1252,8 +1246,8 @@ bool TextClassifierStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kTextClassifier_Annotate_Name: {
+  switch (static_cast<messages::TextClassifier>(message->header()->name)) {
+    case messages::TextClassifier::kAnnotate: {
       internal::TextClassifier_Annotate_Params_Data* params =
           reinterpret_cast<
               internal::TextClassifier_Annotate_Params_Data*>(
@@ -1283,7 +1277,7 @@ bool TextClassifierStubDispatch::AcceptWithResponder(
         std::move(p_request), std::move(callback));
       return true;
     }
-    case internal::kTextClassifier_FindLanguages_Name: {
+    case messages::TextClassifier::kFindLanguages: {
       internal::TextClassifier_FindLanguages_Params_Data* params =
           reinterpret_cast<
               internal::TextClassifier_FindLanguages_Params_Data*>(
@@ -1313,7 +1307,7 @@ bool TextClassifierStubDispatch::AcceptWithResponder(
         std::move(p_text), std::move(callback));
       return true;
     }
-    case internal::kTextClassifier_REMOVED_1_Name: {
+    case messages::TextClassifier::kREMOVED_1: {
       internal::TextClassifier_REMOVED_1_Params_Data* params =
           reinterpret_cast<
               internal::TextClassifier_REMOVED_1_Params_Data*>(

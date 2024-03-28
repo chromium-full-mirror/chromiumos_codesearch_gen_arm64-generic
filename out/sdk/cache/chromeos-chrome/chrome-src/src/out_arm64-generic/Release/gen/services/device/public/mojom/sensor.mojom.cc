@@ -117,23 +117,23 @@ const char Sensor::Name_[] = "device.mojom.Sensor";
 
 Sensor::IPCStableHashFunction Sensor::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kSensor_GetDefaultConfiguration_Name: {
+  switch (static_cast<messages::Sensor>(message.name())) {
+    case messages::Sensor::kGetDefaultConfiguration: {
       return &Sensor::GetDefaultConfiguration_Sym::IPCStableHash;
     }
-    case internal::kSensor_AddConfiguration_Name: {
+    case messages::Sensor::kAddConfiguration: {
       return &Sensor::AddConfiguration_Sym::IPCStableHash;
     }
-    case internal::kSensor_RemoveConfiguration_Name: {
+    case messages::Sensor::kRemoveConfiguration: {
       return &Sensor::RemoveConfiguration_Sym::IPCStableHash;
     }
-    case internal::kSensor_Suspend_Name: {
+    case messages::Sensor::kSuspend: {
       return &Sensor::Suspend_Sym::IPCStableHash;
     }
-    case internal::kSensor_Resume_Name: {
+    case messages::Sensor::kResume: {
       return &Sensor::Resume_Sym::IPCStableHash;
     }
-    case internal::kSensor_ConfigureReadingChangeNotifications_Name: {
+    case messages::Sensor::kConfigureReadingChangeNotifications: {
       return &Sensor::ConfigureReadingChangeNotifications_Sym::IPCStableHash;
     }
   }
@@ -146,33 +146,33 @@ const char* Sensor::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kSensor_GetDefaultConfiguration_Name:
+    switch (static_cast<messages::Sensor>(message.name())) {
+      case messages::Sensor::kGetDefaultConfiguration:
             return "Receive device::mojom::Sensor::GetDefaultConfiguration";
-      case internal::kSensor_AddConfiguration_Name:
+      case messages::Sensor::kAddConfiguration:
             return "Receive device::mojom::Sensor::AddConfiguration";
-      case internal::kSensor_RemoveConfiguration_Name:
+      case messages::Sensor::kRemoveConfiguration:
             return "Receive device::mojom::Sensor::RemoveConfiguration";
-      case internal::kSensor_Suspend_Name:
+      case messages::Sensor::kSuspend:
             return "Receive device::mojom::Sensor::Suspend";
-      case internal::kSensor_Resume_Name:
+      case messages::Sensor::kResume:
             return "Receive device::mojom::Sensor::Resume";
-      case internal::kSensor_ConfigureReadingChangeNotifications_Name:
+      case messages::Sensor::kConfigureReadingChangeNotifications:
             return "Receive device::mojom::Sensor::ConfigureReadingChangeNotifications";
     }
   } else {
-    switch (message.name()) {
-      case internal::kSensor_GetDefaultConfiguration_Name:
+    switch (static_cast<messages::Sensor>(message.name())) {
+      case messages::Sensor::kGetDefaultConfiguration:
             return "Receive reply device::mojom::Sensor::GetDefaultConfiguration";
-      case internal::kSensor_AddConfiguration_Name:
+      case messages::Sensor::kAddConfiguration:
             return "Receive reply device::mojom::Sensor::AddConfiguration";
-      case internal::kSensor_RemoveConfiguration_Name:
+      case messages::Sensor::kRemoveConfiguration:
             return "Receive reply device::mojom::Sensor::RemoveConfiguration";
-      case internal::kSensor_Suspend_Name:
+      case messages::Sensor::kSuspend:
             return "Receive reply device::mojom::Sensor::Suspend";
-      case internal::kSensor_Resume_Name:
+      case messages::Sensor::kResume:
             return "Receive reply device::mojom::Sensor::Resume";
-      case internal::kSensor_ConfigureReadingChangeNotifications_Name:
+      case messages::Sensor::kConfigureReadingChangeNotifications:
             return "Receive reply device::mojom::Sensor::ConfigureReadingChangeNotifications";
     }
   }
@@ -324,8 +324,7 @@ void SensorProxy::GetDefaultConfiguration(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensor_GetDefaultConfiguration_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Sensor::kGetDefaultConfiguration), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_GetDefaultConfiguration_Params_Data> params(
           message);
@@ -368,8 +367,7 @@ void SensorProxy::AddConfiguration(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensor_AddConfiguration_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Sensor::kAddConfiguration), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_AddConfiguration_Params_Data> params(
           message);
@@ -423,8 +421,7 @@ void SensorProxy::RemoveConfiguration(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensor_RemoveConfiguration_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Sensor::kRemoveConfiguration), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_RemoveConfiguration_Params_Data> params(
           message);
@@ -470,8 +467,7 @@ void SensorProxy::Suspend(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensor_Suspend_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Sensor::kSuspend), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_Suspend_Params_Data> params(
           message);
@@ -506,8 +502,7 @@ void SensorProxy::Resume(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensor_Resume_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Sensor::kResume), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_Resume_Params_Data> params(
           message);
@@ -549,8 +544,7 @@ void SensorProxy::ConfigureReadingChangeNotifications(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensor_ConfigureReadingChangeNotifications_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Sensor::kConfigureReadingChangeNotifications), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_ConfigureReadingChangeNotifications_Params_Data> params(
           message);
@@ -664,8 +658,7 @@ void Sensor_GetDefaultConfiguration_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensor_GetDefaultConfiguration_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Sensor::kGetDefaultConfiguration), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_GetDefaultConfiguration_ResponseParams_Data> params(
           message);
@@ -797,8 +790,7 @@ void Sensor_AddConfiguration_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensor_AddConfiguration_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Sensor::kAddConfiguration), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::Sensor_AddConfiguration_ResponseParams_Data> params(
           message);
@@ -826,14 +818,14 @@ void Sensor_AddConfiguration_ProxyToResponder::Run(
 bool SensorStubDispatch::Accept(
     Sensor* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kSensor_GetDefaultConfiguration_Name: {
+  switch (static_cast<messages::Sensor>(message->header()->name)) {
+    case messages::Sensor::kGetDefaultConfiguration: {
       break;
     }
-    case internal::kSensor_AddConfiguration_Name: {
+    case messages::Sensor::kAddConfiguration: {
       break;
     }
-    case internal::kSensor_RemoveConfiguration_Name: {
+    case messages::Sensor::kRemoveConfiguration: {
       DCHECK(message->is_serialized());
       internal::Sensor_RemoveConfiguration_Params_Data* params =
           reinterpret_cast<internal::Sensor_RemoveConfiguration_Params_Data*>(
@@ -860,7 +852,7 @@ bool SensorStubDispatch::Accept(
         std::move(p_configuration));
       return true;
     }
-    case internal::kSensor_Suspend_Name: {
+    case messages::Sensor::kSuspend: {
       DCHECK(message->is_serialized());
       internal::Sensor_Suspend_Params_Data* params =
           reinterpret_cast<internal::Sensor_Suspend_Params_Data*>(
@@ -883,7 +875,7 @@ bool SensorStubDispatch::Accept(
       impl->Suspend(        );
       return true;
     }
-    case internal::kSensor_Resume_Name: {
+    case messages::Sensor::kResume: {
       DCHECK(message->is_serialized());
       internal::Sensor_Resume_Params_Data* params =
           reinterpret_cast<internal::Sensor_Resume_Params_Data*>(
@@ -906,7 +898,7 @@ bool SensorStubDispatch::Accept(
       impl->Resume(        );
       return true;
     }
-    case internal::kSensor_ConfigureReadingChangeNotifications_Name: {
+    case messages::Sensor::kConfigureReadingChangeNotifications: {
       DCHECK(message->is_serialized());
       internal::Sensor_ConfigureReadingChangeNotifications_Params_Data* params =
           reinterpret_cast<internal::Sensor_ConfigureReadingChangeNotifications_Params_Data*>(
@@ -945,8 +937,8 @@ bool SensorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kSensor_GetDefaultConfiguration_Name: {
+  switch (static_cast<messages::Sensor>(message->header()->name)) {
+    case messages::Sensor::kGetDefaultConfiguration: {
       internal::Sensor_GetDefaultConfiguration_Params_Data* params =
           reinterpret_cast<
               internal::Sensor_GetDefaultConfiguration_Params_Data*>(
@@ -972,7 +964,7 @@ bool SensorStubDispatch::AcceptWithResponder(
       impl->GetDefaultConfiguration(std::move(callback));
       return true;
     }
-    case internal::kSensor_AddConfiguration_Name: {
+    case messages::Sensor::kAddConfiguration: {
       internal::Sensor_AddConfiguration_Params_Data* params =
           reinterpret_cast<
               internal::Sensor_AddConfiguration_Params_Data*>(
@@ -1002,16 +994,16 @@ bool SensorStubDispatch::AcceptWithResponder(
         std::move(p_configuration), std::move(callback));
       return true;
     }
-    case internal::kSensor_RemoveConfiguration_Name: {
+    case messages::Sensor::kRemoveConfiguration: {
       break;
     }
-    case internal::kSensor_Suspend_Name: {
+    case messages::Sensor::kSuspend: {
       break;
     }
-    case internal::kSensor_Resume_Name: {
+    case messages::Sensor::kResume: {
       break;
     }
-    case internal::kSensor_ConfigureReadingChangeNotifications_Name: {
+    case messages::Sensor::kConfigureReadingChangeNotifications: {
       break;
     }
   }
@@ -1047,11 +1039,11 @@ const char SensorClient::Name_[] = "device.mojom.SensorClient";
 
 SensorClient::IPCStableHashFunction SensorClient::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kSensorClient_RaiseError_Name: {
+  switch (static_cast<messages::SensorClient>(message.name())) {
+    case messages::SensorClient::kRaiseError: {
       return &SensorClient::RaiseError_Sym::IPCStableHash;
     }
-    case internal::kSensorClient_SensorReadingChanged_Name: {
+    case messages::SensorClient::kSensorReadingChanged: {
       return &SensorClient::SensorReadingChanged_Sym::IPCStableHash;
     }
   }
@@ -1064,17 +1056,17 @@ const char* SensorClient::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kSensorClient_RaiseError_Name:
+    switch (static_cast<messages::SensorClient>(message.name())) {
+      case messages::SensorClient::kRaiseError:
             return "Receive device::mojom::SensorClient::RaiseError";
-      case internal::kSensorClient_SensorReadingChanged_Name:
+      case messages::SensorClient::kSensorReadingChanged:
             return "Receive device::mojom::SensorClient::SensorReadingChanged";
     }
   } else {
-    switch (message.name()) {
-      case internal::kSensorClient_RaiseError_Name:
+    switch (static_cast<messages::SensorClient>(message.name())) {
+      case messages::SensorClient::kRaiseError:
             return "Receive reply device::mojom::SensorClient::RaiseError";
-      case internal::kSensorClient_SensorReadingChanged_Name:
+      case messages::SensorClient::kSensorReadingChanged:
             return "Receive reply device::mojom::SensorClient::SensorReadingChanged";
     }
   }
@@ -1142,8 +1134,7 @@ void SensorClientProxy::RaiseError(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorClient_RaiseError_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorClient::kRaiseError), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::SensorClient_RaiseError_Params_Data> params(
           message);
@@ -1178,8 +1169,7 @@ void SensorClientProxy::SensorReadingChanged(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorClient_SensorReadingChanged_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorClient::kSensorReadingChanged), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::device::mojom::internal::SensorClient_SensorReadingChanged_Params_Data> params(
           message);
@@ -1198,8 +1188,8 @@ void SensorClientProxy::SensorReadingChanged(
 bool SensorClientStubDispatch::Accept(
     SensorClient* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kSensorClient_RaiseError_Name: {
+  switch (static_cast<messages::SensorClient>(message->header()->name)) {
+    case messages::SensorClient::kRaiseError: {
       DCHECK(message->is_serialized());
       internal::SensorClient_RaiseError_Params_Data* params =
           reinterpret_cast<internal::SensorClient_RaiseError_Params_Data*>(
@@ -1222,7 +1212,7 @@ bool SensorClientStubDispatch::Accept(
       impl->RaiseError(        );
       return true;
     }
-    case internal::kSensorClient_SensorReadingChanged_Name: {
+    case messages::SensorClient::kSensorReadingChanged: {
       DCHECK(message->is_serialized());
       internal::SensorClient_SensorReadingChanged_Params_Data* params =
           reinterpret_cast<internal::SensorClient_SensorReadingChanged_Params_Data*>(
@@ -1257,11 +1247,11 @@ bool SensorClientStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kSensorClient_RaiseError_Name: {
+  switch (static_cast<messages::SensorClient>(message->header()->name)) {
+    case messages::SensorClient::kRaiseError: {
       break;
     }
-    case internal::kSensorClient_SensorReadingChanged_Name: {
+    case messages::SensorClient::kSensorReadingChanged: {
       break;
     }
   }

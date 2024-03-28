@@ -11,17 +11,23 @@
 
 
 namespace arc::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kVideoHost_OnBootstrapVideoAcceleratorFactory_Name = 1;
-constexpr uint32_t kVideoInstance_Init_Name = 1;
-constexpr uint32_t kVideoAcceleratorFactory_CreateEncodeAccelerator_Name = 1;
-constexpr uint32_t kVideoAcceleratorFactory_CreateDecodeAccelerator_Name = 2;
-constexpr uint32_t kVideoAcceleratorFactory_CreateVideoDecoder_Name = 4;
-constexpr uint32_t kVideoAcceleratorFactory_CreateProtectedBufferAllocator_Name = 3;
+enum class VideoHost : uint32_t {
+  kOnBootstrapVideoAcceleratorFactory = 1,
+};
+enum class VideoInstance : uint32_t {
+  kInit = 1,
+};
+enum class VideoAcceleratorFactory : uint32_t {
+  kCreateEncodeAccelerator = 1,
+  kCreateDecodeAccelerator = 2,
+  kCreateVideoDecoder = 4,
+  kCreateProtectedBufferAllocator = 3,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // arc::mojom
 

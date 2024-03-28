@@ -853,14 +853,14 @@ const char SodaClient::Name_[] = "chromeos.machine_learning.mojom.SodaClient";
 
 SodaClient::IPCStableHashFunction SodaClient::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kSodaClient_OnStart_Name: {
+  switch (static_cast<messages::SodaClient>(message.name())) {
+    case messages::SodaClient::kOnStart: {
       return &SodaClient::OnStart_Sym::IPCStableHash;
     }
-    case internal::kSodaClient_OnStop_Name: {
+    case messages::SodaClient::kOnStop: {
       return &SodaClient::OnStop_Sym::IPCStableHash;
     }
-    case internal::kSodaClient_OnSpeechRecognizerEvent_Name: {
+    case messages::SodaClient::kOnSpeechRecognizerEvent: {
       return &SodaClient::OnSpeechRecognizerEvent_Sym::IPCStableHash;
     }
   }
@@ -873,21 +873,21 @@ const char* SodaClient::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kSodaClient_OnStart_Name:
+    switch (static_cast<messages::SodaClient>(message.name())) {
+      case messages::SodaClient::kOnStart:
             return "Receive chromeos::machine_learning::mojom::SodaClient::OnStart";
-      case internal::kSodaClient_OnStop_Name:
+      case messages::SodaClient::kOnStop:
             return "Receive chromeos::machine_learning::mojom::SodaClient::OnStop";
-      case internal::kSodaClient_OnSpeechRecognizerEvent_Name:
+      case messages::SodaClient::kOnSpeechRecognizerEvent:
             return "Receive chromeos::machine_learning::mojom::SodaClient::OnSpeechRecognizerEvent";
     }
   } else {
-    switch (message.name()) {
-      case internal::kSodaClient_OnStart_Name:
+    switch (static_cast<messages::SodaClient>(message.name())) {
+      case messages::SodaClient::kOnStart:
             return "Receive reply chromeos::machine_learning::mojom::SodaClient::OnStart";
-      case internal::kSodaClient_OnStop_Name:
+      case messages::SodaClient::kOnStop:
             return "Receive reply chromeos::machine_learning::mojom::SodaClient::OnStop";
-      case internal::kSodaClient_OnSpeechRecognizerEvent_Name:
+      case messages::SodaClient::kOnSpeechRecognizerEvent:
             return "Receive reply chromeos::machine_learning::mojom::SodaClient::OnSpeechRecognizerEvent";
     }
   }
@@ -968,8 +968,7 @@ void SodaClientProxy::OnStart(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSodaClient_OnStart_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SodaClient::kOnStart), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::SodaClient_OnStart_Params_Data> params(
           message);
@@ -1004,8 +1003,7 @@ void SodaClientProxy::OnStop(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSodaClient_OnStop_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SodaClient::kOnStop), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::SodaClient_OnStop_Params_Data> params(
           message);
@@ -1047,8 +1045,7 @@ void SodaClientProxy::OnSpeechRecognizerEvent(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSodaClient_OnSpeechRecognizerEvent_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SodaClient::kOnSpeechRecognizerEvent), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::SodaClient_OnSpeechRecognizerEvent_Params_Data> params(
           message);
@@ -1076,8 +1073,8 @@ void SodaClientProxy::OnSpeechRecognizerEvent(
 bool SodaClientStubDispatch::Accept(
     SodaClient* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kSodaClient_OnStart_Name: {
+  switch (static_cast<messages::SodaClient>(message->header()->name)) {
+    case messages::SodaClient::kOnStart: {
       DCHECK(message->is_serialized());
       internal::SodaClient_OnStart_Params_Data* params =
           reinterpret_cast<internal::SodaClient_OnStart_Params_Data*>(
@@ -1100,7 +1097,7 @@ bool SodaClientStubDispatch::Accept(
       impl->OnStart(        );
       return true;
     }
-    case internal::kSodaClient_OnStop_Name: {
+    case messages::SodaClient::kOnStop: {
       DCHECK(message->is_serialized());
       internal::SodaClient_OnStop_Params_Data* params =
           reinterpret_cast<internal::SodaClient_OnStop_Params_Data*>(
@@ -1123,7 +1120,7 @@ bool SodaClientStubDispatch::Accept(
       impl->OnStop(        );
       return true;
     }
-    case internal::kSodaClient_OnSpeechRecognizerEvent_Name: {
+    case messages::SodaClient::kOnSpeechRecognizerEvent: {
       DCHECK(message->is_serialized());
       internal::SodaClient_OnSpeechRecognizerEvent_Params_Data* params =
           reinterpret_cast<internal::SodaClient_OnSpeechRecognizerEvent_Params_Data*>(
@@ -1162,14 +1159,14 @@ bool SodaClientStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kSodaClient_OnStart_Name: {
+  switch (static_cast<messages::SodaClient>(message->header()->name)) {
+    case messages::SodaClient::kOnStart: {
       break;
     }
-    case internal::kSodaClient_OnStop_Name: {
+    case messages::SodaClient::kOnStop: {
       break;
     }
-    case internal::kSodaClient_OnSpeechRecognizerEvent_Name: {
+    case messages::SodaClient::kOnSpeechRecognizerEvent: {
       break;
     }
   }
@@ -1195,17 +1192,17 @@ const char SodaRecognizer::Name_[] = "chromeos.machine_learning.mojom.SodaRecogn
 
 SodaRecognizer::IPCStableHashFunction SodaRecognizer::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kSodaRecognizer_AddAudio_Name: {
+  switch (static_cast<messages::SodaRecognizer>(message.name())) {
+    case messages::SodaRecognizer::kAddAudio: {
       return &SodaRecognizer::AddAudio_Sym::IPCStableHash;
     }
-    case internal::kSodaRecognizer_Stop_Name: {
+    case messages::SodaRecognizer::kStop: {
       return &SodaRecognizer::Stop_Sym::IPCStableHash;
     }
-    case internal::kSodaRecognizer_Start_Name: {
+    case messages::SodaRecognizer::kStart: {
       return &SodaRecognizer::Start_Sym::IPCStableHash;
     }
-    case internal::kSodaRecognizer_MarkDone_Name: {
+    case messages::SodaRecognizer::kMarkDone: {
       return &SodaRecognizer::MarkDone_Sym::IPCStableHash;
     }
   }
@@ -1218,25 +1215,25 @@ const char* SodaRecognizer::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kSodaRecognizer_AddAudio_Name:
+    switch (static_cast<messages::SodaRecognizer>(message.name())) {
+      case messages::SodaRecognizer::kAddAudio:
             return "Receive chromeos::machine_learning::mojom::SodaRecognizer::AddAudio";
-      case internal::kSodaRecognizer_Stop_Name:
+      case messages::SodaRecognizer::kStop:
             return "Receive chromeos::machine_learning::mojom::SodaRecognizer::Stop";
-      case internal::kSodaRecognizer_Start_Name:
+      case messages::SodaRecognizer::kStart:
             return "Receive chromeos::machine_learning::mojom::SodaRecognizer::Start";
-      case internal::kSodaRecognizer_MarkDone_Name:
+      case messages::SodaRecognizer::kMarkDone:
             return "Receive chromeos::machine_learning::mojom::SodaRecognizer::MarkDone";
     }
   } else {
-    switch (message.name()) {
-      case internal::kSodaRecognizer_AddAudio_Name:
+    switch (static_cast<messages::SodaRecognizer>(message.name())) {
+      case messages::SodaRecognizer::kAddAudio:
             return "Receive reply chromeos::machine_learning::mojom::SodaRecognizer::AddAudio";
-      case internal::kSodaRecognizer_Stop_Name:
+      case messages::SodaRecognizer::kStop:
             return "Receive reply chromeos::machine_learning::mojom::SodaRecognizer::Stop";
-      case internal::kSodaRecognizer_Start_Name:
+      case messages::SodaRecognizer::kStart:
             return "Receive reply chromeos::machine_learning::mojom::SodaRecognizer::Start";
-      case internal::kSodaRecognizer_MarkDone_Name:
+      case messages::SodaRecognizer::kMarkDone:
             return "Receive reply chromeos::machine_learning::mojom::SodaRecognizer::MarkDone";
     }
   }
@@ -1337,8 +1334,7 @@ void SodaRecognizerProxy::AddAudio(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSodaRecognizer_AddAudio_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SodaRecognizer::kAddAudio), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::SodaRecognizer_AddAudio_Params_Data> params(
           message);
@@ -1386,8 +1382,7 @@ void SodaRecognizerProxy::Stop(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSodaRecognizer_Stop_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SodaRecognizer::kStop), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::SodaRecognizer_Stop_Params_Data> params(
           message);
@@ -1422,8 +1417,7 @@ void SodaRecognizerProxy::Start(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSodaRecognizer_Start_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SodaRecognizer::kStart), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::SodaRecognizer_Start_Params_Data> params(
           message);
@@ -1458,8 +1452,7 @@ void SodaRecognizerProxy::MarkDone(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSodaRecognizer_MarkDone_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SodaRecognizer::kMarkDone), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::SodaRecognizer_MarkDone_Params_Data> params(
           message);
@@ -1478,8 +1471,8 @@ void SodaRecognizerProxy::MarkDone(
 bool SodaRecognizerStubDispatch::Accept(
     SodaRecognizer* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kSodaRecognizer_AddAudio_Name: {
+  switch (static_cast<messages::SodaRecognizer>(message->header()->name)) {
+    case messages::SodaRecognizer::kAddAudio: {
       DCHECK(message->is_serialized());
       internal::SodaRecognizer_AddAudio_Params_Data* params =
           reinterpret_cast<internal::SodaRecognizer_AddAudio_Params_Data*>(
@@ -1506,7 +1499,7 @@ bool SodaRecognizerStubDispatch::Accept(
         std::move(p_audio));
       return true;
     }
-    case internal::kSodaRecognizer_Stop_Name: {
+    case messages::SodaRecognizer::kStop: {
       DCHECK(message->is_serialized());
       internal::SodaRecognizer_Stop_Params_Data* params =
           reinterpret_cast<internal::SodaRecognizer_Stop_Params_Data*>(
@@ -1529,7 +1522,7 @@ bool SodaRecognizerStubDispatch::Accept(
       impl->Stop(        );
       return true;
     }
-    case internal::kSodaRecognizer_Start_Name: {
+    case messages::SodaRecognizer::kStart: {
       DCHECK(message->is_serialized());
       internal::SodaRecognizer_Start_Params_Data* params =
           reinterpret_cast<internal::SodaRecognizer_Start_Params_Data*>(
@@ -1552,7 +1545,7 @@ bool SodaRecognizerStubDispatch::Accept(
       impl->Start(        );
       return true;
     }
-    case internal::kSodaRecognizer_MarkDone_Name: {
+    case messages::SodaRecognizer::kMarkDone: {
       DCHECK(message->is_serialized());
       internal::SodaRecognizer_MarkDone_Params_Data* params =
           reinterpret_cast<internal::SodaRecognizer_MarkDone_Params_Data*>(
@@ -1587,17 +1580,17 @@ bool SodaRecognizerStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kSodaRecognizer_AddAudio_Name: {
+  switch (static_cast<messages::SodaRecognizer>(message->header()->name)) {
+    case messages::SodaRecognizer::kAddAudio: {
       break;
     }
-    case internal::kSodaRecognizer_Stop_Name: {
+    case messages::SodaRecognizer::kStop: {
       break;
     }
-    case internal::kSodaRecognizer_Start_Name: {
+    case messages::SodaRecognizer::kStart: {
       break;
     }
-    case internal::kSodaRecognizer_MarkDone_Name: {
+    case messages::SodaRecognizer::kMarkDone: {
       break;
     }
   }

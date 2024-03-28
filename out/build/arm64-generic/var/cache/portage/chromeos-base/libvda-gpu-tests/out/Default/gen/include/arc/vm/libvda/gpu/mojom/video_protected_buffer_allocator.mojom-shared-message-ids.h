@@ -11,14 +11,16 @@
 
 
 namespace arc::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kVideoProtectedBufferAllocator_AllocateProtectedSharedMemory_Name = 0;
-constexpr uint32_t kVideoProtectedBufferAllocator_AllocateProtectedNativePixmap_Name = 1;
-constexpr uint32_t kVideoProtectedBufferAllocator_ReleaseProtectedBuffer_Name = 2;
+enum class VideoProtectedBufferAllocator : uint32_t {
+  kAllocateProtectedSharedMemory = 0,
+  kAllocateProtectedNativePixmap = 1,
+  kReleaseProtectedBuffer = 2,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // arc::mojom
 

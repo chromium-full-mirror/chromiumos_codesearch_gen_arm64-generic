@@ -50,47 +50,47 @@ constexpr base::Token MachineLearningService::Uuid_;
 
 MachineLearningService::IPCStableHashFunction MachineLearningService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kMachineLearningService_Clone_Name: {
+  switch (static_cast<messages::MachineLearningService>(message.name())) {
+    case messages::MachineLearningService::kClone: {
       return &MachineLearningService::Clone_Sym::IPCStableHash;
     }
-    case internal::kMachineLearningService_LoadBuiltinModel_Name: {
+    case messages::MachineLearningService::kLoadBuiltinModel: {
       return &MachineLearningService::LoadBuiltinModel_Sym::IPCStableHash;
     }
-    case internal::kMachineLearningService_LoadFlatBufferModel_Name: {
+    case messages::MachineLearningService::kLoadFlatBufferModel: {
       return &MachineLearningService::LoadFlatBufferModel_Sym::IPCStableHash;
     }
-    case internal::kMachineLearningService_LoadTextClassifier_Name: {
+    case messages::MachineLearningService::kLoadTextClassifier: {
       return &MachineLearningService::LoadTextClassifier_Sym::IPCStableHash;
     }
-    case internal::kMachineLearningService_LoadHandwritingModel_Name: {
+    case messages::MachineLearningService::kLoadHandwritingModel: {
       return &MachineLearningService::LoadHandwritingModel_Sym::IPCStableHash;
     }
-    case internal::kMachineLearningService_LoadSpeechRecognizer_Name: {
+    case messages::MachineLearningService::kLoadSpeechRecognizer: {
       return &MachineLearningService::LoadSpeechRecognizer_Sym::IPCStableHash;
     }
-    case internal::kMachineLearningService_LoadGrammarChecker_Name: {
+    case messages::MachineLearningService::kLoadGrammarChecker: {
       return &MachineLearningService::LoadGrammarChecker_Sym::IPCStableHash;
     }
-    case internal::kMachineLearningService_LoadTextSuggester_Name: {
+    case messages::MachineLearningService::kLoadTextSuggester: {
       return &MachineLearningService::LoadTextSuggester_Sym::IPCStableHash;
     }
-    case internal::kMachineLearningService_LoadWebPlatformHandwritingModel_Name: {
+    case messages::MachineLearningService::kLoadWebPlatformHandwritingModel: {
       return &MachineLearningService::LoadWebPlatformHandwritingModel_Sym::IPCStableHash;
     }
-    case internal::kMachineLearningService_LoadDocumentScanner_Name: {
+    case messages::MachineLearningService::kLoadDocumentScanner: {
       return &MachineLearningService::LoadDocumentScanner_Sym::IPCStableHash;
     }
-    case internal::kMachineLearningService_CreateWebPlatformModelLoader_Name: {
+    case messages::MachineLearningService::kCreateWebPlatformModelLoader: {
       return &MachineLearningService::CreateWebPlatformModelLoader_Sym::IPCStableHash;
     }
-    case internal::kMachineLearningService_LoadImageAnnotator_Name: {
+    case messages::MachineLearningService::kLoadImageAnnotator: {
       return &MachineLearningService::LoadImageAnnotator_Sym::IPCStableHash;
     }
-    case internal::kMachineLearningService_LoadHeatmapPalmRejection_Name: {
+    case messages::MachineLearningService::kLoadHeatmapPalmRejection: {
       return &MachineLearningService::LoadHeatmapPalmRejection_Sym::IPCStableHash;
     }
-    case internal::kMachineLearningService_REMOVED_4_Name: {
+    case messages::MachineLearningService::kREMOVED_4: {
       return &MachineLearningService::REMOVED_4_Sym::IPCStableHash;
     }
   }
@@ -103,65 +103,65 @@ const char* MachineLearningService::MessageToMethodName_(mojo::Message& message)
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kMachineLearningService_Clone_Name:
+    switch (static_cast<messages::MachineLearningService>(message.name())) {
+      case messages::MachineLearningService::kClone:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::Clone";
-      case internal::kMachineLearningService_LoadBuiltinModel_Name:
+      case messages::MachineLearningService::kLoadBuiltinModel:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::LoadBuiltinModel";
-      case internal::kMachineLearningService_LoadFlatBufferModel_Name:
+      case messages::MachineLearningService::kLoadFlatBufferModel:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::LoadFlatBufferModel";
-      case internal::kMachineLearningService_LoadTextClassifier_Name:
+      case messages::MachineLearningService::kLoadTextClassifier:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::LoadTextClassifier";
-      case internal::kMachineLearningService_LoadHandwritingModel_Name:
+      case messages::MachineLearningService::kLoadHandwritingModel:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::LoadHandwritingModel";
-      case internal::kMachineLearningService_LoadSpeechRecognizer_Name:
+      case messages::MachineLearningService::kLoadSpeechRecognizer:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::LoadSpeechRecognizer";
-      case internal::kMachineLearningService_LoadGrammarChecker_Name:
+      case messages::MachineLearningService::kLoadGrammarChecker:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::LoadGrammarChecker";
-      case internal::kMachineLearningService_LoadTextSuggester_Name:
+      case messages::MachineLearningService::kLoadTextSuggester:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::LoadTextSuggester";
-      case internal::kMachineLearningService_LoadWebPlatformHandwritingModel_Name:
+      case messages::MachineLearningService::kLoadWebPlatformHandwritingModel:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::LoadWebPlatformHandwritingModel";
-      case internal::kMachineLearningService_LoadDocumentScanner_Name:
+      case messages::MachineLearningService::kLoadDocumentScanner:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::LoadDocumentScanner";
-      case internal::kMachineLearningService_CreateWebPlatformModelLoader_Name:
+      case messages::MachineLearningService::kCreateWebPlatformModelLoader:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::CreateWebPlatformModelLoader";
-      case internal::kMachineLearningService_LoadImageAnnotator_Name:
+      case messages::MachineLearningService::kLoadImageAnnotator:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::LoadImageAnnotator";
-      case internal::kMachineLearningService_LoadHeatmapPalmRejection_Name:
+      case messages::MachineLearningService::kLoadHeatmapPalmRejection:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::LoadHeatmapPalmRejection";
-      case internal::kMachineLearningService_REMOVED_4_Name:
+      case messages::MachineLearningService::kREMOVED_4:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::REMOVED_4";
     }
   } else {
-    switch (message.name()) {
-      case internal::kMachineLearningService_Clone_Name:
+    switch (static_cast<messages::MachineLearningService>(message.name())) {
+      case messages::MachineLearningService::kClone:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::Clone";
-      case internal::kMachineLearningService_LoadBuiltinModel_Name:
+      case messages::MachineLearningService::kLoadBuiltinModel:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::LoadBuiltinModel";
-      case internal::kMachineLearningService_LoadFlatBufferModel_Name:
+      case messages::MachineLearningService::kLoadFlatBufferModel:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::LoadFlatBufferModel";
-      case internal::kMachineLearningService_LoadTextClassifier_Name:
+      case messages::MachineLearningService::kLoadTextClassifier:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::LoadTextClassifier";
-      case internal::kMachineLearningService_LoadHandwritingModel_Name:
+      case messages::MachineLearningService::kLoadHandwritingModel:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::LoadHandwritingModel";
-      case internal::kMachineLearningService_LoadSpeechRecognizer_Name:
+      case messages::MachineLearningService::kLoadSpeechRecognizer:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::LoadSpeechRecognizer";
-      case internal::kMachineLearningService_LoadGrammarChecker_Name:
+      case messages::MachineLearningService::kLoadGrammarChecker:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::LoadGrammarChecker";
-      case internal::kMachineLearningService_LoadTextSuggester_Name:
+      case messages::MachineLearningService::kLoadTextSuggester:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::LoadTextSuggester";
-      case internal::kMachineLearningService_LoadWebPlatformHandwritingModel_Name:
+      case messages::MachineLearningService::kLoadWebPlatformHandwritingModel:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::LoadWebPlatformHandwritingModel";
-      case internal::kMachineLearningService_LoadDocumentScanner_Name:
+      case messages::MachineLearningService::kLoadDocumentScanner:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::LoadDocumentScanner";
-      case internal::kMachineLearningService_CreateWebPlatformModelLoader_Name:
+      case messages::MachineLearningService::kCreateWebPlatformModelLoader:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::CreateWebPlatformModelLoader";
-      case internal::kMachineLearningService_LoadImageAnnotator_Name:
+      case messages::MachineLearningService::kLoadImageAnnotator:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::LoadImageAnnotator";
-      case internal::kMachineLearningService_LoadHeatmapPalmRejection_Name:
+      case messages::MachineLearningService::kLoadHeatmapPalmRejection:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::LoadHeatmapPalmRejection";
-      case internal::kMachineLearningService_REMOVED_4_Name:
+      case messages::MachineLearningService::kREMOVED_4:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::REMOVED_4";
     }
   }
@@ -600,8 +600,7 @@ void MachineLearningServiceProxy::Clone(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_Clone_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kClone), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_Clone_Params_Data> params(
           message);
@@ -652,8 +651,7 @@ void MachineLearningServiceProxy::LoadBuiltinModel(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadBuiltinModel_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadBuiltinModel), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadBuiltinModel_Params_Data> params(
           message);
@@ -716,8 +714,7 @@ void MachineLearningServiceProxy::LoadFlatBufferModel(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadFlatBufferModel_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadFlatBufferModel), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadFlatBufferModel_Params_Data> params(
           message);
@@ -777,8 +774,7 @@ void MachineLearningServiceProxy::LoadTextClassifier(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadTextClassifier_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadTextClassifier), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadTextClassifier_Params_Data> params(
           message);
@@ -830,8 +826,7 @@ void MachineLearningServiceProxy::LoadHandwritingModel(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadHandwritingModel_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadHandwritingModel), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadHandwritingModel_Params_Data> params(
           message);
@@ -897,8 +892,7 @@ void MachineLearningServiceProxy::LoadSpeechRecognizer(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadSpeechRecognizer_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadSpeechRecognizer), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadSpeechRecognizer_Params_Data> params(
           message);
@@ -964,8 +958,7 @@ void MachineLearningServiceProxy::LoadGrammarChecker(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadGrammarChecker_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadGrammarChecker), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadGrammarChecker_Params_Data> params(
           message);
@@ -1017,8 +1010,7 @@ void MachineLearningServiceProxy::LoadTextSuggester(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadTextSuggester_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadTextSuggester), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadTextSuggester_Params_Data> params(
           message);
@@ -1077,8 +1069,7 @@ void MachineLearningServiceProxy::LoadWebPlatformHandwritingModel(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadWebPlatformHandwritingModel_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadWebPlatformHandwritingModel), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadWebPlatformHandwritingModel_Params_Data> params(
           message);
@@ -1141,8 +1132,7 @@ void MachineLearningServiceProxy::LoadDocumentScanner(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadDocumentScanner_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadDocumentScanner), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadDocumentScanner_Params_Data> params(
           message);
@@ -1201,8 +1191,7 @@ void MachineLearningServiceProxy::CreateWebPlatformModelLoader(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_CreateWebPlatformModelLoader_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kCreateWebPlatformModelLoader), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_CreateWebPlatformModelLoader_Params_Data> params(
           message);
@@ -1265,8 +1254,7 @@ void MachineLearningServiceProxy::LoadImageAnnotator(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadImageAnnotator_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadImageAnnotator), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadImageAnnotator_Params_Data> params(
           message);
@@ -1329,8 +1317,7 @@ void MachineLearningServiceProxy::LoadHeatmapPalmRejection(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadHeatmapPalmRejection_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadHeatmapPalmRejection), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadHeatmapPalmRejection_Params_Data> params(
           message);
@@ -1393,8 +1380,7 @@ void MachineLearningServiceProxy::REMOVED_4(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_REMOVED_4_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kREMOVED_4), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_REMOVED_4_Params_Data> params(
           message);
@@ -1525,8 +1511,7 @@ void MachineLearningService_LoadBuiltinModel_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadBuiltinModel_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadBuiltinModel), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadBuiltinModel_ResponseParams_Data> params(
           message);
@@ -1649,8 +1634,7 @@ void MachineLearningService_LoadFlatBufferModel_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadFlatBufferModel_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadFlatBufferModel), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadFlatBufferModel_ResponseParams_Data> params(
           message);
@@ -1773,8 +1757,7 @@ void MachineLearningService_LoadTextClassifier_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadTextClassifier_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadTextClassifier), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadTextClassifier_ResponseParams_Data> params(
           message);
@@ -1897,8 +1880,7 @@ void MachineLearningService_LoadHandwritingModel_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadHandwritingModel_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadHandwritingModel), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadHandwritingModel_ResponseParams_Data> params(
           message);
@@ -2021,8 +2003,7 @@ void MachineLearningService_LoadSpeechRecognizer_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadSpeechRecognizer_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadSpeechRecognizer), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadSpeechRecognizer_ResponseParams_Data> params(
           message);
@@ -2145,8 +2126,7 @@ void MachineLearningService_LoadGrammarChecker_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadGrammarChecker_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadGrammarChecker), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadGrammarChecker_ResponseParams_Data> params(
           message);
@@ -2269,8 +2249,7 @@ void MachineLearningService_LoadTextSuggester_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadTextSuggester_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadTextSuggester), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadTextSuggester_ResponseParams_Data> params(
           message);
@@ -2393,8 +2372,7 @@ void MachineLearningService_LoadWebPlatformHandwritingModel_ProxyToResponder::Ru
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadWebPlatformHandwritingModel_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadWebPlatformHandwritingModel), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadWebPlatformHandwritingModel_ResponseParams_Data> params(
           message);
@@ -2517,8 +2495,7 @@ void MachineLearningService_LoadDocumentScanner_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadDocumentScanner_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadDocumentScanner), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadDocumentScanner_ResponseParams_Data> params(
           message);
@@ -2641,8 +2618,7 @@ void MachineLearningService_CreateWebPlatformModelLoader_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_CreateWebPlatformModelLoader_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kCreateWebPlatformModelLoader), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_CreateWebPlatformModelLoader_ResponseParams_Data> params(
           message);
@@ -2765,8 +2741,7 @@ void MachineLearningService_LoadImageAnnotator_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadImageAnnotator_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadImageAnnotator), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadImageAnnotator_ResponseParams_Data> params(
           message);
@@ -2889,8 +2864,7 @@ void MachineLearningService_LoadHeatmapPalmRejection_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_LoadHeatmapPalmRejection_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kLoadHeatmapPalmRejection), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data> params(
           message);
@@ -3013,8 +2987,7 @@ void MachineLearningService_REMOVED_4_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMachineLearningService_REMOVED_4_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MachineLearningService::kREMOVED_4), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::MachineLearningService_REMOVED_4_ResponseParams_Data> params(
           message);
@@ -3043,8 +3016,8 @@ void MachineLearningService_REMOVED_4_ProxyToResponder::Run(
 bool MachineLearningServiceStubDispatch::Accept(
     MachineLearningService* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kMachineLearningService_Clone_Name: {
+  switch (static_cast<messages::MachineLearningService>(message->header()->name)) {
+    case messages::MachineLearningService::kClone: {
       DCHECK(message->is_serialized());
       internal::MachineLearningService_Clone_Params_Data* params =
           reinterpret_cast<internal::MachineLearningService_Clone_Params_Data*>(
@@ -3073,43 +3046,43 @@ bool MachineLearningServiceStubDispatch::Accept(
         std::move(p_receiver));
       return true;
     }
-    case internal::kMachineLearningService_LoadBuiltinModel_Name: {
+    case messages::MachineLearningService::kLoadBuiltinModel: {
       break;
     }
-    case internal::kMachineLearningService_LoadFlatBufferModel_Name: {
+    case messages::MachineLearningService::kLoadFlatBufferModel: {
       break;
     }
-    case internal::kMachineLearningService_LoadTextClassifier_Name: {
+    case messages::MachineLearningService::kLoadTextClassifier: {
       break;
     }
-    case internal::kMachineLearningService_LoadHandwritingModel_Name: {
+    case messages::MachineLearningService::kLoadHandwritingModel: {
       break;
     }
-    case internal::kMachineLearningService_LoadSpeechRecognizer_Name: {
+    case messages::MachineLearningService::kLoadSpeechRecognizer: {
       break;
     }
-    case internal::kMachineLearningService_LoadGrammarChecker_Name: {
+    case messages::MachineLearningService::kLoadGrammarChecker: {
       break;
     }
-    case internal::kMachineLearningService_LoadTextSuggester_Name: {
+    case messages::MachineLearningService::kLoadTextSuggester: {
       break;
     }
-    case internal::kMachineLearningService_LoadWebPlatformHandwritingModel_Name: {
+    case messages::MachineLearningService::kLoadWebPlatformHandwritingModel: {
       break;
     }
-    case internal::kMachineLearningService_LoadDocumentScanner_Name: {
+    case messages::MachineLearningService::kLoadDocumentScanner: {
       break;
     }
-    case internal::kMachineLearningService_CreateWebPlatformModelLoader_Name: {
+    case messages::MachineLearningService::kCreateWebPlatformModelLoader: {
       break;
     }
-    case internal::kMachineLearningService_LoadImageAnnotator_Name: {
+    case messages::MachineLearningService::kLoadImageAnnotator: {
       break;
     }
-    case internal::kMachineLearningService_LoadHeatmapPalmRejection_Name: {
+    case messages::MachineLearningService::kLoadHeatmapPalmRejection: {
       break;
     }
-    case internal::kMachineLearningService_REMOVED_4_Name: {
+    case messages::MachineLearningService::kREMOVED_4: {
       break;
     }
   }
@@ -3124,11 +3097,11 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kMachineLearningService_Clone_Name: {
+  switch (static_cast<messages::MachineLearningService>(message->header()->name)) {
+    case messages::MachineLearningService::kClone: {
       break;
     }
-    case internal::kMachineLearningService_LoadBuiltinModel_Name: {
+    case messages::MachineLearningService::kLoadBuiltinModel: {
       internal::MachineLearningService_LoadBuiltinModel_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadBuiltinModel_Params_Data*>(
@@ -3164,7 +3137,7 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
         std::move(p_receiver), std::move(callback));
       return true;
     }
-    case internal::kMachineLearningService_LoadFlatBufferModel_Name: {
+    case messages::MachineLearningService::kLoadFlatBufferModel: {
       internal::MachineLearningService_LoadFlatBufferModel_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadFlatBufferModel_Params_Data*>(
@@ -3200,7 +3173,7 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
         std::move(p_receiver), std::move(callback));
       return true;
     }
-    case internal::kMachineLearningService_LoadTextClassifier_Name: {
+    case messages::MachineLearningService::kLoadTextClassifier: {
       internal::MachineLearningService_LoadTextClassifier_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadTextClassifier_Params_Data*>(
@@ -3232,7 +3205,7 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
         std::move(p_receiver), std::move(callback));
       return true;
     }
-    case internal::kMachineLearningService_LoadHandwritingModel_Name: {
+    case messages::MachineLearningService::kLoadHandwritingModel: {
       internal::MachineLearningService_LoadHandwritingModel_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadHandwritingModel_Params_Data*>(
@@ -3268,7 +3241,7 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
         std::move(p_receiver), std::move(callback));
       return true;
     }
-    case internal::kMachineLearningService_LoadSpeechRecognizer_Name: {
+    case messages::MachineLearningService::kLoadSpeechRecognizer: {
       internal::MachineLearningService_LoadSpeechRecognizer_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadSpeechRecognizer_Params_Data*>(
@@ -3310,7 +3283,7 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
         std::move(p_soda_recognizer), std::move(callback));
       return true;
     }
-    case internal::kMachineLearningService_LoadGrammarChecker_Name: {
+    case messages::MachineLearningService::kLoadGrammarChecker: {
       internal::MachineLearningService_LoadGrammarChecker_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadGrammarChecker_Params_Data*>(
@@ -3342,7 +3315,7 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
         std::move(p_receiver), std::move(callback));
       return true;
     }
-    case internal::kMachineLearningService_LoadTextSuggester_Name: {
+    case messages::MachineLearningService::kLoadTextSuggester: {
       internal::MachineLearningService_LoadTextSuggester_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadTextSuggester_Params_Data*>(
@@ -3378,7 +3351,7 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
         std::move(p_spec), std::move(callback));
       return true;
     }
-    case internal::kMachineLearningService_LoadWebPlatformHandwritingModel_Name: {
+    case messages::MachineLearningService::kLoadWebPlatformHandwritingModel: {
       internal::MachineLearningService_LoadWebPlatformHandwritingModel_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadWebPlatformHandwritingModel_Params_Data*>(
@@ -3414,7 +3387,7 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
         std::move(p_receiver), std::move(callback));
       return true;
     }
-    case internal::kMachineLearningService_LoadDocumentScanner_Name: {
+    case messages::MachineLearningService::kLoadDocumentScanner: {
       internal::MachineLearningService_LoadDocumentScanner_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadDocumentScanner_Params_Data*>(
@@ -3450,7 +3423,7 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
         std::move(p_config), std::move(callback));
       return true;
     }
-    case internal::kMachineLearningService_CreateWebPlatformModelLoader_Name: {
+    case messages::MachineLearningService::kCreateWebPlatformModelLoader: {
       internal::MachineLearningService_CreateWebPlatformModelLoader_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_CreateWebPlatformModelLoader_Params_Data*>(
@@ -3486,7 +3459,7 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
         std::move(p_options), std::move(callback));
       return true;
     }
-    case internal::kMachineLearningService_LoadImageAnnotator_Name: {
+    case messages::MachineLearningService::kLoadImageAnnotator: {
       internal::MachineLearningService_LoadImageAnnotator_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadImageAnnotator_Params_Data*>(
@@ -3522,7 +3495,7 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
         std::move(p_receiver), std::move(callback));
       return true;
     }
-    case internal::kMachineLearningService_LoadHeatmapPalmRejection_Name: {
+    case messages::MachineLearningService::kLoadHeatmapPalmRejection: {
       internal::MachineLearningService_LoadHeatmapPalmRejection_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_LoadHeatmapPalmRejection_Params_Data*>(
@@ -3558,7 +3531,7 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
         std::move(p_client), std::move(callback));
       return true;
     }
-    case internal::kMachineLearningService_REMOVED_4_Name: {
+    case messages::MachineLearningService::kREMOVED_4: {
       internal::MachineLearningService_REMOVED_4_Params_Data* params =
           reinterpret_cast<
               internal::MachineLearningService_REMOVED_4_Params_Data*>(

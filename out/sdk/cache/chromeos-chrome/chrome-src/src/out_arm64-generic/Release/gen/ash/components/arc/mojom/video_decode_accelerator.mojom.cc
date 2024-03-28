@@ -277,26 +277,26 @@ const char VideoDecodeAccelerator::Name_[] = "arc.mojom.VideoDecodeAccelerator";
 
 VideoDecodeAccelerator::IPCStableHashFunction VideoDecodeAccelerator::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoDecodeAccelerator_Initialize_Name: {
+  switch (static_cast<messages::VideoDecodeAccelerator>(message.name())) {
+    case messages::VideoDecodeAccelerator::kInitialize: {
       return &VideoDecodeAccelerator::Initialize_Sym::IPCStableHash;
     }
-    case internal::kVideoDecodeAccelerator_Decode_Name: {
+    case messages::VideoDecodeAccelerator::kDecode: {
       return &VideoDecodeAccelerator::Decode_Sym::IPCStableHash;
     }
-    case internal::kVideoDecodeAccelerator_AssignPictureBuffers_Name: {
+    case messages::VideoDecodeAccelerator::kAssignPictureBuffers: {
       return &VideoDecodeAccelerator::AssignPictureBuffers_Sym::IPCStableHash;
     }
-    case internal::kVideoDecodeAccelerator_ImportBufferForPicture_Name: {
+    case messages::VideoDecodeAccelerator::kImportBufferForPicture: {
       return &VideoDecodeAccelerator::ImportBufferForPicture_Sym::IPCStableHash;
     }
-    case internal::kVideoDecodeAccelerator_ReusePictureBuffer_Name: {
+    case messages::VideoDecodeAccelerator::kReusePictureBuffer: {
       return &VideoDecodeAccelerator::ReusePictureBuffer_Sym::IPCStableHash;
     }
-    case internal::kVideoDecodeAccelerator_Reset_Name: {
+    case messages::VideoDecodeAccelerator::kReset: {
       return &VideoDecodeAccelerator::Reset_Sym::IPCStableHash;
     }
-    case internal::kVideoDecodeAccelerator_Flush_Name: {
+    case messages::VideoDecodeAccelerator::kFlush: {
       return &VideoDecodeAccelerator::Flush_Sym::IPCStableHash;
     }
   }
@@ -309,37 +309,37 @@ const char* VideoDecodeAccelerator::MessageToMethodName_(mojo::Message& message)
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoDecodeAccelerator_Initialize_Name:
+    switch (static_cast<messages::VideoDecodeAccelerator>(message.name())) {
+      case messages::VideoDecodeAccelerator::kInitialize:
             return "Receive arc::mojom::VideoDecodeAccelerator::Initialize";
-      case internal::kVideoDecodeAccelerator_Decode_Name:
+      case messages::VideoDecodeAccelerator::kDecode:
             return "Receive arc::mojom::VideoDecodeAccelerator::Decode";
-      case internal::kVideoDecodeAccelerator_AssignPictureBuffers_Name:
+      case messages::VideoDecodeAccelerator::kAssignPictureBuffers:
             return "Receive arc::mojom::VideoDecodeAccelerator::AssignPictureBuffers";
-      case internal::kVideoDecodeAccelerator_ImportBufferForPicture_Name:
+      case messages::VideoDecodeAccelerator::kImportBufferForPicture:
             return "Receive arc::mojom::VideoDecodeAccelerator::ImportBufferForPicture";
-      case internal::kVideoDecodeAccelerator_ReusePictureBuffer_Name:
+      case messages::VideoDecodeAccelerator::kReusePictureBuffer:
             return "Receive arc::mojom::VideoDecodeAccelerator::ReusePictureBuffer";
-      case internal::kVideoDecodeAccelerator_Reset_Name:
+      case messages::VideoDecodeAccelerator::kReset:
             return "Receive arc::mojom::VideoDecodeAccelerator::Reset";
-      case internal::kVideoDecodeAccelerator_Flush_Name:
+      case messages::VideoDecodeAccelerator::kFlush:
             return "Receive arc::mojom::VideoDecodeAccelerator::Flush";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoDecodeAccelerator_Initialize_Name:
+    switch (static_cast<messages::VideoDecodeAccelerator>(message.name())) {
+      case messages::VideoDecodeAccelerator::kInitialize:
             return "Receive reply arc::mojom::VideoDecodeAccelerator::Initialize";
-      case internal::kVideoDecodeAccelerator_Decode_Name:
+      case messages::VideoDecodeAccelerator::kDecode:
             return "Receive reply arc::mojom::VideoDecodeAccelerator::Decode";
-      case internal::kVideoDecodeAccelerator_AssignPictureBuffers_Name:
+      case messages::VideoDecodeAccelerator::kAssignPictureBuffers:
             return "Receive reply arc::mojom::VideoDecodeAccelerator::AssignPictureBuffers";
-      case internal::kVideoDecodeAccelerator_ImportBufferForPicture_Name:
+      case messages::VideoDecodeAccelerator::kImportBufferForPicture:
             return "Receive reply arc::mojom::VideoDecodeAccelerator::ImportBufferForPicture";
-      case internal::kVideoDecodeAccelerator_ReusePictureBuffer_Name:
+      case messages::VideoDecodeAccelerator::kReusePictureBuffer:
             return "Receive reply arc::mojom::VideoDecodeAccelerator::ReusePictureBuffer";
-      case internal::kVideoDecodeAccelerator_Reset_Name:
+      case messages::VideoDecodeAccelerator::kReset:
             return "Receive reply arc::mojom::VideoDecodeAccelerator::Reset";
-      case internal::kVideoDecodeAccelerator_Flush_Name:
+      case messages::VideoDecodeAccelerator::kFlush:
             return "Receive reply arc::mojom::VideoDecodeAccelerator::Flush";
     }
   }
@@ -530,8 +530,7 @@ void VideoDecodeAcceleratorProxy::Initialize(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecodeAccelerator::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecodeAccelerator_Initialize_Params_Data> params(
           message);
@@ -591,8 +590,7 @@ void VideoDecodeAcceleratorProxy::Decode(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecodeAccelerator_Decode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecodeAccelerator::kDecode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecodeAccelerator_Decode_Params_Data> params(
           message);
@@ -645,8 +643,7 @@ void VideoDecodeAcceleratorProxy::AssignPictureBuffers(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecodeAccelerator_AssignPictureBuffers_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecodeAccelerator::kAssignPictureBuffers), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecodeAccelerator_AssignPictureBuffers_Params_Data> params(
           message);
@@ -701,8 +698,7 @@ void VideoDecodeAcceleratorProxy::ImportBufferForPicture(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecodeAccelerator_ImportBufferForPicture_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecodeAccelerator::kImportBufferForPicture), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecodeAccelerator_ImportBufferForPicture_Params_Data> params(
           message);
@@ -773,8 +769,7 @@ void VideoDecodeAcceleratorProxy::ReusePictureBuffer(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecodeAccelerator_ReusePictureBuffer_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecodeAccelerator::kReusePictureBuffer), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecodeAccelerator_ReusePictureBuffer_Params_Data> params(
           message);
@@ -810,8 +805,7 @@ void VideoDecodeAcceleratorProxy::Reset(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecodeAccelerator_Reset_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecodeAccelerator::kReset), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecodeAccelerator_Reset_Params_Data> params(
           message);
@@ -847,8 +841,7 @@ void VideoDecodeAcceleratorProxy::Flush(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecodeAccelerator_Flush_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecodeAccelerator::kFlush), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecodeAccelerator_Flush_Params_Data> params(
           message);
@@ -962,8 +955,7 @@ void VideoDecodeAccelerator_Initialize_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecodeAccelerator::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecodeAccelerator_Initialize_ResponseParams_Data> params(
           message);
@@ -1086,8 +1078,7 @@ void VideoDecodeAccelerator_Reset_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecodeAccelerator_Reset_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecodeAccelerator::kReset), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecodeAccelerator_Reset_ResponseParams_Data> params(
           message);
@@ -1210,8 +1201,7 @@ void VideoDecodeAccelerator_Flush_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecodeAccelerator_Flush_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecodeAccelerator::kFlush), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecodeAccelerator_Flush_ResponseParams_Data> params(
           message);
@@ -1240,11 +1230,11 @@ void VideoDecodeAccelerator_Flush_ProxyToResponder::Run(
 bool VideoDecodeAcceleratorStubDispatch::Accept(
     VideoDecodeAccelerator* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoDecodeAccelerator_Initialize_Name: {
+  switch (static_cast<messages::VideoDecodeAccelerator>(message->header()->name)) {
+    case messages::VideoDecodeAccelerator::kInitialize: {
       break;
     }
-    case internal::kVideoDecodeAccelerator_Decode_Name: {
+    case messages::VideoDecodeAccelerator::kDecode: {
       DCHECK(message->is_serialized());
       internal::VideoDecodeAccelerator_Decode_Params_Data* params =
           reinterpret_cast<internal::VideoDecodeAccelerator_Decode_Params_Data*>(
@@ -1271,7 +1261,7 @@ bool VideoDecodeAcceleratorStubDispatch::Accept(
         std::move(p_bitstream_buffer));
       return true;
     }
-    case internal::kVideoDecodeAccelerator_AssignPictureBuffers_Name: {
+    case messages::VideoDecodeAccelerator::kAssignPictureBuffers: {
       DCHECK(message->is_serialized());
       internal::VideoDecodeAccelerator_AssignPictureBuffers_Params_Data* params =
           reinterpret_cast<internal::VideoDecodeAccelerator_AssignPictureBuffers_Params_Data*>(
@@ -1298,7 +1288,7 @@ bool VideoDecodeAcceleratorStubDispatch::Accept(
         std::move(p_count));
       return true;
     }
-    case internal::kVideoDecodeAccelerator_ImportBufferForPicture_Name: {
+    case messages::VideoDecodeAccelerator::kImportBufferForPicture: {
       DCHECK(message->is_serialized());
       internal::VideoDecodeAccelerator_ImportBufferForPicture_Params_Data* params =
           reinterpret_cast<internal::VideoDecodeAccelerator_ImportBufferForPicture_Params_Data*>(
@@ -1341,7 +1331,7 @@ bool VideoDecodeAcceleratorStubDispatch::Accept(
         std::move(p_modifier));
       return true;
     }
-    case internal::kVideoDecodeAccelerator_ReusePictureBuffer_Name: {
+    case messages::VideoDecodeAccelerator::kReusePictureBuffer: {
       DCHECK(message->is_serialized());
       internal::VideoDecodeAccelerator_ReusePictureBuffer_Params_Data* params =
           reinterpret_cast<internal::VideoDecodeAccelerator_ReusePictureBuffer_Params_Data*>(
@@ -1368,10 +1358,10 @@ bool VideoDecodeAcceleratorStubDispatch::Accept(
         std::move(p_picture_buffer_id));
       return true;
     }
-    case internal::kVideoDecodeAccelerator_Reset_Name: {
+    case messages::VideoDecodeAccelerator::kReset: {
       break;
     }
-    case internal::kVideoDecodeAccelerator_Flush_Name: {
+    case messages::VideoDecodeAccelerator::kFlush: {
       break;
     }
   }
@@ -1386,8 +1376,8 @@ bool VideoDecodeAcceleratorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoDecodeAccelerator_Initialize_Name: {
+  switch (static_cast<messages::VideoDecodeAccelerator>(message->header()->name)) {
+    case messages::VideoDecodeAccelerator::kInitialize: {
       internal::VideoDecodeAccelerator_Initialize_Params_Data* params =
           reinterpret_cast<
               internal::VideoDecodeAccelerator_Initialize_Params_Data*>(
@@ -1423,19 +1413,19 @@ bool VideoDecodeAcceleratorStubDispatch::AcceptWithResponder(
         std::move(p_client), std::move(callback));
       return true;
     }
-    case internal::kVideoDecodeAccelerator_Decode_Name: {
+    case messages::VideoDecodeAccelerator::kDecode: {
       break;
     }
-    case internal::kVideoDecodeAccelerator_AssignPictureBuffers_Name: {
+    case messages::VideoDecodeAccelerator::kAssignPictureBuffers: {
       break;
     }
-    case internal::kVideoDecodeAccelerator_ImportBufferForPicture_Name: {
+    case messages::VideoDecodeAccelerator::kImportBufferForPicture: {
       break;
     }
-    case internal::kVideoDecodeAccelerator_ReusePictureBuffer_Name: {
+    case messages::VideoDecodeAccelerator::kReusePictureBuffer: {
       break;
     }
-    case internal::kVideoDecodeAccelerator_Reset_Name: {
+    case messages::VideoDecodeAccelerator::kReset: {
       internal::VideoDecodeAccelerator_Reset_Params_Data* params =
           reinterpret_cast<
               internal::VideoDecodeAccelerator_Reset_Params_Data*>(
@@ -1461,7 +1451,7 @@ bool VideoDecodeAcceleratorStubDispatch::AcceptWithResponder(
       impl->Reset(std::move(callback));
       return true;
     }
-    case internal::kVideoDecodeAccelerator_Flush_Name: {
+    case messages::VideoDecodeAccelerator::kFlush: {
       internal::VideoDecodeAccelerator_Flush_Params_Data* params =
           reinterpret_cast<
               internal::VideoDecodeAccelerator_Flush_Params_Data*>(
@@ -1525,17 +1515,17 @@ const char VideoDecodeClient::Name_[] = "arc.mojom.VideoDecodeClient";
 
 VideoDecodeClient::IPCStableHashFunction VideoDecodeClient::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoDecodeClient_PictureReady_Name: {
+  switch (static_cast<messages::VideoDecodeClient>(message.name())) {
+    case messages::VideoDecodeClient::kPictureReady: {
       return &VideoDecodeClient::PictureReady_Sym::IPCStableHash;
     }
-    case internal::kVideoDecodeClient_NotifyEndOfBitstreamBuffer_Name: {
+    case messages::VideoDecodeClient::kNotifyEndOfBitstreamBuffer: {
       return &VideoDecodeClient::NotifyEndOfBitstreamBuffer_Sym::IPCStableHash;
     }
-    case internal::kVideoDecodeClient_NotifyError_Name: {
+    case messages::VideoDecodeClient::kNotifyError: {
       return &VideoDecodeClient::NotifyError_Sym::IPCStableHash;
     }
-    case internal::kVideoDecodeClient_ProvidePictureBuffers_Name: {
+    case messages::VideoDecodeClient::kProvidePictureBuffers: {
       return &VideoDecodeClient::ProvidePictureBuffers_Sym::IPCStableHash;
     }
   }
@@ -1548,25 +1538,25 @@ const char* VideoDecodeClient::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoDecodeClient_PictureReady_Name:
+    switch (static_cast<messages::VideoDecodeClient>(message.name())) {
+      case messages::VideoDecodeClient::kPictureReady:
             return "Receive arc::mojom::VideoDecodeClient::PictureReady";
-      case internal::kVideoDecodeClient_NotifyEndOfBitstreamBuffer_Name:
+      case messages::VideoDecodeClient::kNotifyEndOfBitstreamBuffer:
             return "Receive arc::mojom::VideoDecodeClient::NotifyEndOfBitstreamBuffer";
-      case internal::kVideoDecodeClient_NotifyError_Name:
+      case messages::VideoDecodeClient::kNotifyError:
             return "Receive arc::mojom::VideoDecodeClient::NotifyError";
-      case internal::kVideoDecodeClient_ProvidePictureBuffers_Name:
+      case messages::VideoDecodeClient::kProvidePictureBuffers:
             return "Receive arc::mojom::VideoDecodeClient::ProvidePictureBuffers";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoDecodeClient_PictureReady_Name:
+    switch (static_cast<messages::VideoDecodeClient>(message.name())) {
+      case messages::VideoDecodeClient::kPictureReady:
             return "Receive reply arc::mojom::VideoDecodeClient::PictureReady";
-      case internal::kVideoDecodeClient_NotifyEndOfBitstreamBuffer_Name:
+      case messages::VideoDecodeClient::kNotifyEndOfBitstreamBuffer:
             return "Receive reply arc::mojom::VideoDecodeClient::NotifyEndOfBitstreamBuffer";
-      case internal::kVideoDecodeClient_NotifyError_Name:
+      case messages::VideoDecodeClient::kNotifyError:
             return "Receive reply arc::mojom::VideoDecodeClient::NotifyError";
-      case internal::kVideoDecodeClient_ProvidePictureBuffers_Name:
+      case messages::VideoDecodeClient::kProvidePictureBuffers:
             return "Receive reply arc::mojom::VideoDecodeClient::ProvidePictureBuffers";
     }
   }
@@ -1667,8 +1657,7 @@ void VideoDecodeClientProxy::PictureReady(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecodeClient_PictureReady_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecodeClient::kPictureReady), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecodeClient_PictureReady_Params_Data> params(
           message);
@@ -1721,8 +1710,7 @@ void VideoDecodeClientProxy::NotifyEndOfBitstreamBuffer(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecodeClient_NotifyEndOfBitstreamBuffer_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecodeClient::kNotifyEndOfBitstreamBuffer), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecodeClient_NotifyEndOfBitstreamBuffer_Params_Data> params(
           message);
@@ -1765,8 +1753,7 @@ void VideoDecodeClientProxy::NotifyError(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecodeClient_NotifyError_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecodeClient::kNotifyError), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecodeClient_NotifyError_Params_Data> params(
           message);
@@ -1813,8 +1800,7 @@ void VideoDecodeClientProxy::ProvidePictureBuffers(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecodeClient_ProvidePictureBuffers_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecodeClient::kProvidePictureBuffers), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoDecodeClient_ProvidePictureBuffers_Params_Data> params(
           message);
@@ -1855,8 +1841,8 @@ void VideoDecodeClientProxy::ProvidePictureBuffers(
 bool VideoDecodeClientStubDispatch::Accept(
     VideoDecodeClient* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoDecodeClient_PictureReady_Name: {
+  switch (static_cast<messages::VideoDecodeClient>(message->header()->name)) {
+    case messages::VideoDecodeClient::kPictureReady: {
       DCHECK(message->is_serialized());
       internal::VideoDecodeClient_PictureReady_Params_Data* params =
           reinterpret_cast<internal::VideoDecodeClient_PictureReady_Params_Data*>(
@@ -1883,7 +1869,7 @@ bool VideoDecodeClientStubDispatch::Accept(
         std::move(p_picture));
       return true;
     }
-    case internal::kVideoDecodeClient_NotifyEndOfBitstreamBuffer_Name: {
+    case messages::VideoDecodeClient::kNotifyEndOfBitstreamBuffer: {
       DCHECK(message->is_serialized());
       internal::VideoDecodeClient_NotifyEndOfBitstreamBuffer_Params_Data* params =
           reinterpret_cast<internal::VideoDecodeClient_NotifyEndOfBitstreamBuffer_Params_Data*>(
@@ -1910,7 +1896,7 @@ bool VideoDecodeClientStubDispatch::Accept(
         std::move(p_bitstream_id));
       return true;
     }
-    case internal::kVideoDecodeClient_NotifyError_Name: {
+    case messages::VideoDecodeClient::kNotifyError: {
       DCHECK(message->is_serialized());
       internal::VideoDecodeClient_NotifyError_Params_Data* params =
           reinterpret_cast<internal::VideoDecodeClient_NotifyError_Params_Data*>(
@@ -1937,7 +1923,7 @@ bool VideoDecodeClientStubDispatch::Accept(
         std::move(p_error));
       return true;
     }
-    case internal::kVideoDecodeClient_ProvidePictureBuffers_Name: {
+    case messages::VideoDecodeClient::kProvidePictureBuffers: {
       DCHECK(message->is_serialized());
       internal::VideoDecodeClient_ProvidePictureBuffers_Params_Data* params =
           reinterpret_cast<internal::VideoDecodeClient_ProvidePictureBuffers_Params_Data*>(
@@ -1980,17 +1966,17 @@ bool VideoDecodeClientStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoDecodeClient_PictureReady_Name: {
+  switch (static_cast<messages::VideoDecodeClient>(message->header()->name)) {
+    case messages::VideoDecodeClient::kPictureReady: {
       break;
     }
-    case internal::kVideoDecodeClient_NotifyEndOfBitstreamBuffer_Name: {
+    case messages::VideoDecodeClient::kNotifyEndOfBitstreamBuffer: {
       break;
     }
-    case internal::kVideoDecodeClient_NotifyError_Name: {
+    case messages::VideoDecodeClient::kNotifyError: {
       break;
     }
-    case internal::kVideoDecodeClient_ProvidePictureBuffers_Name: {
+    case messages::VideoDecodeClient::kProvidePictureBuffers: {
       break;
     }
   }

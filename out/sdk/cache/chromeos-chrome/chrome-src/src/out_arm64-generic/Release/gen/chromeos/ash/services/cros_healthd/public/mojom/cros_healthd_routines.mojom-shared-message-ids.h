@@ -11,17 +11,25 @@
 
 
 namespace ash::cros_healthd::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kCrosHealthdRoutinesService_CreateRoutine_Name = 0;
-constexpr uint32_t kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name = 1;
-constexpr uint32_t kLedLitUpRoutineReplier_GetColorMatched_Name = 0;
-constexpr uint32_t kRoutineControl_GetState_Name = 0;
-constexpr uint32_t kRoutineControl_Start_Name = 1;
-constexpr uint32_t kRoutineObserver_OnRoutineStateChange_Name = 0;
+enum class CrosHealthdRoutinesService : uint32_t {
+  kCreateRoutine = 0,
+  kIsRoutineArgumentSupported = 1,
+};
+enum class LedLitUpRoutineReplier : uint32_t {
+  kGetColorMatched = 0,
+};
+enum class RoutineControl : uint32_t {
+  kGetState = 0,
+  kStart = 1,
+};
+enum class RoutineObserver : uint32_t {
+  kOnRoutineStateChange = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // ash::cros_healthd::mojom
 

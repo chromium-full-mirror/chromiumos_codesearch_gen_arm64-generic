@@ -11,12 +11,14 @@
 
 
 namespace chromeos::machine_learning::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kGrammarChecker_Check_Name = 0;
+enum class GrammarChecker : uint32_t {
+  kCheck = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::machine_learning::mojom
 

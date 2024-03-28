@@ -49,8 +49,8 @@ const char SensorHalServer::Name_[] = "cros.mojom.SensorHalServer";
 
 SensorHalServer::IPCStableHashFunction SensorHalServer::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kSensorHalServer_CreateChannel_Name: {
+  switch (static_cast<messages::SensorHalServer>(message.name())) {
+    case messages::SensorHalServer::kCreateChannel: {
       return &SensorHalServer::CreateChannel_Sym::IPCStableHash;
     }
   }
@@ -63,13 +63,13 @@ const char* SensorHalServer::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kSensorHalServer_CreateChannel_Name:
+    switch (static_cast<messages::SensorHalServer>(message.name())) {
+      case messages::SensorHalServer::kCreateChannel:
             return "Receive cros::mojom::SensorHalServer::CreateChannel";
     }
   } else {
-    switch (message.name()) {
-      case internal::kSensorHalServer_CreateChannel_Name:
+    switch (static_cast<messages::SensorHalServer>(message.name())) {
+      case messages::SensorHalServer::kCreateChannel:
             return "Receive reply cros::mojom::SensorHalServer::CreateChannel";
     }
   }
@@ -131,8 +131,7 @@ void SensorHalServerProxy::CreateChannel(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorHalServer_CreateChannel_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorHalServer::kCreateChannel), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorHalServer_CreateChannel_Params_Data> params(
           message);
@@ -157,8 +156,8 @@ void SensorHalServerProxy::CreateChannel(
 bool SensorHalServerStubDispatch::Accept(
     SensorHalServer* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kSensorHalServer_CreateChannel_Name: {
+  switch (static_cast<messages::SensorHalServer>(message->header()->name)) {
+    case messages::SensorHalServer::kCreateChannel: {
       DCHECK(message->is_serialized());
       internal::SensorHalServer_CreateChannel_Params_Data* params =
           reinterpret_cast<internal::SensorHalServer_CreateChannel_Params_Data*>(
@@ -199,8 +198,8 @@ bool SensorHalServerStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kSensorHalServer_CreateChannel_Name: {
+  switch (static_cast<messages::SensorHalServer>(message->header()->name)) {
+    case messages::SensorHalServer::kCreateChannel: {
       break;
     }
   }
@@ -222,8 +221,8 @@ const char SensorHalClient::Name_[] = "cros.mojom.SensorHalClient";
 
 SensorHalClient::IPCStableHashFunction SensorHalClient::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kSensorHalClient_SetUpChannel_Name: {
+  switch (static_cast<messages::SensorHalClient>(message.name())) {
+    case messages::SensorHalClient::kSetUpChannel: {
       return &SensorHalClient::SetUpChannel_Sym::IPCStableHash;
     }
   }
@@ -236,13 +235,13 @@ const char* SensorHalClient::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kSensorHalClient_SetUpChannel_Name:
+    switch (static_cast<messages::SensorHalClient>(message.name())) {
+      case messages::SensorHalClient::kSetUpChannel:
             return "Receive cros::mojom::SensorHalClient::SetUpChannel";
     }
   } else {
-    switch (message.name()) {
-      case internal::kSensorHalClient_SetUpChannel_Name:
+    switch (static_cast<messages::SensorHalClient>(message.name())) {
+      case messages::SensorHalClient::kSetUpChannel:
             return "Receive reply cros::mojom::SensorHalClient::SetUpChannel";
     }
   }
@@ -304,8 +303,7 @@ void SensorHalClientProxy::SetUpChannel(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSensorHalClient_SetUpChannel_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SensorHalClient::kSetUpChannel), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::SensorHalClient_SetUpChannel_Params_Data> params(
           message);
@@ -330,8 +328,8 @@ void SensorHalClientProxy::SetUpChannel(
 bool SensorHalClientStubDispatch::Accept(
     SensorHalClient* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kSensorHalClient_SetUpChannel_Name: {
+  switch (static_cast<messages::SensorHalClient>(message->header()->name)) {
+    case messages::SensorHalClient::kSetUpChannel: {
       DCHECK(message->is_serialized());
       internal::SensorHalClient_SetUpChannel_Params_Data* params =
           reinterpret_cast<internal::SensorHalClient_SetUpChannel_Params_Data*>(
@@ -372,8 +370,8 @@ bool SensorHalClientStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kSensorHalClient_SetUpChannel_Name: {
+  switch (static_cast<messages::SensorHalClient>(message->header()->name)) {
+    case messages::SensorHalClient::kSetUpChannel: {
       break;
     }
   }

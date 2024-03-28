@@ -11,19 +11,23 @@
 
 
 namespace device::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kSensor_GetDefaultConfiguration_Name = 0;
-constexpr uint32_t kSensor_AddConfiguration_Name = 1;
-constexpr uint32_t kSensor_RemoveConfiguration_Name = 2;
-constexpr uint32_t kSensor_Suspend_Name = 3;
-constexpr uint32_t kSensor_Resume_Name = 4;
-constexpr uint32_t kSensor_ConfigureReadingChangeNotifications_Name = 5;
-constexpr uint32_t kSensorClient_RaiseError_Name = 0;
-constexpr uint32_t kSensorClient_SensorReadingChanged_Name = 1;
+enum class Sensor : uint32_t {
+  kGetDefaultConfiguration = 0,
+  kAddConfiguration = 1,
+  kRemoveConfiguration = 2,
+  kSuspend = 3,
+  kResume = 4,
+  kConfigureReadingChangeNotifications = 5,
+};
+enum class SensorClient : uint32_t {
+  kRaiseError = 0,
+  kSensorReadingChanged = 1,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // device::mojom
 

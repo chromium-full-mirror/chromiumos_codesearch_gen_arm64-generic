@@ -10,10 +10,11 @@
 #include <stdint.h>
 
 #include <limits>
+#include <optional>
 #include <type_traits>
 #include <utility>
 
-#include <optional>
+#include "base/types/cxx23_to_underlying.h"
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"

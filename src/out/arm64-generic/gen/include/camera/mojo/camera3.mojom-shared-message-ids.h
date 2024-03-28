@@ -11,27 +11,31 @@
 
 
 namespace cros::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kCamera3CallbackOps_ProcessCaptureResult_Name = 0;
-constexpr uint32_t kCamera3CallbackOps_Notify_Name = 1;
-constexpr uint32_t kCamera3CallbackOps_RequestStreamBuffers_Name = 2;
-constexpr uint32_t kCamera3CallbackOps_ReturnStreamBuffers_Name = 3;
-constexpr uint32_t kCamera3DeviceOps_Initialize_Name = 0;
-constexpr uint32_t kCamera3DeviceOps_ConfigureStreams_Name = 1;
-constexpr uint32_t kCamera3DeviceOps_ConstructDefaultRequestSettings_Name = 2;
-constexpr uint32_t kCamera3DeviceOps_ProcessCaptureRequest_Name = 3;
-constexpr uint32_t kCamera3DeviceOps_Dump_Name = 4;
-constexpr uint32_t kCamera3DeviceOps_Flush_Name = 5;
-constexpr uint32_t kCamera3DeviceOps_RegisterBuffer_Name = 6;
-constexpr uint32_t kCamera3DeviceOps_Close_Name = 7;
-constexpr uint32_t kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name = 8;
-constexpr uint32_t kCamera3DeviceOps_SignalStreamFlush_Name = 9;
-constexpr uint32_t kCamera3DeviceOps_OnNewBuffer_Name = 10;
-constexpr uint32_t kCamera3DeviceOps_OnBufferRetired_Name = 11;
+enum class Camera3CallbackOps : uint32_t {
+  kProcessCaptureResult = 0,
+  kNotify = 1,
+  kRequestStreamBuffers = 2,
+  kReturnStreamBuffers = 3,
+};
+enum class Camera3DeviceOps : uint32_t {
+  kInitialize = 0,
+  kConfigureStreams = 1,
+  kConstructDefaultRequestSettings = 2,
+  kProcessCaptureRequest = 3,
+  kDump = 4,
+  kFlush = 5,
+  kRegisterBuffer = 6,
+  kClose = 7,
+  kConfigureStreamsAndGetAllocatedBuffers = 8,
+  kSignalStreamFlush = 9,
+  kOnNewBuffer = 10,
+  kOnBufferRetired = 11,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // cros::mojom
 

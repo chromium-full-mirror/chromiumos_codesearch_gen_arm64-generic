@@ -11,11 +11,11 @@
 
 
 namespace network::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // network::mojom
 

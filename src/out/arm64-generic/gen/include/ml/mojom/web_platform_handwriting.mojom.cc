@@ -395,8 +395,8 @@ const char HandwritingRecognizer::Name_[] = "chromeos.machine_learning.web_platf
 
 HandwritingRecognizer::IPCStableHashFunction HandwritingRecognizer::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kHandwritingRecognizer_GetPrediction_Name: {
+  switch (static_cast<messages::HandwritingRecognizer>(message.name())) {
+    case messages::HandwritingRecognizer::kGetPrediction: {
       return &HandwritingRecognizer::GetPrediction_Sym::IPCStableHash;
     }
   }
@@ -409,13 +409,13 @@ const char* HandwritingRecognizer::MessageToMethodName_(mojo::Message& message) 
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kHandwritingRecognizer_GetPrediction_Name:
+    switch (static_cast<messages::HandwritingRecognizer>(message.name())) {
+      case messages::HandwritingRecognizer::kGetPrediction:
             return "Receive chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer::GetPrediction";
     }
   } else {
-    switch (message.name()) {
-      case internal::kHandwritingRecognizer_GetPrediction_Name:
+    switch (static_cast<messages::HandwritingRecognizer>(message.name())) {
+      case messages::HandwritingRecognizer::kGetPrediction:
             return "Receive reply chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer::GetPrediction";
     }
   }
@@ -496,8 +496,7 @@ void HandwritingRecognizerProxy::GetPrediction(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kHandwritingRecognizer_GetPrediction_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::HandwritingRecognizer::kGetPrediction), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::web_platform::mojom::internal::HandwritingRecognizer_GetPrediction_Params_Data> params(
           message);
@@ -635,8 +634,7 @@ void HandwritingRecognizer_GetPrediction_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kHandwritingRecognizer_GetPrediction_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::HandwritingRecognizer::kGetPrediction), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::web_platform::mojom::internal::HandwritingRecognizer_GetPrediction_ResponseParams_Data> params(
           message);
@@ -672,8 +670,8 @@ void HandwritingRecognizer_GetPrediction_ProxyToResponder::Run(
 bool HandwritingRecognizerStubDispatch::Accept(
     HandwritingRecognizer* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kHandwritingRecognizer_GetPrediction_Name: {
+  switch (static_cast<messages::HandwritingRecognizer>(message->header()->name)) {
+    case messages::HandwritingRecognizer::kGetPrediction: {
       break;
     }
   }
@@ -688,8 +686,8 @@ bool HandwritingRecognizerStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kHandwritingRecognizer_GetPrediction_Name: {
+  switch (static_cast<messages::HandwritingRecognizer>(message->header()->name)) {
+    case messages::HandwritingRecognizer::kGetPrediction: {
       internal::HandwritingRecognizer_GetPrediction_Params_Data* params =
           reinterpret_cast<
               internal::HandwritingRecognizer_GetPrediction_Params_Data*>(

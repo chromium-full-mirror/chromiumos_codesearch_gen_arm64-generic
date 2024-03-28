@@ -11,12 +11,14 @@
 
 
 namespace ash::cros_healthd::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kAshEventReporter_SendKeyboardDiagnosticEvent_Name = 0;
+enum class AshEventReporter : uint32_t {
+  kSendKeyboardDiagnosticEvent = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // ash::cros_healthd::mojom
 

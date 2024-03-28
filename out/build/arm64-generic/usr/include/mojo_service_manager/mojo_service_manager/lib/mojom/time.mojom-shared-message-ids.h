@@ -11,11 +11,11 @@
 
 
 namespace chromeos::mojo_service_manager::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::mojo_service_manager::mojom
 

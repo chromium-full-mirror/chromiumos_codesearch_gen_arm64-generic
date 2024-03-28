@@ -137,11 +137,11 @@ const char VideoFramePool::Name_[] = "arc.mojom.VideoFramePool";
 
 VideoFramePool::IPCStableHashFunction VideoFramePool::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoFramePool_Initialize_Name: {
+  switch (static_cast<messages::VideoFramePool>(message.name())) {
+    case messages::VideoFramePool::kInitialize: {
       return &VideoFramePool::Initialize_Sym::IPCStableHash;
     }
-    case internal::kVideoFramePool_AddVideoFrame_Name: {
+    case messages::VideoFramePool::kAddVideoFrame: {
       return &VideoFramePool::AddVideoFrame_Sym::IPCStableHash;
     }
   }
@@ -154,17 +154,17 @@ const char* VideoFramePool::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoFramePool_Initialize_Name:
+    switch (static_cast<messages::VideoFramePool>(message.name())) {
+      case messages::VideoFramePool::kInitialize:
             return "Receive arc::mojom::VideoFramePool::Initialize";
-      case internal::kVideoFramePool_AddVideoFrame_Name:
+      case messages::VideoFramePool::kAddVideoFrame:
             return "Receive arc::mojom::VideoFramePool::AddVideoFrame";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoFramePool_Initialize_Name:
+    switch (static_cast<messages::VideoFramePool>(message.name())) {
+      case messages::VideoFramePool::kInitialize:
             return "Receive reply arc::mojom::VideoFramePool::Initialize";
-      case internal::kVideoFramePool_AddVideoFrame_Name:
+      case messages::VideoFramePool::kAddVideoFrame:
             return "Receive reply arc::mojom::VideoFramePool::AddVideoFrame";
     }
   }
@@ -255,8 +255,7 @@ void VideoFramePoolProxy::Initialize(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoFramePool_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoFramePool::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoFramePool_Initialize_Params_Data> params(
           message);
@@ -304,8 +303,7 @@ void VideoFramePoolProxy::AddVideoFrame(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoFramePool_AddVideoFrame_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoFramePool::kAddVideoFrame), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoFramePool_AddVideoFrame_Params_Data> params(
           message);
@@ -430,8 +428,7 @@ void VideoFramePool_AddVideoFrame_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoFramePool_AddVideoFrame_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoFramePool::kAddVideoFrame), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoFramePool_AddVideoFrame_ResponseParams_Data> params(
           message);
@@ -459,8 +456,8 @@ void VideoFramePool_AddVideoFrame_ProxyToResponder::Run(
 bool VideoFramePoolStubDispatch::Accept(
     VideoFramePool* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoFramePool_Initialize_Name: {
+  switch (static_cast<messages::VideoFramePool>(message->header()->name)) {
+    case messages::VideoFramePool::kInitialize: {
       DCHECK(message->is_serialized());
       internal::VideoFramePool_Initialize_Params_Data* params =
           reinterpret_cast<internal::VideoFramePool_Initialize_Params_Data*>(
@@ -489,7 +486,7 @@ bool VideoFramePoolStubDispatch::Accept(
         std::move(p_client));
       return true;
     }
-    case internal::kVideoFramePool_AddVideoFrame_Name: {
+    case messages::VideoFramePool::kAddVideoFrame: {
       break;
     }
   }
@@ -504,11 +501,11 @@ bool VideoFramePoolStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoFramePool_Initialize_Name: {
+  switch (static_cast<messages::VideoFramePool>(message->header()->name)) {
+    case messages::VideoFramePool::kInitialize: {
       break;
     }
-    case internal::kVideoFramePool_AddVideoFrame_Name: {
+    case messages::VideoFramePool::kAddVideoFrame: {
       internal::VideoFramePool_AddVideoFrame_Params_Data* params =
           reinterpret_cast<
               internal::VideoFramePool_AddVideoFrame_Params_Data*>(
@@ -563,8 +560,8 @@ const char VideoFramePoolClient::Name_[] = "arc.mojom.VideoFramePoolClient";
 
 VideoFramePoolClient::IPCStableHashFunction VideoFramePoolClient::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoFramePoolClient_RequestVideoFrames_Name: {
+  switch (static_cast<messages::VideoFramePoolClient>(message.name())) {
+    case messages::VideoFramePoolClient::kRequestVideoFrames: {
       return &VideoFramePoolClient::RequestVideoFrames_Sym::IPCStableHash;
     }
   }
@@ -577,13 +574,13 @@ const char* VideoFramePoolClient::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoFramePoolClient_RequestVideoFrames_Name:
+    switch (static_cast<messages::VideoFramePoolClient>(message.name())) {
+      case messages::VideoFramePoolClient::kRequestVideoFrames:
             return "Receive arc::mojom::VideoFramePoolClient::RequestVideoFrames";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoFramePoolClient_RequestVideoFrames_Name:
+    switch (static_cast<messages::VideoFramePoolClient>(message.name())) {
+      case messages::VideoFramePoolClient::kRequestVideoFrames:
             return "Receive reply arc::mojom::VideoFramePoolClient::RequestVideoFrames";
     }
   }
@@ -654,8 +651,7 @@ void VideoFramePoolClientProxy::RequestVideoFrames(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoFramePoolClient_RequestVideoFrames_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoFramePoolClient::kRequestVideoFrames), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoFramePoolClient_RequestVideoFrames_Params_Data> params(
           message);
@@ -699,8 +695,8 @@ void VideoFramePoolClientProxy::RequestVideoFrames(
 bool VideoFramePoolClientStubDispatch::Accept(
     VideoFramePoolClient* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoFramePoolClient_RequestVideoFrames_Name: {
+  switch (static_cast<messages::VideoFramePoolClient>(message->header()->name)) {
+    case messages::VideoFramePoolClient::kRequestVideoFrames: {
       DCHECK(message->is_serialized());
       internal::VideoFramePoolClient_RequestVideoFrames_Params_Data* params =
           reinterpret_cast<internal::VideoFramePoolClient_RequestVideoFrames_Params_Data*>(
@@ -751,8 +747,8 @@ bool VideoFramePoolClientStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoFramePoolClient_RequestVideoFrames_Name: {
+  switch (static_cast<messages::VideoFramePoolClient>(message->header()->name)) {
+    case messages::VideoFramePoolClient::kRequestVideoFrames: {
       break;
     }
   }

@@ -374,8 +374,8 @@ const char SmbFsBootstrap::Name_[] = "smbfs.mojom.SmbFsBootstrap";
 
 SmbFsBootstrap::IPCStableHashFunction SmbFsBootstrap::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kSmbFsBootstrap_MountShare_Name: {
+  switch (static_cast<messages::SmbFsBootstrap>(message.name())) {
+    case messages::SmbFsBootstrap::kMountShare: {
       return &SmbFsBootstrap::MountShare_Sym::IPCStableHash;
     }
   }
@@ -388,13 +388,13 @@ const char* SmbFsBootstrap::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kSmbFsBootstrap_MountShare_Name:
+    switch (static_cast<messages::SmbFsBootstrap>(message.name())) {
+      case messages::SmbFsBootstrap::kMountShare:
             return "Receive smbfs::mojom::SmbFsBootstrap::MountShare";
     }
   } else {
-    switch (message.name()) {
-      case internal::kSmbFsBootstrap_MountShare_Name:
+    switch (static_cast<messages::SmbFsBootstrap>(message.name())) {
+      case messages::SmbFsBootstrap::kMountShare:
             return "Receive reply smbfs::mojom::SmbFsBootstrap::MountShare";
     }
   }
@@ -475,8 +475,7 @@ void SmbFsBootstrapProxy::MountShare(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSmbFsBootstrap_MountShare_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SmbFsBootstrap::kMountShare), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::smbfs::mojom::internal::SmbFsBootstrap_MountShare_Params_Data> params(
           message);
@@ -616,8 +615,7 @@ void SmbFsBootstrap_MountShare_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSmbFsBootstrap_MountShare_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SmbFsBootstrap::kMountShare), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::smbfs::mojom::internal::SmbFsBootstrap_MountShare_ResponseParams_Data> params(
           message);
@@ -648,8 +646,8 @@ void SmbFsBootstrap_MountShare_ProxyToResponder::Run(
 bool SmbFsBootstrapStubDispatch::Accept(
     SmbFsBootstrap* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kSmbFsBootstrap_MountShare_Name: {
+  switch (static_cast<messages::SmbFsBootstrap>(message->header()->name)) {
+    case messages::SmbFsBootstrap::kMountShare: {
       break;
     }
   }
@@ -664,8 +662,8 @@ bool SmbFsBootstrapStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kSmbFsBootstrap_MountShare_Name: {
+  switch (static_cast<messages::SmbFsBootstrap>(message->header()->name)) {
+    case messages::SmbFsBootstrap::kMountShare: {
       internal::SmbFsBootstrap_MountShare_Params_Data* params =
           reinterpret_cast<
               internal::SmbFsBootstrap_MountShare_Params_Data*>(
@@ -724,11 +722,11 @@ const char SmbFs::Name_[] = "smbfs.mojom.SmbFs";
 
 SmbFs::IPCStableHashFunction SmbFs::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kSmbFs_RemoveSavedCredentials_Name: {
+  switch (static_cast<messages::SmbFs>(message.name())) {
+    case messages::SmbFs::kRemoveSavedCredentials: {
       return &SmbFs::RemoveSavedCredentials_Sym::IPCStableHash;
     }
-    case internal::kSmbFs_DeleteRecursively_Name: {
+    case messages::SmbFs::kDeleteRecursively: {
       return &SmbFs::DeleteRecursively_Sym::IPCStableHash;
     }
   }
@@ -741,17 +739,17 @@ const char* SmbFs::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kSmbFs_RemoveSavedCredentials_Name:
+    switch (static_cast<messages::SmbFs>(message.name())) {
+      case messages::SmbFs::kRemoveSavedCredentials:
             return "Receive smbfs::mojom::SmbFs::RemoveSavedCredentials";
-      case internal::kSmbFs_DeleteRecursively_Name:
+      case messages::SmbFs::kDeleteRecursively:
             return "Receive smbfs::mojom::SmbFs::DeleteRecursively";
     }
   } else {
-    switch (message.name()) {
-      case internal::kSmbFs_RemoveSavedCredentials_Name:
+    switch (static_cast<messages::SmbFs>(message.name())) {
+      case messages::SmbFs::kRemoveSavedCredentials:
             return "Receive reply smbfs::mojom::SmbFs::RemoveSavedCredentials";
-      case internal::kSmbFs_DeleteRecursively_Name:
+      case messages::SmbFs::kDeleteRecursively:
             return "Receive reply smbfs::mojom::SmbFs::DeleteRecursively";
     }
   }
@@ -851,8 +849,7 @@ void SmbFsProxy::RemoveSavedCredentials(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSmbFs_RemoveSavedCredentials_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SmbFs::kRemoveSavedCredentials), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::smbfs::mojom::internal::SmbFs_RemoveSavedCredentials_Params_Data> params(
           message);
@@ -895,8 +892,7 @@ void SmbFsProxy::DeleteRecursively(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSmbFs_DeleteRecursively_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SmbFs::kDeleteRecursively), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::smbfs::mojom::internal::SmbFs_DeleteRecursively_Params_Data> params(
           message);
@@ -1021,8 +1017,7 @@ void SmbFs_RemoveSavedCredentials_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSmbFs_RemoveSavedCredentials_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SmbFs::kRemoveSavedCredentials), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::smbfs::mojom::internal::SmbFs_RemoveSavedCredentials_ResponseParams_Data> params(
           message);
@@ -1144,8 +1139,7 @@ void SmbFs_DeleteRecursively_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSmbFs_DeleteRecursively_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SmbFs::kDeleteRecursively), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::smbfs::mojom::internal::SmbFs_DeleteRecursively_ResponseParams_Data> params(
           message);
@@ -1174,11 +1168,11 @@ void SmbFs_DeleteRecursively_ProxyToResponder::Run(
 bool SmbFsStubDispatch::Accept(
     SmbFs* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kSmbFs_RemoveSavedCredentials_Name: {
+  switch (static_cast<messages::SmbFs>(message->header()->name)) {
+    case messages::SmbFs::kRemoveSavedCredentials: {
       break;
     }
-    case internal::kSmbFs_DeleteRecursively_Name: {
+    case messages::SmbFs::kDeleteRecursively: {
       break;
     }
   }
@@ -1193,8 +1187,8 @@ bool SmbFsStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kSmbFs_RemoveSavedCredentials_Name: {
+  switch (static_cast<messages::SmbFs>(message->header()->name)) {
+    case messages::SmbFs::kRemoveSavedCredentials: {
       internal::SmbFs_RemoveSavedCredentials_Params_Data* params =
           reinterpret_cast<
               internal::SmbFs_RemoveSavedCredentials_Params_Data*>(
@@ -1220,7 +1214,7 @@ bool SmbFsStubDispatch::AcceptWithResponder(
       impl->RemoveSavedCredentials(std::move(callback));
       return true;
     }
-    case internal::kSmbFs_DeleteRecursively_Name: {
+    case messages::SmbFs::kDeleteRecursively: {
       internal::SmbFs_DeleteRecursively_Params_Data* params =
           reinterpret_cast<
               internal::SmbFs_DeleteRecursively_Params_Data*>(
@@ -1275,8 +1269,8 @@ const char SmbFsDelegate::Name_[] = "smbfs.mojom.SmbFsDelegate";
 
 SmbFsDelegate::IPCStableHashFunction SmbFsDelegate::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kSmbFsDelegate_RequestCredentials_Name: {
+  switch (static_cast<messages::SmbFsDelegate>(message.name())) {
+    case messages::SmbFsDelegate::kRequestCredentials: {
       return &SmbFsDelegate::RequestCredentials_Sym::IPCStableHash;
     }
   }
@@ -1289,13 +1283,13 @@ const char* SmbFsDelegate::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kSmbFsDelegate_RequestCredentials_Name:
+    switch (static_cast<messages::SmbFsDelegate>(message.name())) {
+      case messages::SmbFsDelegate::kRequestCredentials:
             return "Receive smbfs::mojom::SmbFsDelegate::RequestCredentials";
     }
   } else {
-    switch (message.name()) {
-      case internal::kSmbFsDelegate_RequestCredentials_Name:
+    switch (static_cast<messages::SmbFsDelegate>(message.name())) {
+      case messages::SmbFsDelegate::kRequestCredentials:
             return "Receive reply smbfs::mojom::SmbFsDelegate::RequestCredentials";
     }
   }
@@ -1366,8 +1360,7 @@ void SmbFsDelegateProxy::RequestCredentials(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSmbFsDelegate_RequestCredentials_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SmbFsDelegate::kRequestCredentials), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::smbfs::mojom::internal::SmbFsDelegate_RequestCredentials_Params_Data> params(
           message);
@@ -1481,8 +1474,7 @@ void SmbFsDelegate_RequestCredentials_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kSmbFsDelegate_RequestCredentials_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::SmbFsDelegate::kRequestCredentials), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::smbfs::mojom::internal::SmbFsDelegate_RequestCredentials_ResponseParams_Data> params(
           message);
@@ -1516,8 +1508,8 @@ void SmbFsDelegate_RequestCredentials_ProxyToResponder::Run(
 bool SmbFsDelegateStubDispatch::Accept(
     SmbFsDelegate* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kSmbFsDelegate_RequestCredentials_Name: {
+  switch (static_cast<messages::SmbFsDelegate>(message->header()->name)) {
+    case messages::SmbFsDelegate::kRequestCredentials: {
       break;
     }
   }
@@ -1532,8 +1524,8 @@ bool SmbFsDelegateStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kSmbFsDelegate_RequestCredentials_Name: {
+  switch (static_cast<messages::SmbFsDelegate>(message->header()->name)) {
+    case messages::SmbFsDelegate::kRequestCredentials: {
       internal::SmbFsDelegate_RequestCredentials_Params_Data* params =
           reinterpret_cast<
               internal::SmbFsDelegate_RequestCredentials_Params_Data*>(

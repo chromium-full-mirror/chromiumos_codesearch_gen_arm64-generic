@@ -11,11 +11,11 @@
 
 
 namespace chromeos::network_config::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::network_config::mojom
 

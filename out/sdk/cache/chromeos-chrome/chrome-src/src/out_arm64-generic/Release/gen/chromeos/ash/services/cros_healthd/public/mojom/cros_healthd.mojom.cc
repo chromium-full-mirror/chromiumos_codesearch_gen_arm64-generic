@@ -49,152 +49,152 @@ const char CrosHealthdDiagnosticsService::Name_[] = "ash.cros_healthd.mojom.Cros
 
 CrosHealthdDiagnosticsService::IPCStableHashFunction CrosHealthdDiagnosticsService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name: {
+  switch (static_cast<messages::CrosHealthdDiagnosticsService>(message.name())) {
+    case messages::CrosHealthdDiagnosticsService::kGetAvailableRoutines: {
       return &CrosHealthdDiagnosticsService::GetAvailableRoutines_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name: {
+    case messages::CrosHealthdDiagnosticsService::kGetRoutineUpdate: {
       return &CrosHealthdDiagnosticsService::GetRoutineUpdate_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunUrandomRoutine: {
       return &CrosHealthdDiagnosticsService::RunUrandomRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBatteryCapacityRoutine: {
       return &CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBatteryHealthRoutine: {
       return &CrosHealthdDiagnosticsService::RunBatteryHealthRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunSmartctlCheckRoutine: {
       return &CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunAcPowerRoutine: {
       return &CrosHealthdDiagnosticsService::RunAcPowerRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunCpuCacheRoutine: {
       return &CrosHealthdDiagnosticsService::RunCpuCacheRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunCpuStressRoutine: {
       return &CrosHealthdDiagnosticsService::RunCpuStressRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunFloatingPointAccuracyRoutine: {
       return &CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunNvmeWearLevelRoutine: {
       return &CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunNvmeWearLevelRoutine: {
       return &CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunNvmeSelfTestRoutine: {
       return &CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunDiskReadRoutine: {
       return &CrosHealthdDiagnosticsService::RunDiskReadRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunPrimeSearchRoutine: {
       return &CrosHealthdDiagnosticsService::RunPrimeSearchRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBatteryDischargeRoutine: {
       return &CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBatteryChargeRoutine: {
       return &CrosHealthdDiagnosticsService::RunBatteryChargeRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunMemoryRoutine: {
       return &CrosHealthdDiagnosticsService::RunMemoryRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunLanConnectivityRoutine: {
       return &CrosHealthdDiagnosticsService::RunLanConnectivityRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunSignalStrengthRoutine: {
       return &CrosHealthdDiagnosticsService::RunSignalStrengthRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunGatewayCanBePingedRoutine: {
       return &CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunHasSecureWiFiConnectionRoutine: {
       return &CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunDnsResolverPresentRoutine: {
       return &CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunDnsLatencyRoutine: {
       return &CrosHealthdDiagnosticsService::RunDnsLatencyRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunDnsResolutionRoutine: {
       return &CrosHealthdDiagnosticsService::RunDnsResolutionRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunCaptivePortalRoutine: {
       return &CrosHealthdDiagnosticsService::RunCaptivePortalRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunHttpFirewallRoutine: {
       return &CrosHealthdDiagnosticsService::RunHttpFirewallRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunHttpsFirewallRoutine: {
       return &CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunHttpsLatencyRoutine: {
       return &CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunVideoConferencingRoutine: {
       return &CrosHealthdDiagnosticsService::RunVideoConferencingRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunArcHttpRoutine: {
       return &CrosHealthdDiagnosticsService::RunArcHttpRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunArcPingRoutine: {
       return &CrosHealthdDiagnosticsService::RunArcPingRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunArcDnsResolutionRoutine: {
       return &CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunSensitiveSensorRoutine: {
       return &CrosHealthdDiagnosticsService::RunSensitiveSensorRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunFingerprintRoutine: {
       return &CrosHealthdDiagnosticsService::RunFingerprintRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunFingerprintAliveRoutine: {
       return &CrosHealthdDiagnosticsService::RunFingerprintAliveRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunPrivacyScreenRoutine: {
       return &CrosHealthdDiagnosticsService::RunPrivacyScreenRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunLedLitUpRoutine: {
       return &CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunEmmcLifetimeRoutine: {
       return &CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunAudioSetVolumeRoutine: {
       return &CrosHealthdDiagnosticsService::DEPRECATED_RunAudioSetVolumeRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunAudioSetGainRoutine: {
       return &CrosHealthdDiagnosticsService::DEPRECATED_RunAudioSetGainRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBluetoothPowerRoutine: {
       return &CrosHealthdDiagnosticsService::RunBluetoothPowerRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBluetoothDiscoveryRoutine: {
       return &CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBluetoothScanningRoutine: {
       return &CrosHealthdDiagnosticsService::RunBluetoothScanningRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBluetoothPairingRoutine: {
       return &CrosHealthdDiagnosticsService::RunBluetoothPairingRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunPowerButtonRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunPowerButtonRoutine: {
       return &CrosHealthdDiagnosticsService::RunPowerButtonRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunAudioDriverRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunAudioDriverRoutine: {
       return &CrosHealthdDiagnosticsService::RunAudioDriverRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunUfsLifetimeRoutine: {
       return &CrosHealthdDiagnosticsService::RunUfsLifetimeRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunFanRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunFanRoutine: {
       return &CrosHealthdDiagnosticsService::RunFanRoutine_Sym::IPCStableHash;
     }
   }
@@ -207,205 +207,205 @@ const char* CrosHealthdDiagnosticsService::MessageToMethodName_(mojo::Message& m
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name:
+    switch (static_cast<messages::CrosHealthdDiagnosticsService>(message.name())) {
+      case messages::CrosHealthdDiagnosticsService::kGetAvailableRoutines:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetAvailableRoutines";
-      case internal::kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name:
+      case messages::CrosHealthdDiagnosticsService::kGetRoutineUpdate:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetRoutineUpdate";
-      case internal::kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunUrandomRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUrandomRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBatteryCapacityRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBatteryHealthRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryHealthRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunSmartctlCheckRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunAcPowerRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunCpuCacheRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuCacheRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunCpuStressRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunFloatingPointAccuracyRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine";
-      case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunNvmeWearLevelRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunNvmeWearLevelRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunNvmeSelfTestRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunDiskReadRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDiskReadRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunPrimeSearchRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrimeSearchRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBatteryDischargeRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBatteryChargeRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryChargeRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunMemoryRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunLanConnectivityRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLanConnectivityRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunSignalStrengthRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSignalStrengthRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunGatewayCanBePingedRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunHasSecureWiFiConnectionRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunDnsResolverPresentRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunDnsLatencyRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsLatencyRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunDnsResolutionRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolutionRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunCaptivePortalRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCaptivePortalRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunHttpFirewallRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpFirewallRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunHttpsFirewallRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunHttpsLatencyRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunVideoConferencingRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunArcHttpRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcHttpRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunArcPingRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcPingRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunArcDnsResolutionRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunSensitiveSensorRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSensitiveSensorRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunFingerprintRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunFingerprintAliveRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintAliveRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunPrivacyScreenRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrivacyScreenRoutine";
-      case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunLedLitUpRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunEmmcLifetimeRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine";
-      case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunAudioSetVolumeRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunAudioSetVolumeRoutine";
-      case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunAudioSetGainRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunAudioSetGainRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBluetoothPowerRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPowerRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBluetoothDiscoveryRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBluetoothScanningRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothScanningRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBluetoothPairingRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPairingRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunPowerButtonRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunPowerButtonRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPowerButtonRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunAudioDriverRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunAudioDriverRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioDriverRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunUfsLifetimeRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUfsLifetimeRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunFanRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunFanRoutine:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFanRoutine";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name:
+    switch (static_cast<messages::CrosHealthdDiagnosticsService>(message.name())) {
+      case messages::CrosHealthdDiagnosticsService::kGetAvailableRoutines:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetAvailableRoutines";
-      case internal::kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name:
+      case messages::CrosHealthdDiagnosticsService::kGetRoutineUpdate:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetRoutineUpdate";
-      case internal::kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunUrandomRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUrandomRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBatteryCapacityRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBatteryHealthRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryHealthRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunSmartctlCheckRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunAcPowerRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunCpuCacheRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuCacheRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunCpuStressRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunFloatingPointAccuracyRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine";
-      case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunNvmeWearLevelRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunNvmeWearLevelRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunNvmeSelfTestRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunDiskReadRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDiskReadRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunPrimeSearchRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrimeSearchRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBatteryDischargeRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBatteryChargeRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryChargeRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunMemoryRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunLanConnectivityRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLanConnectivityRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunSignalStrengthRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSignalStrengthRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunGatewayCanBePingedRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunHasSecureWiFiConnectionRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunDnsResolverPresentRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunDnsLatencyRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsLatencyRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunDnsResolutionRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolutionRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunCaptivePortalRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCaptivePortalRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunHttpFirewallRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpFirewallRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunHttpsFirewallRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunHttpsLatencyRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunVideoConferencingRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunArcHttpRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcHttpRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunArcPingRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcPingRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunArcDnsResolutionRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunSensitiveSensorRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSensitiveSensorRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunFingerprintRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunFingerprintAliveRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintAliveRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunPrivacyScreenRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrivacyScreenRoutine";
-      case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunLedLitUpRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunEmmcLifetimeRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine";
-      case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunAudioSetVolumeRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunAudioSetVolumeRoutine";
-      case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunAudioSetGainRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunAudioSetGainRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBluetoothPowerRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPowerRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBluetoothDiscoveryRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBluetoothScanningRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothScanningRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunBluetoothPairingRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPairingRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunPowerButtonRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunPowerButtonRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPowerButtonRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunAudioDriverRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunAudioDriverRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioDriverRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunUfsLifetimeRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUfsLifetimeRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunFanRoutine_Name:
+      case messages::CrosHealthdDiagnosticsService::kRunFanRoutine:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFanRoutine";
     }
   }
@@ -1868,8 +1868,7 @@ void CrosHealthdDiagnosticsServiceProxy::GetAvailableRoutines(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kGetAvailableRoutines), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_Params_Data> params(
           message);
@@ -1918,8 +1917,7 @@ void CrosHealthdDiagnosticsServiceProxy::GetRoutineUpdate(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kGetRoutineUpdate), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_GetRoutineUpdate_Params_Data> params(
           message);
@@ -1966,8 +1964,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunUrandomRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunUrandomRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunUrandomRoutine_Params_Data> params(
           message);
@@ -2010,8 +2007,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryCapacityRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBatteryCapacityRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Params_Data> params(
           message);
@@ -2047,8 +2043,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryHealthRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBatteryHealthRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Params_Data> params(
           message);
@@ -2091,8 +2086,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunSmartctlCheckRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunSmartctlCheckRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data> params(
           message);
@@ -2145,8 +2139,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunAcPowerRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunAcPowerRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunAcPowerRoutine_Params_Data> params(
           message);
@@ -2198,8 +2191,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunCpuCacheRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunCpuCacheRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCpuCacheRoutine_Params_Data> params(
           message);
@@ -2249,8 +2241,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunCpuStressRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunCpuStressRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_Params_Data> params(
           message);
@@ -2300,8 +2291,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunFloatingPointAccuracyRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunFloatingPointAccuracyRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Params_Data> params(
           message);
@@ -2351,8 +2341,7 @@ void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunNvmeWearLevelRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunNvmeWearLevelRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data> params(
           message);
@@ -2396,8 +2385,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunNvmeWearLevelRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunNvmeWearLevelRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data> params(
           message);
@@ -2447,8 +2435,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunNvmeSelfTestRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunNvmeSelfTestRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data> params(
           message);
@@ -2499,8 +2486,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunDiskReadRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunDiskReadRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_Params_Data> params(
           message);
@@ -2547,8 +2533,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunPrimeSearchRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunPrimeSearchRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Params_Data> params(
           message);
@@ -2601,8 +2586,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryDischargeRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBatteryDischargeRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Params_Data> params(
           message);
@@ -2650,8 +2634,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryChargeRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBatteryChargeRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Params_Data> params(
           message);
@@ -2696,8 +2679,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunMemoryRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunMemoryRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data> params(
           message);
@@ -2737,8 +2719,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunLanConnectivityRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunLanConnectivityRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Params_Data> params(
           message);
@@ -2774,8 +2755,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunSignalStrengthRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunSignalStrengthRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Params_Data> params(
           message);
@@ -2811,8 +2791,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunGatewayCanBePingedRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunGatewayCanBePingedRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Params_Data> params(
           message);
@@ -2848,8 +2827,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunHasSecureWiFiConnectionRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunHasSecureWiFiConnectionRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Params_Data> params(
           message);
@@ -2885,8 +2863,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunDnsResolverPresentRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunDnsResolverPresentRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Params_Data> params(
           message);
@@ -2922,8 +2899,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunDnsLatencyRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunDnsLatencyRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Params_Data> params(
           message);
@@ -2959,8 +2935,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunDnsResolutionRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunDnsResolutionRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Params_Data> params(
           message);
@@ -2996,8 +2971,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunCaptivePortalRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunCaptivePortalRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Params_Data> params(
           message);
@@ -3033,8 +3007,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunHttpFirewallRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunHttpFirewallRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Params_Data> params(
           message);
@@ -3070,8 +3043,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunHttpsFirewallRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunHttpsFirewallRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Params_Data> params(
           message);
@@ -3107,8 +3079,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunHttpsLatencyRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunHttpsLatencyRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Params_Data> params(
           message);
@@ -3151,8 +3122,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunVideoConferencingRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunVideoConferencingRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Params_Data> params(
           message);
@@ -3195,8 +3165,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunArcHttpRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunArcHttpRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcHttpRoutine_Params_Data> params(
           message);
@@ -3232,8 +3201,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunArcPingRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunArcPingRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_Params_Data> params(
           message);
@@ -3269,8 +3237,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunArcDnsResolutionRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunArcDnsResolutionRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Params_Data> params(
           message);
@@ -3306,8 +3273,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunSensitiveSensorRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunSensitiveSensorRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data> params(
           message);
@@ -3343,8 +3309,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunFingerprintRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunFingerprintRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data> params(
           message);
@@ -3380,8 +3345,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunFingerprintAliveRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunFingerprintAliveRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data> params(
           message);
@@ -3424,8 +3388,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunPrivacyScreenRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunPrivacyScreenRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data> params(
           message);
@@ -3475,8 +3438,7 @@ void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunLedLitUpRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunLedLitUpRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data> params(
           message);
@@ -3522,8 +3484,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunEmmcLifetimeRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunEmmcLifetimeRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data> params(
           message);
@@ -3572,8 +3533,7 @@ void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunAudioSetVolumeRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunAudioSetVolumeRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Params_Data> params(
           message);
@@ -3625,8 +3585,7 @@ void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunAudioSetGainRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunAudioSetGainRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Params_Data> params(
           message);
@@ -3665,8 +3624,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBluetoothPowerRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBluetoothPowerRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data> params(
           message);
@@ -3702,8 +3660,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBluetoothDiscoveryRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBluetoothDiscoveryRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data> params(
           message);
@@ -3746,8 +3703,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBluetoothScanningRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBluetoothScanningRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data> params(
           message);
@@ -3797,8 +3753,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBluetoothPairingRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBluetoothPairingRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data> params(
           message);
@@ -3852,8 +3807,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunPowerButtonRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunPowerButtonRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunPowerButtonRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunPowerButtonRoutine_Params_Data> params(
           message);
@@ -3890,8 +3844,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunAudioDriverRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunAudioDriverRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunAudioDriverRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_Params_Data> params(
           message);
@@ -3927,8 +3880,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunUfsLifetimeRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunUfsLifetimeRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data> params(
           message);
@@ -3964,8 +3916,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunFanRoutine(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunFanRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunFanRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFanRoutine_Params_Data> params(
           message);
@@ -4079,8 +4030,7 @@ void CrosHealthdDiagnosticsService_GetAvailableRoutines_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kGetAvailableRoutines), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParams_Data> params(
           message);
@@ -4214,8 +4164,7 @@ void CrosHealthdDiagnosticsService_GetRoutineUpdate_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kGetRoutineUpdate), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParams_Data> params(
           message);
@@ -4347,8 +4296,7 @@ void CrosHealthdDiagnosticsService_RunUrandomRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunUrandomRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParams_Data> params(
           message);
@@ -4480,8 +4428,7 @@ void CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ProxyToResponder::R
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBatteryCapacityRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ResponseParams_Data> params(
           message);
@@ -4613,8 +4560,7 @@ void CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ProxyToResponder::Run
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBatteryHealthRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParams_Data> params(
           message);
@@ -4746,8 +4692,7 @@ void CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ProxyToResponder::Run
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunSmartctlCheckRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParams_Data> params(
           message);
@@ -4879,8 +4824,7 @@ void CrosHealthdDiagnosticsService_RunAcPowerRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunAcPowerRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParams_Data> params(
           message);
@@ -5012,8 +4956,7 @@ void CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunCpuCacheRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParams_Data> params(
           message);
@@ -5145,8 +5088,7 @@ void CrosHealthdDiagnosticsService_RunCpuStressRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunCpuStressRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParams_Data> params(
           message);
@@ -5278,8 +5220,7 @@ void CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ProxyToRespon
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunFloatingPointAccuracyRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data> params(
           message);
@@ -5411,8 +5352,7 @@ void CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ProxyToRes
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunNvmeWearLevelRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data> params(
           message);
@@ -5544,8 +5484,7 @@ void CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ProxyToResponder::Run
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunNvmeWearLevelRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data> params(
           message);
@@ -5677,8 +5616,7 @@ void CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunNvmeSelfTestRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParams_Data> params(
           message);
@@ -5810,8 +5748,7 @@ void CrosHealthdDiagnosticsService_RunDiskReadRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunDiskReadRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParams_Data> params(
           message);
@@ -5943,8 +5880,7 @@ void CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunPrimeSearchRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParams_Data> params(
           message);
@@ -6076,8 +6012,7 @@ void CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ProxyToResponder::
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBatteryDischargeRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ResponseParams_Data> params(
           message);
@@ -6209,8 +6144,7 @@ void CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ProxyToResponder::Run
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBatteryChargeRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ResponseParams_Data> params(
           message);
@@ -6342,8 +6276,7 @@ void CrosHealthdDiagnosticsService_RunMemoryRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunMemoryRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParams_Data> params(
           message);
@@ -6475,8 +6408,7 @@ void CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ProxyToResponder::R
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunLanConnectivityRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ResponseParams_Data> params(
           message);
@@ -6608,8 +6540,7 @@ void CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ProxyToResponder::Ru
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunSignalStrengthRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ResponseParams_Data> params(
           message);
@@ -6741,8 +6672,7 @@ void CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ProxyToResponder
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunGatewayCanBePingedRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParams_Data> params(
           message);
@@ -6874,8 +6804,7 @@ void CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ProxyToResp
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunHasSecureWiFiConnectionRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ResponseParams_Data> params(
           message);
@@ -7007,8 +6936,7 @@ void CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ProxyToResponder
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunDnsResolverPresentRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ResponseParams_Data> params(
           message);
@@ -7140,8 +7068,7 @@ void CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunDnsLatencyRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ResponseParams_Data> params(
           message);
@@ -7273,8 +7200,7 @@ void CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ProxyToResponder::Run
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunDnsResolutionRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ResponseParams_Data> params(
           message);
@@ -7406,8 +7332,7 @@ void CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ProxyToResponder::Run
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunCaptivePortalRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ResponseParams_Data> params(
           message);
@@ -7539,8 +7464,7 @@ void CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunHttpFirewallRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ResponseParams_Data> params(
           message);
@@ -7672,8 +7596,7 @@ void CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ProxyToResponder::Run
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunHttpsFirewallRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ResponseParams_Data> params(
           message);
@@ -7805,8 +7728,7 @@ void CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunHttpsLatencyRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParams_Data> params(
           message);
@@ -7938,8 +7860,7 @@ void CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ProxyToResponder:
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunVideoConferencingRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParams_Data> params(
           message);
@@ -8071,8 +7992,7 @@ void CrosHealthdDiagnosticsService_RunArcHttpRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunArcHttpRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcHttpRoutine_ResponseParams_Data> params(
           message);
@@ -8204,8 +8124,7 @@ void CrosHealthdDiagnosticsService_RunArcPingRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunArcPingRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParams_Data> params(
           message);
@@ -8337,8 +8256,7 @@ void CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ProxyToResponder::
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunArcDnsResolutionRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParams_Data> params(
           message);
@@ -8470,8 +8388,7 @@ void CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ProxyToResponder::R
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunSensitiveSensorRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data> params(
           message);
@@ -8603,8 +8520,7 @@ void CrosHealthdDiagnosticsService_RunFingerprintRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunFingerprintRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data> params(
           message);
@@ -8736,8 +8652,7 @@ void CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ProxyToResponder::
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunFingerprintAliveRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data> params(
           message);
@@ -8869,8 +8784,7 @@ void CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ProxyToResponder::Run
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunPrivacyScreenRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data> params(
           message);
@@ -9002,8 +8916,7 @@ void CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ProxyToResponde
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunLedLitUpRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data> params(
           message);
@@ -9135,8 +9048,7 @@ void CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunEmmcLifetimeRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data> params(
           message);
@@ -9268,8 +9180,7 @@ void CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_ProxyToRe
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunAudioSetVolumeRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_ResponseParams_Data> params(
           message);
@@ -9401,8 +9312,7 @@ void CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_ProxyToResp
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunAudioSetGainRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_ResponseParams_Data> params(
           message);
@@ -9534,8 +9444,7 @@ void CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ProxyToResponder::Ru
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBluetoothPowerRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data> params(
           message);
@@ -9667,8 +9576,7 @@ void CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ProxyToResponder
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBluetoothDiscoveryRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data> params(
           message);
@@ -9800,8 +9708,7 @@ void CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ProxyToResponder:
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBluetoothScanningRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data> params(
           message);
@@ -9933,8 +9840,7 @@ void CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ProxyToResponder::
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunBluetoothPairingRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data> params(
           message);
@@ -10066,8 +9972,7 @@ void CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunPowerButtonRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunPowerButtonRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParams_Data> params(
           message);
@@ -10199,8 +10104,7 @@ void CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunAudioDriverRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunAudioDriverRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data> params(
           message);
@@ -10332,8 +10236,7 @@ void CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunUfsLifetimeRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data> params(
           message);
@@ -10465,8 +10368,7 @@ void CrosHealthdDiagnosticsService_RunFanRoutine_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunFanRoutine_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdDiagnosticsService::kRunFanRoutine), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFanRoutine_ResponseParams_Data> params(
           message);
@@ -10504,152 +10406,152 @@ void CrosHealthdDiagnosticsService_RunFanRoutine_ProxyToResponder::Run(
 bool CrosHealthdDiagnosticsServiceStubDispatch::Accept(
     CrosHealthdDiagnosticsService* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name: {
+  switch (static_cast<messages::CrosHealthdDiagnosticsService>(message->header()->name)) {
+    case messages::CrosHealthdDiagnosticsService::kGetAvailableRoutines: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name: {
+    case messages::CrosHealthdDiagnosticsService::kGetRoutineUpdate: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunUrandomRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBatteryCapacityRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBatteryHealthRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunSmartctlCheckRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunAcPowerRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunCpuCacheRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunCpuStressRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunFloatingPointAccuracyRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunNvmeWearLevelRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunNvmeWearLevelRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunNvmeSelfTestRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunDiskReadRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunPrimeSearchRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBatteryDischargeRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBatteryChargeRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunMemoryRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunLanConnectivityRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunSignalStrengthRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunGatewayCanBePingedRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunHasSecureWiFiConnectionRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunDnsResolverPresentRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunDnsLatencyRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunDnsResolutionRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunCaptivePortalRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunHttpFirewallRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunHttpsFirewallRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunHttpsLatencyRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunVideoConferencingRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunArcHttpRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunArcPingRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunArcDnsResolutionRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunSensitiveSensorRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunFingerprintRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunFingerprintAliveRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunPrivacyScreenRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunLedLitUpRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunEmmcLifetimeRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunAudioSetVolumeRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunAudioSetGainRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBluetoothPowerRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBluetoothDiscoveryRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBluetoothScanningRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBluetoothPairingRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunPowerButtonRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunPowerButtonRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunAudioDriverRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunAudioDriverRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunUfsLifetimeRoutine: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunFanRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunFanRoutine: {
       break;
     }
   }
@@ -10664,8 +10566,8 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name: {
+  switch (static_cast<messages::CrosHealthdDiagnosticsService>(message->header()->name)) {
+    case messages::CrosHealthdDiagnosticsService::kGetAvailableRoutines: {
       internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_Params_Data*>(
@@ -10691,7 +10593,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->GetAvailableRoutines(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name: {
+    case messages::CrosHealthdDiagnosticsService::kGetRoutineUpdate: {
       internal::CrosHealthdDiagnosticsService_GetRoutineUpdate_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_GetRoutineUpdate_Params_Data*>(
@@ -10729,7 +10631,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_include_output), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunUrandomRoutine: {
       internal::CrosHealthdDiagnosticsService_RunUrandomRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunUrandomRoutine_Params_Data*>(
@@ -10759,7 +10661,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_length_seconds), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBatteryCapacityRoutine: {
       internal::CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Params_Data*>(
@@ -10785,7 +10687,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunBatteryCapacityRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBatteryHealthRoutine: {
       internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Params_Data*>(
@@ -10811,7 +10713,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunBatteryHealthRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunSmartctlCheckRoutine: {
       internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data*>(
@@ -10841,7 +10743,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_percentage_used_threshold), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunAcPowerRoutine: {
       internal::CrosHealthdDiagnosticsService_RunAcPowerRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunAcPowerRoutine_Params_Data*>(
@@ -10875,7 +10777,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_expected_power_type), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunCpuCacheRoutine: {
       internal::CrosHealthdDiagnosticsService_RunCpuCacheRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunCpuCacheRoutine_Params_Data*>(
@@ -10905,7 +10807,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_length_seconds), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunCpuStressRoutine: {
       internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_Params_Data*>(
@@ -10935,7 +10837,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_length_seconds), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunFloatingPointAccuracyRoutine: {
       internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Params_Data*>(
@@ -10965,7 +10867,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_length_seconds), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunNvmeWearLevelRoutine: {
       internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data*>(
@@ -10995,7 +10897,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_wear_level_threshold), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunNvmeWearLevelRoutine: {
       internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data*>(
@@ -11025,7 +10927,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_wear_level_threshold), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunNvmeSelfTestRoutine: {
       internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data*>(
@@ -11055,7 +10957,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_nvme_self_test_type), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunDiskReadRoutine: {
       internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_Params_Data*>(
@@ -11093,7 +10995,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_file_size_mb), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunPrimeSearchRoutine: {
       internal::CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Params_Data*>(
@@ -11123,7 +11025,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_length_seconds), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBatteryDischargeRoutine: {
       internal::CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Params_Data*>(
@@ -11157,7 +11059,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_maximum_discharge_percent_allowed), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBatteryChargeRoutine: {
       internal::CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Params_Data*>(
@@ -11191,7 +11093,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_minimum_charge_percent_required), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunMemoryRoutine: {
       internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data*>(
@@ -11222,7 +11124,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_max_testing_mem_kib), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunLanConnectivityRoutine: {
       internal::CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Params_Data*>(
@@ -11248,7 +11150,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunLanConnectivityRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunSignalStrengthRoutine: {
       internal::CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Params_Data*>(
@@ -11274,7 +11176,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunSignalStrengthRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunGatewayCanBePingedRoutine: {
       internal::CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Params_Data*>(
@@ -11300,7 +11202,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunGatewayCanBePingedRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunHasSecureWiFiConnectionRoutine: {
       internal::CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Params_Data*>(
@@ -11326,7 +11228,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunHasSecureWiFiConnectionRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunDnsResolverPresentRoutine: {
       internal::CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Params_Data*>(
@@ -11352,7 +11254,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunDnsResolverPresentRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunDnsLatencyRoutine: {
       internal::CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Params_Data*>(
@@ -11378,7 +11280,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunDnsLatencyRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunDnsResolutionRoutine: {
       internal::CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Params_Data*>(
@@ -11404,7 +11306,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunDnsResolutionRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunCaptivePortalRoutine: {
       internal::CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Params_Data*>(
@@ -11430,7 +11332,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunCaptivePortalRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunHttpFirewallRoutine: {
       internal::CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Params_Data*>(
@@ -11456,7 +11358,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunHttpFirewallRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunHttpsFirewallRoutine: {
       internal::CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Params_Data*>(
@@ -11482,7 +11384,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunHttpsFirewallRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunHttpsLatencyRoutine: {
       internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Params_Data*>(
@@ -11508,7 +11410,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunHttpsLatencyRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunVideoConferencingRoutine: {
       internal::CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Params_Data*>(
@@ -11538,7 +11440,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_stun_server_hostname), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunArcHttpRoutine: {
       internal::CrosHealthdDiagnosticsService_RunArcHttpRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunArcHttpRoutine_Params_Data*>(
@@ -11564,7 +11466,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunArcHttpRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunArcPingRoutine: {
       internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_Params_Data*>(
@@ -11590,7 +11492,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunArcPingRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunArcDnsResolutionRoutine: {
       internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Params_Data*>(
@@ -11616,7 +11518,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunArcDnsResolutionRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunSensitiveSensorRoutine: {
       internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data*>(
@@ -11642,7 +11544,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunSensitiveSensorRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunFingerprintRoutine: {
       internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data*>(
@@ -11668,7 +11570,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunFingerprintRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunFingerprintAliveRoutine: {
       internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data*>(
@@ -11694,7 +11596,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunFingerprintAliveRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunPrivacyScreenRoutine: {
       internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data*>(
@@ -11724,7 +11626,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_target_state), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunLedLitUpRoutine: {
       internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data*>(
@@ -11764,7 +11666,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_replier), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunEmmcLifetimeRoutine: {
       internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data*>(
@@ -11790,7 +11692,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunEmmcLifetimeRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunAudioSetVolumeRoutine: {
       internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Params_Data*>(
@@ -11828,7 +11730,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_mute_on), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kDEPRECATED_RunAudioSetGainRoutine: {
       internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Params_Data*>(
@@ -11866,7 +11768,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_mute_on), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBluetoothPowerRoutine: {
       internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data*>(
@@ -11892,7 +11794,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunBluetoothPowerRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBluetoothDiscoveryRoutine: {
       internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data*>(
@@ -11918,7 +11820,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunBluetoothDiscoveryRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBluetoothScanningRoutine: {
       internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data*>(
@@ -11948,7 +11850,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_length_seconds), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunBluetoothPairingRoutine: {
       internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data*>(
@@ -11978,7 +11880,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_peripheral_id), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunPowerButtonRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunPowerButtonRoutine: {
       internal::CrosHealthdDiagnosticsService_RunPowerButtonRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunPowerButtonRoutine_Params_Data*>(
@@ -12008,7 +11910,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
         std::move(p_timeout_seconds), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunAudioDriverRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunAudioDriverRoutine: {
       internal::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_Params_Data*>(
@@ -12034,7 +11936,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunAudioDriverRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunUfsLifetimeRoutine: {
       internal::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data*>(
@@ -12060,7 +11962,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->RunUfsLifetimeRoutine(std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunFanRoutine_Name: {
+    case messages::CrosHealthdDiagnosticsService::kRunFanRoutine: {
       internal::CrosHealthdDiagnosticsService_RunFanRoutine_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdDiagnosticsService_RunFanRoutine_Params_Data*>(
@@ -12205,32 +12107,32 @@ const char CrosHealthdEventService::Name_[] = "ash.cros_healthd.mojom.CrosHealth
 
 CrosHealthdEventService::IPCStableHashFunction CrosHealthdEventService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Name: {
+  switch (static_cast<messages::CrosHealthdEventService>(message.name())) {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddBluetoothObserver: {
       return &CrosHealthdEventService::DEPRECATED_AddBluetoothObserver_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddLidObserver: {
       return &CrosHealthdEventService::DEPRECATED_AddLidObserver_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddPowerObserver: {
       return &CrosHealthdEventService::DEPRECATED_AddPowerObserver_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdEventService_AddNetworkObserver_Name: {
+    case messages::CrosHealthdEventService::kAddNetworkObserver: {
       return &CrosHealthdEventService::AddNetworkObserver_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddAudioObserver: {
       return &CrosHealthdEventService::DEPRECATED_AddAudioObserver_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddThunderboltObserver: {
       return &CrosHealthdEventService::DEPRECATED_AddThunderboltObserver_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddUsbObserver: {
       return &CrosHealthdEventService::DEPRECATED_AddUsbObserver_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdEventService_AddEventObserver_Name: {
+    case messages::CrosHealthdEventService::kAddEventObserver: {
       return &CrosHealthdEventService::AddEventObserver_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdEventService_IsEventSupported_Name: {
+    case messages::CrosHealthdEventService::kIsEventSupported: {
       return &CrosHealthdEventService::IsEventSupported_Sym::IPCStableHash;
     }
   }
@@ -12243,45 +12145,45 @@ const char* CrosHealthdEventService::MessageToMethodName_(mojo::Message& message
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Name:
+    switch (static_cast<messages::CrosHealthdEventService>(message.name())) {
+      case messages::CrosHealthdEventService::kDEPRECATED_AddBluetoothObserver:
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddBluetoothObserver";
-      case internal::kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name:
+      case messages::CrosHealthdEventService::kDEPRECATED_AddLidObserver:
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddLidObserver";
-      case internal::kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name:
+      case messages::CrosHealthdEventService::kDEPRECATED_AddPowerObserver:
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddPowerObserver";
-      case internal::kCrosHealthdEventService_AddNetworkObserver_Name:
+      case messages::CrosHealthdEventService::kAddNetworkObserver:
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddNetworkObserver";
-      case internal::kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name:
+      case messages::CrosHealthdEventService::kDEPRECATED_AddAudioObserver:
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddAudioObserver";
-      case internal::kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name:
+      case messages::CrosHealthdEventService::kDEPRECATED_AddThunderboltObserver:
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddThunderboltObserver";
-      case internal::kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name:
+      case messages::CrosHealthdEventService::kDEPRECATED_AddUsbObserver:
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddUsbObserver";
-      case internal::kCrosHealthdEventService_AddEventObserver_Name:
+      case messages::CrosHealthdEventService::kAddEventObserver:
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddEventObserver";
-      case internal::kCrosHealthdEventService_IsEventSupported_Name:
+      case messages::CrosHealthdEventService::kIsEventSupported:
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::IsEventSupported";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Name:
+    switch (static_cast<messages::CrosHealthdEventService>(message.name())) {
+      case messages::CrosHealthdEventService::kDEPRECATED_AddBluetoothObserver:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddBluetoothObserver";
-      case internal::kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name:
+      case messages::CrosHealthdEventService::kDEPRECATED_AddLidObserver:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddLidObserver";
-      case internal::kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name:
+      case messages::CrosHealthdEventService::kDEPRECATED_AddPowerObserver:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddPowerObserver";
-      case internal::kCrosHealthdEventService_AddNetworkObserver_Name:
+      case messages::CrosHealthdEventService::kAddNetworkObserver:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddNetworkObserver";
-      case internal::kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name:
+      case messages::CrosHealthdEventService::kDEPRECATED_AddAudioObserver:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddAudioObserver";
-      case internal::kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name:
+      case messages::CrosHealthdEventService::kDEPRECATED_AddThunderboltObserver:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddThunderboltObserver";
-      case internal::kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name:
+      case messages::CrosHealthdEventService::kDEPRECATED_AddUsbObserver:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddUsbObserver";
-      case internal::kCrosHealthdEventService_AddEventObserver_Name:
+      case messages::CrosHealthdEventService::kAddEventObserver:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddEventObserver";
-      case internal::kCrosHealthdEventService_IsEventSupported_Name:
+      case messages::CrosHealthdEventService::kIsEventSupported:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::IsEventSupported";
     }
   }
@@ -12463,8 +12365,7 @@ void CrosHealthdEventServiceProxy::DEPRECATED_AddBluetoothObserver(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdEventService::kDEPRECATED_AddBluetoothObserver), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data> params(
           message);
@@ -12512,8 +12413,7 @@ void CrosHealthdEventServiceProxy::DEPRECATED_AddLidObserver(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdEventService::kDEPRECATED_AddLidObserver), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data> params(
           message);
@@ -12561,8 +12461,7 @@ void CrosHealthdEventServiceProxy::DEPRECATED_AddPowerObserver(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdEventService::kDEPRECATED_AddPowerObserver), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data> params(
           message);
@@ -12610,8 +12509,7 @@ void CrosHealthdEventServiceProxy::AddNetworkObserver(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdEventService_AddNetworkObserver_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdEventService::kAddNetworkObserver), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddNetworkObserver_Params_Data> params(
           message);
@@ -12659,8 +12557,7 @@ void CrosHealthdEventServiceProxy::DEPRECATED_AddAudioObserver(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdEventService::kDEPRECATED_AddAudioObserver), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data> params(
           message);
@@ -12708,8 +12605,7 @@ void CrosHealthdEventServiceProxy::DEPRECATED_AddThunderboltObserver(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdEventService::kDEPRECATED_AddThunderboltObserver), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data> params(
           message);
@@ -12757,8 +12653,7 @@ void CrosHealthdEventServiceProxy::DEPRECATED_AddUsbObserver(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdEventService::kDEPRECATED_AddUsbObserver), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data> params(
           message);
@@ -12809,8 +12704,7 @@ void CrosHealthdEventServiceProxy::AddEventObserver(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdEventService_AddEventObserver_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdEventService::kAddEventObserver), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddEventObserver_Params_Data> params(
           message);
@@ -12860,8 +12754,7 @@ void CrosHealthdEventServiceProxy::IsEventSupported(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdEventService_IsEventSupported_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdEventService::kIsEventSupported), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_IsEventSupported_Params_Data> params(
           message);
@@ -12977,8 +12870,7 @@ void CrosHealthdEventService_IsEventSupported_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdEventService_IsEventSupported_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdEventService::kIsEventSupported), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_IsEventSupported_ResponseParams_Data> params(
           message);
@@ -13014,8 +12906,8 @@ void CrosHealthdEventService_IsEventSupported_ProxyToResponder::Run(
 bool CrosHealthdEventServiceStubDispatch::Accept(
     CrosHealthdEventService* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Name: {
+  switch (static_cast<messages::CrosHealthdEventService>(message->header()->name)) {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddBluetoothObserver: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data*>(
@@ -13044,7 +12936,7 @@ bool CrosHealthdEventServiceStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddLidObserver: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data*>(
@@ -13073,7 +12965,7 @@ bool CrosHealthdEventServiceStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddPowerObserver: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data*>(
@@ -13102,7 +12994,7 @@ bool CrosHealthdEventServiceStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kCrosHealthdEventService_AddNetworkObserver_Name: {
+    case messages::CrosHealthdEventService::kAddNetworkObserver: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdEventService_AddNetworkObserver_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdEventService_AddNetworkObserver_Params_Data*>(
@@ -13131,7 +13023,7 @@ bool CrosHealthdEventServiceStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddAudioObserver: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data*>(
@@ -13160,7 +13052,7 @@ bool CrosHealthdEventServiceStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddThunderboltObserver: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data*>(
@@ -13189,7 +13081,7 @@ bool CrosHealthdEventServiceStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddUsbObserver: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data*>(
@@ -13218,7 +13110,7 @@ bool CrosHealthdEventServiceStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kCrosHealthdEventService_AddEventObserver_Name: {
+    case messages::CrosHealthdEventService::kAddEventObserver: {
       DCHECK(message->is_serialized());
       internal::CrosHealthdEventService_AddEventObserver_Params_Data* params =
           reinterpret_cast<internal::CrosHealthdEventService_AddEventObserver_Params_Data*>(
@@ -13251,7 +13143,7 @@ bool CrosHealthdEventServiceStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
-    case internal::kCrosHealthdEventService_IsEventSupported_Name: {
+    case messages::CrosHealthdEventService::kIsEventSupported: {
       break;
     }
   }
@@ -13266,32 +13158,32 @@ bool CrosHealthdEventServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Name: {
+  switch (static_cast<messages::CrosHealthdEventService>(message->header()->name)) {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddBluetoothObserver: {
       break;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddLidObserver: {
       break;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddPowerObserver: {
       break;
     }
-    case internal::kCrosHealthdEventService_AddNetworkObserver_Name: {
+    case messages::CrosHealthdEventService::kAddNetworkObserver: {
       break;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddAudioObserver: {
       break;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddThunderboltObserver: {
       break;
     }
-    case internal::kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name: {
+    case messages::CrosHealthdEventService::kDEPRECATED_AddUsbObserver: {
       break;
     }
-    case internal::kCrosHealthdEventService_AddEventObserver_Name: {
+    case messages::CrosHealthdEventService::kAddEventObserver: {
       break;
     }
-    case internal::kCrosHealthdEventService_IsEventSupported_Name: {
+    case messages::CrosHealthdEventService::kIsEventSupported: {
       internal::CrosHealthdEventService_IsEventSupported_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdEventService_IsEventSupported_Params_Data*>(
@@ -13360,14 +13252,14 @@ const char CrosHealthdProbeService::Name_[] = "ash.cros_healthd.mojom.CrosHealth
 
 CrosHealthdProbeService::IPCStableHashFunction CrosHealthdProbeService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCrosHealthdProbeService_ProbeProcessInfo_Name: {
+  switch (static_cast<messages::CrosHealthdProbeService>(message.name())) {
+    case messages::CrosHealthdProbeService::kProbeProcessInfo: {
       return &CrosHealthdProbeService::ProbeProcessInfo_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name: {
+    case messages::CrosHealthdProbeService::kProbeTelemetryInfo: {
       return &CrosHealthdProbeService::ProbeTelemetryInfo_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name: {
+    case messages::CrosHealthdProbeService::kProbeMultipleProcessInfo: {
       return &CrosHealthdProbeService::ProbeMultipleProcessInfo_Sym::IPCStableHash;
     }
   }
@@ -13380,21 +13272,21 @@ const char* CrosHealthdProbeService::MessageToMethodName_(mojo::Message& message
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCrosHealthdProbeService_ProbeProcessInfo_Name:
+    switch (static_cast<messages::CrosHealthdProbeService>(message.name())) {
+      case messages::CrosHealthdProbeService::kProbeProcessInfo:
             return "Receive ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo";
-      case internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name:
+      case messages::CrosHealthdProbeService::kProbeTelemetryInfo:
             return "Receive ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo";
-      case internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name:
+      case messages::CrosHealthdProbeService::kProbeMultipleProcessInfo:
             return "Receive ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeMultipleProcessInfo";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCrosHealthdProbeService_ProbeProcessInfo_Name:
+    switch (static_cast<messages::CrosHealthdProbeService>(message.name())) {
+      case messages::CrosHealthdProbeService::kProbeProcessInfo:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo";
-      case internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name:
+      case messages::CrosHealthdProbeService::kProbeTelemetryInfo:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo";
-      case internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name:
+      case messages::CrosHealthdProbeService::kProbeMultipleProcessInfo:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeMultipleProcessInfo";
     }
   }
@@ -13530,8 +13422,7 @@ void CrosHealthdProbeServiceProxy::ProbeProcessInfo(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdProbeService_ProbeProcessInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdProbeService::kProbeProcessInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeProcessInfo_Params_Data> params(
           message);
@@ -13575,8 +13466,7 @@ void CrosHealthdProbeServiceProxy::ProbeTelemetryInfo(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdProbeService::kProbeTelemetryInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeTelemetryInfo_Params_Data> params(
           message);
@@ -13635,8 +13525,7 @@ void CrosHealthdProbeServiceProxy::ProbeMultipleProcessInfo(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdProbeService::kProbeMultipleProcessInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data> params(
           message);
@@ -13760,8 +13649,7 @@ void CrosHealthdProbeService_ProbeProcessInfo_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdProbeService_ProbeProcessInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdProbeService::kProbeProcessInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeProcessInfo_ResponseParams_Data> params(
           message);
@@ -13891,8 +13779,7 @@ void CrosHealthdProbeService_ProbeTelemetryInfo_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdProbeService::kProbeTelemetryInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParams_Data> params(
           message);
@@ -14024,8 +13911,7 @@ void CrosHealthdProbeService_ProbeMultipleProcessInfo_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CrosHealthdProbeService::kProbeMultipleProcessInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data> params(
           message);
@@ -14063,14 +13949,14 @@ void CrosHealthdProbeService_ProbeMultipleProcessInfo_ProxyToResponder::Run(
 bool CrosHealthdProbeServiceStubDispatch::Accept(
     CrosHealthdProbeService* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCrosHealthdProbeService_ProbeProcessInfo_Name: {
+  switch (static_cast<messages::CrosHealthdProbeService>(message->header()->name)) {
+    case messages::CrosHealthdProbeService::kProbeProcessInfo: {
       break;
     }
-    case internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name: {
+    case messages::CrosHealthdProbeService::kProbeTelemetryInfo: {
       break;
     }
-    case internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name: {
+    case messages::CrosHealthdProbeService::kProbeMultipleProcessInfo: {
       break;
     }
   }
@@ -14085,8 +13971,8 @@ bool CrosHealthdProbeServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCrosHealthdProbeService_ProbeProcessInfo_Name: {
+  switch (static_cast<messages::CrosHealthdProbeService>(message->header()->name)) {
+    case messages::CrosHealthdProbeService::kProbeProcessInfo: {
       internal::CrosHealthdProbeService_ProbeProcessInfo_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdProbeService_ProbeProcessInfo_Params_Data*>(
@@ -14116,7 +14002,7 @@ bool CrosHealthdProbeServiceStubDispatch::AcceptWithResponder(
         std::move(p_process_id), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name: {
+    case messages::CrosHealthdProbeService::kProbeTelemetryInfo: {
       internal::CrosHealthdProbeService_ProbeTelemetryInfo_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdProbeService_ProbeTelemetryInfo_Params_Data*>(
@@ -14146,7 +14032,7 @@ bool CrosHealthdProbeServiceStubDispatch::AcceptWithResponder(
         std::move(p_categories), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name: {
+    case messages::CrosHealthdProbeService::kProbeMultipleProcessInfo: {
       internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data* params =
           reinterpret_cast<
               internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data*>(

@@ -11,11 +11,11 @@
 
 
 namespace chromeos::network_health::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::network_health::mojom
 

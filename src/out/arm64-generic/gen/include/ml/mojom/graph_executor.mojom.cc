@@ -49,8 +49,8 @@ const char GraphExecutor::Name_[] = "chromeos.machine_learning.mojom.GraphExecut
 
 GraphExecutor::IPCStableHashFunction GraphExecutor::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kGraphExecutor_Execute_Name: {
+  switch (static_cast<messages::GraphExecutor>(message.name())) {
+    case messages::GraphExecutor::kExecute: {
       return &GraphExecutor::Execute_Sym::IPCStableHash;
     }
   }
@@ -63,13 +63,13 @@ const char* GraphExecutor::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kGraphExecutor_Execute_Name:
+    switch (static_cast<messages::GraphExecutor>(message.name())) {
+      case messages::GraphExecutor::kExecute:
             return "Receive chromeos::machine_learning::mojom::GraphExecutor::Execute";
     }
   } else {
-    switch (message.name()) {
-      case internal::kGraphExecutor_Execute_Name:
+    switch (static_cast<messages::GraphExecutor>(message.name())) {
+      case messages::GraphExecutor::kExecute:
             return "Receive reply chromeos::machine_learning::mojom::GraphExecutor::Execute";
     }
   }
@@ -150,8 +150,7 @@ void GraphExecutorProxy::Execute(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kGraphExecutor_Execute_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::GraphExecutor::kExecute), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::GraphExecutor_Execute_Params_Data> params(
           message);
@@ -298,8 +297,7 @@ void GraphExecutor_Execute_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kGraphExecutor_Execute_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::GraphExecutor::kExecute), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::GraphExecutor_Execute_ResponseParams_Data> params(
           message);
@@ -337,8 +335,8 @@ void GraphExecutor_Execute_ProxyToResponder::Run(
 bool GraphExecutorStubDispatch::Accept(
     GraphExecutor* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kGraphExecutor_Execute_Name: {
+  switch (static_cast<messages::GraphExecutor>(message->header()->name)) {
+    case messages::GraphExecutor::kExecute: {
       break;
     }
   }
@@ -353,8 +351,8 @@ bool GraphExecutorStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kGraphExecutor_Execute_Name: {
+  switch (static_cast<messages::GraphExecutor>(message->header()->name)) {
+    case messages::GraphExecutor::kExecute: {
       internal::GraphExecutor_Execute_Params_Data* params =
           reinterpret_cast<
               internal::GraphExecutor_Execute_Params_Data*>(

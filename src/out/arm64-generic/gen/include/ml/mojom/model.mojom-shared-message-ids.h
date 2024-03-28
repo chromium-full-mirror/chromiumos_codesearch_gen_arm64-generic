@@ -11,13 +11,15 @@
 
 
 namespace chromeos::machine_learning::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kModel_REMOVED_0_Name = 0;
-constexpr uint32_t kModel_CreateGraphExecutor_Name = 1;
+enum class Model : uint32_t {
+  kREMOVED_0 = 0,
+  kCreateGraphExecutor = 1,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::machine_learning::mojom
 

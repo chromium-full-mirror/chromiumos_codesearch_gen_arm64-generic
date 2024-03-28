@@ -11,21 +11,27 @@
 
 
 namespace media::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kVideoFrameHandleReleaser_ReleaseVideoFrame_Name = 0;
-constexpr uint32_t kVideoDecoder_GetSupportedConfigs_Name = 0;
-constexpr uint32_t kVideoDecoder_Construct_Name = 1;
-constexpr uint32_t kVideoDecoder_Initialize_Name = 2;
-constexpr uint32_t kVideoDecoder_Decode_Name = 3;
-constexpr uint32_t kVideoDecoder_Reset_Name = 4;
-constexpr uint32_t kVideoDecoder_OnOverlayInfoChanged_Name = 5;
-constexpr uint32_t kVideoDecoderClient_OnVideoFrameDecoded_Name = 0;
-constexpr uint32_t kVideoDecoderClient_OnWaiting_Name = 1;
-constexpr uint32_t kVideoDecoderClient_RequestOverlayInfo_Name = 2;
+enum class VideoFrameHandleReleaser : uint32_t {
+  kReleaseVideoFrame = 0,
+};
+enum class VideoDecoder : uint32_t {
+  kGetSupportedConfigs = 0,
+  kConstruct = 1,
+  kInitialize = 2,
+  kDecode = 3,
+  kReset = 4,
+  kOnOverlayInfoChanged = 5,
+};
+enum class VideoDecoderClient : uint32_t {
+  kOnVideoFrameDecoded = 0,
+  kOnWaiting = 1,
+  kRequestOverlayInfo = 2,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // media::mojom
 

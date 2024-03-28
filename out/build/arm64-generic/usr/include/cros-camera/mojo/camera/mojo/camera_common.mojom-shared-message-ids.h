@@ -11,26 +11,32 @@
 
 
 namespace cros::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kCameraModuleCallbacks_CameraDeviceStatusChange_Name = 0;
-constexpr uint32_t kCameraModuleCallbacks_TorchModeStatusChange_Name = 1;
-constexpr uint32_t kVendorTagOps_GetTagCount_Name = 0;
-constexpr uint32_t kVendorTagOps_GetAllTags_Name = 1;
-constexpr uint32_t kVendorTagOps_GetSectionName_Name = 2;
-constexpr uint32_t kVendorTagOps_GetTagName_Name = 3;
-constexpr uint32_t kVendorTagOps_GetTagType_Name = 4;
-constexpr uint32_t kCameraModule_OpenDevice_Name = 0;
-constexpr uint32_t kCameraModule_GetNumberOfCameras_Name = 1;
-constexpr uint32_t kCameraModule_GetCameraInfo_Name = 2;
-constexpr uint32_t kCameraModule_SetCallbacks_Name = 3;
-constexpr uint32_t kCameraModule_SetTorchMode_Name = 4;
-constexpr uint32_t kCameraModule_Init_Name = 5;
-constexpr uint32_t kCameraModule_GetVendorTagOps_Name = 6;
-constexpr uint32_t kCameraModule_SetCallbacksAssociated_Name = 7;
+enum class CameraModuleCallbacks : uint32_t {
+  kCameraDeviceStatusChange = 0,
+  kTorchModeStatusChange = 1,
+};
+enum class VendorTagOps : uint32_t {
+  kGetTagCount = 0,
+  kGetAllTags = 1,
+  kGetSectionName = 2,
+  kGetTagName = 3,
+  kGetTagType = 4,
+};
+enum class CameraModule : uint32_t {
+  kOpenDevice = 0,
+  kGetNumberOfCameras = 1,
+  kGetCameraInfo = 2,
+  kSetCallbacks = 3,
+  kSetTorchMode = 4,
+  kInit = 5,
+  kGetVendorTagOps = 6,
+  kSetCallbacksAssociated = 7,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // cros::mojom
 

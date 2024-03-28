@@ -11,25 +11,33 @@
 
 
 namespace media::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kVideoEncodeAcceleratorProvider_CreateVideoEncodeAccelerator_Name = 0;
-constexpr uint32_t kVideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_Name = 1;
-constexpr uint32_t kVideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Name = 0;
-constexpr uint32_t kVideoEncodeAccelerator_Initialize_Name = 0;
-constexpr uint32_t kVideoEncodeAccelerator_Encode_Name = 1;
-constexpr uint32_t kVideoEncodeAccelerator_UseOutputBitstreamBuffer_Name = 2;
-constexpr uint32_t kVideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Name = 3;
-constexpr uint32_t kVideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Name = 4;
-constexpr uint32_t kVideoEncodeAccelerator_IsFlushSupported_Name = 5;
-constexpr uint32_t kVideoEncodeAccelerator_Flush_Name = 6;
-constexpr uint32_t kVideoEncodeAcceleratorClient_RequireBitstreamBuffers_Name = 0;
-constexpr uint32_t kVideoEncodeAcceleratorClient_BitstreamBufferReady_Name = 1;
-constexpr uint32_t kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name = 2;
-constexpr uint32_t kVideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Name = 3;
+enum class VideoEncodeAcceleratorProvider : uint32_t {
+  kCreateVideoEncodeAccelerator = 0,
+  kGetVideoEncodeAcceleratorSupportedProfiles = 1,
+};
+enum class VideoEncodeAcceleratorProviderFactory : uint32_t {
+  kCreateVideoEncodeAcceleratorProvider = 0,
+};
+enum class VideoEncodeAccelerator : uint32_t {
+  kInitialize = 0,
+  kEncode = 1,
+  kUseOutputBitstreamBuffer = 2,
+  kRequestEncodingParametersChangeWithLayers = 3,
+  kRequestEncodingParametersChangeWithBitrate = 4,
+  kIsFlushSupported = 5,
+  kFlush = 6,
+};
+enum class VideoEncodeAcceleratorClient : uint32_t {
+  kRequireBitstreamBuffers = 0,
+  kBitstreamBufferReady = 1,
+  kNotifyErrorStatus = 2,
+  kNotifyEncoderInfoChange = 3,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // media::mojom
 

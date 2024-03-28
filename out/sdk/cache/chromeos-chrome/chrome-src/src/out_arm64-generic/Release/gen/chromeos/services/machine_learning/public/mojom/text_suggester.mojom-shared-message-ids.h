@@ -11,12 +11,14 @@
 
 
 namespace chromeos::machine_learning::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kTextSuggester_Suggest_Name = 0;
+enum class TextSuggester : uint32_t {
+  kSuggest = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::machine_learning::mojom
 

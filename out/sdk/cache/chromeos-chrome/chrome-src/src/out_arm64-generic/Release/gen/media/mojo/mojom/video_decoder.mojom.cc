@@ -178,8 +178,8 @@ const char VideoFrameHandleReleaser::Name_[] = "media.mojom.VideoFrameHandleRele
 
 VideoFrameHandleReleaser::IPCStableHashFunction VideoFrameHandleReleaser::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoFrameHandleReleaser_ReleaseVideoFrame_Name: {
+  switch (static_cast<messages::VideoFrameHandleReleaser>(message.name())) {
+    case messages::VideoFrameHandleReleaser::kReleaseVideoFrame: {
       return &VideoFrameHandleReleaser::ReleaseVideoFrame_Sym::IPCStableHash;
     }
   }
@@ -192,13 +192,13 @@ const char* VideoFrameHandleReleaser::MessageToMethodName_(mojo::Message& messag
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoFrameHandleReleaser_ReleaseVideoFrame_Name:
+    switch (static_cast<messages::VideoFrameHandleReleaser>(message.name())) {
+      case messages::VideoFrameHandleReleaser::kReleaseVideoFrame:
             return "Receive media::mojom::VideoFrameHandleReleaser::ReleaseVideoFrame";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoFrameHandleReleaser_ReleaseVideoFrame_Name:
+    switch (static_cast<messages::VideoFrameHandleReleaser>(message.name())) {
+      case messages::VideoFrameHandleReleaser::kReleaseVideoFrame:
             return "Receive reply media::mojom::VideoFrameHandleReleaser::ReleaseVideoFrame";
     }
   }
@@ -263,8 +263,7 @@ void VideoFrameHandleReleaserProxy::ReleaseVideoFrame(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoFrameHandleReleaser_ReleaseVideoFrame_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoFrameHandleReleaser::kReleaseVideoFrame), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoFrameHandleReleaser_ReleaseVideoFrame_Params_Data> params(
           message);
@@ -301,8 +300,8 @@ void VideoFrameHandleReleaserProxy::ReleaseVideoFrame(
 bool VideoFrameHandleReleaserStubDispatch::Accept(
     VideoFrameHandleReleaser* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoFrameHandleReleaser_ReleaseVideoFrame_Name: {
+  switch (static_cast<messages::VideoFrameHandleReleaser>(message->header()->name)) {
+    case messages::VideoFrameHandleReleaser::kReleaseVideoFrame: {
       DCHECK(message->is_serialized());
       internal::VideoFrameHandleReleaser_ReleaseVideoFrame_Params_Data* params =
           reinterpret_cast<internal::VideoFrameHandleReleaser_ReleaseVideoFrame_Params_Data*>(
@@ -345,8 +344,8 @@ bool VideoFrameHandleReleaserStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoFrameHandleReleaser_ReleaseVideoFrame_Name: {
+  switch (static_cast<messages::VideoFrameHandleReleaser>(message->header()->name)) {
+    case messages::VideoFrameHandleReleaser::kReleaseVideoFrame: {
       break;
     }
   }
@@ -368,23 +367,23 @@ const char VideoDecoder::Name_[] = "media.mojom.VideoDecoder";
 
 VideoDecoder::IPCStableHashFunction VideoDecoder::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoDecoder_GetSupportedConfigs_Name: {
+  switch (static_cast<messages::VideoDecoder>(message.name())) {
+    case messages::VideoDecoder::kGetSupportedConfigs: {
       return &VideoDecoder::GetSupportedConfigs_Sym::IPCStableHash;
     }
-    case internal::kVideoDecoder_Construct_Name: {
+    case messages::VideoDecoder::kConstruct: {
       return &VideoDecoder::Construct_Sym::IPCStableHash;
     }
-    case internal::kVideoDecoder_Initialize_Name: {
+    case messages::VideoDecoder::kInitialize: {
       return &VideoDecoder::Initialize_Sym::IPCStableHash;
     }
-    case internal::kVideoDecoder_Decode_Name: {
+    case messages::VideoDecoder::kDecode: {
       return &VideoDecoder::Decode_Sym::IPCStableHash;
     }
-    case internal::kVideoDecoder_Reset_Name: {
+    case messages::VideoDecoder::kReset: {
       return &VideoDecoder::Reset_Sym::IPCStableHash;
     }
-    case internal::kVideoDecoder_OnOverlayInfoChanged_Name: {
+    case messages::VideoDecoder::kOnOverlayInfoChanged: {
       return &VideoDecoder::OnOverlayInfoChanged_Sym::IPCStableHash;
     }
   }
@@ -397,33 +396,33 @@ const char* VideoDecoder::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoDecoder_GetSupportedConfigs_Name:
+    switch (static_cast<messages::VideoDecoder>(message.name())) {
+      case messages::VideoDecoder::kGetSupportedConfigs:
             return "Receive media::mojom::VideoDecoder::GetSupportedConfigs";
-      case internal::kVideoDecoder_Construct_Name:
+      case messages::VideoDecoder::kConstruct:
             return "Receive media::mojom::VideoDecoder::Construct";
-      case internal::kVideoDecoder_Initialize_Name:
+      case messages::VideoDecoder::kInitialize:
             return "Receive media::mojom::VideoDecoder::Initialize";
-      case internal::kVideoDecoder_Decode_Name:
+      case messages::VideoDecoder::kDecode:
             return "Receive media::mojom::VideoDecoder::Decode";
-      case internal::kVideoDecoder_Reset_Name:
+      case messages::VideoDecoder::kReset:
             return "Receive media::mojom::VideoDecoder::Reset";
-      case internal::kVideoDecoder_OnOverlayInfoChanged_Name:
+      case messages::VideoDecoder::kOnOverlayInfoChanged:
             return "Receive media::mojom::VideoDecoder::OnOverlayInfoChanged";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoDecoder_GetSupportedConfigs_Name:
+    switch (static_cast<messages::VideoDecoder>(message.name())) {
+      case messages::VideoDecoder::kGetSupportedConfigs:
             return "Receive reply media::mojom::VideoDecoder::GetSupportedConfigs";
-      case internal::kVideoDecoder_Construct_Name:
+      case messages::VideoDecoder::kConstruct:
             return "Receive reply media::mojom::VideoDecoder::Construct";
-      case internal::kVideoDecoder_Initialize_Name:
+      case messages::VideoDecoder::kInitialize:
             return "Receive reply media::mojom::VideoDecoder::Initialize";
-      case internal::kVideoDecoder_Decode_Name:
+      case messages::VideoDecoder::kDecode:
             return "Receive reply media::mojom::VideoDecoder::Decode";
-      case internal::kVideoDecoder_Reset_Name:
+      case messages::VideoDecoder::kReset:
             return "Receive reply media::mojom::VideoDecoder::Reset";
-      case internal::kVideoDecoder_OnOverlayInfoChanged_Name:
+      case messages::VideoDecoder::kOnOverlayInfoChanged:
             return "Receive reply media::mojom::VideoDecoder::OnOverlayInfoChanged";
     }
   }
@@ -630,8 +629,7 @@ bool VideoDecoderProxy::GetSupportedConfigs(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kGetSupportedConfigs), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_GetSupportedConfigs_Params_Data> params(
           message);
@@ -683,8 +681,7 @@ void VideoDecoderProxy::GetSupportedConfigs(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kGetSupportedConfigs), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_GetSupportedConfigs_Params_Data> params(
           message);
@@ -742,8 +739,7 @@ void VideoDecoderProxy::Construct(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_Construct_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kConstruct), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_Construct_Params_Data> params(
           message);
@@ -833,8 +829,7 @@ void VideoDecoderProxy::Initialize(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_Initialize_Params_Data> params(
           message);
@@ -896,8 +891,7 @@ void VideoDecoderProxy::Decode(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_Decode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kDecode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_Decode_Params_Data> params(
           message);
@@ -944,8 +938,7 @@ void VideoDecoderProxy::Reset(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_Reset_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kReset), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_Reset_Params_Data> params(
           message);
@@ -988,8 +981,7 @@ void VideoDecoderProxy::OnOverlayInfoChanged(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_OnOverlayInfoChanged_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kOnOverlayInfoChanged), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_OnOverlayInfoChanged_Params_Data> params(
           message);
@@ -1120,8 +1112,7 @@ void VideoDecoder_GetSupportedConfigs_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kGetSupportedConfigs), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_GetSupportedConfigs_ResponseParams_Data> params(
           message);
@@ -1308,8 +1299,7 @@ void VideoDecoder_Initialize_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_Initialize_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kInitialize), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_Initialize_ResponseParams_Data> params(
           message);
@@ -1445,8 +1435,7 @@ void VideoDecoder_Decode_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_Decode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kDecode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_Decode_ResponseParams_Data> params(
           message);
@@ -1567,8 +1556,7 @@ void VideoDecoder_Reset_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoder_Reset_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoder::kReset), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoder_Reset_ResponseParams_Data> params(
           message);
@@ -1595,11 +1583,11 @@ void VideoDecoder_Reset_ProxyToResponder::Run(
 bool VideoDecoderStubDispatch::Accept(
     VideoDecoder* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoDecoder_GetSupportedConfigs_Name: {
+  switch (static_cast<messages::VideoDecoder>(message->header()->name)) {
+    case messages::VideoDecoder::kGetSupportedConfigs: {
       break;
     }
-    case internal::kVideoDecoder_Construct_Name: {
+    case messages::VideoDecoder::kConstruct: {
       DCHECK(message->is_serialized());
       internal::VideoDecoder_Construct_Params_Data* params =
           reinterpret_cast<internal::VideoDecoder_Construct_Params_Data*>(
@@ -1652,16 +1640,16 @@ bool VideoDecoderStubDispatch::Accept(
         std::move(p_target_color_space));
       return true;
     }
-    case internal::kVideoDecoder_Initialize_Name: {
+    case messages::VideoDecoder::kInitialize: {
       break;
     }
-    case internal::kVideoDecoder_Decode_Name: {
+    case messages::VideoDecoder::kDecode: {
       break;
     }
-    case internal::kVideoDecoder_Reset_Name: {
+    case messages::VideoDecoder::kReset: {
       break;
     }
-    case internal::kVideoDecoder_OnOverlayInfoChanged_Name: {
+    case messages::VideoDecoder::kOnOverlayInfoChanged: {
       DCHECK(message->is_serialized());
       internal::VideoDecoder_OnOverlayInfoChanged_Params_Data* params =
           reinterpret_cast<internal::VideoDecoder_OnOverlayInfoChanged_Params_Data*>(
@@ -1700,8 +1688,8 @@ bool VideoDecoderStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoDecoder_GetSupportedConfigs_Name: {
+  switch (static_cast<messages::VideoDecoder>(message->header()->name)) {
+    case messages::VideoDecoder::kGetSupportedConfigs: {
       internal::VideoDecoder_GetSupportedConfigs_Params_Data* params =
           reinterpret_cast<
               internal::VideoDecoder_GetSupportedConfigs_Params_Data*>(
@@ -1727,10 +1715,10 @@ bool VideoDecoderStubDispatch::AcceptWithResponder(
       impl->GetSupportedConfigs(std::move(callback));
       return true;
     }
-    case internal::kVideoDecoder_Construct_Name: {
+    case messages::VideoDecoder::kConstruct: {
       break;
     }
-    case internal::kVideoDecoder_Initialize_Name: {
+    case messages::VideoDecoder::kInitialize: {
       internal::VideoDecoder_Initialize_Params_Data* params =
           reinterpret_cast<
               internal::VideoDecoder_Initialize_Params_Data*>(
@@ -1768,7 +1756,7 @@ bool VideoDecoderStubDispatch::AcceptWithResponder(
         std::move(p_cdm_id), std::move(callback));
       return true;
     }
-    case internal::kVideoDecoder_Decode_Name: {
+    case messages::VideoDecoder::kDecode: {
       internal::VideoDecoder_Decode_Params_Data* params =
           reinterpret_cast<
               internal::VideoDecoder_Decode_Params_Data*>(
@@ -1798,7 +1786,7 @@ bool VideoDecoderStubDispatch::AcceptWithResponder(
         std::move(p_buffer), std::move(callback));
       return true;
     }
-    case internal::kVideoDecoder_Reset_Name: {
+    case messages::VideoDecoder::kReset: {
       internal::VideoDecoder_Reset_Params_Data* params =
           reinterpret_cast<
               internal::VideoDecoder_Reset_Params_Data*>(
@@ -1824,7 +1812,7 @@ bool VideoDecoderStubDispatch::AcceptWithResponder(
       impl->Reset(std::move(callback));
       return true;
     }
-    case internal::kVideoDecoder_OnOverlayInfoChanged_Name: {
+    case messages::VideoDecoder::kOnOverlayInfoChanged: {
       break;
     }
   }
@@ -1860,14 +1848,14 @@ const char VideoDecoderClient::Name_[] = "media.mojom.VideoDecoderClient";
 
 VideoDecoderClient::IPCStableHashFunction VideoDecoderClient::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoDecoderClient_OnVideoFrameDecoded_Name: {
+  switch (static_cast<messages::VideoDecoderClient>(message.name())) {
+    case messages::VideoDecoderClient::kOnVideoFrameDecoded: {
       return &VideoDecoderClient::OnVideoFrameDecoded_Sym::IPCStableHash;
     }
-    case internal::kVideoDecoderClient_OnWaiting_Name: {
+    case messages::VideoDecoderClient::kOnWaiting: {
       return &VideoDecoderClient::OnWaiting_Sym::IPCStableHash;
     }
-    case internal::kVideoDecoderClient_RequestOverlayInfo_Name: {
+    case messages::VideoDecoderClient::kRequestOverlayInfo: {
       return &VideoDecoderClient::RequestOverlayInfo_Sym::IPCStableHash;
     }
   }
@@ -1880,21 +1868,21 @@ const char* VideoDecoderClient::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoDecoderClient_OnVideoFrameDecoded_Name:
+    switch (static_cast<messages::VideoDecoderClient>(message.name())) {
+      case messages::VideoDecoderClient::kOnVideoFrameDecoded:
             return "Receive media::mojom::VideoDecoderClient::OnVideoFrameDecoded";
-      case internal::kVideoDecoderClient_OnWaiting_Name:
+      case messages::VideoDecoderClient::kOnWaiting:
             return "Receive media::mojom::VideoDecoderClient::OnWaiting";
-      case internal::kVideoDecoderClient_RequestOverlayInfo_Name:
+      case messages::VideoDecoderClient::kRequestOverlayInfo:
             return "Receive media::mojom::VideoDecoderClient::RequestOverlayInfo";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoDecoderClient_OnVideoFrameDecoded_Name:
+    switch (static_cast<messages::VideoDecoderClient>(message.name())) {
+      case messages::VideoDecoderClient::kOnVideoFrameDecoded:
             return "Receive reply media::mojom::VideoDecoderClient::OnVideoFrameDecoded";
-      case internal::kVideoDecoderClient_OnWaiting_Name:
+      case messages::VideoDecoderClient::kOnWaiting:
             return "Receive reply media::mojom::VideoDecoderClient::OnWaiting";
-      case internal::kVideoDecoderClient_RequestOverlayInfo_Name:
+      case messages::VideoDecoderClient::kRequestOverlayInfo:
             return "Receive reply media::mojom::VideoDecoderClient::RequestOverlayInfo";
     }
   }
@@ -1988,8 +1976,7 @@ void VideoDecoderClientProxy::OnVideoFrameDecoded(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoderClient_OnVideoFrameDecoded_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoderClient::kOnVideoFrameDecoded), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoderClient_OnVideoFrameDecoded_Params_Data> params(
           message);
@@ -2050,8 +2037,7 @@ void VideoDecoderClientProxy::OnWaiting(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoderClient_OnWaiting_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoderClient::kOnWaiting), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoderClient_OnWaiting_Params_Data> params(
           message);
@@ -2095,8 +2081,7 @@ void VideoDecoderClientProxy::RequestOverlayInfo(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoDecoderClient_RequestOverlayInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoDecoderClient::kRequestOverlayInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::media::mojom::internal::VideoDecoderClient_RequestOverlayInfo_Params_Data> params(
           message);
@@ -2116,8 +2101,8 @@ void VideoDecoderClientProxy::RequestOverlayInfo(
 bool VideoDecoderClientStubDispatch::Accept(
     VideoDecoderClient* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoDecoderClient_OnVideoFrameDecoded_Name: {
+  switch (static_cast<messages::VideoDecoderClient>(message->header()->name)) {
+    case messages::VideoDecoderClient::kOnVideoFrameDecoded: {
       DCHECK(message->is_serialized());
       internal::VideoDecoderClient_OnVideoFrameDecoded_Params_Data* params =
           reinterpret_cast<internal::VideoDecoderClient_OnVideoFrameDecoded_Params_Data*>(
@@ -2152,7 +2137,7 @@ bool VideoDecoderClientStubDispatch::Accept(
         std::move(p_release_token));
       return true;
     }
-    case internal::kVideoDecoderClient_OnWaiting_Name: {
+    case messages::VideoDecoderClient::kOnWaiting: {
       DCHECK(message->is_serialized());
       internal::VideoDecoderClient_OnWaiting_Params_Data* params =
           reinterpret_cast<internal::VideoDecoderClient_OnWaiting_Params_Data*>(
@@ -2179,7 +2164,7 @@ bool VideoDecoderClientStubDispatch::Accept(
         std::move(p_reason));
       return true;
     }
-    case internal::kVideoDecoderClient_RequestOverlayInfo_Name: {
+    case messages::VideoDecoderClient::kRequestOverlayInfo: {
       DCHECK(message->is_serialized());
       internal::VideoDecoderClient_RequestOverlayInfo_Params_Data* params =
           reinterpret_cast<internal::VideoDecoderClient_RequestOverlayInfo_Params_Data*>(
@@ -2218,14 +2203,14 @@ bool VideoDecoderClientStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoDecoderClient_OnVideoFrameDecoded_Name: {
+  switch (static_cast<messages::VideoDecoderClient>(message->header()->name)) {
+    case messages::VideoDecoderClient::kOnVideoFrameDecoded: {
       break;
     }
-    case internal::kVideoDecoderClient_OnWaiting_Name: {
+    case messages::VideoDecoderClient::kOnWaiting: {
       break;
     }
-    case internal::kVideoDecoderClient_RequestOverlayInfo_Name: {
+    case messages::VideoDecoderClient::kRequestOverlayInfo: {
       break;
     }
   }

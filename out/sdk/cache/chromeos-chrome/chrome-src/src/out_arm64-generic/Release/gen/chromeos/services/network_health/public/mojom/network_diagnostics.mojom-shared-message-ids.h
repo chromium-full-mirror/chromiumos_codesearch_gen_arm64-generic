@@ -11,28 +11,30 @@
 
 
 namespace chromeos::network_diagnostics::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kNetworkDiagnosticsRoutines_GetResult_Name = 27;
-constexpr uint32_t kNetworkDiagnosticsRoutines_GetAllResults_Name = 28;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunLanConnectivity_Name = 12;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunSignalStrength_Name = 13;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name = 14;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name = 15;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name = 16;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunDnsLatency_Name = 17;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunDnsResolution_Name = 18;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunCaptivePortal_Name = 19;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunHttpFirewall_Name = 20;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name = 21;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunHttpsLatency_Name = 22;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunVideoConferencing_Name = 23;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunArcHttp_Name = 24;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunArcPing_Name = 25;
-constexpr uint32_t kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name = 26;
+enum class NetworkDiagnosticsRoutines : uint32_t {
+  kGetResult = 27,
+  kGetAllResults = 28,
+  kRunLanConnectivity = 12,
+  kRunSignalStrength = 13,
+  kRunGatewayCanBePinged = 14,
+  kRunHasSecureWiFiConnection = 15,
+  kRunDnsResolverPresent = 16,
+  kRunDnsLatency = 17,
+  kRunDnsResolution = 18,
+  kRunCaptivePortal = 19,
+  kRunHttpFirewall = 20,
+  kRunHttpsFirewall = 21,
+  kRunHttpsLatency = 22,
+  kRunVideoConferencing = 23,
+  kRunArcHttp = 24,
+  kRunArcPing = 25,
+  kRunArcDnsResolution = 26,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::network_diagnostics::mojom
 

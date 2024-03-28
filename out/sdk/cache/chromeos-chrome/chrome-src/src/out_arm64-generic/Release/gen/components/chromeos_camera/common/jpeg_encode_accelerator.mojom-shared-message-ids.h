@@ -11,14 +11,16 @@
 
 
 namespace chromeos_camera::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kJpegEncodeAccelerator_Initialize_Name = 0;
-constexpr uint32_t kJpegEncodeAccelerator_EncodeWithFD_Name = 1;
-constexpr uint32_t kJpegEncodeAccelerator_EncodeWithDmaBuf_Name = 2;
+enum class JpegEncodeAccelerator : uint32_t {
+  kInitialize = 0,
+  kEncodeWithFD = 1,
+  kEncodeWithDmaBuf = 2,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos_camera::mojom
 

@@ -11,12 +11,14 @@
 
 
 namespace chromeos::machine_learning::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kHeatmapPalmRejectionClient_OnHeatmapProcessedEvent_Name = 0;
+enum class HeatmapPalmRejectionClient : uint32_t {
+  kOnHeatmapProcessedEvent = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::machine_learning::mojom
 

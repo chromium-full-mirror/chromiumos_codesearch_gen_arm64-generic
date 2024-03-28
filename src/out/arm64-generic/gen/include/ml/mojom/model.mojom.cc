@@ -216,11 +216,11 @@ const char Model::Name_[] = "chromeos.machine_learning.mojom.Model";
 
 Model::IPCStableHashFunction Model::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kModel_REMOVED_0_Name: {
+  switch (static_cast<messages::Model>(message.name())) {
+    case messages::Model::kREMOVED_0: {
       return &Model::REMOVED_0_Sym::IPCStableHash;
     }
-    case internal::kModel_CreateGraphExecutor_Name: {
+    case messages::Model::kCreateGraphExecutor: {
       return &Model::CreateGraphExecutor_Sym::IPCStableHash;
     }
   }
@@ -233,17 +233,17 @@ const char* Model::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kModel_REMOVED_0_Name:
+    switch (static_cast<messages::Model>(message.name())) {
+      case messages::Model::kREMOVED_0:
             return "Receive chromeos::machine_learning::mojom::Model::REMOVED_0";
-      case internal::kModel_CreateGraphExecutor_Name:
+      case messages::Model::kCreateGraphExecutor:
             return "Receive chromeos::machine_learning::mojom::Model::CreateGraphExecutor";
     }
   } else {
-    switch (message.name()) {
-      case internal::kModel_REMOVED_0_Name:
+    switch (static_cast<messages::Model>(message.name())) {
+      case messages::Model::kREMOVED_0:
             return "Receive reply chromeos::machine_learning::mojom::Model::REMOVED_0";
-      case internal::kModel_CreateGraphExecutor_Name:
+      case messages::Model::kCreateGraphExecutor:
             return "Receive reply chromeos::machine_learning::mojom::Model::CreateGraphExecutor";
     }
   }
@@ -350,8 +350,7 @@ void ModelProxy::REMOVED_0(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kModel_REMOVED_0_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Model::kREMOVED_0), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::Model_REMOVED_0_Params_Data> params(
           message);
@@ -403,8 +402,7 @@ void ModelProxy::CreateGraphExecutor(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kModel_CreateGraphExecutor_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Model::kCreateGraphExecutor), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::Model_CreateGraphExecutor_Params_Data> params(
           message);
@@ -535,8 +533,7 @@ void Model_REMOVED_0_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kModel_REMOVED_0_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Model::kREMOVED_0), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::Model_REMOVED_0_ResponseParams_Data> params(
           message);
@@ -659,8 +656,7 @@ void Model_CreateGraphExecutor_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kModel_CreateGraphExecutor_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::Model::kCreateGraphExecutor), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::Model_CreateGraphExecutor_ResponseParams_Data> params(
           message);
@@ -689,11 +685,11 @@ void Model_CreateGraphExecutor_ProxyToResponder::Run(
 bool ModelStubDispatch::Accept(
     Model* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kModel_REMOVED_0_Name: {
+  switch (static_cast<messages::Model>(message->header()->name)) {
+    case messages::Model::kREMOVED_0: {
       break;
     }
-    case internal::kModel_CreateGraphExecutor_Name: {
+    case messages::Model::kCreateGraphExecutor: {
       break;
     }
   }
@@ -708,8 +704,8 @@ bool ModelStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kModel_REMOVED_0_Name: {
+  switch (static_cast<messages::Model>(message->header()->name)) {
+    case messages::Model::kREMOVED_0: {
       internal::Model_REMOVED_0_Params_Data* params =
           reinterpret_cast<
               internal::Model_REMOVED_0_Params_Data*>(
@@ -741,7 +737,7 @@ bool ModelStubDispatch::AcceptWithResponder(
         std::move(p_receiver), std::move(callback));
       return true;
     }
-    case internal::kModel_CreateGraphExecutor_Name: {
+    case messages::Model::kCreateGraphExecutor: {
       internal::Model_CreateGraphExecutor_Params_Data* params =
           reinterpret_cast<
               internal::Model_CreateGraphExecutor_Params_Data*>(

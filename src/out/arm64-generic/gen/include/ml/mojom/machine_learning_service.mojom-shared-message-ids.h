@@ -11,25 +11,27 @@
 
 
 namespace chromeos::machine_learning::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kMachineLearningService_Clone_Name = 5;
-constexpr uint32_t kMachineLearningService_LoadBuiltinModel_Name = 0;
-constexpr uint32_t kMachineLearningService_LoadFlatBufferModel_Name = 1;
-constexpr uint32_t kMachineLearningService_LoadTextClassifier_Name = 2;
-constexpr uint32_t kMachineLearningService_LoadHandwritingModel_Name = 3;
-constexpr uint32_t kMachineLearningService_LoadSpeechRecognizer_Name = 6;
-constexpr uint32_t kMachineLearningService_LoadGrammarChecker_Name = 7;
-constexpr uint32_t kMachineLearningService_LoadTextSuggester_Name = 8;
-constexpr uint32_t kMachineLearningService_LoadWebPlatformHandwritingModel_Name = 9;
-constexpr uint32_t kMachineLearningService_LoadDocumentScanner_Name = 10;
-constexpr uint32_t kMachineLearningService_CreateWebPlatformModelLoader_Name = 11;
-constexpr uint32_t kMachineLearningService_LoadImageAnnotator_Name = 12;
-constexpr uint32_t kMachineLearningService_LoadHeatmapPalmRejection_Name = 13;
-constexpr uint32_t kMachineLearningService_REMOVED_4_Name = 4;
+enum class MachineLearningService : uint32_t {
+  kClone = 5,
+  kLoadBuiltinModel = 0,
+  kLoadFlatBufferModel = 1,
+  kLoadTextClassifier = 2,
+  kLoadHandwritingModel = 3,
+  kLoadSpeechRecognizer = 6,
+  kLoadGrammarChecker = 7,
+  kLoadTextSuggester = 8,
+  kLoadWebPlatformHandwritingModel = 9,
+  kLoadDocumentScanner = 10,
+  kCreateWebPlatformModelLoader = 11,
+  kLoadImageAnnotator = 12,
+  kLoadHeatmapPalmRejection = 13,
+  kREMOVED_4 = 4,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::machine_learning::mojom
 

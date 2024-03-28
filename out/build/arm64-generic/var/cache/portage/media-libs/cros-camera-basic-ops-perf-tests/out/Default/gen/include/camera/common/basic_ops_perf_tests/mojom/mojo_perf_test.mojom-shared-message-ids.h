@@ -11,12 +11,14 @@
 
 
 namespace cros::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kMojoPerfTest_CallWithBuffer_Name = 0;
+enum class MojoPerfTest : uint32_t {
+  kCallWithBuffer = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // cros::mojom
 

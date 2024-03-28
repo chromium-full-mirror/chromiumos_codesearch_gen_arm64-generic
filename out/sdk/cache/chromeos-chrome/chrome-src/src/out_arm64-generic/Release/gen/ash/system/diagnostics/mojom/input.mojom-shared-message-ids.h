@@ -11,11 +11,11 @@
 
 
 namespace ash::diagnostics::mojom {
-namespace internal {
+namespace messages {
 
 
 
-}  // namespace internal
+}  // namespace messages
 
 }  // ash::diagnostics::mojom
 

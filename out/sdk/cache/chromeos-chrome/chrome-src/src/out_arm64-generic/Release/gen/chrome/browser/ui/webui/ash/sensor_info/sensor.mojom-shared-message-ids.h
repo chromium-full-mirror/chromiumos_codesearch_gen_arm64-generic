@@ -11,14 +11,18 @@
 
 
 namespace sensor::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kPageHandlerFactory_CreatePageHandler_Name = 0;
-constexpr uint32_t kPageHandler_StartRecordingUpdate_Name = 0;
-constexpr uint32_t kPageHandler_StopRecordingUpdate_Name = 1;
+enum class PageHandlerFactory : uint32_t {
+  kCreatePageHandler = 0,
+};
+enum class PageHandler : uint32_t {
+  kStartRecordingUpdate = 0,
+  kStopRecordingUpdate = 1,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // sensor::mojom
 

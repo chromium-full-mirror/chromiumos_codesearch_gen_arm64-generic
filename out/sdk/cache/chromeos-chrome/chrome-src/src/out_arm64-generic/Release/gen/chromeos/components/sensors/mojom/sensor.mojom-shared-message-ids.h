@@ -11,27 +11,35 @@
 
 
 namespace chromeos::sensors::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kSensorService_GetDeviceIds_Name = 0;
-constexpr uint32_t kSensorService_GetAllDeviceIds_Name = 1;
-constexpr uint32_t kSensorService_GetDevice_Name = 2;
-constexpr uint32_t kSensorService_RegisterNewDevicesObserver_Name = 3;
-constexpr uint32_t kSensorDevice_SetTimeout_Name = 0;
-constexpr uint32_t kSensorDevice_GetAttributes_Name = 1;
-constexpr uint32_t kSensorDevice_SetFrequency_Name = 2;
-constexpr uint32_t kSensorDevice_StartReadingSamples_Name = 3;
-constexpr uint32_t kSensorDevice_StopReadingSamples_Name = 4;
-constexpr uint32_t kSensorDevice_GetAllChannelIds_Name = 5;
-constexpr uint32_t kSensorDevice_SetChannelsEnabled_Name = 6;
-constexpr uint32_t kSensorDevice_GetChannelsEnabled_Name = 7;
-constexpr uint32_t kSensorDevice_GetChannelsAttributes_Name = 8;
-constexpr uint32_t kSensorDeviceSamplesObserver_OnSampleUpdated_Name = 0;
-constexpr uint32_t kSensorDeviceSamplesObserver_OnErrorOccurred_Name = 1;
-constexpr uint32_t kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name = 0;
+enum class SensorService : uint32_t {
+  kGetDeviceIds = 0,
+  kGetAllDeviceIds = 1,
+  kGetDevice = 2,
+  kRegisterNewDevicesObserver = 3,
+};
+enum class SensorDevice : uint32_t {
+  kSetTimeout = 0,
+  kGetAttributes = 1,
+  kSetFrequency = 2,
+  kStartReadingSamples = 3,
+  kStopReadingSamples = 4,
+  kGetAllChannelIds = 5,
+  kSetChannelsEnabled = 6,
+  kGetChannelsEnabled = 7,
+  kGetChannelsAttributes = 8,
+};
+enum class SensorDeviceSamplesObserver : uint32_t {
+  kOnSampleUpdated = 0,
+  kOnErrorOccurred = 1,
+};
+enum class SensorServiceNewDevicesObserver : uint32_t {
+  kOnNewDeviceAdded = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::sensors::mojom
 

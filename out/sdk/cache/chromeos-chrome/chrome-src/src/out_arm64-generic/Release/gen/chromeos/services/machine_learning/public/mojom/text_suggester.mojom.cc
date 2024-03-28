@@ -317,8 +317,8 @@ const char TextSuggester::Name_[] = "chromeos.machine_learning.mojom.TextSuggest
 
 TextSuggester::IPCStableHashFunction TextSuggester::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kTextSuggester_Suggest_Name: {
+  switch (static_cast<messages::TextSuggester>(message.name())) {
+    case messages::TextSuggester::kSuggest: {
       return &TextSuggester::Suggest_Sym::IPCStableHash;
     }
   }
@@ -331,13 +331,13 @@ const char* TextSuggester::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kTextSuggester_Suggest_Name:
+    switch (static_cast<messages::TextSuggester>(message.name())) {
+      case messages::TextSuggester::kSuggest:
             return "Receive chromeos::machine_learning::mojom::TextSuggester::Suggest";
     }
   } else {
-    switch (message.name()) {
-      case internal::kTextSuggester_Suggest_Name:
+    switch (static_cast<messages::TextSuggester>(message.name())) {
+      case messages::TextSuggester::kSuggest:
             return "Receive reply chromeos::machine_learning::mojom::TextSuggester::Suggest";
     }
   }
@@ -415,8 +415,7 @@ void TextSuggesterProxy::Suggest(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kTextSuggester_Suggest_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::TextSuggester::kSuggest), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::TextSuggester_Suggest_Params_Data> params(
           message);
@@ -541,8 +540,7 @@ void TextSuggester_Suggest_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kTextSuggester_Suggest_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::TextSuggester::kSuggest), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::chromeos::machine_learning::mojom::internal::TextSuggester_Suggest_ResponseParams_Data> params(
           message);
@@ -580,8 +578,8 @@ void TextSuggester_Suggest_ProxyToResponder::Run(
 bool TextSuggesterStubDispatch::Accept(
     TextSuggester* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kTextSuggester_Suggest_Name: {
+  switch (static_cast<messages::TextSuggester>(message->header()->name)) {
+    case messages::TextSuggester::kSuggest: {
       break;
     }
   }
@@ -596,8 +594,8 @@ bool TextSuggesterStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kTextSuggester_Suggest_Name: {
+  switch (static_cast<messages::TextSuggester>(message->header()->name)) {
+    case messages::TextSuggester::kSuggest: {
       internal::TextSuggester_Suggest_Params_Data* params =
           reinterpret_cast<
               internal::TextSuggester_Suggest_Params_Data*>(

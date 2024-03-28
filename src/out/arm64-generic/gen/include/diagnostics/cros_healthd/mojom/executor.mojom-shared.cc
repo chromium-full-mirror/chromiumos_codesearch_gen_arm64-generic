@@ -73,6 +73,30 @@ std::ostream& operator<<(std::ostream& os, StressAppTestType value) {
   return os << StressAppTestTypeToString(value);
 }
 
+NOINLINE static const char* NetworkBandwidthTestTypeToStringHelper(NetworkBandwidthTestType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case NetworkBandwidthTestType::kDownload:
+      return "kDownload";
+    case NetworkBandwidthTestType::kUpload:
+      return "kUpload";
+    default:
+      return nullptr;
+  }
+}
+
+std::string NetworkBandwidthTestTypeToString(NetworkBandwidthTestType value) {
+  const char *str = NetworkBandwidthTestTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown NetworkBandwidthTestType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, NetworkBandwidthTestType value) {
+  return os << NetworkBandwidthTestTypeToString(value);
+}
+
 NOINLINE static const char* PowerButtonObserver_ButtonStateToStringHelper(PowerButtonObserver_ButtonState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -1088,6 +1112,29 @@ bool StylusObserver_OnConnected_Params_Data::Validate(
 }
 
 StylusObserver_OnConnected_Params_Data::StylusObserver_OnConnected_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool NetworkBandwidthObserver_OnProgress_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const NetworkBandwidthObserver_OnProgress_Params_Data* object =
+      static_cast<const NetworkBandwidthObserver_OnProgress_Params_Data*>(data);
+
+  return true;
+}
+
+NetworkBandwidthObserver_OnProgress_Params_Data::NetworkBandwidthObserver_OnProgress_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -3381,6 +3428,75 @@ bool Executor_RunUrandom_ResponseParams_Data::Validate(
 Executor_RunUrandom_ResponseParams_Data::Executor_RunUrandom_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool Executor_RunNetworkBandwidthTest_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_RunNetworkBandwidthTest_Params_Data* object =
+      static_cast<const Executor_RunNetworkBandwidthTest_Params_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::NetworkBandwidthTestType_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->process_control, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->process_control,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_RunNetworkBandwidthTest_Params_Data::Executor_RunNetworkBandwidthTest_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_RunNetworkBandwidthTest_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_RunNetworkBandwidthTest_ResponseParams_Data* object =
+      static_cast<const Executor_RunNetworkBandwidthTest_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+Executor_RunNetworkBandwidthTest_ResponseParams_Data::Executor_RunNetworkBandwidthTest_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
@@ -3402,6 +3518,16 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::StressAppTestType>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::StressAppTestType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::StressAppTestTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::NetworkBandwidthTestType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::NetworkBandwidthTestType value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::NetworkBandwidthTestTypeToString(value));
 }
 
 } // namespace perfetto

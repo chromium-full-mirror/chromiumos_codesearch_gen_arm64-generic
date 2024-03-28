@@ -11,13 +11,15 @@
 
 
 namespace chromeos::machine_learning::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kImageContentAnnotator_AnnotateRawImage_Name = 0;
-constexpr uint32_t kImageContentAnnotator_AnnotateEncodedImage_Name = 1;
+enum class ImageContentAnnotator : uint32_t {
+  kAnnotateRawImage = 0,
+  kAnnotateEncodedImage = 1,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::machine_learning::mojom
 

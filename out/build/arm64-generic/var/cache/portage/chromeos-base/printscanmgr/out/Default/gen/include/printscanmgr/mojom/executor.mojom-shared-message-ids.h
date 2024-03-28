@@ -11,13 +11,15 @@
 
 
 namespace printscanmgr::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kExecutor_RestartUpstartJob_Name = 0;
-constexpr uint32_t kExecutor_GetPpdFile_Name = 1;
+enum class Executor : uint32_t {
+  kRestartUpstartJob = 0,
+  kGetPpdFile = 1,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // printscanmgr::mojom
 

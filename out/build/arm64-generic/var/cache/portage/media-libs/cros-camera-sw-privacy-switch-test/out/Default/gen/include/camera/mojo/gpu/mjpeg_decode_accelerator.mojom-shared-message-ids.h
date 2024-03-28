@@ -11,14 +11,16 @@
 
 
 namespace cros::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kMjpegDecodeAccelerator_Initialize_Name = 0;
-constexpr uint32_t kMjpegDecodeAccelerator_DecodeWithDmaBuf_Name = 3;
-constexpr uint32_t kMjpegDecodeAccelerator_Uninitialize_Name = 4;
+enum class MjpegDecodeAccelerator : uint32_t {
+  kInitialize = 0,
+  kDecodeWithDmaBuf = 3,
+  kUninitialize = 4,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // cros::mojom
 

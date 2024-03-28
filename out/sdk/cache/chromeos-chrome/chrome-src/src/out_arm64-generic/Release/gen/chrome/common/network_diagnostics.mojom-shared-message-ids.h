@@ -11,14 +11,18 @@
 
 
 namespace chrome::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kNetworkDiagnostics_RunNetworkDiagnostics_Name = 0;
-constexpr uint32_t kNetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Name = 0;
-constexpr uint32_t kNetworkDiagnosticsClient_DNSProbeStatus_Name = 1;
+enum class NetworkDiagnostics : uint32_t {
+  kRunNetworkDiagnostics = 0,
+};
+enum class NetworkDiagnosticsClient : uint32_t {
+  kSetCanShowNetworkDiagnosticsDialog = 0,
+  kDNSProbeStatus = 1,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chrome::mojom
 

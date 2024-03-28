@@ -11,19 +11,23 @@
 
 
 namespace cros::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kCameraAlgorithmOps_Initialize_Name = 0;
-constexpr uint32_t kCameraAlgorithmOps_RegisterBuffer_Name = 1;
-constexpr uint32_t kCameraAlgorithmOps_Request_Name = 2;
-constexpr uint32_t kCameraAlgorithmOps_DeregisterBuffers_Name = 3;
-constexpr uint32_t kCameraAlgorithmOps_UpdateReturn_Name = 4;
-constexpr uint32_t kCameraAlgorithmOps_Deinitialize_Name = 5;
-constexpr uint32_t kCameraAlgorithmCallbackOps_Return_Name = 0;
-constexpr uint32_t kCameraAlgorithmCallbackOps_Update_Name = 1;
+enum class CameraAlgorithmOps : uint32_t {
+  kInitialize = 0,
+  kRegisterBuffer = 1,
+  kRequest = 2,
+  kDeregisterBuffers = 3,
+  kUpdateReturn = 4,
+  kDeinitialize = 5,
+};
+enum class CameraAlgorithmCallbackOps : uint32_t {
+  kReturn = 0,
+  kUpdate = 1,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // cros::mojom
 

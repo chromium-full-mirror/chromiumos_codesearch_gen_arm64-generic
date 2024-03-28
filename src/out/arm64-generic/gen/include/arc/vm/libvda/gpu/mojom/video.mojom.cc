@@ -49,8 +49,8 @@ const char VideoHost::Name_[] = "arc.mojom.VideoHost";
 
 VideoHost::IPCStableHashFunction VideoHost::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoHost_OnBootstrapVideoAcceleratorFactory_Name: {
+  switch (static_cast<messages::VideoHost>(message.name())) {
+    case messages::VideoHost::kOnBootstrapVideoAcceleratorFactory: {
       return &VideoHost::OnBootstrapVideoAcceleratorFactory_Sym::IPCStableHash;
     }
   }
@@ -63,13 +63,13 @@ const char* VideoHost::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoHost_OnBootstrapVideoAcceleratorFactory_Name:
+    switch (static_cast<messages::VideoHost>(message.name())) {
+      case messages::VideoHost::kOnBootstrapVideoAcceleratorFactory:
             return "Receive arc::mojom::VideoHost::OnBootstrapVideoAcceleratorFactory";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoHost_OnBootstrapVideoAcceleratorFactory_Name:
+    switch (static_cast<messages::VideoHost>(message.name())) {
+      case messages::VideoHost::kOnBootstrapVideoAcceleratorFactory:
             return "Receive reply arc::mojom::VideoHost::OnBootstrapVideoAcceleratorFactory";
     }
   }
@@ -140,8 +140,7 @@ void VideoHostProxy::OnBootstrapVideoAcceleratorFactory(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoHost_OnBootstrapVideoAcceleratorFactory_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoHost::kOnBootstrapVideoAcceleratorFactory), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoHost_OnBootstrapVideoAcceleratorFactory_Params_Data> params(
           message);
@@ -262,8 +261,7 @@ void VideoHost_OnBootstrapVideoAcceleratorFactory_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoHost_OnBootstrapVideoAcceleratorFactory_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoHost::kOnBootstrapVideoAcceleratorFactory), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoHost_OnBootstrapVideoAcceleratorFactory_ResponseParams_Data> params(
           message);
@@ -307,8 +305,8 @@ void VideoHost_OnBootstrapVideoAcceleratorFactory_ProxyToResponder::Run(
 bool VideoHostStubDispatch::Accept(
     VideoHost* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoHost_OnBootstrapVideoAcceleratorFactory_Name: {
+  switch (static_cast<messages::VideoHost>(message->header()->name)) {
+    case messages::VideoHost::kOnBootstrapVideoAcceleratorFactory: {
       break;
     }
   }
@@ -323,8 +321,8 @@ bool VideoHostStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoHost_OnBootstrapVideoAcceleratorFactory_Name: {
+  switch (static_cast<messages::VideoHost>(message->header()->name)) {
+    case messages::VideoHost::kOnBootstrapVideoAcceleratorFactory: {
       internal::VideoHost_OnBootstrapVideoAcceleratorFactory_Params_Data* params =
           reinterpret_cast<
               internal::VideoHost_OnBootstrapVideoAcceleratorFactory_Params_Data*>(
@@ -374,8 +372,8 @@ const char VideoInstance::Name_[] = "arc.mojom.VideoInstance";
 
 VideoInstance::IPCStableHashFunction VideoInstance::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoInstance_Init_Name: {
+  switch (static_cast<messages::VideoInstance>(message.name())) {
+    case messages::VideoInstance::kInit: {
       return &VideoInstance::Init_Sym::IPCStableHash;
     }
   }
@@ -388,13 +386,13 @@ const char* VideoInstance::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoInstance_Init_Name:
+    switch (static_cast<messages::VideoInstance>(message.name())) {
+      case messages::VideoInstance::kInit:
             return "Receive arc::mojom::VideoInstance::Init";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoInstance_Init_Name:
+    switch (static_cast<messages::VideoInstance>(message.name())) {
+      case messages::VideoInstance::kInit:
             return "Receive reply arc::mojom::VideoInstance::Init";
     }
   }
@@ -472,8 +470,7 @@ void VideoInstanceProxy::Init(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoInstance_Init_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoInstance::kInit), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoInstance_Init_Params_Data> params(
           message);
@@ -582,8 +579,7 @@ void VideoInstance_Init_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoInstance_Init_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoInstance::kInit), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoInstance_Init_ResponseParams_Data> params(
           message);
@@ -610,8 +606,8 @@ void VideoInstance_Init_ProxyToResponder::Run(
 bool VideoInstanceStubDispatch::Accept(
     VideoInstance* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoInstance_Init_Name: {
+  switch (static_cast<messages::VideoInstance>(message->header()->name)) {
+    case messages::VideoInstance::kInit: {
       break;
     }
   }
@@ -626,8 +622,8 @@ bool VideoInstanceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoInstance_Init_Name: {
+  switch (static_cast<messages::VideoInstance>(message->header()->name)) {
+    case messages::VideoInstance::kInit: {
       internal::VideoInstance_Init_Params_Data* params =
           reinterpret_cast<
               internal::VideoInstance_Init_Params_Data*>(
@@ -683,17 +679,17 @@ const char VideoAcceleratorFactory::Name_[] = "arc.mojom.VideoAcceleratorFactory
 
 VideoAcceleratorFactory::IPCStableHashFunction VideoAcceleratorFactory::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVideoAcceleratorFactory_CreateEncodeAccelerator_Name: {
+  switch (static_cast<messages::VideoAcceleratorFactory>(message.name())) {
+    case messages::VideoAcceleratorFactory::kCreateEncodeAccelerator: {
       return &VideoAcceleratorFactory::CreateEncodeAccelerator_Sym::IPCStableHash;
     }
-    case internal::kVideoAcceleratorFactory_CreateDecodeAccelerator_Name: {
+    case messages::VideoAcceleratorFactory::kCreateDecodeAccelerator: {
       return &VideoAcceleratorFactory::CreateDecodeAccelerator_Sym::IPCStableHash;
     }
-    case internal::kVideoAcceleratorFactory_CreateVideoDecoder_Name: {
+    case messages::VideoAcceleratorFactory::kCreateVideoDecoder: {
       return &VideoAcceleratorFactory::CreateVideoDecoder_Sym::IPCStableHash;
     }
-    case internal::kVideoAcceleratorFactory_CreateProtectedBufferAllocator_Name: {
+    case messages::VideoAcceleratorFactory::kCreateProtectedBufferAllocator: {
       return &VideoAcceleratorFactory::CreateProtectedBufferAllocator_Sym::IPCStableHash;
     }
   }
@@ -706,25 +702,25 @@ const char* VideoAcceleratorFactory::MessageToMethodName_(mojo::Message& message
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVideoAcceleratorFactory_CreateEncodeAccelerator_Name:
+    switch (static_cast<messages::VideoAcceleratorFactory>(message.name())) {
+      case messages::VideoAcceleratorFactory::kCreateEncodeAccelerator:
             return "Receive arc::mojom::VideoAcceleratorFactory::CreateEncodeAccelerator";
-      case internal::kVideoAcceleratorFactory_CreateDecodeAccelerator_Name:
+      case messages::VideoAcceleratorFactory::kCreateDecodeAccelerator:
             return "Receive arc::mojom::VideoAcceleratorFactory::CreateDecodeAccelerator";
-      case internal::kVideoAcceleratorFactory_CreateVideoDecoder_Name:
+      case messages::VideoAcceleratorFactory::kCreateVideoDecoder:
             return "Receive arc::mojom::VideoAcceleratorFactory::CreateVideoDecoder";
-      case internal::kVideoAcceleratorFactory_CreateProtectedBufferAllocator_Name:
+      case messages::VideoAcceleratorFactory::kCreateProtectedBufferAllocator:
             return "Receive arc::mojom::VideoAcceleratorFactory::CreateProtectedBufferAllocator";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVideoAcceleratorFactory_CreateEncodeAccelerator_Name:
+    switch (static_cast<messages::VideoAcceleratorFactory>(message.name())) {
+      case messages::VideoAcceleratorFactory::kCreateEncodeAccelerator:
             return "Receive reply arc::mojom::VideoAcceleratorFactory::CreateEncodeAccelerator";
-      case internal::kVideoAcceleratorFactory_CreateDecodeAccelerator_Name:
+      case messages::VideoAcceleratorFactory::kCreateDecodeAccelerator:
             return "Receive reply arc::mojom::VideoAcceleratorFactory::CreateDecodeAccelerator";
-      case internal::kVideoAcceleratorFactory_CreateVideoDecoder_Name:
+      case messages::VideoAcceleratorFactory::kCreateVideoDecoder:
             return "Receive reply arc::mojom::VideoAcceleratorFactory::CreateVideoDecoder";
-      case internal::kVideoAcceleratorFactory_CreateProtectedBufferAllocator_Name:
+      case messages::VideoAcceleratorFactory::kCreateProtectedBufferAllocator:
             return "Receive reply arc::mojom::VideoAcceleratorFactory::CreateProtectedBufferAllocator";
     }
   }
@@ -825,8 +821,7 @@ void VideoAcceleratorFactoryProxy::CreateEncodeAccelerator(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoAcceleratorFactory_CreateEncodeAccelerator_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoAcceleratorFactory::kCreateEncodeAccelerator), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoAcceleratorFactory_CreateEncodeAccelerator_Params_Data> params(
           message);
@@ -874,8 +869,7 @@ void VideoAcceleratorFactoryProxy::CreateDecodeAccelerator(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoAcceleratorFactory_CreateDecodeAccelerator_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoAcceleratorFactory::kCreateDecodeAccelerator), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoAcceleratorFactory_CreateDecodeAccelerator_Params_Data> params(
           message);
@@ -923,8 +917,7 @@ void VideoAcceleratorFactoryProxy::CreateVideoDecoder(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoAcceleratorFactory_CreateVideoDecoder_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoAcceleratorFactory::kCreateVideoDecoder), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoAcceleratorFactory_CreateVideoDecoder_Params_Data> params(
           message);
@@ -972,8 +965,7 @@ void VideoAcceleratorFactoryProxy::CreateProtectedBufferAllocator(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVideoAcceleratorFactory_CreateProtectedBufferAllocator_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VideoAcceleratorFactory::kCreateProtectedBufferAllocator), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::arc::mojom::internal::VideoAcceleratorFactory_CreateProtectedBufferAllocator_Params_Data> params(
           message);
@@ -998,8 +990,8 @@ void VideoAcceleratorFactoryProxy::CreateProtectedBufferAllocator(
 bool VideoAcceleratorFactoryStubDispatch::Accept(
     VideoAcceleratorFactory* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVideoAcceleratorFactory_CreateEncodeAccelerator_Name: {
+  switch (static_cast<messages::VideoAcceleratorFactory>(message->header()->name)) {
+    case messages::VideoAcceleratorFactory::kCreateEncodeAccelerator: {
       DCHECK(message->is_serialized());
       internal::VideoAcceleratorFactory_CreateEncodeAccelerator_Params_Data* params =
           reinterpret_cast<internal::VideoAcceleratorFactory_CreateEncodeAccelerator_Params_Data*>(
@@ -1028,7 +1020,7 @@ bool VideoAcceleratorFactoryStubDispatch::Accept(
         std::move(p_video_encoder));
       return true;
     }
-    case internal::kVideoAcceleratorFactory_CreateDecodeAccelerator_Name: {
+    case messages::VideoAcceleratorFactory::kCreateDecodeAccelerator: {
       DCHECK(message->is_serialized());
       internal::VideoAcceleratorFactory_CreateDecodeAccelerator_Params_Data* params =
           reinterpret_cast<internal::VideoAcceleratorFactory_CreateDecodeAccelerator_Params_Data*>(
@@ -1057,7 +1049,7 @@ bool VideoAcceleratorFactoryStubDispatch::Accept(
         std::move(p_video_decoder));
       return true;
     }
-    case internal::kVideoAcceleratorFactory_CreateVideoDecoder_Name: {
+    case messages::VideoAcceleratorFactory::kCreateVideoDecoder: {
       DCHECK(message->is_serialized());
       internal::VideoAcceleratorFactory_CreateVideoDecoder_Params_Data* params =
           reinterpret_cast<internal::VideoAcceleratorFactory_CreateVideoDecoder_Params_Data*>(
@@ -1086,7 +1078,7 @@ bool VideoAcceleratorFactoryStubDispatch::Accept(
         std::move(p_video_decoder));
       return true;
     }
-    case internal::kVideoAcceleratorFactory_CreateProtectedBufferAllocator_Name: {
+    case messages::VideoAcceleratorFactory::kCreateProtectedBufferAllocator: {
       DCHECK(message->is_serialized());
       internal::VideoAcceleratorFactory_CreateProtectedBufferAllocator_Params_Data* params =
           reinterpret_cast<internal::VideoAcceleratorFactory_CreateProtectedBufferAllocator_Params_Data*>(
@@ -1127,17 +1119,17 @@ bool VideoAcceleratorFactoryStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVideoAcceleratorFactory_CreateEncodeAccelerator_Name: {
+  switch (static_cast<messages::VideoAcceleratorFactory>(message->header()->name)) {
+    case messages::VideoAcceleratorFactory::kCreateEncodeAccelerator: {
       break;
     }
-    case internal::kVideoAcceleratorFactory_CreateDecodeAccelerator_Name: {
+    case messages::VideoAcceleratorFactory::kCreateDecodeAccelerator: {
       break;
     }
-    case internal::kVideoAcceleratorFactory_CreateVideoDecoder_Name: {
+    case messages::VideoAcceleratorFactory::kCreateVideoDecoder: {
       break;
     }
-    case internal::kVideoAcceleratorFactory_CreateProtectedBufferAllocator_Name: {
+    case messages::VideoAcceleratorFactory::kCreateProtectedBufferAllocator: {
       break;
     }
   }

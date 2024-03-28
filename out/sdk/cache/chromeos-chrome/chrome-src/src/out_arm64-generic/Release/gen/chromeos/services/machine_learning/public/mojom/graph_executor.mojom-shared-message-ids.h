@@ -11,12 +11,14 @@
 
 
 namespace chromeos::machine_learning::mojom {
-namespace internal {
+namespace messages {
 
 
-constexpr uint32_t kGraphExecutor_Execute_Name = 0;
+enum class GraphExecutor : uint32_t {
+  kExecute = 0,
+};
 
-}  // namespace internal
+}  // namespace messages
 
 }  // chromeos::machine_learning::mojom
 

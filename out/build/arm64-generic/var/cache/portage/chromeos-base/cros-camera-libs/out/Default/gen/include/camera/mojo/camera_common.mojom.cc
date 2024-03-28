@@ -181,11 +181,11 @@ const char CameraModuleCallbacks::Name_[] = "cros.mojom.CameraModuleCallbacks";
 
 CameraModuleCallbacks::IPCStableHashFunction CameraModuleCallbacks::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCameraModuleCallbacks_CameraDeviceStatusChange_Name: {
+  switch (static_cast<messages::CameraModuleCallbacks>(message.name())) {
+    case messages::CameraModuleCallbacks::kCameraDeviceStatusChange: {
       return &CameraModuleCallbacks::CameraDeviceStatusChange_Sym::IPCStableHash;
     }
-    case internal::kCameraModuleCallbacks_TorchModeStatusChange_Name: {
+    case messages::CameraModuleCallbacks::kTorchModeStatusChange: {
       return &CameraModuleCallbacks::TorchModeStatusChange_Sym::IPCStableHash;
     }
   }
@@ -198,17 +198,17 @@ const char* CameraModuleCallbacks::MessageToMethodName_(mojo::Message& message) 
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCameraModuleCallbacks_CameraDeviceStatusChange_Name:
+    switch (static_cast<messages::CameraModuleCallbacks>(message.name())) {
+      case messages::CameraModuleCallbacks::kCameraDeviceStatusChange:
             return "Receive cros::mojom::CameraModuleCallbacks::CameraDeviceStatusChange";
-      case internal::kCameraModuleCallbacks_TorchModeStatusChange_Name:
+      case messages::CameraModuleCallbacks::kTorchModeStatusChange:
             return "Receive cros::mojom::CameraModuleCallbacks::TorchModeStatusChange";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCameraModuleCallbacks_CameraDeviceStatusChange_Name:
+    switch (static_cast<messages::CameraModuleCallbacks>(message.name())) {
+      case messages::CameraModuleCallbacks::kCameraDeviceStatusChange:
             return "Receive reply cros::mojom::CameraModuleCallbacks::CameraDeviceStatusChange";
-      case internal::kCameraModuleCallbacks_TorchModeStatusChange_Name:
+      case messages::CameraModuleCallbacks::kTorchModeStatusChange:
             return "Receive reply cros::mojom::CameraModuleCallbacks::TorchModeStatusChange";
     }
   }
@@ -286,8 +286,7 @@ void CameraModuleCallbacksProxy::CameraDeviceStatusChange(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModuleCallbacks_CameraDeviceStatusChange_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModuleCallbacks::kCameraDeviceStatusChange), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModuleCallbacks_CameraDeviceStatusChange_Params_Data> params(
           message);
@@ -335,8 +334,7 @@ void CameraModuleCallbacksProxy::TorchModeStatusChange(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModuleCallbacks_TorchModeStatusChange_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModuleCallbacks::kTorchModeStatusChange), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModuleCallbacks_TorchModeStatusChange_Params_Data> params(
           message);
@@ -358,8 +356,8 @@ void CameraModuleCallbacksProxy::TorchModeStatusChange(
 bool CameraModuleCallbacksStubDispatch::Accept(
     CameraModuleCallbacks* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCameraModuleCallbacks_CameraDeviceStatusChange_Name: {
+  switch (static_cast<messages::CameraModuleCallbacks>(message->header()->name)) {
+    case messages::CameraModuleCallbacks::kCameraDeviceStatusChange: {
       DCHECK(message->is_serialized());
       internal::CameraModuleCallbacks_CameraDeviceStatusChange_Params_Data* params =
           reinterpret_cast<internal::CameraModuleCallbacks_CameraDeviceStatusChange_Params_Data*>(
@@ -390,7 +388,7 @@ bool CameraModuleCallbacksStubDispatch::Accept(
         std::move(p_new_status));
       return true;
     }
-    case internal::kCameraModuleCallbacks_TorchModeStatusChange_Name: {
+    case messages::CameraModuleCallbacks::kTorchModeStatusChange: {
       DCHECK(message->is_serialized());
       internal::CameraModuleCallbacks_TorchModeStatusChange_Params_Data* params =
           reinterpret_cast<internal::CameraModuleCallbacks_TorchModeStatusChange_Params_Data*>(
@@ -433,11 +431,11 @@ bool CameraModuleCallbacksStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCameraModuleCallbacks_CameraDeviceStatusChange_Name: {
+  switch (static_cast<messages::CameraModuleCallbacks>(message->header()->name)) {
+    case messages::CameraModuleCallbacks::kCameraDeviceStatusChange: {
       break;
     }
-    case internal::kCameraModuleCallbacks_TorchModeStatusChange_Name: {
+    case messages::CameraModuleCallbacks::kTorchModeStatusChange: {
       break;
     }
   }
@@ -461,20 +459,20 @@ const char VendorTagOps::Name_[] = "cros.mojom.VendorTagOps";
 
 VendorTagOps::IPCStableHashFunction VendorTagOps::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kVendorTagOps_GetTagCount_Name: {
+  switch (static_cast<messages::VendorTagOps>(message.name())) {
+    case messages::VendorTagOps::kGetTagCount: {
       return &VendorTagOps::GetTagCount_Sym::IPCStableHash;
     }
-    case internal::kVendorTagOps_GetAllTags_Name: {
+    case messages::VendorTagOps::kGetAllTags: {
       return &VendorTagOps::GetAllTags_Sym::IPCStableHash;
     }
-    case internal::kVendorTagOps_GetSectionName_Name: {
+    case messages::VendorTagOps::kGetSectionName: {
       return &VendorTagOps::GetSectionName_Sym::IPCStableHash;
     }
-    case internal::kVendorTagOps_GetTagName_Name: {
+    case messages::VendorTagOps::kGetTagName: {
       return &VendorTagOps::GetTagName_Sym::IPCStableHash;
     }
-    case internal::kVendorTagOps_GetTagType_Name: {
+    case messages::VendorTagOps::kGetTagType: {
       return &VendorTagOps::GetTagType_Sym::IPCStableHash;
     }
   }
@@ -487,29 +485,29 @@ const char* VendorTagOps::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kVendorTagOps_GetTagCount_Name:
+    switch (static_cast<messages::VendorTagOps>(message.name())) {
+      case messages::VendorTagOps::kGetTagCount:
             return "Receive cros::mojom::VendorTagOps::GetTagCount";
-      case internal::kVendorTagOps_GetAllTags_Name:
+      case messages::VendorTagOps::kGetAllTags:
             return "Receive cros::mojom::VendorTagOps::GetAllTags";
-      case internal::kVendorTagOps_GetSectionName_Name:
+      case messages::VendorTagOps::kGetSectionName:
             return "Receive cros::mojom::VendorTagOps::GetSectionName";
-      case internal::kVendorTagOps_GetTagName_Name:
+      case messages::VendorTagOps::kGetTagName:
             return "Receive cros::mojom::VendorTagOps::GetTagName";
-      case internal::kVendorTagOps_GetTagType_Name:
+      case messages::VendorTagOps::kGetTagType:
             return "Receive cros::mojom::VendorTagOps::GetTagType";
     }
   } else {
-    switch (message.name()) {
-      case internal::kVendorTagOps_GetTagCount_Name:
+    switch (static_cast<messages::VendorTagOps>(message.name())) {
+      case messages::VendorTagOps::kGetTagCount:
             return "Receive reply cros::mojom::VendorTagOps::GetTagCount";
-      case internal::kVendorTagOps_GetAllTags_Name:
+      case messages::VendorTagOps::kGetAllTags:
             return "Receive reply cros::mojom::VendorTagOps::GetAllTags";
-      case internal::kVendorTagOps_GetSectionName_Name:
+      case messages::VendorTagOps::kGetSectionName:
             return "Receive reply cros::mojom::VendorTagOps::GetSectionName";
-      case internal::kVendorTagOps_GetTagName_Name:
+      case messages::VendorTagOps::kGetTagName:
             return "Receive reply cros::mojom::VendorTagOps::GetTagName";
-      case internal::kVendorTagOps_GetTagType_Name:
+      case messages::VendorTagOps::kGetTagType:
             return "Receive reply cros::mojom::VendorTagOps::GetTagType";
     }
   }
@@ -696,8 +694,7 @@ void VendorTagOpsProxy::GetTagCount(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVendorTagOps_GetTagCount_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VendorTagOps::kGetTagCount), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetTagCount_Params_Data> params(
           message);
@@ -733,8 +730,7 @@ void VendorTagOpsProxy::GetAllTags(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVendorTagOps_GetAllTags_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VendorTagOps::kGetAllTags), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetAllTags_Params_Data> params(
           message);
@@ -777,8 +773,7 @@ void VendorTagOpsProxy::GetSectionName(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVendorTagOps_GetSectionName_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VendorTagOps::kGetSectionName), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetSectionName_Params_Data> params(
           message);
@@ -822,8 +817,7 @@ void VendorTagOpsProxy::GetTagName(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVendorTagOps_GetTagName_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VendorTagOps::kGetTagName), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetTagName_Params_Data> params(
           message);
@@ -867,8 +861,7 @@ void VendorTagOpsProxy::GetTagType(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVendorTagOps_GetTagType_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VendorTagOps::kGetTagType), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetTagType_Params_Data> params(
           message);
@@ -983,8 +976,7 @@ void VendorTagOps_GetTagCount_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVendorTagOps_GetTagCount_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VendorTagOps::kGetTagCount), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetTagCount_ResponseParams_Data> params(
           message);
@@ -1106,8 +1098,7 @@ void VendorTagOps_GetAllTags_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVendorTagOps_GetAllTags_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VendorTagOps::kGetAllTags), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetAllTags_ResponseParams_Data> params(
           message);
@@ -1241,8 +1232,7 @@ void VendorTagOps_GetSectionName_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVendorTagOps_GetSectionName_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VendorTagOps::kGetSectionName), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetSectionName_ResponseParams_Data> params(
           message);
@@ -1370,8 +1360,7 @@ void VendorTagOps_GetTagName_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVendorTagOps_GetTagName_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VendorTagOps::kGetTagName), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetTagName_ResponseParams_Data> params(
           message);
@@ -1499,8 +1488,7 @@ void VendorTagOps_GetTagType_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kVendorTagOps_GetTagType_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::VendorTagOps::kGetTagType), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::VendorTagOps_GetTagType_ResponseParams_Data> params(
           message);
@@ -1528,20 +1516,20 @@ void VendorTagOps_GetTagType_ProxyToResponder::Run(
 bool VendorTagOpsStubDispatch::Accept(
     VendorTagOps* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kVendorTagOps_GetTagCount_Name: {
+  switch (static_cast<messages::VendorTagOps>(message->header()->name)) {
+    case messages::VendorTagOps::kGetTagCount: {
       break;
     }
-    case internal::kVendorTagOps_GetAllTags_Name: {
+    case messages::VendorTagOps::kGetAllTags: {
       break;
     }
-    case internal::kVendorTagOps_GetSectionName_Name: {
+    case messages::VendorTagOps::kGetSectionName: {
       break;
     }
-    case internal::kVendorTagOps_GetTagName_Name: {
+    case messages::VendorTagOps::kGetTagName: {
       break;
     }
-    case internal::kVendorTagOps_GetTagType_Name: {
+    case messages::VendorTagOps::kGetTagType: {
       break;
     }
   }
@@ -1556,8 +1544,8 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kVendorTagOps_GetTagCount_Name: {
+  switch (static_cast<messages::VendorTagOps>(message->header()->name)) {
+    case messages::VendorTagOps::kGetTagCount: {
       internal::VendorTagOps_GetTagCount_Params_Data* params =
           reinterpret_cast<
               internal::VendorTagOps_GetTagCount_Params_Data*>(
@@ -1583,7 +1571,7 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
       impl->GetTagCount(std::move(callback));
       return true;
     }
-    case internal::kVendorTagOps_GetAllTags_Name: {
+    case messages::VendorTagOps::kGetAllTags: {
       internal::VendorTagOps_GetAllTags_Params_Data* params =
           reinterpret_cast<
               internal::VendorTagOps_GetAllTags_Params_Data*>(
@@ -1609,7 +1597,7 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
       impl->GetAllTags(std::move(callback));
       return true;
     }
-    case internal::kVendorTagOps_GetSectionName_Name: {
+    case messages::VendorTagOps::kGetSectionName: {
       internal::VendorTagOps_GetSectionName_Params_Data* params =
           reinterpret_cast<
               internal::VendorTagOps_GetSectionName_Params_Data*>(
@@ -1639,7 +1627,7 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
         std::move(p_tag), std::move(callback));
       return true;
     }
-    case internal::kVendorTagOps_GetTagName_Name: {
+    case messages::VendorTagOps::kGetTagName: {
       internal::VendorTagOps_GetTagName_Params_Data* params =
           reinterpret_cast<
               internal::VendorTagOps_GetTagName_Params_Data*>(
@@ -1669,7 +1657,7 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
         std::move(p_tag), std::move(callback));
       return true;
     }
-    case internal::kVendorTagOps_GetTagType_Name: {
+    case messages::VendorTagOps::kGetTagType: {
       internal::VendorTagOps_GetTagType_Params_Data* params =
           reinterpret_cast<
               internal::VendorTagOps_GetTagType_Params_Data*>(
@@ -1730,29 +1718,29 @@ const char CameraModule::Name_[] = "cros.mojom.CameraModule";
 
 CameraModule::IPCStableHashFunction CameraModule::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCameraModule_OpenDevice_Name: {
+  switch (static_cast<messages::CameraModule>(message.name())) {
+    case messages::CameraModule::kOpenDevice: {
       return &CameraModule::OpenDevice_Sym::IPCStableHash;
     }
-    case internal::kCameraModule_GetNumberOfCameras_Name: {
+    case messages::CameraModule::kGetNumberOfCameras: {
       return &CameraModule::GetNumberOfCameras_Sym::IPCStableHash;
     }
-    case internal::kCameraModule_GetCameraInfo_Name: {
+    case messages::CameraModule::kGetCameraInfo: {
       return &CameraModule::GetCameraInfo_Sym::IPCStableHash;
     }
-    case internal::kCameraModule_SetCallbacks_Name: {
+    case messages::CameraModule::kSetCallbacks: {
       return &CameraModule::SetCallbacks_Sym::IPCStableHash;
     }
-    case internal::kCameraModule_SetTorchMode_Name: {
+    case messages::CameraModule::kSetTorchMode: {
       return &CameraModule::SetTorchMode_Sym::IPCStableHash;
     }
-    case internal::kCameraModule_Init_Name: {
+    case messages::CameraModule::kInit: {
       return &CameraModule::Init_Sym::IPCStableHash;
     }
-    case internal::kCameraModule_GetVendorTagOps_Name: {
+    case messages::CameraModule::kGetVendorTagOps: {
       return &CameraModule::GetVendorTagOps_Sym::IPCStableHash;
     }
-    case internal::kCameraModule_SetCallbacksAssociated_Name: {
+    case messages::CameraModule::kSetCallbacksAssociated: {
       return &CameraModule::SetCallbacksAssociated_Sym::IPCStableHash;
     }
   }
@@ -1765,41 +1753,41 @@ const char* CameraModule::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kCameraModule_OpenDevice_Name:
+    switch (static_cast<messages::CameraModule>(message.name())) {
+      case messages::CameraModule::kOpenDevice:
             return "Receive cros::mojom::CameraModule::OpenDevice";
-      case internal::kCameraModule_GetNumberOfCameras_Name:
+      case messages::CameraModule::kGetNumberOfCameras:
             return "Receive cros::mojom::CameraModule::GetNumberOfCameras";
-      case internal::kCameraModule_GetCameraInfo_Name:
+      case messages::CameraModule::kGetCameraInfo:
             return "Receive cros::mojom::CameraModule::GetCameraInfo";
-      case internal::kCameraModule_SetCallbacks_Name:
+      case messages::CameraModule::kSetCallbacks:
             return "Receive cros::mojom::CameraModule::SetCallbacks";
-      case internal::kCameraModule_SetTorchMode_Name:
+      case messages::CameraModule::kSetTorchMode:
             return "Receive cros::mojom::CameraModule::SetTorchMode";
-      case internal::kCameraModule_Init_Name:
+      case messages::CameraModule::kInit:
             return "Receive cros::mojom::CameraModule::Init";
-      case internal::kCameraModule_GetVendorTagOps_Name:
+      case messages::CameraModule::kGetVendorTagOps:
             return "Receive cros::mojom::CameraModule::GetVendorTagOps";
-      case internal::kCameraModule_SetCallbacksAssociated_Name:
+      case messages::CameraModule::kSetCallbacksAssociated:
             return "Receive cros::mojom::CameraModule::SetCallbacksAssociated";
     }
   } else {
-    switch (message.name()) {
-      case internal::kCameraModule_OpenDevice_Name:
+    switch (static_cast<messages::CameraModule>(message.name())) {
+      case messages::CameraModule::kOpenDevice:
             return "Receive reply cros::mojom::CameraModule::OpenDevice";
-      case internal::kCameraModule_GetNumberOfCameras_Name:
+      case messages::CameraModule::kGetNumberOfCameras:
             return "Receive reply cros::mojom::CameraModule::GetNumberOfCameras";
-      case internal::kCameraModule_GetCameraInfo_Name:
+      case messages::CameraModule::kGetCameraInfo:
             return "Receive reply cros::mojom::CameraModule::GetCameraInfo";
-      case internal::kCameraModule_SetCallbacks_Name:
+      case messages::CameraModule::kSetCallbacks:
             return "Receive reply cros::mojom::CameraModule::SetCallbacks";
-      case internal::kCameraModule_SetTorchMode_Name:
+      case messages::CameraModule::kSetTorchMode:
             return "Receive reply cros::mojom::CameraModule::SetTorchMode";
-      case internal::kCameraModule_Init_Name:
+      case messages::CameraModule::kInit:
             return "Receive reply cros::mojom::CameraModule::Init";
-      case internal::kCameraModule_GetVendorTagOps_Name:
+      case messages::CameraModule::kGetVendorTagOps:
             return "Receive reply cros::mojom::CameraModule::GetVendorTagOps";
-      case internal::kCameraModule_SetCallbacksAssociated_Name:
+      case messages::CameraModule::kSetCallbacksAssociated:
             return "Receive reply cros::mojom::CameraModule::SetCallbacksAssociated";
     }
   }
@@ -2083,8 +2071,7 @@ void CameraModuleProxy::OpenDevice(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_OpenDevice_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kOpenDevice), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_OpenDevice_Params_Data> params(
           message);
@@ -2127,8 +2114,7 @@ void CameraModuleProxy::GetNumberOfCameras(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_GetNumberOfCameras_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kGetNumberOfCameras), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_GetNumberOfCameras_Params_Data> params(
           message);
@@ -2171,8 +2157,7 @@ void CameraModuleProxy::GetCameraInfo(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_GetCameraInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kGetCameraInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_GetCameraInfo_Params_Data> params(
           message);
@@ -2216,8 +2201,7 @@ void CameraModuleProxy::SetCallbacks(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_SetCallbacks_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kSetCallbacks), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_SetCallbacks_Params_Data> params(
           message);
@@ -2269,8 +2253,7 @@ void CameraModuleProxy::SetTorchMode(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_SetTorchMode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kSetTorchMode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_SetTorchMode_Params_Data> params(
           message);
@@ -2308,8 +2291,7 @@ void CameraModuleProxy::Init(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_Init_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kInit), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_Init_Params_Data> params(
           message);
@@ -2352,8 +2334,7 @@ void CameraModuleProxy::GetVendorTagOps(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_GetVendorTagOps_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kGetVendorTagOps), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_GetVendorTagOps_Params_Data> params(
           message);
@@ -2402,8 +2383,7 @@ void CameraModuleProxy::SetCallbacksAssociated(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_SetCallbacksAssociated_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kSetCallbacksAssociated), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_SetCallbacksAssociated_Params_Data> params(
           message);
@@ -2523,8 +2503,7 @@ void CameraModule_OpenDevice_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_OpenDevice_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kOpenDevice), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_OpenDevice_ResponseParams_Data> params(
           message);
@@ -2646,8 +2625,7 @@ void CameraModule_GetNumberOfCameras_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_GetNumberOfCameras_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kGetNumberOfCameras), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_GetNumberOfCameras_ResponseParams_Data> params(
           message);
@@ -2776,8 +2754,7 @@ void CameraModule_GetCameraInfo_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_GetCameraInfo_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kGetCameraInfo), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_GetCameraInfo_ResponseParams_Data> params(
           message);
@@ -2906,8 +2883,7 @@ void CameraModule_SetCallbacks_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_SetCallbacks_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kSetCallbacks), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_SetCallbacks_ResponseParams_Data> params(
           message);
@@ -3029,8 +3005,7 @@ void CameraModule_SetTorchMode_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_SetTorchMode_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kSetTorchMode), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_SetTorchMode_ResponseParams_Data> params(
           message);
@@ -3152,8 +3127,7 @@ void CameraModule_Init_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_Init_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kInit), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_Init_ResponseParams_Data> params(
           message);
@@ -3264,8 +3238,7 @@ void CameraModule_GetVendorTagOps_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_GetVendorTagOps_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kGetVendorTagOps), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_GetVendorTagOps_ResponseParams_Data> params(
           message);
@@ -3386,8 +3359,7 @@ void CameraModule_SetCallbacksAssociated_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kCameraModule_SetCallbacksAssociated_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::CameraModule::kSetCallbacksAssociated), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::CameraModule_SetCallbacksAssociated_ResponseParams_Data> params(
           message);
@@ -3415,29 +3387,29 @@ void CameraModule_SetCallbacksAssociated_ProxyToResponder::Run(
 bool CameraModuleStubDispatch::Accept(
     CameraModule* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCameraModule_OpenDevice_Name: {
+  switch (static_cast<messages::CameraModule>(message->header()->name)) {
+    case messages::CameraModule::kOpenDevice: {
       break;
     }
-    case internal::kCameraModule_GetNumberOfCameras_Name: {
+    case messages::CameraModule::kGetNumberOfCameras: {
       break;
     }
-    case internal::kCameraModule_GetCameraInfo_Name: {
+    case messages::CameraModule::kGetCameraInfo: {
       break;
     }
-    case internal::kCameraModule_SetCallbacks_Name: {
+    case messages::CameraModule::kSetCallbacks: {
       break;
     }
-    case internal::kCameraModule_SetTorchMode_Name: {
+    case messages::CameraModule::kSetTorchMode: {
       break;
     }
-    case internal::kCameraModule_Init_Name: {
+    case messages::CameraModule::kInit: {
       break;
     }
-    case internal::kCameraModule_GetVendorTagOps_Name: {
+    case messages::CameraModule::kGetVendorTagOps: {
       break;
     }
-    case internal::kCameraModule_SetCallbacksAssociated_Name: {
+    case messages::CameraModule::kSetCallbacksAssociated: {
       break;
     }
   }
@@ -3452,8 +3424,8 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCameraModule_OpenDevice_Name: {
+  switch (static_cast<messages::CameraModule>(message->header()->name)) {
+    case messages::CameraModule::kOpenDevice: {
       internal::CameraModule_OpenDevice_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_OpenDevice_Params_Data*>(
@@ -3489,7 +3461,7 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
         std::move(p_device_ops_receiver), std::move(callback));
       return true;
     }
-    case internal::kCameraModule_GetNumberOfCameras_Name: {
+    case messages::CameraModule::kGetNumberOfCameras: {
       internal::CameraModule_GetNumberOfCameras_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_GetNumberOfCameras_Params_Data*>(
@@ -3515,7 +3487,7 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
       impl->GetNumberOfCameras(std::move(callback));
       return true;
     }
-    case internal::kCameraModule_GetCameraInfo_Name: {
+    case messages::CameraModule::kGetCameraInfo: {
       internal::CameraModule_GetCameraInfo_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_GetCameraInfo_Params_Data*>(
@@ -3545,7 +3517,7 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
         std::move(p_camera_id), std::move(callback));
       return true;
     }
-    case internal::kCameraModule_SetCallbacks_Name: {
+    case messages::CameraModule::kSetCallbacks: {
       internal::CameraModule_SetCallbacks_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_SetCallbacks_Params_Data*>(
@@ -3577,7 +3549,7 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
         std::move(p_callbacks), std::move(callback));
       return true;
     }
-    case internal::kCameraModule_SetTorchMode_Name: {
+    case messages::CameraModule::kSetTorchMode: {
       internal::CameraModule_SetTorchMode_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_SetTorchMode_Params_Data*>(
@@ -3611,7 +3583,7 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
         std::move(p_enabled), std::move(callback));
       return true;
     }
-    case internal::kCameraModule_Init_Name: {
+    case messages::CameraModule::kInit: {
       internal::CameraModule_Init_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_Init_Params_Data*>(
@@ -3637,7 +3609,7 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
       impl->Init(std::move(callback));
       return true;
     }
-    case internal::kCameraModule_GetVendorTagOps_Name: {
+    case messages::CameraModule::kGetVendorTagOps: {
       internal::CameraModule_GetVendorTagOps_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_GetVendorTagOps_Params_Data*>(
@@ -3669,7 +3641,7 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
         std::move(p_vendor_tag_ops_receiver), std::move(callback));
       return true;
     }
-    case internal::kCameraModule_SetCallbacksAssociated_Name: {
+    case messages::CameraModule::kSetCallbacksAssociated: {
       internal::CameraModule_SetCallbacksAssociated_Params_Data* params =
           reinterpret_cast<
               internal::CameraModule_SetCallbacksAssociated_Params_Data*>(

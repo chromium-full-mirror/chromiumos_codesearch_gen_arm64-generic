@@ -49,8 +49,8 @@ const char MojoPerfTest::Name_[] = "cros.mojom.MojoPerfTest";
 
 MojoPerfTest::IPCStableHashFunction MojoPerfTest::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kMojoPerfTest_CallWithBuffer_Name: {
+  switch (static_cast<messages::MojoPerfTest>(message.name())) {
+    case messages::MojoPerfTest::kCallWithBuffer: {
       return &MojoPerfTest::CallWithBuffer_Sym::IPCStableHash;
     }
   }
@@ -63,13 +63,13 @@ const char* MojoPerfTest::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
-    switch (message.name()) {
-      case internal::kMojoPerfTest_CallWithBuffer_Name:
+    switch (static_cast<messages::MojoPerfTest>(message.name())) {
+      case messages::MojoPerfTest::kCallWithBuffer:
             return "Receive cros::mojom::MojoPerfTest::CallWithBuffer";
     }
   } else {
-    switch (message.name()) {
-      case internal::kMojoPerfTest_CallWithBuffer_Name:
+    switch (static_cast<messages::MojoPerfTest>(message.name())) {
+      case messages::MojoPerfTest::kCallWithBuffer:
             return "Receive reply cros::mojom::MojoPerfTest::CallWithBuffer";
     }
   }
@@ -147,8 +147,7 @@ void MojoPerfTestProxy::CallWithBuffer(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMojoPerfTest_CallWithBuffer_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MojoPerfTest::kCallWithBuffer), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::MojoPerfTest_CallWithBuffer_Params_Data> params(
           message);
@@ -264,8 +263,7 @@ void MojoPerfTest_CallWithBuffer_ProxyToResponder::Run(
   const size_t estimated_payload_size =
     0;
   mojo::Message message(
-      internal::kMojoPerfTest_CallWithBuffer_Name, kFlags, 0, 0, nullptr,
-      estimated_payload_size);
+      base::to_underlying(messages::MojoPerfTest::kCallWithBuffer), kFlags, estimated_payload_size);
   mojo::internal::MessageFragment<
       ::cros::mojom::internal::MojoPerfTest_CallWithBuffer_ResponseParams_Data> params(
           message);
@@ -292,8 +290,8 @@ void MojoPerfTest_CallWithBuffer_ProxyToResponder::Run(
 bool MojoPerfTestStubDispatch::Accept(
     MojoPerfTest* impl,
     mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kMojoPerfTest_CallWithBuffer_Name: {
+  switch (static_cast<messages::MojoPerfTest>(message->header()->name)) {
+    case messages::MojoPerfTest::kCallWithBuffer: {
       break;
     }
   }
@@ -308,8 +306,8 @@ bool MojoPerfTestStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kMojoPerfTest_CallWithBuffer_Name: {
+  switch (static_cast<messages::MojoPerfTest>(message->header()->name)) {
+    case messages::MojoPerfTest::kCallWithBuffer: {
       internal::MojoPerfTest_CallWithBuffer_Params_Data* params =
           reinterpret_cast<
               internal::MojoPerfTest_CallWithBuffer_Params_Data*>(
