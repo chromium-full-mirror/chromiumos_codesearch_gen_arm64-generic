@@ -131,6 +131,7 @@ namespace AttributionReportingSourceRegistrationResultEnum {
  extern const char DestinationBothLimitsReached[];
  extern const char ReportingOriginsPerSiteLimitReached[];
  extern const char ExceedsMaxChannelCapacity[];
+ extern const char ExceedsMaxTriggerStateCardinality[];
 } // namespace AttributionReportingSourceRegistrationResultEnum
 
 namespace AttributionReportingSourceRegistrationTimeConfigEnum {

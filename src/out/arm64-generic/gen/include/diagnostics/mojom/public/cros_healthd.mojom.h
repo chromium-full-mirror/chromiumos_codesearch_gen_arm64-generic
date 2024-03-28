@@ -89,8 +89,8 @@ class CrosHealthdDiagnosticsService
     kRunCpuCacheRoutineMinVersion = 0,
     kRunCpuStressRoutineMinVersion = 0,
     kRunFloatingPointAccuracyRoutineMinVersion = 0,
-    kDEPRECATED_RunNvmeWearLevelRoutineMinVersion = 0,
-    kRunNvmeWearLevelRoutineMinVersion = 1,
+    kDEPRECATED_RunNvmeWearLevelRoutineWithThresholdMinVersion = 0,
+    kDEPRECATED_RunNvmeWearLevelRoutineMinVersion = 1,
     kRunNvmeSelfTestRoutineMinVersion = 0,
     kRunDiskReadRoutineMinVersion = 0,
     kRunPrimeSearchRoutineMinVersion = 0,
@@ -163,10 +163,10 @@ class CrosHealthdDiagnosticsService
   struct RunFloatingPointAccuracyRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct DEPRECATED_RunNvmeWearLevelRoutine_Sym {
+  struct DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct RunNvmeWearLevelRoutine_Sym {
+  struct DEPRECATED_RunNvmeWearLevelRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunNvmeSelfTestRoutine_Sym {
@@ -334,14 +334,14 @@ class CrosHealthdDiagnosticsService
   virtual void RunFloatingPointAccuracyRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunFloatingPointAccuracyRoutineCallback callback) = 0;
 
 
+  using DEPRECATED_RunNvmeWearLevelRoutineWithThresholdCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void DEPRECATED_RunNvmeWearLevelRoutineWithThreshold(uint32_t wear_level_threshold, DEPRECATED_RunNvmeWearLevelRoutineWithThresholdCallback callback) = 0;
+
+
   using DEPRECATED_RunNvmeWearLevelRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
-  virtual void DEPRECATED_RunNvmeWearLevelRoutine(uint32_t wear_level_threshold, DEPRECATED_RunNvmeWearLevelRoutineCallback callback) = 0;
-
-
-  using RunNvmeWearLevelRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
-  
-  virtual void RunNvmeWearLevelRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold, RunNvmeWearLevelRoutineCallback callback) = 0;
+  virtual void DEPRECATED_RunNvmeWearLevelRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold, DEPRECATED_RunNvmeWearLevelRoutineCallback callback) = 0;
 
 
   using RunNvmeSelfTestRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
@@ -728,9 +728,9 @@ class  CrosHealthdDiagnosticsServiceProxy
   
   void RunFloatingPointAccuracyRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunFloatingPointAccuracyRoutineCallback callback) final;
   
-  void DEPRECATED_RunNvmeWearLevelRoutine(uint32_t wear_level_threshold, DEPRECATED_RunNvmeWearLevelRoutineCallback callback) final;
+  void DEPRECATED_RunNvmeWearLevelRoutineWithThreshold(uint32_t wear_level_threshold, DEPRECATED_RunNvmeWearLevelRoutineWithThresholdCallback callback) final;
   
-  void RunNvmeWearLevelRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold, RunNvmeWearLevelRoutineCallback callback) final;
+  void DEPRECATED_RunNvmeWearLevelRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold, DEPRECATED_RunNvmeWearLevelRoutineCallback callback) final;
   
   void RunNvmeSelfTestRoutine(::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type, RunNvmeSelfTestRoutineCallback callback) final;
   

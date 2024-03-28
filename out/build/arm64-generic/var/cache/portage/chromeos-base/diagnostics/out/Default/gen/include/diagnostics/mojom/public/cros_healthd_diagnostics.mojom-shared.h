@@ -111,7 +111,7 @@ enum class DiagnosticRoutineEnum : int32_t {
   
   kFloatingPointAccuracy = 7,
   
-  kNvmeWearLevel = 8,
+  DEPRECATED_kNvmeWearLevel = 8,
   
   kNvmeSelfTest = 9,
   

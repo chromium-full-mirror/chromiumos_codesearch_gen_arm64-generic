@@ -155,6 +155,7 @@ CONTENT_EXPORT extern const char DestinationGlobalLimitReached[];
 CONTENT_EXPORT extern const char DestinationBothLimitsReached[];
 CONTENT_EXPORT extern const char ReportingOriginsPerSiteLimitReached[];
 CONTENT_EXPORT extern const char ExceedsMaxChannelCapacity[];
+CONTENT_EXPORT extern const char ExceedsMaxTriggerStateCardinality[];
 } // namespace AttributionReportingSourceRegistrationResultEnum
 
 namespace AttributionReportingSourceRegistrationTimeConfigEnum {

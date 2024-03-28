@@ -356,6 +356,7 @@ const char DestinationGlobalLimitReached[] = "destinationGlobalLimitReached";
 const char DestinationBothLimitsReached[] = "destinationBothLimitsReached";
 const char ReportingOriginsPerSiteLimitReached[] = "reportingOriginsPerSiteLimitReached";
 const char ExceedsMaxChannelCapacity[] = "exceedsMaxChannelCapacity";
+const char ExceedsMaxTriggerStateCardinality[] = "exceedsMaxTriggerStateCardinality";
 } // namespace AttributionReportingSourceRegistrationResultEnum
 
 
