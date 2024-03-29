@@ -261,8 +261,8 @@ NOINLINE static const char* RoutineStateWaiting_ReasonToStringHelper(RoutineStat
       return "kUnmappedEnumField";
     case RoutineStateWaiting_Reason::kWaitingToBeScheduled:
       return "kWaitingToBeScheduled";
-    case RoutineStateWaiting_Reason::kWaitingUserInput:
-      return "kWaitingUserInput";
+    case RoutineStateWaiting_Reason::kWaitingInteraction:
+      return "kWaitingInteraction";
     default:
       return nullptr;
   }
@@ -278,6 +278,32 @@ std::string RoutineStateWaiting_ReasonToString(RoutineStateWaiting_Reason value)
 
 std::ostream& operator<<(std::ostream& os, RoutineStateWaiting_Reason value) {
   return os << RoutineStateWaiting_ReasonToString(value);
+}
+
+NOINLINE static const char* CheckLedLitUpStateReply_StateToStringHelper(CheckLedLitUpStateReply_State value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case CheckLedLitUpStateReply_State::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case CheckLedLitUpStateReply_State::kCorrectColor:
+      return "kCorrectColor";
+    case CheckLedLitUpStateReply_State::kNotLitUp:
+      return "kNotLitUp";
+    default:
+      return nullptr;
+  }
+}
+
+std::string CheckLedLitUpStateReply_StateToString(CheckLedLitUpStateReply_State value) {
+  const char *str = CheckLedLitUpStateReply_StateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown CheckLedLitUpStateReply_State value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, CheckLedLitUpStateReply_State value) {
+  return os << CheckLedLitUpStateReply_StateToString(value);
 }
 
 NOINLINE static const char* BluetoothPairingPeripheralInfo_PairErrorToStringHelper(BluetoothPairingPeripheralInfo_PairError value) {
@@ -654,6 +680,148 @@ bool RoutineStateUnion_Data::Validate(
           mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
           "unknown tag in RoutineStateUnion");
       return false;
+    }
+  }
+}
+// static
+bool RoutineInteraction_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const RoutineInteraction_Data* object = static_cast<const RoutineInteraction_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case RoutineInteraction_Tag::kUnrecognizedInteraction: {
+
+      return true;
+    }
+    case RoutineInteraction_Tag::kInquiry: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_inquiry, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateNonInlinedUnion(object->data.f_inquiry,
+                                                   validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      return true;
+    }
+  }
+}
+// static
+bool RoutineInquiry_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const RoutineInquiry_Data* object = static_cast<const RoutineInquiry_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case RoutineInquiry_Tag::kUnrecognizedInquiry: {
+
+      return true;
+    }
+    case RoutineInquiry_Tag::kCheckLedLitUpState: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_check_led_lit_up_state, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_check_led_lit_up_state, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      return true;
+    }
+  }
+}
+// static
+bool RoutineInquiryReply_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const RoutineInquiryReply_Data* object = static_cast<const RoutineInquiryReply_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case RoutineInquiryReply_Tag::kUnrecognizedReply: {
+
+      return true;
+    }
+    case RoutineInquiryReply_Tag::kCheckLedLitUpState: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_check_led_lit_up_state, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_check_led_lit_up_state, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      return true;
     }
   }
 }
@@ -1331,8 +1499,12 @@ bool RoutineStateWaiting_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 24 },
+    { 1, 40 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1356,11 +1528,67 @@ bool RoutineStateWaiting_Data::Validate(
                                          &message_validate_params)) {
     return false;
   }
+  if (object->header_.version < 1)
+    return true;
+
+  if (!mojo::internal::ValidateInlinedUnion(object->interaction, validation_context))
+    return false;
 
   return true;
 }
 
 RoutineStateWaiting_Data::RoutineStateWaiting_Data()
+    : header_({sizeof(*this), 1}) {}
+
+
+// static
+bool CheckLedLitUpStateInquiry_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CheckLedLitUpStateInquiry_Data* object =
+      static_cast<const CheckLedLitUpStateInquiry_Data*>(data);
+
+  return true;
+}
+
+CheckLedLitUpStateInquiry_Data::CheckLedLitUpStateInquiry_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CheckLedLitUpStateReply_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CheckLedLitUpStateReply_Data* object =
+      static_cast<const CheckLedLitUpStateReply_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::CheckLedLitUpStateReply_State_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+CheckLedLitUpStateReply_Data::CheckLedLitUpStateReply_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2102,6 +2330,36 @@ RoutineControl_Start_Params_Data::RoutineControl_Start_Params_Data()
 
 
 // static
+bool RoutineControl_ReplyInquiry_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RoutineControl_ReplyInquiry_Params_Data* object =
+      static_cast<const RoutineControl_ReplyInquiry_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->reply, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateInlinedUnion(object->reply, validation_context))
+    return false;
+
+  return true;
+}
+
+RoutineControl_ReplyInquiry_Params_Data::RoutineControl_ReplyInquiry_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool RoutineObserver_OnRoutineStateChange_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -2211,6 +2469,16 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::RoutineStateWaiting_Reason value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::RoutineStateWaiting_ReasonToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::CheckLedLitUpStateReply_State>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::CheckLedLitUpStateReply_State value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::CheckLedLitUpStateReply_StateToString(value));
 }
 
 } // namespace perfetto

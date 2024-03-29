@@ -60,6 +60,7 @@ class  RoutineControlInterceptorForTesting : public RoutineControl {
   virtual RoutineControl* GetForwardingInterface() = 0;
   void GetState(GetStateCallback callback) override;
   void Start() override;
+  void ReplyInquiry(RoutineInquiryReplyPtr reply) override;
 };
 class  RoutineControlAsyncWaiter {
  public:

@@ -48,6 +48,8 @@ class RoutineState_Data;
 class RoutineStateInitialized_Data;
 class RoutineStateRunning_Data;
 class RoutineStateWaiting_Data;
+class CheckLedLitUpStateInquiry_Data;
+class CheckLedLitUpStateReply_Data;
 class RoutineStateFinished_Data;
 class MemoryRoutineDetail_Data;
 class AudioDriverRoutineDetail_Data;
@@ -65,6 +67,9 @@ class CameraAvailabilityRoutineDetail_Data;
 class FanRoutineDetail_Data;
 class RoutineArgument_Data;
 class RoutineStateUnion_Data;
+class RoutineInteraction_Data;
+class RoutineInquiry_Data;
+class RoutineInquiryReply_Data;
 class RoutineDetail_Data;
 
 struct MemtesterTestItemEnum_Data {
@@ -268,6 +273,31 @@ struct VolumeButtonRoutineArgument_ButtonType_Data {
 };
 
 struct RoutineStateWaiting_Reason_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct CheckLedLitUpStateReply_State_Data {
  public:
   static bool constexpr kIsExtensible = true;
 
@@ -534,6 +564,162 @@ class  RoutineStateUnion_Data {
 };
 static_assert(sizeof(RoutineStateUnion_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(RoutineStateUnion_Data)");
+
+
+class  RoutineInteraction_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  RoutineInteraction_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~RoutineInteraction_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<RoutineInteraction_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class RoutineInteraction_Tag : uint32_t {
+
+    
+    kUnrecognizedInteraction,
+    
+    kInquiry,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    uint8_t f_unrecognizedInteraction : 1;
+    mojo::internal::Pointer<internal::RoutineInquiry_Data> f_inquiry;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  RoutineInteraction_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(RoutineInteraction_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(RoutineInteraction_Data)");
+
+
+class  RoutineInquiry_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  RoutineInquiry_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~RoutineInquiry_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<RoutineInquiry_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class RoutineInquiry_Tag : uint32_t {
+
+    
+    kUnrecognizedInquiry,
+    
+    kCheckLedLitUpState,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    uint8_t f_unrecognizedInquiry : 1;
+    mojo::internal::Pointer<internal::CheckLedLitUpStateInquiry_Data> f_check_led_lit_up_state;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  RoutineInquiry_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(RoutineInquiry_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(RoutineInquiry_Data)");
+
+
+class  RoutineInquiryReply_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  RoutineInquiryReply_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~RoutineInquiryReply_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<RoutineInquiryReply_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class RoutineInquiryReply_Tag : uint32_t {
+
+    
+    kUnrecognizedReply,
+    
+    kCheckLedLitUpState,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    uint8_t f_unrecognizedReply : 1;
+    mojo::internal::Pointer<internal::CheckLedLitUpStateReply_Data> f_check_led_lit_up_state;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  RoutineInquiryReply_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(RoutineInquiryReply_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(RoutineInquiryReply_Data)");
 
 
 class  RoutineDetail_Data {
@@ -1584,6 +1770,7 @@ class  RoutineStateWaiting_Data {
   int32_t reason;
   uint8_t pad0_[4];
   mojo::internal::Pointer<mojo::internal::String_Data> message;
+  internal::RoutineInteraction_Data interaction;
 
  private:
   friend class mojo::internal::MessageFragment<RoutineStateWaiting_Data>;
@@ -1591,7 +1778,7 @@ class  RoutineStateWaiting_Data {
   RoutineStateWaiting_Data();
   ~RoutineStateWaiting_Data() = delete;
 };
-static_assert(sizeof(RoutineStateWaiting_Data) == 24,
+static_assert(sizeof(RoutineStateWaiting_Data) == 40,
               "Bad sizeof(RoutineStateWaiting_Data)");
 // Used by RoutineStateWaiting::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -1625,6 +1812,102 @@ struct RoutineStateWaiting_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     RoutineStateWaiting_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  CheckLedLitUpStateInquiry_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CheckLedLitUpStateInquiry_Data>;
+
+  CheckLedLitUpStateInquiry_Data();
+  ~CheckLedLitUpStateInquiry_Data() = delete;
+};
+static_assert(sizeof(CheckLedLitUpStateInquiry_Data) == 8,
+              "Bad sizeof(CheckLedLitUpStateInquiry_Data)");
+// Used by CheckLedLitUpStateInquiry::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CheckLedLitUpStateInquiry_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CheckLedLitUpStateInquiry_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CheckLedLitUpStateInquiry_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CheckLedLitUpStateInquiry_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CheckLedLitUpStateInquiry_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  CheckLedLitUpStateReply_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CheckLedLitUpStateReply_Data>;
+
+  CheckLedLitUpStateReply_Data();
+  ~CheckLedLitUpStateReply_Data() = delete;
+};
+static_assert(sizeof(CheckLedLitUpStateReply_Data) == 16,
+              "Bad sizeof(CheckLedLitUpStateReply_Data)");
+// Used by CheckLedLitUpStateReply::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CheckLedLitUpStateReply_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CheckLedLitUpStateReply_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CheckLedLitUpStateReply_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CheckLedLitUpStateReply_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CheckLedLitUpStateReply_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  RoutineStateFinished_Data {
  public:
   static bool Validate(const void* data,

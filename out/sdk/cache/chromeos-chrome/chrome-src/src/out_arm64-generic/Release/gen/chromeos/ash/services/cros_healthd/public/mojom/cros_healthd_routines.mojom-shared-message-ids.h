@@ -24,6 +24,7 @@ enum class LedLitUpRoutineReplier : uint32_t {
 enum class RoutineControl : uint32_t {
   kGetState = 0,
   kStart = 1,
+  kReplyInquiry = 2,
 };
 enum class RoutineObserver : uint32_t {
   kOnRoutineStateChange = 0,

@@ -31,6 +31,7 @@ class ChromeUserEvent;
 class ChromeWindowHandleEventInfo;
 class DebugAnnotation;
 class LogMessage;
+class PixelModemEventInsight;
 class Screenshot;
 class SourceLocation;
 class TaskExecution;
@@ -365,7 +366,7 @@ class TrackEventDefaults : public ::protozero::Message {
   }
 };
 
-class TrackEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/50, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class TrackEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/51, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   TrackEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TrackEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -434,6 +435,8 @@ class TrackEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=
   ::protozero::ConstBytes chrome_active_processes() const { return at<49>().as_bytes(); }
   bool has_screenshot() const { return at<50>().valid(); }
   ::protozero::ConstBytes screenshot() const { return at<50>().as_bytes(); }
+  bool has_pixel_modem_event_insight() const { return at<51>().valid(); }
+  ::protozero::ConstBytes pixel_modem_event_insight() const { return at<51>().as_bytes(); }
   bool has_source_location() const { return at<33>().valid(); }
   ::protozero::ConstBytes source_location() const { return at<33>().as_bytes(); }
   bool has_source_location_iid() const { return at<34>().valid(); }
@@ -494,6 +497,7 @@ class TrackEvent : public ::protozero::Message {
     kChromeContentSettingsEventInfoFieldNumber = 43,
     kChromeActiveProcessesFieldNumber = 49,
     kScreenshotFieldNumber = 50,
+    kPixelModemEventInsightFieldNumber = 51,
     kSourceLocationFieldNumber = 33,
     kSourceLocationIidFieldNumber = 34,
     kChromeMessagePumpFieldNumber = 35,
@@ -1041,6 +1045,20 @@ class TrackEvent : public ::protozero::Message {
   static constexpr FieldMetadata_Screenshot kScreenshot{};
   template <typename T = Screenshot> T* set_screenshot() {
     return BeginNestedMessage<T>(50);
+  }
+
+
+  using FieldMetadata_PixelModemEventInsight =
+    ::protozero::proto_utils::FieldMetadata<
+      51,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      PixelModemEventInsight,
+      TrackEvent>;
+
+  static constexpr FieldMetadata_PixelModemEventInsight kPixelModemEventInsight{};
+  template <typename T = PixelModemEventInsight> T* set_pixel_modem_event_insight() {
+    return BeginNestedMessage<T>(51);
   }
 
 

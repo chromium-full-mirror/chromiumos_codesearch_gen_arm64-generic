@@ -541,6 +541,13 @@ PORTRAIT_MODE_CAPTURE_POST_PROCESSING = 9,
 TIMELAPSE_CAPTURE_POST_PROCESSING = 10,
 VIDEO_CAPTURE_POST_PROCESSING = 11
 };
+    
+
+
+enum class CampaignButtonId {
+PRIMARY = 0,
+SECONDARY = 1
+};
      
 class AppDiscovery_AppInstalled final : public ::metrics::structured::Event {
  public:
@@ -821,6 +828,13 @@ class CameraApp_Perf final : public ::metrics::structured::Event {
   CameraApp_Perf& SetResolutionHeight(const int64_t value) &;
 };
 
+class CameraApp_UnsupportedProtocol final : public ::metrics::structured::Event {
+ public:
+  CameraApp_UnsupportedProtocol();
+  ~CameraApp_UnsupportedProtocol() override;
+
+  };
+
 class CameraApp_EndSession final : public ::metrics::structured::Event {
  public:
   CameraApp_EndSession();
@@ -832,6 +846,35 @@ class CameraApp_EndSession final : public ::metrics::structured::Event {
   CameraApp_EndSession& SetBehaviors(const int64_t value) &;
   CameraApp_EndSession&& SetMemoryUsage(const int64_t value) &&;
   CameraApp_EndSession& SetMemoryUsage(const int64_t value) &;
+};
+
+class Growth_Ui_ButtonPressed final : public ::metrics::structured::Event {
+ public:
+  Growth_Ui_ButtonPressed();
+  ~Growth_Ui_ButtonPressed() override;
+
+    Growth_Ui_ButtonPressed&& SetCampaignId(const int64_t value) &&;
+  Growth_Ui_ButtonPressed& SetCampaignId(const int64_t value) &;
+  Growth_Ui_ButtonPressed&& SetButtonId(const CampaignButtonId value) &&;
+  Growth_Ui_ButtonPressed& SetButtonId(const CampaignButtonId value) &;
+};
+
+class Growth_Ui_Dismissed final : public ::metrics::structured::Event {
+ public:
+  Growth_Ui_Dismissed();
+  ~Growth_Ui_Dismissed() override;
+
+    Growth_Ui_Dismissed&& SetCampaignId(const int64_t value) &&;
+  Growth_Ui_Dismissed& SetCampaignId(const int64_t value) &;
+};
+
+class Growth_Ui_Impression final : public ::metrics::structured::Event {
+ public:
+  Growth_Ui_Impression();
+  ~Growth_Ui_Impression() override;
+
+    Growth_Ui_Impression&& SetCampaignId(const int64_t value) &&;
+  Growth_Ui_Impression& SetCampaignId(const int64_t value) &;
 };
 
 class OOBE_GaiaSigninRequested final : public ::metrics::structured::Event {

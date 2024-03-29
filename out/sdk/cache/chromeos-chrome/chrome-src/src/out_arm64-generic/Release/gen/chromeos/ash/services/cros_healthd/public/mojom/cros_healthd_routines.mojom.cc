@@ -623,20 +623,25 @@ bool RoutineStateRunning::Validate(
 }
 RoutineStateWaiting::RoutineStateWaiting()
     : reason(),
-      message() {}
+      message(),
+      interaction() {}
 
 RoutineStateWaiting::RoutineStateWaiting(
     RoutineStateWaiting::Reason reason_in,
     const std::string& message_in)
     : reason(std::move(reason_in)),
-      message(std::move(message_in)) {}
+      message(std::move(message_in)),
+      interaction() {}
+
+RoutineStateWaiting::RoutineStateWaiting(
+    RoutineStateWaiting::Reason reason_in,
+    const std::string& message_in,
+    RoutineInteractionPtr interaction_in)
+    : reason(std::move(reason_in)),
+      message(std::move(message_in)),
+      interaction(std::move(interaction_in)) {}
 
 RoutineStateWaiting::~RoutineStateWaiting() = default;
-size_t RoutineStateWaiting::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->reason);
-  seed = mojo::internal::Hash(seed, this->message);
-  return seed;
-}
 
 void RoutineStateWaiting::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
@@ -659,9 +664,67 @@ void RoutineStateWaiting::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "interaction"), this->interaction,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type RoutineInteractionPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool RoutineStateWaiting::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CheckLedLitUpStateInquiry::CheckLedLitUpStateInquiry() {}
+
+CheckLedLitUpStateInquiry::~CheckLedLitUpStateInquiry() = default;
+size_t CheckLedLitUpStateInquiry::Hash(size_t seed) const {
+  return seed;
+}
+
+void CheckLedLitUpStateInquiry::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool CheckLedLitUpStateInquiry::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CheckLedLitUpStateReply::CheckLedLitUpStateReply()
+    : state() {}
+
+CheckLedLitUpStateReply::CheckLedLitUpStateReply(
+    CheckLedLitUpStateReply::State state_in)
+    : state(std::move(state_in)) {}
+
+CheckLedLitUpStateReply::~CheckLedLitUpStateReply() = default;
+size_t CheckLedLitUpStateReply::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->state);
+  return seed;
+}
+
+void CheckLedLitUpStateReply::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "state"), this->state,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CheckLedLitUpStateReply::State>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CheckLedLitUpStateReply::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -1764,6 +1827,186 @@ bool RoutineStateUnion::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
+RoutineInteraction::RoutineInteraction() : tag_(Tag::kUnrecognizedInteraction) {
+  data_.unrecognizedInteraction = bool();
+}
+
+RoutineInteraction::~RoutineInteraction() {
+  DestroyActive();
+}
+
+
+void RoutineInteraction::set_unrecognizedInteraction(
+    bool unrecognizedInteraction) {
+  if (tag_ != Tag::kUnrecognizedInteraction) {
+    DestroyActive();
+    tag_ = Tag::kUnrecognizedInteraction;
+  }
+  data_.unrecognizedInteraction = unrecognizedInteraction;
+}
+void RoutineInteraction::set_inquiry(
+    RoutineInquiryPtr inquiry) {
+  if (tag_ == Tag::kInquiry) {
+    *(data_.inquiry) = std::move(inquiry);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kInquiry;
+    data_.inquiry = new RoutineInquiryPtr(
+        std::move(inquiry));
+  }
+}
+
+void RoutineInteraction::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kUnrecognizedInteraction:
+
+      break;
+    case Tag::kInquiry:
+
+      delete data_.inquiry;
+      break;
+  }
+}
+size_t RoutineInteraction::Hash(size_t seed) const {
+  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
+  switch (tag_) {
+
+    case Tag::kUnrecognizedInteraction:
+      return mojo::internal::Hash(seed, data_.unrecognizedInteraction);
+    case Tag::kInquiry:
+      return mojo::internal::Hash(seed, data_.inquiry);
+    default:
+      NOTREACHED();
+      return seed;
+  }
+}
+
+bool RoutineInteraction::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
+RoutineInquiry::RoutineInquiry() : tag_(Tag::kUnrecognizedInquiry) {
+  data_.unrecognizedInquiry = bool();
+}
+
+RoutineInquiry::~RoutineInquiry() {
+  DestroyActive();
+}
+
+
+void RoutineInquiry::set_unrecognizedInquiry(
+    bool unrecognizedInquiry) {
+  if (tag_ != Tag::kUnrecognizedInquiry) {
+    DestroyActive();
+    tag_ = Tag::kUnrecognizedInquiry;
+  }
+  data_.unrecognizedInquiry = unrecognizedInquiry;
+}
+void RoutineInquiry::set_check_led_lit_up_state(
+    CheckLedLitUpStateInquiryPtr check_led_lit_up_state) {
+  if (tag_ == Tag::kCheckLedLitUpState) {
+    *(data_.check_led_lit_up_state) = std::move(check_led_lit_up_state);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCheckLedLitUpState;
+    data_.check_led_lit_up_state = new CheckLedLitUpStateInquiryPtr(
+        std::move(check_led_lit_up_state));
+  }
+}
+
+void RoutineInquiry::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kUnrecognizedInquiry:
+
+      break;
+    case Tag::kCheckLedLitUpState:
+
+      delete data_.check_led_lit_up_state;
+      break;
+  }
+}
+size_t RoutineInquiry::Hash(size_t seed) const {
+  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
+  switch (tag_) {
+
+    case Tag::kUnrecognizedInquiry:
+      return mojo::internal::Hash(seed, data_.unrecognizedInquiry);
+    case Tag::kCheckLedLitUpState:
+      return mojo::internal::Hash(seed, data_.check_led_lit_up_state);
+    default:
+      NOTREACHED();
+      return seed;
+  }
+}
+
+bool RoutineInquiry::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
+RoutineInquiryReply::RoutineInquiryReply() : tag_(Tag::kUnrecognizedReply) {
+  data_.unrecognizedReply = bool();
+}
+
+RoutineInquiryReply::~RoutineInquiryReply() {
+  DestroyActive();
+}
+
+
+void RoutineInquiryReply::set_unrecognizedReply(
+    bool unrecognizedReply) {
+  if (tag_ != Tag::kUnrecognizedReply) {
+    DestroyActive();
+    tag_ = Tag::kUnrecognizedReply;
+  }
+  data_.unrecognizedReply = unrecognizedReply;
+}
+void RoutineInquiryReply::set_check_led_lit_up_state(
+    CheckLedLitUpStateReplyPtr check_led_lit_up_state) {
+  if (tag_ == Tag::kCheckLedLitUpState) {
+    *(data_.check_led_lit_up_state) = std::move(check_led_lit_up_state);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCheckLedLitUpState;
+    data_.check_led_lit_up_state = new CheckLedLitUpStateReplyPtr(
+        std::move(check_led_lit_up_state));
+  }
+}
+
+void RoutineInquiryReply::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kUnrecognizedReply:
+
+      break;
+    case Tag::kCheckLedLitUpState:
+
+      delete data_.check_led_lit_up_state;
+      break;
+  }
+}
+size_t RoutineInquiryReply::Hash(size_t seed) const {
+  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
+  switch (tag_) {
+
+    case Tag::kUnrecognizedReply:
+      return mojo::internal::Hash(seed, data_.unrecognizedReply);
+    case Tag::kCheckLedLitUpState:
+      return mojo::internal::Hash(seed, data_.check_led_lit_up_state);
+    default:
+      NOTREACHED();
+      return seed;
+  }
+}
+
+bool RoutineInquiryReply::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
 RoutineDetail::RoutineDetail() : tag_(Tag::kUnrecognizedArgument) {
   data_.unrecognizedArgument = bool();
 }
@@ -2697,6 +2940,9 @@ RoutineControl::IPCStableHashFunction RoutineControl::MessageToMethodInfo_(mojo:
     case messages::RoutineControl::kStart: {
       return &RoutineControl::Start_Sym::IPCStableHash;
     }
+    case messages::RoutineControl::kReplyInquiry: {
+      return &RoutineControl::ReplyInquiry_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -2712,6 +2958,8 @@ const char* RoutineControl::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::RoutineControl::GetState";
       case messages::RoutineControl::kStart:
             return "Receive ash::cros_healthd::mojom::RoutineControl::Start";
+      case messages::RoutineControl::kReplyInquiry:
+            return "Receive ash::cros_healthd::mojom::RoutineControl::ReplyInquiry";
     }
   } else {
     switch (static_cast<messages::RoutineControl>(message.name())) {
@@ -2719,6 +2967,8 @@ const char* RoutineControl::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::RoutineControl::GetState";
       case messages::RoutineControl::kStart:
             return "Receive reply ash::cros_healthd::mojom::RoutineControl::Start";
+      case messages::RoutineControl::kReplyInquiry:
+            return "Receive reply ash::cros_healthd::mojom::RoutineControl::ReplyInquiry";
     }
   }
   return "Receive unknown mojo message";
@@ -2755,6 +3005,19 @@ uint32_t RoutineControl::Start_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::RoutineControl::Start");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t RoutineControl::ReplyInquiry_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::RoutineControl::ReplyInquiry");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2846,6 +3109,57 @@ void RoutineControlProxy::Start(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(RoutineControl::Name_);
   message.set_method_name("Start");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void RoutineControlProxy::ReplyInquiry(
+    RoutineInquiryReplyPtr in_reply) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::RoutineControl::ReplyInquiry", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("reply"), in_reply,
+                        "<value of type RoutineInquiryReplyPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::RoutineControl::kReplyInquiry), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::RoutineControl_ReplyInquiry_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<decltype(params->reply)>
+      reply_fragment(params.message());
+  reply_fragment.Claim(&params->reply);
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RoutineInquiryReplyDataView>(
+      in_reply, reply_fragment, true);
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->reply.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null reply in RoutineControl.ReplyInquiry request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(RoutineControl::Name_);
+  message.set_method_name("ReplyInquiry");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -3015,6 +3329,33 @@ bool RoutineControlStubDispatch::Accept(
       impl->Start(        );
       return true;
     }
+    case messages::RoutineControl::kReplyInquiry: {
+      DCHECK(message->is_serialized());
+      internal::RoutineControl_ReplyInquiry_Params_Data* params =
+          reinterpret_cast<internal::RoutineControl_ReplyInquiry_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for RoutineControl.2
+      bool success = true;
+      RoutineInquiryReplyPtr p_reply{};
+      RoutineControl_ReplyInquiry_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadReply(&p_reply))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            RoutineControl::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ReplyInquiry(        
+        std::move(p_reply));
+      return true;
+    }
   }
   return false;
 }
@@ -3057,6 +3398,9 @@ bool RoutineControlStubDispatch::AcceptWithResponder(
     case messages::RoutineControl::kStart: {
       break;
     }
+    case messages::RoutineControl::kReplyInquiry: {
+      break;
+    }
   }
   return false;
 }
@@ -3066,6 +3410,8 @@ static const mojo::internal::GenericValidationInfo kRoutineControlValidationInfo
     { &internal::RoutineControl_GetState_Params_Data::Validate,
      &internal::RoutineControl_GetState_ResponseParams_Data::Validate},
     { &internal::RoutineControl_Start_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::RoutineControl_ReplyInquiry_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3555,6 +3901,34 @@ bool StructTraits<::ash::cros_healthd::mojom::RoutineStateWaiting::DataView, ::a
         success = false;
       if (success && !input.ReadMessage(&result->message))
         success = false;
+      if (success && !input.ReadInteraction(&result->interaction))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::CheckLedLitUpStateInquiry::DataView, ::ash::cros_healthd::mojom::CheckLedLitUpStateInquiryPtr>::Read(
+    ::ash::cros_healthd::mojom::CheckLedLitUpStateInquiry::DataView input,
+    ::ash::cros_healthd::mojom::CheckLedLitUpStateInquiryPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CheckLedLitUpStateInquiryPtr result(::ash::cros_healthd::mojom::CheckLedLitUpStateInquiry::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::CheckLedLitUpStateReply::DataView, ::ash::cros_healthd::mojom::CheckLedLitUpStateReplyPtr>::Read(
+    ::ash::cros_healthd::mojom::CheckLedLitUpStateReply::DataView input,
+    ::ash::cros_healthd::mojom::CheckLedLitUpStateReplyPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CheckLedLitUpStateReplyPtr result(::ash::cros_healthd::mojom::CheckLedLitUpStateReply::New());
+  
+      if (success && !input.ReadState(&result->state))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -4043,6 +4417,93 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineStateUnion::DataView, ::ash:
 }
 
 // static
+bool UnionTraits<::ash::cros_healthd::mojom::RoutineInteraction::DataView, ::ash::cros_healthd::mojom::RoutineInteractionPtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineInteraction::DataView input,
+    ::ash::cros_healthd::mojom::RoutineInteractionPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::RoutineInteraction;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kUnrecognizedInteraction: {
+      *output = UnionType::NewUnrecognizedInteraction(input.unrecognizedInteraction());
+      break;
+    }
+    case Tag::kInquiry: {
+      ::ash::cros_healthd::mojom::RoutineInquiryPtr result_inquiry;
+      if (!input.ReadInquiry(&result_inquiry))
+        return false;
+
+      *output = UnionType::NewInquiry(
+          std::move(result_inquiry));
+      break;
+    }
+    default:
+
+      *output = UnionType::NewUnrecognizedInteraction({});
+      return true;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::RoutineInquiry::DataView, ::ash::cros_healthd::mojom::RoutineInquiryPtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineInquiry::DataView input,
+    ::ash::cros_healthd::mojom::RoutineInquiryPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::RoutineInquiry;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kUnrecognizedInquiry: {
+      *output = UnionType::NewUnrecognizedInquiry(input.unrecognizedInquiry());
+      break;
+    }
+    case Tag::kCheckLedLitUpState: {
+      ::ash::cros_healthd::mojom::CheckLedLitUpStateInquiryPtr result_check_led_lit_up_state;
+      if (!input.ReadCheckLedLitUpState(&result_check_led_lit_up_state))
+        return false;
+
+      *output = UnionType::NewCheckLedLitUpState(
+          std::move(result_check_led_lit_up_state));
+      break;
+    }
+    default:
+
+      *output = UnionType::NewUnrecognizedInquiry({});
+      return true;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::RoutineInquiryReply::DataView, ::ash::cros_healthd::mojom::RoutineInquiryReplyPtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineInquiryReply::DataView input,
+    ::ash::cros_healthd::mojom::RoutineInquiryReplyPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::RoutineInquiryReply;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kUnrecognizedReply: {
+      *output = UnionType::NewUnrecognizedReply(input.unrecognizedReply());
+      break;
+    }
+    case Tag::kCheckLedLitUpState: {
+      ::ash::cros_healthd::mojom::CheckLedLitUpStateReplyPtr result_check_led_lit_up_state;
+      if (!input.ReadCheckLedLitUpState(&result_check_led_lit_up_state))
+        return false;
+
+      *output = UnionType::NewCheckLedLitUpState(
+          std::move(result_check_led_lit_up_state));
+      break;
+    }
+    default:
+
+      *output = UnionType::NewUnrecognizedReply({});
+      return true;
+  }
+  return true;
+}
+
+// static
 bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cros_healthd::mojom::RoutineDetailPtr>::Read(
     ::ash::cros_healthd::mojom::RoutineDetail::DataView input,
     ::ash::cros_healthd::mojom::RoutineDetailPtr* output) {
@@ -4229,6 +4690,9 @@ void RoutineControlInterceptorForTesting::GetState(GetStateCallback callback) {
 }
 void RoutineControlInterceptorForTesting::Start() {
   GetForwardingInterface()->Start();
+}
+void RoutineControlInterceptorForTesting::ReplyInquiry(RoutineInquiryReplyPtr reply) {
+  GetForwardingInterface()->ReplyInquiry(std::move(reply));
 }
 RoutineControlAsyncWaiter::RoutineControlAsyncWaiter(
     RoutineControl* proxy) : proxy_(proxy) {}

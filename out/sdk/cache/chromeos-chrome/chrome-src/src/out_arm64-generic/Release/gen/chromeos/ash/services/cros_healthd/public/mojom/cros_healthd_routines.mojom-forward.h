@@ -64,6 +64,10 @@ class RoutineStateRunningDataView;
 
 class RoutineStateWaitingDataView;
 
+class CheckLedLitUpStateInquiryDataView;
+
+class CheckLedLitUpStateReplyDataView;
+
 class RoutineStateFinishedDataView;
 
 class MemoryRoutineDetailDataView;
@@ -96,6 +100,9 @@ class FanRoutineDetailDataView;
 
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
+class RoutineInteractionDataView;
+class RoutineInquiryDataView;
+class RoutineInquiryReplyDataView;
 class RoutineDetailDataView;
 
 enum class MemtesterTestItemEnum : int32_t;
@@ -113,6 +120,8 @@ enum class HardwarePresenceStatus : int32_t;
 enum class VolumeButtonRoutineArgument_ButtonType : int32_t;
 
 enum class RoutineStateWaiting_Reason : int32_t;
+
+enum class CheckLedLitUpStateReply_State : int32_t;
 
 enum class BluetoothPairingPeripheralInfo_PairError : int32_t;
 
@@ -180,7 +189,13 @@ class RoutineStateRunning;
 using RoutineStateRunningPtr = mojo::InlinedStructPtr<RoutineStateRunning>;
 
 class RoutineStateWaiting;
-using RoutineStateWaitingPtr = mojo::InlinedStructPtr<RoutineStateWaiting>;
+using RoutineStateWaitingPtr = mojo::StructPtr<RoutineStateWaiting>;
+
+class CheckLedLitUpStateInquiry;
+using CheckLedLitUpStateInquiryPtr = mojo::InlinedStructPtr<CheckLedLitUpStateInquiry>;
+
+class CheckLedLitUpStateReply;
+using CheckLedLitUpStateReplyPtr = mojo::InlinedStructPtr<CheckLedLitUpStateReply>;
 
 class RoutineStateFinished;
 using RoutineStateFinishedPtr = mojo::StructPtr<RoutineStateFinished>;
@@ -234,6 +249,18 @@ using RoutineArgumentPtr = mojo::StructPtr<RoutineArgument>;
 class RoutineStateUnion;
 
 using RoutineStateUnionPtr = mojo::StructPtr<RoutineStateUnion>;
+
+class RoutineInteraction;
+
+using RoutineInteractionPtr = mojo::StructPtr<RoutineInteraction>;
+
+class RoutineInquiry;
+
+using RoutineInquiryPtr = mojo::StructPtr<RoutineInquiry>;
+
+class RoutineInquiryReply;
+
+using RoutineInquiryReplyPtr = mojo::StructPtr<RoutineInquiryReply>;
 
 class RoutineDetail;
 
