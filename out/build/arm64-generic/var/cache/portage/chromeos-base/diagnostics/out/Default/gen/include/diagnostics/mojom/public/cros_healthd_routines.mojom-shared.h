@@ -869,16 +869,6 @@ using CrosHealthdRoutinesServiceAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<CrosHealthdRoutinesServiceInterfaceBase>;
 using CrosHealthdRoutinesServiceAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CrosHealthdRoutinesServiceInterfaceBase>;
-class LedLitUpRoutineReplierInterfaceBase {};
-
-using LedLitUpRoutineReplierPtrDataView =
-    mojo::InterfacePtrDataView<LedLitUpRoutineReplierInterfaceBase>;
-using LedLitUpRoutineReplierRequestDataView =
-    mojo::InterfaceRequestDataView<LedLitUpRoutineReplierInterfaceBase>;
-using LedLitUpRoutineReplierAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<LedLitUpRoutineReplierInterfaceBase>;
-using LedLitUpRoutineReplierAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<LedLitUpRoutineReplierInterfaceBase>;
 class RoutineControlInterfaceBase {};
 
 using RoutineControlPtrDataView =
@@ -1142,7 +1132,7 @@ class LedLitUpRoutineArgumentDataView {
   LedLitUpRoutineArgumentDataView(
       internal::LedLitUpRoutineArgument_Data* data,
       mojo::Message* message)
-      : data_(data), message_(message) {}
+      : data_(data) {}
 
   bool is_null() const { return !data_; }
   template <typename UserType>
@@ -1165,18 +1155,8 @@ class LedLitUpRoutineArgumentDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::cros_healthd::mojom::LedColor>(data_->color));
   }
-  template <typename UserType>
-  UserType TakeReplier() {
-    UserType result;
-    bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::LedLitUpRoutineReplierInterfaceBase>>(
-            &data_->replier, &result, message_);
-    DCHECK(ret);
-    return result;
-  }
  private:
   internal::LedLitUpRoutineArgument_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
 };
 
 
@@ -3480,13 +3460,6 @@ struct Serializer<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView, M
         Traits::name(input), &fragment->name);
     mojo::internal::Serialize<::ash::cros_healthd::mojom::LedColor>(
         Traits::color(input), &fragment->color);
-    decltype(Traits::replier(input)) in_replier = Traits::replier(input);
-    mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::LedLitUpRoutineReplierInterfaceBase>>(
-        in_replier, &fragment->replier, &fragment.message());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        !mojo::internal::IsHandleOrInterfaceValid(fragment->replier),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-        "invalid replier in LedLitUpRoutineArgument struct");
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::LedLitUpRoutineArgument_Data* input,

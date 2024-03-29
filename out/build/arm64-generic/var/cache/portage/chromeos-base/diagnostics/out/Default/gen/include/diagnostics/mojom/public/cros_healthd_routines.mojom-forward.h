@@ -162,7 +162,7 @@ class VolumeButtonRoutineArgument;
 using VolumeButtonRoutineArgumentPtr = mojo::StructPtr<VolumeButtonRoutineArgument>;
 
 class LedLitUpRoutineArgument;
-using LedLitUpRoutineArgumentPtr = mojo::StructPtr<LedLitUpRoutineArgument>;
+using LedLitUpRoutineArgumentPtr = mojo::InlinedStructPtr<LedLitUpRoutineArgument>;
 
 class FloatingPointRoutineArgument;
 using FloatingPointRoutineArgumentPtr = mojo::StructPtr<FloatingPointRoutineArgument>;
@@ -289,8 +289,6 @@ class RoutineDetail;
 using RoutineDetailPtr = mojo::StructPtr<RoutineDetail>;
 
 class CrosHealthdRoutinesService;
-
-class LedLitUpRoutineReplier;
 
 class RoutineControl;
 

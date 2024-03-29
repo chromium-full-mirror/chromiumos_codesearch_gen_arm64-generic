@@ -604,6 +604,35 @@ class PowerManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Returns true if the device has at least one ambient light sensor.
+  virtual bool HasAmbientLightSensor(
+      bool* out_has_sensor,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns true if the device has at least one ambient light sensor.
+  virtual void HasAmbientLightSensorAsync(
+      base::OnceCallback<void(bool /*has_sensor*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // If |enabled| is true, the ambient light sensor will be used in
+  // brightness calculations. If the device has no ambient light sensor, this
+  // method is a no-op.
+  virtual bool SetAmbientLightSensorEnabled(
+      bool in_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // If |enabled| is true, the ambient light sensor will be used in
+  // brightness calculations. If the device has no ambient light sensor, this
+  // method is a no-op.
+  virtual void SetAmbientLightSensorEnabledAsync(
+      bool in_enabled,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // The |external_power_type| arg is a native enum:
   // power_manager::system::ExternalPowerType.
   // The |battery_state| arg is an enum created to be compatible
@@ -2204,6 +2233,71 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
         std::move(success_callback),
         std::move(error_callback),
         in_serialized_proto);
+  }
+
+  // Returns true if the device has at least one ambient light sensor.
+  bool HasAmbientLightSensor(
+      bool* out_has_sensor,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "HasAmbientLightSensor",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_has_sensor);
+  }
+
+  // Returns true if the device has at least one ambient light sensor.
+  void HasAmbientLightSensorAsync(
+      base::OnceCallback<void(bool /*has_sensor*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "HasAmbientLightSensor",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  // If |enabled| is true, the ambient light sensor will be used in
+  // brightness calculations. If the device has no ambient light sensor, this
+  // method is a no-op.
+  bool SetAmbientLightSensorEnabled(
+      bool in_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "SetAmbientLightSensorEnabled",
+        error,
+        in_enabled);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // If |enabled| is true, the ambient light sensor will be used in
+  // brightness calculations. If the device has no ambient light sensor, this
+  // method is a no-op.
+  void SetAmbientLightSensorEnabledAsync(
+      bool in_enabled,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "SetAmbientLightSensorEnabled",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_enabled);
   }
 
   // The |external_power_type| arg is a native enum:

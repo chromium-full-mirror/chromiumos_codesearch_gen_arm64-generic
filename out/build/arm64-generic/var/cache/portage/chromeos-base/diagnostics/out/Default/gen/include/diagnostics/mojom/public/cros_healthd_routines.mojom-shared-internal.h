@@ -1279,7 +1279,6 @@ class  LedLitUpRoutineArgument_Data {
   mojo::internal::StructHeader header_;
   int32_t name;
   int32_t color;
-  mojo::internal::Interface_Data replier;
 
  private:
   friend class mojo::internal::MessageFragment<LedLitUpRoutineArgument_Data>;
@@ -1287,7 +1286,7 @@ class  LedLitUpRoutineArgument_Data {
   LedLitUpRoutineArgument_Data();
   ~LedLitUpRoutineArgument_Data() = delete;
 };
-static_assert(sizeof(LedLitUpRoutineArgument_Data) == 24,
+static_assert(sizeof(LedLitUpRoutineArgument_Data) == 16,
               "Bad sizeof(LedLitUpRoutineArgument_Data)");
 // Used by LedLitUpRoutineArgument::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

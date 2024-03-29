@@ -1277,7 +1277,7 @@ bool LedLitUpRoutineArgument_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -1295,15 +1295,6 @@ bool LedLitUpRoutineArgument_Data::Validate(
   if (!::ash::cros_healthd::mojom::internal::LedColor_Data
         ::Validate(object->color, validation_context))
     return false;
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->replier, 3, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->replier,
-                                                 validation_context)) {
-    return false;
-  }
 
   return true;
 }
@@ -2386,52 +2377,6 @@ bool CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data::
 }
 
 CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data::CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool LedLitUpRoutineReplier_GetColorMatched_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const LedLitUpRoutineReplier_GetColorMatched_Params_Data* object =
-      static_cast<const LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(data);
-
-  return true;
-}
-
-LedLitUpRoutineReplier_GetColorMatched_Params_Data::LedLitUpRoutineReplier_GetColorMatched_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* object =
-      static_cast<const LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data*>(data);
-
-  return true;
-}
-
-LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
