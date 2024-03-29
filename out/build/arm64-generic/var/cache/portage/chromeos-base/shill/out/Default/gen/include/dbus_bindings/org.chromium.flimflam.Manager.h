@@ -152,6 +152,11 @@ class ManagerInterface {
   virtual void SetTetheringEnabled(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::string>> response,
       bool in_1) = 0;
+  virtual void EnableTethering(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::string>> response,
+      uint32_t in_1) = 0;
+  virtual void DisableTethering(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::string>> response) = 0;
   virtual void CheckTetheringReadiness(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::string>> response) = 0;
   virtual void SetLOHSEnabled(
@@ -339,6 +344,14 @@ class ManagerAdaptor {
         base::Unretained(interface_),
         &ManagerInterface::SetTetheringEnabled);
     itf->AddMethodHandler(
+        "EnableTethering",
+        base::Unretained(interface_),
+        &ManagerInterface::EnableTethering);
+    itf->AddMethodHandler(
+        "DisableTethering",
+        base::Unretained(interface_),
+        &ManagerInterface::DisableTethering);
+    itf->AddMethodHandler(
         "CheckTetheringReadiness",
         base::Unretained(interface_),
         &ManagerInterface::CheckTetheringReadiness);
@@ -507,6 +520,13 @@ class ManagerAdaptor {
         "    </method>\n"
         "    <method name=\"SetTetheringEnabled\">\n"
         "      <arg name=\"\" type=\"b\" direction=\"in\"/>\n"
+        "      <arg name=\"\" type=\"s\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"EnableTethering\">\n"
+        "      <arg name=\"\" type=\"u\" direction=\"in\"/>\n"
+        "      <arg name=\"\" type=\"s\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"DisableTethering\">\n"
         "      <arg name=\"\" type=\"s\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"CheckTetheringReadiness\">\n"

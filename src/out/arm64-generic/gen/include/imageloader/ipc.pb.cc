@@ -121,39 +121,43 @@ bool MountCommand_FileSystem_IsValid(int value) {
   switch (value) {
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
   }
 }
 static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
-    MountCommand_FileSystem_strings[2] = {};
+    MountCommand_FileSystem_strings[3] = {};
 
 static const char MountCommand_FileSystem_names[] = {
+    "EXT2"
     "EXT4"
     "SQUASH"
 };
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry MountCommand_FileSystem_entries[] =
     {
-        {{&MountCommand_FileSystem_names[0], 4}, 2},
-        {{&MountCommand_FileSystem_names[4], 6}, 1},
+        {{&MountCommand_FileSystem_names[0], 4}, 3},
+        {{&MountCommand_FileSystem_names[4], 4}, 2},
+        {{&MountCommand_FileSystem_names[8], 6}, 1},
 };
 
 static const int MountCommand_FileSystem_entries_by_number[] = {
-    1,  // 1 -> SQUASH
-    0,  // 2 -> EXT4
+    2,  // 1 -> SQUASH
+    1,  // 2 -> EXT4
+    0,  // 3 -> EXT2
 };
 
 const std::string& MountCommand_FileSystem_Name(MountCommand_FileSystem value) {
   static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           MountCommand_FileSystem_entries, MountCommand_FileSystem_entries_by_number,
-          2, MountCommand_FileSystem_strings);
+          3, MountCommand_FileSystem_strings);
   (void)kDummy;
 
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      MountCommand_FileSystem_entries, MountCommand_FileSystem_entries_by_number, 2,
+      MountCommand_FileSystem_entries, MountCommand_FileSystem_entries_by_number, 3,
       value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
                    : MountCommand_FileSystem_strings[idx].get();
@@ -162,7 +166,7 @@ const std::string& MountCommand_FileSystem_Name(MountCommand_FileSystem value) {
 bool MountCommand_FileSystem_Parse(absl::string_view name, MountCommand_FileSystem* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      MountCommand_FileSystem_entries, 2, name, &int_value);
+      MountCommand_FileSystem_entries, 3, name, &int_value);
   if (success) {
     *value = static_cast<MountCommand_FileSystem>(int_value);
   }
@@ -173,6 +177,7 @@ bool MountCommand_FileSystem_Parse(absl::string_view name, MountCommand_FileSyst
 
 constexpr MountCommand_FileSystem MountCommand::SQUASH;
 constexpr MountCommand_FileSystem MountCommand::EXT4;
+constexpr MountCommand_FileSystem MountCommand::EXT2;
 constexpr MountCommand_FileSystem MountCommand::FileSystem_MIN;
 constexpr MountCommand_FileSystem MountCommand::FileSystem_MAX;
 constexpr int MountCommand::FileSystem_ARRAYSIZE;

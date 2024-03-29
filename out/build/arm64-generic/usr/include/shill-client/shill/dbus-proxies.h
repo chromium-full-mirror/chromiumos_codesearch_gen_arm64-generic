@@ -1328,6 +1328,28 @@ class ManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool EnableTethering(
+      uint32_t in_1,
+      std::string* out_2,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void EnableTetheringAsync(
+      uint32_t in_1,
+      base::OnceCallback<void(const std::string&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool DisableTethering(
+      std::string* out_1,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void DisableTetheringAsync(
+      base::OnceCallback<void(const std::string&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool CheckTetheringReadiness(
       std::string* out_1,
       brillo::ErrorPtr* error,
@@ -2618,6 +2640,64 @@ class ManagerProxy final : public ManagerProxyInterface {
         std::move(success_callback),
         std::move(error_callback),
         in_1);
+  }
+
+  bool EnableTethering(
+      uint32_t in_1,
+      std::string* out_2,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "EnableTethering",
+        error,
+        in_1);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_2);
+  }
+
+  void EnableTetheringAsync(
+      uint32_t in_1,
+      base::OnceCallback<void(const std::string&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "EnableTethering",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_1);
+  }
+
+  bool DisableTethering(
+      std::string* out_1,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "DisableTethering",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_1);
+  }
+
+  void DisableTetheringAsync(
+      base::OnceCallback<void(const std::string&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "DisableTethering",
+        std::move(success_callback),
+        std::move(error_callback));
   }
 
   bool CheckTetheringReadiness(

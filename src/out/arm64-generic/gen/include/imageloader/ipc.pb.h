@@ -81,12 +81,13 @@ namespace imageloader {
 enum MountCommand_FileSystem : int {
   MountCommand_FileSystem_SQUASH = 1,
   MountCommand_FileSystem_EXT4 = 2,
+  MountCommand_FileSystem_EXT2 = 3,
 };
 
 bool MountCommand_FileSystem_IsValid(int value);
 constexpr MountCommand_FileSystem MountCommand_FileSystem_FileSystem_MIN = static_cast<MountCommand_FileSystem>(1);
-constexpr MountCommand_FileSystem MountCommand_FileSystem_FileSystem_MAX = static_cast<MountCommand_FileSystem>(2);
-constexpr int MountCommand_FileSystem_FileSystem_ARRAYSIZE = 2 + 1;
+constexpr MountCommand_FileSystem MountCommand_FileSystem_FileSystem_MAX = static_cast<MountCommand_FileSystem>(3);
+constexpr int MountCommand_FileSystem_FileSystem_ARRAYSIZE = 3 + 1;
 const std::string& MountCommand_FileSystem_Name(MountCommand_FileSystem value);
 template <typename T>
 const std::string& MountCommand_FileSystem_Name(T value) {
@@ -419,6 +420,7 @@ class MountCommand final :
   using FileSystem = MountCommand_FileSystem;
   static constexpr FileSystem SQUASH = MountCommand_FileSystem_SQUASH;
   static constexpr FileSystem EXT4 = MountCommand_FileSystem_EXT4;
+  static constexpr FileSystem EXT2 = MountCommand_FileSystem_EXT2;
   static inline bool FileSystem_IsValid(int value) {
     return MountCommand_FileSystem_IsValid(value);
   }
