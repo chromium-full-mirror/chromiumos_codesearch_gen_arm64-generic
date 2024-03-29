@@ -56,11 +56,15 @@ class CameraAvailabilityRoutineArgumentDataView;
 
 class UrandomRoutineArgumentDataView;
 
+class NetworkBandwidthRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
 
 class RoutineStateRunningDataView;
+
+class NetworkBandwidthRoutineRunningInfoDataView;
 
 class RoutineStateWaitingDataView;
 
@@ -98,8 +102,11 @@ class CameraAvailabilityRoutineDetailDataView;
 
 class FanRoutineDetailDataView;
 
+class NetworkBandwidthRoutineDetailDataView;
+
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
+class RoutineRunningInfoDataView;
 class RoutineInteractionDataView;
 class RoutineInquiryDataView;
 class RoutineInquiryReplyDataView;
@@ -118,6 +125,8 @@ enum class LedColor : int32_t;
 enum class HardwarePresenceStatus : int32_t;
 
 enum class VolumeButtonRoutineArgument_ButtonType : int32_t;
+
+enum class NetworkBandwidthRoutineRunningInfo_Type : int32_t;
 
 enum class RoutineStateWaiting_Reason : int32_t;
 
@@ -179,6 +188,9 @@ using CameraAvailabilityRoutineArgumentPtr = mojo::InlinedStructPtr<CameraAvaila
 class UrandomRoutineArgument;
 using UrandomRoutineArgumentPtr = mojo::StructPtr<UrandomRoutineArgument>;
 
+class NetworkBandwidthRoutineArgument;
+using NetworkBandwidthRoutineArgumentPtr = mojo::InlinedStructPtr<NetworkBandwidthRoutineArgument>;
+
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
 
@@ -186,7 +198,10 @@ class RoutineStateInitialized;
 using RoutineStateInitializedPtr = mojo::InlinedStructPtr<RoutineStateInitialized>;
 
 class RoutineStateRunning;
-using RoutineStateRunningPtr = mojo::InlinedStructPtr<RoutineStateRunning>;
+using RoutineStateRunningPtr = mojo::StructPtr<RoutineStateRunning>;
+
+class NetworkBandwidthRoutineRunningInfo;
+using NetworkBandwidthRoutineRunningInfoPtr = mojo::InlinedStructPtr<NetworkBandwidthRoutineRunningInfo>;
 
 class RoutineStateWaiting;
 using RoutineStateWaitingPtr = mojo::StructPtr<RoutineStateWaiting>;
@@ -242,6 +257,9 @@ using CameraAvailabilityRoutineDetailPtr = mojo::InlinedStructPtr<CameraAvailabi
 class FanRoutineDetail;
 using FanRoutineDetailPtr = mojo::StructPtr<FanRoutineDetail>;
 
+class NetworkBandwidthRoutineDetail;
+using NetworkBandwidthRoutineDetailPtr = mojo::InlinedStructPtr<NetworkBandwidthRoutineDetail>;
+
 class RoutineArgument;
 
 using RoutineArgumentPtr = mojo::StructPtr<RoutineArgument>;
@@ -249,6 +267,10 @@ using RoutineArgumentPtr = mojo::StructPtr<RoutineArgument>;
 class RoutineStateUnion;
 
 using RoutineStateUnionPtr = mojo::StructPtr<RoutineStateUnion>;
+
+class RoutineRunningInfo;
+
+using RoutineRunningInfoPtr = mojo::StructPtr<RoutineRunningInfo>;
 
 class RoutineInteraction;
 

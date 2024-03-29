@@ -256,6 +256,32 @@ std::ostream& operator<<(std::ostream& os, VolumeButtonRoutineArgument_ButtonTyp
   return os << VolumeButtonRoutineArgument_ButtonTypeToString(value);
 }
 
+NOINLINE static const char* NetworkBandwidthRoutineRunningInfo_TypeToStringHelper(NetworkBandwidthRoutineRunningInfo_Type value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case NetworkBandwidthRoutineRunningInfo_Type::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case NetworkBandwidthRoutineRunningInfo_Type::kDownload:
+      return "kDownload";
+    case NetworkBandwidthRoutineRunningInfo_Type::kUpload:
+      return "kUpload";
+    default:
+      return nullptr;
+  }
+}
+
+std::string NetworkBandwidthRoutineRunningInfo_TypeToString(NetworkBandwidthRoutineRunningInfo_Type value) {
+  const char *str = NetworkBandwidthRoutineRunningInfo_TypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown NetworkBandwidthRoutineRunningInfo_Type value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, NetworkBandwidthRoutineRunningInfo_Type value) {
+  return os << NetworkBandwidthRoutineRunningInfo_TypeToString(value);
+}
+
 NOINLINE static const char* RoutineStateWaiting_ReasonToStringHelper(RoutineStateWaiting_Reason value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -598,6 +624,16 @@ bool RoutineArgument_Data::Validate(
         return false;
       return true;
     }
+    case RoutineArgument_Tag::kNetworkBandwidth: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_network_bandwidth, 19, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_network_bandwidth, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       return true;
@@ -681,6 +717,57 @@ bool RoutineStateUnion_Data::Validate(
           validation_context,
           mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
           "unknown tag in RoutineStateUnion");
+      return false;
+    }
+  }
+}
+// static
+bool RoutineRunningInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const RoutineRunningInfo_Data* object = static_cast<const RoutineRunningInfo_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case RoutineRunningInfo_Tag::kUnrecognizedArgument: {
+
+      return true;
+    }
+    case RoutineRunningInfo_Tag::kNetworkBandwidth: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_network_bandwidth, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_network_bandwidth, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in RoutineRunningInfo");
       return false;
     }
   }
@@ -945,6 +1032,16 @@ bool RoutineDetail_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_camera_availability, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kNetworkBandwidth: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_network_bandwidth, 11, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_network_bandwidth, validation_context))
         return false;
       return true;
     }
@@ -1420,6 +1517,29 @@ UrandomRoutineArgument_Data::UrandomRoutineArgument_Data()
 
 
 // static
+bool NetworkBandwidthRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const NetworkBandwidthRoutineArgument_Data* object =
+      static_cast<const NetworkBandwidthRoutineArgument_Data*>(data);
+
+  return true;
+}
+
+NetworkBandwidthRoutineArgument_Data::NetworkBandwidthRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool RoutineState_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1478,8 +1598,12 @@ bool RoutineStateRunning_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 1, 24 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1487,11 +1611,44 @@ bool RoutineStateRunning_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const RoutineStateRunning_Data* object =
       static_cast<const RoutineStateRunning_Data*>(data);
+  if (object->header_.version < 1)
+    return true;
+
+  if (!mojo::internal::ValidateInlinedUnion(object->info, validation_context))
+    return false;
 
   return true;
 }
 
 RoutineStateRunning_Data::RoutineStateRunning_Data()
+    : header_({sizeof(*this), 1}) {}
+
+
+// static
+bool NetworkBandwidthRoutineRunningInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const NetworkBandwidthRoutineRunningInfo_Data* object =
+      static_cast<const NetworkBandwidthRoutineRunningInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::NetworkBandwidthRoutineRunningInfo_Type_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  return true;
+}
+
+NetworkBandwidthRoutineRunningInfo_Data::NetworkBandwidthRoutineRunningInfo_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2106,6 +2263,29 @@ FanRoutineDetail_Data::FanRoutineDetail_Data()
 
 
 // static
+bool NetworkBandwidthRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const NetworkBandwidthRoutineDetail_Data* object =
+      static_cast<const NetworkBandwidthRoutineDetail_Data*>(data);
+
+  return true;
+}
+
+NetworkBandwidthRoutineDetail_Data::NetworkBandwidthRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CrosHealthdRoutinesService_CreateRoutine_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -2461,6 +2641,16 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo_Type>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo_Type value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo_TypeToString(value));
 }
 
 } // namespace perfetto

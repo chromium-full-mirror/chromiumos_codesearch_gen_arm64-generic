@@ -549,6 +549,23 @@ bool UrandomRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+NetworkBandwidthRoutineArgument::NetworkBandwidthRoutineArgument() {}
+
+NetworkBandwidthRoutineArgument::~NetworkBandwidthRoutineArgument() = default;
+size_t NetworkBandwidthRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void NetworkBandwidthRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool NetworkBandwidthRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineState::RoutineState()
     : percentage(),
       state_union() {}
@@ -606,19 +623,75 @@ bool RoutineStateInitialized::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-RoutineStateRunning::RoutineStateRunning() {}
+RoutineStateRunning::RoutineStateRunning()
+    : info() {}
+
+RoutineStateRunning::RoutineStateRunning(
+    RoutineRunningInfoPtr info_in)
+    : info(std::move(info_in)) {}
 
 RoutineStateRunning::~RoutineStateRunning() = default;
-size_t RoutineStateRunning::Hash(size_t seed) const {
-  return seed;
-}
 
 void RoutineStateRunning::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "info"), this->info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type RoutineRunningInfoPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool RoutineStateRunning::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+NetworkBandwidthRoutineRunningInfo::NetworkBandwidthRoutineRunningInfo()
+    : type(),
+      speed_kbps() {}
+
+NetworkBandwidthRoutineRunningInfo::NetworkBandwidthRoutineRunningInfo(
+    NetworkBandwidthRoutineRunningInfo::Type type_in,
+    double speed_kbps_in)
+    : type(std::move(type_in)),
+      speed_kbps(std::move(speed_kbps_in)) {}
+
+NetworkBandwidthRoutineRunningInfo::~NetworkBandwidthRoutineRunningInfo() = default;
+size_t NetworkBandwidthRoutineRunningInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->type);
+  seed = mojo::internal::Hash(seed, this->speed_kbps);
+  return seed;
+}
+
+void NetworkBandwidthRoutineRunningInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type NetworkBandwidthRoutineRunningInfo::Type>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "speed_kbps"), this->speed_kbps,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type double>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool NetworkBandwidthRoutineRunningInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -1450,6 +1523,51 @@ bool FanRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+NetworkBandwidthRoutineDetail::NetworkBandwidthRoutineDetail()
+    : download_speed_kbps(),
+      upload_speed_kbps() {}
+
+NetworkBandwidthRoutineDetail::NetworkBandwidthRoutineDetail(
+    double download_speed_kbps_in,
+    double upload_speed_kbps_in)
+    : download_speed_kbps(std::move(download_speed_kbps_in)),
+      upload_speed_kbps(std::move(upload_speed_kbps_in)) {}
+
+NetworkBandwidthRoutineDetail::~NetworkBandwidthRoutineDetail() = default;
+size_t NetworkBandwidthRoutineDetail::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->download_speed_kbps);
+  seed = mojo::internal::Hash(seed, this->upload_speed_kbps);
+  return seed;
+}
+
+void NetworkBandwidthRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "download_speed_kbps"), this->download_speed_kbps,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type double>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "upload_speed_kbps"), this->upload_speed_kbps,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type double>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool NetworkBandwidthRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineArgument::RoutineArgument() : tag_(Tag::kUnrecognizedArgument) {
   data_.unrecognizedArgument = bool();
 }
@@ -1654,6 +1772,17 @@ void RoutineArgument::set_urandom(
         std::move(urandom));
   }
 }
+void RoutineArgument::set_network_bandwidth(
+    NetworkBandwidthRoutineArgumentPtr network_bandwidth) {
+  if (tag_ == Tag::kNetworkBandwidth) {
+    *(data_.network_bandwidth) = std::move(network_bandwidth);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kNetworkBandwidth;
+    data_.network_bandwidth = new NetworkBandwidthRoutineArgumentPtr(
+        std::move(network_bandwidth));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -1728,6 +1857,10 @@ void RoutineArgument::DestroyActive() {
     case Tag::kUrandom:
 
       delete data_.urandom;
+      break;
+    case Tag::kNetworkBandwidth:
+
+      delete data_.network_bandwidth;
       break;
   }
 }
@@ -1825,6 +1958,66 @@ void RoutineStateUnion::DestroyActive() {
 }
 
 bool RoutineStateUnion::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
+RoutineRunningInfo::RoutineRunningInfo() : tag_(Tag::kUnrecognizedArgument) {
+  data_.unrecognizedArgument = bool();
+}
+
+RoutineRunningInfo::~RoutineRunningInfo() {
+  DestroyActive();
+}
+
+
+void RoutineRunningInfo::set_unrecognizedArgument(
+    bool unrecognizedArgument) {
+  if (tag_ != Tag::kUnrecognizedArgument) {
+    DestroyActive();
+    tag_ = Tag::kUnrecognizedArgument;
+  }
+  data_.unrecognizedArgument = unrecognizedArgument;
+}
+void RoutineRunningInfo::set_network_bandwidth(
+    NetworkBandwidthRoutineRunningInfoPtr network_bandwidth) {
+  if (tag_ == Tag::kNetworkBandwidth) {
+    *(data_.network_bandwidth) = std::move(network_bandwidth);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kNetworkBandwidth;
+    data_.network_bandwidth = new NetworkBandwidthRoutineRunningInfoPtr(
+        std::move(network_bandwidth));
+  }
+}
+
+void RoutineRunningInfo::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kUnrecognizedArgument:
+
+      break;
+    case Tag::kNetworkBandwidth:
+
+      delete data_.network_bandwidth;
+      break;
+  }
+}
+size_t RoutineRunningInfo::Hash(size_t seed) const {
+  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
+  switch (tag_) {
+
+    case Tag::kUnrecognizedArgument:
+      return mojo::internal::Hash(seed, data_.unrecognizedArgument);
+    case Tag::kNetworkBandwidth:
+      return mojo::internal::Hash(seed, data_.network_bandwidth);
+    default:
+      NOTREACHED();
+      return seed;
+  }
+}
+
+bool RoutineRunningInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
@@ -2125,6 +2318,17 @@ void RoutineDetail::set_camera_availability(
         std::move(camera_availability));
   }
 }
+void RoutineDetail::set_network_bandwidth(
+    NetworkBandwidthRoutineDetailPtr network_bandwidth) {
+  if (tag_ == Tag::kNetworkBandwidth) {
+    *(data_.network_bandwidth) = std::move(network_bandwidth);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kNetworkBandwidth;
+    data_.network_bandwidth = new NetworkBandwidthRoutineDetailPtr(
+        std::move(network_bandwidth));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -2167,6 +2371,10 @@ void RoutineDetail::DestroyActive() {
     case Tag::kCameraAvailability:
 
       delete data_.camera_availability;
+      break;
+    case Tag::kNetworkBandwidth:
+
+      delete data_.network_bandwidth;
       break;
   }
 }
@@ -3853,6 +4061,18 @@ bool StructTraits<::ash::cros_healthd::mojom::UrandomRoutineArgument::DataView, 
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgument::DataView, ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentPtr result(::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgument::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -3887,6 +4107,24 @@ bool StructTraits<::ash::cros_healthd::mojom::RoutineStateRunning::DataView, ::a
   bool success = true;
   ::ash::cros_healthd::mojom::RoutineStateRunningPtr result(::ash::cros_healthd::mojom::RoutineStateRunning::New());
   
+      if (success && !input.ReadInfo(&result->info))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo::DataView, ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo::DataView input,
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr result(::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo::New());
+  
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success)
+        result->speed_kbps = input.speed_kbps();
   *output = std::move(result);
   return success;
 }
@@ -4190,6 +4428,22 @@ bool StructTraits<::ash::cros_healthd::mojom::FanRoutineDetail::DataView, ::ash:
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetail::DataView, ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr result(::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetail::New());
+  
+      if (success)
+        result->download_speed_kbps = input.download_speed_kbps();
+      if (success)
+        result->upload_speed_kbps = input.upload_speed_kbps();
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::cros_healthd::mojom::RoutineArgumentPtr>::Read(
     ::ash::cros_healthd::mojom::RoutineArgument::DataView input,
@@ -4355,6 +4609,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
           std::move(result_urandom));
       break;
     }
+    case Tag::kNetworkBandwidth: {
+      ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentPtr result_network_bandwidth;
+      if (!input.ReadNetworkBandwidth(&result_network_bandwidth))
+        return false;
+
+      *output = UnionType::NewNetworkBandwidth(
+          std::move(result_network_bandwidth));
+      break;
+    }
     default:
 
       *output = UnionType::NewUnrecognizedArgument({});
@@ -4409,6 +4672,34 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineStateUnion::DataView, ::ash:
 
       *output = UnionType::NewFinished(
           std::move(result_finished));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::RoutineRunningInfo::DataView, ::ash::cros_healthd::mojom::RoutineRunningInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineRunningInfo::DataView input,
+    ::ash::cros_healthd::mojom::RoutineRunningInfoPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::RoutineRunningInfo;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kUnrecognizedArgument: {
+      *output = UnionType::NewUnrecognizedArgument(input.unrecognizedArgument());
+      break;
+    }
+    case Tag::kNetworkBandwidth: {
+      ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr result_network_bandwidth;
+      if (!input.ReadNetworkBandwidth(&result_network_bandwidth))
+        return false;
+
+      *output = UnionType::NewNetworkBandwidth(
+          std::move(result_network_bandwidth));
       break;
     }
     default:
@@ -4596,6 +4887,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewCameraAvailability(
           std::move(result_camera_availability));
+      break;
+    }
+    case Tag::kNetworkBandwidth: {
+      ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr result_network_bandwidth;
+      if (!input.ReadNetworkBandwidth(&result_network_bandwidth))
+        return false;
+
+      *output = UnionType::NewNetworkBandwidth(
+          std::move(result_network_bandwidth));
       break;
     }
     default:

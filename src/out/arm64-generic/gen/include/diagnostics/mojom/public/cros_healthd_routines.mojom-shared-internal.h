@@ -44,9 +44,11 @@ class BluetoothScanningRoutineArgument_Data;
 class BluetoothPairingRoutineArgument_Data;
 class CameraAvailabilityRoutineArgument_Data;
 class UrandomRoutineArgument_Data;
+class NetworkBandwidthRoutineArgument_Data;
 class RoutineState_Data;
 class RoutineStateInitialized_Data;
 class RoutineStateRunning_Data;
+class NetworkBandwidthRoutineRunningInfo_Data;
 class RoutineStateWaiting_Data;
 class CheckLedLitUpStateInquiry_Data;
 class CheckLedLitUpStateReply_Data;
@@ -65,8 +67,10 @@ class BluetoothPairingPeripheralInfo_Data;
 class BluetoothPairingRoutineDetail_Data;
 class CameraAvailabilityRoutineDetail_Data;
 class FanRoutineDetail_Data;
+class NetworkBandwidthRoutineDetail_Data;
 class RoutineArgument_Data;
 class RoutineStateUnion_Data;
+class RoutineRunningInfo_Data;
 class RoutineInteraction_Data;
 class RoutineInquiry_Data;
 class RoutineInquiryReply_Data;
@@ -248,6 +252,31 @@ struct HardwarePresenceStatus_Data {
 };
 
 struct VolumeButtonRoutineArgument_ButtonType_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct NetworkBandwidthRoutineRunningInfo_Type_Data {
  public:
   static bool constexpr kIsExtensible = true;
 
@@ -469,6 +498,8 @@ class  RoutineArgument_Data {
     kCameraAvailability,
     
     kUrandom,
+    
+    kNetworkBandwidth,
   };
 
   // A note on layout:
@@ -494,6 +525,7 @@ class  RoutineArgument_Data {
     mojo::internal::Pointer<internal::BluetoothPairingRoutineArgument_Data> f_bluetooth_pairing;
     mojo::internal::Pointer<internal::CameraAvailabilityRoutineArgument_Data> f_camera_availability;
     mojo::internal::Pointer<internal::UrandomRoutineArgument_Data> f_urandom;
+    mojo::internal::Pointer<internal::NetworkBandwidthRoutineArgument_Data> f_network_bandwidth;
     uint64_t unknown;
   };
 
@@ -564,6 +596,58 @@ class  RoutineStateUnion_Data {
 };
 static_assert(sizeof(RoutineStateUnion_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(RoutineStateUnion_Data)");
+
+
+class  RoutineRunningInfo_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  RoutineRunningInfo_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~RoutineRunningInfo_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<RoutineRunningInfo_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class RoutineRunningInfo_Tag : uint32_t {
+
+    
+    kUnrecognizedArgument,
+    
+    kNetworkBandwidth,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    uint8_t f_unrecognizedArgument : 1;
+    mojo::internal::Pointer<internal::NetworkBandwidthRoutineRunningInfo_Data> f_network_bandwidth;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  RoutineRunningInfo_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(RoutineRunningInfo_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(RoutineRunningInfo_Data)");
 
 
 class  RoutineInteraction_Data {
@@ -770,6 +854,8 @@ class  RoutineDetail_Data {
     kBluetoothPairing,
     
     kCameraAvailability,
+    
+    kNetworkBandwidth,
   };
 
   // A note on layout:
@@ -787,6 +873,7 @@ class  RoutineDetail_Data {
     mojo::internal::Pointer<internal::BluetoothScanningRoutineDetail_Data> f_bluetooth_scanning;
     mojo::internal::Pointer<internal::BluetoothPairingRoutineDetail_Data> f_bluetooth_pairing;
     mojo::internal::Pointer<internal::CameraAvailabilityRoutineDetail_Data> f_camera_availability;
+    mojo::internal::Pointer<internal::NetworkBandwidthRoutineDetail_Data> f_network_bandwidth;
     uint64_t unknown;
   };
 
@@ -1617,6 +1704,53 @@ struct UrandomRoutineArgument_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     UrandomRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  NetworkBandwidthRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<NetworkBandwidthRoutineArgument_Data>;
+
+  NetworkBandwidthRoutineArgument_Data();
+  ~NetworkBandwidthRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(NetworkBandwidthRoutineArgument_Data) == 8,
+              "Bad sizeof(NetworkBandwidthRoutineArgument_Data)");
+// Used by NetworkBandwidthRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct NetworkBandwidthRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  NetworkBandwidthRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~NetworkBandwidthRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<NetworkBandwidthRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    NetworkBandwidthRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  RoutineState_Data {
  public:
   static bool Validate(const void* data,
@@ -1720,6 +1854,7 @@ class  RoutineStateRunning_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  internal::RoutineRunningInfo_Data info;
 
  private:
   friend class mojo::internal::MessageFragment<RoutineStateRunning_Data>;
@@ -1727,7 +1862,7 @@ class  RoutineStateRunning_Data {
   RoutineStateRunning_Data();
   ~RoutineStateRunning_Data() = delete;
 };
-static_assert(sizeof(RoutineStateRunning_Data) == 8,
+static_assert(sizeof(RoutineStateRunning_Data) == 24,
               "Bad sizeof(RoutineStateRunning_Data)");
 // Used by RoutineStateRunning::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -1761,6 +1896,56 @@ struct RoutineStateRunning_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     RoutineStateRunning_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  NetworkBandwidthRoutineRunningInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t type;
+  uint8_t pad0_[4];
+  double speed_kbps;
+
+ private:
+  friend class mojo::internal::MessageFragment<NetworkBandwidthRoutineRunningInfo_Data>;
+
+  NetworkBandwidthRoutineRunningInfo_Data();
+  ~NetworkBandwidthRoutineRunningInfo_Data() = delete;
+};
+static_assert(sizeof(NetworkBandwidthRoutineRunningInfo_Data) == 24,
+              "Bad sizeof(NetworkBandwidthRoutineRunningInfo_Data)");
+// Used by NetworkBandwidthRoutineRunningInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct NetworkBandwidthRoutineRunningInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  NetworkBandwidthRoutineRunningInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~NetworkBandwidthRoutineRunningInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<NetworkBandwidthRoutineRunningInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    NetworkBandwidthRoutineRunningInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  RoutineStateWaiting_Data {
  public:
   static bool Validate(const void* data,
@@ -2659,6 +2844,55 @@ struct FanRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     FanRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  NetworkBandwidthRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  double download_speed_kbps;
+  double upload_speed_kbps;
+
+ private:
+  friend class mojo::internal::MessageFragment<NetworkBandwidthRoutineDetail_Data>;
+
+  NetworkBandwidthRoutineDetail_Data();
+  ~NetworkBandwidthRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(NetworkBandwidthRoutineDetail_Data) == 24,
+              "Bad sizeof(NetworkBandwidthRoutineDetail_Data)");
+// Used by NetworkBandwidthRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct NetworkBandwidthRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  NetworkBandwidthRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~NetworkBandwidthRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<NetworkBandwidthRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    NetworkBandwidthRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 
