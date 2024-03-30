@@ -3352,25 +3352,28 @@ bool DeviceRegisterRequest_PsmExecutionResult_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeviceRegisterRequest_PsmExecutionResult_strings[4] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeviceRegisterRequest_PsmExecutionResult_strings[5] = {};
 
 static const char DeviceRegisterRequest_PsmExecutionResult_names[] =
   "PSM_RESULT_ERROR"
   "PSM_RESULT_SUCCESSFUL_WITHOUT_STATE"
   "PSM_RESULT_SUCCESSFUL_WITH_STATE"
-  "PSM_RESULT_UNKNOWN";
+  "PSM_RESULT_UNKNOWN"
+  "PSM_SKIPPED_FOR_FLEX_AUTO_ENROLLMENT";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceRegisterRequest_PsmExecutionResult_entries[] = {
   { {DeviceRegisterRequest_PsmExecutionResult_names + 0, 16}, 3 },
   { {DeviceRegisterRequest_PsmExecutionResult_names + 16, 35}, 2 },
   { {DeviceRegisterRequest_PsmExecutionResult_names + 51, 32}, 1 },
   { {DeviceRegisterRequest_PsmExecutionResult_names + 83, 18}, 0 },
+  { {DeviceRegisterRequest_PsmExecutionResult_names + 101, 36}, 4 },
 };
 
 static const int DeviceRegisterRequest_PsmExecutionResult_entries_by_number[] = {
@@ -3378,6 +3381,7 @@ static const int DeviceRegisterRequest_PsmExecutionResult_entries_by_number[] = 
   2, // 1 -> PSM_RESULT_SUCCESSFUL_WITH_STATE
   1, // 2 -> PSM_RESULT_SUCCESSFUL_WITHOUT_STATE
   0, // 3 -> PSM_RESULT_ERROR
+  4, // 4 -> PSM_SKIPPED_FOR_FLEX_AUTO_ENROLLMENT
 };
 
 const std::string& DeviceRegisterRequest_PsmExecutionResult_Name(
@@ -3386,12 +3390,12 @@ const std::string& DeviceRegisterRequest_PsmExecutionResult_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           DeviceRegisterRequest_PsmExecutionResult_entries,
           DeviceRegisterRequest_PsmExecutionResult_entries_by_number,
-          4, DeviceRegisterRequest_PsmExecutionResult_strings);
+          5, DeviceRegisterRequest_PsmExecutionResult_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       DeviceRegisterRequest_PsmExecutionResult_entries,
       DeviceRegisterRequest_PsmExecutionResult_entries_by_number,
-      4, value);
+      5, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      DeviceRegisterRequest_PsmExecutionResult_strings[idx].get();
 }
@@ -3399,7 +3403,7 @@ bool DeviceRegisterRequest_PsmExecutionResult_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceRegisterRequest_PsmExecutionResult* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      DeviceRegisterRequest_PsmExecutionResult_entries, 4, name, &int_value);
+      DeviceRegisterRequest_PsmExecutionResult_entries, 5, name, &int_value);
   if (success) {
     *value = static_cast<DeviceRegisterRequest_PsmExecutionResult>(int_value);
   }
@@ -3410,6 +3414,7 @@ constexpr DeviceRegisterRequest_PsmExecutionResult DeviceRegisterRequest::PSM_RE
 constexpr DeviceRegisterRequest_PsmExecutionResult DeviceRegisterRequest::PSM_RESULT_SUCCESSFUL_WITH_STATE;
 constexpr DeviceRegisterRequest_PsmExecutionResult DeviceRegisterRequest::PSM_RESULT_SUCCESSFUL_WITHOUT_STATE;
 constexpr DeviceRegisterRequest_PsmExecutionResult DeviceRegisterRequest::PSM_RESULT_ERROR;
+constexpr DeviceRegisterRequest_PsmExecutionResult DeviceRegisterRequest::PSM_SKIPPED_FOR_FLEX_AUTO_ENROLLMENT;
 constexpr DeviceRegisterRequest_PsmExecutionResult DeviceRegisterRequest::PsmExecutionResult_MIN;
 constexpr DeviceRegisterRequest_PsmExecutionResult DeviceRegisterRequest::PsmExecutionResult_MAX;
 constexpr int DeviceRegisterRequest::PsmExecutionResult_ARRAYSIZE;

@@ -412,6 +412,7 @@ CRDTP_BEGIN_DESERIALIZER(Response)
     CRDTP_DESERIALIZE_FIELD("connectionReused", m_connectionReused),
     CRDTP_DESERIALIZE_FIELD("encodedDataLength", m_encodedDataLength),
     CRDTP_DESERIALIZE_FIELD_OPT("fromDiskCache", m_fromDiskCache),
+    CRDTP_DESERIALIZE_FIELD_OPT("fromEarlyHints", m_fromEarlyHints),
     CRDTP_DESERIALIZE_FIELD_OPT("fromPrefetchCache", m_fromPrefetchCache),
     CRDTP_DESERIALIZE_FIELD_OPT("fromServiceWorker", m_fromServiceWorker),
     CRDTP_DESERIALIZE_FIELD("headers", m_headers),
@@ -450,6 +451,7 @@ CRDTP_BEGIN_SERIALIZER(Response)
     CRDTP_SERIALIZE_FIELD("fromDiskCache", m_fromDiskCache);
     CRDTP_SERIALIZE_FIELD("fromServiceWorker", m_fromServiceWorker);
     CRDTP_SERIALIZE_FIELD("fromPrefetchCache", m_fromPrefetchCache);
+    CRDTP_SERIALIZE_FIELD("fromEarlyHints", m_fromEarlyHints);
     CRDTP_SERIALIZE_FIELD("serviceWorkerRouterInfo", m_serviceWorkerRouterInfo);
     CRDTP_SERIALIZE_FIELD("encodedDataLength", m_encodedDataLength);
     CRDTP_SERIALIZE_FIELD("timing", m_timing);

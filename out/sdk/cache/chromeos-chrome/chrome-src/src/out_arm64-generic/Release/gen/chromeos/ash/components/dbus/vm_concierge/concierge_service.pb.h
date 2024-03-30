@@ -66,6 +66,12 @@ extern ArcVmCompleteBootRequestDefaultTypeInternal _ArcVmCompleteBootRequest_def
 class ArcVmCompleteBootResponse;
 struct ArcVmCompleteBootResponseDefaultTypeInternal;
 extern ArcVmCompleteBootResponseDefaultTypeInternal _ArcVmCompleteBootResponse_default_instance_;
+class AttachKeyRequest;
+struct AttachKeyRequestDefaultTypeInternal;
+extern AttachKeyRequestDefaultTypeInternal _AttachKeyRequest_default_instance_;
+class AttachKeyResponse;
+struct AttachKeyResponseDefaultTypeInternal;
+extern AttachKeyResponseDefaultTypeInternal _AttachKeyResponse_default_instance_;
 class AttachNetDeviceRequest;
 struct AttachNetDeviceRequestDefaultTypeInternal;
 extern AttachNetDeviceRequestDefaultTypeInternal _AttachNetDeviceRequest_default_instance_;
@@ -301,6 +307,8 @@ template<> ::vm_tools::concierge::AggressiveBalloonRequest* Arena::CreateMaybeMe
 template<> ::vm_tools::concierge::AggressiveBalloonResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::AggressiveBalloonResponse>(Arena*);
 template<> ::vm_tools::concierge::ArcVmCompleteBootRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ArcVmCompleteBootRequest>(Arena*);
 template<> ::vm_tools::concierge::ArcVmCompleteBootResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::ArcVmCompleteBootResponse>(Arena*);
+template<> ::vm_tools::concierge::AttachKeyRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AttachKeyRequest>(Arena*);
+template<> ::vm_tools::concierge::AttachKeyResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::AttachKeyResponse>(Arena*);
 template<> ::vm_tools::concierge::AttachNetDeviceRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AttachNetDeviceRequest>(Arena*);
 template<> ::vm_tools::concierge::AttachNetDeviceResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::AttachNetDeviceResponse>(Arena*);
 template<> ::vm_tools::concierge::AttachUsbDeviceRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AttachUsbDeviceRequest>(Arena*);
@@ -9480,6 +9488,324 @@ class AttachUsbDeviceResponse final :
 };
 // -------------------------------------------------------------------
 
+class AttachKeyRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.AttachKeyRequest) */ {
+ public:
+  inline AttachKeyRequest() : AttachKeyRequest(nullptr) {}
+  ~AttachKeyRequest() override;
+  explicit PROTOBUF_CONSTEXPR AttachKeyRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AttachKeyRequest(const AttachKeyRequest& from);
+  AttachKeyRequest(AttachKeyRequest&& from) noexcept
+    : AttachKeyRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline AttachKeyRequest& operator=(const AttachKeyRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AttachKeyRequest& operator=(AttachKeyRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const AttachKeyRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AttachKeyRequest* internal_default_instance() {
+    return reinterpret_cast<const AttachKeyRequest*>(
+               &_AttachKeyRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    47;
+
+  friend void swap(AttachKeyRequest& a, AttachKeyRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(AttachKeyRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AttachKeyRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AttachKeyRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AttachKeyRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const AttachKeyRequest& from);
+  void MergeFrom(const AttachKeyRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AttachKeyRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.AttachKeyRequest";
+  }
+  protected:
+  explicit AttachKeyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kVmNameFieldNumber = 1,
+    kOwnerIdFieldNumber = 2,
+    kHidrawFieldNumber = 3,
+  };
+  // string vm_name = 1;
+  void clear_vm_name();
+  const std::string& vm_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_vm_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_vm_name();
+  PROTOBUF_NODISCARD std::string* release_vm_name();
+  void set_allocated_vm_name(std::string* vm_name);
+  private:
+  const std::string& _internal_vm_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_vm_name(const std::string& value);
+  std::string* _internal_mutable_vm_name();
+  public:
+
+  // string owner_id = 2;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // string hidraw = 3;
+  void clear_hidraw();
+  const std::string& hidraw() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_hidraw(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_hidraw();
+  PROTOBUF_NODISCARD std::string* release_hidraw();
+  void set_allocated_hidraw(std::string* hidraw);
+  private:
+  const std::string& _internal_hidraw() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_hidraw(const std::string& value);
+  std::string* _internal_mutable_hidraw();
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.AttachKeyRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr hidraw_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class AttachKeyResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.AttachKeyResponse) */ {
+ public:
+  inline AttachKeyResponse() : AttachKeyResponse(nullptr) {}
+  ~AttachKeyResponse() override;
+  explicit PROTOBUF_CONSTEXPR AttachKeyResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AttachKeyResponse(const AttachKeyResponse& from);
+  AttachKeyResponse(AttachKeyResponse&& from) noexcept
+    : AttachKeyResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline AttachKeyResponse& operator=(const AttachKeyResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AttachKeyResponse& operator=(AttachKeyResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const AttachKeyResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AttachKeyResponse* internal_default_instance() {
+    return reinterpret_cast<const AttachKeyResponse*>(
+               &_AttachKeyResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    48;
+
+  friend void swap(AttachKeyResponse& a, AttachKeyResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(AttachKeyResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AttachKeyResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AttachKeyResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AttachKeyResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const AttachKeyResponse& from);
+  void MergeFrom(const AttachKeyResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AttachKeyResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.AttachKeyResponse";
+  }
+  protected:
+  explicit AttachKeyResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kReasonFieldNumber = 3,
+    kSuccessFieldNumber = 1,
+    kGuestPortFieldNumber = 2,
+  };
+  // string reason = 3;
+  void clear_reason();
+  const std::string& reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_reason();
+  PROTOBUF_NODISCARD std::string* release_reason();
+  void set_allocated_reason(std::string* reason);
+  private:
+  const std::string& _internal_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_reason(const std::string& value);
+  std::string* _internal_mutable_reason();
+  public:
+
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // uint32 guest_port = 2;
+  void clear_guest_port();
+  uint32_t guest_port() const;
+  void set_guest_port(uint32_t value);
+  private:
+  uint32_t _internal_guest_port() const;
+  void _internal_set_guest_port(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.AttachKeyResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reason_;
+  bool success_;
+  uint32_t guest_port_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
 class DetachUsbDeviceRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.DetachUsbDeviceRequest) */ {
  public:
@@ -9519,7 +9845,7 @@ class DetachUsbDeviceRequest final :
                &_DetachUsbDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    47;
+    49;
 
   friend void swap(DetachUsbDeviceRequest& a, DetachUsbDeviceRequest& b) {
     a.Swap(&b);
@@ -9678,7 +10004,7 @@ class DetachUsbDeviceResponse final :
                &_DetachUsbDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    48;
+    50;
 
   friend void swap(DetachUsbDeviceResponse& a, DetachUsbDeviceResponse& b) {
     a.Swap(&b);
@@ -9821,7 +10147,7 @@ class ListUsbDeviceRequest final :
                &_ListUsbDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    49;
+    51;
 
   friend void swap(ListUsbDeviceRequest& a, ListUsbDeviceRequest& b) {
     a.Swap(&b);
@@ -9969,7 +10295,7 @@ class UsbDeviceMessage final :
                &_UsbDeviceMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    50;
+    52;
 
   friend void swap(UsbDeviceMessage& a, UsbDeviceMessage& b) {
     a.Swap(&b);
@@ -10134,7 +10460,7 @@ class ListUsbDeviceResponse final :
                &_ListUsbDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    51;
+    53;
 
   friend void swap(ListUsbDeviceResponse& a, ListUsbDeviceResponse& b) {
     a.Swap(&b);
@@ -10281,7 +10607,7 @@ class AttachNetDeviceRequest final :
                &_AttachNetDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    52;
+    54;
 
   friend void swap(AttachNetDeviceRequest& a, AttachNetDeviceRequest& b) {
     a.Swap(&b);
@@ -10445,7 +10771,7 @@ class AttachNetDeviceResponse final :
                &_AttachNetDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    53;
+    55;
 
   friend void swap(AttachNetDeviceResponse& a, AttachNetDeviceResponse& b) {
     a.Swap(&b);
@@ -10599,7 +10925,7 @@ class DetachNetDeviceRequest final :
                &_DetachNetDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    54;
+    56;
 
   friend void swap(DetachNetDeviceRequest& a, DetachNetDeviceRequest& b) {
     a.Swap(&b);
@@ -10758,7 +11084,7 @@ class DetachNetDeviceResponse final :
                &_DetachNetDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    55;
+    57;
 
   friend void swap(DetachNetDeviceResponse& a, DetachNetDeviceResponse& b) {
     a.Swap(&b);
@@ -10901,7 +11227,7 @@ class DnsSettings final :
                &_DnsSettings_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    56;
+    58;
 
   friend void swap(DnsSettings& a, DnsSettings& b) {
     a.Swap(&b);
@@ -11069,7 +11395,7 @@ class SetVmCpuRestrictionRequest final :
                &_SetVmCpuRestrictionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    57;
+    59;
 
   friend void swap(SetVmCpuRestrictionRequest& a, SetVmCpuRestrictionRequest& b) {
     a.Swap(&b);
@@ -11207,7 +11533,7 @@ class SetVmCpuRestrictionResponse final :
                &_SetVmCpuRestrictionResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    58;
+    60;
 
   friend void swap(SetVmCpuRestrictionResponse& a, SetVmCpuRestrictionResponse& b) {
     a.Swap(&b);
@@ -11334,7 +11660,7 @@ class AdjustVmRequest final :
                &_AdjustVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    59;
+    61;
 
   friend void swap(AdjustVmRequest& a, AdjustVmRequest& b) {
     a.Swap(&b);
@@ -11524,7 +11850,7 @@ class AdjustVmResponse final :
                &_AdjustVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    60;
+    62;
 
   friend void swap(AdjustVmResponse& a, AdjustVmResponse& b) {
     a.Swap(&b);
@@ -11667,7 +11993,7 @@ class ReclaimVmMemoryRequest final :
                &_ReclaimVmMemoryRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    61;
+    63;
 
   friend void swap(ReclaimVmMemoryRequest& a, ReclaimVmMemoryRequest& b) {
     a.Swap(&b);
@@ -11826,7 +12152,7 @@ class ReclaimVmMemoryResponse final :
                &_ReclaimVmMemoryResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    62;
+    64;
 
   friend void swap(ReclaimVmMemoryResponse& a, ReclaimVmMemoryResponse& b) {
     a.Swap(&b);
@@ -11969,7 +12295,7 @@ class ListVmsRequest final :
                &_ListVmsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    63;
+    65;
 
   friend void swap(ListVmsRequest& a, ListVmsRequest& b) {
     a.Swap(&b);
@@ -12101,7 +12427,7 @@ class ExtendedVmInfo final :
                &_ExtendedVmInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    64;
+    66;
 
   friend void swap(ExtendedVmInfo& a, ExtendedVmInfo& b) {
     a.Swap(&b);
@@ -12280,7 +12606,7 @@ class ListVmsResponse final :
                &_ListVmsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    65;
+    67;
 
   friend void swap(ListVmsResponse& a, ListVmsResponse& b) {
     a.Swap(&b);
@@ -12443,7 +12769,7 @@ class GetVmGpuCachePathRequest final :
                &_GetVmGpuCachePathRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    66;
+    68;
 
   friend void swap(GetVmGpuCachePathRequest& a, GetVmGpuCachePathRequest& b) {
     a.Swap(&b);
@@ -12591,7 +12917,7 @@ class GetVmGpuCachePathResponse final :
                &_GetVmGpuCachePathResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    67;
+    69;
 
   friend void swap(GetVmGpuCachePathResponse& a, GetVmGpuCachePathResponse& b) {
     a.Swap(&b);
@@ -12723,7 +13049,7 @@ class AddGroupPermissionMesaRequest final :
                &_AddGroupPermissionMesaRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    68;
+    70;
 
   friend void swap(AddGroupPermissionMesaRequest& a, AddGroupPermissionMesaRequest& b) {
     a.Swap(&b);
@@ -12871,7 +13197,7 @@ class GetVmLaunchAllowedRequest final :
                &_GetVmLaunchAllowedRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    69;
+    71;
 
   friend void swap(GetVmLaunchAllowedRequest& a, GetVmLaunchAllowedRequest& b) {
     a.Swap(&b);
@@ -12985,7 +13311,7 @@ class GetVmLaunchAllowedResponse final :
                &_GetVmLaunchAllowedResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    70;
+    72;
 
   friend void swap(GetVmLaunchAllowedResponse& a, GetVmLaunchAllowedResponse& b) {
     a.Swap(&b);
@@ -13128,7 +13454,7 @@ class GetVmLogsRequest final :
                &_GetVmLogsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    71;
+    73;
 
   friend void swap(GetVmLogsRequest& a, GetVmLogsRequest& b) {
     a.Swap(&b);
@@ -13276,7 +13602,7 @@ class GetVmLogsResponse final :
                &_GetVmLogsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    72;
+    74;
 
   friend void swap(GetVmLogsResponse& a, GetVmLogsResponse& b) {
     a.Swap(&b);
@@ -13408,7 +13734,7 @@ class SwapVmRequest final :
                &_SwapVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    73;
+    75;
 
   friend void swap(SwapVmRequest& a, SwapVmRequest& b) {
     a.Swap(&b);
@@ -13567,7 +13893,7 @@ class SwapVmResponse final :
                &_SwapVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    74;
+    76;
 
   friend void swap(SwapVmResponse& a, SwapVmResponse& b) {
     a.Swap(&b);
@@ -13710,7 +14036,7 @@ class VmSwappingSignal final :
                &_VmSwappingSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    75;
+    77;
 
   friend void swap(VmSwappingSignal& a, VmSwappingSignal& b) {
     a.Swap(&b);
@@ -13869,7 +14195,7 @@ class InstallPflashRequest final :
                &_InstallPflashRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    76;
+    78;
 
   friend void swap(InstallPflashRequest& a, InstallPflashRequest& b) {
     a.Swap(&b);
@@ -14017,7 +14343,7 @@ class InstallPflashResponse final :
                &_InstallPflashResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    77;
+    79;
 
   friend void swap(InstallPflashResponse& a, InstallPflashResponse& b) {
     a.Swap(&b);
@@ -14160,7 +14486,7 @@ class AggressiveBalloonRequest final :
                &_AggressiveBalloonRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    78;
+    80;
 
   friend void swap(AggressiveBalloonRequest& a, AggressiveBalloonRequest& b) {
     a.Swap(&b);
@@ -14319,7 +14645,7 @@ class AggressiveBalloonResponse final :
                &_AggressiveBalloonResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    79;
+    81;
 
   friend void swap(AggressiveBalloonResponse& a, AggressiveBalloonResponse& b) {
     a.Swap(&b);
@@ -14462,7 +14788,7 @@ class GetVmMemoryManagementKillsConnectionRequest final :
                &_GetVmMemoryManagementKillsConnectionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    80;
+    82;
 
   friend void swap(GetVmMemoryManagementKillsConnectionRequest& a, GetVmMemoryManagementKillsConnectionRequest& b) {
     a.Swap(&b);
@@ -14576,7 +14902,7 @@ class GetVmMemoryManagementKillsConnectionResponse final :
                &_GetVmMemoryManagementKillsConnectionResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    81;
+    83;
 
   friend void swap(GetVmMemoryManagementKillsConnectionResponse& a, GetVmMemoryManagementKillsConnectionResponse& b) {
     a.Swap(&b);
@@ -22402,6 +22728,254 @@ inline void AttachUsbDeviceResponse::set_allocated_reason(std::string* reason) {
 
 // -------------------------------------------------------------------
 
+// AttachKeyRequest
+
+// string vm_name = 1;
+inline void AttachKeyRequest::clear_vm_name() {
+  vm_name_.ClearToEmpty();
+}
+inline const std::string& AttachKeyRequest::vm_name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AttachKeyRequest.vm_name)
+  return _internal_vm_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AttachKeyRequest::set_vm_name(ArgT0&& arg0, ArgT... args) {
+ 
+ vm_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AttachKeyRequest.vm_name)
+}
+inline std::string* AttachKeyRequest::mutable_vm_name() {
+  std::string* _s = _internal_mutable_vm_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AttachKeyRequest.vm_name)
+  return _s;
+}
+inline const std::string& AttachKeyRequest::_internal_vm_name() const {
+  return vm_name_.Get();
+}
+inline void AttachKeyRequest::_internal_set_vm_name(const std::string& value) {
+  
+  vm_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AttachKeyRequest::_internal_mutable_vm_name() {
+  
+  return vm_name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AttachKeyRequest::release_vm_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AttachKeyRequest.vm_name)
+  return vm_name_.Release();
+}
+inline void AttachKeyRequest::set_allocated_vm_name(std::string* vm_name) {
+  if (vm_name != nullptr) {
+    
+  } else {
+    
+  }
+  vm_name_.SetAllocated(vm_name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (vm_name_.IsDefault()) {
+    vm_name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AttachKeyRequest.vm_name)
+}
+
+// string owner_id = 2;
+inline void AttachKeyRequest::clear_owner_id() {
+  owner_id_.ClearToEmpty();
+}
+inline const std::string& AttachKeyRequest::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AttachKeyRequest.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AttachKeyRequest::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ owner_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AttachKeyRequest.owner_id)
+}
+inline std::string* AttachKeyRequest::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AttachKeyRequest.owner_id)
+  return _s;
+}
+inline const std::string& AttachKeyRequest::_internal_owner_id() const {
+  return owner_id_.Get();
+}
+inline void AttachKeyRequest::_internal_set_owner_id(const std::string& value) {
+  
+  owner_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AttachKeyRequest::_internal_mutable_owner_id() {
+  
+  return owner_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AttachKeyRequest::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AttachKeyRequest.owner_id)
+  return owner_id_.Release();
+}
+inline void AttachKeyRequest::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  owner_id_.SetAllocated(owner_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (owner_id_.IsDefault()) {
+    owner_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AttachKeyRequest.owner_id)
+}
+
+// string hidraw = 3;
+inline void AttachKeyRequest::clear_hidraw() {
+  hidraw_.ClearToEmpty();
+}
+inline const std::string& AttachKeyRequest::hidraw() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AttachKeyRequest.hidraw)
+  return _internal_hidraw();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AttachKeyRequest::set_hidraw(ArgT0&& arg0, ArgT... args) {
+ 
+ hidraw_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AttachKeyRequest.hidraw)
+}
+inline std::string* AttachKeyRequest::mutable_hidraw() {
+  std::string* _s = _internal_mutable_hidraw();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AttachKeyRequest.hidraw)
+  return _s;
+}
+inline const std::string& AttachKeyRequest::_internal_hidraw() const {
+  return hidraw_.Get();
+}
+inline void AttachKeyRequest::_internal_set_hidraw(const std::string& value) {
+  
+  hidraw_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AttachKeyRequest::_internal_mutable_hidraw() {
+  
+  return hidraw_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AttachKeyRequest::release_hidraw() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AttachKeyRequest.hidraw)
+  return hidraw_.Release();
+}
+inline void AttachKeyRequest::set_allocated_hidraw(std::string* hidraw) {
+  if (hidraw != nullptr) {
+    
+  } else {
+    
+  }
+  hidraw_.SetAllocated(hidraw, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (hidraw_.IsDefault()) {
+    hidraw_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AttachKeyRequest.hidraw)
+}
+
+// -------------------------------------------------------------------
+
+// AttachKeyResponse
+
+// bool success = 1;
+inline void AttachKeyResponse::clear_success() {
+  success_ = false;
+}
+inline bool AttachKeyResponse::_internal_success() const {
+  return success_;
+}
+inline bool AttachKeyResponse::success() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AttachKeyResponse.success)
+  return _internal_success();
+}
+inline void AttachKeyResponse::_internal_set_success(bool value) {
+  
+  success_ = value;
+}
+inline void AttachKeyResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AttachKeyResponse.success)
+}
+
+// uint32 guest_port = 2;
+inline void AttachKeyResponse::clear_guest_port() {
+  guest_port_ = 0u;
+}
+inline uint32_t AttachKeyResponse::_internal_guest_port() const {
+  return guest_port_;
+}
+inline uint32_t AttachKeyResponse::guest_port() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AttachKeyResponse.guest_port)
+  return _internal_guest_port();
+}
+inline void AttachKeyResponse::_internal_set_guest_port(uint32_t value) {
+  
+  guest_port_ = value;
+}
+inline void AttachKeyResponse::set_guest_port(uint32_t value) {
+  _internal_set_guest_port(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AttachKeyResponse.guest_port)
+}
+
+// string reason = 3;
+inline void AttachKeyResponse::clear_reason() {
+  reason_.ClearToEmpty();
+}
+inline const std::string& AttachKeyResponse::reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AttachKeyResponse.reason)
+  return _internal_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AttachKeyResponse::set_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ reason_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AttachKeyResponse.reason)
+}
+inline std::string* AttachKeyResponse::mutable_reason() {
+  std::string* _s = _internal_mutable_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AttachKeyResponse.reason)
+  return _s;
+}
+inline const std::string& AttachKeyResponse::_internal_reason() const {
+  return reason_.Get();
+}
+inline void AttachKeyResponse::_internal_set_reason(const std::string& value) {
+  
+  reason_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AttachKeyResponse::_internal_mutable_reason() {
+  
+  return reason_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AttachKeyResponse::release_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AttachKeyResponse.reason)
+  return reason_.Release();
+}
+inline void AttachKeyResponse::set_allocated_reason(std::string* reason) {
+  if (reason != nullptr) {
+    
+  } else {
+    
+  }
+  reason_.SetAllocated(reason, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (reason_.IsDefault()) {
+    reason_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AttachKeyResponse.reason)
+}
+
+// -------------------------------------------------------------------
+
 // DetachUsbDeviceRequest
 
 // string vm_name = 1;
@@ -25728,6 +26302,10 @@ inline void GetVmMemoryManagementKillsConnectionResponse::set_allocated_failure_
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -18,9 +18,6 @@ enum class CrosHealthdRoutinesService : uint32_t {
   kCreateRoutine = 0,
   kIsRoutineArgumentSupported = 1,
 };
-enum class LedLitUpRoutineReplier : uint32_t {
-  kGetColorMatched = 0,
-};
 enum class RoutineControl : uint32_t {
   kGetState = 0,
   kStart = 1,

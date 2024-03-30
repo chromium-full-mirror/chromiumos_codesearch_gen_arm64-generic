@@ -7373,6 +7373,7 @@ class StartPreparedScanRequest final :
   enum : int {
     kImageFormatFieldNumber = 2,
     kScannerFieldNumber = 1,
+    kMaxReadSizeFieldNumber = 3,
   };
   // string image_format = 2;
   void clear_image_format();
@@ -7406,6 +7407,19 @@ class StartPreparedScanRequest final :
       ::lorgnette::ScannerHandle* scanner);
   ::lorgnette::ScannerHandle* unsafe_arena_release_scanner();
 
+  // optional uint32 max_read_size = 3;
+  bool has_max_read_size() const;
+  private:
+  bool _internal_has_max_read_size() const;
+  public:
+  void clear_max_read_size();
+  uint32_t max_read_size() const;
+  void set_max_read_size(uint32_t value);
+  private:
+  uint32_t _internal_max_read_size() const;
+  void _internal_set_max_read_size(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:lorgnette.StartPreparedScanRequest)
  private:
   class _Internal;
@@ -7413,9 +7427,11 @@ class StartPreparedScanRequest final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr image_format_;
   ::lorgnette::ScannerHandle* scanner_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t max_read_size_;
   friend struct ::TableStruct_lorgnette_5fservice_2eproto;
 };
 // -------------------------------------------------------------------
@@ -13731,6 +13747,34 @@ inline void StartPreparedScanRequest::set_allocated_image_format(std::string* im
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:lorgnette.StartPreparedScanRequest.image_format)
+}
+
+// optional uint32 max_read_size = 3;
+inline bool StartPreparedScanRequest::_internal_has_max_read_size() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool StartPreparedScanRequest::has_max_read_size() const {
+  return _internal_has_max_read_size();
+}
+inline void StartPreparedScanRequest::clear_max_read_size() {
+  max_read_size_ = 0u;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline uint32_t StartPreparedScanRequest::_internal_max_read_size() const {
+  return max_read_size_;
+}
+inline uint32_t StartPreparedScanRequest::max_read_size() const {
+  // @@protoc_insertion_point(field_get:lorgnette.StartPreparedScanRequest.max_read_size)
+  return _internal_max_read_size();
+}
+inline void StartPreparedScanRequest::_internal_set_max_read_size(uint32_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  max_read_size_ = value;
+}
+inline void StartPreparedScanRequest::set_max_read_size(uint32_t value) {
+  _internal_set_max_read_size(value);
+  // @@protoc_insertion_point(field_set:lorgnette.StartPreparedScanRequest.max_read_size)
 }
 
 // -------------------------------------------------------------------

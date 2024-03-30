@@ -1634,6 +1634,12 @@ public:
     }
     void SetFromPrefetchCache(bool value) { m_fromPrefetchCache = value; }
 
+    bool HasFromEarlyHints() { return m_fromEarlyHints.has_value(); }
+    bool GetFromEarlyHints(bool defaultValue) const {
+       return m_fromEarlyHints.value_or(defaultValue);
+    }
+    void SetFromEarlyHints(bool value) { m_fromEarlyHints = value; }
+
     bool HasServiceWorkerRouterInfo() { return m_serviceWorkerRouterInfo.has_value(); }
     protocol::Network::ServiceWorkerRouterInfo* GetServiceWorkerRouterInfo(protocol::Network::ServiceWorkerRouterInfo* defaultValue) {
        return m_serviceWorkerRouterInfo.has_value() ? &m_serviceWorkerRouterInfo.value() : defaultValue;
@@ -1810,6 +1816,12 @@ public:
             return *this;
         }
 
+        ResponseBuilder<STATE>& SetFromEarlyHints(bool value)
+        {
+            m_result->SetFromEarlyHints(value);
+            return *this;
+        }
+
         ResponseBuilder<STATE>& SetServiceWorkerRouterInfo(std::unique_ptr<protocol::Network::ServiceWorkerRouterInfo> value)
         {
             m_result->SetServiceWorkerRouterInfo(std::move(value));
@@ -1922,6 +1934,7 @@ private:
     Maybe<bool> m_fromDiskCache;
     Maybe<bool> m_fromServiceWorker;
     Maybe<bool> m_fromPrefetchCache;
+    Maybe<bool> m_fromEarlyHints;
     Maybe<protocol::Network::ServiceWorkerRouterInfo> m_serviceWorkerRouterInfo;
     double m_encodedDataLength;
     Maybe<protocol::Network::ResourceTiming> m_timing;

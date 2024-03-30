@@ -61,7 +61,7 @@ class CrosHealthdRoutinesService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 2;
+  static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -74,8 +74,8 @@ class CrosHealthdRoutinesService
   using RequestValidator_ = CrosHealthdRoutinesServiceRequestValidator;
   using ResponseValidator_ = CrosHealthdRoutinesServiceResponseValidator;
   enum MethodMinVersions : uint32_t {
-    kCreateRoutineMinVersion = 1,
-    kIsRoutineArgumentSupportedMinVersion = 2,
+    kCreateRoutineMinVersion = 0,
+    kIsRoutineArgumentSupportedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -97,54 +97,6 @@ class CrosHealthdRoutinesService
   using IsRoutineArgumentSupportedCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::SupportStatusPtr)>;
   
   virtual void IsRoutineArgumentSupported(RoutineArgumentPtr routine_argument, IsRoutineArgumentSupportedCallback callback) = 0;
-};
-
-class LedLitUpRoutineReplierProxy;
-
-template <typename ImplRefTraits>
-class LedLitUpRoutineReplierStub;
-
-class LedLitUpRoutineReplierRequestValidator;
-class LedLitUpRoutineReplierResponseValidator;
-
-
-class LedLitUpRoutineReplier
-    : public LedLitUpRoutineReplierInterfaceBase {
- public:
-  using IPCStableHashFunction = uint32_t(*)();
-
-  static const char Name_[];
-  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
-  static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
-  static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasUninterruptableMethods_ = false;
-
-  using Base_ = LedLitUpRoutineReplierInterfaceBase;
-  using Proxy_ = LedLitUpRoutineReplierProxy;
-
-  template <typename ImplRefTraits>
-  using Stub_ = LedLitUpRoutineReplierStub<ImplRefTraits>;
-
-  using RequestValidator_ = LedLitUpRoutineReplierRequestValidator;
-  using ResponseValidator_ = LedLitUpRoutineReplierResponseValidator;
-  enum MethodMinVersions : uint32_t {
-    kGetColorMatchedMinVersion = 0,
-  };
-
-// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
-// with not having this data in traces there.
-#if !BUILDFLAG(IS_FUCHSIA)
-  struct GetColorMatched_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-#endif // !BUILDFLAG(IS_FUCHSIA)
-  virtual ~LedLitUpRoutineReplier() = default;
-
-
-  using GetColorMatchedCallback = base::OnceCallback<void(bool)>;
-  
-  virtual void GetColorMatched(GetColorMatchedCallback callback) = 0;
 };
 
 class RoutineControlProxy;
@@ -273,21 +225,6 @@ class  CrosHealthdRoutinesServiceProxy
 
 
 
-class  LedLitUpRoutineReplierProxy
-    : public LedLitUpRoutineReplier {
- public:
-  using InterfaceType = LedLitUpRoutineReplier;
-
-  explicit LedLitUpRoutineReplierProxy(mojo::MessageReceiverWithResponder* receiver);
-  
-  void GetColorMatched(GetColorMatchedCallback callback) final;
-
- private:
-  mojo::MessageReceiverWithResponder* receiver_;
-};
-
-
-
 class  RoutineControlProxy
     : public RoutineControl {
  public:
@@ -354,47 +291,6 @@ class CrosHealthdRoutinesServiceStub
     if (ImplRefTraits::IsNull(sink_))
       return false;
     return CrosHealthdRoutinesServiceStubDispatch::AcceptWithResponder(
-        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
-  }
-
- private:
-  ImplPointerType sink_;
-};
-class  LedLitUpRoutineReplierStubDispatch {
- public:
-  static bool Accept(LedLitUpRoutineReplier* impl, mojo::Message* message);
-  static bool AcceptWithResponder(
-      LedLitUpRoutineReplier* impl,
-      mojo::Message* message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
-};
-
-template <typename ImplRefTraits =
-              mojo::RawPtrImplRefTraits<LedLitUpRoutineReplier>>
-class LedLitUpRoutineReplierStub
-    : public mojo::MessageReceiverWithResponderStatus {
- public:
-  using ImplPointerType = typename ImplRefTraits::PointerType;
-
-  LedLitUpRoutineReplierStub() = default;
-  ~LedLitUpRoutineReplierStub() override = default;
-
-  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
-  ImplPointerType& sink() { return sink_; }
-
-  bool Accept(mojo::Message* message) override {
-    if (ImplRefTraits::IsNull(sink_))
-      return false;
-    return LedLitUpRoutineReplierStubDispatch::Accept(
-        ImplRefTraits::GetRawPointer(&sink_), message);
-  }
-
-  bool AcceptWithResponder(
-      mojo::Message* message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
-    if (ImplRefTraits::IsNull(sink_))
-      return false;
-    return LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
@@ -487,10 +383,6 @@ class  CrosHealthdRoutinesServiceRequestValidator : public mojo::MessageReceiver
  public:
   bool Accept(mojo::Message* message) override;
 };
-class  LedLitUpRoutineReplierRequestValidator : public mojo::MessageReceiver {
- public:
-  bool Accept(mojo::Message* message) override;
-};
 class  RoutineControlRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
@@ -500,10 +392,6 @@ class  RoutineObserverRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  CrosHealthdRoutinesServiceResponseValidator : public mojo::MessageReceiver {
- public:
-  bool Accept(mojo::Message* message) override;
-};
-class  LedLitUpRoutineReplierResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
@@ -929,6 +817,149 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+
+
+
+class  LedLitUpRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<LedLitUpRoutineArgument, T>::value>;
+  using DataView = LedLitUpRoutineArgumentDataView;
+  using Data_ = internal::LedLitUpRoutineArgument_Data;
+
+  template <typename... Args>
+  static LedLitUpRoutineArgumentPtr New(Args&&... args) {
+    return LedLitUpRoutineArgumentPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static LedLitUpRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<LedLitUpRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, LedLitUpRoutineArgument>::Convert(*this);
+  }
+
+
+  LedLitUpRoutineArgument();
+
+  LedLitUpRoutineArgument(
+      LedName name,
+      LedColor color);
+
+
+  ~LedLitUpRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = LedLitUpRoutineArgumentPtr>
+  LedLitUpRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        LedLitUpRoutineArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        LedLitUpRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::LedLitUpRoutineArgument_UnserializedMessageContext<
+            UserType, LedLitUpRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<LedLitUpRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return LedLitUpRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::LedLitUpRoutineArgument_UnserializedMessageContext<
+            UserType, LedLitUpRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<LedLitUpRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  LedName name;
+  
+  LedColor color;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -1630,6 +1661,142 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  NetworkBandwidthRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<NetworkBandwidthRoutineArgument, T>::value>;
+  using DataView = NetworkBandwidthRoutineArgumentDataView;
+  using Data_ = internal::NetworkBandwidthRoutineArgument_Data;
+
+  template <typename... Args>
+  static NetworkBandwidthRoutineArgumentPtr New(Args&&... args) {
+    return NetworkBandwidthRoutineArgumentPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static NetworkBandwidthRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<NetworkBandwidthRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, NetworkBandwidthRoutineArgument>::Convert(*this);
+  }
+
+
+  NetworkBandwidthRoutineArgument();
+
+
+  ~NetworkBandwidthRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = NetworkBandwidthRoutineArgumentPtr>
+  NetworkBandwidthRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, NetworkBandwidthRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, NetworkBandwidthRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, NetworkBandwidthRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        NetworkBandwidthRoutineArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        NetworkBandwidthRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::NetworkBandwidthRoutineArgument_UnserializedMessageContext<
+            UserType, NetworkBandwidthRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<NetworkBandwidthRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return NetworkBandwidthRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::NetworkBandwidthRoutineArgument_UnserializedMessageContext<
+            UserType, NetworkBandwidthRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<NetworkBandwidthRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, NetworkBandwidthRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, NetworkBandwidthRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, NetworkBandwidthRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, NetworkBandwidthRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  RoutineStateInitialized {
  public:
@@ -1767,63 +1934,69 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  RoutineStateRunning {
+
+class  NetworkBandwidthRoutineRunningInfo {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<RoutineStateRunning, T>::value>;
-  using DataView = RoutineStateRunningDataView;
-  using Data_ = internal::RoutineStateRunning_Data;
+  using EnableIfSame = std::enable_if_t<std::is_same<NetworkBandwidthRoutineRunningInfo, T>::value>;
+  using DataView = NetworkBandwidthRoutineRunningInfoDataView;
+  using Data_ = internal::NetworkBandwidthRoutineRunningInfo_Data;
+  using Type = NetworkBandwidthRoutineRunningInfo_Type;
 
   template <typename... Args>
-  static RoutineStateRunningPtr New(Args&&... args) {
-    return RoutineStateRunningPtr(
+  static NetworkBandwidthRoutineRunningInfoPtr New(Args&&... args) {
+    return NetworkBandwidthRoutineRunningInfoPtr(
         std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static RoutineStateRunningPtr From(const U& u) {
-    return mojo::TypeConverter<RoutineStateRunningPtr, U>::Convert(u);
+  static NetworkBandwidthRoutineRunningInfoPtr From(const U& u) {
+    return mojo::TypeConverter<NetworkBandwidthRoutineRunningInfoPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, RoutineStateRunning>::Convert(*this);
+    return mojo::TypeConverter<U, NetworkBandwidthRoutineRunningInfo>::Convert(*this);
   }
 
 
-  RoutineStateRunning();
+  NetworkBandwidthRoutineRunningInfo();
+
+  NetworkBandwidthRoutineRunningInfo(
+      NetworkBandwidthRoutineRunningInfo::Type type,
+      double speed_kbps);
 
 
-  ~RoutineStateRunning();
+  ~NetworkBandwidthRoutineRunningInfo();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = RoutineStateRunningPtr>
-  RoutineStateRunningPtr Clone() const;
+  template <typename StructPtrType = NetworkBandwidthRoutineRunningInfoPtr>
+  NetworkBandwidthRoutineRunningInfoPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+  template <typename T, NetworkBandwidthRoutineRunningInfo::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+  template <typename T, NetworkBandwidthRoutineRunningInfo::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+  template <typename T, NetworkBandwidthRoutineRunningInfo::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        RoutineStateRunning::DataView, std::vector<uint8_t>>(input);
+        NetworkBandwidthRoutineRunningInfo::DataView, std::vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        RoutineStateRunning::DataView>(input);
+        NetworkBandwidthRoutineRunningInfo::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -1833,8 +2006,8 @@ class  RoutineStateRunning {
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::RoutineStateRunning_UnserializedMessageContext<
-            UserType, RoutineStateRunning::DataView>>(0, 0, std::move(input)),
+        internal::NetworkBandwidthRoutineRunningInfo_UnserializedMessageContext<
+            UserType, NetworkBandwidthRoutineRunningInfo::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -1843,14 +2016,14 @@ class  RoutineStateRunning {
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<RoutineStateRunning::DataView>(
+    return mojo::internal::DeserializeImpl<NetworkBandwidthRoutineRunningInfo::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const std::vector<uint8_t>& input,
                           UserType* output) {
-    return RoutineStateRunning::Deserialize(
+    return NetworkBandwidthRoutineRunningInfo::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -1858,17 +2031,21 @@ class  RoutineStateRunning {
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::RoutineStateRunning_UnserializedMessageContext<
-            UserType, RoutineStateRunning::DataView>>();
+        internal::NetworkBandwidthRoutineRunningInfo_UnserializedMessageContext<
+            UserType, NetworkBandwidthRoutineRunningInfo::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<RoutineStateRunning::DataView>(
+    return mojo::internal::DeserializeImpl<NetworkBandwidthRoutineRunningInfo::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
+  
+  NetworkBandwidthRoutineRunningInfo::Type type;
+  
+  double speed_kbps;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1881,20 +2058,20 @@ class  RoutineStateRunning {
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+template <typename T, NetworkBandwidthRoutineRunningInfo::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+template <typename T, NetworkBandwidthRoutineRunningInfo::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+template <typename T, NetworkBandwidthRoutineRunningInfo::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+template <typename T, NetworkBandwidthRoutineRunningInfo::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -2915,6 +3092,150 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  NetworkBandwidthRoutineDetail {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<NetworkBandwidthRoutineDetail, T>::value>;
+  using DataView = NetworkBandwidthRoutineDetailDataView;
+  using Data_ = internal::NetworkBandwidthRoutineDetail_Data;
+
+  template <typename... Args>
+  static NetworkBandwidthRoutineDetailPtr New(Args&&... args) {
+    return NetworkBandwidthRoutineDetailPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static NetworkBandwidthRoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<NetworkBandwidthRoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, NetworkBandwidthRoutineDetail>::Convert(*this);
+  }
+
+
+  NetworkBandwidthRoutineDetail();
+
+  NetworkBandwidthRoutineDetail(
+      double download_speed_kbps,
+      double upload_speed_kbps);
+
+
+  ~NetworkBandwidthRoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = NetworkBandwidthRoutineDetailPtr>
+  NetworkBandwidthRoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, NetworkBandwidthRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, NetworkBandwidthRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, NetworkBandwidthRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        NetworkBandwidthRoutineDetail::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        NetworkBandwidthRoutineDetail::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::NetworkBandwidthRoutineDetail_UnserializedMessageContext<
+            UserType, NetworkBandwidthRoutineDetail::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<NetworkBandwidthRoutineDetail::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return NetworkBandwidthRoutineDetail::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::NetworkBandwidthRoutineDetail_UnserializedMessageContext<
+            UserType, NetworkBandwidthRoutineDetail::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<NetworkBandwidthRoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  double download_speed_kbps;
+  
+  double upload_speed_kbps;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, NetworkBandwidthRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, NetworkBandwidthRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, NetworkBandwidthRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, NetworkBandwidthRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  RoutineArgument {
  public:
   using DataView = RoutineArgumentDataView;
@@ -3073,6 +3394,14 @@ class  RoutineArgument {
       UrandomRoutineArgumentPtr value) {
     auto result = RoutineArgumentPtr(std::in_place);
     result->set_urandom(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |network_bandwidth|.
+  static RoutineArgumentPtr
+  NewNetworkBandwidth(
+      NetworkBandwidthRoutineArgumentPtr value) {
+    auto result = RoutineArgumentPtr(std::in_place);
+    result->set_network_bandwidth(std::move(value));
     return result;
   }
 
@@ -3333,6 +3662,18 @@ class  RoutineArgument {
   
   void set_urandom(
       UrandomRoutineArgumentPtr urandom);
+  
+  bool is_network_bandwidth() const { return tag_ == Tag::kNetworkBandwidth; }
+
+  
+  NetworkBandwidthRoutineArgumentPtr& get_network_bandwidth() const {
+    CHECK(tag_ == Tag::kNetworkBandwidth);
+    return *(data_.network_bandwidth);
+  }
+
+  
+  void set_network_bandwidth(
+      NetworkBandwidthRoutineArgumentPtr network_bandwidth);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -3369,6 +3710,7 @@ class  RoutineArgument {
     BluetoothPairingRoutineArgumentPtr* bluetooth_pairing;
     CameraAvailabilityRoutineArgumentPtr* camera_availability;
     UrandomRoutineArgumentPtr* urandom;
+    NetworkBandwidthRoutineArgumentPtr* network_bandwidth;
   };
 
   static bool Validate(const void* data,
@@ -3562,6 +3904,137 @@ class  RoutineStateUnion {
     RoutineStateRunningPtr* running;
     RoutineStateWaitingPtr* waiting;
     RoutineStateFinishedPtr* finished;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+class  RoutineRunningInfo {
+ public:
+  using DataView = RoutineRunningInfoDataView;
+  using Data_ = internal::RoutineRunningInfo_Data;
+  using Tag = Data_::RoutineRunningInfo_Tag;
+
+  template <typename... Args>
+  static RoutineRunningInfoPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |unrecognizedArgument|.
+  static RoutineRunningInfoPtr
+  NewUnrecognizedArgument(
+      bool value) {
+    auto result = RoutineRunningInfoPtr(std::in_place);
+    result->set_unrecognizedArgument(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |network_bandwidth|.
+  static RoutineRunningInfoPtr
+  NewNetworkBandwidth(
+      NetworkBandwidthRoutineRunningInfoPtr value) {
+    auto result = RoutineRunningInfoPtr(std::in_place);
+    result->set_network_bandwidth(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static RoutineRunningInfoPtr From(const U& u) {
+    return mojo::TypeConverter<RoutineRunningInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RoutineRunningInfo>::Convert(*this);
+  }
+
+  RoutineRunningInfo();
+  ~RoutineRunningInfo();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  RoutineRunningInfo(const RoutineRunningInfo& other) = delete;
+  RoutineRunningInfo& operator=(const RoutineRunningInfo& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = RoutineRunningInfoPtr>
+  RoutineRunningInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, RoutineRunningInfo>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, RoutineRunningInfo>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_unrecognizedArgument() const { return tag_ == Tag::kUnrecognizedArgument; }
+
+  
+  bool get_unrecognizedArgument() const {
+    CHECK(tag_ == Tag::kUnrecognizedArgument);
+    return data_.unrecognizedArgument;
+  }
+
+  
+  void set_unrecognizedArgument(
+      bool unrecognizedArgument);
+  
+  bool is_network_bandwidth() const { return tag_ == Tag::kNetworkBandwidth; }
+
+  
+  NetworkBandwidthRoutineRunningInfoPtr& get_network_bandwidth() const {
+    CHECK(tag_ == Tag::kNetworkBandwidth);
+    return *(data_.network_bandwidth);
+  }
+
+  
+  void set_network_bandwidth(
+      NetworkBandwidthRoutineRunningInfoPtr network_bandwidth);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RoutineRunningInfo::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<RoutineRunningInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    bool unrecognizedArgument;
+    NetworkBandwidthRoutineRunningInfoPtr* network_bandwidth;
   };
 
   static bool Validate(const void* data,
@@ -4063,6 +4536,14 @@ class  RoutineDetail {
     result->set_camera_availability(std::move(value));
     return result;
   }
+  // Construct an instance holding |network_bandwidth|.
+  static RoutineDetailPtr
+  NewNetworkBandwidth(
+      NetworkBandwidthRoutineDetailPtr value) {
+    auto result = RoutineDetailPtr(std::in_place);
+    result->set_network_bandwidth(std::move(value));
+    return result;
+  }
 
   template <typename U>
   static RoutineDetailPtr From(const U& u) {
@@ -4225,6 +4706,18 @@ class  RoutineDetail {
   
   void set_camera_availability(
       CameraAvailabilityRoutineDetailPtr camera_availability);
+  
+  bool is_network_bandwidth() const { return tag_ == Tag::kNetworkBandwidth; }
+
+  
+  NetworkBandwidthRoutineDetailPtr& get_network_bandwidth() const {
+    CHECK(tag_ == Tag::kNetworkBandwidth);
+    return *(data_.network_bandwidth);
+  }
+
+  
+  void set_network_bandwidth(
+      NetworkBandwidthRoutineDetailPtr network_bandwidth);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -4253,6 +4746,7 @@ class  RoutineDetail {
     BluetoothScanningRoutineDetailPtr* bluetooth_scanning;
     BluetoothPairingRoutineDetailPtr* bluetooth_pairing;
     CameraAvailabilityRoutineDetailPtr* camera_availability;
+    NetworkBandwidthRoutineDetailPtr* network_bandwidth;
   };
 
   static bool Validate(const void* data,
@@ -4980,148 +5474,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  LedLitUpRoutineArgument {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<LedLitUpRoutineArgument, T>::value>;
-  using DataView = LedLitUpRoutineArgumentDataView;
-  using Data_ = internal::LedLitUpRoutineArgument_Data;
-
-  template <typename... Args>
-  static LedLitUpRoutineArgumentPtr New(Args&&... args) {
-    return LedLitUpRoutineArgumentPtr(
-        std::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static LedLitUpRoutineArgumentPtr From(const U& u) {
-    return mojo::TypeConverter<LedLitUpRoutineArgumentPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, LedLitUpRoutineArgument>::Convert(*this);
-  }
-
-
-  LedLitUpRoutineArgument();
-
-  LedLitUpRoutineArgument(
-      LedName name,
-      LedColor color,
-      ::mojo::PendingRemote<LedLitUpRoutineReplier> replier);
-
-LedLitUpRoutineArgument(const LedLitUpRoutineArgument&) = delete;
-LedLitUpRoutineArgument& operator=(const LedLitUpRoutineArgument&) = delete;
-
-  ~LedLitUpRoutineArgument();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = LedLitUpRoutineArgumentPtr>
-  LedLitUpRoutineArgumentPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        LedLitUpRoutineArgument::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::LedLitUpRoutineArgument_UnserializedMessageContext<
-            UserType, LedLitUpRoutineArgument::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<LedLitUpRoutineArgument::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return LedLitUpRoutineArgument::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::LedLitUpRoutineArgument_UnserializedMessageContext<
-            UserType, LedLitUpRoutineArgument::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<LedLitUpRoutineArgument::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  LedName name;
-  
-  LedColor color;
-  
-  ::mojo::PendingRemote<LedLitUpRoutineReplier> replier;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
 
 class  FloatingPointRoutineArgument {
  public:
@@ -5548,6 +5900,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  RoutineState {
  public:
   template <typename T>
@@ -5689,6 +6042,148 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+
+class  RoutineStateRunning {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<RoutineStateRunning, T>::value>;
+  using DataView = RoutineStateRunningDataView;
+  using Data_ = internal::RoutineStateRunning_Data;
+
+  template <typename... Args>
+  static RoutineStateRunningPtr New(Args&&... args) {
+    return RoutineStateRunningPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static RoutineStateRunningPtr From(const U& u) {
+    return mojo::TypeConverter<RoutineStateRunningPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RoutineStateRunning>::Convert(*this);
+  }
+
+
+  RoutineStateRunning();
+
+  explicit RoutineStateRunning(
+      RoutineRunningInfoPtr info);
+
+RoutineStateRunning(const RoutineStateRunning&) = delete;
+RoutineStateRunning& operator=(const RoutineStateRunning&) = delete;
+
+  ~RoutineStateRunning();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = RoutineStateRunningPtr>
+  RoutineStateRunningPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        RoutineStateRunning::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RoutineStateRunning::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::RoutineStateRunning_UnserializedMessageContext<
+            UserType, RoutineStateRunning::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<RoutineStateRunning::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return RoutineStateRunning::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::RoutineStateRunning_UnserializedMessageContext<
+            UserType, RoutineStateRunning::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<RoutineStateRunning::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  RoutineRunningInfoPtr info;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -7319,6 +7814,7 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
 template <typename UnionPtrType>
 RoutineArgumentPtr RoutineArgument::Clone() const {
   switch (tag_) {
@@ -7376,6 +7872,9 @@ RoutineArgumentPtr RoutineArgument::Clone() const {
     case Tag::kUrandom:
       return NewUrandom(
           mojo::Clone(*data_.urandom));
+    case Tag::kNetworkBandwidth:
+      return NewNetworkBandwidth(
+          mojo::Clone(*data_.network_bandwidth));
   }
   return nullptr;
 }
@@ -7424,6 +7923,8 @@ bool RoutineArgument::Equals(const T& other) const {
       return mojo::Equals(*(data_.camera_availability), *(other.data_.camera_availability));
     case Tag::kUrandom:
       return mojo::Equals(*(data_.urandom), *(other.data_.urandom));
+    case Tag::kNetworkBandwidth:
+      return mojo::Equals(*(data_.network_bandwidth), *(other.data_.network_bandwidth));
   }
 
   return false;
@@ -7468,6 +7969,35 @@ bool RoutineStateUnion::Equals(const T& other) const {
       return mojo::Equals(*(data_.waiting), *(other.data_.waiting));
     case Tag::kFinished:
       return mojo::Equals(*(data_.finished), *(other.data_.finished));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
+RoutineRunningInfoPtr RoutineRunningInfo::Clone() const {
+  switch (tag_) {
+    case Tag::kUnrecognizedArgument:
+      return NewUnrecognizedArgument(
+          mojo::Clone(data_.unrecognizedArgument));
+    case Tag::kNetworkBandwidth:
+      return NewNetworkBandwidth(
+          mojo::Clone(*data_.network_bandwidth));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, RoutineRunningInfo>::value>::type*>
+bool RoutineRunningInfo::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kUnrecognizedArgument:
+      return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
+    case Tag::kNetworkBandwidth:
+      return mojo::Equals(*(data_.network_bandwidth), *(other.data_.network_bandwidth));
   }
 
   return false;
@@ -7592,6 +8122,9 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kCameraAvailability:
       return NewCameraAvailability(
           mojo::Clone(*data_.camera_availability));
+    case Tag::kNetworkBandwidth:
+      return NewNetworkBandwidth(
+          mojo::Clone(*data_.network_bandwidth));
   }
   return nullptr;
 }
@@ -7624,6 +8157,8 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(*(data_.bluetooth_pairing), *(other.data_.bluetooth_pairing));
     case Tag::kCameraAvailability:
       return mojo::Equals(*(data_.camera_availability), *(other.data_.camera_availability));
+    case Tag::kNetworkBandwidth:
+      return mojo::Equals(*(data_.network_bandwidth), *(other.data_.network_bandwidth));
   }
 
   return false;
@@ -7815,8 +8350,7 @@ template <typename StructPtrType>
 LedLitUpRoutineArgumentPtr LedLitUpRoutineArgument::Clone() const {
   return New(
       mojo::Clone(name),
-      mojo::Clone(color),
-      mojo::Clone(replier)
+      mojo::Clone(color)
   );
 }
 
@@ -7825,8 +8359,6 @@ bool LedLitUpRoutineArgument::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->name, other_struct.name))
     return false;
   if (!mojo::Equals(this->color, other_struct.color))
-    return false;
-  if (!mojo::Equals(this->replier, other_struct.replier))
     return false;
   return true;
 }
@@ -7840,10 +8372,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.color < rhs.color)
     return true;
   if (rhs.color < lhs.color)
-    return false;
-  if (lhs.replier < rhs.replier)
-    return true;
-  if (rhs.replier < lhs.replier)
     return false;
   return false;
 }
@@ -8010,6 +8538,21 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+NetworkBandwidthRoutineArgumentPtr NetworkBandwidthRoutineArgument::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, NetworkBandwidthRoutineArgument::EnableIfSame<T>*>
+bool NetworkBandwidthRoutineArgument::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, NetworkBandwidthRoutineArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
 RoutineStatePtr RoutineState::Clone() const {
   return New(
       mojo::Clone(percentage),
@@ -8056,16 +8599,52 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 RoutineStateRunningPtr RoutineStateRunning::Clone() const {
   return New(
+      mojo::Clone(info)
   );
 }
 
 template <typename T, RoutineStateRunning::EnableIfSame<T>*>
 bool RoutineStateRunning::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->info, other_struct.info))
+    return false;
   return true;
 }
 
 template <typename T, RoutineStateRunning::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.info < rhs.info)
+    return true;
+  if (rhs.info < lhs.info)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+NetworkBandwidthRoutineRunningInfoPtr NetworkBandwidthRoutineRunningInfo::Clone() const {
+  return New(
+      mojo::Clone(type),
+      mojo::Clone(speed_kbps)
+  );
+}
+
+template <typename T, NetworkBandwidthRoutineRunningInfo::EnableIfSame<T>*>
+bool NetworkBandwidthRoutineRunningInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->type, other_struct.type))
+    return false;
+  if (!mojo::Equals(this->speed_kbps, other_struct.speed_kbps))
+    return false;
+  return true;
+}
+
+template <typename T, NetworkBandwidthRoutineRunningInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.type < rhs.type)
+    return true;
+  if (rhs.type < lhs.type)
+    return false;
+  if (lhs.speed_kbps < rhs.speed_kbps)
+    return true;
+  if (rhs.speed_kbps < lhs.speed_kbps)
+    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -8625,6 +9204,35 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+NetworkBandwidthRoutineDetailPtr NetworkBandwidthRoutineDetail::Clone() const {
+  return New(
+      mojo::Clone(download_speed_kbps),
+      mojo::Clone(upload_speed_kbps)
+  );
+}
+
+template <typename T, NetworkBandwidthRoutineDetail::EnableIfSame<T>*>
+bool NetworkBandwidthRoutineDetail::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->download_speed_kbps, other_struct.download_speed_kbps))
+    return false;
+  if (!mojo::Equals(this->upload_speed_kbps, other_struct.upload_speed_kbps))
+    return false;
+  return true;
+}
+
+template <typename T, NetworkBandwidthRoutineDetail::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.download_speed_kbps < rhs.download_speed_kbps)
+    return true;
+  if (rhs.download_speed_kbps < lhs.download_speed_kbps)
+    return false;
+  if (lhs.upload_speed_kbps < rhs.upload_speed_kbps)
+    return true;
+  if (rhs.upload_speed_kbps < lhs.upload_speed_kbps)
+    return false;
+  return false;
+}
 
 
 }  // ash::cros_healthd::mojom
@@ -8773,11 +9381,6 @@ struct  StructTraits<::ash::cros_healthd::mojom::LedLitUpRoutineArgument::DataVi
     return input->color;
   }
 
-  static  decltype(::ash::cros_healthd::mojom::LedLitUpRoutineArgument::replier)& replier(
-       ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr& input) {
-    return input->replier;
-  }
-
   static bool Read(::ash::cros_healthd::mojom::LedLitUpRoutineArgument::DataView input, ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr* output);
 };
 
@@ -8893,6 +9496,16 @@ struct  StructTraits<::ash::cros_healthd::mojom::UrandomRoutineArgument::DataVie
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgument::DataView,
+                                         ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentPtr* output) { output->reset(); }
+
+  static bool Read(::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgument::DataView input, ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView,
                                          ::ash::cros_healthd::mojom::RoutineStatePtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::RoutineStatePtr& input) { return !input; }
@@ -8928,7 +9541,32 @@ struct  StructTraits<::ash::cros_healthd::mojom::RoutineStateRunning::DataView,
   static bool IsNull(const ::ash::cros_healthd::mojom::RoutineStateRunningPtr& input) { return !input; }
   static void SetToNull(::ash::cros_healthd::mojom::RoutineStateRunningPtr* output) { output->reset(); }
 
+  static const decltype(::ash::cros_healthd::mojom::RoutineStateRunning::info)& info(
+      const ::ash::cros_healthd::mojom::RoutineStateRunningPtr& input) {
+    return input->info;
+  }
+
   static bool Read(::ash::cros_healthd::mojom::RoutineStateRunning::DataView input, ::ash::cros_healthd::mojom::RoutineStateRunningPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo::DataView,
+                                         ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo::type) type(
+      const ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr& input) {
+    return input->type;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo::speed_kbps) speed_kbps(
+      const ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr& input) {
+    return input->speed_kbps;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo::DataView input, ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr* output);
 };
 
 
@@ -9318,6 +9956,26 @@ struct  StructTraits<::ash::cros_healthd::mojom::FanRoutineDetail::DataView,
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetail::DataView,
+                                         ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetail::download_speed_kbps) download_speed_kbps(
+      const ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr& input) {
+    return input->download_speed_kbps;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetail::upload_speed_kbps) upload_speed_kbps(
+      const ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr& input) {
+    return input->upload_speed_kbps;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetail::DataView input, ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr* output);
+};
+
+
+template <>
 struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
                                         ::ash::cros_healthd::mojom::RoutineArgumentPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) { return !input; }
@@ -9367,7 +10025,7 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
     return input->get_prime_search();
   }
 
-  static  ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr& led_lit_up( ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+  static const ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr& led_lit_up(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->get_led_lit_up();
   }
 
@@ -9397,6 +10055,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
 
   static const ::ash::cros_healthd::mojom::UrandomRoutineArgumentPtr& urandom(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->get_urandom();
+  }
+
+  static const ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentPtr& network_bandwidth(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_network_bandwidth();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineArgument::DataView input, ::ash::cros_healthd::mojom::RoutineArgumentPtr* output);
@@ -9434,6 +10096,28 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineStateUnion::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineStateUnion::DataView input, ::ash::cros_healthd::mojom::RoutineStateUnionPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ash::cros_healthd::mojom::RoutineRunningInfo::DataView,
+                                        ::ash::cros_healthd::mojom::RoutineRunningInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RoutineRunningInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RoutineRunningInfoPtr* output) { output->reset(); }
+
+  static ::ash::cros_healthd::mojom::RoutineRunningInfo::Tag GetTag(const ::ash::cros_healthd::mojom::RoutineRunningInfoPtr& input) {
+    return input->which();
+  }
+
+  static  bool unrecognizedArgument(const ::ash::cros_healthd::mojom::RoutineRunningInfoPtr& input) {
+    return input->get_unrecognizedArgument();
+  }
+
+  static const ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr& network_bandwidth(const ::ash::cros_healthd::mojom::RoutineRunningInfoPtr& input) {
+    return input->get_network_bandwidth();
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::RoutineRunningInfo::DataView input, ::ash::cros_healthd::mojom::RoutineRunningInfoPtr* output);
 };
 
 
@@ -9551,6 +10235,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static const ::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetailPtr& camera_availability(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_camera_availability();
+  }
+
+  static const ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr& network_bandwidth(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_network_bandwidth();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineDetail::DataView input, ::ash::cros_healthd::mojom::RoutineDetailPtr* output);

@@ -70,11 +70,15 @@ class CameraAvailabilityRoutineArgumentDataView;
 
 class UrandomRoutineArgumentDataView;
 
+class NetworkBandwidthRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
 
 class RoutineStateRunningDataView;
+
+class NetworkBandwidthRoutineRunningInfoDataView;
 
 class RoutineStateWaitingDataView;
 
@@ -112,8 +116,11 @@ class CameraAvailabilityRoutineDetailDataView;
 
 class FanRoutineDetailDataView;
 
+class NetworkBandwidthRoutineDetailDataView;
+
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
+class RoutineRunningInfoDataView;
 class RoutineInteractionDataView;
 class RoutineInquiryDataView;
 class RoutineInquiryReplyDataView;
@@ -245,6 +252,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::UrandomRoutineArgumentDataVie
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NetworkBandwidthRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineStateDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::RoutineState_Data;
   using DataAsArrayElement = Pointer<Data>;
@@ -261,6 +275,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineStateInitializedDataVi
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineStateRunningDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::RoutineStateRunning_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NetworkBandwidthRoutineRunningInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -392,6 +413,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::FanRoutineDetailDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NetworkBandwidthRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::RoutineArgument_Data;
   using DataAsArrayElement = Data;
@@ -401,6 +429,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineArgumentDataView> {
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineStateUnionDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::RoutineStateUnion_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineRunningInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::RoutineRunningInfo_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
@@ -665,6 +700,31 @@ inline VolumeButtonRoutineArgument_ButtonType ToKnownEnumValue(VolumeButtonRouti
 }
 
 
+enum class NetworkBandwidthRoutineRunningInfo_Type : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kDownload = 1,
+  
+  kUpload = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, NetworkBandwidthRoutineRunningInfo_Type value);
+inline bool IsKnownEnumValue(NetworkBandwidthRoutineRunningInfo_Type value) {
+  return internal::NetworkBandwidthRoutineRunningInfo_Type_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline NetworkBandwidthRoutineRunningInfo_Type ToKnownEnumValue(NetworkBandwidthRoutineRunningInfo_Type value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return NetworkBandwidthRoutineRunningInfo_Type::kDefaultValue;
+}
+
+
 enum class RoutineStateWaiting_Reason : int32_t {
   
   kUnmappedEnumField = 0,
@@ -809,16 +869,6 @@ using CrosHealthdRoutinesServiceAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<CrosHealthdRoutinesServiceInterfaceBase>;
 using CrosHealthdRoutinesServiceAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CrosHealthdRoutinesServiceInterfaceBase>;
-class LedLitUpRoutineReplierInterfaceBase {};
-
-using LedLitUpRoutineReplierPtrDataView =
-    mojo::InterfacePtrDataView<LedLitUpRoutineReplierInterfaceBase>;
-using LedLitUpRoutineReplierRequestDataView =
-    mojo::InterfaceRequestDataView<LedLitUpRoutineReplierInterfaceBase>;
-using LedLitUpRoutineReplierAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<LedLitUpRoutineReplierInterfaceBase>;
-using LedLitUpRoutineReplierAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<LedLitUpRoutineReplierInterfaceBase>;
 class RoutineControlInterfaceBase {};
 
 using RoutineControlPtrDataView =
@@ -1082,7 +1132,7 @@ class LedLitUpRoutineArgumentDataView {
   LedLitUpRoutineArgumentDataView(
       internal::LedLitUpRoutineArgument_Data* data,
       mojo::Message* message)
-      : data_(data), message_(message) {}
+      : data_(data) {}
 
   bool is_null() const { return !data_; }
   template <typename UserType>
@@ -1105,18 +1155,8 @@ class LedLitUpRoutineArgumentDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::cros_healthd::mojom::LedColor>(data_->color));
   }
-  template <typename UserType>
-  UserType TakeReplier() {
-    UserType result;
-    bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::LedLitUpRoutineReplierInterfaceBase>>(
-            &data_->replier, &result, message_);
-    DCHECK(ret);
-    return result;
-  }
  private:
   internal::LedLitUpRoutineArgument_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
 };
 
 
@@ -1320,6 +1360,21 @@ static_assert(
 };
 
 
+class NetworkBandwidthRoutineArgumentDataView {
+ public:
+  NetworkBandwidthRoutineArgumentDataView() = default;
+
+  NetworkBandwidthRoutineArgumentDataView(
+      internal::NetworkBandwidthRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::NetworkBandwidthRoutineArgument_Data* data_ = nullptr;
+};
+
+
 class RoutineStateDataView {
  public:
   RoutineStateDataView() = default;
@@ -1371,11 +1426,61 @@ class RoutineStateRunningDataView {
   RoutineStateRunningDataView(
       internal::RoutineStateRunning_Data* data,
       mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetInfoDataView(
+      RoutineRunningInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInfo(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::RoutineRunningInfoDataView, UserType>(),
+    "Attempting to read the optional `info` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadInfo` instead "
+    "of `ReadInfo if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1 && !data_->info.is_null()
+                    ? &data_->info : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RoutineRunningInfoDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::RoutineStateRunning_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class NetworkBandwidthRoutineRunningInfoDataView {
+ public:
+  NetworkBandwidthRoutineRunningInfoDataView() = default;
+
+  NetworkBandwidthRoutineRunningInfoDataView(
+      internal::NetworkBandwidthRoutineRunningInfo_Data* data,
+      mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo_Type>(
+        data_value, output);
+  }
+  NetworkBandwidthRoutineRunningInfo_Type type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo_Type>(data_->type));
+  }
+  double speed_kbps() const {
+    return data_->speed_kbps;
+  }
  private:
-  internal::RoutineStateRunning_Data* data_ = nullptr;
+  internal::NetworkBandwidthRoutineRunningInfo_Data* data_ = nullptr;
 };
 
 
@@ -2094,6 +2199,27 @@ class FanRoutineDetailDataView {
 };
 
 
+class NetworkBandwidthRoutineDetailDataView {
+ public:
+  NetworkBandwidthRoutineDetailDataView() = default;
+
+  NetworkBandwidthRoutineDetailDataView(
+      internal::NetworkBandwidthRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  double download_speed_kbps() const {
+    return data_->download_speed_kbps;
+  }
+  double upload_speed_kbps() const {
+    return data_->upload_speed_kbps;
+  }
+ private:
+  internal::NetworkBandwidthRoutineDetail_Data* data_ = nullptr;
+};
+
+
 class RoutineArgumentDataView {
  public:
   using Tag = internal::RoutineArgument_Data::RoutineArgument_Tag;
@@ -2304,6 +2430,17 @@ class RoutineArgumentDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UrandomRoutineArgumentDataView>(
         data_->data.f_urandom.Get(), output, message_);
   }
+  bool is_network_bandwidth() const { return data_->tag == Tag::kNetworkBandwidth; }
+  inline void GetNetworkBandwidthDataView(
+      NetworkBandwidthRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadNetworkBandwidth(UserType* output) const {
+    
+    CHECK(is_network_bandwidth());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentDataView>(
+        data_->data.f_network_bandwidth.Get(), output, message_);
+  }
 
  private:
   internal::RoutineArgument_Data* data_ = nullptr;
@@ -2382,6 +2519,48 @@ class RoutineStateUnionDataView {
 
  private:
   internal::RoutineStateUnion_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class RoutineRunningInfoDataView {
+ public:
+  using Tag = internal::RoutineRunningInfo_Data::RoutineRunningInfo_Tag;
+
+  RoutineRunningInfoDataView() = default;
+
+  RoutineRunningInfoDataView(
+      internal::RoutineRunningInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_unrecognizedArgument() const { return data_->tag == Tag::kUnrecognizedArgument; }
+  bool unrecognizedArgument() const {
+    CHECK(is_unrecognizedArgument());
+    return data_->data.f_unrecognizedArgument;
+  }
+  bool is_network_bandwidth() const { return data_->tag == Tag::kNetworkBandwidth; }
+  inline void GetNetworkBandwidthDataView(
+      NetworkBandwidthRoutineRunningInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadNetworkBandwidth(UserType* output) const {
+    
+    CHECK(is_network_bandwidth());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoDataView>(
+        data_->data.f_network_bandwidth.Get(), output, message_);
+  }
+
+ private:
+  internal::RoutineRunningInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -2635,6 +2814,17 @@ class RoutineDetailDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CameraAvailabilityRoutineDetailDataView>(
         data_->data.f_camera_availability.Get(), output, message_);
   }
+  bool is_network_bandwidth() const { return data_->tag == Tag::kNetworkBandwidth; }
+  inline void GetNetworkBandwidthDataView(
+      NetworkBandwidthRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadNetworkBandwidth(UserType* output) const {
+    
+    CHECK(is_network_bandwidth());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailDataView>(
+        data_->data.f_network_bandwidth.Get(), output, message_);
+  }
 
  private:
   internal::RoutineDetail_Data* data_ = nullptr;
@@ -2674,6 +2864,10 @@ struct hash<::ash::cros_healthd::mojom::HardwarePresenceStatus>
 template <>
 struct hash<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo_Type>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo_Type> {};
 
 template <>
 struct hash<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>
@@ -2834,6 +3028,26 @@ struct Serializer<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_Button
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo_Type, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo_Type, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo_Type>(input)), output);
   }
 };
 
@@ -3246,13 +3460,6 @@ struct Serializer<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView, M
         Traits::name(input), &fragment->name);
     mojo::internal::Serialize<::ash::cros_healthd::mojom::LedColor>(
         Traits::color(input), &fragment->color);
-    decltype(Traits::replier(input)) in_replier = Traits::replier(input);
-    mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::LedLitUpRoutineReplierInterfaceBase>>(
-        in_replier, &fragment->replier, &fragment.message());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        !mojo::internal::IsHandleOrInterfaceValid(fragment->replier),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-        "invalid replier in LedLitUpRoutineArgument struct");
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::LedLitUpRoutineArgument_Data* input,
@@ -3542,6 +3749,35 @@ struct Serializer<::ash::cros_healthd::mojom::UrandomRoutineArgumentDataView, Ma
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::NetworkBandwidthRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NetworkBandwidthRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::RoutineStateDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::RoutineStateDataView, UserType>;
@@ -3621,6 +3857,12 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineStateRunningDataView, Maybe
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
+    decltype(Traits::info(input)) in_info = Traits::info(input);
+    mojo::internal::MessageFragment<decltype(fragment->info)>
+        info_fragment(fragment.message());
+    info_fragment.Claim(&fragment->info);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::RoutineRunningInfoDataView>(
+        in_info, info_fragment, true);
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::RoutineStateRunning_Data* input,
@@ -3630,6 +3872,38 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineStateRunningDataView, Maybe
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::RoutineStateRunningDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::NetworkBandwidthRoutineRunningInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo_Type>(
+        Traits::type(input), &fragment->type);
+    fragment->speed_kbps = Traits::speed_kbps(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NetworkBandwidthRoutineRunningInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -4402,6 +4676,37 @@ struct Serializer<::ash::cros_healthd::mojom::FanRoutineDetailDataView, MaybeCon
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::NetworkBandwidthRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->download_speed_kbps = Traits::download_speed_kbps(input);
+    fragment->upload_speed_kbps = Traits::upload_speed_kbps(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NetworkBandwidthRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::ash::cros_healthd::mojom::RoutineArgumentDataView, UserType>;
@@ -4701,6 +5006,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kNetworkBandwidth: {
+        decltype(Traits::network_bandwidth(input))
+            in_network_bandwidth = Traits::network_bandwidth(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_network_bandwidth)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentDataView>(
+            in_network_bandwidth, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null network_bandwidth in RoutineArgument union");
+        fragment->data.f_network_bandwidth.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -4822,6 +5143,69 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineStateUnionDataView, MaybeCo
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::RoutineStateUnionDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::RoutineRunningInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::RoutineRunningInfoDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::RoutineRunningInfo_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::RoutineRunningInfoDataView::Tag::kUnrecognizedArgument: {
+        decltype(Traits::unrecognizedArgument(input))
+            in_unrecognizedArgument = Traits::unrecognizedArgument(input);
+        fragment->data.f_unrecognizedArgument = in_unrecognizedArgument;
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineRunningInfoDataView::Tag::kNetworkBandwidth: {
+        decltype(Traits::network_bandwidth(input))
+            in_network_bandwidth = Traits::network_bandwidth(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_network_bandwidth)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoDataView>(
+            in_network_bandwidth, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null network_bandwidth in RoutineRunningInfo union");
+        fragment->data.f_network_bandwidth.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::RoutineRunningInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::RoutineRunningInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -5192,6 +5576,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kNetworkBandwidth: {
+        decltype(Traits::network_bandwidth(input))
+            in_network_bandwidth = Traits::network_bandwidth(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_network_bandwidth)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailDataView>(
+            in_network_bandwidth, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null network_bandwidth in RoutineDetail union");
+        fragment->data.f_network_bandwidth.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -5292,6 +5692,8 @@ inline void UrandomRoutineArgumentDataView::GetExecDurationDataView(
 }
 
 
+
+
 inline void RoutineStateDataView::GetStateUnionDataView(
     RoutineStateUnionDataView* output) {
   auto pointer = &data_->state_union;
@@ -5299,6 +5701,14 @@ inline void RoutineStateDataView::GetStateUnionDataView(
 }
 
 
+
+
+inline void RoutineStateRunningDataView::GetInfoDataView(
+    RoutineRunningInfoDataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? &data_->info : nullptr;
+  *output = RoutineRunningInfoDataView(pointer, message_);
+}
 
 
 
@@ -5441,6 +5851,8 @@ inline void FanRoutineDetailDataView::GetFailedFanIdsDataView(
 }
 
 
+
+
 inline void RoutineArgumentDataView::GetMemoryDataView(
     MemoryRoutineArgumentDataView* output) const {
   CHECK(is_memory());
@@ -5526,6 +5938,11 @@ inline void RoutineArgumentDataView::GetUrandomDataView(
   CHECK(is_urandom());
   *output = UrandomRoutineArgumentDataView(data_->data.f_urandom.Get(), message_);
 }
+inline void RoutineArgumentDataView::GetNetworkBandwidthDataView(
+    NetworkBandwidthRoutineArgumentDataView* output) const {
+  CHECK(is_network_bandwidth());
+  *output = NetworkBandwidthRoutineArgumentDataView(data_->data.f_network_bandwidth.Get(), message_);
+}
 
 inline void RoutineStateUnionDataView::GetInitializedDataView(
     RoutineStateInitializedDataView* output) const {
@@ -5546,6 +5963,12 @@ inline void RoutineStateUnionDataView::GetFinishedDataView(
     RoutineStateFinishedDataView* output) const {
   CHECK(is_finished());
   *output = RoutineStateFinishedDataView(data_->data.f_finished.Get(), message_);
+}
+
+inline void RoutineRunningInfoDataView::GetNetworkBandwidthDataView(
+    NetworkBandwidthRoutineRunningInfoDataView* output) const {
+  CHECK(is_network_bandwidth());
+  *output = NetworkBandwidthRoutineRunningInfoDataView(data_->data.f_network_bandwidth.Get(), message_);
 }
 
 inline void RoutineInteractionDataView::GetInquiryDataView(
@@ -5610,6 +6033,11 @@ inline void RoutineDetailDataView::GetCameraAvailabilityDataView(
     CameraAvailabilityRoutineDetailDataView* output) const {
   CHECK(is_camera_availability());
   *output = CameraAvailabilityRoutineDetailDataView(data_->data.f_camera_availability.Get(), message_);
+}
+inline void RoutineDetailDataView::GetNetworkBandwidthDataView(
+    NetworkBandwidthRoutineDetailDataView* output) const {
+  CHECK(is_network_bandwidth());
+  *output = NetworkBandwidthRoutineDetailDataView(data_->data.f_network_bandwidth.Get(), message_);
 }
 
 
@@ -5677,6 +6105,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo_Type> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo_Type value);
 };
 
 } // namespace perfetto

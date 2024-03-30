@@ -73,38 +73,6 @@ class  CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data
 };
 static_assert(sizeof(CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data) == 24,
               "Bad sizeof(CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data)");
-class  LedLitUpRoutineReplier_GetColorMatched_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<LedLitUpRoutineReplier_GetColorMatched_Params_Data>;
-
-  LedLitUpRoutineReplier_GetColorMatched_Params_Data();
-  ~LedLitUpRoutineReplier_GetColorMatched_Params_Data() = delete;
-};
-static_assert(sizeof(LedLitUpRoutineReplier_GetColorMatched_Params_Data) == 8,
-              "Bad sizeof(LedLitUpRoutineReplier_GetColorMatched_Params_Data)");
-class  LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint8_t matched : 1;
-  uint8_t padfinal_[7];
-
- private:
-  friend class mojo::internal::MessageFragment<LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data>;
-
-  LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data();
-  ~LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data) == 16,
-              "Bad sizeof(LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data)");
 class  RoutineControl_GetState_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -283,39 +251,6 @@ class CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParamsDataVi
 };
 
 
-class LedLitUpRoutineReplier_GetColorMatched_ParamsDataView {
- public:
-  LedLitUpRoutineReplier_GetColorMatched_ParamsDataView() = default;
-
-  LedLitUpRoutineReplier_GetColorMatched_ParamsDataView(
-      internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data* data_ = nullptr;
-};
-
-
-class LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView {
- public:
-  LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView() = default;
-
-  LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView(
-      internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  bool matched() const {
-    return data_->matched;
-  }
- private:
-  internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* data_ = nullptr;
-};
-
-
 class RoutineControl_GetState_ParamsDataView {
  public:
   RoutineControl_GetState_ParamsDataView() = default;
@@ -442,10 +377,6 @@ inline void CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams
   auto pointer = &data_->status;
   *output = ::ash::cros_healthd::mojom::SupportStatusDataView(pointer, message_);
 }
-
-
-
-
 
 
 

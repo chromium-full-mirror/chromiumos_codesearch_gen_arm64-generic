@@ -285,18 +285,20 @@ bool VolumeButtonRoutineArgument::Validate(
 }
 LedLitUpRoutineArgument::LedLitUpRoutineArgument()
     : name(),
-      color(),
-      replier() {}
+      color() {}
 
 LedLitUpRoutineArgument::LedLitUpRoutineArgument(
     LedName name_in,
-    LedColor color_in,
-    ::mojo::PendingRemote<LedLitUpRoutineReplier> replier_in)
+    LedColor color_in)
     : name(std::move(name_in)),
-      color(std::move(color_in)),
-      replier(std::move(replier_in)) {}
+      color(std::move(color_in)) {}
 
 LedLitUpRoutineArgument::~LedLitUpRoutineArgument() = default;
+size_t LedLitUpRoutineArgument::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->name);
+  seed = mojo::internal::Hash(seed, this->color);
+  return seed;
+}
 
 void LedLitUpRoutineArgument::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
@@ -315,15 +317,6 @@ void LedLitUpRoutineArgument::WriteIntoTrace(
       "color"), this->color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type LedColor>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "replier"), this->replier,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::mojo::PendingRemote<LedLitUpRoutineReplier>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -547,6 +540,23 @@ bool UrandomRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+NetworkBandwidthRoutineArgument::NetworkBandwidthRoutineArgument() {}
+
+NetworkBandwidthRoutineArgument::~NetworkBandwidthRoutineArgument() = default;
+size_t NetworkBandwidthRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void NetworkBandwidthRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool NetworkBandwidthRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineState::RoutineState()
     : percentage(),
       state_union() {}
@@ -604,19 +614,75 @@ bool RoutineStateInitialized::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-RoutineStateRunning::RoutineStateRunning() {}
+RoutineStateRunning::RoutineStateRunning()
+    : info() {}
+
+RoutineStateRunning::RoutineStateRunning(
+    RoutineRunningInfoPtr info_in)
+    : info(std::move(info_in)) {}
 
 RoutineStateRunning::~RoutineStateRunning() = default;
-size_t RoutineStateRunning::Hash(size_t seed) const {
-  return seed;
-}
 
 void RoutineStateRunning::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "info"), this->info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type RoutineRunningInfoPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool RoutineStateRunning::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+NetworkBandwidthRoutineRunningInfo::NetworkBandwidthRoutineRunningInfo()
+    : type(),
+      speed_kbps() {}
+
+NetworkBandwidthRoutineRunningInfo::NetworkBandwidthRoutineRunningInfo(
+    NetworkBandwidthRoutineRunningInfo::Type type_in,
+    double speed_kbps_in)
+    : type(std::move(type_in)),
+      speed_kbps(std::move(speed_kbps_in)) {}
+
+NetworkBandwidthRoutineRunningInfo::~NetworkBandwidthRoutineRunningInfo() = default;
+size_t NetworkBandwidthRoutineRunningInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->type);
+  seed = mojo::internal::Hash(seed, this->speed_kbps);
+  return seed;
+}
+
+void NetworkBandwidthRoutineRunningInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type NetworkBandwidthRoutineRunningInfo::Type>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "speed_kbps"), this->speed_kbps,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type double>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool NetworkBandwidthRoutineRunningInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -1448,6 +1514,51 @@ bool FanRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+NetworkBandwidthRoutineDetail::NetworkBandwidthRoutineDetail()
+    : download_speed_kbps(),
+      upload_speed_kbps() {}
+
+NetworkBandwidthRoutineDetail::NetworkBandwidthRoutineDetail(
+    double download_speed_kbps_in,
+    double upload_speed_kbps_in)
+    : download_speed_kbps(std::move(download_speed_kbps_in)),
+      upload_speed_kbps(std::move(upload_speed_kbps_in)) {}
+
+NetworkBandwidthRoutineDetail::~NetworkBandwidthRoutineDetail() = default;
+size_t NetworkBandwidthRoutineDetail::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->download_speed_kbps);
+  seed = mojo::internal::Hash(seed, this->upload_speed_kbps);
+  return seed;
+}
+
+void NetworkBandwidthRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "download_speed_kbps"), this->download_speed_kbps,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type double>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "upload_speed_kbps"), this->upload_speed_kbps,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type double>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool NetworkBandwidthRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineArgument::RoutineArgument() : tag_(Tag::kUnrecognizedArgument) {
   data_.unrecognizedArgument = bool();
 }
@@ -1652,6 +1763,17 @@ void RoutineArgument::set_urandom(
         std::move(urandom));
   }
 }
+void RoutineArgument::set_network_bandwidth(
+    NetworkBandwidthRoutineArgumentPtr network_bandwidth) {
+  if (tag_ == Tag::kNetworkBandwidth) {
+    *(data_.network_bandwidth) = std::move(network_bandwidth);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kNetworkBandwidth;
+    data_.network_bandwidth = new NetworkBandwidthRoutineArgumentPtr(
+        std::move(network_bandwidth));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -1726,6 +1848,10 @@ void RoutineArgument::DestroyActive() {
     case Tag::kUrandom:
 
       delete data_.urandom;
+      break;
+    case Tag::kNetworkBandwidth:
+
+      delete data_.network_bandwidth;
       break;
   }
 }
@@ -1823,6 +1949,66 @@ void RoutineStateUnion::DestroyActive() {
 }
 
 bool RoutineStateUnion::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
+RoutineRunningInfo::RoutineRunningInfo() : tag_(Tag::kUnrecognizedArgument) {
+  data_.unrecognizedArgument = bool();
+}
+
+RoutineRunningInfo::~RoutineRunningInfo() {
+  DestroyActive();
+}
+
+
+void RoutineRunningInfo::set_unrecognizedArgument(
+    bool unrecognizedArgument) {
+  if (tag_ != Tag::kUnrecognizedArgument) {
+    DestroyActive();
+    tag_ = Tag::kUnrecognizedArgument;
+  }
+  data_.unrecognizedArgument = unrecognizedArgument;
+}
+void RoutineRunningInfo::set_network_bandwidth(
+    NetworkBandwidthRoutineRunningInfoPtr network_bandwidth) {
+  if (tag_ == Tag::kNetworkBandwidth) {
+    *(data_.network_bandwidth) = std::move(network_bandwidth);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kNetworkBandwidth;
+    data_.network_bandwidth = new NetworkBandwidthRoutineRunningInfoPtr(
+        std::move(network_bandwidth));
+  }
+}
+
+void RoutineRunningInfo::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kUnrecognizedArgument:
+
+      break;
+    case Tag::kNetworkBandwidth:
+
+      delete data_.network_bandwidth;
+      break;
+  }
+}
+size_t RoutineRunningInfo::Hash(size_t seed) const {
+  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
+  switch (tag_) {
+
+    case Tag::kUnrecognizedArgument:
+      return mojo::internal::Hash(seed, data_.unrecognizedArgument);
+    case Tag::kNetworkBandwidth:
+      return mojo::internal::Hash(seed, data_.network_bandwidth);
+    default:
+      NOTREACHED();
+      return seed;
+  }
+}
+
+bool RoutineRunningInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
@@ -2123,6 +2309,17 @@ void RoutineDetail::set_camera_availability(
         std::move(camera_availability));
   }
 }
+void RoutineDetail::set_network_bandwidth(
+    NetworkBandwidthRoutineDetailPtr network_bandwidth) {
+  if (tag_ == Tag::kNetworkBandwidth) {
+    *(data_.network_bandwidth) = std::move(network_bandwidth);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kNetworkBandwidth;
+    data_.network_bandwidth = new NetworkBandwidthRoutineDetailPtr(
+        std::move(network_bandwidth));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -2165,6 +2362,10 @@ void RoutineDetail::DestroyActive() {
     case Tag::kCameraAvailability:
 
       delete data_.camera_availability;
+      break;
+    case Tag::kNetworkBandwidth:
+
+      delete data_.network_bandwidth;
       break;
   }
 }
@@ -2629,305 +2830,6 @@ bool CrosHealthdRoutinesServiceRequestValidator::Accept(mojo::Message* message) 
 bool CrosHealthdRoutinesServiceResponseValidator::Accept(mojo::Message* message) {
   const char* name = ::ash::cros_healthd::mojom::CrosHealthdRoutinesService::Name_;
   return mojo::internal::ValidateResponseGenericPacked(message, name, kCrosHealthdRoutinesServiceValidationInfo);
-}
-const char LedLitUpRoutineReplier::Name_[] = "ash.cros_healthd.mojom.LedLitUpRoutineReplier";
-
-LedLitUpRoutineReplier::IPCStableHashFunction LedLitUpRoutineReplier::MessageToMethodInfo_(mojo::Message& message) {
-#if !BUILDFLAG(IS_FUCHSIA)
-  switch (static_cast<messages::LedLitUpRoutineReplier>(message.name())) {
-    case messages::LedLitUpRoutineReplier::kGetColorMatched: {
-      return &LedLitUpRoutineReplier::GetColorMatched_Sym::IPCStableHash;
-    }
-  }
-#endif  // !BUILDFLAG(IS_FUCHSIA)
-  return nullptr;
-}
-
-
-const char* LedLitUpRoutineReplier::MessageToMethodName_(mojo::Message& message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
-  if (!is_response) {
-    switch (static_cast<messages::LedLitUpRoutineReplier>(message.name())) {
-      case messages::LedLitUpRoutineReplier::kGetColorMatched:
-            return "Receive ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched";
-    }
-  } else {
-    switch (static_cast<messages::LedLitUpRoutineReplier>(message.name())) {
-      case messages::LedLitUpRoutineReplier::kGetColorMatched:
-            return "Receive reply ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched";
-    }
-  }
-  return "Receive unknown mojo message";
-#else
-  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
-  if (is_response) {
-    return "Receive mojo reply";
-  } else {
-    return "Receive mojo message";
-  }
-#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
-}
-
-#if !BUILDFLAG(IS_FUCHSIA)
-uint32_t LedLitUpRoutineReplier::GetColorMatched_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-# endif // !BUILDFLAG(IS_FUCHSIA)
-
-class LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(
-      LedLitUpRoutineReplier::GetColorMatchedCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(const LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback&) = delete;
-  LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback& operator=(const LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  LedLitUpRoutineReplier::GetColorMatchedCallback callback_;
-};
-
-LedLitUpRoutineReplierProxy::LedLitUpRoutineReplierProxy(mojo::MessageReceiverWithResponder* receiver)
-    : receiver_(receiver) {
-}
-
-void LedLitUpRoutineReplierProxy::GetColorMatched(
-    GetColorMatchedCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched");
-#endif
-
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-
-  const size_t estimated_payload_size =
-    0;
-  mojo::Message message(
-      base::to_underlying(messages::LedLitUpRoutineReplier::kGetColorMatched), kFlags, estimated_payload_size);
-  mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LedLitUpRoutineReplier::Name_);
-  message.set_method_name("GetColorMatched");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-class LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static LedLitUpRoutineReplier::GetColorMatchedCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder> proxy(
-        new LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "LedLitUpRoutineReplier::GetColorMatchedCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      bool in_matched);
-};
-
-bool LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback::Accept(
-    mojo::Message* message) {
-  DCHECK(message->is_serialized());
-  internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  
-  // Validation for LedLitUpRoutineReplier.0
-  bool success = true;
-  bool p_matched{};
-  LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_matched = input_data_view.matched();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LedLitUpRoutineReplier::Name_, 0, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_matched));
-  return true;
-}
-
-void LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
-    bool in_matched) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("matched"), in_matched,
-                        "<value of type bool>");
-   });
-#endif
-
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((false) ? mojo::Message::kFlagIsUrgent : 0);
-
-  const size_t estimated_payload_size =
-    0;
-  mojo::Message message(
-      base::to_underlying(messages::LedLitUpRoutineReplier::kGetColorMatched), kFlags, estimated_payload_size);
-  mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->matched = in_matched;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LedLitUpRoutineReplier::Name_);
-  message.set_method_name("GetColorMatched");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-
-// static
-bool LedLitUpRoutineReplierStubDispatch::Accept(
-    LedLitUpRoutineReplier* impl,
-    mojo::Message* message) {
-  switch (static_cast<messages::LedLitUpRoutineReplier>(message->header()->name)) {
-    case messages::LedLitUpRoutineReplier::kGetColorMatched: {
-      break;
-    }
-  }
-  return false;
-}
-
-// static
-bool LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
-    LedLitUpRoutineReplier* impl,
-    mojo::Message* message,
-    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-  [[maybe_unused]] const bool message_is_sync =
-      message->has_flag(mojo::Message::kFlagIsSync);
-  [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (static_cast<messages::LedLitUpRoutineReplier>(message->header()->name)) {
-    case messages::LedLitUpRoutineReplier::kGetColorMatched: {
-      internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data* params =
-          reinterpret_cast<
-              internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(
-                  message->mutable_payload());
-      
-      
-      // Validation for LedLitUpRoutineReplier.0
-      bool success = true;
-      LedLitUpRoutineReplier_GetColorMatched_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LedLitUpRoutineReplier::Name_, 0, false);
-        return false;
-      }
-      LedLitUpRoutineReplier::GetColorMatchedCallback callback =
-          LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetColorMatched(std::move(callback));
-      return true;
-    }
-  }
-  return false;
-}
-namespace {
-}  // namespace
-static const mojo::internal::GenericValidationInfo kLedLitUpRoutineReplierValidationInfo[] = {
-    { &internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data::Validate,
-     &internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::Validate},
-};
-
-bool LedLitUpRoutineReplierRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::ash::cros_healthd::mojom::LedLitUpRoutineReplier::Name_;
-  return mojo::internal::ValidateRequestGenericPacked(message, name, kLedLitUpRoutineReplierValidationInfo);
-}
-
-bool LedLitUpRoutineReplierResponseValidator::Accept(mojo::Message* message) {
-  const char* name = ::ash::cros_healthd::mojom::LedLitUpRoutineReplier::Name_;
-  return mojo::internal::ValidateResponseGenericPacked(message, name, kLedLitUpRoutineReplierValidationInfo);
 }
 const char RoutineControl::Name_[] = "ash.cros_healthd.mojom.RoutineControl";
 
@@ -3733,10 +3635,6 @@ bool StructTraits<::ash::cros_healthd::mojom::LedLitUpRoutineArgument::DataView,
         success = false;
       if (success && !input.ReadColor(&result->color))
         success = false;
-      if (success) {
-        result->replier =
-            input.TakeReplier<decltype(result->replier)>();
-      }
   *output = std::move(result);
   return success;
 }
@@ -3851,6 +3749,18 @@ bool StructTraits<::ash::cros_healthd::mojom::UrandomRoutineArgument::DataView, 
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgument::DataView, ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentPtr result(::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgument::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -3885,6 +3795,24 @@ bool StructTraits<::ash::cros_healthd::mojom::RoutineStateRunning::DataView, ::a
   bool success = true;
   ::ash::cros_healthd::mojom::RoutineStateRunningPtr result(::ash::cros_healthd::mojom::RoutineStateRunning::New());
   
+      if (success && !input.ReadInfo(&result->info))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo::DataView, ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo::DataView input,
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr result(::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfo::New());
+  
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success)
+        result->speed_kbps = input.speed_kbps();
   *output = std::move(result);
   return success;
 }
@@ -4188,6 +4116,22 @@ bool StructTraits<::ash::cros_healthd::mojom::FanRoutineDetail::DataView, ::ash:
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetail::DataView, ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr result(::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetail::New());
+  
+      if (success)
+        result->download_speed_kbps = input.download_speed_kbps();
+      if (success)
+        result->upload_speed_kbps = input.upload_speed_kbps();
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::cros_healthd::mojom::RoutineArgumentPtr>::Read(
     ::ash::cros_healthd::mojom::RoutineArgument::DataView input,
@@ -4353,6 +4297,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
           std::move(result_urandom));
       break;
     }
+    case Tag::kNetworkBandwidth: {
+      ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentPtr result_network_bandwidth;
+      if (!input.ReadNetworkBandwidth(&result_network_bandwidth))
+        return false;
+
+      *output = UnionType::NewNetworkBandwidth(
+          std::move(result_network_bandwidth));
+      break;
+    }
     default:
 
       *output = UnionType::NewUnrecognizedArgument({});
@@ -4407,6 +4360,34 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineStateUnion::DataView, ::ash:
 
       *output = UnionType::NewFinished(
           std::move(result_finished));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::RoutineRunningInfo::DataView, ::ash::cros_healthd::mojom::RoutineRunningInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineRunningInfo::DataView input,
+    ::ash::cros_healthd::mojom::RoutineRunningInfoPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::RoutineRunningInfo;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kUnrecognizedArgument: {
+      *output = UnionType::NewUnrecognizedArgument(input.unrecognizedArgument());
+      break;
+    }
+    case Tag::kNetworkBandwidth: {
+      ::ash::cros_healthd::mojom::NetworkBandwidthRoutineRunningInfoPtr result_network_bandwidth;
+      if (!input.ReadNetworkBandwidth(&result_network_bandwidth))
+        return false;
+
+      *output = UnionType::NewNetworkBandwidth(
+          std::move(result_network_bandwidth));
       break;
     }
     default:
@@ -4596,6 +4577,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
           std::move(result_camera_availability));
       break;
     }
+    case Tag::kNetworkBandwidth: {
+      ::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailPtr result_network_bandwidth;
+      if (!input.ReadNetworkBandwidth(&result_network_bandwidth))
+        return false;
+
+      *output = UnionType::NewNetworkBandwidth(
+          std::move(result_network_bandwidth));
+      break;
+    }
     default:
 
       *output = UnionType::NewUnrecognizedArgument({});
@@ -4645,40 +4635,6 @@ void CrosHealthdRoutinesServiceAsyncWaiter::IsRoutineArgumentSupported(
     RoutineArgumentPtr routine_argument) {
   ::ash::cros_healthd::mojom::SupportStatusPtr async_wait_result;
   IsRoutineArgumentSupported(std::move(routine_argument),&async_wait_result);
-  return async_wait_result;
-}
-
-
-
-
-void LedLitUpRoutineReplierInterceptorForTesting::GetColorMatched(GetColorMatchedCallback callback) {
-  GetForwardingInterface()->GetColorMatched(std::move(callback));
-}
-LedLitUpRoutineReplierAsyncWaiter::LedLitUpRoutineReplierAsyncWaiter(
-    LedLitUpRoutineReplier* proxy) : proxy_(proxy) {}
-
-LedLitUpRoutineReplierAsyncWaiter::~LedLitUpRoutineReplierAsyncWaiter() = default;
-
-void LedLitUpRoutineReplierAsyncWaiter::GetColorMatched(
-    bool* out_matched) {
-  base::RunLoop loop;
-  proxy_->GetColorMatched(
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             bool* out_matched
-,
-             bool matched) {*out_matched = std::move(matched);
-            loop->Quit();
-          },
-          &loop,
-          out_matched));
-  loop.Run();
-}
-
-bool LedLitUpRoutineReplierAsyncWaiter::GetColorMatched(
-    ) {
-  bool async_wait_result;
-  GetColorMatched(&async_wait_result);
   return async_wait_result;
 }
 
