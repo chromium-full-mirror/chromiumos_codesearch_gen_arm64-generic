@@ -2032,7 +2032,6 @@ class CryptohomeRecoveryPrepareInput final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kAuthSessionIdFieldNumber = 1,
     kAuthFactorLabelFieldNumber = 2,
     kRequestorUserIdFieldNumber = 4,
     kGaiaAccessTokenFieldNumber = 5,
@@ -2040,26 +2039,6 @@ class CryptohomeRecoveryPrepareInput final :
     kEpochResponseFieldNumber = 7,
     kRequestorUserIdTypeFieldNumber = 3,
   };
-  // bytes auth_session_id = 1;
-  void clear_auth_session_id() ;
-  const std::string& auth_session_id() const;
-
-
-
-
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_auth_session_id(Arg_&& arg, Args_... args);
-  std::string* mutable_auth_session_id();
-  PROTOBUF_NODISCARD std::string* release_auth_session_id();
-  void set_allocated_auth_session_id(std::string* ptr);
-
-  private:
-  const std::string& _internal_auth_session_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_auth_session_id(
-      const std::string& value);
-  std::string* _internal_mutable_auth_session_id();
-
-  public:
   // string auth_factor_label = 2;
   void clear_auth_factor_label() ;
   const std::string& auth_factor_label() const;
@@ -2178,7 +2157,6 @@ class CryptohomeRecoveryPrepareInput final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr auth_session_id_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr auth_factor_label_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr requestor_user_id_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr gaia_access_token_;
@@ -5563,53 +5541,6 @@ inline AuthInput::InputCase AuthInput::input_case() const {
 // -------------------------------------------------------------------
 
 // CryptohomeRecoveryPrepareInput
-
-// bytes auth_session_id = 1;
-inline void CryptohomeRecoveryPrepareInput::clear_auth_session_id() {
-  _impl_.auth_session_id_.ClearToEmpty();
-}
-inline const std::string& CryptohomeRecoveryPrepareInput::auth_session_id() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.CryptohomeRecoveryPrepareInput.auth_session_id)
-  return _internal_auth_session_id();
-}
-template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void CryptohomeRecoveryPrepareInput::set_auth_session_id(Arg_&& arg,
-                                                     Args_... args) {
-  ;
-  _impl_.auth_session_id_.SetBytes(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:user_data_auth.CryptohomeRecoveryPrepareInput.auth_session_id)
-}
-inline std::string* CryptohomeRecoveryPrepareInput::mutable_auth_session_id() {
-  std::string* _s = _internal_mutable_auth_session_id();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.CryptohomeRecoveryPrepareInput.auth_session_id)
-  return _s;
-}
-inline const std::string& CryptohomeRecoveryPrepareInput::_internal_auth_session_id() const {
-  return _impl_.auth_session_id_.Get();
-}
-inline void CryptohomeRecoveryPrepareInput::_internal_set_auth_session_id(const std::string& value) {
-  ;
-
-
-  _impl_.auth_session_id_.Set(value, GetArenaForAllocation());
-}
-inline std::string* CryptohomeRecoveryPrepareInput::_internal_mutable_auth_session_id() {
-  ;
-  return _impl_.auth_session_id_.Mutable( GetArenaForAllocation());
-}
-inline std::string* CryptohomeRecoveryPrepareInput::release_auth_session_id() {
-  // @@protoc_insertion_point(field_release:user_data_auth.CryptohomeRecoveryPrepareInput.auth_session_id)
-  return _impl_.auth_session_id_.Release();
-}
-inline void CryptohomeRecoveryPrepareInput::set_allocated_auth_session_id(std::string* value) {
-  _impl_.auth_session_id_.SetAllocated(value, GetArenaForAllocation());
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-        if (_impl_.auth_session_id_.IsDefault()) {
-          _impl_.auth_session_id_.Set("", GetArenaForAllocation());
-        }
-  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.CryptohomeRecoveryPrepareInput.auth_session_id)
-}
 
 // string auth_factor_label = 2;
 inline void CryptohomeRecoveryPrepareInput::clear_auth_factor_label() {
