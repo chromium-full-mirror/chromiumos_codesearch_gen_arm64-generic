@@ -164,6 +164,18 @@ class PowerManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Returns true if the device has a keyboard backlight.
+  virtual bool HasKeyboardBacklight(
+      bool* out_has_backlight,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns true if the device has a keyboard backlight.
+  virtual void HasKeyboardBacklightAsync(
+      base::OnceCallback<void(bool /*has_backlight*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool DecreaseKeyboardBrightness(
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -1247,6 +1259,35 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
         dbus_object_proxy_,
         "org.chromium.PowerManager",
         "GetScreenBrightnessPercent",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  // Returns true if the device has a keyboard backlight.
+  bool HasKeyboardBacklight(
+      bool* out_has_backlight,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "HasKeyboardBacklight",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_has_backlight);
+  }
+
+  // Returns true if the device has a keyboard backlight.
+  void HasKeyboardBacklightAsync(
+      base::OnceCallback<void(bool /*has_backlight*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "HasKeyboardBacklight",
         std::move(success_callback),
         std::move(error_callback));
   }
