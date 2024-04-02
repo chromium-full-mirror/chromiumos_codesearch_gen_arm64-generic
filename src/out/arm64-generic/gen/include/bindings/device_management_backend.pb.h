@@ -1130,12 +1130,13 @@ enum DeviceRegisterRequest_PsmExecutionResult : int {
   DeviceRegisterRequest_PsmExecutionResult_PSM_RESULT_SUCCESSFUL_WITH_STATE = 1,
   DeviceRegisterRequest_PsmExecutionResult_PSM_RESULT_SUCCESSFUL_WITHOUT_STATE = 2,
   DeviceRegisterRequest_PsmExecutionResult_PSM_RESULT_ERROR = 3,
+  DeviceRegisterRequest_PsmExecutionResult_PSM_SKIPPED_FOR_FLEX_AUTO_ENROLLMENT = 4,
 };
 
 bool DeviceRegisterRequest_PsmExecutionResult_IsValid(int value);
 constexpr DeviceRegisterRequest_PsmExecutionResult DeviceRegisterRequest_PsmExecutionResult_PsmExecutionResult_MIN = static_cast<DeviceRegisterRequest_PsmExecutionResult>(0);
-constexpr DeviceRegisterRequest_PsmExecutionResult DeviceRegisterRequest_PsmExecutionResult_PsmExecutionResult_MAX = static_cast<DeviceRegisterRequest_PsmExecutionResult>(3);
-constexpr int DeviceRegisterRequest_PsmExecutionResult_PsmExecutionResult_ARRAYSIZE = 3 + 1;
+constexpr DeviceRegisterRequest_PsmExecutionResult DeviceRegisterRequest_PsmExecutionResult_PsmExecutionResult_MAX = static_cast<DeviceRegisterRequest_PsmExecutionResult>(4);
+constexpr int DeviceRegisterRequest_PsmExecutionResult_PsmExecutionResult_ARRAYSIZE = 4 + 1;
 const std::string& DeviceRegisterRequest_PsmExecutionResult_Name(DeviceRegisterRequest_PsmExecutionResult value);
 template <typename T>
 const std::string& DeviceRegisterRequest_PsmExecutionResult_Name(T value) {
@@ -3894,6 +3895,7 @@ class DeviceRegisterRequest final :
   static constexpr PsmExecutionResult PSM_RESULT_SUCCESSFUL_WITH_STATE = DeviceRegisterRequest_PsmExecutionResult_PSM_RESULT_SUCCESSFUL_WITH_STATE;
   static constexpr PsmExecutionResult PSM_RESULT_SUCCESSFUL_WITHOUT_STATE = DeviceRegisterRequest_PsmExecutionResult_PSM_RESULT_SUCCESSFUL_WITHOUT_STATE;
   static constexpr PsmExecutionResult PSM_RESULT_ERROR = DeviceRegisterRequest_PsmExecutionResult_PSM_RESULT_ERROR;
+  static constexpr PsmExecutionResult PSM_SKIPPED_FOR_FLEX_AUTO_ENROLLMENT = DeviceRegisterRequest_PsmExecutionResult_PSM_SKIPPED_FOR_FLEX_AUTO_ENROLLMENT;
   static inline bool PsmExecutionResult_IsValid(int value) {
     return DeviceRegisterRequest_PsmExecutionResult_IsValid(value);
   }
