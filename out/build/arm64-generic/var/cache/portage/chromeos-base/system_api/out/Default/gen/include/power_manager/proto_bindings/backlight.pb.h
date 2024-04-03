@@ -86,12 +86,13 @@ bool SetBacklightBrightnessRequest_Transition_Parse(absl::string_view name, SetB
 enum SetBacklightBrightnessRequest_Cause : int {
   SetBacklightBrightnessRequest_Cause_USER_REQUEST = 0,
   SetBacklightBrightnessRequest_Cause_MODEL = 1,
+  SetBacklightBrightnessRequest_Cause_USER_REQUEST_FROM_SETTINGS_APP = 2,
 };
 
 bool SetBacklightBrightnessRequest_Cause_IsValid(int value);
 constexpr SetBacklightBrightnessRequest_Cause SetBacklightBrightnessRequest_Cause_Cause_MIN = static_cast<SetBacklightBrightnessRequest_Cause>(0);
-constexpr SetBacklightBrightnessRequest_Cause SetBacklightBrightnessRequest_Cause_Cause_MAX = static_cast<SetBacklightBrightnessRequest_Cause>(1);
-constexpr int SetBacklightBrightnessRequest_Cause_Cause_ARRAYSIZE = 1 + 1;
+constexpr SetBacklightBrightnessRequest_Cause SetBacklightBrightnessRequest_Cause_Cause_MAX = static_cast<SetBacklightBrightnessRequest_Cause>(2);
+constexpr int SetBacklightBrightnessRequest_Cause_Cause_ARRAYSIZE = 2 + 1;
 const std::string& SetBacklightBrightnessRequest_Cause_Name(SetBacklightBrightnessRequest_Cause value);
 template <typename T>
 const std::string& SetBacklightBrightnessRequest_Cause_Name(T value) {
@@ -268,6 +269,7 @@ class SetBacklightBrightnessRequest final :
   using Cause = SetBacklightBrightnessRequest_Cause;
   static constexpr Cause USER_REQUEST = SetBacklightBrightnessRequest_Cause_USER_REQUEST;
   static constexpr Cause MODEL = SetBacklightBrightnessRequest_Cause_MODEL;
+  static constexpr Cause USER_REQUEST_FROM_SETTINGS_APP = SetBacklightBrightnessRequest_Cause_USER_REQUEST_FROM_SETTINGS_APP;
   static inline bool Cause_IsValid(int value) {
     return SetBacklightBrightnessRequest_Cause_IsValid(value);
   }
