@@ -2415,6 +2415,9 @@ public:
     String GetExemptionReason() { return m_exemptionReason; }
     void SetExemptionReason(const String& value) { m_exemptionReason = value; }
 
+    String GetCookieLine() { return m_cookieLine; }
+    void SetCookieLine(const String& value) { m_cookieLine = value; }
+
     protocol::Network::Cookie* GetCookie() { return m_cookie.get(); }
     void SetCookie(std::unique_ptr<protocol::Network::Cookie> value) { m_cookie = std::move(value); }
 
@@ -2424,8 +2427,9 @@ public:
         enum {
             NoFieldsSet = 0,
             ExemptionReasonSet = 1 << 1,
-            CookieSet = 1 << 2,
-            AllFieldsSet = (ExemptionReasonSet | CookieSet | 0)};
+            CookieLineSet = 1 << 2,
+            CookieSet = 1 << 3,
+            AllFieldsSet = (ExemptionReasonSet | CookieLineSet | CookieSet | 0)};
 
 
         ExemptedSetCookieWithReasonBuilder<STATE | ExemptionReasonSet>& SetExemptionReason(const String& value)
@@ -2433,6 +2437,13 @@ public:
             static_assert(!(STATE & ExemptionReasonSet), "property exemptionReason should not be set yet");
             m_result->SetExemptionReason(value);
             return castState<ExemptionReasonSet>();
+        }
+
+        ExemptedSetCookieWithReasonBuilder<STATE | CookieLineSet>& SetCookieLine(const String& value)
+        {
+            static_assert(!(STATE & CookieLineSet), "property cookieLine should not be set yet");
+            m_result->SetCookieLine(value);
+            return castState<CookieLineSet>();
         }
 
         ExemptedSetCookieWithReasonBuilder<STATE | CookieSet>& SetCookie(std::unique_ptr<protocol::Network::Cookie> value)
@@ -2473,6 +2484,7 @@ private:
     }
 
     String m_exemptionReason;
+    String m_cookieLine;
     std::unique_ptr<protocol::Network::Cookie> m_cookie;
 };
 
@@ -4544,6 +4556,7 @@ public:
     void ResponseReceived(const String& requestId, const String& loaderId, double timestamp, const String& type, std::unique_ptr<protocol::Network::Response> response, bool hasExtraInfo, Maybe<String> frameId = Maybe<String>());
     void RequestWillBeSentExtraInfo(const String& requestId, std::unique_ptr<protocol::Array<protocol::Network::AssociatedCookie>> associatedCookies, std::unique_ptr<protocol::Network::Headers> headers, std::unique_ptr<protocol::Network::ConnectTiming> connectTiming, Maybe<protocol::Network::ClientSecurityState> clientSecurityState = Maybe<protocol::Network::ClientSecurityState>(), Maybe<bool> siteHasCookieInOtherPartition = Maybe<bool>());
     void ResponseReceivedExtraInfo(const String& requestId, std::unique_ptr<protocol::Array<protocol::Network::BlockedSetCookieWithReason>> blockedCookies, std::unique_ptr<protocol::Network::Headers> headers, const String& resourceIPAddressSpace, int statusCode, Maybe<String> headersText = Maybe<String>(), Maybe<String> cookiePartitionKey = Maybe<String>(), Maybe<bool> cookiePartitionKeyOpaque = Maybe<bool>(), Maybe<protocol::Array<protocol::Network::ExemptedSetCookieWithReason>> exemptedCookies = Maybe<protocol::Array<protocol::Network::ExemptedSetCookieWithReason>>());
+    void ResponseReceivedEarlyHints(const String& requestId, std::unique_ptr<protocol::Network::Headers> headers);
     void TrustTokenOperationDone(const String& status, const String& type, const String& requestId, Maybe<String> topLevelOrigin = Maybe<String>(), Maybe<String> issuerOrigin = Maybe<String>(), Maybe<int> issuedTokenCount = Maybe<int>());
     void SubresourceWebBundleMetadataReceived(const String& requestId, std::unique_ptr<protocol::Array<String>> urls);
     void SubresourceWebBundleMetadataError(const String& requestId, const String& errorMessage);

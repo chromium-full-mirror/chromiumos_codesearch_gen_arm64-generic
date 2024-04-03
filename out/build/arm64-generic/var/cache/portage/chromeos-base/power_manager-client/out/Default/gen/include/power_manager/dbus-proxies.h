@@ -707,10 +707,6 @@ class PowerManagerProxyInterface {
       const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
-  virtual void RegisterHibernateResumeReadySignalHandler(
-      const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
-      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
-
   virtual void RegisterInputEventSignalHandler(
       const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -870,17 +866,6 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
         dbus_object_proxy_,
         "org.chromium.PowerManager",
         "DarkSuspendImminent",
-        signal_callback,
-        std::move(on_connected_callback));
-  }
-
-  void RegisterHibernateResumeReadySignalHandler(
-      const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
-      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
-    brillo::dbus_utils::ConnectToSignal(
-        dbus_object_proxy_,
-        "org.chromium.PowerManager",
-        "HibernateResumeReady",
         signal_callback,
         std::move(on_connected_callback));
   }

@@ -91,7 +91,8 @@ struct UploadEncryptedRecordRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UploadEncryptedRecordRequestDefaultTypeInternal _UploadEncryptedRecordRequest_default_instance_;
 PROTOBUF_CONSTEXPR UploadEncryptedRecordResponse::UploadEncryptedRecordResponse(
     ::_pbi::ConstantInitialized)
-  : status_(nullptr)
+  : cached_events_seq_ids_()
+  , status_(nullptr)
   , disable_(false)
   , health_data_logging_enabled_(false){}
 struct UploadEncryptedRecordResponseDefaultTypeInternal {
@@ -1574,13 +1575,15 @@ void UploadEncryptedRecordResponse::clear_status() {
 }
 UploadEncryptedRecordResponse::UploadEncryptedRecordResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  cached_events_seq_ids_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:reporting.UploadEncryptedRecordResponse)
 }
 UploadEncryptedRecordResponse::UploadEncryptedRecordResponse(const UploadEncryptedRecordResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+      _has_bits_(from._has_bits_),
+      cached_events_seq_ids_(from.cached_events_seq_ids_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_status()) {
     status_ = new ::reporting::StatusProto(*from.status_);
@@ -1624,6 +1627,7 @@ void UploadEncryptedRecordResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  cached_events_seq_ids_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     GOOGLE_DCHECK(status_ != nullptr);
@@ -1665,6 +1669,22 @@ const char* UploadEncryptedRecordResponse::_InternalParse(const char* ptr, ::_pb
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_health_data_logging_enabled(&has_bits);
           health_data_logging_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated int64 cached_events_seq_ids = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            _internal_add_cached_events_seq_ids(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<32>(ptr));
+        } else if (static_cast<uint8_t>(tag) == 34) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt64Parser(_internal_mutable_cached_events_seq_ids(), ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1719,6 +1739,12 @@ uint8_t* UploadEncryptedRecordResponse::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_health_data_logging_enabled(), target);
   }
 
+  // repeated int64 cached_events_seq_ids = 4;
+  for (int i = 0, n = this->_internal_cached_events_seq_ids_size(); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(4, this->_internal_cached_events_seq_ids(i), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1734,6 +1760,15 @@ size_t UploadEncryptedRecordResponse::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated int64 cached_events_seq_ids = 4;
+  {
+    size_t data_size = ::_pbi::WireFormatLite::
+      Int64Size(this->cached_events_seq_ids_);
+    total_size += 1 *
+                  ::_pbi::FromIntSize(this->_internal_cached_events_seq_ids_size());
+    total_size += data_size;
+  }
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
@@ -1775,6 +1810,7 @@ void UploadEncryptedRecordResponse::MergeFrom(const UploadEncryptedRecordRespons
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  cached_events_seq_ids_.MergeFrom(from.cached_events_seq_ids_);
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
@@ -1806,6 +1842,7 @@ void UploadEncryptedRecordResponse::InternalSwap(UploadEncryptedRecordResponse* 
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
+  cached_events_seq_ids_.InternalSwap(&other->cached_events_seq_ids_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(UploadEncryptedRecordResponse, health_data_logging_enabled_)
       + sizeof(UploadEncryptedRecordResponse::health_data_logging_enabled_)

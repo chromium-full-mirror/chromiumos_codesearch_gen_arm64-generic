@@ -117,6 +117,8 @@ PROTOBUF_CONSTEXPR UploadEncryptedRecordResponse::UploadEncryptedRecordResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.cached_events_seq_ids_)*/ {}
+
   , /*decltype(_impl_.status_)*/nullptr
   , /*decltype(_impl_.disable_)*/ false
 
@@ -1720,6 +1722,8 @@ UploadEncryptedRecordResponse::UploadEncryptedRecordResponse(const UploadEncrypt
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.cached_events_seq_ids_) { from._impl_.cached_events_seq_ids_ }
+
     , decltype(_impl_.status_){nullptr}
     , decltype(_impl_.disable_) {}
 
@@ -1741,6 +1745,8 @@ inline void UploadEncryptedRecordResponse::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.cached_events_seq_ids_) { arena }
+
     , decltype(_impl_.status_){nullptr}
     , decltype(_impl_.disable_) { false }
 
@@ -1760,6 +1766,7 @@ UploadEncryptedRecordResponse::~UploadEncryptedRecordResponse() {
 
 inline void UploadEncryptedRecordResponse::SharedDtor() {
   ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.cached_events_seq_ids_.~RepeatedField();
   if (this != internal_default_instance()) delete _impl_.status_;
 }
 
@@ -1773,6 +1780,7 @@ void UploadEncryptedRecordResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  _internal_mutable_cached_events_seq_ids()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     ABSL_DCHECK(_impl_.status_ != nullptr);
@@ -1816,6 +1824,23 @@ const char* UploadEncryptedRecordResponse::_InternalParse(const char* ptr, ::_pb
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_health_data_logging_enabled(&has_bits);
           _impl_.health_data_logging_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // repeated int64 cached_events_seq_ids = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            _internal_add_cached_events_seq_ids(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<32>(ptr));
+        } else if (static_cast<::uint8_t>(tag) == 34) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt64Parser(_internal_mutable_cached_events_seq_ids(), ptr, ctx);
           CHK_(ptr);
         } else {
           goto handle_unusual;
@@ -1873,6 +1898,13 @@ failure:
         3, this->_internal_health_data_logging_enabled(), target);
   }
 
+  // repeated int64 cached_events_seq_ids = 4;
+  for (int i = 0, n = this->_internal_cached_events_seq_ids_size(); i < n; ++i) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        4, this->_internal_cached_events_seq_ids(i), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1888,6 +1920,17 @@ failure:
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated int64 cached_events_seq_ids = 4;
+  {
+    std::size_t data_size = ::_pbi::WireFormatLite::Int64Size(
+        this->_internal_cached_events_seq_ids())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_cached_events_seq_ids_size());
+    ;
+    total_size += tag_size + data_size;
+  }
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
@@ -1930,6 +1973,7 @@ void UploadEncryptedRecordResponse::MergeFrom(const UploadEncryptedRecordRespons
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  _this->_impl_.cached_events_seq_ids_.MergeFrom(from._impl_.cached_events_seq_ids_);
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
@@ -1962,6 +2006,7 @@ void UploadEncryptedRecordResponse::InternalSwap(UploadEncryptedRecordResponse* 
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.cached_events_seq_ids_.InternalSwap(&other->_impl_.cached_events_seq_ids_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(UploadEncryptedRecordResponse, _impl_.health_data_logging_enabled_)
       + sizeof(UploadEncryptedRecordResponse::_impl_.health_data_logging_enabled_)

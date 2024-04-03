@@ -1076,10 +1076,33 @@ class UploadEncryptedRecordResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kCachedEventsSeqIdsFieldNumber = 4,
     kStatusFieldNumber = 1,
     kDisableFieldNumber = 2,
     kHealthDataLoggingEnabledFieldNumber = 3,
   };
+  // repeated int64 cached_events_seq_ids = 4;
+  int cached_events_seq_ids_size() const;
+  private:
+  int _internal_cached_events_seq_ids_size() const;
+  public:
+  void clear_cached_events_seq_ids();
+  private:
+  int64_t _internal_cached_events_seq_ids(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
+      _internal_cached_events_seq_ids() const;
+  void _internal_add_cached_events_seq_ids(int64_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
+      _internal_mutable_cached_events_seq_ids();
+  public:
+  int64_t cached_events_seq_ids(int index) const;
+  void set_cached_events_seq_ids(int index, int64_t value);
+  void add_cached_events_seq_ids(int64_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
+      cached_events_seq_ids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
+      mutable_cached_events_seq_ids();
+
   // optional .reporting.StatusProto status = 1;
   bool has_status() const;
   private:
@@ -1133,6 +1156,7 @@ class UploadEncryptedRecordResponse final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t > cached_events_seq_ids_;
   ::reporting::StatusProto* status_;
   bool disable_;
   bool health_data_logging_enabled_;
@@ -2981,6 +3005,53 @@ inline void UploadEncryptedRecordResponse::_internal_set_health_data_logging_ena
 inline void UploadEncryptedRecordResponse::set_health_data_logging_enabled(bool value) {
   _internal_set_health_data_logging_enabled(value);
   // @@protoc_insertion_point(field_set:reporting.UploadEncryptedRecordResponse.health_data_logging_enabled)
+}
+
+// repeated int64 cached_events_seq_ids = 4;
+inline int UploadEncryptedRecordResponse::_internal_cached_events_seq_ids_size() const {
+  return cached_events_seq_ids_.size();
+}
+inline int UploadEncryptedRecordResponse::cached_events_seq_ids_size() const {
+  return _internal_cached_events_seq_ids_size();
+}
+inline void UploadEncryptedRecordResponse::clear_cached_events_seq_ids() {
+  cached_events_seq_ids_.Clear();
+}
+inline int64_t UploadEncryptedRecordResponse::_internal_cached_events_seq_ids(int index) const {
+  return cached_events_seq_ids_.Get(index);
+}
+inline int64_t UploadEncryptedRecordResponse::cached_events_seq_ids(int index) const {
+  // @@protoc_insertion_point(field_get:reporting.UploadEncryptedRecordResponse.cached_events_seq_ids)
+  return _internal_cached_events_seq_ids(index);
+}
+inline void UploadEncryptedRecordResponse::set_cached_events_seq_ids(int index, int64_t value) {
+  cached_events_seq_ids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:reporting.UploadEncryptedRecordResponse.cached_events_seq_ids)
+}
+inline void UploadEncryptedRecordResponse::_internal_add_cached_events_seq_ids(int64_t value) {
+  cached_events_seq_ids_.Add(value);
+}
+inline void UploadEncryptedRecordResponse::add_cached_events_seq_ids(int64_t value) {
+  _internal_add_cached_events_seq_ids(value);
+  // @@protoc_insertion_point(field_add:reporting.UploadEncryptedRecordResponse.cached_events_seq_ids)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
+UploadEncryptedRecordResponse::_internal_cached_events_seq_ids() const {
+  return cached_events_seq_ids_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
+UploadEncryptedRecordResponse::cached_events_seq_ids() const {
+  // @@protoc_insertion_point(field_list:reporting.UploadEncryptedRecordResponse.cached_events_seq_ids)
+  return _internal_cached_events_seq_ids();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
+UploadEncryptedRecordResponse::_internal_mutable_cached_events_seq_ids() {
+  return &cached_events_seq_ids_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
+UploadEncryptedRecordResponse::mutable_cached_events_seq_ids() {
+  // @@protoc_insertion_point(field_mutable_list:reporting.UploadEncryptedRecordResponse.cached_events_seq_ids)
+  return _internal_mutable_cached_events_seq_ids();
 }
 
 // -------------------------------------------------------------------

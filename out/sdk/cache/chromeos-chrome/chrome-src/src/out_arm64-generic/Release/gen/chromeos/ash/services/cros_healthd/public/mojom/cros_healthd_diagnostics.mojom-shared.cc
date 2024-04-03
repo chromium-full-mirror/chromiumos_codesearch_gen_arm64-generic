@@ -41,8 +41,8 @@ NOINLINE static const char* DiagnosticRoutineEnumToStringHelper(DiagnosticRoutin
       return "kCpuStress";
     case DiagnosticRoutineEnum::kFloatingPointAccuracy:
       return "kFloatingPointAccuracy";
-    case DiagnosticRoutineEnum::kNvmeWearLevel:
-      return "kNvmeWearLevel";
+    case DiagnosticRoutineEnum::DEPRECATED_kNvmeWearLevel:
+      return "DEPRECATED_kNvmeWearLevel";
     case DiagnosticRoutineEnum::kNvmeSelfTest:
       return "kNvmeSelfTest";
     case DiagnosticRoutineEnum::kDiskRead:

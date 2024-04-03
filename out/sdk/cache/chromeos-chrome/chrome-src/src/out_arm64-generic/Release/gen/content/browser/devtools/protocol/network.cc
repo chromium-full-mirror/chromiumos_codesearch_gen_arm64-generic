@@ -604,11 +604,13 @@ CRDTP_END_SERIALIZER();
 
 CRDTP_BEGIN_DESERIALIZER(ExemptedSetCookieWithReason)
     CRDTP_DESERIALIZE_FIELD("cookie", m_cookie),
+    CRDTP_DESERIALIZE_FIELD("cookieLine", m_cookieLine),
     CRDTP_DESERIALIZE_FIELD("exemptionReason", m_exemptionReason),
 CRDTP_END_DESERIALIZER()
 
 CRDTP_BEGIN_SERIALIZER(ExemptedSetCookieWithReason)
     CRDTP_SERIALIZE_FIELD("exemptionReason", m_exemptionReason);
+    CRDTP_SERIALIZE_FIELD("cookieLine", m_cookieLine);
     CRDTP_SERIALIZE_FIELD("cookie", m_cookie);
 CRDTP_END_SERIALIZER();
 
@@ -1138,6 +1140,16 @@ void Frontend::ResponseReceivedExtraInfo(const String& requestId, std::unique_pt
     serializer.AddField(crdtp::MakeSpan("cookiePartitionKeyOpaque"), cookiePartitionKeyOpaque);
     serializer.AddField(crdtp::MakeSpan("exemptedCookies"), exemptedCookies);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Network.responseReceivedExtraInfo", serializer.Finish()));
+}
+
+void Frontend::ResponseReceivedEarlyHints(const String& requestId, std::unique_ptr<protocol::Network::Headers> headers)
+{
+    if (!frontend_channel_)
+        return;
+    crdtp::ObjectSerializer serializer;
+    serializer.AddField(crdtp::MakeSpan("requestId"), requestId);
+    serializer.AddField(crdtp::MakeSpan("headers"), headers);
+    frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Network.responseReceivedEarlyHints", serializer.Finish()));
 }
 
 void Frontend::TrustTokenOperationDone(const String& status, const String& type, const String& requestId, Maybe<String> topLevelOrigin, Maybe<String> issuerOrigin, Maybe<int> issuedTokenCount)

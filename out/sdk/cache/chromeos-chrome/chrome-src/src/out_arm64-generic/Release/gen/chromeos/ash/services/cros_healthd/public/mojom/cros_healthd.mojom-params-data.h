@@ -344,7 +344,7 @@ class  CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponsePar
 };
 static_assert(sizeof(CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data)");
-class  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data {
+class  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -352,6 +352,38 @@ class  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_D
   mojo::internal::StructHeader header_;
   uint32_t wear_level_threshold;
   uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_Params_Data>;
+
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_Params_Data();
+  ~CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_Params_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_Params_Data)");
+class  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> wear_level_threshold;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data>;
@@ -377,38 +409,6 @@ class  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Response
 };
 static_assert(sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data)");
-class  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> wear_level_threshold;
-
- private:
-  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data>;
-
-  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data();
-  ~CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data() = delete;
-};
-static_assert(sizeof(CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data) == 16,
-              "Bad sizeof(CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data)");
-class  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
-
- private:
-  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data>;
-
-  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data();
-  ~CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data) == 16,
-              "Bad sizeof(CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data)");
 class  CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2417,12 +2417,12 @@ class CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponsePara
 };
 
 
-class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView {
+class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ParamsDataView {
  public:
-  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView() = default;
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ParamsDataView() = default;
 
-  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView(
-      internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data* data,
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -2431,16 +2431,16 @@ class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDat
     return data_->wear_level_threshold;
   }
  private:
-  internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data* data_ = nullptr;
+  internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_Params_Data* data_ = nullptr;
 };
 
 
-class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView {
+class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ResponseParamsDataView {
  public:
-  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView() = default;
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ResponseParamsDataView() = default;
 
-  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView(
-      internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data* data,
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -2456,17 +2456,17 @@ class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseP
         pointer, output, message_);
   }
  private:
-  internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data* data_ = nullptr;
+  internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView {
+class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView {
  public:
-  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView() = default;
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView() = default;
 
-  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView(
-      internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data* data,
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -2492,17 +2492,17 @@ static_assert(
         pointer, output, message_);
   }
  private:
-  internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data* data_ = nullptr;
+  internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataView {
+class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView {
  public:
-  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataView() = default;
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView() = default;
 
-  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataView(
-      internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data* data,
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -2518,7 +2518,7 @@ class CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataVi
         pointer, output, message_);
   }
  private:
-  internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data* data_ = nullptr;
+  internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -4759,21 +4759,21 @@ inline void CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Respon
 
 
 
-inline void CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView::GetResponseDataView(
+inline void CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutineWithThreshold_ResponseParamsDataView::GetResponseDataView(
     ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
   *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
-inline void CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView::GetWearLevelThresholdDataView(
+inline void CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView::GetWearLevelThresholdDataView(
     ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->wear_level_threshold.Get();
   *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 
 
-inline void CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataView::GetResponseDataView(
+inline void CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView::GetResponseDataView(
     ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
   *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
