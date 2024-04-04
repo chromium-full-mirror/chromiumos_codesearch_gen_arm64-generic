@@ -48,6 +48,9 @@ struct TableStruct_backlight_2eproto {
   static const ::uint32_t offsets[];
 };
 namespace power_manager {
+class AmbientLightSensorChange;
+struct AmbientLightSensorChangeDefaultTypeInternal;
+extern AmbientLightSensorChangeDefaultTypeInternal _AmbientLightSensorChange_default_instance_;
 class BacklightBrightnessChange;
 struct BacklightBrightnessChangeDefaultTypeInternal;
 extern BacklightBrightnessChangeDefaultTypeInternal _BacklightBrightnessChange_default_instance_;
@@ -56,6 +59,8 @@ struct SetBacklightBrightnessRequestDefaultTypeInternal;
 extern SetBacklightBrightnessRequestDefaultTypeInternal _SetBacklightBrightnessRequest_default_instance_;
 }  // namespace power_manager
 PROTOBUF_NAMESPACE_OPEN
+template <>
+::power_manager::AmbientLightSensorChange* Arena::CreateMaybeMessage<::power_manager::AmbientLightSensorChange>(Arena*);
 template <>
 ::power_manager::BacklightBrightnessChange* Arena::CreateMaybeMessage<::power_manager::BacklightBrightnessChange>(Arena*);
 template <>
@@ -135,6 +140,29 @@ const std::string& BacklightBrightnessChange_Cause_Name(T value) {
 }
 const std::string& BacklightBrightnessChange_Cause_Name(BacklightBrightnessChange_Cause value);
 bool BacklightBrightnessChange_Cause_Parse(absl::string_view name, BacklightBrightnessChange_Cause* value);
+enum AmbientLightSensorChange_Cause : int {
+  AmbientLightSensorChange_Cause_NO_SENSOR_PRESENT = 0,
+  AmbientLightSensorChange_Cause_NO_READINGS_FROM_ALS = 1,
+  AmbientLightSensorChange_Cause_USER_REQUEST_SETTINGS_APP = 2,
+  AmbientLightSensorChange_Cause_BRIGHTNESS_USER_REQUEST = 3,
+  AmbientLightSensorChange_Cause_BRIGHTNESS_USER_REQUEST_SETTINGS_APP = 4,
+  AmbientLightSensorChange_Cause_BRIGHTNESS_OTHER = 5,
+};
+
+bool AmbientLightSensorChange_Cause_IsValid(int value);
+constexpr AmbientLightSensorChange_Cause AmbientLightSensorChange_Cause_Cause_MIN = static_cast<AmbientLightSensorChange_Cause>(0);
+constexpr AmbientLightSensorChange_Cause AmbientLightSensorChange_Cause_Cause_MAX = static_cast<AmbientLightSensorChange_Cause>(5);
+constexpr int AmbientLightSensorChange_Cause_Cause_ARRAYSIZE = 5 + 1;
+const std::string& AmbientLightSensorChange_Cause_Name(AmbientLightSensorChange_Cause value);
+template <typename T>
+const std::string& AmbientLightSensorChange_Cause_Name(T value) {
+  static_assert(std::is_same<T, AmbientLightSensorChange_Cause>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to Cause_Name().");
+  return AmbientLightSensorChange_Cause_Name(static_cast<AmbientLightSensorChange_Cause>(value));
+}
+const std::string& AmbientLightSensorChange_Cause_Name(AmbientLightSensorChange_Cause value);
+bool AmbientLightSensorChange_Cause_Parse(absl::string_view name, AmbientLightSensorChange_Cause* value);
 
 // ===================================================================
 
@@ -522,6 +550,179 @@ class BacklightBrightnessChange final :
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_backlight_2eproto;
+};// -------------------------------------------------------------------
+
+class AmbientLightSensorChange final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:power_manager.AmbientLightSensorChange) */ {
+ public:
+  inline AmbientLightSensorChange() : AmbientLightSensorChange(nullptr) {}
+  ~AmbientLightSensorChange() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR AmbientLightSensorChange(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AmbientLightSensorChange(const AmbientLightSensorChange& from);
+  AmbientLightSensorChange(AmbientLightSensorChange&& from) noexcept
+    : AmbientLightSensorChange() {
+    *this = ::std::move(from);
+  }
+
+  inline AmbientLightSensorChange& operator=(const AmbientLightSensorChange& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AmbientLightSensorChange& operator=(AmbientLightSensorChange&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const AmbientLightSensorChange& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AmbientLightSensorChange* internal_default_instance() {
+    return reinterpret_cast<const AmbientLightSensorChange*>(
+               &_AmbientLightSensorChange_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(AmbientLightSensorChange& a, AmbientLightSensorChange& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AmbientLightSensorChange* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AmbientLightSensorChange* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AmbientLightSensorChange* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AmbientLightSensorChange>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const AmbientLightSensorChange& from);
+  void MergeFrom(const AmbientLightSensorChange& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AmbientLightSensorChange* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "power_manager.AmbientLightSensorChange";
+  }
+  protected:
+  explicit AmbientLightSensorChange(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  using Cause = AmbientLightSensorChange_Cause;
+  static constexpr Cause NO_SENSOR_PRESENT = AmbientLightSensorChange_Cause_NO_SENSOR_PRESENT;
+  static constexpr Cause NO_READINGS_FROM_ALS = AmbientLightSensorChange_Cause_NO_READINGS_FROM_ALS;
+  static constexpr Cause USER_REQUEST_SETTINGS_APP = AmbientLightSensorChange_Cause_USER_REQUEST_SETTINGS_APP;
+  static constexpr Cause BRIGHTNESS_USER_REQUEST = AmbientLightSensorChange_Cause_BRIGHTNESS_USER_REQUEST;
+  static constexpr Cause BRIGHTNESS_USER_REQUEST_SETTINGS_APP = AmbientLightSensorChange_Cause_BRIGHTNESS_USER_REQUEST_SETTINGS_APP;
+  static constexpr Cause BRIGHTNESS_OTHER = AmbientLightSensorChange_Cause_BRIGHTNESS_OTHER;
+  static inline bool Cause_IsValid(int value) {
+    return AmbientLightSensorChange_Cause_IsValid(value);
+  }
+  static constexpr Cause Cause_MIN = AmbientLightSensorChange_Cause_Cause_MIN;
+  static constexpr Cause Cause_MAX = AmbientLightSensorChange_Cause_Cause_MAX;
+  static constexpr int Cause_ARRAYSIZE = AmbientLightSensorChange_Cause_Cause_ARRAYSIZE;
+  template <typename T>
+  static inline const std::string& Cause_Name(T value) {
+    return AmbientLightSensorChange_Cause_Name(value);
+  }
+  static inline bool Cause_Parse(absl::string_view name, Cause* value) {
+    return AmbientLightSensorChange_Cause_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSensorEnabledFieldNumber = 1,
+    kCauseFieldNumber = 2,
+  };
+  // optional bool sensor_enabled = 1;
+  bool has_sensor_enabled() const;
+  void clear_sensor_enabled() ;
+  bool sensor_enabled() const;
+  void set_sensor_enabled(bool value);
+
+  private:
+  bool _internal_sensor_enabled() const;
+  void _internal_set_sensor_enabled(bool value);
+
+  public:
+  // optional .power_manager.AmbientLightSensorChange.Cause cause = 2;
+  bool has_cause() const;
+  void clear_cause() ;
+  ::power_manager::AmbientLightSensorChange_Cause cause() const;
+  void set_cause(::power_manager::AmbientLightSensorChange_Cause value);
+
+  private:
+  ::power_manager::AmbientLightSensorChange_Cause _internal_cause() const;
+  void _internal_set_cause(::power_manager::AmbientLightSensorChange_Cause value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:power_manager.AmbientLightSensorChange)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    bool sensor_enabled_;
+    int cause_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_backlight_2eproto;
 };
 
 // ===================================================================
@@ -672,6 +873,61 @@ inline void BacklightBrightnessChange::_internal_set_cause(::power_manager::Back
   _impl_.cause_ = value;
 }
 
+// -------------------------------------------------------------------
+
+// AmbientLightSensorChange
+
+// optional bool sensor_enabled = 1;
+inline bool AmbientLightSensorChange::has_sensor_enabled() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline void AmbientLightSensorChange::clear_sensor_enabled() {
+  _impl_.sensor_enabled_ = false;
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline bool AmbientLightSensorChange::sensor_enabled() const {
+  // @@protoc_insertion_point(field_get:power_manager.AmbientLightSensorChange.sensor_enabled)
+  return _internal_sensor_enabled();
+}
+inline void AmbientLightSensorChange::set_sensor_enabled(bool value) {
+  _internal_set_sensor_enabled(value);
+  // @@protoc_insertion_point(field_set:power_manager.AmbientLightSensorChange.sensor_enabled)
+}
+inline bool AmbientLightSensorChange::_internal_sensor_enabled() const {
+  return _impl_.sensor_enabled_;
+}
+inline void AmbientLightSensorChange::_internal_set_sensor_enabled(bool value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.sensor_enabled_ = value;
+}
+
+// optional .power_manager.AmbientLightSensorChange.Cause cause = 2;
+inline bool AmbientLightSensorChange::has_cause() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline void AmbientLightSensorChange::clear_cause() {
+  _impl_.cause_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline ::power_manager::AmbientLightSensorChange_Cause AmbientLightSensorChange::cause() const {
+  // @@protoc_insertion_point(field_get:power_manager.AmbientLightSensorChange.cause)
+  return _internal_cause();
+}
+inline void AmbientLightSensorChange::set_cause(::power_manager::AmbientLightSensorChange_Cause value) {
+   _internal_set_cause(value);
+  // @@protoc_insertion_point(field_set:power_manager.AmbientLightSensorChange.cause)
+}
+inline ::power_manager::AmbientLightSensorChange_Cause AmbientLightSensorChange::_internal_cause() const {
+  return static_cast<::power_manager::AmbientLightSensorChange_Cause>(_impl_.cause_);
+}
+inline void AmbientLightSensorChange::_internal_set_cause(::power_manager::AmbientLightSensorChange_Cause value) {
+  assert(::power_manager::AmbientLightSensorChange_Cause_IsValid(value));
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.cause_ = value;
+}
+
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif  // __GNUC__
@@ -688,6 +944,8 @@ template <>
 struct is_proto_enum<::power_manager::SetBacklightBrightnessRequest_Cause> : std::true_type {};
 template <>
 struct is_proto_enum<::power_manager::BacklightBrightnessChange_Cause> : std::true_type {};
+template <>
+struct is_proto_enum<::power_manager::AmbientLightSensorChange_Cause> : std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 
