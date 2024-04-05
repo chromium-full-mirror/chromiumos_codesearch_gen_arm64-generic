@@ -122,7 +122,7 @@ class Event final :
   friend void swap(Event& a, Event& b) {
     a.Swap(&b);
   }
-  inline void Swap(Event* other) {
+  PROTOBUF_NOINLINE void Swap(Event* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

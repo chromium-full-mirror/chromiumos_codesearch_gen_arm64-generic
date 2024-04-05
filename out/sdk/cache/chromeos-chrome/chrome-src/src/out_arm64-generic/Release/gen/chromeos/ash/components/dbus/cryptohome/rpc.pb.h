@@ -253,7 +253,7 @@ class AccountIdentifier final :
   friend void swap(AccountIdentifier& a, AccountIdentifier& b) {
     a.Swap(&b);
   }
-  inline void Swap(AccountIdentifier* other) {
+  PROTOBUF_NOINLINE void Swap(AccountIdentifier* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -420,7 +420,7 @@ class KeyDelegate final :
   friend void swap(KeyDelegate& a, KeyDelegate& b) {
     a.Swap(&b);
   }
-  inline void Swap(KeyDelegate* other) {
+  PROTOBUF_NOINLINE void Swap(KeyDelegate* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -587,7 +587,7 @@ class AuthorizationRequest final :
   friend void swap(AuthorizationRequest& a, AuthorizationRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AuthorizationRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AuthorizationRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -754,7 +754,7 @@ class KeyChallengeRequest final :
   friend void swap(KeyChallengeRequest& a, KeyChallengeRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(KeyChallengeRequest* other) {
+  PROTOBUF_NOINLINE void Swap(KeyChallengeRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -940,7 +940,7 @@ class SignatureKeyChallengeRequestData final :
   friend void swap(SignatureKeyChallengeRequestData& a, SignatureKeyChallengeRequestData& b) {
     a.Swap(&b);
   }
-  inline void Swap(SignatureKeyChallengeRequestData* other) {
+  PROTOBUF_NOINLINE void Swap(SignatureKeyChallengeRequestData* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1122,7 +1122,7 @@ class KeyChallengeResponse final :
   friend void swap(KeyChallengeResponse& a, KeyChallengeResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(KeyChallengeResponse* other) {
+  PROTOBUF_NOINLINE void Swap(KeyChallengeResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1269,7 +1269,7 @@ class SignatureKeyChallengeResponseData final :
   friend void swap(SignatureKeyChallengeResponseData& a, SignatureKeyChallengeResponseData& b) {
     a.Swap(&b);
   }
-  inline void Swap(SignatureKeyChallengeResponseData* other) {
+  PROTOBUF_NOINLINE void Swap(SignatureKeyChallengeResponseData* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

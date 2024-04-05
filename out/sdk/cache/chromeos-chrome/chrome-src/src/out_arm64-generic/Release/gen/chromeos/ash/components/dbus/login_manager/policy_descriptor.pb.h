@@ -145,7 +145,7 @@ class PolicyDescriptor final :
   friend void swap(PolicyDescriptor& a, PolicyDescriptor& b) {
     a.Swap(&b);
   }
-  inline void Swap(PolicyDescriptor* other) {
+  PROTOBUF_NOINLINE void Swap(PolicyDescriptor* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

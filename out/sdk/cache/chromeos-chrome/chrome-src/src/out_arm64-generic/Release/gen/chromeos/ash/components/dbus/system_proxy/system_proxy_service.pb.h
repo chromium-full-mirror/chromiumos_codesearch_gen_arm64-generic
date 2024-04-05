@@ -170,7 +170,7 @@ class SetSystemTrafficCredentialsRequest final :
   friend void swap(SetSystemTrafficCredentialsRequest& a, SetSystemTrafficCredentialsRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetSystemTrafficCredentialsRequest* other) {
+  PROTOBUF_NOINLINE void Swap(SetSystemTrafficCredentialsRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -337,7 +337,7 @@ class SetSystemTrafficCredentialsResponse final :
   friend void swap(SetSystemTrafficCredentialsResponse& a, SetSystemTrafficCredentialsResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetSystemTrafficCredentialsResponse* other) {
+  PROTOBUF_NOINLINE void Swap(SetSystemTrafficCredentialsResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -484,7 +484,7 @@ class Credentials final :
   friend void swap(Credentials& a, Credentials& b) {
     a.Swap(&b);
   }
-  inline void Swap(Credentials* other) {
+  PROTOBUF_NOINLINE void Swap(Credentials* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -677,7 +677,7 @@ class ProtectionSpace final :
   friend void swap(ProtectionSpace& a, ProtectionSpace& b) {
     a.Swap(&b);
   }
-  inline void Swap(ProtectionSpace* other) {
+  PROTOBUF_NOINLINE void Swap(ProtectionSpace* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -864,7 +864,7 @@ class ClearUserCredentialsRequest final :
   friend void swap(ClearUserCredentialsRequest& a, ClearUserCredentialsRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ClearUserCredentialsRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ClearUserCredentialsRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -988,7 +988,7 @@ class ClearUserCredentialsResponse final :
   friend void swap(ClearUserCredentialsResponse& a, ClearUserCredentialsResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ClearUserCredentialsResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ClearUserCredentialsResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1135,7 +1135,7 @@ class SetAuthenticationDetailsRequest final :
   friend void swap(SetAuthenticationDetailsRequest& a, SetAuthenticationDetailsRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetAuthenticationDetailsRequest* other) {
+  PROTOBUF_NOINLINE void Swap(SetAuthenticationDetailsRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1352,7 +1352,7 @@ class SetAuthenticationDetailsResponse final :
   friend void swap(SetAuthenticationDetailsResponse& a, SetAuthenticationDetailsResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetAuthenticationDetailsResponse* other) {
+  PROTOBUF_NOINLINE void Swap(SetAuthenticationDetailsResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1499,7 +1499,7 @@ class ShutDownRequest final :
   friend void swap(ShutDownRequest& a, ShutDownRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ShutDownRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ShutDownRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1641,7 +1641,7 @@ class ShutDownResponse final :
   friend void swap(ShutDownResponse& a, ShutDownResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ShutDownResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ShutDownResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1788,7 +1788,7 @@ class WorkerActiveSignalDetails final :
   friend void swap(WorkerActiveSignalDetails& a, WorkerActiveSignalDetails& b) {
     a.Swap(&b);
   }
-  inline void Swap(WorkerActiveSignalDetails* other) {
+  PROTOBUF_NOINLINE void Swap(WorkerActiveSignalDetails* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1950,7 +1950,7 @@ class AuthenticationRequiredDetails final :
   friend void swap(AuthenticationRequiredDetails& a, AuthenticationRequiredDetails& b) {
     a.Swap(&b);
   }
-  inline void Swap(AuthenticationRequiredDetails* other) {
+  PROTOBUF_NOINLINE void Swap(AuthenticationRequiredDetails* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

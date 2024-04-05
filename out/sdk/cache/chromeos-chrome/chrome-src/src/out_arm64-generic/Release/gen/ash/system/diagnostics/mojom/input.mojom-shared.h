@@ -632,7 +632,7 @@ struct Serializer<::ash::diagnostics::mojom::KeyboardInfoDataView, MaybeConstUse
         typename decltype(fragment->top_row_keys)::BaseType>
         top_row_keys_fragment(fragment.message());
     constexpr const mojo::internal::ContainerValidateParams& top_row_keys_validate_params =
-        mojo::internal::GetArrayOfEnumsValidator<0, ::ash::diagnostics::mojom::internal::TopRowKey_Data::Validate>();
+        mojo::internal::GetArrayOfEnumsValidator<0, false, ::ash::diagnostics::mojom::internal::TopRowKey_Data::Validate>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::diagnostics::mojom::TopRowKey>>(
         in_top_row_keys, top_row_keys_fragment, &top_row_keys_validate_params);
     fragment->top_row_keys.Set(

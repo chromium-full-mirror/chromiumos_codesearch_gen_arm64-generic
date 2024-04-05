@@ -101,7 +101,7 @@ class GuestFileCorruptionSignal final :
   friend void swap(GuestFileCorruptionSignal& a, GuestFileCorruptionSignal& b) {
     a.Swap(&b);
   }
-  inline void Swap(GuestFileCorruptionSignal* other) {
+  PROTOBUF_NOINLINE void Swap(GuestFileCorruptionSignal* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -231,7 +231,7 @@ class GuestOomEventSignal final :
   friend void swap(GuestOomEventSignal& a, GuestOomEventSignal& b) {
     a.Swap(&b);
   }
-  inline void Swap(GuestOomEventSignal* other) {
+  PROTOBUF_NOINLINE void Swap(GuestOomEventSignal* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

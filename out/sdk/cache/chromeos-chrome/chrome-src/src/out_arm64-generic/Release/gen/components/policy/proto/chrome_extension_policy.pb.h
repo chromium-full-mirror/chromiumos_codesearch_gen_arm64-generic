@@ -105,7 +105,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(ExternalPolicyData& a, ExternalPolicyData& b) {
 a.Swap(&b);
 }
-inline void Swap(ExternalPolicyData* other) {
+PROTOBUF_NOINLINE void Swap(ExternalPolicyData* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&

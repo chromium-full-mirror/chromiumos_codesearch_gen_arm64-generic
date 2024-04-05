@@ -154,7 +154,7 @@ class RecoverableKeyStoreParameters final :
   friend void swap(RecoverableKeyStoreParameters& a, RecoverableKeyStoreParameters& b) {
     a.Swap(&b);
   }
-  inline void Swap(RecoverableKeyStoreParameters* other) {
+  PROTOBUF_NOINLINE void Swap(RecoverableKeyStoreParameters* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -332,7 +332,7 @@ class WrappedSecurityDomainKey final :
   friend void swap(WrappedSecurityDomainKey& a, WrappedSecurityDomainKey& b) {
     a.Swap(&b);
   }
-  inline void Swap(WrappedSecurityDomainKey* other) {
+  PROTOBUF_NOINLINE void Swap(WrappedSecurityDomainKey* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -515,7 +515,7 @@ class RecoverableKeyStoreMetadata final :
   friend void swap(RecoverableKeyStoreMetadata& a, RecoverableKeyStoreMetadata& b) {
     a.Swap(&b);
   }
-  inline void Swap(RecoverableKeyStoreMetadata* other) {
+  PROTOBUF_NOINLINE void Swap(RecoverableKeyStoreMetadata* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -710,7 +710,7 @@ class RecoverableKeyStore final :
   friend void swap(RecoverableKeyStore& a, RecoverableKeyStore& b) {
     a.Swap(&b);
   }
-  inline void Swap(RecoverableKeyStore* other) {
+  PROTOBUF_NOINLINE void Swap(RecoverableKeyStore* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

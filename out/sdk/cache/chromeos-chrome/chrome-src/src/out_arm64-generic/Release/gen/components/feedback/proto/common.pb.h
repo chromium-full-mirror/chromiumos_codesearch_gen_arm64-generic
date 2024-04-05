@@ -104,7 +104,7 @@ class CommonData final :
   friend void swap(CommonData& a, CommonData& b) {
     a.Swap(&b);
   }
-  inline void Swap(CommonData* other) {
+  PROTOBUF_NOINLINE void Swap(CommonData* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

@@ -212,7 +212,7 @@ class SuspendImminent final :
   friend void swap(SuspendImminent& a, SuspendImminent& b) {
     a.Swap(&b);
   }
-  inline void Swap(SuspendImminent* other) {
+  PROTOBUF_NOINLINE void Swap(SuspendImminent* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -438,7 +438,7 @@ class SuspendDone final :
   friend void swap(SuspendDone& a, SuspendDone& b) {
     a.Swap(&b);
   }
-  inline void Swap(SuspendDone* other) {
+  PROTOBUF_NOINLINE void Swap(SuspendDone* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -681,7 +681,7 @@ class RegisterSuspendDelayRequest final :
   friend void swap(RegisterSuspendDelayRequest& a, RegisterSuspendDelayRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(RegisterSuspendDelayRequest* other) {
+  PROTOBUF_NOINLINE void Swap(RegisterSuspendDelayRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -843,7 +843,7 @@ class RegisterSuspendDelayReply final :
   friend void swap(RegisterSuspendDelayReply& a, RegisterSuspendDelayReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(RegisterSuspendDelayReply* other) {
+  PROTOBUF_NOINLINE void Swap(RegisterSuspendDelayReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1000,7 +1000,7 @@ class UnregisterSuspendDelayRequest final :
   friend void swap(UnregisterSuspendDelayRequest& a, UnregisterSuspendDelayRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(UnregisterSuspendDelayRequest* other) {
+  PROTOBUF_NOINLINE void Swap(UnregisterSuspendDelayRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1142,7 +1142,7 @@ class SuspendReadinessInfo final :
   friend void swap(SuspendReadinessInfo& a, SuspendReadinessInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(SuspendReadinessInfo* other) {
+  PROTOBUF_NOINLINE void Swap(SuspendReadinessInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1299,7 +1299,7 @@ class DarkResumeWakeReason final :
   friend void swap(DarkResumeWakeReason& a, DarkResumeWakeReason& b) {
     a.Swap(&b);
   }
-  inline void Swap(DarkResumeWakeReason* other) {
+  PROTOBUF_NOINLINE void Swap(DarkResumeWakeReason* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1446,7 +1446,7 @@ class HibernateResumeReady final :
   friend void swap(HibernateResumeReady& a, HibernateResumeReady& b) {
     a.Swap(&b);
   }
-  inline void Swap(HibernateResumeReady* other) {
+  PROTOBUF_NOINLINE void Swap(HibernateResumeReady* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

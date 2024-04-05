@@ -103,7 +103,7 @@ class Timestamp final :
   friend void swap(Timestamp& a, Timestamp& b) {
     a.Swap(&b);
   }
-  inline void Swap(Timestamp* other) {
+  PROTOBUF_NOINLINE void Swap(Timestamp* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

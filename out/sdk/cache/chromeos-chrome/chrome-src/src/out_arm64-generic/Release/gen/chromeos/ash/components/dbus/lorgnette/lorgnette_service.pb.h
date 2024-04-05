@@ -581,7 +581,7 @@ class ScannableArea final :
   friend void swap(ScannableArea& a, ScannableArea& b) {
     a.Swap(&b);
   }
-  inline void Swap(ScannableArea* other) {
+  PROTOBUF_NOINLINE void Swap(ScannableArea* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -722,7 +722,7 @@ class DocumentSource final :
   friend void swap(DocumentSource& a, DocumentSource& b) {
     a.Swap(&b);
   }
-  inline void Swap(DocumentSource* other) {
+  PROTOBUF_NOINLINE void Swap(DocumentSource* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -933,7 +933,7 @@ class ScannerInfo final :
   friend void swap(ScannerInfo& a, ScannerInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(ScannerInfo* other) {
+  PROTOBUF_NOINLINE void Swap(ScannerInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1212,7 +1212,7 @@ class ListScannersResponse final :
   friend void swap(ListScannersResponse& a, ListScannersResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListScannersResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ListScannersResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1362,7 +1362,7 @@ class ScannerCapabilities final :
   friend void swap(ScannerCapabilities& a, ScannerCapabilities& b) {
     a.Swap(&b);
   }
-  inline void Swap(ScannerCapabilities* other) {
+  PROTOBUF_NOINLINE void Swap(ScannerCapabilities* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1546,7 +1546,7 @@ class ScanRegion final :
   friend void swap(ScanRegion& a, ScanRegion& b) {
     a.Swap(&b);
   }
-  inline void Swap(ScanRegion* other) {
+  PROTOBUF_NOINLINE void Swap(ScanRegion* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1709,7 +1709,7 @@ class ScanSettings final :
   friend void swap(ScanSettings& a, ScanSettings& b) {
     a.Swap(&b);
   }
-  inline void Swap(ScanSettings* other) {
+  PROTOBUF_NOINLINE void Swap(ScanSettings* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1897,7 +1897,7 @@ class ScannerId final :
   friend void swap(ScannerId& a, ScannerId& b) {
     a.Swap(&b);
   }
-  inline void Swap(ScannerId* other) {
+  PROTOBUF_NOINLINE void Swap(ScannerId* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2032,7 +2032,7 @@ class ScannerHandle final :
   friend void swap(ScannerHandle& a, ScannerHandle& b) {
     a.Swap(&b);
   }
-  inline void Swap(ScannerHandle* other) {
+  PROTOBUF_NOINLINE void Swap(ScannerHandle* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2167,7 +2167,7 @@ class JobHandle final :
   friend void swap(JobHandle& a, JobHandle& b) {
     a.Swap(&b);
   }
-  inline void Swap(JobHandle* other) {
+  PROTOBUF_NOINLINE void Swap(JobHandle* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2302,7 +2302,7 @@ class OptionGroup final :
   friend void swap(OptionGroup& a, OptionGroup& b) {
     a.Swap(&b);
   }
-  inline void Swap(OptionGroup* other) {
+  PROTOBUF_NOINLINE void Swap(OptionGroup* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2463,7 +2463,7 @@ class OptionConstraint_IntRange final :
   friend void swap(OptionConstraint_IntRange& a, OptionConstraint_IntRange& b) {
     a.Swap(&b);
   }
-  inline void Swap(OptionConstraint_IntRange* other) {
+  PROTOBUF_NOINLINE void Swap(OptionConstraint_IntRange* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2615,7 +2615,7 @@ class OptionConstraint_FixedRange final :
   friend void swap(OptionConstraint_FixedRange& a, OptionConstraint_FixedRange& b) {
     a.Swap(&b);
   }
-  inline void Swap(OptionConstraint_FixedRange* other) {
+  PROTOBUF_NOINLINE void Swap(OptionConstraint_FixedRange* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2767,7 +2767,7 @@ class OptionConstraint final :
   friend void swap(OptionConstraint& a, OptionConstraint& b) {
     a.Swap(&b);
   }
-  inline void Swap(OptionConstraint* other) {
+  PROTOBUF_NOINLINE void Swap(OptionConstraint* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3050,7 +3050,7 @@ class ScannerOption_IntValues final :
   friend void swap(ScannerOption_IntValues& a, ScannerOption_IntValues& b) {
     a.Swap(&b);
   }
-  inline void Swap(ScannerOption_IntValues* other) {
+  PROTOBUF_NOINLINE void Swap(ScannerOption_IntValues* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3194,7 +3194,7 @@ class ScannerOption_FixedValues final :
   friend void swap(ScannerOption_FixedValues& a, ScannerOption_FixedValues& b) {
     a.Swap(&b);
   }
-  inline void Swap(ScannerOption_FixedValues* other) {
+  PROTOBUF_NOINLINE void Swap(ScannerOption_FixedValues* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3345,7 +3345,7 @@ class ScannerOption final :
   friend void swap(ScannerOption& a, ScannerOption& b) {
     a.Swap(&b);
   }
-  inline void Swap(ScannerOption* other) {
+  PROTOBUF_NOINLINE void Swap(ScannerOption* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3749,7 +3749,7 @@ class ScannerConfig final :
   friend void swap(ScannerConfig& a, ScannerConfig& b) {
     a.Swap(&b);
   }
-  inline void Swap(ScannerConfig* other) {
+  PROTOBUF_NOINLINE void Swap(ScannerConfig* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3932,7 +3932,7 @@ class StartScanRequest final :
   friend void swap(StartScanRequest& a, StartScanRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartScanRequest* other) {
+  PROTOBUF_NOINLINE void Swap(StartScanRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4087,7 +4087,7 @@ class StartScanResponse final :
   friend void swap(StartScanResponse& a, StartScanResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartScanResponse* other) {
+  PROTOBUF_NOINLINE void Swap(StartScanResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4260,7 +4260,7 @@ class GetNextImageRequest final :
   friend void swap(GetNextImageRequest& a, GetNextImageRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetNextImageRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetNextImageRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4395,7 +4395,7 @@ class GetNextImageResponse final :
   friend void swap(GetNextImageResponse& a, GetNextImageResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetNextImageResponse* other) {
+  PROTOBUF_NOINLINE void Swap(GetNextImageResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4552,7 +4552,7 @@ class CancelScanRequest final :
   friend void swap(CancelScanRequest& a, CancelScanRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(CancelScanRequest* other) {
+  PROTOBUF_NOINLINE void Swap(CancelScanRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4708,7 +4708,7 @@ class CancelScanResponse final :
   friend void swap(CancelScanResponse& a, CancelScanResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(CancelScanResponse* other) {
+  PROTOBUF_NOINLINE void Swap(CancelScanResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4886,7 +4886,7 @@ class ScanStatusChangedSignal final :
   friend void swap(ScanStatusChangedSignal& a, ScanStatusChangedSignal& b) {
     a.Swap(&b);
   }
-  inline void Swap(ScanStatusChangedSignal* other) {
+  PROTOBUF_NOINLINE void Swap(ScanStatusChangedSignal* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5092,7 +5092,7 @@ class SetDebugConfigRequest final :
   friend void swap(SetDebugConfigRequest& a, SetDebugConfigRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetDebugConfigRequest* other) {
+  PROTOBUF_NOINLINE void Swap(SetDebugConfigRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5222,7 +5222,7 @@ class SetDebugConfigResponse final :
   friend void swap(SetDebugConfigResponse& a, SetDebugConfigResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetDebugConfigResponse* other) {
+  PROTOBUF_NOINLINE void Swap(SetDebugConfigResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5363,7 +5363,7 @@ class StartScannerDiscoveryRequest final :
   friend void swap(StartScannerDiscoveryRequest& a, StartScannerDiscoveryRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartScannerDiscoveryRequest* other) {
+  PROTOBUF_NOINLINE void Swap(StartScannerDiscoveryRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5531,7 +5531,7 @@ class StartScannerDiscoveryResponse final :
   friend void swap(StartScannerDiscoveryResponse& a, StartScannerDiscoveryResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartScannerDiscoveryResponse* other) {
+  PROTOBUF_NOINLINE void Swap(StartScannerDiscoveryResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5677,7 +5677,7 @@ class ScannerListChangedSignal final :
   friend void swap(ScannerListChangedSignal& a, ScannerListChangedSignal& b) {
     a.Swap(&b);
   }
-  inline void Swap(ScannerListChangedSignal* other) {
+  PROTOBUF_NOINLINE void Swap(ScannerListChangedSignal* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5875,7 +5875,7 @@ class StopScannerDiscoveryRequest final :
   friend void swap(StopScannerDiscoveryRequest& a, StopScannerDiscoveryRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(StopScannerDiscoveryRequest* other) {
+  PROTOBUF_NOINLINE void Swap(StopScannerDiscoveryRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6010,7 +6010,7 @@ class StopScannerDiscoveryResponse final :
   friend void swap(StopScannerDiscoveryResponse& a, StopScannerDiscoveryResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(StopScannerDiscoveryResponse* other) {
+  PROTOBUF_NOINLINE void Swap(StopScannerDiscoveryResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6140,7 +6140,7 @@ class OpenScannerRequest final :
   friend void swap(OpenScannerRequest& a, OpenScannerRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(OpenScannerRequest* other) {
+  PROTOBUF_NOINLINE void Swap(OpenScannerRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6295,7 +6295,7 @@ class OpenScannerResponse final :
   friend void swap(OpenScannerResponse& a, OpenScannerResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(OpenScannerResponse* other) {
+  PROTOBUF_NOINLINE void Swap(OpenScannerResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6466,7 +6466,7 @@ class CloseScannerRequest final :
   friend void swap(CloseScannerRequest& a, CloseScannerRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(CloseScannerRequest* other) {
+  PROTOBUF_NOINLINE void Swap(CloseScannerRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6605,7 +6605,7 @@ class CloseScannerResponse final :
   friend void swap(CloseScannerResponse& a, CloseScannerResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(CloseScannerResponse* other) {
+  PROTOBUF_NOINLINE void Swap(CloseScannerResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6755,7 +6755,7 @@ class SetOptionsRequest final :
   friend void swap(SetOptionsRequest& a, SetOptionsRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetOptionsRequest* other) {
+  PROTOBUF_NOINLINE void Swap(SetOptionsRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6938,7 +6938,7 @@ class SetOptionsResponse final :
   friend void swap(SetOptionsResponse& a, SetOptionsResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetOptionsResponse* other) {
+  PROTOBUF_NOINLINE void Swap(SetOptionsResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7122,7 +7122,7 @@ class GetCurrentConfigRequest final :
   friend void swap(GetCurrentConfigRequest& a, GetCurrentConfigRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetCurrentConfigRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetCurrentConfigRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7261,7 +7261,7 @@ class GetCurrentConfigResponse final :
   friend void swap(GetCurrentConfigResponse& a, GetCurrentConfigResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetCurrentConfigResponse* other) {
+  PROTOBUF_NOINLINE void Swap(GetCurrentConfigResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7432,7 +7432,7 @@ class StartPreparedScanRequest final :
   friend void swap(StartPreparedScanRequest& a, StartPreparedScanRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartPreparedScanRequest* other) {
+  PROTOBUF_NOINLINE void Swap(StartPreparedScanRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7603,7 +7603,7 @@ class StartPreparedScanResponse final :
   friend void swap(StartPreparedScanResponse& a, StartPreparedScanResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartPreparedScanResponse* other) {
+  PROTOBUF_NOINLINE void Swap(StartPreparedScanResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7774,7 +7774,7 @@ class ReadScanDataRequest final :
   friend void swap(ReadScanDataRequest& a, ReadScanDataRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ReadScanDataRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ReadScanDataRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7913,7 +7913,7 @@ class ReadScanDataResponse final :
   friend void swap(ReadScanDataResponse& a, ReadScanDataResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ReadScanDataResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ReadScanDataResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

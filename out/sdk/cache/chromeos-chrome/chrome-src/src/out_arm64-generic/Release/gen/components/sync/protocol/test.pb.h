@@ -108,7 +108,7 @@ class UnknownFieldsTestA final :
   friend void swap(UnknownFieldsTestA& a, UnknownFieldsTestA& b) {
     a.Swap(&b);
   }
-  inline void Swap(UnknownFieldsTestA* other) {
+  PROTOBUF_NOINLINE void Swap(UnknownFieldsTestA* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -250,7 +250,7 @@ class UnknownFieldsTestB final :
   friend void swap(UnknownFieldsTestB& a, UnknownFieldsTestB& b) {
     a.Swap(&b);
   }
-  inline void Swap(UnknownFieldsTestB* other) {
+  PROTOBUF_NOINLINE void Swap(UnknownFieldsTestB* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

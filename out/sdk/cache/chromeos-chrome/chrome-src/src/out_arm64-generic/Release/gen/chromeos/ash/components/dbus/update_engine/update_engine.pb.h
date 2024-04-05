@@ -193,7 +193,7 @@ class ApplyUpdateConfig final :
   friend void swap(ApplyUpdateConfig& a, ApplyUpdateConfig& b) {
     a.Swap(&b);
   }
-  inline void Swap(ApplyUpdateConfig* other) {
+  PROTOBUF_NOINLINE void Swap(ApplyUpdateConfig* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -323,7 +323,7 @@ class Feature final :
   friend void swap(Feature& a, Feature& b) {
     a.Swap(&b);
   }
-  inline void Swap(Feature* other) {
+  PROTOBUF_NOINLINE void Swap(Feature* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -469,7 +469,7 @@ class StatusResult final :
   friend void swap(StatusResult& a, StatusResult& b) {
     a.Swap(&b);
   }
-  inline void Swap(StatusResult* other) {
+  PROTOBUF_NOINLINE void Swap(StatusResult* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -778,7 +778,7 @@ class UpdateFlags final :
   friend void swap(UpdateFlags& a, UpdateFlags& b) {
     a.Swap(&b);
   }
-  inline void Swap(UpdateFlags* other) {
+  PROTOBUF_NOINLINE void Swap(UpdateFlags* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -908,7 +908,7 @@ class UpdateParams final :
   friend void swap(UpdateParams& a, UpdateParams& b) {
     a.Swap(&b);
   }
-  inline void Swap(UpdateParams* other) {
+  PROTOBUF_NOINLINE void Swap(UpdateParams* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1101,7 +1101,7 @@ class InstallParams final :
   friend void swap(InstallParams& a, InstallParams& b) {
     a.Swap(&b);
   }
-  inline void Swap(InstallParams* other) {
+  PROTOBUF_NOINLINE void Swap(InstallParams* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

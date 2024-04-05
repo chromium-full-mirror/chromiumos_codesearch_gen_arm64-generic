@@ -120,7 +120,7 @@ class PrivacyScreenSetting final :
   friend void swap(PrivacyScreenSetting& a, PrivacyScreenSetting& b) {
     a.Swap(&b);
   }
-  inline void Swap(PrivacyScreenSetting* other) {
+  PROTOBUF_NOINLINE void Swap(PrivacyScreenSetting* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

@@ -221,7 +221,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(PrivateMembershipRlweOprfRequest& a, PrivateMembershipRlweOprfRequest& b) {
 a.Swap(&b);
 }
-inline void Swap(PrivateMembershipRlweOprfRequest* other) {
+PROTOBUF_NOINLINE void Swap(PrivateMembershipRlweOprfRequest* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -377,7 +377,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(PrivateMembershipRlweOprfResponse& a, PrivateMembershipRlweOprfResponse& b) {
 a.Swap(&b);
 }
-inline void Swap(PrivateMembershipRlweOprfResponse* other) {
+PROTOBUF_NOINLINE void Swap(PrivateMembershipRlweOprfResponse* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -587,7 +587,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(PrivateMembershipRlweQueryRequest& a, PrivateMembershipRlweQueryRequest& b) {
 a.Swap(&b);
 }
-inline void Swap(PrivateMembershipRlweQueryRequest* other) {
+PROTOBUF_NOINLINE void Swap(PrivateMembershipRlweQueryRequest* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -748,7 +748,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(PrivateMembershipRlweQueryResponse& a, PrivateMembershipRlweQueryResponse& b) {
 a.Swap(&b);
 }
-inline void Swap(PrivateMembershipRlweQueryResponse* other) {
+PROTOBUF_NOINLINE void Swap(PrivateMembershipRlweQueryResponse* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -887,7 +887,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(RlwePlaintextId& a, RlwePlaintextId& b) {
 a.Swap(&b);
 }
-inline void Swap(RlwePlaintextId* other) {
+PROTOBUF_NOINLINE void Swap(RlwePlaintextId* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -1038,7 +1038,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(HashedBucketsParameters& a, HashedBucketsParameters& b) {
 a.Swap(&b);
 }
-inline void Swap(HashedBucketsParameters* other) {
+PROTOBUF_NOINLINE void Swap(HashedBucketsParameters* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -1179,7 +1179,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(EncryptedBucketsParameters& a, EncryptedBucketsParameters& b) {
 a.Swap(&b);
 }
-inline void Swap(EncryptedBucketsParameters* other) {
+PROTOBUF_NOINLINE void Swap(EncryptedBucketsParameters* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -1320,7 +1320,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(RlweParameters& a, RlweParameters& b) {
 a.Swap(&b);
 }
-inline void Swap(RlweParameters* other) {
+PROTOBUF_NOINLINE void Swap(RlweParameters* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -1503,7 +1503,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(Uint128& a, Uint128& b) {
 a.Swap(&b);
 }
-inline void Swap(Uint128* other) {
+PROTOBUF_NOINLINE void Swap(Uint128* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -1644,7 +1644,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(PrivateMembershipRlweQuery_HashedBucketId& a, PrivateMembershipRlweQuery_HashedBucketId& b) {
 a.Swap(&b);
 }
-inline void Swap(PrivateMembershipRlweQuery_HashedBucketId* other) {
+PROTOBUF_NOINLINE void Swap(PrivateMembershipRlweQuery_HashedBucketId* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -1790,7 +1790,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(PrivateMembershipRlweQuery& a, PrivateMembershipRlweQuery& b) {
 a.Swap(&b);
 }
-inline void Swap(PrivateMembershipRlweQuery* other) {
+PROTOBUF_NOINLINE void Swap(PrivateMembershipRlweQuery* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -1967,7 +1967,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(PrivateMembershipRlwePirResponse& a, PrivateMembershipRlwePirResponse& b) {
 a.Swap(&b);
 }
-inline void Swap(PrivateMembershipRlwePirResponse* other) {
+PROTOBUF_NOINLINE void Swap(PrivateMembershipRlwePirResponse* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -2122,7 +2122,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& a, PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& b) {
 a.Swap(&b);
 }
-inline void Swap(PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* other) {
+PROTOBUF_NOINLINE void Swap(PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -2262,7 +2262,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(PirRequest_ExpandedRequest& a, PirRequest_ExpandedRequest& b) {
 a.Swap(&b);
 }
-inline void Swap(PirRequest_ExpandedRequest* other) {
+PROTOBUF_NOINLINE void Swap(PirRequest_ExpandedRequest* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -2403,7 +2403,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(PirRequest_CompactRequest& a, PirRequest_CompactRequest& b) {
 a.Swap(&b);
 }
-inline void Swap(PirRequest_CompactRequest* other) {
+PROTOBUF_NOINLINE void Swap(PirRequest_CompactRequest* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -2548,7 +2548,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(PirRequest& a, PirRequest& b) {
 a.Swap(&b);
 }
-inline void Swap(PirRequest* other) {
+PROTOBUF_NOINLINE void Swap(PirRequest* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -2759,7 +2759,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(PirResponse& a, PirResponse& b) {
 a.Swap(&b);
 }
-inline void Swap(PirResponse* other) {
+PROTOBUF_NOINLINE void Swap(PirResponse* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -2909,7 +2909,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(EncryptedBucket_EncryptedIdValuePair& a, EncryptedBucket_EncryptedIdValuePair& b) {
 a.Swap(&b);
 }
-inline void Swap(EncryptedBucket_EncryptedIdValuePair* other) {
+PROTOBUF_NOINLINE void Swap(EncryptedBucket_EncryptedIdValuePair* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -3080,7 +3080,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(EncryptedBucket& a, EncryptedBucket& b) {
 a.Swap(&b);
 }
-inline void Swap(EncryptedBucket* other) {
+PROTOBUF_NOINLINE void Swap(EncryptedBucket* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -3221,7 +3221,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(RlweMembershipResponses_MembershipResponseEntry& a, RlweMembershipResponses_MembershipResponseEntry& b) {
 a.Swap(&b);
 }
-inline void Swap(RlweMembershipResponses_MembershipResponseEntry* other) {
+PROTOBUF_NOINLINE void Swap(RlweMembershipResponses_MembershipResponseEntry* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -3380,7 +3380,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(RlweMembershipResponses& a, RlweMembershipResponses& b) {
 a.Swap(&b);
 }
-inline void Swap(RlweMembershipResponses* other) {
+PROTOBUF_NOINLINE void Swap(RlweMembershipResponses* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&

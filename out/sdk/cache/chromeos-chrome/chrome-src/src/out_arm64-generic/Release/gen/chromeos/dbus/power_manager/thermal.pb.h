@@ -127,7 +127,7 @@ class ThermalEvent final :
   friend void swap(ThermalEvent& a, ThermalEvent& b) {
     a.Swap(&b);
   }
-  inline void Swap(ThermalEvent* other) {
+  PROTOBUF_NOINLINE void Swap(ThermalEvent* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

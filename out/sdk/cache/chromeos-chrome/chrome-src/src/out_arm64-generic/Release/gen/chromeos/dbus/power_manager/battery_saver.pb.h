@@ -130,7 +130,7 @@ class SetBatterySaverModeStateRequest final :
   friend void swap(SetBatterySaverModeStateRequest& a, SetBatterySaverModeStateRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetBatterySaverModeStateRequest* other) {
+  PROTOBUF_NOINLINE void Swap(SetBatterySaverModeStateRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -272,7 +272,7 @@ class BatterySaverModeState final :
   friend void swap(BatterySaverModeState& a, BatterySaverModeState& b) {
     a.Swap(&b);
   }
-  inline void Swap(BatterySaverModeState* other) {
+  PROTOBUF_NOINLINE void Swap(BatterySaverModeState* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

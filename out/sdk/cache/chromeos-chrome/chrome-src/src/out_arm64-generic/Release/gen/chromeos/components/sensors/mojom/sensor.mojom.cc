@@ -637,7 +637,7 @@ void SensorService_GetAllDeviceIds_ProxyToResponder::Run(
       typename decltype(params->iio_device_ids_types)::BaseType>
       iio_device_ids_types_fragment(params.message());
   constexpr const mojo::internal::ContainerValidateParams& iio_device_ids_types_validate_params =
-      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::sensors::mojom::internal::DeviceType_Data::Validate>()>()>();
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayOfEnumsValidator<0, false, ::chromeos::sensors::mojom::internal::DeviceType_Data::Validate>()>()>();
   mojo::internal::Serialize<mojo::MapDataView<int32_t, mojo::ArrayDataView<::chromeos::sensors::mojom::DeviceType>>>(
       in_iio_device_ids_types, iio_device_ids_types_fragment, &iio_device_ids_types_validate_params);
   params->iio_device_ids_types.Set(
@@ -3107,7 +3107,7 @@ void SensorServiceNewDevicesObserverProxy::OnNewDeviceAdded(
       typename decltype(params->types)::BaseType>
       types_fragment(params.message());
   constexpr const mojo::internal::ContainerValidateParams& types_validate_params =
-      mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::sensors::mojom::internal::DeviceType_Data::Validate>();
+      mojo::internal::GetArrayOfEnumsValidator<0, false, ::chromeos::sensors::mojom::internal::DeviceType_Data::Validate>();
   mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::sensors::mojom::DeviceType>>(
       in_types, types_fragment, &types_validate_params);
   params->types.Set(

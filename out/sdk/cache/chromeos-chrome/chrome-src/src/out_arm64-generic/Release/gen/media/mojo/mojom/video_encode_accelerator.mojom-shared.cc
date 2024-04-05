@@ -330,7 +330,7 @@ bool VideoEncodeAcceleratorSupportedProfile_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& rate_control_modes_validate_params =
-      mojo::internal::GetArrayOfEnumsValidator<0, ::media::mojom::internal::VideoEncodeAcceleratorSupportedRateControlMode_Data::Validate>();
+      mojo::internal::GetArrayOfEnumsValidator<0, false, ::media::mojom::internal::VideoEncodeAcceleratorSupportedRateControlMode_Data::Validate>();
   if (!mojo::internal::ValidateContainer(object->rate_control_modes, validation_context,
                                          &rate_control_modes_validate_params)) {
     return false;
@@ -341,7 +341,7 @@ bool VideoEncodeAcceleratorSupportedProfile_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& scalability_modes_validate_params =
-      mojo::internal::GetArrayOfEnumsValidator<0, ::media::mojom::internal::SVCScalabilityMode_Data::Validate>();
+      mojo::internal::GetArrayOfEnumsValidator<0, false, ::media::mojom::internal::SVCScalabilityMode_Data::Validate>();
   if (!mojo::internal::ValidateContainer(object->scalability_modes, validation_context,
                                          &scalability_modes_validate_params)) {
     return false;

@@ -919,7 +919,7 @@ class VirtualMachineSpec final :
   friend void swap(VirtualMachineSpec& a, VirtualMachineSpec& b) {
     a.Swap(&b);
   }
-  inline void Swap(VirtualMachineSpec* other) {
+  PROTOBUF_NOINLINE void Swap(VirtualMachineSpec* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1102,7 +1102,7 @@ class DiskImage final :
   friend void swap(DiskImage& a, DiskImage& b) {
     a.Swap(&b);
   }
-  inline void Swap(DiskImage* other) {
+  PROTOBUF_NOINLINE void Swap(DiskImage* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1362,7 +1362,7 @@ class VmInfo final :
   friend void swap(VmInfo& a, VmInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(VmInfo* other) {
+  PROTOBUF_NOINLINE void Swap(VmInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1608,7 +1608,7 @@ class NetworkOptions final :
   friend void swap(NetworkOptions& a, NetworkOptions& b) {
     a.Swap(&b);
   }
-  inline void Swap(NetworkOptions* other) {
+  PROTOBUF_NOINLINE void Swap(NetworkOptions* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1738,7 +1738,7 @@ class StartVmRequest final :
   friend void swap(StartVmRequest& a, StartVmRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartVmRequest* other) {
+  PROTOBUF_NOINLINE void Swap(StartVmRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2237,7 +2237,7 @@ class StartPluginVmRequest final :
   friend void swap(StartPluginVmRequest& a, StartPluginVmRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartPluginVmRequest* other) {
+  PROTOBUF_NOINLINE void Swap(StartPluginVmRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2456,7 +2456,7 @@ class StartArcVmRequest final :
   friend void swap(StartArcVmRequest& a, StartArcVmRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartArcVmRequest* other) {
+  PROTOBUF_NOINLINE void Swap(StartArcVmRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3085,7 +3085,7 @@ class StartVmResponse final :
   friend void swap(StartVmResponse& a, StartVmResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartVmResponse* other) {
+  PROTOBUF_NOINLINE void Swap(StartVmResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3325,7 +3325,7 @@ class VmStartedSignal final :
   friend void swap(VmStartedSignal& a, VmStartedSignal& b) {
     a.Swap(&b);
   }
-  inline void Swap(VmStartedSignal* other) {
+  PROTOBUF_NOINLINE void Swap(VmStartedSignal* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3507,7 +3507,7 @@ class VmStartingUpSignal final :
   friend void swap(VmStartingUpSignal& a, VmStartingUpSignal& b) {
     a.Swap(&b);
   }
-  inline void Swap(VmStartingUpSignal* other) {
+  PROTOBUF_NOINLINE void Swap(VmStartingUpSignal* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3680,7 +3680,7 @@ class VmGuestUserlandReadySignal final :
   friend void swap(VmGuestUserlandReadySignal& a, VmGuestUserlandReadySignal& b) {
     a.Swap(&b);
   }
-  inline void Swap(VmGuestUserlandReadySignal* other) {
+  PROTOBUF_NOINLINE void Swap(VmGuestUserlandReadySignal* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3842,7 +3842,7 @@ class StopVmRequest final :
   friend void swap(StopVmRequest& a, StopVmRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(StopVmRequest* other) {
+  PROTOBUF_NOINLINE void Swap(StopVmRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3993,7 +3993,7 @@ class StopVmResponse final :
   friend void swap(StopVmResponse& a, StopVmResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(StopVmResponse* other) {
+  PROTOBUF_NOINLINE void Swap(StopVmResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4139,7 +4139,7 @@ class VmStoppedSignal final :
   friend void swap(VmStoppedSignal& a, VmStoppedSignal& b) {
     a.Swap(&b);
   }
-  inline void Swap(VmStoppedSignal* other) {
+  PROTOBUF_NOINLINE void Swap(VmStoppedSignal* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4312,7 +4312,7 @@ class VmStoppingSignal final :
   friend void swap(VmStoppingSignal& a, VmStoppingSignal& b) {
     a.Swap(&b);
   }
-  inline void Swap(VmStoppingSignal* other) {
+  PROTOBUF_NOINLINE void Swap(VmStoppingSignal* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4474,7 +4474,7 @@ class SuspendVmRequest final :
   friend void swap(SuspendVmRequest& a, SuspendVmRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SuspendVmRequest* other) {
+  PROTOBUF_NOINLINE void Swap(SuspendVmRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4625,7 +4625,7 @@ class SuspendVmResponse final :
   friend void swap(SuspendVmResponse& a, SuspendVmResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SuspendVmResponse* other) {
+  PROTOBUF_NOINLINE void Swap(SuspendVmResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4771,7 +4771,7 @@ class ResumeVmRequest final :
   friend void swap(ResumeVmRequest& a, ResumeVmRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ResumeVmRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ResumeVmRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4922,7 +4922,7 @@ class ResumeVmResponse final :
   friend void swap(ResumeVmResponse& a, ResumeVmResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ResumeVmResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ResumeVmResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5068,7 +5068,7 @@ class SyncVmTimesResponse final :
   friend void swap(SyncVmTimesResponse& a, SyncVmTimesResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SyncVmTimesResponse* other) {
+  PROTOBUF_NOINLINE void Swap(SyncVmTimesResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5235,7 +5235,7 @@ class GetVmInfoRequest final :
   friend void swap(GetVmInfoRequest& a, GetVmInfoRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetVmInfoRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetVmInfoRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5386,7 +5386,7 @@ class GetVmInfoResponse final :
   friend void swap(GetVmInfoResponse& a, GetVmInfoResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetVmInfoResponse* other) {
+  PROTOBUF_NOINLINE void Swap(GetVmInfoResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5536,7 +5536,7 @@ class GetVmEnterpriseReportingInfoRequest final :
   friend void swap(GetVmEnterpriseReportingInfoRequest& a, GetVmEnterpriseReportingInfoRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetVmEnterpriseReportingInfoRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetVmEnterpriseReportingInfoRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5687,7 +5687,7 @@ class GetVmEnterpriseReportingInfoResponse final :
   friend void swap(GetVmEnterpriseReportingInfoResponse& a, GetVmEnterpriseReportingInfoResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetVmEnterpriseReportingInfoResponse* other) {
+  PROTOBUF_NOINLINE void Swap(GetVmEnterpriseReportingInfoResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5849,7 +5849,7 @@ class ArcVmCompleteBootRequest final :
   friend void swap(ArcVmCompleteBootRequest& a, ArcVmCompleteBootRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ArcVmCompleteBootRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ArcVmCompleteBootRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5984,7 +5984,7 @@ class ArcVmCompleteBootResponse final :
   friend void swap(ArcVmCompleteBootResponse& a, ArcVmCompleteBootResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ArcVmCompleteBootResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ArcVmCompleteBootResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6114,7 +6114,7 @@ class SetBalloonTimerRequest final :
   friend void swap(SetBalloonTimerRequest& a, SetBalloonTimerRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetBalloonTimerRequest* other) {
+  PROTOBUF_NOINLINE void Swap(SetBalloonTimerRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6244,7 +6244,7 @@ class SetBalloonTimerResponse final :
   friend void swap(SetBalloonTimerResponse& a, SetBalloonTimerResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetBalloonTimerResponse* other) {
+  PROTOBUF_NOINLINE void Swap(SetBalloonTimerResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6390,7 +6390,7 @@ class CreateDiskImageRequest final :
   friend void swap(CreateDiskImageRequest& a, CreateDiskImageRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(CreateDiskImageRequest* other) {
+  PROTOBUF_NOINLINE void Swap(CreateDiskImageRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6696,7 +6696,7 @@ class CreateDiskImageResponse final :
   friend void swap(CreateDiskImageResponse& a, CreateDiskImageResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(CreateDiskImageResponse* other) {
+  PROTOBUF_NOINLINE void Swap(CreateDiskImageResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6874,7 +6874,7 @@ class DestroyDiskImageRequest final :
   friend void swap(DestroyDiskImageRequest& a, DestroyDiskImageRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(DestroyDiskImageRequest* other) {
+  PROTOBUF_NOINLINE void Swap(DestroyDiskImageRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7025,7 +7025,7 @@ class DestroyDiskImageResponse final :
   friend void swap(DestroyDiskImageResponse& a, DestroyDiskImageResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(DestroyDiskImageResponse* other) {
+  PROTOBUF_NOINLINE void Swap(DestroyDiskImageResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7171,7 +7171,7 @@ class ResizeDiskImageRequest final :
   friend void swap(ResizeDiskImageRequest& a, ResizeDiskImageRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ResizeDiskImageRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ResizeDiskImageRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7333,7 +7333,7 @@ class ResizeDiskImageResponse final :
   friend void swap(ResizeDiskImageResponse& a, ResizeDiskImageResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ResizeDiskImageResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ResizeDiskImageResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7495,7 +7495,7 @@ class ExportDiskImageRequest final :
   friend void swap(ExportDiskImageRequest& a, ExportDiskImageRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ExportDiskImageRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ExportDiskImageRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7668,7 +7668,7 @@ class ExportDiskImageResponse final :
   friend void swap(ExportDiskImageResponse& a, ExportDiskImageResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ExportDiskImageResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ExportDiskImageResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7830,7 +7830,7 @@ class ImportDiskImageRequest final :
   friend void swap(ImportDiskImageRequest& a, ImportDiskImageRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ImportDiskImageRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ImportDiskImageRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -8003,7 +8003,7 @@ class ImportDiskImageResponse final :
   friend void swap(ImportDiskImageResponse& a, ImportDiskImageResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ImportDiskImageResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ImportDiskImageResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -8165,7 +8165,7 @@ class DiskImageStatusRequest final :
   friend void swap(DiskImageStatusRequest& a, DiskImageStatusRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(DiskImageStatusRequest* other) {
+  PROTOBUF_NOINLINE void Swap(DiskImageStatusRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -8300,7 +8300,7 @@ class DiskImageStatusResponse final :
   friend void swap(DiskImageStatusResponse& a, DiskImageStatusResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(DiskImageStatusResponse* other) {
+  PROTOBUF_NOINLINE void Swap(DiskImageStatusResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -8473,7 +8473,7 @@ class CancelDiskImageRequest final :
   friend void swap(CancelDiskImageRequest& a, CancelDiskImageRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(CancelDiskImageRequest* other) {
+  PROTOBUF_NOINLINE void Swap(CancelDiskImageRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -8608,7 +8608,7 @@ class CancelDiskImageResponse final :
   friend void swap(CancelDiskImageResponse& a, CancelDiskImageResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(CancelDiskImageResponse* other) {
+  PROTOBUF_NOINLINE void Swap(CancelDiskImageResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -8754,7 +8754,7 @@ class ListVmDisksRequest final :
   friend void swap(ListVmDisksRequest& a, ListVmDisksRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListVmDisksRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ListVmDisksRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -8927,7 +8927,7 @@ class VmDiskInfo final :
   friend void swap(VmDiskInfo& a, VmDiskInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(VmDiskInfo* other) {
+  PROTOBUF_NOINLINE void Swap(VmDiskInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -9144,7 +9144,7 @@ class ListVmDisksResponse final :
   friend void swap(ListVmDisksResponse& a, ListVmDisksResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListVmDisksResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ListVmDisksResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -9321,7 +9321,7 @@ class AttachUsbDeviceRequest final :
   friend void swap(AttachUsbDeviceRequest& a, AttachUsbDeviceRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AttachUsbDeviceRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AttachUsbDeviceRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -9516,7 +9516,7 @@ class AttachUsbDeviceResponse final :
   friend void swap(AttachUsbDeviceResponse& a, AttachUsbDeviceResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(AttachUsbDeviceResponse* other) {
+  PROTOBUF_NOINLINE void Swap(AttachUsbDeviceResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -9673,7 +9673,7 @@ class AttachKeyRequest final :
   friend void swap(AttachKeyRequest& a, AttachKeyRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AttachKeyRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AttachKeyRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -9840,7 +9840,7 @@ class AttachKeyResponse final :
   friend void swap(AttachKeyResponse& a, AttachKeyResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(AttachKeyResponse* other) {
+  PROTOBUF_NOINLINE void Swap(AttachKeyResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -9997,7 +9997,7 @@ class DetachUsbDeviceRequest final :
   friend void swap(DetachUsbDeviceRequest& a, DetachUsbDeviceRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(DetachUsbDeviceRequest* other) {
+  PROTOBUF_NOINLINE void Swap(DetachUsbDeviceRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -10159,7 +10159,7 @@ class DetachUsbDeviceResponse final :
   friend void swap(DetachUsbDeviceResponse& a, DetachUsbDeviceResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(DetachUsbDeviceResponse* other) {
+  PROTOBUF_NOINLINE void Swap(DetachUsbDeviceResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -10305,7 +10305,7 @@ class ListUsbDeviceRequest final :
   friend void swap(ListUsbDeviceRequest& a, ListUsbDeviceRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListUsbDeviceRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ListUsbDeviceRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -10456,7 +10456,7 @@ class UsbDeviceMessage final :
   friend void swap(UsbDeviceMessage& a, UsbDeviceMessage& b) {
     a.Swap(&b);
   }
-  inline void Swap(UsbDeviceMessage* other) {
+  PROTOBUF_NOINLINE void Swap(UsbDeviceMessage* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -10624,7 +10624,7 @@ class ListUsbDeviceResponse final :
   friend void swap(ListUsbDeviceResponse& a, ListUsbDeviceResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListUsbDeviceResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ListUsbDeviceResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -10774,7 +10774,7 @@ class AttachNetDeviceRequest final :
   friend void swap(AttachNetDeviceRequest& a, AttachNetDeviceRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AttachNetDeviceRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AttachNetDeviceRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -10941,7 +10941,7 @@ class AttachNetDeviceResponse final :
   friend void swap(AttachNetDeviceResponse& a, AttachNetDeviceResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(AttachNetDeviceResponse* other) {
+  PROTOBUF_NOINLINE void Swap(AttachNetDeviceResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -11098,7 +11098,7 @@ class DetachNetDeviceRequest final :
   friend void swap(DetachNetDeviceRequest& a, DetachNetDeviceRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(DetachNetDeviceRequest* other) {
+  PROTOBUF_NOINLINE void Swap(DetachNetDeviceRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -11260,7 +11260,7 @@ class DetachNetDeviceResponse final :
   friend void swap(DetachNetDeviceResponse& a, DetachNetDeviceResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(DetachNetDeviceResponse* other) {
+  PROTOBUF_NOINLINE void Swap(DetachNetDeviceResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -11406,7 +11406,7 @@ class DnsSettings final :
   friend void swap(DnsSettings& a, DnsSettings& b) {
     a.Swap(&b);
   }
-  inline void Swap(DnsSettings* other) {
+  PROTOBUF_NOINLINE void Swap(DnsSettings* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -11577,7 +11577,7 @@ class SetVmCpuRestrictionRequest final :
   friend void swap(SetVmCpuRestrictionRequest& a, SetVmCpuRestrictionRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetVmCpuRestrictionRequest* other) {
+  PROTOBUF_NOINLINE void Swap(SetVmCpuRestrictionRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -11718,7 +11718,7 @@ class SetVmCpuRestrictionResponse final :
   friend void swap(SetVmCpuRestrictionResponse& a, SetVmCpuRestrictionResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetVmCpuRestrictionResponse* other) {
+  PROTOBUF_NOINLINE void Swap(SetVmCpuRestrictionResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -11848,7 +11848,7 @@ class AdjustVmRequest final :
   friend void swap(AdjustVmRequest& a, AdjustVmRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AdjustVmRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AdjustVmRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -12041,7 +12041,7 @@ class AdjustVmResponse final :
   friend void swap(AdjustVmResponse& a, AdjustVmResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(AdjustVmResponse* other) {
+  PROTOBUF_NOINLINE void Swap(AdjustVmResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -12187,7 +12187,7 @@ class ReclaimVmMemoryRequest final :
   friend void swap(ReclaimVmMemoryRequest& a, ReclaimVmMemoryRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ReclaimVmMemoryRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ReclaimVmMemoryRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -12349,7 +12349,7 @@ class ReclaimVmMemoryResponse final :
   friend void swap(ReclaimVmMemoryResponse& a, ReclaimVmMemoryResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ReclaimVmMemoryResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ReclaimVmMemoryResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -12495,7 +12495,7 @@ class ListVmsRequest final :
   friend void swap(ListVmsRequest& a, ListVmsRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListVmsRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ListVmsRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -12630,7 +12630,7 @@ class ExtendedVmInfo final :
   friend void swap(ExtendedVmInfo& a, ExtendedVmInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(ExtendedVmInfo* other) {
+  PROTOBUF_NOINLINE void Swap(ExtendedVmInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -12812,7 +12812,7 @@ class ListVmsResponse final :
   friend void swap(ListVmsResponse& a, ListVmsResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListVmsResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ListVmsResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -12978,7 +12978,7 @@ class GetVmGpuCachePathRequest final :
   friend void swap(GetVmGpuCachePathRequest& a, GetVmGpuCachePathRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetVmGpuCachePathRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetVmGpuCachePathRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -13129,7 +13129,7 @@ class GetVmGpuCachePathResponse final :
   friend void swap(GetVmGpuCachePathResponse& a, GetVmGpuCachePathResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetVmGpuCachePathResponse* other) {
+  PROTOBUF_NOINLINE void Swap(GetVmGpuCachePathResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -13264,7 +13264,7 @@ class AddGroupPermissionMesaRequest final :
   friend void swap(AddGroupPermissionMesaRequest& a, AddGroupPermissionMesaRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AddGroupPermissionMesaRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AddGroupPermissionMesaRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -13415,7 +13415,7 @@ class GetVmLaunchAllowedRequest final :
   friend void swap(GetVmLaunchAllowedRequest& a, GetVmLaunchAllowedRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetVmLaunchAllowedRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetVmLaunchAllowedRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -13532,7 +13532,7 @@ class GetVmLaunchAllowedResponse final :
   friend void swap(GetVmLaunchAllowedResponse& a, GetVmLaunchAllowedResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetVmLaunchAllowedResponse* other) {
+  PROTOBUF_NOINLINE void Swap(GetVmLaunchAllowedResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -13678,7 +13678,7 @@ class GetVmLogsRequest final :
   friend void swap(GetVmLogsRequest& a, GetVmLogsRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetVmLogsRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetVmLogsRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -13829,7 +13829,7 @@ class GetVmLogsResponse final :
   friend void swap(GetVmLogsResponse& a, GetVmLogsResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetVmLogsResponse* other) {
+  PROTOBUF_NOINLINE void Swap(GetVmLogsResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -13964,7 +13964,7 @@ class SwapVmRequest final :
   friend void swap(SwapVmRequest& a, SwapVmRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SwapVmRequest* other) {
+  PROTOBUF_NOINLINE void Swap(SwapVmRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -14126,7 +14126,7 @@ class SwapVmResponse final :
   friend void swap(SwapVmResponse& a, SwapVmResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SwapVmResponse* other) {
+  PROTOBUF_NOINLINE void Swap(SwapVmResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -14272,7 +14272,7 @@ class VmSwappingSignal final :
   friend void swap(VmSwappingSignal& a, VmSwappingSignal& b) {
     a.Swap(&b);
   }
-  inline void Swap(VmSwappingSignal* other) {
+  PROTOBUF_NOINLINE void Swap(VmSwappingSignal* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -14434,7 +14434,7 @@ class InstallPflashRequest final :
   friend void swap(InstallPflashRequest& a, InstallPflashRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(InstallPflashRequest* other) {
+  PROTOBUF_NOINLINE void Swap(InstallPflashRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -14585,7 +14585,7 @@ class InstallPflashResponse final :
   friend void swap(InstallPflashResponse& a, InstallPflashResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(InstallPflashResponse* other) {
+  PROTOBUF_NOINLINE void Swap(InstallPflashResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -14731,7 +14731,7 @@ class AggressiveBalloonRequest final :
   friend void swap(AggressiveBalloonRequest& a, AggressiveBalloonRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AggressiveBalloonRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AggressiveBalloonRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -14893,7 +14893,7 @@ class AggressiveBalloonResponse final :
   friend void swap(AggressiveBalloonResponse& a, AggressiveBalloonResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(AggressiveBalloonResponse* other) {
+  PROTOBUF_NOINLINE void Swap(AggressiveBalloonResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -15039,7 +15039,7 @@ class GetVmMemoryManagementKillsConnectionRequest final :
   friend void swap(GetVmMemoryManagementKillsConnectionRequest& a, GetVmMemoryManagementKillsConnectionRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetVmMemoryManagementKillsConnectionRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetVmMemoryManagementKillsConnectionRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -15156,7 +15156,7 @@ class GetVmMemoryManagementKillsConnectionResponse final :
   friend void swap(GetVmMemoryManagementKillsConnectionResponse& a, GetVmMemoryManagementKillsConnectionResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetVmMemoryManagementKillsConnectionResponse* other) {
+  PROTOBUF_NOINLINE void Swap(GetVmMemoryManagementKillsConnectionResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

@@ -136,7 +136,7 @@ class MtpFileEntry final :
   friend void swap(MtpFileEntry& a, MtpFileEntry& b) {
     a.Swap(&b);
   }
-  inline void Swap(MtpFileEntry* other) {
+  PROTOBUF_NOINLINE void Swap(MtpFileEntry* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -406,7 +406,7 @@ class MtpFileEntries final :
   friend void swap(MtpFileEntries& a, MtpFileEntries& b) {
     a.Swap(&b);
   }
-  inline void Swap(MtpFileEntries* other) {
+  PROTOBUF_NOINLINE void Swap(MtpFileEntries* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

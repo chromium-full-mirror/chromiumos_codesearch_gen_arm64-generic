@@ -109,7 +109,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(SerializedInstallAttributes_Attribute& a, SerializedInstallAttributes_Attribute& b) {
 a.Swap(&b);
 }
-inline void Swap(SerializedInstallAttributes_Attribute* other) {
+PROTOBUF_NOINLINE void Swap(SerializedInstallAttributes_Attribute* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -279,7 +279,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(SerializedInstallAttributes& a, SerializedInstallAttributes& b) {
 a.Swap(&b);
 }
-inline void Swap(SerializedInstallAttributes* other) {
+PROTOBUF_NOINLINE void Swap(SerializedInstallAttributes* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&

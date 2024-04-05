@@ -191,7 +191,7 @@ class CupsAddAutoConfiguredPrinterRequest final :
   friend void swap(CupsAddAutoConfiguredPrinterRequest& a, CupsAddAutoConfiguredPrinterRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(CupsAddAutoConfiguredPrinterRequest* other) {
+  PROTOBUF_NOINLINE void Swap(CupsAddAutoConfiguredPrinterRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -358,7 +358,7 @@ class CupsAddAutoConfiguredPrinterResponse final :
   friend void swap(CupsAddAutoConfiguredPrinterResponse& a, CupsAddAutoConfiguredPrinterResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(CupsAddAutoConfiguredPrinterResponse* other) {
+  PROTOBUF_NOINLINE void Swap(CupsAddAutoConfiguredPrinterResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -488,7 +488,7 @@ class CupsAddManuallyConfiguredPrinterRequest final :
   friend void swap(CupsAddManuallyConfiguredPrinterRequest& a, CupsAddManuallyConfiguredPrinterRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(CupsAddManuallyConfiguredPrinterRequest* other) {
+  PROTOBUF_NOINLINE void Swap(CupsAddManuallyConfiguredPrinterRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -671,7 +671,7 @@ class CupsAddManuallyConfiguredPrinterResponse final :
   friend void swap(CupsAddManuallyConfiguredPrinterResponse& a, CupsAddManuallyConfiguredPrinterResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(CupsAddManuallyConfiguredPrinterResponse* other) {
+  PROTOBUF_NOINLINE void Swap(CupsAddManuallyConfiguredPrinterResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -801,7 +801,7 @@ class CupsRemovePrinterRequest final :
   friend void swap(CupsRemovePrinterRequest& a, CupsRemovePrinterRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(CupsRemovePrinterRequest* other) {
+  PROTOBUF_NOINLINE void Swap(CupsRemovePrinterRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -936,7 +936,7 @@ class CupsRemovePrinterResponse final :
   friend void swap(CupsRemovePrinterResponse& a, CupsRemovePrinterResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(CupsRemovePrinterResponse* other) {
+  PROTOBUF_NOINLINE void Swap(CupsRemovePrinterResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1066,7 +1066,7 @@ class CupsRetrievePpdRequest final :
   friend void swap(CupsRetrievePpdRequest& a, CupsRetrievePpdRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(CupsRetrievePpdRequest* other) {
+  PROTOBUF_NOINLINE void Swap(CupsRetrievePpdRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1201,7 +1201,7 @@ class CupsRetrievePpdResponse final :
   friend void swap(CupsRetrievePpdResponse& a, CupsRetrievePpdResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(CupsRetrievePpdResponse* other) {
+  PROTOBUF_NOINLINE void Swap(CupsRetrievePpdResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1336,7 +1336,7 @@ class PrintscanDebugSetCategoriesRequest final :
   friend void swap(PrintscanDebugSetCategoriesRequest& a, PrintscanDebugSetCategoriesRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(PrintscanDebugSetCategoriesRequest* other) {
+  PROTOBUF_NOINLINE void Swap(PrintscanDebugSetCategoriesRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1514,7 +1514,7 @@ class PrintscanDebugSetCategoriesResponse final :
   friend void swap(PrintscanDebugSetCategoriesResponse& a, PrintscanDebugSetCategoriesResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(PrintscanDebugSetCategoriesResponse* other) {
+  PROTOBUF_NOINLINE void Swap(PrintscanDebugSetCategoriesResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

@@ -150,7 +150,7 @@ class StorageDequeue final :
   friend void swap(StorageDequeue& a, StorageDequeue& b) {
     a.Swap(&b);
   }
-  inline void Swap(StorageDequeue* other) {
+  PROTOBUF_NOINLINE void Swap(StorageDequeue* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -307,7 +307,7 @@ class StorageEnqueue final :
   friend void swap(StorageEnqueue& a, StorageEnqueue& b) {
     a.Swap(&b);
   }
-  inline void Swap(StorageEnqueue* other) {
+  PROTOBUF_NOINLINE void Swap(StorageEnqueue* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -455,7 +455,7 @@ class StorageQueueAction final :
   friend void swap(StorageQueueAction& a, StorageQueueAction& b) {
     a.Swap(&b);
   }
-  inline void Swap(StorageQueueAction* other) {
+  PROTOBUF_NOINLINE void Swap(StorageQueueAction* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -670,7 +670,7 @@ class EnqueueRecordCall final :
   friend void swap(EnqueueRecordCall& a, EnqueueRecordCall& b) {
     a.Swap(&b);
   }
-  inline void Swap(EnqueueRecordCall* other) {
+  PROTOBUF_NOINLINE void Swap(EnqueueRecordCall* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -847,7 +847,7 @@ class FlushPriorityCall final :
   friend void swap(FlushPriorityCall& a, FlushPriorityCall& b) {
     a.Swap(&b);
   }
-  inline void Swap(FlushPriorityCall* other) {
+  PROTOBUF_NOINLINE void Swap(FlushPriorityCall* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1009,7 +1009,7 @@ class UploadRecordItem final :
   friend void swap(UploadRecordItem& a, UploadRecordItem& b) {
     a.Swap(&b);
   }
-  inline void Swap(UploadRecordItem* other) {
+  PROTOBUF_NOINLINE void Swap(UploadRecordItem* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1151,7 +1151,7 @@ class UploadGapItem final :
   friend void swap(UploadGapItem& a, UploadGapItem& b) {
     a.Swap(&b);
   }
-  inline void Swap(UploadGapItem* other) {
+  PROTOBUF_NOINLINE void Swap(UploadGapItem* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1314,7 +1314,7 @@ class UploadItem final :
   friend void swap(UploadItem& a, UploadItem& b) {
     a.Swap(&b);
   }
-  inline void Swap(UploadItem* other) {
+  PROTOBUF_NOINLINE void Swap(UploadItem* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1493,7 +1493,7 @@ class UploadEncryptedRecordCall final :
   friend void swap(UploadEncryptedRecordCall& a, UploadEncryptedRecordCall& b) {
     a.Swap(&b);
   }
-  inline void Swap(UploadEncryptedRecordCall* other) {
+  PROTOBUF_NOINLINE void Swap(UploadEncryptedRecordCall* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1695,7 +1695,7 @@ class ConfirmRecordUploadCall final :
   friend void swap(ConfirmRecordUploadCall& a, ConfirmRecordUploadCall& b) {
     a.Swap(&b);
   }
-  inline void Swap(ConfirmRecordUploadCall* other) {
+  PROTOBUF_NOINLINE void Swap(ConfirmRecordUploadCall* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1896,7 +1896,7 @@ class HealthDataHistory final :
   friend void swap(HealthDataHistory& a, HealthDataHistory& b) {
     a.Swap(&b);
   }
-  inline void Swap(HealthDataHistory* other) {
+  PROTOBUF_NOINLINE void Swap(HealthDataHistory* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2154,7 +2154,7 @@ class ERPHealthData final :
   friend void swap(ERPHealthData& a, ERPHealthData& b) {
     a.Swap(&b);
   }
-  inline void Swap(ERPHealthData* other) {
+  PROTOBUF_NOINLINE void Swap(ERPHealthData* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

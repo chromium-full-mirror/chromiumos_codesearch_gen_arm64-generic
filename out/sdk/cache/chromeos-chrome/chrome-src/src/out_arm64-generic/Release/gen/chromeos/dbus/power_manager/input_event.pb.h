@@ -129,7 +129,7 @@ class InputEvent final :
   friend void swap(InputEvent& a, InputEvent& b) {
     a.Swap(&b);
   }
-  inline void Swap(InputEvent* other) {
+  PROTOBUF_NOINLINE void Swap(InputEvent* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

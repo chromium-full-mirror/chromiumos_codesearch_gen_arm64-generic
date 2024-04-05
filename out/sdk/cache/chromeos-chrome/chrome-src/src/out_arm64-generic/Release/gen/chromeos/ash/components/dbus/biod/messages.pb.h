@@ -274,7 +274,7 @@ class FingerprintMessage final :
   friend void swap(FingerprintMessage& a, FingerprintMessage& b) {
     a.Swap(&b);
   }
-  inline void Swap(FingerprintMessage* other) {
+  PROTOBUF_NOINLINE void Swap(FingerprintMessage* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -443,7 +443,7 @@ class GetNonceReply final :
   friend void swap(GetNonceReply& a, GetNonceReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetNonceReply* other) {
+  PROTOBUF_NOINLINE void Swap(GetNonceReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -590,7 +590,7 @@ class EnrollScanDone final :
   friend void swap(EnrollScanDone& a, EnrollScanDone& b) {
     a.Swap(&b);
   }
-  inline void Swap(EnrollScanDone* other) {
+  PROTOBUF_NOINLINE void Swap(EnrollScanDone* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -782,7 +782,7 @@ class AuthScanDone final :
   friend void swap(AuthScanDone& a, AuthScanDone& b) {
     a.Swap(&b);
   }
-  inline void Swap(AuthScanDone* other) {
+  PROTOBUF_NOINLINE void Swap(AuthScanDone* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -929,7 +929,7 @@ class StartEnrollSessionRequest final :
   friend void swap(StartEnrollSessionRequest& a, StartEnrollSessionRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartEnrollSessionRequest* other) {
+  PROTOBUF_NOINLINE void Swap(StartEnrollSessionRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1116,7 +1116,7 @@ class StartEnrollSessionReply final :
   friend void swap(StartEnrollSessionReply& a, StartEnrollSessionReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartEnrollSessionReply* other) {
+  PROTOBUF_NOINLINE void Swap(StartEnrollSessionReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1258,7 +1258,7 @@ class StartAuthSessionRequest final :
   friend void swap(StartAuthSessionRequest& a, StartAuthSessionRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartAuthSessionRequest* other) {
+  PROTOBUF_NOINLINE void Swap(StartAuthSessionRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1465,7 +1465,7 @@ class StartAuthSessionReply final :
   friend void swap(StartAuthSessionReply& a, StartAuthSessionReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartAuthSessionReply* other) {
+  PROTOBUF_NOINLINE void Swap(StartAuthSessionReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1607,7 +1607,7 @@ class BiometricsManagerStatusChanged final :
   friend void swap(BiometricsManagerStatusChanged& a, BiometricsManagerStatusChanged& b) {
     a.Swap(&b);
   }
-  inline void Swap(BiometricsManagerStatusChanged* other) {
+  PROTOBUF_NOINLINE void Swap(BiometricsManagerStatusChanged* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1749,7 +1749,7 @@ class FpPublicKey final :
   friend void swap(FpPublicKey& a, FpPublicKey& b) {
     a.Swap(&b);
   }
-  inline void Swap(FpPublicKey* other) {
+  PROTOBUF_NOINLINE void Swap(FpPublicKey* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1916,7 +1916,7 @@ class CreateCredentialRequest final :
   friend void swap(CreateCredentialRequest& a, CreateCredentialRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(CreateCredentialRequest* other) {
+  PROTOBUF_NOINLINE void Swap(CreateCredentialRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2063,7 +2063,7 @@ class CreateCredentialReply final :
   friend void swap(CreateCredentialReply& a, CreateCredentialReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(CreateCredentialReply* other) {
+  PROTOBUF_NOINLINE void Swap(CreateCredentialReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2319,7 +2319,7 @@ class AuthenticateCredentialRequest final :
   friend void swap(AuthenticateCredentialRequest& a, AuthenticateCredentialRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AuthenticateCredentialRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AuthenticateCredentialRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2466,7 +2466,7 @@ class AuthenticateCredentialReply final :
   friend void swap(AuthenticateCredentialReply& a, AuthenticateCredentialReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(AuthenticateCredentialReply* other) {
+  PROTOBUF_NOINLINE void Swap(AuthenticateCredentialReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2743,7 +2743,7 @@ class DeleteCredentialRequest final :
   friend void swap(DeleteCredentialRequest& a, DeleteCredentialRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(DeleteCredentialRequest* other) {
+  PROTOBUF_NOINLINE void Swap(DeleteCredentialRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2910,7 +2910,7 @@ class DeleteCredentialReply final :
   friend void swap(DeleteCredentialReply& a, DeleteCredentialReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(DeleteCredentialReply* other) {
+  PROTOBUF_NOINLINE void Swap(DeleteCredentialReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3084,7 +3084,7 @@ class EnrollLegacyTemplateRequest final :
   friend void swap(EnrollLegacyTemplateRequest& a, EnrollLegacyTemplateRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(EnrollLegacyTemplateRequest* other) {
+  PROTOBUF_NOINLINE void Swap(EnrollLegacyTemplateRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3291,7 +3291,7 @@ class LegacyRecord final :
   friend void swap(LegacyRecord& a, LegacyRecord& b) {
     a.Swap(&b);
   }
-  inline void Swap(LegacyRecord* other) {
+  PROTOBUF_NOINLINE void Swap(LegacyRecord* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3458,7 +3458,7 @@ class ListLegacyRecordsReply final :
   friend void swap(ListLegacyRecordsReply& a, ListLegacyRecordsReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListLegacyRecordsReply* other) {
+  PROTOBUF_NOINLINE void Swap(ListLegacyRecordsReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

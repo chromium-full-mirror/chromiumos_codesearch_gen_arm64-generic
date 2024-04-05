@@ -171,7 +171,7 @@ class KeyPrivileges final :
   friend void swap(KeyPrivileges& a, KeyPrivileges& b) {
     a.Swap(&b);
   }
-  inline void Swap(KeyPrivileges* other) {
+  PROTOBUF_NOINLINE void Swap(KeyPrivileges* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -343,7 +343,7 @@ class KeyProviderData_Entry final :
   friend void swap(KeyProviderData_Entry& a, KeyProviderData_Entry& b) {
     a.Swap(&b);
   }
-  inline void Swap(KeyProviderData_Entry* other) {
+  PROTOBUF_NOINLINE void Swap(KeyProviderData_Entry* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -525,7 +525,7 @@ class KeyProviderData final :
   friend void swap(KeyProviderData& a, KeyProviderData& b) {
     a.Swap(&b);
   }
-  inline void Swap(KeyProviderData* other) {
+  PROTOBUF_NOINLINE void Swap(KeyProviderData* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -673,7 +673,7 @@ class ChallengePublicKeyInfo final :
   friend void swap(ChallengePublicKeyInfo& a, ChallengePublicKeyInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(ChallengePublicKeyInfo* other) {
+  PROTOBUF_NOINLINE void Swap(ChallengePublicKeyInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -839,7 +839,7 @@ class KeyPolicy final :
   friend void swap(KeyPolicy& a, KeyPolicy& b) {
     a.Swap(&b);
   }
-  inline void Swap(KeyPolicy* other) {
+  PROTOBUF_NOINLINE void Swap(KeyPolicy* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -996,7 +996,7 @@ class KeyData final :
   friend void swap(KeyData& a, KeyData& b) {
     a.Swap(&b);
   }
-  inline void Swap(KeyData* other) {
+  PROTOBUF_NOINLINE void Swap(KeyData* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1283,7 +1283,7 @@ class Key final :
   friend void swap(Key& a, Key& b) {
     a.Swap(&b);
   }
-  inline void Swap(Key* other) {
+  PROTOBUF_NOINLINE void Swap(Key* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

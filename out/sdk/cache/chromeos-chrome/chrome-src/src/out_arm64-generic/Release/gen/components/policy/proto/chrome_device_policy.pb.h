@@ -1212,7 +1212,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DevicePolicyRefreshRateProto& a, DevicePolicyRefreshRateProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DevicePolicyRefreshRateProto* other) {
+PROTOBUF_NOINLINE void Swap(DevicePolicyRefreshRateProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -1354,7 +1354,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(UserWhitelistProto& a, UserWhitelistProto& b) {
 a.Swap(&b);
 }
-inline void Swap(UserWhitelistProto* other) {
+PROTOBUF_NOINLINE void Swap(UserWhitelistProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -1506,7 +1506,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(UserAllowlistProto& a, UserAllowlistProto& b) {
 a.Swap(&b);
 }
-inline void Swap(UserAllowlistProto* other) {
+PROTOBUF_NOINLINE void Swap(UserAllowlistProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -1658,7 +1658,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(AllowNewUsersProto& a, AllowNewUsersProto& b) {
 a.Swap(&b);
 }
-inline void Swap(AllowNewUsersProto* other) {
+PROTOBUF_NOINLINE void Swap(AllowNewUsersProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -1800,7 +1800,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(GuestModeEnabledProto& a, GuestModeEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(GuestModeEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(GuestModeEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -1942,7 +1942,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(ShowUserNamesOnSigninProto& a, ShowUserNamesOnSigninProto& b) {
 a.Swap(&b);
 }
-inline void Swap(ShowUserNamesOnSigninProto* other) {
+PROTOBUF_NOINLINE void Swap(ShowUserNamesOnSigninProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -2084,7 +2084,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DataRoamingEnabledProto& a, DataRoamingEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DataRoamingEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(DataRoamingEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -2226,7 +2226,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(OBSOLETE_DeviceProxySettingsProto& a, OBSOLETE_DeviceProxySettingsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(OBSOLETE_DeviceProxySettingsProto* other) {
+PROTOBUF_NOINLINE void Swap(OBSOLETE_DeviceProxySettingsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -2433,7 +2433,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(CameraEnabledProto& a, CameraEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(CameraEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(CameraEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -2575,7 +2575,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(MetricsEnabledProto& a, MetricsEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(MetricsEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(MetricsEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -2717,7 +2717,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(ReleaseChannelProto& a, ReleaseChannelProto& b) {
 a.Swap(&b);
 }
-inline void Swap(ReleaseChannelProto* other) {
+PROTOBUF_NOINLINE void Swap(ReleaseChannelProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -2899,7 +2899,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceOpenNetworkConfigurationProto& a, DeviceOpenNetworkConfigurationProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceOpenNetworkConfigurationProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceOpenNetworkConfigurationProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -3046,7 +3046,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(NetworkHostnameProto& a, NetworkHostnameProto& b) {
 a.Swap(&b);
 }
-inline void Swap(NetworkHostnameProto* other) {
+PROTOBUF_NOINLINE void Swap(NetworkHostnameProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -3193,7 +3193,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceHindiInscriptLayoutEnabledProto& a, DeviceHindiInscriptLayoutEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceHindiInscriptLayoutEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceHindiInscriptLayoutEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -3335,7 +3335,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(HostnameUserConfigurableProto& a, HostnameUserConfigurableProto& b) {
 a.Swap(&b);
 }
-inline void Swap(HostnameUserConfigurableProto* other) {
+PROTOBUF_NOINLINE void Swap(HostnameUserConfigurableProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -3477,7 +3477,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceReportingProto& a, DeviceReportingProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceReportingProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceReportingProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -4254,7 +4254,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(EphemeralUsersEnabledProto& a, EphemeralUsersEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(EphemeralUsersEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(EphemeralUsersEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -4396,7 +4396,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceKeylockerForStorageEncryptionEnabledProto& a, DeviceKeylockerForStorageEncryptionEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceKeylockerForStorageEncryptionEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceKeylockerForStorageEncryptionEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -4538,7 +4538,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(OBSOLETE_AppPackEntryProto& a, OBSOLETE_AppPackEntryProto& b) {
 a.Swap(&b);
 }
-inline void Swap(OBSOLETE_AppPackEntryProto* other) {
+PROTOBUF_NOINLINE void Swap(OBSOLETE_AppPackEntryProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -4720,7 +4720,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(OBSOLETE_AppPackProto& a, OBSOLETE_AppPackProto& b) {
 a.Swap(&b);
 }
-inline void Swap(OBSOLETE_AppPackProto* other) {
+PROTOBUF_NOINLINE void Swap(OBSOLETE_AppPackProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -4866,7 +4866,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(OBSOLETE_PinnedAppsProto& a, OBSOLETE_PinnedAppsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(OBSOLETE_PinnedAppsProto* other) {
+PROTOBUF_NOINLINE void Swap(OBSOLETE_PinnedAppsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -5018,7 +5018,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(OBSOLETE_ForcedLogoutTimeoutsProto& a, OBSOLETE_ForcedLogoutTimeoutsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(OBSOLETE_ForcedLogoutTimeoutsProto* other) {
+PROTOBUF_NOINLINE void Swap(OBSOLETE_ForcedLogoutTimeoutsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -5175,7 +5175,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(OBSOLETE_ScreenSaverProto& a, OBSOLETE_ScreenSaverProto& b) {
 a.Swap(&b);
 }
-inline void Swap(OBSOLETE_ScreenSaverProto* other) {
+PROTOBUF_NOINLINE void Swap(OBSOLETE_ScreenSaverProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -5337,7 +5337,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(AutoUpdateSettingsProto& a, AutoUpdateSettingsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(AutoUpdateSettingsProto* other) {
+PROTOBUF_NOINLINE void Swap(AutoUpdateSettingsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -5830,7 +5830,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(OBSOLETE_StartUpUrlsProto& a, OBSOLETE_StartUpUrlsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(OBSOLETE_StartUpUrlsProto* other) {
+PROTOBUF_NOINLINE void Swap(OBSOLETE_StartUpUrlsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -5982,7 +5982,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceLoginScreenGeolocationAccessLevelProto& a, DeviceLoginScreenGeolocationAccessLevelProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceLoginScreenGeolocationAccessLevelProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceLoginScreenGeolocationAccessLevelProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -6150,7 +6150,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(SystemTimezoneProto& a, SystemTimezoneProto& b) {
 a.Swap(&b);
 }
-inline void Swap(SystemTimezoneProto* other) {
+PROTOBUF_NOINLINE void Swap(SystemTimezoneProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -6344,7 +6344,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(SystemUse24HourClockProto& a, SystemUse24HourClockProto& b) {
 a.Swap(&b);
 }
-inline void Swap(SystemUse24HourClockProto* other) {
+PROTOBUF_NOINLINE void Swap(SystemUse24HourClockProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -6486,7 +6486,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(KioskAppInfoProto& a, KioskAppInfoProto& b) {
 a.Swap(&b);
 }
-inline void Swap(KioskAppInfoProto* other) {
+PROTOBUF_NOINLINE void Swap(KioskAppInfoProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -6653,7 +6653,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(AndroidKioskAppInfoProto& a, AndroidKioskAppInfoProto& b) {
 a.Swap(&b);
 }
-inline void Swap(AndroidKioskAppInfoProto* other) {
+PROTOBUF_NOINLINE void Swap(AndroidKioskAppInfoProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -6860,7 +6860,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(WebKioskAppInfoProto& a, WebKioskAppInfoProto& b) {
 a.Swap(&b);
 }
-inline void Swap(WebKioskAppInfoProto* other) {
+PROTOBUF_NOINLINE void Swap(WebKioskAppInfoProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -7047,7 +7047,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceLocalAccountInfoProto& a, DeviceLocalAccountInfoProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceLocalAccountInfoProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceLocalAccountInfoProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -7366,7 +7366,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceLocalAccountsProto& a, DeviceLocalAccountsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceLocalAccountsProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceLocalAccountsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -7578,7 +7578,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(ManagedGuestSessionPrivacyWarningsProto& a, ManagedGuestSessionPrivacyWarningsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(ManagedGuestSessionPrivacyWarningsProto* other) {
+PROTOBUF_NOINLINE void Swap(ManagedGuestSessionPrivacyWarningsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -7720,7 +7720,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(AllowRedeemChromeOsRegistrationOffersProto& a, AllowRedeemChromeOsRegistrationOffersProto& b) {
 a.Swap(&b);
 }
-inline void Swap(AllowRedeemChromeOsRegistrationOffersProto* other) {
+PROTOBUF_NOINLINE void Swap(AllowRedeemChromeOsRegistrationOffersProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -7862,7 +7862,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(FeatureFlagsProto& a, FeatureFlagsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(FeatureFlagsProto* other) {
+PROTOBUF_NOINLINE void Swap(FeatureFlagsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -8040,7 +8040,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(UptimeLimitProto& a, UptimeLimitProto& b) {
 a.Swap(&b);
 }
-inline void Swap(UptimeLimitProto* other) {
+PROTOBUF_NOINLINE void Swap(UptimeLimitProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -8197,7 +8197,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(VariationsParameterProto& a, VariationsParameterProto& b) {
 a.Swap(&b);
 }
-inline void Swap(VariationsParameterProto* other) {
+PROTOBUF_NOINLINE void Swap(VariationsParameterProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -8344,7 +8344,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(AttestationSettingsProto& a, AttestationSettingsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(AttestationSettingsProto* other) {
+PROTOBUF_NOINLINE void Swap(AttestationSettingsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -8501,7 +8501,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(AccessibilitySettingsProto& a, AccessibilitySettingsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(AccessibilitySettingsProto* other) {
+PROTOBUF_NOINLINE void Swap(AccessibilitySettingsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -9254,7 +9254,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(OBSOLETE_SupervisedUsersSettingsProto& a, OBSOLETE_SupervisedUsersSettingsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(OBSOLETE_SupervisedUsersSettingsProto* other) {
+PROTOBUF_NOINLINE void Swap(OBSOLETE_SupervisedUsersSettingsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -9396,7 +9396,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(LoginScreenPowerManagementProto& a, LoginScreenPowerManagementProto& b) {
 a.Swap(&b);
 }
-inline void Swap(LoginScreenPowerManagementProto* other) {
+PROTOBUF_NOINLINE void Swap(LoginScreenPowerManagementProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -9543,7 +9543,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(AutoCleanupSettigsProto& a, AutoCleanupSettigsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(AutoCleanupSettigsProto* other) {
+PROTOBUF_NOINLINE void Swap(AutoCleanupSettigsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -9690,7 +9690,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(SystemSettingsProto& a, SystemSettingsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(SystemSettingsProto* other) {
+PROTOBUF_NOINLINE void Swap(SystemSettingsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -9832,7 +9832,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(SAMLSettingsProto& a, SAMLSettingsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(SAMLSettingsProto* other) {
+PROTOBUF_NOINLINE void Swap(SAMLSettingsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -9994,7 +9994,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(SAMLUsernameProto& a, SAMLUsernameProto& b) {
 a.Swap(&b);
 }
-inline void Swap(SAMLUsernameProto* other) {
+PROTOBUF_NOINLINE void Swap(SAMLUsernameProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -10141,7 +10141,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(RebootOnShutdownProto& a, RebootOnShutdownProto& b) {
 a.Swap(&b);
 }
-inline void Swap(RebootOnShutdownProto* other) {
+PROTOBUF_NOINLINE void Swap(RebootOnShutdownProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -10283,7 +10283,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceHeartbeatSettingsProto& a, DeviceHeartbeatSettingsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceHeartbeatSettingsProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceHeartbeatSettingsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -10440,7 +10440,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(ExtensionCacheSizeProto& a, ExtensionCacheSizeProto& b) {
 a.Swap(&b);
 }
-inline void Swap(ExtensionCacheSizeProto* other) {
+PROTOBUF_NOINLINE void Swap(ExtensionCacheSizeProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -10582,7 +10582,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(LoginScreenDomainAutoCompleteProto& a, LoginScreenDomainAutoCompleteProto& b) {
 a.Swap(&b);
 }
-inline void Swap(LoginScreenDomainAutoCompleteProto* other) {
+PROTOBUF_NOINLINE void Swap(LoginScreenDomainAutoCompleteProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -10729,7 +10729,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceLogUploadSettingsProto& a, DeviceLogUploadSettingsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceLogUploadSettingsProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceLogUploadSettingsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -10871,7 +10871,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DisplayRotationDefaultProto& a, DisplayRotationDefaultProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DisplayRotationDefaultProto* other) {
+PROTOBUF_NOINLINE void Swap(DisplayRotationDefaultProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -11043,7 +11043,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceLoginScreenPrivacyScreenEnabledProto& a, DeviceLoginScreenPrivacyScreenEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceLoginScreenPrivacyScreenEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceLoginScreenPrivacyScreenEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -11185,7 +11185,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceDisplayResolutionProto& a, DeviceDisplayResolutionProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceDisplayResolutionProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceDisplayResolutionProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -11332,7 +11332,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(AllowKioskAppControlChromeVersionProto& a, AllowKioskAppControlChromeVersionProto& b) {
 a.Swap(&b);
 }
-inline void Swap(AllowKioskAppControlChromeVersionProto* other) {
+PROTOBUF_NOINLINE void Swap(AllowKioskAppControlChromeVersionProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -11474,7 +11474,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(LoginAuthenticationBehaviorProto& a, LoginAuthenticationBehaviorProto& b) {
 a.Swap(&b);
 }
-inline void Swap(LoginAuthenticationBehaviorProto* other) {
+PROTOBUF_NOINLINE void Swap(LoginAuthenticationBehaviorProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -11642,7 +11642,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(UsbDeviceIdProto& a, UsbDeviceIdProto& b) {
 a.Swap(&b);
 }
-inline void Swap(UsbDeviceIdProto* other) {
+PROTOBUF_NOINLINE void Swap(UsbDeviceIdProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -11799,7 +11799,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(UsbDetachableWhitelistProto& a, UsbDetachableWhitelistProto& b) {
 a.Swap(&b);
 }
-inline void Swap(UsbDetachableWhitelistProto* other) {
+PROTOBUF_NOINLINE void Swap(UsbDetachableWhitelistProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -11945,7 +11945,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(UsbDeviceIdInclusiveProto& a, UsbDeviceIdInclusiveProto& b) {
 a.Swap(&b);
 }
-inline void Swap(UsbDeviceIdInclusiveProto* other) {
+PROTOBUF_NOINLINE void Swap(UsbDeviceIdInclusiveProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -12102,7 +12102,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(UsbDetachableAllowlistProto& a, UsbDetachableAllowlistProto& b) {
 a.Swap(&b);
 }
-inline void Swap(UsbDetachableAllowlistProto* other) {
+PROTOBUF_NOINLINE void Swap(UsbDetachableAllowlistProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -12248,7 +12248,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(AllowBluetoothProto& a, AllowBluetoothProto& b) {
 a.Swap(&b);
 }
-inline void Swap(AllowBluetoothProto* other) {
+PROTOBUF_NOINLINE void Swap(AllowBluetoothProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -12390,7 +12390,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceWiFiAllowedProto& a, DeviceWiFiAllowedProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceWiFiAllowedProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceWiFiAllowedProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -12532,7 +12532,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceQuirksDownloadEnabledProto& a, DeviceQuirksDownloadEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceQuirksDownloadEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceQuirksDownloadEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -12674,7 +12674,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(LoginVideoCaptureAllowedUrlsProto& a, LoginVideoCaptureAllowedUrlsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(LoginVideoCaptureAllowedUrlsProto* other) {
+PROTOBUF_NOINLINE void Swap(LoginVideoCaptureAllowedUrlsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -12826,7 +12826,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceWiFiFastTransitionEnabledProto& a, DeviceWiFiFastTransitionEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceWiFiFastTransitionEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceWiFiFastTransitionEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -12968,7 +12968,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(NetworkThrottlingEnabledProto& a, NetworkThrottlingEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(NetworkThrottlingEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(NetworkThrottlingEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -13140,7 +13140,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceLoginScreenExtensionsProto& a, DeviceLoginScreenExtensionsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceLoginScreenExtensionsProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceLoginScreenExtensionsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -13292,7 +13292,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(LoginScreenExtensionManifestV2AvailabilityProto& a, LoginScreenExtensionManifestV2AvailabilityProto& b) {
 a.Swap(&b);
 }
-inline void Swap(LoginScreenExtensionManifestV2AvailabilityProto* other) {
+PROTOBUF_NOINLINE void Swap(LoginScreenExtensionManifestV2AvailabilityProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -13464,7 +13464,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(LoginScreenLocalesProto& a, LoginScreenLocalesProto& b) {
 a.Swap(&b);
 }
-inline void Swap(LoginScreenLocalesProto* other) {
+PROTOBUF_NOINLINE void Swap(LoginScreenLocalesProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -13616,7 +13616,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(LoginScreenInputMethodsProto& a, LoginScreenInputMethodsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(LoginScreenInputMethodsProto* other) {
+PROTOBUF_NOINLINE void Swap(LoginScreenInputMethodsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -13768,7 +13768,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceWallpaperImageProto& a, DeviceWallpaperImageProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceWallpaperImageProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceWallpaperImageProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -13915,7 +13915,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& a, DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -14057,7 +14057,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& a, DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -14199,7 +14199,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceScreensaverLoginScreenImagesProto& a, DeviceScreensaverLoginScreenImagesProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceScreensaverLoginScreenImagesProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceScreensaverLoginScreenImagesProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -14351,7 +14351,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceScreensaverLoginScreenEnabledProto& a, DeviceScreensaverLoginScreenEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceScreensaverLoginScreenEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceScreensaverLoginScreenEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -14493,7 +14493,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceSystemAecEnabledProto& a, DeviceSystemAecEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceSystemAecEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceSystemAecEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -14635,7 +14635,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceEcryptfsMigrationStrategyProto& a, DeviceEcryptfsMigrationStrategyProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceEcryptfsMigrationStrategyProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceEcryptfsMigrationStrategyProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -14805,7 +14805,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceSecondFactorAuthenticationProto& a, DeviceSecondFactorAuthenticationProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceSecondFactorAuthenticationProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceSecondFactorAuthenticationProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -14977,7 +14977,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(CastReceiverNameProto& a, CastReceiverNameProto& b) {
 a.Swap(&b);
 }
-inline void Swap(CastReceiverNameProto* other) {
+PROTOBUF_NOINLINE void Swap(CastReceiverNameProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -15124,7 +15124,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(WeeklyTimeProto& a, WeeklyTimeProto& b) {
 a.Swap(&b);
 }
-inline void Swap(WeeklyTimeProto* other) {
+PROTOBUF_NOINLINE void Swap(WeeklyTimeProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -15319,7 +15319,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(WeeklyTimeIntervalProto& a, WeeklyTimeIntervalProto& b) {
 a.Swap(&b);
 }
-inline void Swap(WeeklyTimeIntervalProto* other) {
+PROTOBUF_NOINLINE void Swap(WeeklyTimeIntervalProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -15486,7 +15486,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceOffHoursProto& a, DeviceOffHoursProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceOffHoursProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceOffHoursProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -15677,7 +15677,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceNativePrintersProto& a, DeviceNativePrintersProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceNativePrintersProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceNativePrintersProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -15824,7 +15824,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceNativePrintersAccessModeProto& a, DeviceNativePrintersAccessModeProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceNativePrintersAccessModeProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceNativePrintersAccessModeProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -15994,7 +15994,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceNativePrintersBlacklistProto& a, DeviceNativePrintersBlacklistProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceNativePrintersBlacklistProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceNativePrintersBlacklistProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -16146,7 +16146,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceNativePrintersWhitelistProto& a, DeviceNativePrintersWhitelistProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceNativePrintersWhitelistProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceNativePrintersWhitelistProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -16298,7 +16298,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DevicePrintersProto& a, DevicePrintersProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DevicePrintersProto* other) {
+PROTOBUF_NOINLINE void Swap(DevicePrintersProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -16445,7 +16445,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DevicePrintersAccessModeProto& a, DevicePrintersAccessModeProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DevicePrintersAccessModeProto* other) {
+PROTOBUF_NOINLINE void Swap(DevicePrintersAccessModeProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -16615,7 +16615,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DevicePrintersBlocklistProto& a, DevicePrintersBlocklistProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DevicePrintersBlocklistProto* other) {
+PROTOBUF_NOINLINE void Swap(DevicePrintersBlocklistProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -16767,7 +16767,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DevicePrintersAllowlistProto& a, DevicePrintersAllowlistProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DevicePrintersAllowlistProto* other) {
+PROTOBUF_NOINLINE void Swap(DevicePrintersAllowlistProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -16919,7 +16919,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceExternalPrintServersProto& a, DeviceExternalPrintServersProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceExternalPrintServersProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceExternalPrintServersProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -17066,7 +17066,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceExternalPrintServersAllowlistProto& a, DeviceExternalPrintServersAllowlistProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceExternalPrintServersAllowlistProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceExternalPrintServersAllowlistProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -17218,7 +17218,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(TPMFirmwareUpdateSettingsProto& a, TPMFirmwareUpdateSettingsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(TPMFirmwareUpdateSettingsProto* other) {
+PROTOBUF_NOINLINE void Swap(TPMFirmwareUpdateSettingsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -17422,7 +17422,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(OBSOLETE_MinimumRequiredVersionProto& a, OBSOLETE_MinimumRequiredVersionProto& b) {
 a.Swap(&b);
 }
-inline void Swap(OBSOLETE_MinimumRequiredVersionProto* other) {
+PROTOBUF_NOINLINE void Swap(OBSOLETE_MinimumRequiredVersionProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -17569,7 +17569,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceLoginScreenAutoSelectCertificateForUrls& a, DeviceLoginScreenAutoSelectCertificateForUrls& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceLoginScreenAutoSelectCertificateForUrls* other) {
+PROTOBUF_NOINLINE void Swap(DeviceLoginScreenAutoSelectCertificateForUrls* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -17721,7 +17721,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(UnaffiliatedArcAllowedProto& a, UnaffiliatedArcAllowedProto& b) {
 a.Swap(&b);
 }
-inline void Swap(UnaffiliatedArcAllowedProto* other) {
+PROTOBUF_NOINLINE void Swap(UnaffiliatedArcAllowedProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -17863,7 +17863,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceKerberosEncryptionTypesProto& a, DeviceKerberosEncryptionTypesProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceKerberosEncryptionTypesProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceKerberosEncryptionTypesProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -18033,7 +18033,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(KeyboardBacklightColorProto& a, KeyboardBacklightColorProto& b) {
 a.Swap(&b);
 }
-inline void Swap(KeyboardBacklightColorProto* other) {
+PROTOBUF_NOINLINE void Swap(KeyboardBacklightColorProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -18215,7 +18215,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceUserPolicyLoopbackProcessingModeProto& a, DeviceUserPolicyLoopbackProcessingModeProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceUserPolicyLoopbackProcessingModeProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceUserPolicyLoopbackProcessingModeProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -18385,7 +18385,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(OBSOLETE_DeviceLoginScreenIsolateOriginsProto& a, OBSOLETE_DeviceLoginScreenIsolateOriginsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(OBSOLETE_DeviceLoginScreenIsolateOriginsProto* other) {
+PROTOBUF_NOINLINE void Swap(OBSOLETE_DeviceLoginScreenIsolateOriginsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -18532,7 +18532,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(OBSOLETE_DeviceLoginScreenSitePerProcessProto& a, OBSOLETE_DeviceLoginScreenSitePerProcessProto& b) {
 a.Swap(&b);
 }
-inline void Swap(OBSOLETE_DeviceLoginScreenSitePerProcessProto* other) {
+PROTOBUF_NOINLINE void Swap(OBSOLETE_DeviceLoginScreenSitePerProcessProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -18674,7 +18674,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(VirtualMachinesAllowedProto& a, VirtualMachinesAllowedProto& b) {
 a.Swap(&b);
 }
-inline void Swap(VirtualMachinesAllowedProto* other) {
+PROTOBUF_NOINLINE void Swap(VirtualMachinesAllowedProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -18816,7 +18816,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceMachinePasswordChangeRateProto& a, DeviceMachinePasswordChangeRateProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceMachinePasswordChangeRateProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceMachinePasswordChangeRateProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -18958,7 +18958,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceGpoCacheLifetimeProto& a, DeviceGpoCacheLifetimeProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceGpoCacheLifetimeProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceGpoCacheLifetimeProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -19100,7 +19100,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceAuthDataCacheLifetimeProto& a, DeviceAuthDataCacheLifetimeProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceAuthDataCacheLifetimeProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceAuthDataCacheLifetimeProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -19242,7 +19242,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceUnaffiliatedCrostiniAllowedProto& a, DeviceUnaffiliatedCrostiniAllowedProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceUnaffiliatedCrostiniAllowedProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceUnaffiliatedCrostiniAllowedProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -19384,7 +19384,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(PluginVmAllowedProto& a, PluginVmAllowedProto& b) {
 a.Swap(&b);
 }
-inline void Swap(PluginVmAllowedProto* other) {
+PROTOBUF_NOINLINE void Swap(PluginVmAllowedProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -19526,7 +19526,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(PluginVmLicenseKeyProto& a, PluginVmLicenseKeyProto& b) {
 a.Swap(&b);
 }
-inline void Swap(PluginVmLicenseKeyProto* other) {
+PROTOBUF_NOINLINE void Swap(PluginVmLicenseKeyProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -19673,7 +19673,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceRebootOnUserSignoutProto& a, DeviceRebootOnUserSignoutProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceRebootOnUserSignoutProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceRebootOnUserSignoutProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -19847,7 +19847,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceWilcoDtcAllowedProto& a, DeviceWilcoDtcAllowedProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceWilcoDtcAllowedProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceWilcoDtcAllowedProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -19989,7 +19989,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceWilcoDtcConfigurationProto& a, DeviceWilcoDtcConfigurationProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceWilcoDtcConfigurationProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceWilcoDtcConfigurationProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -20136,7 +20136,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DevicePowerPeakShiftProto& a, DevicePowerPeakShiftProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DevicePowerPeakShiftProto* other) {
+PROTOBUF_NOINLINE void Swap(DevicePowerPeakShiftProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -20313,7 +20313,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceBootOnAcProto& a, DeviceBootOnAcProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceBootOnAcProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceBootOnAcProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -20455,7 +20455,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceDockMacAddressSourceProto& a, DeviceDockMacAddressSourceProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceDockMacAddressSourceProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceDockMacAddressSourceProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -20627,7 +20627,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceAdvancedBatteryChargeModeProto& a, DeviceAdvancedBatteryChargeModeProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceAdvancedBatteryChargeModeProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceAdvancedBatteryChargeModeProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -20789,7 +20789,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceBatteryChargeModeProto& a, DeviceBatteryChargeModeProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceBatteryChargeModeProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceBatteryChargeModeProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -20995,7 +20995,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceUsbPowerShareProto& a, DeviceUsbPowerShareProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceUsbPowerShareProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceUsbPowerShareProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -21137,7 +21137,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceScheduledUpdateCheckProto& a, DeviceScheduledUpdateCheckProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceScheduledUpdateCheckProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceScheduledUpdateCheckProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -21284,7 +21284,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DevicePowerwashAllowedProto& a, DevicePowerwashAllowedProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DevicePowerwashAllowedProto* other) {
+PROTOBUF_NOINLINE void Swap(DevicePowerwashAllowedProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -21426,7 +21426,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceLoginScreenWebUsbAllowDevicesForUrlsProto& a, DeviceLoginScreenWebUsbAllowDevicesForUrlsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceLoginScreenWebUsbAllowDevicesForUrlsProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceLoginScreenWebUsbAllowDevicesForUrlsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -21573,7 +21573,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(SystemProxySettingsProto& a, SystemProxySettingsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(SystemProxySettingsProto* other) {
+PROTOBUF_NOINLINE void Swap(SystemProxySettingsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -21720,7 +21720,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(RequiredClientCertificateForDeviceProto& a, RequiredClientCertificateForDeviceProto& b) {
 a.Swap(&b);
 }
-inline void Swap(RequiredClientCertificateForDeviceProto* other) {
+PROTOBUF_NOINLINE void Swap(RequiredClientCertificateForDeviceProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -21867,7 +21867,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceCrostiniArcAdbSideloadingAllowedProto& a, DeviceCrostiniArcAdbSideloadingAllowedProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceCrostiniArcAdbSideloadingAllowedProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceCrostiniArcAdbSideloadingAllowedProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -22037,7 +22037,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceShowLowDiskSpaceNotificationProto& a, DeviceShowLowDiskSpaceNotificationProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceShowLowDiskSpaceNotificationProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceShowLowDiskSpaceNotificationProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -22179,7 +22179,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceFamilyLinkAccountsAllowedProto& a, DeviceFamilyLinkAccountsAllowedProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceFamilyLinkAccountsAllowedProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceFamilyLinkAccountsAllowedProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -22321,7 +22321,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(OBSOLETE_DeviceArcDataSnapshotHoursProto& a, OBSOLETE_DeviceArcDataSnapshotHoursProto& b) {
 a.Swap(&b);
 }
-inline void Swap(OBSOLETE_DeviceArcDataSnapshotHoursProto* other) {
+PROTOBUF_NOINLINE void Swap(OBSOLETE_DeviceArcDataSnapshotHoursProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -22468,7 +22468,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceSystemWideTracingEnabledProto& a, DeviceSystemWideTracingEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceSystemWideTracingEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceSystemWideTracingEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -22610,7 +22610,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DevicePciPeripheralDataAccessEnabledProto& a, DevicePciPeripheralDataAccessEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DevicePciPeripheralDataAccessEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(DevicePciPeripheralDataAccessEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -22752,7 +22752,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DevicePciPeripheralDataAccessEnabledProtoV2& a, DevicePciPeripheralDataAccessEnabledProtoV2& b) {
 a.Swap(&b);
 }
-inline void Swap(DevicePciPeripheralDataAccessEnabledProtoV2* other) {
+PROTOBUF_NOINLINE void Swap(DevicePciPeripheralDataAccessEnabledProtoV2* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -22894,7 +22894,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(OBSOLETE_DeviceBorealisAllowedProto& a, OBSOLETE_DeviceBorealisAllowedProto& b) {
 a.Swap(&b);
 }
-inline void Swap(OBSOLETE_DeviceBorealisAllowedProto* other) {
+PROTOBUF_NOINLINE void Swap(OBSOLETE_DeviceBorealisAllowedProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -23036,7 +23036,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceAllowedBluetoothServicesProto& a, DeviceAllowedBluetoothServicesProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceAllowedBluetoothServicesProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceAllowedBluetoothServicesProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -23188,7 +23188,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceDebugPacketCaptureAllowedProto& a, DeviceDebugPacketCaptureAllowedProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceDebugPacketCaptureAllowedProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceDebugPacketCaptureAllowedProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -23330,7 +23330,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceScheduledRebootProto& a, DeviceScheduledRebootProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceScheduledRebootProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceScheduledRebootProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -23477,7 +23477,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceRestrictedManagedGuestSessionEnabledProto& a, DeviceRestrictedManagedGuestSessionEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceRestrictedManagedGuestSessionEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceRestrictedManagedGuestSessionEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -23619,7 +23619,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceI18nShortcutsEnabledProto& a, DeviceI18nShortcutsEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceI18nShortcutsEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceI18nShortcutsEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -23761,7 +23761,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(RevenDeviceHWDataUsageEnabledProto& a, RevenDeviceHWDataUsageEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(RevenDeviceHWDataUsageEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(RevenDeviceHWDataUsageEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -23903,7 +23903,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceLoginScreenWebUILazyLoadingProto& a, DeviceLoginScreenWebUILazyLoadingProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceLoginScreenWebUILazyLoadingProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceLoginScreenWebUILazyLoadingProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -24045,7 +24045,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(EncryptedReportingPipelineConfigurationProto& a, EncryptedReportingPipelineConfigurationProto& b) {
 a.Swap(&b);
 }
-inline void Swap(EncryptedReportingPipelineConfigurationProto* other) {
+PROTOBUF_NOINLINE void Swap(EncryptedReportingPipelineConfigurationProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -24187,7 +24187,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceReportXDREventsProto& a, DeviceReportXDREventsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceReportXDREventsProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceReportXDREventsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -24329,7 +24329,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceLowBatterySoundProto& a, DeviceLowBatterySoundProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceLowBatterySoundProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceLowBatterySoundProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -24471,7 +24471,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceChargingSoundsProto& a, DeviceChargingSoundsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceChargingSoundsProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceChargingSoundsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -24613,7 +24613,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceSwitchFunctionKeysBehaviorEnabledProto& a, DeviceSwitchFunctionKeysBehaviorEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceSwitchFunctionKeysBehaviorEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceSwitchFunctionKeysBehaviorEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -24755,7 +24755,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DeviceFlexHwDataForProductImprovementEnabledProto& a, DeviceFlexHwDataForProductImprovementEnabledProto& b) {
 a.Swap(&b);
 }
-inline void Swap(DeviceFlexHwDataForProductImprovementEnabledProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceFlexHwDataForProductImprovementEnabledProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -24897,7 +24897,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(OBSOLETE_ExtendedFkeysModifierProto& a, OBSOLETE_ExtendedFkeysModifierProto& b) {
 a.Swap(&b);
 }
-inline void Swap(OBSOLETE_ExtendedFkeysModifierProto* other) {
+PROTOBUF_NOINLINE void Swap(OBSOLETE_ExtendedFkeysModifierProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -25069,7 +25069,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(ChromeDeviceSettingsProto& a, ChromeDeviceSettingsProto& b) {
 a.Swap(&b);
 }
-inline void Swap(ChromeDeviceSettingsProto* other) {
+PROTOBUF_NOINLINE void Swap(ChromeDeviceSettingsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&

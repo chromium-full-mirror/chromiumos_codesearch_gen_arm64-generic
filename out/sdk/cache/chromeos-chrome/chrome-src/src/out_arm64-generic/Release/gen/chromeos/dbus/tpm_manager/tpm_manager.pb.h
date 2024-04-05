@@ -418,7 +418,7 @@ class NvramPolicyRecord final :
   friend void swap(NvramPolicyRecord& a, NvramPolicyRecord& b) {
     a.Swap(&b);
   }
-  inline void Swap(NvramPolicyRecord* other) {
+  PROTOBUF_NOINLINE void Swap(NvramPolicyRecord* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -631,7 +631,7 @@ class AuthDelegate final :
   friend void swap(AuthDelegate& a, AuthDelegate& b) {
     a.Swap(&b);
   }
-  inline void Swap(AuthDelegate* other) {
+  PROTOBUF_NOINLINE void Swap(AuthDelegate* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -813,7 +813,7 @@ class LocalData final :
   friend void swap(LocalData& a, LocalData& b) {
     a.Swap(&b);
   }
-  inline void Swap(LocalData* other) {
+  PROTOBUF_NOINLINE void Swap(LocalData* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1096,7 +1096,7 @@ class OwnershipTakenSignal final :
   friend void swap(OwnershipTakenSignal& a, OwnershipTakenSignal& b) {
     a.Swap(&b);
   }
-  inline void Swap(OwnershipTakenSignal* other) {
+  PROTOBUF_NOINLINE void Swap(OwnershipTakenSignal* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1220,7 +1220,7 @@ class DefineSpaceRequest final :
   friend void swap(DefineSpaceRequest& a, DefineSpaceRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(DefineSpaceRequest* other) {
+  PROTOBUF_NOINLINE void Swap(DefineSpaceRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1431,7 +1431,7 @@ class DefineSpaceReply final :
   friend void swap(DefineSpaceReply& a, DefineSpaceReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(DefineSpaceReply* other) {
+  PROTOBUF_NOINLINE void Swap(DefineSpaceReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1573,7 +1573,7 @@ class DestroySpaceRequest final :
   friend void swap(DestroySpaceRequest& a, DestroySpaceRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(DestroySpaceRequest* other) {
+  PROTOBUF_NOINLINE void Swap(DestroySpaceRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1715,7 +1715,7 @@ class DestroySpaceReply final :
   friend void swap(DestroySpaceReply& a, DestroySpaceReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(DestroySpaceReply* other) {
+  PROTOBUF_NOINLINE void Swap(DestroySpaceReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1857,7 +1857,7 @@ class WriteSpaceRequest final :
   friend void swap(WriteSpaceRequest& a, WriteSpaceRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(WriteSpaceRequest* other) {
+  PROTOBUF_NOINLINE void Swap(WriteSpaceRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2054,7 +2054,7 @@ class WriteSpaceReply final :
   friend void swap(WriteSpaceReply& a, WriteSpaceReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(WriteSpaceReply* other) {
+  PROTOBUF_NOINLINE void Swap(WriteSpaceReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2196,7 +2196,7 @@ class ReadSpaceRequest final :
   friend void swap(ReadSpaceRequest& a, ReadSpaceRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ReadSpaceRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ReadSpaceRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2373,7 +2373,7 @@ class ReadSpaceReply final :
   friend void swap(ReadSpaceReply& a, ReadSpaceReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(ReadSpaceReply* other) {
+  PROTOBUF_NOINLINE void Swap(ReadSpaceReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2535,7 +2535,7 @@ class LockSpaceRequest final :
   friend void swap(LockSpaceRequest& a, LockSpaceRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(LockSpaceRequest* other) {
+  PROTOBUF_NOINLINE void Swap(LockSpaceRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2742,7 +2742,7 @@ class LockSpaceReply final :
   friend void swap(LockSpaceReply& a, LockSpaceReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(LockSpaceReply* other) {
+  PROTOBUF_NOINLINE void Swap(LockSpaceReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2884,7 +2884,7 @@ class ListSpacesRequest final :
   friend void swap(ListSpacesRequest& a, ListSpacesRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListSpacesRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ListSpacesRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3008,7 +3008,7 @@ class ListSpacesReply final :
   friend void swap(ListSpacesReply& a, ListSpacesReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListSpacesReply* other) {
+  PROTOBUF_NOINLINE void Swap(ListSpacesReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3174,7 +3174,7 @@ class GetSpaceInfoRequest final :
   friend void swap(GetSpaceInfoRequest& a, GetSpaceInfoRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetSpaceInfoRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetSpaceInfoRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3316,7 +3316,7 @@ class GetSpaceInfoReply final :
   friend void swap(GetSpaceInfoReply& a, GetSpaceInfoReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetSpaceInfoReply* other) {
+  PROTOBUF_NOINLINE void Swap(GetSpaceInfoReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3537,7 +3537,7 @@ class GetTpmStatusRequest final :
   friend void swap(GetTpmStatusRequest& a, GetTpmStatusRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetTpmStatusRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetTpmStatusRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3679,7 +3679,7 @@ class GetTpmStatusReply final :
   friend void swap(GetTpmStatusReply& a, GetTpmStatusReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetTpmStatusReply* other) {
+  PROTOBUF_NOINLINE void Swap(GetTpmStatusReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3871,7 +3871,7 @@ class GetTpmNonsensitiveStatusRequest final :
   friend void swap(GetTpmNonsensitiveStatusRequest& a, GetTpmNonsensitiveStatusRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetTpmNonsensitiveStatusRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetTpmNonsensitiveStatusRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4013,7 +4013,7 @@ class GetTpmNonsensitiveStatusReply final :
   friend void swap(GetTpmNonsensitiveStatusReply& a, GetTpmNonsensitiveStatusReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetTpmNonsensitiveStatusReply* other) {
+  PROTOBUF_NOINLINE void Swap(GetTpmNonsensitiveStatusReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4230,7 +4230,7 @@ class GetVersionInfoRequest final :
   friend void swap(GetVersionInfoRequest& a, GetVersionInfoRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetVersionInfoRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetVersionInfoRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4354,7 +4354,7 @@ class GetVersionInfoReply final :
   friend void swap(GetVersionInfoReply& a, GetVersionInfoReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetVersionInfoReply* other) {
+  PROTOBUF_NOINLINE void Swap(GetVersionInfoReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4626,7 +4626,7 @@ class GetSupportedFeaturesRequest final :
   friend void swap(GetSupportedFeaturesRequest& a, GetSupportedFeaturesRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetSupportedFeaturesRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetSupportedFeaturesRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4750,7 +4750,7 @@ class GetSupportedFeaturesReply final :
   friend void swap(GetSupportedFeaturesReply& a, GetSupportedFeaturesReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetSupportedFeaturesReply* other) {
+  PROTOBUF_NOINLINE void Swap(GetSupportedFeaturesReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4982,7 +4982,7 @@ class GetDictionaryAttackInfoRequest final :
   friend void swap(GetDictionaryAttackInfoRequest& a, GetDictionaryAttackInfoRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetDictionaryAttackInfoRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetDictionaryAttackInfoRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5106,7 +5106,7 @@ class GetDictionaryAttackInfoReply final :
   friend void swap(GetDictionaryAttackInfoReply& a, GetDictionaryAttackInfoReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetDictionaryAttackInfoReply* other) {
+  PROTOBUF_NOINLINE void Swap(GetDictionaryAttackInfoReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5308,7 +5308,7 @@ class GetRoVerificationStatusRequest final :
   friend void swap(GetRoVerificationStatusRequest& a, GetRoVerificationStatusRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetRoVerificationStatusRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetRoVerificationStatusRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5432,7 +5432,7 @@ class GetRoVerificationStatusReply final :
   friend void swap(GetRoVerificationStatusReply& a, GetRoVerificationStatusReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetRoVerificationStatusReply* other) {
+  PROTOBUF_NOINLINE void Swap(GetRoVerificationStatusReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5589,7 +5589,7 @@ class ResetDictionaryAttackLockRequest final :
   friend void swap(ResetDictionaryAttackLockRequest& a, ResetDictionaryAttackLockRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ResetDictionaryAttackLockRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ResetDictionaryAttackLockRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5731,7 +5731,7 @@ class ResetDictionaryAttackLockReply final :
   friend void swap(ResetDictionaryAttackLockReply& a, ResetDictionaryAttackLockReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(ResetDictionaryAttackLockReply* other) {
+  PROTOBUF_NOINLINE void Swap(ResetDictionaryAttackLockReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5873,7 +5873,7 @@ class TakeOwnershipRequest final :
   friend void swap(TakeOwnershipRequest& a, TakeOwnershipRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(TakeOwnershipRequest* other) {
+  PROTOBUF_NOINLINE void Swap(TakeOwnershipRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6015,7 +6015,7 @@ class TakeOwnershipReply final :
   friend void swap(TakeOwnershipReply& a, TakeOwnershipReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(TakeOwnershipReply* other) {
+  PROTOBUF_NOINLINE void Swap(TakeOwnershipReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6157,7 +6157,7 @@ class RemoveOwnerDependencyRequest final :
   friend void swap(RemoveOwnerDependencyRequest& a, RemoveOwnerDependencyRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(RemoveOwnerDependencyRequest* other) {
+  PROTOBUF_NOINLINE void Swap(RemoveOwnerDependencyRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6304,7 +6304,7 @@ class RemoveOwnerDependencyReply final :
   friend void swap(RemoveOwnerDependencyReply& a, RemoveOwnerDependencyReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(RemoveOwnerDependencyReply* other) {
+  PROTOBUF_NOINLINE void Swap(RemoveOwnerDependencyReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6446,7 +6446,7 @@ class ClearStoredOwnerPasswordRequest final :
   friend void swap(ClearStoredOwnerPasswordRequest& a, ClearStoredOwnerPasswordRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ClearStoredOwnerPasswordRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ClearStoredOwnerPasswordRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6570,7 +6570,7 @@ class ClearStoredOwnerPasswordReply final :
   friend void swap(ClearStoredOwnerPasswordReply& a, ClearStoredOwnerPasswordReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(ClearStoredOwnerPasswordReply* other) {
+  PROTOBUF_NOINLINE void Swap(ClearStoredOwnerPasswordReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6712,7 +6712,7 @@ class ClearTpmRequest final :
   friend void swap(ClearTpmRequest& a, ClearTpmRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ClearTpmRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ClearTpmRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6836,7 +6836,7 @@ class ClearTpmReply final :
   friend void swap(ClearTpmReply& a, ClearTpmReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(ClearTpmReply* other) {
+  PROTOBUF_NOINLINE void Swap(ClearTpmReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

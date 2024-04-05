@@ -300,7 +300,7 @@ bool KeyboardInfo_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& top_row_keys_validate_params =
-      mojo::internal::GetArrayOfEnumsValidator<0, ::ash::diagnostics::mojom::internal::TopRowKey_Data::Validate>();
+      mojo::internal::GetArrayOfEnumsValidator<0, false, ::ash::diagnostics::mojom::internal::TopRowKey_Data::Validate>();
   if (!mojo::internal::ValidateContainer(object->top_row_keys, validation_context,
                                          &top_row_keys_validate_params)) {
     return false;

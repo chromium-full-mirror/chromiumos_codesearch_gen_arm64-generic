@@ -123,7 +123,7 @@ class ExamplePreprocessorConfig_Boundaries final :
   friend void swap(ExamplePreprocessorConfig_Boundaries& a, ExamplePreprocessorConfig_Boundaries& b) {
     a.Swap(&b);
   }
-  inline void Swap(ExamplePreprocessorConfig_Boundaries* other) {
+  PROTOBUF_NOINLINE void Swap(ExamplePreprocessorConfig_Boundaries* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -339,7 +339,7 @@ class ExamplePreprocessorConfig final :
   friend void swap(ExamplePreprocessorConfig& a, ExamplePreprocessorConfig& b) {
     a.Swap(&b);
   }
-  inline void Swap(ExamplePreprocessorConfig* other) {
+  PROTOBUF_NOINLINE void Swap(ExamplePreprocessorConfig* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

@@ -136,7 +136,7 @@ class FeatureConfig_BasicFilterConfig final :
   friend void swap(FeatureConfig_BasicFilterConfig& a, FeatureConfig_BasicFilterConfig& b) {
     a.Swap(&b);
   }
-  inline void Swap(FeatureConfig_BasicFilterConfig* other) {
+  PROTOBUF_NOINLINE void Swap(FeatureConfig_BasicFilterConfig* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -253,7 +253,7 @@ class FeatureConfig_ConsecutiveResultsFilterConfig final :
   friend void swap(FeatureConfig_ConsecutiveResultsFilterConfig& a, FeatureConfig_ConsecutiveResultsFilterConfig& b) {
     a.Swap(&b);
   }
-  inline void Swap(FeatureConfig_ConsecutiveResultsFilterConfig* other) {
+  PROTOBUF_NOINLINE void Swap(FeatureConfig_ConsecutiveResultsFilterConfig* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -427,7 +427,7 @@ class FeatureConfig_AverageFilterConfig final :
   friend void swap(FeatureConfig_AverageFilterConfig& a, FeatureConfig_AverageFilterConfig& b) {
     a.Swap(&b);
   }
-  inline void Swap(FeatureConfig_AverageFilterConfig* other) {
+  PROTOBUF_NOINLINE void Swap(FeatureConfig_AverageFilterConfig* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -597,7 +597,7 @@ class FeatureConfig final :
   friend void swap(FeatureConfig& a, FeatureConfig& b) {
     a.Swap(&b);
   }
-  inline void Swap(FeatureConfig* other) {
+  PROTOBUF_NOINLINE void Swap(FeatureConfig* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -805,7 +805,7 @@ class HpsResultProto final :
   friend void swap(HpsResultProto& a, HpsResultProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(HpsResultProto* other) {
+  PROTOBUF_NOINLINE void Swap(HpsResultProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

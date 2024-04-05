@@ -501,7 +501,7 @@ class ProbeRequest final :
   friend void swap(ProbeRequest& a, ProbeRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ProbeRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ProbeRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -716,7 +716,7 @@ class Information final :
   friend void swap(Information& a, Information& b) {
     a.Swap(&b);
   }
-  inline void Swap(Information* other) {
+  PROTOBUF_NOINLINE void Swap(Information* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -851,7 +851,7 @@ class AudioCodec_Fields final :
   friend void swap(AudioCodec_Fields& a, AudioCodec_Fields& b) {
     a.Swap(&b);
   }
-  inline void Swap(AudioCodec_Fields* other) {
+  PROTOBUF_NOINLINE void Swap(AudioCodec_Fields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -986,7 +986,7 @@ class AudioCodec final :
   friend void swap(AudioCodec& a, AudioCodec& b) {
     a.Swap(&b);
   }
-  inline void Swap(AudioCodec* other) {
+  PROTOBUF_NOINLINE void Swap(AudioCodec* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1163,7 +1163,7 @@ class Battery_Fields final :
   friend void swap(Battery_Fields& a, Battery_Fields& b) {
     a.Swap(&b);
   }
-  inline void Swap(Battery_Fields* other) {
+  PROTOBUF_NOINLINE void Swap(Battery_Fields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1488,7 +1488,7 @@ class Battery final :
   friend void swap(Battery& a, Battery& b) {
     a.Swap(&b);
   }
-  inline void Swap(Battery* other) {
+  PROTOBUF_NOINLINE void Swap(Battery* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1665,7 +1665,7 @@ class Storage_Fields final :
   friend void swap(Storage_Fields& a, Storage_Fields& b) {
     a.Swap(&b);
   }
-  inline void Swap(Storage_Fields* other) {
+  PROTOBUF_NOINLINE void Swap(Storage_Fields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2102,7 +2102,7 @@ class Storage final :
   friend void swap(Storage& a, Storage& b) {
     a.Swap(&b);
   }
-  inline void Swap(Storage* other) {
+  PROTOBUF_NOINLINE void Swap(Storage* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2279,7 +2279,7 @@ class VpdCached_Fields final :
   friend void swap(VpdCached_Fields& a, VpdCached_Fields& b) {
     a.Swap(&b);
   }
-  inline void Swap(VpdCached_Fields* other) {
+  PROTOBUF_NOINLINE void Swap(VpdCached_Fields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2414,7 +2414,7 @@ class VpdCached final :
   friend void swap(VpdCached& a, VpdCached& b) {
     a.Swap(&b);
   }
-  inline void Swap(VpdCached* other) {
+  PROTOBUF_NOINLINE void Swap(VpdCached* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2591,7 +2591,7 @@ class Network_Fields final :
   friend void swap(Network_Fields& a, Network_Fields& b) {
     a.Swap(&b);
   }
-  inline void Swap(Network_Fields* other) {
+  PROTOBUF_NOINLINE void Swap(Network_Fields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2857,7 +2857,7 @@ class Network final :
   friend void swap(Network& a, Network& b) {
     a.Swap(&b);
   }
-  inline void Swap(Network* other) {
+  PROTOBUF_NOINLINE void Swap(Network* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3034,7 +3034,7 @@ class Camera_Fields final :
   friend void swap(Camera_Fields& a, Camera_Fields& b) {
     a.Swap(&b);
   }
-  inline void Swap(Camera_Fields* other) {
+  PROTOBUF_NOINLINE void Swap(Camera_Fields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3293,7 +3293,7 @@ class Camera final :
   friend void swap(Camera& a, Camera& b) {
     a.Swap(&b);
   }
-  inline void Swap(Camera* other) {
+  PROTOBUF_NOINLINE void Swap(Camera* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3470,7 +3470,7 @@ class InputDevice_Fields final :
   friend void swap(InputDevice_Fields& a, InputDevice_Fields& b) {
     a.Swap(&b);
   }
-  inline void Swap(InputDevice_Fields* other) {
+  PROTOBUF_NOINLINE void Swap(InputDevice_Fields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3708,7 +3708,7 @@ class InputDevice final :
   friend void swap(InputDevice& a, InputDevice& b) {
     a.Swap(&b);
   }
-  inline void Swap(InputDevice* other) {
+  PROTOBUF_NOINLINE void Swap(InputDevice* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3917,7 +3917,7 @@ class Memory_Fields final :
   friend void swap(Memory_Fields& a, Memory_Fields& b) {
     a.Swap(&b);
   }
-  inline void Swap(Memory_Fields* other) {
+  PROTOBUF_NOINLINE void Swap(Memory_Fields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4074,7 +4074,7 @@ class Memory final :
   friend void swap(Memory& a, Memory& b) {
     a.Swap(&b);
   }
-  inline void Swap(Memory* other) {
+  PROTOBUF_NOINLINE void Swap(Memory* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4251,7 +4251,7 @@ class Edid_Fields final :
   friend void swap(Edid_Fields& a, Edid_Fields& b) {
     a.Swap(&b);
   }
-  inline void Swap(Edid_Fields* other) {
+  PROTOBUF_NOINLINE void Swap(Edid_Fields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4435,7 +4435,7 @@ class Edid final :
   friend void swap(Edid& a, Edid& b) {
     a.Swap(&b);
   }
-  inline void Swap(Edid* other) {
+  PROTOBUF_NOINLINE void Swap(Edid* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4912,7 +4912,7 @@ class ApI2c_Fields final :
   friend void swap(ApI2c_Fields& a, ApI2c_Fields& b) {
     a.Swap(&b);
   }
-  inline void Swap(ApI2c_Fields* other) {
+  PROTOBUF_NOINLINE void Swap(ApI2c_Fields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5042,7 +5042,7 @@ class ApI2c final :
   friend void swap(ApI2c& a, ApI2c& b) {
     a.Swap(&b);
   }
-  inline void Swap(ApI2c* other) {
+  PROTOBUF_NOINLINE void Swap(ApI2c* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5199,7 +5199,7 @@ class EcI2c_Fields final :
   friend void swap(EcI2c_Fields& a, EcI2c_Fields& b) {
     a.Swap(&b);
   }
-  inline void Swap(EcI2c_Fields* other) {
+  PROTOBUF_NOINLINE void Swap(EcI2c_Fields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5329,7 +5329,7 @@ class EcI2c final :
   friend void swap(EcI2c& a, EcI2c& b) {
     a.Swap(&b);
   }
-  inline void Swap(EcI2c* other) {
+  PROTOBUF_NOINLINE void Swap(EcI2c* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5486,7 +5486,7 @@ class Tcpc_Fields final :
   friend void swap(Tcpc_Fields& a, Tcpc_Fields& b) {
     a.Swap(&b);
   }
-  inline void Swap(Tcpc_Fields* other) {
+  PROTOBUF_NOINLINE void Swap(Tcpc_Fields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5649,7 +5649,7 @@ class Tcpc final :
   friend void swap(Tcpc& a, Tcpc& b) {
     a.Swap(&b);
   }
-  inline void Swap(Tcpc* other) {
+  PROTOBUF_NOINLINE void Swap(Tcpc* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5806,7 +5806,7 @@ class Cpu_Fields final :
   friend void swap(Cpu_Fields& a, Cpu_Fields& b) {
     a.Swap(&b);
   }
-  inline void Swap(Cpu_Fields* other) {
+  PROTOBUF_NOINLINE void Swap(Cpu_Fields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5952,7 +5952,7 @@ class Cpu final :
   friend void swap(Cpu& a, Cpu& b) {
     a.Swap(&b);
   }
-  inline void Swap(Cpu* other) {
+  PROTOBUF_NOINLINE void Swap(Cpu* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6109,7 +6109,7 @@ class Tpm_Fields final :
   friend void swap(Tpm_Fields& a, Tpm_Fields& b) {
     a.Swap(&b);
   }
-  inline void Swap(Tpm_Fields* other) {
+  PROTOBUF_NOINLINE void Swap(Tpm_Fields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6271,7 +6271,7 @@ class Tpm final :
   friend void swap(Tpm& a, Tpm& b) {
     a.Swap(&b);
   }
-  inline void Swap(Tpm* other) {
+  PROTOBUF_NOINLINE void Swap(Tpm* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6428,7 +6428,7 @@ class ProbeResult final :
   friend void swap(ProbeResult& a, ProbeResult& b) {
     a.Swap(&b);
   }
-  inline void Swap(ProbeResult* other) {
+  PROTOBUF_NOINLINE void Swap(ProbeResult* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -6913,7 +6913,7 @@ class ComponentFields final :
   friend void swap(ComponentFields& a, ComponentFields& b) {
     a.Swap(&b);
   }
-  inline void Swap(ComponentFields* other) {
+  PROTOBUF_NOINLINE void Swap(ComponentFields* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7358,7 +7358,7 @@ class GetKnownComponentsRequest final :
   friend void swap(GetKnownComponentsRequest& a, GetKnownComponentsRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetKnownComponentsRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetKnownComponentsRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7488,7 +7488,7 @@ class GetKnownComponentsResult final :
   friend void swap(GetKnownComponentsResult& a, GetKnownComponentsResult& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetKnownComponentsResult* other) {
+  PROTOBUF_NOINLINE void Swap(GetKnownComponentsResult* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7644,7 +7644,7 @@ class ProbeSsfcComponentsRequest final :
   friend void swap(ProbeSsfcComponentsRequest& a, ProbeSsfcComponentsRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ProbeSsfcComponentsRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ProbeSsfcComponentsRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7761,7 +7761,7 @@ class ProbeSsfcComponentsResponse final :
   friend void swap(ProbeSsfcComponentsResponse& a, ProbeSsfcComponentsResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ProbeSsfcComponentsResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ProbeSsfcComponentsResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

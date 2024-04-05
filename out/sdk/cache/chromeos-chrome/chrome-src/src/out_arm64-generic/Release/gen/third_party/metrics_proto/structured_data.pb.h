@@ -189,7 +189,7 @@ class StructuredEventProto_Metric_RepeatedInt64 final :
   friend void swap(StructuredEventProto_Metric_RepeatedInt64& a, StructuredEventProto_Metric_RepeatedInt64& b) {
     a.Swap(&b);
   }
-  inline void Swap(StructuredEventProto_Metric_RepeatedInt64* other) {
+  PROTOBUF_NOINLINE void Swap(StructuredEventProto_Metric_RepeatedInt64* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -349,7 +349,7 @@ class StructuredEventProto_Metric final :
   friend void swap(StructuredEventProto_Metric& a, StructuredEventProto_Metric& b) {
     a.Swap(&b);
   }
-  inline void Swap(StructuredEventProto_Metric* other) {
+  PROTOBUF_NOINLINE void Swap(StructuredEventProto_Metric* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -594,7 +594,7 @@ class StructuredEventProto_EventSequenceMetadata final :
   friend void swap(StructuredEventProto_EventSequenceMetadata& a, StructuredEventProto_EventSequenceMetadata& b) {
     a.Swap(&b);
   }
-  inline void Swap(StructuredEventProto_EventSequenceMetadata* other) {
+  PROTOBUF_NOINLINE void Swap(StructuredEventProto_EventSequenceMetadata* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -796,7 +796,7 @@ class StructuredEventProto final :
   friend void swap(StructuredEventProto& a, StructuredEventProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(StructuredEventProto* other) {
+  PROTOBUF_NOINLINE void Swap(StructuredEventProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1126,7 +1126,7 @@ class StructuredDataProto final :
   friend void swap(StructuredDataProto& a, StructuredDataProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(StructuredDataProto* other) {
+  PROTOBUF_NOINLINE void Swap(StructuredDataProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

@@ -145,7 +145,7 @@ class SwitchStates final :
   friend void swap(SwitchStates& a, SwitchStates& b) {
     a.Swap(&b);
   }
-  inline void Swap(SwitchStates* other) {
+  PROTOBUF_NOINLINE void Swap(SwitchStates* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

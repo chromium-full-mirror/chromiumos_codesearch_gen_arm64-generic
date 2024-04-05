@@ -108,7 +108,7 @@ class Request final :
   friend void swap(Request& a, Request& b) {
     a.Swap(&b);
   }
-  inline void Swap(Request* other) {
+  PROTOBUF_NOINLINE void Swap(Request* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -232,7 +232,7 @@ class Response final :
   friend void swap(Response& a, Response& b) {
     a.Swap(&b);
   }
-  inline void Swap(Response* other) {
+  PROTOBUF_NOINLINE void Swap(Response* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

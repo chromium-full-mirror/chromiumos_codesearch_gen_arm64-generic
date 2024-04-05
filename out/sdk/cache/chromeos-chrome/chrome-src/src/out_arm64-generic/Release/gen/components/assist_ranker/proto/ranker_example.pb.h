@@ -123,7 +123,7 @@ class StringList final :
   friend void swap(StringList& a, StringList& b) {
     a.Swap(&b);
   }
-  inline void Swap(StringList* other) {
+  PROTOBUF_NOINLINE void Swap(StringList* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -275,7 +275,7 @@ class FloatList final :
   friend void swap(FloatList& a, FloatList& b) {
     a.Swap(&b);
   }
-  inline void Swap(FloatList* other) {
+  PROTOBUF_NOINLINE void Swap(FloatList* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -435,7 +435,7 @@ class Feature final :
   friend void swap(Feature& a, Feature& b) {
     a.Swap(&b);
   }
-  inline void Swap(Feature* other) {
+  PROTOBUF_NOINLINE void Swap(Feature* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -705,7 +705,7 @@ class RankerExample final :
   friend void swap(RankerExample& a, RankerExample& b) {
     a.Swap(&b);
   }
-  inline void Swap(RankerExample* other) {
+  PROTOBUF_NOINLINE void Swap(RankerExample* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

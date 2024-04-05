@@ -238,7 +238,7 @@ class DirEntryProto final :
   friend void swap(DirEntryProto& a, DirEntryProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(DirEntryProto* other) {
+  PROTOBUF_NOINLINE void Swap(DirEntryProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -475,7 +475,7 @@ class Close2RequestProto final :
   friend void swap(Close2RequestProto& a, Close2RequestProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(Close2RequestProto* other) {
+  PROTOBUF_NOINLINE void Swap(Close2RequestProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -617,7 +617,7 @@ class Close2ResponseProto final :
   friend void swap(Close2ResponseProto& a, Close2ResponseProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(Close2ResponseProto* other) {
+  PROTOBUF_NOINLINE void Swap(Close2ResponseProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -759,7 +759,7 @@ class CreateRequestProto final :
   friend void swap(CreateRequestProto& a, CreateRequestProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(CreateRequestProto* other) {
+  PROTOBUF_NOINLINE void Swap(CreateRequestProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -906,7 +906,7 @@ class CreateResponseProto final :
   friend void swap(CreateResponseProto& a, CreateResponseProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(CreateResponseProto* other) {
+  PROTOBUF_NOINLINE void Swap(CreateResponseProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1083,7 +1083,7 @@ class FlushRequestProto final :
   friend void swap(FlushRequestProto& a, FlushRequestProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(FlushRequestProto* other) {
+  PROTOBUF_NOINLINE void Swap(FlushRequestProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1240,7 +1240,7 @@ class FlushResponseProto final :
   friend void swap(FlushResponseProto& a, FlushResponseProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(FlushResponseProto* other) {
+  PROTOBUF_NOINLINE void Swap(FlushResponseProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1382,7 +1382,7 @@ class ListStoragesRequestProto final :
   friend void swap(ListStoragesRequestProto& a, ListStoragesRequestProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListStoragesRequestProto* other) {
+  PROTOBUF_NOINLINE void Swap(ListStoragesRequestProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1506,7 +1506,7 @@ class ListStoragesResponseProto final :
   friend void swap(ListStoragesResponseProto& a, ListStoragesResponseProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListStoragesResponseProto* other) {
+  PROTOBUF_NOINLINE void Swap(ListStoragesResponseProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1674,7 +1674,7 @@ class MkDirRequestProto final :
   friend void swap(MkDirRequestProto& a, MkDirRequestProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(MkDirRequestProto* other) {
+  PROTOBUF_NOINLINE void Swap(MkDirRequestProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1821,7 +1821,7 @@ class MkDirResponseProto final :
   friend void swap(MkDirResponseProto& a, MkDirResponseProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(MkDirResponseProto* other) {
+  PROTOBUF_NOINLINE void Swap(MkDirResponseProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1983,7 +1983,7 @@ class Open2RequestProto final :
   friend void swap(Open2RequestProto& a, Open2RequestProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(Open2RequestProto* other) {
+  PROTOBUF_NOINLINE void Swap(Open2RequestProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2145,7 +2145,7 @@ class Open2ResponseProto final :
   friend void swap(Open2ResponseProto& a, Open2ResponseProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(Open2ResponseProto* other) {
+  PROTOBUF_NOINLINE void Swap(Open2ResponseProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2302,7 +2302,7 @@ class Read2RequestProto final :
   friend void swap(Read2RequestProto& a, Read2RequestProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(Read2RequestProto* other) {
+  PROTOBUF_NOINLINE void Swap(Read2RequestProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2474,7 +2474,7 @@ class Read2ResponseProto final :
   friend void swap(Read2ResponseProto& a, Read2ResponseProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(Read2ResponseProto* other) {
+  PROTOBUF_NOINLINE void Swap(Read2ResponseProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2636,7 +2636,7 @@ class ReadDir2RequestProto final :
   friend void swap(ReadDir2RequestProto& a, ReadDir2RequestProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(ReadDir2RequestProto* other) {
+  PROTOBUF_NOINLINE void Swap(ReadDir2RequestProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2813,7 +2813,7 @@ class ReadDir2ResponseProto final :
   friend void swap(ReadDir2ResponseProto& a, ReadDir2ResponseProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(ReadDir2ResponseProto* other) {
+  PROTOBUF_NOINLINE void Swap(ReadDir2ResponseProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2990,7 +2990,7 @@ class RenameRequestProto final :
   friend void swap(RenameRequestProto& a, RenameRequestProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(RenameRequestProto* other) {
+  PROTOBUF_NOINLINE void Swap(RenameRequestProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3157,7 +3157,7 @@ class RenameResponseProto final :
   friend void swap(RenameResponseProto& a, RenameResponseProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(RenameResponseProto* other) {
+  PROTOBUF_NOINLINE void Swap(RenameResponseProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3299,7 +3299,7 @@ class RmDirRequestProto final :
   friend void swap(RmDirRequestProto& a, RmDirRequestProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(RmDirRequestProto* other) {
+  PROTOBUF_NOINLINE void Swap(RmDirRequestProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3446,7 +3446,7 @@ class RmDirResponseProto final :
   friend void swap(RmDirResponseProto& a, RmDirResponseProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(RmDirResponseProto* other) {
+  PROTOBUF_NOINLINE void Swap(RmDirResponseProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3588,7 +3588,7 @@ class Stat2RequestProto final :
   friend void swap(Stat2RequestProto& a, Stat2RequestProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(Stat2RequestProto* other) {
+  PROTOBUF_NOINLINE void Swap(Stat2RequestProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3735,7 +3735,7 @@ class Stat2ResponseProto final :
   friend void swap(Stat2ResponseProto& a, Stat2ResponseProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(Stat2ResponseProto* other) {
+  PROTOBUF_NOINLINE void Swap(Stat2ResponseProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3897,7 +3897,7 @@ class TruncateRequestProto final :
   friend void swap(TruncateRequestProto& a, TruncateRequestProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(TruncateRequestProto* other) {
+  PROTOBUF_NOINLINE void Swap(TruncateRequestProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4059,7 +4059,7 @@ class TruncateResponseProto final :
   friend void swap(TruncateResponseProto& a, TruncateResponseProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(TruncateResponseProto* other) {
+  PROTOBUF_NOINLINE void Swap(TruncateResponseProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4221,7 +4221,7 @@ class UnlinkRequestProto final :
   friend void swap(UnlinkRequestProto& a, UnlinkRequestProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(UnlinkRequestProto* other) {
+  PROTOBUF_NOINLINE void Swap(UnlinkRequestProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4368,7 +4368,7 @@ class UnlinkResponseProto final :
   friend void swap(UnlinkResponseProto& a, UnlinkResponseProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(UnlinkResponseProto* other) {
+  PROTOBUF_NOINLINE void Swap(UnlinkResponseProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4510,7 +4510,7 @@ class Write2RequestProto final :
   friend void swap(Write2RequestProto& a, Write2RequestProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(Write2RequestProto* other) {
+  PROTOBUF_NOINLINE void Swap(Write2RequestProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -4687,7 +4687,7 @@ class Write2ResponseProto final :
   friend void swap(Write2ResponseProto& a, Write2ResponseProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(Write2ResponseProto* other) {
+  PROTOBUF_NOINLINE void Swap(Write2ResponseProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

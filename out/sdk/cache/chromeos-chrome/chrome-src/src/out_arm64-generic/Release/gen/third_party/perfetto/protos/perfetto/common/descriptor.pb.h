@@ -207,7 +207,7 @@ class FileDescriptorSet final :
   friend void swap(FileDescriptorSet& a, FileDescriptorSet& b) {
     a.Swap(&b);
   }
-  inline void Swap(FileDescriptorSet* other) {
+  PROTOBUF_NOINLINE void Swap(FileDescriptorSet* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -353,7 +353,7 @@ class FileDescriptorProto final :
   friend void swap(FileDescriptorProto& a, FileDescriptorProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(FileDescriptorProto* other) {
+  PROTOBUF_NOINLINE void Swap(FileDescriptorProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -654,7 +654,7 @@ class DescriptorProto_ReservedRange final :
   friend void swap(DescriptorProto_ReservedRange& a, DescriptorProto_ReservedRange& b) {
     a.Swap(&b);
   }
-  inline void Swap(DescriptorProto_ReservedRange* other) {
+  PROTOBUF_NOINLINE void Swap(DescriptorProto_ReservedRange* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -811,7 +811,7 @@ class DescriptorProto final :
   friend void swap(DescriptorProto& a, DescriptorProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(DescriptorProto* other) {
+  PROTOBUF_NOINLINE void Swap(DescriptorProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1106,7 +1106,7 @@ class UninterpretedOption_NamePart final :
   friend void swap(UninterpretedOption_NamePart& a, UninterpretedOption_NamePart& b) {
     a.Swap(&b);
   }
-  inline void Swap(UninterpretedOption_NamePart* other) {
+  PROTOBUF_NOINLINE void Swap(UninterpretedOption_NamePart* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1268,7 +1268,7 @@ class UninterpretedOption final :
   friend void swap(UninterpretedOption& a, UninterpretedOption& b) {
     a.Swap(&b);
   }
-  inline void Swap(UninterpretedOption* other) {
+  PROTOBUF_NOINLINE void Swap(UninterpretedOption* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1522,7 +1522,7 @@ class FieldOptions final :
   friend void swap(FieldOptions& a, FieldOptions& b) {
     a.Swap(&b);
   }
-  inline void Swap(FieldOptions* other) {
+  PROTOBUF_NOINLINE void Swap(FieldOptions* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1684,7 +1684,7 @@ class FieldDescriptorProto final :
   friend void swap(FieldDescriptorProto& a, FieldDescriptorProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(FieldDescriptorProto* other) {
+  PROTOBUF_NOINLINE void Swap(FieldDescriptorProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2057,7 +2057,7 @@ class OneofDescriptorProto final :
   friend void swap(OneofDescriptorProto& a, OneofDescriptorProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(OneofDescriptorProto* other) {
+  PROTOBUF_NOINLINE void Swap(OneofDescriptorProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2224,7 +2224,7 @@ class EnumDescriptorProto final :
   friend void swap(EnumDescriptorProto& a, EnumDescriptorProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(EnumDescriptorProto* other) {
+  PROTOBUF_NOINLINE void Swap(EnumDescriptorProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2417,7 +2417,7 @@ class EnumValueDescriptorProto final :
   friend void swap(EnumValueDescriptorProto& a, EnumValueDescriptorProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(EnumValueDescriptorProto* other) {
+  PROTOBUF_NOINLINE void Swap(EnumValueDescriptorProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2579,7 +2579,7 @@ class OneofOptions final :
   friend void swap(OneofOptions& a, OneofOptions& b) {
     a.Swap(&b);
   }
-  inline void Swap(OneofOptions* other) {
+  PROTOBUF_NOINLINE void Swap(OneofOptions* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

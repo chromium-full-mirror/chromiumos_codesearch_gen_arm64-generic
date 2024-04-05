@@ -178,7 +178,7 @@ class ChurnObservationStatus final :
   friend void swap(ChurnObservationStatus& a, ChurnObservationStatus& b) {
     a.Swap(&b);
   }
-  inline void Swap(ChurnObservationStatus* other) {
+  PROTOBUF_NOINLINE void Swap(ChurnObservationStatus* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -371,7 +371,7 @@ class ActiveStatus final :
   friend void swap(ActiveStatus& a, ActiveStatus& b) {
     a.Swap(&b);
   }
-  inline void Swap(ActiveStatus* other) {
+  PROTOBUF_NOINLINE void Swap(ActiveStatus* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -601,7 +601,7 @@ class SaveStatusRequest final :
   friend void swap(SaveStatusRequest& a, SaveStatusRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SaveStatusRequest* other) {
+  PROTOBUF_NOINLINE void Swap(SaveStatusRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -747,7 +747,7 @@ class SaveStatusResponse final :
   friend void swap(SaveStatusResponse& a, SaveStatusResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SaveStatusResponse* other) {
+  PROTOBUF_NOINLINE void Swap(SaveStatusResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -894,7 +894,7 @@ class GetStatusResponse final :
   friend void swap(GetStatusResponse& a, GetStatusResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetStatusResponse* other) {
+  PROTOBUF_NOINLINE void Swap(GetStatusResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1061,7 +1061,7 @@ class PrivateComputingClientRegressionTestData_TestCase final :
   friend void swap(PrivateComputingClientRegressionTestData_TestCase& a, PrivateComputingClientRegressionTestData_TestCase& b) {
     a.Swap(&b);
   }
-  inline void Swap(PrivateComputingClientRegressionTestData_TestCase* other) {
+  PROTOBUF_NOINLINE void Swap(PrivateComputingClientRegressionTestData_TestCase* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1243,7 +1243,7 @@ class PrivateComputingClientRegressionTestData final :
   friend void swap(PrivateComputingClientRegressionTestData& a, PrivateComputingClientRegressionTestData& b) {
     a.Swap(&b);
   }
-  inline void Swap(PrivateComputingClientRegressionTestData* other) {
+  PROTOBUF_NOINLINE void Swap(PrivateComputingClientRegressionTestData* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

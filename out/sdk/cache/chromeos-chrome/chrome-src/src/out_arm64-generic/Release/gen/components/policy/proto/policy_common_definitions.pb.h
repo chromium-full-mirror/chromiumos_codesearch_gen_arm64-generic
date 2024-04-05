@@ -145,7 +145,7 @@ class StringList final :
   friend void swap(StringList& a, StringList& b) {
     a.Swap(&b);
   }
-  inline void Swap(StringList* other) {
+  PROTOBUF_NOINLINE void Swap(StringList* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -297,7 +297,7 @@ class PolicyOptions final :
   friend void swap(PolicyOptions& a, PolicyOptions& b) {
     a.Swap(&b);
   }
-  inline void Swap(PolicyOptions* other) {
+  PROTOBUF_NOINLINE void Swap(PolicyOptions* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -467,7 +467,7 @@ class BooleanPolicyProto final :
   friend void swap(BooleanPolicyProto& a, BooleanPolicyProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(BooleanPolicyProto* other) {
+  PROTOBUF_NOINLINE void Swap(BooleanPolicyProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -629,7 +629,7 @@ class IntegerPolicyProto final :
   friend void swap(IntegerPolicyProto& a, IntegerPolicyProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(IntegerPolicyProto* other) {
+  PROTOBUF_NOINLINE void Swap(IntegerPolicyProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -791,7 +791,7 @@ class StringPolicyProto final :
   friend void swap(StringPolicyProto& a, StringPolicyProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(StringPolicyProto* other) {
+  PROTOBUF_NOINLINE void Swap(StringPolicyProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -958,7 +958,7 @@ class StringListPolicyProto final :
   friend void swap(StringListPolicyProto& a, StringListPolicyProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(StringListPolicyProto* other) {
+  PROTOBUF_NOINLINE void Swap(StringListPolicyProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

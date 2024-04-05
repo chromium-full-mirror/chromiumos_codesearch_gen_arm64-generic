@@ -178,7 +178,7 @@ class Record final :
   friend void swap(Record& a, Record& b) {
     a.Swap(&b);
   }
-  inline void Swap(Record* other) {
+  PROTOBUF_NOINLINE void Swap(Record* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -425,7 +425,7 @@ class SourceInfo final :
   friend void swap(SourceInfo& a, SourceInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(SourceInfo* other) {
+  PROTOBUF_NOINLINE void Swap(SourceInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -615,7 +615,7 @@ class WrappedRecord final :
   friend void swap(WrappedRecord& a, WrappedRecord& b) {
     a.Swap(&b);
   }
-  inline void Swap(WrappedRecord* other) {
+  PROTOBUF_NOINLINE void Swap(WrappedRecord* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -802,7 +802,7 @@ class EncryptionInfo final :
   friend void swap(EncryptionInfo& a, EncryptionInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(EncryptionInfo* other) {
+  PROTOBUF_NOINLINE void Swap(EncryptionInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -964,7 +964,7 @@ class SequenceInformation final :
   friend void swap(SequenceInformation& a, SequenceInformation& b) {
     a.Swap(&b);
   }
-  inline void Swap(SequenceInformation* other) {
+  PROTOBUF_NOINLINE void Swap(SequenceInformation* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1156,7 +1156,7 @@ class EncryptedRecord final :
   friend void swap(EncryptedRecord& a, EncryptedRecord& b) {
     a.Swap(&b);
   }
-  inline void Swap(EncryptedRecord* other) {
+  PROTOBUF_NOINLINE void Swap(EncryptedRecord* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1423,7 +1423,7 @@ class CompressionInformation final :
   friend void swap(CompressionInformation& a, CompressionInformation& b) {
     a.Swap(&b);
   }
-  inline void Swap(CompressionInformation* other) {
+  PROTOBUF_NOINLINE void Swap(CompressionInformation* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1591,7 +1591,7 @@ class SignedEncryptionInfo final :
   friend void swap(SignedEncryptionInfo& a, SignedEncryptionInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(SignedEncryptionInfo* other) {
+  PROTOBUF_NOINLINE void Swap(SignedEncryptionInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1773,7 +1773,7 @@ class ListOfBlockedDestinations final :
   friend void swap(ListOfBlockedDestinations& a, ListOfBlockedDestinations& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListOfBlockedDestinations* other) {
+  PROTOBUF_NOINLINE void Swap(ListOfBlockedDestinations* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

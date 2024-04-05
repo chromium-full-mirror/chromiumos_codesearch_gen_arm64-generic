@@ -240,7 +240,7 @@ class UserChargingEvent_Features final :
   friend void swap(UserChargingEvent_Features& a, UserChargingEvent_Features& b) {
     a.Swap(&b);
   }
-  inline void Swap(UserChargingEvent_Features* other) {
+  PROTOBUF_NOINLINE void Swap(UserChargingEvent_Features* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -843,7 +843,7 @@ class UserChargingEvent_Event final :
   friend void swap(UserChargingEvent_Event& a, UserChargingEvent_Event& b) {
     a.Swap(&b);
   }
-  inline void Swap(UserChargingEvent_Event* other) {
+  PROTOBUF_NOINLINE void Swap(UserChargingEvent_Event* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1032,7 +1032,7 @@ class UserChargingEvent final :
   friend void swap(UserChargingEvent& a, UserChargingEvent& b) {
     a.Swap(&b);
   }
-  inline void Swap(UserChargingEvent* other) {
+  PROTOBUF_NOINLINE void Swap(UserChargingEvent* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1202,7 +1202,7 @@ class PastChargingEvents_Event final :
   friend void swap(PastChargingEvents_Event& a, PastChargingEvents_Event& b) {
     a.Swap(&b);
   }
-  inline void Swap(PastChargingEvents_Event* other) {
+  PROTOBUF_NOINLINE void Swap(PastChargingEvents_Event* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1389,7 +1389,7 @@ class PastChargingEvents final :
   friend void swap(PastChargingEvents& a, PastChargingEvents& b) {
     a.Swap(&b);
   }
-  inline void Swap(PastChargingEvents* other) {
+  PROTOBUF_NOINLINE void Swap(PastChargingEvents* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

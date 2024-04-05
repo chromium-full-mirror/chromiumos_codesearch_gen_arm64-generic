@@ -113,7 +113,7 @@ class TrustTokenIssuerConfig final :
   friend void swap(TrustTokenIssuerConfig& a, TrustTokenIssuerConfig& b) {
     a.Swap(&b);
   }
-  inline void Swap(TrustTokenIssuerConfig* other) {
+  PROTOBUF_NOINLINE void Swap(TrustTokenIssuerConfig* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -280,7 +280,7 @@ class TrustTokenToplevelConfig final :
   friend void swap(TrustTokenToplevelConfig& a, TrustTokenToplevelConfig& b) {
     a.Swap(&b);
   }
-  inline void Swap(TrustTokenToplevelConfig* other) {
+  PROTOBUF_NOINLINE void Swap(TrustTokenToplevelConfig* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -432,7 +432,7 @@ class TrustTokenIssuerToplevelPairConfig final :
   friend void swap(TrustTokenIssuerToplevelPairConfig& a, TrustTokenIssuerToplevelPairConfig& b) {
     a.Swap(&b);
   }
-  inline void Swap(TrustTokenIssuerToplevelPairConfig* other) {
+  PROTOBUF_NOINLINE void Swap(TrustTokenIssuerToplevelPairConfig* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

@@ -267,7 +267,7 @@ class KerberosFiles final :
   friend void swap(KerberosFiles& a, KerberosFiles& b) {
     a.Swap(&b);
   }
-  inline void Swap(KerberosFiles* other) {
+  PROTOBUF_NOINLINE void Swap(KerberosFiles* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -434,7 +434,7 @@ class Account final :
   friend void swap(Account& a, Account& b) {
     a.Swap(&b);
   }
-  inline void Swap(Account* other) {
+  PROTOBUF_NOINLINE void Swap(Account* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -676,7 +676,7 @@ class ConfigErrorInfo final :
   friend void swap(ConfigErrorInfo& a, ConfigErrorInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(ConfigErrorInfo* other) {
+  PROTOBUF_NOINLINE void Swap(ConfigErrorInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -833,7 +833,7 @@ class AddAccountRequest final :
   friend void swap(AddAccountRequest& a, AddAccountRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AddAccountRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AddAccountRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -995,7 +995,7 @@ class AddAccountResponse final :
   friend void swap(AddAccountResponse& a, AddAccountResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(AddAccountResponse* other) {
+  PROTOBUF_NOINLINE void Swap(AddAccountResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1137,7 +1137,7 @@ class RemoveAccountRequest final :
   friend void swap(RemoveAccountRequest& a, RemoveAccountRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(RemoveAccountRequest* other) {
+  PROTOBUF_NOINLINE void Swap(RemoveAccountRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1284,7 +1284,7 @@ class RemoveAccountResponse final :
   friend void swap(RemoveAccountResponse& a, RemoveAccountResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(RemoveAccountResponse* other) {
+  PROTOBUF_NOINLINE void Swap(RemoveAccountResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1446,7 +1446,7 @@ class ClearAccountsRequest final :
   friend void swap(ClearAccountsRequest& a, ClearAccountsRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ClearAccountsRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ClearAccountsRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1614,7 +1614,7 @@ class ClearAccountsResponse final :
   friend void swap(ClearAccountsResponse& a, ClearAccountsResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ClearAccountsResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ClearAccountsResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1776,7 +1776,7 @@ class ListAccountsRequest final :
   friend void swap(ListAccountsRequest& a, ListAccountsRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListAccountsRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ListAccountsRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1900,7 +1900,7 @@ class ListAccountsResponse final :
   friend void swap(ListAccountsResponse& a, ListAccountsResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListAccountsResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ListAccountsResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2062,7 +2062,7 @@ class SetConfigRequest final :
   friend void swap(SetConfigRequest& a, SetConfigRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetConfigRequest* other) {
+  PROTOBUF_NOINLINE void Swap(SetConfigRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2229,7 +2229,7 @@ class SetConfigResponse final :
   friend void swap(SetConfigResponse& a, SetConfigResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetConfigResponse* other) {
+  PROTOBUF_NOINLINE void Swap(SetConfigResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2371,7 +2371,7 @@ class ValidateConfigRequest final :
   friend void swap(ValidateConfigRequest& a, ValidateConfigRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ValidateConfigRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ValidateConfigRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2518,7 +2518,7 @@ class ValidateConfigResponse final :
   friend void swap(ValidateConfigResponse& a, ValidateConfigResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ValidateConfigResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ValidateConfigResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2680,7 +2680,7 @@ class AcquireKerberosTgtRequest final :
   friend void swap(AcquireKerberosTgtRequest& a, AcquireKerberosTgtRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AcquireKerberosTgtRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AcquireKerberosTgtRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2857,7 +2857,7 @@ class AcquireKerberosTgtResponse final :
   friend void swap(AcquireKerberosTgtResponse& a, AcquireKerberosTgtResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(AcquireKerberosTgtResponse* other) {
+  PROTOBUF_NOINLINE void Swap(AcquireKerberosTgtResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2999,7 +2999,7 @@ class GetKerberosFilesRequest final :
   friend void swap(GetKerberosFilesRequest& a, GetKerberosFilesRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetKerberosFilesRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetKerberosFilesRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3146,7 +3146,7 @@ class GetKerberosFilesResponse final :
   friend void swap(GetKerberosFilesResponse& a, GetKerberosFilesResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetKerberosFilesResponse* other) {
+  PROTOBUF_NOINLINE void Swap(GetKerberosFilesResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

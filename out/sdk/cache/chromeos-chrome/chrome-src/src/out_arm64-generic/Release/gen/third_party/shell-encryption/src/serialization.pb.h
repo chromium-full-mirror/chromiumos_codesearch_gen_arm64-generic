@@ -117,7 +117,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(SerializedNttPolynomial& a, SerializedNttPolynomial& b) {
 a.Swap(&b);
 }
-inline void Swap(SerializedNttPolynomial* other) {
+PROTOBUF_NOINLINE void Swap(SerializedNttPolynomial* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -279,7 +279,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(SerializedSymmetricRlweCiphertext& a, SerializedSymmetricRlweCiphertext& b) {
 a.Swap(&b);
 }
-inline void Swap(SerializedSymmetricRlweCiphertext* other) {
+PROTOBUF_NOINLINE void Swap(SerializedSymmetricRlweCiphertext* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -456,7 +456,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(SerializedRelinearizationKey& a, SerializedRelinearizationKey& b) {
 a.Swap(&b);
 }
-inline void Swap(SerializedRelinearizationKey* other) {
+PROTOBUF_NOINLINE void Swap(SerializedRelinearizationKey* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -668,7 +668,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(SerializedGaloisKey& a, SerializedGaloisKey& b) {
 a.Swap(&b);
 }
-inline void Swap(SerializedGaloisKey* other) {
+PROTOBUF_NOINLINE void Swap(SerializedGaloisKey* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&

@@ -101,7 +101,7 @@ class MtpStorageInfo final :
   friend void swap(MtpStorageInfo& a, MtpStorageInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(MtpStorageInfo* other) {
+  PROTOBUF_NOINLINE void Swap(MtpStorageInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

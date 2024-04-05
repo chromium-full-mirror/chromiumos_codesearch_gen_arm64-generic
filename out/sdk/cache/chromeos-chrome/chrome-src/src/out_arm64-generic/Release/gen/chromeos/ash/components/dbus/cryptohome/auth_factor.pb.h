@@ -329,7 +329,7 @@ class PasswordAuthInput final :
   friend void swap(PasswordAuthInput& a, PasswordAuthInput& b) {
     a.Swap(&b);
   }
-  inline void Swap(PasswordAuthInput* other) {
+  PROTOBUF_NOINLINE void Swap(PasswordAuthInput* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -464,7 +464,7 @@ class PinAuthInput final :
   friend void swap(PinAuthInput& a, PinAuthInput& b) {
     a.Swap(&b);
   }
-  inline void Swap(PinAuthInput* other) {
+  PROTOBUF_NOINLINE void Swap(PinAuthInput* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -599,7 +599,7 @@ class CryptohomeRecoveryAuthInput_LedgerInfo final :
   friend void swap(CryptohomeRecoveryAuthInput_LedgerInfo& a, CryptohomeRecoveryAuthInput_LedgerInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(CryptohomeRecoveryAuthInput_LedgerInfo* other) {
+  PROTOBUF_NOINLINE void Swap(CryptohomeRecoveryAuthInput_LedgerInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -761,7 +761,7 @@ class CryptohomeRecoveryAuthInput final :
   friend void swap(CryptohomeRecoveryAuthInput& a, CryptohomeRecoveryAuthInput& b) {
     a.Swap(&b);
   }
-  inline void Swap(CryptohomeRecoveryAuthInput* other) {
+  PROTOBUF_NOINLINE void Swap(CryptohomeRecoveryAuthInput* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -998,7 +998,7 @@ class KioskAuthInput final :
   friend void swap(KioskAuthInput& a, KioskAuthInput& b) {
     a.Swap(&b);
   }
-  inline void Swap(KioskAuthInput* other) {
+  PROTOBUF_NOINLINE void Swap(KioskAuthInput* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1115,7 +1115,7 @@ class SmartCardAuthInput final :
   friend void swap(SmartCardAuthInput& a, SmartCardAuthInput& b) {
     a.Swap(&b);
   }
-  inline void Swap(SmartCardAuthInput* other) {
+  PROTOBUF_NOINLINE void Swap(SmartCardAuthInput* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1270,7 +1270,7 @@ class LegacyFingerprintAuthInput final :
   friend void swap(LegacyFingerprintAuthInput& a, LegacyFingerprintAuthInput& b) {
     a.Swap(&b);
   }
-  inline void Swap(LegacyFingerprintAuthInput* other) {
+  PROTOBUF_NOINLINE void Swap(LegacyFingerprintAuthInput* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1387,7 +1387,7 @@ class FingerprintAuthInput final :
   friend void swap(FingerprintAuthInput& a, FingerprintAuthInput& b) {
     a.Swap(&b);
   }
-  inline void Swap(FingerprintAuthInput* other) {
+  PROTOBUF_NOINLINE void Swap(FingerprintAuthInput* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1515,7 +1515,7 @@ class AuthInput final :
   friend void swap(AuthInput& a, AuthInput& b) {
     a.Swap(&b);
   }
-  inline void Swap(AuthInput* other) {
+  PROTOBUF_NOINLINE void Swap(AuthInput* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1792,7 +1792,7 @@ class CryptohomeRecoveryPrepareInput final :
   friend void swap(CryptohomeRecoveryPrepareInput& a, CryptohomeRecoveryPrepareInput& b) {
     a.Swap(&b);
   }
-  inline void Swap(CryptohomeRecoveryPrepareInput* other) {
+  PROTOBUF_NOINLINE void Swap(CryptohomeRecoveryPrepareInput* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2033,7 +2033,7 @@ class PrepareInput final :
   friend void swap(PrepareInput& a, PrepareInput& b) {
     a.Swap(&b);
   }
-  inline void Swap(PrepareInput* other) {
+  PROTOBUF_NOINLINE void Swap(PrepareInput* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2184,7 +2184,7 @@ class CryptohomeRecoveryPrepareOutput final :
   friend void swap(CryptohomeRecoveryPrepareOutput& a, CryptohomeRecoveryPrepareOutput& b) {
     a.Swap(&b);
   }
-  inline void Swap(CryptohomeRecoveryPrepareOutput* other) {
+  PROTOBUF_NOINLINE void Swap(CryptohomeRecoveryPrepareOutput* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2324,7 +2324,7 @@ class PrepareOutput final :
   friend void swap(PrepareOutput& a, PrepareOutput& b) {
     a.Swap(&b);
   }
-  inline void Swap(PrepareOutput* other) {
+  PROTOBUF_NOINLINE void Swap(PrepareOutput* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2475,7 +2475,7 @@ class PasswordMetadata final :
   friend void swap(PasswordMetadata& a, PasswordMetadata& b) {
     a.Swap(&b);
   }
-  inline void Swap(PasswordMetadata* other) {
+  PROTOBUF_NOINLINE void Swap(PasswordMetadata* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2614,7 +2614,7 @@ class PinMetadata final :
   friend void swap(PinMetadata& a, PinMetadata& b) {
     a.Swap(&b);
   }
-  inline void Swap(PinMetadata* other) {
+  PROTOBUF_NOINLINE void Swap(PinMetadata* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2764,7 +2764,7 @@ class CryptohomeRecoveryMetadata final :
   friend void swap(CryptohomeRecoveryMetadata& a, CryptohomeRecoveryMetadata& b) {
     a.Swap(&b);
   }
-  inline void Swap(CryptohomeRecoveryMetadata* other) {
+  PROTOBUF_NOINLINE void Swap(CryptohomeRecoveryMetadata* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2899,7 +2899,7 @@ class KioskMetadata final :
   friend void swap(KioskMetadata& a, KioskMetadata& b) {
     a.Swap(&b);
   }
-  inline void Swap(KioskMetadata* other) {
+  PROTOBUF_NOINLINE void Swap(KioskMetadata* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3016,7 +3016,7 @@ class SmartCardMetadata final :
   friend void swap(SmartCardMetadata& a, SmartCardMetadata& b) {
     a.Swap(&b);
   }
-  inline void Swap(SmartCardMetadata* other) {
+  PROTOBUF_NOINLINE void Swap(SmartCardMetadata* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3151,7 +3151,7 @@ class KnowledgeFactorHashInfo final :
   friend void swap(KnowledgeFactorHashInfo& a, KnowledgeFactorHashInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(KnowledgeFactorHashInfo* other) {
+  PROTOBUF_NOINLINE void Swap(KnowledgeFactorHashInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3308,7 +3308,7 @@ class CommonMetadata final :
   friend void swap(CommonMetadata& a, CommonMetadata& b) {
     a.Swap(&b);
   }
-  inline void Swap(CommonMetadata* other) {
+  PROTOBUF_NOINLINE void Swap(CommonMetadata* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3486,7 +3486,7 @@ class LegacyFingerprintMetadata final :
   friend void swap(LegacyFingerprintMetadata& a, LegacyFingerprintMetadata& b) {
     a.Swap(&b);
   }
-  inline void Swap(LegacyFingerprintMetadata* other) {
+  PROTOBUF_NOINLINE void Swap(LegacyFingerprintMetadata* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3603,7 +3603,7 @@ class FingerprintMetadata final :
   friend void swap(FingerprintMetadata& a, FingerprintMetadata& b) {
     a.Swap(&b);
   }
-  inline void Swap(FingerprintMetadata* other) {
+  PROTOBUF_NOINLINE void Swap(FingerprintMetadata* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3731,7 +3731,7 @@ class AuthFactor final :
   friend void swap(AuthFactor& a, AuthFactor& b) {
     a.Swap(&b);
   }
-  inline void Swap(AuthFactor* other) {
+  PROTOBUF_NOINLINE void Swap(AuthFactor* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

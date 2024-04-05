@@ -214,7 +214,7 @@ class InstallAttributesGetRequest final :
   friend void swap(InstallAttributesGetRequest& a, InstallAttributesGetRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(InstallAttributesGetRequest* other) {
+  PROTOBUF_NOINLINE void Swap(InstallAttributesGetRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -349,7 +349,7 @@ class InstallAttributesGetReply final :
   friend void swap(InstallAttributesGetReply& a, InstallAttributesGetReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(InstallAttributesGetReply* other) {
+  PROTOBUF_NOINLINE void Swap(InstallAttributesGetReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -495,7 +495,7 @@ class InstallAttributesSetRequest final :
   friend void swap(InstallAttributesSetRequest& a, InstallAttributesSetRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(InstallAttributesSetRequest* other) {
+  PROTOBUF_NOINLINE void Swap(InstallAttributesSetRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -646,7 +646,7 @@ class InstallAttributesSetReply final :
   friend void swap(InstallAttributesSetReply& a, InstallAttributesSetReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(InstallAttributesSetReply* other) {
+  PROTOBUF_NOINLINE void Swap(InstallAttributesSetReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -776,7 +776,7 @@ class InstallAttributesFinalizeRequest final :
   friend void swap(InstallAttributesFinalizeRequest& a, InstallAttributesFinalizeRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(InstallAttributesFinalizeRequest* other) {
+  PROTOBUF_NOINLINE void Swap(InstallAttributesFinalizeRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -893,7 +893,7 @@ class InstallAttributesFinalizeReply final :
   friend void swap(InstallAttributesFinalizeReply& a, InstallAttributesFinalizeReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(InstallAttributesFinalizeReply* other) {
+  PROTOBUF_NOINLINE void Swap(InstallAttributesFinalizeReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1023,7 +1023,7 @@ class InstallAttributesGetStatusRequest final :
   friend void swap(InstallAttributesGetStatusRequest& a, InstallAttributesGetStatusRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(InstallAttributesGetStatusRequest* other) {
+  PROTOBUF_NOINLINE void Swap(InstallAttributesGetStatusRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1140,7 +1140,7 @@ class InstallAttributesGetStatusReply final :
   friend void swap(InstallAttributesGetStatusReply& a, InstallAttributesGetStatusReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(InstallAttributesGetStatusReply* other) {
+  PROTOBUF_NOINLINE void Swap(InstallAttributesGetStatusReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1303,7 +1303,7 @@ class EnterpriseOwnedGetStatusRequest final :
   friend void swap(EnterpriseOwnedGetStatusRequest& a, EnterpriseOwnedGetStatusRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(EnterpriseOwnedGetStatusRequest* other) {
+  PROTOBUF_NOINLINE void Swap(EnterpriseOwnedGetStatusRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1420,7 +1420,7 @@ class EnterpriseOwnedGetStatusReply final :
   friend void swap(EnterpriseOwnedGetStatusReply& a, EnterpriseOwnedGetStatusReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(EnterpriseOwnedGetStatusReply* other) {
+  PROTOBUF_NOINLINE void Swap(EnterpriseOwnedGetStatusReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1550,7 +1550,7 @@ class FirmwareManagementParameters final :
   friend void swap(FirmwareManagementParameters& a, FirmwareManagementParameters& b) {
     a.Swap(&b);
   }
-  inline void Swap(FirmwareManagementParameters* other) {
+  PROTOBUF_NOINLINE void Swap(FirmwareManagementParameters* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1696,7 +1696,7 @@ class GetFirmwareManagementParametersRequest final :
   friend void swap(GetFirmwareManagementParametersRequest& a, GetFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetFirmwareManagementParametersRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetFirmwareManagementParametersRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1813,7 +1813,7 @@ class GetFirmwareManagementParametersReply final :
   friend void swap(GetFirmwareManagementParametersReply& a, GetFirmwareManagementParametersReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetFirmwareManagementParametersReply* other) {
+  PROTOBUF_NOINLINE void Swap(GetFirmwareManagementParametersReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1963,7 +1963,7 @@ class RemoveFirmwareManagementParametersRequest final :
   friend void swap(RemoveFirmwareManagementParametersRequest& a, RemoveFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(RemoveFirmwareManagementParametersRequest* other) {
+  PROTOBUF_NOINLINE void Swap(RemoveFirmwareManagementParametersRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2080,7 +2080,7 @@ class RemoveFirmwareManagementParametersReply final :
   friend void swap(RemoveFirmwareManagementParametersReply& a, RemoveFirmwareManagementParametersReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(RemoveFirmwareManagementParametersReply* other) {
+  PROTOBUF_NOINLINE void Swap(RemoveFirmwareManagementParametersReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2210,7 +2210,7 @@ class SetFirmwareManagementParametersRequest final :
   friend void swap(SetFirmwareManagementParametersRequest& a, SetFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetFirmwareManagementParametersRequest* other) {
+  PROTOBUF_NOINLINE void Swap(SetFirmwareManagementParametersRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2349,7 +2349,7 @@ class SetFirmwareManagementParametersReply final :
   friend void swap(SetFirmwareManagementParametersReply& a, SetFirmwareManagementParametersReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetFirmwareManagementParametersReply* other) {
+  PROTOBUF_NOINLINE void Swap(SetFirmwareManagementParametersReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

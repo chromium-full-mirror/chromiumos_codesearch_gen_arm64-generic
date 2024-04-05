@@ -285,7 +285,7 @@ class Quote final :
   friend void swap(Quote& a, Quote& b) {
     a.Swap(&b);
   }
-  inline void Swap(Quote* other) {
+  PROTOBUF_NOINLINE void Swap(Quote* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -492,7 +492,7 @@ class EncryptedData final :
   friend void swap(EncryptedData& a, EncryptedData& b) {
     a.Swap(&b);
   }
-  inline void Swap(EncryptedData* other) {
+  PROTOBUF_NOINLINE void Swap(EncryptedData* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -719,7 +719,7 @@ class SignedData final :
   friend void swap(SignedData& a, SignedData& b) {
     a.Swap(&b);
   }
-  inline void Swap(SignedData* other) {
+  PROTOBUF_NOINLINE void Swap(SignedData* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -886,7 +886,7 @@ class EncryptedIdentityCredential final :
   friend void swap(EncryptedIdentityCredential& a, EncryptedIdentityCredential& b) {
     a.Swap(&b);
   }
-  inline void Swap(EncryptedIdentityCredential* other) {
+  PROTOBUF_NOINLINE void Swap(EncryptedIdentityCredential* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1128,7 +1128,7 @@ class AttestationEnrollmentRequest final :
   friend void swap(AttestationEnrollmentRequest& a, AttestationEnrollmentRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AttestationEnrollmentRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AttestationEnrollmentRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1390,7 +1390,7 @@ class AttestationEnrollmentResponse final :
   friend void swap(AttestationEnrollmentResponse& a, AttestationEnrollmentResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(AttestationEnrollmentResponse* other) {
+  PROTOBUF_NOINLINE void Swap(AttestationEnrollmentResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1592,7 +1592,7 @@ class DeviceSetupCertificateMetadata final :
   friend void swap(DeviceSetupCertificateMetadata& a, DeviceSetupCertificateMetadata& b) {
     a.Swap(&b);
   }
-  inline void Swap(DeviceSetupCertificateMetadata* other) {
+  PROTOBUF_NOINLINE void Swap(DeviceSetupCertificateMetadata* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1801,7 +1801,7 @@ class AttestationCertificateRequest final :
   friend void swap(AttestationCertificateRequest& a, AttestationCertificateRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AttestationCertificateRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AttestationCertificateRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2169,7 +2169,7 @@ class AttestationCertificateResponse final :
   friend void swap(AttestationCertificateResponse& a, AttestationCertificateResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(AttestationCertificateResponse* other) {
+  PROTOBUF_NOINLINE void Swap(AttestationCertificateResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2437,7 +2437,7 @@ class AttestationResetRequest final :
   friend void swap(AttestationResetRequest& a, AttestationResetRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AttestationResetRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AttestationResetRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2624,7 +2624,7 @@ class AttestationResetResponse final :
   friend void swap(AttestationResetResponse& a, AttestationResetResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(AttestationResetResponse* other) {
+  PROTOBUF_NOINLINE void Swap(AttestationResetResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2806,7 +2806,7 @@ class Challenge final :
   friend void swap(Challenge& a, Challenge& b) {
     a.Swap(&b);
   }
-  inline void Swap(Challenge* other) {
+  PROTOBUF_NOINLINE void Swap(Challenge* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2988,7 +2988,7 @@ class ChallengeResponse final :
   friend void swap(ChallengeResponse& a, ChallengeResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ChallengeResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ChallengeResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3175,7 +3175,7 @@ class KeyInfo final :
   friend void swap(KeyInfo& a, KeyInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(KeyInfo* other) {
+  PROTOBUF_NOINLINE void Swap(KeyInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3557,7 +3557,7 @@ class DeviceTrustSignals final :
   friend void swap(DeviceTrustSignals& a, DeviceTrustSignals& b) {
     a.Swap(&b);
   }
-  inline void Swap(DeviceTrustSignals* other) {
+  PROTOBUF_NOINLINE void Swap(DeviceTrustSignals* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

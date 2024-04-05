@@ -111,7 +111,7 @@ class ThermalTemperatureFtraceEvent final :
   friend void swap(ThermalTemperatureFtraceEvent& a, ThermalTemperatureFtraceEvent& b) {
     a.Swap(&b);
   }
-  inline void Swap(ThermalTemperatureFtraceEvent* other) {
+  PROTOBUF_NOINLINE void Swap(ThermalTemperatureFtraceEvent* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -303,7 +303,7 @@ class CdevUpdateFtraceEvent final :
   friend void swap(CdevUpdateFtraceEvent& a, CdevUpdateFtraceEvent& b) {
     a.Swap(&b);
   }
-  inline void Swap(CdevUpdateFtraceEvent* other) {
+  PROTOBUF_NOINLINE void Swap(CdevUpdateFtraceEvent* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

@@ -322,7 +322,7 @@ class Url final :
   friend void swap(Url& a, Url& b) {
     a.Swap(&b);
   }
-  inline void Swap(Url* other) {
+  PROTOBUF_NOINLINE void Swap(Url* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -457,7 +457,7 @@ class CommonCredentialInfo final :
   friend void swap(CommonCredentialInfo& a, CommonCredentialInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(CommonCredentialInfo* other) {
+  PROTOBUF_NOINLINE void Swap(CommonCredentialInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -624,7 +624,7 @@ class MakeCredentialAuthenticatorResponse final :
   friend void swap(MakeCredentialAuthenticatorResponse& a, MakeCredentialAuthenticatorResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(MakeCredentialAuthenticatorResponse* other) {
+  PROTOBUF_NOINLINE void Swap(MakeCredentialAuthenticatorResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -821,7 +821,7 @@ class GetAssertionAuthenticatorResponse final :
   friend void swap(GetAssertionAuthenticatorResponse& a, GetAssertionAuthenticatorResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetAssertionAuthenticatorResponse* other) {
+  PROTOBUF_NOINLINE void Swap(GetAssertionAuthenticatorResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1030,7 +1030,7 @@ class PublicKeyCredentialRpEntity final :
   friend void swap(PublicKeyCredentialRpEntity& a, PublicKeyCredentialRpEntity& b) {
     a.Swap(&b);
   }
-  inline void Swap(PublicKeyCredentialRpEntity* other) {
+  PROTOBUF_NOINLINE void Swap(PublicKeyCredentialRpEntity* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1201,7 +1201,7 @@ class PublicKeyCredentialUserEntity final :
   friend void swap(PublicKeyCredentialUserEntity& a, PublicKeyCredentialUserEntity& b) {
     a.Swap(&b);
   }
-  inline void Swap(PublicKeyCredentialUserEntity* other) {
+  PROTOBUF_NOINLINE void Swap(PublicKeyCredentialUserEntity* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1388,7 +1388,7 @@ class PublicKeyCredentialParameters final :
   friend void swap(PublicKeyCredentialParameters& a, PublicKeyCredentialParameters& b) {
     a.Swap(&b);
   }
-  inline void Swap(PublicKeyCredentialParameters* other) {
+  PROTOBUF_NOINLINE void Swap(PublicKeyCredentialParameters* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1529,7 +1529,7 @@ class CableAuthentication final :
   friend void swap(CableAuthentication& a, CableAuthentication& b) {
     a.Swap(&b);
   }
-  inline void Swap(CableAuthentication* other) {
+  PROTOBUF_NOINLINE void Swap(CableAuthentication* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1707,7 +1707,7 @@ class CableRegistration final :
   friend void swap(CableRegistration& a, CableRegistration& b) {
     a.Swap(&b);
   }
-  inline void Swap(CableRegistration* other) {
+  PROTOBUF_NOINLINE void Swap(CableRegistration* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1858,7 +1858,7 @@ class PublicKeyCredentialRequestOptions final :
   friend void swap(PublicKeyCredentialRequestOptions& a, PublicKeyCredentialRequestOptions& b) {
     a.Swap(&b);
   }
-  inline void Swap(PublicKeyCredentialRequestOptions* other) {
+  PROTOBUF_NOINLINE void Swap(PublicKeyCredentialRequestOptions* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2087,7 +2087,7 @@ class AuthenticatorSelectionCriteria final :
   friend void swap(AuthenticatorSelectionCriteria& a, AuthenticatorSelectionCriteria& b) {
     a.Swap(&b);
   }
-  inline void Swap(AuthenticatorSelectionCriteria* other) {
+  PROTOBUF_NOINLINE void Swap(AuthenticatorSelectionCriteria* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2239,7 +2239,7 @@ class PublicKeyCredentialCreationOptions final :
   friend void swap(PublicKeyCredentialCreationOptions& a, PublicKeyCredentialCreationOptions& b) {
     a.Swap(&b);
   }
-  inline void Swap(PublicKeyCredentialCreationOptions* other) {
+  PROTOBUF_NOINLINE void Swap(PublicKeyCredentialCreationOptions* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2565,7 +2565,7 @@ class PublicKeyCredentialDescriptor final :
   friend void swap(PublicKeyCredentialDescriptor& a, PublicKeyCredentialDescriptor& b) {
     a.Swap(&b);
   }
-  inline void Swap(PublicKeyCredentialDescriptor* other) {
+  PROTOBUF_NOINLINE void Swap(PublicKeyCredentialDescriptor* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

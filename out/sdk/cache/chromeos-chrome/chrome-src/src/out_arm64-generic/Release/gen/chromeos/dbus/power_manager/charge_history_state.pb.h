@@ -112,7 +112,7 @@ class ChargeHistoryState_ChargeEvent final :
   friend void swap(ChargeHistoryState_ChargeEvent& a, ChargeHistoryState_ChargeEvent& b) {
     a.Swap(&b);
   }
-  inline void Swap(ChargeHistoryState_ChargeEvent* other) {
+  PROTOBUF_NOINLINE void Swap(ChargeHistoryState_ChargeEvent* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -269,7 +269,7 @@ class ChargeHistoryState_DailyHistory final :
   friend void swap(ChargeHistoryState_DailyHistory& a, ChargeHistoryState_DailyHistory& b) {
     a.Swap(&b);
   }
-  inline void Swap(ChargeHistoryState_DailyHistory* other) {
+  PROTOBUF_NOINLINE void Swap(ChargeHistoryState_DailyHistory* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -456,7 +456,7 @@ class ChargeHistoryState final :
   friend void swap(ChargeHistoryState& a, ChargeHistoryState& b) {
     a.Swap(&b);
   }
-  inline void Swap(ChargeHistoryState* other) {
+  PROTOBUF_NOINLINE void Swap(ChargeHistoryState* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

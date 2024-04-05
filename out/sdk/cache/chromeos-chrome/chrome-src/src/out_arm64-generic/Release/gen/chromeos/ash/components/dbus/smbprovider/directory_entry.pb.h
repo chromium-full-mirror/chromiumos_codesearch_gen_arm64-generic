@@ -159,7 +159,7 @@ class DirectoryEntryProto final :
   friend void swap(DirectoryEntryProto& a, DirectoryEntryProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(DirectoryEntryProto* other) {
+  PROTOBUF_NOINLINE void Swap(DirectoryEntryProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -351,7 +351,7 @@ class DirectoryEntryListProto final :
   friend void swap(DirectoryEntryListProto& a, DirectoryEntryListProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(DirectoryEntryListProto* other) {
+  PROTOBUF_NOINLINE void Swap(DirectoryEntryListProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -497,7 +497,7 @@ class GetSharesOptionsProto final :
   friend void swap(GetSharesOptionsProto& a, GetSharesOptionsProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetSharesOptionsProto* other) {
+  PROTOBUF_NOINLINE void Swap(GetSharesOptionsProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -644,7 +644,7 @@ class HostnamesProto final :
   friend void swap(HostnamesProto& a, HostnamesProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(HostnamesProto* other) {
+  PROTOBUF_NOINLINE void Swap(HostnamesProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

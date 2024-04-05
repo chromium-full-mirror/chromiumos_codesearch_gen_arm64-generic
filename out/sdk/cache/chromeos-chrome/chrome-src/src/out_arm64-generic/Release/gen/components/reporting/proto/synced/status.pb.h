@@ -104,7 +104,7 @@ class StatusProto final :
   friend void swap(StatusProto& a, StatusProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(StatusProto* other) {
+  PROTOBUF_NOINLINE void Swap(StatusProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

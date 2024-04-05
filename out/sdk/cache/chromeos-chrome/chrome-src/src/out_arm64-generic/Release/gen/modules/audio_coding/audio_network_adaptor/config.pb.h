@@ -154,7 +154,7 @@ class FecController_Threshold final :
   friend void swap(FecController_Threshold& a, FecController_Threshold& b) {
     a.Swap(&b);
   }
-  inline void Swap(FecController_Threshold* other) {
+  PROTOBUF_NOINLINE void Swap(FecController_Threshold* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -341,7 +341,7 @@ class FecController final :
   friend void swap(FecController& a, FecController& b) {
     a.Swap(&b);
   }
-  inline void Swap(FecController* other) {
+  PROTOBUF_NOINLINE void Swap(FecController* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -525,7 +525,7 @@ class FecControllerRplrBased_Threshold final :
   friend void swap(FecControllerRplrBased_Threshold& a, FecControllerRplrBased_Threshold& b) {
     a.Swap(&b);
   }
-  inline void Swap(FecControllerRplrBased_Threshold* other) {
+  PROTOBUF_NOINLINE void Swap(FecControllerRplrBased_Threshold* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -712,7 +712,7 @@ class FecControllerRplrBased final :
   friend void swap(FecControllerRplrBased& a, FecControllerRplrBased& b) {
     a.Swap(&b);
   }
-  inline void Swap(FecControllerRplrBased* other) {
+  PROTOBUF_NOINLINE void Swap(FecControllerRplrBased* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -881,7 +881,7 @@ class FrameLengthController final :
   friend void swap(FrameLengthController& a, FrameLengthController& b) {
     a.Swap(&b);
   }
-  inline void Swap(FrameLengthController* other) {
+  PROTOBUF_NOINLINE void Swap(FrameLengthController* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1188,7 +1188,7 @@ class FrameLengthControllerV2 final :
   friend void swap(FrameLengthControllerV2& a, FrameLengthControllerV2& b) {
     a.Swap(&b);
   }
-  inline void Swap(FrameLengthControllerV2* other) {
+  PROTOBUF_NOINLINE void Swap(FrameLengthControllerV2* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1345,7 +1345,7 @@ class ChannelController final :
   friend void swap(ChannelController& a, ChannelController& b) {
     a.Swap(&b);
   }
-  inline void Swap(ChannelController* other) {
+  PROTOBUF_NOINLINE void Swap(ChannelController* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1502,7 +1502,7 @@ class DtxController final :
   friend void swap(DtxController& a, DtxController& b) {
     a.Swap(&b);
   }
-  inline void Swap(DtxController* other) {
+  PROTOBUF_NOINLINE void Swap(DtxController* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1659,7 +1659,7 @@ class BitrateController final :
   friend void swap(BitrateController& a, BitrateController& b) {
     a.Swap(&b);
   }
-  inline void Swap(BitrateController* other) {
+  PROTOBUF_NOINLINE void Swap(BitrateController* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1816,7 +1816,7 @@ class Controller_ScoringPoint final :
   friend void swap(Controller_ScoringPoint& a, Controller_ScoringPoint& b) {
     a.Swap(&b);
   }
-  inline void Swap(Controller_ScoringPoint* other) {
+  PROTOBUF_NOINLINE void Swap(Controller_ScoringPoint* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1984,7 +1984,7 @@ class Controller final :
   friend void swap(Controller& a, Controller& b) {
     a.Swap(&b);
   }
-  inline void Swap(Controller* other) {
+  PROTOBUF_NOINLINE void Swap(Controller* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2291,7 +2291,7 @@ class ControllerManager final :
   friend void swap(ControllerManager& a, ControllerManager& b) {
     a.Swap(&b);
   }
-  inline void Swap(ControllerManager* other) {
+  PROTOBUF_NOINLINE void Swap(ControllerManager* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

@@ -129,7 +129,7 @@ class SetProjectIdReply final :
   friend void swap(SetProjectIdReply& a, SetProjectIdReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetProjectIdReply* other) {
+  PROTOBUF_NOINLINE void Swap(SetProjectIdReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -270,7 +270,7 @@ class SetProjectInheritanceFlagReply final :
   friend void swap(SetProjectInheritanceFlagReply& a, SetProjectInheritanceFlagReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetProjectInheritanceFlagReply* other) {
+  PROTOBUF_NOINLINE void Swap(SetProjectInheritanceFlagReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -411,7 +411,7 @@ class StatefulDiskSpaceUpdate final :
   friend void swap(StatefulDiskSpaceUpdate& a, StatefulDiskSpaceUpdate& b) {
     a.Swap(&b);
   }
-  inline void Swap(StatefulDiskSpaceUpdate* other) {
+  PROTOBUF_NOINLINE void Swap(StatefulDiskSpaceUpdate* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

@@ -152,7 +152,7 @@ class EnqueueRecordRequest final :
   friend void swap(EnqueueRecordRequest& a, EnqueueRecordRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(EnqueueRecordRequest* other) {
+  PROTOBUF_NOINLINE void Swap(EnqueueRecordRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -329,7 +329,7 @@ class EnqueueRecordResponse final :
   friend void swap(EnqueueRecordResponse& a, EnqueueRecordResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(EnqueueRecordResponse* other) {
+  PROTOBUF_NOINLINE void Swap(EnqueueRecordResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -496,7 +496,7 @@ class FlushPriorityRequest final :
   friend void swap(FlushPriorityRequest& a, FlushPriorityRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(FlushPriorityRequest* other) {
+  PROTOBUF_NOINLINE void Swap(FlushPriorityRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -653,7 +653,7 @@ class FlushPriorityResponse final :
   friend void swap(FlushPriorityResponse& a, FlushPriorityResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(FlushPriorityResponse* other) {
+  PROTOBUF_NOINLINE void Swap(FlushPriorityResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -820,7 +820,7 @@ class UploadEncryptedRecordRequest final :
   friend void swap(UploadEncryptedRecordRequest& a, UploadEncryptedRecordRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(UploadEncryptedRecordRequest* other) {
+  PROTOBUF_NOINLINE void Swap(UploadEncryptedRecordRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1032,7 +1032,7 @@ class UploadEncryptedRecordResponse final :
   friend void swap(UploadEncryptedRecordResponse& a, UploadEncryptedRecordResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(UploadEncryptedRecordResponse* other) {
+  PROTOBUF_NOINLINE void Swap(UploadEncryptedRecordResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1233,7 +1233,7 @@ class ConfirmRecordUploadRequest final :
   friend void swap(ConfirmRecordUploadRequest& a, ConfirmRecordUploadRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ConfirmRecordUploadRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ConfirmRecordUploadRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1410,7 +1410,7 @@ class ConfirmRecordUploadResponse final :
   friend void swap(ConfirmRecordUploadResponse& a, ConfirmRecordUploadResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ConfirmRecordUploadResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ConfirmRecordUploadResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1577,7 +1577,7 @@ class UpdateEncryptionKeyRequest final :
   friend void swap(UpdateEncryptionKeyRequest& a, UpdateEncryptionKeyRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(UpdateEncryptionKeyRequest* other) {
+  PROTOBUF_NOINLINE void Swap(UpdateEncryptionKeyRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1724,7 +1724,7 @@ class UpdateEncryptionKeyResponse final :
   friend void swap(UpdateEncryptionKeyResponse& a, UpdateEncryptionKeyResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(UpdateEncryptionKeyResponse* other) {
+  PROTOBUF_NOINLINE void Swap(UpdateEncryptionKeyResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1871,7 +1871,7 @@ class UpdateConfigInMissiveRequest final :
   friend void swap(UpdateConfigInMissiveRequest& a, UpdateConfigInMissiveRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(UpdateConfigInMissiveRequest* other) {
+  PROTOBUF_NOINLINE void Swap(UpdateConfigInMissiveRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2018,7 +2018,7 @@ class UpdateConfigInMissiveResponse final :
   friend void swap(UpdateConfigInMissiveResponse& a, UpdateConfigInMissiveResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(UpdateConfigInMissiveResponse* other) {
+  PROTOBUF_NOINLINE void Swap(UpdateConfigInMissiveResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

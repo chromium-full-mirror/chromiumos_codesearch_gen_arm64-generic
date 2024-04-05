@@ -272,7 +272,7 @@ class DlpFilesRule final :
   friend void swap(DlpFilesRule& a, DlpFilesRule& b) {
     a.Swap(&b);
   }
-  inline void Swap(DlpFilesRule* other) {
+  PROTOBUF_NOINLINE void Swap(DlpFilesRule* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -485,7 +485,7 @@ class SetDlpFilesPolicyRequest final :
   friend void swap(SetDlpFilesPolicyRequest& a, SetDlpFilesPolicyRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetDlpFilesPolicyRequest* other) {
+  PROTOBUF_NOINLINE void Swap(SetDlpFilesPolicyRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -631,7 +631,7 @@ class SetDlpFilesPolicyResponse final :
   friend void swap(SetDlpFilesPolicyResponse& a, SetDlpFilesPolicyResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetDlpFilesPolicyResponse* other) {
+  PROTOBUF_NOINLINE void Swap(SetDlpFilesPolicyResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -778,7 +778,7 @@ class AddFileRequest final :
   friend void swap(AddFileRequest& a, AddFileRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AddFileRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AddFileRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -965,7 +965,7 @@ class AddFilesRequest final :
   friend void swap(AddFilesRequest& a, AddFilesRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(AddFilesRequest* other) {
+  PROTOBUF_NOINLINE void Swap(AddFilesRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1111,7 +1111,7 @@ class AddFileResponse final :
   friend void swap(AddFileResponse& a, AddFileResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(AddFileResponse* other) {
+  PROTOBUF_NOINLINE void Swap(AddFileResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1258,7 +1258,7 @@ class AddFilesResponse final :
   friend void swap(AddFilesResponse& a, AddFilesResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(AddFilesResponse* other) {
+  PROTOBUF_NOINLINE void Swap(AddFilesResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1405,7 +1405,7 @@ class RequestFileAccessRequest final :
   friend void swap(RequestFileAccessRequest& a, RequestFileAccessRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(RequestFileAccessRequest* other) {
+  PROTOBUF_NOINLINE void Swap(RequestFileAccessRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1608,7 +1608,7 @@ class RequestFileAccessResponse final :
   friend void swap(RequestFileAccessResponse& a, RequestFileAccessResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(RequestFileAccessResponse* other) {
+  PROTOBUF_NOINLINE void Swap(RequestFileAccessResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1770,7 +1770,7 @@ class FileMetadata final :
   friend void swap(FileMetadata& a, FileMetadata& b) {
     a.Swap(&b);
   }
-  inline void Swap(FileMetadata* other) {
+  PROTOBUF_NOINLINE void Swap(FileMetadata* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1987,7 +1987,7 @@ class FileRestriction final :
   friend void swap(FileRestriction& a, FileRestriction& b) {
     a.Swap(&b);
   }
-  inline void Swap(FileRestriction* other) {
+  PROTOBUF_NOINLINE void Swap(FileRestriction* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2149,7 +2149,7 @@ class IsDlpPolicyMatchedRequest final :
   friend void swap(IsDlpPolicyMatchedRequest& a, IsDlpPolicyMatchedRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(IsDlpPolicyMatchedRequest* other) {
+  PROTOBUF_NOINLINE void Swap(IsDlpPolicyMatchedRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2296,7 +2296,7 @@ class IsDlpPolicyMatchedResponse final :
   friend void swap(IsDlpPolicyMatchedResponse& a, IsDlpPolicyMatchedResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(IsDlpPolicyMatchedResponse* other) {
+  PROTOBUF_NOINLINE void Swap(IsDlpPolicyMatchedResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2438,7 +2438,7 @@ class GetFilesSourcesRequest final :
   friend void swap(GetFilesSourcesRequest& a, GetFilesSourcesRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetFilesSourcesRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetFilesSourcesRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2590,7 +2590,7 @@ class GetFilesSourcesResponse final :
   friend void swap(GetFilesSourcesResponse& a, GetFilesSourcesResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetFilesSourcesResponse* other) {
+  PROTOBUF_NOINLINE void Swap(GetFilesSourcesResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2757,7 +2757,7 @@ class CheckFilesTransferRequest final :
   friend void swap(CheckFilesTransferRequest& a, CheckFilesTransferRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(CheckFilesTransferRequest* other) {
+  PROTOBUF_NOINLINE void Swap(CheckFilesTransferRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2975,7 +2975,7 @@ class CheckFilesTransferResponse final :
   friend void swap(CheckFilesTransferResponse& a, CheckFilesTransferResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(CheckFilesTransferResponse* other) {
+  PROTOBUF_NOINLINE void Swap(CheckFilesTransferResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3148,7 +3148,7 @@ class IsFilesTransferRestrictedRequest final :
   friend void swap(IsFilesTransferRestrictedRequest& a, IsFilesTransferRestrictedRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(IsFilesTransferRestrictedRequest* other) {
+  PROTOBUF_NOINLINE void Swap(IsFilesTransferRestrictedRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3360,7 +3360,7 @@ class IsFilesTransferRestrictedResponse final :
   friend void swap(IsFilesTransferRestrictedResponse& a, IsFilesTransferRestrictedResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(IsFilesTransferRestrictedResponse* other) {
+  PROTOBUF_NOINLINE void Swap(IsFilesTransferRestrictedResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3527,7 +3527,7 @@ class GetDatabaseEntriesResponse final :
   friend void swap(GetDatabaseEntriesResponse& a, GetDatabaseEntriesResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetDatabaseEntriesResponse* other) {
+  PROTOBUF_NOINLINE void Swap(GetDatabaseEntriesResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

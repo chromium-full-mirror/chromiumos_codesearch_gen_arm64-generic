@@ -118,7 +118,7 @@ class KeyProto final :
   friend void swap(KeyProto& a, KeyProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(KeyProto* other) {
+  PROTOBUF_NOINLINE void Swap(KeyProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -317,7 +317,7 @@ class KeyDataProto final :
   friend void swap(KeyDataProto& a, KeyDataProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(KeyDataProto* other) {
+  PROTOBUF_NOINLINE void Swap(KeyDataProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

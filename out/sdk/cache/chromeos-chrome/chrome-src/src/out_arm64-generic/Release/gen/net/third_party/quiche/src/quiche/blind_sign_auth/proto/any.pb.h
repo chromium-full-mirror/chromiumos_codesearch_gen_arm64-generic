@@ -101,7 +101,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(Any& a, Any& b) {
 a.Swap(&b);
 }
-inline void Swap(Any* other) {
+PROTOBUF_NOINLINE void Swap(Any* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&

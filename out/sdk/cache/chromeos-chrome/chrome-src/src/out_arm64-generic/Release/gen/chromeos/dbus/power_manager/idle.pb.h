@@ -104,7 +104,7 @@ class ScreenIdleState final :
   friend void swap(ScreenIdleState& a, ScreenIdleState& b) {
     a.Swap(&b);
   }
-  inline void Swap(ScreenIdleState* other) {
+  PROTOBUF_NOINLINE void Swap(ScreenIdleState* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

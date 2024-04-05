@@ -140,7 +140,7 @@ class Param final :
   friend void swap(Param& a, Param& b) {
     a.Swap(&b);
   }
-  inline void Swap(Param* other) {
+  PROTOBUF_NOINLINE void Swap(Param* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -291,7 +291,7 @@ class FeatureOverride final :
   friend void swap(FeatureOverride& a, FeatureOverride& b) {
     a.Swap(&b);
   }
-  inline void Swap(FeatureOverride* other) {
+  PROTOBUF_NOINLINE void Swap(FeatureOverride* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -500,7 +500,7 @@ class SeedDetails final :
   friend void swap(SeedDetails& a, SeedDetails& b) {
     a.Swap(&b);
   }
-  inline void Swap(SeedDetails* other) {
+  PROTOBUF_NOINLINE void Swap(SeedDetails* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -732,7 +732,7 @@ class OverridesSet final :
   friend void swap(OverridesSet& a, OverridesSet& b) {
     a.Swap(&b);
   }
-  inline void Swap(OverridesSet* other) {
+  PROTOBUF_NOINLINE void Swap(OverridesSet* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -871,7 +871,7 @@ class Store final :
   friend void swap(Store& a, Store& b) {
     a.Swap(&b);
   }
-  inline void Swap(Store* other) {
+  PROTOBUF_NOINLINE void Swap(Store* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1053,7 +1053,7 @@ class ComputedState final :
   friend void swap(ComputedState& a, ComputedState& b) {
     a.Swap(&b);
   }
-  inline void Swap(ComputedState* other) {
+  PROTOBUF_NOINLINE void Swap(ComputedState* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

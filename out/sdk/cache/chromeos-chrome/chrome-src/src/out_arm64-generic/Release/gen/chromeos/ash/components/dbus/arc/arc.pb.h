@@ -211,7 +211,7 @@ class StartArcMiniInstanceRequest final :
   friend void swap(StartArcMiniInstanceRequest& a, StartArcMiniInstanceRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(StartArcMiniInstanceRequest* other) {
+  PROTOBUF_NOINLINE void Swap(StartArcMiniInstanceRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -754,7 +754,7 @@ class UpgradeArcContainerRequest final :
   friend void swap(UpgradeArcContainerRequest& a, UpgradeArcContainerRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(UpgradeArcContainerRequest* other) {
+  PROTOBUF_NOINLINE void Swap(UpgradeArcContainerRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

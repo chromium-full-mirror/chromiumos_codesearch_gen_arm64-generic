@@ -147,7 +147,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(DoublyEncryptedId& a, DoublyEncryptedId& b) {
 a.Swap(&b);
 }
-inline void Swap(DoublyEncryptedId* other) {
+PROTOBUF_NOINLINE void Swap(DoublyEncryptedId* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -298,7 +298,7 @@ static constexpr int kIndexInFileMessages =
 friend void swap(MembershipResponse& a, MembershipResponse& b) {
 a.Swap(&b);
 }
-inline void Swap(MembershipResponse* other) {
+PROTOBUF_NOINLINE void Swap(MembershipResponse* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&

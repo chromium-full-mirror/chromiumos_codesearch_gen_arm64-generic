@@ -199,7 +199,7 @@ class PowerSupplyProperties_PowerSource final :
   friend void swap(PowerSupplyProperties_PowerSource& a, PowerSupplyProperties_PowerSource& b) {
     a.Swap(&b);
   }
-  inline void Swap(PowerSupplyProperties_PowerSource* other) {
+  PROTOBUF_NOINLINE void Swap(PowerSupplyProperties_PowerSource* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -520,7 +520,7 @@ class PowerSupplyProperties final :
   friend void swap(PowerSupplyProperties& a, PowerSupplyProperties& b) {
     a.Swap(&b);
   }
-  inline void Swap(PowerSupplyProperties* other) {
+  PROTOBUF_NOINLINE void Swap(PowerSupplyProperties* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

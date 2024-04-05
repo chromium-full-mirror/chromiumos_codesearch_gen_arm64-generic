@@ -1267,7 +1267,7 @@ struct Serializer<::media::mojom::VideoEncodeAcceleratorSupportedProfileDataView
         typename decltype(fragment->rate_control_modes)::BaseType>
         rate_control_modes_fragment(fragment.message());
     constexpr const mojo::internal::ContainerValidateParams& rate_control_modes_validate_params =
-        mojo::internal::GetArrayOfEnumsValidator<0, ::media::mojom::internal::VideoEncodeAcceleratorSupportedRateControlMode_Data::Validate>();
+        mojo::internal::GetArrayOfEnumsValidator<0, false, ::media::mojom::internal::VideoEncodeAcceleratorSupportedRateControlMode_Data::Validate>();
     mojo::internal::Serialize<mojo::ArrayDataView<::media::mojom::VideoEncodeAcceleratorSupportedRateControlMode>>(
         in_rate_control_modes, rate_control_modes_fragment, &rate_control_modes_validate_params);
     fragment->rate_control_modes.Set(
@@ -1281,7 +1281,7 @@ struct Serializer<::media::mojom::VideoEncodeAcceleratorSupportedProfileDataView
         typename decltype(fragment->scalability_modes)::BaseType>
         scalability_modes_fragment(fragment.message());
     constexpr const mojo::internal::ContainerValidateParams& scalability_modes_validate_params =
-        mojo::internal::GetArrayOfEnumsValidator<0, ::media::mojom::internal::SVCScalabilityMode_Data::Validate>();
+        mojo::internal::GetArrayOfEnumsValidator<0, false, ::media::mojom::internal::SVCScalabilityMode_Data::Validate>();
     mojo::internal::Serialize<mojo::ArrayDataView<::media::mojom::SVCScalabilityMode>>(
         in_scalability_modes, scalability_modes_fragment, &scalability_modes_validate_params);
     fragment->scalability_modes.Set(

@@ -180,7 +180,7 @@ class SetBacklightBrightnessRequest final :
   friend void swap(SetBacklightBrightnessRequest& a, SetBacklightBrightnessRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SetBacklightBrightnessRequest* other) {
+  PROTOBUF_NOINLINE void Swap(SetBacklightBrightnessRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -406,7 +406,7 @@ class BacklightBrightnessChange final :
   friend void swap(BacklightBrightnessChange& a, BacklightBrightnessChange& b) {
     a.Swap(&b);
   }
-  inline void Swap(BacklightBrightnessChange* other) {
+  PROTOBUF_NOINLINE void Swap(BacklightBrightnessChange* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

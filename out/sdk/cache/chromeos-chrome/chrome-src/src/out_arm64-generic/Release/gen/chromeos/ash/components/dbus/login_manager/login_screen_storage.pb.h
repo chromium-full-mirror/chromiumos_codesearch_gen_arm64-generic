@@ -104,7 +104,7 @@ class LoginScreenStorageMetadata final :
   friend void swap(LoginScreenStorageMetadata& a, LoginScreenStorageMetadata& b) {
     a.Swap(&b);
   }
-  inline void Swap(LoginScreenStorageMetadata* other) {
+  PROTOBUF_NOINLINE void Swap(LoginScreenStorageMetadata* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

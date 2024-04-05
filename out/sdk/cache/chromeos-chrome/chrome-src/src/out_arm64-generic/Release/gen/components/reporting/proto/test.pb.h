@@ -107,7 +107,7 @@ class TestMessage final :
   friend void swap(TestMessage& a, TestMessage& b) {
     a.Swap(&b);
   }
-  inline void Swap(TestMessage* other) {
+  PROTOBUF_NOINLINE void Swap(TestMessage* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

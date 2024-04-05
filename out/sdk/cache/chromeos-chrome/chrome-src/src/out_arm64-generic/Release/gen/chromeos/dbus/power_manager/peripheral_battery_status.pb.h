@@ -128,7 +128,7 @@ class PeripheralBatteryStatus final :
   friend void swap(PeripheralBatteryStatus& a, PeripheralBatteryStatus& b) {
     a.Swap(&b);
   }
-  inline void Swap(PeripheralBatteryStatus* other) {
+  PROTOBUF_NOINLINE void Swap(PeripheralBatteryStatus* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

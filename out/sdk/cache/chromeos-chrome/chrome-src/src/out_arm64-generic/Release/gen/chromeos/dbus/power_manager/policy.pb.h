@@ -215,7 +215,7 @@ class PowerManagementPolicy_Delays final :
   friend void swap(PowerManagementPolicy_Delays& a, PowerManagementPolicy_Delays& b) {
     a.Swap(&b);
   }
-  inline void Swap(PowerManagementPolicy_Delays* other) {
+  PROTOBUF_NOINLINE void Swap(PowerManagementPolicy_Delays* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -447,7 +447,7 @@ class PowerManagementPolicy_DayTime final :
   friend void swap(PowerManagementPolicy_DayTime& a, PowerManagementPolicy_DayTime& b) {
     a.Swap(&b);
   }
-  inline void Swap(PowerManagementPolicy_DayTime* other) {
+  PROTOBUF_NOINLINE void Swap(PowerManagementPolicy_DayTime* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -604,7 +604,7 @@ class PowerManagementPolicy_PeakShiftDayConfig final :
   friend void swap(PowerManagementPolicy_PeakShiftDayConfig& a, PowerManagementPolicy_PeakShiftDayConfig& b) {
     a.Swap(&b);
   }
-  inline void Swap(PowerManagementPolicy_PeakShiftDayConfig* other) {
+  PROTOBUF_NOINLINE void Swap(PowerManagementPolicy_PeakShiftDayConfig* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -806,7 +806,7 @@ class PowerManagementPolicy_AdvancedBatteryChargeModeDayConfig final :
   friend void swap(PowerManagementPolicy_AdvancedBatteryChargeModeDayConfig& a, PowerManagementPolicy_AdvancedBatteryChargeModeDayConfig& b) {
     a.Swap(&b);
   }
-  inline void Swap(PowerManagementPolicy_AdvancedBatteryChargeModeDayConfig* other) {
+  PROTOBUF_NOINLINE void Swap(PowerManagementPolicy_AdvancedBatteryChargeModeDayConfig* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -988,7 +988,7 @@ class PowerManagementPolicy_BatteryChargeMode final :
   friend void swap(PowerManagementPolicy_BatteryChargeMode& a, PowerManagementPolicy_BatteryChargeMode& b) {
     a.Swap(&b);
   }
-  inline void Swap(PowerManagementPolicy_BatteryChargeMode* other) {
+  PROTOBUF_NOINLINE void Swap(PowerManagementPolicy_BatteryChargeMode* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1192,7 +1192,7 @@ class PowerManagementPolicy final :
   friend void swap(PowerManagementPolicy& a, PowerManagementPolicy& b) {
     a.Swap(&b);
   }
-  inline void Swap(PowerManagementPolicy* other) {
+  PROTOBUF_NOINLINE void Swap(PowerManagementPolicy* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1942,7 +1942,7 @@ class IdleActionImminent final :
   friend void swap(IdleActionImminent& a, IdleActionImminent& b) {
     a.Swap(&b);
   }
-  inline void Swap(IdleActionImminent* other) {
+  PROTOBUF_NOINLINE void Swap(IdleActionImminent* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&

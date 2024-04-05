@@ -148,7 +148,7 @@ class InstallRequest final :
   friend void swap(InstallRequest& a, InstallRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(InstallRequest* other) {
+  PROTOBUF_NOINLINE void Swap(InstallRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -321,7 +321,7 @@ class SelectDlc final :
   friend void swap(SelectDlc& a, SelectDlc& b) {
     a.Swap(&b);
   }
-  inline void Swap(SelectDlc* other) {
+  PROTOBUF_NOINLINE void Swap(SelectDlc* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -468,7 +468,7 @@ class UnloadRequest final :
   friend void swap(UnloadRequest& a, UnloadRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(UnloadRequest* other) {
+  PROTOBUF_NOINLINE void Swap(UnloadRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -640,7 +640,7 @@ class ListRequest final :
   friend void swap(ListRequest& a, ListRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ListRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ListRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -790,7 +790,7 @@ class DlcsWithContent_DlcInfo final :
   friend void swap(DlcsWithContent_DlcInfo& a, DlcsWithContent_DlcInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(DlcsWithContent_DlcInfo* other) {
+  PROTOBUF_NOINLINE void Swap(DlcsWithContent_DlcInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -979,7 +979,7 @@ class DlcsWithContent final :
   friend void swap(DlcsWithContent& a, DlcsWithContent& b) {
     a.Swap(&b);
   }
-  inline void Swap(DlcsWithContent* other) {
+  PROTOBUF_NOINLINE void Swap(DlcsWithContent* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1120,7 +1120,7 @@ class DlcState final :
   friend void swap(DlcState& a, DlcState& b) {
     a.Swap(&b);
   }
-  inline void Swap(DlcState* other) {
+  PROTOBUF_NOINLINE void Swap(DlcState* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1364,7 +1364,7 @@ class DlcStateList final :
   friend void swap(DlcStateList& a, DlcStateList& b) {
     a.Swap(&b);
   }
-  inline void Swap(DlcStateList* other) {
+  PROTOBUF_NOINLINE void Swap(DlcStateList* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
