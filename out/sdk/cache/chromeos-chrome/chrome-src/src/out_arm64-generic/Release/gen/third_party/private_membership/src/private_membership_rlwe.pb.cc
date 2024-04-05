@@ -20,10 +20,10 @@ namespace _pbi = _pb::internal;
 namespace private_membership {
 namespace rlwe {
 PROTOBUF_CONSTEXPR PrivateMembershipRlweOprfRequest::PrivateMembershipRlweOprfRequest(
-    ::_pbi::ConstantInitialized)
-  : encrypted_ids_()
-  , use_case_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.encrypted_ids_)*/{}
+  , /*decltype(_impl_.use_case_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PrivateMembershipRlweOprfRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PrivateMembershipRlweOprfRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -32,14 +32,15 @@ struct PrivateMembershipRlweOprfRequestDefaultTypeInternal {
     PrivateMembershipRlweOprfRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateMembershipRlweOprfRequestDefaultTypeInternal _PrivateMembershipRlweOprfRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateMembershipRlweOprfRequestDefaultTypeInternal _PrivateMembershipRlweOprfRequest_default_instance_;
 PROTOBUF_CONSTEXPR PrivateMembershipRlweOprfResponse::PrivateMembershipRlweOprfResponse(
-    ::_pbi::ConstantInitialized)
-  : doubly_encrypted_ids_()
-  , hashed_buckets_parameters_(nullptr)
-  , encrypted_buckets_parameters_(nullptr)
-  , rlwe_parameters_(nullptr)
-  , key_version_(int64_t{0}){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.doubly_encrypted_ids_)*/{}
+  , /*decltype(_impl_.hashed_buckets_parameters_)*/nullptr
+  , /*decltype(_impl_.encrypted_buckets_parameters_)*/nullptr
+  , /*decltype(_impl_.rlwe_parameters_)*/nullptr
+  , /*decltype(_impl_.key_version_)*/int64_t{0}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PrivateMembershipRlweOprfResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PrivateMembershipRlweOprfResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -48,13 +49,13 @@ struct PrivateMembershipRlweOprfResponseDefaultTypeInternal {
     PrivateMembershipRlweOprfResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateMembershipRlweOprfResponseDefaultTypeInternal _PrivateMembershipRlweOprfResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateMembershipRlweOprfResponseDefaultTypeInternal _PrivateMembershipRlweOprfResponse_default_instance_;
 PROTOBUF_CONSTEXPR PrivateMembershipRlweQueryRequest::PrivateMembershipRlweQueryRequest(
-    ::_pbi::ConstantInitialized)
-  : queries_()
-  , key_version_(int64_t{0})
-  , use_case_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.queries_)*/{}
+  , /*decltype(_impl_.key_version_)*/int64_t{0}
+  , /*decltype(_impl_.use_case_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PrivateMembershipRlweQueryRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PrivateMembershipRlweQueryRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -63,10 +64,11 @@ struct PrivateMembershipRlweQueryRequestDefaultTypeInternal {
     PrivateMembershipRlweQueryRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateMembershipRlweQueryRequestDefaultTypeInternal _PrivateMembershipRlweQueryRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateMembershipRlweQueryRequestDefaultTypeInternal _PrivateMembershipRlweQueryRequest_default_instance_;
 PROTOBUF_CONSTEXPR PrivateMembershipRlweQueryResponse::PrivateMembershipRlweQueryResponse(
-    ::_pbi::ConstantInitialized)
-  : pir_responses_(){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.pir_responses_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PrivateMembershipRlweQueryResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PrivateMembershipRlweQueryResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -75,11 +77,12 @@ struct PrivateMembershipRlweQueryResponseDefaultTypeInternal {
     PrivateMembershipRlweQueryResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateMembershipRlweQueryResponseDefaultTypeInternal _PrivateMembershipRlweQueryResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateMembershipRlweQueryResponseDefaultTypeInternal _PrivateMembershipRlweQueryResponse_default_instance_;
 PROTOBUF_CONSTEXPR RlwePlaintextId::RlwePlaintextId(
-    ::_pbi::ConstantInitialized)
-  : non_sensitive_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , sensitive_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.non_sensitive_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.sensitive_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RlwePlaintextIdDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RlwePlaintextIdDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -88,12 +91,12 @@ struct RlwePlaintextIdDefaultTypeInternal {
     RlwePlaintextId _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RlwePlaintextIdDefaultTypeInternal _RlwePlaintextId_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RlwePlaintextIdDefaultTypeInternal _RlwePlaintextId_default_instance_;
 PROTOBUF_CONSTEXPR HashedBucketsParameters::HashedBucketsParameters(
-    ::_pbi::ConstantInitialized)
-  : hashed_bucket_id_length_(0)
-  , non_sensitive_id_hash_type_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.hashed_bucket_id_length_)*/0
+  , /*decltype(_impl_.non_sensitive_id_hash_type_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HashedBucketsParametersDefaultTypeInternal {
   PROTOBUF_CONSTEXPR HashedBucketsParametersDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -102,12 +105,12 @@ struct HashedBucketsParametersDefaultTypeInternal {
     HashedBucketsParameters _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HashedBucketsParametersDefaultTypeInternal _HashedBucketsParameters_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HashedBucketsParametersDefaultTypeInternal _HashedBucketsParameters_default_instance_;
 PROTOBUF_CONSTEXPR EncryptedBucketsParameters::EncryptedBucketsParameters(
-    ::_pbi::ConstantInitialized)
-  : encrypted_bucket_id_length_(0)
-  , sensitive_id_hash_type_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.encrypted_bucket_id_length_)*/0
+  , /*decltype(_impl_.sensitive_id_hash_type_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct EncryptedBucketsParametersDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EncryptedBucketsParametersDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -116,14 +119,15 @@ struct EncryptedBucketsParametersDefaultTypeInternal {
     EncryptedBucketsParameters _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EncryptedBucketsParametersDefaultTypeInternal _EncryptedBucketsParameters_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EncryptedBucketsParametersDefaultTypeInternal _EncryptedBucketsParameters_default_instance_;
 PROTOBUF_CONSTEXPR RlweParameters::RlweParameters(
-    ::_pbi::ConstantInitialized)
-  : modulus_()
-  , log_degree_(0)
-  , log_t_(0)
-  , variance_(0)
-  , levels_of_recursion_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.modulus_)*/{}
+  , /*decltype(_impl_.log_degree_)*/0
+  , /*decltype(_impl_.log_t_)*/0
+  , /*decltype(_impl_.variance_)*/0
+  , /*decltype(_impl_.levels_of_recursion_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RlweParametersDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RlweParametersDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -132,11 +136,12 @@ struct RlweParametersDefaultTypeInternal {
     RlweParameters _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RlweParametersDefaultTypeInternal _RlweParameters_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RlweParametersDefaultTypeInternal _RlweParameters_default_instance_;
 PROTOBUF_CONSTEXPR Uint128::Uint128(
-    ::_pbi::ConstantInitialized)
-  : lo_(uint64_t{0u})
-  , hi_(uint64_t{0u}){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.lo_)*/uint64_t{0u}
+  , /*decltype(_impl_.hi_)*/uint64_t{0u}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct Uint128DefaultTypeInternal {
   PROTOBUF_CONSTEXPR Uint128DefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -145,11 +150,12 @@ struct Uint128DefaultTypeInternal {
     Uint128 _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Uint128DefaultTypeInternal _Uint128_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Uint128DefaultTypeInternal _Uint128_default_instance_;
 PROTOBUF_CONSTEXPR PrivateMembershipRlweQuery_HashedBucketId::PrivateMembershipRlweQuery_HashedBucketId(
-    ::_pbi::ConstantInitialized)
-  : hashed_bucket_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , bit_length_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.hashed_bucket_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.bit_length_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PrivateMembershipRlweQuery_HashedBucketIdDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PrivateMembershipRlweQuery_HashedBucketIdDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -158,12 +164,13 @@ struct PrivateMembershipRlweQuery_HashedBucketIdDefaultTypeInternal {
     PrivateMembershipRlweQuery_HashedBucketId _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateMembershipRlweQuery_HashedBucketIdDefaultTypeInternal _PrivateMembershipRlweQuery_HashedBucketId_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateMembershipRlweQuery_HashedBucketIdDefaultTypeInternal _PrivateMembershipRlweQuery_HashedBucketId_default_instance_;
 PROTOBUF_CONSTEXPR PrivateMembershipRlweQuery::PrivateMembershipRlweQuery(
-    ::_pbi::ConstantInitialized)
-  : queried_encrypted_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , pir_request_(nullptr)
-  , hashed_bucket_id_(nullptr){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.queried_encrypted_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.pir_request_)*/nullptr
+  , /*decltype(_impl_.hashed_bucket_id_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PrivateMembershipRlweQueryDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PrivateMembershipRlweQueryDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -172,11 +179,12 @@ struct PrivateMembershipRlweQueryDefaultTypeInternal {
     PrivateMembershipRlweQuery _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateMembershipRlweQueryDefaultTypeInternal _PrivateMembershipRlweQuery_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateMembershipRlweQueryDefaultTypeInternal _PrivateMembershipRlweQuery_default_instance_;
 PROTOBUF_CONSTEXPR PrivateMembershipRlwePirResponse::PrivateMembershipRlwePirResponse(
-    ::_pbi::ConstantInitialized)
-  : queried_encrypted_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , pir_response_(nullptr){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.queried_encrypted_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.pir_response_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PrivateMembershipRlwePirResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PrivateMembershipRlwePirResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -185,10 +193,12 @@ struct PrivateMembershipRlwePirResponseDefaultTypeInternal {
     PrivateMembershipRlwePirResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateMembershipRlwePirResponseDefaultTypeInternal _PrivateMembershipRlwePirResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateMembershipRlwePirResponseDefaultTypeInternal _PrivateMembershipRlwePirResponse_default_instance_;
 PROTOBUF_CONSTEXPR PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext(
-    ::_pbi::ConstantInitialized)
-  : ciphertext_(nullptr){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.ciphertext_)*/nullptr} {}
 struct PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertextDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertextDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -197,10 +207,11 @@ struct PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertextDefaultTypeIn
     PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertextDefaultTypeInternal _PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertextDefaultTypeInternal _PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext_default_instance_;
 PROTOBUF_CONSTEXPR PirRequest_ExpandedRequest::PirRequest_ExpandedRequest(
-    ::_pbi::ConstantInitialized)
-  : ciphertexts_(){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.ciphertexts_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PirRequest_ExpandedRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PirRequest_ExpandedRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -209,10 +220,11 @@ struct PirRequest_ExpandedRequestDefaultTypeInternal {
     PirRequest_ExpandedRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PirRequest_ExpandedRequestDefaultTypeInternal _PirRequest_ExpandedRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PirRequest_ExpandedRequestDefaultTypeInternal _PirRequest_ExpandedRequest_default_instance_;
 PROTOBUF_CONSTEXPR PirRequest_CompactRequest::PirRequest_CompactRequest(
-    ::_pbi::ConstantInitialized)
-  : ciphertexts_(){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.ciphertexts_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PirRequest_CompactRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PirRequest_CompactRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -221,12 +233,14 @@ struct PirRequest_CompactRequestDefaultTypeInternal {
     PirRequest_CompactRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PirRequest_CompactRequestDefaultTypeInternal _PirRequest_CompactRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PirRequest_CompactRequestDefaultTypeInternal _PirRequest_CompactRequest_default_instance_;
 PROTOBUF_CONSTEXPR PirRequest::PirRequest(
-    ::_pbi::ConstantInitialized)
-  : request_()
-  , prng_seed_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , _oneof_case_{}{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.request_)*/{}
+  , /*decltype(_impl_.prng_seed_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.sharded_request_type_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct PirRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PirRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -235,11 +249,12 @@ struct PirRequestDefaultTypeInternal {
     PirRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PirRequestDefaultTypeInternal _PirRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PirRequestDefaultTypeInternal _PirRequest_default_instance_;
 PROTOBUF_CONSTEXPR PirResponse::PirResponse(
-    ::_pbi::ConstantInitialized)
-  : response_()
-  , plaintext_entry_size_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.response_)*/{}
+  , /*decltype(_impl_.plaintext_entry_size_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PirResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PirResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -248,12 +263,13 @@ struct PirResponseDefaultTypeInternal {
     PirResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PirResponseDefaultTypeInternal _PirResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PirResponseDefaultTypeInternal _PirResponse_default_instance_;
 PROTOBUF_CONSTEXPR EncryptedBucket_EncryptedIdValuePair::EncryptedBucket_EncryptedIdValuePair(
-    ::_pbi::ConstantInitialized)
-  : encrypted_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , encrypted_value_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , id_(nullptr){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.encrypted_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.encrypted_value_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.id_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct EncryptedBucket_EncryptedIdValuePairDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EncryptedBucket_EncryptedIdValuePairDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -262,10 +278,11 @@ struct EncryptedBucket_EncryptedIdValuePairDefaultTypeInternal {
     EncryptedBucket_EncryptedIdValuePair _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EncryptedBucket_EncryptedIdValuePairDefaultTypeInternal _EncryptedBucket_EncryptedIdValuePair_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EncryptedBucket_EncryptedIdValuePairDefaultTypeInternal _EncryptedBucket_EncryptedIdValuePair_default_instance_;
 PROTOBUF_CONSTEXPR EncryptedBucket::EncryptedBucket(
-    ::_pbi::ConstantInitialized)
-  : encrypted_id_value_pairs_(){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.encrypted_id_value_pairs_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct EncryptedBucketDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EncryptedBucketDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -274,11 +291,12 @@ struct EncryptedBucketDefaultTypeInternal {
     EncryptedBucket _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EncryptedBucketDefaultTypeInternal _EncryptedBucket_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EncryptedBucketDefaultTypeInternal _EncryptedBucket_default_instance_;
 PROTOBUF_CONSTEXPR RlweMembershipResponses_MembershipResponseEntry::RlweMembershipResponses_MembershipResponseEntry(
-    ::_pbi::ConstantInitialized)
-  : plaintext_id_(nullptr)
-  , membership_response_(nullptr){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.plaintext_id_)*/nullptr
+  , /*decltype(_impl_.membership_response_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RlweMembershipResponses_MembershipResponseEntryDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RlweMembershipResponses_MembershipResponseEntryDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -287,10 +305,11 @@ struct RlweMembershipResponses_MembershipResponseEntryDefaultTypeInternal {
     RlweMembershipResponses_MembershipResponseEntry _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RlweMembershipResponses_MembershipResponseEntryDefaultTypeInternal _RlweMembershipResponses_MembershipResponseEntry_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RlweMembershipResponses_MembershipResponseEntryDefaultTypeInternal _RlweMembershipResponses_MembershipResponseEntry_default_instance_;
 PROTOBUF_CONSTEXPR RlweMembershipResponses::RlweMembershipResponses(
-    ::_pbi::ConstantInitialized)
-  : membership_responses_(){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.membership_responses_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RlweMembershipResponsesDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RlweMembershipResponsesDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -299,7 +318,7 @@ struct RlweMembershipResponsesDefaultTypeInternal {
     RlweMembershipResponses _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RlweMembershipResponsesDefaultTypeInternal _RlweMembershipResponses_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RlweMembershipResponsesDefaultTypeInternal _RlweMembershipResponses_default_instance_;
 }  // namespace rlwe
 }  // namespace private_membership
 namespace private_membership {
@@ -428,21 +447,32 @@ class PrivateMembershipRlweOprfRequest::_Internal {
 
 PrivateMembershipRlweOprfRequest::PrivateMembershipRlweOprfRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  encrypted_ids_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.PrivateMembershipRlweOprfRequest)
 }
 PrivateMembershipRlweOprfRequest::PrivateMembershipRlweOprfRequest(const PrivateMembershipRlweOprfRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      encrypted_ids_(from.encrypted_ids_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrivateMembershipRlweOprfRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.encrypted_ids_){from._impl_.encrypted_ids_}
+    , decltype(_impl_.use_case_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  use_case_ = from.use_case_;
+  _this->_impl_.use_case_ = from._impl_.use_case_;
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.PrivateMembershipRlweOprfRequest)
 }
 
-inline void PrivateMembershipRlweOprfRequest::SharedCtor() {
-use_case_ = 0;
+inline void PrivateMembershipRlweOprfRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.encrypted_ids_){arena}
+    , decltype(_impl_.use_case_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 PrivateMembershipRlweOprfRequest::~PrivateMembershipRlweOprfRequest() {
@@ -456,10 +486,11 @@ PrivateMembershipRlweOprfRequest::~PrivateMembershipRlweOprfRequest() {
 
 inline void PrivateMembershipRlweOprfRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.encrypted_ids_.~RepeatedPtrField();
 }
 
 void PrivateMembershipRlweOprfRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PrivateMembershipRlweOprfRequest::Clear() {
@@ -468,8 +499,8 @@ void PrivateMembershipRlweOprfRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  encrypted_ids_.Clear();
-  use_case_ = 0;
+  _impl_.encrypted_ids_.Clear();
+  _impl_.use_case_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -562,10 +593,10 @@ size_t PrivateMembershipRlweOprfRequest::ByteSizeLong() const {
 
   // repeated bytes encrypted_ids = 1;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(encrypted_ids_.size());
-  for (int i = 0, n = encrypted_ids_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.encrypted_ids_.size());
+  for (int i = 0, n = _impl_.encrypted_ids_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-      encrypted_ids_.Get(i));
+      _impl_.encrypted_ids_.Get(i));
   }
 
   // .private_membership.rlwe.RlweUseCase use_case = 2;
@@ -589,16 +620,17 @@ void PrivateMembershipRlweOprfRequest::CheckTypeAndMergeFrom(
 }
 
 void PrivateMembershipRlweOprfRequest::MergeFrom(const PrivateMembershipRlweOprfRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PrivateMembershipRlweOprfRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  PrivateMembershipRlweOprfRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PrivateMembershipRlweOprfRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  encrypted_ids_.MergeFrom(from.encrypted_ids_);
+  _this->_impl_.encrypted_ids_.MergeFrom(from._impl_.encrypted_ids_);
   if (from._internal_use_case() != 0) {
-    _internal_set_use_case(from._internal_use_case());
+    _this->_internal_set_use_case(from._internal_use_case());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PrivateMembershipRlweOprfRequest::CopyFrom(const PrivateMembershipRlweOprfRequest& from) {
@@ -615,8 +647,8 @@ bool PrivateMembershipRlweOprfRequest::IsInitialized() const {
 void PrivateMembershipRlweOprfRequest::InternalSwap(PrivateMembershipRlweOprfRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  encrypted_ids_.InternalSwap(&other->encrypted_ids_);
-  swap(use_case_, other->use_case_);
+  _impl_.encrypted_ids_.InternalSwap(&other->_impl_.encrypted_ids_);
+  swap(_impl_.use_case_, other->_impl_.use_case_);
 }
 
 std::string PrivateMembershipRlweOprfRequest::GetTypeName() const {
@@ -635,54 +667,62 @@ class PrivateMembershipRlweOprfResponse::_Internal {
 
 const ::private_membership::rlwe::HashedBucketsParameters&
 PrivateMembershipRlweOprfResponse::_Internal::hashed_buckets_parameters(const PrivateMembershipRlweOprfResponse* msg) {
-  return *msg->hashed_buckets_parameters_;
+  return *msg->_impl_.hashed_buckets_parameters_;
 }
 const ::private_membership::rlwe::EncryptedBucketsParameters&
 PrivateMembershipRlweOprfResponse::_Internal::encrypted_buckets_parameters(const PrivateMembershipRlweOprfResponse* msg) {
-  return *msg->encrypted_buckets_parameters_;
+  return *msg->_impl_.encrypted_buckets_parameters_;
 }
 const ::private_membership::rlwe::RlweParameters&
 PrivateMembershipRlweOprfResponse::_Internal::rlwe_parameters(const PrivateMembershipRlweOprfResponse* msg) {
-  return *msg->rlwe_parameters_;
+  return *msg->_impl_.rlwe_parameters_;
 }
 void PrivateMembershipRlweOprfResponse::clear_doubly_encrypted_ids() {
-  doubly_encrypted_ids_.Clear();
+  _impl_.doubly_encrypted_ids_.Clear();
 }
 PrivateMembershipRlweOprfResponse::PrivateMembershipRlweOprfResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  doubly_encrypted_ids_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.PrivateMembershipRlweOprfResponse)
 }
 PrivateMembershipRlweOprfResponse::PrivateMembershipRlweOprfResponse(const PrivateMembershipRlweOprfResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      doubly_encrypted_ids_(from.doubly_encrypted_ids_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrivateMembershipRlweOprfResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.doubly_encrypted_ids_){from._impl_.doubly_encrypted_ids_}
+    , decltype(_impl_.hashed_buckets_parameters_){nullptr}
+    , decltype(_impl_.encrypted_buckets_parameters_){nullptr}
+    , decltype(_impl_.rlwe_parameters_){nullptr}
+    , decltype(_impl_.key_version_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_hashed_buckets_parameters()) {
-    hashed_buckets_parameters_ = new ::private_membership::rlwe::HashedBucketsParameters(*from.hashed_buckets_parameters_);
-  } else {
-    hashed_buckets_parameters_ = nullptr;
+    _this->_impl_.hashed_buckets_parameters_ = new ::private_membership::rlwe::HashedBucketsParameters(*from._impl_.hashed_buckets_parameters_);
   }
   if (from._internal_has_encrypted_buckets_parameters()) {
-    encrypted_buckets_parameters_ = new ::private_membership::rlwe::EncryptedBucketsParameters(*from.encrypted_buckets_parameters_);
-  } else {
-    encrypted_buckets_parameters_ = nullptr;
+    _this->_impl_.encrypted_buckets_parameters_ = new ::private_membership::rlwe::EncryptedBucketsParameters(*from._impl_.encrypted_buckets_parameters_);
   }
   if (from._internal_has_rlwe_parameters()) {
-    rlwe_parameters_ = new ::private_membership::rlwe::RlweParameters(*from.rlwe_parameters_);
-  } else {
-    rlwe_parameters_ = nullptr;
+    _this->_impl_.rlwe_parameters_ = new ::private_membership::rlwe::RlweParameters(*from._impl_.rlwe_parameters_);
   }
-  key_version_ = from.key_version_;
+  _this->_impl_.key_version_ = from._impl_.key_version_;
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.PrivateMembershipRlweOprfResponse)
 }
 
-inline void PrivateMembershipRlweOprfResponse::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&hashed_buckets_parameters_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&key_version_) -
-    reinterpret_cast<char*>(&hashed_buckets_parameters_)) + sizeof(key_version_));
+inline void PrivateMembershipRlweOprfResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.doubly_encrypted_ids_){arena}
+    , decltype(_impl_.hashed_buckets_parameters_){nullptr}
+    , decltype(_impl_.encrypted_buckets_parameters_){nullptr}
+    , decltype(_impl_.rlwe_parameters_){nullptr}
+    , decltype(_impl_.key_version_){int64_t{0}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 PrivateMembershipRlweOprfResponse::~PrivateMembershipRlweOprfResponse() {
@@ -696,13 +736,14 @@ PrivateMembershipRlweOprfResponse::~PrivateMembershipRlweOprfResponse() {
 
 inline void PrivateMembershipRlweOprfResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete hashed_buckets_parameters_;
-  if (this != internal_default_instance()) delete encrypted_buckets_parameters_;
-  if (this != internal_default_instance()) delete rlwe_parameters_;
+  _impl_.doubly_encrypted_ids_.~RepeatedPtrField();
+  if (this != internal_default_instance()) delete _impl_.hashed_buckets_parameters_;
+  if (this != internal_default_instance()) delete _impl_.encrypted_buckets_parameters_;
+  if (this != internal_default_instance()) delete _impl_.rlwe_parameters_;
 }
 
 void PrivateMembershipRlweOprfResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PrivateMembershipRlweOprfResponse::Clear() {
@@ -711,20 +752,20 @@ void PrivateMembershipRlweOprfResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  doubly_encrypted_ids_.Clear();
-  if (GetArenaForAllocation() == nullptr && hashed_buckets_parameters_ != nullptr) {
-    delete hashed_buckets_parameters_;
+  _impl_.doubly_encrypted_ids_.Clear();
+  if (GetArenaForAllocation() == nullptr && _impl_.hashed_buckets_parameters_ != nullptr) {
+    delete _impl_.hashed_buckets_parameters_;
   }
-  hashed_buckets_parameters_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && encrypted_buckets_parameters_ != nullptr) {
-    delete encrypted_buckets_parameters_;
+  _impl_.hashed_buckets_parameters_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.encrypted_buckets_parameters_ != nullptr) {
+    delete _impl_.encrypted_buckets_parameters_;
   }
-  encrypted_buckets_parameters_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && rlwe_parameters_ != nullptr) {
-    delete rlwe_parameters_;
+  _impl_.encrypted_buckets_parameters_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.rlwe_parameters_ != nullptr) {
+    delete _impl_.rlwe_parameters_;
   }
-  rlwe_parameters_ = nullptr;
-  key_version_ = int64_t{0};
+  _impl_.rlwe_parameters_ = nullptr;
+  _impl_.key_version_ = int64_t{0};
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -774,7 +815,7 @@ const char* PrivateMembershipRlweOprfResponse::_InternalParse(const char* ptr, :
       // int64 key_version = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          key_version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.key_version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -861,7 +902,7 @@ size_t PrivateMembershipRlweOprfResponse::ByteSizeLong() const {
 
   // repeated .private_membership.DoublyEncryptedId doubly_encrypted_ids = 1;
   total_size += 1UL * this->_internal_doubly_encrypted_ids_size();
-  for (const auto& msg : this->doubly_encrypted_ids_) {
+  for (const auto& msg : this->_impl_.doubly_encrypted_ids_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -870,21 +911,21 @@ size_t PrivateMembershipRlweOprfResponse::ByteSizeLong() const {
   if (this->_internal_has_hashed_buckets_parameters()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *hashed_buckets_parameters_);
+        *_impl_.hashed_buckets_parameters_);
   }
 
   // .private_membership.rlwe.EncryptedBucketsParameters encrypted_buckets_parameters = 3;
   if (this->_internal_has_encrypted_buckets_parameters()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *encrypted_buckets_parameters_);
+        *_impl_.encrypted_buckets_parameters_);
   }
 
   // .private_membership.rlwe.RlweParameters rlwe_parameters = 4;
   if (this->_internal_has_rlwe_parameters()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *rlwe_parameters_);
+        *_impl_.rlwe_parameters_);
   }
 
   // int64 key_version = 5;
@@ -907,25 +948,29 @@ void PrivateMembershipRlweOprfResponse::CheckTypeAndMergeFrom(
 }
 
 void PrivateMembershipRlweOprfResponse::MergeFrom(const PrivateMembershipRlweOprfResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PrivateMembershipRlweOprfResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  PrivateMembershipRlweOprfResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PrivateMembershipRlweOprfResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  doubly_encrypted_ids_.MergeFrom(from.doubly_encrypted_ids_);
+  _this->_impl_.doubly_encrypted_ids_.MergeFrom(from._impl_.doubly_encrypted_ids_);
   if (from._internal_has_hashed_buckets_parameters()) {
-    _internal_mutable_hashed_buckets_parameters()->::private_membership::rlwe::HashedBucketsParameters::MergeFrom(from._internal_hashed_buckets_parameters());
+    _this->_internal_mutable_hashed_buckets_parameters()->::private_membership::rlwe::HashedBucketsParameters::MergeFrom(
+        from._internal_hashed_buckets_parameters());
   }
   if (from._internal_has_encrypted_buckets_parameters()) {
-    _internal_mutable_encrypted_buckets_parameters()->::private_membership::rlwe::EncryptedBucketsParameters::MergeFrom(from._internal_encrypted_buckets_parameters());
+    _this->_internal_mutable_encrypted_buckets_parameters()->::private_membership::rlwe::EncryptedBucketsParameters::MergeFrom(
+        from._internal_encrypted_buckets_parameters());
   }
   if (from._internal_has_rlwe_parameters()) {
-    _internal_mutable_rlwe_parameters()->::private_membership::rlwe::RlweParameters::MergeFrom(from._internal_rlwe_parameters());
+    _this->_internal_mutable_rlwe_parameters()->::private_membership::rlwe::RlweParameters::MergeFrom(
+        from._internal_rlwe_parameters());
   }
   if (from._internal_key_version() != 0) {
-    _internal_set_key_version(from._internal_key_version());
+    _this->_internal_set_key_version(from._internal_key_version());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PrivateMembershipRlweOprfResponse::CopyFrom(const PrivateMembershipRlweOprfResponse& from) {
@@ -942,13 +987,13 @@ bool PrivateMembershipRlweOprfResponse::IsInitialized() const {
 void PrivateMembershipRlweOprfResponse::InternalSwap(PrivateMembershipRlweOprfResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  doubly_encrypted_ids_.InternalSwap(&other->doubly_encrypted_ids_);
+  _impl_.doubly_encrypted_ids_.InternalSwap(&other->_impl_.doubly_encrypted_ids_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PrivateMembershipRlweOprfResponse, key_version_)
-      + sizeof(PrivateMembershipRlweOprfResponse::key_version_)
-      - PROTOBUF_FIELD_OFFSET(PrivateMembershipRlweOprfResponse, hashed_buckets_parameters_)>(
-          reinterpret_cast<char*>(&hashed_buckets_parameters_),
-          reinterpret_cast<char*>(&other->hashed_buckets_parameters_));
+      PROTOBUF_FIELD_OFFSET(PrivateMembershipRlweOprfResponse, _impl_.key_version_)
+      + sizeof(PrivateMembershipRlweOprfResponse::_impl_.key_version_)
+      - PROTOBUF_FIELD_OFFSET(PrivateMembershipRlweOprfResponse, _impl_.hashed_buckets_parameters_)>(
+          reinterpret_cast<char*>(&_impl_.hashed_buckets_parameters_),
+          reinterpret_cast<char*>(&other->_impl_.hashed_buckets_parameters_));
 }
 
 std::string PrivateMembershipRlweOprfResponse::GetTypeName() const {
@@ -964,26 +1009,36 @@ class PrivateMembershipRlweQueryRequest::_Internal {
 
 PrivateMembershipRlweQueryRequest::PrivateMembershipRlweQueryRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  queries_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.PrivateMembershipRlweQueryRequest)
 }
 PrivateMembershipRlweQueryRequest::PrivateMembershipRlweQueryRequest(const PrivateMembershipRlweQueryRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      queries_(from.queries_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrivateMembershipRlweQueryRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.queries_){from._impl_.queries_}
+    , decltype(_impl_.key_version_){}
+    , decltype(_impl_.use_case_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&key_version_, &from.key_version_,
-    static_cast<size_t>(reinterpret_cast<char*>(&use_case_) -
-    reinterpret_cast<char*>(&key_version_)) + sizeof(use_case_));
+  ::memcpy(&_impl_.key_version_, &from._impl_.key_version_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.use_case_) -
+    reinterpret_cast<char*>(&_impl_.key_version_)) + sizeof(_impl_.use_case_));
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.PrivateMembershipRlweQueryRequest)
 }
 
-inline void PrivateMembershipRlweQueryRequest::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&key_version_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&use_case_) -
-    reinterpret_cast<char*>(&key_version_)) + sizeof(use_case_));
+inline void PrivateMembershipRlweQueryRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.queries_){arena}
+    , decltype(_impl_.key_version_){int64_t{0}}
+    , decltype(_impl_.use_case_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 PrivateMembershipRlweQueryRequest::~PrivateMembershipRlweQueryRequest() {
@@ -997,10 +1052,11 @@ PrivateMembershipRlweQueryRequest::~PrivateMembershipRlweQueryRequest() {
 
 inline void PrivateMembershipRlweQueryRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.queries_.~RepeatedPtrField();
 }
 
 void PrivateMembershipRlweQueryRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PrivateMembershipRlweQueryRequest::Clear() {
@@ -1009,10 +1065,10 @@ void PrivateMembershipRlweQueryRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  queries_.Clear();
-  ::memset(&key_version_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&use_case_) -
-      reinterpret_cast<char*>(&key_version_)) + sizeof(use_case_));
+  _impl_.queries_.Clear();
+  ::memset(&_impl_.key_version_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.use_case_) -
+      reinterpret_cast<char*>(&_impl_.key_version_)) + sizeof(_impl_.use_case_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1047,7 +1103,7 @@ const char* PrivateMembershipRlweQueryRequest::_InternalParse(const char* ptr, :
       // int64 key_version = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          key_version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.key_version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1120,7 +1176,7 @@ size_t PrivateMembershipRlweQueryRequest::ByteSizeLong() const {
 
   // repeated .private_membership.rlwe.PrivateMembershipRlweQuery queries = 1;
   total_size += 1UL * this->_internal_queries_size();
-  for (const auto& msg : this->queries_) {
+  for (const auto& msg : this->_impl_.queries_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1151,19 +1207,20 @@ void PrivateMembershipRlweQueryRequest::CheckTypeAndMergeFrom(
 }
 
 void PrivateMembershipRlweQueryRequest::MergeFrom(const PrivateMembershipRlweQueryRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PrivateMembershipRlweQueryRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  PrivateMembershipRlweQueryRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PrivateMembershipRlweQueryRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  queries_.MergeFrom(from.queries_);
+  _this->_impl_.queries_.MergeFrom(from._impl_.queries_);
   if (from._internal_key_version() != 0) {
-    _internal_set_key_version(from._internal_key_version());
+    _this->_internal_set_key_version(from._internal_key_version());
   }
   if (from._internal_use_case() != 0) {
-    _internal_set_use_case(from._internal_use_case());
+    _this->_internal_set_use_case(from._internal_use_case());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PrivateMembershipRlweQueryRequest::CopyFrom(const PrivateMembershipRlweQueryRequest& from) {
@@ -1180,13 +1237,13 @@ bool PrivateMembershipRlweQueryRequest::IsInitialized() const {
 void PrivateMembershipRlweQueryRequest::InternalSwap(PrivateMembershipRlweQueryRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  queries_.InternalSwap(&other->queries_);
+  _impl_.queries_.InternalSwap(&other->_impl_.queries_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PrivateMembershipRlweQueryRequest, use_case_)
-      + sizeof(PrivateMembershipRlweQueryRequest::use_case_)
-      - PROTOBUF_FIELD_OFFSET(PrivateMembershipRlweQueryRequest, key_version_)>(
-          reinterpret_cast<char*>(&key_version_),
-          reinterpret_cast<char*>(&other->key_version_));
+      PROTOBUF_FIELD_OFFSET(PrivateMembershipRlweQueryRequest, _impl_.use_case_)
+      + sizeof(PrivateMembershipRlweQueryRequest::_impl_.use_case_)
+      - PROTOBUF_FIELD_OFFSET(PrivateMembershipRlweQueryRequest, _impl_.key_version_)>(
+          reinterpret_cast<char*>(&_impl_.key_version_),
+          reinterpret_cast<char*>(&other->_impl_.key_version_));
 }
 
 std::string PrivateMembershipRlweQueryRequest::GetTypeName() const {
@@ -1202,19 +1259,29 @@ class PrivateMembershipRlweQueryResponse::_Internal {
 
 PrivateMembershipRlweQueryResponse::PrivateMembershipRlweQueryResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  pir_responses_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.PrivateMembershipRlweQueryResponse)
 }
 PrivateMembershipRlweQueryResponse::PrivateMembershipRlweQueryResponse(const PrivateMembershipRlweQueryResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      pir_responses_(from.pir_responses_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrivateMembershipRlweQueryResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.pir_responses_){from._impl_.pir_responses_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.PrivateMembershipRlweQueryResponse)
 }
 
-inline void PrivateMembershipRlweQueryResponse::SharedCtor() {
+inline void PrivateMembershipRlweQueryResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.pir_responses_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 PrivateMembershipRlweQueryResponse::~PrivateMembershipRlweQueryResponse() {
@@ -1228,10 +1295,11 @@ PrivateMembershipRlweQueryResponse::~PrivateMembershipRlweQueryResponse() {
 
 inline void PrivateMembershipRlweQueryResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.pir_responses_.~RepeatedPtrField();
 }
 
 void PrivateMembershipRlweQueryResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PrivateMembershipRlweQueryResponse::Clear() {
@@ -1240,7 +1308,7 @@ void PrivateMembershipRlweQueryResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  pir_responses_.Clear();
+  _impl_.pir_responses_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1318,7 +1386,7 @@ size_t PrivateMembershipRlweQueryResponse::ByteSizeLong() const {
 
   // repeated .private_membership.rlwe.PrivateMembershipRlwePirResponse pir_responses = 1;
   total_size += 1UL * this->_internal_pir_responses_size();
-  for (const auto& msg : this->pir_responses_) {
+  for (const auto& msg : this->_impl_.pir_responses_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1338,13 +1406,14 @@ void PrivateMembershipRlweQueryResponse::CheckTypeAndMergeFrom(
 }
 
 void PrivateMembershipRlweQueryResponse::MergeFrom(const PrivateMembershipRlweQueryResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PrivateMembershipRlweQueryResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  PrivateMembershipRlweQueryResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PrivateMembershipRlweQueryResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  pir_responses_.MergeFrom(from.pir_responses_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.pir_responses_.MergeFrom(from._impl_.pir_responses_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PrivateMembershipRlweQueryResponse::CopyFrom(const PrivateMembershipRlweQueryResponse& from) {
@@ -1361,7 +1430,7 @@ bool PrivateMembershipRlweQueryResponse::IsInitialized() const {
 void PrivateMembershipRlweQueryResponse::InternalSwap(PrivateMembershipRlweQueryResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  pir_responses_.InternalSwap(&other->pir_responses_);
+  _impl_.pir_responses_.InternalSwap(&other->_impl_.pir_responses_);
 }
 
 std::string PrivateMembershipRlweQueryResponse::GetTypeName() const {
@@ -1378,40 +1447,54 @@ class RlwePlaintextId::_Internal {
 RlwePlaintextId::RlwePlaintextId(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.RlwePlaintextId)
 }
 RlwePlaintextId::RlwePlaintextId(const RlwePlaintextId& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RlwePlaintextId* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.non_sensitive_id_){}
+    , decltype(_impl_.sensitive_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  non_sensitive_id_.InitDefault();
+  _impl_.non_sensitive_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    non_sensitive_id_.Set("", GetArenaForAllocation());
+    _impl_.non_sensitive_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_non_sensitive_id().empty()) {
-    non_sensitive_id_.Set(from._internal_non_sensitive_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.non_sensitive_id_.Set(from._internal_non_sensitive_id(), 
+      _this->GetArenaForAllocation());
   }
-  sensitive_id_.InitDefault();
+  _impl_.sensitive_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    sensitive_id_.Set("", GetArenaForAllocation());
+    _impl_.sensitive_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_sensitive_id().empty()) {
-    sensitive_id_.Set(from._internal_sensitive_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.sensitive_id_.Set(from._internal_sensitive_id(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.RlwePlaintextId)
 }
 
-inline void RlwePlaintextId::SharedCtor() {
-non_sensitive_id_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  non_sensitive_id_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-sensitive_id_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  sensitive_id_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void RlwePlaintextId::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.non_sensitive_id_){}
+    , decltype(_impl_.sensitive_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.non_sensitive_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.non_sensitive_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.sensitive_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.sensitive_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 RlwePlaintextId::~RlwePlaintextId() {
@@ -1425,12 +1508,12 @@ RlwePlaintextId::~RlwePlaintextId() {
 
 inline void RlwePlaintextId::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  non_sensitive_id_.Destroy();
-  sensitive_id_.Destroy();
+  _impl_.non_sensitive_id_.Destroy();
+  _impl_.sensitive_id_.Destroy();
 }
 
 void RlwePlaintextId::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RlwePlaintextId::Clear() {
@@ -1439,8 +1522,8 @@ void RlwePlaintextId::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  non_sensitive_id_.ClearToEmpty();
-  sensitive_id_.ClearToEmpty();
+  _impl_.non_sensitive_id_.ClearToEmpty();
+  _impl_.sensitive_id_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1564,18 +1647,19 @@ void RlwePlaintextId::CheckTypeAndMergeFrom(
 }
 
 void RlwePlaintextId::MergeFrom(const RlwePlaintextId& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.RlwePlaintextId)
-  GOOGLE_DCHECK_NE(&from, this);
+  RlwePlaintextId* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.RlwePlaintextId)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_non_sensitive_id().empty()) {
-    _internal_set_non_sensitive_id(from._internal_non_sensitive_id());
+    _this->_internal_set_non_sensitive_id(from._internal_non_sensitive_id());
   }
   if (!from._internal_sensitive_id().empty()) {
-    _internal_set_sensitive_id(from._internal_sensitive_id());
+    _this->_internal_set_sensitive_id(from._internal_sensitive_id());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RlwePlaintextId::CopyFrom(const RlwePlaintextId& from) {
@@ -1595,12 +1679,12 @@ void RlwePlaintextId::InternalSwap(RlwePlaintextId* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &non_sensitive_id_, lhs_arena,
-      &other->non_sensitive_id_, rhs_arena
+      &_impl_.non_sensitive_id_, lhs_arena,
+      &other->_impl_.non_sensitive_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &sensitive_id_, lhs_arena,
-      &other->sensitive_id_, rhs_arena
+      &_impl_.sensitive_id_, lhs_arena,
+      &other->_impl_.sensitive_id_, rhs_arena
   );
 }
 
@@ -1618,23 +1702,33 @@ class HashedBucketsParameters::_Internal {
 HashedBucketsParameters::HashedBucketsParameters(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.HashedBucketsParameters)
 }
 HashedBucketsParameters::HashedBucketsParameters(const HashedBucketsParameters& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  HashedBucketsParameters* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.hashed_bucket_id_length_){}
+    , decltype(_impl_.non_sensitive_id_hash_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&hashed_bucket_id_length_, &from.hashed_bucket_id_length_,
-    static_cast<size_t>(reinterpret_cast<char*>(&non_sensitive_id_hash_type_) -
-    reinterpret_cast<char*>(&hashed_bucket_id_length_)) + sizeof(non_sensitive_id_hash_type_));
+  ::memcpy(&_impl_.hashed_bucket_id_length_, &from._impl_.hashed_bucket_id_length_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.non_sensitive_id_hash_type_) -
+    reinterpret_cast<char*>(&_impl_.hashed_bucket_id_length_)) + sizeof(_impl_.non_sensitive_id_hash_type_));
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.HashedBucketsParameters)
 }
 
-inline void HashedBucketsParameters::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&hashed_bucket_id_length_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&non_sensitive_id_hash_type_) -
-    reinterpret_cast<char*>(&hashed_bucket_id_length_)) + sizeof(non_sensitive_id_hash_type_));
+inline void HashedBucketsParameters::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.hashed_bucket_id_length_){0}
+    , decltype(_impl_.non_sensitive_id_hash_type_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 HashedBucketsParameters::~HashedBucketsParameters() {
@@ -1651,7 +1745,7 @@ inline void HashedBucketsParameters::SharedDtor() {
 }
 
 void HashedBucketsParameters::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HashedBucketsParameters::Clear() {
@@ -1660,9 +1754,9 @@ void HashedBucketsParameters::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&hashed_bucket_id_length_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&non_sensitive_id_hash_type_) -
-      reinterpret_cast<char*>(&hashed_bucket_id_length_)) + sizeof(non_sensitive_id_hash_type_));
+  ::memset(&_impl_.hashed_bucket_id_length_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.non_sensitive_id_hash_type_) -
+      reinterpret_cast<char*>(&_impl_.hashed_bucket_id_length_)) + sizeof(_impl_.non_sensitive_id_hash_type_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1675,7 +1769,7 @@ const char* HashedBucketsParameters::_InternalParse(const char* ptr, ::_pbi::Par
       // int32 hashed_bucket_id_length = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          hashed_bucket_id_length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.hashed_bucket_id_length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1773,18 +1867,19 @@ void HashedBucketsParameters::CheckTypeAndMergeFrom(
 }
 
 void HashedBucketsParameters::MergeFrom(const HashedBucketsParameters& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.HashedBucketsParameters)
-  GOOGLE_DCHECK_NE(&from, this);
+  HashedBucketsParameters* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.HashedBucketsParameters)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_hashed_bucket_id_length() != 0) {
-    _internal_set_hashed_bucket_id_length(from._internal_hashed_bucket_id_length());
+    _this->_internal_set_hashed_bucket_id_length(from._internal_hashed_bucket_id_length());
   }
   if (from._internal_non_sensitive_id_hash_type() != 0) {
-    _internal_set_non_sensitive_id_hash_type(from._internal_non_sensitive_id_hash_type());
+    _this->_internal_set_non_sensitive_id_hash_type(from._internal_non_sensitive_id_hash_type());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void HashedBucketsParameters::CopyFrom(const HashedBucketsParameters& from) {
@@ -1802,11 +1897,11 @@ void HashedBucketsParameters::InternalSwap(HashedBucketsParameters* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(HashedBucketsParameters, non_sensitive_id_hash_type_)
-      + sizeof(HashedBucketsParameters::non_sensitive_id_hash_type_)
-      - PROTOBUF_FIELD_OFFSET(HashedBucketsParameters, hashed_bucket_id_length_)>(
-          reinterpret_cast<char*>(&hashed_bucket_id_length_),
-          reinterpret_cast<char*>(&other->hashed_bucket_id_length_));
+      PROTOBUF_FIELD_OFFSET(HashedBucketsParameters, _impl_.non_sensitive_id_hash_type_)
+      + sizeof(HashedBucketsParameters::_impl_.non_sensitive_id_hash_type_)
+      - PROTOBUF_FIELD_OFFSET(HashedBucketsParameters, _impl_.hashed_bucket_id_length_)>(
+          reinterpret_cast<char*>(&_impl_.hashed_bucket_id_length_),
+          reinterpret_cast<char*>(&other->_impl_.hashed_bucket_id_length_));
 }
 
 std::string HashedBucketsParameters::GetTypeName() const {
@@ -1823,23 +1918,33 @@ class EncryptedBucketsParameters::_Internal {
 EncryptedBucketsParameters::EncryptedBucketsParameters(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.EncryptedBucketsParameters)
 }
 EncryptedBucketsParameters::EncryptedBucketsParameters(const EncryptedBucketsParameters& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  EncryptedBucketsParameters* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.encrypted_bucket_id_length_){}
+    , decltype(_impl_.sensitive_id_hash_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&encrypted_bucket_id_length_, &from.encrypted_bucket_id_length_,
-    static_cast<size_t>(reinterpret_cast<char*>(&sensitive_id_hash_type_) -
-    reinterpret_cast<char*>(&encrypted_bucket_id_length_)) + sizeof(sensitive_id_hash_type_));
+  ::memcpy(&_impl_.encrypted_bucket_id_length_, &from._impl_.encrypted_bucket_id_length_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.sensitive_id_hash_type_) -
+    reinterpret_cast<char*>(&_impl_.encrypted_bucket_id_length_)) + sizeof(_impl_.sensitive_id_hash_type_));
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.EncryptedBucketsParameters)
 }
 
-inline void EncryptedBucketsParameters::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&encrypted_bucket_id_length_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&sensitive_id_hash_type_) -
-    reinterpret_cast<char*>(&encrypted_bucket_id_length_)) + sizeof(sensitive_id_hash_type_));
+inline void EncryptedBucketsParameters::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.encrypted_bucket_id_length_){0}
+    , decltype(_impl_.sensitive_id_hash_type_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 EncryptedBucketsParameters::~EncryptedBucketsParameters() {
@@ -1856,7 +1961,7 @@ inline void EncryptedBucketsParameters::SharedDtor() {
 }
 
 void EncryptedBucketsParameters::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void EncryptedBucketsParameters::Clear() {
@@ -1865,9 +1970,9 @@ void EncryptedBucketsParameters::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&encrypted_bucket_id_length_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&sensitive_id_hash_type_) -
-      reinterpret_cast<char*>(&encrypted_bucket_id_length_)) + sizeof(sensitive_id_hash_type_));
+  ::memset(&_impl_.encrypted_bucket_id_length_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.sensitive_id_hash_type_) -
+      reinterpret_cast<char*>(&_impl_.encrypted_bucket_id_length_)) + sizeof(_impl_.sensitive_id_hash_type_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1880,7 +1985,7 @@ const char* EncryptedBucketsParameters::_InternalParse(const char* ptr, ::_pbi::
       // int32 encrypted_bucket_id_length = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          encrypted_bucket_id_length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.encrypted_bucket_id_length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1978,18 +2083,19 @@ void EncryptedBucketsParameters::CheckTypeAndMergeFrom(
 }
 
 void EncryptedBucketsParameters::MergeFrom(const EncryptedBucketsParameters& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.EncryptedBucketsParameters)
-  GOOGLE_DCHECK_NE(&from, this);
+  EncryptedBucketsParameters* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.EncryptedBucketsParameters)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_encrypted_bucket_id_length() != 0) {
-    _internal_set_encrypted_bucket_id_length(from._internal_encrypted_bucket_id_length());
+    _this->_internal_set_encrypted_bucket_id_length(from._internal_encrypted_bucket_id_length());
   }
   if (from._internal_sensitive_id_hash_type() != 0) {
-    _internal_set_sensitive_id_hash_type(from._internal_sensitive_id_hash_type());
+    _this->_internal_set_sensitive_id_hash_type(from._internal_sensitive_id_hash_type());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void EncryptedBucketsParameters::CopyFrom(const EncryptedBucketsParameters& from) {
@@ -2007,11 +2113,11 @@ void EncryptedBucketsParameters::InternalSwap(EncryptedBucketsParameters* other)
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(EncryptedBucketsParameters, sensitive_id_hash_type_)
-      + sizeof(EncryptedBucketsParameters::sensitive_id_hash_type_)
-      - PROTOBUF_FIELD_OFFSET(EncryptedBucketsParameters, encrypted_bucket_id_length_)>(
-          reinterpret_cast<char*>(&encrypted_bucket_id_length_),
-          reinterpret_cast<char*>(&other->encrypted_bucket_id_length_));
+      PROTOBUF_FIELD_OFFSET(EncryptedBucketsParameters, _impl_.sensitive_id_hash_type_)
+      + sizeof(EncryptedBucketsParameters::_impl_.sensitive_id_hash_type_)
+      - PROTOBUF_FIELD_OFFSET(EncryptedBucketsParameters, _impl_.encrypted_bucket_id_length_)>(
+          reinterpret_cast<char*>(&_impl_.encrypted_bucket_id_length_),
+          reinterpret_cast<char*>(&other->_impl_.encrypted_bucket_id_length_));
 }
 
 std::string EncryptedBucketsParameters::GetTypeName() const {
@@ -2027,26 +2133,40 @@ class RlweParameters::_Internal {
 
 RlweParameters::RlweParameters(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  modulus_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.RlweParameters)
 }
 RlweParameters::RlweParameters(const RlweParameters& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      modulus_(from.modulus_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RlweParameters* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.modulus_){from._impl_.modulus_}
+    , decltype(_impl_.log_degree_){}
+    , decltype(_impl_.log_t_){}
+    , decltype(_impl_.variance_){}
+    , decltype(_impl_.levels_of_recursion_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&log_degree_, &from.log_degree_,
-    static_cast<size_t>(reinterpret_cast<char*>(&levels_of_recursion_) -
-    reinterpret_cast<char*>(&log_degree_)) + sizeof(levels_of_recursion_));
+  ::memcpy(&_impl_.log_degree_, &from._impl_.log_degree_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.levels_of_recursion_) -
+    reinterpret_cast<char*>(&_impl_.log_degree_)) + sizeof(_impl_.levels_of_recursion_));
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.RlweParameters)
 }
 
-inline void RlweParameters::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&log_degree_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&levels_of_recursion_) -
-    reinterpret_cast<char*>(&log_degree_)) + sizeof(levels_of_recursion_));
+inline void RlweParameters::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.modulus_){arena}
+    , decltype(_impl_.log_degree_){0}
+    , decltype(_impl_.log_t_){0}
+    , decltype(_impl_.variance_){0}
+    , decltype(_impl_.levels_of_recursion_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 RlweParameters::~RlweParameters() {
@@ -2060,10 +2180,11 @@ RlweParameters::~RlweParameters() {
 
 inline void RlweParameters::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.modulus_.~RepeatedPtrField();
 }
 
 void RlweParameters::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RlweParameters::Clear() {
@@ -2072,10 +2193,10 @@ void RlweParameters::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  modulus_.Clear();
-  ::memset(&log_degree_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&levels_of_recursion_) -
-      reinterpret_cast<char*>(&log_degree_)) + sizeof(levels_of_recursion_));
+  _impl_.modulus_.Clear();
+  ::memset(&_impl_.log_degree_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.levels_of_recursion_) -
+      reinterpret_cast<char*>(&_impl_.log_degree_)) + sizeof(_impl_.levels_of_recursion_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -2101,7 +2222,7 @@ const char* RlweParameters::_InternalParse(const char* ptr, ::_pbi::ParseContext
       // int32 log_degree = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          log_degree_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.log_degree_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2109,7 +2230,7 @@ const char* RlweParameters::_InternalParse(const char* ptr, ::_pbi::ParseContext
       // int32 log_t = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          log_t_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.log_t_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2117,7 +2238,7 @@ const char* RlweParameters::_InternalParse(const char* ptr, ::_pbi::ParseContext
       // int32 variance = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          variance_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.variance_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2125,7 +2246,7 @@ const char* RlweParameters::_InternalParse(const char* ptr, ::_pbi::ParseContext
       // int32 levels_of_recursion = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          levels_of_recursion_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.levels_of_recursion_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2209,7 +2330,7 @@ size_t RlweParameters::ByteSizeLong() const {
 
   // repeated .private_membership.rlwe.Uint128 modulus = 1;
   total_size += 1UL * this->_internal_modulus_size();
-  for (const auto& msg : this->modulus_) {
+  for (const auto& msg : this->_impl_.modulus_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -2249,25 +2370,26 @@ void RlweParameters::CheckTypeAndMergeFrom(
 }
 
 void RlweParameters::MergeFrom(const RlweParameters& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.RlweParameters)
-  GOOGLE_DCHECK_NE(&from, this);
+  RlweParameters* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.RlweParameters)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  modulus_.MergeFrom(from.modulus_);
+  _this->_impl_.modulus_.MergeFrom(from._impl_.modulus_);
   if (from._internal_log_degree() != 0) {
-    _internal_set_log_degree(from._internal_log_degree());
+    _this->_internal_set_log_degree(from._internal_log_degree());
   }
   if (from._internal_log_t() != 0) {
-    _internal_set_log_t(from._internal_log_t());
+    _this->_internal_set_log_t(from._internal_log_t());
   }
   if (from._internal_variance() != 0) {
-    _internal_set_variance(from._internal_variance());
+    _this->_internal_set_variance(from._internal_variance());
   }
   if (from._internal_levels_of_recursion() != 0) {
-    _internal_set_levels_of_recursion(from._internal_levels_of_recursion());
+    _this->_internal_set_levels_of_recursion(from._internal_levels_of_recursion());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RlweParameters::CopyFrom(const RlweParameters& from) {
@@ -2284,13 +2406,13 @@ bool RlweParameters::IsInitialized() const {
 void RlweParameters::InternalSwap(RlweParameters* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  modulus_.InternalSwap(&other->modulus_);
+  _impl_.modulus_.InternalSwap(&other->_impl_.modulus_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RlweParameters, levels_of_recursion_)
-      + sizeof(RlweParameters::levels_of_recursion_)
-      - PROTOBUF_FIELD_OFFSET(RlweParameters, log_degree_)>(
-          reinterpret_cast<char*>(&log_degree_),
-          reinterpret_cast<char*>(&other->log_degree_));
+      PROTOBUF_FIELD_OFFSET(RlweParameters, _impl_.levels_of_recursion_)
+      + sizeof(RlweParameters::_impl_.levels_of_recursion_)
+      - PROTOBUF_FIELD_OFFSET(RlweParameters, _impl_.log_degree_)>(
+          reinterpret_cast<char*>(&_impl_.log_degree_),
+          reinterpret_cast<char*>(&other->_impl_.log_degree_));
 }
 
 std::string RlweParameters::GetTypeName() const {
@@ -2307,23 +2429,33 @@ class Uint128::_Internal {
 Uint128::Uint128(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.Uint128)
 }
 Uint128::Uint128(const Uint128& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  Uint128* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.lo_){}
+    , decltype(_impl_.hi_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&lo_, &from.lo_,
-    static_cast<size_t>(reinterpret_cast<char*>(&hi_) -
-    reinterpret_cast<char*>(&lo_)) + sizeof(hi_));
+  ::memcpy(&_impl_.lo_, &from._impl_.lo_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.hi_) -
+    reinterpret_cast<char*>(&_impl_.lo_)) + sizeof(_impl_.hi_));
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.Uint128)
 }
 
-inline void Uint128::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&lo_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&hi_) -
-    reinterpret_cast<char*>(&lo_)) + sizeof(hi_));
+inline void Uint128::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.lo_){uint64_t{0u}}
+    , decltype(_impl_.hi_){uint64_t{0u}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 Uint128::~Uint128() {
@@ -2340,7 +2472,7 @@ inline void Uint128::SharedDtor() {
 }
 
 void Uint128::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Uint128::Clear() {
@@ -2349,9 +2481,9 @@ void Uint128::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&lo_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&hi_) -
-      reinterpret_cast<char*>(&lo_)) + sizeof(hi_));
+  ::memset(&_impl_.lo_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.hi_) -
+      reinterpret_cast<char*>(&_impl_.lo_)) + sizeof(_impl_.hi_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -2364,7 +2496,7 @@ const char* Uint128::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
       // uint64 lo = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          lo_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.lo_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2372,7 +2504,7 @@ const char* Uint128::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
       // uint64 hi = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          hi_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.hi_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2459,18 +2591,19 @@ void Uint128::CheckTypeAndMergeFrom(
 }
 
 void Uint128::MergeFrom(const Uint128& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.Uint128)
-  GOOGLE_DCHECK_NE(&from, this);
+  Uint128* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.Uint128)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_lo() != 0) {
-    _internal_set_lo(from._internal_lo());
+    _this->_internal_set_lo(from._internal_lo());
   }
   if (from._internal_hi() != 0) {
-    _internal_set_hi(from._internal_hi());
+    _this->_internal_set_hi(from._internal_hi());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Uint128::CopyFrom(const Uint128& from) {
@@ -2488,11 +2621,11 @@ void Uint128::InternalSwap(Uint128* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Uint128, hi_)
-      + sizeof(Uint128::hi_)
-      - PROTOBUF_FIELD_OFFSET(Uint128, lo_)>(
-          reinterpret_cast<char*>(&lo_),
-          reinterpret_cast<char*>(&other->lo_));
+      PROTOBUF_FIELD_OFFSET(Uint128, _impl_.hi_)
+      + sizeof(Uint128::_impl_.hi_)
+      - PROTOBUF_FIELD_OFFSET(Uint128, _impl_.lo_)>(
+          reinterpret_cast<char*>(&_impl_.lo_),
+          reinterpret_cast<char*>(&other->_impl_.lo_));
 }
 
 std::string Uint128::GetTypeName() const {
@@ -2509,30 +2642,43 @@ class PrivateMembershipRlweQuery_HashedBucketId::_Internal {
 PrivateMembershipRlweQuery_HashedBucketId::PrivateMembershipRlweQuery_HashedBucketId(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.PrivateMembershipRlweQuery.HashedBucketId)
 }
 PrivateMembershipRlweQuery_HashedBucketId::PrivateMembershipRlweQuery_HashedBucketId(const PrivateMembershipRlweQuery_HashedBucketId& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrivateMembershipRlweQuery_HashedBucketId* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.hashed_bucket_id_){}
+    , decltype(_impl_.bit_length_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  hashed_bucket_id_.InitDefault();
+  _impl_.hashed_bucket_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    hashed_bucket_id_.Set("", GetArenaForAllocation());
+    _impl_.hashed_bucket_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_hashed_bucket_id().empty()) {
-    hashed_bucket_id_.Set(from._internal_hashed_bucket_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.hashed_bucket_id_.Set(from._internal_hashed_bucket_id(), 
+      _this->GetArenaForAllocation());
   }
-  bit_length_ = from.bit_length_;
+  _this->_impl_.bit_length_ = from._impl_.bit_length_;
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.PrivateMembershipRlweQuery.HashedBucketId)
 }
 
-inline void PrivateMembershipRlweQuery_HashedBucketId::SharedCtor() {
-hashed_bucket_id_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  hashed_bucket_id_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-bit_length_ = 0;
+inline void PrivateMembershipRlweQuery_HashedBucketId::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.hashed_bucket_id_){}
+    , decltype(_impl_.bit_length_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.hashed_bucket_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.hashed_bucket_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PrivateMembershipRlweQuery_HashedBucketId::~PrivateMembershipRlweQuery_HashedBucketId() {
@@ -2546,11 +2692,11 @@ PrivateMembershipRlweQuery_HashedBucketId::~PrivateMembershipRlweQuery_HashedBuc
 
 inline void PrivateMembershipRlweQuery_HashedBucketId::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  hashed_bucket_id_.Destroy();
+  _impl_.hashed_bucket_id_.Destroy();
 }
 
 void PrivateMembershipRlweQuery_HashedBucketId::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PrivateMembershipRlweQuery_HashedBucketId::Clear() {
@@ -2559,8 +2705,8 @@ void PrivateMembershipRlweQuery_HashedBucketId::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  hashed_bucket_id_.ClearToEmpty();
-  bit_length_ = 0;
+  _impl_.hashed_bucket_id_.ClearToEmpty();
+  _impl_.bit_length_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -2582,7 +2728,7 @@ const char* PrivateMembershipRlweQuery_HashedBucketId::_InternalParse(const char
       // int32 bit_length = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          bit_length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.bit_length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2671,18 +2817,19 @@ void PrivateMembershipRlweQuery_HashedBucketId::CheckTypeAndMergeFrom(
 }
 
 void PrivateMembershipRlweQuery_HashedBucketId::MergeFrom(const PrivateMembershipRlweQuery_HashedBucketId& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PrivateMembershipRlweQuery.HashedBucketId)
-  GOOGLE_DCHECK_NE(&from, this);
+  PrivateMembershipRlweQuery_HashedBucketId* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PrivateMembershipRlweQuery.HashedBucketId)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_hashed_bucket_id().empty()) {
-    _internal_set_hashed_bucket_id(from._internal_hashed_bucket_id());
+    _this->_internal_set_hashed_bucket_id(from._internal_hashed_bucket_id());
   }
   if (from._internal_bit_length() != 0) {
-    _internal_set_bit_length(from._internal_bit_length());
+    _this->_internal_set_bit_length(from._internal_bit_length());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PrivateMembershipRlweQuery_HashedBucketId::CopyFrom(const PrivateMembershipRlweQuery_HashedBucketId& from) {
@@ -2702,10 +2849,10 @@ void PrivateMembershipRlweQuery_HashedBucketId::InternalSwap(PrivateMembershipRl
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &hashed_bucket_id_, lhs_arena,
-      &other->hashed_bucket_id_, rhs_arena
+      &_impl_.hashed_bucket_id_, lhs_arena,
+      &other->_impl_.hashed_bucket_id_, rhs_arena
   );
-  swap(bit_length_, other->bit_length_);
+  swap(_impl_.bit_length_, other->_impl_.bit_length_);
 }
 
 std::string PrivateMembershipRlweQuery_HashedBucketId::GetTypeName() const {
@@ -2723,51 +2870,59 @@ class PrivateMembershipRlweQuery::_Internal {
 
 const ::private_membership::rlwe::PirRequest&
 PrivateMembershipRlweQuery::_Internal::pir_request(const PrivateMembershipRlweQuery* msg) {
-  return *msg->pir_request_;
+  return *msg->_impl_.pir_request_;
 }
 const ::private_membership::rlwe::PrivateMembershipRlweQuery_HashedBucketId&
 PrivateMembershipRlweQuery::_Internal::hashed_bucket_id(const PrivateMembershipRlweQuery* msg) {
-  return *msg->hashed_bucket_id_;
+  return *msg->_impl_.hashed_bucket_id_;
 }
 PrivateMembershipRlweQuery::PrivateMembershipRlweQuery(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.PrivateMembershipRlweQuery)
 }
 PrivateMembershipRlweQuery::PrivateMembershipRlweQuery(const PrivateMembershipRlweQuery& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrivateMembershipRlweQuery* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.queried_encrypted_id_){}
+    , decltype(_impl_.pir_request_){nullptr}
+    , decltype(_impl_.hashed_bucket_id_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  queried_encrypted_id_.InitDefault();
+  _impl_.queried_encrypted_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    queried_encrypted_id_.Set("", GetArenaForAllocation());
+    _impl_.queried_encrypted_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_queried_encrypted_id().empty()) {
-    queried_encrypted_id_.Set(from._internal_queried_encrypted_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.queried_encrypted_id_.Set(from._internal_queried_encrypted_id(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_pir_request()) {
-    pir_request_ = new ::private_membership::rlwe::PirRequest(*from.pir_request_);
-  } else {
-    pir_request_ = nullptr;
+    _this->_impl_.pir_request_ = new ::private_membership::rlwe::PirRequest(*from._impl_.pir_request_);
   }
   if (from._internal_has_hashed_bucket_id()) {
-    hashed_bucket_id_ = new ::private_membership::rlwe::PrivateMembershipRlweQuery_HashedBucketId(*from.hashed_bucket_id_);
-  } else {
-    hashed_bucket_id_ = nullptr;
+    _this->_impl_.hashed_bucket_id_ = new ::private_membership::rlwe::PrivateMembershipRlweQuery_HashedBucketId(*from._impl_.hashed_bucket_id_);
   }
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.PrivateMembershipRlweQuery)
 }
 
-inline void PrivateMembershipRlweQuery::SharedCtor() {
-queried_encrypted_id_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  queried_encrypted_id_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&pir_request_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&hashed_bucket_id_) -
-    reinterpret_cast<char*>(&pir_request_)) + sizeof(hashed_bucket_id_));
+inline void PrivateMembershipRlweQuery::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.queried_encrypted_id_){}
+    , decltype(_impl_.pir_request_){nullptr}
+    , decltype(_impl_.hashed_bucket_id_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.queried_encrypted_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.queried_encrypted_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PrivateMembershipRlweQuery::~PrivateMembershipRlweQuery() {
@@ -2781,13 +2936,13 @@ PrivateMembershipRlweQuery::~PrivateMembershipRlweQuery() {
 
 inline void PrivateMembershipRlweQuery::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  queried_encrypted_id_.Destroy();
-  if (this != internal_default_instance()) delete pir_request_;
-  if (this != internal_default_instance()) delete hashed_bucket_id_;
+  _impl_.queried_encrypted_id_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.pir_request_;
+  if (this != internal_default_instance()) delete _impl_.hashed_bucket_id_;
 }
 
 void PrivateMembershipRlweQuery::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PrivateMembershipRlweQuery::Clear() {
@@ -2796,15 +2951,15 @@ void PrivateMembershipRlweQuery::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  queried_encrypted_id_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && pir_request_ != nullptr) {
-    delete pir_request_;
+  _impl_.queried_encrypted_id_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.pir_request_ != nullptr) {
+    delete _impl_.pir_request_;
   }
-  pir_request_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && hashed_bucket_id_ != nullptr) {
-    delete hashed_bucket_id_;
+  _impl_.pir_request_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.hashed_bucket_id_ != nullptr) {
+    delete _impl_.hashed_bucket_id_;
   }
-  hashed_bucket_id_ = nullptr;
+  _impl_.hashed_bucket_id_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -2915,14 +3070,14 @@ size_t PrivateMembershipRlweQuery::ByteSizeLong() const {
   if (this->_internal_has_pir_request()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *pir_request_);
+        *_impl_.pir_request_);
   }
 
   // .private_membership.rlwe.PrivateMembershipRlweQuery.HashedBucketId hashed_bucket_id = 3;
   if (this->_internal_has_hashed_bucket_id()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *hashed_bucket_id_);
+        *_impl_.hashed_bucket_id_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2940,21 +3095,24 @@ void PrivateMembershipRlweQuery::CheckTypeAndMergeFrom(
 }
 
 void PrivateMembershipRlweQuery::MergeFrom(const PrivateMembershipRlweQuery& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PrivateMembershipRlweQuery)
-  GOOGLE_DCHECK_NE(&from, this);
+  PrivateMembershipRlweQuery* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PrivateMembershipRlweQuery)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_queried_encrypted_id().empty()) {
-    _internal_set_queried_encrypted_id(from._internal_queried_encrypted_id());
+    _this->_internal_set_queried_encrypted_id(from._internal_queried_encrypted_id());
   }
   if (from._internal_has_pir_request()) {
-    _internal_mutable_pir_request()->::private_membership::rlwe::PirRequest::MergeFrom(from._internal_pir_request());
+    _this->_internal_mutable_pir_request()->::private_membership::rlwe::PirRequest::MergeFrom(
+        from._internal_pir_request());
   }
   if (from._internal_has_hashed_bucket_id()) {
-    _internal_mutable_hashed_bucket_id()->::private_membership::rlwe::PrivateMembershipRlweQuery_HashedBucketId::MergeFrom(from._internal_hashed_bucket_id());
+    _this->_internal_mutable_hashed_bucket_id()->::private_membership::rlwe::PrivateMembershipRlweQuery_HashedBucketId::MergeFrom(
+        from._internal_hashed_bucket_id());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PrivateMembershipRlweQuery::CopyFrom(const PrivateMembershipRlweQuery& from) {
@@ -2974,15 +3132,15 @@ void PrivateMembershipRlweQuery::InternalSwap(PrivateMembershipRlweQuery* other)
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &queried_encrypted_id_, lhs_arena,
-      &other->queried_encrypted_id_, rhs_arena
+      &_impl_.queried_encrypted_id_, lhs_arena,
+      &other->_impl_.queried_encrypted_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PrivateMembershipRlweQuery, hashed_bucket_id_)
-      + sizeof(PrivateMembershipRlweQuery::hashed_bucket_id_)
-      - PROTOBUF_FIELD_OFFSET(PrivateMembershipRlweQuery, pir_request_)>(
-          reinterpret_cast<char*>(&pir_request_),
-          reinterpret_cast<char*>(&other->pir_request_));
+      PROTOBUF_FIELD_OFFSET(PrivateMembershipRlweQuery, _impl_.hashed_bucket_id_)
+      + sizeof(PrivateMembershipRlweQuery::_impl_.hashed_bucket_id_)
+      - PROTOBUF_FIELD_OFFSET(PrivateMembershipRlweQuery, _impl_.pir_request_)>(
+          reinterpret_cast<char*>(&_impl_.pir_request_),
+          reinterpret_cast<char*>(&other->_impl_.pir_request_));
 }
 
 std::string PrivateMembershipRlweQuery::GetTypeName() const {
@@ -2999,39 +3157,50 @@ class PrivateMembershipRlwePirResponse::_Internal {
 
 const ::private_membership::rlwe::PirResponse&
 PrivateMembershipRlwePirResponse::_Internal::pir_response(const PrivateMembershipRlwePirResponse* msg) {
-  return *msg->pir_response_;
+  return *msg->_impl_.pir_response_;
 }
 PrivateMembershipRlwePirResponse::PrivateMembershipRlwePirResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.PrivateMembershipRlwePirResponse)
 }
 PrivateMembershipRlwePirResponse::PrivateMembershipRlwePirResponse(const PrivateMembershipRlwePirResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrivateMembershipRlwePirResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.queried_encrypted_id_){}
+    , decltype(_impl_.pir_response_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  queried_encrypted_id_.InitDefault();
+  _impl_.queried_encrypted_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    queried_encrypted_id_.Set("", GetArenaForAllocation());
+    _impl_.queried_encrypted_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_queried_encrypted_id().empty()) {
-    queried_encrypted_id_.Set(from._internal_queried_encrypted_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.queried_encrypted_id_.Set(from._internal_queried_encrypted_id(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_pir_response()) {
-    pir_response_ = new ::private_membership::rlwe::PirResponse(*from.pir_response_);
-  } else {
-    pir_response_ = nullptr;
+    _this->_impl_.pir_response_ = new ::private_membership::rlwe::PirResponse(*from._impl_.pir_response_);
   }
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.PrivateMembershipRlwePirResponse)
 }
 
-inline void PrivateMembershipRlwePirResponse::SharedCtor() {
-queried_encrypted_id_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  queried_encrypted_id_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-pir_response_ = nullptr;
+inline void PrivateMembershipRlwePirResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.queried_encrypted_id_){}
+    , decltype(_impl_.pir_response_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.queried_encrypted_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.queried_encrypted_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PrivateMembershipRlwePirResponse::~PrivateMembershipRlwePirResponse() {
@@ -3045,12 +3214,12 @@ PrivateMembershipRlwePirResponse::~PrivateMembershipRlwePirResponse() {
 
 inline void PrivateMembershipRlwePirResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  queried_encrypted_id_.Destroy();
-  if (this != internal_default_instance()) delete pir_response_;
+  _impl_.queried_encrypted_id_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.pir_response_;
 }
 
 void PrivateMembershipRlwePirResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PrivateMembershipRlwePirResponse::Clear() {
@@ -3059,11 +3228,11 @@ void PrivateMembershipRlwePirResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  queried_encrypted_id_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && pir_response_ != nullptr) {
-    delete pir_response_;
+  _impl_.queried_encrypted_id_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.pir_response_ != nullptr) {
+    delete _impl_.pir_response_;
   }
-  pir_response_ = nullptr;
+  _impl_.pir_response_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3159,7 +3328,7 @@ size_t PrivateMembershipRlwePirResponse::ByteSizeLong() const {
   if (this->_internal_has_pir_response()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *pir_response_);
+        *_impl_.pir_response_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3177,18 +3346,20 @@ void PrivateMembershipRlwePirResponse::CheckTypeAndMergeFrom(
 }
 
 void PrivateMembershipRlwePirResponse::MergeFrom(const PrivateMembershipRlwePirResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PrivateMembershipRlwePirResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  PrivateMembershipRlwePirResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PrivateMembershipRlwePirResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_queried_encrypted_id().empty()) {
-    _internal_set_queried_encrypted_id(from._internal_queried_encrypted_id());
+    _this->_internal_set_queried_encrypted_id(from._internal_queried_encrypted_id());
   }
   if (from._internal_has_pir_response()) {
-    _internal_mutable_pir_response()->::private_membership::rlwe::PirResponse::MergeFrom(from._internal_pir_response());
+    _this->_internal_mutable_pir_response()->::private_membership::rlwe::PirResponse::MergeFrom(
+        from._internal_pir_response());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PrivateMembershipRlwePirResponse::CopyFrom(const PrivateMembershipRlwePirResponse& from) {
@@ -3208,10 +3379,10 @@ void PrivateMembershipRlwePirResponse::InternalSwap(PrivateMembershipRlwePirResp
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &queried_encrypted_id_, lhs_arena,
-      &other->queried_encrypted_id_, rhs_arena
+      &_impl_.queried_encrypted_id_, lhs_arena,
+      &other->_impl_.queried_encrypted_id_, rhs_arena
   );
-  swap(pir_response_, other->pir_response_);
+  swap(_impl_.pir_response_, other->_impl_.pir_response_);
 }
 
 std::string PrivateMembershipRlwePirResponse::GetTypeName() const {
@@ -3223,7 +3394,7 @@ std::string PrivateMembershipRlwePirResponse::GetTypeName() const {
 
 class PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::_Internal {
  public:
-  using HasBits = decltype(std::declval<PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext>()._has_bits_);
+  using HasBits = decltype(std::declval<PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext>()._impl_._has_bits_);
   static const ::rlwe::SerializedSymmetricRlweCiphertext& ciphertext(const PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* msg);
   static void set_has_ciphertext(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -3232,32 +3403,42 @@ class PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::_Internal {
 
 const ::rlwe::SerializedSymmetricRlweCiphertext&
 PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::_Internal::ciphertext(const PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* msg) {
-  return *msg->ciphertext_;
+  return *msg->_impl_.ciphertext_;
 }
 void PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::clear_ciphertext() {
-  if (ciphertext_ != nullptr) ciphertext_->Clear();
-  _has_bits_[0] &= ~0x00000001u;
+  if (_impl_.ciphertext_ != nullptr) _impl_.ciphertext_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
 PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext)
 }
 PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext(const PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ciphertext_){nullptr}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_ciphertext()) {
-    ciphertext_ = new ::rlwe::SerializedSymmetricRlweCiphertext(*from.ciphertext_);
-  } else {
-    ciphertext_ = nullptr;
+    _this->_impl_.ciphertext_ = new ::rlwe::SerializedSymmetricRlweCiphertext(*from._impl_.ciphertext_);
   }
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext)
 }
 
-inline void PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::SharedCtor() {
-ciphertext_ = nullptr;
+inline void PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ciphertext_){nullptr}
+  };
 }
 
 PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::~PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext() {
@@ -3271,11 +3452,11 @@ PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::~PirRequest_Expand
 
 inline void PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete ciphertext_;
+  if (this != internal_default_instance()) delete _impl_.ciphertext_;
 }
 
 void PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::Clear() {
@@ -3284,12 +3465,12 @@ void PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(ciphertext_ != nullptr);
-    ciphertext_->Clear();
+    GOOGLE_DCHECK(_impl_.ciphertext_ != nullptr);
+    _impl_.ciphertext_->Clear();
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3324,7 +3505,7 @@ const char* PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::_Inter
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3362,11 +3543,11 @@ size_t PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::ByteSizeLon
   (void) cached_has_bits;
 
   // optional .rlwe.SerializedSymmetricRlweCiphertext ciphertext = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *ciphertext_);
+        *_impl_.ciphertext_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3384,15 +3565,17 @@ void PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::CheckTypeAndM
 }
 
 void PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::MergeFrom(const PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext)
-  GOOGLE_DCHECK_NE(&from, this);
+  PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_ciphertext()) {
-    _internal_mutable_ciphertext()->::rlwe::SerializedSymmetricRlweCiphertext::MergeFrom(from._internal_ciphertext());
+    _this->_internal_mutable_ciphertext()->::rlwe::SerializedSymmetricRlweCiphertext::MergeFrom(
+        from._internal_ciphertext());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::CopyFrom(const PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& from) {
@@ -3409,8 +3592,8 @@ bool PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::IsInitialized
 void PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::InternalSwap(PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(ciphertext_, other->ciphertext_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.ciphertext_, other->_impl_.ciphertext_);
 }
 
 std::string PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::GetTypeName() const {
@@ -3426,19 +3609,29 @@ class PirRequest_ExpandedRequest::_Internal {
 
 PirRequest_ExpandedRequest::PirRequest_ExpandedRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  ciphertexts_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.PirRequest.ExpandedRequest)
 }
 PirRequest_ExpandedRequest::PirRequest_ExpandedRequest(const PirRequest_ExpandedRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      ciphertexts_(from.ciphertexts_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PirRequest_ExpandedRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.ciphertexts_){from._impl_.ciphertexts_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.PirRequest.ExpandedRequest)
 }
 
-inline void PirRequest_ExpandedRequest::SharedCtor() {
+inline void PirRequest_ExpandedRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.ciphertexts_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 PirRequest_ExpandedRequest::~PirRequest_ExpandedRequest() {
@@ -3452,10 +3645,11 @@ PirRequest_ExpandedRequest::~PirRequest_ExpandedRequest() {
 
 inline void PirRequest_ExpandedRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.ciphertexts_.~RepeatedPtrField();
 }
 
 void PirRequest_ExpandedRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PirRequest_ExpandedRequest::Clear() {
@@ -3464,7 +3658,7 @@ void PirRequest_ExpandedRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ciphertexts_.Clear();
+  _impl_.ciphertexts_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3542,7 +3736,7 @@ size_t PirRequest_ExpandedRequest::ByteSizeLong() const {
 
   // repeated .private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext ciphertexts = 1;
   total_size += 1UL * this->_internal_ciphertexts_size();
-  for (const auto& msg : this->ciphertexts_) {
+  for (const auto& msg : this->_impl_.ciphertexts_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -3562,13 +3756,14 @@ void PirRequest_ExpandedRequest::CheckTypeAndMergeFrom(
 }
 
 void PirRequest_ExpandedRequest::MergeFrom(const PirRequest_ExpandedRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PirRequest.ExpandedRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  PirRequest_ExpandedRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PirRequest.ExpandedRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  ciphertexts_.MergeFrom(from.ciphertexts_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.ciphertexts_.MergeFrom(from._impl_.ciphertexts_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PirRequest_ExpandedRequest::CopyFrom(const PirRequest_ExpandedRequest& from) {
@@ -3585,7 +3780,7 @@ bool PirRequest_ExpandedRequest::IsInitialized() const {
 void PirRequest_ExpandedRequest::InternalSwap(PirRequest_ExpandedRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ciphertexts_.InternalSwap(&other->ciphertexts_);
+  _impl_.ciphertexts_.InternalSwap(&other->_impl_.ciphertexts_);
 }
 
 std::string PirRequest_ExpandedRequest::GetTypeName() const {
@@ -3600,23 +3795,33 @@ class PirRequest_CompactRequest::_Internal {
 };
 
 void PirRequest_CompactRequest::clear_ciphertexts() {
-  ciphertexts_.Clear();
+  _impl_.ciphertexts_.Clear();
 }
 PirRequest_CompactRequest::PirRequest_CompactRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  ciphertexts_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.PirRequest.CompactRequest)
 }
 PirRequest_CompactRequest::PirRequest_CompactRequest(const PirRequest_CompactRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      ciphertexts_(from.ciphertexts_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PirRequest_CompactRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.ciphertexts_){from._impl_.ciphertexts_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.PirRequest.CompactRequest)
 }
 
-inline void PirRequest_CompactRequest::SharedCtor() {
+inline void PirRequest_CompactRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.ciphertexts_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 PirRequest_CompactRequest::~PirRequest_CompactRequest() {
@@ -3630,10 +3835,11 @@ PirRequest_CompactRequest::~PirRequest_CompactRequest() {
 
 inline void PirRequest_CompactRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.ciphertexts_.~RepeatedPtrField();
 }
 
 void PirRequest_CompactRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PirRequest_CompactRequest::Clear() {
@@ -3642,7 +3848,7 @@ void PirRequest_CompactRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ciphertexts_.Clear();
+  _impl_.ciphertexts_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3720,7 +3926,7 @@ size_t PirRequest_CompactRequest::ByteSizeLong() const {
 
   // repeated .rlwe.SerializedNttPolynomial ciphertexts = 1;
   total_size += 1UL * this->_internal_ciphertexts_size();
-  for (const auto& msg : this->ciphertexts_) {
+  for (const auto& msg : this->_impl_.ciphertexts_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -3740,13 +3946,14 @@ void PirRequest_CompactRequest::CheckTypeAndMergeFrom(
 }
 
 void PirRequest_CompactRequest::MergeFrom(const PirRequest_CompactRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PirRequest.CompactRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  PirRequest_CompactRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PirRequest.CompactRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  ciphertexts_.MergeFrom(from.ciphertexts_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.ciphertexts_.MergeFrom(from._impl_.ciphertexts_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PirRequest_CompactRequest::CopyFrom(const PirRequest_CompactRequest& from) {
@@ -3763,7 +3970,7 @@ bool PirRequest_CompactRequest::IsInitialized() const {
 void PirRequest_CompactRequest::InternalSwap(PirRequest_CompactRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ciphertexts_.InternalSwap(&other->ciphertexts_);
+  _impl_.ciphertexts_.InternalSwap(&other->_impl_.ciphertexts_);
 }
 
 std::string PirRequest_CompactRequest::GetTypeName() const {
@@ -3781,14 +3988,14 @@ class PirRequest::_Internal {
 
 const ::private_membership::rlwe::PirRequest_CompactRequest&
 PirRequest::_Internal::compact_request(const PirRequest* msg) {
-  return *msg->sharded_request_type_.compact_request_;
+  return *msg->_impl_.sharded_request_type_.compact_request_;
 }
 const ::private_membership::rlwe::PirRequest_ExpandedRequest&
 PirRequest::_Internal::expanded_request(const PirRequest* msg) {
-  return *msg->sharded_request_type_.expanded_request_;
+  return *msg->_impl_.sharded_request_type_.expanded_request_;
 }
 void PirRequest::clear_request() {
-  request_.Clear();
+  _impl_.request_.Clear();
 }
 void PirRequest::set_allocated_compact_request(::private_membership::rlwe::PirRequest_CompactRequest* compact_request) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -3801,7 +4008,7 @@ void PirRequest::set_allocated_compact_request(::private_membership::rlwe::PirRe
           message_arena, compact_request, submessage_arena);
     }
     set_has_compact_request();
-    sharded_request_type_.compact_request_ = compact_request;
+    _impl_.sharded_request_type_.compact_request_ = compact_request;
   }
   // @@protoc_insertion_point(field_set_allocated:private_membership.rlwe.PirRequest.compact_request)
 }
@@ -3816,37 +4023,45 @@ void PirRequest::set_allocated_expanded_request(::private_membership::rlwe::PirR
           message_arena, expanded_request, submessage_arena);
     }
     set_has_expanded_request();
-    sharded_request_type_.expanded_request_ = expanded_request;
+    _impl_.sharded_request_type_.expanded_request_ = expanded_request;
   }
   // @@protoc_insertion_point(field_set_allocated:private_membership.rlwe.PirRequest.expanded_request)
 }
 PirRequest::PirRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  request_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.PirRequest)
 }
 PirRequest::PirRequest(const PirRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      request_(from.request_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PirRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.request_){from._impl_.request_}
+    , decltype(_impl_.prng_seed_){}
+    , decltype(_impl_.sharded_request_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  prng_seed_.InitDefault();
+  _impl_.prng_seed_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    prng_seed_.Set("", GetArenaForAllocation());
+    _impl_.prng_seed_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_prng_seed().empty()) {
-    prng_seed_.Set(from._internal_prng_seed(), 
-      GetArenaForAllocation());
+    _this->_impl_.prng_seed_.Set(from._internal_prng_seed(), 
+      _this->GetArenaForAllocation());
   }
   clear_has_sharded_request_type();
   switch (from.sharded_request_type_case()) {
     case kCompactRequest: {
-      _internal_mutable_compact_request()->::private_membership::rlwe::PirRequest_CompactRequest::MergeFrom(from._internal_compact_request());
+      _this->_internal_mutable_compact_request()->::private_membership::rlwe::PirRequest_CompactRequest::MergeFrom(
+          from._internal_compact_request());
       break;
     }
     case kExpandedRequest: {
-      _internal_mutable_expanded_request()->::private_membership::rlwe::PirRequest_ExpandedRequest::MergeFrom(from._internal_expanded_request());
+      _this->_internal_mutable_expanded_request()->::private_membership::rlwe::PirRequest_ExpandedRequest::MergeFrom(
+          from._internal_expanded_request());
       break;
     }
     case SHARDED_REQUEST_TYPE_NOT_SET: {
@@ -3856,12 +4071,22 @@ PirRequest::PirRequest(const PirRequest& from)
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.PirRequest)
 }
 
-inline void PirRequest::SharedCtor() {
-prng_seed_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  prng_seed_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-clear_has_sharded_request_type();
+inline void PirRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.request_){arena}
+    , decltype(_impl_.prng_seed_){}
+    , decltype(_impl_.sharded_request_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  _impl_.prng_seed_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.prng_seed_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  clear_has_sharded_request_type();
 }
 
 PirRequest::~PirRequest() {
@@ -3875,14 +4100,15 @@ PirRequest::~PirRequest() {
 
 inline void PirRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  prng_seed_.Destroy();
+  _impl_.request_.~RepeatedPtrField();
+  _impl_.prng_seed_.Destroy();
   if (has_sharded_request_type()) {
     clear_sharded_request_type();
   }
 }
 
 void PirRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PirRequest::clear_sharded_request_type() {
@@ -3890,13 +4116,13 @@ void PirRequest::clear_sharded_request_type() {
   switch (sharded_request_type_case()) {
     case kCompactRequest: {
       if (GetArenaForAllocation() == nullptr) {
-        delete sharded_request_type_.compact_request_;
+        delete _impl_.sharded_request_type_.compact_request_;
       }
       break;
     }
     case kExpandedRequest: {
       if (GetArenaForAllocation() == nullptr) {
-        delete sharded_request_type_.expanded_request_;
+        delete _impl_.sharded_request_type_.expanded_request_;
       }
       break;
     }
@@ -3904,7 +4130,7 @@ void PirRequest::clear_sharded_request_type() {
       break;
     }
   }
-  _oneof_case_[0] = SHARDED_REQUEST_TYPE_NOT_SET;
+  _impl_._oneof_case_[0] = SHARDED_REQUEST_TYPE_NOT_SET;
 }
 
 
@@ -3914,8 +4140,8 @@ void PirRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  request_.Clear();
-  prng_seed_.ClearToEmpty();
+  _impl_.request_.Clear();
+  _impl_.prng_seed_.ClearToEmpty();
   clear_sharded_request_type();
   _internal_metadata_.Clear<std::string>();
 }
@@ -4039,7 +4265,7 @@ size_t PirRequest::ByteSizeLong() const {
 
   // repeated .rlwe.SerializedNttPolynomial request = 1;
   total_size += 1UL * this->_internal_request_size();
-  for (const auto& msg : this->request_) {
+  for (const auto& msg : this->_impl_.request_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -4056,14 +4282,14 @@ size_t PirRequest::ByteSizeLong() const {
     case kCompactRequest: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *sharded_request_type_.compact_request_);
+          *_impl_.sharded_request_type_.compact_request_);
       break;
     }
     // .private_membership.rlwe.PirRequest.ExpandedRequest expanded_request = 4;
     case kExpandedRequest: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *sharded_request_type_.expanded_request_);
+          *_impl_.sharded_request_type_.expanded_request_);
       break;
     }
     case SHARDED_REQUEST_TYPE_NOT_SET: {
@@ -4085,29 +4311,32 @@ void PirRequest::CheckTypeAndMergeFrom(
 }
 
 void PirRequest::MergeFrom(const PirRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PirRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  PirRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PirRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  request_.MergeFrom(from.request_);
+  _this->_impl_.request_.MergeFrom(from._impl_.request_);
   if (!from._internal_prng_seed().empty()) {
-    _internal_set_prng_seed(from._internal_prng_seed());
+    _this->_internal_set_prng_seed(from._internal_prng_seed());
   }
   switch (from.sharded_request_type_case()) {
     case kCompactRequest: {
-      _internal_mutable_compact_request()->::private_membership::rlwe::PirRequest_CompactRequest::MergeFrom(from._internal_compact_request());
+      _this->_internal_mutable_compact_request()->::private_membership::rlwe::PirRequest_CompactRequest::MergeFrom(
+          from._internal_compact_request());
       break;
     }
     case kExpandedRequest: {
-      _internal_mutable_expanded_request()->::private_membership::rlwe::PirRequest_ExpandedRequest::MergeFrom(from._internal_expanded_request());
+      _this->_internal_mutable_expanded_request()->::private_membership::rlwe::PirRequest_ExpandedRequest::MergeFrom(
+          from._internal_expanded_request());
       break;
     }
     case SHARDED_REQUEST_TYPE_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PirRequest::CopyFrom(const PirRequest& from) {
@@ -4126,13 +4355,13 @@ void PirRequest::InternalSwap(PirRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  request_.InternalSwap(&other->request_);
+  _impl_.request_.InternalSwap(&other->_impl_.request_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &prng_seed_, lhs_arena,
-      &other->prng_seed_, rhs_arena
+      &_impl_.prng_seed_, lhs_arena,
+      &other->_impl_.prng_seed_, rhs_arena
   );
-  swap(sharded_request_type_, other->sharded_request_type_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_.sharded_request_type_, other->_impl_.sharded_request_type_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 std::string PirRequest::GetTypeName() const {
@@ -4147,25 +4376,36 @@ class PirResponse::_Internal {
 };
 
 void PirResponse::clear_response() {
-  response_.Clear();
+  _impl_.response_.Clear();
 }
 PirResponse::PirResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  response_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.PirResponse)
 }
 PirResponse::PirResponse(const PirResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      response_(from.response_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PirResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.response_){from._impl_.response_}
+    , decltype(_impl_.plaintext_entry_size_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  plaintext_entry_size_ = from.plaintext_entry_size_;
+  _this->_impl_.plaintext_entry_size_ = from._impl_.plaintext_entry_size_;
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.PirResponse)
 }
 
-inline void PirResponse::SharedCtor() {
-plaintext_entry_size_ = 0;
+inline void PirResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.response_){arena}
+    , decltype(_impl_.plaintext_entry_size_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 PirResponse::~PirResponse() {
@@ -4179,10 +4419,11 @@ PirResponse::~PirResponse() {
 
 inline void PirResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.response_.~RepeatedPtrField();
 }
 
 void PirResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PirResponse::Clear() {
@@ -4191,8 +4432,8 @@ void PirResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  response_.Clear();
-  plaintext_entry_size_ = 0;
+  _impl_.response_.Clear();
+  _impl_.plaintext_entry_size_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4218,7 +4459,7 @@ const char* PirResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
       // int32 plaintext_entry_size = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          plaintext_entry_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.plaintext_entry_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4284,7 +4525,7 @@ size_t PirResponse::ByteSizeLong() const {
 
   // repeated .rlwe.SerializedSymmetricRlweCiphertext response = 1;
   total_size += 1UL * this->_internal_response_size();
-  for (const auto& msg : this->response_) {
+  for (const auto& msg : this->_impl_.response_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -4309,16 +4550,17 @@ void PirResponse::CheckTypeAndMergeFrom(
 }
 
 void PirResponse::MergeFrom(const PirResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PirResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  PirResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.PirResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  response_.MergeFrom(from.response_);
+  _this->_impl_.response_.MergeFrom(from._impl_.response_);
   if (from._internal_plaintext_entry_size() != 0) {
-    _internal_set_plaintext_entry_size(from._internal_plaintext_entry_size());
+    _this->_internal_set_plaintext_entry_size(from._internal_plaintext_entry_size());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PirResponse::CopyFrom(const PirResponse& from) {
@@ -4335,8 +4577,8 @@ bool PirResponse::IsInitialized() const {
 void PirResponse::InternalSwap(PirResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  response_.InternalSwap(&other->response_);
-  swap(plaintext_entry_size_, other->plaintext_entry_size_);
+  _impl_.response_.InternalSwap(&other->_impl_.response_);
+  swap(_impl_.plaintext_entry_size_, other->_impl_.plaintext_entry_size_);
 }
 
 std::string PirResponse::GetTypeName() const {
@@ -4353,51 +4595,64 @@ class EncryptedBucket_EncryptedIdValuePair::_Internal {
 
 const ::private_membership::rlwe::RlwePlaintextId&
 EncryptedBucket_EncryptedIdValuePair::_Internal::id(const EncryptedBucket_EncryptedIdValuePair* msg) {
-  return *msg->id_;
+  return *msg->_impl_.id_;
 }
 EncryptedBucket_EncryptedIdValuePair::EncryptedBucket_EncryptedIdValuePair(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.EncryptedBucket.EncryptedIdValuePair)
 }
 EncryptedBucket_EncryptedIdValuePair::EncryptedBucket_EncryptedIdValuePair(const EncryptedBucket_EncryptedIdValuePair& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  EncryptedBucket_EncryptedIdValuePair* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.encrypted_id_){}
+    , decltype(_impl_.encrypted_value_){}
+    , decltype(_impl_.id_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  encrypted_id_.InitDefault();
+  _impl_.encrypted_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    encrypted_id_.Set("", GetArenaForAllocation());
+    _impl_.encrypted_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_encrypted_id().empty()) {
-    encrypted_id_.Set(from._internal_encrypted_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.encrypted_id_.Set(from._internal_encrypted_id(), 
+      _this->GetArenaForAllocation());
   }
-  encrypted_value_.InitDefault();
+  _impl_.encrypted_value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    encrypted_value_.Set("", GetArenaForAllocation());
+    _impl_.encrypted_value_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_encrypted_value().empty()) {
-    encrypted_value_.Set(from._internal_encrypted_value(), 
-      GetArenaForAllocation());
+    _this->_impl_.encrypted_value_.Set(from._internal_encrypted_value(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_id()) {
-    id_ = new ::private_membership::rlwe::RlwePlaintextId(*from.id_);
-  } else {
-    id_ = nullptr;
+    _this->_impl_.id_ = new ::private_membership::rlwe::RlwePlaintextId(*from._impl_.id_);
   }
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.EncryptedBucket.EncryptedIdValuePair)
 }
 
-inline void EncryptedBucket_EncryptedIdValuePair::SharedCtor() {
-encrypted_id_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  encrypted_id_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-encrypted_value_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  encrypted_value_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-id_ = nullptr;
+inline void EncryptedBucket_EncryptedIdValuePair::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.encrypted_id_){}
+    , decltype(_impl_.encrypted_value_){}
+    , decltype(_impl_.id_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.encrypted_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.encrypted_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.encrypted_value_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.encrypted_value_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 EncryptedBucket_EncryptedIdValuePair::~EncryptedBucket_EncryptedIdValuePair() {
@@ -4411,13 +4666,13 @@ EncryptedBucket_EncryptedIdValuePair::~EncryptedBucket_EncryptedIdValuePair() {
 
 inline void EncryptedBucket_EncryptedIdValuePair::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  encrypted_id_.Destroy();
-  encrypted_value_.Destroy();
-  if (this != internal_default_instance()) delete id_;
+  _impl_.encrypted_id_.Destroy();
+  _impl_.encrypted_value_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.id_;
 }
 
 void EncryptedBucket_EncryptedIdValuePair::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void EncryptedBucket_EncryptedIdValuePair::Clear() {
@@ -4426,12 +4681,12 @@ void EncryptedBucket_EncryptedIdValuePair::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  encrypted_id_.ClearToEmpty();
-  encrypted_value_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && id_ != nullptr) {
-    delete id_;
+  _impl_.encrypted_id_.ClearToEmpty();
+  _impl_.encrypted_value_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.id_ != nullptr) {
+    delete _impl_.id_;
   }
-  id_ = nullptr;
+  _impl_.id_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4549,7 +4804,7 @@ size_t EncryptedBucket_EncryptedIdValuePair::ByteSizeLong() const {
   if (this->_internal_has_id()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *id_);
+        *_impl_.id_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4567,21 +4822,23 @@ void EncryptedBucket_EncryptedIdValuePair::CheckTypeAndMergeFrom(
 }
 
 void EncryptedBucket_EncryptedIdValuePair::MergeFrom(const EncryptedBucket_EncryptedIdValuePair& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.EncryptedBucket.EncryptedIdValuePair)
-  GOOGLE_DCHECK_NE(&from, this);
+  EncryptedBucket_EncryptedIdValuePair* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.EncryptedBucket.EncryptedIdValuePair)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_encrypted_id().empty()) {
-    _internal_set_encrypted_id(from._internal_encrypted_id());
+    _this->_internal_set_encrypted_id(from._internal_encrypted_id());
   }
   if (!from._internal_encrypted_value().empty()) {
-    _internal_set_encrypted_value(from._internal_encrypted_value());
+    _this->_internal_set_encrypted_value(from._internal_encrypted_value());
   }
   if (from._internal_has_id()) {
-    _internal_mutable_id()->::private_membership::rlwe::RlwePlaintextId::MergeFrom(from._internal_id());
+    _this->_internal_mutable_id()->::private_membership::rlwe::RlwePlaintextId::MergeFrom(
+        from._internal_id());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void EncryptedBucket_EncryptedIdValuePair::CopyFrom(const EncryptedBucket_EncryptedIdValuePair& from) {
@@ -4601,14 +4858,14 @@ void EncryptedBucket_EncryptedIdValuePair::InternalSwap(EncryptedBucket_Encrypte
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &encrypted_id_, lhs_arena,
-      &other->encrypted_id_, rhs_arena
+      &_impl_.encrypted_id_, lhs_arena,
+      &other->_impl_.encrypted_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &encrypted_value_, lhs_arena,
-      &other->encrypted_value_, rhs_arena
+      &_impl_.encrypted_value_, lhs_arena,
+      &other->_impl_.encrypted_value_, rhs_arena
   );
-  swap(id_, other->id_);
+  swap(_impl_.id_, other->_impl_.id_);
 }
 
 std::string EncryptedBucket_EncryptedIdValuePair::GetTypeName() const {
@@ -4624,19 +4881,29 @@ class EncryptedBucket::_Internal {
 
 EncryptedBucket::EncryptedBucket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  encrypted_id_value_pairs_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.EncryptedBucket)
 }
 EncryptedBucket::EncryptedBucket(const EncryptedBucket& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      encrypted_id_value_pairs_(from.encrypted_id_value_pairs_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  EncryptedBucket* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.encrypted_id_value_pairs_){from._impl_.encrypted_id_value_pairs_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.EncryptedBucket)
 }
 
-inline void EncryptedBucket::SharedCtor() {
+inline void EncryptedBucket::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.encrypted_id_value_pairs_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 EncryptedBucket::~EncryptedBucket() {
@@ -4650,10 +4917,11 @@ EncryptedBucket::~EncryptedBucket() {
 
 inline void EncryptedBucket::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.encrypted_id_value_pairs_.~RepeatedPtrField();
 }
 
 void EncryptedBucket::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void EncryptedBucket::Clear() {
@@ -4662,7 +4930,7 @@ void EncryptedBucket::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  encrypted_id_value_pairs_.Clear();
+  _impl_.encrypted_id_value_pairs_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4740,7 +5008,7 @@ size_t EncryptedBucket::ByteSizeLong() const {
 
   // repeated .private_membership.rlwe.EncryptedBucket.EncryptedIdValuePair encrypted_id_value_pairs = 1;
   total_size += 1UL * this->_internal_encrypted_id_value_pairs_size();
-  for (const auto& msg : this->encrypted_id_value_pairs_) {
+  for (const auto& msg : this->_impl_.encrypted_id_value_pairs_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -4760,13 +5028,14 @@ void EncryptedBucket::CheckTypeAndMergeFrom(
 }
 
 void EncryptedBucket::MergeFrom(const EncryptedBucket& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.EncryptedBucket)
-  GOOGLE_DCHECK_NE(&from, this);
+  EncryptedBucket* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.EncryptedBucket)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  encrypted_id_value_pairs_.MergeFrom(from.encrypted_id_value_pairs_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.encrypted_id_value_pairs_.MergeFrom(from._impl_.encrypted_id_value_pairs_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void EncryptedBucket::CopyFrom(const EncryptedBucket& from) {
@@ -4783,7 +5052,7 @@ bool EncryptedBucket::IsInitialized() const {
 void EncryptedBucket::InternalSwap(EncryptedBucket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  encrypted_id_value_pairs_.InternalSwap(&other->encrypted_id_value_pairs_);
+  _impl_.encrypted_id_value_pairs_.InternalSwap(&other->_impl_.encrypted_id_value_pairs_);
 }
 
 std::string EncryptedBucket::GetTypeName() const {
@@ -4801,45 +5070,51 @@ class RlweMembershipResponses_MembershipResponseEntry::_Internal {
 
 const ::private_membership::rlwe::RlwePlaintextId&
 RlweMembershipResponses_MembershipResponseEntry::_Internal::plaintext_id(const RlweMembershipResponses_MembershipResponseEntry* msg) {
-  return *msg->plaintext_id_;
+  return *msg->_impl_.plaintext_id_;
 }
 const ::private_membership::MembershipResponse&
 RlweMembershipResponses_MembershipResponseEntry::_Internal::membership_response(const RlweMembershipResponses_MembershipResponseEntry* msg) {
-  return *msg->membership_response_;
+  return *msg->_impl_.membership_response_;
 }
 void RlweMembershipResponses_MembershipResponseEntry::clear_membership_response() {
-  if (GetArenaForAllocation() == nullptr && membership_response_ != nullptr) {
-    delete membership_response_;
+  if (GetArenaForAllocation() == nullptr && _impl_.membership_response_ != nullptr) {
+    delete _impl_.membership_response_;
   }
-  membership_response_ = nullptr;
+  _impl_.membership_response_ = nullptr;
 }
 RlweMembershipResponses_MembershipResponseEntry::RlweMembershipResponses_MembershipResponseEntry(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.RlweMembershipResponses.MembershipResponseEntry)
 }
 RlweMembershipResponses_MembershipResponseEntry::RlweMembershipResponses_MembershipResponseEntry(const RlweMembershipResponses_MembershipResponseEntry& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RlweMembershipResponses_MembershipResponseEntry* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.plaintext_id_){nullptr}
+    , decltype(_impl_.membership_response_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_plaintext_id()) {
-    plaintext_id_ = new ::private_membership::rlwe::RlwePlaintextId(*from.plaintext_id_);
-  } else {
-    plaintext_id_ = nullptr;
+    _this->_impl_.plaintext_id_ = new ::private_membership::rlwe::RlwePlaintextId(*from._impl_.plaintext_id_);
   }
   if (from._internal_has_membership_response()) {
-    membership_response_ = new ::private_membership::MembershipResponse(*from.membership_response_);
-  } else {
-    membership_response_ = nullptr;
+    _this->_impl_.membership_response_ = new ::private_membership::MembershipResponse(*from._impl_.membership_response_);
   }
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.RlweMembershipResponses.MembershipResponseEntry)
 }
 
-inline void RlweMembershipResponses_MembershipResponseEntry::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&plaintext_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&membership_response_) -
-    reinterpret_cast<char*>(&plaintext_id_)) + sizeof(membership_response_));
+inline void RlweMembershipResponses_MembershipResponseEntry::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.plaintext_id_){nullptr}
+    , decltype(_impl_.membership_response_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 RlweMembershipResponses_MembershipResponseEntry::~RlweMembershipResponses_MembershipResponseEntry() {
@@ -4853,12 +5128,12 @@ RlweMembershipResponses_MembershipResponseEntry::~RlweMembershipResponses_Member
 
 inline void RlweMembershipResponses_MembershipResponseEntry::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete plaintext_id_;
-  if (this != internal_default_instance()) delete membership_response_;
+  if (this != internal_default_instance()) delete _impl_.plaintext_id_;
+  if (this != internal_default_instance()) delete _impl_.membership_response_;
 }
 
 void RlweMembershipResponses_MembershipResponseEntry::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RlweMembershipResponses_MembershipResponseEntry::Clear() {
@@ -4867,14 +5142,14 @@ void RlweMembershipResponses_MembershipResponseEntry::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && plaintext_id_ != nullptr) {
-    delete plaintext_id_;
+  if (GetArenaForAllocation() == nullptr && _impl_.plaintext_id_ != nullptr) {
+    delete _impl_.plaintext_id_;
   }
-  plaintext_id_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && membership_response_ != nullptr) {
-    delete membership_response_;
+  _impl_.plaintext_id_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.membership_response_ != nullptr) {
+    delete _impl_.membership_response_;
   }
-  membership_response_ = nullptr;
+  _impl_.membership_response_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4963,14 +5238,14 @@ size_t RlweMembershipResponses_MembershipResponseEntry::ByteSizeLong() const {
   if (this->_internal_has_plaintext_id()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *plaintext_id_);
+        *_impl_.plaintext_id_);
   }
 
   // .private_membership.MembershipResponse membership_response = 2;
   if (this->_internal_has_membership_response()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *membership_response_);
+        *_impl_.membership_response_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4988,18 +5263,21 @@ void RlweMembershipResponses_MembershipResponseEntry::CheckTypeAndMergeFrom(
 }
 
 void RlweMembershipResponses_MembershipResponseEntry::MergeFrom(const RlweMembershipResponses_MembershipResponseEntry& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.RlweMembershipResponses.MembershipResponseEntry)
-  GOOGLE_DCHECK_NE(&from, this);
+  RlweMembershipResponses_MembershipResponseEntry* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.RlweMembershipResponses.MembershipResponseEntry)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_plaintext_id()) {
-    _internal_mutable_plaintext_id()->::private_membership::rlwe::RlwePlaintextId::MergeFrom(from._internal_plaintext_id());
+    _this->_internal_mutable_plaintext_id()->::private_membership::rlwe::RlwePlaintextId::MergeFrom(
+        from._internal_plaintext_id());
   }
   if (from._internal_has_membership_response()) {
-    _internal_mutable_membership_response()->::private_membership::MembershipResponse::MergeFrom(from._internal_membership_response());
+    _this->_internal_mutable_membership_response()->::private_membership::MembershipResponse::MergeFrom(
+        from._internal_membership_response());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RlweMembershipResponses_MembershipResponseEntry::CopyFrom(const RlweMembershipResponses_MembershipResponseEntry& from) {
@@ -5017,11 +5295,11 @@ void RlweMembershipResponses_MembershipResponseEntry::InternalSwap(RlweMembershi
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RlweMembershipResponses_MembershipResponseEntry, membership_response_)
-      + sizeof(RlweMembershipResponses_MembershipResponseEntry::membership_response_)
-      - PROTOBUF_FIELD_OFFSET(RlweMembershipResponses_MembershipResponseEntry, plaintext_id_)>(
-          reinterpret_cast<char*>(&plaintext_id_),
-          reinterpret_cast<char*>(&other->plaintext_id_));
+      PROTOBUF_FIELD_OFFSET(RlweMembershipResponses_MembershipResponseEntry, _impl_.membership_response_)
+      + sizeof(RlweMembershipResponses_MembershipResponseEntry::_impl_.membership_response_)
+      - PROTOBUF_FIELD_OFFSET(RlweMembershipResponses_MembershipResponseEntry, _impl_.plaintext_id_)>(
+          reinterpret_cast<char*>(&_impl_.plaintext_id_),
+          reinterpret_cast<char*>(&other->_impl_.plaintext_id_));
 }
 
 std::string RlweMembershipResponses_MembershipResponseEntry::GetTypeName() const {
@@ -5037,19 +5315,29 @@ class RlweMembershipResponses::_Internal {
 
 RlweMembershipResponses::RlweMembershipResponses(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  membership_responses_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_membership.rlwe.RlweMembershipResponses)
 }
 RlweMembershipResponses::RlweMembershipResponses(const RlweMembershipResponses& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      membership_responses_(from.membership_responses_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RlweMembershipResponses* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.membership_responses_){from._impl_.membership_responses_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:private_membership.rlwe.RlweMembershipResponses)
 }
 
-inline void RlweMembershipResponses::SharedCtor() {
+inline void RlweMembershipResponses::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.membership_responses_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 RlweMembershipResponses::~RlweMembershipResponses() {
@@ -5063,10 +5351,11 @@ RlweMembershipResponses::~RlweMembershipResponses() {
 
 inline void RlweMembershipResponses::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.membership_responses_.~RepeatedPtrField();
 }
 
 void RlweMembershipResponses::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RlweMembershipResponses::Clear() {
@@ -5075,7 +5364,7 @@ void RlweMembershipResponses::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  membership_responses_.Clear();
+  _impl_.membership_responses_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -5153,7 +5442,7 @@ size_t RlweMembershipResponses::ByteSizeLong() const {
 
   // repeated .private_membership.rlwe.RlweMembershipResponses.MembershipResponseEntry membership_responses = 1;
   total_size += 1UL * this->_internal_membership_responses_size();
-  for (const auto& msg : this->membership_responses_) {
+  for (const auto& msg : this->_impl_.membership_responses_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -5173,13 +5462,14 @@ void RlweMembershipResponses::CheckTypeAndMergeFrom(
 }
 
 void RlweMembershipResponses::MergeFrom(const RlweMembershipResponses& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.RlweMembershipResponses)
-  GOOGLE_DCHECK_NE(&from, this);
+  RlweMembershipResponses* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_membership.rlwe.RlweMembershipResponses)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  membership_responses_.MergeFrom(from.membership_responses_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.membership_responses_.MergeFrom(from._impl_.membership_responses_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RlweMembershipResponses::CopyFrom(const RlweMembershipResponses& from) {
@@ -5196,7 +5486,7 @@ bool RlweMembershipResponses::IsInitialized() const {
 void RlweMembershipResponses::InternalSwap(RlweMembershipResponses* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  membership_responses_.InternalSwap(&other->membership_responses_);
+  _impl_.membership_responses_.InternalSwap(&other->_impl_.membership_responses_);
 }
 
 std::string RlweMembershipResponses::GetTypeName() const {

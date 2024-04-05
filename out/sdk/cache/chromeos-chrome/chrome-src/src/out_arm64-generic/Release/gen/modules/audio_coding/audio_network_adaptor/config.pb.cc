@@ -21,11 +21,13 @@ namespace webrtc {
 namespace audio_network_adaptor {
 namespace config {
 PROTOBUF_CONSTEXPR FecController_Threshold::FecController_Threshold(
-    ::_pbi::ConstantInitialized)
-  : low_bandwidth_bps_(0)
-  , low_bandwidth_packet_loss_(0)
-  , high_bandwidth_bps_(0)
-  , high_bandwidth_packet_loss_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.low_bandwidth_bps_)*/0
+  , /*decltype(_impl_.low_bandwidth_packet_loss_)*/0
+  , /*decltype(_impl_.high_bandwidth_bps_)*/0
+  , /*decltype(_impl_.high_bandwidth_packet_loss_)*/0} {}
 struct FecController_ThresholdDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FecController_ThresholdDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -34,12 +36,14 @@ struct FecController_ThresholdDefaultTypeInternal {
     FecController_Threshold _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FecController_ThresholdDefaultTypeInternal _FecController_Threshold_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FecController_ThresholdDefaultTypeInternal _FecController_Threshold_default_instance_;
 PROTOBUF_CONSTEXPR FecController::FecController(
-    ::_pbi::ConstantInitialized)
-  : fec_enabling_threshold_(nullptr)
-  , fec_disabling_threshold_(nullptr)
-  , time_constant_ms_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.fec_enabling_threshold_)*/nullptr
+  , /*decltype(_impl_.fec_disabling_threshold_)*/nullptr
+  , /*decltype(_impl_.time_constant_ms_)*/0} {}
 struct FecControllerDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FecControllerDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -48,13 +52,15 @@ struct FecControllerDefaultTypeInternal {
     FecController _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FecControllerDefaultTypeInternal _FecController_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FecControllerDefaultTypeInternal _FecController_default_instance_;
 PROTOBUF_CONSTEXPR FecControllerRplrBased_Threshold::FecControllerRplrBased_Threshold(
-    ::_pbi::ConstantInitialized)
-  : low_bandwidth_bps_(0)
-  , low_bandwidth_recoverable_packet_loss_(0)
-  , high_bandwidth_bps_(0)
-  , high_bandwidth_recoverable_packet_loss_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.low_bandwidth_bps_)*/0
+  , /*decltype(_impl_.low_bandwidth_recoverable_packet_loss_)*/0
+  , /*decltype(_impl_.high_bandwidth_bps_)*/0
+  , /*decltype(_impl_.high_bandwidth_recoverable_packet_loss_)*/0} {}
 struct FecControllerRplrBased_ThresholdDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FecControllerRplrBased_ThresholdDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -63,11 +69,13 @@ struct FecControllerRplrBased_ThresholdDefaultTypeInternal {
     FecControllerRplrBased_Threshold _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FecControllerRplrBased_ThresholdDefaultTypeInternal _FecControllerRplrBased_Threshold_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FecControllerRplrBased_ThresholdDefaultTypeInternal _FecControllerRplrBased_Threshold_default_instance_;
 PROTOBUF_CONSTEXPR FecControllerRplrBased::FecControllerRplrBased(
-    ::_pbi::ConstantInitialized)
-  : fec_enabling_threshold_(nullptr)
-  , fec_disabling_threshold_(nullptr){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.fec_enabling_threshold_)*/nullptr
+  , /*decltype(_impl_.fec_disabling_threshold_)*/nullptr} {}
 struct FecControllerRplrBasedDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FecControllerRplrBasedDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -76,21 +84,23 @@ struct FecControllerRplrBasedDefaultTypeInternal {
     FecControllerRplrBased _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FecControllerRplrBasedDefaultTypeInternal _FecControllerRplrBased_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FecControllerRplrBasedDefaultTypeInternal _FecControllerRplrBased_default_instance_;
 PROTOBUF_CONSTEXPR FrameLengthController::FrameLengthController(
-    ::_pbi::ConstantInitialized)
-  : fl_increasing_packet_loss_fraction_(0)
-  , fl_decreasing_packet_loss_fraction_(0)
-  , fl_20ms_to_60ms_bandwidth_bps_(0)
-  , fl_60ms_to_20ms_bandwidth_bps_(0)
-  , fl_60ms_to_120ms_bandwidth_bps_(0)
-  , fl_120ms_to_60ms_bandwidth_bps_(0)
-  , fl_increase_overhead_offset_(0)
-  , fl_decrease_overhead_offset_(0)
-  , fl_20ms_to_40ms_bandwidth_bps_(0)
-  , fl_40ms_to_20ms_bandwidth_bps_(0)
-  , fl_40ms_to_60ms_bandwidth_bps_(0)
-  , fl_60ms_to_40ms_bandwidth_bps_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.fl_increasing_packet_loss_fraction_)*/0
+  , /*decltype(_impl_.fl_decreasing_packet_loss_fraction_)*/0
+  , /*decltype(_impl_.fl_20ms_to_60ms_bandwidth_bps_)*/0
+  , /*decltype(_impl_.fl_60ms_to_20ms_bandwidth_bps_)*/0
+  , /*decltype(_impl_.fl_60ms_to_120ms_bandwidth_bps_)*/0
+  , /*decltype(_impl_.fl_120ms_to_60ms_bandwidth_bps_)*/0
+  , /*decltype(_impl_.fl_increase_overhead_offset_)*/0
+  , /*decltype(_impl_.fl_decrease_overhead_offset_)*/0
+  , /*decltype(_impl_.fl_20ms_to_40ms_bandwidth_bps_)*/0
+  , /*decltype(_impl_.fl_40ms_to_20ms_bandwidth_bps_)*/0
+  , /*decltype(_impl_.fl_40ms_to_60ms_bandwidth_bps_)*/0
+  , /*decltype(_impl_.fl_60ms_to_40ms_bandwidth_bps_)*/0} {}
 struct FrameLengthControllerDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FrameLengthControllerDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -99,11 +109,13 @@ struct FrameLengthControllerDefaultTypeInternal {
     FrameLengthController _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FrameLengthControllerDefaultTypeInternal _FrameLengthController_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FrameLengthControllerDefaultTypeInternal _FrameLengthController_default_instance_;
 PROTOBUF_CONSTEXPR FrameLengthControllerV2::FrameLengthControllerV2(
-    ::_pbi::ConstantInitialized)
-  : min_payload_bitrate_bps_(0)
-  , use_slow_adaptation_(false){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.min_payload_bitrate_bps_)*/0
+  , /*decltype(_impl_.use_slow_adaptation_)*/false} {}
 struct FrameLengthControllerV2DefaultTypeInternal {
   PROTOBUF_CONSTEXPR FrameLengthControllerV2DefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -112,11 +124,13 @@ struct FrameLengthControllerV2DefaultTypeInternal {
     FrameLengthControllerV2 _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FrameLengthControllerV2DefaultTypeInternal _FrameLengthControllerV2_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FrameLengthControllerV2DefaultTypeInternal _FrameLengthControllerV2_default_instance_;
 PROTOBUF_CONSTEXPR ChannelController::ChannelController(
-    ::_pbi::ConstantInitialized)
-  : channel_1_to_2_bandwidth_bps_(0)
-  , channel_2_to_1_bandwidth_bps_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.channel_1_to_2_bandwidth_bps_)*/0
+  , /*decltype(_impl_.channel_2_to_1_bandwidth_bps_)*/0} {}
 struct ChannelControllerDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChannelControllerDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -125,11 +139,13 @@ struct ChannelControllerDefaultTypeInternal {
     ChannelController _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChannelControllerDefaultTypeInternal _ChannelController_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChannelControllerDefaultTypeInternal _ChannelController_default_instance_;
 PROTOBUF_CONSTEXPR DtxController::DtxController(
-    ::_pbi::ConstantInitialized)
-  : dtx_enabling_bandwidth_bps_(0)
-  , dtx_disabling_bandwidth_bps_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.dtx_enabling_bandwidth_bps_)*/0
+  , /*decltype(_impl_.dtx_disabling_bandwidth_bps_)*/0} {}
 struct DtxControllerDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DtxControllerDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -138,11 +154,13 @@ struct DtxControllerDefaultTypeInternal {
     DtxController _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DtxControllerDefaultTypeInternal _DtxController_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DtxControllerDefaultTypeInternal _DtxController_default_instance_;
 PROTOBUF_CONSTEXPR BitrateController::BitrateController(
-    ::_pbi::ConstantInitialized)
-  : fl_increase_overhead_offset_(0)
-  , fl_decrease_overhead_offset_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.fl_increase_overhead_offset_)*/0
+  , /*decltype(_impl_.fl_decrease_overhead_offset_)*/0} {}
 struct BitrateControllerDefaultTypeInternal {
   PROTOBUF_CONSTEXPR BitrateControllerDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -151,11 +169,13 @@ struct BitrateControllerDefaultTypeInternal {
     BitrateController _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BitrateControllerDefaultTypeInternal _BitrateController_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BitrateControllerDefaultTypeInternal _BitrateController_default_instance_;
 PROTOBUF_CONSTEXPR Controller_ScoringPoint::Controller_ScoringPoint(
-    ::_pbi::ConstantInitialized)
-  : uplink_bandwidth_bps_(0)
-  , uplink_packet_loss_fraction_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.uplink_bandwidth_bps_)*/0
+  , /*decltype(_impl_.uplink_packet_loss_fraction_)*/0} {}
 struct Controller_ScoringPointDefaultTypeInternal {
   PROTOBUF_CONSTEXPR Controller_ScoringPointDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -164,11 +184,14 @@ struct Controller_ScoringPointDefaultTypeInternal {
     Controller_ScoringPoint _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Controller_ScoringPointDefaultTypeInternal _Controller_ScoringPoint_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Controller_ScoringPointDefaultTypeInternal _Controller_ScoringPoint_default_instance_;
 PROTOBUF_CONSTEXPR Controller::Controller(
-    ::_pbi::ConstantInitialized)
-  : scoring_point_(nullptr)
-  , _oneof_case_{}{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.scoring_point_)*/nullptr
+  , /*decltype(_impl_.controller_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct ControllerDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ControllerDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -177,12 +200,14 @@ struct ControllerDefaultTypeInternal {
     Controller _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ControllerDefaultTypeInternal _Controller_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ControllerDefaultTypeInternal _Controller_default_instance_;
 PROTOBUF_CONSTEXPR ControllerManager::ControllerManager(
-    ::_pbi::ConstantInitialized)
-  : controllers_()
-  , min_reordering_time_ms_(0)
-  , min_reordering_squared_distance_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.controllers_)*/{}
+  , /*decltype(_impl_.min_reordering_time_ms_)*/0
+  , /*decltype(_impl_.min_reordering_squared_distance_)*/0} {}
 struct ControllerManagerDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ControllerManagerDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -191,7 +216,7 @@ struct ControllerManagerDefaultTypeInternal {
     ControllerManager _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ControllerManagerDefaultTypeInternal _ControllerManager_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ControllerManagerDefaultTypeInternal _ControllerManager_default_instance_;
 }  // namespace config
 }  // namespace audio_network_adaptor
 }  // namespace webrtc
@@ -203,7 +228,7 @@ namespace config {
 
 class FecController_Threshold::_Internal {
  public:
-  using HasBits = decltype(std::declval<FecController_Threshold>()._has_bits_);
+  using HasBits = decltype(std::declval<FecController_Threshold>()._impl_._has_bits_);
   static void set_has_low_bandwidth_bps(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -221,24 +246,39 @@ class FecController_Threshold::_Internal {
 FecController_Threshold::FecController_Threshold(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:webrtc.audio_network_adaptor.config.FecController.Threshold)
 }
 FecController_Threshold::FecController_Threshold(const FecController_Threshold& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FecController_Threshold* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.low_bandwidth_bps_){}
+    , decltype(_impl_.low_bandwidth_packet_loss_){}
+    , decltype(_impl_.high_bandwidth_bps_){}
+    , decltype(_impl_.high_bandwidth_packet_loss_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&low_bandwidth_bps_, &from.low_bandwidth_bps_,
-    static_cast<size_t>(reinterpret_cast<char*>(&high_bandwidth_packet_loss_) -
-    reinterpret_cast<char*>(&low_bandwidth_bps_)) + sizeof(high_bandwidth_packet_loss_));
+  ::memcpy(&_impl_.low_bandwidth_bps_, &from._impl_.low_bandwidth_bps_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.high_bandwidth_packet_loss_) -
+    reinterpret_cast<char*>(&_impl_.low_bandwidth_bps_)) + sizeof(_impl_.high_bandwidth_packet_loss_));
   // @@protoc_insertion_point(copy_constructor:webrtc.audio_network_adaptor.config.FecController.Threshold)
 }
 
-inline void FecController_Threshold::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&low_bandwidth_bps_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&high_bandwidth_packet_loss_) -
-    reinterpret_cast<char*>(&low_bandwidth_bps_)) + sizeof(high_bandwidth_packet_loss_));
+inline void FecController_Threshold::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.low_bandwidth_bps_){0}
+    , decltype(_impl_.low_bandwidth_packet_loss_){0}
+    , decltype(_impl_.high_bandwidth_bps_){0}
+    , decltype(_impl_.high_bandwidth_packet_loss_){0}
+  };
 }
 
 FecController_Threshold::~FecController_Threshold() {
@@ -255,7 +295,7 @@ inline void FecController_Threshold::SharedDtor() {
 }
 
 void FecController_Threshold::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FecController_Threshold::Clear() {
@@ -264,13 +304,13 @@ void FecController_Threshold::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
-    ::memset(&low_bandwidth_bps_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&high_bandwidth_packet_loss_) -
-        reinterpret_cast<char*>(&low_bandwidth_bps_)) + sizeof(high_bandwidth_packet_loss_));
+    ::memset(&_impl_.low_bandwidth_bps_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.high_bandwidth_packet_loss_) -
+        reinterpret_cast<char*>(&_impl_.low_bandwidth_bps_)) + sizeof(_impl_.high_bandwidth_packet_loss_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -285,7 +325,7 @@ const char* FecController_Threshold::_InternalParse(const char* ptr, ::_pbi::Par
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_low_bandwidth_bps(&has_bits);
-          low_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.low_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -294,7 +334,7 @@ const char* FecController_Threshold::_InternalParse(const char* ptr, ::_pbi::Par
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           _Internal::set_has_low_bandwidth_packet_loss(&has_bits);
-          low_bandwidth_packet_loss_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.low_bandwidth_packet_loss_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -303,7 +343,7 @@ const char* FecController_Threshold::_InternalParse(const char* ptr, ::_pbi::Par
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_high_bandwidth_bps(&has_bits);
-          high_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.high_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -312,7 +352,7 @@ const char* FecController_Threshold::_InternalParse(const char* ptr, ::_pbi::Par
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
           _Internal::set_has_high_bandwidth_packet_loss(&has_bits);
-          high_bandwidth_packet_loss_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.high_bandwidth_packet_loss_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -333,7 +373,7 @@ const char* FecController_Threshold::_InternalParse(const char* ptr, ::_pbi::Par
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -347,7 +387,7 @@ uint8_t* FecController_Threshold::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 low_bandwidth_bps = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -388,7 +428,7 @@ size_t FecController_Threshold::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional int32 low_bandwidth_bps = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -426,28 +466,29 @@ void FecController_Threshold::CheckTypeAndMergeFrom(
 }
 
 void FecController_Threshold::MergeFrom(const FecController_Threshold& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.FecController.Threshold)
-  GOOGLE_DCHECK_NE(&from, this);
+  FecController_Threshold* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.FecController.Threshold)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      low_bandwidth_bps_ = from.low_bandwidth_bps_;
+      _this->_impl_.low_bandwidth_bps_ = from._impl_.low_bandwidth_bps_;
     }
     if (cached_has_bits & 0x00000002u) {
-      low_bandwidth_packet_loss_ = from.low_bandwidth_packet_loss_;
+      _this->_impl_.low_bandwidth_packet_loss_ = from._impl_.low_bandwidth_packet_loss_;
     }
     if (cached_has_bits & 0x00000004u) {
-      high_bandwidth_bps_ = from.high_bandwidth_bps_;
+      _this->_impl_.high_bandwidth_bps_ = from._impl_.high_bandwidth_bps_;
     }
     if (cached_has_bits & 0x00000008u) {
-      high_bandwidth_packet_loss_ = from.high_bandwidth_packet_loss_;
+      _this->_impl_.high_bandwidth_packet_loss_ = from._impl_.high_bandwidth_packet_loss_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FecController_Threshold::CopyFrom(const FecController_Threshold& from) {
@@ -464,13 +505,13 @@ bool FecController_Threshold::IsInitialized() const {
 void FecController_Threshold::InternalSwap(FecController_Threshold* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(FecController_Threshold, high_bandwidth_packet_loss_)
-      + sizeof(FecController_Threshold::high_bandwidth_packet_loss_)
-      - PROTOBUF_FIELD_OFFSET(FecController_Threshold, low_bandwidth_bps_)>(
-          reinterpret_cast<char*>(&low_bandwidth_bps_),
-          reinterpret_cast<char*>(&other->low_bandwidth_bps_));
+      PROTOBUF_FIELD_OFFSET(FecController_Threshold, _impl_.high_bandwidth_packet_loss_)
+      + sizeof(FecController_Threshold::_impl_.high_bandwidth_packet_loss_)
+      - PROTOBUF_FIELD_OFFSET(FecController_Threshold, _impl_.low_bandwidth_bps_)>(
+          reinterpret_cast<char*>(&_impl_.low_bandwidth_bps_),
+          reinterpret_cast<char*>(&other->_impl_.low_bandwidth_bps_));
 }
 
 std::string FecController_Threshold::GetTypeName() const {
@@ -482,7 +523,7 @@ std::string FecController_Threshold::GetTypeName() const {
 
 class FecController::_Internal {
  public:
-  using HasBits = decltype(std::declval<FecController>()._has_bits_);
+  using HasBits = decltype(std::declval<FecController>()._impl_._has_bits_);
   static const ::webrtc::audio_network_adaptor::config::FecController_Threshold& fec_enabling_threshold(const FecController* msg);
   static void set_has_fec_enabling_threshold(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -498,41 +539,50 @@ class FecController::_Internal {
 
 const ::webrtc::audio_network_adaptor::config::FecController_Threshold&
 FecController::_Internal::fec_enabling_threshold(const FecController* msg) {
-  return *msg->fec_enabling_threshold_;
+  return *msg->_impl_.fec_enabling_threshold_;
 }
 const ::webrtc::audio_network_adaptor::config::FecController_Threshold&
 FecController::_Internal::fec_disabling_threshold(const FecController* msg) {
-  return *msg->fec_disabling_threshold_;
+  return *msg->_impl_.fec_disabling_threshold_;
 }
 FecController::FecController(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:webrtc.audio_network_adaptor.config.FecController)
 }
 FecController::FecController(const FecController& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FecController* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.fec_enabling_threshold_){nullptr}
+    , decltype(_impl_.fec_disabling_threshold_){nullptr}
+    , decltype(_impl_.time_constant_ms_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_fec_enabling_threshold()) {
-    fec_enabling_threshold_ = new ::webrtc::audio_network_adaptor::config::FecController_Threshold(*from.fec_enabling_threshold_);
-  } else {
-    fec_enabling_threshold_ = nullptr;
+    _this->_impl_.fec_enabling_threshold_ = new ::webrtc::audio_network_adaptor::config::FecController_Threshold(*from._impl_.fec_enabling_threshold_);
   }
   if (from._internal_has_fec_disabling_threshold()) {
-    fec_disabling_threshold_ = new ::webrtc::audio_network_adaptor::config::FecController_Threshold(*from.fec_disabling_threshold_);
-  } else {
-    fec_disabling_threshold_ = nullptr;
+    _this->_impl_.fec_disabling_threshold_ = new ::webrtc::audio_network_adaptor::config::FecController_Threshold(*from._impl_.fec_disabling_threshold_);
   }
-  time_constant_ms_ = from.time_constant_ms_;
+  _this->_impl_.time_constant_ms_ = from._impl_.time_constant_ms_;
   // @@protoc_insertion_point(copy_constructor:webrtc.audio_network_adaptor.config.FecController)
 }
 
-inline void FecController::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&fec_enabling_threshold_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&time_constant_ms_) -
-    reinterpret_cast<char*>(&fec_enabling_threshold_)) + sizeof(time_constant_ms_));
+inline void FecController::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.fec_enabling_threshold_){nullptr}
+    , decltype(_impl_.fec_disabling_threshold_){nullptr}
+    , decltype(_impl_.time_constant_ms_){0}
+  };
 }
 
 FecController::~FecController() {
@@ -546,12 +596,12 @@ FecController::~FecController() {
 
 inline void FecController::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete fec_enabling_threshold_;
-  if (this != internal_default_instance()) delete fec_disabling_threshold_;
+  if (this != internal_default_instance()) delete _impl_.fec_enabling_threshold_;
+  if (this != internal_default_instance()) delete _impl_.fec_disabling_threshold_;
 }
 
 void FecController::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FecController::Clear() {
@@ -560,19 +610,19 @@ void FecController::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(fec_enabling_threshold_ != nullptr);
-      fec_enabling_threshold_->Clear();
+      GOOGLE_DCHECK(_impl_.fec_enabling_threshold_ != nullptr);
+      _impl_.fec_enabling_threshold_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(fec_disabling_threshold_ != nullptr);
-      fec_disabling_threshold_->Clear();
+      GOOGLE_DCHECK(_impl_.fec_disabling_threshold_ != nullptr);
+      _impl_.fec_disabling_threshold_->Clear();
     }
   }
-  time_constant_ms_ = 0;
-  _has_bits_.Clear();
+  _impl_.time_constant_ms_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -603,7 +653,7 @@ const char* FecController::_InternalParse(const char* ptr, ::_pbi::ParseContext*
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_time_constant_ms(&has_bits);
-          time_constant_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.time_constant_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -624,7 +674,7 @@ const char* FecController::_InternalParse(const char* ptr, ::_pbi::ParseContext*
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -638,7 +688,7 @@ uint8_t* FecController::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .webrtc.audio_network_adaptor.config.FecController.Threshold fec_enabling_threshold = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -675,20 +725,20 @@ size_t FecController::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional .webrtc.audio_network_adaptor.config.FecController.Threshold fec_enabling_threshold = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *fec_enabling_threshold_);
+          *_impl_.fec_enabling_threshold_);
     }
 
     // optional .webrtc.audio_network_adaptor.config.FecController.Threshold fec_disabling_threshold = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *fec_disabling_threshold_);
+          *_impl_.fec_disabling_threshold_);
     }
 
     // optional int32 time_constant_ms = 3;
@@ -712,25 +762,28 @@ void FecController::CheckTypeAndMergeFrom(
 }
 
 void FecController::MergeFrom(const FecController& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.FecController)
-  GOOGLE_DCHECK_NE(&from, this);
+  FecController* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.FecController)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_fec_enabling_threshold()->::webrtc::audio_network_adaptor::config::FecController_Threshold::MergeFrom(from._internal_fec_enabling_threshold());
+      _this->_internal_mutable_fec_enabling_threshold()->::webrtc::audio_network_adaptor::config::FecController_Threshold::MergeFrom(
+          from._internal_fec_enabling_threshold());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_fec_disabling_threshold()->::webrtc::audio_network_adaptor::config::FecController_Threshold::MergeFrom(from._internal_fec_disabling_threshold());
+      _this->_internal_mutable_fec_disabling_threshold()->::webrtc::audio_network_adaptor::config::FecController_Threshold::MergeFrom(
+          from._internal_fec_disabling_threshold());
     }
     if (cached_has_bits & 0x00000004u) {
-      time_constant_ms_ = from.time_constant_ms_;
+      _this->_impl_.time_constant_ms_ = from._impl_.time_constant_ms_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FecController::CopyFrom(const FecController& from) {
@@ -747,13 +800,13 @@ bool FecController::IsInitialized() const {
 void FecController::InternalSwap(FecController* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(FecController, time_constant_ms_)
-      + sizeof(FecController::time_constant_ms_)
-      - PROTOBUF_FIELD_OFFSET(FecController, fec_enabling_threshold_)>(
-          reinterpret_cast<char*>(&fec_enabling_threshold_),
-          reinterpret_cast<char*>(&other->fec_enabling_threshold_));
+      PROTOBUF_FIELD_OFFSET(FecController, _impl_.time_constant_ms_)
+      + sizeof(FecController::_impl_.time_constant_ms_)
+      - PROTOBUF_FIELD_OFFSET(FecController, _impl_.fec_enabling_threshold_)>(
+          reinterpret_cast<char*>(&_impl_.fec_enabling_threshold_),
+          reinterpret_cast<char*>(&other->_impl_.fec_enabling_threshold_));
 }
 
 std::string FecController::GetTypeName() const {
@@ -765,7 +818,7 @@ std::string FecController::GetTypeName() const {
 
 class FecControllerRplrBased_Threshold::_Internal {
  public:
-  using HasBits = decltype(std::declval<FecControllerRplrBased_Threshold>()._has_bits_);
+  using HasBits = decltype(std::declval<FecControllerRplrBased_Threshold>()._impl_._has_bits_);
   static void set_has_low_bandwidth_bps(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -783,24 +836,39 @@ class FecControllerRplrBased_Threshold::_Internal {
 FecControllerRplrBased_Threshold::FecControllerRplrBased_Threshold(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:webrtc.audio_network_adaptor.config.FecControllerRplrBased.Threshold)
 }
 FecControllerRplrBased_Threshold::FecControllerRplrBased_Threshold(const FecControllerRplrBased_Threshold& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FecControllerRplrBased_Threshold* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.low_bandwidth_bps_){}
+    , decltype(_impl_.low_bandwidth_recoverable_packet_loss_){}
+    , decltype(_impl_.high_bandwidth_bps_){}
+    , decltype(_impl_.high_bandwidth_recoverable_packet_loss_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&low_bandwidth_bps_, &from.low_bandwidth_bps_,
-    static_cast<size_t>(reinterpret_cast<char*>(&high_bandwidth_recoverable_packet_loss_) -
-    reinterpret_cast<char*>(&low_bandwidth_bps_)) + sizeof(high_bandwidth_recoverable_packet_loss_));
+  ::memcpy(&_impl_.low_bandwidth_bps_, &from._impl_.low_bandwidth_bps_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.high_bandwidth_recoverable_packet_loss_) -
+    reinterpret_cast<char*>(&_impl_.low_bandwidth_bps_)) + sizeof(_impl_.high_bandwidth_recoverable_packet_loss_));
   // @@protoc_insertion_point(copy_constructor:webrtc.audio_network_adaptor.config.FecControllerRplrBased.Threshold)
 }
 
-inline void FecControllerRplrBased_Threshold::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&low_bandwidth_bps_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&high_bandwidth_recoverable_packet_loss_) -
-    reinterpret_cast<char*>(&low_bandwidth_bps_)) + sizeof(high_bandwidth_recoverable_packet_loss_));
+inline void FecControllerRplrBased_Threshold::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.low_bandwidth_bps_){0}
+    , decltype(_impl_.low_bandwidth_recoverable_packet_loss_){0}
+    , decltype(_impl_.high_bandwidth_bps_){0}
+    , decltype(_impl_.high_bandwidth_recoverable_packet_loss_){0}
+  };
 }
 
 FecControllerRplrBased_Threshold::~FecControllerRplrBased_Threshold() {
@@ -817,7 +885,7 @@ inline void FecControllerRplrBased_Threshold::SharedDtor() {
 }
 
 void FecControllerRplrBased_Threshold::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FecControllerRplrBased_Threshold::Clear() {
@@ -826,13 +894,13 @@ void FecControllerRplrBased_Threshold::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
-    ::memset(&low_bandwidth_bps_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&high_bandwidth_recoverable_packet_loss_) -
-        reinterpret_cast<char*>(&low_bandwidth_bps_)) + sizeof(high_bandwidth_recoverable_packet_loss_));
+    ::memset(&_impl_.low_bandwidth_bps_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.high_bandwidth_recoverable_packet_loss_) -
+        reinterpret_cast<char*>(&_impl_.low_bandwidth_bps_)) + sizeof(_impl_.high_bandwidth_recoverable_packet_loss_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -847,7 +915,7 @@ const char* FecControllerRplrBased_Threshold::_InternalParse(const char* ptr, ::
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_low_bandwidth_bps(&has_bits);
-          low_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.low_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -856,7 +924,7 @@ const char* FecControllerRplrBased_Threshold::_InternalParse(const char* ptr, ::
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           _Internal::set_has_low_bandwidth_recoverable_packet_loss(&has_bits);
-          low_bandwidth_recoverable_packet_loss_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.low_bandwidth_recoverable_packet_loss_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -865,7 +933,7 @@ const char* FecControllerRplrBased_Threshold::_InternalParse(const char* ptr, ::
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_high_bandwidth_bps(&has_bits);
-          high_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.high_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -874,7 +942,7 @@ const char* FecControllerRplrBased_Threshold::_InternalParse(const char* ptr, ::
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
           _Internal::set_has_high_bandwidth_recoverable_packet_loss(&has_bits);
-          high_bandwidth_recoverable_packet_loss_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.high_bandwidth_recoverable_packet_loss_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -895,7 +963,7 @@ const char* FecControllerRplrBased_Threshold::_InternalParse(const char* ptr, ::
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -909,7 +977,7 @@ uint8_t* FecControllerRplrBased_Threshold::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 low_bandwidth_bps = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -950,7 +1018,7 @@ size_t FecControllerRplrBased_Threshold::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional int32 low_bandwidth_bps = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -988,28 +1056,29 @@ void FecControllerRplrBased_Threshold::CheckTypeAndMergeFrom(
 }
 
 void FecControllerRplrBased_Threshold::MergeFrom(const FecControllerRplrBased_Threshold& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.FecControllerRplrBased.Threshold)
-  GOOGLE_DCHECK_NE(&from, this);
+  FecControllerRplrBased_Threshold* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.FecControllerRplrBased.Threshold)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      low_bandwidth_bps_ = from.low_bandwidth_bps_;
+      _this->_impl_.low_bandwidth_bps_ = from._impl_.low_bandwidth_bps_;
     }
     if (cached_has_bits & 0x00000002u) {
-      low_bandwidth_recoverable_packet_loss_ = from.low_bandwidth_recoverable_packet_loss_;
+      _this->_impl_.low_bandwidth_recoverable_packet_loss_ = from._impl_.low_bandwidth_recoverable_packet_loss_;
     }
     if (cached_has_bits & 0x00000004u) {
-      high_bandwidth_bps_ = from.high_bandwidth_bps_;
+      _this->_impl_.high_bandwidth_bps_ = from._impl_.high_bandwidth_bps_;
     }
     if (cached_has_bits & 0x00000008u) {
-      high_bandwidth_recoverable_packet_loss_ = from.high_bandwidth_recoverable_packet_loss_;
+      _this->_impl_.high_bandwidth_recoverable_packet_loss_ = from._impl_.high_bandwidth_recoverable_packet_loss_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FecControllerRplrBased_Threshold::CopyFrom(const FecControllerRplrBased_Threshold& from) {
@@ -1026,13 +1095,13 @@ bool FecControllerRplrBased_Threshold::IsInitialized() const {
 void FecControllerRplrBased_Threshold::InternalSwap(FecControllerRplrBased_Threshold* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(FecControllerRplrBased_Threshold, high_bandwidth_recoverable_packet_loss_)
-      + sizeof(FecControllerRplrBased_Threshold::high_bandwidth_recoverable_packet_loss_)
-      - PROTOBUF_FIELD_OFFSET(FecControllerRplrBased_Threshold, low_bandwidth_bps_)>(
-          reinterpret_cast<char*>(&low_bandwidth_bps_),
-          reinterpret_cast<char*>(&other->low_bandwidth_bps_));
+      PROTOBUF_FIELD_OFFSET(FecControllerRplrBased_Threshold, _impl_.high_bandwidth_recoverable_packet_loss_)
+      + sizeof(FecControllerRplrBased_Threshold::_impl_.high_bandwidth_recoverable_packet_loss_)
+      - PROTOBUF_FIELD_OFFSET(FecControllerRplrBased_Threshold, _impl_.low_bandwidth_bps_)>(
+          reinterpret_cast<char*>(&_impl_.low_bandwidth_bps_),
+          reinterpret_cast<char*>(&other->_impl_.low_bandwidth_bps_));
 }
 
 std::string FecControllerRplrBased_Threshold::GetTypeName() const {
@@ -1044,7 +1113,7 @@ std::string FecControllerRplrBased_Threshold::GetTypeName() const {
 
 class FecControllerRplrBased::_Internal {
  public:
-  using HasBits = decltype(std::declval<FecControllerRplrBased>()._has_bits_);
+  using HasBits = decltype(std::declval<FecControllerRplrBased>()._impl_._has_bits_);
   static const ::webrtc::audio_network_adaptor::config::FecControllerRplrBased_Threshold& fec_enabling_threshold(const FecControllerRplrBased* msg);
   static void set_has_fec_enabling_threshold(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -1057,40 +1126,47 @@ class FecControllerRplrBased::_Internal {
 
 const ::webrtc::audio_network_adaptor::config::FecControllerRplrBased_Threshold&
 FecControllerRplrBased::_Internal::fec_enabling_threshold(const FecControllerRplrBased* msg) {
-  return *msg->fec_enabling_threshold_;
+  return *msg->_impl_.fec_enabling_threshold_;
 }
 const ::webrtc::audio_network_adaptor::config::FecControllerRplrBased_Threshold&
 FecControllerRplrBased::_Internal::fec_disabling_threshold(const FecControllerRplrBased* msg) {
-  return *msg->fec_disabling_threshold_;
+  return *msg->_impl_.fec_disabling_threshold_;
 }
 FecControllerRplrBased::FecControllerRplrBased(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:webrtc.audio_network_adaptor.config.FecControllerRplrBased)
 }
 FecControllerRplrBased::FecControllerRplrBased(const FecControllerRplrBased& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FecControllerRplrBased* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.fec_enabling_threshold_){nullptr}
+    , decltype(_impl_.fec_disabling_threshold_){nullptr}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_fec_enabling_threshold()) {
-    fec_enabling_threshold_ = new ::webrtc::audio_network_adaptor::config::FecControllerRplrBased_Threshold(*from.fec_enabling_threshold_);
-  } else {
-    fec_enabling_threshold_ = nullptr;
+    _this->_impl_.fec_enabling_threshold_ = new ::webrtc::audio_network_adaptor::config::FecControllerRplrBased_Threshold(*from._impl_.fec_enabling_threshold_);
   }
   if (from._internal_has_fec_disabling_threshold()) {
-    fec_disabling_threshold_ = new ::webrtc::audio_network_adaptor::config::FecControllerRplrBased_Threshold(*from.fec_disabling_threshold_);
-  } else {
-    fec_disabling_threshold_ = nullptr;
+    _this->_impl_.fec_disabling_threshold_ = new ::webrtc::audio_network_adaptor::config::FecControllerRplrBased_Threshold(*from._impl_.fec_disabling_threshold_);
   }
   // @@protoc_insertion_point(copy_constructor:webrtc.audio_network_adaptor.config.FecControllerRplrBased)
 }
 
-inline void FecControllerRplrBased::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&fec_enabling_threshold_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&fec_disabling_threshold_) -
-    reinterpret_cast<char*>(&fec_enabling_threshold_)) + sizeof(fec_disabling_threshold_));
+inline void FecControllerRplrBased::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.fec_enabling_threshold_){nullptr}
+    , decltype(_impl_.fec_disabling_threshold_){nullptr}
+  };
 }
 
 FecControllerRplrBased::~FecControllerRplrBased() {
@@ -1104,12 +1180,12 @@ FecControllerRplrBased::~FecControllerRplrBased() {
 
 inline void FecControllerRplrBased::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete fec_enabling_threshold_;
-  if (this != internal_default_instance()) delete fec_disabling_threshold_;
+  if (this != internal_default_instance()) delete _impl_.fec_enabling_threshold_;
+  if (this != internal_default_instance()) delete _impl_.fec_disabling_threshold_;
 }
 
 void FecControllerRplrBased::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FecControllerRplrBased::Clear() {
@@ -1118,18 +1194,18 @@ void FecControllerRplrBased::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(fec_enabling_threshold_ != nullptr);
-      fec_enabling_threshold_->Clear();
+      GOOGLE_DCHECK(_impl_.fec_enabling_threshold_ != nullptr);
+      _impl_.fec_enabling_threshold_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(fec_disabling_threshold_ != nullptr);
-      fec_disabling_threshold_->Clear();
+      GOOGLE_DCHECK(_impl_.fec_disabling_threshold_ != nullptr);
+      _impl_.fec_disabling_threshold_->Clear();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1172,7 +1248,7 @@ const char* FecControllerRplrBased::_InternalParse(const char* ptr, ::_pbi::Pars
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1186,7 +1262,7 @@ uint8_t* FecControllerRplrBased::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .webrtc.audio_network_adaptor.config.FecControllerRplrBased.Threshold fec_enabling_threshold = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -1217,20 +1293,20 @@ size_t FecControllerRplrBased::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional .webrtc.audio_network_adaptor.config.FecControllerRplrBased.Threshold fec_enabling_threshold = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *fec_enabling_threshold_);
+          *_impl_.fec_enabling_threshold_);
     }
 
     // optional .webrtc.audio_network_adaptor.config.FecControllerRplrBased.Threshold fec_disabling_threshold = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *fec_disabling_threshold_);
+          *_impl_.fec_disabling_threshold_);
     }
 
   }
@@ -1249,21 +1325,24 @@ void FecControllerRplrBased::CheckTypeAndMergeFrom(
 }
 
 void FecControllerRplrBased::MergeFrom(const FecControllerRplrBased& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.FecControllerRplrBased)
-  GOOGLE_DCHECK_NE(&from, this);
+  FecControllerRplrBased* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.FecControllerRplrBased)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_fec_enabling_threshold()->::webrtc::audio_network_adaptor::config::FecControllerRplrBased_Threshold::MergeFrom(from._internal_fec_enabling_threshold());
+      _this->_internal_mutable_fec_enabling_threshold()->::webrtc::audio_network_adaptor::config::FecControllerRplrBased_Threshold::MergeFrom(
+          from._internal_fec_enabling_threshold());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_fec_disabling_threshold()->::webrtc::audio_network_adaptor::config::FecControllerRplrBased_Threshold::MergeFrom(from._internal_fec_disabling_threshold());
+      _this->_internal_mutable_fec_disabling_threshold()->::webrtc::audio_network_adaptor::config::FecControllerRplrBased_Threshold::MergeFrom(
+          from._internal_fec_disabling_threshold());
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FecControllerRplrBased::CopyFrom(const FecControllerRplrBased& from) {
@@ -1280,13 +1359,13 @@ bool FecControllerRplrBased::IsInitialized() const {
 void FecControllerRplrBased::InternalSwap(FecControllerRplrBased* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(FecControllerRplrBased, fec_disabling_threshold_)
-      + sizeof(FecControllerRplrBased::fec_disabling_threshold_)
-      - PROTOBUF_FIELD_OFFSET(FecControllerRplrBased, fec_enabling_threshold_)>(
-          reinterpret_cast<char*>(&fec_enabling_threshold_),
-          reinterpret_cast<char*>(&other->fec_enabling_threshold_));
+      PROTOBUF_FIELD_OFFSET(FecControllerRplrBased, _impl_.fec_disabling_threshold_)
+      + sizeof(FecControllerRplrBased::_impl_.fec_disabling_threshold_)
+      - PROTOBUF_FIELD_OFFSET(FecControllerRplrBased, _impl_.fec_enabling_threshold_)>(
+          reinterpret_cast<char*>(&_impl_.fec_enabling_threshold_),
+          reinterpret_cast<char*>(&other->_impl_.fec_enabling_threshold_));
 }
 
 std::string FecControllerRplrBased::GetTypeName() const {
@@ -1298,7 +1377,7 @@ std::string FecControllerRplrBased::GetTypeName() const {
 
 class FrameLengthController::_Internal {
  public:
-  using HasBits = decltype(std::declval<FrameLengthController>()._has_bits_);
+  using HasBits = decltype(std::declval<FrameLengthController>()._impl_._has_bits_);
   static void set_has_fl_increasing_packet_loss_fraction(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1340,24 +1419,55 @@ class FrameLengthController::_Internal {
 FrameLengthController::FrameLengthController(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:webrtc.audio_network_adaptor.config.FrameLengthController)
 }
 FrameLengthController::FrameLengthController(const FrameLengthController& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FrameLengthController* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.fl_increasing_packet_loss_fraction_){}
+    , decltype(_impl_.fl_decreasing_packet_loss_fraction_){}
+    , decltype(_impl_.fl_20ms_to_60ms_bandwidth_bps_){}
+    , decltype(_impl_.fl_60ms_to_20ms_bandwidth_bps_){}
+    , decltype(_impl_.fl_60ms_to_120ms_bandwidth_bps_){}
+    , decltype(_impl_.fl_120ms_to_60ms_bandwidth_bps_){}
+    , decltype(_impl_.fl_increase_overhead_offset_){}
+    , decltype(_impl_.fl_decrease_overhead_offset_){}
+    , decltype(_impl_.fl_20ms_to_40ms_bandwidth_bps_){}
+    , decltype(_impl_.fl_40ms_to_20ms_bandwidth_bps_){}
+    , decltype(_impl_.fl_40ms_to_60ms_bandwidth_bps_){}
+    , decltype(_impl_.fl_60ms_to_40ms_bandwidth_bps_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&fl_increasing_packet_loss_fraction_, &from.fl_increasing_packet_loss_fraction_,
-    static_cast<size_t>(reinterpret_cast<char*>(&fl_60ms_to_40ms_bandwidth_bps_) -
-    reinterpret_cast<char*>(&fl_increasing_packet_loss_fraction_)) + sizeof(fl_60ms_to_40ms_bandwidth_bps_));
+  ::memcpy(&_impl_.fl_increasing_packet_loss_fraction_, &from._impl_.fl_increasing_packet_loss_fraction_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.fl_60ms_to_40ms_bandwidth_bps_) -
+    reinterpret_cast<char*>(&_impl_.fl_increasing_packet_loss_fraction_)) + sizeof(_impl_.fl_60ms_to_40ms_bandwidth_bps_));
   // @@protoc_insertion_point(copy_constructor:webrtc.audio_network_adaptor.config.FrameLengthController)
 }
 
-inline void FrameLengthController::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&fl_increasing_packet_loss_fraction_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&fl_60ms_to_40ms_bandwidth_bps_) -
-    reinterpret_cast<char*>(&fl_increasing_packet_loss_fraction_)) + sizeof(fl_60ms_to_40ms_bandwidth_bps_));
+inline void FrameLengthController::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.fl_increasing_packet_loss_fraction_){0}
+    , decltype(_impl_.fl_decreasing_packet_loss_fraction_){0}
+    , decltype(_impl_.fl_20ms_to_60ms_bandwidth_bps_){0}
+    , decltype(_impl_.fl_60ms_to_20ms_bandwidth_bps_){0}
+    , decltype(_impl_.fl_60ms_to_120ms_bandwidth_bps_){0}
+    , decltype(_impl_.fl_120ms_to_60ms_bandwidth_bps_){0}
+    , decltype(_impl_.fl_increase_overhead_offset_){0}
+    , decltype(_impl_.fl_decrease_overhead_offset_){0}
+    , decltype(_impl_.fl_20ms_to_40ms_bandwidth_bps_){0}
+    , decltype(_impl_.fl_40ms_to_20ms_bandwidth_bps_){0}
+    , decltype(_impl_.fl_40ms_to_60ms_bandwidth_bps_){0}
+    , decltype(_impl_.fl_60ms_to_40ms_bandwidth_bps_){0}
+  };
 }
 
 FrameLengthController::~FrameLengthController() {
@@ -1374,7 +1484,7 @@ inline void FrameLengthController::SharedDtor() {
 }
 
 void FrameLengthController::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FrameLengthController::Clear() {
@@ -1383,18 +1493,18 @@ void FrameLengthController::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
-    ::memset(&fl_increasing_packet_loss_fraction_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&fl_decrease_overhead_offset_) -
-        reinterpret_cast<char*>(&fl_increasing_packet_loss_fraction_)) + sizeof(fl_decrease_overhead_offset_));
+    ::memset(&_impl_.fl_increasing_packet_loss_fraction_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.fl_decrease_overhead_offset_) -
+        reinterpret_cast<char*>(&_impl_.fl_increasing_packet_loss_fraction_)) + sizeof(_impl_.fl_decrease_overhead_offset_));
   }
   if (cached_has_bits & 0x00000f00u) {
-    ::memset(&fl_20ms_to_40ms_bandwidth_bps_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&fl_60ms_to_40ms_bandwidth_bps_) -
-        reinterpret_cast<char*>(&fl_20ms_to_40ms_bandwidth_bps_)) + sizeof(fl_60ms_to_40ms_bandwidth_bps_));
+    ::memset(&_impl_.fl_20ms_to_40ms_bandwidth_bps_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.fl_60ms_to_40ms_bandwidth_bps_) -
+        reinterpret_cast<char*>(&_impl_.fl_20ms_to_40ms_bandwidth_bps_)) + sizeof(_impl_.fl_60ms_to_40ms_bandwidth_bps_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1409,7 +1519,7 @@ const char* FrameLengthController::_InternalParse(const char* ptr, ::_pbi::Parse
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 13)) {
           _Internal::set_has_fl_increasing_packet_loss_fraction(&has_bits);
-          fl_increasing_packet_loss_fraction_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.fl_increasing_packet_loss_fraction_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -1418,7 +1528,7 @@ const char* FrameLengthController::_InternalParse(const char* ptr, ::_pbi::Parse
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           _Internal::set_has_fl_decreasing_packet_loss_fraction(&has_bits);
-          fl_decreasing_packet_loss_fraction_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.fl_decreasing_packet_loss_fraction_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -1427,7 +1537,7 @@ const char* FrameLengthController::_InternalParse(const char* ptr, ::_pbi::Parse
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_fl_20ms_to_60ms_bandwidth_bps(&has_bits);
-          fl_20ms_to_60ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.fl_20ms_to_60ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1436,7 +1546,7 @@ const char* FrameLengthController::_InternalParse(const char* ptr, ::_pbi::Parse
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _Internal::set_has_fl_60ms_to_20ms_bandwidth_bps(&has_bits);
-          fl_60ms_to_20ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.fl_60ms_to_20ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1445,7 +1555,7 @@ const char* FrameLengthController::_InternalParse(const char* ptr, ::_pbi::Parse
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _Internal::set_has_fl_60ms_to_120ms_bandwidth_bps(&has_bits);
-          fl_60ms_to_120ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.fl_60ms_to_120ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1454,7 +1564,7 @@ const char* FrameLengthController::_InternalParse(const char* ptr, ::_pbi::Parse
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
           _Internal::set_has_fl_120ms_to_60ms_bandwidth_bps(&has_bits);
-          fl_120ms_to_60ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.fl_120ms_to_60ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1463,7 +1573,7 @@ const char* FrameLengthController::_InternalParse(const char* ptr, ::_pbi::Parse
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
           _Internal::set_has_fl_increase_overhead_offset(&has_bits);
-          fl_increase_overhead_offset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.fl_increase_overhead_offset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1472,7 +1582,7 @@ const char* FrameLengthController::_InternalParse(const char* ptr, ::_pbi::Parse
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
           _Internal::set_has_fl_decrease_overhead_offset(&has_bits);
-          fl_decrease_overhead_offset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.fl_decrease_overhead_offset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1481,7 +1591,7 @@ const char* FrameLengthController::_InternalParse(const char* ptr, ::_pbi::Parse
       case 9:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
           _Internal::set_has_fl_20ms_to_40ms_bandwidth_bps(&has_bits);
-          fl_20ms_to_40ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.fl_20ms_to_40ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1490,7 +1600,7 @@ const char* FrameLengthController::_InternalParse(const char* ptr, ::_pbi::Parse
       case 10:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
           _Internal::set_has_fl_40ms_to_20ms_bandwidth_bps(&has_bits);
-          fl_40ms_to_20ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.fl_40ms_to_20ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1499,7 +1609,7 @@ const char* FrameLengthController::_InternalParse(const char* ptr, ::_pbi::Parse
       case 11:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
           _Internal::set_has_fl_40ms_to_60ms_bandwidth_bps(&has_bits);
-          fl_40ms_to_60ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.fl_40ms_to_60ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1508,7 +1618,7 @@ const char* FrameLengthController::_InternalParse(const char* ptr, ::_pbi::Parse
       case 12:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
           _Internal::set_has_fl_60ms_to_40ms_bandwidth_bps(&has_bits);
-          fl_60ms_to_40ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.fl_60ms_to_40ms_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1529,7 +1639,7 @@ const char* FrameLengthController::_InternalParse(const char* ptr, ::_pbi::Parse
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1543,7 +1653,7 @@ uint8_t* FrameLengthController::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional float fl_increasing_packet_loss_fraction = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -1632,7 +1742,7 @@ size_t FrameLengthController::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional float fl_increasing_packet_loss_fraction = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -1712,55 +1822,56 @@ void FrameLengthController::CheckTypeAndMergeFrom(
 }
 
 void FrameLengthController::MergeFrom(const FrameLengthController& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.FrameLengthController)
-  GOOGLE_DCHECK_NE(&from, this);
+  FrameLengthController* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.FrameLengthController)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      fl_increasing_packet_loss_fraction_ = from.fl_increasing_packet_loss_fraction_;
+      _this->_impl_.fl_increasing_packet_loss_fraction_ = from._impl_.fl_increasing_packet_loss_fraction_;
     }
     if (cached_has_bits & 0x00000002u) {
-      fl_decreasing_packet_loss_fraction_ = from.fl_decreasing_packet_loss_fraction_;
+      _this->_impl_.fl_decreasing_packet_loss_fraction_ = from._impl_.fl_decreasing_packet_loss_fraction_;
     }
     if (cached_has_bits & 0x00000004u) {
-      fl_20ms_to_60ms_bandwidth_bps_ = from.fl_20ms_to_60ms_bandwidth_bps_;
+      _this->_impl_.fl_20ms_to_60ms_bandwidth_bps_ = from._impl_.fl_20ms_to_60ms_bandwidth_bps_;
     }
     if (cached_has_bits & 0x00000008u) {
-      fl_60ms_to_20ms_bandwidth_bps_ = from.fl_60ms_to_20ms_bandwidth_bps_;
+      _this->_impl_.fl_60ms_to_20ms_bandwidth_bps_ = from._impl_.fl_60ms_to_20ms_bandwidth_bps_;
     }
     if (cached_has_bits & 0x00000010u) {
-      fl_60ms_to_120ms_bandwidth_bps_ = from.fl_60ms_to_120ms_bandwidth_bps_;
+      _this->_impl_.fl_60ms_to_120ms_bandwidth_bps_ = from._impl_.fl_60ms_to_120ms_bandwidth_bps_;
     }
     if (cached_has_bits & 0x00000020u) {
-      fl_120ms_to_60ms_bandwidth_bps_ = from.fl_120ms_to_60ms_bandwidth_bps_;
+      _this->_impl_.fl_120ms_to_60ms_bandwidth_bps_ = from._impl_.fl_120ms_to_60ms_bandwidth_bps_;
     }
     if (cached_has_bits & 0x00000040u) {
-      fl_increase_overhead_offset_ = from.fl_increase_overhead_offset_;
+      _this->_impl_.fl_increase_overhead_offset_ = from._impl_.fl_increase_overhead_offset_;
     }
     if (cached_has_bits & 0x00000080u) {
-      fl_decrease_overhead_offset_ = from.fl_decrease_overhead_offset_;
+      _this->_impl_.fl_decrease_overhead_offset_ = from._impl_.fl_decrease_overhead_offset_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x00000f00u) {
     if (cached_has_bits & 0x00000100u) {
-      fl_20ms_to_40ms_bandwidth_bps_ = from.fl_20ms_to_40ms_bandwidth_bps_;
+      _this->_impl_.fl_20ms_to_40ms_bandwidth_bps_ = from._impl_.fl_20ms_to_40ms_bandwidth_bps_;
     }
     if (cached_has_bits & 0x00000200u) {
-      fl_40ms_to_20ms_bandwidth_bps_ = from.fl_40ms_to_20ms_bandwidth_bps_;
+      _this->_impl_.fl_40ms_to_20ms_bandwidth_bps_ = from._impl_.fl_40ms_to_20ms_bandwidth_bps_;
     }
     if (cached_has_bits & 0x00000400u) {
-      fl_40ms_to_60ms_bandwidth_bps_ = from.fl_40ms_to_60ms_bandwidth_bps_;
+      _this->_impl_.fl_40ms_to_60ms_bandwidth_bps_ = from._impl_.fl_40ms_to_60ms_bandwidth_bps_;
     }
     if (cached_has_bits & 0x00000800u) {
-      fl_60ms_to_40ms_bandwidth_bps_ = from.fl_60ms_to_40ms_bandwidth_bps_;
+      _this->_impl_.fl_60ms_to_40ms_bandwidth_bps_ = from._impl_.fl_60ms_to_40ms_bandwidth_bps_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FrameLengthController::CopyFrom(const FrameLengthController& from) {
@@ -1777,13 +1888,13 @@ bool FrameLengthController::IsInitialized() const {
 void FrameLengthController::InternalSwap(FrameLengthController* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(FrameLengthController, fl_60ms_to_40ms_bandwidth_bps_)
-      + sizeof(FrameLengthController::fl_60ms_to_40ms_bandwidth_bps_)
-      - PROTOBUF_FIELD_OFFSET(FrameLengthController, fl_increasing_packet_loss_fraction_)>(
-          reinterpret_cast<char*>(&fl_increasing_packet_loss_fraction_),
-          reinterpret_cast<char*>(&other->fl_increasing_packet_loss_fraction_));
+      PROTOBUF_FIELD_OFFSET(FrameLengthController, _impl_.fl_60ms_to_40ms_bandwidth_bps_)
+      + sizeof(FrameLengthController::_impl_.fl_60ms_to_40ms_bandwidth_bps_)
+      - PROTOBUF_FIELD_OFFSET(FrameLengthController, _impl_.fl_increasing_packet_loss_fraction_)>(
+          reinterpret_cast<char*>(&_impl_.fl_increasing_packet_loss_fraction_),
+          reinterpret_cast<char*>(&other->_impl_.fl_increasing_packet_loss_fraction_));
 }
 
 std::string FrameLengthController::GetTypeName() const {
@@ -1795,7 +1906,7 @@ std::string FrameLengthController::GetTypeName() const {
 
 class FrameLengthControllerV2::_Internal {
  public:
-  using HasBits = decltype(std::declval<FrameLengthControllerV2>()._has_bits_);
+  using HasBits = decltype(std::declval<FrameLengthControllerV2>()._impl_._has_bits_);
   static void set_has_min_payload_bitrate_bps(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1807,24 +1918,35 @@ class FrameLengthControllerV2::_Internal {
 FrameLengthControllerV2::FrameLengthControllerV2(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:webrtc.audio_network_adaptor.config.FrameLengthControllerV2)
 }
 FrameLengthControllerV2::FrameLengthControllerV2(const FrameLengthControllerV2& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FrameLengthControllerV2* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.min_payload_bitrate_bps_){}
+    , decltype(_impl_.use_slow_adaptation_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&min_payload_bitrate_bps_, &from.min_payload_bitrate_bps_,
-    static_cast<size_t>(reinterpret_cast<char*>(&use_slow_adaptation_) -
-    reinterpret_cast<char*>(&min_payload_bitrate_bps_)) + sizeof(use_slow_adaptation_));
+  ::memcpy(&_impl_.min_payload_bitrate_bps_, &from._impl_.min_payload_bitrate_bps_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.use_slow_adaptation_) -
+    reinterpret_cast<char*>(&_impl_.min_payload_bitrate_bps_)) + sizeof(_impl_.use_slow_adaptation_));
   // @@protoc_insertion_point(copy_constructor:webrtc.audio_network_adaptor.config.FrameLengthControllerV2)
 }
 
-inline void FrameLengthControllerV2::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&min_payload_bitrate_bps_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&use_slow_adaptation_) -
-    reinterpret_cast<char*>(&min_payload_bitrate_bps_)) + sizeof(use_slow_adaptation_));
+inline void FrameLengthControllerV2::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.min_payload_bitrate_bps_){0}
+    , decltype(_impl_.use_slow_adaptation_){false}
+  };
 }
 
 FrameLengthControllerV2::~FrameLengthControllerV2() {
@@ -1841,7 +1963,7 @@ inline void FrameLengthControllerV2::SharedDtor() {
 }
 
 void FrameLengthControllerV2::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FrameLengthControllerV2::Clear() {
@@ -1850,13 +1972,13 @@ void FrameLengthControllerV2::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&min_payload_bitrate_bps_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&use_slow_adaptation_) -
-        reinterpret_cast<char*>(&min_payload_bitrate_bps_)) + sizeof(use_slow_adaptation_));
+    ::memset(&_impl_.min_payload_bitrate_bps_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.use_slow_adaptation_) -
+        reinterpret_cast<char*>(&_impl_.min_payload_bitrate_bps_)) + sizeof(_impl_.use_slow_adaptation_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1871,7 +1993,7 @@ const char* FrameLengthControllerV2::_InternalParse(const char* ptr, ::_pbi::Par
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_min_payload_bitrate_bps(&has_bits);
-          min_payload_bitrate_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.min_payload_bitrate_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1880,7 +2002,7 @@ const char* FrameLengthControllerV2::_InternalParse(const char* ptr, ::_pbi::Par
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_use_slow_adaptation(&has_bits);
-          use_slow_adaptation_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.use_slow_adaptation_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1901,7 +2023,7 @@ const char* FrameLengthControllerV2::_InternalParse(const char* ptr, ::_pbi::Par
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1915,7 +2037,7 @@ uint8_t* FrameLengthControllerV2::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 min_payload_bitrate_bps = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -1944,7 +2066,7 @@ size_t FrameLengthControllerV2::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional int32 min_payload_bitrate_bps = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -1972,22 +2094,23 @@ void FrameLengthControllerV2::CheckTypeAndMergeFrom(
 }
 
 void FrameLengthControllerV2::MergeFrom(const FrameLengthControllerV2& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.FrameLengthControllerV2)
-  GOOGLE_DCHECK_NE(&from, this);
+  FrameLengthControllerV2* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.FrameLengthControllerV2)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      min_payload_bitrate_bps_ = from.min_payload_bitrate_bps_;
+      _this->_impl_.min_payload_bitrate_bps_ = from._impl_.min_payload_bitrate_bps_;
     }
     if (cached_has_bits & 0x00000002u) {
-      use_slow_adaptation_ = from.use_slow_adaptation_;
+      _this->_impl_.use_slow_adaptation_ = from._impl_.use_slow_adaptation_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FrameLengthControllerV2::CopyFrom(const FrameLengthControllerV2& from) {
@@ -2004,13 +2127,13 @@ bool FrameLengthControllerV2::IsInitialized() const {
 void FrameLengthControllerV2::InternalSwap(FrameLengthControllerV2* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(FrameLengthControllerV2, use_slow_adaptation_)
-      + sizeof(FrameLengthControllerV2::use_slow_adaptation_)
-      - PROTOBUF_FIELD_OFFSET(FrameLengthControllerV2, min_payload_bitrate_bps_)>(
-          reinterpret_cast<char*>(&min_payload_bitrate_bps_),
-          reinterpret_cast<char*>(&other->min_payload_bitrate_bps_));
+      PROTOBUF_FIELD_OFFSET(FrameLengthControllerV2, _impl_.use_slow_adaptation_)
+      + sizeof(FrameLengthControllerV2::_impl_.use_slow_adaptation_)
+      - PROTOBUF_FIELD_OFFSET(FrameLengthControllerV2, _impl_.min_payload_bitrate_bps_)>(
+          reinterpret_cast<char*>(&_impl_.min_payload_bitrate_bps_),
+          reinterpret_cast<char*>(&other->_impl_.min_payload_bitrate_bps_));
 }
 
 std::string FrameLengthControllerV2::GetTypeName() const {
@@ -2022,7 +2145,7 @@ std::string FrameLengthControllerV2::GetTypeName() const {
 
 class ChannelController::_Internal {
  public:
-  using HasBits = decltype(std::declval<ChannelController>()._has_bits_);
+  using HasBits = decltype(std::declval<ChannelController>()._impl_._has_bits_);
   static void set_has_channel_1_to_2_bandwidth_bps(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2034,24 +2157,35 @@ class ChannelController::_Internal {
 ChannelController::ChannelController(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:webrtc.audio_network_adaptor.config.ChannelController)
 }
 ChannelController::ChannelController(const ChannelController& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ChannelController* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.channel_1_to_2_bandwidth_bps_){}
+    , decltype(_impl_.channel_2_to_1_bandwidth_bps_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&channel_1_to_2_bandwidth_bps_, &from.channel_1_to_2_bandwidth_bps_,
-    static_cast<size_t>(reinterpret_cast<char*>(&channel_2_to_1_bandwidth_bps_) -
-    reinterpret_cast<char*>(&channel_1_to_2_bandwidth_bps_)) + sizeof(channel_2_to_1_bandwidth_bps_));
+  ::memcpy(&_impl_.channel_1_to_2_bandwidth_bps_, &from._impl_.channel_1_to_2_bandwidth_bps_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.channel_2_to_1_bandwidth_bps_) -
+    reinterpret_cast<char*>(&_impl_.channel_1_to_2_bandwidth_bps_)) + sizeof(_impl_.channel_2_to_1_bandwidth_bps_));
   // @@protoc_insertion_point(copy_constructor:webrtc.audio_network_adaptor.config.ChannelController)
 }
 
-inline void ChannelController::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&channel_1_to_2_bandwidth_bps_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&channel_2_to_1_bandwidth_bps_) -
-    reinterpret_cast<char*>(&channel_1_to_2_bandwidth_bps_)) + sizeof(channel_2_to_1_bandwidth_bps_));
+inline void ChannelController::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.channel_1_to_2_bandwidth_bps_){0}
+    , decltype(_impl_.channel_2_to_1_bandwidth_bps_){0}
+  };
 }
 
 ChannelController::~ChannelController() {
@@ -2068,7 +2202,7 @@ inline void ChannelController::SharedDtor() {
 }
 
 void ChannelController::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ChannelController::Clear() {
@@ -2077,13 +2211,13 @@ void ChannelController::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&channel_1_to_2_bandwidth_bps_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&channel_2_to_1_bandwidth_bps_) -
-        reinterpret_cast<char*>(&channel_1_to_2_bandwidth_bps_)) + sizeof(channel_2_to_1_bandwidth_bps_));
+    ::memset(&_impl_.channel_1_to_2_bandwidth_bps_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.channel_2_to_1_bandwidth_bps_) -
+        reinterpret_cast<char*>(&_impl_.channel_1_to_2_bandwidth_bps_)) + sizeof(_impl_.channel_2_to_1_bandwidth_bps_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -2098,7 +2232,7 @@ const char* ChannelController::_InternalParse(const char* ptr, ::_pbi::ParseCont
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_channel_1_to_2_bandwidth_bps(&has_bits);
-          channel_1_to_2_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.channel_1_to_2_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2107,7 +2241,7 @@ const char* ChannelController::_InternalParse(const char* ptr, ::_pbi::ParseCont
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_channel_2_to_1_bandwidth_bps(&has_bits);
-          channel_2_to_1_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.channel_2_to_1_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2128,7 +2262,7 @@ const char* ChannelController::_InternalParse(const char* ptr, ::_pbi::ParseCont
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2142,7 +2276,7 @@ uint8_t* ChannelController::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 channel_1_to_2_bandwidth_bps = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -2171,7 +2305,7 @@ size_t ChannelController::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional int32 channel_1_to_2_bandwidth_bps = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -2199,22 +2333,23 @@ void ChannelController::CheckTypeAndMergeFrom(
 }
 
 void ChannelController::MergeFrom(const ChannelController& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.ChannelController)
-  GOOGLE_DCHECK_NE(&from, this);
+  ChannelController* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.ChannelController)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      channel_1_to_2_bandwidth_bps_ = from.channel_1_to_2_bandwidth_bps_;
+      _this->_impl_.channel_1_to_2_bandwidth_bps_ = from._impl_.channel_1_to_2_bandwidth_bps_;
     }
     if (cached_has_bits & 0x00000002u) {
-      channel_2_to_1_bandwidth_bps_ = from.channel_2_to_1_bandwidth_bps_;
+      _this->_impl_.channel_2_to_1_bandwidth_bps_ = from._impl_.channel_2_to_1_bandwidth_bps_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ChannelController::CopyFrom(const ChannelController& from) {
@@ -2231,13 +2366,13 @@ bool ChannelController::IsInitialized() const {
 void ChannelController::InternalSwap(ChannelController* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChannelController, channel_2_to_1_bandwidth_bps_)
-      + sizeof(ChannelController::channel_2_to_1_bandwidth_bps_)
-      - PROTOBUF_FIELD_OFFSET(ChannelController, channel_1_to_2_bandwidth_bps_)>(
-          reinterpret_cast<char*>(&channel_1_to_2_bandwidth_bps_),
-          reinterpret_cast<char*>(&other->channel_1_to_2_bandwidth_bps_));
+      PROTOBUF_FIELD_OFFSET(ChannelController, _impl_.channel_2_to_1_bandwidth_bps_)
+      + sizeof(ChannelController::_impl_.channel_2_to_1_bandwidth_bps_)
+      - PROTOBUF_FIELD_OFFSET(ChannelController, _impl_.channel_1_to_2_bandwidth_bps_)>(
+          reinterpret_cast<char*>(&_impl_.channel_1_to_2_bandwidth_bps_),
+          reinterpret_cast<char*>(&other->_impl_.channel_1_to_2_bandwidth_bps_));
 }
 
 std::string ChannelController::GetTypeName() const {
@@ -2249,7 +2384,7 @@ std::string ChannelController::GetTypeName() const {
 
 class DtxController::_Internal {
  public:
-  using HasBits = decltype(std::declval<DtxController>()._has_bits_);
+  using HasBits = decltype(std::declval<DtxController>()._impl_._has_bits_);
   static void set_has_dtx_enabling_bandwidth_bps(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2261,24 +2396,35 @@ class DtxController::_Internal {
 DtxController::DtxController(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:webrtc.audio_network_adaptor.config.DtxController)
 }
 DtxController::DtxController(const DtxController& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DtxController* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.dtx_enabling_bandwidth_bps_){}
+    , decltype(_impl_.dtx_disabling_bandwidth_bps_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&dtx_enabling_bandwidth_bps_, &from.dtx_enabling_bandwidth_bps_,
-    static_cast<size_t>(reinterpret_cast<char*>(&dtx_disabling_bandwidth_bps_) -
-    reinterpret_cast<char*>(&dtx_enabling_bandwidth_bps_)) + sizeof(dtx_disabling_bandwidth_bps_));
+  ::memcpy(&_impl_.dtx_enabling_bandwidth_bps_, &from._impl_.dtx_enabling_bandwidth_bps_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.dtx_disabling_bandwidth_bps_) -
+    reinterpret_cast<char*>(&_impl_.dtx_enabling_bandwidth_bps_)) + sizeof(_impl_.dtx_disabling_bandwidth_bps_));
   // @@protoc_insertion_point(copy_constructor:webrtc.audio_network_adaptor.config.DtxController)
 }
 
-inline void DtxController::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&dtx_enabling_bandwidth_bps_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&dtx_disabling_bandwidth_bps_) -
-    reinterpret_cast<char*>(&dtx_enabling_bandwidth_bps_)) + sizeof(dtx_disabling_bandwidth_bps_));
+inline void DtxController::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.dtx_enabling_bandwidth_bps_){0}
+    , decltype(_impl_.dtx_disabling_bandwidth_bps_){0}
+  };
 }
 
 DtxController::~DtxController() {
@@ -2295,7 +2441,7 @@ inline void DtxController::SharedDtor() {
 }
 
 void DtxController::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void DtxController::Clear() {
@@ -2304,13 +2450,13 @@ void DtxController::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&dtx_enabling_bandwidth_bps_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&dtx_disabling_bandwidth_bps_) -
-        reinterpret_cast<char*>(&dtx_enabling_bandwidth_bps_)) + sizeof(dtx_disabling_bandwidth_bps_));
+    ::memset(&_impl_.dtx_enabling_bandwidth_bps_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.dtx_disabling_bandwidth_bps_) -
+        reinterpret_cast<char*>(&_impl_.dtx_enabling_bandwidth_bps_)) + sizeof(_impl_.dtx_disabling_bandwidth_bps_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -2325,7 +2471,7 @@ const char* DtxController::_InternalParse(const char* ptr, ::_pbi::ParseContext*
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_dtx_enabling_bandwidth_bps(&has_bits);
-          dtx_enabling_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.dtx_enabling_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2334,7 +2480,7 @@ const char* DtxController::_InternalParse(const char* ptr, ::_pbi::ParseContext*
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_dtx_disabling_bandwidth_bps(&has_bits);
-          dtx_disabling_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.dtx_disabling_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2355,7 +2501,7 @@ const char* DtxController::_InternalParse(const char* ptr, ::_pbi::ParseContext*
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2369,7 +2515,7 @@ uint8_t* DtxController::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 dtx_enabling_bandwidth_bps = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -2398,7 +2544,7 @@ size_t DtxController::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional int32 dtx_enabling_bandwidth_bps = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -2426,22 +2572,23 @@ void DtxController::CheckTypeAndMergeFrom(
 }
 
 void DtxController::MergeFrom(const DtxController& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.DtxController)
-  GOOGLE_DCHECK_NE(&from, this);
+  DtxController* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.DtxController)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      dtx_enabling_bandwidth_bps_ = from.dtx_enabling_bandwidth_bps_;
+      _this->_impl_.dtx_enabling_bandwidth_bps_ = from._impl_.dtx_enabling_bandwidth_bps_;
     }
     if (cached_has_bits & 0x00000002u) {
-      dtx_disabling_bandwidth_bps_ = from.dtx_disabling_bandwidth_bps_;
+      _this->_impl_.dtx_disabling_bandwidth_bps_ = from._impl_.dtx_disabling_bandwidth_bps_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void DtxController::CopyFrom(const DtxController& from) {
@@ -2458,13 +2605,13 @@ bool DtxController::IsInitialized() const {
 void DtxController::InternalSwap(DtxController* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DtxController, dtx_disabling_bandwidth_bps_)
-      + sizeof(DtxController::dtx_disabling_bandwidth_bps_)
-      - PROTOBUF_FIELD_OFFSET(DtxController, dtx_enabling_bandwidth_bps_)>(
-          reinterpret_cast<char*>(&dtx_enabling_bandwidth_bps_),
-          reinterpret_cast<char*>(&other->dtx_enabling_bandwidth_bps_));
+      PROTOBUF_FIELD_OFFSET(DtxController, _impl_.dtx_disabling_bandwidth_bps_)
+      + sizeof(DtxController::_impl_.dtx_disabling_bandwidth_bps_)
+      - PROTOBUF_FIELD_OFFSET(DtxController, _impl_.dtx_enabling_bandwidth_bps_)>(
+          reinterpret_cast<char*>(&_impl_.dtx_enabling_bandwidth_bps_),
+          reinterpret_cast<char*>(&other->_impl_.dtx_enabling_bandwidth_bps_));
 }
 
 std::string DtxController::GetTypeName() const {
@@ -2476,7 +2623,7 @@ std::string DtxController::GetTypeName() const {
 
 class BitrateController::_Internal {
  public:
-  using HasBits = decltype(std::declval<BitrateController>()._has_bits_);
+  using HasBits = decltype(std::declval<BitrateController>()._impl_._has_bits_);
   static void set_has_fl_increase_overhead_offset(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2488,24 +2635,35 @@ class BitrateController::_Internal {
 BitrateController::BitrateController(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:webrtc.audio_network_adaptor.config.BitrateController)
 }
 BitrateController::BitrateController(const BitrateController& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  BitrateController* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.fl_increase_overhead_offset_){}
+    , decltype(_impl_.fl_decrease_overhead_offset_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&fl_increase_overhead_offset_, &from.fl_increase_overhead_offset_,
-    static_cast<size_t>(reinterpret_cast<char*>(&fl_decrease_overhead_offset_) -
-    reinterpret_cast<char*>(&fl_increase_overhead_offset_)) + sizeof(fl_decrease_overhead_offset_));
+  ::memcpy(&_impl_.fl_increase_overhead_offset_, &from._impl_.fl_increase_overhead_offset_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.fl_decrease_overhead_offset_) -
+    reinterpret_cast<char*>(&_impl_.fl_increase_overhead_offset_)) + sizeof(_impl_.fl_decrease_overhead_offset_));
   // @@protoc_insertion_point(copy_constructor:webrtc.audio_network_adaptor.config.BitrateController)
 }
 
-inline void BitrateController::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&fl_increase_overhead_offset_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&fl_decrease_overhead_offset_) -
-    reinterpret_cast<char*>(&fl_increase_overhead_offset_)) + sizeof(fl_decrease_overhead_offset_));
+inline void BitrateController::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.fl_increase_overhead_offset_){0}
+    , decltype(_impl_.fl_decrease_overhead_offset_){0}
+  };
 }
 
 BitrateController::~BitrateController() {
@@ -2522,7 +2680,7 @@ inline void BitrateController::SharedDtor() {
 }
 
 void BitrateController::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void BitrateController::Clear() {
@@ -2531,13 +2689,13 @@ void BitrateController::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&fl_increase_overhead_offset_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&fl_decrease_overhead_offset_) -
-        reinterpret_cast<char*>(&fl_increase_overhead_offset_)) + sizeof(fl_decrease_overhead_offset_));
+    ::memset(&_impl_.fl_increase_overhead_offset_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.fl_decrease_overhead_offset_) -
+        reinterpret_cast<char*>(&_impl_.fl_increase_overhead_offset_)) + sizeof(_impl_.fl_decrease_overhead_offset_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -2552,7 +2710,7 @@ const char* BitrateController::_InternalParse(const char* ptr, ::_pbi::ParseCont
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_fl_increase_overhead_offset(&has_bits);
-          fl_increase_overhead_offset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.fl_increase_overhead_offset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2561,7 +2719,7 @@ const char* BitrateController::_InternalParse(const char* ptr, ::_pbi::ParseCont
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_fl_decrease_overhead_offset(&has_bits);
-          fl_decrease_overhead_offset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.fl_decrease_overhead_offset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2582,7 +2740,7 @@ const char* BitrateController::_InternalParse(const char* ptr, ::_pbi::ParseCont
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2596,7 +2754,7 @@ uint8_t* BitrateController::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 fl_increase_overhead_offset = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -2625,7 +2783,7 @@ size_t BitrateController::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional int32 fl_increase_overhead_offset = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -2653,22 +2811,23 @@ void BitrateController::CheckTypeAndMergeFrom(
 }
 
 void BitrateController::MergeFrom(const BitrateController& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.BitrateController)
-  GOOGLE_DCHECK_NE(&from, this);
+  BitrateController* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.BitrateController)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      fl_increase_overhead_offset_ = from.fl_increase_overhead_offset_;
+      _this->_impl_.fl_increase_overhead_offset_ = from._impl_.fl_increase_overhead_offset_;
     }
     if (cached_has_bits & 0x00000002u) {
-      fl_decrease_overhead_offset_ = from.fl_decrease_overhead_offset_;
+      _this->_impl_.fl_decrease_overhead_offset_ = from._impl_.fl_decrease_overhead_offset_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void BitrateController::CopyFrom(const BitrateController& from) {
@@ -2685,13 +2844,13 @@ bool BitrateController::IsInitialized() const {
 void BitrateController::InternalSwap(BitrateController* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(BitrateController, fl_decrease_overhead_offset_)
-      + sizeof(BitrateController::fl_decrease_overhead_offset_)
-      - PROTOBUF_FIELD_OFFSET(BitrateController, fl_increase_overhead_offset_)>(
-          reinterpret_cast<char*>(&fl_increase_overhead_offset_),
-          reinterpret_cast<char*>(&other->fl_increase_overhead_offset_));
+      PROTOBUF_FIELD_OFFSET(BitrateController, _impl_.fl_decrease_overhead_offset_)
+      + sizeof(BitrateController::_impl_.fl_decrease_overhead_offset_)
+      - PROTOBUF_FIELD_OFFSET(BitrateController, _impl_.fl_increase_overhead_offset_)>(
+          reinterpret_cast<char*>(&_impl_.fl_increase_overhead_offset_),
+          reinterpret_cast<char*>(&other->_impl_.fl_increase_overhead_offset_));
 }
 
 std::string BitrateController::GetTypeName() const {
@@ -2703,7 +2862,7 @@ std::string BitrateController::GetTypeName() const {
 
 class Controller_ScoringPoint::_Internal {
  public:
-  using HasBits = decltype(std::declval<Controller_ScoringPoint>()._has_bits_);
+  using HasBits = decltype(std::declval<Controller_ScoringPoint>()._impl_._has_bits_);
   static void set_has_uplink_bandwidth_bps(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2715,24 +2874,35 @@ class Controller_ScoringPoint::_Internal {
 Controller_ScoringPoint::Controller_ScoringPoint(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:webrtc.audio_network_adaptor.config.Controller.ScoringPoint)
 }
 Controller_ScoringPoint::Controller_ScoringPoint(const Controller_ScoringPoint& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  Controller_ScoringPoint* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.uplink_bandwidth_bps_){}
+    , decltype(_impl_.uplink_packet_loss_fraction_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&uplink_bandwidth_bps_, &from.uplink_bandwidth_bps_,
-    static_cast<size_t>(reinterpret_cast<char*>(&uplink_packet_loss_fraction_) -
-    reinterpret_cast<char*>(&uplink_bandwidth_bps_)) + sizeof(uplink_packet_loss_fraction_));
+  ::memcpy(&_impl_.uplink_bandwidth_bps_, &from._impl_.uplink_bandwidth_bps_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.uplink_packet_loss_fraction_) -
+    reinterpret_cast<char*>(&_impl_.uplink_bandwidth_bps_)) + sizeof(_impl_.uplink_packet_loss_fraction_));
   // @@protoc_insertion_point(copy_constructor:webrtc.audio_network_adaptor.config.Controller.ScoringPoint)
 }
 
-inline void Controller_ScoringPoint::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&uplink_bandwidth_bps_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&uplink_packet_loss_fraction_) -
-    reinterpret_cast<char*>(&uplink_bandwidth_bps_)) + sizeof(uplink_packet_loss_fraction_));
+inline void Controller_ScoringPoint::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.uplink_bandwidth_bps_){0}
+    , decltype(_impl_.uplink_packet_loss_fraction_){0}
+  };
 }
 
 Controller_ScoringPoint::~Controller_ScoringPoint() {
@@ -2749,7 +2919,7 @@ inline void Controller_ScoringPoint::SharedDtor() {
 }
 
 void Controller_ScoringPoint::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Controller_ScoringPoint::Clear() {
@@ -2758,13 +2928,13 @@ void Controller_ScoringPoint::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&uplink_bandwidth_bps_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&uplink_packet_loss_fraction_) -
-        reinterpret_cast<char*>(&uplink_bandwidth_bps_)) + sizeof(uplink_packet_loss_fraction_));
+    ::memset(&_impl_.uplink_bandwidth_bps_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.uplink_packet_loss_fraction_) -
+        reinterpret_cast<char*>(&_impl_.uplink_bandwidth_bps_)) + sizeof(_impl_.uplink_packet_loss_fraction_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -2779,7 +2949,7 @@ const char* Controller_ScoringPoint::_InternalParse(const char* ptr, ::_pbi::Par
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_uplink_bandwidth_bps(&has_bits);
-          uplink_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.uplink_bandwidth_bps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2788,7 +2958,7 @@ const char* Controller_ScoringPoint::_InternalParse(const char* ptr, ::_pbi::Par
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           _Internal::set_has_uplink_packet_loss_fraction(&has_bits);
-          uplink_packet_loss_fraction_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.uplink_packet_loss_fraction_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -2809,7 +2979,7 @@ const char* Controller_ScoringPoint::_InternalParse(const char* ptr, ::_pbi::Par
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2823,7 +2993,7 @@ uint8_t* Controller_ScoringPoint::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 uplink_bandwidth_bps = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -2852,7 +3022,7 @@ size_t Controller_ScoringPoint::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional int32 uplink_bandwidth_bps = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -2880,22 +3050,23 @@ void Controller_ScoringPoint::CheckTypeAndMergeFrom(
 }
 
 void Controller_ScoringPoint::MergeFrom(const Controller_ScoringPoint& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.Controller.ScoringPoint)
-  GOOGLE_DCHECK_NE(&from, this);
+  Controller_ScoringPoint* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.Controller.ScoringPoint)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      uplink_bandwidth_bps_ = from.uplink_bandwidth_bps_;
+      _this->_impl_.uplink_bandwidth_bps_ = from._impl_.uplink_bandwidth_bps_;
     }
     if (cached_has_bits & 0x00000002u) {
-      uplink_packet_loss_fraction_ = from.uplink_packet_loss_fraction_;
+      _this->_impl_.uplink_packet_loss_fraction_ = from._impl_.uplink_packet_loss_fraction_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Controller_ScoringPoint::CopyFrom(const Controller_ScoringPoint& from) {
@@ -2912,13 +3083,13 @@ bool Controller_ScoringPoint::IsInitialized() const {
 void Controller_ScoringPoint::InternalSwap(Controller_ScoringPoint* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Controller_ScoringPoint, uplink_packet_loss_fraction_)
-      + sizeof(Controller_ScoringPoint::uplink_packet_loss_fraction_)
-      - PROTOBUF_FIELD_OFFSET(Controller_ScoringPoint, uplink_bandwidth_bps_)>(
-          reinterpret_cast<char*>(&uplink_bandwidth_bps_),
-          reinterpret_cast<char*>(&other->uplink_bandwidth_bps_));
+      PROTOBUF_FIELD_OFFSET(Controller_ScoringPoint, _impl_.uplink_packet_loss_fraction_)
+      + sizeof(Controller_ScoringPoint::_impl_.uplink_packet_loss_fraction_)
+      - PROTOBUF_FIELD_OFFSET(Controller_ScoringPoint, _impl_.uplink_bandwidth_bps_)>(
+          reinterpret_cast<char*>(&_impl_.uplink_bandwidth_bps_),
+          reinterpret_cast<char*>(&other->_impl_.uplink_bandwidth_bps_));
 }
 
 std::string Controller_ScoringPoint::GetTypeName() const {
@@ -2930,7 +3101,7 @@ std::string Controller_ScoringPoint::GetTypeName() const {
 
 class Controller::_Internal {
  public:
-  using HasBits = decltype(std::declval<Controller>()._has_bits_);
+  using HasBits = decltype(std::declval<Controller>()._impl_._has_bits_);
   static const ::webrtc::audio_network_adaptor::config::Controller_ScoringPoint& scoring_point(const Controller* msg);
   static void set_has_scoring_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -2946,35 +3117,35 @@ class Controller::_Internal {
 
 const ::webrtc::audio_network_adaptor::config::Controller_ScoringPoint&
 Controller::_Internal::scoring_point(const Controller* msg) {
-  return *msg->scoring_point_;
+  return *msg->_impl_.scoring_point_;
 }
 const ::webrtc::audio_network_adaptor::config::FecController&
 Controller::_Internal::fec_controller(const Controller* msg) {
-  return *msg->controller_.fec_controller_;
+  return *msg->_impl_.controller_.fec_controller_;
 }
 const ::webrtc::audio_network_adaptor::config::FrameLengthController&
 Controller::_Internal::frame_length_controller(const Controller* msg) {
-  return *msg->controller_.frame_length_controller_;
+  return *msg->_impl_.controller_.frame_length_controller_;
 }
 const ::webrtc::audio_network_adaptor::config::ChannelController&
 Controller::_Internal::channel_controller(const Controller* msg) {
-  return *msg->controller_.channel_controller_;
+  return *msg->_impl_.controller_.channel_controller_;
 }
 const ::webrtc::audio_network_adaptor::config::DtxController&
 Controller::_Internal::dtx_controller(const Controller* msg) {
-  return *msg->controller_.dtx_controller_;
+  return *msg->_impl_.controller_.dtx_controller_;
 }
 const ::webrtc::audio_network_adaptor::config::BitrateController&
 Controller::_Internal::bitrate_controller(const Controller* msg) {
-  return *msg->controller_.bitrate_controller_;
+  return *msg->_impl_.controller_.bitrate_controller_;
 }
 const ::webrtc::audio_network_adaptor::config::FecControllerRplrBased&
 Controller::_Internal::fec_controller_rplr_based(const Controller* msg) {
-  return *msg->controller_.fec_controller_rplr_based_;
+  return *msg->_impl_.controller_.fec_controller_rplr_based_;
 }
 const ::webrtc::audio_network_adaptor::config::FrameLengthControllerV2&
 Controller::_Internal::frame_length_controller_v2(const Controller* msg) {
-  return *msg->controller_.frame_length_controller_v2_;
+  return *msg->_impl_.controller_.frame_length_controller_v2_;
 }
 void Controller::set_allocated_fec_controller(::webrtc::audio_network_adaptor::config::FecController* fec_controller) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -2987,7 +3158,7 @@ void Controller::set_allocated_fec_controller(::webrtc::audio_network_adaptor::c
           message_arena, fec_controller, submessage_arena);
     }
     set_has_fec_controller();
-    controller_.fec_controller_ = fec_controller;
+    _impl_.controller_.fec_controller_ = fec_controller;
   }
   // @@protoc_insertion_point(field_set_allocated:webrtc.audio_network_adaptor.config.Controller.fec_controller)
 }
@@ -3002,7 +3173,7 @@ void Controller::set_allocated_frame_length_controller(::webrtc::audio_network_a
           message_arena, frame_length_controller, submessage_arena);
     }
     set_has_frame_length_controller();
-    controller_.frame_length_controller_ = frame_length_controller;
+    _impl_.controller_.frame_length_controller_ = frame_length_controller;
   }
   // @@protoc_insertion_point(field_set_allocated:webrtc.audio_network_adaptor.config.Controller.frame_length_controller)
 }
@@ -3017,7 +3188,7 @@ void Controller::set_allocated_channel_controller(::webrtc::audio_network_adapto
           message_arena, channel_controller, submessage_arena);
     }
     set_has_channel_controller();
-    controller_.channel_controller_ = channel_controller;
+    _impl_.controller_.channel_controller_ = channel_controller;
   }
   // @@protoc_insertion_point(field_set_allocated:webrtc.audio_network_adaptor.config.Controller.channel_controller)
 }
@@ -3032,7 +3203,7 @@ void Controller::set_allocated_dtx_controller(::webrtc::audio_network_adaptor::c
           message_arena, dtx_controller, submessage_arena);
     }
     set_has_dtx_controller();
-    controller_.dtx_controller_ = dtx_controller;
+    _impl_.controller_.dtx_controller_ = dtx_controller;
   }
   // @@protoc_insertion_point(field_set_allocated:webrtc.audio_network_adaptor.config.Controller.dtx_controller)
 }
@@ -3047,7 +3218,7 @@ void Controller::set_allocated_bitrate_controller(::webrtc::audio_network_adapto
           message_arena, bitrate_controller, submessage_arena);
     }
     set_has_bitrate_controller();
-    controller_.bitrate_controller_ = bitrate_controller;
+    _impl_.controller_.bitrate_controller_ = bitrate_controller;
   }
   // @@protoc_insertion_point(field_set_allocated:webrtc.audio_network_adaptor.config.Controller.bitrate_controller)
 }
@@ -3062,7 +3233,7 @@ void Controller::set_allocated_fec_controller_rplr_based(::webrtc::audio_network
           message_arena, fec_controller_rplr_based, submessage_arena);
     }
     set_has_fec_controller_rplr_based();
-    controller_.fec_controller_rplr_based_ = fec_controller_rplr_based;
+    _impl_.controller_.fec_controller_rplr_based_ = fec_controller_rplr_based;
   }
   // @@protoc_insertion_point(field_set_allocated:webrtc.audio_network_adaptor.config.Controller.fec_controller_rplr_based)
 }
@@ -3077,53 +3248,65 @@ void Controller::set_allocated_frame_length_controller_v2(::webrtc::audio_networ
           message_arena, frame_length_controller_v2, submessage_arena);
     }
     set_has_frame_length_controller_v2();
-    controller_.frame_length_controller_v2_ = frame_length_controller_v2;
+    _impl_.controller_.frame_length_controller_v2_ = frame_length_controller_v2;
   }
   // @@protoc_insertion_point(field_set_allocated:webrtc.audio_network_adaptor.config.Controller.frame_length_controller_v2)
 }
 Controller::Controller(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:webrtc.audio_network_adaptor.config.Controller)
 }
 Controller::Controller(const Controller& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  Controller* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.scoring_point_){nullptr}
+    , decltype(_impl_.controller_){}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_scoring_point()) {
-    scoring_point_ = new ::webrtc::audio_network_adaptor::config::Controller_ScoringPoint(*from.scoring_point_);
-  } else {
-    scoring_point_ = nullptr;
+    _this->_impl_.scoring_point_ = new ::webrtc::audio_network_adaptor::config::Controller_ScoringPoint(*from._impl_.scoring_point_);
   }
   clear_has_controller();
   switch (from.controller_case()) {
     case kFecController: {
-      _internal_mutable_fec_controller()->::webrtc::audio_network_adaptor::config::FecController::MergeFrom(from._internal_fec_controller());
+      _this->_internal_mutable_fec_controller()->::webrtc::audio_network_adaptor::config::FecController::MergeFrom(
+          from._internal_fec_controller());
       break;
     }
     case kFrameLengthController: {
-      _internal_mutable_frame_length_controller()->::webrtc::audio_network_adaptor::config::FrameLengthController::MergeFrom(from._internal_frame_length_controller());
+      _this->_internal_mutable_frame_length_controller()->::webrtc::audio_network_adaptor::config::FrameLengthController::MergeFrom(
+          from._internal_frame_length_controller());
       break;
     }
     case kChannelController: {
-      _internal_mutable_channel_controller()->::webrtc::audio_network_adaptor::config::ChannelController::MergeFrom(from._internal_channel_controller());
+      _this->_internal_mutable_channel_controller()->::webrtc::audio_network_adaptor::config::ChannelController::MergeFrom(
+          from._internal_channel_controller());
       break;
     }
     case kDtxController: {
-      _internal_mutable_dtx_controller()->::webrtc::audio_network_adaptor::config::DtxController::MergeFrom(from._internal_dtx_controller());
+      _this->_internal_mutable_dtx_controller()->::webrtc::audio_network_adaptor::config::DtxController::MergeFrom(
+          from._internal_dtx_controller());
       break;
     }
     case kBitrateController: {
-      _internal_mutable_bitrate_controller()->::webrtc::audio_network_adaptor::config::BitrateController::MergeFrom(from._internal_bitrate_controller());
+      _this->_internal_mutable_bitrate_controller()->::webrtc::audio_network_adaptor::config::BitrateController::MergeFrom(
+          from._internal_bitrate_controller());
       break;
     }
     case kFecControllerRplrBased: {
-      _internal_mutable_fec_controller_rplr_based()->::webrtc::audio_network_adaptor::config::FecControllerRplrBased::MergeFrom(from._internal_fec_controller_rplr_based());
+      _this->_internal_mutable_fec_controller_rplr_based()->::webrtc::audio_network_adaptor::config::FecControllerRplrBased::MergeFrom(
+          from._internal_fec_controller_rplr_based());
       break;
     }
     case kFrameLengthControllerV2: {
-      _internal_mutable_frame_length_controller_v2()->::webrtc::audio_network_adaptor::config::FrameLengthControllerV2::MergeFrom(from._internal_frame_length_controller_v2());
+      _this->_internal_mutable_frame_length_controller_v2()->::webrtc::audio_network_adaptor::config::FrameLengthControllerV2::MergeFrom(
+          from._internal_frame_length_controller_v2());
       break;
     }
     case CONTROLLER_NOT_SET: {
@@ -3133,9 +3316,18 @@ Controller::Controller(const Controller& from)
   // @@protoc_insertion_point(copy_constructor:webrtc.audio_network_adaptor.config.Controller)
 }
 
-inline void Controller::SharedCtor() {
-scoring_point_ = nullptr;
-clear_has_controller();
+inline void Controller::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.scoring_point_){nullptr}
+    , decltype(_impl_.controller_){}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_controller();
 }
 
 Controller::~Controller() {
@@ -3149,14 +3341,14 @@ Controller::~Controller() {
 
 inline void Controller::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete scoring_point_;
+  if (this != internal_default_instance()) delete _impl_.scoring_point_;
   if (has_controller()) {
     clear_controller();
   }
 }
 
 void Controller::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Controller::clear_controller() {
@@ -3164,43 +3356,43 @@ void Controller::clear_controller() {
   switch (controller_case()) {
     case kFecController: {
       if (GetArenaForAllocation() == nullptr) {
-        delete controller_.fec_controller_;
+        delete _impl_.controller_.fec_controller_;
       }
       break;
     }
     case kFrameLengthController: {
       if (GetArenaForAllocation() == nullptr) {
-        delete controller_.frame_length_controller_;
+        delete _impl_.controller_.frame_length_controller_;
       }
       break;
     }
     case kChannelController: {
       if (GetArenaForAllocation() == nullptr) {
-        delete controller_.channel_controller_;
+        delete _impl_.controller_.channel_controller_;
       }
       break;
     }
     case kDtxController: {
       if (GetArenaForAllocation() == nullptr) {
-        delete controller_.dtx_controller_;
+        delete _impl_.controller_.dtx_controller_;
       }
       break;
     }
     case kBitrateController: {
       if (GetArenaForAllocation() == nullptr) {
-        delete controller_.bitrate_controller_;
+        delete _impl_.controller_.bitrate_controller_;
       }
       break;
     }
     case kFecControllerRplrBased: {
       if (GetArenaForAllocation() == nullptr) {
-        delete controller_.fec_controller_rplr_based_;
+        delete _impl_.controller_.fec_controller_rplr_based_;
       }
       break;
     }
     case kFrameLengthControllerV2: {
       if (GetArenaForAllocation() == nullptr) {
-        delete controller_.frame_length_controller_v2_;
+        delete _impl_.controller_.frame_length_controller_v2_;
       }
       break;
     }
@@ -3208,7 +3400,7 @@ void Controller::clear_controller() {
       break;
     }
   }
-  _oneof_case_[0] = CONTROLLER_NOT_SET;
+  _impl_._oneof_case_[0] = CONTROLLER_NOT_SET;
 }
 
 
@@ -3218,13 +3410,13 @@ void Controller::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(scoring_point_ != nullptr);
-    scoring_point_->Clear();
+    GOOGLE_DCHECK(_impl_.scoring_point_ != nullptr);
+    _impl_.scoring_point_->Clear();
   }
   clear_controller();
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3315,7 +3507,7 @@ const char* Controller::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3329,7 +3521,7 @@ uint8_t* Controller::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .webrtc.audio_network_adaptor.config.Controller.ScoringPoint scoring_point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -3399,11 +3591,11 @@ size_t Controller::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional .webrtc.audio_network_adaptor.config.Controller.ScoringPoint scoring_point = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *scoring_point_);
+        *_impl_.scoring_point_);
   }
 
   switch (controller_case()) {
@@ -3411,49 +3603,49 @@ size_t Controller::ByteSizeLong() const {
     case kFecController: {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *controller_.fec_controller_);
+          *_impl_.controller_.fec_controller_);
       break;
     }
     // .webrtc.audio_network_adaptor.config.FrameLengthController frame_length_controller = 22;
     case kFrameLengthController: {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *controller_.frame_length_controller_);
+          *_impl_.controller_.frame_length_controller_);
       break;
     }
     // .webrtc.audio_network_adaptor.config.ChannelController channel_controller = 23;
     case kChannelController: {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *controller_.channel_controller_);
+          *_impl_.controller_.channel_controller_);
       break;
     }
     // .webrtc.audio_network_adaptor.config.DtxController dtx_controller = 24;
     case kDtxController: {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *controller_.dtx_controller_);
+          *_impl_.controller_.dtx_controller_);
       break;
     }
     // .webrtc.audio_network_adaptor.config.BitrateController bitrate_controller = 25;
     case kBitrateController: {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *controller_.bitrate_controller_);
+          *_impl_.controller_.bitrate_controller_);
       break;
     }
     // .webrtc.audio_network_adaptor.config.FecControllerRplrBased fec_controller_rplr_based = 26;
     case kFecControllerRplrBased: {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *controller_.fec_controller_rplr_based_);
+          *_impl_.controller_.fec_controller_rplr_based_);
       break;
     }
     // .webrtc.audio_network_adaptor.config.FrameLengthControllerV2 frame_length_controller_v2 = 27;
     case kFrameLengthControllerV2: {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *controller_.frame_length_controller_v2_);
+          *_impl_.controller_.frame_length_controller_v2_);
       break;
     }
     case CONTROLLER_NOT_SET: {
@@ -3475,48 +3667,57 @@ void Controller::CheckTypeAndMergeFrom(
 }
 
 void Controller::MergeFrom(const Controller& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.Controller)
-  GOOGLE_DCHECK_NE(&from, this);
+  Controller* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.Controller)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_scoring_point()) {
-    _internal_mutable_scoring_point()->::webrtc::audio_network_adaptor::config::Controller_ScoringPoint::MergeFrom(from._internal_scoring_point());
+    _this->_internal_mutable_scoring_point()->::webrtc::audio_network_adaptor::config::Controller_ScoringPoint::MergeFrom(
+        from._internal_scoring_point());
   }
   switch (from.controller_case()) {
     case kFecController: {
-      _internal_mutable_fec_controller()->::webrtc::audio_network_adaptor::config::FecController::MergeFrom(from._internal_fec_controller());
+      _this->_internal_mutable_fec_controller()->::webrtc::audio_network_adaptor::config::FecController::MergeFrom(
+          from._internal_fec_controller());
       break;
     }
     case kFrameLengthController: {
-      _internal_mutable_frame_length_controller()->::webrtc::audio_network_adaptor::config::FrameLengthController::MergeFrom(from._internal_frame_length_controller());
+      _this->_internal_mutable_frame_length_controller()->::webrtc::audio_network_adaptor::config::FrameLengthController::MergeFrom(
+          from._internal_frame_length_controller());
       break;
     }
     case kChannelController: {
-      _internal_mutable_channel_controller()->::webrtc::audio_network_adaptor::config::ChannelController::MergeFrom(from._internal_channel_controller());
+      _this->_internal_mutable_channel_controller()->::webrtc::audio_network_adaptor::config::ChannelController::MergeFrom(
+          from._internal_channel_controller());
       break;
     }
     case kDtxController: {
-      _internal_mutable_dtx_controller()->::webrtc::audio_network_adaptor::config::DtxController::MergeFrom(from._internal_dtx_controller());
+      _this->_internal_mutable_dtx_controller()->::webrtc::audio_network_adaptor::config::DtxController::MergeFrom(
+          from._internal_dtx_controller());
       break;
     }
     case kBitrateController: {
-      _internal_mutable_bitrate_controller()->::webrtc::audio_network_adaptor::config::BitrateController::MergeFrom(from._internal_bitrate_controller());
+      _this->_internal_mutable_bitrate_controller()->::webrtc::audio_network_adaptor::config::BitrateController::MergeFrom(
+          from._internal_bitrate_controller());
       break;
     }
     case kFecControllerRplrBased: {
-      _internal_mutable_fec_controller_rplr_based()->::webrtc::audio_network_adaptor::config::FecControllerRplrBased::MergeFrom(from._internal_fec_controller_rplr_based());
+      _this->_internal_mutable_fec_controller_rplr_based()->::webrtc::audio_network_adaptor::config::FecControllerRplrBased::MergeFrom(
+          from._internal_fec_controller_rplr_based());
       break;
     }
     case kFrameLengthControllerV2: {
-      _internal_mutable_frame_length_controller_v2()->::webrtc::audio_network_adaptor::config::FrameLengthControllerV2::MergeFrom(from._internal_frame_length_controller_v2());
+      _this->_internal_mutable_frame_length_controller_v2()->::webrtc::audio_network_adaptor::config::FrameLengthControllerV2::MergeFrom(
+          from._internal_frame_length_controller_v2());
       break;
     }
     case CONTROLLER_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Controller::CopyFrom(const Controller& from) {
@@ -3533,10 +3734,10 @@ bool Controller::IsInitialized() const {
 void Controller::InternalSwap(Controller* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(scoring_point_, other->scoring_point_);
-  swap(controller_, other->controller_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.scoring_point_, other->_impl_.scoring_point_);
+  swap(_impl_.controller_, other->_impl_.controller_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 std::string Controller::GetTypeName() const {
@@ -3548,7 +3749,7 @@ std::string Controller::GetTypeName() const {
 
 class ControllerManager::_Internal {
  public:
-  using HasBits = decltype(std::declval<ControllerManager>()._has_bits_);
+  using HasBits = decltype(std::declval<ControllerManager>()._impl_._has_bits_);
   static void set_has_min_reordering_time_ms(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3559,27 +3760,38 @@ class ControllerManager::_Internal {
 
 ControllerManager::ControllerManager(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  controllers_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:webrtc.audio_network_adaptor.config.ControllerManager)
 }
 ControllerManager::ControllerManager(const ControllerManager& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      controllers_(from.controllers_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ControllerManager* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.controllers_){from._impl_.controllers_}
+    , decltype(_impl_.min_reordering_time_ms_){}
+    , decltype(_impl_.min_reordering_squared_distance_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&min_reordering_time_ms_, &from.min_reordering_time_ms_,
-    static_cast<size_t>(reinterpret_cast<char*>(&min_reordering_squared_distance_) -
-    reinterpret_cast<char*>(&min_reordering_time_ms_)) + sizeof(min_reordering_squared_distance_));
+  ::memcpy(&_impl_.min_reordering_time_ms_, &from._impl_.min_reordering_time_ms_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.min_reordering_squared_distance_) -
+    reinterpret_cast<char*>(&_impl_.min_reordering_time_ms_)) + sizeof(_impl_.min_reordering_squared_distance_));
   // @@protoc_insertion_point(copy_constructor:webrtc.audio_network_adaptor.config.ControllerManager)
 }
 
-inline void ControllerManager::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&min_reordering_time_ms_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&min_reordering_squared_distance_) -
-    reinterpret_cast<char*>(&min_reordering_time_ms_)) + sizeof(min_reordering_squared_distance_));
+inline void ControllerManager::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.controllers_){arena}
+    , decltype(_impl_.min_reordering_time_ms_){0}
+    , decltype(_impl_.min_reordering_squared_distance_){0}
+  };
 }
 
 ControllerManager::~ControllerManager() {
@@ -3593,10 +3805,11 @@ ControllerManager::~ControllerManager() {
 
 inline void ControllerManager::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.controllers_.~RepeatedPtrField();
 }
 
 void ControllerManager::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ControllerManager::Clear() {
@@ -3605,14 +3818,14 @@ void ControllerManager::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  controllers_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.controllers_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&min_reordering_time_ms_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&min_reordering_squared_distance_) -
-        reinterpret_cast<char*>(&min_reordering_time_ms_)) + sizeof(min_reordering_squared_distance_));
+    ::memset(&_impl_.min_reordering_time_ms_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.min_reordering_squared_distance_) -
+        reinterpret_cast<char*>(&_impl_.min_reordering_time_ms_)) + sizeof(_impl_.min_reordering_squared_distance_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3640,7 +3853,7 @@ const char* ControllerManager::_InternalParse(const char* ptr, ::_pbi::ParseCont
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_min_reordering_time_ms(&has_bits);
-          min_reordering_time_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.min_reordering_time_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3649,7 +3862,7 @@ const char* ControllerManager::_InternalParse(const char* ptr, ::_pbi::ParseCont
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
           _Internal::set_has_min_reordering_squared_distance(&has_bits);
-          min_reordering_squared_distance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.min_reordering_squared_distance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -3670,7 +3883,7 @@ const char* ControllerManager::_InternalParse(const char* ptr, ::_pbi::ParseCont
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3692,7 +3905,7 @@ uint8_t* ControllerManager::_InternalSerialize(
         InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 min_reordering_time_ms = 2;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -3723,12 +3936,12 @@ size_t ControllerManager::ByteSizeLong() const {
 
   // repeated .webrtc.audio_network_adaptor.config.Controller controllers = 1;
   total_size += 1UL * this->_internal_controllers_size();
-  for (const auto& msg : this->controllers_) {
+  for (const auto& msg : this->_impl_.controllers_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional int32 min_reordering_time_ms = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -3756,23 +3969,24 @@ void ControllerManager::CheckTypeAndMergeFrom(
 }
 
 void ControllerManager::MergeFrom(const ControllerManager& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.ControllerManager)
-  GOOGLE_DCHECK_NE(&from, this);
+  ControllerManager* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:webrtc.audio_network_adaptor.config.ControllerManager)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  controllers_.MergeFrom(from.controllers_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_impl_.controllers_.MergeFrom(from._impl_.controllers_);
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      min_reordering_time_ms_ = from.min_reordering_time_ms_;
+      _this->_impl_.min_reordering_time_ms_ = from._impl_.min_reordering_time_ms_;
     }
     if (cached_has_bits & 0x00000002u) {
-      min_reordering_squared_distance_ = from.min_reordering_squared_distance_;
+      _this->_impl_.min_reordering_squared_distance_ = from._impl_.min_reordering_squared_distance_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ControllerManager::CopyFrom(const ControllerManager& from) {
@@ -3789,14 +4003,14 @@ bool ControllerManager::IsInitialized() const {
 void ControllerManager::InternalSwap(ControllerManager* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  controllers_.InternalSwap(&other->controllers_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.controllers_.InternalSwap(&other->_impl_.controllers_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ControllerManager, min_reordering_squared_distance_)
-      + sizeof(ControllerManager::min_reordering_squared_distance_)
-      - PROTOBUF_FIELD_OFFSET(ControllerManager, min_reordering_time_ms_)>(
-          reinterpret_cast<char*>(&min_reordering_time_ms_),
-          reinterpret_cast<char*>(&other->min_reordering_time_ms_));
+      PROTOBUF_FIELD_OFFSET(ControllerManager, _impl_.min_reordering_squared_distance_)
+      + sizeof(ControllerManager::_impl_.min_reordering_squared_distance_)
+      - PROTOBUF_FIELD_OFFSET(ControllerManager, _impl_.min_reordering_time_ms_)>(
+          reinterpret_cast<char*>(&_impl_.min_reordering_time_ms_),
+          reinterpret_cast<char*>(&other->_impl_.min_reordering_time_ms_));
 }
 
 std::string ControllerManager::GetTypeName() const {

@@ -19,9 +19,11 @@ namespace _pbi = _pb::internal;
 
 namespace rlwe {
 PROTOBUF_CONSTEXPR SerializedNttPolynomial::SerializedNttPolynomial(
-    ::_pbi::ConstantInitialized)
-  : coeffs_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , num_coeffs_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.coeffs_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.num_coeffs_)*/0} {}
 struct SerializedNttPolynomialDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SerializedNttPolynomialDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -30,12 +32,14 @@ struct SerializedNttPolynomialDefaultTypeInternal {
     SerializedNttPolynomial _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedNttPolynomialDefaultTypeInternal _SerializedNttPolynomial_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedNttPolynomialDefaultTypeInternal _SerializedNttPolynomial_default_instance_;
 PROTOBUF_CONSTEXPR SerializedSymmetricRlweCiphertext::SerializedSymmetricRlweCiphertext(
-    ::_pbi::ConstantInitialized)
-  : c_()
-  , error_(0)
-  , power_of_s_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.c_)*/{}
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_.power_of_s_)*/0} {}
 struct SerializedSymmetricRlweCiphertextDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SerializedSymmetricRlweCiphertextDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -44,14 +48,16 @@ struct SerializedSymmetricRlweCiphertextDefaultTypeInternal {
     SerializedSymmetricRlweCiphertext _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedSymmetricRlweCiphertextDefaultTypeInternal _SerializedSymmetricRlweCiphertext_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedSymmetricRlweCiphertextDefaultTypeInternal _SerializedSymmetricRlweCiphertext_default_instance_;
 PROTOBUF_CONSTEXPR SerializedRelinearizationKey::SerializedRelinearizationKey(
-    ::_pbi::ConstantInitialized)
-  : c_()
-  , prng_seed_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , log_decomposition_modulus_(0)
-  , num_parts_(0)
-  , power_of_s_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.c_)*/{}
+  , /*decltype(_impl_.prng_seed_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.log_decomposition_modulus_)*/0
+  , /*decltype(_impl_.num_parts_)*/0
+  , /*decltype(_impl_.power_of_s_)*/0} {}
 struct SerializedRelinearizationKeyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SerializedRelinearizationKeyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -60,10 +66,12 @@ struct SerializedRelinearizationKeyDefaultTypeInternal {
     SerializedRelinearizationKey _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedRelinearizationKeyDefaultTypeInternal _SerializedRelinearizationKey_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedRelinearizationKeyDefaultTypeInternal _SerializedRelinearizationKey_default_instance_;
 PROTOBUF_CONSTEXPR SerializedGaloisKey::SerializedGaloisKey(
-    ::_pbi::ConstantInitialized)
-  : key_(nullptr){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.key_)*/nullptr} {}
 struct SerializedGaloisKeyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SerializedGaloisKeyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -72,7 +80,7 @@ struct SerializedGaloisKeyDefaultTypeInternal {
     SerializedGaloisKey _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedGaloisKeyDefaultTypeInternal _SerializedGaloisKey_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedGaloisKeyDefaultTypeInternal _SerializedGaloisKey_default_instance_;
 }  // namespace rlwe
 namespace rlwe {
 
@@ -80,7 +88,7 @@ namespace rlwe {
 
 class SerializedNttPolynomial::_Internal {
  public:
-  using HasBits = decltype(std::declval<SerializedNttPolynomial>()._has_bits_);
+  using HasBits = decltype(std::declval<SerializedNttPolynomial>()._impl_._has_bits_);
   static void set_has_coeffs(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -92,31 +100,45 @@ class SerializedNttPolynomial::_Internal {
 SerializedNttPolynomial::SerializedNttPolynomial(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rlwe.SerializedNttPolynomial)
 }
 SerializedNttPolynomial::SerializedNttPolynomial(const SerializedNttPolynomial& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SerializedNttPolynomial* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.coeffs_){}
+    , decltype(_impl_.num_coeffs_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  coeffs_.InitDefault();
+  _impl_.coeffs_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    coeffs_.Set("", GetArenaForAllocation());
+    _impl_.coeffs_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_coeffs()) {
-    coeffs_.Set(from._internal_coeffs(), 
-      GetArenaForAllocation());
+    _this->_impl_.coeffs_.Set(from._internal_coeffs(), 
+      _this->GetArenaForAllocation());
   }
-  num_coeffs_ = from.num_coeffs_;
+  _this->_impl_.num_coeffs_ = from._impl_.num_coeffs_;
   // @@protoc_insertion_point(copy_constructor:rlwe.SerializedNttPolynomial)
 }
 
-inline void SerializedNttPolynomial::SharedCtor() {
-coeffs_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  coeffs_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-num_coeffs_ = 0;
+inline void SerializedNttPolynomial::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.coeffs_){}
+    , decltype(_impl_.num_coeffs_){0}
+  };
+  _impl_.coeffs_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.coeffs_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SerializedNttPolynomial::~SerializedNttPolynomial() {
@@ -130,11 +152,11 @@ SerializedNttPolynomial::~SerializedNttPolynomial() {
 
 inline void SerializedNttPolynomial::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  coeffs_.Destroy();
+  _impl_.coeffs_.Destroy();
 }
 
 void SerializedNttPolynomial::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SerializedNttPolynomial::Clear() {
@@ -143,12 +165,12 @@ void SerializedNttPolynomial::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    coeffs_.ClearNonDefaultToEmpty();
+    _impl_.coeffs_.ClearNonDefaultToEmpty();
   }
-  num_coeffs_ = 0;
-  _has_bits_.Clear();
+  _impl_.num_coeffs_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -172,7 +194,7 @@ const char* SerializedNttPolynomial::_InternalParse(const char* ptr, ::_pbi::Par
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_num_coeffs(&has_bits);
-          num_coeffs_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.num_coeffs_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -193,7 +215,7 @@ const char* SerializedNttPolynomial::_InternalParse(const char* ptr, ::_pbi::Par
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -207,7 +229,7 @@ uint8_t* SerializedNttPolynomial::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bytes coeffs = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteBytesMaybeAliased(
@@ -236,7 +258,7 @@ size_t SerializedNttPolynomial::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional bytes coeffs = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -266,22 +288,23 @@ void SerializedNttPolynomial::CheckTypeAndMergeFrom(
 }
 
 void SerializedNttPolynomial::MergeFrom(const SerializedNttPolynomial& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rlwe.SerializedNttPolynomial)
-  GOOGLE_DCHECK_NE(&from, this);
+  SerializedNttPolynomial* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rlwe.SerializedNttPolynomial)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_coeffs(from._internal_coeffs());
+      _this->_internal_set_coeffs(from._internal_coeffs());
     }
     if (cached_has_bits & 0x00000002u) {
-      num_coeffs_ = from.num_coeffs_;
+      _this->_impl_.num_coeffs_ = from._impl_.num_coeffs_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SerializedNttPolynomial::CopyFrom(const SerializedNttPolynomial& from) {
@@ -300,12 +323,12 @@ void SerializedNttPolynomial::InternalSwap(SerializedNttPolynomial* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &coeffs_, lhs_arena,
-      &other->coeffs_, rhs_arena
+      &_impl_.coeffs_, lhs_arena,
+      &other->_impl_.coeffs_, rhs_arena
   );
-  swap(num_coeffs_, other->num_coeffs_);
+  swap(_impl_.num_coeffs_, other->_impl_.num_coeffs_);
 }
 
 std::string SerializedNttPolynomial::GetTypeName() const {
@@ -317,7 +340,7 @@ std::string SerializedNttPolynomial::GetTypeName() const {
 
 class SerializedSymmetricRlweCiphertext::_Internal {
  public:
-  using HasBits = decltype(std::declval<SerializedSymmetricRlweCiphertext>()._has_bits_);
+  using HasBits = decltype(std::declval<SerializedSymmetricRlweCiphertext>()._impl_._has_bits_);
   static void set_has_power_of_s(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -328,27 +351,38 @@ class SerializedSymmetricRlweCiphertext::_Internal {
 
 SerializedSymmetricRlweCiphertext::SerializedSymmetricRlweCiphertext(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  c_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rlwe.SerializedSymmetricRlweCiphertext)
 }
 SerializedSymmetricRlweCiphertext::SerializedSymmetricRlweCiphertext(const SerializedSymmetricRlweCiphertext& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      c_(from.c_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SerializedSymmetricRlweCiphertext* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.c_){from._impl_.c_}
+    , decltype(_impl_.error_){}
+    , decltype(_impl_.power_of_s_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&error_, &from.error_,
-    static_cast<size_t>(reinterpret_cast<char*>(&power_of_s_) -
-    reinterpret_cast<char*>(&error_)) + sizeof(power_of_s_));
+  ::memcpy(&_impl_.error_, &from._impl_.error_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.power_of_s_) -
+    reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.power_of_s_));
   // @@protoc_insertion_point(copy_constructor:rlwe.SerializedSymmetricRlweCiphertext)
 }
 
-inline void SerializedSymmetricRlweCiphertext::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&error_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&power_of_s_) -
-    reinterpret_cast<char*>(&error_)) + sizeof(power_of_s_));
+inline void SerializedSymmetricRlweCiphertext::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.c_){arena}
+    , decltype(_impl_.error_){0}
+    , decltype(_impl_.power_of_s_){0}
+  };
 }
 
 SerializedSymmetricRlweCiphertext::~SerializedSymmetricRlweCiphertext() {
@@ -362,10 +396,11 @@ SerializedSymmetricRlweCiphertext::~SerializedSymmetricRlweCiphertext() {
 
 inline void SerializedSymmetricRlweCiphertext::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.c_.~RepeatedPtrField();
 }
 
 void SerializedSymmetricRlweCiphertext::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SerializedSymmetricRlweCiphertext::Clear() {
@@ -374,14 +409,14 @@ void SerializedSymmetricRlweCiphertext::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  c_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.c_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&error_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&power_of_s_) -
-        reinterpret_cast<char*>(&error_)) + sizeof(power_of_s_));
+    ::memset(&_impl_.error_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.power_of_s_) -
+        reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.power_of_s_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -409,7 +444,7 @@ const char* SerializedSymmetricRlweCiphertext::_InternalParse(const char* ptr, :
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_power_of_s(&has_bits);
-          power_of_s_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.power_of_s_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -418,7 +453,7 @@ const char* SerializedSymmetricRlweCiphertext::_InternalParse(const char* ptr, :
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 25)) {
           _Internal::set_has_error(&has_bits);
-          error_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.error_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -439,7 +474,7 @@ const char* SerializedSymmetricRlweCiphertext::_InternalParse(const char* ptr, :
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -461,7 +496,7 @@ uint8_t* SerializedSymmetricRlweCiphertext::_InternalSerialize(
         InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 power_of_s = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
@@ -492,12 +527,12 @@ size_t SerializedSymmetricRlweCiphertext::ByteSizeLong() const {
 
   // repeated .rlwe.SerializedNttPolynomial c = 1;
   total_size += 1UL * this->_internal_c_size();
-  for (const auto& msg : this->c_) {
+  for (const auto& msg : this->_impl_.c_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional double error = 3;
     if (cached_has_bits & 0x00000001u) {
@@ -525,23 +560,24 @@ void SerializedSymmetricRlweCiphertext::CheckTypeAndMergeFrom(
 }
 
 void SerializedSymmetricRlweCiphertext::MergeFrom(const SerializedSymmetricRlweCiphertext& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rlwe.SerializedSymmetricRlweCiphertext)
-  GOOGLE_DCHECK_NE(&from, this);
+  SerializedSymmetricRlweCiphertext* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rlwe.SerializedSymmetricRlweCiphertext)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  c_.MergeFrom(from.c_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_impl_.c_.MergeFrom(from._impl_.c_);
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      error_ = from.error_;
+      _this->_impl_.error_ = from._impl_.error_;
     }
     if (cached_has_bits & 0x00000002u) {
-      power_of_s_ = from.power_of_s_;
+      _this->_impl_.power_of_s_ = from._impl_.power_of_s_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SerializedSymmetricRlweCiphertext::CopyFrom(const SerializedSymmetricRlweCiphertext& from) {
@@ -558,14 +594,14 @@ bool SerializedSymmetricRlweCiphertext::IsInitialized() const {
 void SerializedSymmetricRlweCiphertext::InternalSwap(SerializedSymmetricRlweCiphertext* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  c_.InternalSwap(&other->c_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.c_.InternalSwap(&other->_impl_.c_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SerializedSymmetricRlweCiphertext, power_of_s_)
-      + sizeof(SerializedSymmetricRlweCiphertext::power_of_s_)
-      - PROTOBUF_FIELD_OFFSET(SerializedSymmetricRlweCiphertext, error_)>(
-          reinterpret_cast<char*>(&error_),
-          reinterpret_cast<char*>(&other->error_));
+      PROTOBUF_FIELD_OFFSET(SerializedSymmetricRlweCiphertext, _impl_.power_of_s_)
+      + sizeof(SerializedSymmetricRlweCiphertext::_impl_.power_of_s_)
+      - PROTOBUF_FIELD_OFFSET(SerializedSymmetricRlweCiphertext, _impl_.error_)>(
+          reinterpret_cast<char*>(&_impl_.error_),
+          reinterpret_cast<char*>(&other->_impl_.error_));
 }
 
 std::string SerializedSymmetricRlweCiphertext::GetTypeName() const {
@@ -577,7 +613,7 @@ std::string SerializedSymmetricRlweCiphertext::GetTypeName() const {
 
 class SerializedRelinearizationKey::_Internal {
  public:
-  using HasBits = decltype(std::declval<SerializedRelinearizationKey>()._has_bits_);
+  using HasBits = decltype(std::declval<SerializedRelinearizationKey>()._impl_._has_bits_);
   static void set_has_log_decomposition_modulus(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -594,39 +630,54 @@ class SerializedRelinearizationKey::_Internal {
 
 SerializedRelinearizationKey::SerializedRelinearizationKey(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  c_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rlwe.SerializedRelinearizationKey)
 }
 SerializedRelinearizationKey::SerializedRelinearizationKey(const SerializedRelinearizationKey& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      c_(from.c_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SerializedRelinearizationKey* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.c_){from._impl_.c_}
+    , decltype(_impl_.prng_seed_){}
+    , decltype(_impl_.log_decomposition_modulus_){}
+    , decltype(_impl_.num_parts_){}
+    , decltype(_impl_.power_of_s_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  prng_seed_.InitDefault();
+  _impl_.prng_seed_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    prng_seed_.Set("", GetArenaForAllocation());
+    _impl_.prng_seed_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_prng_seed()) {
-    prng_seed_.Set(from._internal_prng_seed(), 
-      GetArenaForAllocation());
+    _this->_impl_.prng_seed_.Set(from._internal_prng_seed(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&log_decomposition_modulus_, &from.log_decomposition_modulus_,
-    static_cast<size_t>(reinterpret_cast<char*>(&power_of_s_) -
-    reinterpret_cast<char*>(&log_decomposition_modulus_)) + sizeof(power_of_s_));
+  ::memcpy(&_impl_.log_decomposition_modulus_, &from._impl_.log_decomposition_modulus_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.power_of_s_) -
+    reinterpret_cast<char*>(&_impl_.log_decomposition_modulus_)) + sizeof(_impl_.power_of_s_));
   // @@protoc_insertion_point(copy_constructor:rlwe.SerializedRelinearizationKey)
 }
 
-inline void SerializedRelinearizationKey::SharedCtor() {
-prng_seed_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  prng_seed_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&log_decomposition_modulus_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&power_of_s_) -
-    reinterpret_cast<char*>(&log_decomposition_modulus_)) + sizeof(power_of_s_));
+inline void SerializedRelinearizationKey::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.c_){arena}
+    , decltype(_impl_.prng_seed_){}
+    , decltype(_impl_.log_decomposition_modulus_){0}
+    , decltype(_impl_.num_parts_){0}
+    , decltype(_impl_.power_of_s_){0}
+  };
+  _impl_.prng_seed_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.prng_seed_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SerializedRelinearizationKey::~SerializedRelinearizationKey() {
@@ -640,11 +691,12 @@ SerializedRelinearizationKey::~SerializedRelinearizationKey() {
 
 inline void SerializedRelinearizationKey::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  prng_seed_.Destroy();
+  _impl_.c_.~RepeatedPtrField();
+  _impl_.prng_seed_.Destroy();
 }
 
 void SerializedRelinearizationKey::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SerializedRelinearizationKey::Clear() {
@@ -653,17 +705,17 @@ void SerializedRelinearizationKey::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  c_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.c_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    prng_seed_.ClearNonDefaultToEmpty();
+    _impl_.prng_seed_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x0000000eu) {
-    ::memset(&log_decomposition_modulus_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&power_of_s_) -
-        reinterpret_cast<char*>(&log_decomposition_modulus_)) + sizeof(power_of_s_));
+    ::memset(&_impl_.log_decomposition_modulus_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.power_of_s_) -
+        reinterpret_cast<char*>(&_impl_.log_decomposition_modulus_)) + sizeof(_impl_.power_of_s_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -691,7 +743,7 @@ const char* SerializedRelinearizationKey::_InternalParse(const char* ptr, ::_pbi
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_log_decomposition_modulus(&has_bits);
-          log_decomposition_modulus_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.log_decomposition_modulus_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -700,7 +752,7 @@ const char* SerializedRelinearizationKey::_InternalParse(const char* ptr, ::_pbi
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_num_parts(&has_bits);
-          num_parts_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.num_parts_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -718,7 +770,7 @@ const char* SerializedRelinearizationKey::_InternalParse(const char* ptr, ::_pbi
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _Internal::set_has_power_of_s(&has_bits);
-          power_of_s_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.power_of_s_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -739,7 +791,7 @@ const char* SerializedRelinearizationKey::_InternalParse(const char* ptr, ::_pbi
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -761,7 +813,7 @@ uint8_t* SerializedRelinearizationKey::_InternalSerialize(
         InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 log_decomposition_modulus = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
@@ -804,12 +856,12 @@ size_t SerializedRelinearizationKey::ByteSizeLong() const {
 
   // repeated .rlwe.SerializedNttPolynomial c = 1;
   total_size += 1UL * this->_internal_c_size();
-  for (const auto& msg : this->c_) {
+  for (const auto& msg : this->_impl_.c_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional bytes prng_seed = 4;
     if (cached_has_bits & 0x00000001u) {
@@ -849,29 +901,30 @@ void SerializedRelinearizationKey::CheckTypeAndMergeFrom(
 }
 
 void SerializedRelinearizationKey::MergeFrom(const SerializedRelinearizationKey& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rlwe.SerializedRelinearizationKey)
-  GOOGLE_DCHECK_NE(&from, this);
+  SerializedRelinearizationKey* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rlwe.SerializedRelinearizationKey)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  c_.MergeFrom(from.c_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_impl_.c_.MergeFrom(from._impl_.c_);
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_prng_seed(from._internal_prng_seed());
+      _this->_internal_set_prng_seed(from._internal_prng_seed());
     }
     if (cached_has_bits & 0x00000002u) {
-      log_decomposition_modulus_ = from.log_decomposition_modulus_;
+      _this->_impl_.log_decomposition_modulus_ = from._impl_.log_decomposition_modulus_;
     }
     if (cached_has_bits & 0x00000004u) {
-      num_parts_ = from.num_parts_;
+      _this->_impl_.num_parts_ = from._impl_.num_parts_;
     }
     if (cached_has_bits & 0x00000008u) {
-      power_of_s_ = from.power_of_s_;
+      _this->_impl_.power_of_s_ = from._impl_.power_of_s_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SerializedRelinearizationKey::CopyFrom(const SerializedRelinearizationKey& from) {
@@ -890,18 +943,18 @@ void SerializedRelinearizationKey::InternalSwap(SerializedRelinearizationKey* ot
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  c_.InternalSwap(&other->c_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.c_.InternalSwap(&other->_impl_.c_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &prng_seed_, lhs_arena,
-      &other->prng_seed_, rhs_arena
+      &_impl_.prng_seed_, lhs_arena,
+      &other->_impl_.prng_seed_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SerializedRelinearizationKey, power_of_s_)
-      + sizeof(SerializedRelinearizationKey::power_of_s_)
-      - PROTOBUF_FIELD_OFFSET(SerializedRelinearizationKey, log_decomposition_modulus_)>(
-          reinterpret_cast<char*>(&log_decomposition_modulus_),
-          reinterpret_cast<char*>(&other->log_decomposition_modulus_));
+      PROTOBUF_FIELD_OFFSET(SerializedRelinearizationKey, _impl_.power_of_s_)
+      + sizeof(SerializedRelinearizationKey::_impl_.power_of_s_)
+      - PROTOBUF_FIELD_OFFSET(SerializedRelinearizationKey, _impl_.log_decomposition_modulus_)>(
+          reinterpret_cast<char*>(&_impl_.log_decomposition_modulus_),
+          reinterpret_cast<char*>(&other->_impl_.log_decomposition_modulus_));
 }
 
 std::string SerializedRelinearizationKey::GetTypeName() const {
@@ -913,7 +966,7 @@ std::string SerializedRelinearizationKey::GetTypeName() const {
 
 class SerializedGaloisKey::_Internal {
  public:
-  using HasBits = decltype(std::declval<SerializedGaloisKey>()._has_bits_);
+  using HasBits = decltype(std::declval<SerializedGaloisKey>()._impl_._has_bits_);
   static const ::rlwe::SerializedRelinearizationKey& key(const SerializedGaloisKey* msg);
   static void set_has_key(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -922,28 +975,38 @@ class SerializedGaloisKey::_Internal {
 
 const ::rlwe::SerializedRelinearizationKey&
 SerializedGaloisKey::_Internal::key(const SerializedGaloisKey* msg) {
-  return *msg->key_;
+  return *msg->_impl_.key_;
 }
 SerializedGaloisKey::SerializedGaloisKey(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rlwe.SerializedGaloisKey)
 }
 SerializedGaloisKey::SerializedGaloisKey(const SerializedGaloisKey& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SerializedGaloisKey* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_){nullptr}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_key()) {
-    key_ = new ::rlwe::SerializedRelinearizationKey(*from.key_);
-  } else {
-    key_ = nullptr;
+    _this->_impl_.key_ = new ::rlwe::SerializedRelinearizationKey(*from._impl_.key_);
   }
   // @@protoc_insertion_point(copy_constructor:rlwe.SerializedGaloisKey)
 }
 
-inline void SerializedGaloisKey::SharedCtor() {
-key_ = nullptr;
+inline void SerializedGaloisKey::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_){nullptr}
+  };
 }
 
 SerializedGaloisKey::~SerializedGaloisKey() {
@@ -957,11 +1020,11 @@ SerializedGaloisKey::~SerializedGaloisKey() {
 
 inline void SerializedGaloisKey::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete key_;
+  if (this != internal_default_instance()) delete _impl_.key_;
 }
 
 void SerializedGaloisKey::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SerializedGaloisKey::Clear() {
@@ -970,12 +1033,12 @@ void SerializedGaloisKey::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(key_ != nullptr);
-    key_->Clear();
+    GOOGLE_DCHECK(_impl_.key_ != nullptr);
+    _impl_.key_->Clear();
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1010,7 +1073,7 @@ const char* SerializedGaloisKey::_InternalParse(const char* ptr, ::_pbi::ParseCo
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1024,7 +1087,7 @@ uint8_t* SerializedGaloisKey::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .rlwe.SerializedRelinearizationKey key = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -1049,11 +1112,11 @@ size_t SerializedGaloisKey::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional .rlwe.SerializedRelinearizationKey key = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *key_);
+        *_impl_.key_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1071,15 +1134,17 @@ void SerializedGaloisKey::CheckTypeAndMergeFrom(
 }
 
 void SerializedGaloisKey::MergeFrom(const SerializedGaloisKey& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rlwe.SerializedGaloisKey)
-  GOOGLE_DCHECK_NE(&from, this);
+  SerializedGaloisKey* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rlwe.SerializedGaloisKey)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_key()) {
-    _internal_mutable_key()->::rlwe::SerializedRelinearizationKey::MergeFrom(from._internal_key());
+    _this->_internal_mutable_key()->::rlwe::SerializedRelinearizationKey::MergeFrom(
+        from._internal_key());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SerializedGaloisKey::CopyFrom(const SerializedGaloisKey& from) {
@@ -1096,8 +1161,8 @@ bool SerializedGaloisKey::IsInitialized() const {
 void SerializedGaloisKey::InternalSwap(SerializedGaloisKey* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(key_, other->key_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.key_, other->_impl_.key_);
 }
 
 std::string SerializedGaloisKey::GetTypeName() const {

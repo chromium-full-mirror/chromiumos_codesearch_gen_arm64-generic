@@ -187,7 +187,7 @@ enum class PortalState : int32_t {
   
   kPortal = 3,
   
-  kProxyAuthRequired = 4,
+  kDeprecatedProxyAuthRequired = 4,
   
   kNoInternet = 5,
   kMinValue = 0,

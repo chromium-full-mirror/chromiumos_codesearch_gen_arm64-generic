@@ -31,6 +31,8 @@ enum class Camera3DeviceOps : uint32_t {
   kClose = 7,
   kConfigureStreamsAndGetAllocatedBuffers = 8,
   kSignalStreamFlush = 9,
+  kOnNewBuffer = 10,
+  kOnBufferRetired = 11,
 };
 
 }  // namespace messages

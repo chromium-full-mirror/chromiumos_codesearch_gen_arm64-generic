@@ -1890,6 +1890,12 @@ Camera3DeviceOps::IPCStableHashFunction Camera3DeviceOps::MessageToMethodInfo_(m
     case messages::Camera3DeviceOps::kSignalStreamFlush: {
       return &Camera3DeviceOps::SignalStreamFlush_Sym::IPCStableHash;
     }
+    case messages::Camera3DeviceOps::kOnNewBuffer: {
+      return &Camera3DeviceOps::OnNewBuffer_Sym::IPCStableHash;
+    }
+    case messages::Camera3DeviceOps::kOnBufferRetired: {
+      return &Camera3DeviceOps::OnBufferRetired_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1921,6 +1927,10 @@ const char* Camera3DeviceOps::MessageToMethodName_(mojo::Message& message) {
             return "Receive cros::mojom::Camera3DeviceOps::ConfigureStreamsAndGetAllocatedBuffers";
       case messages::Camera3DeviceOps::kSignalStreamFlush:
             return "Receive cros::mojom::Camera3DeviceOps::SignalStreamFlush";
+      case messages::Camera3DeviceOps::kOnNewBuffer:
+            return "Receive cros::mojom::Camera3DeviceOps::OnNewBuffer";
+      case messages::Camera3DeviceOps::kOnBufferRetired:
+            return "Receive cros::mojom::Camera3DeviceOps::OnBufferRetired";
     }
   } else {
     switch (static_cast<messages::Camera3DeviceOps>(message.name())) {
@@ -1944,6 +1954,10 @@ const char* Camera3DeviceOps::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply cros::mojom::Camera3DeviceOps::ConfigureStreamsAndGetAllocatedBuffers";
       case messages::Camera3DeviceOps::kSignalStreamFlush:
             return "Receive reply cros::mojom::Camera3DeviceOps::SignalStreamFlush";
+      case messages::Camera3DeviceOps::kOnNewBuffer:
+            return "Receive reply cros::mojom::Camera3DeviceOps::OnNewBuffer";
+      case messages::Camera3DeviceOps::kOnBufferRetired:
+            return "Receive reply cros::mojom::Camera3DeviceOps::OnBufferRetired";
     }
   }
   return "Receive unknown mojo message";
@@ -2088,6 +2102,32 @@ uint32_t Camera3DeviceOps::SignalStreamFlush_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Camera3DeviceOps::OnNewBuffer_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::Camera3DeviceOps::OnNewBuffer");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Camera3DeviceOps::OnBufferRetired_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::Camera3DeviceOps::OnBufferRetired");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Camera3DeviceOps_Initialize_ForwardToCallback
@@ -2216,6 +2256,22 @@ class Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Camera3DeviceOps::ConfigureStreamsAndGetAllocatedBuffersCallback callback_;
+};
+
+class Camera3DeviceOps_OnNewBuffer_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Camera3DeviceOps_OnNewBuffer_ForwardToCallback(
+      Camera3DeviceOps::OnNewBufferCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Camera3DeviceOps_OnNewBuffer_ForwardToCallback(const Camera3DeviceOps_OnNewBuffer_ForwardToCallback&) = delete;
+  Camera3DeviceOps_OnNewBuffer_ForwardToCallback& operator=(const Camera3DeviceOps_OnNewBuffer_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Camera3DeviceOps::OnNewBufferCallback callback_;
 };
 
 Camera3DeviceOpsProxy::Camera3DeviceOpsProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -2761,6 +2817,103 @@ void Camera3DeviceOpsProxy::SignalStreamFlush(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Camera3DeviceOps::Name_);
   message.set_method_name("SignalStreamFlush");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void Camera3DeviceOpsProxy::OnNewBuffer(
+    CameraBufferHandlePtr in_buffer, OnNewBufferCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::Camera3DeviceOps::OnNewBuffer", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("buffer"), in_buffer,
+                        "<value of type CameraBufferHandlePtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::Camera3DeviceOps::kOnNewBuffer), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::Camera3DeviceOps_OnNewBuffer_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->buffer)::BaseType> buffer_fragment(
+          params.message());
+  mojo::internal::Serialize<::cros::mojom::CameraBufferHandleDataView>(
+      in_buffer, buffer_fragment);
+  params->buffer.Set(
+      buffer_fragment.is_null() ? nullptr : buffer_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->buffer.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null buffer in Camera3DeviceOps.OnNewBuffer request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Camera3DeviceOps::Name_);
+  message.set_method_name("OnNewBuffer");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Camera3DeviceOps_OnNewBuffer_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void Camera3DeviceOpsProxy::OnBufferRetired(
+    uint64_t in_buffer_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::Camera3DeviceOps::OnBufferRetired", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("buffer_id"), in_buffer_id,
+                        "<value of type uint64_t>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::Camera3DeviceOps::kOnBufferRetired), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::Camera3DeviceOps_OnBufferRetired_Params_Data> params(
+          message);
+  params.Allocate();
+  params->buffer_id = in_buffer_id;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Camera3DeviceOps::Name_);
+  message.set_method_name("OnBufferRetired");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -3796,6 +3949,128 @@ void Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ProxyToResponder::R
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Camera3DeviceOps_OnNewBuffer_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Camera3DeviceOps::OnNewBufferCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Camera3DeviceOps_OnNewBuffer_ProxyToResponder> proxy(
+        new Camera3DeviceOps_OnNewBuffer_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Camera3DeviceOps_OnNewBuffer_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Camera3DeviceOps_OnNewBuffer_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Camera3DeviceOps_OnNewBuffer_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Camera3DeviceOps::OnNewBufferCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      int32_t in_result);
+};
+
+bool Camera3DeviceOps_OnNewBuffer_ForwardToCallback::Accept(
+    mojo::Message* message) {
+  DCHECK(message->is_serialized());
+  internal::Camera3DeviceOps_OnNewBuffer_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Camera3DeviceOps_OnNewBuffer_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for Camera3DeviceOps.10
+  bool success = true;
+  int32_t p_result{};
+  Camera3DeviceOps_OnNewBuffer_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_result = input_data_view.result();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Camera3DeviceOps::Name_, 10, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void Camera3DeviceOps_OnNewBuffer_ProxyToResponder::Run(
+    int32_t in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply cros::mojom::Camera3DeviceOps::OnNewBuffer", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type int32_t>");
+   });
+#endif
+
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::Camera3DeviceOps::kOnNewBuffer), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::Camera3DeviceOps_OnNewBuffer_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->result = in_result;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Camera3DeviceOps::Name_);
+  message.set_method_name("OnNewBuffer");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool Camera3DeviceOpsStubDispatch::Accept(
@@ -3878,6 +4153,36 @@ bool Camera3DeviceOpsStubDispatch::Accept(
       DCHECK(impl);
       impl->SignalStreamFlush(        
         std::move(p_stream_ids));
+      return true;
+    }
+    case messages::Camera3DeviceOps::kOnNewBuffer: {
+      break;
+    }
+    case messages::Camera3DeviceOps::kOnBufferRetired: {
+      DCHECK(message->is_serialized());
+      internal::Camera3DeviceOps_OnBufferRetired_Params_Data* params =
+          reinterpret_cast<internal::Camera3DeviceOps_OnBufferRetired_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for Camera3DeviceOps.11
+      bool success = true;
+      uint64_t p_buffer_id{};
+      Camera3DeviceOps_OnBufferRetired_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_buffer_id = input_data_view.buffer_id();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Camera3DeviceOps::Name_, 11, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnBufferRetired(        
+        std::move(p_buffer_id));
       return true;
     }
   }
@@ -4165,6 +4470,39 @@ bool Camera3DeviceOpsStubDispatch::AcceptWithResponder(
     case messages::Camera3DeviceOps::kSignalStreamFlush: {
       break;
     }
+    case messages::Camera3DeviceOps::kOnNewBuffer: {
+      internal::Camera3DeviceOps_OnNewBuffer_Params_Data* params =
+          reinterpret_cast<
+              internal::Camera3DeviceOps_OnNewBuffer_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for Camera3DeviceOps.10
+      bool success = true;
+      CameraBufferHandlePtr p_buffer{};
+      Camera3DeviceOps_OnNewBuffer_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadBuffer(&p_buffer))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Camera3DeviceOps::Name_, 10, false);
+        return false;
+      }
+      Camera3DeviceOps::OnNewBufferCallback callback =
+          Camera3DeviceOps_OnNewBuffer_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnNewBuffer(        
+        std::move(p_buffer), std::move(callback));
+      return true;
+    }
+    case messages::Camera3DeviceOps::kOnBufferRetired: {
+      break;
+    }
   }
   return false;
 }
@@ -4190,6 +4528,10 @@ static const mojo::internal::GenericValidationInfo kCamera3DeviceOpsValidationIn
     { &internal::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Params_Data::Validate,
      &internal::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponseParams_Data::Validate},
     { &internal::Camera3DeviceOps_SignalStreamFlush_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Camera3DeviceOps_OnNewBuffer_Params_Data::Validate,
+     &internal::Camera3DeviceOps_OnNewBuffer_ResponseParams_Data::Validate},
+    { &internal::Camera3DeviceOps_OnBufferRetired_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4605,6 +4947,12 @@ void Camera3DeviceOpsInterceptorForTesting::ConfigureStreamsAndGetAllocatedBuffe
 void Camera3DeviceOpsInterceptorForTesting::SignalStreamFlush(const std::vector<uint64_t>& stream_ids) {
   GetForwardingInterface()->SignalStreamFlush(std::move(stream_ids));
 }
+void Camera3DeviceOpsInterceptorForTesting::OnNewBuffer(CameraBufferHandlePtr buffer, OnNewBufferCallback callback) {
+  GetForwardingInterface()->OnNewBuffer(std::move(buffer), std::move(callback));
+}
+void Camera3DeviceOpsInterceptorForTesting::OnBufferRetired(uint64_t buffer_id) {
+  GetForwardingInterface()->OnBufferRetired(std::move(buffer_id));
+}
 Camera3DeviceOpsAsyncWaiter::Camera3DeviceOpsAsyncWaiter(
     Camera3DeviceOps* proxy) : proxy_(proxy) {}
 
@@ -4795,6 +5143,29 @@ void Camera3DeviceOpsAsyncWaiter::ConfigureStreamsAndGetAllocatedBuffers(
 }
 
 
+
+void Camera3DeviceOpsAsyncWaiter::OnNewBuffer(
+    CameraBufferHandlePtr buffer, int32_t* out_result) {
+  base::RunLoop loop;
+  proxy_->OnNewBuffer(std::move(buffer),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             int32_t* out_result
+,
+             int32_t result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+int32_t Camera3DeviceOpsAsyncWaiter::OnNewBuffer(
+    CameraBufferHandlePtr buffer) {
+  int32_t async_wait_result;
+  OnNewBuffer(std::move(buffer),&async_wait_result);
+  return async_wait_result;
+}
 
 
 

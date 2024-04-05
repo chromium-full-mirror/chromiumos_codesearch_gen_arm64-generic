@@ -19,9 +19,11 @@ namespace _pbi = _pb::internal;
 
 namespace reporting {
 PROTOBUF_CONSTEXPR StatusProto::StatusProto(
-    ::_pbi::ConstantInitialized)
-  : error_message_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , code_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.error_message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.code_)*/0} {}
 struct StatusProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StatusProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -30,7 +32,7 @@ struct StatusProtoDefaultTypeInternal {
     StatusProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StatusProtoDefaultTypeInternal _StatusProto_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StatusProtoDefaultTypeInternal _StatusProto_default_instance_;
 }  // namespace reporting
 namespace reporting {
 
@@ -38,7 +40,7 @@ namespace reporting {
 
 class StatusProto::_Internal {
  public:
-  using HasBits = decltype(std::declval<StatusProto>()._has_bits_);
+  using HasBits = decltype(std::declval<StatusProto>()._impl_._has_bits_);
   static void set_has_code(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -50,31 +52,45 @@ class StatusProto::_Internal {
 StatusProto::StatusProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:reporting.StatusProto)
 }
 StatusProto::StatusProto(const StatusProto& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  StatusProto* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.error_message_){}
+    , decltype(_impl_.code_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_message_.InitDefault();
+  _impl_.error_message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    error_message_.Set("", GetArenaForAllocation());
+    _impl_.error_message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_error_message()) {
-    error_message_.Set(from._internal_error_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.error_message_.Set(from._internal_error_message(), 
+      _this->GetArenaForAllocation());
   }
-  code_ = from.code_;
+  _this->_impl_.code_ = from._impl_.code_;
   // @@protoc_insertion_point(copy_constructor:reporting.StatusProto)
 }
 
-inline void StatusProto::SharedCtor() {
-error_message_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  error_message_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-code_ = 0;
+inline void StatusProto::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.error_message_){}
+    , decltype(_impl_.code_){0}
+  };
+  _impl_.error_message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.error_message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 StatusProto::~StatusProto() {
@@ -88,11 +104,11 @@ StatusProto::~StatusProto() {
 
 inline void StatusProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  error_message_.Destroy();
+  _impl_.error_message_.Destroy();
 }
 
 void StatusProto::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void StatusProto::Clear() {
@@ -101,12 +117,12 @@ void StatusProto::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    error_message_.ClearNonDefaultToEmpty();
+    _impl_.error_message_.ClearNonDefaultToEmpty();
   }
-  code_ = 0;
-  _has_bits_.Clear();
+  _impl_.code_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -121,7 +137,7 @@ const char* StatusProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_code(&has_bits);
-          code_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.code_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -151,7 +167,7 @@ const char* StatusProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -165,7 +181,7 @@ uint8_t* StatusProto::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 code = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
@@ -194,7 +210,7 @@ size_t StatusProto::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string error_message = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -224,22 +240,23 @@ void StatusProto::CheckTypeAndMergeFrom(
 }
 
 void StatusProto::MergeFrom(const StatusProto& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:reporting.StatusProto)
-  GOOGLE_DCHECK_NE(&from, this);
+  StatusProto* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:reporting.StatusProto)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_error_message(from._internal_error_message());
+      _this->_internal_set_error_message(from._internal_error_message());
     }
     if (cached_has_bits & 0x00000002u) {
-      code_ = from.code_;
+      _this->_impl_.code_ = from._impl_.code_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void StatusProto::CopyFrom(const StatusProto& from) {
@@ -258,12 +275,12 @@ void StatusProto::InternalSwap(StatusProto* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &error_message_, lhs_arena,
-      &other->error_message_, rhs_arena
+      &_impl_.error_message_, lhs_arena,
+      &other->_impl_.error_message_, rhs_arena
   );
-  swap(code_, other->code_);
+  swap(_impl_.code_, other->_impl_.code_);
 }
 
 std::string StatusProto::GetTypeName() const {

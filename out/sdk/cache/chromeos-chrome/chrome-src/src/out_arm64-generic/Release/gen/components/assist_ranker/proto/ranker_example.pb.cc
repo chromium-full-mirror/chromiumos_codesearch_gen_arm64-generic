@@ -19,8 +19,9 @@ namespace _pbi = _pb::internal;
 
 namespace assist_ranker {
 PROTOBUF_CONSTEXPR StringList::StringList(
-    ::_pbi::ConstantInitialized)
-  : string_value_(){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.string_value_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StringListDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StringListDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -29,10 +30,11 @@ struct StringListDefaultTypeInternal {
     StringList _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StringListDefaultTypeInternal _StringList_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StringListDefaultTypeInternal _StringList_default_instance_;
 PROTOBUF_CONSTEXPR FloatList::FloatList(
-    ::_pbi::ConstantInitialized)
-  : float_value_(){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.float_value_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct FloatListDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FloatListDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -41,10 +43,12 @@ struct FloatListDefaultTypeInternal {
     FloatList _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FloatListDefaultTypeInternal _FloatList_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FloatListDefaultTypeInternal _FloatList_default_instance_;
 PROTOBUF_CONSTEXPR Feature::Feature(
-    ::_pbi::ConstantInitialized)
-  : _oneof_case_{}{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.feature_type_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct FeatureDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FeatureDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -53,9 +57,9 @@ struct FeatureDefaultTypeInternal {
     Feature _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureDefaultTypeInternal _Feature_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureDefaultTypeInternal _Feature_default_instance_;
 PROTOBUF_CONSTEXPR RankerExample_FeaturesEntry_DoNotUse::RankerExample_FeaturesEntry_DoNotUse(
-    ::_pbi::ConstantInitialized){}
+    ::_pbi::ConstantInitialized) {}
 struct RankerExample_FeaturesEntry_DoNotUseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RankerExample_FeaturesEntry_DoNotUseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -64,11 +68,13 @@ struct RankerExample_FeaturesEntry_DoNotUseDefaultTypeInternal {
     RankerExample_FeaturesEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RankerExample_FeaturesEntry_DoNotUseDefaultTypeInternal _RankerExample_FeaturesEntry_DoNotUse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RankerExample_FeaturesEntry_DoNotUseDefaultTypeInternal _RankerExample_FeaturesEntry_DoNotUse_default_instance_;
 PROTOBUF_CONSTEXPR RankerExample::RankerExample(
-    ::_pbi::ConstantInitialized)
-  : features_()
-  , target_(nullptr){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.features_)*/{}
+  , /*decltype(_impl_.target_)*/nullptr} {}
 struct RankerExampleDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RankerExampleDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -77,7 +83,7 @@ struct RankerExampleDefaultTypeInternal {
     RankerExample _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RankerExampleDefaultTypeInternal _RankerExample_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RankerExampleDefaultTypeInternal _RankerExample_default_instance_;
 }  // namespace assist_ranker
 namespace assist_ranker {
 
@@ -89,19 +95,29 @@ class StringList::_Internal {
 
 StringList::StringList(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  string_value_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:assist_ranker.StringList)
 }
 StringList::StringList(const StringList& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      string_value_(from.string_value_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  StringList* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.string_value_){from._impl_.string_value_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:assist_ranker.StringList)
 }
 
-inline void StringList::SharedCtor() {
+inline void StringList::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.string_value_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 StringList::~StringList() {
@@ -115,10 +131,11 @@ StringList::~StringList() {
 
 inline void StringList::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.string_value_.~RepeatedPtrField();
 }
 
 void StringList::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void StringList::Clear() {
@@ -127,7 +144,7 @@ void StringList::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  string_value_.Clear();
+  _impl_.string_value_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -204,10 +221,10 @@ size_t StringList::ByteSizeLong() const {
 
   // repeated bytes string_value = 1;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(string_value_.size());
-  for (int i = 0, n = string_value_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.string_value_.size());
+  for (int i = 0, n = _impl_.string_value_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-      string_value_.Get(i));
+      _impl_.string_value_.Get(i));
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -225,13 +242,14 @@ void StringList::CheckTypeAndMergeFrom(
 }
 
 void StringList::MergeFrom(const StringList& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:assist_ranker.StringList)
-  GOOGLE_DCHECK_NE(&from, this);
+  StringList* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:assist_ranker.StringList)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  string_value_.MergeFrom(from.string_value_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.string_value_.MergeFrom(from._impl_.string_value_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void StringList::CopyFrom(const StringList& from) {
@@ -248,7 +266,7 @@ bool StringList::IsInitialized() const {
 void StringList::InternalSwap(StringList* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  string_value_.InternalSwap(&other->string_value_);
+  _impl_.string_value_.InternalSwap(&other->_impl_.string_value_);
 }
 
 std::string StringList::GetTypeName() const {
@@ -264,19 +282,29 @@ class FloatList::_Internal {
 
 FloatList::FloatList(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  float_value_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:assist_ranker.FloatList)
 }
 FloatList::FloatList(const FloatList& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      float_value_(from.float_value_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FloatList* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.float_value_){from._impl_.float_value_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:assist_ranker.FloatList)
 }
 
-inline void FloatList::SharedCtor() {
+inline void FloatList::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.float_value_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 FloatList::~FloatList() {
@@ -290,10 +318,11 @@ FloatList::~FloatList() {
 
 inline void FloatList::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.float_value_.~RepeatedField();
 }
 
 void FloatList::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FloatList::Clear() {
@@ -302,7 +331,7 @@ void FloatList::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  float_value_.Clear();
+  _impl_.float_value_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -403,13 +432,14 @@ void FloatList::CheckTypeAndMergeFrom(
 }
 
 void FloatList::MergeFrom(const FloatList& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:assist_ranker.FloatList)
-  GOOGLE_DCHECK_NE(&from, this);
+  FloatList* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:assist_ranker.FloatList)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  float_value_.MergeFrom(from.float_value_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.float_value_.MergeFrom(from._impl_.float_value_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FloatList::CopyFrom(const FloatList& from) {
@@ -426,7 +456,7 @@ bool FloatList::IsInitialized() const {
 void FloatList::InternalSwap(FloatList* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  float_value_.InternalSwap(&other->float_value_);
+  _impl_.float_value_.InternalSwap(&other->_impl_.float_value_);
 }
 
 std::string FloatList::GetTypeName() const {
@@ -444,11 +474,11 @@ class Feature::_Internal {
 
 const ::assist_ranker::StringList&
 Feature::_Internal::string_list(const Feature* msg) {
-  return *msg->feature_type_.string_list_;
+  return *msg->_impl_.feature_type_.string_list_;
 }
 const ::assist_ranker::FloatList&
 Feature::_Internal::float_list(const Feature* msg) {
-  return *msg->feature_type_.float_list_;
+  return *msg->_impl_.feature_type_.float_list_;
 }
 void Feature::set_allocated_string_list(::assist_ranker::StringList* string_list) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -461,7 +491,7 @@ void Feature::set_allocated_string_list(::assist_ranker::StringList* string_list
           message_arena, string_list, submessage_arena);
     }
     set_has_string_list();
-    feature_type_.string_list_ = string_list;
+    _impl_.feature_type_.string_list_ = string_list;
   }
   // @@protoc_insertion_point(field_set_allocated:assist_ranker.Feature.string_list)
 }
@@ -476,43 +506,51 @@ void Feature::set_allocated_float_list(::assist_ranker::FloatList* float_list) {
           message_arena, float_list, submessage_arena);
     }
     set_has_float_list();
-    feature_type_.float_list_ = float_list;
+    _impl_.feature_type_.float_list_ = float_list;
   }
   // @@protoc_insertion_point(field_set_allocated:assist_ranker.Feature.float_list)
 }
 Feature::Feature(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:assist_ranker.Feature)
 }
 Feature::Feature(const Feature& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  Feature* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.feature_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   clear_has_feature_type();
   switch (from.feature_type_case()) {
     case kBoolValue: {
-      _internal_set_bool_value(from._internal_bool_value());
+      _this->_internal_set_bool_value(from._internal_bool_value());
       break;
     }
     case kFloatValue: {
-      _internal_set_float_value(from._internal_float_value());
+      _this->_internal_set_float_value(from._internal_float_value());
       break;
     }
     case kInt32Value: {
-      _internal_set_int32_value(from._internal_int32_value());
+      _this->_internal_set_int32_value(from._internal_int32_value());
       break;
     }
     case kStringValue: {
-      _internal_set_string_value(from._internal_string_value());
+      _this->_internal_set_string_value(from._internal_string_value());
       break;
     }
     case kStringList: {
-      _internal_mutable_string_list()->::assist_ranker::StringList::MergeFrom(from._internal_string_list());
+      _this->_internal_mutable_string_list()->::assist_ranker::StringList::MergeFrom(
+          from._internal_string_list());
       break;
     }
     case kFloatList: {
-      _internal_mutable_float_list()->::assist_ranker::FloatList::MergeFrom(from._internal_float_list());
+      _this->_internal_mutable_float_list()->::assist_ranker::FloatList::MergeFrom(
+          from._internal_float_list());
       break;
     }
     case FEATURE_TYPE_NOT_SET: {
@@ -522,8 +560,16 @@ Feature::Feature(const Feature& from)
   // @@protoc_insertion_point(copy_constructor:assist_ranker.Feature)
 }
 
-inline void Feature::SharedCtor() {
-clear_has_feature_type();
+inline void Feature::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.feature_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_feature_type();
 }
 
 Feature::~Feature() {
@@ -543,7 +589,7 @@ inline void Feature::SharedDtor() {
 }
 
 void Feature::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Feature::clear_feature_type() {
@@ -562,18 +608,18 @@ void Feature::clear_feature_type() {
       break;
     }
     case kStringValue: {
-      feature_type_.string_value_.Destroy();
+      _impl_.feature_type_.string_value_.Destroy();
       break;
     }
     case kStringList: {
       if (GetArenaForAllocation() == nullptr) {
-        delete feature_type_.string_list_;
+        delete _impl_.feature_type_.string_list_;
       }
       break;
     }
     case kFloatList: {
       if (GetArenaForAllocation() == nullptr) {
-        delete feature_type_.float_list_;
+        delete _impl_.feature_type_.float_list_;
       }
       break;
     }
@@ -581,7 +627,7 @@ void Feature::clear_feature_type() {
       break;
     }
   }
-  _oneof_case_[0] = FEATURE_TYPE_NOT_SET;
+  _impl_._oneof_case_[0] = FEATURE_TYPE_NOT_SET;
 }
 
 
@@ -757,14 +803,14 @@ size_t Feature::ByteSizeLong() const {
     case kStringList: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *feature_type_.string_list_);
+          *_impl_.feature_type_.string_list_);
       break;
     }
     // .assist_ranker.FloatList float_list = 6;
     case kFloatList: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *feature_type_.float_list_);
+          *_impl_.feature_type_.float_list_);
       break;
     }
     case FEATURE_TYPE_NOT_SET: {
@@ -786,41 +832,44 @@ void Feature::CheckTypeAndMergeFrom(
 }
 
 void Feature::MergeFrom(const Feature& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:assist_ranker.Feature)
-  GOOGLE_DCHECK_NE(&from, this);
+  Feature* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:assist_ranker.Feature)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.feature_type_case()) {
     case kBoolValue: {
-      _internal_set_bool_value(from._internal_bool_value());
+      _this->_internal_set_bool_value(from._internal_bool_value());
       break;
     }
     case kFloatValue: {
-      _internal_set_float_value(from._internal_float_value());
+      _this->_internal_set_float_value(from._internal_float_value());
       break;
     }
     case kInt32Value: {
-      _internal_set_int32_value(from._internal_int32_value());
+      _this->_internal_set_int32_value(from._internal_int32_value());
       break;
     }
     case kStringValue: {
-      _internal_set_string_value(from._internal_string_value());
+      _this->_internal_set_string_value(from._internal_string_value());
       break;
     }
     case kStringList: {
-      _internal_mutable_string_list()->::assist_ranker::StringList::MergeFrom(from._internal_string_list());
+      _this->_internal_mutable_string_list()->::assist_ranker::StringList::MergeFrom(
+          from._internal_string_list());
       break;
     }
     case kFloatList: {
-      _internal_mutable_float_list()->::assist_ranker::FloatList::MergeFrom(from._internal_float_list());
+      _this->_internal_mutable_float_list()->::assist_ranker::FloatList::MergeFrom(
+          from._internal_float_list());
       break;
     }
     case FEATURE_TYPE_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Feature::CopyFrom(const Feature& from) {
@@ -837,8 +886,8 @@ bool Feature::IsInitialized() const {
 void Feature::InternalSwap(Feature* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(feature_type_, other->feature_type_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_.feature_type_, other->_impl_.feature_type_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 std::string Feature::GetTypeName() const {
@@ -859,7 +908,7 @@ void RankerExample_FeaturesEntry_DoNotUse::MergeFrom(const RankerExample_Feature
 
 class RankerExample::_Internal {
  public:
-  using HasBits = decltype(std::declval<RankerExample>()._has_bits_);
+  using HasBits = decltype(std::declval<RankerExample>()._impl_._has_bits_);
   static const ::assist_ranker::Feature& target(const RankerExample* msg);
   static void set_has_target(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -868,30 +917,41 @@ class RankerExample::_Internal {
 
 const ::assist_ranker::Feature&
 RankerExample::_Internal::target(const RankerExample* msg) {
-  return *msg->target_;
+  return *msg->_impl_.target_;
 }
 RankerExample::RankerExample(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  features_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:assist_ranker.RankerExample)
 }
 RankerExample::RankerExample(const RankerExample& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RankerExample* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_.features_)*/{}
+    , decltype(_impl_.target_){nullptr}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  features_.MergeFrom(from.features_);
+  _this->_impl_.features_.MergeFrom(from._impl_.features_);
   if (from._internal_has_target()) {
-    target_ = new ::assist_ranker::Feature(*from.target_);
-  } else {
-    target_ = nullptr;
+    _this->_impl_.target_ = new ::assist_ranker::Feature(*from._impl_.target_);
   }
   // @@protoc_insertion_point(copy_constructor:assist_ranker.RankerExample)
 }
 
-inline void RankerExample::SharedCtor() {
-target_ = nullptr;
+inline void RankerExample::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_.features_)*/{::_pbi::ArenaInitialized(), arena}
+    , decltype(_impl_.target_){nullptr}
+  };
 }
 
 RankerExample::~RankerExample() {
@@ -905,12 +965,13 @@ RankerExample::~RankerExample() {
 
 inline void RankerExample::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  features_.Destruct();
-  if (this != internal_default_instance()) delete target_;
+  _impl_.features_.Destruct();
+  _impl_.features_.~MapFieldLite();
+  if (this != internal_default_instance()) delete _impl_.target_;
 }
 
 void RankerExample::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RankerExample::Clear() {
@@ -919,13 +980,13 @@ void RankerExample::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  features_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.features_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(target_ != nullptr);
-    target_->Clear();
+    GOOGLE_DCHECK(_impl_.target_ != nullptr);
+    _impl_.target_->Clear();
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -942,7 +1003,7 @@ const char* RankerExample::_InternalParse(const char* ptr, ::_pbi::ParseContext*
           ptr -= 1;
           do {
             ptr += 1;
-            ptr = ctx->ParseMessage(&features_, ptr);
+            ptr = ctx->ParseMessage(&_impl_.features_, ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
@@ -973,7 +1034,7 @@ const char* RankerExample::_InternalParse(const char* ptr, ::_pbi::ParseContext*
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1009,7 +1070,7 @@ uint8_t* RankerExample::_InternalSerialize(
     }
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .assist_ranker.Feature target = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -1043,11 +1104,11 @@ size_t RankerExample::ByteSizeLong() const {
   }
 
   // optional .assist_ranker.Feature target = 2;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *target_);
+        *_impl_.target_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1065,16 +1126,18 @@ void RankerExample::CheckTypeAndMergeFrom(
 }
 
 void RankerExample::MergeFrom(const RankerExample& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:assist_ranker.RankerExample)
-  GOOGLE_DCHECK_NE(&from, this);
+  RankerExample* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:assist_ranker.RankerExample)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  features_.MergeFrom(from.features_);
+  _this->_impl_.features_.MergeFrom(from._impl_.features_);
   if (from._internal_has_target()) {
-    _internal_mutable_target()->::assist_ranker::Feature::MergeFrom(from._internal_target());
+    _this->_internal_mutable_target()->::assist_ranker::Feature::MergeFrom(
+        from._internal_target());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RankerExample::CopyFrom(const RankerExample& from) {
@@ -1091,9 +1154,9 @@ bool RankerExample::IsInitialized() const {
 void RankerExample::InternalSwap(RankerExample* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  features_.InternalSwap(&other->features_);
-  swap(target_, other->target_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.features_.InternalSwap(&other->_impl_.features_);
+  swap(_impl_.target_, other->_impl_.target_);
 }
 
 std::string RankerExample::GetTypeName() const {

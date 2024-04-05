@@ -21,9 +21,10 @@ namespace ash {
 namespace nearby {
 namespace proto {
 PROTOBUF_CONSTEXPR Timestamp::Timestamp(
-    ::_pbi::ConstantInitialized)
-  : seconds_(int64_t{0})
-  , nanos_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.seconds_)*/int64_t{0}
+  , /*decltype(_impl_.nanos_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct TimestampDefaultTypeInternal {
   PROTOBUF_CONSTEXPR TimestampDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -32,7 +33,7 @@ struct TimestampDefaultTypeInternal {
     Timestamp _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TimestampDefaultTypeInternal _Timestamp_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TimestampDefaultTypeInternal _Timestamp_default_instance_;
 }  // namespace proto
 }  // namespace nearby
 }  // namespace ash
@@ -49,23 +50,33 @@ class Timestamp::_Internal {
 Timestamp::Timestamp(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:ash.nearby.proto.Timestamp)
 }
 Timestamp::Timestamp(const Timestamp& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  Timestamp* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.seconds_){}
+    , decltype(_impl_.nanos_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&seconds_, &from.seconds_,
-    static_cast<size_t>(reinterpret_cast<char*>(&nanos_) -
-    reinterpret_cast<char*>(&seconds_)) + sizeof(nanos_));
+  ::memcpy(&_impl_.seconds_, &from._impl_.seconds_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.nanos_) -
+    reinterpret_cast<char*>(&_impl_.seconds_)) + sizeof(_impl_.nanos_));
   // @@protoc_insertion_point(copy_constructor:ash.nearby.proto.Timestamp)
 }
 
-inline void Timestamp::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&seconds_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&nanos_) -
-    reinterpret_cast<char*>(&seconds_)) + sizeof(nanos_));
+inline void Timestamp::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.seconds_){int64_t{0}}
+    , decltype(_impl_.nanos_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 Timestamp::~Timestamp() {
@@ -82,7 +93,7 @@ inline void Timestamp::SharedDtor() {
 }
 
 void Timestamp::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Timestamp::Clear() {
@@ -91,9 +102,9 @@ void Timestamp::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&seconds_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&nanos_) -
-      reinterpret_cast<char*>(&seconds_)) + sizeof(nanos_));
+  ::memset(&_impl_.seconds_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.nanos_) -
+      reinterpret_cast<char*>(&_impl_.seconds_)) + sizeof(_impl_.nanos_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -106,7 +117,7 @@ const char* Timestamp::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
       // int64 seconds = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          seconds_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.seconds_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -114,7 +125,7 @@ const char* Timestamp::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
       // int32 nanos = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          nanos_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.nanos_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -201,18 +212,19 @@ void Timestamp::CheckTypeAndMergeFrom(
 }
 
 void Timestamp::MergeFrom(const Timestamp& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:ash.nearby.proto.Timestamp)
-  GOOGLE_DCHECK_NE(&from, this);
+  Timestamp* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:ash.nearby.proto.Timestamp)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_seconds() != 0) {
-    _internal_set_seconds(from._internal_seconds());
+    _this->_internal_set_seconds(from._internal_seconds());
   }
   if (from._internal_nanos() != 0) {
-    _internal_set_nanos(from._internal_nanos());
+    _this->_internal_set_nanos(from._internal_nanos());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Timestamp::CopyFrom(const Timestamp& from) {
@@ -230,11 +242,11 @@ void Timestamp::InternalSwap(Timestamp* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Timestamp, nanos_)
-      + sizeof(Timestamp::nanos_)
-      - PROTOBUF_FIELD_OFFSET(Timestamp, seconds_)>(
-          reinterpret_cast<char*>(&seconds_),
-          reinterpret_cast<char*>(&other->seconds_));
+      PROTOBUF_FIELD_OFFSET(Timestamp, _impl_.nanos_)
+      + sizeof(Timestamp::_impl_.nanos_)
+      - PROTOBUF_FIELD_OFFSET(Timestamp, _impl_.seconds_)>(
+          reinterpret_cast<char*>(&_impl_.seconds_),
+          reinterpret_cast<char*>(&other->_impl_.seconds_));
 }
 
 std::string Timestamp::GetTypeName() const {

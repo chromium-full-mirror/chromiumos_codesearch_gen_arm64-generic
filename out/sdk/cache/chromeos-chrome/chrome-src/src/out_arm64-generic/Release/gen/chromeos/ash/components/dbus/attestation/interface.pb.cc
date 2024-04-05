@@ -19,7 +19,8 @@ namespace _pbi = _pb::internal;
 
 namespace attestation {
 PROTOBUF_CONSTEXPR GetFeaturesRequest::GetFeaturesRequest(
-    ::_pbi::ConstantInitialized){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetFeaturesRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetFeaturesRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -28,13 +29,14 @@ struct GetFeaturesRequestDefaultTypeInternal {
     GetFeaturesRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFeaturesRequestDefaultTypeInternal _GetFeaturesRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFeaturesRequestDefaultTypeInternal _GetFeaturesRequest_default_instance_;
 PROTOBUF_CONSTEXPR GetFeaturesReply::GetFeaturesReply(
-    ::_pbi::ConstantInitialized)
-  : supported_key_types_()
-  , status_(0)
-
-  , is_available_(false){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.supported_key_types_)*/{}
+  , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_.is_available_)*/false} {}
 struct GetFeaturesReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetFeaturesReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -43,11 +45,13 @@ struct GetFeaturesReplyDefaultTypeInternal {
     GetFeaturesReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFeaturesReplyDefaultTypeInternal _GetFeaturesReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFeaturesReplyDefaultTypeInternal _GetFeaturesReply_default_instance_;
 PROTOBUF_CONSTEXPR GetKeyInfoRequest::GetKeyInfoRequest(
-    ::_pbi::ConstantInitialized)
-  : key_label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , username_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.key_label_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct GetKeyInfoRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetKeyInfoRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -56,21 +60,20 @@ struct GetKeyInfoRequestDefaultTypeInternal {
     GetKeyInfoRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetKeyInfoRequestDefaultTypeInternal _GetKeyInfoRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetKeyInfoRequestDefaultTypeInternal _GetKeyInfoRequest_default_instance_;
 PROTOBUF_CONSTEXPR GetKeyInfoReply::GetKeyInfoReply(
-    ::_pbi::ConstantInitialized)
-  : public_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , certify_info_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , certify_info_signature_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , certificate_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , payload_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , certified_key_credential_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-
-  , key_type_(1)
-
-  , key_usage_(1)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.public_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.certify_info_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.certify_info_signature_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.certificate_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.payload_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.certified_key_credential_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_.key_type_)*/1
+  , /*decltype(_impl_.key_usage_)*/1} {}
 struct GetKeyInfoReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetKeyInfoReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -79,9 +82,10 @@ struct GetKeyInfoReplyDefaultTypeInternal {
     GetKeyInfoReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetKeyInfoReplyDefaultTypeInternal _GetKeyInfoReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetKeyInfoReplyDefaultTypeInternal _GetKeyInfoReply_default_instance_;
 PROTOBUF_CONSTEXPR GetEndorsementInfoRequest::GetEndorsementInfoRequest(
-    ::_pbi::ConstantInitialized){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetEndorsementInfoRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetEndorsementInfoRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -90,14 +94,15 @@ struct GetEndorsementInfoRequestDefaultTypeInternal {
     GetEndorsementInfoRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEndorsementInfoRequestDefaultTypeInternal _GetEndorsementInfoRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEndorsementInfoRequestDefaultTypeInternal _GetEndorsementInfoRequest_default_instance_;
 PROTOBUF_CONSTEXPR GetEndorsementInfoReply::GetEndorsementInfoReply(
-    ::_pbi::ConstantInitialized)
-  : ek_public_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , ek_certificate_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , ek_info_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.ek_public_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.ek_certificate_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.ek_info_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0} {}
 struct GetEndorsementInfoReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetEndorsementInfoReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -106,11 +111,12 @@ struct GetEndorsementInfoReplyDefaultTypeInternal {
     GetEndorsementInfoReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEndorsementInfoReplyDefaultTypeInternal _GetEndorsementInfoReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEndorsementInfoReplyDefaultTypeInternal _GetEndorsementInfoReply_default_instance_;
 PROTOBUF_CONSTEXPR GetAttestationKeyInfoRequest::GetAttestationKeyInfoRequest(
-    ::_pbi::ConstantInitialized)
-  : aca_type_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.aca_type_)*/0} {}
 struct GetAttestationKeyInfoRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetAttestationKeyInfoRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -119,16 +125,17 @@ struct GetAttestationKeyInfoRequestDefaultTypeInternal {
     GetAttestationKeyInfoRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAttestationKeyInfoRequestDefaultTypeInternal _GetAttestationKeyInfoRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAttestationKeyInfoRequestDefaultTypeInternal _GetAttestationKeyInfoRequest_default_instance_;
 PROTOBUF_CONSTEXPR GetAttestationKeyInfoReply::GetAttestationKeyInfoReply(
-    ::_pbi::ConstantInitialized)
-  : public_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , public_key_tpm_format_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , certificate_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , pcr0_quote_(nullptr)
-  , pcr1_quote_(nullptr)
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.public_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.public_key_tpm_format_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.certificate_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.pcr0_quote_)*/nullptr
+  , /*decltype(_impl_.pcr1_quote_)*/nullptr
+  , /*decltype(_impl_.status_)*/0} {}
 struct GetAttestationKeyInfoReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetAttestationKeyInfoReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -137,13 +144,14 @@ struct GetAttestationKeyInfoReplyDefaultTypeInternal {
     GetAttestationKeyInfoReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAttestationKeyInfoReplyDefaultTypeInternal _GetAttestationKeyInfoReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAttestationKeyInfoReplyDefaultTypeInternal _GetAttestationKeyInfoReply_default_instance_;
 PROTOBUF_CONSTEXPR ActivateAttestationKeyRequest::ActivateAttestationKeyRequest(
-    ::_pbi::ConstantInitialized)
-  : encrypted_certificate_(nullptr)
-  , save_certificate_(false)
-  , aca_type_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.encrypted_certificate_)*/nullptr
+  , /*decltype(_impl_.save_certificate_)*/false
+  , /*decltype(_impl_.aca_type_)*/0} {}
 struct ActivateAttestationKeyRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ActivateAttestationKeyRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -152,12 +160,13 @@ struct ActivateAttestationKeyRequestDefaultTypeInternal {
     ActivateAttestationKeyRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ActivateAttestationKeyRequestDefaultTypeInternal _ActivateAttestationKeyRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ActivateAttestationKeyRequestDefaultTypeInternal _ActivateAttestationKeyRequest_default_instance_;
 PROTOBUF_CONSTEXPR ActivateAttestationKeyReply::ActivateAttestationKeyReply(
-    ::_pbi::ConstantInitialized)
-  : certificate_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.certificate_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0} {}
 struct ActivateAttestationKeyReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ActivateAttestationKeyReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -166,15 +175,15 @@ struct ActivateAttestationKeyReplyDefaultTypeInternal {
     ActivateAttestationKeyReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ActivateAttestationKeyReplyDefaultTypeInternal _ActivateAttestationKeyReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ActivateAttestationKeyReplyDefaultTypeInternal _ActivateAttestationKeyReply_default_instance_;
 PROTOBUF_CONSTEXPR CreateCertifiableKeyRequest::CreateCertifiableKeyRequest(
-    ::_pbi::ConstantInitialized)
-  : key_label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , username_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , key_type_(1)
-
-  , key_usage_(1)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.key_label_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.key_type_)*/1
+  , /*decltype(_impl_.key_usage_)*/1} {}
 struct CreateCertifiableKeyRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CreateCertifiableKeyRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -183,14 +192,15 @@ struct CreateCertifiableKeyRequestDefaultTypeInternal {
     CreateCertifiableKeyRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateCertifiableKeyRequestDefaultTypeInternal _CreateCertifiableKeyRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateCertifiableKeyRequestDefaultTypeInternal _CreateCertifiableKeyRequest_default_instance_;
 PROTOBUF_CONSTEXPR CreateCertifiableKeyReply::CreateCertifiableKeyReply(
-    ::_pbi::ConstantInitialized)
-  : public_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , certify_info_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , certify_info_signature_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.public_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.certify_info_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.certify_info_signature_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0} {}
 struct CreateCertifiableKeyReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CreateCertifiableKeyReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -199,12 +209,14 @@ struct CreateCertifiableKeyReplyDefaultTypeInternal {
     CreateCertifiableKeyReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateCertifiableKeyReplyDefaultTypeInternal _CreateCertifiableKeyReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateCertifiableKeyReplyDefaultTypeInternal _CreateCertifiableKeyReply_default_instance_;
 PROTOBUF_CONSTEXPR DecryptRequest::DecryptRequest(
-    ::_pbi::ConstantInitialized)
-  : key_label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , username_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , encrypted_data_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.key_label_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.encrypted_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct DecryptRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DecryptRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -213,12 +225,13 @@ struct DecryptRequestDefaultTypeInternal {
     DecryptRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DecryptRequestDefaultTypeInternal _DecryptRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DecryptRequestDefaultTypeInternal _DecryptRequest_default_instance_;
 PROTOBUF_CONSTEXPR DecryptReply::DecryptReply(
-    ::_pbi::ConstantInitialized)
-  : decrypted_data_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.decrypted_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0} {}
 struct DecryptReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DecryptReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -227,12 +240,14 @@ struct DecryptReplyDefaultTypeInternal {
     DecryptReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DecryptReplyDefaultTypeInternal _DecryptReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DecryptReplyDefaultTypeInternal _DecryptReply_default_instance_;
 PROTOBUF_CONSTEXPR SignRequest::SignRequest(
-    ::_pbi::ConstantInitialized)
-  : key_label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , username_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , data_to_sign_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.key_label_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.data_to_sign_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct SignRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SignRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -241,12 +256,13 @@ struct SignRequestDefaultTypeInternal {
     SignRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignRequestDefaultTypeInternal _SignRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignRequestDefaultTypeInternal _SignRequest_default_instance_;
 PROTOBUF_CONSTEXPR SignReply::SignReply(
-    ::_pbi::ConstantInitialized)
-  : signature_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.signature_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0} {}
 struct SignReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SignReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -255,12 +271,14 @@ struct SignReplyDefaultTypeInternal {
     SignReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignReplyDefaultTypeInternal _SignReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignReplyDefaultTypeInternal _SignReply_default_instance_;
 PROTOBUF_CONSTEXPR RegisterKeyWithChapsTokenRequest::RegisterKeyWithChapsTokenRequest(
-    ::_pbi::ConstantInitialized)
-  : key_label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , username_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , include_certificates_(false){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.key_label_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.include_certificates_)*/false} {}
 struct RegisterKeyWithChapsTokenRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RegisterKeyWithChapsTokenRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -269,11 +287,12 @@ struct RegisterKeyWithChapsTokenRequestDefaultTypeInternal {
     RegisterKeyWithChapsTokenRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RegisterKeyWithChapsTokenRequestDefaultTypeInternal _RegisterKeyWithChapsTokenRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RegisterKeyWithChapsTokenRequestDefaultTypeInternal _RegisterKeyWithChapsTokenRequest_default_instance_;
 PROTOBUF_CONSTEXPR RegisterKeyWithChapsTokenReply::RegisterKeyWithChapsTokenReply(
-    ::_pbi::ConstantInitialized)
-  : status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.status_)*/0} {}
 struct RegisterKeyWithChapsTokenReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RegisterKeyWithChapsTokenReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -282,11 +301,12 @@ struct RegisterKeyWithChapsTokenReplyDefaultTypeInternal {
     RegisterKeyWithChapsTokenReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RegisterKeyWithChapsTokenReplyDefaultTypeInternal _RegisterKeyWithChapsTokenReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RegisterKeyWithChapsTokenReplyDefaultTypeInternal _RegisterKeyWithChapsTokenReply_default_instance_;
 PROTOBUF_CONSTEXPR GetEnrollmentPreparationsRequest::GetEnrollmentPreparationsRequest(
-    ::_pbi::ConstantInitialized)
-  : aca_type_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.aca_type_)*/0} {}
 struct GetEnrollmentPreparationsRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetEnrollmentPreparationsRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -295,9 +315,9 @@ struct GetEnrollmentPreparationsRequestDefaultTypeInternal {
     GetEnrollmentPreparationsRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEnrollmentPreparationsRequestDefaultTypeInternal _GetEnrollmentPreparationsRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEnrollmentPreparationsRequestDefaultTypeInternal _GetEnrollmentPreparationsRequest_default_instance_;
 PROTOBUF_CONSTEXPR GetEnrollmentPreparationsReply_EnrollmentPreparationsEntry_DoNotUse::GetEnrollmentPreparationsReply_EnrollmentPreparationsEntry_DoNotUse(
-    ::_pbi::ConstantInitialized){}
+    ::_pbi::ConstantInitialized) {}
 struct GetEnrollmentPreparationsReply_EnrollmentPreparationsEntry_DoNotUseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetEnrollmentPreparationsReply_EnrollmentPreparationsEntry_DoNotUseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -306,12 +326,13 @@ struct GetEnrollmentPreparationsReply_EnrollmentPreparationsEntry_DoNotUseDefaul
     GetEnrollmentPreparationsReply_EnrollmentPreparationsEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEnrollmentPreparationsReply_EnrollmentPreparationsEntry_DoNotUseDefaultTypeInternal _GetEnrollmentPreparationsReply_EnrollmentPreparationsEntry_DoNotUse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEnrollmentPreparationsReply_EnrollmentPreparationsEntry_DoNotUseDefaultTypeInternal _GetEnrollmentPreparationsReply_EnrollmentPreparationsEntry_DoNotUse_default_instance_;
 PROTOBUF_CONSTEXPR GetEnrollmentPreparationsReply::GetEnrollmentPreparationsReply(
-    ::_pbi::ConstantInitialized)
-  : enrollment_preparations_()
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.enrollment_preparations_)*/{}
+  , /*decltype(_impl_.status_)*/0} {}
 struct GetEnrollmentPreparationsReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetEnrollmentPreparationsReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -320,10 +341,12 @@ struct GetEnrollmentPreparationsReplyDefaultTypeInternal {
     GetEnrollmentPreparationsReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEnrollmentPreparationsReplyDefaultTypeInternal _GetEnrollmentPreparationsReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEnrollmentPreparationsReplyDefaultTypeInternal _GetEnrollmentPreparationsReply_default_instance_;
 PROTOBUF_CONSTEXPR GetStatusRequest::GetStatusRequest(
-    ::_pbi::ConstantInitialized)
-  : extended_status_(false){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.extended_status_)*/false} {}
 struct GetStatusRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetStatusRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -332,10 +355,12 @@ struct GetStatusRequestDefaultTypeInternal {
     GetStatusRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetStatusRequestDefaultTypeInternal _GetStatusRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetStatusRequestDefaultTypeInternal _GetStatusRequest_default_instance_;
 PROTOBUF_CONSTEXPR GetStatusReply_Identity::GetStatusReply_Identity(
-    ::_pbi::ConstantInitialized)
-  : features_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.features_)*/0} {}
 struct GetStatusReply_IdentityDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetStatusReply_IdentityDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -344,11 +369,13 @@ struct GetStatusReply_IdentityDefaultTypeInternal {
     GetStatusReply_Identity _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetStatusReply_IdentityDefaultTypeInternal _GetStatusReply_Identity_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetStatusReply_IdentityDefaultTypeInternal _GetStatusReply_Identity_default_instance_;
 PROTOBUF_CONSTEXPR GetStatusReply_IdentityCertificate::GetStatusReply_IdentityCertificate(
-    ::_pbi::ConstantInitialized)
-  : identity_(0)
-  , aca_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.identity_)*/0
+  , /*decltype(_impl_.aca_)*/0} {}
 struct GetStatusReply_IdentityCertificateDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetStatusReply_IdentityCertificateDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -357,9 +384,9 @@ struct GetStatusReply_IdentityCertificateDefaultTypeInternal {
     GetStatusReply_IdentityCertificate _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetStatusReply_IdentityCertificateDefaultTypeInternal _GetStatusReply_IdentityCertificate_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetStatusReply_IdentityCertificateDefaultTypeInternal _GetStatusReply_IdentityCertificate_default_instance_;
 PROTOBUF_CONSTEXPR GetStatusReply_IdentityCertificatesEntry_DoNotUse::GetStatusReply_IdentityCertificatesEntry_DoNotUse(
-    ::_pbi::ConstantInitialized){}
+    ::_pbi::ConstantInitialized) {}
 struct GetStatusReply_IdentityCertificatesEntry_DoNotUseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetStatusReply_IdentityCertificatesEntry_DoNotUseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -368,9 +395,9 @@ struct GetStatusReply_IdentityCertificatesEntry_DoNotUseDefaultTypeInternal {
     GetStatusReply_IdentityCertificatesEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetStatusReply_IdentityCertificatesEntry_DoNotUseDefaultTypeInternal _GetStatusReply_IdentityCertificatesEntry_DoNotUse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetStatusReply_IdentityCertificatesEntry_DoNotUseDefaultTypeInternal _GetStatusReply_IdentityCertificatesEntry_DoNotUse_default_instance_;
 PROTOBUF_CONSTEXPR GetStatusReply_EnrollmentPreparationsEntry_DoNotUse::GetStatusReply_EnrollmentPreparationsEntry_DoNotUse(
-    ::_pbi::ConstantInitialized){}
+    ::_pbi::ConstantInitialized) {}
 struct GetStatusReply_EnrollmentPreparationsEntry_DoNotUseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetStatusReply_EnrollmentPreparationsEntry_DoNotUseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -379,17 +406,18 @@ struct GetStatusReply_EnrollmentPreparationsEntry_DoNotUseDefaultTypeInternal {
     GetStatusReply_EnrollmentPreparationsEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetStatusReply_EnrollmentPreparationsEntry_DoNotUseDefaultTypeInternal _GetStatusReply_EnrollmentPreparationsEntry_DoNotUse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetStatusReply_EnrollmentPreparationsEntry_DoNotUseDefaultTypeInternal _GetStatusReply_EnrollmentPreparationsEntry_DoNotUse_default_instance_;
 PROTOBUF_CONSTEXPR GetStatusReply::GetStatusReply(
-    ::_pbi::ConstantInitialized)
-  : identities_()
-  , identity_certificates_()
-  , enrollment_preparations_()
-  , status_(0)
-
-  , prepared_for_enrollment_(false)
-  , enrolled_(false)
-  , verified_boot_(false){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.identities_)*/{}
+  , /*decltype(_impl_.identity_certificates_)*/{}
+  , /*decltype(_impl_.enrollment_preparations_)*/{}
+  , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_.prepared_for_enrollment_)*/false
+  , /*decltype(_impl_.enrolled_)*/false
+  , /*decltype(_impl_.verified_boot_)*/false} {}
 struct GetStatusReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetStatusReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -398,11 +426,13 @@ struct GetStatusReplyDefaultTypeInternal {
     GetStatusReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetStatusReplyDefaultTypeInternal _GetStatusReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetStatusReplyDefaultTypeInternal _GetStatusReply_default_instance_;
 PROTOBUF_CONSTEXPR VerifyRequest::VerifyRequest(
-    ::_pbi::ConstantInitialized)
-  : cros_core_(false)
-  , ek_only_(false){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.cros_core_)*/false
+  , /*decltype(_impl_.ek_only_)*/false} {}
 struct VerifyRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR VerifyRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -411,12 +441,13 @@ struct VerifyRequestDefaultTypeInternal {
     VerifyRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VerifyRequestDefaultTypeInternal _VerifyRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VerifyRequestDefaultTypeInternal _VerifyRequest_default_instance_;
 PROTOBUF_CONSTEXPR VerifyReply::VerifyReply(
-    ::_pbi::ConstantInitialized)
-  : status_(0)
-
-  , verified_(false){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_.verified_)*/false} {}
 struct VerifyReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR VerifyReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -425,11 +456,12 @@ struct VerifyReplyDefaultTypeInternal {
     VerifyReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VerifyReplyDefaultTypeInternal _VerifyReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VerifyReplyDefaultTypeInternal _VerifyReply_default_instance_;
 PROTOBUF_CONSTEXPR CreateEnrollRequestRequest::CreateEnrollRequestRequest(
-    ::_pbi::ConstantInitialized)
-  : aca_type_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.aca_type_)*/0} {}
 struct CreateEnrollRequestRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CreateEnrollRequestRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -438,12 +470,13 @@ struct CreateEnrollRequestRequestDefaultTypeInternal {
     CreateEnrollRequestRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateEnrollRequestRequestDefaultTypeInternal _CreateEnrollRequestRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateEnrollRequestRequestDefaultTypeInternal _CreateEnrollRequestRequest_default_instance_;
 PROTOBUF_CONSTEXPR CreateEnrollRequestReply::CreateEnrollRequestReply(
-    ::_pbi::ConstantInitialized)
-  : pca_request_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.pca_request_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0} {}
 struct CreateEnrollRequestReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CreateEnrollRequestReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -452,12 +485,13 @@ struct CreateEnrollRequestReplyDefaultTypeInternal {
     CreateEnrollRequestReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateEnrollRequestReplyDefaultTypeInternal _CreateEnrollRequestReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateEnrollRequestReplyDefaultTypeInternal _CreateEnrollRequestReply_default_instance_;
 PROTOBUF_CONSTEXPR FinishEnrollRequest::FinishEnrollRequest(
-    ::_pbi::ConstantInitialized)
-  : pca_response_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , aca_type_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.pca_response_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.aca_type_)*/0} {}
 struct FinishEnrollRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FinishEnrollRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -466,11 +500,12 @@ struct FinishEnrollRequestDefaultTypeInternal {
     FinishEnrollRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FinishEnrollRequestDefaultTypeInternal _FinishEnrollRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FinishEnrollRequestDefaultTypeInternal _FinishEnrollRequest_default_instance_;
 PROTOBUF_CONSTEXPR FinishEnrollReply::FinishEnrollReply(
-    ::_pbi::ConstantInitialized)
-  : status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.status_)*/0} {}
 struct FinishEnrollReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FinishEnrollReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -479,12 +514,13 @@ struct FinishEnrollReplyDefaultTypeInternal {
     FinishEnrollReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FinishEnrollReplyDefaultTypeInternal _FinishEnrollReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FinishEnrollReplyDefaultTypeInternal _FinishEnrollReply_default_instance_;
 PROTOBUF_CONSTEXPR EnrollRequest::EnrollRequest(
-    ::_pbi::ConstantInitialized)
-  : aca_type_(0)
-
-  , forced_(false){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.aca_type_)*/0
+  , /*decltype(_impl_.forced_)*/false} {}
 struct EnrollRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EnrollRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -493,11 +529,12 @@ struct EnrollRequestDefaultTypeInternal {
     EnrollRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnrollRequestDefaultTypeInternal _EnrollRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnrollRequestDefaultTypeInternal _EnrollRequest_default_instance_;
 PROTOBUF_CONSTEXPR EnrollReply::EnrollReply(
-    ::_pbi::ConstantInitialized)
-  : status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.status_)*/0} {}
 struct EnrollReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EnrollReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -506,11 +543,13 @@ struct EnrollReplyDefaultTypeInternal {
     EnrollReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnrollReplyDefaultTypeInternal _EnrollReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnrollReplyDefaultTypeInternal _EnrollReply_default_instance_;
 PROTOBUF_CONSTEXPR DeviceSetupCertificateRequestMetadata::DeviceSetupCertificateRequestMetadata(
-    ::_pbi::ConstantInitialized)
-  : id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , content_binding_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.content_binding_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct DeviceSetupCertificateRequestMetadataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceSetupCertificateRequestMetadataDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -519,18 +558,18 @@ struct DeviceSetupCertificateRequestMetadataDefaultTypeInternal {
     DeviceSetupCertificateRequestMetadata _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceSetupCertificateRequestMetadataDefaultTypeInternal _DeviceSetupCertificateRequestMetadata_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceSetupCertificateRequestMetadataDefaultTypeInternal _DeviceSetupCertificateRequestMetadata_default_instance_;
 PROTOBUF_CONSTEXPR CreateCertificateRequestRequest::CreateCertificateRequestRequest(
-    ::_pbi::ConstantInitialized)
-  : username_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , request_origin_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , certificate_profile_(0)
-
-  , aca_type_(0)
-
-  , key_type_(1)
-
-  , _oneof_case_{}{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.request_origin_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.certificate_profile_)*/0
+  , /*decltype(_impl_.aca_type_)*/0
+  , /*decltype(_impl_.key_type_)*/1
+  , /*decltype(_impl_.metadata_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct CreateCertificateRequestRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CreateCertificateRequestRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -539,12 +578,13 @@ struct CreateCertificateRequestRequestDefaultTypeInternal {
     CreateCertificateRequestRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateCertificateRequestRequestDefaultTypeInternal _CreateCertificateRequestRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateCertificateRequestRequestDefaultTypeInternal _CreateCertificateRequestRequest_default_instance_;
 PROTOBUF_CONSTEXPR CreateCertificateRequestReply::CreateCertificateRequestReply(
-    ::_pbi::ConstantInitialized)
-  : pca_request_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.pca_request_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0} {}
 struct CreateCertificateRequestReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CreateCertificateRequestReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -553,12 +593,14 @@ struct CreateCertificateRequestReplyDefaultTypeInternal {
     CreateCertificateRequestReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateCertificateRequestReplyDefaultTypeInternal _CreateCertificateRequestReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateCertificateRequestReplyDefaultTypeInternal _CreateCertificateRequestReply_default_instance_;
 PROTOBUF_CONSTEXPR FinishCertificateRequestRequest::FinishCertificateRequestRequest(
-    ::_pbi::ConstantInitialized)
-  : pca_response_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , key_label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , username_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.pca_response_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.key_label_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct FinishCertificateRequestRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FinishCertificateRequestRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -567,15 +609,16 @@ struct FinishCertificateRequestRequestDefaultTypeInternal {
     FinishCertificateRequestRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FinishCertificateRequestRequestDefaultTypeInternal _FinishCertificateRequestRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FinishCertificateRequestRequestDefaultTypeInternal _FinishCertificateRequestRequest_default_instance_;
 PROTOBUF_CONSTEXPR FinishCertificateRequestReply::FinishCertificateRequestReply(
-    ::_pbi::ConstantInitialized)
-  : certificate_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , public_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , key_blob_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , certified_key_credential_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.certificate_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.public_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.key_blob_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.certified_key_credential_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0} {}
 struct FinishCertificateRequestReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FinishCertificateRequestReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -584,21 +627,21 @@ struct FinishCertificateRequestReplyDefaultTypeInternal {
     FinishCertificateRequestReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FinishCertificateRequestReplyDefaultTypeInternal _FinishCertificateRequestReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FinishCertificateRequestReplyDefaultTypeInternal _FinishCertificateRequestReply_default_instance_;
 PROTOBUF_CONSTEXPR GetCertificateRequest::GetCertificateRequest(
-    ::_pbi::ConstantInitialized)
-  : username_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , request_origin_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , key_label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , certificate_profile_(0)
-
-  , aca_type_(0)
-
-  , forced_(false)
-  , shall_trigger_enrollment_(false)
-  , key_type_(1)
-
-  , _oneof_case_{}{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.request_origin_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.key_label_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.certificate_profile_)*/0
+  , /*decltype(_impl_.aca_type_)*/0
+  , /*decltype(_impl_.forced_)*/false
+  , /*decltype(_impl_.shall_trigger_enrollment_)*/false
+  , /*decltype(_impl_.key_type_)*/1
+  , /*decltype(_impl_.metadata_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct GetCertificateRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetCertificateRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -607,15 +650,16 @@ struct GetCertificateRequestDefaultTypeInternal {
     GetCertificateRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetCertificateRequestDefaultTypeInternal _GetCertificateRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetCertificateRequestDefaultTypeInternal _GetCertificateRequest_default_instance_;
 PROTOBUF_CONSTEXPR GetCertificateReply::GetCertificateReply(
-    ::_pbi::ConstantInitialized)
-  : certificate_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , public_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , key_blob_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , certified_key_credential_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.certificate_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.public_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.key_blob_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.certified_key_credential_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0} {}
 struct GetCertificateReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetCertificateReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -624,23 +668,23 @@ struct GetCertificateReplyDefaultTypeInternal {
     GetCertificateReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetCertificateReplyDefaultTypeInternal _GetCertificateReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetCertificateReplyDefaultTypeInternal _GetCertificateReply_default_instance_;
 PROTOBUF_CONSTEXPR SignEnterpriseChallengeRequest::SignEnterpriseChallengeRequest(
-    ::_pbi::ConstantInitialized)
-  : key_label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , username_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , domain_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , device_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , challenge_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , key_name_for_spkac_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , device_trust_signals_json_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , va_type_(0)
-
-  , include_signed_public_key_(false)
-  , include_customer_id_(false)
-  , include_certificate_(false)
-  , flow_type_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.key_label_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.domain_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.device_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.challenge_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.key_name_for_spkac_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.device_trust_signals_json_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.va_type_)*/0
+  , /*decltype(_impl_.include_signed_public_key_)*/false
+  , /*decltype(_impl_.include_customer_id_)*/false
+  , /*decltype(_impl_.include_certificate_)*/false
+  , /*decltype(_impl_.flow_type_)*/0} {}
 struct SignEnterpriseChallengeRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SignEnterpriseChallengeRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -649,12 +693,13 @@ struct SignEnterpriseChallengeRequestDefaultTypeInternal {
     SignEnterpriseChallengeRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignEnterpriseChallengeRequestDefaultTypeInternal _SignEnterpriseChallengeRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignEnterpriseChallengeRequestDefaultTypeInternal _SignEnterpriseChallengeRequest_default_instance_;
 PROTOBUF_CONSTEXPR SignEnterpriseChallengeReply::SignEnterpriseChallengeReply(
-    ::_pbi::ConstantInitialized)
-  : challenge_response_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.challenge_response_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0} {}
 struct SignEnterpriseChallengeReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SignEnterpriseChallengeReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -663,12 +708,14 @@ struct SignEnterpriseChallengeReplyDefaultTypeInternal {
     SignEnterpriseChallengeReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignEnterpriseChallengeReplyDefaultTypeInternal _SignEnterpriseChallengeReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignEnterpriseChallengeReplyDefaultTypeInternal _SignEnterpriseChallengeReply_default_instance_;
 PROTOBUF_CONSTEXPR SignSimpleChallengeRequest::SignSimpleChallengeRequest(
-    ::_pbi::ConstantInitialized)
-  : key_label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , username_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , challenge_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.key_label_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.challenge_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct SignSimpleChallengeRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SignSimpleChallengeRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -677,12 +724,13 @@ struct SignSimpleChallengeRequestDefaultTypeInternal {
     SignSimpleChallengeRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignSimpleChallengeRequestDefaultTypeInternal _SignSimpleChallengeRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignSimpleChallengeRequestDefaultTypeInternal _SignSimpleChallengeRequest_default_instance_;
 PROTOBUF_CONSTEXPR SignSimpleChallengeReply::SignSimpleChallengeReply(
-    ::_pbi::ConstantInitialized)
-  : challenge_response_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.challenge_response_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0} {}
 struct SignSimpleChallengeReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SignSimpleChallengeReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -691,12 +739,14 @@ struct SignSimpleChallengeReplyDefaultTypeInternal {
     SignSimpleChallengeReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignSimpleChallengeReplyDefaultTypeInternal _SignSimpleChallengeReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignSimpleChallengeReplyDefaultTypeInternal _SignSimpleChallengeReply_default_instance_;
 PROTOBUF_CONSTEXPR SetKeyPayloadRequest::SetKeyPayloadRequest(
-    ::_pbi::ConstantInitialized)
-  : key_label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , username_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , payload_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.key_label_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.payload_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct SetKeyPayloadRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SetKeyPayloadRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -705,11 +755,12 @@ struct SetKeyPayloadRequestDefaultTypeInternal {
     SetKeyPayloadRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetKeyPayloadRequestDefaultTypeInternal _SetKeyPayloadRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetKeyPayloadRequestDefaultTypeInternal _SetKeyPayloadRequest_default_instance_;
 PROTOBUF_CONSTEXPR SetKeyPayloadReply::SetKeyPayloadReply(
-    ::_pbi::ConstantInitialized)
-  : status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.status_)*/0} {}
 struct SetKeyPayloadReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SetKeyPayloadReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -718,13 +769,14 @@ struct SetKeyPayloadReplyDefaultTypeInternal {
     SetKeyPayloadReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetKeyPayloadReplyDefaultTypeInternal _SetKeyPayloadReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetKeyPayloadReplyDefaultTypeInternal _SetKeyPayloadReply_default_instance_;
 PROTOBUF_CONSTEXPR DeleteKeysRequest::DeleteKeysRequest(
-    ::_pbi::ConstantInitialized)
-  : key_label_match_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , username_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , match_behavior_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.key_label_match_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.match_behavior_)*/0} {}
 struct DeleteKeysRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeleteKeysRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -733,11 +785,12 @@ struct DeleteKeysRequestDefaultTypeInternal {
     DeleteKeysRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeleteKeysRequestDefaultTypeInternal _DeleteKeysRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeleteKeysRequestDefaultTypeInternal _DeleteKeysRequest_default_instance_;
 PROTOBUF_CONSTEXPR DeleteKeysReply::DeleteKeysReply(
-    ::_pbi::ConstantInitialized)
-  : status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.status_)*/0} {}
 struct DeleteKeysReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeleteKeysReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -746,10 +799,12 @@ struct DeleteKeysReplyDefaultTypeInternal {
     DeleteKeysReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeleteKeysReplyDefaultTypeInternal _DeleteKeysReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeleteKeysReplyDefaultTypeInternal _DeleteKeysReply_default_instance_;
 PROTOBUF_CONSTEXPR ResetIdentityRequest::ResetIdentityRequest(
-    ::_pbi::ConstantInitialized)
-  : reset_token_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.reset_token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct ResetIdentityRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ResetIdentityRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -758,12 +813,13 @@ struct ResetIdentityRequestDefaultTypeInternal {
     ResetIdentityRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ResetIdentityRequestDefaultTypeInternal _ResetIdentityRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ResetIdentityRequestDefaultTypeInternal _ResetIdentityRequest_default_instance_;
 PROTOBUF_CONSTEXPR ResetIdentityReply::ResetIdentityReply(
-    ::_pbi::ConstantInitialized)
-  : reset_request_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.reset_request_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0} {}
 struct ResetIdentityReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ResetIdentityReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -772,10 +828,12 @@ struct ResetIdentityReplyDefaultTypeInternal {
     ResetIdentityReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ResetIdentityReplyDefaultTypeInternal _ResetIdentityReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ResetIdentityReplyDefaultTypeInternal _ResetIdentityReply_default_instance_;
 PROTOBUF_CONSTEXPR GetEnrollmentIdRequest::GetEnrollmentIdRequest(
-    ::_pbi::ConstantInitialized)
-  : ignore_cache_(false){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.ignore_cache_)*/false} {}
 struct GetEnrollmentIdRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetEnrollmentIdRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -784,12 +842,13 @@ struct GetEnrollmentIdRequestDefaultTypeInternal {
     GetEnrollmentIdRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEnrollmentIdRequestDefaultTypeInternal _GetEnrollmentIdRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEnrollmentIdRequestDefaultTypeInternal _GetEnrollmentIdRequest_default_instance_;
 PROTOBUF_CONSTEXPR GetEnrollmentIdReply::GetEnrollmentIdReply(
-    ::_pbi::ConstantInitialized)
-  : enrollment_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.enrollment_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0} {}
 struct GetEnrollmentIdReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetEnrollmentIdReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -798,12 +857,14 @@ struct GetEnrollmentIdReplyDefaultTypeInternal {
     GetEnrollmentIdReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEnrollmentIdReplyDefaultTypeInternal _GetEnrollmentIdReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEnrollmentIdReplyDefaultTypeInternal _GetEnrollmentIdReply_default_instance_;
 PROTOBUF_CONSTEXPR GetCertifiedNvIndexRequest::GetCertifiedNvIndexRequest(
-    ::_pbi::ConstantInitialized)
-  : key_label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , nv_index_(0)
-  , nv_size_(0){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.key_label_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.nv_index_)*/0
+  , /*decltype(_impl_.nv_size_)*/0} {}
 struct GetCertifiedNvIndexRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetCertifiedNvIndexRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -812,14 +873,15 @@ struct GetCertifiedNvIndexRequestDefaultTypeInternal {
     GetCertifiedNvIndexRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetCertifiedNvIndexRequestDefaultTypeInternal _GetCertifiedNvIndexRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetCertifiedNvIndexRequestDefaultTypeInternal _GetCertifiedNvIndexRequest_default_instance_;
 PROTOBUF_CONSTEXPR GetCertifiedNvIndexReply::GetCertifiedNvIndexReply(
-    ::_pbi::ConstantInitialized)
-  : certified_data_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , signature_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , key_certificate_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , status_(0)
-{}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.certified_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.signature_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.key_certificate_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0} {}
 struct GetCertifiedNvIndexReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetCertifiedNvIndexReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -828,7 +890,7 @@ struct GetCertifiedNvIndexReplyDefaultTypeInternal {
     GetCertifiedNvIndexReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetCertifiedNvIndexReplyDefaultTypeInternal _GetCertifiedNvIndexReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetCertifiedNvIndexReplyDefaultTypeInternal _GetCertifiedNvIndexReply_default_instance_;
 }  // namespace attestation
 namespace attestation {
 bool DeleteKeysRequest_MatchBehavior_IsValid(int value) {
@@ -1089,16 +1151,26 @@ class GetFeaturesRequest::_Internal {
 GetFeaturesRequest::GetFeaturesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetFeaturesRequest)
 }
 GetFeaturesRequest::GetFeaturesRequest(const GetFeaturesRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetFeaturesRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:attestation.GetFeaturesRequest)
 }
 
-inline void GetFeaturesRequest::SharedCtor() {
+inline void GetFeaturesRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 GetFeaturesRequest::~GetFeaturesRequest() {
@@ -1115,7 +1187,7 @@ inline void GetFeaturesRequest::SharedDtor() {
 }
 
 void GetFeaturesRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetFeaturesRequest::Clear() {
@@ -1188,12 +1260,13 @@ void GetFeaturesRequest::CheckTypeAndMergeFrom(
 }
 
 void GetFeaturesRequest::MergeFrom(const GetFeaturesRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetFeaturesRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetFeaturesRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetFeaturesRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetFeaturesRequest::CopyFrom(const GetFeaturesRequest& from) {
@@ -1221,7 +1294,7 @@ std::string GetFeaturesRequest::GetTypeName() const {
 
 class GetFeaturesReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetFeaturesReply>()._has_bits_);
+  using HasBits = decltype(std::declval<GetFeaturesReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1232,27 +1305,38 @@ class GetFeaturesReply::_Internal {
 
 GetFeaturesReply::GetFeaturesReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  supported_key_types_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetFeaturesReply)
 }
 GetFeaturesReply::GetFeaturesReply(const GetFeaturesReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      supported_key_types_(from.supported_key_types_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetFeaturesReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.supported_key_types_){from._impl_.supported_key_types_}
+    , decltype(_impl_.status_){}
+    , decltype(_impl_.is_available_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&status_, &from.status_,
-    static_cast<size_t>(reinterpret_cast<char*>(&is_available_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(is_available_));
+  ::memcpy(&_impl_.status_, &from._impl_.status_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.is_available_) -
+    reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.is_available_));
   // @@protoc_insertion_point(copy_constructor:attestation.GetFeaturesReply)
 }
 
-inline void GetFeaturesReply::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&status_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&is_available_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(is_available_));
+inline void GetFeaturesReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.supported_key_types_){arena}
+    , decltype(_impl_.status_){0}
+    , decltype(_impl_.is_available_){false}
+  };
 }
 
 GetFeaturesReply::~GetFeaturesReply() {
@@ -1266,10 +1350,11 @@ GetFeaturesReply::~GetFeaturesReply() {
 
 inline void GetFeaturesReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.supported_key_types_.~RepeatedField();
 }
 
 void GetFeaturesReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetFeaturesReply::Clear() {
@@ -1278,14 +1363,14 @@ void GetFeaturesReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  supported_key_types_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.supported_key_types_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&status_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&is_available_) -
-        reinterpret_cast<char*>(&status_)) + sizeof(is_available_));
+    ::memset(&_impl_.status_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.is_available_) -
+        reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.is_available_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1313,7 +1398,7 @@ const char* GetFeaturesReply::_InternalParse(const char* ptr, ::_pbi::ParseConte
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_is_available(&has_bits);
-          is_available_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.is_available_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1355,7 +1440,7 @@ const char* GetFeaturesReply::_InternalParse(const char* ptr, ::_pbi::ParseConte
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1369,7 +1454,7 @@ uint8_t* GetFeaturesReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -1416,7 +1501,7 @@ size_t GetFeaturesReply::ByteSizeLong() const {
     total_size += (1UL * count) + data_size;
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional .attestation.AttestationStatus status = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -1445,23 +1530,24 @@ void GetFeaturesReply::CheckTypeAndMergeFrom(
 }
 
 void GetFeaturesReply::MergeFrom(const GetFeaturesReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetFeaturesReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetFeaturesReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetFeaturesReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  supported_key_types_.MergeFrom(from.supported_key_types_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_impl_.supported_key_types_.MergeFrom(from._impl_.supported_key_types_);
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
     if (cached_has_bits & 0x00000002u) {
-      is_available_ = from.is_available_;
+      _this->_impl_.is_available_ = from._impl_.is_available_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetFeaturesReply::CopyFrom(const GetFeaturesReply& from) {
@@ -1478,14 +1564,14 @@ bool GetFeaturesReply::IsInitialized() const {
 void GetFeaturesReply::InternalSwap(GetFeaturesReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  supported_key_types_.InternalSwap(&other->supported_key_types_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.supported_key_types_.InternalSwap(&other->_impl_.supported_key_types_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetFeaturesReply, is_available_)
-      + sizeof(GetFeaturesReply::is_available_)
-      - PROTOBUF_FIELD_OFFSET(GetFeaturesReply, status_)>(
-          reinterpret_cast<char*>(&status_),
-          reinterpret_cast<char*>(&other->status_));
+      PROTOBUF_FIELD_OFFSET(GetFeaturesReply, _impl_.is_available_)
+      + sizeof(GetFeaturesReply::_impl_.is_available_)
+      - PROTOBUF_FIELD_OFFSET(GetFeaturesReply, _impl_.status_)>(
+          reinterpret_cast<char*>(&_impl_.status_),
+          reinterpret_cast<char*>(&other->_impl_.status_));
 }
 
 std::string GetFeaturesReply::GetTypeName() const {
@@ -1497,7 +1583,7 @@ std::string GetFeaturesReply::GetTypeName() const {
 
 class GetKeyInfoRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetKeyInfoRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<GetKeyInfoRequest>()._impl_._has_bits_);
   static void set_has_key_label(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1509,41 +1595,56 @@ class GetKeyInfoRequest::_Internal {
 GetKeyInfoRequest::GetKeyInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetKeyInfoRequest)
 }
 GetKeyInfoRequest::GetKeyInfoRequest(const GetKeyInfoRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetKeyInfoRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  key_label_.InitDefault();
+  _impl_.key_label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_label_.Set("", GetArenaForAllocation());
+    _impl_.key_label_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_label()) {
-    key_label_.Set(from._internal_key_label(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_label_.Set(from._internal_key_label(), 
+      _this->GetArenaForAllocation());
   }
-  username_.InitDefault();
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    username_.Set("", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_username()) {
-    username_.Set(from._internal_username(), 
-      GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:attestation.GetKeyInfoRequest)
 }
 
-inline void GetKeyInfoRequest::SharedCtor() {
-key_label_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_label_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-username_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  username_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void GetKeyInfoRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+  };
+  _impl_.key_label_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_label_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetKeyInfoRequest::~GetKeyInfoRequest() {
@@ -1557,12 +1658,12 @@ GetKeyInfoRequest::~GetKeyInfoRequest() {
 
 inline void GetKeyInfoRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  key_label_.Destroy();
-  username_.Destroy();
+  _impl_.key_label_.Destroy();
+  _impl_.username_.Destroy();
 }
 
 void GetKeyInfoRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetKeyInfoRequest::Clear() {
@@ -1571,16 +1672,16 @@ void GetKeyInfoRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      key_label_.ClearNonDefaultToEmpty();
+      _impl_.key_label_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      username_.ClearNonDefaultToEmpty();
+      _impl_.username_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1625,7 +1726,7 @@ const char* GetKeyInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1639,7 +1740,7 @@ uint8_t* GetKeyInfoRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string key_label = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -1668,7 +1769,7 @@ size_t GetKeyInfoRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string key_label = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -1700,21 +1801,22 @@ void GetKeyInfoRequest::CheckTypeAndMergeFrom(
 }
 
 void GetKeyInfoRequest::MergeFrom(const GetKeyInfoRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetKeyInfoRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetKeyInfoRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetKeyInfoRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_key_label(from._internal_key_label());
+      _this->_internal_set_key_label(from._internal_key_label());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_username(from._internal_username());
+      _this->_internal_set_username(from._internal_username());
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetKeyInfoRequest::CopyFrom(const GetKeyInfoRequest& from) {
@@ -1733,14 +1835,14 @@ void GetKeyInfoRequest::InternalSwap(GetKeyInfoRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_label_, lhs_arena,
-      &other->key_label_, rhs_arena
+      &_impl_.key_label_, lhs_arena,
+      &other->_impl_.key_label_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &username_, lhs_arena,
-      &other->username_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
 }
 
@@ -1753,7 +1855,7 @@ std::string GetKeyInfoRequest::GetTypeName() const {
 
 class GetKeyInfoReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetKeyInfoReply>()._has_bits_);
+  using HasBits = decltype(std::declval<GetKeyInfoReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
@@ -1786,95 +1888,121 @@ class GetKeyInfoReply::_Internal {
 GetKeyInfoReply::GetKeyInfoReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetKeyInfoReply)
 }
 GetKeyInfoReply::GetKeyInfoReply(const GetKeyInfoReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetKeyInfoReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.public_key_){}
+    , decltype(_impl_.certify_info_){}
+    , decltype(_impl_.certify_info_signature_){}
+    , decltype(_impl_.certificate_){}
+    , decltype(_impl_.payload_){}
+    , decltype(_impl_.certified_key_credential_){}
+    , decltype(_impl_.status_){}
+    , decltype(_impl_.key_type_){}
+    , decltype(_impl_.key_usage_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  public_key_.InitDefault();
+  _impl_.public_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    public_key_.Set("", GetArenaForAllocation());
+    _impl_.public_key_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_public_key()) {
-    public_key_.Set(from._internal_public_key(), 
-      GetArenaForAllocation());
+    _this->_impl_.public_key_.Set(from._internal_public_key(), 
+      _this->GetArenaForAllocation());
   }
-  certify_info_.InitDefault();
+  _impl_.certify_info_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    certify_info_.Set("", GetArenaForAllocation());
+    _impl_.certify_info_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_certify_info()) {
-    certify_info_.Set(from._internal_certify_info(), 
-      GetArenaForAllocation());
+    _this->_impl_.certify_info_.Set(from._internal_certify_info(), 
+      _this->GetArenaForAllocation());
   }
-  certify_info_signature_.InitDefault();
+  _impl_.certify_info_signature_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    certify_info_signature_.Set("", GetArenaForAllocation());
+    _impl_.certify_info_signature_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_certify_info_signature()) {
-    certify_info_signature_.Set(from._internal_certify_info_signature(), 
-      GetArenaForAllocation());
+    _this->_impl_.certify_info_signature_.Set(from._internal_certify_info_signature(), 
+      _this->GetArenaForAllocation());
   }
-  certificate_.InitDefault();
+  _impl_.certificate_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    certificate_.Set("", GetArenaForAllocation());
+    _impl_.certificate_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_certificate()) {
-    certificate_.Set(from._internal_certificate(), 
-      GetArenaForAllocation());
+    _this->_impl_.certificate_.Set(from._internal_certificate(), 
+      _this->GetArenaForAllocation());
   }
-  payload_.InitDefault();
+  _impl_.payload_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    payload_.Set("", GetArenaForAllocation());
+    _impl_.payload_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_payload()) {
-    payload_.Set(from._internal_payload(), 
-      GetArenaForAllocation());
+    _this->_impl_.payload_.Set(from._internal_payload(), 
+      _this->GetArenaForAllocation());
   }
-  certified_key_credential_.InitDefault();
+  _impl_.certified_key_credential_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    certified_key_credential_.Set("", GetArenaForAllocation());
+    _impl_.certified_key_credential_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_certified_key_credential()) {
-    certified_key_credential_.Set(from._internal_certified_key_credential(), 
-      GetArenaForAllocation());
+    _this->_impl_.certified_key_credential_.Set(from._internal_certified_key_credential(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&status_, &from.status_,
-    static_cast<size_t>(reinterpret_cast<char*>(&key_usage_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(key_usage_));
+  ::memcpy(&_impl_.status_, &from._impl_.status_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.key_usage_) -
+    reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.key_usage_));
   // @@protoc_insertion_point(copy_constructor:attestation.GetKeyInfoReply)
 }
 
-inline void GetKeyInfoReply::SharedCtor() {
-public_key_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  public_key_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-certify_info_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  certify_info_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-certify_info_signature_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  certify_info_signature_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-certificate_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  certificate_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-payload_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  payload_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-certified_key_credential_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  certified_key_credential_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
-key_type_ = 1;
-key_usage_ = 1;
+inline void GetKeyInfoReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.public_key_){}
+    , decltype(_impl_.certify_info_){}
+    , decltype(_impl_.certify_info_signature_){}
+    , decltype(_impl_.certificate_){}
+    , decltype(_impl_.payload_){}
+    , decltype(_impl_.certified_key_credential_){}
+    , decltype(_impl_.status_){0}
+    , decltype(_impl_.key_type_){1}
+    , decltype(_impl_.key_usage_){1}
+  };
+  _impl_.public_key_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.public_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.certify_info_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.certify_info_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.certify_info_signature_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.certify_info_signature_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.certificate_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.certificate_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.payload_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.payload_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.certified_key_credential_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.certified_key_credential_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetKeyInfoReply::~GetKeyInfoReply() {
@@ -1888,16 +2016,16 @@ GetKeyInfoReply::~GetKeyInfoReply() {
 
 inline void GetKeyInfoReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  public_key_.Destroy();
-  certify_info_.Destroy();
-  certify_info_signature_.Destroy();
-  certificate_.Destroy();
-  payload_.Destroy();
-  certified_key_credential_.Destroy();
+  _impl_.public_key_.Destroy();
+  _impl_.certify_info_.Destroy();
+  _impl_.certify_info_signature_.Destroy();
+  _impl_.certificate_.Destroy();
+  _impl_.payload_.Destroy();
+  _impl_.certified_key_credential_.Destroy();
 }
 
 void GetKeyInfoReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetKeyInfoReply::Clear() {
@@ -1906,33 +2034,33 @@ void GetKeyInfoReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
-      public_key_.ClearNonDefaultToEmpty();
+      _impl_.public_key_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      certify_info_.ClearNonDefaultToEmpty();
+      _impl_.certify_info_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      certify_info_signature_.ClearNonDefaultToEmpty();
+      _impl_.certify_info_signature_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      certificate_.ClearNonDefaultToEmpty();
+      _impl_.certificate_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000010u) {
-      payload_.ClearNonDefaultToEmpty();
+      _impl_.payload_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000020u) {
-      certified_key_credential_.ClearNonDefaultToEmpty();
+      _impl_.certified_key_credential_.ClearNonDefaultToEmpty();
     }
   }
   if (cached_has_bits & 0x000000c0u) {
-    status_ = 0;
-    key_type_ = 1;
+    _impl_.status_ = 0;
+    _impl_.key_type_ = 1;
   }
-  key_usage_ = 1;
-  _has_bits_.Clear();
+  _impl_.key_usage_ = 1;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -2052,7 +2180,7 @@ const char* GetKeyInfoReply::_InternalParse(const char* ptr, ::_pbi::ParseContex
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2066,7 +2194,7 @@ uint8_t* GetKeyInfoReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
@@ -2140,7 +2268,7 @@ size_t GetKeyInfoReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional bytes public_key = 4;
     if (cached_has_bits & 0x00000001u) {
@@ -2218,43 +2346,44 @@ void GetKeyInfoReply::CheckTypeAndMergeFrom(
 }
 
 void GetKeyInfoReply::MergeFrom(const GetKeyInfoReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetKeyInfoReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetKeyInfoReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetKeyInfoReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_public_key(from._internal_public_key());
+      _this->_internal_set_public_key(from._internal_public_key());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_certify_info(from._internal_certify_info());
+      _this->_internal_set_certify_info(from._internal_certify_info());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_certify_info_signature(from._internal_certify_info_signature());
+      _this->_internal_set_certify_info_signature(from._internal_certify_info_signature());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_set_certificate(from._internal_certificate());
+      _this->_internal_set_certificate(from._internal_certificate());
     }
     if (cached_has_bits & 0x00000010u) {
-      _internal_set_payload(from._internal_payload());
+      _this->_internal_set_payload(from._internal_payload());
     }
     if (cached_has_bits & 0x00000020u) {
-      _internal_set_certified_key_credential(from._internal_certified_key_credential());
+      _this->_internal_set_certified_key_credential(from._internal_certified_key_credential());
     }
     if (cached_has_bits & 0x00000040u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
     if (cached_has_bits & 0x00000080u) {
-      key_type_ = from.key_type_;
+      _this->_impl_.key_type_ = from._impl_.key_type_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x00000100u) {
-    _internal_set_key_usage(from._internal_key_usage());
+    _this->_internal_set_key_usage(from._internal_key_usage());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetKeyInfoReply::CopyFrom(const GetKeyInfoReply& from) {
@@ -2273,34 +2402,34 @@ void GetKeyInfoReply::InternalSwap(GetKeyInfoReply* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &public_key_, lhs_arena,
-      &other->public_key_, rhs_arena
+      &_impl_.public_key_, lhs_arena,
+      &other->_impl_.public_key_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &certify_info_, lhs_arena,
-      &other->certify_info_, rhs_arena
+      &_impl_.certify_info_, lhs_arena,
+      &other->_impl_.certify_info_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &certify_info_signature_, lhs_arena,
-      &other->certify_info_signature_, rhs_arena
+      &_impl_.certify_info_signature_, lhs_arena,
+      &other->_impl_.certify_info_signature_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &certificate_, lhs_arena,
-      &other->certificate_, rhs_arena
+      &_impl_.certificate_, lhs_arena,
+      &other->_impl_.certificate_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &payload_, lhs_arena,
-      &other->payload_, rhs_arena
+      &_impl_.payload_, lhs_arena,
+      &other->_impl_.payload_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &certified_key_credential_, lhs_arena,
-      &other->certified_key_credential_, rhs_arena
+      &_impl_.certified_key_credential_, lhs_arena,
+      &other->_impl_.certified_key_credential_, rhs_arena
   );
-  swap(status_, other->status_);
-  swap(key_type_, other->key_type_);
-  swap(key_usage_, other->key_usage_);
+  swap(_impl_.status_, other->_impl_.status_);
+  swap(_impl_.key_type_, other->_impl_.key_type_);
+  swap(_impl_.key_usage_, other->_impl_.key_usage_);
 }
 
 std::string GetKeyInfoReply::GetTypeName() const {
@@ -2317,16 +2446,26 @@ class GetEndorsementInfoRequest::_Internal {
 GetEndorsementInfoRequest::GetEndorsementInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetEndorsementInfoRequest)
 }
 GetEndorsementInfoRequest::GetEndorsementInfoRequest(const GetEndorsementInfoRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetEndorsementInfoRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:attestation.GetEndorsementInfoRequest)
 }
 
-inline void GetEndorsementInfoRequest::SharedCtor() {
+inline void GetEndorsementInfoRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 GetEndorsementInfoRequest::~GetEndorsementInfoRequest() {
@@ -2343,7 +2482,7 @@ inline void GetEndorsementInfoRequest::SharedDtor() {
 }
 
 void GetEndorsementInfoRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetEndorsementInfoRequest::Clear() {
@@ -2416,12 +2555,13 @@ void GetEndorsementInfoRequest::CheckTypeAndMergeFrom(
 }
 
 void GetEndorsementInfoRequest::MergeFrom(const GetEndorsementInfoRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetEndorsementInfoRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetEndorsementInfoRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetEndorsementInfoRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetEndorsementInfoRequest::CopyFrom(const GetEndorsementInfoRequest& from) {
@@ -2449,7 +2589,7 @@ std::string GetEndorsementInfoRequest::GetTypeName() const {
 
 class GetEndorsementInfoReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetEndorsementInfoReply>()._has_bits_);
+  using HasBits = decltype(std::declval<GetEndorsementInfoReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
@@ -2467,55 +2607,73 @@ class GetEndorsementInfoReply::_Internal {
 GetEndorsementInfoReply::GetEndorsementInfoReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetEndorsementInfoReply)
 }
 GetEndorsementInfoReply::GetEndorsementInfoReply(const GetEndorsementInfoReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetEndorsementInfoReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ek_public_key_){}
+    , decltype(_impl_.ek_certificate_){}
+    , decltype(_impl_.ek_info_){}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ek_public_key_.InitDefault();
+  _impl_.ek_public_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    ek_public_key_.Set("", GetArenaForAllocation());
+    _impl_.ek_public_key_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_ek_public_key()) {
-    ek_public_key_.Set(from._internal_ek_public_key(), 
-      GetArenaForAllocation());
+    _this->_impl_.ek_public_key_.Set(from._internal_ek_public_key(), 
+      _this->GetArenaForAllocation());
   }
-  ek_certificate_.InitDefault();
+  _impl_.ek_certificate_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    ek_certificate_.Set("", GetArenaForAllocation());
+    _impl_.ek_certificate_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_ek_certificate()) {
-    ek_certificate_.Set(from._internal_ek_certificate(), 
-      GetArenaForAllocation());
+    _this->_impl_.ek_certificate_.Set(from._internal_ek_certificate(), 
+      _this->GetArenaForAllocation());
   }
-  ek_info_.InitDefault();
+  _impl_.ek_info_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    ek_info_.Set("", GetArenaForAllocation());
+    _impl_.ek_info_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_ek_info()) {
-    ek_info_.Set(from._internal_ek_info(), 
-      GetArenaForAllocation());
+    _this->_impl_.ek_info_.Set(from._internal_ek_info(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.GetEndorsementInfoReply)
 }
 
-inline void GetEndorsementInfoReply::SharedCtor() {
-ek_public_key_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  ek_public_key_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-ek_certificate_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  ek_certificate_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-ek_info_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  ek_info_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void GetEndorsementInfoReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ek_public_key_){}
+    , decltype(_impl_.ek_certificate_){}
+    , decltype(_impl_.ek_info_){}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.ek_public_key_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.ek_public_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.ek_certificate_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.ek_certificate_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.ek_info_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.ek_info_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetEndorsementInfoReply::~GetEndorsementInfoReply() {
@@ -2529,13 +2687,13 @@ GetEndorsementInfoReply::~GetEndorsementInfoReply() {
 
 inline void GetEndorsementInfoReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  ek_public_key_.Destroy();
-  ek_certificate_.Destroy();
-  ek_info_.Destroy();
+  _impl_.ek_public_key_.Destroy();
+  _impl_.ek_certificate_.Destroy();
+  _impl_.ek_info_.Destroy();
 }
 
 void GetEndorsementInfoReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetEndorsementInfoReply::Clear() {
@@ -2544,20 +2702,20 @@ void GetEndorsementInfoReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      ek_public_key_.ClearNonDefaultToEmpty();
+      _impl_.ek_public_key_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      ek_certificate_.ClearNonDefaultToEmpty();
+      _impl_.ek_certificate_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      ek_info_.ClearNonDefaultToEmpty();
+      _impl_.ek_info_.ClearNonDefaultToEmpty();
     }
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -2624,7 +2782,7 @@ const char* GetEndorsementInfoReply::_InternalParse(const char* ptr, ::_pbi::Par
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2638,7 +2796,7 @@ uint8_t* GetEndorsementInfoReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
@@ -2680,7 +2838,7 @@ size_t GetEndorsementInfoReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional bytes ek_public_key = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -2725,28 +2883,29 @@ void GetEndorsementInfoReply::CheckTypeAndMergeFrom(
 }
 
 void GetEndorsementInfoReply::MergeFrom(const GetEndorsementInfoReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetEndorsementInfoReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetEndorsementInfoReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetEndorsementInfoReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_ek_public_key(from._internal_ek_public_key());
+      _this->_internal_set_ek_public_key(from._internal_ek_public_key());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_ek_certificate(from._internal_ek_certificate());
+      _this->_internal_set_ek_certificate(from._internal_ek_certificate());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_ek_info(from._internal_ek_info());
+      _this->_internal_set_ek_info(from._internal_ek_info());
     }
     if (cached_has_bits & 0x00000008u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetEndorsementInfoReply::CopyFrom(const GetEndorsementInfoReply& from) {
@@ -2765,20 +2924,20 @@ void GetEndorsementInfoReply::InternalSwap(GetEndorsementInfoReply* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &ek_public_key_, lhs_arena,
-      &other->ek_public_key_, rhs_arena
+      &_impl_.ek_public_key_, lhs_arena,
+      &other->_impl_.ek_public_key_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &ek_certificate_, lhs_arena,
-      &other->ek_certificate_, rhs_arena
+      &_impl_.ek_certificate_, lhs_arena,
+      &other->_impl_.ek_certificate_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &ek_info_, lhs_arena,
-      &other->ek_info_, rhs_arena
+      &_impl_.ek_info_, lhs_arena,
+      &other->_impl_.ek_info_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string GetEndorsementInfoReply::GetTypeName() const {
@@ -2790,7 +2949,7 @@ std::string GetEndorsementInfoReply::GetTypeName() const {
 
 class GetAttestationKeyInfoRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetAttestationKeyInfoRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<GetAttestationKeyInfoRequest>()._impl_._has_bits_);
   static void set_has_aca_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2799,19 +2958,31 @@ class GetAttestationKeyInfoRequest::_Internal {
 GetAttestationKeyInfoRequest::GetAttestationKeyInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetAttestationKeyInfoRequest)
 }
 GetAttestationKeyInfoRequest::GetAttestationKeyInfoRequest(const GetAttestationKeyInfoRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetAttestationKeyInfoRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.aca_type_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  aca_type_ = from.aca_type_;
+  _this->_impl_.aca_type_ = from._impl_.aca_type_;
   // @@protoc_insertion_point(copy_constructor:attestation.GetAttestationKeyInfoRequest)
 }
 
-inline void GetAttestationKeyInfoRequest::SharedCtor() {
-aca_type_ = 0;
+inline void GetAttestationKeyInfoRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.aca_type_){0}
+  };
 }
 
 GetAttestationKeyInfoRequest::~GetAttestationKeyInfoRequest() {
@@ -2828,7 +2999,7 @@ inline void GetAttestationKeyInfoRequest::SharedDtor() {
 }
 
 void GetAttestationKeyInfoRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetAttestationKeyInfoRequest::Clear() {
@@ -2837,8 +3008,8 @@ void GetAttestationKeyInfoRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  aca_type_ = 0;
-  _has_bits_.Clear();
+  _impl_.aca_type_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -2878,7 +3049,7 @@ const char* GetAttestationKeyInfoRequest::_InternalParse(const char* ptr, ::_pbi
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2892,7 +3063,7 @@ uint8_t* GetAttestationKeyInfoRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.ACAType aca_type = 2;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -2917,7 +3088,7 @@ size_t GetAttestationKeyInfoRequest::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional .attestation.ACAType aca_type = 2;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_aca_type());
@@ -2938,15 +3109,16 @@ void GetAttestationKeyInfoRequest::CheckTypeAndMergeFrom(
 }
 
 void GetAttestationKeyInfoRequest::MergeFrom(const GetAttestationKeyInfoRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetAttestationKeyInfoRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetAttestationKeyInfoRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetAttestationKeyInfoRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_aca_type()) {
-    _internal_set_aca_type(from._internal_aca_type());
+    _this->_internal_set_aca_type(from._internal_aca_type());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetAttestationKeyInfoRequest::CopyFrom(const GetAttestationKeyInfoRequest& from) {
@@ -2963,8 +3135,8 @@ bool GetAttestationKeyInfoRequest::IsInitialized() const {
 void GetAttestationKeyInfoRequest::InternalSwap(GetAttestationKeyInfoRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(aca_type_, other->aca_type_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.aca_type_, other->_impl_.aca_type_);
 }
 
 std::string GetAttestationKeyInfoRequest::GetTypeName() const {
@@ -2976,7 +3148,7 @@ std::string GetAttestationKeyInfoRequest::GetTypeName() const {
 
 class GetAttestationKeyInfoReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetAttestationKeyInfoReply>()._has_bits_);
+  using HasBits = decltype(std::declval<GetAttestationKeyInfoReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
@@ -3001,85 +3173,100 @@ class GetAttestationKeyInfoReply::_Internal {
 
 const ::attestation::Quote&
 GetAttestationKeyInfoReply::_Internal::pcr0_quote(const GetAttestationKeyInfoReply* msg) {
-  return *msg->pcr0_quote_;
+  return *msg->_impl_.pcr0_quote_;
 }
 const ::attestation::Quote&
 GetAttestationKeyInfoReply::_Internal::pcr1_quote(const GetAttestationKeyInfoReply* msg) {
-  return *msg->pcr1_quote_;
+  return *msg->_impl_.pcr1_quote_;
 }
 void GetAttestationKeyInfoReply::clear_pcr0_quote() {
-  if (pcr0_quote_ != nullptr) pcr0_quote_->Clear();
-  _has_bits_[0] &= ~0x00000008u;
+  if (_impl_.pcr0_quote_ != nullptr) _impl_.pcr0_quote_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000008u;
 }
 void GetAttestationKeyInfoReply::clear_pcr1_quote() {
-  if (pcr1_quote_ != nullptr) pcr1_quote_->Clear();
-  _has_bits_[0] &= ~0x00000010u;
+  if (_impl_.pcr1_quote_ != nullptr) _impl_.pcr1_quote_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000010u;
 }
 GetAttestationKeyInfoReply::GetAttestationKeyInfoReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetAttestationKeyInfoReply)
 }
 GetAttestationKeyInfoReply::GetAttestationKeyInfoReply(const GetAttestationKeyInfoReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetAttestationKeyInfoReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.public_key_){}
+    , decltype(_impl_.public_key_tpm_format_){}
+    , decltype(_impl_.certificate_){}
+    , decltype(_impl_.pcr0_quote_){nullptr}
+    , decltype(_impl_.pcr1_quote_){nullptr}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  public_key_.InitDefault();
+  _impl_.public_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    public_key_.Set("", GetArenaForAllocation());
+    _impl_.public_key_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_public_key()) {
-    public_key_.Set(from._internal_public_key(), 
-      GetArenaForAllocation());
+    _this->_impl_.public_key_.Set(from._internal_public_key(), 
+      _this->GetArenaForAllocation());
   }
-  public_key_tpm_format_.InitDefault();
+  _impl_.public_key_tpm_format_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    public_key_tpm_format_.Set("", GetArenaForAllocation());
+    _impl_.public_key_tpm_format_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_public_key_tpm_format()) {
-    public_key_tpm_format_.Set(from._internal_public_key_tpm_format(), 
-      GetArenaForAllocation());
+    _this->_impl_.public_key_tpm_format_.Set(from._internal_public_key_tpm_format(), 
+      _this->GetArenaForAllocation());
   }
-  certificate_.InitDefault();
+  _impl_.certificate_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    certificate_.Set("", GetArenaForAllocation());
+    _impl_.certificate_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_certificate()) {
-    certificate_.Set(from._internal_certificate(), 
-      GetArenaForAllocation());
+    _this->_impl_.certificate_.Set(from._internal_certificate(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_pcr0_quote()) {
-    pcr0_quote_ = new ::attestation::Quote(*from.pcr0_quote_);
-  } else {
-    pcr0_quote_ = nullptr;
+    _this->_impl_.pcr0_quote_ = new ::attestation::Quote(*from._impl_.pcr0_quote_);
   }
   if (from._internal_has_pcr1_quote()) {
-    pcr1_quote_ = new ::attestation::Quote(*from.pcr1_quote_);
-  } else {
-    pcr1_quote_ = nullptr;
+    _this->_impl_.pcr1_quote_ = new ::attestation::Quote(*from._impl_.pcr1_quote_);
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.GetAttestationKeyInfoReply)
 }
 
-inline void GetAttestationKeyInfoReply::SharedCtor() {
-public_key_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  public_key_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-public_key_tpm_format_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  public_key_tpm_format_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-certificate_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  certificate_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&pcr0_quote_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&status_) -
-    reinterpret_cast<char*>(&pcr0_quote_)) + sizeof(status_));
+inline void GetAttestationKeyInfoReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.public_key_){}
+    , decltype(_impl_.public_key_tpm_format_){}
+    , decltype(_impl_.certificate_){}
+    , decltype(_impl_.pcr0_quote_){nullptr}
+    , decltype(_impl_.pcr1_quote_){nullptr}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.public_key_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.public_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.public_key_tpm_format_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.public_key_tpm_format_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.certificate_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.certificate_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetAttestationKeyInfoReply::~GetAttestationKeyInfoReply() {
@@ -3093,15 +3280,15 @@ GetAttestationKeyInfoReply::~GetAttestationKeyInfoReply() {
 
 inline void GetAttestationKeyInfoReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  public_key_.Destroy();
-  public_key_tpm_format_.Destroy();
-  certificate_.Destroy();
-  if (this != internal_default_instance()) delete pcr0_quote_;
-  if (this != internal_default_instance()) delete pcr1_quote_;
+  _impl_.public_key_.Destroy();
+  _impl_.public_key_tpm_format_.Destroy();
+  _impl_.certificate_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.pcr0_quote_;
+  if (this != internal_default_instance()) delete _impl_.pcr1_quote_;
 }
 
 void GetAttestationKeyInfoReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetAttestationKeyInfoReply::Clear() {
@@ -3110,28 +3297,28 @@ void GetAttestationKeyInfoReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      public_key_.ClearNonDefaultToEmpty();
+      _impl_.public_key_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      public_key_tpm_format_.ClearNonDefaultToEmpty();
+      _impl_.public_key_tpm_format_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      certificate_.ClearNonDefaultToEmpty();
+      _impl_.certificate_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      GOOGLE_DCHECK(pcr0_quote_ != nullptr);
-      pcr0_quote_->Clear();
+      GOOGLE_DCHECK(_impl_.pcr0_quote_ != nullptr);
+      _impl_.pcr0_quote_->Clear();
     }
     if (cached_has_bits & 0x00000010u) {
-      GOOGLE_DCHECK(pcr1_quote_ != nullptr);
-      pcr1_quote_->Clear();
+      GOOGLE_DCHECK(_impl_.pcr1_quote_ != nullptr);
+      _impl_.pcr1_quote_->Clear();
     }
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3214,7 +3401,7 @@ const char* GetAttestationKeyInfoReply::_InternalParse(const char* ptr, ::_pbi::
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3228,7 +3415,7 @@ uint8_t* GetAttestationKeyInfoReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
@@ -3284,7 +3471,7 @@ size_t GetAttestationKeyInfoReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000003fu) {
     // optional bytes public_key = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -3311,14 +3498,14 @@ size_t GetAttestationKeyInfoReply::ByteSizeLong() const {
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *pcr0_quote_);
+          *_impl_.pcr0_quote_);
     }
 
     // optional .attestation.Quote pcr1_quote = 6;
     if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *pcr1_quote_);
+          *_impl_.pcr1_quote_);
     }
 
     // optional .attestation.AttestationStatus status = 1;
@@ -3343,34 +3530,37 @@ void GetAttestationKeyInfoReply::CheckTypeAndMergeFrom(
 }
 
 void GetAttestationKeyInfoReply::MergeFrom(const GetAttestationKeyInfoReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetAttestationKeyInfoReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetAttestationKeyInfoReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetAttestationKeyInfoReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_public_key(from._internal_public_key());
+      _this->_internal_set_public_key(from._internal_public_key());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_public_key_tpm_format(from._internal_public_key_tpm_format());
+      _this->_internal_set_public_key_tpm_format(from._internal_public_key_tpm_format());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_certificate(from._internal_certificate());
+      _this->_internal_set_certificate(from._internal_certificate());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_mutable_pcr0_quote()->::attestation::Quote::MergeFrom(from._internal_pcr0_quote());
+      _this->_internal_mutable_pcr0_quote()->::attestation::Quote::MergeFrom(
+          from._internal_pcr0_quote());
     }
     if (cached_has_bits & 0x00000010u) {
-      _internal_mutable_pcr1_quote()->::attestation::Quote::MergeFrom(from._internal_pcr1_quote());
+      _this->_internal_mutable_pcr1_quote()->::attestation::Quote::MergeFrom(
+          from._internal_pcr1_quote());
     }
     if (cached_has_bits & 0x00000020u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetAttestationKeyInfoReply::CopyFrom(const GetAttestationKeyInfoReply& from) {
@@ -3389,25 +3579,25 @@ void GetAttestationKeyInfoReply::InternalSwap(GetAttestationKeyInfoReply* other)
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &public_key_, lhs_arena,
-      &other->public_key_, rhs_arena
+      &_impl_.public_key_, lhs_arena,
+      &other->_impl_.public_key_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &public_key_tpm_format_, lhs_arena,
-      &other->public_key_tpm_format_, rhs_arena
+      &_impl_.public_key_tpm_format_, lhs_arena,
+      &other->_impl_.public_key_tpm_format_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &certificate_, lhs_arena,
-      &other->certificate_, rhs_arena
+      &_impl_.certificate_, lhs_arena,
+      &other->_impl_.certificate_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetAttestationKeyInfoReply, status_)
-      + sizeof(GetAttestationKeyInfoReply::status_)
-      - PROTOBUF_FIELD_OFFSET(GetAttestationKeyInfoReply, pcr0_quote_)>(
-          reinterpret_cast<char*>(&pcr0_quote_),
-          reinterpret_cast<char*>(&other->pcr0_quote_));
+      PROTOBUF_FIELD_OFFSET(GetAttestationKeyInfoReply, _impl_.status_)
+      + sizeof(GetAttestationKeyInfoReply::_impl_.status_)
+      - PROTOBUF_FIELD_OFFSET(GetAttestationKeyInfoReply, _impl_.pcr0_quote_)>(
+          reinterpret_cast<char*>(&_impl_.pcr0_quote_),
+          reinterpret_cast<char*>(&other->_impl_.pcr0_quote_));
 }
 
 std::string GetAttestationKeyInfoReply::GetTypeName() const {
@@ -3419,7 +3609,7 @@ std::string GetAttestationKeyInfoReply::GetTypeName() const {
 
 class ActivateAttestationKeyRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<ActivateAttestationKeyRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<ActivateAttestationKeyRequest>()._impl_._has_bits_);
   static const ::attestation::EncryptedIdentityCredential& encrypted_certificate(const ActivateAttestationKeyRequest* msg);
   static void set_has_encrypted_certificate(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -3434,38 +3624,49 @@ class ActivateAttestationKeyRequest::_Internal {
 
 const ::attestation::EncryptedIdentityCredential&
 ActivateAttestationKeyRequest::_Internal::encrypted_certificate(const ActivateAttestationKeyRequest* msg) {
-  return *msg->encrypted_certificate_;
+  return *msg->_impl_.encrypted_certificate_;
 }
 void ActivateAttestationKeyRequest::clear_encrypted_certificate() {
-  if (encrypted_certificate_ != nullptr) encrypted_certificate_->Clear();
-  _has_bits_[0] &= ~0x00000001u;
+  if (_impl_.encrypted_certificate_ != nullptr) _impl_.encrypted_certificate_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
 ActivateAttestationKeyRequest::ActivateAttestationKeyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.ActivateAttestationKeyRequest)
 }
 ActivateAttestationKeyRequest::ActivateAttestationKeyRequest(const ActivateAttestationKeyRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ActivateAttestationKeyRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.encrypted_certificate_){nullptr}
+    , decltype(_impl_.save_certificate_){}
+    , decltype(_impl_.aca_type_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_encrypted_certificate()) {
-    encrypted_certificate_ = new ::attestation::EncryptedIdentityCredential(*from.encrypted_certificate_);
-  } else {
-    encrypted_certificate_ = nullptr;
+    _this->_impl_.encrypted_certificate_ = new ::attestation::EncryptedIdentityCredential(*from._impl_.encrypted_certificate_);
   }
-  ::memcpy(&save_certificate_, &from.save_certificate_,
-    static_cast<size_t>(reinterpret_cast<char*>(&aca_type_) -
-    reinterpret_cast<char*>(&save_certificate_)) + sizeof(aca_type_));
+  ::memcpy(&_impl_.save_certificate_, &from._impl_.save_certificate_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.aca_type_) -
+    reinterpret_cast<char*>(&_impl_.save_certificate_)) + sizeof(_impl_.aca_type_));
   // @@protoc_insertion_point(copy_constructor:attestation.ActivateAttestationKeyRequest)
 }
 
-inline void ActivateAttestationKeyRequest::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&encrypted_certificate_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&aca_type_) -
-    reinterpret_cast<char*>(&encrypted_certificate_)) + sizeof(aca_type_));
+inline void ActivateAttestationKeyRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.encrypted_certificate_){nullptr}
+    , decltype(_impl_.save_certificate_){false}
+    , decltype(_impl_.aca_type_){0}
+  };
 }
 
 ActivateAttestationKeyRequest::~ActivateAttestationKeyRequest() {
@@ -3479,11 +3680,11 @@ ActivateAttestationKeyRequest::~ActivateAttestationKeyRequest() {
 
 inline void ActivateAttestationKeyRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete encrypted_certificate_;
+  if (this != internal_default_instance()) delete _impl_.encrypted_certificate_;
 }
 
 void ActivateAttestationKeyRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ActivateAttestationKeyRequest::Clear() {
@@ -3492,17 +3693,17 @@ void ActivateAttestationKeyRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(encrypted_certificate_ != nullptr);
-    encrypted_certificate_->Clear();
+    GOOGLE_DCHECK(_impl_.encrypted_certificate_ != nullptr);
+    _impl_.encrypted_certificate_->Clear();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&save_certificate_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&aca_type_) -
-        reinterpret_cast<char*>(&save_certificate_)) + sizeof(aca_type_));
+    ::memset(&_impl_.save_certificate_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.aca_type_) -
+        reinterpret_cast<char*>(&_impl_.save_certificate_)) + sizeof(_impl_.aca_type_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3525,7 +3726,7 @@ const char* ActivateAttestationKeyRequest::_InternalParse(const char* ptr, ::_pb
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_save_certificate(&has_bits);
-          save_certificate_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.save_certificate_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3559,7 +3760,7 @@ const char* ActivateAttestationKeyRequest::_InternalParse(const char* ptr, ::_pb
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3573,7 +3774,7 @@ uint8_t* ActivateAttestationKeyRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.EncryptedIdentityCredential encrypted_certificate = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -3610,13 +3811,13 @@ size_t ActivateAttestationKeyRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional .attestation.EncryptedIdentityCredential encrypted_certificate = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *encrypted_certificate_);
+          *_impl_.encrypted_certificate_);
     }
 
     // optional bool save_certificate = 3;
@@ -3646,25 +3847,27 @@ void ActivateAttestationKeyRequest::CheckTypeAndMergeFrom(
 }
 
 void ActivateAttestationKeyRequest::MergeFrom(const ActivateAttestationKeyRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.ActivateAttestationKeyRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  ActivateAttestationKeyRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.ActivateAttestationKeyRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_encrypted_certificate()->::attestation::EncryptedIdentityCredential::MergeFrom(from._internal_encrypted_certificate());
+      _this->_internal_mutable_encrypted_certificate()->::attestation::EncryptedIdentityCredential::MergeFrom(
+          from._internal_encrypted_certificate());
     }
     if (cached_has_bits & 0x00000002u) {
-      save_certificate_ = from.save_certificate_;
+      _this->_impl_.save_certificate_ = from._impl_.save_certificate_;
     }
     if (cached_has_bits & 0x00000004u) {
-      aca_type_ = from.aca_type_;
+      _this->_impl_.aca_type_ = from._impl_.aca_type_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ActivateAttestationKeyRequest::CopyFrom(const ActivateAttestationKeyRequest& from) {
@@ -3681,13 +3884,13 @@ bool ActivateAttestationKeyRequest::IsInitialized() const {
 void ActivateAttestationKeyRequest::InternalSwap(ActivateAttestationKeyRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ActivateAttestationKeyRequest, aca_type_)
-      + sizeof(ActivateAttestationKeyRequest::aca_type_)
-      - PROTOBUF_FIELD_OFFSET(ActivateAttestationKeyRequest, encrypted_certificate_)>(
-          reinterpret_cast<char*>(&encrypted_certificate_),
-          reinterpret_cast<char*>(&other->encrypted_certificate_));
+      PROTOBUF_FIELD_OFFSET(ActivateAttestationKeyRequest, _impl_.aca_type_)
+      + sizeof(ActivateAttestationKeyRequest::_impl_.aca_type_)
+      - PROTOBUF_FIELD_OFFSET(ActivateAttestationKeyRequest, _impl_.encrypted_certificate_)>(
+          reinterpret_cast<char*>(&_impl_.encrypted_certificate_),
+          reinterpret_cast<char*>(&other->_impl_.encrypted_certificate_));
 }
 
 std::string ActivateAttestationKeyRequest::GetTypeName() const {
@@ -3699,7 +3902,7 @@ std::string ActivateAttestationKeyRequest::GetTypeName() const {
 
 class ActivateAttestationKeyReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<ActivateAttestationKeyReply>()._has_bits_);
+  using HasBits = decltype(std::declval<ActivateAttestationKeyReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -3711,31 +3914,45 @@ class ActivateAttestationKeyReply::_Internal {
 ActivateAttestationKeyReply::ActivateAttestationKeyReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.ActivateAttestationKeyReply)
 }
 ActivateAttestationKeyReply::ActivateAttestationKeyReply(const ActivateAttestationKeyReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ActivateAttestationKeyReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.certificate_){}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  certificate_.InitDefault();
+  _impl_.certificate_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    certificate_.Set("", GetArenaForAllocation());
+    _impl_.certificate_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_certificate()) {
-    certificate_.Set(from._internal_certificate(), 
-      GetArenaForAllocation());
+    _this->_impl_.certificate_.Set(from._internal_certificate(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.ActivateAttestationKeyReply)
 }
 
-inline void ActivateAttestationKeyReply::SharedCtor() {
-certificate_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  certificate_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void ActivateAttestationKeyReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.certificate_){}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.certificate_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.certificate_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ActivateAttestationKeyReply::~ActivateAttestationKeyReply() {
@@ -3749,11 +3966,11 @@ ActivateAttestationKeyReply::~ActivateAttestationKeyReply() {
 
 inline void ActivateAttestationKeyReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  certificate_.Destroy();
+  _impl_.certificate_.Destroy();
 }
 
 void ActivateAttestationKeyReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ActivateAttestationKeyReply::Clear() {
@@ -3762,12 +3979,12 @@ void ActivateAttestationKeyReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    certificate_.ClearNonDefaultToEmpty();
+    _impl_.certificate_.ClearNonDefaultToEmpty();
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3816,7 +4033,7 @@ const char* ActivateAttestationKeyReply::_InternalParse(const char* ptr, ::_pbi:
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3830,7 +4047,7 @@ uint8_t* ActivateAttestationKeyReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
@@ -3860,7 +4077,7 @@ size_t ActivateAttestationKeyReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional bytes certificate = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -3891,22 +4108,23 @@ void ActivateAttestationKeyReply::CheckTypeAndMergeFrom(
 }
 
 void ActivateAttestationKeyReply::MergeFrom(const ActivateAttestationKeyReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.ActivateAttestationKeyReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  ActivateAttestationKeyReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.ActivateAttestationKeyReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_certificate(from._internal_certificate());
+      _this->_internal_set_certificate(from._internal_certificate());
     }
     if (cached_has_bits & 0x00000002u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ActivateAttestationKeyReply::CopyFrom(const ActivateAttestationKeyReply& from) {
@@ -3925,12 +4143,12 @@ void ActivateAttestationKeyReply::InternalSwap(ActivateAttestationKeyReply* othe
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &certificate_, lhs_arena,
-      &other->certificate_, rhs_arena
+      &_impl_.certificate_, lhs_arena,
+      &other->_impl_.certificate_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string ActivateAttestationKeyReply::GetTypeName() const {
@@ -3942,7 +4160,7 @@ std::string ActivateAttestationKeyReply::GetTypeName() const {
 
 class CreateCertifiableKeyRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<CreateCertifiableKeyRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<CreateCertifiableKeyRequest>()._impl_._has_bits_);
   static void set_has_key_label(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3960,46 +4178,63 @@ class CreateCertifiableKeyRequest::_Internal {
 CreateCertifiableKeyRequest::CreateCertifiableKeyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.CreateCertifiableKeyRequest)
 }
 CreateCertifiableKeyRequest::CreateCertifiableKeyRequest(const CreateCertifiableKeyRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CreateCertifiableKeyRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.key_type_){}
+    , decltype(_impl_.key_usage_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  key_label_.InitDefault();
+  _impl_.key_label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_label_.Set("", GetArenaForAllocation());
+    _impl_.key_label_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_label()) {
-    key_label_.Set(from._internal_key_label(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_label_.Set(from._internal_key_label(), 
+      _this->GetArenaForAllocation());
   }
-  username_.InitDefault();
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    username_.Set("", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_username()) {
-    username_.Set(from._internal_username(), 
-      GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&key_type_, &from.key_type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&key_usage_) -
-    reinterpret_cast<char*>(&key_type_)) + sizeof(key_usage_));
+  ::memcpy(&_impl_.key_type_, &from._impl_.key_type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.key_usage_) -
+    reinterpret_cast<char*>(&_impl_.key_type_)) + sizeof(_impl_.key_usage_));
   // @@protoc_insertion_point(copy_constructor:attestation.CreateCertifiableKeyRequest)
 }
 
-inline void CreateCertifiableKeyRequest::SharedCtor() {
-key_label_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_label_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-username_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  username_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-key_type_ = 1;
-key_usage_ = 1;
+inline void CreateCertifiableKeyRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.key_type_){1}
+    , decltype(_impl_.key_usage_){1}
+  };
+  _impl_.key_label_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_label_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CreateCertifiableKeyRequest::~CreateCertifiableKeyRequest() {
@@ -4013,12 +4248,12 @@ CreateCertifiableKeyRequest::~CreateCertifiableKeyRequest() {
 
 inline void CreateCertifiableKeyRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  key_label_.Destroy();
-  username_.Destroy();
+  _impl_.key_label_.Destroy();
+  _impl_.username_.Destroy();
 }
 
 void CreateCertifiableKeyRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CreateCertifiableKeyRequest::Clear() {
@@ -4027,18 +4262,18 @@ void CreateCertifiableKeyRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      key_label_.ClearNonDefaultToEmpty();
+      _impl_.key_label_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      username_.ClearNonDefaultToEmpty();
+      _impl_.username_.ClearNonDefaultToEmpty();
     }
-    key_type_ = 1;
-    key_usage_ = 1;
+    _impl_.key_type_ = 1;
+    _impl_.key_usage_ = 1;
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4109,7 +4344,7 @@ const char* CreateCertifiableKeyRequest::_InternalParse(const char* ptr, ::_pbi:
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -4123,7 +4358,7 @@ uint8_t* CreateCertifiableKeyRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string key_label = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -4166,7 +4401,7 @@ size_t CreateCertifiableKeyRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional string key_label = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -4210,28 +4445,29 @@ void CreateCertifiableKeyRequest::CheckTypeAndMergeFrom(
 }
 
 void CreateCertifiableKeyRequest::MergeFrom(const CreateCertifiableKeyRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.CreateCertifiableKeyRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  CreateCertifiableKeyRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.CreateCertifiableKeyRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_key_label(from._internal_key_label());
+      _this->_internal_set_key_label(from._internal_key_label());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_username(from._internal_username());
+      _this->_internal_set_username(from._internal_username());
     }
     if (cached_has_bits & 0x00000004u) {
-      key_type_ = from.key_type_;
+      _this->_impl_.key_type_ = from._impl_.key_type_;
     }
     if (cached_has_bits & 0x00000008u) {
-      key_usage_ = from.key_usage_;
+      _this->_impl_.key_usage_ = from._impl_.key_usage_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CreateCertifiableKeyRequest::CopyFrom(const CreateCertifiableKeyRequest& from) {
@@ -4250,17 +4486,17 @@ void CreateCertifiableKeyRequest::InternalSwap(CreateCertifiableKeyRequest* othe
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_label_, lhs_arena,
-      &other->key_label_, rhs_arena
+      &_impl_.key_label_, lhs_arena,
+      &other->_impl_.key_label_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &username_, lhs_arena,
-      &other->username_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
-  swap(key_type_, other->key_type_);
-  swap(key_usage_, other->key_usage_);
+  swap(_impl_.key_type_, other->_impl_.key_type_);
+  swap(_impl_.key_usage_, other->_impl_.key_usage_);
 }
 
 std::string CreateCertifiableKeyRequest::GetTypeName() const {
@@ -4272,7 +4508,7 @@ std::string CreateCertifiableKeyRequest::GetTypeName() const {
 
 class CreateCertifiableKeyReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<CreateCertifiableKeyReply>()._has_bits_);
+  using HasBits = decltype(std::declval<CreateCertifiableKeyReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
@@ -4290,55 +4526,73 @@ class CreateCertifiableKeyReply::_Internal {
 CreateCertifiableKeyReply::CreateCertifiableKeyReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.CreateCertifiableKeyReply)
 }
 CreateCertifiableKeyReply::CreateCertifiableKeyReply(const CreateCertifiableKeyReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CreateCertifiableKeyReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.public_key_){}
+    , decltype(_impl_.certify_info_){}
+    , decltype(_impl_.certify_info_signature_){}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  public_key_.InitDefault();
+  _impl_.public_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    public_key_.Set("", GetArenaForAllocation());
+    _impl_.public_key_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_public_key()) {
-    public_key_.Set(from._internal_public_key(), 
-      GetArenaForAllocation());
+    _this->_impl_.public_key_.Set(from._internal_public_key(), 
+      _this->GetArenaForAllocation());
   }
-  certify_info_.InitDefault();
+  _impl_.certify_info_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    certify_info_.Set("", GetArenaForAllocation());
+    _impl_.certify_info_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_certify_info()) {
-    certify_info_.Set(from._internal_certify_info(), 
-      GetArenaForAllocation());
+    _this->_impl_.certify_info_.Set(from._internal_certify_info(), 
+      _this->GetArenaForAllocation());
   }
-  certify_info_signature_.InitDefault();
+  _impl_.certify_info_signature_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    certify_info_signature_.Set("", GetArenaForAllocation());
+    _impl_.certify_info_signature_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_certify_info_signature()) {
-    certify_info_signature_.Set(from._internal_certify_info_signature(), 
-      GetArenaForAllocation());
+    _this->_impl_.certify_info_signature_.Set(from._internal_certify_info_signature(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.CreateCertifiableKeyReply)
 }
 
-inline void CreateCertifiableKeyReply::SharedCtor() {
-public_key_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  public_key_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-certify_info_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  certify_info_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-certify_info_signature_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  certify_info_signature_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void CreateCertifiableKeyReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.public_key_){}
+    , decltype(_impl_.certify_info_){}
+    , decltype(_impl_.certify_info_signature_){}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.public_key_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.public_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.certify_info_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.certify_info_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.certify_info_signature_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.certify_info_signature_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CreateCertifiableKeyReply::~CreateCertifiableKeyReply() {
@@ -4352,13 +4606,13 @@ CreateCertifiableKeyReply::~CreateCertifiableKeyReply() {
 
 inline void CreateCertifiableKeyReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  public_key_.Destroy();
-  certify_info_.Destroy();
-  certify_info_signature_.Destroy();
+  _impl_.public_key_.Destroy();
+  _impl_.certify_info_.Destroy();
+  _impl_.certify_info_signature_.Destroy();
 }
 
 void CreateCertifiableKeyReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CreateCertifiableKeyReply::Clear() {
@@ -4367,20 +4621,20 @@ void CreateCertifiableKeyReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      public_key_.ClearNonDefaultToEmpty();
+      _impl_.public_key_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      certify_info_.ClearNonDefaultToEmpty();
+      _impl_.certify_info_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      certify_info_signature_.ClearNonDefaultToEmpty();
+      _impl_.certify_info_signature_.ClearNonDefaultToEmpty();
     }
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4447,7 +4701,7 @@ const char* CreateCertifiableKeyReply::_InternalParse(const char* ptr, ::_pbi::P
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -4461,7 +4715,7 @@ uint8_t* CreateCertifiableKeyReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
@@ -4503,7 +4757,7 @@ size_t CreateCertifiableKeyReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional bytes public_key = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -4548,28 +4802,29 @@ void CreateCertifiableKeyReply::CheckTypeAndMergeFrom(
 }
 
 void CreateCertifiableKeyReply::MergeFrom(const CreateCertifiableKeyReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.CreateCertifiableKeyReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  CreateCertifiableKeyReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.CreateCertifiableKeyReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_public_key(from._internal_public_key());
+      _this->_internal_set_public_key(from._internal_public_key());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_certify_info(from._internal_certify_info());
+      _this->_internal_set_certify_info(from._internal_certify_info());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_certify_info_signature(from._internal_certify_info_signature());
+      _this->_internal_set_certify_info_signature(from._internal_certify_info_signature());
     }
     if (cached_has_bits & 0x00000008u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CreateCertifiableKeyReply::CopyFrom(const CreateCertifiableKeyReply& from) {
@@ -4588,20 +4843,20 @@ void CreateCertifiableKeyReply::InternalSwap(CreateCertifiableKeyReply* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &public_key_, lhs_arena,
-      &other->public_key_, rhs_arena
+      &_impl_.public_key_, lhs_arena,
+      &other->_impl_.public_key_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &certify_info_, lhs_arena,
-      &other->certify_info_, rhs_arena
+      &_impl_.certify_info_, lhs_arena,
+      &other->_impl_.certify_info_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &certify_info_signature_, lhs_arena,
-      &other->certify_info_signature_, rhs_arena
+      &_impl_.certify_info_signature_, lhs_arena,
+      &other->_impl_.certify_info_signature_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string CreateCertifiableKeyReply::GetTypeName() const {
@@ -4613,7 +4868,7 @@ std::string CreateCertifiableKeyReply::GetTypeName() const {
 
 class DecryptRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<DecryptRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<DecryptRequest>()._impl_._has_bits_);
   static void set_has_key_label(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -4628,53 +4883,70 @@ class DecryptRequest::_Internal {
 DecryptRequest::DecryptRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.DecryptRequest)
 }
 DecryptRequest::DecryptRequest(const DecryptRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DecryptRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.encrypted_data_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  key_label_.InitDefault();
+  _impl_.key_label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_label_.Set("", GetArenaForAllocation());
+    _impl_.key_label_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_label()) {
-    key_label_.Set(from._internal_key_label(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_label_.Set(from._internal_key_label(), 
+      _this->GetArenaForAllocation());
   }
-  username_.InitDefault();
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    username_.Set("", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_username()) {
-    username_.Set(from._internal_username(), 
-      GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
   }
-  encrypted_data_.InitDefault();
+  _impl_.encrypted_data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    encrypted_data_.Set("", GetArenaForAllocation());
+    _impl_.encrypted_data_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_encrypted_data()) {
-    encrypted_data_.Set(from._internal_encrypted_data(), 
-      GetArenaForAllocation());
+    _this->_impl_.encrypted_data_.Set(from._internal_encrypted_data(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:attestation.DecryptRequest)
 }
 
-inline void DecryptRequest::SharedCtor() {
-key_label_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_label_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-username_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  username_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-encrypted_data_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  encrypted_data_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void DecryptRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.encrypted_data_){}
+  };
+  _impl_.key_label_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_label_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.encrypted_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.encrypted_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 DecryptRequest::~DecryptRequest() {
@@ -4688,13 +4960,13 @@ DecryptRequest::~DecryptRequest() {
 
 inline void DecryptRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  key_label_.Destroy();
-  username_.Destroy();
-  encrypted_data_.Destroy();
+  _impl_.key_label_.Destroy();
+  _impl_.username_.Destroy();
+  _impl_.encrypted_data_.Destroy();
 }
 
 void DecryptRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void DecryptRequest::Clear() {
@@ -4703,19 +4975,19 @@ void DecryptRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      key_label_.ClearNonDefaultToEmpty();
+      _impl_.key_label_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      username_.ClearNonDefaultToEmpty();
+      _impl_.username_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      encrypted_data_.ClearNonDefaultToEmpty();
+      _impl_.encrypted_data_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4769,7 +5041,7 @@ const char* DecryptRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -4783,7 +5055,7 @@ uint8_t* DecryptRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string key_label = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -4818,7 +5090,7 @@ size_t DecryptRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string key_label = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -4857,24 +5129,25 @@ void DecryptRequest::CheckTypeAndMergeFrom(
 }
 
 void DecryptRequest::MergeFrom(const DecryptRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.DecryptRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  DecryptRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.DecryptRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_key_label(from._internal_key_label());
+      _this->_internal_set_key_label(from._internal_key_label());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_username(from._internal_username());
+      _this->_internal_set_username(from._internal_username());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_encrypted_data(from._internal_encrypted_data());
+      _this->_internal_set_encrypted_data(from._internal_encrypted_data());
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void DecryptRequest::CopyFrom(const DecryptRequest& from) {
@@ -4893,18 +5166,18 @@ void DecryptRequest::InternalSwap(DecryptRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_label_, lhs_arena,
-      &other->key_label_, rhs_arena
+      &_impl_.key_label_, lhs_arena,
+      &other->_impl_.key_label_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &username_, lhs_arena,
-      &other->username_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &encrypted_data_, lhs_arena,
-      &other->encrypted_data_, rhs_arena
+      &_impl_.encrypted_data_, lhs_arena,
+      &other->_impl_.encrypted_data_, rhs_arena
   );
 }
 
@@ -4917,7 +5190,7 @@ std::string DecryptRequest::GetTypeName() const {
 
 class DecryptReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<DecryptReply>()._has_bits_);
+  using HasBits = decltype(std::declval<DecryptReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -4929,31 +5202,45 @@ class DecryptReply::_Internal {
 DecryptReply::DecryptReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.DecryptReply)
 }
 DecryptReply::DecryptReply(const DecryptReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DecryptReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.decrypted_data_){}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  decrypted_data_.InitDefault();
+  _impl_.decrypted_data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    decrypted_data_.Set("", GetArenaForAllocation());
+    _impl_.decrypted_data_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_decrypted_data()) {
-    decrypted_data_.Set(from._internal_decrypted_data(), 
-      GetArenaForAllocation());
+    _this->_impl_.decrypted_data_.Set(from._internal_decrypted_data(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.DecryptReply)
 }
 
-inline void DecryptReply::SharedCtor() {
-decrypted_data_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  decrypted_data_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void DecryptReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.decrypted_data_){}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.decrypted_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.decrypted_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 DecryptReply::~DecryptReply() {
@@ -4967,11 +5254,11 @@ DecryptReply::~DecryptReply() {
 
 inline void DecryptReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  decrypted_data_.Destroy();
+  _impl_.decrypted_data_.Destroy();
 }
 
 void DecryptReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void DecryptReply::Clear() {
@@ -4980,12 +5267,12 @@ void DecryptReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    decrypted_data_.ClearNonDefaultToEmpty();
+    _impl_.decrypted_data_.ClearNonDefaultToEmpty();
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -5034,7 +5321,7 @@ const char* DecryptReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -5048,7 +5335,7 @@ uint8_t* DecryptReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
@@ -5078,7 +5365,7 @@ size_t DecryptReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional bytes decrypted_data = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -5109,22 +5396,23 @@ void DecryptReply::CheckTypeAndMergeFrom(
 }
 
 void DecryptReply::MergeFrom(const DecryptReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.DecryptReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  DecryptReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.DecryptReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_decrypted_data(from._internal_decrypted_data());
+      _this->_internal_set_decrypted_data(from._internal_decrypted_data());
     }
     if (cached_has_bits & 0x00000002u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void DecryptReply::CopyFrom(const DecryptReply& from) {
@@ -5143,12 +5431,12 @@ void DecryptReply::InternalSwap(DecryptReply* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &decrypted_data_, lhs_arena,
-      &other->decrypted_data_, rhs_arena
+      &_impl_.decrypted_data_, lhs_arena,
+      &other->_impl_.decrypted_data_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string DecryptReply::GetTypeName() const {
@@ -5160,7 +5448,7 @@ std::string DecryptReply::GetTypeName() const {
 
 class SignRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<SignRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<SignRequest>()._impl_._has_bits_);
   static void set_has_key_label(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -5175,53 +5463,70 @@ class SignRequest::_Internal {
 SignRequest::SignRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.SignRequest)
 }
 SignRequest::SignRequest(const SignRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SignRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.data_to_sign_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  key_label_.InitDefault();
+  _impl_.key_label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_label_.Set("", GetArenaForAllocation());
+    _impl_.key_label_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_label()) {
-    key_label_.Set(from._internal_key_label(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_label_.Set(from._internal_key_label(), 
+      _this->GetArenaForAllocation());
   }
-  username_.InitDefault();
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    username_.Set("", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_username()) {
-    username_.Set(from._internal_username(), 
-      GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
   }
-  data_to_sign_.InitDefault();
+  _impl_.data_to_sign_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    data_to_sign_.Set("", GetArenaForAllocation());
+    _impl_.data_to_sign_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_data_to_sign()) {
-    data_to_sign_.Set(from._internal_data_to_sign(), 
-      GetArenaForAllocation());
+    _this->_impl_.data_to_sign_.Set(from._internal_data_to_sign(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:attestation.SignRequest)
 }
 
-inline void SignRequest::SharedCtor() {
-key_label_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_label_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-username_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  username_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-data_to_sign_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  data_to_sign_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void SignRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.data_to_sign_){}
+  };
+  _impl_.key_label_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_label_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.data_to_sign_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.data_to_sign_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SignRequest::~SignRequest() {
@@ -5235,13 +5540,13 @@ SignRequest::~SignRequest() {
 
 inline void SignRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  key_label_.Destroy();
-  username_.Destroy();
-  data_to_sign_.Destroy();
+  _impl_.key_label_.Destroy();
+  _impl_.username_.Destroy();
+  _impl_.data_to_sign_.Destroy();
 }
 
 void SignRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SignRequest::Clear() {
@@ -5250,19 +5555,19 @@ void SignRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      key_label_.ClearNonDefaultToEmpty();
+      _impl_.key_label_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      username_.ClearNonDefaultToEmpty();
+      _impl_.username_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      data_to_sign_.ClearNonDefaultToEmpty();
+      _impl_.data_to_sign_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -5316,7 +5621,7 @@ const char* SignRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -5330,7 +5635,7 @@ uint8_t* SignRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string key_label = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -5365,7 +5670,7 @@ size_t SignRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string key_label = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -5404,24 +5709,25 @@ void SignRequest::CheckTypeAndMergeFrom(
 }
 
 void SignRequest::MergeFrom(const SignRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.SignRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  SignRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.SignRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_key_label(from._internal_key_label());
+      _this->_internal_set_key_label(from._internal_key_label());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_username(from._internal_username());
+      _this->_internal_set_username(from._internal_username());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_data_to_sign(from._internal_data_to_sign());
+      _this->_internal_set_data_to_sign(from._internal_data_to_sign());
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SignRequest::CopyFrom(const SignRequest& from) {
@@ -5440,18 +5746,18 @@ void SignRequest::InternalSwap(SignRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_label_, lhs_arena,
-      &other->key_label_, rhs_arena
+      &_impl_.key_label_, lhs_arena,
+      &other->_impl_.key_label_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &username_, lhs_arena,
-      &other->username_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &data_to_sign_, lhs_arena,
-      &other->data_to_sign_, rhs_arena
+      &_impl_.data_to_sign_, lhs_arena,
+      &other->_impl_.data_to_sign_, rhs_arena
   );
 }
 
@@ -5464,7 +5770,7 @@ std::string SignRequest::GetTypeName() const {
 
 class SignReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<SignReply>()._has_bits_);
+  using HasBits = decltype(std::declval<SignReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -5476,31 +5782,45 @@ class SignReply::_Internal {
 SignReply::SignReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.SignReply)
 }
 SignReply::SignReply(const SignReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SignReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.signature_){}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  signature_.InitDefault();
+  _impl_.signature_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    signature_.Set("", GetArenaForAllocation());
+    _impl_.signature_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_signature()) {
-    signature_.Set(from._internal_signature(), 
-      GetArenaForAllocation());
+    _this->_impl_.signature_.Set(from._internal_signature(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.SignReply)
 }
 
-inline void SignReply::SharedCtor() {
-signature_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  signature_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void SignReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.signature_){}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.signature_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.signature_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SignReply::~SignReply() {
@@ -5514,11 +5834,11 @@ SignReply::~SignReply() {
 
 inline void SignReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  signature_.Destroy();
+  _impl_.signature_.Destroy();
 }
 
 void SignReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SignReply::Clear() {
@@ -5527,12 +5847,12 @@ void SignReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    signature_.ClearNonDefaultToEmpty();
+    _impl_.signature_.ClearNonDefaultToEmpty();
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -5581,7 +5901,7 @@ const char* SignReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -5595,7 +5915,7 @@ uint8_t* SignReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
@@ -5625,7 +5945,7 @@ size_t SignReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional bytes signature = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -5656,22 +5976,23 @@ void SignReply::CheckTypeAndMergeFrom(
 }
 
 void SignReply::MergeFrom(const SignReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.SignReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  SignReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.SignReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_signature(from._internal_signature());
+      _this->_internal_set_signature(from._internal_signature());
     }
     if (cached_has_bits & 0x00000002u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SignReply::CopyFrom(const SignReply& from) {
@@ -5690,12 +6011,12 @@ void SignReply::InternalSwap(SignReply* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &signature_, lhs_arena,
-      &other->signature_, rhs_arena
+      &_impl_.signature_, lhs_arena,
+      &other->_impl_.signature_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string SignReply::GetTypeName() const {
@@ -5707,7 +6028,7 @@ std::string SignReply::GetTypeName() const {
 
 class RegisterKeyWithChapsTokenRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<RegisterKeyWithChapsTokenRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<RegisterKeyWithChapsTokenRequest>()._impl_._has_bits_);
   static void set_has_key_label(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -5722,43 +6043,59 @@ class RegisterKeyWithChapsTokenRequest::_Internal {
 RegisterKeyWithChapsTokenRequest::RegisterKeyWithChapsTokenRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.RegisterKeyWithChapsTokenRequest)
 }
 RegisterKeyWithChapsTokenRequest::RegisterKeyWithChapsTokenRequest(const RegisterKeyWithChapsTokenRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RegisterKeyWithChapsTokenRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.include_certificates_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  key_label_.InitDefault();
+  _impl_.key_label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_label_.Set("", GetArenaForAllocation());
+    _impl_.key_label_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_label()) {
-    key_label_.Set(from._internal_key_label(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_label_.Set(from._internal_key_label(), 
+      _this->GetArenaForAllocation());
   }
-  username_.InitDefault();
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    username_.Set("", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_username()) {
-    username_.Set(from._internal_username(), 
-      GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
   }
-  include_certificates_ = from.include_certificates_;
+  _this->_impl_.include_certificates_ = from._impl_.include_certificates_;
   // @@protoc_insertion_point(copy_constructor:attestation.RegisterKeyWithChapsTokenRequest)
 }
 
-inline void RegisterKeyWithChapsTokenRequest::SharedCtor() {
-key_label_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_label_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-username_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  username_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-include_certificates_ = false;
+inline void RegisterKeyWithChapsTokenRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.include_certificates_){false}
+  };
+  _impl_.key_label_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_label_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 RegisterKeyWithChapsTokenRequest::~RegisterKeyWithChapsTokenRequest() {
@@ -5772,12 +6109,12 @@ RegisterKeyWithChapsTokenRequest::~RegisterKeyWithChapsTokenRequest() {
 
 inline void RegisterKeyWithChapsTokenRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  key_label_.Destroy();
-  username_.Destroy();
+  _impl_.key_label_.Destroy();
+  _impl_.username_.Destroy();
 }
 
 void RegisterKeyWithChapsTokenRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RegisterKeyWithChapsTokenRequest::Clear() {
@@ -5786,17 +6123,17 @@ void RegisterKeyWithChapsTokenRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      key_label_.ClearNonDefaultToEmpty();
+      _impl_.key_label_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      username_.ClearNonDefaultToEmpty();
+      _impl_.username_.ClearNonDefaultToEmpty();
     }
   }
-  include_certificates_ = false;
-  _has_bits_.Clear();
+  _impl_.include_certificates_ = false;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -5829,7 +6166,7 @@ const char* RegisterKeyWithChapsTokenRequest::_InternalParse(const char* ptr, ::
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_include_certificates(&has_bits);
-          include_certificates_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.include_certificates_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5850,7 +6187,7 @@ const char* RegisterKeyWithChapsTokenRequest::_InternalParse(const char* ptr, ::
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -5864,7 +6201,7 @@ uint8_t* RegisterKeyWithChapsTokenRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string key_label = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -5899,7 +6236,7 @@ size_t RegisterKeyWithChapsTokenRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string key_label = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -5936,25 +6273,26 @@ void RegisterKeyWithChapsTokenRequest::CheckTypeAndMergeFrom(
 }
 
 void RegisterKeyWithChapsTokenRequest::MergeFrom(const RegisterKeyWithChapsTokenRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.RegisterKeyWithChapsTokenRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  RegisterKeyWithChapsTokenRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.RegisterKeyWithChapsTokenRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_key_label(from._internal_key_label());
+      _this->_internal_set_key_label(from._internal_key_label());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_username(from._internal_username());
+      _this->_internal_set_username(from._internal_username());
     }
     if (cached_has_bits & 0x00000004u) {
-      include_certificates_ = from.include_certificates_;
+      _this->_impl_.include_certificates_ = from._impl_.include_certificates_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RegisterKeyWithChapsTokenRequest::CopyFrom(const RegisterKeyWithChapsTokenRequest& from) {
@@ -5973,16 +6311,16 @@ void RegisterKeyWithChapsTokenRequest::InternalSwap(RegisterKeyWithChapsTokenReq
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_label_, lhs_arena,
-      &other->key_label_, rhs_arena
+      &_impl_.key_label_, lhs_arena,
+      &other->_impl_.key_label_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &username_, lhs_arena,
-      &other->username_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
-  swap(include_certificates_, other->include_certificates_);
+  swap(_impl_.include_certificates_, other->_impl_.include_certificates_);
 }
 
 std::string RegisterKeyWithChapsTokenRequest::GetTypeName() const {
@@ -5994,7 +6332,7 @@ std::string RegisterKeyWithChapsTokenRequest::GetTypeName() const {
 
 class RegisterKeyWithChapsTokenReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<RegisterKeyWithChapsTokenReply>()._has_bits_);
+  using HasBits = decltype(std::declval<RegisterKeyWithChapsTokenReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -6003,19 +6341,31 @@ class RegisterKeyWithChapsTokenReply::_Internal {
 RegisterKeyWithChapsTokenReply::RegisterKeyWithChapsTokenReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.RegisterKeyWithChapsTokenReply)
 }
 RegisterKeyWithChapsTokenReply::RegisterKeyWithChapsTokenReply(const RegisterKeyWithChapsTokenReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RegisterKeyWithChapsTokenReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.RegisterKeyWithChapsTokenReply)
 }
 
-inline void RegisterKeyWithChapsTokenReply::SharedCtor() {
-status_ = 0;
+inline void RegisterKeyWithChapsTokenReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.status_){0}
+  };
 }
 
 RegisterKeyWithChapsTokenReply::~RegisterKeyWithChapsTokenReply() {
@@ -6032,7 +6382,7 @@ inline void RegisterKeyWithChapsTokenReply::SharedDtor() {
 }
 
 void RegisterKeyWithChapsTokenReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RegisterKeyWithChapsTokenReply::Clear() {
@@ -6041,8 +6391,8 @@ void RegisterKeyWithChapsTokenReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -6082,7 +6432,7 @@ const char* RegisterKeyWithChapsTokenReply::_InternalParse(const char* ptr, ::_p
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -6096,7 +6446,7 @@ uint8_t* RegisterKeyWithChapsTokenReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -6121,7 +6471,7 @@ size_t RegisterKeyWithChapsTokenReply::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional .attestation.AttestationStatus status = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
@@ -6142,15 +6492,16 @@ void RegisterKeyWithChapsTokenReply::CheckTypeAndMergeFrom(
 }
 
 void RegisterKeyWithChapsTokenReply::MergeFrom(const RegisterKeyWithChapsTokenReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.RegisterKeyWithChapsTokenReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  RegisterKeyWithChapsTokenReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.RegisterKeyWithChapsTokenReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_status()) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RegisterKeyWithChapsTokenReply::CopyFrom(const RegisterKeyWithChapsTokenReply& from) {
@@ -6167,8 +6518,8 @@ bool RegisterKeyWithChapsTokenReply::IsInitialized() const {
 void RegisterKeyWithChapsTokenReply::InternalSwap(RegisterKeyWithChapsTokenReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(status_, other->status_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string RegisterKeyWithChapsTokenReply::GetTypeName() const {
@@ -6180,7 +6531,7 @@ std::string RegisterKeyWithChapsTokenReply::GetTypeName() const {
 
 class GetEnrollmentPreparationsRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetEnrollmentPreparationsRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<GetEnrollmentPreparationsRequest>()._impl_._has_bits_);
   static void set_has_aca_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -6189,19 +6540,31 @@ class GetEnrollmentPreparationsRequest::_Internal {
 GetEnrollmentPreparationsRequest::GetEnrollmentPreparationsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetEnrollmentPreparationsRequest)
 }
 GetEnrollmentPreparationsRequest::GetEnrollmentPreparationsRequest(const GetEnrollmentPreparationsRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetEnrollmentPreparationsRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.aca_type_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  aca_type_ = from.aca_type_;
+  _this->_impl_.aca_type_ = from._impl_.aca_type_;
   // @@protoc_insertion_point(copy_constructor:attestation.GetEnrollmentPreparationsRequest)
 }
 
-inline void GetEnrollmentPreparationsRequest::SharedCtor() {
-aca_type_ = 0;
+inline void GetEnrollmentPreparationsRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.aca_type_){0}
+  };
 }
 
 GetEnrollmentPreparationsRequest::~GetEnrollmentPreparationsRequest() {
@@ -6218,7 +6581,7 @@ inline void GetEnrollmentPreparationsRequest::SharedDtor() {
 }
 
 void GetEnrollmentPreparationsRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetEnrollmentPreparationsRequest::Clear() {
@@ -6227,8 +6590,8 @@ void GetEnrollmentPreparationsRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  aca_type_ = 0;
-  _has_bits_.Clear();
+  _impl_.aca_type_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -6268,7 +6631,7 @@ const char* GetEnrollmentPreparationsRequest::_InternalParse(const char* ptr, ::
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -6282,7 +6645,7 @@ uint8_t* GetEnrollmentPreparationsRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.ACAType aca_type = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -6307,7 +6670,7 @@ size_t GetEnrollmentPreparationsRequest::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional .attestation.ACAType aca_type = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_aca_type());
@@ -6328,15 +6691,16 @@ void GetEnrollmentPreparationsRequest::CheckTypeAndMergeFrom(
 }
 
 void GetEnrollmentPreparationsRequest::MergeFrom(const GetEnrollmentPreparationsRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetEnrollmentPreparationsRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetEnrollmentPreparationsRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetEnrollmentPreparationsRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_aca_type()) {
-    _internal_set_aca_type(from._internal_aca_type());
+    _this->_internal_set_aca_type(from._internal_aca_type());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetEnrollmentPreparationsRequest::CopyFrom(const GetEnrollmentPreparationsRequest& from) {
@@ -6353,8 +6717,8 @@ bool GetEnrollmentPreparationsRequest::IsInitialized() const {
 void GetEnrollmentPreparationsRequest::InternalSwap(GetEnrollmentPreparationsRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(aca_type_, other->aca_type_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.aca_type_, other->_impl_.aca_type_);
 }
 
 std::string GetEnrollmentPreparationsRequest::GetTypeName() const {
@@ -6375,7 +6739,7 @@ void GetEnrollmentPreparationsReply_EnrollmentPreparationsEntry_DoNotUse::MergeF
 
 class GetEnrollmentPreparationsReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetEnrollmentPreparationsReply>()._has_bits_);
+  using HasBits = decltype(std::declval<GetEnrollmentPreparationsReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -6383,22 +6747,35 @@ class GetEnrollmentPreparationsReply::_Internal {
 
 GetEnrollmentPreparationsReply::GetEnrollmentPreparationsReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  enrollment_preparations_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetEnrollmentPreparationsReply)
 }
 GetEnrollmentPreparationsReply::GetEnrollmentPreparationsReply(const GetEnrollmentPreparationsReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetEnrollmentPreparationsReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_.enrollment_preparations_)*/{}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  enrollment_preparations_.MergeFrom(from.enrollment_preparations_);
-  status_ = from.status_;
+  _this->_impl_.enrollment_preparations_.MergeFrom(from._impl_.enrollment_preparations_);
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.GetEnrollmentPreparationsReply)
 }
 
-inline void GetEnrollmentPreparationsReply::SharedCtor() {
-status_ = 0;
+inline void GetEnrollmentPreparationsReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_.enrollment_preparations_)*/{::_pbi::ArenaInitialized(), arena}
+    , decltype(_impl_.status_){0}
+  };
 }
 
 GetEnrollmentPreparationsReply::~GetEnrollmentPreparationsReply() {
@@ -6412,11 +6789,12 @@ GetEnrollmentPreparationsReply::~GetEnrollmentPreparationsReply() {
 
 inline void GetEnrollmentPreparationsReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  enrollment_preparations_.Destruct();
+  _impl_.enrollment_preparations_.Destruct();
+  _impl_.enrollment_preparations_.~MapFieldLite();
 }
 
 void GetEnrollmentPreparationsReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetEnrollmentPreparationsReply::Clear() {
@@ -6425,9 +6803,9 @@ void GetEnrollmentPreparationsReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  enrollment_preparations_.Clear();
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.enrollment_preparations_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -6457,7 +6835,7 @@ const char* GetEnrollmentPreparationsReply::_InternalParse(const char* ptr, ::_p
           ptr -= 1;
           do {
             ptr += 1;
-            ptr = ctx->ParseMessage(&enrollment_preparations_, ptr);
+            ptr = ctx->ParseMessage(&_impl_.enrollment_preparations_, ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
@@ -6480,7 +6858,7 @@ const char* GetEnrollmentPreparationsReply::_InternalParse(const char* ptr, ::_p
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -6494,7 +6872,7 @@ uint8_t* GetEnrollmentPreparationsReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -6545,7 +6923,7 @@ size_t GetEnrollmentPreparationsReply::ByteSizeLong() const {
   }
 
   // optional .attestation.AttestationStatus status = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
@@ -6566,16 +6944,17 @@ void GetEnrollmentPreparationsReply::CheckTypeAndMergeFrom(
 }
 
 void GetEnrollmentPreparationsReply::MergeFrom(const GetEnrollmentPreparationsReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetEnrollmentPreparationsReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetEnrollmentPreparationsReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetEnrollmentPreparationsReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  enrollment_preparations_.MergeFrom(from.enrollment_preparations_);
+  _this->_impl_.enrollment_preparations_.MergeFrom(from._impl_.enrollment_preparations_);
   if (from._internal_has_status()) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetEnrollmentPreparationsReply::CopyFrom(const GetEnrollmentPreparationsReply& from) {
@@ -6592,9 +6971,9 @@ bool GetEnrollmentPreparationsReply::IsInitialized() const {
 void GetEnrollmentPreparationsReply::InternalSwap(GetEnrollmentPreparationsReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  enrollment_preparations_.InternalSwap(&other->enrollment_preparations_);
-  swap(status_, other->status_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.enrollment_preparations_.InternalSwap(&other->_impl_.enrollment_preparations_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string GetEnrollmentPreparationsReply::GetTypeName() const {
@@ -6606,7 +6985,7 @@ std::string GetEnrollmentPreparationsReply::GetTypeName() const {
 
 class GetStatusRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetStatusRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<GetStatusRequest>()._impl_._has_bits_);
   static void set_has_extended_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -6615,19 +6994,31 @@ class GetStatusRequest::_Internal {
 GetStatusRequest::GetStatusRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetStatusRequest)
 }
 GetStatusRequest::GetStatusRequest(const GetStatusRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetStatusRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.extended_status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  extended_status_ = from.extended_status_;
+  _this->_impl_.extended_status_ = from._impl_.extended_status_;
   // @@protoc_insertion_point(copy_constructor:attestation.GetStatusRequest)
 }
 
-inline void GetStatusRequest::SharedCtor() {
-extended_status_ = false;
+inline void GetStatusRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.extended_status_){false}
+  };
 }
 
 GetStatusRequest::~GetStatusRequest() {
@@ -6644,7 +7035,7 @@ inline void GetStatusRequest::SharedDtor() {
 }
 
 void GetStatusRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetStatusRequest::Clear() {
@@ -6653,8 +7044,8 @@ void GetStatusRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  extended_status_ = false;
-  _has_bits_.Clear();
+  _impl_.extended_status_ = false;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -6669,7 +7060,7 @@ const char* GetStatusRequest::_InternalParse(const char* ptr, ::_pbi::ParseConte
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_extended_status(&has_bits);
-          extended_status_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.extended_status_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -6690,7 +7081,7 @@ const char* GetStatusRequest::_InternalParse(const char* ptr, ::_pbi::ParseConte
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -6704,7 +7095,7 @@ uint8_t* GetStatusRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool extended_status = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -6728,7 +7119,7 @@ size_t GetStatusRequest::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional bool extended_status = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 + 1;
   }
@@ -6748,15 +7139,16 @@ void GetStatusRequest::CheckTypeAndMergeFrom(
 }
 
 void GetStatusRequest::MergeFrom(const GetStatusRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetStatusRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetStatusRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetStatusRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_extended_status()) {
-    _internal_set_extended_status(from._internal_extended_status());
+    _this->_internal_set_extended_status(from._internal_extended_status());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetStatusRequest::CopyFrom(const GetStatusRequest& from) {
@@ -6773,8 +7165,8 @@ bool GetStatusRequest::IsInitialized() const {
 void GetStatusRequest::InternalSwap(GetStatusRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(extended_status_, other->extended_status_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.extended_status_, other->_impl_.extended_status_);
 }
 
 std::string GetStatusRequest::GetTypeName() const {
@@ -6786,7 +7178,7 @@ std::string GetStatusRequest::GetTypeName() const {
 
 class GetStatusReply_Identity::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetStatusReply_Identity>()._has_bits_);
+  using HasBits = decltype(std::declval<GetStatusReply_Identity>()._impl_._has_bits_);
   static void set_has_features(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -6795,19 +7187,31 @@ class GetStatusReply_Identity::_Internal {
 GetStatusReply_Identity::GetStatusReply_Identity(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetStatusReply.Identity)
 }
 GetStatusReply_Identity::GetStatusReply_Identity(const GetStatusReply_Identity& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetStatusReply_Identity* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.features_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  features_ = from.features_;
+  _this->_impl_.features_ = from._impl_.features_;
   // @@protoc_insertion_point(copy_constructor:attestation.GetStatusReply.Identity)
 }
 
-inline void GetStatusReply_Identity::SharedCtor() {
-features_ = 0;
+inline void GetStatusReply_Identity::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.features_){0}
+  };
 }
 
 GetStatusReply_Identity::~GetStatusReply_Identity() {
@@ -6824,7 +7228,7 @@ inline void GetStatusReply_Identity::SharedDtor() {
 }
 
 void GetStatusReply_Identity::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetStatusReply_Identity::Clear() {
@@ -6833,8 +7237,8 @@ void GetStatusReply_Identity::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  features_ = 0;
-  _has_bits_.Clear();
+  _impl_.features_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -6849,7 +7253,7 @@ const char* GetStatusReply_Identity::_InternalParse(const char* ptr, ::_pbi::Par
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_features(&has_bits);
-          features_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.features_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -6870,7 +7274,7 @@ const char* GetStatusReply_Identity::_InternalParse(const char* ptr, ::_pbi::Par
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -6884,7 +7288,7 @@ uint8_t* GetStatusReply_Identity::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 features = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -6908,7 +7312,7 @@ size_t GetStatusReply_Identity::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional int32 features = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_features());
   }
@@ -6928,15 +7332,16 @@ void GetStatusReply_Identity::CheckTypeAndMergeFrom(
 }
 
 void GetStatusReply_Identity::MergeFrom(const GetStatusReply_Identity& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetStatusReply.Identity)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetStatusReply_Identity* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetStatusReply.Identity)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_features()) {
-    _internal_set_features(from._internal_features());
+    _this->_internal_set_features(from._internal_features());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetStatusReply_Identity::CopyFrom(const GetStatusReply_Identity& from) {
@@ -6953,8 +7358,8 @@ bool GetStatusReply_Identity::IsInitialized() const {
 void GetStatusReply_Identity::InternalSwap(GetStatusReply_Identity* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(features_, other->features_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.features_, other->_impl_.features_);
 }
 
 std::string GetStatusReply_Identity::GetTypeName() const {
@@ -6966,7 +7371,7 @@ std::string GetStatusReply_Identity::GetTypeName() const {
 
 class GetStatusReply_IdentityCertificate::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetStatusReply_IdentityCertificate>()._has_bits_);
+  using HasBits = decltype(std::declval<GetStatusReply_IdentityCertificate>()._impl_._has_bits_);
   static void set_has_identity(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -6978,24 +7383,35 @@ class GetStatusReply_IdentityCertificate::_Internal {
 GetStatusReply_IdentityCertificate::GetStatusReply_IdentityCertificate(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetStatusReply.IdentityCertificate)
 }
 GetStatusReply_IdentityCertificate::GetStatusReply_IdentityCertificate(const GetStatusReply_IdentityCertificate& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetStatusReply_IdentityCertificate* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.identity_){}
+    , decltype(_impl_.aca_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&identity_, &from.identity_,
-    static_cast<size_t>(reinterpret_cast<char*>(&aca_) -
-    reinterpret_cast<char*>(&identity_)) + sizeof(aca_));
+  ::memcpy(&_impl_.identity_, &from._impl_.identity_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.aca_) -
+    reinterpret_cast<char*>(&_impl_.identity_)) + sizeof(_impl_.aca_));
   // @@protoc_insertion_point(copy_constructor:attestation.GetStatusReply.IdentityCertificate)
 }
 
-inline void GetStatusReply_IdentityCertificate::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&identity_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&aca_) -
-    reinterpret_cast<char*>(&identity_)) + sizeof(aca_));
+inline void GetStatusReply_IdentityCertificate::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.identity_){0}
+    , decltype(_impl_.aca_){0}
+  };
 }
 
 GetStatusReply_IdentityCertificate::~GetStatusReply_IdentityCertificate() {
@@ -7012,7 +7428,7 @@ inline void GetStatusReply_IdentityCertificate::SharedDtor() {
 }
 
 void GetStatusReply_IdentityCertificate::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetStatusReply_IdentityCertificate::Clear() {
@@ -7021,13 +7437,13 @@ void GetStatusReply_IdentityCertificate::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&identity_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&aca_) -
-        reinterpret_cast<char*>(&identity_)) + sizeof(aca_));
+    ::memset(&_impl_.identity_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.aca_) -
+        reinterpret_cast<char*>(&_impl_.identity_)) + sizeof(_impl_.aca_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -7042,7 +7458,7 @@ const char* GetStatusReply_IdentityCertificate::_InternalParse(const char* ptr, 
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_identity(&has_bits);
-          identity_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.identity_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7051,7 +7467,7 @@ const char* GetStatusReply_IdentityCertificate::_InternalParse(const char* ptr, 
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_aca(&has_bits);
-          aca_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.aca_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7072,7 +7488,7 @@ const char* GetStatusReply_IdentityCertificate::_InternalParse(const char* ptr, 
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -7086,7 +7502,7 @@ uint8_t* GetStatusReply_IdentityCertificate::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 identity = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -7115,7 +7531,7 @@ size_t GetStatusReply_IdentityCertificate::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional int32 identity = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -7143,22 +7559,23 @@ void GetStatusReply_IdentityCertificate::CheckTypeAndMergeFrom(
 }
 
 void GetStatusReply_IdentityCertificate::MergeFrom(const GetStatusReply_IdentityCertificate& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetStatusReply.IdentityCertificate)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetStatusReply_IdentityCertificate* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetStatusReply.IdentityCertificate)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      identity_ = from.identity_;
+      _this->_impl_.identity_ = from._impl_.identity_;
     }
     if (cached_has_bits & 0x00000002u) {
-      aca_ = from.aca_;
+      _this->_impl_.aca_ = from._impl_.aca_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetStatusReply_IdentityCertificate::CopyFrom(const GetStatusReply_IdentityCertificate& from) {
@@ -7175,13 +7592,13 @@ bool GetStatusReply_IdentityCertificate::IsInitialized() const {
 void GetStatusReply_IdentityCertificate::InternalSwap(GetStatusReply_IdentityCertificate* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetStatusReply_IdentityCertificate, aca_)
-      + sizeof(GetStatusReply_IdentityCertificate::aca_)
-      - PROTOBUF_FIELD_OFFSET(GetStatusReply_IdentityCertificate, identity_)>(
-          reinterpret_cast<char*>(&identity_),
-          reinterpret_cast<char*>(&other->identity_));
+      PROTOBUF_FIELD_OFFSET(GetStatusReply_IdentityCertificate, _impl_.aca_)
+      + sizeof(GetStatusReply_IdentityCertificate::_impl_.aca_)
+      - PROTOBUF_FIELD_OFFSET(GetStatusReply_IdentityCertificate, _impl_.identity_)>(
+          reinterpret_cast<char*>(&_impl_.identity_),
+          reinterpret_cast<char*>(&other->_impl_.identity_));
 }
 
 std::string GetStatusReply_IdentityCertificate::GetTypeName() const {
@@ -7211,7 +7628,7 @@ void GetStatusReply_EnrollmentPreparationsEntry_DoNotUse::MergeFrom(const GetSta
 
 class GetStatusReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetStatusReply>()._has_bits_);
+  using HasBits = decltype(std::declval<GetStatusReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -7228,31 +7645,48 @@ class GetStatusReply::_Internal {
 
 GetStatusReply::GetStatusReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  identities_(arena),
-  identity_certificates_(arena),
-  enrollment_preparations_(arena) {
-  SharedCtor();
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetStatusReply)
 }
 GetStatusReply::GetStatusReply(const GetStatusReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      identities_(from.identities_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetStatusReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.identities_){from._impl_.identities_}
+    , /*decltype(_impl_.identity_certificates_)*/{}
+    , /*decltype(_impl_.enrollment_preparations_)*/{}
+    , decltype(_impl_.status_){}
+    , decltype(_impl_.prepared_for_enrollment_){}
+    , decltype(_impl_.enrolled_){}
+    , decltype(_impl_.verified_boot_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  identity_certificates_.MergeFrom(from.identity_certificates_);
-  enrollment_preparations_.MergeFrom(from.enrollment_preparations_);
-  ::memcpy(&status_, &from.status_,
-    static_cast<size_t>(reinterpret_cast<char*>(&verified_boot_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(verified_boot_));
+  _this->_impl_.identity_certificates_.MergeFrom(from._impl_.identity_certificates_);
+  _this->_impl_.enrollment_preparations_.MergeFrom(from._impl_.enrollment_preparations_);
+  ::memcpy(&_impl_.status_, &from._impl_.status_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.verified_boot_) -
+    reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.verified_boot_));
   // @@protoc_insertion_point(copy_constructor:attestation.GetStatusReply)
 }
 
-inline void GetStatusReply::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&status_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&verified_boot_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(verified_boot_));
+inline void GetStatusReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.identities_){arena}
+    , /*decltype(_impl_.identity_certificates_)*/{::_pbi::ArenaInitialized(), arena}
+    , /*decltype(_impl_.enrollment_preparations_)*/{::_pbi::ArenaInitialized(), arena}
+    , decltype(_impl_.status_){0}
+    , decltype(_impl_.prepared_for_enrollment_){false}
+    , decltype(_impl_.enrolled_){false}
+    , decltype(_impl_.verified_boot_){false}
+  };
 }
 
 GetStatusReply::~GetStatusReply() {
@@ -7266,12 +7700,15 @@ GetStatusReply::~GetStatusReply() {
 
 inline void GetStatusReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  identity_certificates_.Destruct();
-  enrollment_preparations_.Destruct();
+  _impl_.identities_.~RepeatedPtrField();
+  _impl_.identity_certificates_.Destruct();
+  _impl_.identity_certificates_.~MapFieldLite();
+  _impl_.enrollment_preparations_.Destruct();
+  _impl_.enrollment_preparations_.~MapFieldLite();
 }
 
 void GetStatusReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetStatusReply::Clear() {
@@ -7280,16 +7717,16 @@ void GetStatusReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  identities_.Clear();
-  identity_certificates_.Clear();
-  enrollment_preparations_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.identities_.Clear();
+  _impl_.identity_certificates_.Clear();
+  _impl_.enrollment_preparations_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
-    ::memset(&status_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&verified_boot_) -
-        reinterpret_cast<char*>(&status_)) + sizeof(verified_boot_));
+    ::memset(&_impl_.status_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.verified_boot_) -
+        reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.verified_boot_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -7317,7 +7754,7 @@ const char* GetStatusReply::_InternalParse(const char* ptr, ::_pbi::ParseContext
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_prepared_for_enrollment(&has_bits);
-          prepared_for_enrollment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.prepared_for_enrollment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7326,7 +7763,7 @@ const char* GetStatusReply::_InternalParse(const char* ptr, ::_pbi::ParseContext
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_enrolled(&has_bits);
-          enrolled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.enrolled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7335,7 +7772,7 @@ const char* GetStatusReply::_InternalParse(const char* ptr, ::_pbi::ParseContext
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _Internal::set_has_verified_boot(&has_bits);
-          verified_boot_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.verified_boot_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7359,7 +7796,7 @@ const char* GetStatusReply::_InternalParse(const char* ptr, ::_pbi::ParseContext
           ptr -= 1;
           do {
             ptr += 1;
-            ptr = ctx->ParseMessage(&identity_certificates_, ptr);
+            ptr = ctx->ParseMessage(&_impl_.identity_certificates_, ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<50>(ptr));
@@ -7372,7 +7809,7 @@ const char* GetStatusReply::_InternalParse(const char* ptr, ::_pbi::ParseContext
           ptr -= 1;
           do {
             ptr += 1;
-            ptr = ctx->ParseMessage(&enrollment_preparations_, ptr);
+            ptr = ctx->ParseMessage(&_impl_.enrollment_preparations_, ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
@@ -7395,7 +7832,7 @@ const char* GetStatusReply::_InternalParse(const char* ptr, ::_pbi::ParseContext
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -7409,7 +7846,7 @@ uint8_t* GetStatusReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -7495,7 +7932,7 @@ size_t GetStatusReply::ByteSizeLong() const {
 
   // repeated .attestation.GetStatusReply.Identity identities = 5;
   total_size += 1UL * this->_internal_identities_size();
-  for (const auto& msg : this->identities_) {
+  for (const auto& msg : this->_impl_.identities_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -7518,7 +7955,7 @@ size_t GetStatusReply::ByteSizeLong() const {
     total_size += GetStatusReply_EnrollmentPreparationsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional .attestation.AttestationStatus status = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -7557,31 +7994,32 @@ void GetStatusReply::CheckTypeAndMergeFrom(
 }
 
 void GetStatusReply::MergeFrom(const GetStatusReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetStatusReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetStatusReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetStatusReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  identities_.MergeFrom(from.identities_);
-  identity_certificates_.MergeFrom(from.identity_certificates_);
-  enrollment_preparations_.MergeFrom(from.enrollment_preparations_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_impl_.identities_.MergeFrom(from._impl_.identities_);
+  _this->_impl_.identity_certificates_.MergeFrom(from._impl_.identity_certificates_);
+  _this->_impl_.enrollment_preparations_.MergeFrom(from._impl_.enrollment_preparations_);
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
     if (cached_has_bits & 0x00000002u) {
-      prepared_for_enrollment_ = from.prepared_for_enrollment_;
+      _this->_impl_.prepared_for_enrollment_ = from._impl_.prepared_for_enrollment_;
     }
     if (cached_has_bits & 0x00000004u) {
-      enrolled_ = from.enrolled_;
+      _this->_impl_.enrolled_ = from._impl_.enrolled_;
     }
     if (cached_has_bits & 0x00000008u) {
-      verified_boot_ = from.verified_boot_;
+      _this->_impl_.verified_boot_ = from._impl_.verified_boot_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetStatusReply::CopyFrom(const GetStatusReply& from) {
@@ -7598,16 +8036,16 @@ bool GetStatusReply::IsInitialized() const {
 void GetStatusReply::InternalSwap(GetStatusReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  identities_.InternalSwap(&other->identities_);
-  identity_certificates_.InternalSwap(&other->identity_certificates_);
-  enrollment_preparations_.InternalSwap(&other->enrollment_preparations_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.identities_.InternalSwap(&other->_impl_.identities_);
+  _impl_.identity_certificates_.InternalSwap(&other->_impl_.identity_certificates_);
+  _impl_.enrollment_preparations_.InternalSwap(&other->_impl_.enrollment_preparations_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetStatusReply, verified_boot_)
-      + sizeof(GetStatusReply::verified_boot_)
-      - PROTOBUF_FIELD_OFFSET(GetStatusReply, status_)>(
-          reinterpret_cast<char*>(&status_),
-          reinterpret_cast<char*>(&other->status_));
+      PROTOBUF_FIELD_OFFSET(GetStatusReply, _impl_.verified_boot_)
+      + sizeof(GetStatusReply::_impl_.verified_boot_)
+      - PROTOBUF_FIELD_OFFSET(GetStatusReply, _impl_.status_)>(
+          reinterpret_cast<char*>(&_impl_.status_),
+          reinterpret_cast<char*>(&other->_impl_.status_));
 }
 
 std::string GetStatusReply::GetTypeName() const {
@@ -7619,7 +8057,7 @@ std::string GetStatusReply::GetTypeName() const {
 
 class VerifyRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<VerifyRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<VerifyRequest>()._impl_._has_bits_);
   static void set_has_cros_core(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -7631,24 +8069,35 @@ class VerifyRequest::_Internal {
 VerifyRequest::VerifyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.VerifyRequest)
 }
 VerifyRequest::VerifyRequest(const VerifyRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  VerifyRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.cros_core_){}
+    , decltype(_impl_.ek_only_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&cros_core_, &from.cros_core_,
-    static_cast<size_t>(reinterpret_cast<char*>(&ek_only_) -
-    reinterpret_cast<char*>(&cros_core_)) + sizeof(ek_only_));
+  ::memcpy(&_impl_.cros_core_, &from._impl_.cros_core_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.ek_only_) -
+    reinterpret_cast<char*>(&_impl_.cros_core_)) + sizeof(_impl_.ek_only_));
   // @@protoc_insertion_point(copy_constructor:attestation.VerifyRequest)
 }
 
-inline void VerifyRequest::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&cros_core_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&ek_only_) -
-    reinterpret_cast<char*>(&cros_core_)) + sizeof(ek_only_));
+inline void VerifyRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.cros_core_){false}
+    , decltype(_impl_.ek_only_){false}
+  };
 }
 
 VerifyRequest::~VerifyRequest() {
@@ -7665,7 +8114,7 @@ inline void VerifyRequest::SharedDtor() {
 }
 
 void VerifyRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void VerifyRequest::Clear() {
@@ -7674,10 +8123,10 @@ void VerifyRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&cros_core_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&ek_only_) -
-      reinterpret_cast<char*>(&cros_core_)) + sizeof(ek_only_));
-  _has_bits_.Clear();
+  ::memset(&_impl_.cros_core_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.ek_only_) -
+      reinterpret_cast<char*>(&_impl_.cros_core_)) + sizeof(_impl_.ek_only_));
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -7692,7 +8141,7 @@ const char* VerifyRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext*
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_cros_core(&has_bits);
-          cros_core_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.cros_core_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7701,7 +8150,7 @@ const char* VerifyRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext*
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_ek_only(&has_bits);
-          ek_only_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.ek_only_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7722,7 +8171,7 @@ const char* VerifyRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext*
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -7736,7 +8185,7 @@ uint8_t* VerifyRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool cros_core = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -7765,7 +8214,7 @@ size_t VerifyRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional bool cros_core = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -7793,22 +8242,23 @@ void VerifyRequest::CheckTypeAndMergeFrom(
 }
 
 void VerifyRequest::MergeFrom(const VerifyRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.VerifyRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  VerifyRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.VerifyRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      cros_core_ = from.cros_core_;
+      _this->_impl_.cros_core_ = from._impl_.cros_core_;
     }
     if (cached_has_bits & 0x00000002u) {
-      ek_only_ = from.ek_only_;
+      _this->_impl_.ek_only_ = from._impl_.ek_only_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void VerifyRequest::CopyFrom(const VerifyRequest& from) {
@@ -7825,13 +8275,13 @@ bool VerifyRequest::IsInitialized() const {
 void VerifyRequest::InternalSwap(VerifyRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(VerifyRequest, ek_only_)
-      + sizeof(VerifyRequest::ek_only_)
-      - PROTOBUF_FIELD_OFFSET(VerifyRequest, cros_core_)>(
-          reinterpret_cast<char*>(&cros_core_),
-          reinterpret_cast<char*>(&other->cros_core_));
+      PROTOBUF_FIELD_OFFSET(VerifyRequest, _impl_.ek_only_)
+      + sizeof(VerifyRequest::_impl_.ek_only_)
+      - PROTOBUF_FIELD_OFFSET(VerifyRequest, _impl_.cros_core_)>(
+          reinterpret_cast<char*>(&_impl_.cros_core_),
+          reinterpret_cast<char*>(&other->_impl_.cros_core_));
 }
 
 std::string VerifyRequest::GetTypeName() const {
@@ -7843,7 +8293,7 @@ std::string VerifyRequest::GetTypeName() const {
 
 class VerifyReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<VerifyReply>()._has_bits_);
+  using HasBits = decltype(std::declval<VerifyReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -7855,24 +8305,35 @@ class VerifyReply::_Internal {
 VerifyReply::VerifyReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.VerifyReply)
 }
 VerifyReply::VerifyReply(const VerifyReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  VerifyReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.status_){}
+    , decltype(_impl_.verified_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&status_, &from.status_,
-    static_cast<size_t>(reinterpret_cast<char*>(&verified_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(verified_));
+  ::memcpy(&_impl_.status_, &from._impl_.status_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.verified_) -
+    reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.verified_));
   // @@protoc_insertion_point(copy_constructor:attestation.VerifyReply)
 }
 
-inline void VerifyReply::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&status_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&verified_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(verified_));
+inline void VerifyReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.status_){0}
+    , decltype(_impl_.verified_){false}
+  };
 }
 
 VerifyReply::~VerifyReply() {
@@ -7889,7 +8350,7 @@ inline void VerifyReply::SharedDtor() {
 }
 
 void VerifyReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void VerifyReply::Clear() {
@@ -7898,13 +8359,13 @@ void VerifyReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&status_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&verified_) -
-        reinterpret_cast<char*>(&status_)) + sizeof(verified_));
+    ::memset(&_impl_.status_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.verified_) -
+        reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.verified_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -7932,7 +8393,7 @@ const char* VerifyReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_verified(&has_bits);
-          verified_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.verified_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7953,7 +8414,7 @@ const char* VerifyReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -7967,7 +8428,7 @@ uint8_t* VerifyReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -7997,7 +8458,7 @@ size_t VerifyReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional .attestation.AttestationStatus status = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -8026,22 +8487,23 @@ void VerifyReply::CheckTypeAndMergeFrom(
 }
 
 void VerifyReply::MergeFrom(const VerifyReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.VerifyReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  VerifyReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.VerifyReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
     if (cached_has_bits & 0x00000002u) {
-      verified_ = from.verified_;
+      _this->_impl_.verified_ = from._impl_.verified_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void VerifyReply::CopyFrom(const VerifyReply& from) {
@@ -8058,13 +8520,13 @@ bool VerifyReply::IsInitialized() const {
 void VerifyReply::InternalSwap(VerifyReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(VerifyReply, verified_)
-      + sizeof(VerifyReply::verified_)
-      - PROTOBUF_FIELD_OFFSET(VerifyReply, status_)>(
-          reinterpret_cast<char*>(&status_),
-          reinterpret_cast<char*>(&other->status_));
+      PROTOBUF_FIELD_OFFSET(VerifyReply, _impl_.verified_)
+      + sizeof(VerifyReply::_impl_.verified_)
+      - PROTOBUF_FIELD_OFFSET(VerifyReply, _impl_.status_)>(
+          reinterpret_cast<char*>(&_impl_.status_),
+          reinterpret_cast<char*>(&other->_impl_.status_));
 }
 
 std::string VerifyReply::GetTypeName() const {
@@ -8076,7 +8538,7 @@ std::string VerifyReply::GetTypeName() const {
 
 class CreateEnrollRequestRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<CreateEnrollRequestRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<CreateEnrollRequestRequest>()._impl_._has_bits_);
   static void set_has_aca_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -8085,19 +8547,31 @@ class CreateEnrollRequestRequest::_Internal {
 CreateEnrollRequestRequest::CreateEnrollRequestRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.CreateEnrollRequestRequest)
 }
 CreateEnrollRequestRequest::CreateEnrollRequestRequest(const CreateEnrollRequestRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CreateEnrollRequestRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.aca_type_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  aca_type_ = from.aca_type_;
+  _this->_impl_.aca_type_ = from._impl_.aca_type_;
   // @@protoc_insertion_point(copy_constructor:attestation.CreateEnrollRequestRequest)
 }
 
-inline void CreateEnrollRequestRequest::SharedCtor() {
-aca_type_ = 0;
+inline void CreateEnrollRequestRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.aca_type_){0}
+  };
 }
 
 CreateEnrollRequestRequest::~CreateEnrollRequestRequest() {
@@ -8114,7 +8588,7 @@ inline void CreateEnrollRequestRequest::SharedDtor() {
 }
 
 void CreateEnrollRequestRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CreateEnrollRequestRequest::Clear() {
@@ -8123,8 +8597,8 @@ void CreateEnrollRequestRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  aca_type_ = 0;
-  _has_bits_.Clear();
+  _impl_.aca_type_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -8164,7 +8638,7 @@ const char* CreateEnrollRequestRequest::_InternalParse(const char* ptr, ::_pbi::
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -8178,7 +8652,7 @@ uint8_t* CreateEnrollRequestRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.ACAType aca_type = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -8203,7 +8677,7 @@ size_t CreateEnrollRequestRequest::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional .attestation.ACAType aca_type = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_aca_type());
@@ -8224,15 +8698,16 @@ void CreateEnrollRequestRequest::CheckTypeAndMergeFrom(
 }
 
 void CreateEnrollRequestRequest::MergeFrom(const CreateEnrollRequestRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.CreateEnrollRequestRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  CreateEnrollRequestRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.CreateEnrollRequestRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_aca_type()) {
-    _internal_set_aca_type(from._internal_aca_type());
+    _this->_internal_set_aca_type(from._internal_aca_type());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CreateEnrollRequestRequest::CopyFrom(const CreateEnrollRequestRequest& from) {
@@ -8249,8 +8724,8 @@ bool CreateEnrollRequestRequest::IsInitialized() const {
 void CreateEnrollRequestRequest::InternalSwap(CreateEnrollRequestRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(aca_type_, other->aca_type_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.aca_type_, other->_impl_.aca_type_);
 }
 
 std::string CreateEnrollRequestRequest::GetTypeName() const {
@@ -8262,7 +8737,7 @@ std::string CreateEnrollRequestRequest::GetTypeName() const {
 
 class CreateEnrollRequestReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<CreateEnrollRequestReply>()._has_bits_);
+  using HasBits = decltype(std::declval<CreateEnrollRequestReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -8274,31 +8749,45 @@ class CreateEnrollRequestReply::_Internal {
 CreateEnrollRequestReply::CreateEnrollRequestReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.CreateEnrollRequestReply)
 }
 CreateEnrollRequestReply::CreateEnrollRequestReply(const CreateEnrollRequestReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CreateEnrollRequestReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.pca_request_){}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  pca_request_.InitDefault();
+  _impl_.pca_request_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    pca_request_.Set("", GetArenaForAllocation());
+    _impl_.pca_request_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_pca_request()) {
-    pca_request_.Set(from._internal_pca_request(), 
-      GetArenaForAllocation());
+    _this->_impl_.pca_request_.Set(from._internal_pca_request(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.CreateEnrollRequestReply)
 }
 
-inline void CreateEnrollRequestReply::SharedCtor() {
-pca_request_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  pca_request_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void CreateEnrollRequestReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.pca_request_){}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.pca_request_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.pca_request_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CreateEnrollRequestReply::~CreateEnrollRequestReply() {
@@ -8312,11 +8801,11 @@ CreateEnrollRequestReply::~CreateEnrollRequestReply() {
 
 inline void CreateEnrollRequestReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  pca_request_.Destroy();
+  _impl_.pca_request_.Destroy();
 }
 
 void CreateEnrollRequestReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CreateEnrollRequestReply::Clear() {
@@ -8325,12 +8814,12 @@ void CreateEnrollRequestReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    pca_request_.ClearNonDefaultToEmpty();
+    _impl_.pca_request_.ClearNonDefaultToEmpty();
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -8379,7 +8868,7 @@ const char* CreateEnrollRequestReply::_InternalParse(const char* ptr, ::_pbi::Pa
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -8393,7 +8882,7 @@ uint8_t* CreateEnrollRequestReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
@@ -8423,7 +8912,7 @@ size_t CreateEnrollRequestReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional bytes pca_request = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -8454,22 +8943,23 @@ void CreateEnrollRequestReply::CheckTypeAndMergeFrom(
 }
 
 void CreateEnrollRequestReply::MergeFrom(const CreateEnrollRequestReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.CreateEnrollRequestReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  CreateEnrollRequestReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.CreateEnrollRequestReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_pca_request(from._internal_pca_request());
+      _this->_internal_set_pca_request(from._internal_pca_request());
     }
     if (cached_has_bits & 0x00000002u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CreateEnrollRequestReply::CopyFrom(const CreateEnrollRequestReply& from) {
@@ -8488,12 +8978,12 @@ void CreateEnrollRequestReply::InternalSwap(CreateEnrollRequestReply* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &pca_request_, lhs_arena,
-      &other->pca_request_, rhs_arena
+      &_impl_.pca_request_, lhs_arena,
+      &other->_impl_.pca_request_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string CreateEnrollRequestReply::GetTypeName() const {
@@ -8505,7 +8995,7 @@ std::string CreateEnrollRequestReply::GetTypeName() const {
 
 class FinishEnrollRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<FinishEnrollRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<FinishEnrollRequest>()._impl_._has_bits_);
   static void set_has_pca_response(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -8517,31 +9007,45 @@ class FinishEnrollRequest::_Internal {
 FinishEnrollRequest::FinishEnrollRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.FinishEnrollRequest)
 }
 FinishEnrollRequest::FinishEnrollRequest(const FinishEnrollRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FinishEnrollRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.pca_response_){}
+    , decltype(_impl_.aca_type_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  pca_response_.InitDefault();
+  _impl_.pca_response_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    pca_response_.Set("", GetArenaForAllocation());
+    _impl_.pca_response_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_pca_response()) {
-    pca_response_.Set(from._internal_pca_response(), 
-      GetArenaForAllocation());
+    _this->_impl_.pca_response_.Set(from._internal_pca_response(), 
+      _this->GetArenaForAllocation());
   }
-  aca_type_ = from.aca_type_;
+  _this->_impl_.aca_type_ = from._impl_.aca_type_;
   // @@protoc_insertion_point(copy_constructor:attestation.FinishEnrollRequest)
 }
 
-inline void FinishEnrollRequest::SharedCtor() {
-pca_response_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  pca_response_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-aca_type_ = 0;
+inline void FinishEnrollRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.pca_response_){}
+    , decltype(_impl_.aca_type_){0}
+  };
+  _impl_.pca_response_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.pca_response_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 FinishEnrollRequest::~FinishEnrollRequest() {
@@ -8555,11 +9059,11 @@ FinishEnrollRequest::~FinishEnrollRequest() {
 
 inline void FinishEnrollRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  pca_response_.Destroy();
+  _impl_.pca_response_.Destroy();
 }
 
 void FinishEnrollRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FinishEnrollRequest::Clear() {
@@ -8568,12 +9072,12 @@ void FinishEnrollRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    pca_response_.ClearNonDefaultToEmpty();
+    _impl_.pca_response_.ClearNonDefaultToEmpty();
   }
-  aca_type_ = 0;
-  _has_bits_.Clear();
+  _impl_.aca_type_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -8622,7 +9126,7 @@ const char* FinishEnrollRequest::_InternalParse(const char* ptr, ::_pbi::ParseCo
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -8636,7 +9140,7 @@ uint8_t* FinishEnrollRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bytes pca_response = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteBytesMaybeAliased(
@@ -8666,7 +9170,7 @@ size_t FinishEnrollRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional bytes pca_response = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -8697,22 +9201,23 @@ void FinishEnrollRequest::CheckTypeAndMergeFrom(
 }
 
 void FinishEnrollRequest::MergeFrom(const FinishEnrollRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.FinishEnrollRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  FinishEnrollRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.FinishEnrollRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_pca_response(from._internal_pca_response());
+      _this->_internal_set_pca_response(from._internal_pca_response());
     }
     if (cached_has_bits & 0x00000002u) {
-      aca_type_ = from.aca_type_;
+      _this->_impl_.aca_type_ = from._impl_.aca_type_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FinishEnrollRequest::CopyFrom(const FinishEnrollRequest& from) {
@@ -8731,12 +9236,12 @@ void FinishEnrollRequest::InternalSwap(FinishEnrollRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &pca_response_, lhs_arena,
-      &other->pca_response_, rhs_arena
+      &_impl_.pca_response_, lhs_arena,
+      &other->_impl_.pca_response_, rhs_arena
   );
-  swap(aca_type_, other->aca_type_);
+  swap(_impl_.aca_type_, other->_impl_.aca_type_);
 }
 
 std::string FinishEnrollRequest::GetTypeName() const {
@@ -8748,7 +9253,7 @@ std::string FinishEnrollRequest::GetTypeName() const {
 
 class FinishEnrollReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<FinishEnrollReply>()._has_bits_);
+  using HasBits = decltype(std::declval<FinishEnrollReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -8757,19 +9262,31 @@ class FinishEnrollReply::_Internal {
 FinishEnrollReply::FinishEnrollReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.FinishEnrollReply)
 }
 FinishEnrollReply::FinishEnrollReply(const FinishEnrollReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FinishEnrollReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.FinishEnrollReply)
 }
 
-inline void FinishEnrollReply::SharedCtor() {
-status_ = 0;
+inline void FinishEnrollReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.status_){0}
+  };
 }
 
 FinishEnrollReply::~FinishEnrollReply() {
@@ -8786,7 +9303,7 @@ inline void FinishEnrollReply::SharedDtor() {
 }
 
 void FinishEnrollReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FinishEnrollReply::Clear() {
@@ -8795,8 +9312,8 @@ void FinishEnrollReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -8836,7 +9353,7 @@ const char* FinishEnrollReply::_InternalParse(const char* ptr, ::_pbi::ParseCont
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -8850,7 +9367,7 @@ uint8_t* FinishEnrollReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -8875,7 +9392,7 @@ size_t FinishEnrollReply::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional .attestation.AttestationStatus status = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
@@ -8896,15 +9413,16 @@ void FinishEnrollReply::CheckTypeAndMergeFrom(
 }
 
 void FinishEnrollReply::MergeFrom(const FinishEnrollReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.FinishEnrollReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  FinishEnrollReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.FinishEnrollReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_status()) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FinishEnrollReply::CopyFrom(const FinishEnrollReply& from) {
@@ -8921,8 +9439,8 @@ bool FinishEnrollReply::IsInitialized() const {
 void FinishEnrollReply::InternalSwap(FinishEnrollReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(status_, other->status_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string FinishEnrollReply::GetTypeName() const {
@@ -8934,7 +9452,7 @@ std::string FinishEnrollReply::GetTypeName() const {
 
 class EnrollRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<EnrollRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<EnrollRequest>()._impl_._has_bits_);
   static void set_has_aca_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -8946,24 +9464,35 @@ class EnrollRequest::_Internal {
 EnrollRequest::EnrollRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.EnrollRequest)
 }
 EnrollRequest::EnrollRequest(const EnrollRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  EnrollRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.aca_type_){}
+    , decltype(_impl_.forced_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&aca_type_, &from.aca_type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&forced_) -
-    reinterpret_cast<char*>(&aca_type_)) + sizeof(forced_));
+  ::memcpy(&_impl_.aca_type_, &from._impl_.aca_type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.forced_) -
+    reinterpret_cast<char*>(&_impl_.aca_type_)) + sizeof(_impl_.forced_));
   // @@protoc_insertion_point(copy_constructor:attestation.EnrollRequest)
 }
 
-inline void EnrollRequest::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&aca_type_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&forced_) -
-    reinterpret_cast<char*>(&aca_type_)) + sizeof(forced_));
+inline void EnrollRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.aca_type_){0}
+    , decltype(_impl_.forced_){false}
+  };
 }
 
 EnrollRequest::~EnrollRequest() {
@@ -8980,7 +9509,7 @@ inline void EnrollRequest::SharedDtor() {
 }
 
 void EnrollRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void EnrollRequest::Clear() {
@@ -8989,13 +9518,13 @@ void EnrollRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&aca_type_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&forced_) -
-        reinterpret_cast<char*>(&aca_type_)) + sizeof(forced_));
+    ::memset(&_impl_.aca_type_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.forced_) -
+        reinterpret_cast<char*>(&_impl_.aca_type_)) + sizeof(_impl_.forced_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -9023,7 +9552,7 @@ const char* EnrollRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext*
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_forced(&has_bits);
-          forced_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.forced_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9044,7 +9573,7 @@ const char* EnrollRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext*
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -9058,7 +9587,7 @@ uint8_t* EnrollRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.ACAType aca_type = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -9088,7 +9617,7 @@ size_t EnrollRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional .attestation.ACAType aca_type = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -9117,22 +9646,23 @@ void EnrollRequest::CheckTypeAndMergeFrom(
 }
 
 void EnrollRequest::MergeFrom(const EnrollRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.EnrollRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  EnrollRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.EnrollRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      aca_type_ = from.aca_type_;
+      _this->_impl_.aca_type_ = from._impl_.aca_type_;
     }
     if (cached_has_bits & 0x00000002u) {
-      forced_ = from.forced_;
+      _this->_impl_.forced_ = from._impl_.forced_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void EnrollRequest::CopyFrom(const EnrollRequest& from) {
@@ -9149,13 +9679,13 @@ bool EnrollRequest::IsInitialized() const {
 void EnrollRequest::InternalSwap(EnrollRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(EnrollRequest, forced_)
-      + sizeof(EnrollRequest::forced_)
-      - PROTOBUF_FIELD_OFFSET(EnrollRequest, aca_type_)>(
-          reinterpret_cast<char*>(&aca_type_),
-          reinterpret_cast<char*>(&other->aca_type_));
+      PROTOBUF_FIELD_OFFSET(EnrollRequest, _impl_.forced_)
+      + sizeof(EnrollRequest::_impl_.forced_)
+      - PROTOBUF_FIELD_OFFSET(EnrollRequest, _impl_.aca_type_)>(
+          reinterpret_cast<char*>(&_impl_.aca_type_),
+          reinterpret_cast<char*>(&other->_impl_.aca_type_));
 }
 
 std::string EnrollRequest::GetTypeName() const {
@@ -9167,7 +9697,7 @@ std::string EnrollRequest::GetTypeName() const {
 
 class EnrollReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<EnrollReply>()._has_bits_);
+  using HasBits = decltype(std::declval<EnrollReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -9176,19 +9706,31 @@ class EnrollReply::_Internal {
 EnrollReply::EnrollReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.EnrollReply)
 }
 EnrollReply::EnrollReply(const EnrollReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  EnrollReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.EnrollReply)
 }
 
-inline void EnrollReply::SharedCtor() {
-status_ = 0;
+inline void EnrollReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.status_){0}
+  };
 }
 
 EnrollReply::~EnrollReply() {
@@ -9205,7 +9747,7 @@ inline void EnrollReply::SharedDtor() {
 }
 
 void EnrollReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void EnrollReply::Clear() {
@@ -9214,8 +9756,8 @@ void EnrollReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -9255,7 +9797,7 @@ const char* EnrollReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -9269,7 +9811,7 @@ uint8_t* EnrollReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -9294,7 +9836,7 @@ size_t EnrollReply::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional .attestation.AttestationStatus status = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
@@ -9315,15 +9857,16 @@ void EnrollReply::CheckTypeAndMergeFrom(
 }
 
 void EnrollReply::MergeFrom(const EnrollReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.EnrollReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  EnrollReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.EnrollReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_status()) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void EnrollReply::CopyFrom(const EnrollReply& from) {
@@ -9340,8 +9883,8 @@ bool EnrollReply::IsInitialized() const {
 void EnrollReply::InternalSwap(EnrollReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(status_, other->status_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string EnrollReply::GetTypeName() const {
@@ -9353,7 +9896,7 @@ std::string EnrollReply::GetTypeName() const {
 
 class DeviceSetupCertificateRequestMetadata::_Internal {
  public:
-  using HasBits = decltype(std::declval<DeviceSetupCertificateRequestMetadata>()._has_bits_);
+  using HasBits = decltype(std::declval<DeviceSetupCertificateRequestMetadata>()._impl_._has_bits_);
   static void set_has_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -9365,41 +9908,56 @@ class DeviceSetupCertificateRequestMetadata::_Internal {
 DeviceSetupCertificateRequestMetadata::DeviceSetupCertificateRequestMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.DeviceSetupCertificateRequestMetadata)
 }
 DeviceSetupCertificateRequestMetadata::DeviceSetupCertificateRequestMetadata(const DeviceSetupCertificateRequestMetadata& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DeviceSetupCertificateRequestMetadata* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.id_){}
+    , decltype(_impl_.content_binding_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  id_.InitDefault();
+  _impl_.id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    id_.Set("", GetArenaForAllocation());
+    _impl_.id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_id()) {
-    id_.Set(from._internal_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.id_.Set(from._internal_id(), 
+      _this->GetArenaForAllocation());
   }
-  content_binding_.InitDefault();
+  _impl_.content_binding_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    content_binding_.Set("", GetArenaForAllocation());
+    _impl_.content_binding_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_content_binding()) {
-    content_binding_.Set(from._internal_content_binding(), 
-      GetArenaForAllocation());
+    _this->_impl_.content_binding_.Set(from._internal_content_binding(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:attestation.DeviceSetupCertificateRequestMetadata)
 }
 
-inline void DeviceSetupCertificateRequestMetadata::SharedCtor() {
-id_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  id_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-content_binding_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  content_binding_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void DeviceSetupCertificateRequestMetadata::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.id_){}
+    , decltype(_impl_.content_binding_){}
+  };
+  _impl_.id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.content_binding_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.content_binding_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 DeviceSetupCertificateRequestMetadata::~DeviceSetupCertificateRequestMetadata() {
@@ -9413,12 +9971,12 @@ DeviceSetupCertificateRequestMetadata::~DeviceSetupCertificateRequestMetadata() 
 
 inline void DeviceSetupCertificateRequestMetadata::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  id_.Destroy();
-  content_binding_.Destroy();
+  _impl_.id_.Destroy();
+  _impl_.content_binding_.Destroy();
 }
 
 void DeviceSetupCertificateRequestMetadata::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void DeviceSetupCertificateRequestMetadata::Clear() {
@@ -9427,16 +9985,16 @@ void DeviceSetupCertificateRequestMetadata::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      id_.ClearNonDefaultToEmpty();
+      _impl_.id_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      content_binding_.ClearNonDefaultToEmpty();
+      _impl_.content_binding_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -9481,7 +10039,7 @@ const char* DeviceSetupCertificateRequestMetadata::_InternalParse(const char* pt
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -9495,7 +10053,7 @@ uint8_t* DeviceSetupCertificateRequestMetadata::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string id = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -9524,7 +10082,7 @@ size_t DeviceSetupCertificateRequestMetadata::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string id = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -9556,21 +10114,22 @@ void DeviceSetupCertificateRequestMetadata::CheckTypeAndMergeFrom(
 }
 
 void DeviceSetupCertificateRequestMetadata::MergeFrom(const DeviceSetupCertificateRequestMetadata& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.DeviceSetupCertificateRequestMetadata)
-  GOOGLE_DCHECK_NE(&from, this);
+  DeviceSetupCertificateRequestMetadata* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.DeviceSetupCertificateRequestMetadata)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_id(from._internal_id());
+      _this->_internal_set_id(from._internal_id());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_content_binding(from._internal_content_binding());
+      _this->_internal_set_content_binding(from._internal_content_binding());
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void DeviceSetupCertificateRequestMetadata::CopyFrom(const DeviceSetupCertificateRequestMetadata& from) {
@@ -9589,14 +10148,14 @@ void DeviceSetupCertificateRequestMetadata::InternalSwap(DeviceSetupCertificateR
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &id_, lhs_arena,
-      &other->id_, rhs_arena
+      &_impl_.id_, lhs_arena,
+      &other->_impl_.id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &content_binding_, lhs_arena,
-      &other->content_binding_, rhs_arena
+      &_impl_.content_binding_, lhs_arena,
+      &other->_impl_.content_binding_, rhs_arena
   );
 }
 
@@ -9609,7 +10168,7 @@ std::string DeviceSetupCertificateRequestMetadata::GetTypeName() const {
 
 class CreateCertificateRequestRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<CreateCertificateRequestRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<CreateCertificateRequestRequest>()._impl_._has_bits_);
   static void set_has_certificate_profile(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -9630,7 +10189,7 @@ class CreateCertificateRequestRequest::_Internal {
 
 const ::attestation::DeviceSetupCertificateRequestMetadata&
 CreateCertificateRequestRequest::_Internal::device_setup_certificate_request_metadata(const CreateCertificateRequestRequest* msg) {
-  return *msg->metadata_.device_setup_certificate_request_metadata_;
+  return *msg->_impl_.metadata_.device_setup_certificate_request_metadata_;
 }
 void CreateCertificateRequestRequest::set_allocated_device_setup_certificate_request_metadata(::attestation::DeviceSetupCertificateRequestMetadata* device_setup_certificate_request_metadata) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -9643,43 +10202,55 @@ void CreateCertificateRequestRequest::set_allocated_device_setup_certificate_req
           message_arena, device_setup_certificate_request_metadata, submessage_arena);
     }
     set_has_device_setup_certificate_request_metadata();
-    metadata_.device_setup_certificate_request_metadata_ = device_setup_certificate_request_metadata;
+    _impl_.metadata_.device_setup_certificate_request_metadata_ = device_setup_certificate_request_metadata;
   }
   // @@protoc_insertion_point(field_set_allocated:attestation.CreateCertificateRequestRequest.device_setup_certificate_request_metadata)
 }
 CreateCertificateRequestRequest::CreateCertificateRequestRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.CreateCertificateRequestRequest)
 }
 CreateCertificateRequestRequest::CreateCertificateRequestRequest(const CreateCertificateRequestRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CreateCertificateRequestRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.request_origin_){}
+    , decltype(_impl_.certificate_profile_){}
+    , decltype(_impl_.aca_type_){}
+    , decltype(_impl_.key_type_){}
+    , decltype(_impl_.metadata_){}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  username_.InitDefault();
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    username_.Set("", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_username()) {
-    username_.Set(from._internal_username(), 
-      GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
   }
-  request_origin_.InitDefault();
+  _impl_.request_origin_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    request_origin_.Set("", GetArenaForAllocation());
+    _impl_.request_origin_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_request_origin()) {
-    request_origin_.Set(from._internal_request_origin(), 
-      GetArenaForAllocation());
+    _this->_impl_.request_origin_.Set(from._internal_request_origin(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&certificate_profile_, &from.certificate_profile_,
-    static_cast<size_t>(reinterpret_cast<char*>(&key_type_) -
-    reinterpret_cast<char*>(&certificate_profile_)) + sizeof(key_type_));
+  ::memcpy(&_impl_.certificate_profile_, &from._impl_.certificate_profile_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.key_type_) -
+    reinterpret_cast<char*>(&_impl_.certificate_profile_)) + sizeof(_impl_.key_type_));
   clear_has_metadata();
   switch (from.metadata_case()) {
     case kDeviceSetupCertificateRequestMetadata: {
-      _internal_mutable_device_setup_certificate_request_metadata()->::attestation::DeviceSetupCertificateRequestMetadata::MergeFrom(from._internal_device_setup_certificate_request_metadata());
+      _this->_internal_mutable_device_setup_certificate_request_metadata()->::attestation::DeviceSetupCertificateRequestMetadata::MergeFrom(
+          from._internal_device_setup_certificate_request_metadata());
       break;
     }
     case METADATA_NOT_SET: {
@@ -9689,21 +10260,30 @@ CreateCertificateRequestRequest::CreateCertificateRequestRequest(const CreateCer
   // @@protoc_insertion_point(copy_constructor:attestation.CreateCertificateRequestRequest)
 }
 
-inline void CreateCertificateRequestRequest::SharedCtor() {
-username_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  username_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-request_origin_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  request_origin_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&certificate_profile_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&aca_type_) -
-    reinterpret_cast<char*>(&certificate_profile_)) + sizeof(aca_type_));
-key_type_ = 1;
-clear_has_metadata();
+inline void CreateCertificateRequestRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.request_origin_){}
+    , decltype(_impl_.certificate_profile_){0}
+    , decltype(_impl_.aca_type_){0}
+    , decltype(_impl_.key_type_){1}
+    , decltype(_impl_.metadata_){}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.request_origin_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.request_origin_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  clear_has_metadata();
 }
 
 CreateCertificateRequestRequest::~CreateCertificateRequestRequest() {
@@ -9717,15 +10297,15 @@ CreateCertificateRequestRequest::~CreateCertificateRequestRequest() {
 
 inline void CreateCertificateRequestRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  username_.Destroy();
-  request_origin_.Destroy();
+  _impl_.username_.Destroy();
+  _impl_.request_origin_.Destroy();
   if (has_metadata()) {
     clear_metadata();
   }
 }
 
 void CreateCertificateRequestRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CreateCertificateRequestRequest::clear_metadata() {
@@ -9733,7 +10313,7 @@ void CreateCertificateRequestRequest::clear_metadata() {
   switch (metadata_case()) {
     case kDeviceSetupCertificateRequestMetadata: {
       if (GetArenaForAllocation() == nullptr) {
-        delete metadata_.device_setup_certificate_request_metadata_;
+        delete _impl_.metadata_.device_setup_certificate_request_metadata_;
       }
       break;
     }
@@ -9741,7 +10321,7 @@ void CreateCertificateRequestRequest::clear_metadata() {
       break;
     }
   }
-  _oneof_case_[0] = METADATA_NOT_SET;
+  _impl_._oneof_case_[0] = METADATA_NOT_SET;
 }
 
 
@@ -9751,23 +10331,23 @@ void CreateCertificateRequestRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      username_.ClearNonDefaultToEmpty();
+      _impl_.username_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      request_origin_.ClearNonDefaultToEmpty();
+      _impl_.request_origin_.ClearNonDefaultToEmpty();
     }
   }
   if (cached_has_bits & 0x0000001cu) {
-    ::memset(&certificate_profile_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&aca_type_) -
-        reinterpret_cast<char*>(&certificate_profile_)) + sizeof(aca_type_));
-    key_type_ = 1;
+    ::memset(&_impl_.certificate_profile_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.aca_type_) -
+        reinterpret_cast<char*>(&_impl_.certificate_profile_)) + sizeof(_impl_.aca_type_));
+    _impl_.key_type_ = 1;
   }
   clear_metadata();
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -9859,7 +10439,7 @@ const char* CreateCertificateRequestRequest::_InternalParse(const char* ptr, ::_
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -9873,7 +10453,7 @@ uint8_t* CreateCertificateRequestRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.CertificateProfile certificate_profile = 1;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
@@ -9930,7 +10510,7 @@ size_t CreateCertificateRequestRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     // optional string username = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -9970,7 +10550,7 @@ size_t CreateCertificateRequestRequest::ByteSizeLong() const {
     case kDeviceSetupCertificateRequestMetadata: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *metadata_.device_setup_certificate_request_metadata_);
+          *_impl_.metadata_.device_setup_certificate_request_metadata_);
       break;
     }
     case METADATA_NOT_SET: {
@@ -9992,40 +10572,42 @@ void CreateCertificateRequestRequest::CheckTypeAndMergeFrom(
 }
 
 void CreateCertificateRequestRequest::MergeFrom(const CreateCertificateRequestRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.CreateCertificateRequestRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  CreateCertificateRequestRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.CreateCertificateRequestRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_username(from._internal_username());
+      _this->_internal_set_username(from._internal_username());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_request_origin(from._internal_request_origin());
+      _this->_internal_set_request_origin(from._internal_request_origin());
     }
     if (cached_has_bits & 0x00000004u) {
-      certificate_profile_ = from.certificate_profile_;
+      _this->_impl_.certificate_profile_ = from._impl_.certificate_profile_;
     }
     if (cached_has_bits & 0x00000008u) {
-      aca_type_ = from.aca_type_;
+      _this->_impl_.aca_type_ = from._impl_.aca_type_;
     }
     if (cached_has_bits & 0x00000010u) {
-      key_type_ = from.key_type_;
+      _this->_impl_.key_type_ = from._impl_.key_type_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   switch (from.metadata_case()) {
     case kDeviceSetupCertificateRequestMetadata: {
-      _internal_mutable_device_setup_certificate_request_metadata()->::attestation::DeviceSetupCertificateRequestMetadata::MergeFrom(from._internal_device_setup_certificate_request_metadata());
+      _this->_internal_mutable_device_setup_certificate_request_metadata()->::attestation::DeviceSetupCertificateRequestMetadata::MergeFrom(
+          from._internal_device_setup_certificate_request_metadata());
       break;
     }
     case METADATA_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CreateCertificateRequestRequest::CopyFrom(const CreateCertificateRequestRequest& from) {
@@ -10044,24 +10626,24 @@ void CreateCertificateRequestRequest::InternalSwap(CreateCertificateRequestReque
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &username_, lhs_arena,
-      &other->username_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &request_origin_, lhs_arena,
-      &other->request_origin_, rhs_arena
+      &_impl_.request_origin_, lhs_arena,
+      &other->_impl_.request_origin_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CreateCertificateRequestRequest, aca_type_)
-      + sizeof(CreateCertificateRequestRequest::aca_type_)
-      - PROTOBUF_FIELD_OFFSET(CreateCertificateRequestRequest, certificate_profile_)>(
-          reinterpret_cast<char*>(&certificate_profile_),
-          reinterpret_cast<char*>(&other->certificate_profile_));
-  swap(key_type_, other->key_type_);
-  swap(metadata_, other->metadata_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+      PROTOBUF_FIELD_OFFSET(CreateCertificateRequestRequest, _impl_.aca_type_)
+      + sizeof(CreateCertificateRequestRequest::_impl_.aca_type_)
+      - PROTOBUF_FIELD_OFFSET(CreateCertificateRequestRequest, _impl_.certificate_profile_)>(
+          reinterpret_cast<char*>(&_impl_.certificate_profile_),
+          reinterpret_cast<char*>(&other->_impl_.certificate_profile_));
+  swap(_impl_.key_type_, other->_impl_.key_type_);
+  swap(_impl_.metadata_, other->_impl_.metadata_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 std::string CreateCertificateRequestRequest::GetTypeName() const {
@@ -10073,7 +10655,7 @@ std::string CreateCertificateRequestRequest::GetTypeName() const {
 
 class CreateCertificateRequestReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<CreateCertificateRequestReply>()._has_bits_);
+  using HasBits = decltype(std::declval<CreateCertificateRequestReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -10085,31 +10667,45 @@ class CreateCertificateRequestReply::_Internal {
 CreateCertificateRequestReply::CreateCertificateRequestReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.CreateCertificateRequestReply)
 }
 CreateCertificateRequestReply::CreateCertificateRequestReply(const CreateCertificateRequestReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CreateCertificateRequestReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.pca_request_){}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  pca_request_.InitDefault();
+  _impl_.pca_request_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    pca_request_.Set("", GetArenaForAllocation());
+    _impl_.pca_request_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_pca_request()) {
-    pca_request_.Set(from._internal_pca_request(), 
-      GetArenaForAllocation());
+    _this->_impl_.pca_request_.Set(from._internal_pca_request(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.CreateCertificateRequestReply)
 }
 
-inline void CreateCertificateRequestReply::SharedCtor() {
-pca_request_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  pca_request_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void CreateCertificateRequestReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.pca_request_){}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.pca_request_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.pca_request_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CreateCertificateRequestReply::~CreateCertificateRequestReply() {
@@ -10123,11 +10719,11 @@ CreateCertificateRequestReply::~CreateCertificateRequestReply() {
 
 inline void CreateCertificateRequestReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  pca_request_.Destroy();
+  _impl_.pca_request_.Destroy();
 }
 
 void CreateCertificateRequestReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CreateCertificateRequestReply::Clear() {
@@ -10136,12 +10732,12 @@ void CreateCertificateRequestReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    pca_request_.ClearNonDefaultToEmpty();
+    _impl_.pca_request_.ClearNonDefaultToEmpty();
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -10190,7 +10786,7 @@ const char* CreateCertificateRequestReply::_InternalParse(const char* ptr, ::_pb
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -10204,7 +10800,7 @@ uint8_t* CreateCertificateRequestReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
@@ -10234,7 +10830,7 @@ size_t CreateCertificateRequestReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional bytes pca_request = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -10265,22 +10861,23 @@ void CreateCertificateRequestReply::CheckTypeAndMergeFrom(
 }
 
 void CreateCertificateRequestReply::MergeFrom(const CreateCertificateRequestReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.CreateCertificateRequestReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  CreateCertificateRequestReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.CreateCertificateRequestReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_pca_request(from._internal_pca_request());
+      _this->_internal_set_pca_request(from._internal_pca_request());
     }
     if (cached_has_bits & 0x00000002u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CreateCertificateRequestReply::CopyFrom(const CreateCertificateRequestReply& from) {
@@ -10299,12 +10896,12 @@ void CreateCertificateRequestReply::InternalSwap(CreateCertificateRequestReply* 
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &pca_request_, lhs_arena,
-      &other->pca_request_, rhs_arena
+      &_impl_.pca_request_, lhs_arena,
+      &other->_impl_.pca_request_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string CreateCertificateRequestReply::GetTypeName() const {
@@ -10316,7 +10913,7 @@ std::string CreateCertificateRequestReply::GetTypeName() const {
 
 class FinishCertificateRequestRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<FinishCertificateRequestRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<FinishCertificateRequestRequest>()._impl_._has_bits_);
   static void set_has_pca_response(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -10331,53 +10928,70 @@ class FinishCertificateRequestRequest::_Internal {
 FinishCertificateRequestRequest::FinishCertificateRequestRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.FinishCertificateRequestRequest)
 }
 FinishCertificateRequestRequest::FinishCertificateRequestRequest(const FinishCertificateRequestRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FinishCertificateRequestRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.pca_response_){}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  pca_response_.InitDefault();
+  _impl_.pca_response_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    pca_response_.Set("", GetArenaForAllocation());
+    _impl_.pca_response_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_pca_response()) {
-    pca_response_.Set(from._internal_pca_response(), 
-      GetArenaForAllocation());
+    _this->_impl_.pca_response_.Set(from._internal_pca_response(), 
+      _this->GetArenaForAllocation());
   }
-  key_label_.InitDefault();
+  _impl_.key_label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_label_.Set("", GetArenaForAllocation());
+    _impl_.key_label_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_label()) {
-    key_label_.Set(from._internal_key_label(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_label_.Set(from._internal_key_label(), 
+      _this->GetArenaForAllocation());
   }
-  username_.InitDefault();
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    username_.Set("", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_username()) {
-    username_.Set(from._internal_username(), 
-      GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:attestation.FinishCertificateRequestRequest)
 }
 
-inline void FinishCertificateRequestRequest::SharedCtor() {
-pca_response_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  pca_response_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-key_label_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_label_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-username_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  username_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void FinishCertificateRequestRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.pca_response_){}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+  };
+  _impl_.pca_response_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.pca_response_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.key_label_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_label_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 FinishCertificateRequestRequest::~FinishCertificateRequestRequest() {
@@ -10391,13 +11005,13 @@ FinishCertificateRequestRequest::~FinishCertificateRequestRequest() {
 
 inline void FinishCertificateRequestRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  pca_response_.Destroy();
-  key_label_.Destroy();
-  username_.Destroy();
+  _impl_.pca_response_.Destroy();
+  _impl_.key_label_.Destroy();
+  _impl_.username_.Destroy();
 }
 
 void FinishCertificateRequestRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FinishCertificateRequestRequest::Clear() {
@@ -10406,19 +11020,19 @@ void FinishCertificateRequestRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      pca_response_.ClearNonDefaultToEmpty();
+      _impl_.pca_response_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      key_label_.ClearNonDefaultToEmpty();
+      _impl_.key_label_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      username_.ClearNonDefaultToEmpty();
+      _impl_.username_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -10472,7 +11086,7 @@ const char* FinishCertificateRequestRequest::_InternalParse(const char* ptr, ::_
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -10486,7 +11100,7 @@ uint8_t* FinishCertificateRequestRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bytes pca_response = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteBytesMaybeAliased(
@@ -10521,7 +11135,7 @@ size_t FinishCertificateRequestRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional bytes pca_response = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -10560,24 +11174,25 @@ void FinishCertificateRequestRequest::CheckTypeAndMergeFrom(
 }
 
 void FinishCertificateRequestRequest::MergeFrom(const FinishCertificateRequestRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.FinishCertificateRequestRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  FinishCertificateRequestRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.FinishCertificateRequestRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_pca_response(from._internal_pca_response());
+      _this->_internal_set_pca_response(from._internal_pca_response());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_key_label(from._internal_key_label());
+      _this->_internal_set_key_label(from._internal_key_label());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_username(from._internal_username());
+      _this->_internal_set_username(from._internal_username());
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FinishCertificateRequestRequest::CopyFrom(const FinishCertificateRequestRequest& from) {
@@ -10596,18 +11211,18 @@ void FinishCertificateRequestRequest::InternalSwap(FinishCertificateRequestReque
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &pca_response_, lhs_arena,
-      &other->pca_response_, rhs_arena
+      &_impl_.pca_response_, lhs_arena,
+      &other->_impl_.pca_response_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_label_, lhs_arena,
-      &other->key_label_, rhs_arena
+      &_impl_.key_label_, lhs_arena,
+      &other->_impl_.key_label_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &username_, lhs_arena,
-      &other->username_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
 }
 
@@ -10620,7 +11235,7 @@ std::string FinishCertificateRequestRequest::GetTypeName() const {
 
 class FinishCertificateRequestReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<FinishCertificateRequestReply>()._has_bits_);
+  using HasBits = decltype(std::declval<FinishCertificateRequestReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
@@ -10641,67 +11256,87 @@ class FinishCertificateRequestReply::_Internal {
 FinishCertificateRequestReply::FinishCertificateRequestReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.FinishCertificateRequestReply)
 }
 FinishCertificateRequestReply::FinishCertificateRequestReply(const FinishCertificateRequestReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FinishCertificateRequestReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.certificate_){}
+    , decltype(_impl_.public_key_){}
+    , decltype(_impl_.key_blob_){}
+    , decltype(_impl_.certified_key_credential_){}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  certificate_.InitDefault();
+  _impl_.certificate_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    certificate_.Set("", GetArenaForAllocation());
+    _impl_.certificate_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_certificate()) {
-    certificate_.Set(from._internal_certificate(), 
-      GetArenaForAllocation());
+    _this->_impl_.certificate_.Set(from._internal_certificate(), 
+      _this->GetArenaForAllocation());
   }
-  public_key_.InitDefault();
+  _impl_.public_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    public_key_.Set("", GetArenaForAllocation());
+    _impl_.public_key_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_public_key()) {
-    public_key_.Set(from._internal_public_key(), 
-      GetArenaForAllocation());
+    _this->_impl_.public_key_.Set(from._internal_public_key(), 
+      _this->GetArenaForAllocation());
   }
-  key_blob_.InitDefault();
+  _impl_.key_blob_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_blob_.Set("", GetArenaForAllocation());
+    _impl_.key_blob_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_blob()) {
-    key_blob_.Set(from._internal_key_blob(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_blob_.Set(from._internal_key_blob(), 
+      _this->GetArenaForAllocation());
   }
-  certified_key_credential_.InitDefault();
+  _impl_.certified_key_credential_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    certified_key_credential_.Set("", GetArenaForAllocation());
+    _impl_.certified_key_credential_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_certified_key_credential()) {
-    certified_key_credential_.Set(from._internal_certified_key_credential(), 
-      GetArenaForAllocation());
+    _this->_impl_.certified_key_credential_.Set(from._internal_certified_key_credential(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.FinishCertificateRequestReply)
 }
 
-inline void FinishCertificateRequestReply::SharedCtor() {
-certificate_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  certificate_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-public_key_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  public_key_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-key_blob_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_blob_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-certified_key_credential_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  certified_key_credential_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void FinishCertificateRequestReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.certificate_){}
+    , decltype(_impl_.public_key_){}
+    , decltype(_impl_.key_blob_){}
+    , decltype(_impl_.certified_key_credential_){}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.certificate_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.certificate_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.public_key_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.public_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.key_blob_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_blob_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.certified_key_credential_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.certified_key_credential_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 FinishCertificateRequestReply::~FinishCertificateRequestReply() {
@@ -10715,14 +11350,14 @@ FinishCertificateRequestReply::~FinishCertificateRequestReply() {
 
 inline void FinishCertificateRequestReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  certificate_.Destroy();
-  public_key_.Destroy();
-  key_blob_.Destroy();
-  certified_key_credential_.Destroy();
+  _impl_.certificate_.Destroy();
+  _impl_.public_key_.Destroy();
+  _impl_.key_blob_.Destroy();
+  _impl_.certified_key_credential_.Destroy();
 }
 
 void FinishCertificateRequestReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FinishCertificateRequestReply::Clear() {
@@ -10731,23 +11366,23 @@ void FinishCertificateRequestReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      certificate_.ClearNonDefaultToEmpty();
+      _impl_.certificate_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      public_key_.ClearNonDefaultToEmpty();
+      _impl_.public_key_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      key_blob_.ClearNonDefaultToEmpty();
+      _impl_.key_blob_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      certified_key_credential_.ClearNonDefaultToEmpty();
+      _impl_.certified_key_credential_.ClearNonDefaultToEmpty();
     }
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -10823,7 +11458,7 @@ const char* FinishCertificateRequestReply::_InternalParse(const char* ptr, ::_pb
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -10837,7 +11472,7 @@ uint8_t* FinishCertificateRequestReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
@@ -10885,7 +11520,7 @@ size_t FinishCertificateRequestReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     // optional bytes certificate = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -10937,31 +11572,32 @@ void FinishCertificateRequestReply::CheckTypeAndMergeFrom(
 }
 
 void FinishCertificateRequestReply::MergeFrom(const FinishCertificateRequestReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.FinishCertificateRequestReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  FinishCertificateRequestReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.FinishCertificateRequestReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_certificate(from._internal_certificate());
+      _this->_internal_set_certificate(from._internal_certificate());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_public_key(from._internal_public_key());
+      _this->_internal_set_public_key(from._internal_public_key());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_key_blob(from._internal_key_blob());
+      _this->_internal_set_key_blob(from._internal_key_blob());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_set_certified_key_credential(from._internal_certified_key_credential());
+      _this->_internal_set_certified_key_credential(from._internal_certified_key_credential());
     }
     if (cached_has_bits & 0x00000010u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FinishCertificateRequestReply::CopyFrom(const FinishCertificateRequestReply& from) {
@@ -10980,24 +11616,24 @@ void FinishCertificateRequestReply::InternalSwap(FinishCertificateRequestReply* 
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &certificate_, lhs_arena,
-      &other->certificate_, rhs_arena
+      &_impl_.certificate_, lhs_arena,
+      &other->_impl_.certificate_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &public_key_, lhs_arena,
-      &other->public_key_, rhs_arena
+      &_impl_.public_key_, lhs_arena,
+      &other->_impl_.public_key_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_blob_, lhs_arena,
-      &other->key_blob_, rhs_arena
+      &_impl_.key_blob_, lhs_arena,
+      &other->_impl_.key_blob_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &certified_key_credential_, lhs_arena,
-      &other->certified_key_credential_, rhs_arena
+      &_impl_.certified_key_credential_, lhs_arena,
+      &other->_impl_.certified_key_credential_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string FinishCertificateRequestReply::GetTypeName() const {
@@ -11009,7 +11645,7 @@ std::string FinishCertificateRequestReply::GetTypeName() const {
 
 class GetCertificateRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetCertificateRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<GetCertificateRequest>()._impl_._has_bits_);
   static void set_has_certificate_profile(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
@@ -11039,7 +11675,7 @@ class GetCertificateRequest::_Internal {
 
 const ::attestation::DeviceSetupCertificateRequestMetadata&
 GetCertificateRequest::_Internal::device_setup_certificate_request_metadata(const GetCertificateRequest* msg) {
-  return *msg->metadata_.device_setup_certificate_request_metadata_;
+  return *msg->_impl_.metadata_.device_setup_certificate_request_metadata_;
 }
 void GetCertificateRequest::set_allocated_device_setup_certificate_request_metadata(::attestation::DeviceSetupCertificateRequestMetadata* device_setup_certificate_request_metadata) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -11052,51 +11688,66 @@ void GetCertificateRequest::set_allocated_device_setup_certificate_request_metad
           message_arena, device_setup_certificate_request_metadata, submessage_arena);
     }
     set_has_device_setup_certificate_request_metadata();
-    metadata_.device_setup_certificate_request_metadata_ = device_setup_certificate_request_metadata;
+    _impl_.metadata_.device_setup_certificate_request_metadata_ = device_setup_certificate_request_metadata;
   }
   // @@protoc_insertion_point(field_set_allocated:attestation.GetCertificateRequest.device_setup_certificate_request_metadata)
 }
 GetCertificateRequest::GetCertificateRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetCertificateRequest)
 }
 GetCertificateRequest::GetCertificateRequest(const GetCertificateRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetCertificateRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.request_origin_){}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.certificate_profile_){}
+    , decltype(_impl_.aca_type_){}
+    , decltype(_impl_.forced_){}
+    , decltype(_impl_.shall_trigger_enrollment_){}
+    , decltype(_impl_.key_type_){}
+    , decltype(_impl_.metadata_){}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  username_.InitDefault();
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    username_.Set("", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_username()) {
-    username_.Set(from._internal_username(), 
-      GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
   }
-  request_origin_.InitDefault();
+  _impl_.request_origin_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    request_origin_.Set("", GetArenaForAllocation());
+    _impl_.request_origin_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_request_origin()) {
-    request_origin_.Set(from._internal_request_origin(), 
-      GetArenaForAllocation());
+    _this->_impl_.request_origin_.Set(from._internal_request_origin(), 
+      _this->GetArenaForAllocation());
   }
-  key_label_.InitDefault();
+  _impl_.key_label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_label_.Set("", GetArenaForAllocation());
+    _impl_.key_label_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_label()) {
-    key_label_.Set(from._internal_key_label(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_label_.Set(from._internal_key_label(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&certificate_profile_, &from.certificate_profile_,
-    static_cast<size_t>(reinterpret_cast<char*>(&key_type_) -
-    reinterpret_cast<char*>(&certificate_profile_)) + sizeof(key_type_));
+  ::memcpy(&_impl_.certificate_profile_, &from._impl_.certificate_profile_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.key_type_) -
+    reinterpret_cast<char*>(&_impl_.certificate_profile_)) + sizeof(_impl_.key_type_));
   clear_has_metadata();
   switch (from.metadata_case()) {
     case kDeviceSetupCertificateRequestMetadata: {
-      _internal_mutable_device_setup_certificate_request_metadata()->::attestation::DeviceSetupCertificateRequestMetadata::MergeFrom(from._internal_device_setup_certificate_request_metadata());
+      _this->_internal_mutable_device_setup_certificate_request_metadata()->::attestation::DeviceSetupCertificateRequestMetadata::MergeFrom(
+          from._internal_device_setup_certificate_request_metadata());
       break;
     }
     case METADATA_NOT_SET: {
@@ -11106,25 +11757,37 @@ GetCertificateRequest::GetCertificateRequest(const GetCertificateRequest& from)
   // @@protoc_insertion_point(copy_constructor:attestation.GetCertificateRequest)
 }
 
-inline void GetCertificateRequest::SharedCtor() {
-username_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  username_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-request_origin_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  request_origin_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-key_label_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_label_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&certificate_profile_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&shall_trigger_enrollment_) -
-    reinterpret_cast<char*>(&certificate_profile_)) + sizeof(shall_trigger_enrollment_));
-key_type_ = 1;
-clear_has_metadata();
+inline void GetCertificateRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.request_origin_){}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.certificate_profile_){0}
+    , decltype(_impl_.aca_type_){0}
+    , decltype(_impl_.forced_){false}
+    , decltype(_impl_.shall_trigger_enrollment_){false}
+    , decltype(_impl_.key_type_){1}
+    , decltype(_impl_.metadata_){}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.request_origin_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.request_origin_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.key_label_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_label_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  clear_has_metadata();
 }
 
 GetCertificateRequest::~GetCertificateRequest() {
@@ -11138,16 +11801,16 @@ GetCertificateRequest::~GetCertificateRequest() {
 
 inline void GetCertificateRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  username_.Destroy();
-  request_origin_.Destroy();
-  key_label_.Destroy();
+  _impl_.username_.Destroy();
+  _impl_.request_origin_.Destroy();
+  _impl_.key_label_.Destroy();
   if (has_metadata()) {
     clear_metadata();
   }
 }
 
 void GetCertificateRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetCertificateRequest::clear_metadata() {
@@ -11155,7 +11818,7 @@ void GetCertificateRequest::clear_metadata() {
   switch (metadata_case()) {
     case kDeviceSetupCertificateRequestMetadata: {
       if (GetArenaForAllocation() == nullptr) {
-        delete metadata_.device_setup_certificate_request_metadata_;
+        delete _impl_.metadata_.device_setup_certificate_request_metadata_;
       }
       break;
     }
@@ -11163,7 +11826,7 @@ void GetCertificateRequest::clear_metadata() {
       break;
     }
   }
-  _oneof_case_[0] = METADATA_NOT_SET;
+  _impl_._oneof_case_[0] = METADATA_NOT_SET;
 }
 
 
@@ -11173,26 +11836,26 @@ void GetCertificateRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      username_.ClearNonDefaultToEmpty();
+      _impl_.username_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      request_origin_.ClearNonDefaultToEmpty();
+      _impl_.request_origin_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      key_label_.ClearNonDefaultToEmpty();
+      _impl_.key_label_.ClearNonDefaultToEmpty();
     }
   }
   if (cached_has_bits & 0x000000f8u) {
-    ::memset(&certificate_profile_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&shall_trigger_enrollment_) -
-        reinterpret_cast<char*>(&certificate_profile_)) + sizeof(shall_trigger_enrollment_));
-    key_type_ = 1;
+    ::memset(&_impl_.certificate_profile_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.shall_trigger_enrollment_) -
+        reinterpret_cast<char*>(&_impl_.certificate_profile_)) + sizeof(_impl_.shall_trigger_enrollment_));
+    _impl_.key_type_ = 1;
   }
   clear_metadata();
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -11273,7 +11936,7 @@ const char* GetCertificateRequest::_InternalParse(const char* ptr, ::_pbi::Parse
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
           _Internal::set_has_forced(&has_bits);
-          forced_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.forced_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -11282,7 +11945,7 @@ const char* GetCertificateRequest::_InternalParse(const char* ptr, ::_pbi::Parse
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
           _Internal::set_has_shall_trigger_enrollment(&has_bits);
-          shall_trigger_enrollment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.shall_trigger_enrollment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -11311,7 +11974,7 @@ const char* GetCertificateRequest::_InternalParse(const char* ptr, ::_pbi::Parse
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -11325,7 +11988,7 @@ uint8_t* GetCertificateRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.CertificateProfile certificate_profile = 1;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
@@ -11400,7 +12063,7 @@ size_t GetCertificateRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional string username = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -11457,7 +12120,7 @@ size_t GetCertificateRequest::ByteSizeLong() const {
     case kDeviceSetupCertificateRequestMetadata: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *metadata_.device_setup_certificate_request_metadata_);
+          *_impl_.metadata_.device_setup_certificate_request_metadata_);
       break;
     }
     case METADATA_NOT_SET: {
@@ -11479,49 +12142,51 @@ void GetCertificateRequest::CheckTypeAndMergeFrom(
 }
 
 void GetCertificateRequest::MergeFrom(const GetCertificateRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetCertificateRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetCertificateRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetCertificateRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_username(from._internal_username());
+      _this->_internal_set_username(from._internal_username());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_request_origin(from._internal_request_origin());
+      _this->_internal_set_request_origin(from._internal_request_origin());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_key_label(from._internal_key_label());
+      _this->_internal_set_key_label(from._internal_key_label());
     }
     if (cached_has_bits & 0x00000008u) {
-      certificate_profile_ = from.certificate_profile_;
+      _this->_impl_.certificate_profile_ = from._impl_.certificate_profile_;
     }
     if (cached_has_bits & 0x00000010u) {
-      aca_type_ = from.aca_type_;
+      _this->_impl_.aca_type_ = from._impl_.aca_type_;
     }
     if (cached_has_bits & 0x00000020u) {
-      forced_ = from.forced_;
+      _this->_impl_.forced_ = from._impl_.forced_;
     }
     if (cached_has_bits & 0x00000040u) {
-      shall_trigger_enrollment_ = from.shall_trigger_enrollment_;
+      _this->_impl_.shall_trigger_enrollment_ = from._impl_.shall_trigger_enrollment_;
     }
     if (cached_has_bits & 0x00000080u) {
-      key_type_ = from.key_type_;
+      _this->_impl_.key_type_ = from._impl_.key_type_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   switch (from.metadata_case()) {
     case kDeviceSetupCertificateRequestMetadata: {
-      _internal_mutable_device_setup_certificate_request_metadata()->::attestation::DeviceSetupCertificateRequestMetadata::MergeFrom(from._internal_device_setup_certificate_request_metadata());
+      _this->_internal_mutable_device_setup_certificate_request_metadata()->::attestation::DeviceSetupCertificateRequestMetadata::MergeFrom(
+          from._internal_device_setup_certificate_request_metadata());
       break;
     }
     case METADATA_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetCertificateRequest::CopyFrom(const GetCertificateRequest& from) {
@@ -11540,28 +12205,28 @@ void GetCertificateRequest::InternalSwap(GetCertificateRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &username_, lhs_arena,
-      &other->username_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &request_origin_, lhs_arena,
-      &other->request_origin_, rhs_arena
+      &_impl_.request_origin_, lhs_arena,
+      &other->_impl_.request_origin_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_label_, lhs_arena,
-      &other->key_label_, rhs_arena
+      &_impl_.key_label_, lhs_arena,
+      &other->_impl_.key_label_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetCertificateRequest, shall_trigger_enrollment_)
-      + sizeof(GetCertificateRequest::shall_trigger_enrollment_)
-      - PROTOBUF_FIELD_OFFSET(GetCertificateRequest, certificate_profile_)>(
-          reinterpret_cast<char*>(&certificate_profile_),
-          reinterpret_cast<char*>(&other->certificate_profile_));
-  swap(key_type_, other->key_type_);
-  swap(metadata_, other->metadata_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+      PROTOBUF_FIELD_OFFSET(GetCertificateRequest, _impl_.shall_trigger_enrollment_)
+      + sizeof(GetCertificateRequest::_impl_.shall_trigger_enrollment_)
+      - PROTOBUF_FIELD_OFFSET(GetCertificateRequest, _impl_.certificate_profile_)>(
+          reinterpret_cast<char*>(&_impl_.certificate_profile_),
+          reinterpret_cast<char*>(&other->_impl_.certificate_profile_));
+  swap(_impl_.key_type_, other->_impl_.key_type_);
+  swap(_impl_.metadata_, other->_impl_.metadata_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 std::string GetCertificateRequest::GetTypeName() const {
@@ -11573,7 +12238,7 @@ std::string GetCertificateRequest::GetTypeName() const {
 
 class GetCertificateReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetCertificateReply>()._has_bits_);
+  using HasBits = decltype(std::declval<GetCertificateReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
@@ -11594,67 +12259,87 @@ class GetCertificateReply::_Internal {
 GetCertificateReply::GetCertificateReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetCertificateReply)
 }
 GetCertificateReply::GetCertificateReply(const GetCertificateReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetCertificateReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.certificate_){}
+    , decltype(_impl_.public_key_){}
+    , decltype(_impl_.key_blob_){}
+    , decltype(_impl_.certified_key_credential_){}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  certificate_.InitDefault();
+  _impl_.certificate_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    certificate_.Set("", GetArenaForAllocation());
+    _impl_.certificate_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_certificate()) {
-    certificate_.Set(from._internal_certificate(), 
-      GetArenaForAllocation());
+    _this->_impl_.certificate_.Set(from._internal_certificate(), 
+      _this->GetArenaForAllocation());
   }
-  public_key_.InitDefault();
+  _impl_.public_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    public_key_.Set("", GetArenaForAllocation());
+    _impl_.public_key_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_public_key()) {
-    public_key_.Set(from._internal_public_key(), 
-      GetArenaForAllocation());
+    _this->_impl_.public_key_.Set(from._internal_public_key(), 
+      _this->GetArenaForAllocation());
   }
-  key_blob_.InitDefault();
+  _impl_.key_blob_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_blob_.Set("", GetArenaForAllocation());
+    _impl_.key_blob_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_blob()) {
-    key_blob_.Set(from._internal_key_blob(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_blob_.Set(from._internal_key_blob(), 
+      _this->GetArenaForAllocation());
   }
-  certified_key_credential_.InitDefault();
+  _impl_.certified_key_credential_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    certified_key_credential_.Set("", GetArenaForAllocation());
+    _impl_.certified_key_credential_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_certified_key_credential()) {
-    certified_key_credential_.Set(from._internal_certified_key_credential(), 
-      GetArenaForAllocation());
+    _this->_impl_.certified_key_credential_.Set(from._internal_certified_key_credential(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.GetCertificateReply)
 }
 
-inline void GetCertificateReply::SharedCtor() {
-certificate_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  certificate_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-public_key_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  public_key_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-key_blob_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_blob_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-certified_key_credential_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  certified_key_credential_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void GetCertificateReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.certificate_){}
+    , decltype(_impl_.public_key_){}
+    , decltype(_impl_.key_blob_){}
+    , decltype(_impl_.certified_key_credential_){}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.certificate_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.certificate_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.public_key_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.public_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.key_blob_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_blob_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.certified_key_credential_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.certified_key_credential_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetCertificateReply::~GetCertificateReply() {
@@ -11668,14 +12353,14 @@ GetCertificateReply::~GetCertificateReply() {
 
 inline void GetCertificateReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  certificate_.Destroy();
-  public_key_.Destroy();
-  key_blob_.Destroy();
-  certified_key_credential_.Destroy();
+  _impl_.certificate_.Destroy();
+  _impl_.public_key_.Destroy();
+  _impl_.key_blob_.Destroy();
+  _impl_.certified_key_credential_.Destroy();
 }
 
 void GetCertificateReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetCertificateReply::Clear() {
@@ -11684,23 +12369,23 @@ void GetCertificateReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      certificate_.ClearNonDefaultToEmpty();
+      _impl_.certificate_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      public_key_.ClearNonDefaultToEmpty();
+      _impl_.public_key_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      key_blob_.ClearNonDefaultToEmpty();
+      _impl_.key_blob_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      certified_key_credential_.ClearNonDefaultToEmpty();
+      _impl_.certified_key_credential_.ClearNonDefaultToEmpty();
     }
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -11776,7 +12461,7 @@ const char* GetCertificateReply::_InternalParse(const char* ptr, ::_pbi::ParseCo
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -11790,7 +12475,7 @@ uint8_t* GetCertificateReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
@@ -11838,7 +12523,7 @@ size_t GetCertificateReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     // optional bytes certificate = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -11890,31 +12575,32 @@ void GetCertificateReply::CheckTypeAndMergeFrom(
 }
 
 void GetCertificateReply::MergeFrom(const GetCertificateReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetCertificateReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetCertificateReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetCertificateReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_certificate(from._internal_certificate());
+      _this->_internal_set_certificate(from._internal_certificate());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_public_key(from._internal_public_key());
+      _this->_internal_set_public_key(from._internal_public_key());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_key_blob(from._internal_key_blob());
+      _this->_internal_set_key_blob(from._internal_key_blob());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_set_certified_key_credential(from._internal_certified_key_credential());
+      _this->_internal_set_certified_key_credential(from._internal_certified_key_credential());
     }
     if (cached_has_bits & 0x00000010u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetCertificateReply::CopyFrom(const GetCertificateReply& from) {
@@ -11933,24 +12619,24 @@ void GetCertificateReply::InternalSwap(GetCertificateReply* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &certificate_, lhs_arena,
-      &other->certificate_, rhs_arena
+      &_impl_.certificate_, lhs_arena,
+      &other->_impl_.certificate_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &public_key_, lhs_arena,
-      &other->public_key_, rhs_arena
+      &_impl_.public_key_, lhs_arena,
+      &other->_impl_.public_key_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_blob_, lhs_arena,
-      &other->key_blob_, rhs_arena
+      &_impl_.key_blob_, lhs_arena,
+      &other->_impl_.key_blob_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &certified_key_credential_, lhs_arena,
-      &other->certified_key_credential_, rhs_arena
+      &_impl_.certified_key_credential_, lhs_arena,
+      &other->_impl_.certified_key_credential_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string GetCertificateReply::GetTypeName() const {
@@ -11962,7 +12648,7 @@ std::string GetCertificateReply::GetTypeName() const {
 
 class SignEnterpriseChallengeRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<SignEnterpriseChallengeRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<SignEnterpriseChallengeRequest>()._impl_._has_bits_);
   static void set_has_key_label(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -12004,108 +12690,139 @@ class SignEnterpriseChallengeRequest::_Internal {
 SignEnterpriseChallengeRequest::SignEnterpriseChallengeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.SignEnterpriseChallengeRequest)
 }
 SignEnterpriseChallengeRequest::SignEnterpriseChallengeRequest(const SignEnterpriseChallengeRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SignEnterpriseChallengeRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.domain_){}
+    , decltype(_impl_.device_id_){}
+    , decltype(_impl_.challenge_){}
+    , decltype(_impl_.key_name_for_spkac_){}
+    , decltype(_impl_.device_trust_signals_json_){}
+    , decltype(_impl_.va_type_){}
+    , decltype(_impl_.include_signed_public_key_){}
+    , decltype(_impl_.include_customer_id_){}
+    , decltype(_impl_.include_certificate_){}
+    , decltype(_impl_.flow_type_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  key_label_.InitDefault();
+  _impl_.key_label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_label_.Set("", GetArenaForAllocation());
+    _impl_.key_label_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_label()) {
-    key_label_.Set(from._internal_key_label(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_label_.Set(from._internal_key_label(), 
+      _this->GetArenaForAllocation());
   }
-  username_.InitDefault();
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    username_.Set("", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_username()) {
-    username_.Set(from._internal_username(), 
-      GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
   }
-  domain_.InitDefault();
+  _impl_.domain_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    domain_.Set("", GetArenaForAllocation());
+    _impl_.domain_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_domain()) {
-    domain_.Set(from._internal_domain(), 
-      GetArenaForAllocation());
+    _this->_impl_.domain_.Set(from._internal_domain(), 
+      _this->GetArenaForAllocation());
   }
-  device_id_.InitDefault();
+  _impl_.device_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    device_id_.Set("", GetArenaForAllocation());
+    _impl_.device_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_device_id()) {
-    device_id_.Set(from._internal_device_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.device_id_.Set(from._internal_device_id(), 
+      _this->GetArenaForAllocation());
   }
-  challenge_.InitDefault();
+  _impl_.challenge_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    challenge_.Set("", GetArenaForAllocation());
+    _impl_.challenge_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_challenge()) {
-    challenge_.Set(from._internal_challenge(), 
-      GetArenaForAllocation());
+    _this->_impl_.challenge_.Set(from._internal_challenge(), 
+      _this->GetArenaForAllocation());
   }
-  key_name_for_spkac_.InitDefault();
+  _impl_.key_name_for_spkac_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_name_for_spkac_.Set("", GetArenaForAllocation());
+    _impl_.key_name_for_spkac_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_name_for_spkac()) {
-    key_name_for_spkac_.Set(from._internal_key_name_for_spkac(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_name_for_spkac_.Set(from._internal_key_name_for_spkac(), 
+      _this->GetArenaForAllocation());
   }
-  device_trust_signals_json_.InitDefault();
+  _impl_.device_trust_signals_json_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    device_trust_signals_json_.Set("", GetArenaForAllocation());
+    _impl_.device_trust_signals_json_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_device_trust_signals_json()) {
-    device_trust_signals_json_.Set(from._internal_device_trust_signals_json(), 
-      GetArenaForAllocation());
+    _this->_impl_.device_trust_signals_json_.Set(from._internal_device_trust_signals_json(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&va_type_, &from.va_type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&flow_type_) -
-    reinterpret_cast<char*>(&va_type_)) + sizeof(flow_type_));
+  ::memcpy(&_impl_.va_type_, &from._impl_.va_type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.flow_type_) -
+    reinterpret_cast<char*>(&_impl_.va_type_)) + sizeof(_impl_.flow_type_));
   // @@protoc_insertion_point(copy_constructor:attestation.SignEnterpriseChallengeRequest)
 }
 
-inline void SignEnterpriseChallengeRequest::SharedCtor() {
-key_label_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_label_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-username_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  username_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-domain_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  domain_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-device_id_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  device_id_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-challenge_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  challenge_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-key_name_for_spkac_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_name_for_spkac_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-device_trust_signals_json_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  device_trust_signals_json_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&va_type_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&flow_type_) -
-    reinterpret_cast<char*>(&va_type_)) + sizeof(flow_type_));
+inline void SignEnterpriseChallengeRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.domain_){}
+    , decltype(_impl_.device_id_){}
+    , decltype(_impl_.challenge_){}
+    , decltype(_impl_.key_name_for_spkac_){}
+    , decltype(_impl_.device_trust_signals_json_){}
+    , decltype(_impl_.va_type_){0}
+    , decltype(_impl_.include_signed_public_key_){false}
+    , decltype(_impl_.include_customer_id_){false}
+    , decltype(_impl_.include_certificate_){false}
+    , decltype(_impl_.flow_type_){0}
+  };
+  _impl_.key_label_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_label_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.domain_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.domain_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.device_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.device_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.challenge_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.challenge_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.key_name_for_spkac_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_name_for_spkac_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.device_trust_signals_json_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.device_trust_signals_json_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SignEnterpriseChallengeRequest::~SignEnterpriseChallengeRequest() {
@@ -12119,17 +12836,17 @@ SignEnterpriseChallengeRequest::~SignEnterpriseChallengeRequest() {
 
 inline void SignEnterpriseChallengeRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  key_label_.Destroy();
-  username_.Destroy();
-  domain_.Destroy();
-  device_id_.Destroy();
-  challenge_.Destroy();
-  key_name_for_spkac_.Destroy();
-  device_trust_signals_json_.Destroy();
+  _impl_.key_label_.Destroy();
+  _impl_.username_.Destroy();
+  _impl_.domain_.Destroy();
+  _impl_.device_id_.Destroy();
+  _impl_.challenge_.Destroy();
+  _impl_.key_name_for_spkac_.Destroy();
+  _impl_.device_trust_signals_json_.Destroy();
 }
 
 void SignEnterpriseChallengeRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SignEnterpriseChallengeRequest::Clear() {
@@ -12138,37 +12855,37 @@ void SignEnterpriseChallengeRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
-      key_label_.ClearNonDefaultToEmpty();
+      _impl_.key_label_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      username_.ClearNonDefaultToEmpty();
+      _impl_.username_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      domain_.ClearNonDefaultToEmpty();
+      _impl_.domain_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      device_id_.ClearNonDefaultToEmpty();
+      _impl_.device_id_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000010u) {
-      challenge_.ClearNonDefaultToEmpty();
+      _impl_.challenge_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000020u) {
-      key_name_for_spkac_.ClearNonDefaultToEmpty();
+      _impl_.key_name_for_spkac_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000040u) {
-      device_trust_signals_json_.ClearNonDefaultToEmpty();
+      _impl_.device_trust_signals_json_.ClearNonDefaultToEmpty();
     }
   }
-  va_type_ = 0;
+  _impl_.va_type_ = 0;
   if (cached_has_bits & 0x00000f00u) {
-    ::memset(&include_signed_public_key_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&flow_type_) -
-        reinterpret_cast<char*>(&include_signed_public_key_)) + sizeof(flow_type_));
+    ::memset(&_impl_.include_signed_public_key_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.flow_type_) -
+        reinterpret_cast<char*>(&_impl_.include_signed_public_key_)) + sizeof(_impl_.flow_type_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -12219,7 +12936,7 @@ const char* SignEnterpriseChallengeRequest::_InternalParse(const char* ptr, ::_p
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _Internal::set_has_include_signed_public_key(&has_bits);
-          include_signed_public_key_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.include_signed_public_key_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -12268,7 +12985,7 @@ const char* SignEnterpriseChallengeRequest::_InternalParse(const char* ptr, ::_p
       case 11:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
           _Internal::set_has_include_customer_id(&has_bits);
-          include_customer_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.include_customer_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -12290,7 +13007,7 @@ const char* SignEnterpriseChallengeRequest::_InternalParse(const char* ptr, ::_p
       case 13:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
           _Internal::set_has_include_certificate(&has_bits);
-          include_certificate_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.include_certificate_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -12311,7 +13028,7 @@ const char* SignEnterpriseChallengeRequest::_InternalParse(const char* ptr, ::_p
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -12325,7 +13042,7 @@ uint8_t* SignEnterpriseChallengeRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string key_label = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -12416,7 +13133,7 @@ size_t SignEnterpriseChallengeRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional string key_label = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -12512,55 +13229,56 @@ void SignEnterpriseChallengeRequest::CheckTypeAndMergeFrom(
 }
 
 void SignEnterpriseChallengeRequest::MergeFrom(const SignEnterpriseChallengeRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.SignEnterpriseChallengeRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  SignEnterpriseChallengeRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.SignEnterpriseChallengeRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_key_label(from._internal_key_label());
+      _this->_internal_set_key_label(from._internal_key_label());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_username(from._internal_username());
+      _this->_internal_set_username(from._internal_username());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_domain(from._internal_domain());
+      _this->_internal_set_domain(from._internal_domain());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_set_device_id(from._internal_device_id());
+      _this->_internal_set_device_id(from._internal_device_id());
     }
     if (cached_has_bits & 0x00000010u) {
-      _internal_set_challenge(from._internal_challenge());
+      _this->_internal_set_challenge(from._internal_challenge());
     }
     if (cached_has_bits & 0x00000020u) {
-      _internal_set_key_name_for_spkac(from._internal_key_name_for_spkac());
+      _this->_internal_set_key_name_for_spkac(from._internal_key_name_for_spkac());
     }
     if (cached_has_bits & 0x00000040u) {
-      _internal_set_device_trust_signals_json(from._internal_device_trust_signals_json());
+      _this->_internal_set_device_trust_signals_json(from._internal_device_trust_signals_json());
     }
     if (cached_has_bits & 0x00000080u) {
-      va_type_ = from.va_type_;
+      _this->_impl_.va_type_ = from._impl_.va_type_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x00000f00u) {
     if (cached_has_bits & 0x00000100u) {
-      include_signed_public_key_ = from.include_signed_public_key_;
+      _this->_impl_.include_signed_public_key_ = from._impl_.include_signed_public_key_;
     }
     if (cached_has_bits & 0x00000200u) {
-      include_customer_id_ = from.include_customer_id_;
+      _this->_impl_.include_customer_id_ = from._impl_.include_customer_id_;
     }
     if (cached_has_bits & 0x00000400u) {
-      include_certificate_ = from.include_certificate_;
+      _this->_impl_.include_certificate_ = from._impl_.include_certificate_;
     }
     if (cached_has_bits & 0x00000800u) {
-      flow_type_ = from.flow_type_;
+      _this->_impl_.flow_type_ = from._impl_.flow_type_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SignEnterpriseChallengeRequest::CopyFrom(const SignEnterpriseChallengeRequest& from) {
@@ -12579,41 +13297,41 @@ void SignEnterpriseChallengeRequest::InternalSwap(SignEnterpriseChallengeRequest
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_label_, lhs_arena,
-      &other->key_label_, rhs_arena
+      &_impl_.key_label_, lhs_arena,
+      &other->_impl_.key_label_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &username_, lhs_arena,
-      &other->username_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &domain_, lhs_arena,
-      &other->domain_, rhs_arena
+      &_impl_.domain_, lhs_arena,
+      &other->_impl_.domain_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &device_id_, lhs_arena,
-      &other->device_id_, rhs_arena
+      &_impl_.device_id_, lhs_arena,
+      &other->_impl_.device_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &challenge_, lhs_arena,
-      &other->challenge_, rhs_arena
+      &_impl_.challenge_, lhs_arena,
+      &other->_impl_.challenge_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_name_for_spkac_, lhs_arena,
-      &other->key_name_for_spkac_, rhs_arena
+      &_impl_.key_name_for_spkac_, lhs_arena,
+      &other->_impl_.key_name_for_spkac_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &device_trust_signals_json_, lhs_arena,
-      &other->device_trust_signals_json_, rhs_arena
+      &_impl_.device_trust_signals_json_, lhs_arena,
+      &other->_impl_.device_trust_signals_json_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SignEnterpriseChallengeRequest, flow_type_)
-      + sizeof(SignEnterpriseChallengeRequest::flow_type_)
-      - PROTOBUF_FIELD_OFFSET(SignEnterpriseChallengeRequest, va_type_)>(
-          reinterpret_cast<char*>(&va_type_),
-          reinterpret_cast<char*>(&other->va_type_));
+      PROTOBUF_FIELD_OFFSET(SignEnterpriseChallengeRequest, _impl_.flow_type_)
+      + sizeof(SignEnterpriseChallengeRequest::_impl_.flow_type_)
+      - PROTOBUF_FIELD_OFFSET(SignEnterpriseChallengeRequest, _impl_.va_type_)>(
+          reinterpret_cast<char*>(&_impl_.va_type_),
+          reinterpret_cast<char*>(&other->_impl_.va_type_));
 }
 
 std::string SignEnterpriseChallengeRequest::GetTypeName() const {
@@ -12625,7 +13343,7 @@ std::string SignEnterpriseChallengeRequest::GetTypeName() const {
 
 class SignEnterpriseChallengeReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<SignEnterpriseChallengeReply>()._has_bits_);
+  using HasBits = decltype(std::declval<SignEnterpriseChallengeReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -12637,31 +13355,45 @@ class SignEnterpriseChallengeReply::_Internal {
 SignEnterpriseChallengeReply::SignEnterpriseChallengeReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.SignEnterpriseChallengeReply)
 }
 SignEnterpriseChallengeReply::SignEnterpriseChallengeReply(const SignEnterpriseChallengeReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SignEnterpriseChallengeReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.challenge_response_){}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  challenge_response_.InitDefault();
+  _impl_.challenge_response_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    challenge_response_.Set("", GetArenaForAllocation());
+    _impl_.challenge_response_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_challenge_response()) {
-    challenge_response_.Set(from._internal_challenge_response(), 
-      GetArenaForAllocation());
+    _this->_impl_.challenge_response_.Set(from._internal_challenge_response(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.SignEnterpriseChallengeReply)
 }
 
-inline void SignEnterpriseChallengeReply::SharedCtor() {
-challenge_response_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  challenge_response_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void SignEnterpriseChallengeReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.challenge_response_){}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.challenge_response_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.challenge_response_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SignEnterpriseChallengeReply::~SignEnterpriseChallengeReply() {
@@ -12675,11 +13407,11 @@ SignEnterpriseChallengeReply::~SignEnterpriseChallengeReply() {
 
 inline void SignEnterpriseChallengeReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  challenge_response_.Destroy();
+  _impl_.challenge_response_.Destroy();
 }
 
 void SignEnterpriseChallengeReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SignEnterpriseChallengeReply::Clear() {
@@ -12688,12 +13420,12 @@ void SignEnterpriseChallengeReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    challenge_response_.ClearNonDefaultToEmpty();
+    _impl_.challenge_response_.ClearNonDefaultToEmpty();
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -12742,7 +13474,7 @@ const char* SignEnterpriseChallengeReply::_InternalParse(const char* ptr, ::_pbi
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -12756,7 +13488,7 @@ uint8_t* SignEnterpriseChallengeReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
@@ -12786,7 +13518,7 @@ size_t SignEnterpriseChallengeReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional bytes challenge_response = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -12817,22 +13549,23 @@ void SignEnterpriseChallengeReply::CheckTypeAndMergeFrom(
 }
 
 void SignEnterpriseChallengeReply::MergeFrom(const SignEnterpriseChallengeReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.SignEnterpriseChallengeReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  SignEnterpriseChallengeReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.SignEnterpriseChallengeReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_challenge_response(from._internal_challenge_response());
+      _this->_internal_set_challenge_response(from._internal_challenge_response());
     }
     if (cached_has_bits & 0x00000002u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SignEnterpriseChallengeReply::CopyFrom(const SignEnterpriseChallengeReply& from) {
@@ -12851,12 +13584,12 @@ void SignEnterpriseChallengeReply::InternalSwap(SignEnterpriseChallengeReply* ot
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &challenge_response_, lhs_arena,
-      &other->challenge_response_, rhs_arena
+      &_impl_.challenge_response_, lhs_arena,
+      &other->_impl_.challenge_response_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string SignEnterpriseChallengeReply::GetTypeName() const {
@@ -12868,7 +13601,7 @@ std::string SignEnterpriseChallengeReply::GetTypeName() const {
 
 class SignSimpleChallengeRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<SignSimpleChallengeRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<SignSimpleChallengeRequest>()._impl_._has_bits_);
   static void set_has_key_label(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -12883,53 +13616,70 @@ class SignSimpleChallengeRequest::_Internal {
 SignSimpleChallengeRequest::SignSimpleChallengeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.SignSimpleChallengeRequest)
 }
 SignSimpleChallengeRequest::SignSimpleChallengeRequest(const SignSimpleChallengeRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SignSimpleChallengeRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.challenge_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  key_label_.InitDefault();
+  _impl_.key_label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_label_.Set("", GetArenaForAllocation());
+    _impl_.key_label_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_label()) {
-    key_label_.Set(from._internal_key_label(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_label_.Set(from._internal_key_label(), 
+      _this->GetArenaForAllocation());
   }
-  username_.InitDefault();
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    username_.Set("", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_username()) {
-    username_.Set(from._internal_username(), 
-      GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
   }
-  challenge_.InitDefault();
+  _impl_.challenge_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    challenge_.Set("", GetArenaForAllocation());
+    _impl_.challenge_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_challenge()) {
-    challenge_.Set(from._internal_challenge(), 
-      GetArenaForAllocation());
+    _this->_impl_.challenge_.Set(from._internal_challenge(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:attestation.SignSimpleChallengeRequest)
 }
 
-inline void SignSimpleChallengeRequest::SharedCtor() {
-key_label_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_label_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-username_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  username_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-challenge_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  challenge_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void SignSimpleChallengeRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.challenge_){}
+  };
+  _impl_.key_label_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_label_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.challenge_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.challenge_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SignSimpleChallengeRequest::~SignSimpleChallengeRequest() {
@@ -12943,13 +13693,13 @@ SignSimpleChallengeRequest::~SignSimpleChallengeRequest() {
 
 inline void SignSimpleChallengeRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  key_label_.Destroy();
-  username_.Destroy();
-  challenge_.Destroy();
+  _impl_.key_label_.Destroy();
+  _impl_.username_.Destroy();
+  _impl_.challenge_.Destroy();
 }
 
 void SignSimpleChallengeRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SignSimpleChallengeRequest::Clear() {
@@ -12958,19 +13708,19 @@ void SignSimpleChallengeRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      key_label_.ClearNonDefaultToEmpty();
+      _impl_.key_label_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      username_.ClearNonDefaultToEmpty();
+      _impl_.username_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      challenge_.ClearNonDefaultToEmpty();
+      _impl_.challenge_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -13024,7 +13774,7 @@ const char* SignSimpleChallengeRequest::_InternalParse(const char* ptr, ::_pbi::
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -13038,7 +13788,7 @@ uint8_t* SignSimpleChallengeRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string key_label = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -13073,7 +13823,7 @@ size_t SignSimpleChallengeRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string key_label = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -13112,24 +13862,25 @@ void SignSimpleChallengeRequest::CheckTypeAndMergeFrom(
 }
 
 void SignSimpleChallengeRequest::MergeFrom(const SignSimpleChallengeRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.SignSimpleChallengeRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  SignSimpleChallengeRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.SignSimpleChallengeRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_key_label(from._internal_key_label());
+      _this->_internal_set_key_label(from._internal_key_label());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_username(from._internal_username());
+      _this->_internal_set_username(from._internal_username());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_challenge(from._internal_challenge());
+      _this->_internal_set_challenge(from._internal_challenge());
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SignSimpleChallengeRequest::CopyFrom(const SignSimpleChallengeRequest& from) {
@@ -13148,18 +13899,18 @@ void SignSimpleChallengeRequest::InternalSwap(SignSimpleChallengeRequest* other)
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_label_, lhs_arena,
-      &other->key_label_, rhs_arena
+      &_impl_.key_label_, lhs_arena,
+      &other->_impl_.key_label_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &username_, lhs_arena,
-      &other->username_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &challenge_, lhs_arena,
-      &other->challenge_, rhs_arena
+      &_impl_.challenge_, lhs_arena,
+      &other->_impl_.challenge_, rhs_arena
   );
 }
 
@@ -13172,7 +13923,7 @@ std::string SignSimpleChallengeRequest::GetTypeName() const {
 
 class SignSimpleChallengeReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<SignSimpleChallengeReply>()._has_bits_);
+  using HasBits = decltype(std::declval<SignSimpleChallengeReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -13184,31 +13935,45 @@ class SignSimpleChallengeReply::_Internal {
 SignSimpleChallengeReply::SignSimpleChallengeReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.SignSimpleChallengeReply)
 }
 SignSimpleChallengeReply::SignSimpleChallengeReply(const SignSimpleChallengeReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SignSimpleChallengeReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.challenge_response_){}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  challenge_response_.InitDefault();
+  _impl_.challenge_response_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    challenge_response_.Set("", GetArenaForAllocation());
+    _impl_.challenge_response_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_challenge_response()) {
-    challenge_response_.Set(from._internal_challenge_response(), 
-      GetArenaForAllocation());
+    _this->_impl_.challenge_response_.Set(from._internal_challenge_response(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.SignSimpleChallengeReply)
 }
 
-inline void SignSimpleChallengeReply::SharedCtor() {
-challenge_response_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  challenge_response_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void SignSimpleChallengeReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.challenge_response_){}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.challenge_response_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.challenge_response_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SignSimpleChallengeReply::~SignSimpleChallengeReply() {
@@ -13222,11 +13987,11 @@ SignSimpleChallengeReply::~SignSimpleChallengeReply() {
 
 inline void SignSimpleChallengeReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  challenge_response_.Destroy();
+  _impl_.challenge_response_.Destroy();
 }
 
 void SignSimpleChallengeReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SignSimpleChallengeReply::Clear() {
@@ -13235,12 +14000,12 @@ void SignSimpleChallengeReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    challenge_response_.ClearNonDefaultToEmpty();
+    _impl_.challenge_response_.ClearNonDefaultToEmpty();
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -13289,7 +14054,7 @@ const char* SignSimpleChallengeReply::_InternalParse(const char* ptr, ::_pbi::Pa
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -13303,7 +14068,7 @@ uint8_t* SignSimpleChallengeReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
@@ -13333,7 +14098,7 @@ size_t SignSimpleChallengeReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional bytes challenge_response = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -13364,22 +14129,23 @@ void SignSimpleChallengeReply::CheckTypeAndMergeFrom(
 }
 
 void SignSimpleChallengeReply::MergeFrom(const SignSimpleChallengeReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.SignSimpleChallengeReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  SignSimpleChallengeReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.SignSimpleChallengeReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_challenge_response(from._internal_challenge_response());
+      _this->_internal_set_challenge_response(from._internal_challenge_response());
     }
     if (cached_has_bits & 0x00000002u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SignSimpleChallengeReply::CopyFrom(const SignSimpleChallengeReply& from) {
@@ -13398,12 +14164,12 @@ void SignSimpleChallengeReply::InternalSwap(SignSimpleChallengeReply* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &challenge_response_, lhs_arena,
-      &other->challenge_response_, rhs_arena
+      &_impl_.challenge_response_, lhs_arena,
+      &other->_impl_.challenge_response_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string SignSimpleChallengeReply::GetTypeName() const {
@@ -13415,7 +14181,7 @@ std::string SignSimpleChallengeReply::GetTypeName() const {
 
 class SetKeyPayloadRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<SetKeyPayloadRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<SetKeyPayloadRequest>()._impl_._has_bits_);
   static void set_has_key_label(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -13430,53 +14196,70 @@ class SetKeyPayloadRequest::_Internal {
 SetKeyPayloadRequest::SetKeyPayloadRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.SetKeyPayloadRequest)
 }
 SetKeyPayloadRequest::SetKeyPayloadRequest(const SetKeyPayloadRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SetKeyPayloadRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.payload_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  key_label_.InitDefault();
+  _impl_.key_label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_label_.Set("", GetArenaForAllocation());
+    _impl_.key_label_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_label()) {
-    key_label_.Set(from._internal_key_label(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_label_.Set(from._internal_key_label(), 
+      _this->GetArenaForAllocation());
   }
-  username_.InitDefault();
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    username_.Set("", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_username()) {
-    username_.Set(from._internal_username(), 
-      GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
   }
-  payload_.InitDefault();
+  _impl_.payload_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    payload_.Set("", GetArenaForAllocation());
+    _impl_.payload_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_payload()) {
-    payload_.Set(from._internal_payload(), 
-      GetArenaForAllocation());
+    _this->_impl_.payload_.Set(from._internal_payload(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:attestation.SetKeyPayloadRequest)
 }
 
-inline void SetKeyPayloadRequest::SharedCtor() {
-key_label_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_label_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-username_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  username_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-payload_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  payload_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void SetKeyPayloadRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.payload_){}
+  };
+  _impl_.key_label_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_label_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.payload_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.payload_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SetKeyPayloadRequest::~SetKeyPayloadRequest() {
@@ -13490,13 +14273,13 @@ SetKeyPayloadRequest::~SetKeyPayloadRequest() {
 
 inline void SetKeyPayloadRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  key_label_.Destroy();
-  username_.Destroy();
-  payload_.Destroy();
+  _impl_.key_label_.Destroy();
+  _impl_.username_.Destroy();
+  _impl_.payload_.Destroy();
 }
 
 void SetKeyPayloadRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SetKeyPayloadRequest::Clear() {
@@ -13505,19 +14288,19 @@ void SetKeyPayloadRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      key_label_.ClearNonDefaultToEmpty();
+      _impl_.key_label_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      username_.ClearNonDefaultToEmpty();
+      _impl_.username_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      payload_.ClearNonDefaultToEmpty();
+      _impl_.payload_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -13571,7 +14354,7 @@ const char* SetKeyPayloadRequest::_InternalParse(const char* ptr, ::_pbi::ParseC
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -13585,7 +14368,7 @@ uint8_t* SetKeyPayloadRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string key_label = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -13620,7 +14403,7 @@ size_t SetKeyPayloadRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string key_label = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -13659,24 +14442,25 @@ void SetKeyPayloadRequest::CheckTypeAndMergeFrom(
 }
 
 void SetKeyPayloadRequest::MergeFrom(const SetKeyPayloadRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.SetKeyPayloadRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  SetKeyPayloadRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.SetKeyPayloadRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_key_label(from._internal_key_label());
+      _this->_internal_set_key_label(from._internal_key_label());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_username(from._internal_username());
+      _this->_internal_set_username(from._internal_username());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_payload(from._internal_payload());
+      _this->_internal_set_payload(from._internal_payload());
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SetKeyPayloadRequest::CopyFrom(const SetKeyPayloadRequest& from) {
@@ -13695,18 +14479,18 @@ void SetKeyPayloadRequest::InternalSwap(SetKeyPayloadRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_label_, lhs_arena,
-      &other->key_label_, rhs_arena
+      &_impl_.key_label_, lhs_arena,
+      &other->_impl_.key_label_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &username_, lhs_arena,
-      &other->username_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &payload_, lhs_arena,
-      &other->payload_, rhs_arena
+      &_impl_.payload_, lhs_arena,
+      &other->_impl_.payload_, rhs_arena
   );
 }
 
@@ -13719,7 +14503,7 @@ std::string SetKeyPayloadRequest::GetTypeName() const {
 
 class SetKeyPayloadReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<SetKeyPayloadReply>()._has_bits_);
+  using HasBits = decltype(std::declval<SetKeyPayloadReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -13728,19 +14512,31 @@ class SetKeyPayloadReply::_Internal {
 SetKeyPayloadReply::SetKeyPayloadReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.SetKeyPayloadReply)
 }
 SetKeyPayloadReply::SetKeyPayloadReply(const SetKeyPayloadReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SetKeyPayloadReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.SetKeyPayloadReply)
 }
 
-inline void SetKeyPayloadReply::SharedCtor() {
-status_ = 0;
+inline void SetKeyPayloadReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.status_){0}
+  };
 }
 
 SetKeyPayloadReply::~SetKeyPayloadReply() {
@@ -13757,7 +14553,7 @@ inline void SetKeyPayloadReply::SharedDtor() {
 }
 
 void SetKeyPayloadReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SetKeyPayloadReply::Clear() {
@@ -13766,8 +14562,8 @@ void SetKeyPayloadReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -13807,7 +14603,7 @@ const char* SetKeyPayloadReply::_InternalParse(const char* ptr, ::_pbi::ParseCon
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -13821,7 +14617,7 @@ uint8_t* SetKeyPayloadReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -13846,7 +14642,7 @@ size_t SetKeyPayloadReply::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional .attestation.AttestationStatus status = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
@@ -13867,15 +14663,16 @@ void SetKeyPayloadReply::CheckTypeAndMergeFrom(
 }
 
 void SetKeyPayloadReply::MergeFrom(const SetKeyPayloadReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.SetKeyPayloadReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  SetKeyPayloadReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.SetKeyPayloadReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_status()) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SetKeyPayloadReply::CopyFrom(const SetKeyPayloadReply& from) {
@@ -13892,8 +14689,8 @@ bool SetKeyPayloadReply::IsInitialized() const {
 void SetKeyPayloadReply::InternalSwap(SetKeyPayloadReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(status_, other->status_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string SetKeyPayloadReply::GetTypeName() const {
@@ -13905,7 +14702,7 @@ std::string SetKeyPayloadReply::GetTypeName() const {
 
 class DeleteKeysRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<DeleteKeysRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<DeleteKeysRequest>()._impl_._has_bits_);
   static void set_has_key_label_match(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -13920,43 +14717,59 @@ class DeleteKeysRequest::_Internal {
 DeleteKeysRequest::DeleteKeysRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.DeleteKeysRequest)
 }
 DeleteKeysRequest::DeleteKeysRequest(const DeleteKeysRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DeleteKeysRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_match_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.match_behavior_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  key_label_match_.InitDefault();
+  _impl_.key_label_match_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_label_match_.Set("", GetArenaForAllocation());
+    _impl_.key_label_match_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_label_match()) {
-    key_label_match_.Set(from._internal_key_label_match(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_label_match_.Set(from._internal_key_label_match(), 
+      _this->GetArenaForAllocation());
   }
-  username_.InitDefault();
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    username_.Set("", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_username()) {
-    username_.Set(from._internal_username(), 
-      GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
   }
-  match_behavior_ = from.match_behavior_;
+  _this->_impl_.match_behavior_ = from._impl_.match_behavior_;
   // @@protoc_insertion_point(copy_constructor:attestation.DeleteKeysRequest)
 }
 
-inline void DeleteKeysRequest::SharedCtor() {
-key_label_match_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_label_match_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-username_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  username_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-match_behavior_ = 0;
+inline void DeleteKeysRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_match_){}
+    , decltype(_impl_.username_){}
+    , decltype(_impl_.match_behavior_){0}
+  };
+  _impl_.key_label_match_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_label_match_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 DeleteKeysRequest::~DeleteKeysRequest() {
@@ -13970,12 +14783,12 @@ DeleteKeysRequest::~DeleteKeysRequest() {
 
 inline void DeleteKeysRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  key_label_match_.Destroy();
-  username_.Destroy();
+  _impl_.key_label_match_.Destroy();
+  _impl_.username_.Destroy();
 }
 
 void DeleteKeysRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void DeleteKeysRequest::Clear() {
@@ -13984,17 +14797,17 @@ void DeleteKeysRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      key_label_match_.ClearNonDefaultToEmpty();
+      _impl_.key_label_match_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      username_.ClearNonDefaultToEmpty();
+      _impl_.username_.ClearNonDefaultToEmpty();
     }
   }
-  match_behavior_ = 0;
-  _has_bits_.Clear();
+  _impl_.match_behavior_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -14052,7 +14865,7 @@ const char* DeleteKeysRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -14066,7 +14879,7 @@ uint8_t* DeleteKeysRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string key_label_match = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -14102,7 +14915,7 @@ size_t DeleteKeysRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string key_label_match = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -14140,25 +14953,26 @@ void DeleteKeysRequest::CheckTypeAndMergeFrom(
 }
 
 void DeleteKeysRequest::MergeFrom(const DeleteKeysRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.DeleteKeysRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  DeleteKeysRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.DeleteKeysRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_key_label_match(from._internal_key_label_match());
+      _this->_internal_set_key_label_match(from._internal_key_label_match());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_username(from._internal_username());
+      _this->_internal_set_username(from._internal_username());
     }
     if (cached_has_bits & 0x00000004u) {
-      match_behavior_ = from.match_behavior_;
+      _this->_impl_.match_behavior_ = from._impl_.match_behavior_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void DeleteKeysRequest::CopyFrom(const DeleteKeysRequest& from) {
@@ -14177,16 +14991,16 @@ void DeleteKeysRequest::InternalSwap(DeleteKeysRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_label_match_, lhs_arena,
-      &other->key_label_match_, rhs_arena
+      &_impl_.key_label_match_, lhs_arena,
+      &other->_impl_.key_label_match_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &username_, lhs_arena,
-      &other->username_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
-  swap(match_behavior_, other->match_behavior_);
+  swap(_impl_.match_behavior_, other->_impl_.match_behavior_);
 }
 
 std::string DeleteKeysRequest::GetTypeName() const {
@@ -14198,7 +15012,7 @@ std::string DeleteKeysRequest::GetTypeName() const {
 
 class DeleteKeysReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<DeleteKeysReply>()._has_bits_);
+  using HasBits = decltype(std::declval<DeleteKeysReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -14207,19 +15021,31 @@ class DeleteKeysReply::_Internal {
 DeleteKeysReply::DeleteKeysReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.DeleteKeysReply)
 }
 DeleteKeysReply::DeleteKeysReply(const DeleteKeysReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DeleteKeysReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.DeleteKeysReply)
 }
 
-inline void DeleteKeysReply::SharedCtor() {
-status_ = 0;
+inline void DeleteKeysReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.status_){0}
+  };
 }
 
 DeleteKeysReply::~DeleteKeysReply() {
@@ -14236,7 +15062,7 @@ inline void DeleteKeysReply::SharedDtor() {
 }
 
 void DeleteKeysReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void DeleteKeysReply::Clear() {
@@ -14245,8 +15071,8 @@ void DeleteKeysReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -14286,7 +15112,7 @@ const char* DeleteKeysReply::_InternalParse(const char* ptr, ::_pbi::ParseContex
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -14300,7 +15126,7 @@ uint8_t* DeleteKeysReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -14325,7 +15151,7 @@ size_t DeleteKeysReply::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional .attestation.AttestationStatus status = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
@@ -14346,15 +15172,16 @@ void DeleteKeysReply::CheckTypeAndMergeFrom(
 }
 
 void DeleteKeysReply::MergeFrom(const DeleteKeysReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.DeleteKeysReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  DeleteKeysReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.DeleteKeysReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_status()) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void DeleteKeysReply::CopyFrom(const DeleteKeysReply& from) {
@@ -14371,8 +15198,8 @@ bool DeleteKeysReply::IsInitialized() const {
 void DeleteKeysReply::InternalSwap(DeleteKeysReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(status_, other->status_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string DeleteKeysReply::GetTypeName() const {
@@ -14384,7 +15211,7 @@ std::string DeleteKeysReply::GetTypeName() const {
 
 class ResetIdentityRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<ResetIdentityRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<ResetIdentityRequest>()._impl_._has_bits_);
   static void set_has_reset_token(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -14393,29 +15220,42 @@ class ResetIdentityRequest::_Internal {
 ResetIdentityRequest::ResetIdentityRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.ResetIdentityRequest)
 }
 ResetIdentityRequest::ResetIdentityRequest(const ResetIdentityRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ResetIdentityRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.reset_token_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  reset_token_.InitDefault();
+  _impl_.reset_token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    reset_token_.Set("", GetArenaForAllocation());
+    _impl_.reset_token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_reset_token()) {
-    reset_token_.Set(from._internal_reset_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.reset_token_.Set(from._internal_reset_token(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:attestation.ResetIdentityRequest)
 }
 
-inline void ResetIdentityRequest::SharedCtor() {
-reset_token_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  reset_token_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void ResetIdentityRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.reset_token_){}
+  };
+  _impl_.reset_token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.reset_token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ResetIdentityRequest::~ResetIdentityRequest() {
@@ -14429,11 +15269,11 @@ ResetIdentityRequest::~ResetIdentityRequest() {
 
 inline void ResetIdentityRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  reset_token_.Destroy();
+  _impl_.reset_token_.Destroy();
 }
 
 void ResetIdentityRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ResetIdentityRequest::Clear() {
@@ -14442,11 +15282,11 @@ void ResetIdentityRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    reset_token_.ClearNonDefaultToEmpty();
+    _impl_.reset_token_.ClearNonDefaultToEmpty();
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -14482,7 +15322,7 @@ const char* ResetIdentityRequest::_InternalParse(const char* ptr, ::_pbi::ParseC
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -14496,7 +15336,7 @@ uint8_t* ResetIdentityRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string reset_token = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -14520,7 +15360,7 @@ size_t ResetIdentityRequest::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional string reset_token = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -14542,15 +15382,16 @@ void ResetIdentityRequest::CheckTypeAndMergeFrom(
 }
 
 void ResetIdentityRequest::MergeFrom(const ResetIdentityRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.ResetIdentityRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  ResetIdentityRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.ResetIdentityRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_reset_token()) {
-    _internal_set_reset_token(from._internal_reset_token());
+    _this->_internal_set_reset_token(from._internal_reset_token());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ResetIdentityRequest::CopyFrom(const ResetIdentityRequest& from) {
@@ -14569,10 +15410,10 @@ void ResetIdentityRequest::InternalSwap(ResetIdentityRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &reset_token_, lhs_arena,
-      &other->reset_token_, rhs_arena
+      &_impl_.reset_token_, lhs_arena,
+      &other->_impl_.reset_token_, rhs_arena
   );
 }
 
@@ -14585,7 +15426,7 @@ std::string ResetIdentityRequest::GetTypeName() const {
 
 class ResetIdentityReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<ResetIdentityReply>()._has_bits_);
+  using HasBits = decltype(std::declval<ResetIdentityReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -14597,31 +15438,45 @@ class ResetIdentityReply::_Internal {
 ResetIdentityReply::ResetIdentityReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.ResetIdentityReply)
 }
 ResetIdentityReply::ResetIdentityReply(const ResetIdentityReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ResetIdentityReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.reset_request_){}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  reset_request_.InitDefault();
+  _impl_.reset_request_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    reset_request_.Set("", GetArenaForAllocation());
+    _impl_.reset_request_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_reset_request()) {
-    reset_request_.Set(from._internal_reset_request(), 
-      GetArenaForAllocation());
+    _this->_impl_.reset_request_.Set(from._internal_reset_request(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.ResetIdentityReply)
 }
 
-inline void ResetIdentityReply::SharedCtor() {
-reset_request_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  reset_request_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void ResetIdentityReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.reset_request_){}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.reset_request_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.reset_request_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ResetIdentityReply::~ResetIdentityReply() {
@@ -14635,11 +15490,11 @@ ResetIdentityReply::~ResetIdentityReply() {
 
 inline void ResetIdentityReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  reset_request_.Destroy();
+  _impl_.reset_request_.Destroy();
 }
 
 void ResetIdentityReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ResetIdentityReply::Clear() {
@@ -14648,12 +15503,12 @@ void ResetIdentityReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    reset_request_.ClearNonDefaultToEmpty();
+    _impl_.reset_request_.ClearNonDefaultToEmpty();
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -14702,7 +15557,7 @@ const char* ResetIdentityReply::_InternalParse(const char* ptr, ::_pbi::ParseCon
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -14716,7 +15571,7 @@ uint8_t* ResetIdentityReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
@@ -14746,7 +15601,7 @@ size_t ResetIdentityReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional bytes reset_request = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -14777,22 +15632,23 @@ void ResetIdentityReply::CheckTypeAndMergeFrom(
 }
 
 void ResetIdentityReply::MergeFrom(const ResetIdentityReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.ResetIdentityReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  ResetIdentityReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.ResetIdentityReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_reset_request(from._internal_reset_request());
+      _this->_internal_set_reset_request(from._internal_reset_request());
     }
     if (cached_has_bits & 0x00000002u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ResetIdentityReply::CopyFrom(const ResetIdentityReply& from) {
@@ -14811,12 +15667,12 @@ void ResetIdentityReply::InternalSwap(ResetIdentityReply* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &reset_request_, lhs_arena,
-      &other->reset_request_, rhs_arena
+      &_impl_.reset_request_, lhs_arena,
+      &other->_impl_.reset_request_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string ResetIdentityReply::GetTypeName() const {
@@ -14828,7 +15684,7 @@ std::string ResetIdentityReply::GetTypeName() const {
 
 class GetEnrollmentIdRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetEnrollmentIdRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<GetEnrollmentIdRequest>()._impl_._has_bits_);
   static void set_has_ignore_cache(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -14837,19 +15693,31 @@ class GetEnrollmentIdRequest::_Internal {
 GetEnrollmentIdRequest::GetEnrollmentIdRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetEnrollmentIdRequest)
 }
 GetEnrollmentIdRequest::GetEnrollmentIdRequest(const GetEnrollmentIdRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetEnrollmentIdRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ignore_cache_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ignore_cache_ = from.ignore_cache_;
+  _this->_impl_.ignore_cache_ = from._impl_.ignore_cache_;
   // @@protoc_insertion_point(copy_constructor:attestation.GetEnrollmentIdRequest)
 }
 
-inline void GetEnrollmentIdRequest::SharedCtor() {
-ignore_cache_ = false;
+inline void GetEnrollmentIdRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ignore_cache_){false}
+  };
 }
 
 GetEnrollmentIdRequest::~GetEnrollmentIdRequest() {
@@ -14866,7 +15734,7 @@ inline void GetEnrollmentIdRequest::SharedDtor() {
 }
 
 void GetEnrollmentIdRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetEnrollmentIdRequest::Clear() {
@@ -14875,8 +15743,8 @@ void GetEnrollmentIdRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ignore_cache_ = false;
-  _has_bits_.Clear();
+  _impl_.ignore_cache_ = false;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -14891,7 +15759,7 @@ const char* GetEnrollmentIdRequest::_InternalParse(const char* ptr, ::_pbi::Pars
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_ignore_cache(&has_bits);
-          ignore_cache_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.ignore_cache_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -14912,7 +15780,7 @@ const char* GetEnrollmentIdRequest::_InternalParse(const char* ptr, ::_pbi::Pars
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -14926,7 +15794,7 @@ uint8_t* GetEnrollmentIdRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool ignore_cache = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -14950,7 +15818,7 @@ size_t GetEnrollmentIdRequest::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional bool ignore_cache = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 + 1;
   }
@@ -14970,15 +15838,16 @@ void GetEnrollmentIdRequest::CheckTypeAndMergeFrom(
 }
 
 void GetEnrollmentIdRequest::MergeFrom(const GetEnrollmentIdRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetEnrollmentIdRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetEnrollmentIdRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetEnrollmentIdRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_ignore_cache()) {
-    _internal_set_ignore_cache(from._internal_ignore_cache());
+    _this->_internal_set_ignore_cache(from._internal_ignore_cache());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetEnrollmentIdRequest::CopyFrom(const GetEnrollmentIdRequest& from) {
@@ -14995,8 +15864,8 @@ bool GetEnrollmentIdRequest::IsInitialized() const {
 void GetEnrollmentIdRequest::InternalSwap(GetEnrollmentIdRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(ignore_cache_, other->ignore_cache_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.ignore_cache_, other->_impl_.ignore_cache_);
 }
 
 std::string GetEnrollmentIdRequest::GetTypeName() const {
@@ -15008,7 +15877,7 @@ std::string GetEnrollmentIdRequest::GetTypeName() const {
 
 class GetEnrollmentIdReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetEnrollmentIdReply>()._has_bits_);
+  using HasBits = decltype(std::declval<GetEnrollmentIdReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -15020,31 +15889,45 @@ class GetEnrollmentIdReply::_Internal {
 GetEnrollmentIdReply::GetEnrollmentIdReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetEnrollmentIdReply)
 }
 GetEnrollmentIdReply::GetEnrollmentIdReply(const GetEnrollmentIdReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetEnrollmentIdReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.enrollment_id_){}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  enrollment_id_.InitDefault();
+  _impl_.enrollment_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    enrollment_id_.Set("", GetArenaForAllocation());
+    _impl_.enrollment_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_enrollment_id()) {
-    enrollment_id_.Set(from._internal_enrollment_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.enrollment_id_.Set(from._internal_enrollment_id(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.GetEnrollmentIdReply)
 }
 
-inline void GetEnrollmentIdReply::SharedCtor() {
-enrollment_id_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  enrollment_id_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void GetEnrollmentIdReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.enrollment_id_){}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.enrollment_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.enrollment_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetEnrollmentIdReply::~GetEnrollmentIdReply() {
@@ -15058,11 +15941,11 @@ GetEnrollmentIdReply::~GetEnrollmentIdReply() {
 
 inline void GetEnrollmentIdReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  enrollment_id_.Destroy();
+  _impl_.enrollment_id_.Destroy();
 }
 
 void GetEnrollmentIdReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetEnrollmentIdReply::Clear() {
@@ -15071,12 +15954,12 @@ void GetEnrollmentIdReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    enrollment_id_.ClearNonDefaultToEmpty();
+    _impl_.enrollment_id_.ClearNonDefaultToEmpty();
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -15125,7 +16008,7 @@ const char* GetEnrollmentIdReply::_InternalParse(const char* ptr, ::_pbi::ParseC
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -15139,7 +16022,7 @@ uint8_t* GetEnrollmentIdReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
@@ -15169,7 +16052,7 @@ size_t GetEnrollmentIdReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string enrollment_id = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -15200,22 +16083,23 @@ void GetEnrollmentIdReply::CheckTypeAndMergeFrom(
 }
 
 void GetEnrollmentIdReply::MergeFrom(const GetEnrollmentIdReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetEnrollmentIdReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetEnrollmentIdReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetEnrollmentIdReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_enrollment_id(from._internal_enrollment_id());
+      _this->_internal_set_enrollment_id(from._internal_enrollment_id());
     }
     if (cached_has_bits & 0x00000002u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetEnrollmentIdReply::CopyFrom(const GetEnrollmentIdReply& from) {
@@ -15234,12 +16118,12 @@ void GetEnrollmentIdReply::InternalSwap(GetEnrollmentIdReply* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &enrollment_id_, lhs_arena,
-      &other->enrollment_id_, rhs_arena
+      &_impl_.enrollment_id_, lhs_arena,
+      &other->_impl_.enrollment_id_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string GetEnrollmentIdReply::GetTypeName() const {
@@ -15251,7 +16135,7 @@ std::string GetEnrollmentIdReply::GetTypeName() const {
 
 class GetCertifiedNvIndexRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetCertifiedNvIndexRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<GetCertifiedNvIndexRequest>()._impl_._has_bits_);
   static void set_has_nv_index(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -15266,36 +16150,49 @@ class GetCertifiedNvIndexRequest::_Internal {
 GetCertifiedNvIndexRequest::GetCertifiedNvIndexRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetCertifiedNvIndexRequest)
 }
 GetCertifiedNvIndexRequest::GetCertifiedNvIndexRequest(const GetCertifiedNvIndexRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetCertifiedNvIndexRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.nv_index_){}
+    , decltype(_impl_.nv_size_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  key_label_.InitDefault();
+  _impl_.key_label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_label_.Set("", GetArenaForAllocation());
+    _impl_.key_label_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_label()) {
-    key_label_.Set(from._internal_key_label(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_label_.Set(from._internal_key_label(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&nv_index_, &from.nv_index_,
-    static_cast<size_t>(reinterpret_cast<char*>(&nv_size_) -
-    reinterpret_cast<char*>(&nv_index_)) + sizeof(nv_size_));
+  ::memcpy(&_impl_.nv_index_, &from._impl_.nv_index_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.nv_size_) -
+    reinterpret_cast<char*>(&_impl_.nv_index_)) + sizeof(_impl_.nv_size_));
   // @@protoc_insertion_point(copy_constructor:attestation.GetCertifiedNvIndexRequest)
 }
 
-inline void GetCertifiedNvIndexRequest::SharedCtor() {
-key_label_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_label_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&nv_index_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&nv_size_) -
-    reinterpret_cast<char*>(&nv_index_)) + sizeof(nv_size_));
+inline void GetCertifiedNvIndexRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_label_){}
+    , decltype(_impl_.nv_index_){0}
+    , decltype(_impl_.nv_size_){0}
+  };
+  _impl_.key_label_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_label_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetCertifiedNvIndexRequest::~GetCertifiedNvIndexRequest() {
@@ -15309,11 +16206,11 @@ GetCertifiedNvIndexRequest::~GetCertifiedNvIndexRequest() {
 
 inline void GetCertifiedNvIndexRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  key_label_.Destroy();
+  _impl_.key_label_.Destroy();
 }
 
 void GetCertifiedNvIndexRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetCertifiedNvIndexRequest::Clear() {
@@ -15322,16 +16219,16 @@ void GetCertifiedNvIndexRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    key_label_.ClearNonDefaultToEmpty();
+    _impl_.key_label_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&nv_index_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&nv_size_) -
-        reinterpret_cast<char*>(&nv_index_)) + sizeof(nv_size_));
+    ::memset(&_impl_.nv_index_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.nv_size_) -
+        reinterpret_cast<char*>(&_impl_.nv_index_)) + sizeof(_impl_.nv_size_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -15346,7 +16243,7 @@ const char* GetCertifiedNvIndexRequest::_InternalParse(const char* ptr, ::_pbi::
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_nv_index(&has_bits);
-          nv_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.nv_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -15355,7 +16252,7 @@ const char* GetCertifiedNvIndexRequest::_InternalParse(const char* ptr, ::_pbi::
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_nv_size(&has_bits);
-          nv_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.nv_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -15385,7 +16282,7 @@ const char* GetCertifiedNvIndexRequest::_InternalParse(const char* ptr, ::_pbi::
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -15399,7 +16296,7 @@ uint8_t* GetCertifiedNvIndexRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 nv_index = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
@@ -15434,7 +16331,7 @@ size_t GetCertifiedNvIndexRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string key_label = 3;
     if (cached_has_bits & 0x00000001u) {
@@ -15469,25 +16366,26 @@ void GetCertifiedNvIndexRequest::CheckTypeAndMergeFrom(
 }
 
 void GetCertifiedNvIndexRequest::MergeFrom(const GetCertifiedNvIndexRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetCertifiedNvIndexRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetCertifiedNvIndexRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetCertifiedNvIndexRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_key_label(from._internal_key_label());
+      _this->_internal_set_key_label(from._internal_key_label());
     }
     if (cached_has_bits & 0x00000002u) {
-      nv_index_ = from.nv_index_;
+      _this->_impl_.nv_index_ = from._impl_.nv_index_;
     }
     if (cached_has_bits & 0x00000004u) {
-      nv_size_ = from.nv_size_;
+      _this->_impl_.nv_size_ = from._impl_.nv_size_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetCertifiedNvIndexRequest::CopyFrom(const GetCertifiedNvIndexRequest& from) {
@@ -15506,17 +16404,17 @@ void GetCertifiedNvIndexRequest::InternalSwap(GetCertifiedNvIndexRequest* other)
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_label_, lhs_arena,
-      &other->key_label_, rhs_arena
+      &_impl_.key_label_, lhs_arena,
+      &other->_impl_.key_label_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetCertifiedNvIndexRequest, nv_size_)
-      + sizeof(GetCertifiedNvIndexRequest::nv_size_)
-      - PROTOBUF_FIELD_OFFSET(GetCertifiedNvIndexRequest, nv_index_)>(
-          reinterpret_cast<char*>(&nv_index_),
-          reinterpret_cast<char*>(&other->nv_index_));
+      PROTOBUF_FIELD_OFFSET(GetCertifiedNvIndexRequest, _impl_.nv_size_)
+      + sizeof(GetCertifiedNvIndexRequest::_impl_.nv_size_)
+      - PROTOBUF_FIELD_OFFSET(GetCertifiedNvIndexRequest, _impl_.nv_index_)>(
+          reinterpret_cast<char*>(&_impl_.nv_index_),
+          reinterpret_cast<char*>(&other->_impl_.nv_index_));
 }
 
 std::string GetCertifiedNvIndexRequest::GetTypeName() const {
@@ -15528,7 +16426,7 @@ std::string GetCertifiedNvIndexRequest::GetTypeName() const {
 
 class GetCertifiedNvIndexReply::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetCertifiedNvIndexReply>()._has_bits_);
+  using HasBits = decltype(std::declval<GetCertifiedNvIndexReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
@@ -15546,55 +16444,73 @@ class GetCertifiedNvIndexReply::_Internal {
 GetCertifiedNvIndexReply::GetCertifiedNvIndexReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:attestation.GetCertifiedNvIndexReply)
 }
 GetCertifiedNvIndexReply::GetCertifiedNvIndexReply(const GetCertifiedNvIndexReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetCertifiedNvIndexReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.certified_data_){}
+    , decltype(_impl_.signature_){}
+    , decltype(_impl_.key_certificate_){}
+    , decltype(_impl_.status_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  certified_data_.InitDefault();
+  _impl_.certified_data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    certified_data_.Set("", GetArenaForAllocation());
+    _impl_.certified_data_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_certified_data()) {
-    certified_data_.Set(from._internal_certified_data(), 
-      GetArenaForAllocation());
+    _this->_impl_.certified_data_.Set(from._internal_certified_data(), 
+      _this->GetArenaForAllocation());
   }
-  signature_.InitDefault();
+  _impl_.signature_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    signature_.Set("", GetArenaForAllocation());
+    _impl_.signature_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_signature()) {
-    signature_.Set(from._internal_signature(), 
-      GetArenaForAllocation());
+    _this->_impl_.signature_.Set(from._internal_signature(), 
+      _this->GetArenaForAllocation());
   }
-  key_certificate_.InitDefault();
+  _impl_.key_certificate_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_certificate_.Set("", GetArenaForAllocation());
+    _impl_.key_certificate_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_certificate()) {
-    key_certificate_.Set(from._internal_key_certificate(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_certificate_.Set(from._internal_key_certificate(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.GetCertifiedNvIndexReply)
 }
 
-inline void GetCertifiedNvIndexReply::SharedCtor() {
-certified_data_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  certified_data_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-signature_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  signature_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-key_certificate_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_certificate_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void GetCertifiedNvIndexReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.certified_data_){}
+    , decltype(_impl_.signature_){}
+    , decltype(_impl_.key_certificate_){}
+    , decltype(_impl_.status_){0}
+  };
+  _impl_.certified_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.certified_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.signature_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.signature_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.key_certificate_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_certificate_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetCertifiedNvIndexReply::~GetCertifiedNvIndexReply() {
@@ -15608,13 +16524,13 @@ GetCertifiedNvIndexReply::~GetCertifiedNvIndexReply() {
 
 inline void GetCertifiedNvIndexReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  certified_data_.Destroy();
-  signature_.Destroy();
-  key_certificate_.Destroy();
+  _impl_.certified_data_.Destroy();
+  _impl_.signature_.Destroy();
+  _impl_.key_certificate_.Destroy();
 }
 
 void GetCertifiedNvIndexReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetCertifiedNvIndexReply::Clear() {
@@ -15623,20 +16539,20 @@ void GetCertifiedNvIndexReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      certified_data_.ClearNonDefaultToEmpty();
+      _impl_.certified_data_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      signature_.ClearNonDefaultToEmpty();
+      _impl_.signature_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      key_certificate_.ClearNonDefaultToEmpty();
+      _impl_.key_certificate_.ClearNonDefaultToEmpty();
     }
   }
-  status_ = 0;
-  _has_bits_.Clear();
+  _impl_.status_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -15703,7 +16619,7 @@ const char* GetCertifiedNvIndexReply::_InternalParse(const char* ptr, ::_pbi::Pa
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -15717,7 +16633,7 @@ uint8_t* GetCertifiedNvIndexReply::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
@@ -15759,7 +16675,7 @@ size_t GetCertifiedNvIndexReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional bytes certified_data = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -15804,28 +16720,29 @@ void GetCertifiedNvIndexReply::CheckTypeAndMergeFrom(
 }
 
 void GetCertifiedNvIndexReply::MergeFrom(const GetCertifiedNvIndexReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetCertifiedNvIndexReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetCertifiedNvIndexReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetCertifiedNvIndexReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_certified_data(from._internal_certified_data());
+      _this->_internal_set_certified_data(from._internal_certified_data());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_signature(from._internal_signature());
+      _this->_internal_set_signature(from._internal_signature());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_key_certificate(from._internal_key_certificate());
+      _this->_internal_set_key_certificate(from._internal_key_certificate());
     }
     if (cached_has_bits & 0x00000008u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetCertifiedNvIndexReply::CopyFrom(const GetCertifiedNvIndexReply& from) {
@@ -15844,20 +16761,20 @@ void GetCertifiedNvIndexReply::InternalSwap(GetCertifiedNvIndexReply* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &certified_data_, lhs_arena,
-      &other->certified_data_, rhs_arena
+      &_impl_.certified_data_, lhs_arena,
+      &other->_impl_.certified_data_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &signature_, lhs_arena,
-      &other->signature_, rhs_arena
+      &_impl_.signature_, lhs_arena,
+      &other->_impl_.signature_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &key_certificate_, lhs_arena,
-      &other->key_certificate_, rhs_arena
+      &_impl_.key_certificate_, lhs_arena,
+      &other->_impl_.key_certificate_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string GetCertifiedNvIndexReply::GetTypeName() const {

@@ -19,7 +19,8 @@ namespace _pbi = _pb::internal;
 
 namespace supervised_user {
 PROTOBUF_CONSTEXPR Request::Request(
-    ::_pbi::ConstantInitialized){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._cached_size_)*/{}} {}
 struct RequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -28,9 +29,10 @@ struct RequestDefaultTypeInternal {
     Request _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RequestDefaultTypeInternal _Request_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RequestDefaultTypeInternal _Request_default_instance_;
 PROTOBUF_CONSTEXPR Response::Response(
-    ::_pbi::ConstantInitialized){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._cached_size_)*/{}} {}
 struct ResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -39,7 +41,7 @@ struct ResponseDefaultTypeInternal {
     Response _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ResponseDefaultTypeInternal _Response_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ResponseDefaultTypeInternal _Response_default_instance_;
 }  // namespace supervised_user
 namespace supervised_user {
 
@@ -52,16 +54,26 @@ class Request::_Internal {
 Request::Request(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:supervised_user.Request)
 }
 Request::Request(const Request& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  Request* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:supervised_user.Request)
 }
 
-inline void Request::SharedCtor() {
+inline void Request::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 Request::~Request() {
@@ -78,7 +90,7 @@ inline void Request::SharedDtor() {
 }
 
 void Request::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Request::Clear() {
@@ -151,12 +163,13 @@ void Request::CheckTypeAndMergeFrom(
 }
 
 void Request::MergeFrom(const Request& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:supervised_user.Request)
-  GOOGLE_DCHECK_NE(&from, this);
+  Request* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:supervised_user.Request)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Request::CopyFrom(const Request& from) {
@@ -189,16 +202,26 @@ class Response::_Internal {
 Response::Response(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:supervised_user.Response)
 }
 Response::Response(const Response& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  Response* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:supervised_user.Response)
 }
 
-inline void Response::SharedCtor() {
+inline void Response::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 Response::~Response() {
@@ -215,7 +238,7 @@ inline void Response::SharedDtor() {
 }
 
 void Response::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Response::Clear() {
@@ -288,12 +311,13 @@ void Response::CheckTypeAndMergeFrom(
 }
 
 void Response::MergeFrom(const Response& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:supervised_user.Response)
-  GOOGLE_DCHECK_NE(&from, this);
+  Response* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:supervised_user.Response)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Response::CopyFrom(const Response& from) {

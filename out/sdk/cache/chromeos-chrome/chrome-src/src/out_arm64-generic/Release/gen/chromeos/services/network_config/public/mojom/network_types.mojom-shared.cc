@@ -219,8 +219,8 @@ NOINLINE static const char* PortalStateToStringHelper(PortalState value) {
       return "kPortalSuspected";
     case PortalState::kPortal:
       return "kPortal";
-    case PortalState::kProxyAuthRequired:
-      return "kProxyAuthRequired";
+    case PortalState::kDeprecatedProxyAuthRequired:
+      return "kDeprecatedProxyAuthRequired";
     case PortalState::kNoInternet:
       return "kNoInternet";
     default:

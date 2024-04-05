@@ -19,8 +19,10 @@ namespace _pbi = _pb::internal;
 
 namespace sync_pb {
 PROTOBUF_CONSTEXPR UnknownFieldsTestA::UnknownFieldsTestA(
-    ::_pbi::ConstantInitialized)
-  : foo_(false){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.foo_)*/false} {}
 struct UnknownFieldsTestADefaultTypeInternal {
   PROTOBUF_CONSTEXPR UnknownFieldsTestADefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -29,11 +31,13 @@ struct UnknownFieldsTestADefaultTypeInternal {
     UnknownFieldsTestA _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UnknownFieldsTestADefaultTypeInternal _UnknownFieldsTestA_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UnknownFieldsTestADefaultTypeInternal _UnknownFieldsTestA_default_instance_;
 PROTOBUF_CONSTEXPR UnknownFieldsTestB::UnknownFieldsTestB(
-    ::_pbi::ConstantInitialized)
-  : foo_(false)
-  , bar_(false){}
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.foo_)*/false
+  , /*decltype(_impl_.bar_)*/false} {}
 struct UnknownFieldsTestBDefaultTypeInternal {
   PROTOBUF_CONSTEXPR UnknownFieldsTestBDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -42,7 +46,7 @@ struct UnknownFieldsTestBDefaultTypeInternal {
     UnknownFieldsTestB _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UnknownFieldsTestBDefaultTypeInternal _UnknownFieldsTestB_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UnknownFieldsTestBDefaultTypeInternal _UnknownFieldsTestB_default_instance_;
 }  // namespace sync_pb
 namespace sync_pb {
 
@@ -50,7 +54,7 @@ namespace sync_pb {
 
 class UnknownFieldsTestA::_Internal {
  public:
-  using HasBits = decltype(std::declval<UnknownFieldsTestA>()._has_bits_);
+  using HasBits = decltype(std::declval<UnknownFieldsTestA>()._impl_._has_bits_);
   static void set_has_foo(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -62,19 +66,31 @@ class UnknownFieldsTestA::_Internal {
 UnknownFieldsTestA::UnknownFieldsTestA(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:sync_pb.UnknownFieldsTestA)
 }
 UnknownFieldsTestA::UnknownFieldsTestA(const UnknownFieldsTestA& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  UnknownFieldsTestA* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.foo_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  foo_ = from.foo_;
+  _this->_impl_.foo_ = from._impl_.foo_;
   // @@protoc_insertion_point(copy_constructor:sync_pb.UnknownFieldsTestA)
 }
 
-inline void UnknownFieldsTestA::SharedCtor() {
-foo_ = false;
+inline void UnknownFieldsTestA::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.foo_){false}
+  };
 }
 
 UnknownFieldsTestA::~UnknownFieldsTestA() {
@@ -91,7 +107,7 @@ inline void UnknownFieldsTestA::SharedDtor() {
 }
 
 void UnknownFieldsTestA::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UnknownFieldsTestA::Clear() {
@@ -100,8 +116,8 @@ void UnknownFieldsTestA::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  foo_ = false;
-  _has_bits_.Clear();
+  _impl_.foo_ = false;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -116,7 +132,7 @@ const char* UnknownFieldsTestA::_InternalParse(const char* ptr, ::_pbi::ParseCon
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_foo(&has_bits);
-          foo_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.foo_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -137,7 +153,7 @@ const char* UnknownFieldsTestA::_InternalParse(const char* ptr, ::_pbi::ParseCon
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -151,7 +167,7 @@ uint8_t* UnknownFieldsTestA::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required bool foo = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -193,15 +209,16 @@ void UnknownFieldsTestA::CheckTypeAndMergeFrom(
 }
 
 void UnknownFieldsTestA::MergeFrom(const UnknownFieldsTestA& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:sync_pb.UnknownFieldsTestA)
-  GOOGLE_DCHECK_NE(&from, this);
+  UnknownFieldsTestA* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:sync_pb.UnknownFieldsTestA)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_foo()) {
-    _internal_set_foo(from._internal_foo());
+    _this->_internal_set_foo(from._internal_foo());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void UnknownFieldsTestA::CopyFrom(const UnknownFieldsTestA& from) {
@@ -212,15 +229,15 @@ void UnknownFieldsTestA::CopyFrom(const UnknownFieldsTestA& from) {
 }
 
 bool UnknownFieldsTestA::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
 void UnknownFieldsTestA::InternalSwap(UnknownFieldsTestA* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(foo_, other->foo_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.foo_, other->_impl_.foo_);
 }
 
 std::string UnknownFieldsTestA::GetTypeName() const {
@@ -232,7 +249,7 @@ std::string UnknownFieldsTestA::GetTypeName() const {
 
 class UnknownFieldsTestB::_Internal {
  public:
-  using HasBits = decltype(std::declval<UnknownFieldsTestB>()._has_bits_);
+  using HasBits = decltype(std::declval<UnknownFieldsTestB>()._impl_._has_bits_);
   static void set_has_foo(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -247,24 +264,35 @@ class UnknownFieldsTestB::_Internal {
 UnknownFieldsTestB::UnknownFieldsTestB(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:sync_pb.UnknownFieldsTestB)
 }
 UnknownFieldsTestB::UnknownFieldsTestB(const UnknownFieldsTestB& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  UnknownFieldsTestB* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.foo_){}
+    , decltype(_impl_.bar_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&foo_, &from.foo_,
-    static_cast<size_t>(reinterpret_cast<char*>(&bar_) -
-    reinterpret_cast<char*>(&foo_)) + sizeof(bar_));
+  ::memcpy(&_impl_.foo_, &from._impl_.foo_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.bar_) -
+    reinterpret_cast<char*>(&_impl_.foo_)) + sizeof(_impl_.bar_));
   // @@protoc_insertion_point(copy_constructor:sync_pb.UnknownFieldsTestB)
 }
 
-inline void UnknownFieldsTestB::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&foo_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&bar_) -
-    reinterpret_cast<char*>(&foo_)) + sizeof(bar_));
+inline void UnknownFieldsTestB::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.foo_){false}
+    , decltype(_impl_.bar_){false}
+  };
 }
 
 UnknownFieldsTestB::~UnknownFieldsTestB() {
@@ -281,7 +309,7 @@ inline void UnknownFieldsTestB::SharedDtor() {
 }
 
 void UnknownFieldsTestB::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UnknownFieldsTestB::Clear() {
@@ -290,10 +318,10 @@ void UnknownFieldsTestB::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&foo_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&bar_) -
-      reinterpret_cast<char*>(&foo_)) + sizeof(bar_));
-  _has_bits_.Clear();
+  ::memset(&_impl_.foo_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.bar_) -
+      reinterpret_cast<char*>(&_impl_.foo_)) + sizeof(_impl_.bar_));
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -308,7 +336,7 @@ const char* UnknownFieldsTestB::_InternalParse(const char* ptr, ::_pbi::ParseCon
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_foo(&has_bits);
-          foo_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.foo_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -317,7 +345,7 @@ const char* UnknownFieldsTestB::_InternalParse(const char* ptr, ::_pbi::ParseCon
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_bar(&has_bits);
-          bar_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.bar_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -338,7 +366,7 @@ const char* UnknownFieldsTestB::_InternalParse(const char* ptr, ::_pbi::ParseCon
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -352,7 +380,7 @@ uint8_t* UnknownFieldsTestB::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required bool foo = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
@@ -393,7 +421,7 @@ size_t UnknownFieldsTestB::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:sync_pb.UnknownFieldsTestB)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
     // required bool foo = 1;
     total_size += 1 + 1;
 
@@ -422,22 +450,23 @@ void UnknownFieldsTestB::CheckTypeAndMergeFrom(
 }
 
 void UnknownFieldsTestB::MergeFrom(const UnknownFieldsTestB& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:sync_pb.UnknownFieldsTestB)
-  GOOGLE_DCHECK_NE(&from, this);
+  UnknownFieldsTestB* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:sync_pb.UnknownFieldsTestB)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      foo_ = from.foo_;
+      _this->_impl_.foo_ = from._impl_.foo_;
     }
     if (cached_has_bits & 0x00000002u) {
-      bar_ = from.bar_;
+      _this->_impl_.bar_ = from._impl_.bar_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void UnknownFieldsTestB::CopyFrom(const UnknownFieldsTestB& from) {
@@ -448,20 +477,20 @@ void UnknownFieldsTestB::CopyFrom(const UnknownFieldsTestB& from) {
 }
 
 bool UnknownFieldsTestB::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
 void UnknownFieldsTestB::InternalSwap(UnknownFieldsTestB* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(UnknownFieldsTestB, bar_)
-      + sizeof(UnknownFieldsTestB::bar_)
-      - PROTOBUF_FIELD_OFFSET(UnknownFieldsTestB, foo_)>(
-          reinterpret_cast<char*>(&foo_),
-          reinterpret_cast<char*>(&other->foo_));
+      PROTOBUF_FIELD_OFFSET(UnknownFieldsTestB, _impl_.bar_)
+      + sizeof(UnknownFieldsTestB::_impl_.bar_)
+      - PROTOBUF_FIELD_OFFSET(UnknownFieldsTestB, _impl_.foo_)>(
+          reinterpret_cast<char*>(&_impl_.foo_),
+          reinterpret_cast<char*>(&other->_impl_.foo_));
 }
 
 std::string UnknownFieldsTestB::GetTypeName() const {
