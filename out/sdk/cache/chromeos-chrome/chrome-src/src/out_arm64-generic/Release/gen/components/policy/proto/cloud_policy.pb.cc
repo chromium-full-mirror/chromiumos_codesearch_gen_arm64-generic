@@ -150,7 +150,8 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , /*decltype(_impl_.privacysandboxfingerprintingprotectionenabled_)*/nullptr
   , /*decltype(_impl_.multiscreencaptureallowedforurls_)*/nullptr
   , /*decltype(_impl_.showaiintroscreenenabled_)*/nullptr
-  , /*decltype(_impl_.showtunascreenenabled_)*/nullptr} {}
+  , /*decltype(_impl_.showtunascreenenabled_)*/nullptr
+  , /*decltype(_impl_.genailocalfoundationalmodelsettings_)*/nullptr} {}
 struct CloudPolicySubProto1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR CloudPolicySubProto1DefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -842,6 +843,10 @@ class CloudPolicySubProto1::_Internal {
   static void set_has_devtoolsgenaisettings(HasBits* has_bits) {
     (*has_bits)[3] |= 2097152u;
   }
+  static const ::enterprise_management::IntegerPolicyProto& genailocalfoundationalmodelsettings(const CloudPolicySubProto1* msg);
+  static void set_has_genailocalfoundationalmodelsettings(HasBits* has_bits) {
+    (*has_bits)[4] |= 2u;
+  }
   static const ::enterprise_management::IntegerPolicyProto& helpmewritesettings(const CloudPolicySubProto1* msg);
   static void set_has_helpmewritesettings(HasBits* has_bits) {
     (*has_bits)[2] |= 268435456u;
@@ -1361,6 +1366,10 @@ CloudPolicySubProto1::_Internal::devtoolsgenaisettings(const CloudPolicySubProto
   return *msg->_impl_.devtoolsgenaisettings_;
 }
 const ::enterprise_management::IntegerPolicyProto&
+CloudPolicySubProto1::_Internal::genailocalfoundationalmodelsettings(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.genailocalfoundationalmodelsettings_;
+}
+const ::enterprise_management::IntegerPolicyProto&
 CloudPolicySubProto1::_Internal::helpmewritesettings(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.helpmewritesettings_;
 }
@@ -1875,6 +1884,10 @@ void CloudPolicySubProto1::clear_createthemessettings() {
 void CloudPolicySubProto1::clear_devtoolsgenaisettings() {
   if (_impl_.devtoolsgenaisettings_ != nullptr) _impl_.devtoolsgenaisettings_->Clear();
   _impl_._has_bits_[3] &= ~0x00200000u;
+}
+void CloudPolicySubProto1::clear_genailocalfoundationalmodelsettings() {
+  if (_impl_.genailocalfoundationalmodelsettings_ != nullptr) _impl_.genailocalfoundationalmodelsettings_->Clear();
+  _impl_._has_bits_[4] &= ~0x00000002u;
 }
 void CloudPolicySubProto1::clear_helpmewritesettings() {
   if (_impl_.helpmewritesettings_ != nullptr) _impl_.helpmewritesettings_->Clear();
@@ -2400,7 +2413,8 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
     , decltype(_impl_.privacysandboxfingerprintingprotectionenabled_){nullptr}
     , decltype(_impl_.multiscreencaptureallowedforurls_){nullptr}
     , decltype(_impl_.showaiintroscreenenabled_){nullptr}
-    , decltype(_impl_.showtunascreenenabled_){nullptr}};
+    , decltype(_impl_.showtunascreenenabled_){nullptr}
+    , decltype(_impl_.genailocalfoundationalmodelsettings_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_newbaseurlinheritancebehaviorallowed()) {
@@ -2790,6 +2804,9 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
   if (from._internal_has_showtunascreenenabled()) {
     _this->_impl_.showtunascreenenabled_ = new ::enterprise_management::BooleanPolicyProto(*from._impl_.showtunascreenenabled_);
   }
+  if (from._internal_has_genailocalfoundationalmodelsettings()) {
+    _this->_impl_.genailocalfoundationalmodelsettings_ = new ::enterprise_management::IntegerPolicyProto(*from._impl_.genailocalfoundationalmodelsettings_);
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CloudPolicySubProto1)
 }
 
@@ -2929,6 +2946,7 @@ inline void CloudPolicySubProto1::SharedCtor(
     , decltype(_impl_.multiscreencaptureallowedforurls_){nullptr}
     , decltype(_impl_.showaiintroscreenenabled_){nullptr}
     , decltype(_impl_.showtunascreenenabled_){nullptr}
+    , decltype(_impl_.genailocalfoundationalmodelsettings_){nullptr}
   };
 }
 
@@ -3072,6 +3090,7 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.multiscreencaptureallowedforurls_;
   if (this != internal_default_instance()) delete _impl_.showaiintroscreenenabled_;
   if (this != internal_default_instance()) delete _impl_.showtunascreenenabled_;
+  if (this != internal_default_instance()) delete _impl_.genailocalfoundationalmodelsettings_;
 }
 
 void CloudPolicySubProto1::SetCachedSize(int size) const {
@@ -3633,9 +3652,15 @@ void CloudPolicySubProto1::Clear() {
     }
   }
   cached_has_bits = _impl_._has_bits_[4];
-  if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.showtunascreenenabled_ != nullptr);
-    _impl_.showtunascreenenabled_->Clear();
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(_impl_.showtunascreenenabled_ != nullptr);
+      _impl_.showtunascreenenabled_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(_impl_.genailocalfoundationalmodelsettings_ != nullptr);
+      _impl_.genailocalfoundationalmodelsettings_->Clear();
+    }
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -4679,6 +4704,14 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.IntegerPolicyProto GenAILocalFoundationalModelSettings = 211;
+      case 211:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 154)) {
+          ptr = ctx->ParseMessage(_internal_mutable_genailocalfoundationalmodelsettings(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5614,6 +5647,13 @@ uint8_t* CloudPolicySubProto1::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(209, _Internal::showtunascreenenabled(this),
         _Internal::showtunascreenenabled(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.IntegerPolicyProto GenAILocalFoundationalModelSettings = 211;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(211, _Internal::genailocalfoundationalmodelsettings(this),
+        _Internal::genailocalfoundationalmodelsettings(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6564,14 +6604,23 @@ size_t CloudPolicySubProto1::ByteSizeLong() const {
     }
 
   }
-  // optional .enterprise_management.BooleanPolicyProto ShowTunaScreenEnabled = 209;
   cached_has_bits = _impl_._has_bits_[4];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.showtunascreenenabled_);
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional .enterprise_management.BooleanPolicyProto ShowTunaScreenEnabled = 209;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.showtunascreenenabled_);
+    }
 
+    // optional .enterprise_management.IntegerPolicyProto GenAILocalFoundationalModelSettings = 211;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.genailocalfoundationalmodelsettings_);
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -7141,9 +7190,16 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
           from._internal_showaiintroscreenenabled());
     }
   }
-  if (from._internal_has_showtunascreenenabled()) {
-    _this->_internal_mutable_showtunascreenenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(
-        from._internal_showtunascreenenabled());
+  cached_has_bits = from._impl_._has_bits_[4];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_mutable_showtunascreenenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(
+          from._internal_showtunascreenenabled());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_internal_mutable_genailocalfoundationalmodelsettings()->::enterprise_management::IntegerPolicyProto::MergeFrom(
+          from._internal_genailocalfoundationalmodelsettings());
+    }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -7168,8 +7224,8 @@ void CloudPolicySubProto1::InternalSwap(CloudPolicySubProto1* other) {
   swap(_impl_._has_bits_[3], other->_impl_._has_bits_[3]);
   swap(_impl_._has_bits_[4], other->_impl_._has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.showtunascreenenabled_)
-      + sizeof(CloudPolicySubProto1::_impl_.showtunascreenenabled_)
+      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.genailocalfoundationalmodelsettings_)
+      + sizeof(CloudPolicySubProto1::_impl_.genailocalfoundationalmodelsettings_)
       - PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.newbaseurlinheritancebehaviorallowed_)>(
           reinterpret_cast<char*>(&_impl_.newbaseurlinheritancebehaviorallowed_),
           reinterpret_cast<char*>(&other->_impl_.newbaseurlinheritancebehaviorallowed_));

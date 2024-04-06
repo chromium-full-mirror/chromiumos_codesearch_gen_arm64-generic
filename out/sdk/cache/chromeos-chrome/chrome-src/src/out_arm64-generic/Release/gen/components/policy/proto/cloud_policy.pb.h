@@ -298,6 +298,7 @@ kPrivacySandboxFingerprintingProtectionEnabledFieldNumber = 200,
 kMultiScreenCaptureAllowedForUrlsFieldNumber = 201,
 kShowAiIntroScreenEnabledFieldNumber = 208,
 kShowTunaScreenEnabledFieldNumber = 209,
+kGenAILocalFoundationalModelSettingsFieldNumber = 211,
 };
 // optional .enterprise_management.BooleanPolicyProto NewBaseUrlInheritanceBehaviorAllowed = 1;
 bool has_newbaseurlinheritancebehaviorallowed() const;
@@ -2621,6 +2622,24 @@ void unsafe_arena_set_allocated_showtunascreenenabled(
 ::enterprise_management::BooleanPolicyProto* showtunascreenenabled);
 ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_showtunascreenenabled();
 
+// optional .enterprise_management.IntegerPolicyProto GenAILocalFoundationalModelSettings = 211;
+bool has_genailocalfoundationalmodelsettings() const;
+private:
+bool _internal_has_genailocalfoundationalmodelsettings() const;
+public:
+void clear_genailocalfoundationalmodelsettings();
+const ::enterprise_management::IntegerPolicyProto& genailocalfoundationalmodelsettings() const;
+PROTOBUF_NODISCARD ::enterprise_management::IntegerPolicyProto* release_genailocalfoundationalmodelsettings();
+::enterprise_management::IntegerPolicyProto* mutable_genailocalfoundationalmodelsettings();
+void set_allocated_genailocalfoundationalmodelsettings(::enterprise_management::IntegerPolicyProto* genailocalfoundationalmodelsettings);
+private:
+const ::enterprise_management::IntegerPolicyProto& _internal_genailocalfoundationalmodelsettings() const;
+::enterprise_management::IntegerPolicyProto* _internal_mutable_genailocalfoundationalmodelsettings();
+public:
+void unsafe_arena_set_allocated_genailocalfoundationalmodelsettings(
+::enterprise_management::IntegerPolicyProto* genailocalfoundationalmodelsettings);
+::enterprise_management::IntegerPolicyProto* unsafe_arena_release_genailocalfoundationalmodelsettings();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -2760,6 +2779,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::StringListPolicyProto* multiscreencaptureallowedforurls_;
 ::enterprise_management::BooleanPolicyProto* showaiintroscreenenabled_;
 ::enterprise_management::BooleanPolicyProto* showtunascreenenabled_;
+::enterprise_management::IntegerPolicyProto* genailocalfoundationalmodelsettings_;
 };
 union { Impl_ _impl_; };
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
@@ -16351,6 +16371,93 @@ _impl_._has_bits_[3] &= ~0x00200000u;
 }
 _impl_.devtoolsgenaisettings_ = devtoolsgenaisettings;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.DevToolsGenAiSettings)
+}
+
+// optional .enterprise_management.IntegerPolicyProto GenAILocalFoundationalModelSettings = 211;
+inline bool CloudPolicySubProto1::_internal_has_genailocalfoundationalmodelsettings() const {
+bool value = (_impl_._has_bits_[4] & 0x00000002u) != 0;
+PROTOBUF_ASSUME(!value || _impl_.genailocalfoundationalmodelsettings_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_genailocalfoundationalmodelsettings() const {
+return _internal_has_genailocalfoundationalmodelsettings();
+}
+inline const ::enterprise_management::IntegerPolicyProto& CloudPolicySubProto1::_internal_genailocalfoundationalmodelsettings() const {
+const ::enterprise_management::IntegerPolicyProto* p = _impl_.genailocalfoundationalmodelsettings_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::IntegerPolicyProto&>(
+::enterprise_management::_IntegerPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::IntegerPolicyProto& CloudPolicySubProto1::genailocalfoundationalmodelsettings() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.GenAILocalFoundationalModelSettings)
+return _internal_genailocalfoundationalmodelsettings();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_genailocalfoundationalmodelsettings(
+::enterprise_management::IntegerPolicyProto* genailocalfoundationalmodelsettings) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.genailocalfoundationalmodelsettings_);
+}
+_impl_.genailocalfoundationalmodelsettings_ = genailocalfoundationalmodelsettings;
+if (genailocalfoundationalmodelsettings) {
+_impl_._has_bits_[4] |= 0x00000002u;
+} else {
+_impl_._has_bits_[4] &= ~0x00000002u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.GenAILocalFoundationalModelSettings)
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::release_genailocalfoundationalmodelsettings() {
+_impl_._has_bits_[4] &= ~0x00000002u;
+::enterprise_management::IntegerPolicyProto* temp = _impl_.genailocalfoundationalmodelsettings_;
+_impl_.genailocalfoundationalmodelsettings_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::unsafe_arena_release_genailocalfoundationalmodelsettings() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.GenAILocalFoundationalModelSettings)
+_impl_._has_bits_[4] &= ~0x00000002u;
+::enterprise_management::IntegerPolicyProto* temp = _impl_.genailocalfoundationalmodelsettings_;
+_impl_.genailocalfoundationalmodelsettings_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::_internal_mutable_genailocalfoundationalmodelsettings() {
+_impl_._has_bits_[4] |= 0x00000002u;
+if (_impl_.genailocalfoundationalmodelsettings_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::IntegerPolicyProto>(GetArenaForAllocation());
+_impl_.genailocalfoundationalmodelsettings_ = p;
+}
+return _impl_.genailocalfoundationalmodelsettings_;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::mutable_genailocalfoundationalmodelsettings() {
+::enterprise_management::IntegerPolicyProto* _msg = _internal_mutable_genailocalfoundationalmodelsettings();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.GenAILocalFoundationalModelSettings)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_genailocalfoundationalmodelsettings(::enterprise_management::IntegerPolicyProto* genailocalfoundationalmodelsettings) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.genailocalfoundationalmodelsettings_);
+}
+if (genailocalfoundationalmodelsettings) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(genailocalfoundationalmodelsettings));
+if (message_arena != submessage_arena) {
+genailocalfoundationalmodelsettings = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, genailocalfoundationalmodelsettings, submessage_arena);
+}
+_impl_._has_bits_[4] |= 0x00000002u;
+} else {
+_impl_._has_bits_[4] &= ~0x00000002u;
+}
+_impl_.genailocalfoundationalmodelsettings_ = genailocalfoundationalmodelsettings;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.GenAILocalFoundationalModelSettings)
 }
 
 // optional .enterprise_management.IntegerPolicyProto HelpMeWriteSettings = 147;
