@@ -10,9 +10,9 @@
 #include "diagnostics/mojom/external/input.mojom-import-headers.h"
 #include "diagnostics/mojom/external/time.mojom.h"
 #include "diagnostics/mojom/external/time.mojom-import-headers.h"
-#include "diagnostics/mojom/public/nullable_primitives.mojom.h"
-#include "diagnostics/mojom/public/nullable_primitives.mojom-import-headers.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-import-headers.h"
+#include "diagnostics/mojom/public/nullable_primitives.mojom.h"
+#include "diagnostics/mojom/public/nullable_primitives.mojom-import-headers.h"
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_EVENTS_MOJOM_IMPORT_HEADERS_H_

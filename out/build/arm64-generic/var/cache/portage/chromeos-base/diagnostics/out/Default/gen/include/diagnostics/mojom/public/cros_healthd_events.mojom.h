@@ -29,8 +29,8 @@
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-forward.h"
 #include "diagnostics/mojom/external/input.mojom.h"
 #include "diagnostics/mojom/external/time.mojom.h"
-#include "diagnostics/mojom/public/nullable_primitives.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom.h"
+#include "diagnostics/mojom/public/nullable_primitives.mojom.h"
 #include <string>
 #include <vector>
 

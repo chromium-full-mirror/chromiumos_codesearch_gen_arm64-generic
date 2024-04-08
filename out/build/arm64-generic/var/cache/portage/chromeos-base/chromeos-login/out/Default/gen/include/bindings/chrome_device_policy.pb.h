@@ -24857,6 +24857,7 @@ class ChromeDeviceSettingsProto final :
     kDeviceLoginScreenTouchVirtualKeyboardEnabledFieldNumber = 1194,
     kDeviceExtendedAutoUpdateEnabledFieldNumber = 1195,
     kDeviceWeeklyScheduledSuspendFieldNumber = 1209,
+    kDeviceAuthenticationFlowAutoReloadIntervalFieldNumber = 1247,
   };
   // optional .enterprise_management.DevicePolicyRefreshRateProto device_policy_refresh_rate = 1;
   bool has_device_policy_refresh_rate() const;
@@ -27070,6 +27071,20 @@ class ChromeDeviceSettingsProto final :
   void unsafe_arena_set_allocated_deviceweeklyscheduledsuspend(
       ::enterprise_management::StringPolicyProto* deviceweeklyscheduledsuspend);
   ::enterprise_management::StringPolicyProto* unsafe_arena_release_deviceweeklyscheduledsuspend();
+  // optional .enterprise_management.IntegerPolicyProto DeviceAuthenticationFlowAutoReloadInterval = 1247;
+  bool has_deviceauthenticationflowautoreloadinterval() const;
+  void clear_deviceauthenticationflowautoreloadinterval() ;
+  const ::enterprise_management::IntegerPolicyProto& deviceauthenticationflowautoreloadinterval() const;
+  PROTOBUF_NODISCARD ::enterprise_management::IntegerPolicyProto* release_deviceauthenticationflowautoreloadinterval();
+  ::enterprise_management::IntegerPolicyProto* mutable_deviceauthenticationflowautoreloadinterval();
+  void set_allocated_deviceauthenticationflowautoreloadinterval(::enterprise_management::IntegerPolicyProto* deviceauthenticationflowautoreloadinterval);
+  private:
+  const ::enterprise_management::IntegerPolicyProto& _internal_deviceauthenticationflowautoreloadinterval() const;
+  ::enterprise_management::IntegerPolicyProto* _internal_mutable_deviceauthenticationflowautoreloadinterval();
+  public:
+  void unsafe_arena_set_allocated_deviceauthenticationflowautoreloadinterval(
+      ::enterprise_management::IntegerPolicyProto* deviceauthenticationflowautoreloadinterval);
+  ::enterprise_management::IntegerPolicyProto* unsafe_arena_release_deviceauthenticationflowautoreloadinterval();
   // @@protoc_insertion_point(class_scope:enterprise_management.ChromeDeviceSettingsProto)
  private:
   class _Internal;
@@ -27238,6 +27253,7 @@ class ChromeDeviceSettingsProto final :
     ::enterprise_management::BooleanPolicyProto* deviceloginscreentouchvirtualkeyboardenabled_;
     ::enterprise_management::BooleanPolicyProto* deviceextendedautoupdateenabled_;
     ::enterprise_management::StringPolicyProto* deviceweeklyscheduledsuspend_;
+    ::enterprise_management::IntegerPolicyProto* deviceauthenticationflowautoreloadinterval_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
@@ -53391,6 +53407,90 @@ inline void ChromeDeviceSettingsProto::set_allocated_deviceweeklyscheduledsuspen
   }
   _impl_.deviceweeklyscheduledsuspend_ = deviceweeklyscheduledsuspend;
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.DeviceWeeklyScheduledSuspend)
+}
+
+// optional .enterprise_management.IntegerPolicyProto DeviceAuthenticationFlowAutoReloadInterval = 1247;
+inline bool ChromeDeviceSettingsProto::has_deviceauthenticationflowautoreloadinterval() const {
+  bool value = (_impl_._has_bits_[4] & 0x40000000u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.deviceauthenticationflowautoreloadinterval_ != nullptr);
+  return value;
+}
+inline const ::enterprise_management::IntegerPolicyProto& ChromeDeviceSettingsProto::_internal_deviceauthenticationflowautoreloadinterval() const {
+  const ::enterprise_management::IntegerPolicyProto* p = _impl_.deviceauthenticationflowautoreloadinterval_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::IntegerPolicyProto&>(
+      ::enterprise_management::_IntegerPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::IntegerPolicyProto& ChromeDeviceSettingsProto::deviceauthenticationflowautoreloadinterval() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.DeviceAuthenticationFlowAutoReloadInterval)
+  return _internal_deviceauthenticationflowautoreloadinterval();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_deviceauthenticationflowautoreloadinterval(
+    ::enterprise_management::IntegerPolicyProto* deviceauthenticationflowautoreloadinterval) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.deviceauthenticationflowautoreloadinterval_);
+  }
+  _impl_.deviceauthenticationflowautoreloadinterval_ = deviceauthenticationflowautoreloadinterval;
+  if (deviceauthenticationflowautoreloadinterval) {
+    _impl_._has_bits_[4] |= 0x40000000u;
+  } else {
+    _impl_._has_bits_[4] &= ~0x40000000u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.DeviceAuthenticationFlowAutoReloadInterval)
+}
+inline ::enterprise_management::IntegerPolicyProto* ChromeDeviceSettingsProto::release_deviceauthenticationflowautoreloadinterval() {
+  _impl_._has_bits_[4] &= ~0x40000000u;
+  ::enterprise_management::IntegerPolicyProto* temp = _impl_.deviceauthenticationflowautoreloadinterval_;
+  _impl_.deviceauthenticationflowautoreloadinterval_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* ChromeDeviceSettingsProto::unsafe_arena_release_deviceauthenticationflowautoreloadinterval() {
+  // @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.DeviceAuthenticationFlowAutoReloadInterval)
+  _impl_._has_bits_[4] &= ~0x40000000u;
+  ::enterprise_management::IntegerPolicyProto* temp = _impl_.deviceauthenticationflowautoreloadinterval_;
+  _impl_.deviceauthenticationflowautoreloadinterval_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* ChromeDeviceSettingsProto::_internal_mutable_deviceauthenticationflowautoreloadinterval() {
+  _impl_._has_bits_[4] |= 0x40000000u;
+  if (_impl_.deviceauthenticationflowautoreloadinterval_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::IntegerPolicyProto>(GetArenaForAllocation());
+    _impl_.deviceauthenticationflowautoreloadinterval_ = p;
+  }
+  return _impl_.deviceauthenticationflowautoreloadinterval_;
+}
+inline ::enterprise_management::IntegerPolicyProto* ChromeDeviceSettingsProto::mutable_deviceauthenticationflowautoreloadinterval() {
+  ::enterprise_management::IntegerPolicyProto* _msg = _internal_mutable_deviceauthenticationflowautoreloadinterval();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.DeviceAuthenticationFlowAutoReloadInterval)
+  return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_deviceauthenticationflowautoreloadinterval(::enterprise_management::IntegerPolicyProto* deviceauthenticationflowautoreloadinterval) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.deviceauthenticationflowautoreloadinterval_);
+  }
+  if (deviceauthenticationflowautoreloadinterval) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(deviceauthenticationflowautoreloadinterval));
+    if (message_arena != submessage_arena) {
+      deviceauthenticationflowautoreloadinterval = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, deviceauthenticationflowautoreloadinterval, submessage_arena);
+    }
+    _impl_._has_bits_[4] |= 0x40000000u;
+  } else {
+    _impl_._has_bits_[4] &= ~0x40000000u;
+  }
+  _impl_.deviceauthenticationflowautoreloadinterval_ = deviceauthenticationflowautoreloadinterval;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.DeviceAuthenticationFlowAutoReloadInterval)
 }
 
 #ifdef __GNUC__

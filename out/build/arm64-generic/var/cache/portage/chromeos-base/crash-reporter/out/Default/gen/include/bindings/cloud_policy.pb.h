@@ -306,8 +306,9 @@ class CloudPolicySubProto1 final :
     kOrcaEnabledFieldNumber = 196,
     kPrivacySandboxFingerprintingProtectionEnabledFieldNumber = 200,
     kMultiScreenCaptureAllowedForUrlsFieldNumber = 201,
-    kClassroomIntegrationEnabledFieldNumber = 202,
-    kTasksIntegrationEnabledFieldNumber = 203,
+    kShowAiIntroScreenEnabledFieldNumber = 208,
+    kShowTunaScreenEnabledFieldNumber = 209,
+    kGenAILocalFoundationalModelSettingsFieldNumber = 211,
   };
   // optional .enterprise_management.BooleanPolicyProto NewBaseUrlInheritanceBehaviorAllowed = 1;
   bool has_newbaseurlinheritancebehaviorallowed() const;
@@ -2087,34 +2088,48 @@ class CloudPolicySubProto1 final :
   void unsafe_arena_set_allocated_multiscreencaptureallowedforurls(
       ::enterprise_management::StringListPolicyProto* multiscreencaptureallowedforurls);
   ::enterprise_management::StringListPolicyProto* unsafe_arena_release_multiscreencaptureallowedforurls();
-  // optional .enterprise_management.BooleanPolicyProto ClassroomIntegrationEnabled = 202;
-  bool has_classroomintegrationenabled() const;
-  void clear_classroomintegrationenabled() ;
-  const ::enterprise_management::BooleanPolicyProto& classroomintegrationenabled() const;
-  PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_classroomintegrationenabled();
-  ::enterprise_management::BooleanPolicyProto* mutable_classroomintegrationenabled();
-  void set_allocated_classroomintegrationenabled(::enterprise_management::BooleanPolicyProto* classroomintegrationenabled);
+  // optional .enterprise_management.BooleanPolicyProto ShowAiIntroScreenEnabled = 208;
+  bool has_showaiintroscreenenabled() const;
+  void clear_showaiintroscreenenabled() ;
+  const ::enterprise_management::BooleanPolicyProto& showaiintroscreenenabled() const;
+  PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_showaiintroscreenenabled();
+  ::enterprise_management::BooleanPolicyProto* mutable_showaiintroscreenenabled();
+  void set_allocated_showaiintroscreenenabled(::enterprise_management::BooleanPolicyProto* showaiintroscreenenabled);
   private:
-  const ::enterprise_management::BooleanPolicyProto& _internal_classroomintegrationenabled() const;
-  ::enterprise_management::BooleanPolicyProto* _internal_mutable_classroomintegrationenabled();
+  const ::enterprise_management::BooleanPolicyProto& _internal_showaiintroscreenenabled() const;
+  ::enterprise_management::BooleanPolicyProto* _internal_mutable_showaiintroscreenenabled();
   public:
-  void unsafe_arena_set_allocated_classroomintegrationenabled(
-      ::enterprise_management::BooleanPolicyProto* classroomintegrationenabled);
-  ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_classroomintegrationenabled();
-  // optional .enterprise_management.BooleanPolicyProto TasksIntegrationEnabled = 203;
-  bool has_tasksintegrationenabled() const;
-  void clear_tasksintegrationenabled() ;
-  const ::enterprise_management::BooleanPolicyProto& tasksintegrationenabled() const;
-  PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_tasksintegrationenabled();
-  ::enterprise_management::BooleanPolicyProto* mutable_tasksintegrationenabled();
-  void set_allocated_tasksintegrationenabled(::enterprise_management::BooleanPolicyProto* tasksintegrationenabled);
+  void unsafe_arena_set_allocated_showaiintroscreenenabled(
+      ::enterprise_management::BooleanPolicyProto* showaiintroscreenenabled);
+  ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_showaiintroscreenenabled();
+  // optional .enterprise_management.BooleanPolicyProto ShowTunaScreenEnabled = 209;
+  bool has_showtunascreenenabled() const;
+  void clear_showtunascreenenabled() ;
+  const ::enterprise_management::BooleanPolicyProto& showtunascreenenabled() const;
+  PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_showtunascreenenabled();
+  ::enterprise_management::BooleanPolicyProto* mutable_showtunascreenenabled();
+  void set_allocated_showtunascreenenabled(::enterprise_management::BooleanPolicyProto* showtunascreenenabled);
   private:
-  const ::enterprise_management::BooleanPolicyProto& _internal_tasksintegrationenabled() const;
-  ::enterprise_management::BooleanPolicyProto* _internal_mutable_tasksintegrationenabled();
+  const ::enterprise_management::BooleanPolicyProto& _internal_showtunascreenenabled() const;
+  ::enterprise_management::BooleanPolicyProto* _internal_mutable_showtunascreenenabled();
   public:
-  void unsafe_arena_set_allocated_tasksintegrationenabled(
-      ::enterprise_management::BooleanPolicyProto* tasksintegrationenabled);
-  ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_tasksintegrationenabled();
+  void unsafe_arena_set_allocated_showtunascreenenabled(
+      ::enterprise_management::BooleanPolicyProto* showtunascreenenabled);
+  ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_showtunascreenenabled();
+  // optional .enterprise_management.IntegerPolicyProto GenAILocalFoundationalModelSettings = 211;
+  bool has_genailocalfoundationalmodelsettings() const;
+  void clear_genailocalfoundationalmodelsettings() ;
+  const ::enterprise_management::IntegerPolicyProto& genailocalfoundationalmodelsettings() const;
+  PROTOBUF_NODISCARD ::enterprise_management::IntegerPolicyProto* release_genailocalfoundationalmodelsettings();
+  ::enterprise_management::IntegerPolicyProto* mutable_genailocalfoundationalmodelsettings();
+  void set_allocated_genailocalfoundationalmodelsettings(::enterprise_management::IntegerPolicyProto* genailocalfoundationalmodelsettings);
+  private:
+  const ::enterprise_management::IntegerPolicyProto& _internal_genailocalfoundationalmodelsettings() const;
+  ::enterprise_management::IntegerPolicyProto* _internal_mutable_genailocalfoundationalmodelsettings();
+  public:
+  void unsafe_arena_set_allocated_genailocalfoundationalmodelsettings(
+      ::enterprise_management::IntegerPolicyProto* genailocalfoundationalmodelsettings);
+  ::enterprise_management::IntegerPolicyProto* unsafe_arena_release_genailocalfoundationalmodelsettings();
   // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
  private:
   class _Internal;
@@ -2252,8 +2267,9 @@ class CloudPolicySubProto1 final :
     ::enterprise_management::BooleanPolicyProto* orcaenabled_;
     ::enterprise_management::BooleanPolicyProto* privacysandboxfingerprintingprotectionenabled_;
     ::enterprise_management::StringListPolicyProto* multiscreencaptureallowedforurls_;
-    ::enterprise_management::BooleanPolicyProto* classroomintegrationenabled_;
-    ::enterprise_management::BooleanPolicyProto* tasksintegrationenabled_;
+    ::enterprise_management::BooleanPolicyProto* showaiintroscreenenabled_;
+    ::enterprise_management::BooleanPolicyProto* showtunascreenenabled_;
+    ::enterprise_management::IntegerPolicyProto* genailocalfoundationalmodelsettings_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_cloud_5fpolicy_2eproto;
@@ -13637,6 +13653,90 @@ inline void CloudPolicySubProto1::set_allocated_devtoolsgenaisettings(::enterpri
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.DevToolsGenAiSettings)
 }
 
+// optional .enterprise_management.IntegerPolicyProto GenAILocalFoundationalModelSettings = 211;
+inline bool CloudPolicySubProto1::has_genailocalfoundationalmodelsettings() const {
+  bool value = (_impl_._has_bits_[4] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.genailocalfoundationalmodelsettings_ != nullptr);
+  return value;
+}
+inline const ::enterprise_management::IntegerPolicyProto& CloudPolicySubProto1::_internal_genailocalfoundationalmodelsettings() const {
+  const ::enterprise_management::IntegerPolicyProto* p = _impl_.genailocalfoundationalmodelsettings_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::IntegerPolicyProto&>(
+      ::enterprise_management::_IntegerPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::IntegerPolicyProto& CloudPolicySubProto1::genailocalfoundationalmodelsettings() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.GenAILocalFoundationalModelSettings)
+  return _internal_genailocalfoundationalmodelsettings();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_genailocalfoundationalmodelsettings(
+    ::enterprise_management::IntegerPolicyProto* genailocalfoundationalmodelsettings) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.genailocalfoundationalmodelsettings_);
+  }
+  _impl_.genailocalfoundationalmodelsettings_ = genailocalfoundationalmodelsettings;
+  if (genailocalfoundationalmodelsettings) {
+    _impl_._has_bits_[4] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[4] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.GenAILocalFoundationalModelSettings)
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::release_genailocalfoundationalmodelsettings() {
+  _impl_._has_bits_[4] &= ~0x00000002u;
+  ::enterprise_management::IntegerPolicyProto* temp = _impl_.genailocalfoundationalmodelsettings_;
+  _impl_.genailocalfoundationalmodelsettings_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::unsafe_arena_release_genailocalfoundationalmodelsettings() {
+  // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.GenAILocalFoundationalModelSettings)
+  _impl_._has_bits_[4] &= ~0x00000002u;
+  ::enterprise_management::IntegerPolicyProto* temp = _impl_.genailocalfoundationalmodelsettings_;
+  _impl_.genailocalfoundationalmodelsettings_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::_internal_mutable_genailocalfoundationalmodelsettings() {
+  _impl_._has_bits_[4] |= 0x00000002u;
+  if (_impl_.genailocalfoundationalmodelsettings_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::IntegerPolicyProto>(GetArenaForAllocation());
+    _impl_.genailocalfoundationalmodelsettings_ = p;
+  }
+  return _impl_.genailocalfoundationalmodelsettings_;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::mutable_genailocalfoundationalmodelsettings() {
+  ::enterprise_management::IntegerPolicyProto* _msg = _internal_mutable_genailocalfoundationalmodelsettings();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.GenAILocalFoundationalModelSettings)
+  return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_genailocalfoundationalmodelsettings(::enterprise_management::IntegerPolicyProto* genailocalfoundationalmodelsettings) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.genailocalfoundationalmodelsettings_);
+  }
+  if (genailocalfoundationalmodelsettings) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(genailocalfoundationalmodelsettings));
+    if (message_arena != submessage_arena) {
+      genailocalfoundationalmodelsettings = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, genailocalfoundationalmodelsettings, submessage_arena);
+    }
+    _impl_._has_bits_[4] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[4] &= ~0x00000002u;
+  }
+  _impl_.genailocalfoundationalmodelsettings_ = genailocalfoundationalmodelsettings;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.GenAILocalFoundationalModelSettings)
+}
+
 // optional .enterprise_management.IntegerPolicyProto HelpMeWriteSettings = 147;
 inline bool CloudPolicySubProto1::has_helpmewritesettings() const {
   bool value = (_impl_._has_bits_[2] & 0x10000000u) != 0;
@@ -14559,90 +14659,6 @@ inline void CloudPolicySubProto1::set_allocated_beforeunloadeventcancelbyprevent
   }
   _impl_.beforeunloadeventcancelbypreventdefaultenabled_ = beforeunloadeventcancelbypreventdefaultenabled;
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.BeforeunloadEventCancelByPreventDefaultEnabled)
-}
-
-// optional .enterprise_management.BooleanPolicyProto ClassroomIntegrationEnabled = 202;
-inline bool CloudPolicySubProto1::has_classroomintegrationenabled() const {
-  bool value = (_impl_._has_bits_[3] & 0x80000000u) != 0;
-  PROTOBUF_ASSUME(!value || _impl_.classroomintegrationenabled_ != nullptr);
-  return value;
-}
-inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_classroomintegrationenabled() const {
-  const ::enterprise_management::BooleanPolicyProto* p = _impl_.classroomintegrationenabled_;
-  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
-      ::enterprise_management::_BooleanPolicyProto_default_instance_);
-}
-inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::classroomintegrationenabled() const {
-  // @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.ClassroomIntegrationEnabled)
-  return _internal_classroomintegrationenabled();
-}
-inline void CloudPolicySubProto1::unsafe_arena_set_allocated_classroomintegrationenabled(
-    ::enterprise_management::BooleanPolicyProto* classroomintegrationenabled) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.classroomintegrationenabled_);
-  }
-  _impl_.classroomintegrationenabled_ = classroomintegrationenabled;
-  if (classroomintegrationenabled) {
-    _impl_._has_bits_[3] |= 0x80000000u;
-  } else {
-    _impl_._has_bits_[3] &= ~0x80000000u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.ClassroomIntegrationEnabled)
-}
-inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_classroomintegrationenabled() {
-  _impl_._has_bits_[3] &= ~0x80000000u;
-  ::enterprise_management::BooleanPolicyProto* temp = _impl_.classroomintegrationenabled_;
-  _impl_.classroomintegrationenabled_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_classroomintegrationenabled() {
-  // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.ClassroomIntegrationEnabled)
-  _impl_._has_bits_[3] &= ~0x80000000u;
-  ::enterprise_management::BooleanPolicyProto* temp = _impl_.classroomintegrationenabled_;
-  _impl_.classroomintegrationenabled_ = nullptr;
-  return temp;
-}
-inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_classroomintegrationenabled() {
-  _impl_._has_bits_[3] |= 0x80000000u;
-  if (_impl_.classroomintegrationenabled_ == nullptr) {
-    auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
-    _impl_.classroomintegrationenabled_ = p;
-  }
-  return _impl_.classroomintegrationenabled_;
-}
-inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_classroomintegrationenabled() {
-  ::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_classroomintegrationenabled();
-  // @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.ClassroomIntegrationEnabled)
-  return _msg;
-}
-inline void CloudPolicySubProto1::set_allocated_classroomintegrationenabled(::enterprise_management::BooleanPolicyProto* classroomintegrationenabled) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.classroomintegrationenabled_);
-  }
-  if (classroomintegrationenabled) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(classroomintegrationenabled));
-    if (message_arena != submessage_arena) {
-      classroomintegrationenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, classroomintegrationenabled, submessage_arena);
-    }
-    _impl_._has_bits_[3] |= 0x80000000u;
-  } else {
-    _impl_._has_bits_[3] &= ~0x80000000u;
-  }
-  _impl_.classroomintegrationenabled_ = classroomintegrationenabled;
-  // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.ClassroomIntegrationEnabled)
 }
 
 // optional .enterprise_management.StringPolicyProto DataControlsRules = 121;
@@ -17837,6 +17853,90 @@ inline void CloudPolicySubProto1::set_allocated_shortcutcustomizationallowed(::e
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.ShortcutCustomizationAllowed)
 }
 
+// optional .enterprise_management.BooleanPolicyProto ShowAiIntroScreenEnabled = 208;
+inline bool CloudPolicySubProto1::has_showaiintroscreenenabled() const {
+  bool value = (_impl_._has_bits_[3] & 0x80000000u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.showaiintroscreenenabled_ != nullptr);
+  return value;
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_showaiintroscreenenabled() const {
+  const ::enterprise_management::BooleanPolicyProto* p = _impl_.showaiintroscreenenabled_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+      ::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::showaiintroscreenenabled() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.ShowAiIntroScreenEnabled)
+  return _internal_showaiintroscreenenabled();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_showaiintroscreenenabled(
+    ::enterprise_management::BooleanPolicyProto* showaiintroscreenenabled) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.showaiintroscreenenabled_);
+  }
+  _impl_.showaiintroscreenenabled_ = showaiintroscreenenabled;
+  if (showaiintroscreenenabled) {
+    _impl_._has_bits_[3] |= 0x80000000u;
+  } else {
+    _impl_._has_bits_[3] &= ~0x80000000u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.ShowAiIntroScreenEnabled)
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_showaiintroscreenenabled() {
+  _impl_._has_bits_[3] &= ~0x80000000u;
+  ::enterprise_management::BooleanPolicyProto* temp = _impl_.showaiintroscreenenabled_;
+  _impl_.showaiintroscreenenabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_showaiintroscreenenabled() {
+  // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.ShowAiIntroScreenEnabled)
+  _impl_._has_bits_[3] &= ~0x80000000u;
+  ::enterprise_management::BooleanPolicyProto* temp = _impl_.showaiintroscreenenabled_;
+  _impl_.showaiintroscreenenabled_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_showaiintroscreenenabled() {
+  _impl_._has_bits_[3] |= 0x80000000u;
+  if (_impl_.showaiintroscreenenabled_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+    _impl_.showaiintroscreenenabled_ = p;
+  }
+  return _impl_.showaiintroscreenenabled_;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_showaiintroscreenenabled() {
+  ::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_showaiintroscreenenabled();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.ShowAiIntroScreenEnabled)
+  return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_showaiintroscreenenabled(::enterprise_management::BooleanPolicyProto* showaiintroscreenenabled) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.showaiintroscreenenabled_);
+  }
+  if (showaiintroscreenenabled) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(showaiintroscreenenabled));
+    if (message_arena != submessage_arena) {
+      showaiintroscreenenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, showaiintroscreenenabled, submessage_arena);
+    }
+    _impl_._has_bits_[3] |= 0x80000000u;
+  } else {
+    _impl_._has_bits_[3] &= ~0x80000000u;
+  }
+  _impl_.showaiintroscreenenabled_ = showaiintroscreenenabled;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.ShowAiIntroScreenEnabled)
+}
+
 // optional .enterprise_management.BooleanPolicyProto ShowDisplaySizeScreenEnabled = 59;
 inline bool CloudPolicySubProto1::has_showdisplaysizescreenenabled() const {
   bool value = (_impl_._has_bits_[1] & 0x00000004u) != 0;
@@ -18089,6 +18189,90 @@ inline void CloudPolicySubProto1::set_allocated_showtouchpadscrollscreenenabled(
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.ShowTouchpadScrollScreenEnabled)
 }
 
+// optional .enterprise_management.BooleanPolicyProto ShowTunaScreenEnabled = 209;
+inline bool CloudPolicySubProto1::has_showtunascreenenabled() const {
+  bool value = (_impl_._has_bits_[4] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.showtunascreenenabled_ != nullptr);
+  return value;
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_showtunascreenenabled() const {
+  const ::enterprise_management::BooleanPolicyProto* p = _impl_.showtunascreenenabled_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+      ::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::showtunascreenenabled() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.ShowTunaScreenEnabled)
+  return _internal_showtunascreenenabled();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_showtunascreenenabled(
+    ::enterprise_management::BooleanPolicyProto* showtunascreenenabled) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.showtunascreenenabled_);
+  }
+  _impl_.showtunascreenenabled_ = showtunascreenenabled;
+  if (showtunascreenenabled) {
+    _impl_._has_bits_[4] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[4] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.ShowTunaScreenEnabled)
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_showtunascreenenabled() {
+  _impl_._has_bits_[4] &= ~0x00000001u;
+  ::enterprise_management::BooleanPolicyProto* temp = _impl_.showtunascreenenabled_;
+  _impl_.showtunascreenenabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_showtunascreenenabled() {
+  // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.ShowTunaScreenEnabled)
+  _impl_._has_bits_[4] &= ~0x00000001u;
+  ::enterprise_management::BooleanPolicyProto* temp = _impl_.showtunascreenenabled_;
+  _impl_.showtunascreenenabled_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_showtunascreenenabled() {
+  _impl_._has_bits_[4] |= 0x00000001u;
+  if (_impl_.showtunascreenenabled_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+    _impl_.showtunascreenenabled_ = p;
+  }
+  return _impl_.showtunascreenenabled_;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_showtunascreenenabled() {
+  ::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_showtunascreenenabled();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.ShowTunaScreenEnabled)
+  return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_showtunascreenenabled(::enterprise_management::BooleanPolicyProto* showtunascreenenabled) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.showtunascreenenabled_);
+  }
+  if (showtunascreenenabled) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(showtunascreenenabled));
+    if (message_arena != submessage_arena) {
+      showtunascreenenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, showtunascreenenabled, submessage_arena);
+    }
+    _impl_._has_bits_[4] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[4] &= ~0x00000001u;
+  }
+  _impl_.showtunascreenenabled_ = showtunascreenenabled;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.ShowTunaScreenEnabled)
+}
+
 // optional .enterprise_management.StringPolicyProto SiteSearchSettings = 136;
 inline bool CloudPolicySubProto1::has_sitesearchsettings() const {
   bool value = (_impl_._has_bits_[2] & 0x00400000u) != 0;
@@ -18255,90 +18439,6 @@ inline void CloudPolicySubProto1::set_allocated_subappsapisallowedwithoutgesture
   }
   _impl_.subappsapisallowedwithoutgestureandauthorizationfororigins_ = subappsapisallowedwithoutgestureandauthorizationfororigins;
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.SubAppsAPIsAllowedWithoutGestureAndAuthorizationForOrigins)
-}
-
-// optional .enterprise_management.BooleanPolicyProto TasksIntegrationEnabled = 203;
-inline bool CloudPolicySubProto1::has_tasksintegrationenabled() const {
-  bool value = (_impl_._has_bits_[4] & 0x00000001u) != 0;
-  PROTOBUF_ASSUME(!value || _impl_.tasksintegrationenabled_ != nullptr);
-  return value;
-}
-inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_tasksintegrationenabled() const {
-  const ::enterprise_management::BooleanPolicyProto* p = _impl_.tasksintegrationenabled_;
-  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
-      ::enterprise_management::_BooleanPolicyProto_default_instance_);
-}
-inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::tasksintegrationenabled() const {
-  // @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.TasksIntegrationEnabled)
-  return _internal_tasksintegrationenabled();
-}
-inline void CloudPolicySubProto1::unsafe_arena_set_allocated_tasksintegrationenabled(
-    ::enterprise_management::BooleanPolicyProto* tasksintegrationenabled) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.tasksintegrationenabled_);
-  }
-  _impl_.tasksintegrationenabled_ = tasksintegrationenabled;
-  if (tasksintegrationenabled) {
-    _impl_._has_bits_[4] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[4] &= ~0x00000001u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.TasksIntegrationEnabled)
-}
-inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_tasksintegrationenabled() {
-  _impl_._has_bits_[4] &= ~0x00000001u;
-  ::enterprise_management::BooleanPolicyProto* temp = _impl_.tasksintegrationenabled_;
-  _impl_.tasksintegrationenabled_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_tasksintegrationenabled() {
-  // @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.TasksIntegrationEnabled)
-  _impl_._has_bits_[4] &= ~0x00000001u;
-  ::enterprise_management::BooleanPolicyProto* temp = _impl_.tasksintegrationenabled_;
-  _impl_.tasksintegrationenabled_ = nullptr;
-  return temp;
-}
-inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_tasksintegrationenabled() {
-  _impl_._has_bits_[4] |= 0x00000001u;
-  if (_impl_.tasksintegrationenabled_ == nullptr) {
-    auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
-    _impl_.tasksintegrationenabled_ = p;
-  }
-  return _impl_.tasksintegrationenabled_;
-}
-inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_tasksintegrationenabled() {
-  ::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_tasksintegrationenabled();
-  // @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.TasksIntegrationEnabled)
-  return _msg;
-}
-inline void CloudPolicySubProto1::set_allocated_tasksintegrationenabled(::enterprise_management::BooleanPolicyProto* tasksintegrationenabled) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.tasksintegrationenabled_);
-  }
-  if (tasksintegrationenabled) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(tasksintegrationenabled));
-    if (message_arena != submessage_arena) {
-      tasksintegrationenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, tasksintegrationenabled, submessage_arena);
-    }
-    _impl_._has_bits_[4] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[4] &= ~0x00000001u;
-  }
-  _impl_.tasksintegrationenabled_ = tasksintegrationenabled;
-  // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.TasksIntegrationEnabled)
 }
 
 // optional .enterprise_management.BooleanPolicyProto UrlKeyedMetricsAllowed = 73;
