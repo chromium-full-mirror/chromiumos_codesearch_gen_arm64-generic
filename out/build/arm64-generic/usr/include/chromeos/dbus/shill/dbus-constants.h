@@ -520,6 +520,7 @@ constexpr char kStateFailure[] = "failure";
 
 // Shill CheckPortal property values.
 constexpr char kCheckPortalTrue[] = "true";
+constexpr char kCheckPortalAuto[] = "auto";
 constexpr char kCheckPortalFalse[] = "false";
 constexpr char kCheckPortalHTTPOnly[] = "http-only";
 
@@ -1034,10 +1035,13 @@ constexpr char kTetheringIdleReasonDownstreamNetworkDisconnect[] =
 constexpr char kTetheringIdleReasonError[] = "error";
 constexpr char kTetheringIdleReasonInactive[] = "inactive";
 constexpr char kTetheringIdleReasonInitialState[] = "initial_state";
+constexpr char kTetheringIdleReasonStartTimeout[] = "start_timeout";
 constexpr char kTetheringIdleReasonSuspend[] = "suspend";
 constexpr char kTetheringIdleReasonUpstreamDisconnect[] = "upstream_disconnect";
 constexpr char kTetheringIdleReasonUpstreamNoInternet[] =
     "upstream_no_internet";
+constexpr char kTetheringIdleReasonUpstreamNotAvailable[] =
+    "upstream_not_available";
 constexpr char kTetheringIdleReasonUserExit[] = "user_exit";
 
 // kTetheringStatusStateProperty values
