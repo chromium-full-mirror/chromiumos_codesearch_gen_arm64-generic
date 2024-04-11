@@ -939,7 +939,7 @@ class Executor
 
   using RunNetworkBandwidthTestCallback = base::OnceCallback<void(std::optional<double>)>;
   
-  virtual void RunNetworkBandwidthTest(NetworkBandwidthTestType type, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control, RunNetworkBandwidthTestCallback callback) = 0;
+  virtual void RunNetworkBandwidthTest(NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control, RunNetworkBandwidthTestCallback callback) = 0;
 };
 
 
@@ -1190,7 +1190,7 @@ class  ExecutorProxy
   
   void RunUrandom(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, RunUrandomCallback callback) final;
   
-  void RunNetworkBandwidthTest(NetworkBandwidthTestType type, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control, RunNetworkBandwidthTestCallback callback) final;
+  void RunNetworkBandwidthTest(NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control, RunNetworkBandwidthTestCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

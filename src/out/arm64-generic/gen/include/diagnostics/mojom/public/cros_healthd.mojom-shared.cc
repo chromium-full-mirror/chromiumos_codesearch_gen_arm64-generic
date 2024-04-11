@@ -69,7 +69,7 @@ bool CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParams_Data::Val
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& available_routines_validate_params =
-      mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::DiagnosticRoutineEnum_Data::Validate>();
+      mojo::internal::GetArrayOfEnumsValidator<0, false, ::ash::cros_healthd::mojom::internal::DiagnosticRoutineEnum_Data::Validate>();
   if (!mojo::internal::ValidateContainer(object->available_routines, validation_context,
                                          &available_routines_validate_params)) {
     return false;
@@ -3117,7 +3117,7 @@ bool CrosHealthdProbeService_ProbeTelemetryInfo_Params_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& categories_validate_params =
-      mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::ProbeCategoryEnum_Data::Validate>();
+      mojo::internal::GetArrayOfEnumsValidator<0, false, ::ash::cros_healthd::mojom::internal::ProbeCategoryEnum_Data::Validate>();
   if (!mojo::internal::ValidateContainer(object->categories, validation_context,
                                          &categories_validate_params)) {
     return false;

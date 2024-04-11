@@ -1597,8 +1597,9 @@ class  Executor_RunNetworkBandwidthTest_Params_Data {
 
   mojo::internal::StructHeader header_;
   int32_t type;
-  mojo::internal::Interface_Data observer;
   mojo::internal::Handle_Data process_control;
+  mojo::internal::Pointer<mojo::internal::String_Data> oem_name;
+  mojo::internal::Interface_Data observer;
 
  private:
   friend class mojo::internal::MessageFragment<Executor_RunNetworkBandwidthTest_Params_Data>;
@@ -1606,7 +1607,7 @@ class  Executor_RunNetworkBandwidthTest_Params_Data {
   Executor_RunNetworkBandwidthTest_Params_Data();
   ~Executor_RunNetworkBandwidthTest_Params_Data() = delete;
 };
-static_assert(sizeof(Executor_RunNetworkBandwidthTest_Params_Data) == 24,
+static_assert(sizeof(Executor_RunNetworkBandwidthTest_Params_Data) == 32,
               "Bad sizeof(Executor_RunNetworkBandwidthTest_Params_Data)");
 class  Executor_RunNetworkBandwidthTest_ResponseParams_Data {
  public:
@@ -4142,6 +4143,16 @@ class Executor_RunNetworkBandwidthTest_ParamsDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::cros_healthd::mojom::NetworkBandwidthTestType>(data_->type));
   }
+  inline void GetOemNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOemName(UserType* output) {
+    
+    auto* pointer = data_->oem_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
   template <typename UserType>
   UserType TakeObserver() {
     UserType result;
@@ -4601,6 +4612,11 @@ inline void Executor_RunUrandom_ParamsDataView::GetExecDurationDataView(
 
 
 
+inline void Executor_RunNetworkBandwidthTest_ParamsDataView::GetOemNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->oem_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
 
 
 

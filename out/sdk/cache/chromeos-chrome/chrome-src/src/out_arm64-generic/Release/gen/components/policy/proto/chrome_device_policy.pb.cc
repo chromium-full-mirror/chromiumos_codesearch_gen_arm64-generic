@@ -2313,7 +2313,8 @@ PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
   , /*decltype(_impl_.deviceloginscreentouchvirtualkeyboardenabled_)*/nullptr
   , /*decltype(_impl_.deviceextendedautoupdateenabled_)*/nullptr
   , /*decltype(_impl_.deviceweeklyscheduledsuspend_)*/nullptr
-  , /*decltype(_impl_.deviceauthenticationflowautoreloadinterval_)*/nullptr} {}
+  , /*decltype(_impl_.deviceauthenticationflowautoreloadinterval_)*/nullptr
+  , /*decltype(_impl_.deviceextensionssystemlogenabled_)*/nullptr} {}
 struct ChromeDeviceSettingsProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChromeDeviceSettingsProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -38532,6 +38533,10 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_deviceauthenticationflowautoreloadinterval(HasBits* has_bits) {
     (*has_bits)[4] |= 1073741824u;
   }
+  static const ::enterprise_management::BooleanPolicyProto& deviceextensionssystemlogenabled(const ChromeDeviceSettingsProto* msg);
+  static void set_has_deviceextensionssystemlogenabled(HasBits* has_bits) {
+    (*has_bits)[4] |= 2147483648u;
+  }
 };
 
 const ::enterprise_management::DevicePolicyRefreshRateProto&
@@ -39170,6 +39175,10 @@ const ::enterprise_management::IntegerPolicyProto&
 ChromeDeviceSettingsProto::_Internal::deviceauthenticationflowautoreloadinterval(const ChromeDeviceSettingsProto* msg) {
   return *msg->_impl_.deviceauthenticationflowautoreloadinterval_;
 }
+const ::enterprise_management::BooleanPolicyProto&
+ChromeDeviceSettingsProto::_Internal::deviceextensionssystemlogenabled(const ChromeDeviceSettingsProto* msg) {
+  return *msg->_impl_.deviceextensionssystemlogenabled_;
+}
 void ChromeDeviceSettingsProto::clear_device_login_screen_system_info_enforced() {
   if (_impl_.device_login_screen_system_info_enforced_ != nullptr) _impl_.device_login_screen_system_info_enforced_->Clear();
   _impl_._has_bits_[2] &= ~0x02000000u;
@@ -39265,6 +39274,10 @@ void ChromeDeviceSettingsProto::clear_deviceweeklyscheduledsuspend() {
 void ChromeDeviceSettingsProto::clear_deviceauthenticationflowautoreloadinterval() {
   if (_impl_.deviceauthenticationflowautoreloadinterval_ != nullptr) _impl_.deviceauthenticationflowautoreloadinterval_->Clear();
   _impl_._has_bits_[4] &= ~0x40000000u;
+}
+void ChromeDeviceSettingsProto::clear_deviceextensionssystemlogenabled() {
+  if (_impl_.deviceextensionssystemlogenabled_ != nullptr) _impl_.deviceextensionssystemlogenabled_->Clear();
+  _impl_._has_bits_[4] &= ~0x80000000u;
 }
 ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -39436,7 +39449,8 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
     , decltype(_impl_.deviceloginscreentouchvirtualkeyboardenabled_){nullptr}
     , decltype(_impl_.deviceextendedautoupdateenabled_){nullptr}
     , decltype(_impl_.deviceweeklyscheduledsuspend_){nullptr}
-    , decltype(_impl_.deviceauthenticationflowautoreloadinterval_){nullptr}};
+    , decltype(_impl_.deviceauthenticationflowautoreloadinterval_){nullptr}
+    , decltype(_impl_.deviceextensionssystemlogenabled_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_device_policy_refresh_rate()) {
@@ -39916,6 +39930,9 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
   if (from._internal_has_deviceauthenticationflowautoreloadinterval()) {
     _this->_impl_.deviceauthenticationflowautoreloadinterval_ = new ::enterprise_management::IntegerPolicyProto(*from._impl_.deviceauthenticationflowautoreloadinterval_);
   }
+  if (from._internal_has_deviceextensionssystemlogenabled()) {
+    _this->_impl_.deviceextensionssystemlogenabled_ = new ::enterprise_management::BooleanPolicyProto(*from._impl_.deviceextensionssystemlogenabled_);
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ChromeDeviceSettingsProto)
 }
 
@@ -40085,6 +40102,7 @@ inline void ChromeDeviceSettingsProto::SharedCtor(
     , decltype(_impl_.deviceextendedautoupdateenabled_){nullptr}
     , decltype(_impl_.deviceweeklyscheduledsuspend_){nullptr}
     , decltype(_impl_.deviceauthenticationflowautoreloadinterval_){nullptr}
+    , decltype(_impl_.deviceextensionssystemlogenabled_){nullptr}
   };
 }
 
@@ -40258,6 +40276,7 @@ inline void ChromeDeviceSettingsProto::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.deviceextendedautoupdateenabled_;
   if (this != internal_default_instance()) delete _impl_.deviceweeklyscheduledsuspend_;
   if (this != internal_default_instance()) delete _impl_.deviceauthenticationflowautoreloadinterval_;
+  if (this != internal_default_instance()) delete _impl_.deviceextensionssystemlogenabled_;
 }
 
 void ChromeDeviceSettingsProto::SetCachedSize(int size) const {
@@ -40921,7 +40940,7 @@ void ChromeDeviceSettingsProto::Clear() {
       _impl_.device_ephemeral_network_policies_enabled_->Clear();
     }
   }
-  if (cached_has_bits & 0x7f000000u) {
+  if (cached_has_bits & 0xff000000u) {
     if (cached_has_bits & 0x01000000u) {
       GOOGLE_DCHECK(_impl_.extended_fkeys_modifier_ != nullptr);
       _impl_.extended_fkeys_modifier_->Clear();
@@ -40949,6 +40968,10 @@ void ChromeDeviceSettingsProto::Clear() {
     if (cached_has_bits & 0x40000000u) {
       GOOGLE_DCHECK(_impl_.deviceauthenticationflowautoreloadinterval_ != nullptr);
       _impl_.deviceauthenticationflowautoreloadinterval_->Clear();
+    }
+    if (cached_has_bits & 0x80000000u) {
+      GOOGLE_DCHECK(_impl_.deviceextensionssystemlogenabled_ != nullptr);
+      _impl_.deviceextensionssystemlogenabled_->Clear();
     }
   }
   _impl_._has_bits_.Clear();
@@ -42233,6 +42256,14 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.BooleanPolicyProto DeviceExtensionsSystemLogEnabled = 1252;
+      case 1252:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_deviceextensionssystemlogenabled(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -43380,6 +43411,13 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
         _Internal::deviceauthenticationflowautoreloadinterval(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.BooleanPolicyProto DeviceExtensionsSystemLogEnabled = 1252;
+  if (cached_has_bits & 0x80000000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1252, _Internal::deviceextensionssystemlogenabled(this),
+        _Internal::deviceextensionssystemlogenabled(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -44503,7 +44541,7 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x7f000000u) {
+  if (cached_has_bits & 0xff000000u) {
     // optional .enterprise_management.OBSOLETE_ExtendedFkeysModifierProto extended_fkeys_modifier = 156 [deprecated = true];
     if (cached_has_bits & 0x01000000u) {
       total_size += 2 +
@@ -44551,6 +44589,13 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.deviceauthenticationflowautoreloadinterval_);
+    }
+
+    // optional .enterprise_management.BooleanPolicyProto DeviceExtensionsSystemLogEnabled = 1252;
+    if (cached_has_bits & 0x80000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.deviceextensionssystemlogenabled_);
     }
 
   }
@@ -45226,7 +45271,7 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
           from._internal_device_ephemeral_network_policies_enabled());
     }
   }
-  if (cached_has_bits & 0x7f000000u) {
+  if (cached_has_bits & 0xff000000u) {
     if (cached_has_bits & 0x01000000u) {
       _this->_internal_mutable_extended_fkeys_modifier()->::enterprise_management::OBSOLETE_ExtendedFkeysModifierProto::MergeFrom(
           from._internal_extended_fkeys_modifier());
@@ -45255,6 +45300,10 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
       _this->_internal_mutable_deviceauthenticationflowautoreloadinterval()->::enterprise_management::IntegerPolicyProto::MergeFrom(
           from._internal_deviceauthenticationflowautoreloadinterval());
     }
+    if (cached_has_bits & 0x80000000u) {
+      _this->_internal_mutable_deviceextensionssystemlogenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(
+          from._internal_deviceextensionssystemlogenabled());
+    }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -45279,8 +45328,8 @@ void ChromeDeviceSettingsProto::InternalSwap(ChromeDeviceSettingsProto* other) {
   swap(_impl_._has_bits_[3], other->_impl_._has_bits_[3]);
   swap(_impl_._has_bits_[4], other->_impl_._has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, _impl_.deviceauthenticationflowautoreloadinterval_)
-      + sizeof(ChromeDeviceSettingsProto::_impl_.deviceauthenticationflowautoreloadinterval_)
+      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, _impl_.deviceextensionssystemlogenabled_)
+      + sizeof(ChromeDeviceSettingsProto::_impl_.deviceextensionssystemlogenabled_)
       - PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, _impl_.device_policy_refresh_rate_)>(
           reinterpret_cast<char*>(&_impl_.device_policy_refresh_rate_),
           reinterpret_cast<char*>(&other->_impl_.device_policy_refresh_rate_));

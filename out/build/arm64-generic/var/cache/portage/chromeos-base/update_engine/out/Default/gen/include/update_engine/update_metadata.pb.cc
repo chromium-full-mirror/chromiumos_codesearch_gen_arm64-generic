@@ -333,13 +333,14 @@ bool InstallOperation_Type_IsValid(int value) {
     case 8:
     case 9:
     case 10:
+    case 11:
       return true;
     default:
       return false;
   }
 }
 static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
-    InstallOperation_Type_strings[11] = {};
+    InstallOperation_Type_strings[12] = {};
 
 static const char InstallOperation_Type_names[] = {
     "BROTLI_BSDIFF"
@@ -350,6 +351,7 @@ static const char InstallOperation_Type_names[] = {
     "REPLACE"
     "REPLACE_BZ"
     "REPLACE_XZ"
+    "REPLACE_ZSTD"
     "SOURCE_BSDIFF"
     "SOURCE_COPY"
     "ZERO"
@@ -365,9 +367,10 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry InstallOperation_Type_
         {{&InstallOperation_Type_names[38], 7}, 0},
         {{&InstallOperation_Type_names[45], 10}, 1},
         {{&InstallOperation_Type_names[55], 10}, 8},
-        {{&InstallOperation_Type_names[65], 13}, 5},
-        {{&InstallOperation_Type_names[78], 11}, 4},
-        {{&InstallOperation_Type_names[89], 4}, 6},
+        {{&InstallOperation_Type_names[65], 12}, 11},
+        {{&InstallOperation_Type_names[77], 13}, 5},
+        {{&InstallOperation_Type_names[90], 11}, 4},
+        {{&InstallOperation_Type_names[101], 4}, 6},
 };
 
 static const int InstallOperation_Type_entries_by_number[] = {
@@ -375,24 +378,25 @@ static const int InstallOperation_Type_entries_by_number[] = {
     6,  // 1 -> REPLACE_BZ
     3,  // 2 -> MOVE
     1,  // 3 -> BSDIFF
-    9,  // 4 -> SOURCE_COPY
-    8,  // 5 -> SOURCE_BSDIFF
-    10,  // 6 -> ZERO
+    10,  // 4 -> SOURCE_COPY
+    9,  // 5 -> SOURCE_BSDIFF
+    11,  // 6 -> ZERO
     2,  // 7 -> DISCARD
     7,  // 8 -> REPLACE_XZ
     4,  // 9 -> PUFFDIFF
     0,  // 10 -> BROTLI_BSDIFF
+    8,  // 11 -> REPLACE_ZSTD
 };
 
 const std::string& InstallOperation_Type_Name(InstallOperation_Type value) {
   static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           InstallOperation_Type_entries, InstallOperation_Type_entries_by_number,
-          11, InstallOperation_Type_strings);
+          12, InstallOperation_Type_strings);
   (void)kDummy;
 
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      InstallOperation_Type_entries, InstallOperation_Type_entries_by_number, 11,
+      InstallOperation_Type_entries, InstallOperation_Type_entries_by_number, 12,
       value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
                    : InstallOperation_Type_strings[idx].get();
@@ -401,7 +405,7 @@ const std::string& InstallOperation_Type_Name(InstallOperation_Type value) {
 bool InstallOperation_Type_Parse(absl::string_view name, InstallOperation_Type* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      InstallOperation_Type_entries, 11, name, &int_value);
+      InstallOperation_Type_entries, 12, name, &int_value);
   if (success) {
     *value = static_cast<InstallOperation_Type>(int_value);
   }
@@ -421,6 +425,7 @@ constexpr InstallOperation_Type InstallOperation::ZERO;
 constexpr InstallOperation_Type InstallOperation::DISCARD;
 constexpr InstallOperation_Type InstallOperation::BROTLI_BSDIFF;
 constexpr InstallOperation_Type InstallOperation::PUFFDIFF;
+constexpr InstallOperation_Type InstallOperation::REPLACE_ZSTD;
 constexpr InstallOperation_Type InstallOperation::Type_MIN;
 constexpr InstallOperation_Type InstallOperation::Type_MAX;
 constexpr int InstallOperation::Type_ARRAYSIZE;

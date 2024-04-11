@@ -380,7 +380,7 @@ bool SensorService_GetAllDeviceIds_ResponseParams_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& iio_device_ids_types_validate_params =
-      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayOfEnumsValidator<0, ::cros::mojom::internal::DeviceType_Data::Validate>()>()>();
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayOfEnumsValidator<0, false, ::cros::mojom::internal::DeviceType_Data::Validate>()>()>();
   if (!mojo::internal::ValidateContainer(object->iio_device_ids_types, validation_context,
                                          &iio_device_ids_types_validate_params)) {
     return false;
@@ -1183,7 +1183,7 @@ bool SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& types_validate_params =
-      mojo::internal::GetArrayOfEnumsValidator<0, ::cros::mojom::internal::DeviceType_Data::Validate>();
+      mojo::internal::GetArrayOfEnumsValidator<0, false, ::cros::mojom::internal::DeviceType_Data::Validate>();
   if (!mojo::internal::ValidateContainer(object->types, validation_context,
                                          &types_validate_params)) {
     return false;

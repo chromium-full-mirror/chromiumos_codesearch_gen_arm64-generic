@@ -4039,7 +4039,7 @@ void CrosHealthdDiagnosticsService_GetAvailableRoutines_ProxyToResponder::Run(
       typename decltype(params->available_routines)::BaseType>
       available_routines_fragment(params.message());
   constexpr const mojo::internal::ContainerValidateParams& available_routines_validate_params =
-      mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::DiagnosticRoutineEnum_Data::Validate>();
+      mojo::internal::GetArrayOfEnumsValidator<0, false, ::ash::cros_healthd::mojom::internal::DiagnosticRoutineEnum_Data::Validate>();
   mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>>(
       in_available_routines, available_routines_fragment, &available_routines_validate_params);
   params->available_routines.Set(
@@ -13475,7 +13475,7 @@ void CrosHealthdProbeServiceProxy::ProbeTelemetryInfo(
       typename decltype(params->categories)::BaseType>
       categories_fragment(params.message());
   constexpr const mojo::internal::ContainerValidateParams& categories_validate_params =
-      mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::ProbeCategoryEnum_Data::Validate>();
+      mojo::internal::GetArrayOfEnumsValidator<0, false, ::ash::cros_healthd::mojom::internal::ProbeCategoryEnum_Data::Validate>();
   mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ProbeCategoryEnum>>(
       in_categories, categories_fragment, &categories_validate_params);
   params->categories.Set(

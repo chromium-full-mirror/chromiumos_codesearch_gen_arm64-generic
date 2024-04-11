@@ -71957,9 +71957,12 @@ class Ext4WritepageFtraceEvent;
 class Ext4WritepagesFtraceEvent;
 class Ext4WritepagesResultFtraceEvent;
 class Ext4ZeroRangeFtraceEvent;
+class F2fsBackgroundGcFtraceEvent;
 class F2fsDoSubmitBioFtraceEvent;
 class F2fsEvictInodeFtraceEvent;
 class F2fsFallocateFtraceEvent;
+class F2fsGcBeginFtraceEvent;
+class F2fsGcEndFtraceEvent;
 class F2fsGetDataBlockFtraceEvent;
 class F2fsGetVictimFtraceEvent;
 class F2fsIgetExitFtraceEvent;
@@ -72256,7 +72259,7 @@ namespace perfetto {
 namespace protos {
 namespace pbzero {
 
-class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/494, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/497, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   FtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit FtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -73213,6 +73216,12 @@ class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes dpu_dsi_rx() const { return at<493>().as_bytes(); }
   bool has_dpu_dsi_tx() const { return at<494>().valid(); }
   ::protozero::ConstBytes dpu_dsi_tx() const { return at<494>().as_bytes(); }
+  bool has_f2fs_background_gc() const { return at<495>().valid(); }
+  ::protozero::ConstBytes f2fs_background_gc() const { return at<495>().as_bytes(); }
+  bool has_f2fs_gc_begin() const { return at<496>().valid(); }
+  ::protozero::ConstBytes f2fs_gc_begin() const { return at<496>().as_bytes(); }
+  bool has_f2fs_gc_end() const { return at<497>().valid(); }
+  ::protozero::ConstBytes f2fs_gc_end() const { return at<497>().as_bytes(); }
 };
 
 class FtraceEvent : public ::protozero::Message {
@@ -73695,6 +73704,9 @@ class FtraceEvent : public ::protozero::Message {
     kDpuDsiCmdFifoStatusFieldNumber = 492,
     kDpuDsiRxFieldNumber = 493,
     kDpuDsiTxFieldNumber = 494,
+    kF2fsBackgroundGcFieldNumber = 495,
+    kF2fsGcBeginFieldNumber = 496,
+    kF2fsGcEndFieldNumber = 497,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FtraceEvent"; }
 
@@ -80372,6 +80384,48 @@ class FtraceEvent : public ::protozero::Message {
   static constexpr FieldMetadata_DpuDsiTx kDpuDsiTx{};
   template <typename T = DpuDsiTxFtraceEvent> T* set_dpu_dsi_tx() {
     return BeginNestedMessage<T>(494);
+  }
+
+
+  using FieldMetadata_F2fsBackgroundGc =
+    ::protozero::proto_utils::FieldMetadata<
+      495,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      F2fsBackgroundGcFtraceEvent,
+      FtraceEvent>;
+
+  static constexpr FieldMetadata_F2fsBackgroundGc kF2fsBackgroundGc{};
+  template <typename T = F2fsBackgroundGcFtraceEvent> T* set_f2fs_background_gc() {
+    return BeginNestedMessage<T>(495);
+  }
+
+
+  using FieldMetadata_F2fsGcBegin =
+    ::protozero::proto_utils::FieldMetadata<
+      496,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      F2fsGcBeginFtraceEvent,
+      FtraceEvent>;
+
+  static constexpr FieldMetadata_F2fsGcBegin kF2fsGcBegin{};
+  template <typename T = F2fsGcBeginFtraceEvent> T* set_f2fs_gc_begin() {
+    return BeginNestedMessage<T>(496);
+  }
+
+
+  using FieldMetadata_F2fsGcEnd =
+    ::protozero::proto_utils::FieldMetadata<
+      497,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      F2fsGcEndFtraceEvent,
+      FtraceEvent>;
+
+  static constexpr FieldMetadata_F2fsGcEnd kF2fsGcEnd{};
+  template <typename T = F2fsGcEndFtraceEvent> T* set_f2fs_gc_end() {
+    return BeginNestedMessage<T>(497);
   }
 
 };
@@ -102948,6 +103002,642 @@ class Ext4DaWriteBeginFtraceEvent : public ::protozero::Message {
 namespace perfetto {
 namespace protos {
 namespace pbzero {
+
+class F2fsGcEndFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/11, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  F2fsGcEndFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit F2fsGcEndFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit F2fsGcEndFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_dev() const { return at<1>().valid(); }
+  uint64_t dev() const { return at<1>().as_uint64(); }
+  bool has_ret() const { return at<2>().valid(); }
+  int32_t ret() const { return at<2>().as_int32(); }
+  bool has_seg_freed() const { return at<3>().valid(); }
+  int32_t seg_freed() const { return at<3>().as_int32(); }
+  bool has_sec_freed() const { return at<4>().valid(); }
+  int32_t sec_freed() const { return at<4>().as_int32(); }
+  bool has_dirty_nodes() const { return at<5>().valid(); }
+  int64_t dirty_nodes() const { return at<5>().as_int64(); }
+  bool has_dirty_dents() const { return at<6>().valid(); }
+  int64_t dirty_dents() const { return at<6>().as_int64(); }
+  bool has_dirty_imeta() const { return at<7>().valid(); }
+  int64_t dirty_imeta() const { return at<7>().as_int64(); }
+  bool has_free_sec() const { return at<8>().valid(); }
+  uint32_t free_sec() const { return at<8>().as_uint32(); }
+  bool has_free_seg() const { return at<9>().valid(); }
+  uint32_t free_seg() const { return at<9>().as_uint32(); }
+  bool has_reserved_seg() const { return at<10>().valid(); }
+  int32_t reserved_seg() const { return at<10>().as_int32(); }
+  bool has_prefree_seg() const { return at<11>().valid(); }
+  uint32_t prefree_seg() const { return at<11>().as_uint32(); }
+};
+
+class F2fsGcEndFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = F2fsGcEndFtraceEvent_Decoder;
+  enum : int32_t {
+    kDevFieldNumber = 1,
+    kRetFieldNumber = 2,
+    kSegFreedFieldNumber = 3,
+    kSecFreedFieldNumber = 4,
+    kDirtyNodesFieldNumber = 5,
+    kDirtyDentsFieldNumber = 6,
+    kDirtyImetaFieldNumber = 7,
+    kFreeSecFieldNumber = 8,
+    kFreeSegFieldNumber = 9,
+    kReservedSegFieldNumber = 10,
+    kPrefreeSegFieldNumber = 11,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.F2fsGcEndFtraceEvent"; }
+
+
+  using FieldMetadata_Dev =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      F2fsGcEndFtraceEvent>;
+
+  static constexpr FieldMetadata_Dev kDev{};
+  void set_dev(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Dev::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Ret =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      F2fsGcEndFtraceEvent>;
+
+  static constexpr FieldMetadata_Ret kRet{};
+  void set_ret(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Ret::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SegFreed =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      F2fsGcEndFtraceEvent>;
+
+  static constexpr FieldMetadata_SegFreed kSegFreed{};
+  void set_seg_freed(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SegFreed::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SecFreed =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      F2fsGcEndFtraceEvent>;
+
+  static constexpr FieldMetadata_SecFreed kSecFreed{};
+  void set_sec_freed(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SecFreed::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DirtyNodes =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      F2fsGcEndFtraceEvent>;
+
+  static constexpr FieldMetadata_DirtyNodes kDirtyNodes{};
+  void set_dirty_nodes(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DirtyNodes::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DirtyDents =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      F2fsGcEndFtraceEvent>;
+
+  static constexpr FieldMetadata_DirtyDents kDirtyDents{};
+  void set_dirty_dents(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DirtyDents::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DirtyImeta =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      F2fsGcEndFtraceEvent>;
+
+  static constexpr FieldMetadata_DirtyImeta kDirtyImeta{};
+  void set_dirty_imeta(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DirtyImeta::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FreeSec =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      F2fsGcEndFtraceEvent>;
+
+  static constexpr FieldMetadata_FreeSec kFreeSec{};
+  void set_free_sec(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FreeSec::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FreeSeg =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      F2fsGcEndFtraceEvent>;
+
+  static constexpr FieldMetadata_FreeSeg kFreeSeg{};
+  void set_free_seg(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FreeSeg::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ReservedSeg =
+    ::protozero::proto_utils::FieldMetadata<
+      10,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      F2fsGcEndFtraceEvent>;
+
+  static constexpr FieldMetadata_ReservedSeg kReservedSeg{};
+  void set_reserved_seg(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ReservedSeg::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PrefreeSeg =
+    ::protozero::proto_utils::FieldMetadata<
+      11,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      F2fsGcEndFtraceEvent>;
+
+  static constexpr FieldMetadata_PrefreeSeg kPrefreeSeg{};
+  void set_prefree_seg(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_PrefreeSeg::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class F2fsGcBeginFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/13, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  F2fsGcBeginFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit F2fsGcBeginFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit F2fsGcBeginFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_dev() const { return at<1>().valid(); }
+  uint64_t dev() const { return at<1>().as_uint64(); }
+  bool has_sync() const { return at<2>().valid(); }
+  uint32_t sync() const { return at<2>().as_uint32(); }
+  bool has_background() const { return at<3>().valid(); }
+  uint32_t background() const { return at<3>().as_uint32(); }
+  bool has_dirty_nodes() const { return at<4>().valid(); }
+  int64_t dirty_nodes() const { return at<4>().as_int64(); }
+  bool has_dirty_dents() const { return at<5>().valid(); }
+  int64_t dirty_dents() const { return at<5>().as_int64(); }
+  bool has_dirty_imeta() const { return at<6>().valid(); }
+  int64_t dirty_imeta() const { return at<6>().as_int64(); }
+  bool has_free_sec() const { return at<7>().valid(); }
+  uint32_t free_sec() const { return at<7>().as_uint32(); }
+  bool has_free_seg() const { return at<8>().valid(); }
+  uint32_t free_seg() const { return at<8>().as_uint32(); }
+  bool has_reserved_seg() const { return at<9>().valid(); }
+  int32_t reserved_seg() const { return at<9>().as_int32(); }
+  bool has_prefree_seg() const { return at<10>().valid(); }
+  uint32_t prefree_seg() const { return at<10>().as_uint32(); }
+  bool has_gc_type() const { return at<11>().valid(); }
+  int32_t gc_type() const { return at<11>().as_int32(); }
+  bool has_no_bg_gc() const { return at<12>().valid(); }
+  uint32_t no_bg_gc() const { return at<12>().as_uint32(); }
+  bool has_nr_free_secs() const { return at<13>().valid(); }
+  uint32_t nr_free_secs() const { return at<13>().as_uint32(); }
+};
+
+class F2fsGcBeginFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = F2fsGcBeginFtraceEvent_Decoder;
+  enum : int32_t {
+    kDevFieldNumber = 1,
+    kSyncFieldNumber = 2,
+    kBackgroundFieldNumber = 3,
+    kDirtyNodesFieldNumber = 4,
+    kDirtyDentsFieldNumber = 5,
+    kDirtyImetaFieldNumber = 6,
+    kFreeSecFieldNumber = 7,
+    kFreeSegFieldNumber = 8,
+    kReservedSegFieldNumber = 9,
+    kPrefreeSegFieldNumber = 10,
+    kGcTypeFieldNumber = 11,
+    kNoBgGcFieldNumber = 12,
+    kNrFreeSecsFieldNumber = 13,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.F2fsGcBeginFtraceEvent"; }
+
+
+  using FieldMetadata_Dev =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      F2fsGcBeginFtraceEvent>;
+
+  static constexpr FieldMetadata_Dev kDev{};
+  void set_dev(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Dev::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Sync =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      F2fsGcBeginFtraceEvent>;
+
+  static constexpr FieldMetadata_Sync kSync{};
+  void set_sync(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Sync::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Background =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      F2fsGcBeginFtraceEvent>;
+
+  static constexpr FieldMetadata_Background kBackground{};
+  void set_background(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Background::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DirtyNodes =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      F2fsGcBeginFtraceEvent>;
+
+  static constexpr FieldMetadata_DirtyNodes kDirtyNodes{};
+  void set_dirty_nodes(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DirtyNodes::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DirtyDents =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      F2fsGcBeginFtraceEvent>;
+
+  static constexpr FieldMetadata_DirtyDents kDirtyDents{};
+  void set_dirty_dents(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DirtyDents::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DirtyImeta =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      F2fsGcBeginFtraceEvent>;
+
+  static constexpr FieldMetadata_DirtyImeta kDirtyImeta{};
+  void set_dirty_imeta(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DirtyImeta::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FreeSec =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      F2fsGcBeginFtraceEvent>;
+
+  static constexpr FieldMetadata_FreeSec kFreeSec{};
+  void set_free_sec(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FreeSec::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FreeSeg =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      F2fsGcBeginFtraceEvent>;
+
+  static constexpr FieldMetadata_FreeSeg kFreeSeg{};
+  void set_free_seg(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FreeSeg::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ReservedSeg =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      F2fsGcBeginFtraceEvent>;
+
+  static constexpr FieldMetadata_ReservedSeg kReservedSeg{};
+  void set_reserved_seg(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ReservedSeg::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PrefreeSeg =
+    ::protozero::proto_utils::FieldMetadata<
+      10,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      F2fsGcBeginFtraceEvent>;
+
+  static constexpr FieldMetadata_PrefreeSeg kPrefreeSeg{};
+  void set_prefree_seg(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_PrefreeSeg::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_GcType =
+    ::protozero::proto_utils::FieldMetadata<
+      11,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      F2fsGcBeginFtraceEvent>;
+
+  static constexpr FieldMetadata_GcType kGcType{};
+  void set_gc_type(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_GcType::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NoBgGc =
+    ::protozero::proto_utils::FieldMetadata<
+      12,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      F2fsGcBeginFtraceEvent>;
+
+  static constexpr FieldMetadata_NoBgGc kNoBgGc{};
+  void set_no_bg_gc(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_NoBgGc::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NrFreeSecs =
+    ::protozero::proto_utils::FieldMetadata<
+      13,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      F2fsGcBeginFtraceEvent>;
+
+  static constexpr FieldMetadata_NrFreeSecs kNrFreeSecs{};
+  void set_nr_free_secs(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_NrFreeSecs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class F2fsBackgroundGcFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  F2fsBackgroundGcFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit F2fsBackgroundGcFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit F2fsBackgroundGcFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_dev() const { return at<1>().valid(); }
+  uint64_t dev() const { return at<1>().as_uint64(); }
+  bool has_wait_ms() const { return at<2>().valid(); }
+  uint32_t wait_ms() const { return at<2>().as_uint32(); }
+  bool has_prefree() const { return at<3>().valid(); }
+  uint32_t prefree() const { return at<3>().as_uint32(); }
+  bool has_free() const { return at<4>().valid(); }
+  uint32_t free() const { return at<4>().as_uint32(); }
+};
+
+class F2fsBackgroundGcFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = F2fsBackgroundGcFtraceEvent_Decoder;
+  enum : int32_t {
+    kDevFieldNumber = 1,
+    kWaitMsFieldNumber = 2,
+    kPrefreeFieldNumber = 3,
+    kFreeFieldNumber = 4,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.F2fsBackgroundGcFtraceEvent"; }
+
+
+  using FieldMetadata_Dev =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      F2fsBackgroundGcFtraceEvent>;
+
+  static constexpr FieldMetadata_Dev kDev{};
+  void set_dev(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Dev::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_WaitMs =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      F2fsBackgroundGcFtraceEvent>;
+
+  static constexpr FieldMetadata_WaitMs kWaitMs{};
+  void set_wait_ms(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_WaitMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Prefree =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      F2fsBackgroundGcFtraceEvent>;
+
+  static constexpr FieldMetadata_Prefree kPrefree{};
+  void set_prefree(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Prefree::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Free =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      F2fsBackgroundGcFtraceEvent>;
+
+  static constexpr FieldMetadata_Free kFree{};
+  void set_free(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Free::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+};
 
 class F2fsIostatLatencyFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/28, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:

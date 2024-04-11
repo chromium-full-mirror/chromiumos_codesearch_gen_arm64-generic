@@ -3436,7 +3436,7 @@ bool Executor_RunNetworkBandwidthTest_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -3450,8 +3450,19 @@ bool Executor_RunNetworkBandwidthTest_Params_Data::Validate(
         ::Validate(object->type, validation_context))
     return false;
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->oem_name, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& oem_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->oem_name, validation_context,
+                                         &oem_name_validate_params)) {
+    return false;
+  }
+
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->observer, 2, validation_context)) {
+          object->observer, 3, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateHandleOrInterface(object->observer,
@@ -3460,7 +3471,7 @@ bool Executor_RunNetworkBandwidthTest_Params_Data::Validate(
   }
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->process_control, 3, validation_context)) {
+          object->process_control, 4, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateHandleOrInterface(object->process_control,

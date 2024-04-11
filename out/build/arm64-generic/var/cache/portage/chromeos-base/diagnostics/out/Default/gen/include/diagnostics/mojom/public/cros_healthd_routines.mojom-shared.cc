@@ -1865,7 +1865,7 @@ bool MemtesterResult_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& passed_items_validate_params =
-      mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::MemtesterTestItemEnum_Data::Validate>();
+      mojo::internal::GetArrayOfEnumsValidator<0, false, ::ash::cros_healthd::mojom::internal::MemtesterTestItemEnum_Data::Validate>();
   if (!mojo::internal::ValidateContainer(object->passed_items, validation_context,
                                          &passed_items_validate_params)) {
     return false;
@@ -1876,7 +1876,7 @@ bool MemtesterResult_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& failed_items_validate_params =
-      mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::MemtesterTestItemEnum_Data::Validate>();
+      mojo::internal::GetArrayOfEnumsValidator<0, false, ::ash::cros_healthd::mojom::internal::MemtesterTestItemEnum_Data::Validate>();
   if (!mojo::internal::ValidateContainer(object->failed_items, validation_context,
                                          &failed_items_validate_params)) {
     return false;

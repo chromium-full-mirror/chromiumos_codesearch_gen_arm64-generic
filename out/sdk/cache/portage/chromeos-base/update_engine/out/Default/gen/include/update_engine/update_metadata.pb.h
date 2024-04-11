@@ -120,12 +120,13 @@ enum InstallOperation_Type : int {
   InstallOperation_Type_DISCARD = 7,
   InstallOperation_Type_BROTLI_BSDIFF = 10,
   InstallOperation_Type_PUFFDIFF = 9,
+  InstallOperation_Type_REPLACE_ZSTD = 11,
 };
 
 bool InstallOperation_Type_IsValid(int value);
 constexpr InstallOperation_Type InstallOperation_Type_Type_MIN = static_cast<InstallOperation_Type>(0);
-constexpr InstallOperation_Type InstallOperation_Type_Type_MAX = static_cast<InstallOperation_Type>(10);
-constexpr int InstallOperation_Type_Type_ARRAYSIZE = 10 + 1;
+constexpr InstallOperation_Type InstallOperation_Type_Type_MAX = static_cast<InstallOperation_Type>(11);
+constexpr int InstallOperation_Type_Type_ARRAYSIZE = 11 + 1;
 const std::string& InstallOperation_Type_Name(InstallOperation_Type value);
 template <typename T>
 const std::string& InstallOperation_Type_Name(T value) {
@@ -1181,6 +1182,7 @@ class InstallOperation final :
   static constexpr Type DISCARD = InstallOperation_Type_DISCARD;
   static constexpr Type BROTLI_BSDIFF = InstallOperation_Type_BROTLI_BSDIFF;
   static constexpr Type PUFFDIFF = InstallOperation_Type_PUFFDIFF;
+  static constexpr Type REPLACE_ZSTD = InstallOperation_Type_REPLACE_ZSTD;
   static inline bool Type_IsValid(int value) {
     return InstallOperation_Type_IsValid(value);
   }

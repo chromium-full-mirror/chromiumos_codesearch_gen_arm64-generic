@@ -320,7 +320,7 @@ class Delegate
 
   using RunNetworkBandwidthTestCallback = base::OnceCallback<void(std::optional<double>)>;
   
-  virtual void RunNetworkBandwidthTest(::ash::cros_healthd::mojom::NetworkBandwidthTestType type, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, RunNetworkBandwidthTestCallback callback) = 0;
+  virtual void RunNetworkBandwidthTest(::ash::cros_healthd::mojom::NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, RunNetworkBandwidthTestCallback callback) = 0;
 };
 
 
@@ -386,7 +386,7 @@ class  DelegateProxy
   
   void RunUrandom(base::TimeDelta exec_duration, RunUrandomCallback callback) final;
   
-  void RunNetworkBandwidthTest(::ash::cros_healthd::mojom::NetworkBandwidthTestType type, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, RunNetworkBandwidthTestCallback callback) final;
+  void RunNetworkBandwidthTest(::ash::cros_healthd::mojom::NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, RunNetworkBandwidthTestCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

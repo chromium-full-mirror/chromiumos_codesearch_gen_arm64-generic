@@ -2658,7 +2658,7 @@ struct Serializer<::ash::cros_healthd::mojom::TouchpadConnectedEventDataView, Ma
         typename decltype(fragment->buttons)::BaseType>
         buttons_fragment(fragment.message());
     constexpr const mojo::internal::ContainerValidateParams& buttons_validate_params =
-        mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::InputTouchButton_Data::Validate>();
+        mojo::internal::GetArrayOfEnumsValidator<0, false, ::ash::cros_healthd::mojom::internal::InputTouchButton_Data::Validate>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::InputTouchButton>>(
         in_buttons, buttons_fragment, &buttons_validate_params);
     fragment->buttons.Set(

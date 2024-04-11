@@ -25287,6 +25287,7 @@ kDeviceLoginScreenTouchVirtualKeyboardEnabledFieldNumber = 1194,
 kDeviceExtendedAutoUpdateEnabledFieldNumber = 1195,
 kDeviceWeeklyScheduledSuspendFieldNumber = 1209,
 kDeviceAuthenticationFlowAutoReloadIntervalFieldNumber = 1247,
+kDeviceExtensionsSystemLogEnabledFieldNumber = 1252,
 };
 // optional .enterprise_management.DevicePolicyRefreshRateProto device_policy_refresh_rate = 1;
 bool has_device_policy_refresh_rate() const;
@@ -28150,6 +28151,24 @@ void unsafe_arena_set_allocated_deviceauthenticationflowautoreloadinterval(
 ::enterprise_management::IntegerPolicyProto* deviceauthenticationflowautoreloadinterval);
 ::enterprise_management::IntegerPolicyProto* unsafe_arena_release_deviceauthenticationflowautoreloadinterval();
 
+// optional .enterprise_management.BooleanPolicyProto DeviceExtensionsSystemLogEnabled = 1252;
+bool has_deviceextensionssystemlogenabled() const;
+private:
+bool _internal_has_deviceextensionssystemlogenabled() const;
+public:
+void clear_deviceextensionssystemlogenabled();
+const ::enterprise_management::BooleanPolicyProto& deviceextensionssystemlogenabled() const;
+PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_deviceextensionssystemlogenabled();
+::enterprise_management::BooleanPolicyProto* mutable_deviceextensionssystemlogenabled();
+void set_allocated_deviceextensionssystemlogenabled(::enterprise_management::BooleanPolicyProto* deviceextensionssystemlogenabled);
+private:
+const ::enterprise_management::BooleanPolicyProto& _internal_deviceextensionssystemlogenabled() const;
+::enterprise_management::BooleanPolicyProto* _internal_mutable_deviceextensionssystemlogenabled();
+public:
+void unsafe_arena_set_allocated_deviceextensionssystemlogenabled(
+::enterprise_management::BooleanPolicyProto* deviceextensionssystemlogenabled);
+::enterprise_management::BooleanPolicyProto* unsafe_arena_release_deviceextensionssystemlogenabled();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.ChromeDeviceSettingsProto)
 private:
 class _Internal;
@@ -28319,6 +28338,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::BooleanPolicyProto* deviceextendedautoupdateenabled_;
 ::enterprise_management::StringPolicyProto* deviceweeklyscheduledsuspend_;
 ::enterprise_management::IntegerPolicyProto* deviceauthenticationflowautoreloadinterval_;
+::enterprise_management::BooleanPolicyProto* deviceextensionssystemlogenabled_;
 };
 union { Impl_ _impl_; };
 friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
@@ -55434,6 +55454,93 @@ _impl_._has_bits_[4] &= ~0x40000000u;
 }
 _impl_.deviceauthenticationflowautoreloadinterval_ = deviceauthenticationflowautoreloadinterval;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.DeviceAuthenticationFlowAutoReloadInterval)
+}
+
+// optional .enterprise_management.BooleanPolicyProto DeviceExtensionsSystemLogEnabled = 1252;
+inline bool ChromeDeviceSettingsProto::_internal_has_deviceextensionssystemlogenabled() const {
+bool value = (_impl_._has_bits_[4] & 0x80000000u) != 0;
+PROTOBUF_ASSUME(!value || _impl_.deviceextensionssystemlogenabled_ != nullptr);
+return value;
+}
+inline bool ChromeDeviceSettingsProto::has_deviceextensionssystemlogenabled() const {
+return _internal_has_deviceextensionssystemlogenabled();
+}
+inline const ::enterprise_management::BooleanPolicyProto& ChromeDeviceSettingsProto::_internal_deviceextensionssystemlogenabled() const {
+const ::enterprise_management::BooleanPolicyProto* p = _impl_.deviceextensionssystemlogenabled_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& ChromeDeviceSettingsProto::deviceextensionssystemlogenabled() const {
+// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.DeviceExtensionsSystemLogEnabled)
+return _internal_deviceextensionssystemlogenabled();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_deviceextensionssystemlogenabled(
+::enterprise_management::BooleanPolicyProto* deviceextensionssystemlogenabled) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.deviceextensionssystemlogenabled_);
+}
+_impl_.deviceextensionssystemlogenabled_ = deviceextensionssystemlogenabled;
+if (deviceextensionssystemlogenabled) {
+_impl_._has_bits_[4] |= 0x80000000u;
+} else {
+_impl_._has_bits_[4] &= ~0x80000000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.DeviceExtensionsSystemLogEnabled)
+}
+inline ::enterprise_management::BooleanPolicyProto* ChromeDeviceSettingsProto::release_deviceextensionssystemlogenabled() {
+_impl_._has_bits_[4] &= ~0x80000000u;
+::enterprise_management::BooleanPolicyProto* temp = _impl_.deviceextensionssystemlogenabled_;
+_impl_.deviceextensionssystemlogenabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* ChromeDeviceSettingsProto::unsafe_arena_release_deviceextensionssystemlogenabled() {
+// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.DeviceExtensionsSystemLogEnabled)
+_impl_._has_bits_[4] &= ~0x80000000u;
+::enterprise_management::BooleanPolicyProto* temp = _impl_.deviceextensionssystemlogenabled_;
+_impl_.deviceextensionssystemlogenabled_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* ChromeDeviceSettingsProto::_internal_mutable_deviceextensionssystemlogenabled() {
+_impl_._has_bits_[4] |= 0x80000000u;
+if (_impl_.deviceextensionssystemlogenabled_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+_impl_.deviceextensionssystemlogenabled_ = p;
+}
+return _impl_.deviceextensionssystemlogenabled_;
+}
+inline ::enterprise_management::BooleanPolicyProto* ChromeDeviceSettingsProto::mutable_deviceextensionssystemlogenabled() {
+::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_deviceextensionssystemlogenabled();
+// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.DeviceExtensionsSystemLogEnabled)
+return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_deviceextensionssystemlogenabled(::enterprise_management::BooleanPolicyProto* deviceextensionssystemlogenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.deviceextensionssystemlogenabled_);
+}
+if (deviceextensionssystemlogenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(deviceextensionssystemlogenabled));
+if (message_arena != submessage_arena) {
+deviceextensionssystemlogenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, deviceextensionssystemlogenabled, submessage_arena);
+}
+_impl_._has_bits_[4] |= 0x80000000u;
+} else {
+_impl_._has_bits_[4] &= ~0x80000000u;
+}
+_impl_.deviceextensionssystemlogenabled_ = deviceextensionssystemlogenabled;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.DeviceExtensionsSystemLogEnabled)
 }
 
 #ifdef __GNUC__

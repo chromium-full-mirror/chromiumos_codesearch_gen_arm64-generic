@@ -4179,7 +4179,7 @@ struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeCons
         typename decltype(fragment->passed_items)::BaseType>
         passed_items_fragment(fragment.message());
     constexpr const mojo::internal::ContainerValidateParams& passed_items_validate_params =
-        mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::MemtesterTestItemEnum_Data::Validate>();
+        mojo::internal::GetArrayOfEnumsValidator<0, false, ::ash::cros_healthd::mojom::internal::MemtesterTestItemEnum_Data::Validate>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::MemtesterTestItemEnum>>(
         in_passed_items, passed_items_fragment, &passed_items_validate_params);
     fragment->passed_items.Set(
@@ -4193,7 +4193,7 @@ struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeCons
         typename decltype(fragment->failed_items)::BaseType>
         failed_items_fragment(fragment.message());
     constexpr const mojo::internal::ContainerValidateParams& failed_items_validate_params =
-        mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::MemtesterTestItemEnum_Data::Validate>();
+        mojo::internal::GetArrayOfEnumsValidator<0, false, ::ash::cros_healthd::mojom::internal::MemtesterTestItemEnum_Data::Validate>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::MemtesterTestItemEnum>>(
         in_failed_items, failed_items_fragment, &failed_items_validate_params);
     fragment->failed_items.Set(

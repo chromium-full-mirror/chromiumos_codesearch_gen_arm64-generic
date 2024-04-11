@@ -6803,7 +6803,7 @@ void ExecutorProxy::RunUrandom(
 }
 
 void ExecutorProxy::RunNetworkBandwidthTest(
-    NetworkBandwidthTestType in_type, ::mojo::PendingRemote<NetworkBandwidthObserver> in_observer, ::mojo::PendingReceiver<ProcessControl> in_process_control, RunNetworkBandwidthTestCallback callback) {
+    NetworkBandwidthTestType in_type, const std::string& in_oem_name, ::mojo::PendingRemote<NetworkBandwidthObserver> in_observer, ::mojo::PendingReceiver<ProcessControl> in_process_control, RunNetworkBandwidthTestCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Executor::RunNetworkBandwidthTest", "input_parameters",
@@ -6812,6 +6812,9 @@ void ExecutorProxy::RunNetworkBandwidthTest(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
                         "<value of type NetworkBandwidthTestType>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("oem_name"), in_oem_name,
+                        "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<NetworkBandwidthObserver>>");
@@ -6842,6 +6845,17 @@ void ExecutorProxy::RunNetworkBandwidthTest(
   params.Allocate();
   mojo::internal::Serialize<::ash::cros_healthd::mojom::NetworkBandwidthTestType>(
       in_type, &params->type);
+  mojo::internal::MessageFragment<
+      typename decltype(params->oem_name)::BaseType> oem_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_oem_name, oem_name_fragment);
+  params->oem_name.Set(
+      oem_name_fragment.is_null() ? nullptr : oem_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->oem_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null oem_name in Executor.RunNetworkBandwidthTest request");
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::NetworkBandwidthObserverInterfaceBase>>(
       in_observer, &params->observer, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -12546,11 +12560,14 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       // Validation for Executor.42
       bool success = true;
       NetworkBandwidthTestType p_type{};
+      std::string p_oem_name{};
       ::mojo::PendingRemote<NetworkBandwidthObserver> p_observer{};
       ::mojo::PendingReceiver<ProcessControl> p_process_control{};
       Executor_RunNetworkBandwidthTest_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadType(&p_type))
+        success = false;
+      if (success && !input_data_view.ReadOemName(&p_oem_name))
         success = false;
       if (success) {
         p_observer =
@@ -12574,6 +12591,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       DCHECK(impl);
       impl->RunNetworkBandwidthTest(        
         std::move(p_type), 
+        std::move(p_oem_name), 
         std::move(p_observer), 
         std::move(p_process_control), std::move(callback));
       return true;
@@ -13231,8 +13249,8 @@ void ExecutorInterceptorForTesting::GetSmartBatteryTemperature(uint8_t i2c_port,
 void ExecutorInterceptorForTesting::RunUrandom(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, RunUrandomCallback callback) {
   GetForwardingInterface()->RunUrandom(std::move(exec_duration), std::move(process_control), std::move(callback));
 }
-void ExecutorInterceptorForTesting::RunNetworkBandwidthTest(NetworkBandwidthTestType type, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control, RunNetworkBandwidthTestCallback callback) {
-  GetForwardingInterface()->RunNetworkBandwidthTest(std::move(type), std::move(observer), std::move(process_control), std::move(callback));
+void ExecutorInterceptorForTesting::RunNetworkBandwidthTest(NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control, RunNetworkBandwidthTestCallback callback) {
+  GetForwardingInterface()->RunNetworkBandwidthTest(std::move(type), std::move(oem_name), std::move(observer), std::move(process_control), std::move(callback));
 }
 ExecutorAsyncWaiter::ExecutorAsyncWaiter(
     Executor* proxy) : proxy_(proxy) {}
@@ -13947,9 +13965,9 @@ bool ExecutorAsyncWaiter::RunUrandom(
 }
 
 void ExecutorAsyncWaiter::RunNetworkBandwidthTest(
-    NetworkBandwidthTestType type, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control, std::optional<double>* out_average_speed) {
+    NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control, std::optional<double>* out_average_speed) {
   base::RunLoop loop;
-  proxy_->RunNetworkBandwidthTest(std::move(type),std::move(observer),std::move(process_control),
+  proxy_->RunNetworkBandwidthTest(std::move(type),std::move(oem_name),std::move(observer),std::move(process_control),
       base::BindOnce(
           [](base::RunLoop* loop,
              std::optional<double>* out_average_speed
@@ -13963,9 +13981,9 @@ void ExecutorAsyncWaiter::RunNetworkBandwidthTest(
 }
 
 std::optional<double> ExecutorAsyncWaiter::RunNetworkBandwidthTest(
-    NetworkBandwidthTestType type, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
+    NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
   std::optional<double> async_wait_result;
-  RunNetworkBandwidthTest(std::move(type),std::move(observer),std::move(process_control),&async_wait_result);
+  RunNetworkBandwidthTest(std::move(type),std::move(oem_name),std::move(observer),std::move(process_control),&async_wait_result);
   return async_wait_result;
 }
 

@@ -2180,7 +2180,7 @@ void DelegateProxy::RunUrandom(
 }
 
 void DelegateProxy::RunNetworkBandwidthTest(
-    ::ash::cros_healthd::mojom::NetworkBandwidthTestType in_type, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> in_observer, RunNetworkBandwidthTestCallback callback) {
+    ::ash::cros_healthd::mojom::NetworkBandwidthTestType in_type, const std::string& in_oem_name, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> in_observer, RunNetworkBandwidthTestCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::RunNetworkBandwidthTest", "input_parameters",
@@ -2189,6 +2189,9 @@ void DelegateProxy::RunNetworkBandwidthTest(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
                         "<value of type ::ash::cros_healthd::mojom::NetworkBandwidthTestType>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("oem_name"), in_oem_name,
+                        "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver>>");
@@ -2216,6 +2219,17 @@ void DelegateProxy::RunNetworkBandwidthTest(
   params.Allocate();
   mojo::internal::Serialize<::ash::cros_healthd::mojom::NetworkBandwidthTestType>(
       in_type, &params->type);
+  mojo::internal::MessageFragment<
+      typename decltype(params->oem_name)::BaseType> oem_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_oem_name, oem_name_fragment);
+  params->oem_name.Set(
+      oem_name_fragment.is_null() ? nullptr : oem_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->oem_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null oem_name in Delegate.RunNetworkBandwidthTest request");
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::NetworkBandwidthObserverInterfaceBase>>(
       in_observer, &params->observer, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -5902,10 +5916,13 @@ bool DelegateStubDispatch::AcceptWithResponder(
       // Validation for Delegate.27
       bool success = true;
       ::ash::cros_healthd::mojom::NetworkBandwidthTestType p_type{};
+      std::string p_oem_name{};
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> p_observer{};
       Delegate_RunNetworkBandwidthTest_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadType(&p_type))
+        success = false;
+      if (success && !input_data_view.ReadOemName(&p_oem_name))
         success = false;
       if (success) {
         p_observer =
@@ -5925,6 +5942,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
       DCHECK(impl);
       impl->RunNetworkBandwidthTest(        
         std::move(p_type), 
+        std::move(p_oem_name), 
         std::move(p_observer), std::move(callback));
       return true;
     }
@@ -6099,8 +6117,8 @@ void DelegateInterceptorForTesting::GetSmartBatteryTemperature(uint8_t i2c_port,
 void DelegateInterceptorForTesting::RunUrandom(base::TimeDelta exec_duration, RunUrandomCallback callback) {
   GetForwardingInterface()->RunUrandom(std::move(exec_duration), std::move(callback));
 }
-void DelegateInterceptorForTesting::RunNetworkBandwidthTest(::ash::cros_healthd::mojom::NetworkBandwidthTestType type, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, RunNetworkBandwidthTestCallback callback) {
-  GetForwardingInterface()->RunNetworkBandwidthTest(std::move(type), std::move(observer), std::move(callback));
+void DelegateInterceptorForTesting::RunNetworkBandwidthTest(::ash::cros_healthd::mojom::NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, RunNetworkBandwidthTestCallback callback) {
+  GetForwardingInterface()->RunNetworkBandwidthTest(std::move(type), std::move(oem_name), std::move(observer), std::move(callback));
 }
 DelegateAsyncWaiter::DelegateAsyncWaiter(
     Delegate* proxy) : proxy_(proxy) {}
@@ -6562,9 +6580,9 @@ bool DelegateAsyncWaiter::RunUrandom(
 }
 
 void DelegateAsyncWaiter::RunNetworkBandwidthTest(
-    ::ash::cros_healthd::mojom::NetworkBandwidthTestType type, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, std::optional<double>* out_average_speed) {
+    ::ash::cros_healthd::mojom::NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, std::optional<double>* out_average_speed) {
   base::RunLoop loop;
-  proxy_->RunNetworkBandwidthTest(std::move(type),std::move(observer),
+  proxy_->RunNetworkBandwidthTest(std::move(type),std::move(oem_name),std::move(observer),
       base::BindOnce(
           [](base::RunLoop* loop,
              std::optional<double>* out_average_speed
@@ -6578,9 +6596,9 @@ void DelegateAsyncWaiter::RunNetworkBandwidthTest(
 }
 
 std::optional<double> DelegateAsyncWaiter::RunNetworkBandwidthTest(
-    ::ash::cros_healthd::mojom::NetworkBandwidthTestType type, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer) {
+    ::ash::cros_healthd::mojom::NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer) {
   std::optional<double> async_wait_result;
-  RunNetworkBandwidthTest(std::move(type),std::move(observer),&async_wait_result);
+  RunNetworkBandwidthTest(std::move(type),std::move(oem_name),std::move(observer),&async_wait_result);
   return async_wait_result;
 }
 

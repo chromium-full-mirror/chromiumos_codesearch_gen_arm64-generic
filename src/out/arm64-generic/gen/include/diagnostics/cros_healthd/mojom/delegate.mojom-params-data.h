@@ -793,8 +793,9 @@ class  Delegate_RunNetworkBandwidthTest_Params_Data {
 
   mojo::internal::StructHeader header_;
   int32_t type;
+  uint8_t pad0_[4];
+  mojo::internal::Pointer<mojo::internal::String_Data> oem_name;
   mojo::internal::Interface_Data observer;
-  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<Delegate_RunNetworkBandwidthTest_Params_Data>;
@@ -802,7 +803,7 @@ class  Delegate_RunNetworkBandwidthTest_Params_Data {
   Delegate_RunNetworkBandwidthTest_Params_Data();
   ~Delegate_RunNetworkBandwidthTest_Params_Data() = delete;
 };
-static_assert(sizeof(Delegate_RunNetworkBandwidthTest_Params_Data) == 24,
+static_assert(sizeof(Delegate_RunNetworkBandwidthTest_Params_Data) == 32,
               "Bad sizeof(Delegate_RunNetworkBandwidthTest_Params_Data)");
 class  Delegate_RunNetworkBandwidthTest_ResponseParams_Data {
  public:
@@ -2076,6 +2077,16 @@ class Delegate_RunNetworkBandwidthTest_ParamsDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::cros_healthd::mojom::NetworkBandwidthTestType>(data_->type));
   }
+  inline void GetOemNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOemName(UserType* output) {
+    
+    auto* pointer = data_->oem_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
   template <typename UserType>
   UserType TakeObserver() {
     UserType result;
@@ -2330,6 +2341,11 @@ inline void Delegate_RunUrandom_ParamsDataView::GetExecDurationDataView(
 
 
 
+inline void Delegate_RunNetworkBandwidthTest_ParamsDataView::GetOemNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->oem_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
 
 
 

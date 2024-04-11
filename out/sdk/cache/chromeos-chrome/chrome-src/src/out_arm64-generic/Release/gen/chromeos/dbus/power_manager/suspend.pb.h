@@ -46,9 +46,6 @@ namespace power_manager {
 class DarkResumeWakeReason;
 struct DarkResumeWakeReasonDefaultTypeInternal;
 extern DarkResumeWakeReasonDefaultTypeInternal _DarkResumeWakeReason_default_instance_;
-class HibernateResumeReady;
-struct HibernateResumeReadyDefaultTypeInternal;
-extern HibernateResumeReadyDefaultTypeInternal _HibernateResumeReady_default_instance_;
 class RegisterSuspendDelayReply;
 struct RegisterSuspendDelayReplyDefaultTypeInternal;
 extern RegisterSuspendDelayReplyDefaultTypeInternal _RegisterSuspendDelayReply_default_instance_;
@@ -70,7 +67,6 @@ extern UnregisterSuspendDelayRequestDefaultTypeInternal _UnregisterSuspendDelayR
 }  // namespace power_manager
 PROTOBUF_NAMESPACE_OPEN
 template<> ::power_manager::DarkResumeWakeReason* Arena::CreateMaybeMessage<::power_manager::DarkResumeWakeReason>(Arena*);
-template<> ::power_manager::HibernateResumeReady* Arena::CreateMaybeMessage<::power_manager::HibernateResumeReady>(Arena*);
 template<> ::power_manager::RegisterSuspendDelayReply* Arena::CreateMaybeMessage<::power_manager::RegisterSuspendDelayReply>(Arena*);
 template<> ::power_manager::RegisterSuspendDelayRequest* Arena::CreateMaybeMessage<::power_manager::RegisterSuspendDelayRequest>(Arena*);
 template<> ::power_manager::SuspendDone* Arena::CreateMaybeMessage<::power_manager::SuspendDone>(Arena*);
@@ -101,12 +97,11 @@ inline const std::string& SuspendImminent_Reason_Name(T enum_t_value) {
 bool SuspendImminent_Reason_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SuspendImminent_Reason* value);
 enum SuspendImminent_Action : int {
-  SuspendImminent_Action_SUSPEND = 0,
-  SuspendImminent_Action_HIBERNATE_RESUME = 1
+  SuspendImminent_Action_SUSPEND = 0
 };
 bool SuspendImminent_Action_IsValid(int value);
 constexpr SuspendImminent_Action SuspendImminent_Action_Action_MIN = SuspendImminent_Action_SUSPEND;
-constexpr SuspendImminent_Action SuspendImminent_Action_Action_MAX = SuspendImminent_Action_HIBERNATE_RESUME;
+constexpr SuspendImminent_Action SuspendImminent_Action_Action_MAX = SuspendImminent_Action_SUSPEND;
 constexpr int SuspendImminent_Action_Action_ARRAYSIZE = SuspendImminent_Action_Action_MAX + 1;
 
 const std::string& SuspendImminent_Action_Name(SuspendImminent_Action value);
@@ -141,12 +136,11 @@ inline const std::string& SuspendDone_WakeupType_Name(T enum_t_value) {
 bool SuspendDone_WakeupType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SuspendDone_WakeupType* value);
 enum SuspendDone_SuspendState : int {
-  SuspendDone_SuspendState_TO_RAM = 0,
-  SuspendDone_SuspendState_TO_DISK = 1
+  SuspendDone_SuspendState_TO_RAM = 0
 };
 bool SuspendDone_SuspendState_IsValid(int value);
 constexpr SuspendDone_SuspendState SuspendDone_SuspendState_SuspendState_MIN = SuspendDone_SuspendState_TO_RAM;
-constexpr SuspendDone_SuspendState SuspendDone_SuspendState_SuspendState_MAX = SuspendDone_SuspendState_TO_DISK;
+constexpr SuspendDone_SuspendState SuspendDone_SuspendState_SuspendState_MAX = SuspendDone_SuspendState_TO_RAM;
 constexpr int SuspendDone_SuspendState_SuspendState_ARRAYSIZE = SuspendDone_SuspendState_SuspendState_MAX + 1;
 
 const std::string& SuspendDone_SuspendState_Name(SuspendDone_SuspendState value);
@@ -299,8 +293,6 @@ class SuspendImminent final :
   typedef SuspendImminent_Action Action;
   static constexpr Action SUSPEND =
     SuspendImminent_Action_SUSPEND;
-  static constexpr Action HIBERNATE_RESUME =
-    SuspendImminent_Action_HIBERNATE_RESUME;
   static inline bool Action_IsValid(int value) {
     return SuspendImminent_Action_IsValid(value);
   }
@@ -527,8 +519,6 @@ class SuspendDone final :
   typedef SuspendDone_SuspendState SuspendState;
   static constexpr SuspendState TO_RAM =
     SuspendDone_SuspendState_TO_RAM;
-  static constexpr SuspendState TO_DISK =
-    SuspendDone_SuspendState_TO_DISK;
   static inline bool SuspendState_IsValid(int value) {
     return SuspendDone_SuspendState_IsValid(value);
   }
@@ -1393,148 +1383,6 @@ class DarkResumeWakeReason final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_suspend_2eproto;
 };
-// -------------------------------------------------------------------
-
-class HibernateResumeReady final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:power_manager.HibernateResumeReady) */ {
- public:
-  inline HibernateResumeReady() : HibernateResumeReady(nullptr) {}
-  ~HibernateResumeReady() override;
-  explicit PROTOBUF_CONSTEXPR HibernateResumeReady(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  HibernateResumeReady(const HibernateResumeReady& from);
-  HibernateResumeReady(HibernateResumeReady&& from) noexcept
-    : HibernateResumeReady() {
-    *this = ::std::move(from);
-  }
-
-  inline HibernateResumeReady& operator=(const HibernateResumeReady& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline HibernateResumeReady& operator=(HibernateResumeReady&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const std::string& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
-  }
-  inline std::string* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<std::string>();
-  }
-
-  static const HibernateResumeReady& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const HibernateResumeReady* internal_default_instance() {
-    return reinterpret_cast<const HibernateResumeReady*>(
-               &_HibernateResumeReady_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    7;
-
-  friend void swap(HibernateResumeReady& a, HibernateResumeReady& b) {
-    a.Swap(&b);
-  }
-  PROTOBUF_NOINLINE void Swap(HibernateResumeReady* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(HibernateResumeReady* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  HibernateResumeReady* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<HibernateResumeReady>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const HibernateResumeReady& from);
-  void MergeFrom(const HibernateResumeReady& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(HibernateResumeReady* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "power_manager.HibernateResumeReady";
-  }
-  protected:
-  explicit HibernateResumeReady(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kSuspendIdFieldNumber = 1,
-  };
-  // optional int32 suspend_id = 1;
-  bool has_suspend_id() const;
-  private:
-  bool _internal_has_suspend_id() const;
-  public:
-  void clear_suspend_id();
-  int32_t suspend_id() const;
-  void set_suspend_id(int32_t value);
-  private:
-  int32_t _internal_suspend_id() const;
-  void _internal_set_suspend_id(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:power_manager.HibernateResumeReady)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    int32_t suspend_id_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_suspend_2eproto;
-};
 // ===================================================================
 
 
@@ -2074,43 +1922,9 @@ inline void DarkResumeWakeReason::set_allocated_wake_reason(std::string* wake_re
   // @@protoc_insertion_point(field_set_allocated:power_manager.DarkResumeWakeReason.wake_reason)
 }
 
-// -------------------------------------------------------------------
-
-// HibernateResumeReady
-
-// optional int32 suspend_id = 1;
-inline bool HibernateResumeReady::_internal_has_suspend_id() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool HibernateResumeReady::has_suspend_id() const {
-  return _internal_has_suspend_id();
-}
-inline void HibernateResumeReady::clear_suspend_id() {
-  _impl_.suspend_id_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000001u;
-}
-inline int32_t HibernateResumeReady::_internal_suspend_id() const {
-  return _impl_.suspend_id_;
-}
-inline int32_t HibernateResumeReady::suspend_id() const {
-  // @@protoc_insertion_point(field_get:power_manager.HibernateResumeReady.suspend_id)
-  return _internal_suspend_id();
-}
-inline void HibernateResumeReady::_internal_set_suspend_id(int32_t value) {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  _impl_.suspend_id_ = value;
-}
-inline void HibernateResumeReady::set_suspend_id(int32_t value) {
-  _internal_set_suspend_id(value);
-  // @@protoc_insertion_point(field_set:power_manager.HibernateResumeReady.suspend_id)
-}
-
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

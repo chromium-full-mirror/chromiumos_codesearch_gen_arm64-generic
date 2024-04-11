@@ -1196,7 +1196,7 @@ bool TouchpadConnectedEvent_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& buttons_validate_params =
-      mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::InputTouchButton_Data::Validate>();
+      mojo::internal::GetArrayOfEnumsValidator<0, false, ::ash::cros_healthd::mojom::internal::InputTouchButton_Data::Validate>();
   if (!mojo::internal::ValidateContainer(object->buttons, validation_context,
                                          &buttons_validate_params)) {
     return false;
