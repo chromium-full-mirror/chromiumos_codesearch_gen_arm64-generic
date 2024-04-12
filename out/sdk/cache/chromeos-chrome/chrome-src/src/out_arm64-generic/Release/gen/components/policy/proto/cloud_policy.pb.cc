@@ -150,7 +150,9 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , /*decltype(_impl_.showaiintroscreenenabled_)*/nullptr
   , /*decltype(_impl_.showtunascreenenabled_)*/nullptr
   , /*decltype(_impl_.genailocalfoundationalmodelsettings_)*/nullptr
-  , /*decltype(_impl_.chromedataregionsetting_)*/nullptr} {}
+  , /*decltype(_impl_.chromedataregionsetting_)*/nullptr
+  , /*decltype(_impl_.contextualgoogleintegrationsenabled_)*/nullptr
+  , /*decltype(_impl_.contextualgoogleintegrationsconfiguration_)*/nullptr} {}
 struct CloudPolicySubProto1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR CloudPolicySubProto1DefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -894,6 +896,14 @@ class CloudPolicySubProto1::_Internal {
   static void set_has_chromedataregionsetting(HasBits* has_bits) {
     (*has_bits)[4] |= 1u;
   }
+  static const ::enterprise_management::StringListPolicyProto& contextualgoogleintegrationsconfiguration(const CloudPolicySubProto1* msg);
+  static void set_has_contextualgoogleintegrationsconfiguration(HasBits* has_bits) {
+    (*has_bits)[4] |= 4u;
+  }
+  static const ::enterprise_management::BooleanPolicyProto& contextualgoogleintegrationsenabled(const CloudPolicySubProto1* msg);
+  static void set_has_contextualgoogleintegrationsenabled(HasBits* has_bits) {
+    (*has_bits)[4] |= 2u;
+  }
   static const ::enterprise_management::StringPolicyProto& datacontrolsrules(const CloudPolicySubProto1* msg);
   static void set_has_datacontrolsrules(HasBits* has_bits) {
     (*has_bits)[2] |= 2048u;
@@ -1412,6 +1422,14 @@ const ::enterprise_management::IntegerPolicyProto&
 CloudPolicySubProto1::_Internal::chromedataregionsetting(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.chromedataregionsetting_;
 }
+const ::enterprise_management::StringListPolicyProto&
+CloudPolicySubProto1::_Internal::contextualgoogleintegrationsconfiguration(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.contextualgoogleintegrationsconfiguration_;
+}
+const ::enterprise_management::BooleanPolicyProto&
+CloudPolicySubProto1::_Internal::contextualgoogleintegrationsenabled(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.contextualgoogleintegrationsenabled_;
+}
 const ::enterprise_management::StringPolicyProto&
 CloudPolicySubProto1::_Internal::datacontrolsrules(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.datacontrolsrules_;
@@ -1928,6 +1946,14 @@ void CloudPolicySubProto1::clear_chromedataregionsetting() {
   if (_impl_.chromedataregionsetting_ != nullptr) _impl_.chromedataregionsetting_->Clear();
   _impl_._has_bits_[4] &= ~0x00000001u;
 }
+void CloudPolicySubProto1::clear_contextualgoogleintegrationsconfiguration() {
+  if (_impl_.contextualgoogleintegrationsconfiguration_ != nullptr) _impl_.contextualgoogleintegrationsconfiguration_->Clear();
+  _impl_._has_bits_[4] &= ~0x00000004u;
+}
+void CloudPolicySubProto1::clear_contextualgoogleintegrationsenabled() {
+  if (_impl_.contextualgoogleintegrationsenabled_ != nullptr) _impl_.contextualgoogleintegrationsenabled_->Clear();
+  _impl_._has_bits_[4] &= ~0x00000002u;
+}
 void CloudPolicySubProto1::clear_datacontrolsrules() {
   if (_impl_.datacontrolsrules_ != nullptr) _impl_.datacontrolsrules_->Clear();
   _impl_._has_bits_[2] &= ~0x00000800u;
@@ -2400,7 +2426,9 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
     , decltype(_impl_.showaiintroscreenenabled_){nullptr}
     , decltype(_impl_.showtunascreenenabled_){nullptr}
     , decltype(_impl_.genailocalfoundationalmodelsettings_){nullptr}
-    , decltype(_impl_.chromedataregionsetting_){nullptr}};
+    , decltype(_impl_.chromedataregionsetting_){nullptr}
+    , decltype(_impl_.contextualgoogleintegrationsenabled_){nullptr}
+    , decltype(_impl_.contextualgoogleintegrationsconfiguration_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_showcastsessionsstartedbyotherdevices()) {
@@ -2790,6 +2818,12 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
   if (from._internal_has_chromedataregionsetting()) {
     _this->_impl_.chromedataregionsetting_ = new ::enterprise_management::IntegerPolicyProto(*from._impl_.chromedataregionsetting_);
   }
+  if (from._internal_has_contextualgoogleintegrationsenabled()) {
+    _this->_impl_.contextualgoogleintegrationsenabled_ = new ::enterprise_management::BooleanPolicyProto(*from._impl_.contextualgoogleintegrationsenabled_);
+  }
+  if (from._internal_has_contextualgoogleintegrationsconfiguration()) {
+    _this->_impl_.contextualgoogleintegrationsconfiguration_ = new ::enterprise_management::StringListPolicyProto(*from._impl_.contextualgoogleintegrationsconfiguration_);
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CloudPolicySubProto1)
 }
 
@@ -2929,6 +2963,8 @@ inline void CloudPolicySubProto1::SharedCtor(
     , decltype(_impl_.showtunascreenenabled_){nullptr}
     , decltype(_impl_.genailocalfoundationalmodelsettings_){nullptr}
     , decltype(_impl_.chromedataregionsetting_){nullptr}
+    , decltype(_impl_.contextualgoogleintegrationsenabled_){nullptr}
+    , decltype(_impl_.contextualgoogleintegrationsconfiguration_){nullptr}
   };
 }
 
@@ -3072,6 +3108,8 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.showtunascreenenabled_;
   if (this != internal_default_instance()) delete _impl_.genailocalfoundationalmodelsettings_;
   if (this != internal_default_instance()) delete _impl_.chromedataregionsetting_;
+  if (this != internal_default_instance()) delete _impl_.contextualgoogleintegrationsenabled_;
+  if (this != internal_default_instance()) delete _impl_.contextualgoogleintegrationsconfiguration_;
 }
 
 void CloudPolicySubProto1::SetCachedSize(int size) const {
@@ -3633,9 +3671,19 @@ void CloudPolicySubProto1::Clear() {
     }
   }
   cached_has_bits = _impl_._has_bits_[4];
-  if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.chromedataregionsetting_ != nullptr);
-    _impl_.chromedataregionsetting_->Clear();
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(_impl_.chromedataregionsetting_ != nullptr);
+      _impl_.chromedataregionsetting_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(_impl_.contextualgoogleintegrationsenabled_ != nullptr);
+      _impl_.contextualgoogleintegrationsenabled_->Clear();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      GOOGLE_DCHECK(_impl_.contextualgoogleintegrationsconfiguration_ != nullptr);
+      _impl_.contextualgoogleintegrationsconfiguration_->Clear();
+    }
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -4679,6 +4727,22 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.BooleanPolicyProto ContextualGoogleIntegrationsEnabled = 214;
+      case 214:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 178)) {
+          ptr = ctx->ParseMessage(_internal_mutable_contextualgoogleintegrationsenabled(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.StringListPolicyProto ContextualGoogleIntegrationsConfiguration = 215;
+      case 215:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 186)) {
+          ptr = ctx->ParseMessage(_internal_mutable_contextualgoogleintegrationsconfiguration(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5614,6 +5678,20 @@ uint8_t* CloudPolicySubProto1::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(213, _Internal::chromedataregionsetting(this),
         _Internal::chromedataregionsetting(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.BooleanPolicyProto ContextualGoogleIntegrationsEnabled = 214;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(214, _Internal::contextualgoogleintegrationsenabled(this),
+        _Internal::contextualgoogleintegrationsenabled(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.StringListPolicyProto ContextualGoogleIntegrationsConfiguration = 215;
+  if (cached_has_bits & 0x00000004u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(215, _Internal::contextualgoogleintegrationsconfiguration(this),
+        _Internal::contextualgoogleintegrationsconfiguration(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6564,14 +6642,30 @@ size_t CloudPolicySubProto1::ByteSizeLong() const {
     }
 
   }
-  // optional .enterprise_management.IntegerPolicyProto ChromeDataRegionSetting = 213;
   cached_has_bits = _impl_._has_bits_[4];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.chromedataregionsetting_);
-  }
+  if (cached_has_bits & 0x00000007u) {
+    // optional .enterprise_management.IntegerPolicyProto ChromeDataRegionSetting = 213;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.chromedataregionsetting_);
+    }
 
+    // optional .enterprise_management.BooleanPolicyProto ContextualGoogleIntegrationsEnabled = 214;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.contextualgoogleintegrationsenabled_);
+    }
+
+    // optional .enterprise_management.StringListPolicyProto ContextualGoogleIntegrationsConfiguration = 215;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.contextualgoogleintegrationsconfiguration_);
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -7141,9 +7235,20 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
           from._internal_genailocalfoundationalmodelsettings());
     }
   }
-  if (from._internal_has_chromedataregionsetting()) {
-    _this->_internal_mutable_chromedataregionsetting()->::enterprise_management::IntegerPolicyProto::MergeFrom(
-        from._internal_chromedataregionsetting());
+  cached_has_bits = from._impl_._has_bits_[4];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_mutable_chromedataregionsetting()->::enterprise_management::IntegerPolicyProto::MergeFrom(
+          from._internal_chromedataregionsetting());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_internal_mutable_contextualgoogleintegrationsenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(
+          from._internal_contextualgoogleintegrationsenabled());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _this->_internal_mutable_contextualgoogleintegrationsconfiguration()->::enterprise_management::StringListPolicyProto::MergeFrom(
+          from._internal_contextualgoogleintegrationsconfiguration());
+    }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -7168,8 +7273,8 @@ void CloudPolicySubProto1::InternalSwap(CloudPolicySubProto1* other) {
   swap(_impl_._has_bits_[3], other->_impl_._has_bits_[3]);
   swap(_impl_._has_bits_[4], other->_impl_._has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.chromedataregionsetting_)
-      + sizeof(CloudPolicySubProto1::_impl_.chromedataregionsetting_)
+      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.contextualgoogleintegrationsconfiguration_)
+      + sizeof(CloudPolicySubProto1::_impl_.contextualgoogleintegrationsconfiguration_)
       - PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.showcastsessionsstartedbyotherdevices_)>(
           reinterpret_cast<char*>(&_impl_.showcastsessionsstartedbyotherdevices_),
           reinterpret_cast<char*>(&other->_impl_.showcastsessionsstartedbyotherdevices_));

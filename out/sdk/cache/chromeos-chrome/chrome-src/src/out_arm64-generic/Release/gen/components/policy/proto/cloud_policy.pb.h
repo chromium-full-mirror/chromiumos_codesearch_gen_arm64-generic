@@ -298,6 +298,8 @@ kShowAiIntroScreenEnabledFieldNumber = 208,
 kShowTunaScreenEnabledFieldNumber = 209,
 kGenAILocalFoundationalModelSettingsFieldNumber = 211,
 kChromeDataRegionSettingFieldNumber = 213,
+kContextualGoogleIntegrationsEnabledFieldNumber = 214,
+kContextualGoogleIntegrationsConfigurationFieldNumber = 215,
 };
 // optional .enterprise_management.BooleanPolicyProto ShowCastSessionsStartedByOtherDevices = 2;
 bool has_showcastsessionsstartedbyotherdevices() const;
@@ -2621,6 +2623,42 @@ void unsafe_arena_set_allocated_chromedataregionsetting(
 ::enterprise_management::IntegerPolicyProto* chromedataregionsetting);
 ::enterprise_management::IntegerPolicyProto* unsafe_arena_release_chromedataregionsetting();
 
+// optional .enterprise_management.BooleanPolicyProto ContextualGoogleIntegrationsEnabled = 214;
+bool has_contextualgoogleintegrationsenabled() const;
+private:
+bool _internal_has_contextualgoogleintegrationsenabled() const;
+public:
+void clear_contextualgoogleintegrationsenabled();
+const ::enterprise_management::BooleanPolicyProto& contextualgoogleintegrationsenabled() const;
+PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_contextualgoogleintegrationsenabled();
+::enterprise_management::BooleanPolicyProto* mutable_contextualgoogleintegrationsenabled();
+void set_allocated_contextualgoogleintegrationsenabled(::enterprise_management::BooleanPolicyProto* contextualgoogleintegrationsenabled);
+private:
+const ::enterprise_management::BooleanPolicyProto& _internal_contextualgoogleintegrationsenabled() const;
+::enterprise_management::BooleanPolicyProto* _internal_mutable_contextualgoogleintegrationsenabled();
+public:
+void unsafe_arena_set_allocated_contextualgoogleintegrationsenabled(
+::enterprise_management::BooleanPolicyProto* contextualgoogleintegrationsenabled);
+::enterprise_management::BooleanPolicyProto* unsafe_arena_release_contextualgoogleintegrationsenabled();
+
+// optional .enterprise_management.StringListPolicyProto ContextualGoogleIntegrationsConfiguration = 215;
+bool has_contextualgoogleintegrationsconfiguration() const;
+private:
+bool _internal_has_contextualgoogleintegrationsconfiguration() const;
+public:
+void clear_contextualgoogleintegrationsconfiguration();
+const ::enterprise_management::StringListPolicyProto& contextualgoogleintegrationsconfiguration() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_contextualgoogleintegrationsconfiguration();
+::enterprise_management::StringListPolicyProto* mutable_contextualgoogleintegrationsconfiguration();
+void set_allocated_contextualgoogleintegrationsconfiguration(::enterprise_management::StringListPolicyProto* contextualgoogleintegrationsconfiguration);
+private:
+const ::enterprise_management::StringListPolicyProto& _internal_contextualgoogleintegrationsconfiguration() const;
+::enterprise_management::StringListPolicyProto* _internal_mutable_contextualgoogleintegrationsconfiguration();
+public:
+void unsafe_arena_set_allocated_contextualgoogleintegrationsconfiguration(
+::enterprise_management::StringListPolicyProto* contextualgoogleintegrationsconfiguration);
+::enterprise_management::StringListPolicyProto* unsafe_arena_release_contextualgoogleintegrationsconfiguration();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -2760,6 +2798,8 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::BooleanPolicyProto* showtunascreenenabled_;
 ::enterprise_management::IntegerPolicyProto* genailocalfoundationalmodelsettings_;
 ::enterprise_management::IntegerPolicyProto* chromedataregionsetting_;
+::enterprise_management::BooleanPolicyProto* contextualgoogleintegrationsenabled_;
+::enterprise_management::StringListPolicyProto* contextualgoogleintegrationsconfiguration_;
 };
 union { Impl_ _impl_; };
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
@@ -17482,6 +17522,180 @@ _impl_._has_bits_[4] &= ~0x00000001u;
 }
 _impl_.chromedataregionsetting_ = chromedataregionsetting;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.ChromeDataRegionSetting)
+}
+
+// optional .enterprise_management.StringListPolicyProto ContextualGoogleIntegrationsConfiguration = 215;
+inline bool CloudPolicySubProto1::_internal_has_contextualgoogleintegrationsconfiguration() const {
+bool value = (_impl_._has_bits_[4] & 0x00000004u) != 0;
+PROTOBUF_ASSUME(!value || _impl_.contextualgoogleintegrationsconfiguration_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_contextualgoogleintegrationsconfiguration() const {
+return _internal_has_contextualgoogleintegrationsconfiguration();
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::_internal_contextualgoogleintegrationsconfiguration() const {
+const ::enterprise_management::StringListPolicyProto* p = _impl_.contextualgoogleintegrationsconfiguration_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& CloudPolicySubProto1::contextualgoogleintegrationsconfiguration() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.ContextualGoogleIntegrationsConfiguration)
+return _internal_contextualgoogleintegrationsconfiguration();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_contextualgoogleintegrationsconfiguration(
+::enterprise_management::StringListPolicyProto* contextualgoogleintegrationsconfiguration) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.contextualgoogleintegrationsconfiguration_);
+}
+_impl_.contextualgoogleintegrationsconfiguration_ = contextualgoogleintegrationsconfiguration;
+if (contextualgoogleintegrationsconfiguration) {
+_impl_._has_bits_[4] |= 0x00000004u;
+} else {
+_impl_._has_bits_[4] &= ~0x00000004u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.ContextualGoogleIntegrationsConfiguration)
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::release_contextualgoogleintegrationsconfiguration() {
+_impl_._has_bits_[4] &= ~0x00000004u;
+::enterprise_management::StringListPolicyProto* temp = _impl_.contextualgoogleintegrationsconfiguration_;
+_impl_.contextualgoogleintegrationsconfiguration_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::unsafe_arena_release_contextualgoogleintegrationsconfiguration() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.ContextualGoogleIntegrationsConfiguration)
+_impl_._has_bits_[4] &= ~0x00000004u;
+::enterprise_management::StringListPolicyProto* temp = _impl_.contextualgoogleintegrationsconfiguration_;
+_impl_.contextualgoogleintegrationsconfiguration_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::_internal_mutable_contextualgoogleintegrationsconfiguration() {
+_impl_._has_bits_[4] |= 0x00000004u;
+if (_impl_.contextualgoogleintegrationsconfiguration_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+_impl_.contextualgoogleintegrationsconfiguration_ = p;
+}
+return _impl_.contextualgoogleintegrationsconfiguration_;
+}
+inline ::enterprise_management::StringListPolicyProto* CloudPolicySubProto1::mutable_contextualgoogleintegrationsconfiguration() {
+::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_contextualgoogleintegrationsconfiguration();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.ContextualGoogleIntegrationsConfiguration)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_contextualgoogleintegrationsconfiguration(::enterprise_management::StringListPolicyProto* contextualgoogleintegrationsconfiguration) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.contextualgoogleintegrationsconfiguration_);
+}
+if (contextualgoogleintegrationsconfiguration) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(contextualgoogleintegrationsconfiguration));
+if (message_arena != submessage_arena) {
+contextualgoogleintegrationsconfiguration = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, contextualgoogleintegrationsconfiguration, submessage_arena);
+}
+_impl_._has_bits_[4] |= 0x00000004u;
+} else {
+_impl_._has_bits_[4] &= ~0x00000004u;
+}
+_impl_.contextualgoogleintegrationsconfiguration_ = contextualgoogleintegrationsconfiguration;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.ContextualGoogleIntegrationsConfiguration)
+}
+
+// optional .enterprise_management.BooleanPolicyProto ContextualGoogleIntegrationsEnabled = 214;
+inline bool CloudPolicySubProto1::_internal_has_contextualgoogleintegrationsenabled() const {
+bool value = (_impl_._has_bits_[4] & 0x00000002u) != 0;
+PROTOBUF_ASSUME(!value || _impl_.contextualgoogleintegrationsenabled_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_contextualgoogleintegrationsenabled() const {
+return _internal_has_contextualgoogleintegrationsenabled();
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_contextualgoogleintegrationsenabled() const {
+const ::enterprise_management::BooleanPolicyProto* p = _impl_.contextualgoogleintegrationsenabled_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::contextualgoogleintegrationsenabled() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.ContextualGoogleIntegrationsEnabled)
+return _internal_contextualgoogleintegrationsenabled();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_contextualgoogleintegrationsenabled(
+::enterprise_management::BooleanPolicyProto* contextualgoogleintegrationsenabled) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.contextualgoogleintegrationsenabled_);
+}
+_impl_.contextualgoogleintegrationsenabled_ = contextualgoogleintegrationsenabled;
+if (contextualgoogleintegrationsenabled) {
+_impl_._has_bits_[4] |= 0x00000002u;
+} else {
+_impl_._has_bits_[4] &= ~0x00000002u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.ContextualGoogleIntegrationsEnabled)
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_contextualgoogleintegrationsenabled() {
+_impl_._has_bits_[4] &= ~0x00000002u;
+::enterprise_management::BooleanPolicyProto* temp = _impl_.contextualgoogleintegrationsenabled_;
+_impl_.contextualgoogleintegrationsenabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_contextualgoogleintegrationsenabled() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.ContextualGoogleIntegrationsEnabled)
+_impl_._has_bits_[4] &= ~0x00000002u;
+::enterprise_management::BooleanPolicyProto* temp = _impl_.contextualgoogleintegrationsenabled_;
+_impl_.contextualgoogleintegrationsenabled_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_contextualgoogleintegrationsenabled() {
+_impl_._has_bits_[4] |= 0x00000002u;
+if (_impl_.contextualgoogleintegrationsenabled_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+_impl_.contextualgoogleintegrationsenabled_ = p;
+}
+return _impl_.contextualgoogleintegrationsenabled_;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_contextualgoogleintegrationsenabled() {
+::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_contextualgoogleintegrationsenabled();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.ContextualGoogleIntegrationsEnabled)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_contextualgoogleintegrationsenabled(::enterprise_management::BooleanPolicyProto* contextualgoogleintegrationsenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.contextualgoogleintegrationsenabled_);
+}
+if (contextualgoogleintegrationsenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(contextualgoogleintegrationsenabled));
+if (message_arena != submessage_arena) {
+contextualgoogleintegrationsenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, contextualgoogleintegrationsenabled, submessage_arena);
+}
+_impl_._has_bits_[4] |= 0x00000002u;
+} else {
+_impl_._has_bits_[4] &= ~0x00000002u;
+}
+_impl_.contextualgoogleintegrationsenabled_ = contextualgoogleintegrationsenabled;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.ContextualGoogleIntegrationsEnabled)
 }
 
 // optional .enterprise_management.StringPolicyProto DataControlsRules = 121;

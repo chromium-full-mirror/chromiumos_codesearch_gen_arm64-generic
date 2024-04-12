@@ -417,9 +417,9 @@ enum StartVmRequest_FdType : int {
   StartVmRequest_FdType_KERNEL = 0,
   StartVmRequest_FdType_ROOTFS = 1,
   StartVmRequest_FdType_STORAGE = 2,
-  StartVmRequest_FdType_INITRD PROTOBUF_DEPRECATED_ENUM = 3,
-  StartVmRequest_FdType_BIOS PROTOBUF_DEPRECATED_ENUM = 4,
-  StartVmRequest_FdType_PFLASH PROTOBUF_DEPRECATED_ENUM = 5,
+  StartVmRequest_FdType_INITRD = 3,
+  StartVmRequest_FdType_BIOS = 4,
+  StartVmRequest_FdType_PFLASH = 5,
   StartVmRequest_FdType_StartVmRequest_FdType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   StartVmRequest_FdType_StartVmRequest_FdType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
@@ -1801,11 +1801,11 @@ class StartVmRequest final :
     StartVmRequest_FdType_ROOTFS;
   static constexpr FdType STORAGE =
     StartVmRequest_FdType_STORAGE;
-  PROTOBUF_DEPRECATED_ENUM static constexpr FdType INITRD =
+  static constexpr FdType INITRD =
     StartVmRequest_FdType_INITRD;
-  PROTOBUF_DEPRECATED_ENUM static constexpr FdType BIOS =
+  static constexpr FdType BIOS =
     StartVmRequest_FdType_BIOS;
-  PROTOBUF_DEPRECATED_ENUM static constexpr FdType PFLASH =
+  static constexpr FdType PFLASH =
     StartVmRequest_FdType_PFLASH;
   static inline bool FdType_IsValid(int value) {
     return StartVmRequest_FdType_IsValid(value);
