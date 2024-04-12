@@ -98,8 +98,10 @@ enum class BuiltinModelId : int32_t {
   ADAPTIVE_CHARGING_20230314 = 9,
   
   PONCHO_PALM_REJECTION_20230907 = 10,
+  
+  PONCHO_PALM_REJECTION_20240313 = 11,
   kMinValue = 0,
-  kMaxValue = 10,
+  kMaxValue = 11,
 };
 
  std::ostream& operator<<(std::ostream& os, BuiltinModelId value);
