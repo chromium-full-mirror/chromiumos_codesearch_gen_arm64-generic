@@ -650,8 +650,10 @@ enum class CrashEventInfo_CrashType : int32_t {
   kKernel = 1,
   
   kEmbeddedController = 2,
+  
+  kChrome = 3,
   kMinValue = 0,
-  kMaxValue = 2,
+  kMaxValue = 3,
   kDefaultValue = 0
 };
 
