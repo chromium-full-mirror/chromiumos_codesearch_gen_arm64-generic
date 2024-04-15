@@ -1,7 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.UserDataAuthInterface
 //  - org.chromium.CryptohomePkcs11Interface
-//  - org.chromium.InstallAttributesInterface
 //  - org.chromium.CryptohomeMiscInterface
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CRYPTOHOME_OUT_DEFAULT_GEN_INCLUDE_DBUS_ADAPTORS_ORG_CHROMIUM_USERDATAAUTH_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CRYPTOHOME_OUT_DEFAULT_GEN_INCLUDE_DBUS_ADAPTORS_ORG_CHROMIUM_USERDATAAUTH_H
@@ -766,123 +765,6 @@ class CryptohomePkcs11InterfaceAdaptor {
 
  private:
   CryptohomePkcs11InterfaceInterface* interface_;  // Owned by container of this adapter.
-};
-
-}  // namespace chromium
-}  // namespace org
-
-namespace org {
-namespace chromium {
-
-// Interface definition for org::chromium::InstallAttributesInterface.
-class InstallAttributesInterfaceInterface {
- public:
-  virtual ~InstallAttributesInterfaceInterface() = default;
-
-  virtual void InstallAttributesGet(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::InstallAttributesGetReply>> response,
-      const user_data_auth::InstallAttributesGetRequest& in_request) = 0;
-  virtual void InstallAttributesSet(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::InstallAttributesSetReply>> response,
-      const user_data_auth::InstallAttributesSetRequest& in_request) = 0;
-  virtual void InstallAttributesFinalize(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::InstallAttributesFinalizeReply>> response,
-      const user_data_auth::InstallAttributesFinalizeRequest& in_request) = 0;
-  virtual void InstallAttributesGetStatus(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::InstallAttributesGetStatusReply>> response,
-      const user_data_auth::InstallAttributesGetStatusRequest& in_request) = 0;
-  virtual void GetFirmwareManagementParameters(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetFirmwareManagementParametersReply>> response,
-      const user_data_auth::GetFirmwareManagementParametersRequest& in_request) = 0;
-  virtual void RemoveFirmwareManagementParameters(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::RemoveFirmwareManagementParametersReply>> response,
-      const user_data_auth::RemoveFirmwareManagementParametersRequest& in_request) = 0;
-  virtual void SetFirmwareManagementParameters(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::SetFirmwareManagementParametersReply>> response,
-      const user_data_auth::SetFirmwareManagementParametersRequest& in_request) = 0;
-};
-
-// Interface adaptor for org::chromium::InstallAttributesInterface.
-class InstallAttributesInterfaceAdaptor {
- public:
-  InstallAttributesInterfaceAdaptor(InstallAttributesInterfaceInterface* interface) : interface_(interface) {}
-  InstallAttributesInterfaceAdaptor(const InstallAttributesInterfaceAdaptor&) = delete;
-  InstallAttributesInterfaceAdaptor& operator=(const InstallAttributesInterfaceAdaptor&) = delete;
-
-  void RegisterWithDBusObject(brillo::dbus_utils::DBusObject* object) {
-    brillo::dbus_utils::DBusInterface* itf =
-        object->AddOrGetInterface("org.chromium.InstallAttributesInterface");
-
-    itf->AddMethodHandler(
-        "InstallAttributesGet",
-        base::Unretained(interface_),
-        &InstallAttributesInterfaceInterface::InstallAttributesGet);
-    itf->AddMethodHandler(
-        "InstallAttributesSet",
-        base::Unretained(interface_),
-        &InstallAttributesInterfaceInterface::InstallAttributesSet);
-    itf->AddMethodHandler(
-        "InstallAttributesFinalize",
-        base::Unretained(interface_),
-        &InstallAttributesInterfaceInterface::InstallAttributesFinalize);
-    itf->AddMethodHandler(
-        "InstallAttributesGetStatus",
-        base::Unretained(interface_),
-        &InstallAttributesInterfaceInterface::InstallAttributesGetStatus);
-    itf->AddMethodHandler(
-        "GetFirmwareManagementParameters",
-        base::Unretained(interface_),
-        &InstallAttributesInterfaceInterface::GetFirmwareManagementParameters);
-    itf->AddMethodHandler(
-        "RemoveFirmwareManagementParameters",
-        base::Unretained(interface_),
-        &InstallAttributesInterfaceInterface::RemoveFirmwareManagementParameters);
-    itf->AddMethodHandler(
-        "SetFirmwareManagementParameters",
-        base::Unretained(interface_),
-        &InstallAttributesInterfaceInterface::SetFirmwareManagementParameters);
-  }
-
-  static dbus::ObjectPath GetObjectPath() {
-    return dbus::ObjectPath{"/org/chromium/UserDataAuth"};
-  }
-
-  static const char* GetIntrospectionXml() {
-    return
-        "  <interface name=\"org.chromium.InstallAttributesInterface\">\n"
-        "    <method name=\"InstallAttributesGet\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"InstallAttributesSet\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"InstallAttributesFinalize\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"InstallAttributesGetStatus\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"GetFirmwareManagementParameters\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"RemoveFirmwareManagementParameters\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"SetFirmwareManagementParameters\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "  </interface>\n";
-  }
-
- private:
-  InstallAttributesInterfaceInterface* interface_;  // Owned by container of this adapter.
 };
 
 }  // namespace chromium
