@@ -3515,6 +3515,9 @@ Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& me
     case messages::Executor::kRunNetworkBandwidthTest: {
       return &Executor::RunNetworkBandwidthTest_Sym::IPCStableHash;
     }
+    case messages::Executor::kFetchGraphicsInfo: {
+      return &Executor::FetchGraphicsInfo_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -3612,6 +3615,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Executor::RunUrandom";
       case messages::Executor::kRunNetworkBandwidthTest:
             return "Receive ash::cros_healthd::mojom::Executor::RunNetworkBandwidthTest";
+      case messages::Executor::kFetchGraphicsInfo:
+            return "Receive ash::cros_healthd::mojom::Executor::FetchGraphicsInfo";
     }
   } else {
     switch (static_cast<messages::Executor>(message.name())) {
@@ -3701,6 +3706,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Executor::RunUrandom";
       case messages::Executor::kRunNetworkBandwidthTest:
             return "Receive reply ash::cros_healthd::mojom::Executor::RunNetworkBandwidthTest";
+      case messages::Executor::kFetchGraphicsInfo:
+            return "Receive reply ash::cros_healthd::mojom::Executor::FetchGraphicsInfo";
     }
   }
   return "Receive unknown mojo message";
@@ -4274,6 +4281,19 @@ uint32_t Executor::RunNetworkBandwidthTest_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Executor::FetchGraphicsInfo_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::FetchGraphicsInfo");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Executor_ReadFile_ForwardToCallback
@@ -4786,6 +4806,22 @@ class Executor_RunNetworkBandwidthTest_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Executor::RunNetworkBandwidthTestCallback callback_;
+};
+
+class Executor_FetchGraphicsInfo_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Executor_FetchGraphicsInfo_ForwardToCallback(
+      Executor::FetchGraphicsInfoCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Executor_FetchGraphicsInfo_ForwardToCallback(const Executor_FetchGraphicsInfo_ForwardToCallback&) = delete;
+  Executor_FetchGraphicsInfo_ForwardToCallback& operator=(const Executor_FetchGraphicsInfo_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Executor::FetchGraphicsInfoCallback callback_;
 };
 
 ExecutorProxy::ExecutorProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -6875,6 +6911,42 @@ void ExecutorProxy::RunNetworkBandwidthTest(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_RunNetworkBandwidthTest_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::FetchGraphicsInfo(
+    FetchGraphicsInfoCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::FetchGraphicsInfo");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::Executor::kFetchGraphicsInfo), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_FetchGraphicsInfo_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("FetchGraphicsInfo");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Executor_FetchGraphicsInfo_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -11100,6 +11172,136 @@ void Executor_RunNetworkBandwidthTest_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Executor_FetchGraphicsInfo_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Executor::FetchGraphicsInfoCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Executor_FetchGraphicsInfo_ProxyToResponder> proxy(
+        new Executor_FetchGraphicsInfo_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Executor_FetchGraphicsInfo_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Executor_FetchGraphicsInfo_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Executor_FetchGraphicsInfo_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Executor::FetchGraphicsInfoCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::GraphicsResultPtr in_result);
+};
+
+bool Executor_FetchGraphicsInfo_ForwardToCallback::Accept(
+    mojo::Message* message) {
+  DCHECK(message->is_serialized());
+  internal::Executor_FetchGraphicsInfo_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Executor_FetchGraphicsInfo_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for Executor.43
+  bool success = true;
+  ::ash::cros_healthd::mojom::GraphicsResultPtr p_result{};
+  Executor_FetchGraphicsInfo_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Executor::Name_, 43, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void Executor_FetchGraphicsInfo_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::GraphicsResultPtr in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::FetchGraphicsInfo", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type ::ash::cros_healthd::mojom::GraphicsResultPtr>");
+   });
+#endif
+
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::Executor::kFetchGraphicsInfo), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_FetchGraphicsInfo_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<decltype(params->result)>
+      result_fragment(params.message());
+  result_fragment.Claim(&params->result);
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::GraphicsResultDataView>(
+      in_result, result_fragment, true);
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("FetchGraphicsInfo");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool ExecutorStubDispatch::Accept(
@@ -11585,6 +11787,9 @@ bool ExecutorStubDispatch::Accept(
       break;
     }
     case messages::Executor::kRunNetworkBandwidthTest: {
+      break;
+    }
+    case messages::Executor::kFetchGraphicsInfo: {
       break;
     }
   }
@@ -12596,6 +12801,32 @@ bool ExecutorStubDispatch::AcceptWithResponder(
         std::move(p_process_control), std::move(callback));
       return true;
     }
+    case messages::Executor::kFetchGraphicsInfo: {
+      internal::Executor_FetchGraphicsInfo_Params_Data* params =
+          reinterpret_cast<
+              internal::Executor_FetchGraphicsInfo_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for Executor.43
+      bool success = true;
+      Executor_FetchGraphicsInfo_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 43, false);
+        return false;
+      }
+      Executor::FetchGraphicsInfoCallback callback =
+          Executor_FetchGraphicsInfo_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->FetchGraphicsInfo(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -12688,6 +12919,8 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
      &internal::Executor_RunUrandom_ResponseParams_Data::Validate},
     { &internal::Executor_RunNetworkBandwidthTest_Params_Data::Validate,
      &internal::Executor_RunNetworkBandwidthTest_ResponseParams_Data::Validate},
+    { &internal::Executor_FetchGraphicsInfo_Params_Data::Validate,
+     &internal::Executor_FetchGraphicsInfo_ResponseParams_Data::Validate},
 };
 
 bool ExecutorRequestValidator::Accept(mojo::Message* message) {
@@ -13251,6 +13484,9 @@ void ExecutorInterceptorForTesting::RunUrandom(base::TimeDelta exec_duration, ::
 }
 void ExecutorInterceptorForTesting::RunNetworkBandwidthTest(NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control, RunNetworkBandwidthTestCallback callback) {
   GetForwardingInterface()->RunNetworkBandwidthTest(std::move(type), std::move(oem_name), std::move(observer), std::move(process_control), std::move(callback));
+}
+void ExecutorInterceptorForTesting::FetchGraphicsInfo(FetchGraphicsInfoCallback callback) {
+  GetForwardingInterface()->FetchGraphicsInfo(std::move(callback));
 }
 ExecutorAsyncWaiter::ExecutorAsyncWaiter(
     Executor* proxy) : proxy_(proxy) {}
@@ -13984,6 +14220,29 @@ std::optional<double> ExecutorAsyncWaiter::RunNetworkBandwidthTest(
     NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
   std::optional<double> async_wait_result;
   RunNetworkBandwidthTest(std::move(type),std::move(oem_name),std::move(observer),std::move(process_control),&async_wait_result);
+  return async_wait_result;
+}
+
+void ExecutorAsyncWaiter::FetchGraphicsInfo(
+    ::ash::cros_healthd::mojom::GraphicsResultPtr* out_result) {
+  base::RunLoop loop;
+  proxy_->FetchGraphicsInfo(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::GraphicsResultPtr* out_result
+,
+             ::ash::cros_healthd::mojom::GraphicsResultPtr result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::GraphicsResultPtr ExecutorAsyncWaiter::FetchGraphicsInfo(
+    ) {
+  ::ash::cros_healthd::mojom::GraphicsResultPtr async_wait_result;
+  FetchGraphicsInfo(&async_wait_result);
   return async_wait_result;
 }
 

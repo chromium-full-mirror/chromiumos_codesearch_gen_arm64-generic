@@ -43,6 +43,7 @@ enum class Delegate : uint32_t {
   kGetSmartBatteryTemperature = 25,
   kRunUrandom = 26,
   kRunNetworkBandwidthTest = 27,
+  kFetchGraphicsInfo = 28,
 };
 
 }  // namespace messages

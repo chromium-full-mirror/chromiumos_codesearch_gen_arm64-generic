@@ -823,6 +823,37 @@ class  Delegate_RunNetworkBandwidthTest_ResponseParams_Data {
 };
 static_assert(sizeof(Delegate_RunNetworkBandwidthTest_ResponseParams_Data) == 24,
               "Bad sizeof(Delegate_RunNetworkBandwidthTest_ResponseParams_Data)");
+class  Delegate_FetchGraphicsInfo_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_FetchGraphicsInfo_Params_Data>;
+
+  Delegate_FetchGraphicsInfo_Params_Data();
+  ~Delegate_FetchGraphicsInfo_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_FetchGraphicsInfo_Params_Data) == 8,
+              "Bad sizeof(Delegate_FetchGraphicsInfo_Params_Data)");
+class  Delegate_FetchGraphicsInfo_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  ::ash::cros_healthd::mojom::internal::GraphicsResult_Data result;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_FetchGraphicsInfo_ResponseParams_Data>;
+
+  Delegate_FetchGraphicsInfo_ResponseParams_Data();
+  ~Delegate_FetchGraphicsInfo_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_FetchGraphicsInfo_ResponseParams_Data) == 24,
+              "Bad sizeof(Delegate_FetchGraphicsInfo_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -2123,6 +2154,47 @@ class Delegate_RunNetworkBandwidthTest_ResponseParamsDataView {
 };
 
 
+class Delegate_FetchGraphicsInfo_ParamsDataView {
+ public:
+  Delegate_FetchGraphicsInfo_ParamsDataView() = default;
+
+  Delegate_FetchGraphicsInfo_ParamsDataView(
+      internal::Delegate_FetchGraphicsInfo_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Delegate_FetchGraphicsInfo_Params_Data* data_ = nullptr;
+};
+
+
+class Delegate_FetchGraphicsInfo_ResponseParamsDataView {
+ public:
+  Delegate_FetchGraphicsInfo_ResponseParamsDataView() = default;
+
+  Delegate_FetchGraphicsInfo_ResponseParamsDataView(
+      internal::Delegate_FetchGraphicsInfo_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      ::ash::cros_healthd::mojom::GraphicsResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = !data_->result.is_null() ? &data_->result : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::GraphicsResultDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_FetchGraphicsInfo_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -2348,6 +2420,15 @@ inline void Delegate_RunNetworkBandwidthTest_ParamsDataView::GetOemNameDataView(
 }
 
 
+
+
+
+
+inline void Delegate_FetchGraphicsInfo_ResponseParamsDataView::GetResultDataView(
+    ::ash::cros_healthd::mojom::GraphicsResultDataView* output) {
+  auto pointer = &data_->result;
+  *output = ::ash::cros_healthd::mojom::GraphicsResultDataView(pointer, message_);
+}
 
 
 

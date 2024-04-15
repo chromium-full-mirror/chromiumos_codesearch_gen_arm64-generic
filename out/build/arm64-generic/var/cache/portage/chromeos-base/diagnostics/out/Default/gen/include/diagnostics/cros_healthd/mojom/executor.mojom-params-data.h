@@ -1627,6 +1627,37 @@ class  Executor_RunNetworkBandwidthTest_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_RunNetworkBandwidthTest_ResponseParams_Data) == 24,
               "Bad sizeof(Executor_RunNetworkBandwidthTest_ResponseParams_Data)");
+class  Executor_FetchGraphicsInfo_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_FetchGraphicsInfo_Params_Data>;
+
+  Executor_FetchGraphicsInfo_Params_Data();
+  ~Executor_FetchGraphicsInfo_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_FetchGraphicsInfo_Params_Data) == 8,
+              "Bad sizeof(Executor_FetchGraphicsInfo_Params_Data)");
+class  Executor_FetchGraphicsInfo_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  ::ash::cros_healthd::mojom::internal::GraphicsResult_Data result;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_FetchGraphicsInfo_ResponseParams_Data>;
+
+  Executor_FetchGraphicsInfo_ResponseParams_Data();
+  ~Executor_FetchGraphicsInfo_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_FetchGraphicsInfo_ResponseParams_Data) == 24,
+              "Bad sizeof(Executor_FetchGraphicsInfo_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -4198,6 +4229,47 @@ class Executor_RunNetworkBandwidthTest_ResponseParamsDataView {
 };
 
 
+class Executor_FetchGraphicsInfo_ParamsDataView {
+ public:
+  Executor_FetchGraphicsInfo_ParamsDataView() = default;
+
+  Executor_FetchGraphicsInfo_ParamsDataView(
+      internal::Executor_FetchGraphicsInfo_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Executor_FetchGraphicsInfo_Params_Data* data_ = nullptr;
+};
+
+
+class Executor_FetchGraphicsInfo_ResponseParamsDataView {
+ public:
+  Executor_FetchGraphicsInfo_ResponseParamsDataView() = default;
+
+  Executor_FetchGraphicsInfo_ResponseParamsDataView(
+      internal::Executor_FetchGraphicsInfo_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      ::ash::cros_healthd::mojom::GraphicsResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = !data_->result.is_null() ? &data_->result : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::GraphicsResultDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_FetchGraphicsInfo_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 
 
@@ -4619,6 +4691,15 @@ inline void Executor_RunNetworkBandwidthTest_ParamsDataView::GetOemNameDataView(
 }
 
 
+
+
+
+
+inline void Executor_FetchGraphicsInfo_ResponseParamsDataView::GetResultDataView(
+    ::ash::cros_healthd::mojom::GraphicsResultDataView* output) {
+  auto pointer = &data_->result;
+  *output = ::ash::cros_healthd::mojom::GraphicsResultDataView(pointer, message_);
+}
 
 
 

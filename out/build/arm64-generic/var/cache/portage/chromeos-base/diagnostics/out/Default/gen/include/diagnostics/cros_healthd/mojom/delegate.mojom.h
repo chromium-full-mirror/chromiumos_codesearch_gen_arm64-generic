@@ -104,6 +104,7 @@ class Delegate
     kGetSmartBatteryTemperatureMinVersion = 0,
     kRunUrandomMinVersion = 0,
     kRunNetworkBandwidthTestMinVersion = 0,
+    kFetchGraphicsInfoMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -191,6 +192,9 @@ class Delegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunNetworkBandwidthTest_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct FetchGraphicsInfo_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -321,6 +325,11 @@ class Delegate
   using RunNetworkBandwidthTestCallback = base::OnceCallback<void(std::optional<double>)>;
   
   virtual void RunNetworkBandwidthTest(::ash::cros_healthd::mojom::NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, RunNetworkBandwidthTestCallback callback) = 0;
+
+
+  using FetchGraphicsInfoCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::GraphicsResultPtr)>;
+  
+  virtual void FetchGraphicsInfo(FetchGraphicsInfoCallback callback) = 0;
 };
 
 
@@ -387,6 +396,8 @@ class  DelegateProxy
   void RunUrandom(base::TimeDelta exec_duration, RunUrandomCallback callback) final;
   
   void RunNetworkBandwidthTest(::ash::cros_healthd::mojom::NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, RunNetworkBandwidthTestCallback callback) final;
+  
+  void FetchGraphicsInfo(FetchGraphicsInfoCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

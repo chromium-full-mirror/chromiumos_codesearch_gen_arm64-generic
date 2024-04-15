@@ -95,6 +95,7 @@ enum class Executor : uint32_t {
   kGetSmartBatteryTemperature = 40,
   kRunUrandom = 41,
   kRunNetworkBandwidthTest = 42,
+  kFetchGraphicsInfo = 43,
 };
 
 }  // namespace messages

@@ -43,6 +43,7 @@ class  DelegateInterceptorForTesting : public Delegate {
   void GetSmartBatteryTemperature(uint8_t i2c_port, GetSmartBatteryTemperatureCallback callback) override;
   void RunUrandom(base::TimeDelta exec_duration, RunUrandomCallback callback) override;
   void RunNetworkBandwidthTest(::ash::cros_healthd::mojom::NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, RunNetworkBandwidthTestCallback callback) override;
+  void FetchGraphicsInfo(FetchGraphicsInfoCallback callback) override;
 };
 class  DelegateAsyncWaiter {
  public:
@@ -115,6 +116,9 @@ class  DelegateAsyncWaiter {
   void RunNetworkBandwidthTest(
       ::ash::cros_healthd::mojom::NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, std::optional<double>* out_average_speed);
   std::optional<double> RunNetworkBandwidthTest(::ash::cros_healthd::mojom::NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer);
+  void FetchGraphicsInfo(
+      ::ash::cros_healthd::mojom::GraphicsResultPtr* out_result);
+  ::ash::cros_healthd::mojom::GraphicsResultPtr FetchGraphicsInfo();
 
  private:
   Delegate* const proxy_;
