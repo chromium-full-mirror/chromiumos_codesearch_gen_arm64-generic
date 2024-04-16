@@ -365,6 +365,136 @@ class ShareSession final : public ::metrics::structured::Event {
 
 }  // namespace nearby_share
 
+namespace phone_hub {
+
+ 
+class SessionDetails final : public ::metrics::structured::Event {
+ public:
+  SessionDetails();
+  ~SessionDetails() override;
+
+    SessionDetails&& SetSessionId(const std::string& value) &&;
+  SessionDetails& SetSessionId(const std::string& value) &;
+  SessionDetails&& SetTimestamp(const int64_t value) &&;
+  SessionDetails& SetTimestamp(const int64_t value) &;
+  SessionDetails&& SetConnectionMedium(const int64_t value) &&;
+  SessionDetails& SetConnectionMedium(const int64_t value) &;
+  SessionDetails&& SetChromebookBluetoothStack(const int64_t value) &&;
+  SessionDetails& SetChromebookBluetoothStack(const int64_t value) &;
+  SessionDetails&& SetDevicesNetworkState(const int64_t value) &&;
+  SessionDetails& SetDevicesNetworkState(const int64_t value) &;
+  SessionDetails&& SetChromebookLocale(const std::string& value) &&;
+  SessionDetails& SetChromebookLocale(const std::string& value) &;
+  SessionDetails&& SetChromebookPseudonymousId(const std::string& value) &&;
+  SessionDetails& SetChromebookPseudonymousId(const std::string& value) &;
+  SessionDetails&& SetPhoneManufacturer(const std::string& value) &&;
+  SessionDetails& SetPhoneManufacturer(const std::string& value) &;
+  SessionDetails&& SetPhoneModel(const std::string& value) &&;
+  SessionDetails& SetPhoneModel(const std::string& value) &;
+  SessionDetails&& SetPhoneAndroidVersion(const int64_t value) &&;
+  SessionDetails& SetPhoneAndroidVersion(const int64_t value) &;
+  SessionDetails&& SetPhoneAmbientApkVersion(const int64_t value) &&;
+  SessionDetails& SetPhoneAmbientApkVersion(const int64_t value) &;
+  SessionDetails&& SetPhoneGmsCoreVersion(const int64_t value) &&;
+  SessionDetails& SetPhoneGmsCoreVersion(const int64_t value) &;
+  SessionDetails&& SetPhoneProfile(const int64_t value) &&;
+  SessionDetails& SetPhoneProfile(const int64_t value) &;
+  SessionDetails&& SetPhoneNetworkStatus(const int64_t value) &&;
+  SessionDetails& SetPhoneNetworkStatus(const int64_t value) &;
+  SessionDetails&& SetPhoneLocale(const std::string& value) &&;
+  SessionDetails& SetPhoneLocale(const std::string& value) &;
+  SessionDetails&& SetPhonePseudonymousId(const std::string& value) &&;
+  SessionDetails& SetPhonePseudonymousId(const std::string& value) &;
+  SessionDetails&& SetPhoneInfoLastUpdatedTimestamp(const int64_t value) &&;
+  SessionDetails& SetPhoneInfoLastUpdatedTimestamp(const int64_t value) &;
+};
+
+class DiscoveryStarted final : public ::metrics::structured::Event {
+ public:
+  DiscoveryStarted();
+  ~DiscoveryStarted() override;
+
+    DiscoveryStarted&& SetSessionId(const std::string& value) &&;
+  DiscoveryStarted& SetSessionId(const std::string& value) &;
+  DiscoveryStarted&& SetTimestamp(const int64_t value) &&;
+  DiscoveryStarted& SetTimestamp(const int64_t value) &;
+  DiscoveryStarted&& SetDiscoveryEntrypoint(const int64_t value) &&;
+  DiscoveryStarted& SetDiscoveryEntrypoint(const int64_t value) &;
+};
+
+class DiscoveryFinished final : public ::metrics::structured::Event {
+ public:
+  DiscoveryFinished();
+  ~DiscoveryFinished() override;
+
+    DiscoveryFinished&& SetSessionId(const std::string& value) &&;
+  DiscoveryFinished& SetSessionId(const std::string& value) &;
+  DiscoveryFinished&& SetTimestamp(const int64_t value) &&;
+  DiscoveryFinished& SetTimestamp(const int64_t value) &;
+  DiscoveryFinished&& SetDiscoeryResult(const int64_t value) &&;
+  DiscoveryFinished& SetDiscoeryResult(const int64_t value) &;
+  DiscoveryFinished&& SetDiscoveryResultErrorCode(const int64_t value) &&;
+  DiscoveryFinished& SetDiscoveryResultErrorCode(const int64_t value) &;
+};
+
+class NearbyConnection final : public ::metrics::structured::Event {
+ public:
+  NearbyConnection();
+  ~NearbyConnection() override;
+
+    NearbyConnection&& SetSessionId(const std::string& value) &&;
+  NearbyConnection& SetSessionId(const std::string& value) &;
+  NearbyConnection&& SetTimestamp(const int64_t value) &&;
+  NearbyConnection& SetTimestamp(const int64_t value) &;
+  NearbyConnection&& SetNearbyConnectionStep(const int64_t value) &&;
+  NearbyConnection& SetNearbyConnectionStep(const int64_t value) &;
+  NearbyConnection&& SetNearbyConnectionStepResult(const int64_t value) &&;
+  NearbyConnection& SetNearbyConnectionStepResult(const int64_t value) &;
+};
+
+class SecureChannelAuthentication final : public ::metrics::structured::Event {
+ public:
+  SecureChannelAuthentication();
+  ~SecureChannelAuthentication() override;
+
+    SecureChannelAuthentication&& SetSessionId(const std::string& value) &&;
+  SecureChannelAuthentication& SetSessionId(const std::string& value) &;
+  SecureChannelAuthentication&& SetTimestamp(const int64_t value) &&;
+  SecureChannelAuthentication& SetTimestamp(const int64_t value) &;
+  SecureChannelAuthentication&& SetSecureChannelAuthenticationState(const int64_t value) &&;
+  SecureChannelAuthentication& SetSecureChannelAuthenticationState(const int64_t value) &;
+};
+
+class PhoneHubMessage final : public ::metrics::structured::Event {
+ public:
+  PhoneHubMessage();
+  ~PhoneHubMessage() override;
+
+    PhoneHubMessage&& SetSessionId(const std::string& value) &&;
+  PhoneHubMessage& SetSessionId(const std::string& value) &;
+  PhoneHubMessage&& SetTimestamp(const int64_t value) &&;
+  PhoneHubMessage& SetTimestamp(const int64_t value) &;
+  PhoneHubMessage&& SetPhoneHubMessageType(const int64_t value) &&;
+  PhoneHubMessage& SetPhoneHubMessageType(const int64_t value) &;
+  PhoneHubMessage&& SetPhoneHubMessageDirection(const int64_t value) &&;
+  PhoneHubMessage& SetPhoneHubMessageDirection(const int64_t value) &;
+};
+
+class PhoneHubUiUpdate final : public ::metrics::structured::Event {
+ public:
+  PhoneHubUiUpdate();
+  ~PhoneHubUiUpdate() override;
+
+    PhoneHubUiUpdate&& SetSessionId(const std::string& value) &&;
+  PhoneHubUiUpdate& SetSessionId(const std::string& value) &;
+  PhoneHubUiUpdate&& SetTimestamp(const int64_t value) &&;
+  PhoneHubUiUpdate& SetTimestamp(const int64_t value) &;
+  PhoneHubUiUpdate&& SetPhoneHubUiState(const int64_t value) &&;
+  PhoneHubUiUpdate& SetPhoneHubUiState(const int64_t value) &;
+};
+
+}  // namespace phone_hub
+
 namespace structured_metrics {
 
  
