@@ -49,12 +49,12 @@ typedef unsigned short dbus_uint16_t;
  * creating an additional generated header just for this
  */
 #define DBUS_MAJOR_VERSION 1
-#define DBUS_MINOR_VERSION 12
-#define DBUS_MICRO_VERSION 26
+#define DBUS_MINOR_VERSION 14
+#define DBUS_MICRO_VERSION 10
 
-#define DBUS_VERSION_STRING "1.12.26"
+#define DBUS_VERSION_STRING "1.14.10"
 
-#define DBUS_VERSION ((1 << 16) | (12 << 8) | (26)) 
+#define DBUS_VERSION ((1 << 16) | (14 << 8) | (10)) 
 
 DBUS_END_DECLS
 

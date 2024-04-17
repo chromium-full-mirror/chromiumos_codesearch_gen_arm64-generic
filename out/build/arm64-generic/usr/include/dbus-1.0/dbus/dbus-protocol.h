@@ -300,6 +300,10 @@ extern "C" {
  * with this message.
  */
 #define DBUS_HEADER_FIELD_UNIX_FDS       9
+/**
+ * Header field code for the container instance that sent this message.
+ */
+#define DBUS_HEADER_FIELD_CONTAINER_INSTANCE 10
 
 
 /**
@@ -308,7 +312,7 @@ extern "C" {
  * that unknown codes must be ignored, so check for that before
  * indexing the array.
  */
-#define DBUS_HEADER_FIELD_LAST DBUS_HEADER_FIELD_UNIX_FDS
+#define DBUS_HEADER_FIELD_LAST DBUS_HEADER_FIELD_CONTAINER_INSTANCE
 
 /** Header format is defined as a signature:
  *   byte                            byte order
@@ -434,7 +438,7 @@ extern "C" {
 #define DBUS_ERROR_SPAWN_PERMISSIONS_INVALID  "org.freedesktop.DBus.Error.Spawn.PermissionsInvalid"
 /** Service file invalid (Name, User or Exec missing). */
 #define DBUS_ERROR_SPAWN_FILE_INVALID         "org.freedesktop.DBus.Error.Spawn.FileInvalid"
-/** Tried to get a UNIX process ID and it wasn't available. */
+/** There was not enough memory to complete the operation. */
 #define DBUS_ERROR_SPAWN_NO_MEMORY            "org.freedesktop.DBus.Error.Spawn.NoMemory"
 /** Tried to get a UNIX process ID and it wasn't available. */
 #define DBUS_ERROR_UNIX_PROCESS_ID_UNKNOWN    "org.freedesktop.DBus.Error.UnixProcessIdUnknown"
@@ -455,6 +459,9 @@ extern "C" {
  * but could have succeeded if an interactive authorization step was
  * allowed. */
 #define DBUS_ERROR_INTERACTIVE_AUTHORIZATION_REQUIRED "org.freedesktop.DBus.Error.InteractiveAuthorizationRequired"
+/** The connection is not from a container, or the specified container instance
+ * does not exist. */
+#define DBUS_ERROR_NOT_CONTAINER "org.freedesktop.DBus.Error.NotContainer"
 
 /* XML introspection format */
 
