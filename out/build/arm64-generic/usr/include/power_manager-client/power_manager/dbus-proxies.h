@@ -255,6 +255,23 @@ class PowerManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // If |enabled| is true, the ambient light sensor will be used in keyboard
+  // brightness calculations. If the device has no ambient light sensor,
+  // this method is a no-op.
+  virtual bool SetKeyboardAmbientLightSensorEnabled(
+      bool in_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // If |enabled| is true, the ambient light sensor will be used in keyboard
+  // brightness calculations. If the device has no ambient light sensor,
+  // this method is a no-op.
+  virtual void SetKeyboardAmbientLightSensorEnabledAsync(
+      bool in_enabled,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // The |serialized_proto| arg is a serialized
   // power_manager::PowerSupplyProperties protobuf.
   virtual bool GetPowerSupplyProperties(
@@ -1456,6 +1473,42 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
         "GetKeyboardBrightnessPercent",
         std::move(success_callback),
         std::move(error_callback));
+  }
+
+  // If |enabled| is true, the ambient light sensor will be used in keyboard
+  // brightness calculations. If the device has no ambient light sensor,
+  // this method is a no-op.
+  bool SetKeyboardAmbientLightSensorEnabled(
+      bool in_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "SetKeyboardAmbientLightSensorEnabled",
+        error,
+        in_enabled);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // If |enabled| is true, the ambient light sensor will be used in keyboard
+  // brightness calculations. If the device has no ambient light sensor,
+  // this method is a no-op.
+  void SetKeyboardAmbientLightSensorEnabledAsync(
+      bool in_enabled,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "SetKeyboardAmbientLightSensorEnabled",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_enabled);
   }
 
   // The |serialized_proto| arg is a serialized
