@@ -395,155 +395,6 @@ class  ServiceManagerResponseValidator : public mojo::MessageReceiver {
 
 
 
-class  ProcessIdentity {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<ProcessIdentity, T>::value>;
-  using DataView = ProcessIdentityDataView;
-  using Data_ = internal::ProcessIdentity_Data;
-
-  template <typename... Args>
-  static ProcessIdentityPtr New(Args&&... args) {
-    return ProcessIdentityPtr(
-        std::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static ProcessIdentityPtr From(const U& u) {
-    return mojo::TypeConverter<ProcessIdentityPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, ProcessIdentity>::Convert(*this);
-  }
-
-
-  ProcessIdentity();
-
-  ProcessIdentity(
-      const std::string& security_context,
-      uint32_t pid,
-      uint32_t uid,
-      uint32_t gid);
-
-
-  ~ProcessIdentity();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = ProcessIdentityPtr>
-  ProcessIdentityPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, ProcessIdentity::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, ProcessIdentity::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, ProcessIdentity::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        ProcessIdentity::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        ProcessIdentity::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::ProcessIdentity_UnserializedMessageContext<
-            UserType, ProcessIdentity::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<ProcessIdentity::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return ProcessIdentity::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::ProcessIdentity_UnserializedMessageContext<
-            UserType, ProcessIdentity::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<ProcessIdentity::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  std::string security_context;
-  
-  uint32_t pid;
-  
-  uint32_t uid;
-  
-  uint32_t gid;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, ProcessIdentity::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, ProcessIdentity::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, ProcessIdentity::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, ProcessIdentity::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
 
 
 class  UnregisteredServiceState {
@@ -903,7 +754,6 @@ class  ErrorOrServiceState {
             typename std::enable_if<std::is_same<
                 T, ErrorOrServiceState>::value>::type* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
-  size_t Hash(size_t seed) const;
 
   Tag which() const {
     return tag_;
@@ -1055,7 +905,6 @@ class  ServiceState {
             typename std::enable_if<std::is_same<
                 T, ServiceState>::value>::type* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
-  size_t Hash(size_t seed) const;
 
   Tag which() const {
     return tag_;
@@ -1133,6 +982,163 @@ class  ServiceState {
 
 
 
+class  ProcessIdentity {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ProcessIdentity, T>::value>;
+  using DataView = ProcessIdentityDataView;
+  using Data_ = internal::ProcessIdentity_Data;
+
+  template <typename... Args>
+  static ProcessIdentityPtr New(Args&&... args) {
+    return ProcessIdentityPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ProcessIdentityPtr From(const U& u) {
+    return mojo::TypeConverter<ProcessIdentityPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ProcessIdentity>::Convert(*this);
+  }
+
+
+  ProcessIdentity();
+
+  ProcessIdentity(
+      const std::string& security_context,
+      uint32_t pid,
+      uint32_t uid,
+      uint32_t gid);
+
+  ProcessIdentity(
+      const std::string& security_context,
+      uint32_t pid,
+      uint32_t uid,
+      uint32_t gid,
+      const std::optional<std::string>& username);
+
+
+  ~ProcessIdentity();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ProcessIdentityPtr>
+  ProcessIdentityPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ProcessIdentity::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ProcessIdentity::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ProcessIdentity::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ProcessIdentity::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ProcessIdentity::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ProcessIdentity_UnserializedMessageContext<
+            UserType, ProcessIdentity::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ProcessIdentity::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ProcessIdentity::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ProcessIdentity_UnserializedMessageContext<
+            UserType, ProcessIdentity::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ProcessIdentity::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string security_context;
+  
+  uint32_t pid;
+  
+  uint32_t uid;
+  
+  uint32_t gid;
+  
+  std::optional<std::string> username;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ProcessIdentity::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ProcessIdentity::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ProcessIdentity::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ProcessIdentity::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
 
 class  RegisteredServiceState {
  public:
@@ -1185,7 +1191,6 @@ RegisteredServiceState& operator=(const RegisteredServiceState&) = delete;
 
   template <typename T, RegisteredServiceState::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -1332,7 +1337,6 @@ ServiceEvent& operator=(const ServiceEvent&) = delete;
 
   template <typename T, ServiceEvent::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -1499,7 +1503,8 @@ ProcessIdentityPtr ProcessIdentity::Clone() const {
       mojo::Clone(security_context),
       mojo::Clone(pid),
       mojo::Clone(uid),
-      mojo::Clone(gid)
+      mojo::Clone(gid),
+      mojo::Clone(username)
   );
 }
 
@@ -1512,6 +1517,8 @@ bool ProcessIdentity::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->uid, other_struct.uid))
     return false;
   if (!mojo::Equals(this->gid, other_struct.gid))
+    return false;
+  if (!mojo::Equals(this->username, other_struct.username))
     return false;
   return true;
 }
@@ -1533,6 +1540,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.gid < rhs.gid)
     return true;
   if (rhs.gid < lhs.gid)
+    return false;
+  if (lhs.username < rhs.username)
+    return true;
+  if (rhs.username < lhs.username)
     return false;
   return false;
 }
@@ -1669,6 +1680,11 @@ struct  StructTraits<::chromeos::mojo_service_manager::mojom::ProcessIdentity::D
   static decltype(::chromeos::mojo_service_manager::mojom::ProcessIdentity::gid) gid(
       const ::chromeos::mojo_service_manager::mojom::ProcessIdentityPtr& input) {
     return input->gid;
+  }
+
+  static const decltype(::chromeos::mojo_service_manager::mojom::ProcessIdentity::username)& username(
+      const ::chromeos::mojo_service_manager::mojom::ProcessIdentityPtr& input) {
+    return input->username;
   }
 
   static bool Read(::chromeos::mojo_service_manager::mojom::ProcessIdentity::DataView input, ::chromeos::mojo_service_manager::mojom::ProcessIdentityPtr* output);

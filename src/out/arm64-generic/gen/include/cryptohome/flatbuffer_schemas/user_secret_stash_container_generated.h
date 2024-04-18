@@ -293,14 +293,19 @@ inline ::flatbuffers::Offset<UserSecretStashWrappedKeyBlock> CreateUserSecretSta
 struct UserMetadata FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef UserMetadataBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_FINGERPRINT_RATE_LIMITER_ID = 4
+    VT_FINGERPRINT_RATE_LIMITER_ID = 4,
+    VT_LEGACY_FINGERPRINT_MIGRATION_ROLLOUT = 6
   };
   ::flatbuffers::Optional<uint64_t> fingerprint_rate_limiter_id() const {
     return GetOptional<uint64_t, uint64_t>(VT_FINGERPRINT_RATE_LIMITER_ID);
   }
+  ::flatbuffers::Optional<uint64_t> legacy_fingerprint_migration_rollout() const {
+    return GetOptional<uint64_t, uint64_t>(VT_LEGACY_FINGERPRINT_MIGRATION_ROLLOUT);
+  }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<uint64_t>(verifier, VT_FINGERPRINT_RATE_LIMITER_ID, 8) &&
+           VerifyField<uint64_t>(verifier, VT_LEGACY_FINGERPRINT_MIGRATION_ROLLOUT, 8) &&
            verifier.EndTable();
   }
 };
@@ -311,6 +316,9 @@ struct UserMetadataBuilder {
   ::flatbuffers::uoffset_t start_;
   void add_fingerprint_rate_limiter_id(uint64_t fingerprint_rate_limiter_id) {
     fbb_.AddElement<uint64_t>(UserMetadata::VT_FINGERPRINT_RATE_LIMITER_ID, fingerprint_rate_limiter_id);
+  }
+  void add_legacy_fingerprint_migration_rollout(uint64_t legacy_fingerprint_migration_rollout) {
+    fbb_.AddElement<uint64_t>(UserMetadata::VT_LEGACY_FINGERPRINT_MIGRATION_ROLLOUT, legacy_fingerprint_migration_rollout);
   }
   explicit UserMetadataBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -325,8 +333,10 @@ struct UserMetadataBuilder {
 
 inline ::flatbuffers::Offset<UserMetadata> CreateUserMetadata(
     ::flatbuffers::FlatBufferBuilder &_fbb,
-    ::flatbuffers::Optional<uint64_t> fingerprint_rate_limiter_id = ::flatbuffers::nullopt) {
+    ::flatbuffers::Optional<uint64_t> fingerprint_rate_limiter_id = ::flatbuffers::nullopt,
+    ::flatbuffers::Optional<uint64_t> legacy_fingerprint_migration_rollout = ::flatbuffers::nullopt) {
   UserMetadataBuilder builder_(_fbb);
+  if(legacy_fingerprint_migration_rollout) { builder_.add_legacy_fingerprint_migration_rollout(*legacy_fingerprint_migration_rollout); }
   if(fingerprint_rate_limiter_id) { builder_.add_fingerprint_rate_limiter_id(*fingerprint_rate_limiter_id); }
   return builder_.Finish();
 }

@@ -85,9 +85,13 @@ struct ToFlatBuffer<::cryptohome::UserMetadata> {
                         const ::cryptohome::UserMetadata& object) const {
     auto fingerprint_rate_limiter_id = ToFlatBuffer<std::optional<uint64_t>>()(
         builder, object.fingerprint_rate_limiter_id);
+    auto legacy_fingerprint_migration_rollout =
+        ToFlatBuffer<std::optional<uint64_t>>()(
+            builder, object.legacy_fingerprint_migration_rollout);
 
     return ::cryptohome::_serialized_::CreateUserMetadata(
-        *builder, fingerprint_rate_limiter_id);
+        *builder, fingerprint_rate_limiter_id,
+        legacy_fingerprint_migration_rollout);
   }
 };
 
@@ -106,6 +110,9 @@ struct FromFlatBuffer<::cryptohome::UserMetadata> {
         .fingerprint_rate_limiter_id =
             FromFlatBuffer<std::optional<uint64_t>>()(
                 object->fingerprint_rate_limiter_id()),
+        .legacy_fingerprint_migration_rollout =
+            FromFlatBuffer<std::optional<uint64_t>>()(
+                object->legacy_fingerprint_migration_rollout()),
     };
   }
 };

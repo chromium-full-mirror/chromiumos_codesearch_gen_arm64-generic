@@ -50,6 +50,7 @@ namespace cryptohome {
 
 struct UserMetadata {
   std::optional<uint64_t> fingerprint_rate_limiter_id;
+  std::optional<uint64_t> legacy_fingerprint_migration_rollout;
 };
 
 }  // namespace cryptohome

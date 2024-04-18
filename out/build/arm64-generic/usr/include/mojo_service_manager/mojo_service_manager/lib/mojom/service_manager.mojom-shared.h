@@ -225,6 +225,27 @@ class ProcessIdentityDataView {
   uint32_t gid() const {
     return data_->gid;
   }
+  inline void GetUsernameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUsername(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `username` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadUsername` instead "
+    "of `ReadUsername if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->username.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::ProcessIdentity_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -545,6 +566,14 @@ struct Serializer<::chromeos::mojo_service_manager::mojom::ProcessIdentityDataVi
     fragment->pid = Traits::pid(input);
     fragment->uid = Traits::uid(input);
     fragment->gid = Traits::gid(input);
+    decltype(Traits::username(input)) in_username = Traits::username(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->username)::BaseType> username_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_username, username_fragment);
+    fragment->username.Set(
+        username_fragment.is_null() ? nullptr : username_fragment.data());
   }
 
   static bool Deserialize(::chromeos::mojo_service_manager::mojom::internal::ProcessIdentity_Data* input,
@@ -894,6 +923,12 @@ namespace chromeos::mojo_service_manager::mojom {
 inline void ProcessIdentityDataView::GetSecurityContextDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->security_context.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void ProcessIdentityDataView::GetUsernameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->username.Get() : nullptr;
   *output = mojo::StringDataView(pointer, message_);
 }
 

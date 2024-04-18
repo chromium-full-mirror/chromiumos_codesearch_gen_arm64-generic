@@ -132,7 +132,6 @@ class COMPONENT_EXPORT(MOJO_CPP_BINDINGS) MultiplexRouter
   void CloseEndpointHandle(
       InterfaceId id,
       const std::optional<DisconnectReason>& reason) override;
-  void NotifyLocalEndpointOfPeerClosure(InterfaceId id) override;
   InterfaceEndpointController* AttachEndpointClient(
       const ScopedInterfaceEndpointHandle& handle,
       InterfaceEndpointClient* endpoint_client,

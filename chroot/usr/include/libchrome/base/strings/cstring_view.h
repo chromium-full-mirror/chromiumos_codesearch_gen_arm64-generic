@@ -17,6 +17,7 @@
 #include "base/containers/checked_iterators.h"
 #include "base/memory/raw_ptr_exclusion.h"
 #include "base/numerics/safe_conversions.h"
+#include "base/types/to_address.h"
 #include "build/build_config.h"
 
 namespace base {

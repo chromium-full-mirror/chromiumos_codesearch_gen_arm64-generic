@@ -39,7 +39,7 @@ enum class ErrorCode : int32_t;
 
 enum class ServiceEvent_Type : int32_t;
 class ProcessIdentity;
-using ProcessIdentityPtr = mojo::InlinedStructPtr<ProcessIdentity>;
+using ProcessIdentityPtr = mojo::StructPtr<ProcessIdentity>;
 
 class RegisteredServiceState;
 using RegisteredServiceStatePtr = mojo::StructPtr<RegisteredServiceState>;

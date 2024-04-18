@@ -24,8 +24,6 @@ const char kSetKeyboardBrightnessMethod[] = "SetKeyboardBrightness";
 const char kDecreaseKeyboardBrightnessMethod[] = "DecreaseKeyboardBrightness";
 const char kIncreaseKeyboardBrightnessMethod[] = "IncreaseKeyboardBrightness";
 const char kToggleKeyboardBacklightMethod[] = "ToggleKeyboardBacklight";
-const char kSetKeyboardAmbientLightSensorEnabledMethod[] =
-    "SetKeyboardAmbientLightSensorEnabled";
 const char kRequestRestartMethod[] = "RequestRestart";
 const char kRequestShutdownMethod[] = "RequestShutdown";
 const char kRequestSuspendMethod[] = "RequestSuspend";

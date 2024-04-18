@@ -207,7 +207,8 @@ class  ProcessIdentity_Data {
   uint32_t pid;
   uint32_t uid;
   uint32_t gid;
-  uint8_t padfinal_[4];
+  uint8_t pad3_[4];
+  mojo::internal::Pointer<mojo::internal::String_Data> username;
 
  private:
   friend class mojo::internal::MessageFragment<ProcessIdentity_Data>;
@@ -215,7 +216,7 @@ class  ProcessIdentity_Data {
   ProcessIdentity_Data();
   ~ProcessIdentity_Data() = delete;
 };
-static_assert(sizeof(ProcessIdentity_Data) == 32,
+static_assert(sizeof(ProcessIdentity_Data) == 40,
               "Bad sizeof(ProcessIdentity_Data)");
 // Used by ProcessIdentity::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

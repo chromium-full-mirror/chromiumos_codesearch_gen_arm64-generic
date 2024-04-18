@@ -1851,7 +1851,6 @@ krb5_verify_checksum(krb5_context context, krb5_cksumtype ctype,
 #define KRB5_PADATA_AS_FRESHNESS        150 /**< RFC 8070 */
 #define KRB5_PADATA_SPAKE               151
 #define KRB5_PADATA_REDHAT_IDP_OAUTH2   152 /**< Red Hat IdP mechanism */
-#define KRB5_PADATA_REDHAT_PASSKEY      153 /**< Red Hat Passkey mechanism */
 #define KRB5_PADATA_PAC_OPTIONS         167 /**< MS-KILE and MS-SFU */
 
 #define KRB5_SAM_USE_SAD_AS_KEY         0x80000000
@@ -8162,7 +8161,6 @@ krb5_verify_authdata_kdc_issued(krb5_context context,
 #define KRB5_PAC_TICKET_CHECKSUM   16 /**< Ticket checksum */
 #define KRB5_PAC_ATTRIBUTES_INFO   17 /**< PAC attributes */
 #define KRB5_PAC_REQUESTOR         18 /**< PAC requestor SID */
-#define KRB5_PAC_FULL_CHECKSUM     19 /**< KDC full checksum */
 
 struct krb5_pac_data;
 /** PAC data structure to convey authorization information */
