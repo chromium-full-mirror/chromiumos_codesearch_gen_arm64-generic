@@ -249,10 +249,10 @@ class InstallRequest final :
   void _internal_set_reserve(bool value);
   public:
 
-  // bool force_ota = 2047;
-  void clear_force_ota();
-  bool force_ota() const;
-  void set_force_ota(bool value);
+  // bool force_ota = 2047 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_force_ota();
+  PROTOBUF_DEPRECATED bool force_ota() const;
+  PROTOBUF_DEPRECATED void set_force_ota(bool value);
   private:
   bool _internal_force_ota() const;
   void _internal_set_force_ota(bool value);
@@ -1588,7 +1588,7 @@ inline void InstallRequest::set_reserve(bool value) {
   // @@protoc_insertion_point(field_set:dlcservice.InstallRequest.reserve)
 }
 
-// bool force_ota = 2047;
+// bool force_ota = 2047 [deprecated = true];
 inline void InstallRequest::clear_force_ota() {
   _impl_.force_ota_ = false;
 }
