@@ -1408,25 +1408,25 @@ class ManagerProxyInterface {
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual bool DestroyP2PGroup(
-      uint32_t in_1,
+      int32_t in_1,
       brillo::VariantDictionary* out_2,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void DestroyP2PGroupAsync(
-      uint32_t in_1,
+      int32_t in_1,
       base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual bool DisconnectFromP2PGroup(
-      uint32_t in_1,
+      int32_t in_1,
       brillo::VariantDictionary* out_2,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void DisconnectFromP2PGroupAsync(
-      uint32_t in_1,
+      int32_t in_1,
       base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -2862,7 +2862,7 @@ class ManagerProxy final : public ManagerProxyInterface {
   }
 
   bool DestroyP2PGroup(
-      uint32_t in_1,
+      int32_t in_1,
       brillo::VariantDictionary* out_2,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -2878,7 +2878,7 @@ class ManagerProxy final : public ManagerProxyInterface {
   }
 
   void DestroyP2PGroupAsync(
-      uint32_t in_1,
+      int32_t in_1,
       base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -2893,7 +2893,7 @@ class ManagerProxy final : public ManagerProxyInterface {
   }
 
   bool DisconnectFromP2PGroup(
-      uint32_t in_1,
+      int32_t in_1,
       brillo::VariantDictionary* out_2,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -2909,7 +2909,7 @@ class ManagerProxy final : public ManagerProxyInterface {
   }
 
   void DisconnectFromP2PGroupAsync(
-      uint32_t in_1,
+      int32_t in_1,
       base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {

@@ -172,10 +172,10 @@ class ManagerInterface {
       const brillo::VariantDictionary& in_1) = 0;
   virtual void DestroyP2PGroup(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<brillo::VariantDictionary>> response,
-      uint32_t in_1) = 0;
+      int32_t in_1) = 0;
   virtual void DisconnectFromP2PGroup(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<brillo::VariantDictionary>> response,
-      uint32_t in_1) = 0;
+      int32_t in_1) = 0;
 };
 
 // Interface adaptor for org::chromium::flimflam::Manager.
@@ -554,11 +554,11 @@ class ManagerAdaptor {
         "      <arg name=\"\" type=\"a{sv}\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"DestroyP2PGroup\">\n"
-        "      <arg name=\"\" type=\"u\" direction=\"in\"/>\n"
+        "      <arg name=\"\" type=\"i\" direction=\"in\"/>\n"
         "      <arg name=\"\" type=\"a{sv}\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"DisconnectFromP2PGroup\">\n"
-        "      <arg name=\"\" type=\"u\" direction=\"in\"/>\n"
+        "      <arg name=\"\" type=\"i\" direction=\"in\"/>\n"
         "      <arg name=\"\" type=\"a{sv}\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <signal name=\"PropertyChanged\">\n"

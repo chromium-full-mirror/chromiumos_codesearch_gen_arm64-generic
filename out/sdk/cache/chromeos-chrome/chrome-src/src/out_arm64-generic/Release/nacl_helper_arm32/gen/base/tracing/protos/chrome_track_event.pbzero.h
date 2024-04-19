@@ -212,6 +212,10 @@ namespace perfetto_pbzero_enum_WebContentInteraction {
 enum Type : int32_t;
 }  // namespace perfetto_pbzero_enum_WebContentInteraction
 using WebContentInteraction_Type = perfetto_pbzero_enum_WebContentInteraction::Type;
+namespace perfetto_pbzero_enum_WebViewStartup {
+enum CallSite : int32_t;
+}  // namespace perfetto_pbzero_enum_WebViewStartup
+using WebViewStartup_CallSite = perfetto_pbzero_enum_WebViewStartup::CallSite;
 } // Namespace pbzero.
 } // Namespace protos.
 } // Namespace perfetto.
@@ -498,6 +502,63 @@ const char* ChromeCompositorSchedulerActionV2_Name(::perfetto::protos::pbzero::C
 
   case ::perfetto::protos::pbzero::ChromeCompositorSchedulerActionV2::CC_SCHEDULER_ACTION_V2_NOTIFY_BEGIN_MAIN_FRAME_NOT_EXPECTED_SOON:
     return "CC_SCHEDULER_ACTION_V2_NOTIFY_BEGIN_MAIN_FRAME_NOT_EXPECTED_SOON";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_WebViewStartup {
+enum CallSite : int32_t {
+  GET_AW_TRACING_CONTROLLER = 0,
+  GET_AW_PROXY_CONTROLLER = 1,
+  WEBVIEW_INSTANCE = 2,
+  GET_STATICS = 3,
+  GET_DEFAULT_GEOLOCATION_PERMISSIONS = 4,
+  GET_DEFAULT_SERVICE_WORKER_CONTROLLER = 5,
+  GET_WEB_ICON_DATABASE = 6,
+  GET_DEFAULT_WEB_STORAGE = 7,
+  GET_DEFAULT_WEBVIEW_DATABASE = 8,
+  GET_TRACING_CONTROLLER = 9,
+};
+} // namespace perfetto_pbzero_enum_WebViewStartup
+using WebViewStartup_CallSite = perfetto_pbzero_enum_WebViewStartup::CallSite;
+
+
+constexpr WebViewStartup_CallSite WebViewStartup_CallSite_MIN = WebViewStartup_CallSite::GET_AW_TRACING_CONTROLLER;
+constexpr WebViewStartup_CallSite WebViewStartup_CallSite_MAX = WebViewStartup_CallSite::GET_TRACING_CONTROLLER;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* WebViewStartup_CallSite_Name(::perfetto::protos::pbzero::WebViewStartup_CallSite value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::WebViewStartup_CallSite::GET_AW_TRACING_CONTROLLER:
+    return "GET_AW_TRACING_CONTROLLER";
+
+  case ::perfetto::protos::pbzero::WebViewStartup_CallSite::GET_AW_PROXY_CONTROLLER:
+    return "GET_AW_PROXY_CONTROLLER";
+
+  case ::perfetto::protos::pbzero::WebViewStartup_CallSite::WEBVIEW_INSTANCE:
+    return "WEBVIEW_INSTANCE";
+
+  case ::perfetto::protos::pbzero::WebViewStartup_CallSite::GET_STATICS:
+    return "GET_STATICS";
+
+  case ::perfetto::protos::pbzero::WebViewStartup_CallSite::GET_DEFAULT_GEOLOCATION_PERMISSIONS:
+    return "GET_DEFAULT_GEOLOCATION_PERMISSIONS";
+
+  case ::perfetto::protos::pbzero::WebViewStartup_CallSite::GET_DEFAULT_SERVICE_WORKER_CONTROLLER:
+    return "GET_DEFAULT_SERVICE_WORKER_CONTROLLER";
+
+  case ::perfetto::protos::pbzero::WebViewStartup_CallSite::GET_WEB_ICON_DATABASE:
+    return "GET_WEB_ICON_DATABASE";
+
+  case ::perfetto::protos::pbzero::WebViewStartup_CallSite::GET_DEFAULT_WEB_STORAGE:
+    return "GET_DEFAULT_WEB_STORAGE";
+
+  case ::perfetto::protos::pbzero::WebViewStartup_CallSite::GET_DEFAULT_WEBVIEW_DATABASE:
+    return "GET_DEFAULT_WEBVIEW_DATABASE";
+
+  case ::perfetto::protos::pbzero::WebViewStartup_CallSite::GET_TRACING_CONTROLLER:
+    return "GET_TRACING_CONTROLLER";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -3081,6 +3142,79 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
+
+class WebViewStartup_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  WebViewStartup_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit WebViewStartup_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit WebViewStartup_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_from_ui_thread() const { return at<1>().valid(); }
+  bool from_ui_thread() const { return at<1>().as_bool(); }
+  bool has_call_site() const { return at<2>().valid(); }
+  int32_t call_site() const { return at<2>().as_int32(); }
+};
+
+class WebViewStartup : public ::protozero::Message {
+ public:
+  using Decoder = WebViewStartup_Decoder;
+  enum : int32_t {
+    kFromUiThreadFieldNumber = 1,
+    kCallSiteFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.WebViewStartup"; }
+
+
+  using CallSite = ::perfetto::protos::pbzero::WebViewStartup_CallSite;
+  static inline const char* CallSite_Name(CallSite value) {
+    return ::perfetto::protos::pbzero::WebViewStartup_CallSite_Name(value);
+  }
+  static inline const CallSite GET_AW_TRACING_CONTROLLER = CallSite::GET_AW_TRACING_CONTROLLER;
+  static inline const CallSite GET_AW_PROXY_CONTROLLER = CallSite::GET_AW_PROXY_CONTROLLER;
+  static inline const CallSite WEBVIEW_INSTANCE = CallSite::WEBVIEW_INSTANCE;
+  static inline const CallSite GET_STATICS = CallSite::GET_STATICS;
+  static inline const CallSite GET_DEFAULT_GEOLOCATION_PERMISSIONS = CallSite::GET_DEFAULT_GEOLOCATION_PERMISSIONS;
+  static inline const CallSite GET_DEFAULT_SERVICE_WORKER_CONTROLLER = CallSite::GET_DEFAULT_SERVICE_WORKER_CONTROLLER;
+  static inline const CallSite GET_WEB_ICON_DATABASE = CallSite::GET_WEB_ICON_DATABASE;
+  static inline const CallSite GET_DEFAULT_WEB_STORAGE = CallSite::GET_DEFAULT_WEB_STORAGE;
+  static inline const CallSite GET_DEFAULT_WEBVIEW_DATABASE = CallSite::GET_DEFAULT_WEBVIEW_DATABASE;
+  static inline const CallSite GET_TRACING_CONTROLLER = CallSite::GET_TRACING_CONTROLLER;
+
+  using FieldMetadata_FromUiThread =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      WebViewStartup>;
+
+  static constexpr FieldMetadata_FromUiThread kFromUiThread{};
+  void set_from_ui_thread(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_FromUiThread::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_CallSite =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      WebViewStartup_CallSite,
+      WebViewStartup>;
+
+  static constexpr FieldMetadata_CallSite kCallSite{};
+  void set_call_site(WebViewStartup_CallSite value) {
+    static constexpr uint32_t field_id = FieldMetadata_CallSite::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+};
 
 class CompositorTimingHistoryV2_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
@@ -14726,6 +14860,20 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_CcSchedulerState kCcSchedulerState{};
   template <typename T = ChromeCompositorSchedulerStateV2> T* set_cc_scheduler_state() {
     return BeginNestedMessage<T>(1062);
+  }
+
+
+  using FieldMetadata_WebviewStartup =
+    ::protozero::proto_utils::FieldMetadata<
+      1063,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      WebViewStartup,
+      ChromeTrackEvent>;
+
+  static constexpr FieldMetadata_WebviewStartup kWebviewStartup{};
+  template <typename T = WebViewStartup> T* set_webview_startup() {
+    return BeginNestedMessage<T>(1063);
   }
 
 };

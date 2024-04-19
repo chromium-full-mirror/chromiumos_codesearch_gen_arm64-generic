@@ -7,6 +7,7 @@
 #include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_ENABLE_INK() (0)
+#define BUILDFLAG_INTERNAL_ENABLE_PDF_INK2() (1)
 #define BUILDFLAG_INTERNAL_ENABLE_PDF() (1)
 
 #endif  // PDF_BUILDFLAGS_H_
