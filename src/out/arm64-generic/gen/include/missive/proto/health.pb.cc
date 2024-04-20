@@ -208,6 +208,41 @@ struct ConfirmRecordUploadCallDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ConfirmRecordUploadCallDefaultTypeInternal _ConfirmRecordUploadCall_default_instance_;
 template <typename>
+PROTOBUF_CONSTEXPR BlockedRecordCall::BlockedRecordCall(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.priority_)*/ 0
+
+  , /*decltype(_impl_.destination_)*/ 0
+} {}
+struct BlockedRecordCallDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR BlockedRecordCallDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~BlockedRecordCallDefaultTypeInternal() {}
+  union {
+    BlockedRecordCall _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BlockedRecordCallDefaultTypeInternal _BlockedRecordCall_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR BlockedDestinationsUpdatedCall::BlockedDestinationsUpdatedCall(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.destinations_)*/ {}
+
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct BlockedDestinationsUpdatedCallDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR BlockedDestinationsUpdatedCallDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~BlockedDestinationsUpdatedCallDefaultTypeInternal() {}
+  union {
+    BlockedDestinationsUpdatedCall _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BlockedDestinationsUpdatedCallDefaultTypeInternal _BlockedDestinationsUpdatedCall_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR HealthDataHistory::HealthDataHistory(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -3071,6 +3106,450 @@ std::string ConfirmRecordUploadCall::GetTypeName() const {
 
 // ===================================================================
 
+class BlockedRecordCall::_Internal {
+ public:
+  using HasBits = decltype(std::declval<BlockedRecordCall>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(BlockedRecordCall, _impl_._has_bits_);
+  static void set_has_priority(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_destination(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+BlockedRecordCall::BlockedRecordCall(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:reporting.BlockedRecordCall)
+}
+BlockedRecordCall::BlockedRecordCall(const BlockedRecordCall& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:reporting.BlockedRecordCall)
+}
+
+inline void BlockedRecordCall::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.priority_) { 0 }
+
+    , decltype(_impl_.destination_) { 0 }
+
+  };
+}
+
+BlockedRecordCall::~BlockedRecordCall() {
+  // @@protoc_insertion_point(destructor:reporting.BlockedRecordCall)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void BlockedRecordCall::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void BlockedRecordCall::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void BlockedRecordCall::Clear() {
+// @@protoc_insertion_point(message_clear_start:reporting.BlockedRecordCall)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    ::memset(&_impl_.priority_, 0, static_cast<::size_t>(
+        reinterpret_cast<char*>(&_impl_.destination_) -
+        reinterpret_cast<char*>(&_impl_.priority_)) + sizeof(_impl_.destination_));
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* BlockedRecordCall::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .reporting.Priority priority = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::reporting::Priority_IsValid(static_cast<int>(val)))) {
+            _internal_set_priority(static_cast<::reporting::Priority>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // optional .reporting.Destination destination = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::reporting::Destination_IsValid(static_cast<int>(val)))) {
+            _internal_set_destination(static_cast<::reporting::Destination>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
+          }
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* BlockedRecordCall::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:reporting.BlockedRecordCall)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional .reporting.Priority priority = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        1, this->_internal_priority(), target);
+  }
+
+  // optional .reporting.Destination destination = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        2, this->_internal_destination(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:reporting.BlockedRecordCall)
+  return target;
+}
+
+::size_t BlockedRecordCall::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:reporting.BlockedRecordCall)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional .reporting.Priority priority = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_priority());
+    }
+
+    // optional .reporting.Destination destination = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_destination());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void BlockedRecordCall::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const BlockedRecordCall*>(
+      &from));
+}
+
+void BlockedRecordCall::MergeFrom(const BlockedRecordCall& from) {
+  BlockedRecordCall* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:reporting.BlockedRecordCall)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_impl_.priority_ = from._impl_.priority_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_impl_.destination_ = from._impl_.destination_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void BlockedRecordCall::CopyFrom(const BlockedRecordCall& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:reporting.BlockedRecordCall)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BlockedRecordCall::IsInitialized() const {
+  return true;
+}
+
+void BlockedRecordCall::InternalSwap(BlockedRecordCall* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(BlockedRecordCall, _impl_.destination_)
+      + sizeof(BlockedRecordCall::_impl_.destination_)
+      - PROTOBUF_FIELD_OFFSET(BlockedRecordCall, _impl_.priority_)>(
+          reinterpret_cast<char*>(&_impl_.priority_),
+          reinterpret_cast<char*>(&other->_impl_.priority_));
+}
+
+std::string BlockedRecordCall::GetTypeName() const {
+  return "reporting.BlockedRecordCall";
+}
+
+// ===================================================================
+
+class BlockedDestinationsUpdatedCall::_Internal {
+ public:
+};
+
+BlockedDestinationsUpdatedCall::BlockedDestinationsUpdatedCall(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:reporting.BlockedDestinationsUpdatedCall)
+}
+BlockedDestinationsUpdatedCall::BlockedDestinationsUpdatedCall(const BlockedDestinationsUpdatedCall& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  BlockedDestinationsUpdatedCall* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.destinations_) { from._internal_destinations() }
+
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:reporting.BlockedDestinationsUpdatedCall)
+}
+
+inline void BlockedDestinationsUpdatedCall::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_.destinations_) { arena }
+
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+BlockedDestinationsUpdatedCall::~BlockedDestinationsUpdatedCall() {
+  // @@protoc_insertion_point(destructor:reporting.BlockedDestinationsUpdatedCall)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void BlockedDestinationsUpdatedCall::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_destinations()->~RepeatedField();
+}
+
+void BlockedDestinationsUpdatedCall::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void BlockedDestinationsUpdatedCall::Clear() {
+// @@protoc_insertion_point(message_clear_start:reporting.BlockedDestinationsUpdatedCall)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_mutable_destinations()->Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* BlockedDestinationsUpdatedCall::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .reporting.Destination destinations = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+            CHK_(ptr);
+            if (PROTOBUF_PREDICT_TRUE(::reporting::Destination_IsValid(static_cast<int>(val)))) {
+              _internal_add_destinations(static_cast<::reporting::Destination>(val));
+            } else {
+              ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+            }
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<8>(ptr));
+        } else if (static_cast<::uint8_t>(tag) == 10) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_destinations(), ptr, ctx, ::reporting::Destination_IsValid, &_internal_metadata_, 1);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* BlockedDestinationsUpdatedCall::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:reporting.BlockedDestinationsUpdatedCall)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .reporting.Destination destinations = 1;
+  for (int i = 0, n = this->_internal_destinations_size(); i < n; ++i) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        1, this->_internal_destinations(i), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:reporting.BlockedDestinationsUpdatedCall)
+  return target;
+}
+
+::size_t BlockedDestinationsUpdatedCall::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:reporting.BlockedDestinationsUpdatedCall)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .reporting.Destination destinations = 1;
+  {
+    std::size_t data_size = 0;
+    auto count = static_cast<std::size_t>(this->_internal_destinations_size());
+
+    for (std::size_t i = 0; i < count; ++i) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+          this->_internal_destinations(static_cast<int>(i)));
+    }
+    total_size += data_size;
+    total_size += std::size_t{1} * count;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void BlockedDestinationsUpdatedCall::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const BlockedDestinationsUpdatedCall*>(
+      &from));
+}
+
+void BlockedDestinationsUpdatedCall::MergeFrom(const BlockedDestinationsUpdatedCall& from) {
+  BlockedDestinationsUpdatedCall* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:reporting.BlockedDestinationsUpdatedCall)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_mutable_destinations()->MergeFrom(from._internal_destinations());
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void BlockedDestinationsUpdatedCall::CopyFrom(const BlockedDestinationsUpdatedCall& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:reporting.BlockedDestinationsUpdatedCall)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BlockedDestinationsUpdatedCall::IsInitialized() const {
+  return true;
+}
+
+void BlockedDestinationsUpdatedCall::InternalSwap(BlockedDestinationsUpdatedCall* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_mutable_destinations()->InternalSwap(
+      other->_internal_mutable_destinations());
+}
+
+std::string BlockedDestinationsUpdatedCall::GetTypeName() const {
+  return "reporting.BlockedDestinationsUpdatedCall";
+}
+
+// ===================================================================
+
 class HealthDataHistory::_Internal {
  public:
   using HasBits = decltype(std::declval<HealthDataHistory>()._impl_._has_bits_);
@@ -3083,6 +3562,8 @@ class HealthDataHistory::_Internal {
   static const ::reporting::UploadEncryptedRecordCall& upload_encrypted_record_call(const HealthDataHistory* msg);
   static const ::reporting::ConfirmRecordUploadCall& confirm_record_upload_call(const HealthDataHistory* msg);
   static const ::reporting::StorageQueueAction& storage_queue_action(const HealthDataHistory* msg);
+  static const ::reporting::BlockedRecordCall& blocked_record_call(const HealthDataHistory* msg);
+  static const ::reporting::BlockedDestinationsUpdatedCall& blocked_destinations_updated_call(const HealthDataHistory* msg);
   static void set_has_timestamp_seconds(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3107,6 +3588,14 @@ HealthDataHistory::_Internal::confirm_record_upload_call(const HealthDataHistory
 const ::reporting::StorageQueueAction&
 HealthDataHistory::_Internal::storage_queue_action(const HealthDataHistory* msg) {
   return *msg->_impl_.record_.storage_queue_action_;
+}
+const ::reporting::BlockedRecordCall&
+HealthDataHistory::_Internal::blocked_record_call(const HealthDataHistory* msg) {
+  return *msg->_impl_.record_.blocked_record_call_;
+}
+const ::reporting::BlockedDestinationsUpdatedCall&
+HealthDataHistory::_Internal::blocked_destinations_updated_call(const HealthDataHistory* msg) {
+  return *msg->_impl_.record_.blocked_destinations_updated_call_;
 }
 void HealthDataHistory::set_allocated_enqueue_record_call(::reporting::EnqueueRecordCall* enqueue_record_call) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -3183,6 +3672,36 @@ void HealthDataHistory::set_allocated_storage_queue_action(::reporting::StorageQ
   }
   // @@protoc_insertion_point(field_set_allocated:reporting.HealthDataHistory.storage_queue_action)
 }
+void HealthDataHistory::set_allocated_blocked_record_call(::reporting::BlockedRecordCall* blocked_record_call) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_record();
+  if (blocked_record_call) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(blocked_record_call);
+    if (message_arena != submessage_arena) {
+      blocked_record_call = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, blocked_record_call, submessage_arena);
+    }
+    set_has_blocked_record_call();
+    _impl_.record_.blocked_record_call_ = blocked_record_call;
+  }
+  // @@protoc_insertion_point(field_set_allocated:reporting.HealthDataHistory.blocked_record_call)
+}
+void HealthDataHistory::set_allocated_blocked_destinations_updated_call(::reporting::BlockedDestinationsUpdatedCall* blocked_destinations_updated_call) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_record();
+  if (blocked_destinations_updated_call) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(blocked_destinations_updated_call);
+    if (message_arena != submessage_arena) {
+      blocked_destinations_updated_call = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, blocked_destinations_updated_call, submessage_arena);
+    }
+    set_has_blocked_destinations_updated_call();
+    _impl_.record_.blocked_destinations_updated_call_ = blocked_destinations_updated_call;
+  }
+  // @@protoc_insertion_point(field_set_allocated:reporting.HealthDataHistory.blocked_destinations_updated_call)
+}
 HealthDataHistory::HealthDataHistory(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
   SharedCtor(arena);
@@ -3226,6 +3745,16 @@ HealthDataHistory::HealthDataHistory(const HealthDataHistory& from)
     case kStorageQueueAction: {
       _this->_internal_mutable_storage_queue_action()->::reporting::StorageQueueAction::MergeFrom(
           from._internal_storage_queue_action());
+      break;
+    }
+    case kBlockedRecordCall: {
+      _this->_internal_mutable_blocked_record_call()->::reporting::BlockedRecordCall::MergeFrom(
+          from._internal_blocked_record_call());
+      break;
+    }
+    case kBlockedDestinationsUpdatedCall: {
+      _this->_internal_mutable_blocked_destinations_updated_call()->::reporting::BlockedDestinationsUpdatedCall::MergeFrom(
+          from._internal_blocked_destinations_updated_call());
       break;
     }
     case RECORD_NOT_SET: {
@@ -3298,6 +3827,18 @@ void HealthDataHistory::clear_record() {
     case kStorageQueueAction: {
       if (GetArenaForAllocation() == nullptr) {
         delete _impl_.record_.storage_queue_action_;
+      }
+      break;
+    }
+    case kBlockedRecordCall: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.record_.blocked_record_call_;
+      }
+      break;
+    }
+    case kBlockedDestinationsUpdatedCall: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.record_.blocked_destinations_updated_call_;
       }
       break;
     }
@@ -3383,6 +3924,24 @@ const char* HealthDataHistory::_InternalParse(const char* ptr, ::_pbi::ParseCont
           goto handle_unusual;
         }
         continue;
+      // .reporting.BlockedRecordCall blocked_record_call = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
+          ptr = ctx->ParseMessage(_internal_mutable_blocked_record_call(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // .reporting.BlockedDestinationsUpdatedCall blocked_destinations_updated_call = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 66)) {
+          ptr = ctx->ParseMessage(_internal_mutable_blocked_destinations_updated_call(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -3454,6 +4013,21 @@ failure:
         6, this->_internal_timestamp_seconds(), target);
   }
 
+  switch (record_case()) {
+    case kBlockedRecordCall: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(7, _Internal::blocked_record_call(this),
+          _Internal::blocked_record_call(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kBlockedDestinationsUpdatedCall: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(8, _Internal::blocked_destinations_updated_call(this),
+          _Internal::blocked_destinations_updated_call(this).GetCachedSize(), target, stream);
+      break;
+    }
+    default: ;
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3513,6 +4087,20 @@ failure:
           *_impl_.record_.storage_queue_action_);
       break;
     }
+    // .reporting.BlockedRecordCall blocked_record_call = 7;
+    case kBlockedRecordCall: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.record_.blocked_record_call_);
+      break;
+    }
+    // .reporting.BlockedDestinationsUpdatedCall blocked_destinations_updated_call = 8;
+    case kBlockedDestinationsUpdatedCall: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.record_.blocked_destinations_updated_call_);
+      break;
+    }
     case RECORD_NOT_SET: {
       break;
     }
@@ -3565,6 +4153,16 @@ void HealthDataHistory::MergeFrom(const HealthDataHistory& from) {
     case kStorageQueueAction: {
       _this->_internal_mutable_storage_queue_action()->::reporting::StorageQueueAction::MergeFrom(
           from._internal_storage_queue_action());
+      break;
+    }
+    case kBlockedRecordCall: {
+      _this->_internal_mutable_blocked_record_call()->::reporting::BlockedRecordCall::MergeFrom(
+          from._internal_blocked_record_call());
+      break;
+    }
+    case kBlockedDestinationsUpdatedCall: {
+      _this->_internal_mutable_blocked_destinations_updated_call()->::reporting::BlockedDestinationsUpdatedCall::MergeFrom(
+          from._internal_blocked_destinations_updated_call());
       break;
     }
     case RECORD_NOT_SET: {
@@ -3825,6 +4423,14 @@ Arena::CreateMaybeMessage< ::reporting::UploadEncryptedRecordCall >(Arena* arena
 template<> PROTOBUF_NOINLINE ::reporting::ConfirmRecordUploadCall*
 Arena::CreateMaybeMessage< ::reporting::ConfirmRecordUploadCall >(Arena* arena) {
   return Arena::CreateMessageInternal< ::reporting::ConfirmRecordUploadCall >(arena);
+}
+template<> PROTOBUF_NOINLINE ::reporting::BlockedRecordCall*
+Arena::CreateMaybeMessage< ::reporting::BlockedRecordCall >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::reporting::BlockedRecordCall >(arena);
+}
+template<> PROTOBUF_NOINLINE ::reporting::BlockedDestinationsUpdatedCall*
+Arena::CreateMaybeMessage< ::reporting::BlockedDestinationsUpdatedCall >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::reporting::BlockedDestinationsUpdatedCall >(arena);
 }
 template<> PROTOBUF_NOINLINE ::reporting::HealthDataHistory*
 Arena::CreateMaybeMessage< ::reporting::HealthDataHistory >(Arena* arena) {
