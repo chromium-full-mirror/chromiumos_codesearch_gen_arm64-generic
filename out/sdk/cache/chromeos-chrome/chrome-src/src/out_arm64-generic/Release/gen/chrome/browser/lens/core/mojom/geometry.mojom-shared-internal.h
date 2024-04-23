@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "chrome/browser/lens/core/mojom/polygon.mojom-shared-internal.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
@@ -111,6 +112,7 @@ class  Geometry_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<internal::CenterRotatedBox_Data> bounding_box;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::lens::mojom::internal::Polygon_Data>>> segmentation_polygon;
 
  private:
   friend class mojo::internal::MessageFragment<Geometry_Data>;
@@ -118,7 +120,7 @@ class  Geometry_Data {
   Geometry_Data();
   ~Geometry_Data() = delete;
 };
-static_assert(sizeof(Geometry_Data) == 16,
+static_assert(sizeof(Geometry_Data) == 24,
               "Bad sizeof(Geometry_Data)");
 // Used by Geometry::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

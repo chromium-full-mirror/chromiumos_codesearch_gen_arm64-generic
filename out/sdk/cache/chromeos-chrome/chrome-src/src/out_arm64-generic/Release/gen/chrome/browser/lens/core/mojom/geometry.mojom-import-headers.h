@@ -6,6 +6,8 @@
 
 #ifndef CHROME_BROWSER_LENS_CORE_MOJOM_GEOMETRY_MOJOM_IMPORT_HEADERS_H_
 #define CHROME_BROWSER_LENS_CORE_MOJOM_GEOMETRY_MOJOM_IMPORT_HEADERS_H_
+#include "chrome/browser/lens/core/mojom/polygon.mojom.h"
+#include "chrome/browser/lens/core/mojom/polygon.mojom-import-headers.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-import-headers.h"
 

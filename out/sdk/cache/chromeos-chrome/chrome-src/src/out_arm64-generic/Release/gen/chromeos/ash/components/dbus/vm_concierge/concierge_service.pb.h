@@ -2663,6 +2663,7 @@ class StartArcVmRequest final :
     kGuestZramMibFieldNumber = 44,
     kEnableS2IdleFieldNumber = 46,
     kRootfsMultipleWorkersFieldNumber = 47,
+    kUseGkiFieldNumber = 48,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -2994,6 +2995,15 @@ class StartArcVmRequest final :
   void _internal_set_rootfs_multiple_workers(bool value);
   public:
 
+  // bool use_gki = 48;
+  void clear_use_gki();
+  bool use_gki() const;
+  void set_use_gki(bool value);
+  private:
+  bool _internal_use_gki() const;
+  void _internal_set_use_gki(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartArcVmRequest)
  private:
   class _Internal;
@@ -3034,6 +3044,7 @@ class StartArcVmRequest final :
     uint32_t guest_zram_mib_;
     bool enable_s2idle_;
     bool rootfs_multiple_workers_;
+    bool use_gki_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -17996,6 +18007,26 @@ inline void StartArcVmRequest::_internal_set_rootfs_multiple_workers(bool value)
 inline void StartArcVmRequest::set_rootfs_multiple_workers(bool value) {
   _internal_set_rootfs_multiple_workers(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.rootfs_multiple_workers)
+}
+
+// bool use_gki = 48;
+inline void StartArcVmRequest::clear_use_gki() {
+  _impl_.use_gki_ = false;
+}
+inline bool StartArcVmRequest::_internal_use_gki() const {
+  return _impl_.use_gki_;
+}
+inline bool StartArcVmRequest::use_gki() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.use_gki)
+  return _internal_use_gki();
+}
+inline void StartArcVmRequest::_internal_set_use_gki(bool value) {
+  
+  _impl_.use_gki_ = value;
+}
+inline void StartArcVmRequest::set_use_gki(bool value) {
+  _internal_set_use_gki(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.use_gki)
 }
 
 // -------------------------------------------------------------------

@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "chrome/browser/lens/core/mojom/geometry.mojom-shared-internal.h"
+#include "chrome/browser/lens/core/mojom/polygon.mojom-shared.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared.h"
 
 
@@ -142,6 +143,16 @@ class GeometryDataView {
     return mojo::internal::Deserialize<::lens::mojom::CenterRotatedBoxDataView>(
         pointer, output, message_);
   }
+  inline void GetSegmentationPolygonDataView(
+      mojo::ArrayDataView<::lens::mojom::PolygonDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSegmentationPolygon(UserType* output) {
+    
+    auto* pointer = data_->segmentation_polygon.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::lens::mojom::PolygonDataView>>(
+        pointer, output, message_);
+  }
  private:
   internal::Geometry_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -250,6 +261,20 @@ struct Serializer<::lens::mojom::GeometryDataView, MaybeConstUserType> {
         fragment->bounding_box.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null bounding_box in Geometry struct");
+    decltype(Traits::segmentation_polygon(input)) in_segmentation_polygon = Traits::segmentation_polygon(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->segmentation_polygon)::BaseType>
+        segmentation_polygon_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& segmentation_polygon_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::lens::mojom::PolygonDataView>>(
+        in_segmentation_polygon, segmentation_polygon_fragment, &segmentation_polygon_validate_params);
+    fragment->segmentation_polygon.Set(
+        segmentation_polygon_fragment.is_null() ? nullptr : segmentation_polygon_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->segmentation_polygon.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null segmentation_polygon in Geometry struct");
   }
 
   static bool Deserialize(::lens::mojom::internal::Geometry_Data* input,
@@ -281,6 +306,11 @@ inline void GeometryDataView::GetBoundingBoxDataView(
     CenterRotatedBoxDataView* output) {
   auto pointer = data_->bounding_box.Get();
   *output = CenterRotatedBoxDataView(pointer, message_);
+}
+inline void GeometryDataView::GetSegmentationPolygonDataView(
+    mojo::ArrayDataView<::lens::mojom::PolygonDataView>* output) {
+  auto pointer = data_->segmentation_polygon.Get();
+  *output = mojo::ArrayDataView<::lens::mojom::PolygonDataView>(pointer, message_);
 }
 
 

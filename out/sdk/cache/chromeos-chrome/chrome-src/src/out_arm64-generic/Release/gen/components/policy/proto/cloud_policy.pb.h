@@ -300,6 +300,7 @@ kGenAILocalFoundationalModelSettingsFieldNumber = 211,
 kChromeDataRegionSettingFieldNumber = 213,
 kContextualGoogleIntegrationsEnabledFieldNumber = 214,
 kContextualGoogleIntegrationsConfigurationFieldNumber = 215,
+kPdfViewerOutOfProcessIframeEnabledFieldNumber = 216,
 };
 // optional .enterprise_management.BooleanPolicyProto ShowCastSessionsStartedByOtherDevices = 2;
 bool has_showcastsessionsstartedbyotherdevices() const;
@@ -2659,6 +2660,24 @@ void unsafe_arena_set_allocated_contextualgoogleintegrationsconfiguration(
 ::enterprise_management::StringListPolicyProto* contextualgoogleintegrationsconfiguration);
 ::enterprise_management::StringListPolicyProto* unsafe_arena_release_contextualgoogleintegrationsconfiguration();
 
+// optional .enterprise_management.BooleanPolicyProto PdfViewerOutOfProcessIframeEnabled = 216;
+bool has_pdfvieweroutofprocessiframeenabled() const;
+private:
+bool _internal_has_pdfvieweroutofprocessiframeenabled() const;
+public:
+void clear_pdfvieweroutofprocessiframeenabled();
+const ::enterprise_management::BooleanPolicyProto& pdfvieweroutofprocessiframeenabled() const;
+PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_pdfvieweroutofprocessiframeenabled();
+::enterprise_management::BooleanPolicyProto* mutable_pdfvieweroutofprocessiframeenabled();
+void set_allocated_pdfvieweroutofprocessiframeenabled(::enterprise_management::BooleanPolicyProto* pdfvieweroutofprocessiframeenabled);
+private:
+const ::enterprise_management::BooleanPolicyProto& _internal_pdfvieweroutofprocessiframeenabled() const;
+::enterprise_management::BooleanPolicyProto* _internal_mutable_pdfvieweroutofprocessiframeenabled();
+public:
+void unsafe_arena_set_allocated_pdfvieweroutofprocessiframeenabled(
+::enterprise_management::BooleanPolicyProto* pdfvieweroutofprocessiframeenabled);
+::enterprise_management::BooleanPolicyProto* unsafe_arena_release_pdfvieweroutofprocessiframeenabled();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -2800,6 +2819,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::IntegerPolicyProto* chromedataregionsetting_;
 ::enterprise_management::BooleanPolicyProto* contextualgoogleintegrationsenabled_;
 ::enterprise_management::StringListPolicyProto* contextualgoogleintegrationsconfiguration_;
+::enterprise_management::BooleanPolicyProto* pdfvieweroutofprocessiframeenabled_;
 };
 union { Impl_ _impl_; };
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
@@ -20045,6 +20065,93 @@ _impl_._has_bits_[1] &= ~0x00000200u;
 }
 _impl_.pdfuseskiarendererenabled_ = pdfuseskiarendererenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.PdfUseSkiaRendererEnabled)
+}
+
+// optional .enterprise_management.BooleanPolicyProto PdfViewerOutOfProcessIframeEnabled = 216;
+inline bool CloudPolicySubProto1::_internal_has_pdfvieweroutofprocessiframeenabled() const {
+bool value = (_impl_._has_bits_[4] & 0x00000008u) != 0;
+PROTOBUF_ASSUME(!value || _impl_.pdfvieweroutofprocessiframeenabled_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_pdfvieweroutofprocessiframeenabled() const {
+return _internal_has_pdfvieweroutofprocessiframeenabled();
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_pdfvieweroutofprocessiframeenabled() const {
+const ::enterprise_management::BooleanPolicyProto* p = _impl_.pdfvieweroutofprocessiframeenabled_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::pdfvieweroutofprocessiframeenabled() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.PdfViewerOutOfProcessIframeEnabled)
+return _internal_pdfvieweroutofprocessiframeenabled();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_pdfvieweroutofprocessiframeenabled(
+::enterprise_management::BooleanPolicyProto* pdfvieweroutofprocessiframeenabled) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.pdfvieweroutofprocessiframeenabled_);
+}
+_impl_.pdfvieweroutofprocessiframeenabled_ = pdfvieweroutofprocessiframeenabled;
+if (pdfvieweroutofprocessiframeenabled) {
+_impl_._has_bits_[4] |= 0x00000008u;
+} else {
+_impl_._has_bits_[4] &= ~0x00000008u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.PdfViewerOutOfProcessIframeEnabled)
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_pdfvieweroutofprocessiframeenabled() {
+_impl_._has_bits_[4] &= ~0x00000008u;
+::enterprise_management::BooleanPolicyProto* temp = _impl_.pdfvieweroutofprocessiframeenabled_;
+_impl_.pdfvieweroutofprocessiframeenabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_pdfvieweroutofprocessiframeenabled() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.PdfViewerOutOfProcessIframeEnabled)
+_impl_._has_bits_[4] &= ~0x00000008u;
+::enterprise_management::BooleanPolicyProto* temp = _impl_.pdfvieweroutofprocessiframeenabled_;
+_impl_.pdfvieweroutofprocessiframeenabled_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_pdfvieweroutofprocessiframeenabled() {
+_impl_._has_bits_[4] |= 0x00000008u;
+if (_impl_.pdfvieweroutofprocessiframeenabled_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+_impl_.pdfvieweroutofprocessiframeenabled_ = p;
+}
+return _impl_.pdfvieweroutofprocessiframeenabled_;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_pdfvieweroutofprocessiframeenabled() {
+::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_pdfvieweroutofprocessiframeenabled();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.PdfViewerOutOfProcessIframeEnabled)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_pdfvieweroutofprocessiframeenabled(::enterprise_management::BooleanPolicyProto* pdfvieweroutofprocessiframeenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.pdfvieweroutofprocessiframeenabled_);
+}
+if (pdfvieweroutofprocessiframeenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(pdfvieweroutofprocessiframeenabled));
+if (message_arena != submessage_arena) {
+pdfvieweroutofprocessiframeenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, pdfvieweroutofprocessiframeenabled, submessage_arena);
+}
+_impl_._has_bits_[4] |= 0x00000008u;
+} else {
+_impl_._has_bits_[4] &= ~0x00000008u;
+}
+_impl_.pdfvieweroutofprocessiframeenabled_ = pdfvieweroutofprocessiframeenabled;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.PdfViewerOutOfProcessIframeEnabled)
 }
 
 // optional .enterprise_management.BooleanPolicyProto PhysicalKeyboardAutocorrect = 78;

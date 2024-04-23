@@ -92,7 +92,7 @@ bool Geometry_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -107,6 +107,17 @@ bool Geometry_Data::Validate(
   }
   if (!mojo::internal::ValidateStruct(object->bounding_box, validation_context))
     return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->segmentation_polygon, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& segmentation_polygon_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->segmentation_polygon, validation_context,
+                                         &segmentation_polygon_validate_params)) {
+    return false;
+  }
 
   return true;
 }

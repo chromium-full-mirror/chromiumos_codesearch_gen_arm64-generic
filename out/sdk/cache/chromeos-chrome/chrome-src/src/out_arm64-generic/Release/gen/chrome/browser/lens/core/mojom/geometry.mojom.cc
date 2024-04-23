@@ -98,11 +98,14 @@ bool CenterRotatedBox::Validate(
   return Data_::Validate(data, validation_context);
 }
 Geometry::Geometry()
-    : bounding_box() {}
+    : bounding_box(),
+      segmentation_polygon() {}
 
 Geometry::Geometry(
-    CenterRotatedBoxPtr bounding_box_in)
-    : bounding_box(std::move(bounding_box_in)) {}
+    CenterRotatedBoxPtr bounding_box_in,
+    std::vector<::lens::mojom::PolygonPtr> segmentation_polygon_in)
+    : bounding_box(std::move(bounding_box_in)),
+      segmentation_polygon(std::move(segmentation_polygon_in)) {}
 
 Geometry::~Geometry() = default;
 
@@ -114,6 +117,15 @@ void Geometry::WriteIntoTrace(
       "bounding_box"), this->bounding_box,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type CenterRotatedBoxPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "segmentation_polygon"), this->segmentation_polygon,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<::lens::mojom::PolygonPtr>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -159,6 +171,8 @@ bool StructTraits<::lens::mojom::Geometry::DataView, ::lens::mojom::GeometryPtr>
   ::lens::mojom::GeometryPtr result(::lens::mojom::Geometry::New());
   
       if (success && !input.ReadBoundingBox(&result->bounding_box))
+        success = false;
+      if (success && !input.ReadSegmentationPolygon(&result->segmentation_polygon))
         success = false;
   *output = std::move(result);
   return success;

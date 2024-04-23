@@ -27,6 +27,7 @@
 #include "chrome/browser/lens/core/mojom/geometry.mojom-features.h"
 #include "chrome/browser/lens/core/mojom/geometry.mojom-shared.h"
 #include "chrome/browser/lens/core/mojom/geometry.mojom-forward.h"
+#include "chrome/browser/lens/core/mojom/polygon.mojom.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include <string>
 #include <vector>
@@ -221,8 +222,9 @@ class  Geometry {
 
   Geometry();
 
-  explicit Geometry(
-      CenterRotatedBoxPtr bounding_box);
+  Geometry(
+      CenterRotatedBoxPtr bounding_box,
+      std::vector<::lens::mojom::PolygonPtr> segmentation_polygon);
 
 Geometry(const Geometry&) = delete;
 Geometry& operator=(const Geometry&) = delete;
@@ -303,6 +305,8 @@ Geometry& operator=(const Geometry&) = delete;
 
   
   CenterRotatedBoxPtr bounding_box;
+  
+  std::vector<::lens::mojom::PolygonPtr> segmentation_polygon;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -372,13 +376,16 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 GeometryPtr Geometry::Clone() const {
   return New(
-      mojo::Clone(bounding_box)
+      mojo::Clone(bounding_box),
+      mojo::Clone(segmentation_polygon)
   );
 }
 
 template <typename T, Geometry::EnableIfSame<T>*>
 bool Geometry::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->bounding_box, other_struct.bounding_box))
+    return false;
+  if (!mojo::Equals(this->segmentation_polygon, other_struct.segmentation_polygon))
     return false;
   return true;
 }
@@ -388,6 +395,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.bounding_box < rhs.bounding_box)
     return true;
   if (rhs.bounding_box < lhs.bounding_box)
+    return false;
+  if (lhs.segmentation_polygon < rhs.segmentation_polygon)
+    return true;
+  if (rhs.segmentation_polygon < lhs.segmentation_polygon)
     return false;
   return false;
 }
@@ -432,6 +443,11 @@ struct  StructTraits<::lens::mojom::Geometry::DataView,
   static const decltype(::lens::mojom::Geometry::bounding_box)& bounding_box(
       const ::lens::mojom::GeometryPtr& input) {
     return input->bounding_box;
+  }
+
+  static const decltype(::lens::mojom::Geometry::segmentation_polygon)& segmentation_polygon(
+      const ::lens::mojom::GeometryPtr& input) {
+    return input->segmentation_polygon;
   }
 
   static bool Read(::lens::mojom::Geometry::DataView input, ::lens::mojom::GeometryPtr* output);
