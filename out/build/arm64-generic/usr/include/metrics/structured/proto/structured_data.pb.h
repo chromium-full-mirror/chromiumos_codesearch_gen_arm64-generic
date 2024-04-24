@@ -54,6 +54,9 @@ extern StructuredDataProtoDefaultTypeInternal _StructuredDataProto_default_insta
 class StructuredEventProto;
 struct StructuredEventProtoDefaultTypeInternal;
 extern StructuredEventProtoDefaultTypeInternal _StructuredEventProto_default_instance_;
+class StructuredEventProto_EventSequenceMetadata;
+struct StructuredEventProto_EventSequenceMetadataDefaultTypeInternal;
+extern StructuredEventProto_EventSequenceMetadataDefaultTypeInternal _StructuredEventProto_EventSequenceMetadata_default_instance_;
 class StructuredEventProto_Metric;
 struct StructuredEventProto_MetricDefaultTypeInternal;
 extern StructuredEventProto_MetricDefaultTypeInternal _StructuredEventProto_Metric_default_instance_;
@@ -67,6 +70,8 @@ template <>
 template <>
 ::metrics::StructuredEventProto* Arena::CreateMaybeMessage<::metrics::StructuredEventProto>(Arena*);
 template <>
+::metrics::StructuredEventProto_EventSequenceMetadata* Arena::CreateMaybeMessage<::metrics::StructuredEventProto_EventSequenceMetadata>(Arena*);
+template <>
 ::metrics::StructuredEventProto_Metric* Arena::CreateMaybeMessage<::metrics::StructuredEventProto_Metric>(Arena*);
 template <>
 ::metrics::StructuredEventProto_Metric_RepeatedInt64* Arena::CreateMaybeMessage<::metrics::StructuredEventProto_Metric_RepeatedInt64>(Arena*);
@@ -77,12 +82,13 @@ enum StructuredEventProto_EventType : int {
   StructuredEventProto_EventType_UNKNOWN = 0,
   StructuredEventProto_EventType_REGULAR = 1,
   StructuredEventProto_EventType_RAW_STRING = 2,
+  StructuredEventProto_EventType_SEQUENCE = 3,
 };
 
 bool StructuredEventProto_EventType_IsValid(int value);
 constexpr StructuredEventProto_EventType StructuredEventProto_EventType_EventType_MIN = static_cast<StructuredEventProto_EventType>(0);
-constexpr StructuredEventProto_EventType StructuredEventProto_EventType_EventType_MAX = static_cast<StructuredEventProto_EventType>(2);
-constexpr int StructuredEventProto_EventType_EventType_ARRAYSIZE = 2 + 1;
+constexpr StructuredEventProto_EventType StructuredEventProto_EventType_EventType_MAX = static_cast<StructuredEventProto_EventType>(3);
+constexpr int StructuredEventProto_EventType_EventType_ARRAYSIZE = 3 + 1;
 const std::string& StructuredEventProto_EventType_Name(StructuredEventProto_EventType value);
 template <typename T>
 const std::string& StructuredEventProto_EventType_Name(T value) {
@@ -93,6 +99,53 @@ const std::string& StructuredEventProto_EventType_Name(T value) {
 }
 const std::string& StructuredEventProto_EventType_Name(StructuredEventProto_EventType value);
 bool StructuredEventProto_EventType_Parse(absl::string_view name, StructuredEventProto_EventType* value);
+enum StructuredEventProto_PrimaryUserSegment : int {
+  StructuredEventProto_PrimaryUserSegment_UNKNOWN_PRIMARY_USER_TYPE = 0,
+  StructuredEventProto_PrimaryUserSegment_UNMANAGED = 1,
+  StructuredEventProto_PrimaryUserSegment_K12 = 2,
+  StructuredEventProto_PrimaryUserSegment_UNIVERSITY = 3,
+  StructuredEventProto_PrimaryUserSegment_NON_PROFIT = 4,
+  StructuredEventProto_PrimaryUserSegment_ENTERPRISE_ORGANIZATION = 5,
+  StructuredEventProto_PrimaryUserSegment_KIOS_APP = 6,
+  StructuredEventProto_PrimaryUserSegment_MANAGED_GUEST_SESSION = 7,
+  StructuredEventProto_PrimaryUserSegment_DEMO_MODE = 8,
+};
+
+bool StructuredEventProto_PrimaryUserSegment_IsValid(int value);
+constexpr StructuredEventProto_PrimaryUserSegment StructuredEventProto_PrimaryUserSegment_PrimaryUserSegment_MIN = static_cast<StructuredEventProto_PrimaryUserSegment>(0);
+constexpr StructuredEventProto_PrimaryUserSegment StructuredEventProto_PrimaryUserSegment_PrimaryUserSegment_MAX = static_cast<StructuredEventProto_PrimaryUserSegment>(8);
+constexpr int StructuredEventProto_PrimaryUserSegment_PrimaryUserSegment_ARRAYSIZE = 8 + 1;
+const std::string& StructuredEventProto_PrimaryUserSegment_Name(StructuredEventProto_PrimaryUserSegment value);
+template <typename T>
+const std::string& StructuredEventProto_PrimaryUserSegment_Name(T value) {
+  static_assert(std::is_same<T, StructuredEventProto_PrimaryUserSegment>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to PrimaryUserSegment_Name().");
+  return StructuredEventProto_PrimaryUserSegment_Name(static_cast<StructuredEventProto_PrimaryUserSegment>(value));
+}
+const std::string& StructuredEventProto_PrimaryUserSegment_Name(StructuredEventProto_PrimaryUserSegment value);
+bool StructuredEventProto_PrimaryUserSegment_Parse(absl::string_view name, StructuredEventProto_PrimaryUserSegment* value);
+enum StructuredDataProto_DeviceSegment : int {
+  StructuredDataProto_DeviceSegment_UNKNOWN = 0,
+  StructuredDataProto_DeviceSegment_CONSUMER = 1,
+  StructuredDataProto_DeviceSegment_EDUCATION = 2,
+  StructuredDataProto_DeviceSegment_ENTERPRISE = 3,
+};
+
+bool StructuredDataProto_DeviceSegment_IsValid(int value);
+constexpr StructuredDataProto_DeviceSegment StructuredDataProto_DeviceSegment_DeviceSegment_MIN = static_cast<StructuredDataProto_DeviceSegment>(0);
+constexpr StructuredDataProto_DeviceSegment StructuredDataProto_DeviceSegment_DeviceSegment_MAX = static_cast<StructuredDataProto_DeviceSegment>(3);
+constexpr int StructuredDataProto_DeviceSegment_DeviceSegment_ARRAYSIZE = 3 + 1;
+const std::string& StructuredDataProto_DeviceSegment_Name(StructuredDataProto_DeviceSegment value);
+template <typename T>
+const std::string& StructuredDataProto_DeviceSegment_Name(T value) {
+  static_assert(std::is_same<T, StructuredDataProto_DeviceSegment>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to DeviceSegment_Name().");
+  return StructuredDataProto_DeviceSegment_Name(static_cast<StructuredDataProto_DeviceSegment>(value));
+}
+const std::string& StructuredDataProto_DeviceSegment_Name(StructuredDataProto_DeviceSegment value);
+bool StructuredDataProto_DeviceSegment_Parse(absl::string_view name, StructuredDataProto_DeviceSegment* value);
 
 // ===================================================================
 
@@ -495,6 +548,197 @@ class StructuredEventProto_Metric final :
   friend struct ::TableStruct_structured_5fdata_2eproto;
 };// -------------------------------------------------------------------
 
+class StructuredEventProto_EventSequenceMetadata final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:metrics.StructuredEventProto.EventSequenceMetadata) */ {
+ public:
+  inline StructuredEventProto_EventSequenceMetadata() : StructuredEventProto_EventSequenceMetadata(nullptr) {}
+  ~StructuredEventProto_EventSequenceMetadata() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR StructuredEventProto_EventSequenceMetadata(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  StructuredEventProto_EventSequenceMetadata(const StructuredEventProto_EventSequenceMetadata& from);
+  StructuredEventProto_EventSequenceMetadata(StructuredEventProto_EventSequenceMetadata&& from) noexcept
+    : StructuredEventProto_EventSequenceMetadata() {
+    *this = ::std::move(from);
+  }
+
+  inline StructuredEventProto_EventSequenceMetadata& operator=(const StructuredEventProto_EventSequenceMetadata& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StructuredEventProto_EventSequenceMetadata& operator=(StructuredEventProto_EventSequenceMetadata&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const StructuredEventProto_EventSequenceMetadata& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const StructuredEventProto_EventSequenceMetadata* internal_default_instance() {
+    return reinterpret_cast<const StructuredEventProto_EventSequenceMetadata*>(
+               &_StructuredEventProto_EventSequenceMetadata_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(StructuredEventProto_EventSequenceMetadata& a, StructuredEventProto_EventSequenceMetadata& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(StructuredEventProto_EventSequenceMetadata* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StructuredEventProto_EventSequenceMetadata* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  StructuredEventProto_EventSequenceMetadata* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<StructuredEventProto_EventSequenceMetadata>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const StructuredEventProto_EventSequenceMetadata& from);
+  void MergeFrom(const StructuredEventProto_EventSequenceMetadata& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(StructuredEventProto_EventSequenceMetadata* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "metrics.StructuredEventProto.EventSequenceMetadata";
+  }
+  protected:
+  explicit StructuredEventProto_EventSequenceMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEventUniqueIdFieldNumber = 1,
+    kSystemUptimeFieldNumber = 2,
+    kResetCounterFieldNumber = 3,
+    kClientIdRotationWeeksFieldNumber = 4,
+    kPrimaryUserSegmentFieldNumber = 5,
+  };
+  // optional fixed64 event_unique_id = 1;
+  bool has_event_unique_id() const;
+  void clear_event_unique_id() ;
+  ::uint64_t event_unique_id() const;
+  void set_event_unique_id(::uint64_t value);
+
+  private:
+  ::uint64_t _internal_event_unique_id() const;
+  void _internal_set_event_unique_id(::uint64_t value);
+
+  public:
+  // optional int64 system_uptime = 2;
+  bool has_system_uptime() const;
+  void clear_system_uptime() ;
+  ::int64_t system_uptime() const;
+  void set_system_uptime(::int64_t value);
+
+  private:
+  ::int64_t _internal_system_uptime() const;
+  void _internal_set_system_uptime(::int64_t value);
+
+  public:
+  // optional int64 reset_counter = 3;
+  bool has_reset_counter() const;
+  void clear_reset_counter() ;
+  ::int64_t reset_counter() const;
+  void set_reset_counter(::int64_t value);
+
+  private:
+  ::int64_t _internal_reset_counter() const;
+  void _internal_set_reset_counter(::int64_t value);
+
+  public:
+  // optional uint32 client_id_rotation_weeks = 4;
+  bool has_client_id_rotation_weeks() const;
+  void clear_client_id_rotation_weeks() ;
+  ::uint32_t client_id_rotation_weeks() const;
+  void set_client_id_rotation_weeks(::uint32_t value);
+
+  private:
+  ::uint32_t _internal_client_id_rotation_weeks() const;
+  void _internal_set_client_id_rotation_weeks(::uint32_t value);
+
+  public:
+  // optional .metrics.StructuredEventProto.PrimaryUserSegment primary_user_segment = 5;
+  bool has_primary_user_segment() const;
+  void clear_primary_user_segment() ;
+  ::metrics::StructuredEventProto_PrimaryUserSegment primary_user_segment() const;
+  void set_primary_user_segment(::metrics::StructuredEventProto_PrimaryUserSegment value);
+
+  private:
+  ::metrics::StructuredEventProto_PrimaryUserSegment _internal_primary_user_segment() const;
+  void _internal_set_primary_user_segment(::metrics::StructuredEventProto_PrimaryUserSegment value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:metrics.StructuredEventProto.EventSequenceMetadata)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::uint64_t event_unique_id_;
+    ::int64_t system_uptime_;
+    ::int64_t reset_counter_;
+    ::uint32_t client_id_rotation_weeks_;
+    int primary_user_segment_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_structured_5fdata_2eproto;
+};// -------------------------------------------------------------------
+
 class StructuredEventProto final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:metrics.StructuredEventProto) */ {
  public:
@@ -542,7 +786,7 @@ class StructuredEventProto final :
                &_StructuredEventProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(StructuredEventProto& a, StructuredEventProto& b) {
     a.Swap(&b);
@@ -603,11 +847,13 @@ class StructuredEventProto final :
   // nested types ----------------------------------------------------
 
   typedef StructuredEventProto_Metric Metric;
+  typedef StructuredEventProto_EventSequenceMetadata EventSequenceMetadata;
 
   using EventType = StructuredEventProto_EventType;
   static constexpr EventType UNKNOWN = StructuredEventProto_EventType_UNKNOWN;
   static constexpr EventType REGULAR = StructuredEventProto_EventType_REGULAR;
   static constexpr EventType RAW_STRING = StructuredEventProto_EventType_RAW_STRING;
+  static constexpr EventType SEQUENCE = StructuredEventProto_EventType_SEQUENCE;
   static inline bool EventType_IsValid(int value) {
     return StructuredEventProto_EventType_IsValid(value);
   }
@@ -622,13 +868,40 @@ class StructuredEventProto final :
     return StructuredEventProto_EventType_Parse(name, value);
   }
 
+  using PrimaryUserSegment = StructuredEventProto_PrimaryUserSegment;
+  static constexpr PrimaryUserSegment UNKNOWN_PRIMARY_USER_TYPE = StructuredEventProto_PrimaryUserSegment_UNKNOWN_PRIMARY_USER_TYPE;
+  static constexpr PrimaryUserSegment UNMANAGED = StructuredEventProto_PrimaryUserSegment_UNMANAGED;
+  static constexpr PrimaryUserSegment K12 = StructuredEventProto_PrimaryUserSegment_K12;
+  static constexpr PrimaryUserSegment UNIVERSITY = StructuredEventProto_PrimaryUserSegment_UNIVERSITY;
+  static constexpr PrimaryUserSegment NON_PROFIT = StructuredEventProto_PrimaryUserSegment_NON_PROFIT;
+  static constexpr PrimaryUserSegment ENTERPRISE_ORGANIZATION = StructuredEventProto_PrimaryUserSegment_ENTERPRISE_ORGANIZATION;
+  static constexpr PrimaryUserSegment KIOS_APP = StructuredEventProto_PrimaryUserSegment_KIOS_APP;
+  static constexpr PrimaryUserSegment MANAGED_GUEST_SESSION = StructuredEventProto_PrimaryUserSegment_MANAGED_GUEST_SESSION;
+  static constexpr PrimaryUserSegment DEMO_MODE = StructuredEventProto_PrimaryUserSegment_DEMO_MODE;
+  static inline bool PrimaryUserSegment_IsValid(int value) {
+    return StructuredEventProto_PrimaryUserSegment_IsValid(value);
+  }
+  static constexpr PrimaryUserSegment PrimaryUserSegment_MIN = StructuredEventProto_PrimaryUserSegment_PrimaryUserSegment_MIN;
+  static constexpr PrimaryUserSegment PrimaryUserSegment_MAX = StructuredEventProto_PrimaryUserSegment_PrimaryUserSegment_MAX;
+  static constexpr int PrimaryUserSegment_ARRAYSIZE = StructuredEventProto_PrimaryUserSegment_PrimaryUserSegment_ARRAYSIZE;
+  template <typename T>
+  static inline const std::string& PrimaryUserSegment_Name(T value) {
+    return StructuredEventProto_PrimaryUserSegment_Name(value);
+  }
+  static inline bool PrimaryUserSegment_Parse(absl::string_view name, PrimaryUserSegment* value) {
+    return StructuredEventProto_PrimaryUserSegment_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kMetricsFieldNumber = 3,
+    kEventSequenceMetadataFieldNumber = 6,
     kProfileEventIdFieldNumber = 1,
     kEventNameHashFieldNumber = 2,
     kProjectNameHashFieldNumber = 5,
+    kUserProjectIdFieldNumber = 7,
+    kDeviceProjectIdFieldNumber = 8,
     kEventTypeFieldNumber = 4,
   };
   // repeated .metrics.StructuredEventProto.Metric metrics = 3;
@@ -651,6 +924,20 @@ class StructuredEventProto final :
   ::metrics::StructuredEventProto_Metric* add_metrics();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEventProto_Metric >&
       metrics() const;
+  // optional .metrics.StructuredEventProto.EventSequenceMetadata event_sequence_metadata = 6;
+  bool has_event_sequence_metadata() const;
+  void clear_event_sequence_metadata() ;
+  const ::metrics::StructuredEventProto_EventSequenceMetadata& event_sequence_metadata() const;
+  PROTOBUF_NODISCARD ::metrics::StructuredEventProto_EventSequenceMetadata* release_event_sequence_metadata();
+  ::metrics::StructuredEventProto_EventSequenceMetadata* mutable_event_sequence_metadata();
+  void set_allocated_event_sequence_metadata(::metrics::StructuredEventProto_EventSequenceMetadata* event_sequence_metadata);
+  private:
+  const ::metrics::StructuredEventProto_EventSequenceMetadata& _internal_event_sequence_metadata() const;
+  ::metrics::StructuredEventProto_EventSequenceMetadata* _internal_mutable_event_sequence_metadata();
+  public:
+  void unsafe_arena_set_allocated_event_sequence_metadata(
+      ::metrics::StructuredEventProto_EventSequenceMetadata* event_sequence_metadata);
+  ::metrics::StructuredEventProto_EventSequenceMetadata* unsafe_arena_release_event_sequence_metadata();
   // optional fixed64 profile_event_id = 1;
   bool has_profile_event_id() const;
   void clear_profile_event_id() ;
@@ -684,6 +971,28 @@ class StructuredEventProto final :
   void _internal_set_project_name_hash(::uint64_t value);
 
   public:
+  // optional fixed64 user_project_id = 7;
+  bool has_user_project_id() const;
+  void clear_user_project_id() ;
+  ::uint64_t user_project_id() const;
+  void set_user_project_id(::uint64_t value);
+
+  private:
+  ::uint64_t _internal_user_project_id() const;
+  void _internal_set_user_project_id(::uint64_t value);
+
+  public:
+  // optional fixed64 device_project_id = 8;
+  bool has_device_project_id() const;
+  void clear_device_project_id() ;
+  ::uint64_t device_project_id() const;
+  void set_device_project_id(::uint64_t value);
+
+  private:
+  ::uint64_t _internal_device_project_id() const;
+  void _internal_set_device_project_id(::uint64_t value);
+
+  public:
   // optional .metrics.StructuredEventProto.EventType event_type = 4;
   bool has_event_type() const;
   void clear_event_type() ;
@@ -706,9 +1015,12 @@ class StructuredEventProto final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEventProto_Metric > metrics_;
+    ::metrics::StructuredEventProto_EventSequenceMetadata* event_sequence_metadata_;
     ::uint64_t profile_event_id_;
     ::uint64_t event_name_hash_;
     ::uint64_t project_name_hash_;
+    ::uint64_t user_project_id_;
+    ::uint64_t device_project_id_;
     int event_type_;
   };
   union { Impl_ _impl_; };
@@ -762,7 +1074,7 @@ class StructuredDataProto final :
                &_StructuredDataProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(StructuredDataProto& a, StructuredDataProto& b) {
     a.Swap(&b);
@@ -822,10 +1134,31 @@ class StructuredDataProto final :
 
   // nested types ----------------------------------------------------
 
+  using DeviceSegment = StructuredDataProto_DeviceSegment;
+  static constexpr DeviceSegment UNKNOWN = StructuredDataProto_DeviceSegment_UNKNOWN;
+  static constexpr DeviceSegment CONSUMER = StructuredDataProto_DeviceSegment_CONSUMER;
+  static constexpr DeviceSegment EDUCATION = StructuredDataProto_DeviceSegment_EDUCATION;
+  static constexpr DeviceSegment ENTERPRISE = StructuredDataProto_DeviceSegment_ENTERPRISE;
+  static inline bool DeviceSegment_IsValid(int value) {
+    return StructuredDataProto_DeviceSegment_IsValid(value);
+  }
+  static constexpr DeviceSegment DeviceSegment_MIN = StructuredDataProto_DeviceSegment_DeviceSegment_MIN;
+  static constexpr DeviceSegment DeviceSegment_MAX = StructuredDataProto_DeviceSegment_DeviceSegment_MAX;
+  static constexpr int DeviceSegment_ARRAYSIZE = StructuredDataProto_DeviceSegment_DeviceSegment_ARRAYSIZE;
+  template <typename T>
+  static inline const std::string& DeviceSegment_Name(T value) {
+    return StructuredDataProto_DeviceSegment_Name(value);
+  }
+  static inline bool DeviceSegment_Parse(absl::string_view name, DeviceSegment* value) {
+    return StructuredDataProto_DeviceSegment_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kEventsFieldNumber = 1,
+    kIsDeviceEnrolledFieldNumber = 2,
+    kDeviceSegmentFieldNumber = 3,
   };
   // repeated .metrics.StructuredEventProto events = 1;
   int events_size() const;
@@ -847,6 +1180,28 @@ class StructuredDataProto final :
   ::metrics::StructuredEventProto* add_events();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEventProto >&
       events() const;
+  // optional bool is_device_enrolled = 2 [deprecated = true];
+  [[deprecated]]  bool has_is_device_enrolled() const;
+  [[deprecated]]  void clear_is_device_enrolled() ;
+  [[deprecated]] bool is_device_enrolled() const;
+  [[deprecated]] void set_is_device_enrolled(bool value);
+
+  private:
+  bool _internal_is_device_enrolled() const;
+  void _internal_set_is_device_enrolled(bool value);
+
+  public:
+  // optional .metrics.StructuredDataProto.DeviceSegment device_segment = 3;
+  bool has_device_segment() const;
+  void clear_device_segment() ;
+  ::metrics::StructuredDataProto_DeviceSegment device_segment() const;
+  void set_device_segment(::metrics::StructuredDataProto_DeviceSegment value);
+
+  private:
+  ::metrics::StructuredDataProto_DeviceSegment _internal_device_segment() const;
+  void _internal_set_device_segment(::metrics::StructuredDataProto_DeviceSegment value);
+
+  public:
   // @@protoc_insertion_point(class_scope:metrics.StructuredDataProto)
  private:
   class _Internal;
@@ -855,8 +1210,11 @@ class StructuredDataProto final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEventProto > events_;
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEventProto > events_;
+    bool is_device_enrolled_;
+    int device_segment_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_structured_5fdata_2eproto;
@@ -1220,16 +1578,146 @@ inline StructuredEventProto_Metric::ValueCase StructuredEventProto_Metric::value
 }
 // -------------------------------------------------------------------
 
+// StructuredEventProto_EventSequenceMetadata
+
+// optional fixed64 event_unique_id = 1;
+inline bool StructuredEventProto_EventSequenceMetadata::has_event_unique_id() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline void StructuredEventProto_EventSequenceMetadata::clear_event_unique_id() {
+  _impl_.event_unique_id_ = ::uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline ::uint64_t StructuredEventProto_EventSequenceMetadata::event_unique_id() const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.EventSequenceMetadata.event_unique_id)
+  return _internal_event_unique_id();
+}
+inline void StructuredEventProto_EventSequenceMetadata::set_event_unique_id(::uint64_t value) {
+  _internal_set_event_unique_id(value);
+  // @@protoc_insertion_point(field_set:metrics.StructuredEventProto.EventSequenceMetadata.event_unique_id)
+}
+inline ::uint64_t StructuredEventProto_EventSequenceMetadata::_internal_event_unique_id() const {
+  return _impl_.event_unique_id_;
+}
+inline void StructuredEventProto_EventSequenceMetadata::_internal_set_event_unique_id(::uint64_t value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.event_unique_id_ = value;
+}
+
+// optional int64 system_uptime = 2;
+inline bool StructuredEventProto_EventSequenceMetadata::has_system_uptime() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline void StructuredEventProto_EventSequenceMetadata::clear_system_uptime() {
+  _impl_.system_uptime_ = ::int64_t{0};
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline ::int64_t StructuredEventProto_EventSequenceMetadata::system_uptime() const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.EventSequenceMetadata.system_uptime)
+  return _internal_system_uptime();
+}
+inline void StructuredEventProto_EventSequenceMetadata::set_system_uptime(::int64_t value) {
+  _internal_set_system_uptime(value);
+  // @@protoc_insertion_point(field_set:metrics.StructuredEventProto.EventSequenceMetadata.system_uptime)
+}
+inline ::int64_t StructuredEventProto_EventSequenceMetadata::_internal_system_uptime() const {
+  return _impl_.system_uptime_;
+}
+inline void StructuredEventProto_EventSequenceMetadata::_internal_set_system_uptime(::int64_t value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.system_uptime_ = value;
+}
+
+// optional int64 reset_counter = 3;
+inline bool StructuredEventProto_EventSequenceMetadata::has_reset_counter() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline void StructuredEventProto_EventSequenceMetadata::clear_reset_counter() {
+  _impl_.reset_counter_ = ::int64_t{0};
+  _impl_._has_bits_[0] &= ~0x00000004u;
+}
+inline ::int64_t StructuredEventProto_EventSequenceMetadata::reset_counter() const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.EventSequenceMetadata.reset_counter)
+  return _internal_reset_counter();
+}
+inline void StructuredEventProto_EventSequenceMetadata::set_reset_counter(::int64_t value) {
+  _internal_set_reset_counter(value);
+  // @@protoc_insertion_point(field_set:metrics.StructuredEventProto.EventSequenceMetadata.reset_counter)
+}
+inline ::int64_t StructuredEventProto_EventSequenceMetadata::_internal_reset_counter() const {
+  return _impl_.reset_counter_;
+}
+inline void StructuredEventProto_EventSequenceMetadata::_internal_set_reset_counter(::int64_t value) {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_.reset_counter_ = value;
+}
+
+// optional uint32 client_id_rotation_weeks = 4;
+inline bool StructuredEventProto_EventSequenceMetadata::has_client_id_rotation_weeks() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline void StructuredEventProto_EventSequenceMetadata::clear_client_id_rotation_weeks() {
+  _impl_.client_id_rotation_weeks_ = 0u;
+  _impl_._has_bits_[0] &= ~0x00000008u;
+}
+inline ::uint32_t StructuredEventProto_EventSequenceMetadata::client_id_rotation_weeks() const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.EventSequenceMetadata.client_id_rotation_weeks)
+  return _internal_client_id_rotation_weeks();
+}
+inline void StructuredEventProto_EventSequenceMetadata::set_client_id_rotation_weeks(::uint32_t value) {
+  _internal_set_client_id_rotation_weeks(value);
+  // @@protoc_insertion_point(field_set:metrics.StructuredEventProto.EventSequenceMetadata.client_id_rotation_weeks)
+}
+inline ::uint32_t StructuredEventProto_EventSequenceMetadata::_internal_client_id_rotation_weeks() const {
+  return _impl_.client_id_rotation_weeks_;
+}
+inline void StructuredEventProto_EventSequenceMetadata::_internal_set_client_id_rotation_weeks(::uint32_t value) {
+  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_.client_id_rotation_weeks_ = value;
+}
+
+// optional .metrics.StructuredEventProto.PrimaryUserSegment primary_user_segment = 5;
+inline bool StructuredEventProto_EventSequenceMetadata::has_primary_user_segment() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline void StructuredEventProto_EventSequenceMetadata::clear_primary_user_segment() {
+  _impl_.primary_user_segment_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000010u;
+}
+inline ::metrics::StructuredEventProto_PrimaryUserSegment StructuredEventProto_EventSequenceMetadata::primary_user_segment() const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.EventSequenceMetadata.primary_user_segment)
+  return _internal_primary_user_segment();
+}
+inline void StructuredEventProto_EventSequenceMetadata::set_primary_user_segment(::metrics::StructuredEventProto_PrimaryUserSegment value) {
+   _internal_set_primary_user_segment(value);
+  // @@protoc_insertion_point(field_set:metrics.StructuredEventProto.EventSequenceMetadata.primary_user_segment)
+}
+inline ::metrics::StructuredEventProto_PrimaryUserSegment StructuredEventProto_EventSequenceMetadata::_internal_primary_user_segment() const {
+  return static_cast<::metrics::StructuredEventProto_PrimaryUserSegment>(_impl_.primary_user_segment_);
+}
+inline void StructuredEventProto_EventSequenceMetadata::_internal_set_primary_user_segment(::metrics::StructuredEventProto_PrimaryUserSegment value) {
+  assert(::metrics::StructuredEventProto_PrimaryUserSegment_IsValid(value));
+  _impl_._has_bits_[0] |= 0x00000010u;
+  _impl_.primary_user_segment_ = value;
+}
+
+// -------------------------------------------------------------------
+
 // StructuredEventProto
 
 // optional fixed64 profile_event_id = 1;
 inline bool StructuredEventProto::has_profile_event_id() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline void StructuredEventProto::clear_profile_event_id() {
   _impl_.profile_event_id_ = ::uint64_t{0u};
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 inline ::uint64_t StructuredEventProto::profile_event_id() const {
   // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.profile_event_id)
@@ -1243,18 +1731,68 @@ inline ::uint64_t StructuredEventProto::_internal_profile_event_id() const {
   return _impl_.profile_event_id_;
 }
 inline void StructuredEventProto::_internal_set_profile_event_id(::uint64_t value) {
-  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_._has_bits_[0] |= 0x00000002u;
   _impl_.profile_event_id_ = value;
+}
+
+// optional fixed64 user_project_id = 7;
+inline bool StructuredEventProto::has_user_project_id() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline void StructuredEventProto::clear_user_project_id() {
+  _impl_.user_project_id_ = ::uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000010u;
+}
+inline ::uint64_t StructuredEventProto::user_project_id() const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.user_project_id)
+  return _internal_user_project_id();
+}
+inline void StructuredEventProto::set_user_project_id(::uint64_t value) {
+  _internal_set_user_project_id(value);
+  // @@protoc_insertion_point(field_set:metrics.StructuredEventProto.user_project_id)
+}
+inline ::uint64_t StructuredEventProto::_internal_user_project_id() const {
+  return _impl_.user_project_id_;
+}
+inline void StructuredEventProto::_internal_set_user_project_id(::uint64_t value) {
+  _impl_._has_bits_[0] |= 0x00000010u;
+  _impl_.user_project_id_ = value;
+}
+
+// optional fixed64 device_project_id = 8;
+inline bool StructuredEventProto::has_device_project_id() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
+inline void StructuredEventProto::clear_device_project_id() {
+  _impl_.device_project_id_ = ::uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000020u;
+}
+inline ::uint64_t StructuredEventProto::device_project_id() const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.device_project_id)
+  return _internal_device_project_id();
+}
+inline void StructuredEventProto::set_device_project_id(::uint64_t value) {
+  _internal_set_device_project_id(value);
+  // @@protoc_insertion_point(field_set:metrics.StructuredEventProto.device_project_id)
+}
+inline ::uint64_t StructuredEventProto::_internal_device_project_id() const {
+  return _impl_.device_project_id_;
+}
+inline void StructuredEventProto::_internal_set_device_project_id(::uint64_t value) {
+  _impl_._has_bits_[0] |= 0x00000020u;
+  _impl_.device_project_id_ = value;
 }
 
 // optional fixed64 event_name_hash = 2;
 inline bool StructuredEventProto::has_event_name_hash() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline void StructuredEventProto::clear_event_name_hash() {
   _impl_.event_name_hash_ = ::uint64_t{0u};
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
 }
 inline ::uint64_t StructuredEventProto::event_name_hash() const {
   // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.event_name_hash)
@@ -1268,7 +1806,7 @@ inline ::uint64_t StructuredEventProto::_internal_event_name_hash() const {
   return _impl_.event_name_hash_;
 }
 inline void StructuredEventProto::_internal_set_event_name_hash(::uint64_t value) {
-  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_._has_bits_[0] |= 0x00000004u;
   _impl_.event_name_hash_ = value;
 }
 
@@ -1322,12 +1860,12 @@ StructuredEventProto::_internal_mutable_metrics() {
 
 // optional .metrics.StructuredEventProto.EventType event_type = 4;
 inline bool StructuredEventProto::has_event_type() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
   return value;
 }
 inline void StructuredEventProto::clear_event_type() {
   _impl_.event_type_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000008u;
+  _impl_._has_bits_[0] &= ~0x00000040u;
 }
 inline ::metrics::StructuredEventProto_EventType StructuredEventProto::event_type() const {
   // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.event_type)
@@ -1342,18 +1880,18 @@ inline ::metrics::StructuredEventProto_EventType StructuredEventProto::_internal
 }
 inline void StructuredEventProto::_internal_set_event_type(::metrics::StructuredEventProto_EventType value) {
   assert(::metrics::StructuredEventProto_EventType_IsValid(value));
-  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_._has_bits_[0] |= 0x00000040u;
   _impl_.event_type_ = value;
 }
 
 // optional fixed64 project_name_hash = 5;
 inline bool StructuredEventProto::has_project_name_hash() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline void StructuredEventProto::clear_project_name_hash() {
   _impl_.project_name_hash_ = ::uint64_t{0u};
-  _impl_._has_bits_[0] &= ~0x00000004u;
+  _impl_._has_bits_[0] &= ~0x00000008u;
 }
 inline ::uint64_t StructuredEventProto::project_name_hash() const {
   // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.project_name_hash)
@@ -1367,8 +1905,95 @@ inline ::uint64_t StructuredEventProto::_internal_project_name_hash() const {
   return _impl_.project_name_hash_;
 }
 inline void StructuredEventProto::_internal_set_project_name_hash(::uint64_t value) {
-  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_._has_bits_[0] |= 0x00000008u;
   _impl_.project_name_hash_ = value;
+}
+
+// optional .metrics.StructuredEventProto.EventSequenceMetadata event_sequence_metadata = 6;
+inline bool StructuredEventProto::has_event_sequence_metadata() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.event_sequence_metadata_ != nullptr);
+  return value;
+}
+inline void StructuredEventProto::clear_event_sequence_metadata() {
+  if (_impl_.event_sequence_metadata_ != nullptr) _impl_.event_sequence_metadata_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::metrics::StructuredEventProto_EventSequenceMetadata& StructuredEventProto::_internal_event_sequence_metadata() const {
+  const ::metrics::StructuredEventProto_EventSequenceMetadata* p = _impl_.event_sequence_metadata_;
+  return p != nullptr ? *p : reinterpret_cast<const ::metrics::StructuredEventProto_EventSequenceMetadata&>(
+      ::metrics::_StructuredEventProto_EventSequenceMetadata_default_instance_);
+}
+inline const ::metrics::StructuredEventProto_EventSequenceMetadata& StructuredEventProto::event_sequence_metadata() const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.event_sequence_metadata)
+  return _internal_event_sequence_metadata();
+}
+inline void StructuredEventProto::unsafe_arena_set_allocated_event_sequence_metadata(
+    ::metrics::StructuredEventProto_EventSequenceMetadata* event_sequence_metadata) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.event_sequence_metadata_);
+  }
+  _impl_.event_sequence_metadata_ = event_sequence_metadata;
+  if (event_sequence_metadata) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:metrics.StructuredEventProto.event_sequence_metadata)
+}
+inline ::metrics::StructuredEventProto_EventSequenceMetadata* StructuredEventProto::release_event_sequence_metadata() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::metrics::StructuredEventProto_EventSequenceMetadata* temp = _impl_.event_sequence_metadata_;
+  _impl_.event_sequence_metadata_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::metrics::StructuredEventProto_EventSequenceMetadata* StructuredEventProto::unsafe_arena_release_event_sequence_metadata() {
+  // @@protoc_insertion_point(field_release:metrics.StructuredEventProto.event_sequence_metadata)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::metrics::StructuredEventProto_EventSequenceMetadata* temp = _impl_.event_sequence_metadata_;
+  _impl_.event_sequence_metadata_ = nullptr;
+  return temp;
+}
+inline ::metrics::StructuredEventProto_EventSequenceMetadata* StructuredEventProto::_internal_mutable_event_sequence_metadata() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.event_sequence_metadata_ == nullptr) {
+    auto* p = CreateMaybeMessage<::metrics::StructuredEventProto_EventSequenceMetadata>(GetArenaForAllocation());
+    _impl_.event_sequence_metadata_ = p;
+  }
+  return _impl_.event_sequence_metadata_;
+}
+inline ::metrics::StructuredEventProto_EventSequenceMetadata* StructuredEventProto::mutable_event_sequence_metadata() {
+  ::metrics::StructuredEventProto_EventSequenceMetadata* _msg = _internal_mutable_event_sequence_metadata();
+  // @@protoc_insertion_point(field_mutable:metrics.StructuredEventProto.event_sequence_metadata)
+  return _msg;
+}
+inline void StructuredEventProto::set_allocated_event_sequence_metadata(::metrics::StructuredEventProto_EventSequenceMetadata* event_sequence_metadata) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.event_sequence_metadata_;
+  }
+  if (event_sequence_metadata) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(event_sequence_metadata);
+    if (message_arena != submessage_arena) {
+      event_sequence_metadata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, event_sequence_metadata, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.event_sequence_metadata_ = event_sequence_metadata;
+  // @@protoc_insertion_point(field_set_allocated:metrics.StructuredEventProto.event_sequence_metadata)
 }
 
 // -------------------------------------------------------------------
@@ -1423,6 +2048,57 @@ StructuredDataProto::_internal_mutable_events() {
   return &_impl_.events_;
 }
 
+// optional bool is_device_enrolled = 2 [deprecated = true];
+inline bool StructuredDataProto::has_is_device_enrolled() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline void StructuredDataProto::clear_is_device_enrolled() {
+  _impl_.is_device_enrolled_ = false;
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline bool StructuredDataProto::is_device_enrolled() const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredDataProto.is_device_enrolled)
+  return _internal_is_device_enrolled();
+}
+inline void StructuredDataProto::set_is_device_enrolled(bool value) {
+  _internal_set_is_device_enrolled(value);
+  // @@protoc_insertion_point(field_set:metrics.StructuredDataProto.is_device_enrolled)
+}
+inline bool StructuredDataProto::_internal_is_device_enrolled() const {
+  return _impl_.is_device_enrolled_;
+}
+inline void StructuredDataProto::_internal_set_is_device_enrolled(bool value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.is_device_enrolled_ = value;
+}
+
+// optional .metrics.StructuredDataProto.DeviceSegment device_segment = 3;
+inline bool StructuredDataProto::has_device_segment() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline void StructuredDataProto::clear_device_segment() {
+  _impl_.device_segment_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline ::metrics::StructuredDataProto_DeviceSegment StructuredDataProto::device_segment() const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredDataProto.device_segment)
+  return _internal_device_segment();
+}
+inline void StructuredDataProto::set_device_segment(::metrics::StructuredDataProto_DeviceSegment value) {
+   _internal_set_device_segment(value);
+  // @@protoc_insertion_point(field_set:metrics.StructuredDataProto.device_segment)
+}
+inline ::metrics::StructuredDataProto_DeviceSegment StructuredDataProto::_internal_device_segment() const {
+  return static_cast<::metrics::StructuredDataProto_DeviceSegment>(_impl_.device_segment_);
+}
+inline void StructuredDataProto::_internal_set_device_segment(::metrics::StructuredDataProto_DeviceSegment value) {
+  assert(::metrics::StructuredDataProto_DeviceSegment_IsValid(value));
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.device_segment_ = value;
+}
+
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif  // __GNUC__
@@ -1435,6 +2111,10 @@ PROTOBUF_NAMESPACE_OPEN
 
 template <>
 struct is_proto_enum<::metrics::StructuredEventProto_EventType> : std::true_type {};
+template <>
+struct is_proto_enum<::metrics::StructuredEventProto_PrimaryUserSegment> : std::true_type {};
+template <>
+struct is_proto_enum<::metrics::StructuredDataProto_DeviceSegment> : std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

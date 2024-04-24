@@ -2496,7 +2496,7 @@ class BRILLO_EXPORT TestEventThree final : public ::metrics::structured::EventBa
   static constexpr uint64_t kProjectNameHash = UINT64_C(5876808001962504629);
   static constexpr IdType kIdType = IdType::kUnidentified;
   static constexpr StructuredEventProto_EventType kEventType =
-    StructuredEventProto_EventType_REGULAR;
+    StructuredEventProto_EventType_SEQUENCE;
 
   static constexpr uint64_t kTestMetricFourNameHash = UINT64_C(2917855408523247722);
   TestEventThree& SetTestMetricFour(const std::string& value);
