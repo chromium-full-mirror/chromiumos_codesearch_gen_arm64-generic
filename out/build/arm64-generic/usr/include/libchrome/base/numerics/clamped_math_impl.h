@@ -7,19 +7,15 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wimplicit-int-float-conversion"
 
-#include <stddef.h>
-#include <stdint.h>
+// IWYU pragma: private, include "base/numerics/clamped_math.h"
 
-#include <climits>
-#include <cmath>
 #include <concepts>
-#include <cstdlib>
 #include <limits>
 #include <type_traits>
 
 #include "base/numerics/checked_math.h"
 #include "base/numerics/safe_conversions.h"
-#include "base/numerics/safe_math_shared_impl.h"
+#include "base/numerics/safe_math_shared_impl.h"  // IWYU pragma: export
 
 namespace base {
 namespace internal {
