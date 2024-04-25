@@ -3101,14 +3101,13 @@ enum TaskScopeType : int32_t {
   TASK_SCOPE_SCHEDULER_POST_TASK = 6,
   TASK_SCOPE_REQUEST_IDLE_CALLBACK = 7,
   TASK_SCOPE_XML_HTTP_REQUEST = 8,
-  TASK_SCOPE_SOFT_NAVIGATION = 9,
 };
 } // namespace perfetto_pbzero_enum_BlinkTaskScope
 using BlinkTaskScope_TaskScopeType = perfetto_pbzero_enum_BlinkTaskScope::TaskScopeType;
 
 
 constexpr BlinkTaskScope_TaskScopeType BlinkTaskScope_TaskScopeType_MIN = BlinkTaskScope_TaskScopeType::TASK_SCOPE_UNKNOWN;
-constexpr BlinkTaskScope_TaskScopeType BlinkTaskScope_TaskScopeType_MAX = BlinkTaskScope_TaskScopeType::TASK_SCOPE_SOFT_NAVIGATION;
+constexpr BlinkTaskScope_TaskScopeType BlinkTaskScope_TaskScopeType_MAX = BlinkTaskScope_TaskScopeType::TASK_SCOPE_XML_HTTP_REQUEST;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -3140,9 +3139,6 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
 
   case ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType::TASK_SCOPE_XML_HTTP_REQUEST:
     return "TASK_SCOPE_XML_HTTP_REQUEST";
-
-  case ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType::TASK_SCOPE_SOFT_NAVIGATION:
-    return "TASK_SCOPE_SOFT_NAVIGATION";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -12159,7 +12155,7 @@ class ChildProcessLauncherPriority : public ::protozero::Message {
   }
 };
 
-class RenderProcessHostCleanup_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class RenderProcessHostCleanup_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/6, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   RenderProcessHostCleanup_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit RenderProcessHostCleanup_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -12174,6 +12170,8 @@ class RenderProcessHostCleanup_Decoder : public ::protozero::TypedProtoDecoder</
   uint32_t worker_ref_count() const { return at<4>().as_uint32(); }
   bool has_pending_reuse_ref_count() const { return at<5>().valid(); }
   uint32_t pending_reuse_ref_count() const { return at<5>().as_uint32(); }
+  bool has_navigation_state_keepalive_count() const { return at<6>().valid(); }
+  uint32_t navigation_state_keepalive_count() const { return at<6>().as_uint32(); }
 };
 
 class RenderProcessHostCleanup : public ::protozero::Message {
@@ -12185,6 +12183,7 @@ class RenderProcessHostCleanup : public ::protozero::Message {
     kShutdownDelayRefCountFieldNumber = 3,
     kWorkerRefCountFieldNumber = 4,
     kPendingReuseRefCountFieldNumber = 5,
+    kNavigationStateKeepaliveCountFieldNumber = 6,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.RenderProcessHostCleanup"; }
 
@@ -12272,6 +12271,24 @@ class RenderProcessHostCleanup : public ::protozero::Message {
   static constexpr FieldMetadata_PendingReuseRefCount kPendingReuseRefCount{};
   void set_pending_reuse_ref_count(uint32_t value) {
     static constexpr uint32_t field_id = FieldMetadata_PendingReuseRefCount::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NavigationStateKeepaliveCount =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      RenderProcessHostCleanup>;
+
+  static constexpr FieldMetadata_NavigationStateKeepaliveCount kNavigationStateKeepaliveCount{};
+  void set_navigation_state_keepalive_count(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_NavigationStateKeepaliveCount::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
@@ -13860,7 +13877,6 @@ class BlinkTaskScope : public ::protozero::Message {
   static inline const TaskScopeType TASK_SCOPE_SCHEDULER_POST_TASK = TaskScopeType::TASK_SCOPE_SCHEDULER_POST_TASK;
   static inline const TaskScopeType TASK_SCOPE_REQUEST_IDLE_CALLBACK = TaskScopeType::TASK_SCOPE_REQUEST_IDLE_CALLBACK;
   static inline const TaskScopeType TASK_SCOPE_XML_HTTP_REQUEST = TaskScopeType::TASK_SCOPE_XML_HTTP_REQUEST;
-  static inline const TaskScopeType TASK_SCOPE_SOFT_NAVIGATION = TaskScopeType::TASK_SCOPE_SOFT_NAVIGATION;
 
   using FieldMetadata_Type =
     ::protozero::proto_utils::FieldMetadata<
