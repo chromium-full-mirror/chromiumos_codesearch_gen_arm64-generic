@@ -153,7 +153,8 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , /*decltype(_impl_.chromedataregionsetting_)*/nullptr
   , /*decltype(_impl_.contextualgoogleintegrationsenabled_)*/nullptr
   , /*decltype(_impl_.contextualgoogleintegrationsconfiguration_)*/nullptr
-  , /*decltype(_impl_.pdfvieweroutofprocessiframeenabled_)*/nullptr} {}
+  , /*decltype(_impl_.pdfvieweroutofprocessiframeenabled_)*/nullptr
+  , /*decltype(_impl_.lockscreenautostartonlinereauth_)*/nullptr} {}
 struct CloudPolicySubProto1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR CloudPolicySubProto1DefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -993,6 +994,10 @@ class CloudPolicySubProto1::_Internal {
   static void set_has_localuserfilesallowed(HasBits* has_bits) {
     (*has_bits)[3] |= 2048u;
   }
+  static const ::enterprise_management::BooleanPolicyProto& lockscreenautostartonlinereauth(const CloudPolicySubProto1* msg);
+  static void set_has_lockscreenautostartonlinereauth(HasBits* has_bits) {
+    (*has_bits)[4] |= 16u;
+  }
   static const ::enterprise_management::BooleanPolicyProto& mutationeventsenabled(const CloudPolicySubProto1* msg);
   static void set_has_mutationeventsenabled(HasBits* has_bits) {
     (*has_bits)[3] |= 524288u;
@@ -1524,6 +1529,10 @@ CloudPolicySubProto1::_Internal::localuserfilesallowed(const CloudPolicySubProto
   return *msg->_impl_.localuserfilesallowed_;
 }
 const ::enterprise_management::BooleanPolicyProto&
+CloudPolicySubProto1::_Internal::lockscreenautostartonlinereauth(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.lockscreenautostartonlinereauth_;
+}
+const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::mutationeventsenabled(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.mutationeventsenabled_;
 }
@@ -2051,6 +2060,10 @@ void CloudPolicySubProto1::clear_localuserfilesallowed() {
   if (_impl_.localuserfilesallowed_ != nullptr) _impl_.localuserfilesallowed_->Clear();
   _impl_._has_bits_[3] &= ~0x00000800u;
 }
+void CloudPolicySubProto1::clear_lockscreenautostartonlinereauth() {
+  if (_impl_.lockscreenautostartonlinereauth_ != nullptr) _impl_.lockscreenautostartonlinereauth_->Clear();
+  _impl_._has_bits_[4] &= ~0x00000010u;
+}
 void CloudPolicySubProto1::clear_mutationeventsenabled() {
   if (_impl_.mutationeventsenabled_ != nullptr) _impl_.mutationeventsenabled_->Clear();
   _impl_._has_bits_[3] &= ~0x00080000u;
@@ -2442,7 +2455,8 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
     , decltype(_impl_.chromedataregionsetting_){nullptr}
     , decltype(_impl_.contextualgoogleintegrationsenabled_){nullptr}
     , decltype(_impl_.contextualgoogleintegrationsconfiguration_){nullptr}
-    , decltype(_impl_.pdfvieweroutofprocessiframeenabled_){nullptr}};
+    , decltype(_impl_.pdfvieweroutofprocessiframeenabled_){nullptr}
+    , decltype(_impl_.lockscreenautostartonlinereauth_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_showcastsessionsstartedbyotherdevices()) {
@@ -2841,6 +2855,9 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
   if (from._internal_has_pdfvieweroutofprocessiframeenabled()) {
     _this->_impl_.pdfvieweroutofprocessiframeenabled_ = new ::enterprise_management::BooleanPolicyProto(*from._impl_.pdfvieweroutofprocessiframeenabled_);
   }
+  if (from._internal_has_lockscreenautostartonlinereauth()) {
+    _this->_impl_.lockscreenautostartonlinereauth_ = new ::enterprise_management::BooleanPolicyProto(*from._impl_.lockscreenautostartonlinereauth_);
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CloudPolicySubProto1)
 }
 
@@ -2983,6 +3000,7 @@ inline void CloudPolicySubProto1::SharedCtor(
     , decltype(_impl_.contextualgoogleintegrationsenabled_){nullptr}
     , decltype(_impl_.contextualgoogleintegrationsconfiguration_){nullptr}
     , decltype(_impl_.pdfvieweroutofprocessiframeenabled_){nullptr}
+    , decltype(_impl_.lockscreenautostartonlinereauth_){nullptr}
   };
 }
 
@@ -3129,6 +3147,7 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.contextualgoogleintegrationsenabled_;
   if (this != internal_default_instance()) delete _impl_.contextualgoogleintegrationsconfiguration_;
   if (this != internal_default_instance()) delete _impl_.pdfvieweroutofprocessiframeenabled_;
+  if (this != internal_default_instance()) delete _impl_.lockscreenautostartonlinereauth_;
 }
 
 void CloudPolicySubProto1::SetCachedSize(int size) const {
@@ -3690,7 +3709,7 @@ void CloudPolicySubProto1::Clear() {
     }
   }
   cached_has_bits = _impl_._has_bits_[4];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(_impl_.chromedataregionsetting_ != nullptr);
       _impl_.chromedataregionsetting_->Clear();
@@ -3706,6 +3725,10 @@ void CloudPolicySubProto1::Clear() {
     if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(_impl_.pdfvieweroutofprocessiframeenabled_ != nullptr);
       _impl_.pdfvieweroutofprocessiframeenabled_->Clear();
+    }
+    if (cached_has_bits & 0x00000010u) {
+      GOOGLE_DCHECK(_impl_.lockscreenautostartonlinereauth_ != nullptr);
+      _impl_.lockscreenautostartonlinereauth_->Clear();
     }
   }
   _impl_._has_bits_.Clear();
@@ -4774,6 +4797,14 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.BooleanPolicyProto LockScreenAutoStartOnlineReauth = 217;
+      case 217:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 202)) {
+          ptr = ctx->ParseMessage(_internal_mutable_lockscreenautostartonlinereauth(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5732,6 +5763,13 @@ uint8_t* CloudPolicySubProto1::_InternalSerialize(
         _Internal::pdfvieweroutofprocessiframeenabled(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.BooleanPolicyProto LockScreenAutoStartOnlineReauth = 217;
+  if (cached_has_bits & 0x00000010u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(217, _Internal::lockscreenautostartonlinereauth(this),
+        _Internal::lockscreenautostartonlinereauth(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -6681,7 +6719,7 @@ size_t CloudPolicySubProto1::ByteSizeLong() const {
 
   }
   cached_has_bits = _impl_._has_bits_[4];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     // optional .enterprise_management.IntegerPolicyProto ChromeDataRegionSetting = 213;
     if (cached_has_bits & 0x00000001u) {
       total_size += 2 +
@@ -6708,6 +6746,13 @@ size_t CloudPolicySubProto1::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.pdfvieweroutofprocessiframeenabled_);
+    }
+
+    // optional .enterprise_management.BooleanPolicyProto LockScreenAutoStartOnlineReauth = 217;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.lockscreenautostartonlinereauth_);
     }
 
   }
@@ -7281,7 +7326,7 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
     }
   }
   cached_has_bits = from._impl_._has_bits_[4];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_mutable_chromedataregionsetting()->::enterprise_management::IntegerPolicyProto::MergeFrom(
           from._internal_chromedataregionsetting());
@@ -7297,6 +7342,10 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
     if (cached_has_bits & 0x00000008u) {
       _this->_internal_mutable_pdfvieweroutofprocessiframeenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(
           from._internal_pdfvieweroutofprocessiframeenabled());
+    }
+    if (cached_has_bits & 0x00000010u) {
+      _this->_internal_mutable_lockscreenautostartonlinereauth()->::enterprise_management::BooleanPolicyProto::MergeFrom(
+          from._internal_lockscreenautostartonlinereauth());
     }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -7322,8 +7371,8 @@ void CloudPolicySubProto1::InternalSwap(CloudPolicySubProto1* other) {
   swap(_impl_._has_bits_[3], other->_impl_._has_bits_[3]);
   swap(_impl_._has_bits_[4], other->_impl_._has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.pdfvieweroutofprocessiframeenabled_)
-      + sizeof(CloudPolicySubProto1::_impl_.pdfvieweroutofprocessiframeenabled_)
+      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.lockscreenautostartonlinereauth_)
+      + sizeof(CloudPolicySubProto1::_impl_.lockscreenautostartonlinereauth_)
       - PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.showcastsessionsstartedbyotherdevices_)>(
           reinterpret_cast<char*>(&_impl_.showcastsessionsstartedbyotherdevices_),
           reinterpret_cast<char*>(&other->_impl_.showcastsessionsstartedbyotherdevices_));

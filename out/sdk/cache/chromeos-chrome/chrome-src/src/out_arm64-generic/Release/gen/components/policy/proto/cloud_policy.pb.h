@@ -301,6 +301,7 @@ kChromeDataRegionSettingFieldNumber = 213,
 kContextualGoogleIntegrationsEnabledFieldNumber = 214,
 kContextualGoogleIntegrationsConfigurationFieldNumber = 215,
 kPdfViewerOutOfProcessIframeEnabledFieldNumber = 216,
+kLockScreenAutoStartOnlineReauthFieldNumber = 217,
 };
 // optional .enterprise_management.BooleanPolicyProto ShowCastSessionsStartedByOtherDevices = 2;
 bool has_showcastsessionsstartedbyotherdevices() const;
@@ -2678,6 +2679,24 @@ void unsafe_arena_set_allocated_pdfvieweroutofprocessiframeenabled(
 ::enterprise_management::BooleanPolicyProto* pdfvieweroutofprocessiframeenabled);
 ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_pdfvieweroutofprocessiframeenabled();
 
+// optional .enterprise_management.BooleanPolicyProto LockScreenAutoStartOnlineReauth = 217;
+bool has_lockscreenautostartonlinereauth() const;
+private:
+bool _internal_has_lockscreenautostartonlinereauth() const;
+public:
+void clear_lockscreenautostartonlinereauth();
+const ::enterprise_management::BooleanPolicyProto& lockscreenautostartonlinereauth() const;
+PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_lockscreenautostartonlinereauth();
+::enterprise_management::BooleanPolicyProto* mutable_lockscreenautostartonlinereauth();
+void set_allocated_lockscreenautostartonlinereauth(::enterprise_management::BooleanPolicyProto* lockscreenautostartonlinereauth);
+private:
+const ::enterprise_management::BooleanPolicyProto& _internal_lockscreenautostartonlinereauth() const;
+::enterprise_management::BooleanPolicyProto* _internal_mutable_lockscreenautostartonlinereauth();
+public:
+void unsafe_arena_set_allocated_lockscreenautostartonlinereauth(
+::enterprise_management::BooleanPolicyProto* lockscreenautostartonlinereauth);
+::enterprise_management::BooleanPolicyProto* unsafe_arena_release_lockscreenautostartonlinereauth();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -2820,6 +2839,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::BooleanPolicyProto* contextualgoogleintegrationsenabled_;
 ::enterprise_management::StringListPolicyProto* contextualgoogleintegrationsconfiguration_;
 ::enterprise_management::BooleanPolicyProto* pdfvieweroutofprocessiframeenabled_;
+::enterprise_management::BooleanPolicyProto* lockscreenautostartonlinereauth_;
 };
 union { Impl_ _impl_; };
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
@@ -19630,6 +19650,93 @@ _impl_._has_bits_[3] &= ~0x00000800u;
 }
 _impl_.localuserfilesallowed_ = localuserfilesallowed;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.LocalUserFilesAllowed)
+}
+
+// optional .enterprise_management.BooleanPolicyProto LockScreenAutoStartOnlineReauth = 217;
+inline bool CloudPolicySubProto1::_internal_has_lockscreenautostartonlinereauth() const {
+bool value = (_impl_._has_bits_[4] & 0x00000010u) != 0;
+PROTOBUF_ASSUME(!value || _impl_.lockscreenautostartonlinereauth_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_lockscreenautostartonlinereauth() const {
+return _internal_has_lockscreenautostartonlinereauth();
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_lockscreenautostartonlinereauth() const {
+const ::enterprise_management::BooleanPolicyProto* p = _impl_.lockscreenautostartonlinereauth_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::lockscreenautostartonlinereauth() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.LockScreenAutoStartOnlineReauth)
+return _internal_lockscreenautostartonlinereauth();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_lockscreenautostartonlinereauth(
+::enterprise_management::BooleanPolicyProto* lockscreenautostartonlinereauth) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.lockscreenautostartonlinereauth_);
+}
+_impl_.lockscreenautostartonlinereauth_ = lockscreenautostartonlinereauth;
+if (lockscreenautostartonlinereauth) {
+_impl_._has_bits_[4] |= 0x00000010u;
+} else {
+_impl_._has_bits_[4] &= ~0x00000010u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.LockScreenAutoStartOnlineReauth)
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_lockscreenautostartonlinereauth() {
+_impl_._has_bits_[4] &= ~0x00000010u;
+::enterprise_management::BooleanPolicyProto* temp = _impl_.lockscreenautostartonlinereauth_;
+_impl_.lockscreenautostartonlinereauth_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_lockscreenautostartonlinereauth() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.LockScreenAutoStartOnlineReauth)
+_impl_._has_bits_[4] &= ~0x00000010u;
+::enterprise_management::BooleanPolicyProto* temp = _impl_.lockscreenautostartonlinereauth_;
+_impl_.lockscreenautostartonlinereauth_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_lockscreenautostartonlinereauth() {
+_impl_._has_bits_[4] |= 0x00000010u;
+if (_impl_.lockscreenautostartonlinereauth_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+_impl_.lockscreenautostartonlinereauth_ = p;
+}
+return _impl_.lockscreenautostartonlinereauth_;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_lockscreenautostartonlinereauth() {
+::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_lockscreenautostartonlinereauth();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.LockScreenAutoStartOnlineReauth)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_lockscreenautostartonlinereauth(::enterprise_management::BooleanPolicyProto* lockscreenautostartonlinereauth) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.lockscreenautostartonlinereauth_);
+}
+if (lockscreenautostartonlinereauth) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(lockscreenautostartonlinereauth));
+if (message_arena != submessage_arena) {
+lockscreenautostartonlinereauth = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, lockscreenautostartonlinereauth, submessage_arena);
+}
+_impl_._has_bits_[4] |= 0x00000010u;
+} else {
+_impl_._has_bits_[4] &= ~0x00000010u;
+}
+_impl_.lockscreenautostartonlinereauth_ = lockscreenautostartonlinereauth;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.LockScreenAutoStartOnlineReauth)
 }
 
 // optional .enterprise_management.BooleanPolicyProto MutationEventsEnabled = 187;

@@ -456,7 +456,7 @@ class  RoutineArgument_Data {
     data.unknown = 0U;
   }
 
-  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // TODO(crbug.com/40731316): SHOUTY_CASE values are being deprecated per C++ code style
   // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
   // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
   // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
@@ -559,7 +559,7 @@ class  RoutineStateUnion_Data {
     data.unknown = 0U;
   }
 
-  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // TODO(crbug.com/40731316): SHOUTY_CASE values are being deprecated per C++ code style
   // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
   // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
   // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
@@ -620,7 +620,7 @@ class  RoutineRunningInfo_Data {
     data.unknown = 0U;
   }
 
-  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // TODO(crbug.com/40731316): SHOUTY_CASE values are being deprecated per C++ code style
   // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
   // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
   // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
@@ -672,7 +672,7 @@ class  RoutineInteraction_Data {
     data.unknown = 0U;
   }
 
-  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // TODO(crbug.com/40731316): SHOUTY_CASE values are being deprecated per C++ code style
   // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
   // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
   // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
@@ -724,7 +724,7 @@ class  RoutineInquiry_Data {
     data.unknown = 0U;
   }
 
-  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // TODO(crbug.com/40731316): SHOUTY_CASE values are being deprecated per C++ code style
   // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
   // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
   // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
@@ -776,7 +776,7 @@ class  RoutineInquiryReply_Data {
     data.unknown = 0U;
   }
 
-  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // TODO(crbug.com/40731316): SHOUTY_CASE values are being deprecated per C++ code style
   // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
   // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
   // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
@@ -828,7 +828,7 @@ class  RoutineDetail_Data {
     data.unknown = 0U;
   }
 
-  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // TODO(crbug.com/40731316): SHOUTY_CASE values are being deprecated per C++ code style
   // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
   // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
   // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.

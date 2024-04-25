@@ -411,6 +411,7 @@ struct CrashEventInfo_CrashType_Data {
       case 0:
       case 1:
       case 2:
+      case 3:
         return true;
     }
     return false;
@@ -452,7 +453,7 @@ class  TouchpadEventInfo_Data {
     data.unknown = 0U;
   }
 
-  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // TODO(crbug.com/40731316): SHOUTY_CASE values are being deprecated per C++ code style
   // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
   // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
   // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
@@ -510,7 +511,7 @@ class  TouchscreenEventInfo_Data {
     data.unknown = 0U;
   }
 
-  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // TODO(crbug.com/40731316): SHOUTY_CASE values are being deprecated per C++ code style
   // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
   // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
   // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
@@ -565,7 +566,7 @@ class  StylusEventInfo_Data {
     data.unknown = 0U;
   }
 
-  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // TODO(crbug.com/40731316): SHOUTY_CASE values are being deprecated per C++ code style
   // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
   // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
   // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
@@ -620,7 +621,7 @@ class  EventInfo_Data {
     data.unknown = 0U;
   }
 
-  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // TODO(crbug.com/40731316): SHOUTY_CASE values are being deprecated per C++ code style
   // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
   // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
   // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.

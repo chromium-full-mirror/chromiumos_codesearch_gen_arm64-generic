@@ -415,6 +415,8 @@ NOINLINE static const char* CrashEventInfo_CrashTypeToStringHelper(CrashEventInf
       return "kKernel";
     case CrashEventInfo_CrashType::kEmbeddedController:
       return "kEmbeddedController";
+    case CrashEventInfo_CrashType::kChrome:
+      return "kChrome";
     default:
       return nullptr;
   }
