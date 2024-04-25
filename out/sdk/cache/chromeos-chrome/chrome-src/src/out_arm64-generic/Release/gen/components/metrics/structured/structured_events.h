@@ -678,6 +678,86 @@ enum class CampaignButtonId {
 PRIMARY = 0,
 SECONDARY = 1
 };
+    
+
+
+enum class PickerInputFieldType {
+NONE = 0,
+PLAIN_TEXT = 1,
+RICH_TEXT = 2,
+PASSWORD = 3,
+SEARCH = 4,
+EMAIL = 5,
+NUMBER = 6,
+TELEPHONE = 7,
+URL = 8,
+DATE_TIME = 9,
+OTHER = 10
+};
+    
+
+
+enum class PickerSessionOutcome {
+UNKNOWN = 0,
+INSERTED_OR_COPIED = 1,
+ABANDONED = 2,
+REDIRECTED = 3,
+FORMAT = 4
+};
+    
+
+
+enum class PickerAction {
+UNKNOWN = 0,
+OPEN_EDITOR_WRITE = 1,
+OPEN_EDITOR_REWRITE = 2,
+OPEN_LINKS = 3,
+OPEN_EXPRESSIONS = 4,
+OPEN_CLIPBOARD = 5,
+OPEN_DRIVE_FILES = 6,
+OPEN_LOCAL_FILES = 7,
+OPEN_DATES_TIMES = 8,
+OPEN_UNITS_MATHS = 9,
+TRANSFORM_UPPER_CASE = 10,
+TRANSFORM_LOWER_CASE = 11,
+TRANSFORM_SENTENCE_CASE = 12,
+TRANSFORM_TITLE_CASE = 13,
+CAPS_ON = 14,
+CAPS_OFF = 15
+};
+    
+
+
+enum class PickerResultSource {
+UNKNOWN = 0,
+OMNIBOX = 1,
+EMOJI = 2,
+CLIPBOARD = 3,
+DRIVE_FILES = 4,
+LOCAL_FILES = 5,
+DATES_TIMES = 6,
+UNITS_MATHS = 7,
+CASE_TRANSFORM = 8,
+TENOR = 9
+};
+    
+
+
+enum class PickerResultType {
+UNKNOWN = 0,
+TEXT = 1,
+EMOJI = 2,
+SYMBOL = 3,
+EMOTICON = 4,
+CLIPBOARD_FILE = 5,
+CLIPBOARD_TEXT = 6,
+CLIPBOARD_IMAGE = 7,
+CLIPBOARD_HTML = 8,
+GIF = 9,
+LINK = 10,
+LOCAL_FILE = 11,
+DRIVE_FILE = 12
+};
      
 class AppDiscovery_AppInstalled final : public ::metrics::structured::Event {
  public:
@@ -1277,6 +1357,38 @@ class OOBE_ChoobeResumed final : public ::metrics::structured::Event {
   OOBE_ChoobeResumed& SetIsFirstOnboarding(const int64_t value) &;
   OOBE_ChoobeResumed&& SetChromeMilestone(const int64_t value) &&;
   OOBE_ChoobeResumed& SetChromeMilestone(const int64_t value) &;
+};
+
+class Picker_StartSession final : public ::metrics::structured::Event {
+ public:
+  Picker_StartSession();
+  ~Picker_StartSession() override;
+
+    Picker_StartSession&& SetInputFieldType(const PickerInputFieldType value) &&;
+  Picker_StartSession& SetInputFieldType(const PickerInputFieldType value) &;
+  Picker_StartSession&& SetSelectionLength(const int64_t value) &&;
+  Picker_StartSession& SetSelectionLength(const int64_t value) &;
+};
+
+class Picker_FinishSession final : public ::metrics::structured::Event {
+ public:
+  Picker_FinishSession();
+  ~Picker_FinishSession() override;
+
+    Picker_FinishSession&& SetOutcome(const PickerSessionOutcome value) &&;
+  Picker_FinishSession& SetOutcome(const PickerSessionOutcome value) &;
+  Picker_FinishSession&& SetAction(const PickerAction value) &&;
+  Picker_FinishSession& SetAction(const PickerAction value) &;
+  Picker_FinishSession&& SetResultSource(const PickerResultSource value) &&;
+  Picker_FinishSession& SetResultSource(const PickerResultSource value) &;
+  Picker_FinishSession&& SetResultType(const PickerResultType value) &&;
+  Picker_FinishSession& SetResultType(const PickerResultType value) &;
+  Picker_FinishSession&& SetTotalEdits(const int64_t value) &&;
+  Picker_FinishSession& SetTotalEdits(const int64_t value) &;
+  Picker_FinishSession&& SetFinalQuerySize(const int64_t value) &&;
+  Picker_FinishSession& SetFinalQuerySize(const int64_t value) &;
+  Picker_FinishSession&& SetResultIndex(const int64_t value) &&;
+  Picker_FinishSession& SetResultIndex(const int64_t value) &;
 };
 
 class UserLogin final : public ::metrics::structured::Event {
