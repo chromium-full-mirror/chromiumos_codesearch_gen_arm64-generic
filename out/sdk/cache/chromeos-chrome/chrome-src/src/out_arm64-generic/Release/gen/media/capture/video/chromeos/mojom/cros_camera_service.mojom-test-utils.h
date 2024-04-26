@@ -13,6 +13,25 @@
 namespace cros::mojom {
 
 
+class  KioskVisionObserverInterceptorForTesting : public KioskVisionObserver {
+  virtual KioskVisionObserver* GetForwardingInterface() = 0;
+  void OnDetection(KioskVisionDetectionPtr detection) override;
+  void OnError(KioskVisionError error) override;
+};
+class  KioskVisionObserverAsyncWaiter {
+ public:
+  explicit KioskVisionObserverAsyncWaiter(KioskVisionObserver* proxy);
+
+  KioskVisionObserverAsyncWaiter(const KioskVisionObserverAsyncWaiter&) = delete;
+  KioskVisionObserverAsyncWaiter& operator=(const KioskVisionObserverAsyncWaiter&) = delete;
+
+  ~KioskVisionObserverAsyncWaiter();
+
+ private:
+  KioskVisionObserver* const proxy_;
+};
+
+
 class  CameraHalDispatcherInterceptorForTesting : public CameraHalDispatcher {
   virtual CameraHalDispatcher* GetForwardingInterface() = 0;
   void RegisterClientWithToken(::mojo::PendingRemote<::cros::mojom::CameraHalClient> client, CameraClientType type, const ::base::UnguessableToken& auth_token, RegisterClientWithTokenCallback callback) override;
@@ -65,6 +84,7 @@ class  CrosCameraServiceInterceptorForTesting : public CrosCameraService {
   void GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) override;
   void SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) override;
   void AddCrosCameraServiceObserver(::mojo::PendingRemote<CrosCameraServiceObserver> observer) override;
+  void StartKioskVisionDetection(const std::string& dlc_path, ::mojo::PendingRemote<KioskVisionObserver> observer) override;
 };
 class  CrosCameraServiceAsyncWaiter {
  public:

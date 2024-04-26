@@ -570,8 +570,15 @@ inline ::flatbuffers::Offset<SmartCardMetadata> CreateSmartCardMetadataDirect(
 
 struct FingerprintMetadata FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef FingerprintMetadataBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_WAS_MIGRATED = 4
+  };
+  ::flatbuffers::Optional<bool> was_migrated() const {
+    return GetOptional<uint8_t, bool>(VT_WAS_MIGRATED);
+  }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_WAS_MIGRATED, 1) &&
            verifier.EndTable();
   }
 };
@@ -580,6 +587,9 @@ struct FingerprintMetadataBuilder {
   typedef FingerprintMetadata Table;
   ::flatbuffers::FlatBufferBuilder &fbb_;
   ::flatbuffers::uoffset_t start_;
+  void add_was_migrated(bool was_migrated) {
+    fbb_.AddElement<uint8_t>(FingerprintMetadata::VT_WAS_MIGRATED, static_cast<uint8_t>(was_migrated));
+  }
   explicit FingerprintMetadataBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -592,8 +602,10 @@ struct FingerprintMetadataBuilder {
 };
 
 inline ::flatbuffers::Offset<FingerprintMetadata> CreateFingerprintMetadata(
-    ::flatbuffers::FlatBufferBuilder &_fbb) {
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Optional<bool> was_migrated = ::flatbuffers::nullopt) {
   FingerprintMetadataBuilder builder_(_fbb);
+  if(was_migrated) { builder_.add_was_migrated(*was_migrated); }
   return builder_.Finish();
 }
 

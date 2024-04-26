@@ -107,7 +107,148 @@ std::ostream& operator<<(std::ostream& os, CameraAutoFramingState value) {
   return os << CameraAutoFramingStateToString(value);
 }
 
+NOINLINE static const char* KioskVisionErrorToStringHelper(KioskVisionError value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case KioskVisionError::UNKNOWN:
+      return "UNKNOWN";
+    case KioskVisionError::DLC_ERROR:
+      return "DLC_ERROR";
+    case KioskVisionError::MODEL_ERROR:
+      return "MODEL_ERROR";
+    default:
+      return nullptr;
+  }
+}
+
+std::string KioskVisionErrorToString(KioskVisionError value) {
+  const char *str = KioskVisionErrorToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown KioskVisionError value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, KioskVisionError value) {
+  return os << KioskVisionErrorToString(value);
+}
+
 namespace internal {
+
+
+// static
+bool KioskVisionAppearance_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const KioskVisionAppearance_Data* object =
+      static_cast<const KioskVisionAppearance_Data*>(data);
+
+  return true;
+}
+
+KioskVisionAppearance_Data::KioskVisionAppearance_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool KioskVisionDetection_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const KioskVisionDetection_Data* object =
+      static_cast<const KioskVisionDetection_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->appearances, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& appearances_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->appearances, validation_context,
+                                         &appearances_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+KioskVisionDetection_Data::KioskVisionDetection_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool KioskVisionObserver_OnDetection_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const KioskVisionObserver_OnDetection_Params_Data* object =
+      static_cast<const KioskVisionObserver_OnDetection_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->detection, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->detection, validation_context))
+    return false;
+
+  return true;
+}
+
+KioskVisionObserver_OnDetection_Params_Data::KioskVisionObserver_OnDetection_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool KioskVisionObserver_OnError_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const KioskVisionObserver_OnError_Params_Data* object =
+      static_cast<const KioskVisionObserver_OnError_Params_Data*>(data);
+
+
+  if (!::cros::mojom::internal::KioskVisionError_Data
+        ::Validate(object->error, validation_context))
+    return false;
+
+  return true;
+}
+
+KioskVisionObserver_OnError_Params_Data::KioskVisionObserver_OnError_Params_Data()
+    : header_({sizeof(*this), 0}) {}
 
 
 // static
@@ -616,6 +757,49 @@ bool CrosCameraService_AddCrosCameraServiceObserver_Params_Data::Validate(
 CrosCameraService_AddCrosCameraServiceObserver_Params_Data::CrosCameraService_AddCrosCameraServiceObserver_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool CrosCameraService_StartKioskVisionDetection_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosCameraService_StartKioskVisionDetection_Params_Data* object =
+      static_cast<const CrosCameraService_StartKioskVisionDetection_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->dlc_path, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& dlc_path_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->dlc_path, validation_context,
+                                         &dlc_path_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+CrosCameraService_StartKioskVisionDetection_Params_Data::CrosCameraService_StartKioskVisionDetection_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros
@@ -646,6 +830,16 @@ namespace perfetto {
 void TraceFormatTraits<::cros::mojom::CameraAutoFramingState>::WriteIntoTrace(
    perfetto::TracedValue context, ::cros::mojom::CameraAutoFramingState value) {
   return std::move(context).WriteString(::cros::mojom::CameraAutoFramingStateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::KioskVisionError>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::KioskVisionError value) {
+  return std::move(context).WriteString(::cros::mojom::KioskVisionErrorToString(value));
 }
 
 } // namespace perfetto

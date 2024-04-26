@@ -108,7 +108,9 @@ struct SmartCardMetadata {
 
 namespace cryptohome {
 
-struct FingerprintMetadata {};
+struct FingerprintMetadata {
+  std::optional<bool> was_migrated;
+};
 
 }  // namespace cryptohome
 

@@ -30,6 +30,8 @@ class ValidationContext;
 
 namespace cros::mojom {
 namespace internal {
+class KioskVisionAppearance_Data;
+class KioskVisionDetection_Data;
 
 struct CameraClientType_Data {
  public:
@@ -110,7 +112,129 @@ struct CameraAutoFramingState_Data {
   }
 };
 
+struct KioskVisionError_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 #pragma pack(push, 1)
+class  KioskVisionAppearance_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t person_id;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<KioskVisionAppearance_Data>;
+
+  KioskVisionAppearance_Data();
+  ~KioskVisionAppearance_Data() = delete;
+};
+static_assert(sizeof(KioskVisionAppearance_Data) == 16,
+              "Bad sizeof(KioskVisionAppearance_Data)");
+// Used by KioskVisionAppearance::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct KioskVisionAppearance_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  KioskVisionAppearance_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~KioskVisionAppearance_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<KioskVisionAppearance_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    KioskVisionAppearance_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  KioskVisionDetection_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::KioskVisionAppearance_Data>>> appearances;
+
+ private:
+  friend class mojo::internal::MessageFragment<KioskVisionDetection_Data>;
+
+  KioskVisionDetection_Data();
+  ~KioskVisionDetection_Data() = delete;
+};
+static_assert(sizeof(KioskVisionDetection_Data) == 16,
+              "Bad sizeof(KioskVisionDetection_Data)");
+// Used by KioskVisionDetection::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct KioskVisionDetection_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  KioskVisionDetection_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~KioskVisionDetection_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<KioskVisionDetection_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    KioskVisionDetection_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

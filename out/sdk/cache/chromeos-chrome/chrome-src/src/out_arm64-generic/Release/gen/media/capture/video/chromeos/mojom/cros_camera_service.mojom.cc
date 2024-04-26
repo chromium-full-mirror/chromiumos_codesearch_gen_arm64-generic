@@ -45,6 +45,337 @@
 
 
 namespace cros::mojom {
+KioskVisionAppearance::KioskVisionAppearance()
+    : person_id() {}
+
+KioskVisionAppearance::KioskVisionAppearance(
+    int32_t person_id_in)
+    : person_id(std::move(person_id_in)) {}
+
+KioskVisionAppearance::~KioskVisionAppearance() = default;
+size_t KioskVisionAppearance::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->person_id);
+  return seed;
+}
+
+void KioskVisionAppearance::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "person_id"), this->person_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool KioskVisionAppearance::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+KioskVisionDetection::KioskVisionDetection()
+    : appearances() {}
+
+KioskVisionDetection::KioskVisionDetection(
+    std::vector<KioskVisionAppearancePtr> appearances_in)
+    : appearances(std::move(appearances_in)) {}
+
+KioskVisionDetection::~KioskVisionDetection() = default;
+
+void KioskVisionDetection::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "appearances"), this->appearances,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<KioskVisionAppearancePtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool KioskVisionDetection::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+const char KioskVisionObserver::Name_[] = "cros.mojom.KioskVisionObserver";
+
+KioskVisionObserver::IPCStableHashFunction KioskVisionObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (static_cast<messages::KioskVisionObserver>(message.name())) {
+    case messages::KioskVisionObserver::kOnDetection: {
+      return &KioskVisionObserver::OnDetection_Sym::IPCStableHash;
+    }
+    case messages::KioskVisionObserver::kOnError: {
+      return &KioskVisionObserver::OnError_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* KioskVisionObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (static_cast<messages::KioskVisionObserver>(message.name())) {
+      case messages::KioskVisionObserver::kOnDetection:
+            return "Receive cros::mojom::KioskVisionObserver::OnDetection";
+      case messages::KioskVisionObserver::kOnError:
+            return "Receive cros::mojom::KioskVisionObserver::OnError";
+    }
+  } else {
+    switch (static_cast<messages::KioskVisionObserver>(message.name())) {
+      case messages::KioskVisionObserver::kOnDetection:
+            return "Receive reply cros::mojom::KioskVisionObserver::OnDetection";
+      case messages::KioskVisionObserver::kOnError:
+            return "Receive reply cros::mojom::KioskVisionObserver::OnError";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t KioskVisionObserver::OnDetection_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::KioskVisionObserver::OnDetection");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t KioskVisionObserver::OnError_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::KioskVisionObserver::OnError");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+KioskVisionObserverProxy::KioskVisionObserverProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void KioskVisionObserverProxy::OnDetection(
+    KioskVisionDetectionPtr in_detection) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::KioskVisionObserver::OnDetection", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("detection"), in_detection,
+                        "<value of type KioskVisionDetectionPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::KioskVisionObserver::kOnDetection), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::KioskVisionObserver_OnDetection_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->detection)::BaseType> detection_fragment(
+          params.message());
+  mojo::internal::Serialize<::cros::mojom::KioskVisionDetectionDataView>(
+      in_detection, detection_fragment);
+  params->detection.Set(
+      detection_fragment.is_null() ? nullptr : detection_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->detection.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null detection in KioskVisionObserver.OnDetection request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(KioskVisionObserver::Name_);
+  message.set_method_name("OnDetection");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void KioskVisionObserverProxy::OnError(
+    KioskVisionError in_error) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::KioskVisionObserver::OnError", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("error"), in_error,
+                        "<value of type KioskVisionError>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::KioskVisionObserver::kOnError), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::KioskVisionObserver_OnError_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::cros::mojom::KioskVisionError>(
+      in_error, &params->error);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(KioskVisionObserver::Name_);
+  message.set_method_name("OnError");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool KioskVisionObserverStubDispatch::Accept(
+    KioskVisionObserver* impl,
+    mojo::Message* message) {
+  switch (static_cast<messages::KioskVisionObserver>(message->header()->name)) {
+    case messages::KioskVisionObserver::kOnDetection: {
+      DCHECK(message->is_serialized());
+      internal::KioskVisionObserver_OnDetection_Params_Data* params =
+          reinterpret_cast<internal::KioskVisionObserver_OnDetection_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for KioskVisionObserver.0
+      bool success = true;
+      KioskVisionDetectionPtr p_detection{};
+      KioskVisionObserver_OnDetection_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadDetection(&p_detection))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            KioskVisionObserver::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnDetection(        
+        std::move(p_detection));
+      return true;
+    }
+    case messages::KioskVisionObserver::kOnError: {
+      DCHECK(message->is_serialized());
+      internal::KioskVisionObserver_OnError_Params_Data* params =
+          reinterpret_cast<internal::KioskVisionObserver_OnError_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for KioskVisionObserver.1
+      bool success = true;
+      KioskVisionError p_error{};
+      KioskVisionObserver_OnError_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadError(&p_error))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            KioskVisionObserver::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnError(        
+        std::move(p_error));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool KioskVisionObserverStubDispatch::AcceptWithResponder(
+    KioskVisionObserver* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (static_cast<messages::KioskVisionObserver>(message->header()->name)) {
+    case messages::KioskVisionObserver::kOnDetection: {
+      break;
+    }
+    case messages::KioskVisionObserver::kOnError: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kKioskVisionObserverValidationInfo[] = {
+    { &internal::KioskVisionObserver_OnDetection_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::KioskVisionObserver_OnError_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool KioskVisionObserverRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::cros::mojom::KioskVisionObserver::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kKioskVisionObserverValidationInfo);
+}
+
 const char CameraHalDispatcher::Name_[] = "cros.mojom.CameraHalDispatcher";
 
 CameraHalDispatcher::IPCStableHashFunction CameraHalDispatcher::MessageToMethodInfo_(mojo::Message& message) {
@@ -908,6 +1239,9 @@ CrosCameraService::IPCStableHashFunction CrosCameraService::MessageToMethodInfo_
     case messages::CrosCameraService::kAddCrosCameraServiceObserver: {
       return &CrosCameraService::AddCrosCameraServiceObserver_Sym::IPCStableHash;
     }
+    case messages::CrosCameraService::kStartKioskVisionDetection: {
+      return &CrosCameraService::StartKioskVisionDetection_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -935,6 +1269,8 @@ const char* CrosCameraService::MessageToMethodName_(mojo::Message& message) {
             return "Receive cros::mojom::CrosCameraService::SetCameraEffect";
       case messages::CrosCameraService::kAddCrosCameraServiceObserver:
             return "Receive cros::mojom::CrosCameraService::AddCrosCameraServiceObserver";
+      case messages::CrosCameraService::kStartKioskVisionDetection:
+            return "Receive cros::mojom::CrosCameraService::StartKioskVisionDetection";
     }
   } else {
     switch (static_cast<messages::CrosCameraService>(message.name())) {
@@ -954,6 +1290,8 @@ const char* CrosCameraService::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply cros::mojom::CrosCameraService::SetCameraEffect";
       case messages::CrosCameraService::kAddCrosCameraServiceObserver:
             return "Receive reply cros::mojom::CrosCameraService::AddCrosCameraServiceObserver";
+      case messages::CrosCameraService::kStartKioskVisionDetection:
+            return "Receive reply cros::mojom::CrosCameraService::StartKioskVisionDetection";
     }
   }
   return "Receive unknown mojo message";
@@ -1068,6 +1406,19 @@ uint32_t CrosCameraService::AddCrosCameraServiceObserver_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)cros::mojom::CrosCameraService::AddCrosCameraServiceObserver");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosCameraService::StartKioskVisionDetection_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CrosCameraService::StartKioskVisionDetection");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1486,6 +1837,68 @@ void CrosCameraServiceProxy::AddCrosCameraServiceObserver(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosCameraService::Name_);
   message.set_method_name("AddCrosCameraServiceObserver");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CrosCameraServiceProxy::StartKioskVisionDetection(
+    const std::string& in_dlc_path, ::mojo::PendingRemote<KioskVisionObserver> in_observer) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::CrosCameraService::StartKioskVisionDetection", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("dlc_path"), in_dlc_path,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<KioskVisionObserver>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::CrosCameraService::kStartKioskVisionDetection), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CrosCameraService_StartKioskVisionDetection_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->dlc_path)::BaseType> dlc_path_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_dlc_path, dlc_path_fragment);
+  params->dlc_path.Set(
+      dlc_path_fragment.is_null() ? nullptr : dlc_path_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->dlc_path.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null dlc_path in CrosCameraService.StartKioskVisionDetection request");
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::cros::mojom::KioskVisionObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in CrosCameraService.StartKioskVisionDetection request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosCameraService::Name_);
+  message.set_method_name("StartKioskVisionDetection");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2116,6 +2529,39 @@ bool CrosCameraServiceStubDispatch::Accept(
         std::move(p_observer));
       return true;
     }
+    case messages::CrosCameraService::kStartKioskVisionDetection: {
+      DCHECK(message->is_serialized());
+      internal::CrosCameraService_StartKioskVisionDetection_Params_Data* params =
+          reinterpret_cast<internal::CrosCameraService_StartKioskVisionDetection_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for CrosCameraService.8
+      bool success = true;
+      std::string p_dlc_path{};
+      ::mojo::PendingRemote<KioskVisionObserver> p_observer{};
+      CrosCameraService_StartKioskVisionDetection_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadDlcPath(&p_dlc_path))
+        success = false;
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosCameraService::Name_, 8, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->StartKioskVisionDetection(        
+        std::move(p_dlc_path), 
+        std::move(p_observer));
+      return true;
+    }
   }
   return false;
 }
@@ -2253,6 +2699,9 @@ bool CrosCameraServiceStubDispatch::AcceptWithResponder(
     case messages::CrosCameraService::kAddCrosCameraServiceObserver: {
       break;
     }
+    case messages::CrosCameraService::kStartKioskVisionDetection: {
+      break;
+    }
   }
   return false;
 }
@@ -2275,6 +2724,8 @@ static const mojo::internal::GenericValidationInfo kCrosCameraServiceValidationI
      &internal::CrosCameraService_SetCameraEffect_ResponseParams_Data::Validate},
     { &internal::CrosCameraService_AddCrosCameraServiceObserver_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::CrosCameraService_StartKioskVisionDetection_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool CrosCameraServiceRequestValidator::Accept(mojo::Message* message) {
@@ -2293,6 +2744,34 @@ bool CrosCameraServiceResponseValidator::Accept(mojo::Message* message) {
 
 namespace mojo {
 
+
+// static
+bool StructTraits<::cros::mojom::KioskVisionAppearance::DataView, ::cros::mojom::KioskVisionAppearancePtr>::Read(
+    ::cros::mojom::KioskVisionAppearance::DataView input,
+    ::cros::mojom::KioskVisionAppearancePtr* output) {
+  bool success = true;
+  ::cros::mojom::KioskVisionAppearancePtr result(::cros::mojom::KioskVisionAppearance::New());
+  
+      if (success)
+        result->person_id = input.person_id();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::cros::mojom::KioskVisionDetection::DataView, ::cros::mojom::KioskVisionDetectionPtr>::Read(
+    ::cros::mojom::KioskVisionDetection::DataView input,
+    ::cros::mojom::KioskVisionDetectionPtr* output) {
+  bool success = true;
+  ::cros::mojom::KioskVisionDetectionPtr result(::cros::mojom::KioskVisionDetection::New());
+  
+      if (success && !input.ReadAppearances(&result->appearances))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 }  // namespace mojo
 
 
@@ -2301,6 +2780,20 @@ namespace mojo {
 
 
 namespace cros::mojom {
+
+
+void KioskVisionObserverInterceptorForTesting::OnDetection(KioskVisionDetectionPtr detection) {
+  GetForwardingInterface()->OnDetection(std::move(detection));
+}
+void KioskVisionObserverInterceptorForTesting::OnError(KioskVisionError error) {
+  GetForwardingInterface()->OnError(std::move(error));
+}
+KioskVisionObserverAsyncWaiter::KioskVisionObserverAsyncWaiter(
+    KioskVisionObserver* proxy) : proxy_(proxy) {}
+
+KioskVisionObserverAsyncWaiter::~KioskVisionObserverAsyncWaiter() = default;
+
+
 
 
 void CameraHalDispatcherInterceptorForTesting::RegisterClientWithToken(::mojo::PendingRemote<::cros::mojom::CameraHalClient> client, CameraClientType type, const ::base::UnguessableToken& auth_token, RegisterClientWithTokenCallback callback) {
@@ -2380,6 +2873,9 @@ void CrosCameraServiceInterceptorForTesting::SetCameraEffect(::cros::mojom::Effe
 }
 void CrosCameraServiceInterceptorForTesting::AddCrosCameraServiceObserver(::mojo::PendingRemote<CrosCameraServiceObserver> observer) {
   GetForwardingInterface()->AddCrosCameraServiceObserver(std::move(observer));
+}
+void CrosCameraServiceInterceptorForTesting::StartKioskVisionDetection(const std::string& dlc_path, ::mojo::PendingRemote<KioskVisionObserver> observer) {
+  GetForwardingInterface()->StartKioskVisionDetection(std::move(dlc_path), std::move(observer));
 }
 CrosCameraServiceAsyncWaiter::CrosCameraServiceAsyncWaiter(
     CrosCameraService* proxy) : proxy_(proxy) {}

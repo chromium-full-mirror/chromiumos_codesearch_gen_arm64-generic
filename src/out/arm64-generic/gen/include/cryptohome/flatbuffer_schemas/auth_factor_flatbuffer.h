@@ -342,9 +342,11 @@ struct ToFlatBuffer<::cryptohome::FingerprintMetadata> {
 
   ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
                         const ::cryptohome::FingerprintMetadata& object) const {
-    return ::cryptohome::_serialized_::CreateFingerprintMetadata(*builder
+    auto was_migrated =
+        ToFlatBuffer<std::optional<bool>>()(builder, object.was_migrated);
 
-    );
+    return ::cryptohome::_serialized_::CreateFingerprintMetadata(*builder,
+                                                                 was_migrated);
   }
 };
 
@@ -360,7 +362,8 @@ struct FromFlatBuffer<::cryptohome::FingerprintMetadata> {
       return ::cryptohome::FingerprintMetadata();
     }
     return ::cryptohome::FingerprintMetadata{
-
+        .was_migrated =
+            FromFlatBuffer<std::optional<bool>>()(object->was_migrated()),
     };
   }
 };

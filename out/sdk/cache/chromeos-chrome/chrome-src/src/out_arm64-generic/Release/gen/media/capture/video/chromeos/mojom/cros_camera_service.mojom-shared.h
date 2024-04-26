@@ -39,12 +39,30 @@
 
 
 namespace cros::mojom {
+class KioskVisionAppearanceDataView;
+
+class KioskVisionDetectionDataView;
+
 
 
 }  // cros::mojom
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::cros::mojom::KioskVisionAppearanceDataView> {
+  using Data = ::cros::mojom::internal::KioskVisionAppearance_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::cros::mojom::KioskVisionDetectionDataView> {
+  using Data = ::cros::mojom::internal::KioskVisionDetection_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 }  // namespace internal
 }  // namespace mojo
@@ -120,7 +138,42 @@ inline CameraAutoFramingState ToKnownEnumValue(CameraAutoFramingState value) {
   }
   return CameraAutoFramingState::kDefaultValue;
 }
+
+
+enum class KioskVisionError : int32_t {
+  
+  UNKNOWN = 0,
+  
+  DLC_ERROR = 1,
+  
+  MODEL_ERROR = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, KioskVisionError value);
+inline bool IsKnownEnumValue(KioskVisionError value) {
+  return internal::KioskVisionError_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline KioskVisionError ToKnownEnumValue(KioskVisionError value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return KioskVisionError::kDefaultValue;
+}
 // Interface base classes. They are used for type safety check.
+class KioskVisionObserverInterfaceBase {};
+
+using KioskVisionObserverPtrDataView =
+    mojo::InterfacePtrDataView<KioskVisionObserverInterfaceBase>;
+using KioskVisionObserverRequestDataView =
+    mojo::InterfaceRequestDataView<KioskVisionObserverInterfaceBase>;
+using KioskVisionObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<KioskVisionObserverInterfaceBase>;
+using KioskVisionObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<KioskVisionObserverInterfaceBase>;
 class CameraHalDispatcherInterfaceBase {};
 
 using CameraHalDispatcherPtrDataView =
@@ -153,6 +206,50 @@ using CrosCameraServiceAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CrosCameraServiceInterfaceBase>;
 
 
+class KioskVisionAppearanceDataView {
+ public:
+  KioskVisionAppearanceDataView() = default;
+
+  KioskVisionAppearanceDataView(
+      internal::KioskVisionAppearance_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  int32_t person_id() const {
+    return data_->person_id;
+  }
+ private:
+  internal::KioskVisionAppearance_Data* data_ = nullptr;
+};
+
+
+class KioskVisionDetectionDataView {
+ public:
+  KioskVisionDetectionDataView() = default;
+
+  KioskVisionDetectionDataView(
+      internal::KioskVisionDetection_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetAppearancesDataView(
+      mojo::ArrayDataView<KioskVisionAppearanceDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAppearances(UserType* output) {
+    
+    auto* pointer = data_->appearances.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::cros::mojom::KioskVisionAppearanceDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::KioskVisionDetection_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 }  // cros::mojom
 
 namespace std {
@@ -168,6 +265,10 @@ struct hash<::cros::mojom::CameraPrivacySwitchState>
 template <>
 struct hash<::cros::mojom::CameraAutoFramingState>
     : public mojo::internal::EnumHashImpl<::cros::mojom::CameraAutoFramingState> {};
+
+template <>
+struct hash<::cros::mojom::KioskVisionError>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::KioskVisionError> {};
 
 }  // namespace std
 
@@ -233,10 +334,112 @@ struct Serializer<::cros::mojom::CameraAutoFramingState, MaybeConstUserType> {
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::KioskVisionError, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::KioskVisionError, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::KioskVisionError>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::KioskVisionAppearanceDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::cros::mojom::KioskVisionAppearanceDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::cros::mojom::internal::KioskVisionAppearance_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->person_id = Traits::person_id(input);
+  }
+
+  static bool Deserialize(::cros::mojom::internal::KioskVisionAppearance_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::cros::mojom::KioskVisionAppearanceDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::KioskVisionDetectionDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::cros::mojom::KioskVisionDetectionDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::cros::mojom::internal::KioskVisionDetection_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::appearances(input)) in_appearances = Traits::appearances(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->appearances)::BaseType>
+        appearances_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& appearances_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::cros::mojom::KioskVisionAppearanceDataView>>(
+        in_appearances, appearances_fragment, &appearances_validate_params);
+    fragment->appearances.Set(
+        appearances_fragment.is_null() ? nullptr : appearances_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->appearances.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null appearances in KioskVisionDetection struct");
+  }
+
+  static bool Deserialize(::cros::mojom::internal::KioskVisionDetection_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::cros::mojom::KioskVisionDetectionDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
 namespace cros::mojom {
+
+
+
+inline void KioskVisionDetectionDataView::GetAppearancesDataView(
+    mojo::ArrayDataView<KioskVisionAppearanceDataView>* output) {
+  auto pointer = data_->appearances.Get();
+  *output = mojo::ArrayDataView<KioskVisionAppearanceDataView>(pointer, message_);
+}
+
 
 
 }  // cros::mojom
@@ -267,6 +470,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::cros::mojom::CameraAutoFramingState> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::CameraAutoFramingState value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::KioskVisionError> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::KioskVisionError value);
 };
 
 } // namespace perfetto

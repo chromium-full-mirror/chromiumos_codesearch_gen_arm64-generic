@@ -9,11 +9,12 @@
 
 #include <stdint.h>
 
-
+#include "mojo/public/cpp/bindings/struct_forward.h"
 
 #include "mojo/public/cpp/bindings/deprecated_interface_types_forward.h"
 
 
+#include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
 
 
 
@@ -21,12 +22,26 @@
 
 
 namespace cros::mojom {
+class KioskVisionAppearanceDataView;
+
+class KioskVisionDetectionDataView;
+
 
 enum class CameraClientType : int32_t;
 
 enum class CameraPrivacySwitchState : int32_t;
 
 enum class CameraAutoFramingState : int32_t;
+
+enum class KioskVisionError : int32_t;
+class KioskVisionAppearance;
+using KioskVisionAppearancePtr = mojo::InlinedStructPtr<KioskVisionAppearance>;
+
+class KioskVisionDetection;
+using KioskVisionDetectionPtr = mojo::StructPtr<KioskVisionDetection>;
+
+class KioskVisionObserver;
+
 class CameraHalDispatcher;
 
 class CrosCameraServiceObserver;

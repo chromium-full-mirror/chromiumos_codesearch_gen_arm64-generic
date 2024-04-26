@@ -6,6 +6,7 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+#define BUILDFLAG_INTERNAL_BUILD_TFLITE_WITH_NNAPI() (0)
 #define BUILDFLAG_INTERNAL_BUILD_TFLITE_WITH_XNNPACK() (0)
 
 #endif  // THIRD_PARTY_TFLITE_BUILDFLAGS_H_

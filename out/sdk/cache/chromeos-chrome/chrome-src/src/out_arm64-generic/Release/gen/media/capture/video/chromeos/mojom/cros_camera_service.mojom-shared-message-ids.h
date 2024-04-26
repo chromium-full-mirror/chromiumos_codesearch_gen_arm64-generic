@@ -14,6 +14,10 @@ namespace cros::mojom {
 namespace messages {
 
 
+enum class KioskVisionObserver : uint32_t {
+  kOnDetection = 0,
+  kOnError = 1,
+};
 enum class CameraHalDispatcher : uint32_t {
   kRegisterClientWithToken = 5,
 };
@@ -32,6 +36,7 @@ enum class CrosCameraService : uint32_t {
   kGetAutoFramingSupported = 5,
   kSetCameraEffect = 6,
   kAddCrosCameraServiceObserver = 7,
+  kStartKioskVisionDetection = 8,
 };
 
 }  // namespace messages

@@ -47,6 +47,58 @@
 
 namespace cros::mojom {
 
+class KioskVisionObserverProxy;
+
+template <typename ImplRefTraits>
+class KioskVisionObserverStub;
+
+class KioskVisionObserverRequestValidator;
+
+
+class KioskVisionObserver
+    : public KioskVisionObserverInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = KioskVisionObserverInterfaceBase;
+  using Proxy_ = KioskVisionObserverProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = KioskVisionObserverStub<ImplRefTraits>;
+
+  using RequestValidator_ = KioskVisionObserverRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnDetectionMinVersion = 0,
+    kOnErrorMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnDetection_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnError_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~KioskVisionObserver() = default;
+
+  
+  virtual void OnDetection(KioskVisionDetectionPtr detection) = 0;
+
+  
+  virtual void OnError(KioskVisionError error) = 0;
+};
+
 class CameraHalDispatcherProxy;
 
 template <typename ImplRefTraits>
@@ -199,6 +251,7 @@ class CrosCameraService
     kGetAutoFramingSupportedMinVersion = 0,
     kSetCameraEffectMinVersion = 0,
     kAddCrosCameraServiceObserverMinVersion = 0,
+    kStartKioskVisionDetectionMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -226,6 +279,9 @@ class CrosCameraService
     NOINLINE static uint32_t IPCStableHash();
   };
   struct AddCrosCameraServiceObserver_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct StartKioskVisionDetection_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -262,6 +318,26 @@ class CrosCameraService
 
   
   virtual void AddCrosCameraServiceObserver(::mojo::PendingRemote<CrosCameraServiceObserver> observer) = 0;
+
+  
+  virtual void StartKioskVisionDetection(const std::string& dlc_path, ::mojo::PendingRemote<KioskVisionObserver> observer) = 0;
+};
+
+
+
+class  KioskVisionObserverProxy
+    : public KioskVisionObserver {
+ public:
+  using InterfaceType = KioskVisionObserver;
+
+  explicit KioskVisionObserverProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnDetection(KioskVisionDetectionPtr detection) final;
+  
+  void OnError(KioskVisionError error) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
 };
 
 
@@ -324,9 +400,52 @@ class  CrosCameraServiceProxy
   void SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) final;
   
   void AddCrosCameraServiceObserver(::mojo::PendingRemote<CrosCameraServiceObserver> observer) final;
+  
+  void StartKioskVisionDetection(const std::string& dlc_path, ::mojo::PendingRemote<KioskVisionObserver> observer) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
+};
+class  KioskVisionObserverStubDispatch {
+ public:
+  static bool Accept(KioskVisionObserver* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      KioskVisionObserver* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<KioskVisionObserver>>
+class KioskVisionObserverStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  KioskVisionObserverStub() = default;
+  ~KioskVisionObserverStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return KioskVisionObserverStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return KioskVisionObserverStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
 };
 class  CameraHalDispatcherStubDispatch {
  public:
@@ -451,6 +570,10 @@ class CrosCameraServiceStub
  private:
   ImplPointerType sink_;
 };
+class  KioskVisionObserverRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
 class  CameraHalDispatcherRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
@@ -476,9 +599,368 @@ class  CrosCameraServiceResponseValidator : public mojo::MessageReceiver {
 
 
 
+class  KioskVisionAppearance {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<KioskVisionAppearance, T>::value>;
+  using DataView = KioskVisionAppearanceDataView;
+  using Data_ = internal::KioskVisionAppearance_Data;
+
+  template <typename... Args>
+  static KioskVisionAppearancePtr New(Args&&... args) {
+    return KioskVisionAppearancePtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static KioskVisionAppearancePtr From(const U& u) {
+    return mojo::TypeConverter<KioskVisionAppearancePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, KioskVisionAppearance>::Convert(*this);
+  }
+
+
+  KioskVisionAppearance();
+
+  explicit KioskVisionAppearance(
+      int32_t person_id);
+
+
+  ~KioskVisionAppearance();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = KioskVisionAppearancePtr>
+  KioskVisionAppearancePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, KioskVisionAppearance::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, KioskVisionAppearance::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, KioskVisionAppearance::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        KioskVisionAppearance::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        KioskVisionAppearance::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::KioskVisionAppearance_UnserializedMessageContext<
+            UserType, KioskVisionAppearance::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<KioskVisionAppearance::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return KioskVisionAppearance::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::KioskVisionAppearance_UnserializedMessageContext<
+            UserType, KioskVisionAppearance::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<KioskVisionAppearance::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  int32_t person_id;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, KioskVisionAppearance::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, KioskVisionAppearance::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, KioskVisionAppearance::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, KioskVisionAppearance::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+
+
+
+class  KioskVisionDetection {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<KioskVisionDetection, T>::value>;
+  using DataView = KioskVisionDetectionDataView;
+  using Data_ = internal::KioskVisionDetection_Data;
+
+  template <typename... Args>
+  static KioskVisionDetectionPtr New(Args&&... args) {
+    return KioskVisionDetectionPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static KioskVisionDetectionPtr From(const U& u) {
+    return mojo::TypeConverter<KioskVisionDetectionPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, KioskVisionDetection>::Convert(*this);
+  }
+
+
+  KioskVisionDetection();
+
+  explicit KioskVisionDetection(
+      std::vector<KioskVisionAppearancePtr> appearances);
+
+KioskVisionDetection(const KioskVisionDetection&) = delete;
+KioskVisionDetection& operator=(const KioskVisionDetection&) = delete;
+
+  ~KioskVisionDetection();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = KioskVisionDetectionPtr>
+  KioskVisionDetectionPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, KioskVisionDetection::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, KioskVisionDetection::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, KioskVisionDetection::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        KioskVisionDetection::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        KioskVisionDetection::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::KioskVisionDetection_UnserializedMessageContext<
+            UserType, KioskVisionDetection::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<KioskVisionDetection::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return KioskVisionDetection::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::KioskVisionDetection_UnserializedMessageContext<
+            UserType, KioskVisionDetection::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<KioskVisionDetection::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<KioskVisionAppearancePtr> appearances;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, KioskVisionDetection::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, KioskVisionDetection::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, KioskVisionDetection::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, KioskVisionDetection::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+template <typename StructPtrType>
+KioskVisionAppearancePtr KioskVisionAppearance::Clone() const {
+  return New(
+      mojo::Clone(person_id)
+  );
+}
+
+template <typename T, KioskVisionAppearance::EnableIfSame<T>*>
+bool KioskVisionAppearance::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->person_id, other_struct.person_id))
+    return false;
+  return true;
+}
+
+template <typename T, KioskVisionAppearance::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.person_id < rhs.person_id)
+    return true;
+  if (rhs.person_id < lhs.person_id)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+KioskVisionDetectionPtr KioskVisionDetection::Clone() const {
+  return New(
+      mojo::Clone(appearances)
+  );
+}
+
+template <typename T, KioskVisionDetection::EnableIfSame<T>*>
+bool KioskVisionDetection::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->appearances, other_struct.appearances))
+    return false;
+  return true;
+}
+
+template <typename T, KioskVisionDetection::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.appearances < rhs.appearances)
+    return true;
+  if (rhs.appearances < lhs.appearances)
+    return false;
+  return false;
+}
+
+
 }  // cros::mojom
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::cros::mojom::KioskVisionAppearance::DataView,
+                                         ::cros::mojom::KioskVisionAppearancePtr> {
+  static bool IsNull(const ::cros::mojom::KioskVisionAppearancePtr& input) { return !input; }
+  static void SetToNull(::cros::mojom::KioskVisionAppearancePtr* output) { output->reset(); }
+
+  static decltype(::cros::mojom::KioskVisionAppearance::person_id) person_id(
+      const ::cros::mojom::KioskVisionAppearancePtr& input) {
+    return input->person_id;
+  }
+
+  static bool Read(::cros::mojom::KioskVisionAppearance::DataView input, ::cros::mojom::KioskVisionAppearancePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::cros::mojom::KioskVisionDetection::DataView,
+                                         ::cros::mojom::KioskVisionDetectionPtr> {
+  static bool IsNull(const ::cros::mojom::KioskVisionDetectionPtr& input) { return !input; }
+  static void SetToNull(::cros::mojom::KioskVisionDetectionPtr* output) { output->reset(); }
+
+  static const decltype(::cros::mojom::KioskVisionDetection::appearances)& appearances(
+      const ::cros::mojom::KioskVisionDetectionPtr& input) {
+    return input->appearances;
+  }
+
+  static bool Read(::cros::mojom::KioskVisionDetection::DataView input, ::cros::mojom::KioskVisionDetectionPtr* output);
+};
 
 }  // namespace mojo
 

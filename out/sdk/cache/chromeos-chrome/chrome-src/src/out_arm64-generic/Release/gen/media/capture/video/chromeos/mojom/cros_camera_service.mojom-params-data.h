@@ -22,6 +22,39 @@ class ValidationContext;
 
 namespace cros::mojom {
 namespace internal {
+class  KioskVisionObserver_OnDetection_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::KioskVisionDetection_Data> detection;
+
+ private:
+  friend class mojo::internal::MessageFragment<KioskVisionObserver_OnDetection_Params_Data>;
+
+  KioskVisionObserver_OnDetection_Params_Data();
+  ~KioskVisionObserver_OnDetection_Params_Data() = delete;
+};
+static_assert(sizeof(KioskVisionObserver_OnDetection_Params_Data) == 16,
+              "Bad sizeof(KioskVisionObserver_OnDetection_Params_Data)");
+class  KioskVisionObserver_OnError_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t error;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<KioskVisionObserver_OnError_Params_Data>;
+
+  KioskVisionObserver_OnError_Params_Data();
+  ~KioskVisionObserver_OnError_Params_Data() = delete;
+};
+static_assert(sizeof(KioskVisionObserver_OnError_Params_Data) == 16,
+              "Bad sizeof(KioskVisionObserver_OnError_Params_Data)");
 class  CameraHalDispatcher_RegisterClientWithToken_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -325,8 +358,76 @@ class  CrosCameraService_AddCrosCameraServiceObserver_Params_Data {
 };
 static_assert(sizeof(CrosCameraService_AddCrosCameraServiceObserver_Params_Data) == 16,
               "Bad sizeof(CrosCameraService_AddCrosCameraServiceObserver_Params_Data)");
+class  CrosCameraService_StartKioskVisionDetection_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> dlc_path;
+  mojo::internal::Interface_Data observer;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraService_StartKioskVisionDetection_Params_Data>;
+
+  CrosCameraService_StartKioskVisionDetection_Params_Data();
+  ~CrosCameraService_StartKioskVisionDetection_Params_Data() = delete;
+};
+static_assert(sizeof(CrosCameraService_StartKioskVisionDetection_Params_Data) == 24,
+              "Bad sizeof(CrosCameraService_StartKioskVisionDetection_Params_Data)");
 
 }  // namespace internal
+
+
+class KioskVisionObserver_OnDetection_ParamsDataView {
+ public:
+  KioskVisionObserver_OnDetection_ParamsDataView() = default;
+
+  KioskVisionObserver_OnDetection_ParamsDataView(
+      internal::KioskVisionObserver_OnDetection_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetDetectionDataView(
+      KioskVisionDetectionDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDetection(UserType* output) {
+    
+    auto* pointer = data_->detection.Get();
+    return mojo::internal::Deserialize<::cros::mojom::KioskVisionDetectionDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::KioskVisionObserver_OnDetection_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class KioskVisionObserver_OnError_ParamsDataView {
+ public:
+  KioskVisionObserver_OnError_ParamsDataView() = default;
+
+  KioskVisionObserver_OnError_ParamsDataView(
+      internal::KioskVisionObserver_OnError_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadError(UserType* output) const {
+    auto data_value = data_->error;
+    return mojo::internal::Deserialize<::cros::mojom::KioskVisionError>(
+        data_value, output);
+  }
+  KioskVisionError error() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::cros::mojom::KioskVisionError>(data_->error));
+  }
+ private:
+  internal::KioskVisionObserver_OnError_Params_Data* data_ = nullptr;
+};
 
 
 class CameraHalDispatcher_RegisterClientWithToken_ParamsDataView {
@@ -768,6 +869,50 @@ class CrosCameraService_AddCrosCameraServiceObserver_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+class CrosCameraService_StartKioskVisionDetection_ParamsDataView {
+ public:
+  CrosCameraService_StartKioskVisionDetection_ParamsDataView() = default;
+
+  CrosCameraService_StartKioskVisionDetection_ParamsDataView(
+      internal::CrosCameraService_StartKioskVisionDetection_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetDlcPathDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDlcPath(UserType* output) {
+    
+    auto* pointer = data_->dlc_path.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::cros::mojom::KioskVisionObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::CrosCameraService_StartKioskVisionDetection_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+inline void KioskVisionObserver_OnDetection_ParamsDataView::GetDetectionDataView(
+    KioskVisionDetectionDataView* output) {
+  auto pointer = data_->detection.Get();
+  *output = KioskVisionDetectionDataView(pointer, message_);
+}
+
+
+
+
 inline void CameraHalDispatcher_RegisterClientWithToken_ParamsDataView::GetAuthTokenDataView(
     ::mojo_base::mojom::UnguessableTokenDataView* output) {
   auto pointer = data_->auth_token.Get();
@@ -817,6 +962,13 @@ inline void CrosCameraService_SetCameraEffect_ParamsDataView::GetConfigDataView(
 
 
 
+
+
+inline void CrosCameraService_StartKioskVisionDetection_ParamsDataView::GetDlcPathDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->dlc_path.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
 
 
 
