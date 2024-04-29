@@ -18,6 +18,7 @@
 #include "libec/fingerprint/fp_frame_command.h"
 #include "libec/fingerprint/fp_get_nonce_command.h"
 #include "libec/fingerprint/fp_info_command.h"
+#include "libec/fingerprint/fp_migrate_template_to_nonce_context_command.h"
 #include "libec/fingerprint/fp_pairing_key_keygen_command.h"
 #include "libec/fingerprint/fp_pairing_key_load_command.h"
 #include "libec/fingerprint/fp_pairing_key_wrap_command.h"
@@ -66,7 +67,7 @@ class EcCommandFactoryInterface {
                 "EcCommandInterface");
 
   virtual std::unique_ptr<ec::FpTemplateCommand> FpTemplateCommand(
-      std::vector<uint8_t> tmpl, uint16_t max_write_size) = 0;
+      std::vector<uint8_t> tmpl, uint16_t max_write_size, bool commit) = 0;
   static_assert(
       std::is_base_of<EcCommandInterface, ec::FpTemplateCommand>::value,
       "All commands created by this class should derive from "
@@ -76,6 +77,14 @@ class EcCommandFactoryInterface {
       uint16_t finger_num) = 0;
   static_assert(
       std::is_base_of<EcCommandInterface, ec::FpUnlockTemplateCommand>::value,
+      "All commands created by this class should derive from "
+      "EcCommandInterface");
+
+  virtual std::unique_ptr<ec::FpMigrateTemplateToNonceContextCommand>
+  FpMigrateTemplateToNonceContextCommand(const std::string& user_id) = 0;
+  static_assert(
+      std::is_base_of<EcCommandInterface,
+                      ec::FpMigrateTemplateToNonceContextCommand>::value,
       "All commands created by this class should derive from "
       "EcCommandInterface");
 
@@ -204,10 +213,13 @@ class BRILLO_EXPORT EcCommandFactory : public EcCommandFactoryInterface {
       int index, uint32_t frame_size, uint16_t max_read_size) override;
 
   std::unique_ptr<ec::FpTemplateCommand> FpTemplateCommand(
-      std::vector<uint8_t> tmpl, uint16_t max_write_size) override;
+      std::vector<uint8_t> tmpl, uint16_t max_write_size, bool commit) override;
 
   std::unique_ptr<ec::FpUnlockTemplateCommand> FpUnlockTemplateCommand(
       uint16_t finger_num) override;
+
+  std::unique_ptr<ec::FpMigrateTemplateToNonceContextCommand>
+  FpMigrateTemplateToNonceContextCommand(const std::string& user_id) override;
 
   std::unique_ptr<ec::ChargeControlSetCommand> ChargeControlSetCommand(
       uint32_t mode, uint8_t lower, uint8_t upper) override;
