@@ -82,12 +82,13 @@ enum Destination : int {
   KIOSK_HEARTBEAT_EVENTS = 29,
   CHROME_BROWSER_ENTERPRISE = 30,
   CRASH_EVENTS = 31,
+  CHROME_CRASH_EVENTS = 32,
 };
 
 bool Destination_IsValid(int value);
 constexpr Destination Destination_MIN = static_cast<Destination>(0);
-constexpr Destination Destination_MAX = static_cast<Destination>(31);
-constexpr int Destination_ARRAYSIZE = 31 + 1;
+constexpr Destination Destination_MAX = static_cast<Destination>(32);
+constexpr int Destination_ARRAYSIZE = 32 + 1;
 const std::string& Destination_Name(Destination value);
 template <typename T>
 const std::string& Destination_Name(T value) {

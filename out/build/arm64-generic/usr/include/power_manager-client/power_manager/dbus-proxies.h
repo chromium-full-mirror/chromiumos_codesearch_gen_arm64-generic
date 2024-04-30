@@ -696,6 +696,10 @@ class PowerManagerProxyInterface {
       const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
+  virtual void RegisterKeyboardAmbientLightSensorEnabledChangedSignalHandler(
+      const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
   virtual void RegisterPeripheralBatteryStatusSignalHandler(
       const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -810,6 +814,17 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
         dbus_object_proxy_,
         "org.chromium.PowerManager",
         "KeyboardBrightnessChanged",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterKeyboardAmbientLightSensorEnabledChangedSignalHandler(
+      const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "KeyboardAmbientLightSensorEnabledChanged",
         signal_callback,
         std::move(on_connected_callback));
   }
