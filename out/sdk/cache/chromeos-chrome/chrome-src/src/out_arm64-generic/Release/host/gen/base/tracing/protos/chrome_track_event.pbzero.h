@@ -18,36 +18,90 @@
 namespace perfetto {
 namespace protos {
 namespace pbzero {
+class ActiveProcesses;
 class AndroidActivity;
+class AndroidIPC;
+class AndroidToolbar;
 class AndroidView;
+class AndroidViewDump;
+class BackForwardCacheCanStoreDocumentResult;
 class BeginFrameArgsV2;
 class BeginFrameObserverStateV2;
 class BeginFrameSourceStateV2;
 class BeginImplFrameArgsV2;
 class BeginImplFrameArgsV2_TimestampsInUs;
 class BlinkExecutionContext;
+class BlinkHighEntropyAPI;
 class BlinkHighEntropyAPI_CalledJsApi;
 class BlinkHighEntropyAPI_FontLookup;
 class BlinkHighEntropyAPI_JSFunctionArgument;
 class BlinkSourceLocation;
+class BlinkTaskScope;
 class BrowsingContextState;
+class ChildProcessLauncherPriority;
 class ChromeBrowserContext;
+class ChromeCompositorSchedulerStateV2;
 class ChromeCompositorStateMachineV2;
 class ChromeCompositorStateMachineV2_MajorStateV2;
 class ChromeCompositorStateMachineV2_MinorStateV2;
+class ChromeExtensionId;
+class ChromeGraphicsPipeline;
+class ChromeHashedPerformanceMark;
+class ChromeMemoryPressureNotification;
+class ChromeMessagePumpForUI;
+class ChromeProfileDestroyer;
+class ChromeRasterTask;
+class ChromeSamplingProfilerSampleCollected;
+class ChromeSqlDiagnostics;
+class ChromeTaskAnnotator;
+class ChromeTaskPostedToDisabledQueue;
+class ChromeThreadPoolTask;
 class ChromeUnguessableToken;
+class ChromeWebAppBadNavigate;
 class CompositorTimingHistoryV2;
+class CrasUnified;
+class EventForwarder;
+class EventLatency;
 class FrameSinkId;
 class FrameTreeNodeInfo;
 class GlobalRenderFrameHostId;
+class LibunwindstackUnwinder;
+class LinuxAlsaOutput;
+class LinuxPulseOutput;
 class LocalSurfaceId;
+class MacAUHALStream;
+class NavigationHandle;
+class PageLoad;
+class ParkableStringCompressInBackground;
+class ParkableStringUnpark;
+class ProcessSingleton;
 class RenderFrameHost;
+class RenderFrameImplDeletion;
+class RenderFrameProxyHost;
 class RenderProcessHost;
+class RenderProcessHostCleanup;
+class RenderProcessHostListener;
+class RenderViewHost;
+class RendererMainThreadTaskExecution;
+class ResourceBundle;
+class ScrollDeltas;
+class ScrollPredictorMetrics;
 class ScrollPredictorMetrics_EventFrameValue;
+class SendBeginMainFrameToCommitBreakdown;
+class SequenceManagerTask;
+class ShouldSwapBrowsingInstancesResult;
 class SiteInstance;
 class SiteInstanceGroup;
+class StartUp;
+class TabSwitchMeasurement;
+class TouchDispositionGestureFilter;
+class UkmPageLoadTimingUpdate;
 class V8StackFrame;
 class V8StackFrame_ScriptLocation;
+class ViewClassName;
+class WebContentInteraction;
+class WebViewStartup;
+class WinRenderAudioFromSource;
 namespace perfetto_pbzero_enum_AndroidToolbar {
 enum AllowCaptureReason : int32_t;
 }  // namespace perfetto_pbzero_enum_AndroidToolbar
@@ -14897,6 +14951,72 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
     return BeginNestedMessage<T>(1063);
   }
 
+  enum : int32_t {
+    kChromeAppStateFieldNumber = 1000,
+    kChromeMemoryPressureNotificationFieldNumber = 1001,
+    kChromeTaskAnnotatorFieldNumber = 1002,
+    kChromeBrowserContextFieldNumber = 1003,
+    kChromeProfileDestroyerFieldNumber = 1004,
+    kChromeTaskPostedToDisabledQueueFieldNumber = 1005,
+    kChromeRasterTaskFieldNumber = 1006,
+    kChromeMessagePumpForUiFieldNumber = 1007,
+    kRenderFrameImplDeletionFieldNumber = 1008,
+    kShouldSwapBrowsingInstancesResultFieldNumber = 1009,
+    kFrameTreeNodeInfoFieldNumber = 1010,
+    kChromeHashedPerformanceMarkFieldNumber = 1011,
+    kRenderProcessHostFieldNumber = 1012,
+    kRenderProcessHostCleanupFieldNumber = 1013,
+    kRenderProcessHostListenerChangedFieldNumber = 1014,
+    kChildProcessLauncherPriorityFieldNumber = 1015,
+    kResourceBundleFieldNumber = 1016,
+    kChromeWebAppBadNavigateFieldNumber = 1017,
+    kChromeExtensionIdFieldNumber = 1018,
+    kSiteInstanceFieldNumber = 1019,
+    kRenderViewHostFieldNumber = 1020,
+    kRenderFrameProxyHostFieldNumber = 1021,
+    kAndroidViewDumpFieldNumber = 1022,
+    kParkableStringCompressInBackgroundFieldNumber = 1023,
+    kParkableStringUnparkFieldNumber = 1024,
+    kChromeSamplingProfilerSampleCompletedFieldNumber = 1025,
+    kSendBeginMainframeToCommitBreakdownFieldNumber = 1026,
+    kGlobalRenderFrameHostIdFieldNumber = 1027,
+    kRenderFrameHostFieldNumber = 1028,
+    kThreadPoolTaskFieldNumber = 1029,
+    kBackForwardCacheCanStoreDocumentResultFieldNumber = 1030,
+    kRendererMainThreadTaskExecutionFieldNumber = 1031,
+    kEventLatencyFieldNumber = 1032,
+    kProcessSingletonFieldNumber = 1033,
+    kSiteInstanceGroupFieldNumber = 1034,
+    kBrowsingContextStateFieldNumber = 1035,
+    kDeviceThermalStateFieldNumber = 1036,
+    kNavigationFieldNumber = 1037,
+    kAndroidIpcFieldNumber = 1038,
+    kSqlDiagnosticsFieldNumber = 1039,
+    kSequenceManagerTaskFieldNumber = 1040,
+    kAndroidToolbarFieldNumber = 1041,
+    kActiveProcessesFieldNumber = 1042,
+    kBlinkTaskScopeFieldNumber = 1043,
+    kUkmPageLoadTimingUpdateFieldNumber = 1044,
+    kHighEntropyApiFieldNumber = 1045,
+    kTabSwitchMeasurementFieldNumber = 1046,
+    kScrollDeltasFieldNumber = 1047,
+    kWinRenderAudioFromSourceFieldNumber = 1048,
+    kMacAuhalStreamFieldNumber = 1049,
+    kLinuxAlsaOutputFieldNumber = 1050,
+    kLinuxPulseOutputFieldNumber = 1051,
+    kChromeGraphicsPipelineFieldNumber = 1052,
+    kChromeosCrasUnifiedFieldNumber = 1053,
+    kLibunwindstackUnwinderFieldNumber = 1054,
+    kScrollPredictorMetricsFieldNumber = 1055,
+    kPageLoadFieldNumber = 1056,
+    kStartupFieldNumber = 1057,
+    kWebContentInteractionFieldNumber = 1058,
+    kEventForwarderFieldNumber = 1059,
+    kTouchDispositionGestureFilterFieldNumber = 1060,
+    kViewClassNameFieldNumber = 1061,
+    kCcSchedulerStateFieldNumber = 1062,
+    kWebviewStartupFieldNumber = 1063,
+  };
 };
 } // Namespace.
 } // Namespace.

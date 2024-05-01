@@ -7824,6 +7824,7 @@ class ProbeSsfcComponentsResponse final :
     kEcI2CFieldNumber = 12,
     kTcpcFieldNumber = 13,
     kTouchscreenFieldNumber = 14,
+    kCameraFieldNumber = 15,
     kProbeConfigChecksumFieldNumber = 2,
     kErrorFieldNumber = 1,
   };
@@ -7899,6 +7900,24 @@ class ProbeSsfcComponentsResponse final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::InputDevice >&
       touchscreen() const;
 
+  // repeated .runtime_probe.Camera camera = 15;
+  int camera_size() const;
+  private:
+  int _internal_camera_size() const;
+  public:
+  void clear_camera();
+  ::runtime_probe::Camera* mutable_camera(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Camera >*
+      mutable_camera();
+  private:
+  const ::runtime_probe::Camera& _internal_camera(int index) const;
+  ::runtime_probe::Camera* _internal_add_camera();
+  public:
+  const ::runtime_probe::Camera& camera(int index) const;
+  ::runtime_probe::Camera* add_camera();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Camera >&
+      camera() const;
+
   // string probe_config_checksum = 2;
   void clear_probe_config_checksum();
   const std::string& probe_config_checksum() const;
@@ -7934,6 +7953,7 @@ class ProbeSsfcComponentsResponse final :
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::EcI2c > ec_i2c_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Tcpc > tcpc_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::InputDevice > touchscreen_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Camera > camera_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr probe_config_checksum_;
     int error_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -16187,6 +16207,46 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::InputDe
 ProbeSsfcComponentsResponse::touchscreen() const {
   // @@protoc_insertion_point(field_list:runtime_probe.ProbeSsfcComponentsResponse.touchscreen)
   return _impl_.touchscreen_;
+}
+
+// repeated .runtime_probe.Camera camera = 15;
+inline int ProbeSsfcComponentsResponse::_internal_camera_size() const {
+  return _impl_.camera_.size();
+}
+inline int ProbeSsfcComponentsResponse::camera_size() const {
+  return _internal_camera_size();
+}
+inline void ProbeSsfcComponentsResponse::clear_camera() {
+  _impl_.camera_.Clear();
+}
+inline ::runtime_probe::Camera* ProbeSsfcComponentsResponse::mutable_camera(int index) {
+  // @@protoc_insertion_point(field_mutable:runtime_probe.ProbeSsfcComponentsResponse.camera)
+  return _impl_.camera_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Camera >*
+ProbeSsfcComponentsResponse::mutable_camera() {
+  // @@protoc_insertion_point(field_mutable_list:runtime_probe.ProbeSsfcComponentsResponse.camera)
+  return &_impl_.camera_;
+}
+inline const ::runtime_probe::Camera& ProbeSsfcComponentsResponse::_internal_camera(int index) const {
+  return _impl_.camera_.Get(index);
+}
+inline const ::runtime_probe::Camera& ProbeSsfcComponentsResponse::camera(int index) const {
+  // @@protoc_insertion_point(field_get:runtime_probe.ProbeSsfcComponentsResponse.camera)
+  return _internal_camera(index);
+}
+inline ::runtime_probe::Camera* ProbeSsfcComponentsResponse::_internal_add_camera() {
+  return _impl_.camera_.Add();
+}
+inline ::runtime_probe::Camera* ProbeSsfcComponentsResponse::add_camera() {
+  ::runtime_probe::Camera* _add = _internal_add_camera();
+  // @@protoc_insertion_point(field_add:runtime_probe.ProbeSsfcComponentsResponse.camera)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Camera >&
+ProbeSsfcComponentsResponse::camera() const {
+  // @@protoc_insertion_point(field_list:runtime_probe.ProbeSsfcComponentsResponse.camera)
+  return _impl_.camera_;
 }
 
 #ifdef __GNUC__

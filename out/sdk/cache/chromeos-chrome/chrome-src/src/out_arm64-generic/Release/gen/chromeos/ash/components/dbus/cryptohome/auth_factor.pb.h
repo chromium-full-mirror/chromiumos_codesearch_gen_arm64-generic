@@ -3661,6 +3661,18 @@ class FingerprintMetadata final :
 
   // accessors -------------------------------------------------------
 
+  enum : int {
+    kWasMigratedFieldNumber = 1,
+  };
+  // bool was_migrated = 1;
+  void clear_was_migrated();
+  bool was_migrated() const;
+  void set_was_migrated(bool value);
+  private:
+  bool _internal_was_migrated() const;
+  void _internal_set_was_migrated(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:user_data_auth.FingerprintMetadata)
  private:
   class _Internal;
@@ -3669,6 +3681,7 @@ class FingerprintMetadata final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    bool was_migrated_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -6357,6 +6370,26 @@ inline void CommonMetadata::set_allocated_user_specified_name(std::string* user_
 // -------------------------------------------------------------------
 
 // FingerprintMetadata
+
+// bool was_migrated = 1;
+inline void FingerprintMetadata::clear_was_migrated() {
+  _impl_.was_migrated_ = false;
+}
+inline bool FingerprintMetadata::_internal_was_migrated() const {
+  return _impl_.was_migrated_;
+}
+inline bool FingerprintMetadata::was_migrated() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.FingerprintMetadata.was_migrated)
+  return _internal_was_migrated();
+}
+inline void FingerprintMetadata::_internal_set_was_migrated(bool value) {
+  
+  _impl_.was_migrated_ = value;
+}
+inline void FingerprintMetadata::set_was_migrated(bool value) {
+  _internal_set_was_migrated(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.FingerprintMetadata.was_migrated)
+}
 
 // -------------------------------------------------------------------
 
