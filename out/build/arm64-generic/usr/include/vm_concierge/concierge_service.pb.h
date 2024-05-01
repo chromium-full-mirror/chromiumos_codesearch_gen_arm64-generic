@@ -2896,6 +2896,7 @@ class StartArcVmRequest final :
     kEnableS2IdleFieldNumber = 46,
     kRootfsMultipleWorkersFieldNumber = 47,
     kUseGkiFieldNumber = 48,
+    kEnableDataBlockIoSchedulerFieldNumber = 49,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -3275,6 +3276,16 @@ class StartArcVmRequest final :
   void _internal_set_use_gki(bool value);
 
   public:
+  // bool enable_data_block_io_scheduler = 49;
+  void clear_enable_data_block_io_scheduler() ;
+  bool enable_data_block_io_scheduler() const;
+  void set_enable_data_block_io_scheduler(bool value);
+
+  private:
+  bool _internal_enable_data_block_io_scheduler() const;
+  void _internal_set_enable_data_block_io_scheduler(bool value);
+
+  public:
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartArcVmRequest)
  private:
   class _Internal;
@@ -3318,6 +3329,7 @@ class StartArcVmRequest final :
     bool enable_s2idle_;
     bool rootfs_multiple_workers_;
     bool use_gki_;
+    bool enable_data_block_io_scheduler_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
@@ -19548,6 +19560,26 @@ inline bool StartArcVmRequest::_internal_use_gki() const {
 inline void StartArcVmRequest::_internal_set_use_gki(bool value) {
   ;
   _impl_.use_gki_ = value;
+}
+
+// bool enable_data_block_io_scheduler = 49;
+inline void StartArcVmRequest::clear_enable_data_block_io_scheduler() {
+  _impl_.enable_data_block_io_scheduler_ = false;
+}
+inline bool StartArcVmRequest::enable_data_block_io_scheduler() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.enable_data_block_io_scheduler)
+  return _internal_enable_data_block_io_scheduler();
+}
+inline void StartArcVmRequest::set_enable_data_block_io_scheduler(bool value) {
+  _internal_set_enable_data_block_io_scheduler(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_data_block_io_scheduler)
+}
+inline bool StartArcVmRequest::_internal_enable_data_block_io_scheduler() const {
+  return _impl_.enable_data_block_io_scheduler_;
+}
+inline void StartArcVmRequest::_internal_set_enable_data_block_io_scheduler(bool value) {
+  ;
+  _impl_.enable_data_block_io_scheduler_ = value;
 }
 
 // -------------------------------------------------------------------

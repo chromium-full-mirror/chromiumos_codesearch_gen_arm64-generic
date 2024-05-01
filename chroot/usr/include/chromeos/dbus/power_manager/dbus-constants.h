@@ -26,6 +26,8 @@ const char kIncreaseKeyboardBrightnessMethod[] = "IncreaseKeyboardBrightness";
 const char kToggleKeyboardBacklightMethod[] = "ToggleKeyboardBacklight";
 const char kSetKeyboardAmbientLightSensorEnabledMethod[] =
     "SetKeyboardAmbientLightSensorEnabled";
+const char kGetKeyboardAmbientLightSensorEnabledMethod[] =
+    "GetKeybardAmbientLightSensorEnabled";
 const char kRequestRestartMethod[] = "RequestRestart";
 const char kRequestShutdownMethod[] = "RequestShutdown";
 const char kRequestSuspendMethod[] = "RequestSuspend";
@@ -96,6 +98,8 @@ const char kThermalEventSignal[] = "ThermalEvent";
 const char kBatterySaverModeStateChanged[] = "BatterySaverModeStateChanged";
 const char kAmbientLightSensorEnabledChangedSignal[] =
     "AmbientLightSensorEnabledChanged";
+const char kKeyboardAmbientLightSensorEnabledChangedSignal[] =
+    "KeyboardAmbientLightSensorEnabledChanged";
 
 // Values
 const int kBrightnessTransitionGradual = 1;

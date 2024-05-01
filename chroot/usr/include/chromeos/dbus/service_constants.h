@@ -554,13 +554,6 @@ constexpr char kRemoveHostnameIpMappingMethod[] = "RemoveHostnameIpMapping";
 
 namespace arc {
 
-constexpr char kArcServiceName[] = "org.chromium.Arc";
-constexpr char kArcServicePath[] = "/org/chromium/Arc";
-constexpr char kArcInterfaceName[] = "org.chromium.Arc";
-
-// Signal
-constexpr char kArcStopped[] = "ArcStopped";
-
 namespace keymaster {
 constexpr char kArcKeymasterServiceName[] = "org.chromium.ArcKeymaster";
 constexpr char kArcKeymasterServicePath[] = "/org/chromium/ArcKeymaster";
@@ -603,6 +596,17 @@ constexpr char kMountMethod[] = "Mount";
 constexpr char kUnmountMethod[] = "Unmount";
 constexpr char kOpenFileMethod[] = "OpenFile";
 }  // namespace appfuse
+
+namespace tracing {
+// D-Bus service constants.
+constexpr char kArcTracingServiceName[] = "org.chromium.ArcTracing";
+constexpr char kArcTracingServicePath[] = "/org/chromium/ArcTracing";
+constexpr char kArcTracingInterfaceName[] = "org.chromium.ArcTracing";
+
+// Method names.
+constexpr char kArcTracingStartMethod[] = "StartTrace";
+constexpr char kArcTracingGetStatusMethod[] = "GetStatus";
+}  // namespace tracing
 
 }  // namespace arc
 
