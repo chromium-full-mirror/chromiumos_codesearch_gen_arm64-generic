@@ -1596,6 +1596,20 @@ class TestEventEight final : public ::metrics::structured::Event {
 
 }  // namespace test_project_seven
 
+namespace sequenced_test_project {
+
+ 
+class Test1 final : public ::metrics::structured::Event {
+ public:
+  Test1();
+  ~Test1() override;
+
+    Test1&& SetMetric1(const double value) &&;
+  Test1& SetMetric1(const double value) &;
+};
+
+}  // namespace sequenced_test_project
+
 
 
 }  // namespace v2

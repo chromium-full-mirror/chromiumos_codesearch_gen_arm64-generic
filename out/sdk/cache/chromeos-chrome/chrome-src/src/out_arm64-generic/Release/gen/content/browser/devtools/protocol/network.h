@@ -1492,10 +1492,16 @@ class CONTENT_EXPORT ServiceWorkerRouterInfo : public ::crdtp::ProtocolObject<Se
 public:
     ~ServiceWorkerRouterInfo() override { }
 
-    int GetRuleIdMatched() { return m_ruleIdMatched; }
+    bool HasRuleIdMatched() { return m_ruleIdMatched.has_value(); }
+    int GetRuleIdMatched(int defaultValue) const {
+       return m_ruleIdMatched.value_or(defaultValue);
+    }
     void SetRuleIdMatched(int value) { m_ruleIdMatched = value; }
 
-    String GetMatchedSourceType() { return m_matchedSourceType; }
+    bool HasMatchedSourceType() { return m_matchedSourceType.has_value(); }
+    String GetMatchedSourceType(const String& defaultValue) const {
+       return m_matchedSourceType.value_or(defaultValue);
+    }
     void SetMatchedSourceType(const String& value) { m_matchedSourceType = value; }
 
     template<int STATE>
@@ -1503,23 +1509,19 @@ public:
     public:
         enum {
             NoFieldsSet = 0,
-            RuleIdMatchedSet = 1 << 1,
-            MatchedSourceTypeSet = 1 << 2,
-            AllFieldsSet = (RuleIdMatchedSet | MatchedSourceTypeSet | 0)};
+            AllFieldsSet = (0)};
 
 
-        ServiceWorkerRouterInfoBuilder<STATE | RuleIdMatchedSet>& SetRuleIdMatched(int value)
+        ServiceWorkerRouterInfoBuilder<STATE>& SetRuleIdMatched(int value)
         {
-            static_assert(!(STATE & RuleIdMatchedSet), "property ruleIdMatched should not be set yet");
             m_result->SetRuleIdMatched(value);
-            return castState<RuleIdMatchedSet>();
+            return *this;
         }
 
-        ServiceWorkerRouterInfoBuilder<STATE | MatchedSourceTypeSet>& SetMatchedSourceType(const String& value)
+        ServiceWorkerRouterInfoBuilder<STATE>& SetMatchedSourceType(const String& value)
         {
-            static_assert(!(STATE & MatchedSourceTypeSet), "property matchedSourceType should not be set yet");
             m_result->SetMatchedSourceType(value);
-            return castState<MatchedSourceTypeSet>();
+            return *this;
         }
 
         std::unique_ptr<ServiceWorkerRouterInfo> Build()
@@ -1550,11 +1552,10 @@ private:
 
     ServiceWorkerRouterInfo()
     {
-          m_ruleIdMatched = 0;
     }
 
-    int m_ruleIdMatched;
-    String m_matchedSourceType;
+    Maybe<int> m_ruleIdMatched;
+    Maybe<String> m_matchedSourceType;
 };
 
 

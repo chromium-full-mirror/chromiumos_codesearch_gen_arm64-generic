@@ -3155,13 +3155,14 @@ enum TaskScopeType : int32_t {
   TASK_SCOPE_SCHEDULER_POST_TASK = 6,
   TASK_SCOPE_REQUEST_IDLE_CALLBACK = 7,
   TASK_SCOPE_XML_HTTP_REQUEST = 8,
+  TASK_SCOPE_SOFT_NAVIGATION = 9,
 };
 } // namespace perfetto_pbzero_enum_BlinkTaskScope
 using BlinkTaskScope_TaskScopeType = perfetto_pbzero_enum_BlinkTaskScope::TaskScopeType;
 
 
 constexpr BlinkTaskScope_TaskScopeType BlinkTaskScope_TaskScopeType_MIN = BlinkTaskScope_TaskScopeType::TASK_SCOPE_UNKNOWN;
-constexpr BlinkTaskScope_TaskScopeType BlinkTaskScope_TaskScopeType_MAX = BlinkTaskScope_TaskScopeType::TASK_SCOPE_XML_HTTP_REQUEST;
+constexpr BlinkTaskScope_TaskScopeType BlinkTaskScope_TaskScopeType_MAX = BlinkTaskScope_TaskScopeType::TASK_SCOPE_SOFT_NAVIGATION;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -3193,6 +3194,9 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
 
   case ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType::TASK_SCOPE_XML_HTTP_REQUEST:
     return "TASK_SCOPE_XML_HTTP_REQUEST";
+
+  case ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType::TASK_SCOPE_SOFT_NAVIGATION:
+    return "TASK_SCOPE_SOFT_NAVIGATION";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -13931,6 +13935,7 @@ class BlinkTaskScope : public ::protozero::Message {
   static inline const TaskScopeType TASK_SCOPE_SCHEDULER_POST_TASK = TaskScopeType::TASK_SCOPE_SCHEDULER_POST_TASK;
   static inline const TaskScopeType TASK_SCOPE_REQUEST_IDLE_CALLBACK = TaskScopeType::TASK_SCOPE_REQUEST_IDLE_CALLBACK;
   static inline const TaskScopeType TASK_SCOPE_XML_HTTP_REQUEST = TaskScopeType::TASK_SCOPE_XML_HTTP_REQUEST;
+  static inline const TaskScopeType TASK_SCOPE_SOFT_NAVIGATION = TaskScopeType::TASK_SCOPE_SOFT_NAVIGATION;
 
   using FieldMetadata_Type =
     ::protozero::proto_utils::FieldMetadata<

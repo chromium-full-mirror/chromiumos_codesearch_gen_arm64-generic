@@ -394,8 +394,8 @@ const char RaceNetworkAndFetchHandler[] = "race-network-and-fetch-handler";
 
 
 CRDTP_BEGIN_DESERIALIZER(ServiceWorkerRouterInfo)
-    CRDTP_DESERIALIZE_FIELD("matchedSourceType", m_matchedSourceType),
-    CRDTP_DESERIALIZE_FIELD("ruleIdMatched", m_ruleIdMatched),
+    CRDTP_DESERIALIZE_FIELD_OPT("matchedSourceType", m_matchedSourceType),
+    CRDTP_DESERIALIZE_FIELD_OPT("ruleIdMatched", m_ruleIdMatched),
 CRDTP_END_DESERIALIZER()
 
 CRDTP_BEGIN_SERIALIZER(ServiceWorkerRouterInfo)
