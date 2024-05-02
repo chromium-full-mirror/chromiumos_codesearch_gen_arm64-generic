@@ -7,7 +7,7 @@
 
 #include <cerrno>
 
-#include "build/build_config.h"
+#include "base/allocator/partition_allocator/src/partition_alloc/build_config.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/component_export.h"
 
 namespace partition_alloc::internal::base {

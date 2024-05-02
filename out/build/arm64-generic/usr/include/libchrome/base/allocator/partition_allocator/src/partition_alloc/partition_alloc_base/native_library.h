@@ -10,7 +10,7 @@
 
 #include <string>
 
-#include "build/build_config.h"
+#include "base/allocator/partition_allocator/src/partition_alloc/build_config.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/component_export.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/files/file_path.h"
 

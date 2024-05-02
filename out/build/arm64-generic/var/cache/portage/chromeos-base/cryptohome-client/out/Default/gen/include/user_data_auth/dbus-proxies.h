@@ -45,6 +45,18 @@ class UserDataAuthInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool GetVaultProperties(
+      const user_data_auth::GetVaultPropertiesRequest& in_request,
+      user_data_auth::GetVaultPropertiesReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GetVaultPropertiesAsync(
+      const user_data_auth::GetVaultPropertiesRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::GetVaultPropertiesReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool Unmount(
       const user_data_auth::UnmountRequest& in_request,
       user_data_auth::UnmountReply* out_reply,
@@ -777,6 +789,37 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "IsMounted",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  bool GetVaultProperties(
+      const user_data_auth::GetVaultPropertiesRequest& in_request,
+      user_data_auth::GetVaultPropertiesReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "GetVaultProperties",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  void GetVaultPropertiesAsync(
+      const user_data_auth::GetVaultPropertiesRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::GetVaultPropertiesReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "GetVaultProperties",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

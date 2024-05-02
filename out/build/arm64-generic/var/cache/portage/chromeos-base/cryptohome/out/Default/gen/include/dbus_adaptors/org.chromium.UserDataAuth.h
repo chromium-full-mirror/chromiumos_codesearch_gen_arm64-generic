@@ -27,6 +27,9 @@ class UserDataAuthInterfaceInterface {
   virtual void IsMounted(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::IsMountedReply>> response,
       const user_data_auth::IsMountedRequest& in_request) = 0;
+  virtual void GetVaultProperties(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetVaultPropertiesReply>> response,
+      const user_data_auth::GetVaultPropertiesRequest& in_request) = 0;
   virtual void Unmount(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::UnmountReply>> response,
       const user_data_auth::UnmountRequest& in_request) = 0;
@@ -155,6 +158,10 @@ class UserDataAuthInterfaceAdaptor {
         "IsMounted",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::IsMounted);
+    itf->AddMethodHandler(
+        "GetVaultProperties",
+        base::Unretained(interface_),
+        &UserDataAuthInterfaceInterface::GetVaultProperties);
     itf->AddMethodHandler(
         "Unmount",
         base::Unretained(interface_),
@@ -420,6 +427,10 @@ class UserDataAuthInterfaceAdaptor {
     return
         "  <interface name=\"org.chromium.UserDataAuthInterface\">\n"
         "    <method name=\"IsMounted\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"GetVaultProperties\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
