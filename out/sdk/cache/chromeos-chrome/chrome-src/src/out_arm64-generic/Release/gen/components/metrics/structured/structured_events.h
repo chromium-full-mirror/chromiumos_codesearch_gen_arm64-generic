@@ -678,6 +678,53 @@ enum class CampaignButtonId {
 PRIMARY = 0,
 SECONDARY = 1
 };
+    
+
+
+enum class QuickStartAbortFlowReason {
+USER_CLICKED_BACK = 0,
+USER_CLICKED_CANCEL = 1,
+SIGNIN_SCHOOL = 2,
+ENTERPRISE_ENROLLMENT = 3,
+QS_ERROR = 4,
+ADD_CHILD = 5
+};
+    
+
+
+enum class QuickStartEntryPoint {
+WELCOME_SCREEN = 0,
+NETWORK_SCREEN = 1,
+GAIA_INFO_SCREEN = 2,
+GAIA_SCREEN = 3
+};
+    
+
+
+enum class QuickStartScreenName {
+OTHER = 0,
+NONE = 1,
+WELCOME_SCREEN = 2,
+NETWORK_SCREEN = 3,
+GAIA_SCREEN = 4,
+QS_SETUP_WITH_ANDROID_PHONE = 5,
+QS_CONNECTING_TO_WIFI = 6,
+CHECKING_FOR_UPDATE_AND_DETERMINING_DEVICE_CONFIG = 7,
+CHOOSE_CHROMEBOOK_SETUP = 8,
+CONSUMER_UPDATE = 9,
+QS_RESUMING_CONNECTION_AFTER_UPDATE = 10,
+QS_GETTING_GOOGLE_ACCOUNT_INFO = 11,
+QS_COMPLETE = 12,
+SETUP_DEVICE_PIN = 13,
+ADD_CHILD = 14,
+REVIEW_PRIVACY_AND_TERMS = 15,
+UNIFIED_SETUP = 16,
+GAIA_INFO_SCREEN = 17,
+QS_WIFI_CREDENTIALS_RECEIVED = 18,
+QS_SELECT_GOOGLE_ACCOUNT = 19,
+QS_CREATING_ACCOUNT = 20,
+QS_FALLBACK_URL = 21
+};
      
 class AppDiscovery_AppInstalled final : public ::metrics::structured::Event {
  public:
@@ -1277,6 +1324,60 @@ class OOBE_ChoobeResumed final : public ::metrics::structured::Event {
   OOBE_ChoobeResumed& SetIsFirstOnboarding(const int64_t value) &;
   OOBE_ChoobeResumed&& SetChromeMilestone(const int64_t value) &&;
   OOBE_ChoobeResumed& SetChromeMilestone(const int64_t value) &;
+};
+
+class QuickStart_ScreenOpened final : public ::metrics::structured::Event {
+ public:
+  QuickStart_ScreenOpened();
+  ~QuickStart_ScreenOpened() override;
+
+    QuickStart_ScreenOpened&& SetScreenName(const QuickStartScreenName value) &&;
+  QuickStart_ScreenOpened& SetScreenName(const QuickStartScreenName value) &;
+};
+
+class QuickStart_ScreenClosed final : public ::metrics::structured::Event {
+ public:
+  QuickStart_ScreenClosed();
+  ~QuickStart_ScreenClosed() override;
+
+    QuickStart_ScreenClosed&& SetScreenName(const QuickStartScreenName value) &&;
+  QuickStart_ScreenClosed& SetScreenName(const QuickStartScreenName value) &;
+};
+
+class QuickStart_Initiated final : public ::metrics::structured::Event {
+ public:
+  QuickStart_Initiated();
+  ~QuickStart_Initiated() override;
+
+    QuickStart_Initiated&& SetEntryPoint(const QuickStartEntryPoint value) &&;
+  QuickStart_Initiated& SetEntryPoint(const QuickStartEntryPoint value) &;
+};
+
+class QuickStart_FlowAborted final : public ::metrics::structured::Event {
+ public:
+  QuickStart_FlowAborted();
+  ~QuickStart_FlowAborted() override;
+
+    QuickStart_FlowAborted&& SetReason(const QuickStartAbortFlowReason value) &&;
+  QuickStart_FlowAborted& SetReason(const QuickStartAbortFlowReason value) &;
+};
+
+class QuickStart_EstablishConnection final : public ::metrics::structured::Event {
+ public:
+  QuickStart_EstablishConnection();
+  ~QuickStart_EstablishConnection() override;
+
+    QuickStart_EstablishConnection&& SetSuccess(const int64_t value) &&;
+  QuickStart_EstablishConnection& SetSuccess(const int64_t value) &;
+};
+
+class QuickStart_AutomaticResumeAfterUpdate final : public ::metrics::structured::Event {
+ public:
+  QuickStart_AutomaticResumeAfterUpdate();
+  ~QuickStart_AutomaticResumeAfterUpdate() override;
+
+    QuickStart_AutomaticResumeAfterUpdate&& SetSuccess(const int64_t value) &&;
+  QuickStart_AutomaticResumeAfterUpdate& SetSuccess(const int64_t value) &;
 };
 
 class UserLogin final : public ::metrics::structured::Event {
