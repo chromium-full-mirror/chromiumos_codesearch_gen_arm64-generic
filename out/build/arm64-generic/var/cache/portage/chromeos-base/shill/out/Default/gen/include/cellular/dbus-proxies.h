@@ -171,7 +171,6 @@ class LocationProxy final : public LocationProxyInterface {
     brillo::dbus_utils::Property<std::string> supl_server;
     brillo::dbus_utils::Property<std::vector<std::string>> assistance_data_servers;
     brillo::dbus_utils::Property<uint32_t> gps_refresh_rate;
-
   };
 
   LocationProxy(
@@ -530,7 +529,6 @@ class ProfileManagerProxy final : public ProfileManagerProxyInterface {
     PropertySet& operator=(const PropertySet&) = delete;
 
     brillo::dbus_utils::Property<std::string> index_field;
-
   };
 
   ProfileManagerProxy(
@@ -884,7 +882,6 @@ class Modem3gppProxy final : public Modem3gppProxyInterface {
     brillo::dbus_utils::Property<brillo::VariantDictionary> initial_eps_bearer_settings;
     brillo::dbus_utils::Property<uint32_t> packet_service_state;
     brillo::dbus_utils::Property<brillo::VariantDictionary> nr5g_registration_settings;
-
   };
 
   Modem3gppProxy(
@@ -1379,7 +1376,6 @@ class ModemCdmaProxy final : public ModemCdmaProxyInterface {
     brillo::dbus_utils::Property<uint32_t> nid;
     brillo::dbus_utils::Property<uint32_t> cdma1x_registration_state;
     brillo::dbus_utils::Property<uint32_t> evdo_registration_state;
-
   };
 
   ModemCdmaProxy(
@@ -1674,7 +1670,6 @@ class SignalProxy final : public SignalProxyInterface {
     brillo::dbus_utils::Property<brillo::VariantDictionary> umts;
     brillo::dbus_utils::Property<brillo::VariantDictionary> lte;
     brillo::dbus_utils::Property<brillo::VariantDictionary> nr5g;
-
   };
 
   SignalProxy(
@@ -2421,7 +2416,6 @@ class ModemProxy final : public ModemProxyInterface {
     brillo::dbus_utils::Property<std::vector<uint32_t>> supported_bands;
     brillo::dbus_utils::Property<std::vector<uint32_t>> current_bands;
     brillo::dbus_utils::Property<uint32_t> supported_ip_families;
-
   };
 
   ModemProxy(
@@ -3329,7 +3323,6 @@ class SimProxy final : public SimProxyInterface {
     brillo::dbus_utils::Property<uint32_t> sim_type;
     brillo::dbus_utils::Property<uint32_t> esim_status;
     brillo::dbus_utils::Property<uint32_t> removability;
-
   };
 
   SimProxy(
@@ -3736,7 +3729,6 @@ class ModemManager1Proxy final : public ModemManager1ProxyInterface {
     PropertySet& operator=(const PropertySet&) = delete;
 
     brillo::dbus_utils::Property<std::string> version;
-
   };
 
   ModemManager1Proxy(

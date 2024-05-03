@@ -152,8 +152,6 @@ class ManagerProxy final : public ManagerProxyInterface {
     }
     PropertySet(const PropertySet&) = delete;
     PropertySet& operator=(const PropertySet&) = delete;
-
-
   };
 
   ManagerProxy(

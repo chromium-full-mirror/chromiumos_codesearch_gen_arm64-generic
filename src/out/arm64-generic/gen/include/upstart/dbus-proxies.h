@@ -312,7 +312,6 @@ class Upstart0_6Proxy final : public Upstart0_6ProxyInterface {
 
     brillo::dbus_utils::Property<std::string> version;
     brillo::dbus_utils::Property<std::string> log_priority;
-
   };
 
   Upstart0_6Proxy(

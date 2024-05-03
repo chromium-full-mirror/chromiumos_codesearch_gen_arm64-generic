@@ -81,8 +81,6 @@ class BatteryManagerProxy final : public BatteryManagerProxyInterface {
     }
     PropertySet(const PropertySet&) = delete;
     PropertySet& operator=(const PropertySet&) = delete;
-
-
   };
 
   BatteryManagerProxy(
@@ -464,8 +462,6 @@ class BluetoothProxy final : public BluetoothProxyInterface {
     }
     PropertySet(const PropertySet&) = delete;
     PropertySet& operator=(const PropertySet&) = delete;
-
-
   };
 
   BluetoothProxy(
@@ -1270,8 +1266,6 @@ class BluetoothAdminProxy final : public BluetoothAdminProxyInterface {
     }
     PropertySet(const PropertySet&) = delete;
     PropertySet& operator=(const PropertySet&) = delete;
-
-
   };
 
   BluetoothAdminProxy(
@@ -1390,8 +1384,6 @@ class BluetoothGattProxy final : public BluetoothGattProxyInterface {
     }
     PropertySet(const PropertySet&) = delete;
     PropertySet& operator=(const PropertySet&) = delete;
-
-
   };
 
   BluetoothGattProxy(
@@ -1508,8 +1500,6 @@ class BluetoothQAProxy final : public BluetoothQAProxyInterface {
     }
     PropertySet(const PropertySet&) = delete;
     PropertySet& operator=(const PropertySet&) = delete;
-
-
   };
 
   BluetoothQAProxy(

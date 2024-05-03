@@ -211,7 +211,6 @@ class Adapter1Proxy final : public Adapter1ProxyInterface {
     PropertySet& operator=(const PropertySet&) = delete;
 
     brillo::dbus_utils::Property<bool> powered;
-
   };
 
   Adapter1Proxy(

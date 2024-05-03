@@ -68,7 +68,6 @@ class ManagerProxy final : public ManagerProxyInterface {
     PropertySet& operator=(const PropertySet&) = delete;
 
     brillo::dbus_utils::Property<std::vector<dbus::ObjectPath>> available_modems;
-
   };
 
   ManagerProxy(

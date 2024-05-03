@@ -122,7 +122,6 @@ class BSSProxy final : public BSSProxyInterface {
     brillo::dbus_utils::Property<uint16_t> frequency;
     brillo::dbus_utils::Property<std::vector<uint32_t>> rates;
     brillo::dbus_utils::Property<int16_t> signal;
-
   };
 
   BSSProxy(
@@ -346,7 +345,6 @@ class GroupProxy final : public GroupProxyInterface {
     brillo::dbus_utils::Property<std::vector<uint8_t>> bssid;
     brillo::dbus_utils::Property<uint16_t> frequency;
     brillo::dbus_utils::Property<std::string> passphrase;
-
   };
 
   GroupProxy(
@@ -921,7 +919,6 @@ class InterfaceProxy final : public InterfaceProxyInterface {
     brillo::dbus_utils::Property<bool> sched_scan;
     brillo::dbus_utils::Property<bool> scan;
     brillo::dbus_utils::Property<std::map<std::string, std::vector<uint8_t>>> macaddress_randomization_mask;
-
   };
 
   InterfaceProxy(
@@ -2045,7 +2042,6 @@ class NetworkProxy final : public NetworkProxyInterface {
 
     brillo::dbus_utils::Property<bool> enabled;
     brillo::dbus_utils::Property<brillo::VariantDictionary> properties;
-
   };
 
   NetworkProxy(
@@ -2247,7 +2243,6 @@ class P2PDeviceProxy final : public P2PDeviceProxyInterface {
 
     brillo::dbus_utils::Property<brillo::VariantDictionary> p2_pdevice_config;
     brillo::dbus_utils::Property<dbus::ObjectPath> group;
-
   };
 
   P2PDeviceProxy(
@@ -2538,7 +2533,6 @@ class PeerProxy final : public PeerProxyInterface {
     brillo::dbus_utils::Property<uint8_t> devicecapability;
     brillo::dbus_utils::Property<uint8_t> groupcapability;
     brillo::dbus_utils::Property<std::vector<uint8_t>> device_address;
-
   };
 
   PeerProxy(
@@ -2761,7 +2755,6 @@ class wpa_supplicant1Proxy final : public wpa_supplicant1ProxyInterface {
     brillo::dbus_utils::Property<bool> debug_show_keys;
     brillo::dbus_utils::Property<std::vector<dbus::ObjectPath>> interfaces;
     brillo::dbus_utils::Property<std::vector<std::string>> eap_methods;
-
   };
 
   wpa_supplicant1Proxy(

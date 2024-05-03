@@ -7,7 +7,7 @@
 
 #include <cstddef>
 
-#include "build/build_config.h"
+#include "base/allocator/partition_allocator/src/partition_alloc/build_config.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/component_export.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/debug/debugging_buildflags.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/scoped_clear_last_error.h"

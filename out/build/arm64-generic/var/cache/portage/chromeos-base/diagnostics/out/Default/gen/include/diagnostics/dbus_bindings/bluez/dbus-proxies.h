@@ -140,7 +140,6 @@ class Adapter1Proxy final : public Adapter1ProxyInterface {
     brillo::dbus_utils::Property<bool> discovering;
     brillo::dbus_utils::Property<std::vector<std::string>> uuids;
     brillo::dbus_utils::Property<std::string> modalias;
-
   };
 
   Adapter1Proxy(
@@ -391,7 +390,6 @@ class AdminPolicyStatus1Proxy final : public AdminPolicyStatus1ProxyInterface {
     PropertySet& operator=(const PropertySet&) = delete;
 
     brillo::dbus_utils::Property<std::vector<std::string>> service_allow_list;
-
   };
 
   AdminPolicyStatus1Proxy(
@@ -499,7 +497,6 @@ class Battery1Proxy final : public Battery1ProxyInterface {
     PropertySet& operator=(const PropertySet&) = delete;
 
     brillo::dbus_utils::Property<uint8_t> percentage;
-
   };
 
   Battery1Proxy(
@@ -695,7 +692,6 @@ class Device1Proxy final : public Device1ProxyInterface {
     brillo::dbus_utils::Property<bool> paired;
     brillo::dbus_utils::Property<bool> connected;
     brillo::dbus_utils::Property<dbus::ObjectPath> adapter;
-
   };
 
   Device1Proxy(

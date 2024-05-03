@@ -11,7 +11,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "build/build_config.h"
+#include "base/allocator/partition_allocator/src/partition_alloc/build_config.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/flags.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/component_export.h"

@@ -578,7 +578,6 @@ class fwupdProxy final : public fwupdProxyInterface {
     brillo::dbus_utils::Property<uint32_t> battery_level;
     brillo::dbus_utils::Property<uint32_t> battery_threshold;
     brillo::dbus_utils::Property<bool> only_trusted;
-
   };
 
   fwupdProxy(
