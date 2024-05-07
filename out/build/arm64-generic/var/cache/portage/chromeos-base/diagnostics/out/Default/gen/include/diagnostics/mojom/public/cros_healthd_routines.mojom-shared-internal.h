@@ -45,6 +45,7 @@ class BluetoothPairingRoutineArgument_Data;
 class CameraAvailabilityRoutineArgument_Data;
 class UrandomRoutineArgument_Data;
 class NetworkBandwidthRoutineArgument_Data;
+class SensitiveSensorRoutineArgument_Data;
 class RoutineState_Data;
 class RoutineStateInitialized_Data;
 class RoutineStateRunning_Data;
@@ -68,6 +69,9 @@ class BluetoothPairingRoutineDetail_Data;
 class CameraAvailabilityRoutineDetail_Data;
 class FanRoutineDetail_Data;
 class NetworkBandwidthRoutineDetail_Data;
+class SensitiveSensorInfo_Data;
+class SensitiveSensorReport_Data;
+class SensitiveSensorRoutineDetail_Data;
 class RoutineArgument_Data;
 class RoutineStateUnion_Data;
 class RoutineRunningInfo_Data;
@@ -431,6 +435,33 @@ struct BluetoothPairingPeripheralInfo_AddressType_Data {
   }
 };
 
+struct SensitiveSensorInfo_Type_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 #pragma pack(push, 1)
 
 
@@ -500,6 +531,8 @@ class  RoutineArgument_Data {
     kUrandom,
     
     kNetworkBandwidth,
+    
+    kSensitiveSensor,
   };
 
   // A note on layout:
@@ -526,6 +559,7 @@ class  RoutineArgument_Data {
     mojo::internal::Pointer<internal::CameraAvailabilityRoutineArgument_Data> f_camera_availability;
     mojo::internal::Pointer<internal::UrandomRoutineArgument_Data> f_urandom;
     mojo::internal::Pointer<internal::NetworkBandwidthRoutineArgument_Data> f_network_bandwidth;
+    mojo::internal::Pointer<internal::SensitiveSensorRoutineArgument_Data> f_sensitive_sensor;
     uint64_t unknown;
   };
 
@@ -856,6 +890,8 @@ class  RoutineDetail_Data {
     kCameraAvailability,
     
     kNetworkBandwidth,
+    
+    kSensitiveSensor,
   };
 
   // A note on layout:
@@ -874,6 +910,7 @@ class  RoutineDetail_Data {
     mojo::internal::Pointer<internal::BluetoothPairingRoutineDetail_Data> f_bluetooth_pairing;
     mojo::internal::Pointer<internal::CameraAvailabilityRoutineDetail_Data> f_camera_availability;
     mojo::internal::Pointer<internal::NetworkBandwidthRoutineDetail_Data> f_network_bandwidth;
+    mojo::internal::Pointer<internal::SensitiveSensorRoutineDetail_Data> f_sensitive_sensor;
     uint64_t unknown;
   };
 
@@ -1750,6 +1787,53 @@ struct NetworkBandwidthRoutineArgument_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     NetworkBandwidthRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  SensitiveSensorRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<SensitiveSensorRoutineArgument_Data>;
+
+  SensitiveSensorRoutineArgument_Data();
+  ~SensitiveSensorRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(SensitiveSensorRoutineArgument_Data) == 8,
+              "Bad sizeof(SensitiveSensorRoutineArgument_Data)");
+// Used by SensitiveSensorRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct SensitiveSensorRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  SensitiveSensorRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~SensitiveSensorRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<SensitiveSensorRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    SensitiveSensorRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  RoutineState_Data {
  public:
   static bool Validate(const void* data,
@@ -2892,6 +2976,163 @@ struct NetworkBandwidthRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     NetworkBandwidthRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  SensitiveSensorInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t id;
+  uint8_t pad0_[4];
+  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> types;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> channels;
+
+ private:
+  friend class mojo::internal::MessageFragment<SensitiveSensorInfo_Data>;
+
+  SensitiveSensorInfo_Data();
+  ~SensitiveSensorInfo_Data() = delete;
+};
+static_assert(sizeof(SensitiveSensorInfo_Data) == 32,
+              "Bad sizeof(SensitiveSensorInfo_Data)");
+// Used by SensitiveSensorInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct SensitiveSensorInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  SensitiveSensorInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~SensitiveSensorInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<SensitiveSensorInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    SensitiveSensorInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  SensitiveSensorReport_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::SensitiveSensorInfo_Data>>> passed_sensors;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::SensitiveSensorInfo_Data>>> failed_sensors;
+  int32_t sensor_presence_status;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<SensitiveSensorReport_Data>;
+
+  SensitiveSensorReport_Data();
+  ~SensitiveSensorReport_Data() = delete;
+};
+static_assert(sizeof(SensitiveSensorReport_Data) == 32,
+              "Bad sizeof(SensitiveSensorReport_Data)");
+// Used by SensitiveSensorReport::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct SensitiveSensorReport_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  SensitiveSensorReport_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~SensitiveSensorReport_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<SensitiveSensorReport_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    SensitiveSensorReport_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  SensitiveSensorRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::SensitiveSensorReport_Data> base_accelerometer;
+  mojo::internal::Pointer<internal::SensitiveSensorReport_Data> lid_accelerometer;
+  mojo::internal::Pointer<internal::SensitiveSensorReport_Data> base_gyroscope;
+  mojo::internal::Pointer<internal::SensitiveSensorReport_Data> lid_gyroscope;
+  mojo::internal::Pointer<internal::SensitiveSensorReport_Data> base_magnetometer;
+  mojo::internal::Pointer<internal::SensitiveSensorReport_Data> lid_magnetometer;
+  mojo::internal::Pointer<internal::SensitiveSensorReport_Data> base_gravity_sensor;
+  mojo::internal::Pointer<internal::SensitiveSensorReport_Data> lid_gravity_sensor;
+
+ private:
+  friend class mojo::internal::MessageFragment<SensitiveSensorRoutineDetail_Data>;
+
+  SensitiveSensorRoutineDetail_Data();
+  ~SensitiveSensorRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(SensitiveSensorRoutineDetail_Data) == 72,
+              "Bad sizeof(SensitiveSensorRoutineDetail_Data)");
+// Used by SensitiveSensorRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct SensitiveSensorRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  SensitiveSensorRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~SensitiveSensorRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<SensitiveSensorRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    SensitiveSensorRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

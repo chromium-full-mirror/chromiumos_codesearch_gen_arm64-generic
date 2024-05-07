@@ -422,6 +422,36 @@ std::ostream& operator<<(std::ostream& os, BluetoothPairingPeripheralInfo_Addres
   return os << BluetoothPairingPeripheralInfo_AddressTypeToString(value);
 }
 
+NOINLINE static const char* SensitiveSensorInfo_TypeToStringHelper(SensitiveSensorInfo_Type value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case SensitiveSensorInfo_Type::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case SensitiveSensorInfo_Type::kAccel:
+      return "kAccel";
+    case SensitiveSensorInfo_Type::kGyro:
+      return "kGyro";
+    case SensitiveSensorInfo_Type::kMagn:
+      return "kMagn";
+    case SensitiveSensorInfo_Type::kGravity:
+      return "kGravity";
+    default:
+      return nullptr;
+  }
+}
+
+std::string SensitiveSensorInfo_TypeToString(SensitiveSensorInfo_Type value) {
+  const char *str = SensitiveSensorInfo_TypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown SensitiveSensorInfo_Type value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, SensitiveSensorInfo_Type value) {
+  return os << SensitiveSensorInfo_TypeToString(value);
+}
+
 namespace internal {
 // static
 bool RoutineArgument_Data::Validate(
@@ -631,6 +661,16 @@ bool RoutineArgument_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_network_bandwidth, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kSensitiveSensor: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_sensitive_sensor, 20, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_sensitive_sensor, validation_context))
         return false;
       return true;
     }
@@ -1042,6 +1082,16 @@ bool RoutineDetail_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_network_bandwidth, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kSensitiveSensor: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_sensitive_sensor, 12, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_sensitive_sensor, validation_context))
         return false;
       return true;
     }
@@ -1527,6 +1577,29 @@ bool NetworkBandwidthRoutineArgument_Data::Validate(
 }
 
 NetworkBandwidthRoutineArgument_Data::NetworkBandwidthRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool SensitiveSensorRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SensitiveSensorRoutineArgument_Data* object =
+      static_cast<const SensitiveSensorRoutineArgument_Data*>(data);
+
+  return true;
+}
+
+SensitiveSensorRoutineArgument_Data::SensitiveSensorRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2277,6 +2350,180 @@ NetworkBandwidthRoutineDetail_Data::NetworkBandwidthRoutineDetail_Data()
 
 
 // static
+bool SensitiveSensorInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SensitiveSensorInfo_Data* object =
+      static_cast<const SensitiveSensorInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->types, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& types_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, false, ::ash::cros_healthd::mojom::internal::SensitiveSensorInfo_Type_Data::Validate>();
+  if (!mojo::internal::ValidateContainer(object->types, validation_context,
+                                         &types_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->channels, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& channels_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->channels, validation_context,
+                                         &channels_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+SensitiveSensorInfo_Data::SensitiveSensorInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool SensitiveSensorReport_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SensitiveSensorReport_Data* object =
+      static_cast<const SensitiveSensorReport_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->passed_sensors, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& passed_sensors_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->passed_sensors, validation_context,
+                                         &passed_sensors_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->failed_sensors, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& failed_sensors_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->failed_sensors, validation_context,
+                                         &failed_sensors_validate_params)) {
+    return false;
+  }
+
+
+  if (!::ash::cros_healthd::mojom::internal::HardwarePresenceStatus_Data
+        ::Validate(object->sensor_presence_status, validation_context))
+    return false;
+
+  return true;
+}
+
+SensitiveSensorReport_Data::SensitiveSensorReport_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool SensitiveSensorRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 72, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SensitiveSensorRoutineDetail_Data* object =
+      static_cast<const SensitiveSensorRoutineDetail_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->base_accelerometer, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->base_accelerometer, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->lid_accelerometer, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->lid_accelerometer, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->base_gyroscope, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->base_gyroscope, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->lid_gyroscope, 4, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->lid_gyroscope, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->base_magnetometer, 5, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->base_magnetometer, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->lid_magnetometer, 6, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->lid_magnetometer, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->base_gravity_sensor, 7, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->base_gravity_sensor, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->lid_gravity_sensor, 8, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->lid_gravity_sensor, validation_context))
+    return false;
+
+  return true;
+}
+
+SensitiveSensorRoutineDetail_Data::SensitiveSensorRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CrosHealthdRoutinesService_CreateRoutine_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -2646,6 +2893,16 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::SensitiveSensorInfo_Type>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::SensitiveSensorInfo_Type value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::SensitiveSensorInfo_TypeToString(value));
 }
 
 } // namespace perfetto

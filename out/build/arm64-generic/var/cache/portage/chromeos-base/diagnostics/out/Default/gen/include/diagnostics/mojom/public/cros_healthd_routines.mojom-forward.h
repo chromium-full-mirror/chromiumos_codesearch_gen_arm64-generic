@@ -58,6 +58,8 @@ class UrandomRoutineArgumentDataView;
 
 class NetworkBandwidthRoutineArgumentDataView;
 
+class SensitiveSensorRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -104,6 +106,12 @@ class FanRoutineDetailDataView;
 
 class NetworkBandwidthRoutineDetailDataView;
 
+class SensitiveSensorInfoDataView;
+
+class SensitiveSensorReportDataView;
+
+class SensitiveSensorRoutineDetailDataView;
+
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
 class RoutineRunningInfoDataView;
@@ -137,6 +145,8 @@ enum class BluetoothPairingPeripheralInfo_PairError : int32_t;
 enum class BluetoothPairingPeripheralInfo_ConnectError : int32_t;
 
 enum class BluetoothPairingPeripheralInfo_AddressType : int32_t;
+
+enum class SensitiveSensorInfo_Type : int32_t;
 class MemoryRoutineArgument;
 using MemoryRoutineArgumentPtr = mojo::InlinedStructPtr<MemoryRoutineArgument>;
 
@@ -190,6 +200,9 @@ using UrandomRoutineArgumentPtr = mojo::StructPtr<UrandomRoutineArgument>;
 
 class NetworkBandwidthRoutineArgument;
 using NetworkBandwidthRoutineArgumentPtr = mojo::InlinedStructPtr<NetworkBandwidthRoutineArgument>;
+
+class SensitiveSensorRoutineArgument;
+using SensitiveSensorRoutineArgumentPtr = mojo::InlinedStructPtr<SensitiveSensorRoutineArgument>;
 
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
@@ -259,6 +272,15 @@ using FanRoutineDetailPtr = mojo::StructPtr<FanRoutineDetail>;
 
 class NetworkBandwidthRoutineDetail;
 using NetworkBandwidthRoutineDetailPtr = mojo::InlinedStructPtr<NetworkBandwidthRoutineDetail>;
+
+class SensitiveSensorInfo;
+using SensitiveSensorInfoPtr = mojo::StructPtr<SensitiveSensorInfo>;
+
+class SensitiveSensorReport;
+using SensitiveSensorReportPtr = mojo::StructPtr<SensitiveSensorReport>;
+
+class SensitiveSensorRoutineDetail;
+using SensitiveSensorRoutineDetailPtr = mojo::StructPtr<SensitiveSensorRoutineDetail>;
 
 class RoutineArgument;
 
