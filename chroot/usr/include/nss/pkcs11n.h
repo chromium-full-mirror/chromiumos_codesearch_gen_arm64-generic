@@ -38,6 +38,9 @@
 #define CKO_NSS_BUILTIN_ROOT_LIST (CKO_NSS + 4)
 #define CKO_NSS_NEWSLOT (CKO_NSS + 5)
 #define CKO_NSS_DELSLOT (CKO_NSS + 6)
+#define CKO_NSS_VALIDATION (CKO_NSS + 7)
+
+#define CKV_NSS_FIPS_140 (CKO_NSS + 1)
 
 /*
  * NSS-defined key types
@@ -51,6 +54,8 @@
 #define CKK_NSS_JPAKE_ROUND2 (CKK_NSS + 3)
 
 #define CKK_NSS_CHACHA20 (CKK_NSS + 4)
+
+#define CKK_NSS_KYBER (CKK_NSS + 5)
 
 /*
  * NSS-defined certificate types
@@ -98,6 +103,13 @@
 #define CKA_NSS_MOZILLA_CA_POLICY (CKA_NSS + 34)
 #define CKA_NSS_SERVER_DISTRUST_AFTER (CKA_NSS + 35)
 #define CKA_NSS_EMAIL_DISTRUST_AFTER (CKA_NSS + 36)
+
+#define CKA_NSS_VALIDATION_TYPE (CKA_NSS + 36)
+#define CKA_NSS_VALIDATION_VERSION (CKA_NSS + 37)
+#define CKA_NSS_VALIDATION_LEVEL (CKA_NSS + 38)
+#define CKA_NSS_VALIDATION_MODULE_ID (CKA_NSS + 39)
+
+#define CKA_NSS_PARAMETER_SET (CKA_NSS + 40)
 
 /*
  * Trust attributes:
@@ -250,6 +262,10 @@
 #define CKM_NSS_SP800_108_FEEDBACK_KDF_DERIVE_DATA (CKM_NSS + 43)
 #define CKM_NSS_SP800_108_DOUBLE_PIPELINE_KDF_DERIVE_DATA (CKM_NSS + 44)
 
+/* Kyber */
+#define CKM_NSS_KYBER_KEY_PAIR_GEN (CKM_NSS + 45)
+#define CKM_NSS_KYBER (CKM_NSS + 46)
+
 /*
  * HISTORICAL:
  * Do not attempt to use these. They are only used by NSS's internal
@@ -268,6 +284,10 @@
 #define CKM_NSS_PBE_MD2_HMAC_KEY_GEN 0x8000000bUL
 
 #define CKM_TLS_PRF_GENERAL 0x80000373UL
+
+/* Parameter set identifiers */
+#define CKP_NSS (CKM_VENDOR_DEFINED | NSSCK_VENDOR_NSS)
+#define CKP_NSS_KYBER_768_ROUND3 (CKP_NSS + 1)
 
 /* FIPS Indicator defines */
 #define CKS_NSS_UNINITIALIZED 0xffffffffUL
@@ -343,6 +363,11 @@ typedef struct CK_NSS_AEAD_PARAMS {
 
 #define CKR_NSS_CERTDB_FAILED (CKR_NSS + 1)
 #define CKR_NSS_KEYDB_FAILED (CKR_NSS + 2)
+
+/* NSS specific types */
+typedef CK_ULONG CK_NSS_VALIDATION_TYPE;
+
+typedef CK_ULONG CK_NSS_KEM_PARAMETER_SET_TYPE;
 
 /* Mandatory parameter for the CKM_NSS_HKDF_* key deriviation mechanisms.
    See RFC 5869.
@@ -610,6 +635,32 @@ typedef struct CK_NSS_FIPS_FUNCTIONS {
     CK_VERSION version;
     CK_NSS_GetFIPSStatus NSC_NSSGetFIPSStatus;
 } CK_NSS_FIPS_FUNCTIONS;
+
+/* KEM interface. This may move to the normal PKCS #11 table in the future. For
+ * now it's called "Vendor NSS KEM Interface" */
+typedef CK_RV (*CK_NSS_Encapsulate)(CK_SESSION_HANDLE hSession,
+                                    CK_MECHANISM_PTR pMechanism,
+                                    CK_OBJECT_HANDLE hPublicKey,
+                                    CK_ATTRIBUTE_PTR pTemplate,
+                                    CK_ULONG ulAttributeCount,
+                                    CK_OBJECT_HANDLE_PTR phKey,
+                                    CK_BYTE_PTR pCiphertext,
+                                    CK_ULONG_PTR pulCiphertextLen);
+
+typedef CK_RV (*CK_NSS_Decapsulate)(CK_SESSION_HANDLE hSession,
+                                    CK_MECHANISM_PTR pMechanism,
+                                    CK_OBJECT_HANDLE hPrivateKey,
+                                    CK_BYTE_PTR pCiphertext,
+                                    CK_ULONG ulCiphertextLen,
+                                    CK_ATTRIBUTE_PTR pTemplate,
+                                    CK_ULONG ulAttributeCount,
+                                    CK_OBJECT_HANDLE_PTR phKey);
+
+typedef struct CK_NSS_KEM_FUNCTIONS {
+    CK_VERSION version;
+    CK_NSS_Encapsulate C_Encapsulate;
+    CK_NSS_Decapsulate C_Decapsulate;
+} CK_NSS_KEM_FUNCTIONS;
 
 /* There was an inconsistency between the spec and the header file in defining
  * the CK_GCM_PARAMS structure. The authoritative reference is the header file,

@@ -223,12 +223,13 @@ bool DeleteCredentialReply_DeleteCredentialStatus_Parse(absl::string_view name, 
 enum ListLegacyRecordsReply_ListLegacyRecordsStatus : int {
   ListLegacyRecordsReply_ListLegacyRecordsStatus_UNKNOWN = 0,
   ListLegacyRecordsReply_ListLegacyRecordsStatus_SUCCESS = 1,
+  ListLegacyRecordsReply_ListLegacyRecordsStatus_INCORRECT_STATE = 2,
 };
 
 bool ListLegacyRecordsReply_ListLegacyRecordsStatus_IsValid(int value);
 constexpr ListLegacyRecordsReply_ListLegacyRecordsStatus ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_MIN = static_cast<ListLegacyRecordsReply_ListLegacyRecordsStatus>(0);
-constexpr ListLegacyRecordsReply_ListLegacyRecordsStatus ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_MAX = static_cast<ListLegacyRecordsReply_ListLegacyRecordsStatus>(1);
-constexpr int ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_ARRAYSIZE = 1 + 1;
+constexpr ListLegacyRecordsReply_ListLegacyRecordsStatus ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_MAX = static_cast<ListLegacyRecordsReply_ListLegacyRecordsStatus>(2);
+constexpr int ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_ARRAYSIZE = 2 + 1;
 const std::string& ListLegacyRecordsReply_ListLegacyRecordsStatus_Name(ListLegacyRecordsReply_ListLegacyRecordsStatus value);
 template <typename T>
 const std::string& ListLegacyRecordsReply_ListLegacyRecordsStatus_Name(T value) {
@@ -3524,6 +3525,7 @@ class ListLegacyRecordsReply final :
   using ListLegacyRecordsStatus = ListLegacyRecordsReply_ListLegacyRecordsStatus;
   static constexpr ListLegacyRecordsStatus UNKNOWN = ListLegacyRecordsReply_ListLegacyRecordsStatus_UNKNOWN;
   static constexpr ListLegacyRecordsStatus SUCCESS = ListLegacyRecordsReply_ListLegacyRecordsStatus_SUCCESS;
+  static constexpr ListLegacyRecordsStatus INCORRECT_STATE = ListLegacyRecordsReply_ListLegacyRecordsStatus_INCORRECT_STATE;
   static inline bool ListLegacyRecordsStatus_IsValid(int value) {
     return ListLegacyRecordsReply_ListLegacyRecordsStatus_IsValid(value);
   }
