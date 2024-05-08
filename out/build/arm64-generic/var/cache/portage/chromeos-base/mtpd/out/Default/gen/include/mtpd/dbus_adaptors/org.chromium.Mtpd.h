@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.Mtpd
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_MTPD_OUT_DEFAULT_GEN_INCLUDE_MTPD_DBUS_ADAPTORS_ORG_CHROMIUM_MTPD_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_MTPD_OUT_DEFAULT_GEN_INCLUDE_MTPD_DBUS_ADAPTORS_ORG_CHROMIUM_MTPD_H
 #include <memory>
@@ -229,6 +230,7 @@ class MtpdAdaptor {
   }
 
  private:
+
   using SignalMTPStorageAttachedType = brillo::dbus_utils::DBusSignal<
       std::string /*storage_name*/>;
   std::weak_ptr<SignalMTPStorageAttachedType> signal_MTPStorageAttached_;
@@ -242,4 +244,5 @@ class MtpdAdaptor {
 
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_MTPD_OUT_DEFAULT_GEN_INCLUDE_MTPD_DBUS_ADAPTORS_ORG_CHROMIUM_MTPD_H

@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.lorgnette.Manager
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_TMP_PORTAGE_CHROMEOS_BASE_LORGNETTE_CLI_0_0_1_R611_WORK_BUILD_OUT_DEFAULT_GEN_INCLUDE_LORGNETTE_DBUS_ADAPTORS_ORG_CHROMIUM_LORGNETTE_MANAGER_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_TMP_PORTAGE_CHROMEOS_BASE_LORGNETTE_CLI_0_0_1_R611_WORK_BUILD_OUT_DEFAULT_GEN_INCLUDE_LORGNETTE_DBUS_ADAPTORS_ORG_CHROMIUM_LORGNETTE_MANAGER_H
 #include <memory>
@@ -245,6 +246,7 @@ class ManagerAdaptor {
   }
 
  private:
+
   using SignalScannerListChangedType = brillo::dbus_utils::DBusSignal<
       ::lorgnette::ScannerListChangedSignal /*signal*/>;
   std::weak_ptr<SignalScannerListChangedType> signal_ScannerListChanged_;
@@ -259,4 +261,5 @@ class ManagerAdaptor {
 }  // namespace lorgnette
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_TMP_PORTAGE_CHROMEOS_BASE_LORGNETTE_CLI_0_0_1_R611_WORK_BUILD_OUT_DEFAULT_GEN_INCLUDE_LORGNETTE_DBUS_ADAPTORS_ORG_CHROMIUM_LORGNETTE_MANAGER_H

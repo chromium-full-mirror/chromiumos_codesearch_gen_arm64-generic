@@ -10,9 +10,9 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/uuid.mojom-shared-internal.h"
-#include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 

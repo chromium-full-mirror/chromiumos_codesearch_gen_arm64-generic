@@ -2,6 +2,7 @@
 //  - org.chromium.bluetooth.Bluetooth
 //  - org.bluez.Adapter1
 //  - org.chromium.bluetooth.Manager
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_OUT_DEFAULT_GEN_INCLUDE_BLUETOOTH_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_OUT_DEFAULT_GEN_INCLUDE_BLUETOOTH_DBUS_PROXIES_H
 #include <memory>
@@ -71,6 +72,7 @@ namespace bluetooth {
 // Interface proxy for org::chromium::bluetooth::Bluetooth.
 class BluetoothProxy final : public BluetoothProxyInterface {
  public:
+
   BluetoothProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const std::string& service_name,
@@ -159,11 +161,11 @@ class BluetoothProxy final : public BluetoothProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace bluetooth
@@ -198,6 +200,7 @@ namespace bluez {
 // Interface proxy for org::bluez::Adapter1.
 class Adapter1Proxy final : public Adapter1ProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -262,12 +265,12 @@ class Adapter1Proxy final : public Adapter1ProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace bluez
@@ -327,6 +330,7 @@ namespace bluetooth {
 // Interface proxy for org::chromium::bluetooth::Manager.
 class ManagerProxy final : public ManagerProxyInterface {
  public:
+
   ManagerProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const std::string& service_name) :
@@ -436,11 +440,11 @@ class ManagerProxy final : public ManagerProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   const dbus::ObjectPath object_path_{"/org/chromium/bluetooth/Manager"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace bluetooth

@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.MachineLearning.AdaptiveCharging
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_ML_CLIENT_OUT_DEFAULT_GEN_INCLUDE_ML_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_ML_CLIENT_OUT_DEFAULT_GEN_INCLUDE_ML_DBUS_PROXIES_H
 #include <memory>
@@ -60,6 +61,7 @@ namespace MachineLearning {
 // Interface proxy for org::chromium::MachineLearning::AdaptiveCharging.
 class AdaptiveChargingProxy final : public AdaptiveChargingProxyInterface {
  public:
+
   AdaptiveChargingProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const std::string& service_name) :
@@ -120,11 +122,11 @@ class AdaptiveChargingProxy final : public AdaptiveChargingProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   const dbus::ObjectPath object_path_{"/org/chromium/MachineLearning/AdaptiveCharging"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace MachineLearning

@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.BootLockboxInterface
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_BOOTLOCKBOX_CLIENT_OUT_DEFAULT_GEN_INCLUDE_BOOTLOCKBOX_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_BOOTLOCKBOX_CLIENT_OUT_DEFAULT_GEN_INCLUDE_BOOTLOCKBOX_DBUS_PROXIES_H
 #include <memory>
@@ -80,6 +81,7 @@ namespace chromium {
 // Interface proxy for org::chromium::BootLockboxInterface.
 class BootLockboxInterfaceProxy final : public BootLockboxInterfaceProxyInterface {
  public:
+
   BootLockboxInterfaceProxy(const scoped_refptr<dbus::Bus>& bus) :
       bus_{bus},
       dbus_object_proxy_{
@@ -198,11 +200,11 @@ class BootLockboxInterfaceProxy final : public BootLockboxInterfaceProxyInterfac
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.BootLockbox"};
   const dbus::ObjectPath object_path_{"/org/chromium/BootLockbox"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium

@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.SmbFs
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SMBFS_OUT_DEFAULT_GEN_INCLUDE_SMBFS_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SMBFS_OUT_DEFAULT_GEN_INCLUDE_SMBFS_DBUS_PROXIES_H
 #include <memory>
@@ -57,6 +58,7 @@ namespace chromium {
 // Interface proxy for org::chromium::SmbFs.
 class SmbFsProxy final : public SmbFsProxyInterface {
  public:
+
   SmbFsProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const std::string& service_name) :
@@ -119,11 +121,11 @@ class SmbFsProxy final : public SmbFsProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   const dbus::ObjectPath object_path_{"/org/chromium/SmbFs"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium

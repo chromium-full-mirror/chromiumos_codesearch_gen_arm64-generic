@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.Trunks
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_TRUNKS_OUT_DEFAULT_GEN_INCLUDE_TRUNKS_DBUS_ADAPTORS_ORG_CHROMIUM_TRUNKS_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_TRUNKS_OUT_DEFAULT_GEN_INCLUDE_TRUNKS_DBUS_ADAPTORS_ORG_CHROMIUM_TRUNKS_H
 #include <memory>
@@ -81,9 +82,11 @@ class TrunksAdaptor {
   }
 
  private:
+
   TrunksInterface* interface_;  // Owned by container of this adapter.
 };
 
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_TRUNKS_OUT_DEFAULT_GEN_INCLUDE_TRUNKS_DBUS_ADAPTORS_ORG_CHROMIUM_TRUNKS_H

@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.SystemProxy
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SYSTEM_PROXY_OUT_DEFAULT_GEN_INCLUDE_SYSTEM_PROXY_ORG_CHROMIUM_SYSTEMPROXY_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SYSTEM_PROXY_OUT_DEFAULT_GEN_INCLUDE_SYSTEM_PROXY_ORG_CHROMIUM_SYSTEMPROXY_H
 #include <memory>
@@ -111,6 +112,7 @@ class SystemProxyAdaptor {
   }
 
  private:
+
   using SignalWorkerActiveType = brillo::dbus_utils::DBusSignal<
       std::vector<uint8_t> /*details*/>;
   std::weak_ptr<SignalWorkerActiveType> signal_WorkerActive_;
@@ -124,4 +126,5 @@ class SystemProxyAdaptor {
 
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SYSTEM_PROXY_OUT_DEFAULT_GEN_INCLUDE_SYSTEM_PROXY_ORG_CHROMIUM_SYSTEMPROXY_H

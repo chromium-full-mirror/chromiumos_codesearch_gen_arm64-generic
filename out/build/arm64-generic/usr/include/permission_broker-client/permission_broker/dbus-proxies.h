@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.PermissionBroker
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_PERMISSION_BROKER_CLIENT_OUT_DEFAULT_GEN_INCLUDE_PERMISSION_BROKER_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_PERMISSION_BROKER_CLIENT_OUT_DEFAULT_GEN_INCLUDE_PERMISSION_BROKER_DBUS_PROXIES_H
 #include <memory>
@@ -365,6 +366,7 @@ namespace chromium {
 // Interface proxy for org::chromium::PermissionBroker.
 class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
  public:
+
   PermissionBrokerProxy(const scoped_refptr<dbus::Bus>& bus) :
       bus_{bus},
       dbus_object_proxy_{
@@ -1084,11 +1086,11 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.PermissionBroker"};
   const dbus::ObjectPath object_path_{"/org/chromium/PermissionBroker"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium

@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.UpdateEngineInterface
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_UPDATE_ENGINE_OUT_DEFAULT_GEN_INCLUDE_DBUS_BINDINGS_ORG_CHROMIUM_UPDATEENGINEINTERFACE_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_UPDATE_ENGINE_OUT_DEFAULT_GEN_INCLUDE_DBUS_BINDINGS_ORG_CHROMIUM_UPDATEENGINEINTERFACE_H
 #include <memory>
@@ -338,6 +339,7 @@ class UpdateEngineInterfaceAdaptor {
   }
 
  private:
+
   using SignalStatusUpdateAdvancedType = brillo::dbus_utils::DBusSignal<
       update_engine::StatusResult /*status*/>;
   std::weak_ptr<SignalStatusUpdateAdvancedType> signal_StatusUpdateAdvanced_;
@@ -347,4 +349,5 @@ class UpdateEngineInterfaceAdaptor {
 
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_UPDATE_ENGINE_OUT_DEFAULT_GEN_INCLUDE_DBUS_BINDINGS_ORG_CHROMIUM_UPDATEENGINEINTERFACE_H

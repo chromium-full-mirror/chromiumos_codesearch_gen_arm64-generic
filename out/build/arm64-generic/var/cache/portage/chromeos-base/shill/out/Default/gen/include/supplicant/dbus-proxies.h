@@ -6,6 +6,7 @@
 //  - fi.w1.wpa_supplicant1.Interface.P2PDevice
 //  - fi.w1.wpa_supplicant1.Peer
 //  - fi.w1.wpa_supplicant1
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_OUT_DEFAULT_GEN_INCLUDE_SUPPLICANT_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_OUT_DEFAULT_GEN_INCLUDE_SUPPLICANT_DBUS_PROXIES_H
 #include <memory>
@@ -91,6 +92,7 @@ namespace wpa_supplicant1 {
 // Interface proxy for fi::w1::wpa_supplicant1::BSS.
 class BSSProxy final : public BSSProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -256,12 +258,12 @@ class BSSProxy final : public BSSProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace wpa_supplicant1
@@ -322,6 +324,7 @@ namespace wpa_supplicant1 {
 // Interface proxy for fi::w1::wpa_supplicant1::Group.
 class GroupProxy final : public GroupProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -458,12 +461,12 @@ class GroupProxy final : public GroupProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace wpa_supplicant1
@@ -874,6 +877,7 @@ namespace wpa_supplicant1 {
 // Interface proxy for fi::w1::wpa_supplicant1::Interface.
 class InterfaceProxy final : public InterfaceProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -1973,12 +1977,12 @@ class InterfaceProxy final : public InterfaceProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace wpa_supplicant1
@@ -2027,6 +2031,7 @@ namespace wpa_supplicant1 {
 // Interface proxy for fi::w1::wpa_supplicant1::Network.
 class NetworkProxy final : public NetworkProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -2122,12 +2127,12 @@ class NetworkProxy final : public NetworkProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace wpa_supplicant1
@@ -2228,6 +2233,7 @@ namespace Interface {
 // Interface proxy for fi::w1::wpa_supplicant1::Interface::P2PDevice.
 class P2PDeviceProxy final : public P2PDeviceProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -2457,12 +2463,12 @@ class P2PDeviceProxy final : public P2PDeviceProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace Interface
@@ -2514,6 +2520,7 @@ namespace wpa_supplicant1 {
 // Interface proxy for fi::w1::wpa_supplicant1::Peer.
 class PeerProxy final : public PeerProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -2619,12 +2626,12 @@ class PeerProxy final : public PeerProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace wpa_supplicant1
@@ -2734,6 +2741,7 @@ namespace w1 {
 // Interface proxy for fi::w1::wpa_supplicant1.
 class wpa_supplicant1Proxy final : public wpa_supplicant1ProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -3005,12 +3013,12 @@ class wpa_supplicant1Proxy final : public wpa_supplicant1ProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace w1

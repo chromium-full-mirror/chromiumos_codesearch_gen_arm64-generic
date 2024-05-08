@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.Spaced
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SPACED_OUT_DEFAULT_GEN_INCLUDE_SPACED_DBUS_ADAPTORS_ORG_CHROMIUM_SPACED_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SPACED_OUT_DEFAULT_GEN_INCLUDE_SPACED_DBUS_ADAPTORS_ORG_CHROMIUM_SPACED_H
 #include <memory>
@@ -167,6 +168,7 @@ class SpacedAdaptor {
   }
 
  private:
+
   using SignalStatefulDiskSpaceUpdateType = brillo::dbus_utils::DBusSignal<
       spaced::StatefulDiskSpaceUpdate /*status*/>;
   std::weak_ptr<SignalStatefulDiskSpaceUpdateType> signal_StatefulDiskSpaceUpdate_;
@@ -176,4 +178,5 @@ class SpacedAdaptor {
 
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SPACED_OUT_DEFAULT_GEN_INCLUDE_SPACED_DBUS_ADAPTORS_ORG_CHROMIUM_SPACED_H

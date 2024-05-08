@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.CrashReporterInterface
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CRASH_REPORTER_OUT_DEFAULT_GEN_INCLUDE_CRASH_REPORTER_DBUS_ADAPTORS_ORG_CHROMIUM_CRASHREPORTERINTERFACE_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CRASH_REPORTER_OUT_DEFAULT_GEN_INCLUDE_CRASH_REPORTER_DBUS_ADAPTORS_ORG_CHROMIUM_CRASHREPORTERINTERFACE_H
 #include <memory>
@@ -58,12 +59,13 @@ class CrashReporterInterfaceAdaptor {
   }
 
  private:
+
   using SignalDebugDumpCreatedType = brillo::dbus_utils::DBusSignal<
       fbpreprocessor::DebugDumps /*DebugDumps*/>;
   std::weak_ptr<SignalDebugDumpCreatedType> signal_DebugDumpCreated_;
-
 };
 
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CRASH_REPORTER_OUT_DEFAULT_GEN_INCLUDE_CRASH_REPORTER_DBUS_ADAPTORS_ORG_CHROMIUM_CRASHREPORTERINTERFACE_H

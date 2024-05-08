@@ -1,6 +1,7 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.PcaAgent
 //  - org.chromium.RksAgent
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_ATTESTATION_OUT_DEFAULT_GEN_INCLUDE_ATTESTATION_PCA_AGENT_DBUS_ADAPTORS_ORG_CHROMIUM_PCAAGENT_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_ATTESTATION_OUT_DEFAULT_GEN_INCLUDE_ATTESTATION_PCA_AGENT_DBUS_ADAPTORS_ORG_CHROMIUM_PCAAGENT_H
 #include <memory>
@@ -71,6 +72,7 @@ class PcaAgentAdaptor {
   }
 
  private:
+
   PcaAgentInterface* interface_;  // Owned by container of this adapter.
 };
 
@@ -132,6 +134,7 @@ class RksAgentAdaptor {
   }
 
  private:
+
   using SignalCertificateFetchedType = brillo::dbus_utils::DBusSignal<
       attestation::pca_agent::RksCertificateAndSignature /*signal*/>;
   std::weak_ptr<SignalCertificateFetchedType> signal_CertificateFetched_;
@@ -141,4 +144,5 @@ class RksAgentAdaptor {
 
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_ATTESTATION_OUT_DEFAULT_GEN_INCLUDE_ATTESTATION_PCA_AGENT_DBUS_ADAPTORS_ORG_CHROMIUM_PCAAGENT_H

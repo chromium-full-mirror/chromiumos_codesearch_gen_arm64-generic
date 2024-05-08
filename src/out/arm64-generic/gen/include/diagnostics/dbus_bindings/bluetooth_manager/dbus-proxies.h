@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.bluetooth.Manager
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DIAGNOSTICS_OUT_DEFAULT_GEN_INCLUDE_DIAGNOSTICS_DBUS_BINDINGS_BLUETOOTH_MANAGER_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DIAGNOSTICS_OUT_DEFAULT_GEN_INCLUDE_DIAGNOSTICS_DBUS_BINDINGS_BLUETOOTH_MANAGER_DBUS_PROXIES_H
 #include <memory>
@@ -142,6 +143,7 @@ namespace bluetooth {
 // Interface proxy for org::chromium::bluetooth::Manager.
 class ManagerProxy final : public ManagerProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -394,11 +396,11 @@ class ManagerProxy final : public ManagerProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.bluetooth.Manager"};
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace bluetooth
@@ -412,7 +414,8 @@ namespace Manager {
 
 class ObjectManagerProxy : public dbus::ObjectManager::Interface {
  public:
-  ObjectManagerProxy(const scoped_refptr<dbus::Bus>& bus)
+  ObjectManagerProxy(
+      const scoped_refptr<dbus::Bus>& bus)
       : bus_{bus},
         dbus_object_manager_{bus->GetObjectManager(
             "org.chromium.bluetooth.Manager",
@@ -455,6 +458,7 @@ class ObjectManagerProxy : public dbus::ObjectManager::Interface {
   }
 
  private:
+
   void OnPropertyChanged(const dbus::ObjectPath& /* object_path */,
                          const std::string& /* interface_name */,
                          const std::string& /* property_name */) {}

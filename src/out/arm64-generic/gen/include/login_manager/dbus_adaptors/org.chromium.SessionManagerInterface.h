@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.SessionManagerInterface
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CHROMEOS_LOGIN_OUT_DEFAULT_GEN_INCLUDE_LOGIN_MANAGER_DBUS_ADAPTORS_ORG_CHROMIUM_SESSIONMANAGERINTERFACE_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CHROMEOS_LOGIN_OUT_DEFAULT_GEN_INCLUDE_LOGIN_MANAGER_DBUS_ADAPTORS_ORG_CHROMIUM_SESSIONMANAGERINTERFACE_H
 #include <memory>
@@ -583,6 +584,7 @@ class SessionManagerInterfaceAdaptor {
   }
 
  private:
+
   using SignalLoginPromptVisibleType = brillo::dbus_utils::DBusSignal<>;
   std::weak_ptr<SignalLoginPromptVisibleType> signal_LoginPromptVisible_;
 
@@ -613,4 +615,5 @@ class SessionManagerInterfaceAdaptor {
 
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CHROMEOS_LOGIN_OUT_DEFAULT_GEN_INCLUDE_LOGIN_MANAGER_DBUS_ADAPTORS_ORG_CHROMIUM_SESSIONMANAGERINTERFACE_H

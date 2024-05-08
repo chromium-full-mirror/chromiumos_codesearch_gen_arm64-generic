@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.Vtpm
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_VTPM_OUT_DEFAULT_GEN_INCLUDE_VTPM_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_VTPM_OUT_DEFAULT_GEN_INCLUDE_VTPM_DBUS_PROXIES_H
 #include <memory>
@@ -56,6 +57,7 @@ namespace chromium {
 // Interface proxy for org::chromium::Vtpm.
 class VtpmProxy final : public VtpmProxyInterface {
  public:
+
   VtpmProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const std::string& service_name) :
@@ -115,11 +117,11 @@ class VtpmProxy final : public VtpmProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   const dbus::ObjectPath object_path_{"/org/chromium/Vtpm"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium

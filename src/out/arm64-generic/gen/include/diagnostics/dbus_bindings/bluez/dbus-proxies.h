@@ -3,6 +3,7 @@
 //  - org.bluez.AdminPolicyStatus1
 //  - org.bluez.Battery1
 //  - org.bluez.Device1
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DIAGNOSTICS_OUT_DEFAULT_GEN_INCLUDE_DIAGNOSTICS_DBUS_BINDINGS_BLUEZ_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DIAGNOSTICS_OUT_DEFAULT_GEN_INCLUDE_DIAGNOSTICS_DBUS_BINDINGS_BLUEZ_DBUS_PROXIES_H
 #include <memory>
@@ -115,6 +116,7 @@ namespace bluez {
 // Interface proxy for org::bluez::Adapter1.
 class Adapter1Proxy final : public Adapter1ProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -331,6 +333,7 @@ class Adapter1Proxy final : public Adapter1ProxyInterface {
   }
 
  private:
+
   void OnPropertyChanged(const std::string& property_name) {
     if (!on_property_changed_.is_null())
       on_property_changed_.Run(this, property_name);
@@ -377,6 +380,7 @@ namespace bluez {
 // Interface proxy for org::bluez::AdminPolicyStatus1.
 class AdminPolicyStatus1Proxy final : public AdminPolicyStatus1ProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -438,6 +442,7 @@ class AdminPolicyStatus1Proxy final : public AdminPolicyStatus1ProxyInterface {
   }
 
  private:
+
   void OnPropertyChanged(const std::string& property_name) {
     if (!on_property_changed_.is_null())
       on_property_changed_.Run(this, property_name);
@@ -484,6 +489,7 @@ namespace bluez {
 // Interface proxy for org::bluez::Battery1.
 class Battery1Proxy final : public Battery1ProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -545,6 +551,7 @@ class Battery1Proxy final : public Battery1ProxyInterface {
   }
 
  private:
+
   void OnPropertyChanged(const std::string& property_name) {
     if (!on_property_changed_.is_null())
       on_property_changed_.Run(this, property_name);
@@ -655,6 +662,7 @@ namespace bluez {
 // Interface proxy for org::bluez::Device1.
 class Device1Proxy final : public Device1ProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -901,6 +909,7 @@ class Device1Proxy final : public Device1ProxyInterface {
   }
 
  private:
+
   void OnPropertyChanged(const std::string& property_name) {
     if (!on_property_changed_.is_null())
       on_property_changed_.Run(this, property_name);
@@ -923,7 +932,8 @@ namespace org {
 
 class bluezProxy : public dbus::ObjectManager::Interface {
  public:
-  bluezProxy(const scoped_refptr<dbus::Bus>& bus)
+  bluezProxy(
+      const scoped_refptr<dbus::Bus>& bus)
       : bus_{bus},
         dbus_object_manager_{bus->GetObjectManager(
             "org.bluez",
@@ -1041,6 +1051,7 @@ class bluezProxy : public dbus::ObjectManager::Interface {
   }
 
  private:
+
   void OnPropertyChanged(const dbus::ObjectPath& object_path,
                          const std::string& interface_name,
                          const std::string& property_name) {

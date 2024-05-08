@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.Vtpm
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_VTPM_OUT_DEFAULT_GEN_INCLUDE_VTPM_DBUS_ADAPTORS_ORG_CHROMIUM_VTPM_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_VTPM_OUT_DEFAULT_GEN_INCLUDE_VTPM_DBUS_ADAPTORS_ORG_CHROMIUM_VTPM_H
 #include <memory>
@@ -59,9 +60,11 @@ class VtpmAdaptor {
   }
 
  private:
+
   VtpmInterface* interface_;  // Owned by container of this adapter.
 };
 
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_VTPM_OUT_DEFAULT_GEN_INCLUDE_VTPM_DBUS_ADAPTORS_ORG_CHROMIUM_VTPM_H

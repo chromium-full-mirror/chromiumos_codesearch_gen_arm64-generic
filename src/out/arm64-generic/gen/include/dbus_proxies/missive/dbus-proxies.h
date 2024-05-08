@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.Missived
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_MISSIVE_OUT_DEFAULT_GEN_INCLUDE_DBUS_PROXIES_MISSIVE_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_MISSIVE_OUT_DEFAULT_GEN_INCLUDE_DBUS_PROXIES_MISSIVE_DBUS_PROXIES_H
 #include <memory>
@@ -118,6 +119,7 @@ namespace chromium {
 // Interface proxy for org::chromium::Missived.
 class MissivedProxy final : public MissivedProxyInterface {
  public:
+
   MissivedProxy(const scoped_refptr<dbus::Bus>& bus) :
       bus_{bus},
       dbus_object_proxy_{
@@ -312,11 +314,11 @@ class MissivedProxy final : public MissivedProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.Missived"};
   const dbus::ObjectPath object_path_{"/org/chromium/Missived"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium

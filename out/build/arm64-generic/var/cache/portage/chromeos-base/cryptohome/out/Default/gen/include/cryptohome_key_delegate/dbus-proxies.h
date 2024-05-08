@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.CryptohomeKeyDelegateInterface
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CRYPTOHOME_OUT_DEFAULT_GEN_INCLUDE_CRYPTOHOME_KEY_DELEGATE_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CRYPTOHOME_OUT_DEFAULT_GEN_INCLUDE_CRYPTOHOME_KEY_DELEGATE_DBUS_PROXIES_H
 #include <memory>
@@ -86,6 +87,7 @@ namespace chromium {
 // Interface proxy for org::chromium::CryptohomeKeyDelegateInterface.
 class CryptohomeKeyDelegateInterfaceProxy final : public CryptohomeKeyDelegateInterfaceProxyInterface {
  public:
+
   CryptohomeKeyDelegateInterfaceProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const std::string& service_name) :
@@ -219,11 +221,11 @@ class CryptohomeKeyDelegateInterfaceProxy final : public CryptohomeKeyDelegateIn
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   const dbus::ObjectPath object_path_{"/org/chromium/CryptohomeKeyDelegate"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium

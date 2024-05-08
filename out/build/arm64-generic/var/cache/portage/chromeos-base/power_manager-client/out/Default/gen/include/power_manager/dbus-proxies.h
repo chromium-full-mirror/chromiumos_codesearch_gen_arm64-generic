@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.PowerManager
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_POWER_MANAGER_CLIENT_OUT_DEFAULT_GEN_INCLUDE_POWER_MANAGER_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_POWER_MANAGER_CLIENT_OUT_DEFAULT_GEN_INCLUDE_POWER_MANAGER_DBUS_PROXIES_H
 #include <memory>
@@ -773,6 +774,7 @@ namespace chromium {
 // Interface proxy for org::chromium::PowerManager.
 class PowerManagerProxy final : public PowerManagerProxyInterface {
  public:
+
   PowerManagerProxy(const scoped_refptr<dbus::Bus>& bus) :
       bus_{bus},
       dbus_object_proxy_{
@@ -2449,11 +2451,11 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.PowerManager"};
   const dbus::ObjectPath object_path_{"/org/chromium/PowerManager"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium

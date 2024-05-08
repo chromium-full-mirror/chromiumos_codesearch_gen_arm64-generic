@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.Modemloggerd.Manager
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_MODEMLOGGERD_DEV_OUT_DEFAULT_GEN_INCLUDE_MODEMLOGGERD_DBUS_BINDINGS_ORG_CHROMIUM_MODEMLOGGERD_MANAGER_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_MODEMLOGGERD_DEV_OUT_DEFAULT_GEN_INCLUDE_MODEMLOGGERD_DBUS_BINDINGS_ORG_CHROMIUM_MODEMLOGGERD_MANAGER_H
 #include <memory>
@@ -57,11 +58,12 @@ class ManagerAdaptor {
   }
 
  private:
-  brillo::dbus_utils::ExportedProperty<std::vector<dbus::ObjectPath>> available_modems_;
 
+  brillo::dbus_utils::ExportedProperty<std::vector<dbus::ObjectPath>> available_modems_;
 };
 
 }  // namespace Modemloggerd
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_MODEMLOGGERD_DEV_OUT_DEFAULT_GEN_INCLUDE_MODEMLOGGERD_DBUS_BINDINGS_ORG_CHROMIUM_MODEMLOGGERD_MANAGER_H

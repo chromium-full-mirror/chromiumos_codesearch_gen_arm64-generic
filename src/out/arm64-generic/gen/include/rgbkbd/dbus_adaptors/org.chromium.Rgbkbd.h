@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.Rgbkbd
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_RGBKBD_OUT_DEFAULT_GEN_INCLUDE_RGBKBD_DBUS_ADAPTORS_ORG_CHROMIUM_RGBKBD_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_RGBKBD_OUT_DEFAULT_GEN_INCLUDE_RGBKBD_DBUS_ADAPTORS_ORG_CHROMIUM_RGBKBD_H
 #include <memory>
@@ -160,6 +161,7 @@ class RgbkbdAdaptor {
   }
 
  private:
+
   using SignalCapabilityUpdatedForTestingType = brillo::dbus_utils::DBusSignal<
       uint32_t /*capability*/>;
   std::weak_ptr<SignalCapabilityUpdatedForTestingType> signal_CapabilityUpdatedForTesting_;
@@ -169,4 +171,5 @@ class RgbkbdAdaptor {
 
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_RGBKBD_OUT_DEFAULT_GEN_INCLUDE_RGBKBD_DBUS_ADAPTORS_ORG_CHROMIUM_RGBKBD_H

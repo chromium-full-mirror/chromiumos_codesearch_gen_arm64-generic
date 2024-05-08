@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.Dlp
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DLP_OUT_DEFAULT_GEN_INCLUDE_DLP_ORG_CHROMIUM_DLP_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DLP_OUT_DEFAULT_GEN_INCLUDE_DLP_ORG_CHROMIUM_DLP_H
 #include <memory>
@@ -120,9 +121,11 @@ class DlpAdaptor {
   }
 
  private:
+
   DlpInterface* interface_;  // Owned by container of this adapter.
 };
 
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DLP_OUT_DEFAULT_GEN_INCLUDE_DLP_ORG_CHROMIUM_DLP_H

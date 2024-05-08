@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - com.ubuntu.Upstart0_6
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CHROMEOS_MACHINE_ID_REGEN_OUT_DEFAULT_GEN_INCLUDE_UPSTART_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CHROMEOS_MACHINE_ID_REGEN_OUT_DEFAULT_GEN_INCLUDE_UPSTART_DBUS_PROXIES_H
 #include <memory>
@@ -297,6 +298,7 @@ namespace ubuntu {
 // Interface proxy for com::ubuntu::Upstart0_6.
 class Upstart0_6Proxy final : public Upstart0_6ProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -1014,12 +1016,12 @@ class Upstart0_6Proxy final : public Upstart0_6ProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   const dbus::ObjectPath object_path_{"/com/ubuntu/Upstart"};
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace ubuntu

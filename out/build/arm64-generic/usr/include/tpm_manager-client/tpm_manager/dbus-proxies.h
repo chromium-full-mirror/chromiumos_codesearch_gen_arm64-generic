@@ -1,6 +1,7 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.TpmNvram
 //  - org.chromium.TpmManager
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_TPM_MANAGER_CLIENT_OUT_DEFAULT_GEN_INCLUDE_TPM_MANAGER_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_TPM_MANAGER_CLIENT_OUT_DEFAULT_GEN_INCLUDE_TPM_MANAGER_DBUS_PROXIES_H
 #include <memory>
@@ -129,6 +130,7 @@ namespace chromium {
 // Interface proxy for org::chromium::TpmNvram.
 class TpmNvramProxy final : public TpmNvramProxyInterface {
  public:
+
   TpmNvramProxy(const scoped_refptr<dbus::Bus>& bus) :
       bus_{bus},
       dbus_object_proxy_{
@@ -371,11 +373,11 @@ class TpmNvramProxy final : public TpmNvramProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.TpmManager"};
   const dbus::ObjectPath object_path_{"/org/chromium/TpmManager"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium
@@ -538,6 +540,7 @@ namespace chromium {
 // Interface proxy for org::chromium::TpmManager.
 class TpmManagerProxy final : public TpmManagerProxyInterface {
  public:
+
   TpmManagerProxy(const scoped_refptr<dbus::Bus>& bus) :
       bus_{bus},
       dbus_object_proxy_{
@@ -915,11 +918,11 @@ class TpmManagerProxy final : public TpmManagerProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.TpmManager"};
   const dbus::ObjectPath object_path_{"/org/chromium/TpmManager"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium

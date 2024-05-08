@@ -1,6 +1,7 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.PcaAgent
 //  - org.chromium.RksAgent
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_ATTESTATION_OUT_DEFAULT_GEN_INCLUDE_ATTESTATION_PCA_AGENT_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_ATTESTATION_OUT_DEFAULT_GEN_INCLUDE_ATTESTATION_PCA_AGENT_DBUS_PROXIES_H
 #include <memory>
@@ -69,6 +70,7 @@ namespace chromium {
 // Interface proxy for org::chromium::PcaAgent.
 class PcaAgentProxy final : public PcaAgentProxyInterface {
  public:
+
   PcaAgentProxy(const scoped_refptr<dbus::Bus>& bus) :
       bus_{bus},
       dbus_object_proxy_{
@@ -156,11 +158,11 @@ class PcaAgentProxy final : public PcaAgentProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.PcaAgent"};
   const dbus::ObjectPath object_path_{"/org/chromium/PcaAgent"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium
@@ -201,6 +203,7 @@ namespace chromium {
 // Interface proxy for org::chromium::RksAgent.
 class RksAgentProxy final : public RksAgentProxyInterface {
  public:
+
   RksAgentProxy(const scoped_refptr<dbus::Bus>& bus) :
       bus_{bus},
       dbus_object_proxy_{
@@ -264,11 +267,11 @@ class RksAgentProxy final : public RksAgentProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.PcaAgent"};
   const dbus::ObjectPath object_path_{"/org/chromium/PcaAgent"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium

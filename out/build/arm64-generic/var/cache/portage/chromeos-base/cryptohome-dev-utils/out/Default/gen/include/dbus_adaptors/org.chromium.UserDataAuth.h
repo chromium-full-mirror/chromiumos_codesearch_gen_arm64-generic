@@ -2,6 +2,7 @@
 //  - org.chromium.UserDataAuthInterface
 //  - org.chromium.CryptohomePkcs11Interface
 //  - org.chromium.CryptohomeMiscInterface
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CRYPTOHOME_DEV_UTILS_OUT_DEFAULT_GEN_INCLUDE_DBUS_ADAPTORS_ORG_CHROMIUM_USERDATAAUTH_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CRYPTOHOME_DEV_UTILS_OUT_DEFAULT_GEN_INCLUDE_DBUS_ADAPTORS_ORG_CHROMIUM_USERDATAAUTH_H
 #include <memory>
@@ -631,6 +632,7 @@ class UserDataAuthInterfaceAdaptor {
   }
 
  private:
+
   using SignalDircryptoMigrationProgressType = brillo::dbus_utils::DBusSignal<
       user_data_auth::DircryptoMigrationProgress /*status*/>;
   std::weak_ptr<SignalDircryptoMigrationProgressType> signal_DircryptoMigrationProgress_;
@@ -775,6 +777,7 @@ class CryptohomePkcs11InterfaceAdaptor {
   }
 
  private:
+
   CryptohomePkcs11InterfaceInterface* interface_;  // Owned by container of this adapter.
 };
 
@@ -892,9 +895,11 @@ class CryptohomeMiscInterfaceAdaptor {
   }
 
  private:
+
   CryptohomeMiscInterfaceInterface* interface_;  // Owned by container of this adapter.
 };
 
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CRYPTOHOME_DEV_UTILS_OUT_DEFAULT_GEN_INCLUDE_DBUS_ADAPTORS_ORG_CHROMIUM_USERDATAAUTH_H

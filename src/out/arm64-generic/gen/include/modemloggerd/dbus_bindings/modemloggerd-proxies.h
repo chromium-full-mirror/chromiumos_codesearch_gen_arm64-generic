@@ -1,6 +1,7 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.Modemloggerd.Manager
 //  - org.chromium.Modemloggerd.Modem
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_MODEMLOGGERD_DEV_OUT_DEFAULT_GEN_INCLUDE_MODEMLOGGERD_DBUS_BINDINGS_MODEMLOGGERD_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_MODEMLOGGERD_DEV_OUT_DEFAULT_GEN_INCLUDE_MODEMLOGGERD_DBUS_BINDINGS_MODEMLOGGERD_PROXIES_H
 #include <memory>
@@ -55,6 +56,7 @@ namespace Modemloggerd {
 // Interface proxy for org::chromium::Modemloggerd::Manager.
 class ManagerProxy final : public ManagerProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -117,12 +119,12 @@ class ManagerProxy final : public ManagerProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   const dbus::ObjectPath object_path_{"/org/chromium/Modemloggerd/Manager"};
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace Modemloggerd
@@ -216,6 +218,7 @@ namespace Modemloggerd {
 // Interface proxy for org::chromium::Modemloggerd::Modem.
 class ModemProxy final : public ModemProxyInterface {
  public:
+
   ModemProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const std::string& service_name,
@@ -400,11 +403,11 @@ class ModemProxy final : public ModemProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace Modemloggerd

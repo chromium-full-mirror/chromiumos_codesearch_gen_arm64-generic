@@ -1,6 +1,7 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.cras.Control
 //  - org.freedesktop.DBus.Introspectable
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DIAGNOSTICS_OUT_DEFAULT_GEN_INCLUDE_CRAS_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DIAGNOSTICS_OUT_DEFAULT_GEN_INCLUDE_CRAS_DBUS_PROXIES_H
 #include <memory>
@@ -1135,6 +1136,7 @@ namespace cras {
 // Interface proxy for org::chromium::cras::Control.
 class ControlProxy final : public ControlProxyInterface {
  public:
+
   ControlProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const std::string& service_name,
@@ -3530,11 +3532,11 @@ class ControlProxy final : public ControlProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace cras
@@ -3575,6 +3577,7 @@ namespace DBus {
 // Interface proxy for org::freedesktop::DBus::Introspectable.
 class IntrospectableProxy final : public IntrospectableProxyInterface {
  public:
+
   IntrospectableProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const std::string& service_name,
@@ -3632,11 +3635,11 @@ class IntrospectableProxy final : public IntrospectableProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace DBus

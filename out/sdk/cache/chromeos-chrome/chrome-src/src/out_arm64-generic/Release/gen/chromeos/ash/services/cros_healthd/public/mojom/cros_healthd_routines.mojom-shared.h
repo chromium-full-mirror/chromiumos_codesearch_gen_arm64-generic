@@ -24,9 +24,9 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_routines.mojom-shared-internal.h"
+#include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-shared.h"
 #include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "mojo/public/mojom/base/uuid.mojom-shared.h"
-#include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 

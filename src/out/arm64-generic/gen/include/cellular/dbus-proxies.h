@@ -10,6 +10,7 @@
 //  - org.freedesktop.ModemManager1
 //  - org.freedesktop.DBus.ObjectManager
 //  - org.freedesktop.DBus.Properties
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_OUT_DEFAULT_GEN_INCLUDE_CELLULAR_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_OUT_DEFAULT_GEN_INCLUDE_CELLULAR_DBUS_PROXIES_H
 #include <memory>
@@ -144,6 +145,7 @@ namespace Modem {
 // Interface proxy for org::freedesktop::ModemManager1::Modem::Location.
 class LocationProxy final : public LocationProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -429,12 +431,12 @@ class LocationProxy final : public LocationProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace Modem
@@ -516,6 +518,7 @@ namespace Modem3gpp {
 // Interface proxy for org::freedesktop::ModemManager1::Modem::Modem3gpp::ProfileManager.
 class ProfileManagerProxy final : public ProfileManagerProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -679,12 +682,12 @@ class ProfileManagerProxy final : public ProfileManagerProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace Modem3gpp
@@ -847,6 +850,7 @@ namespace Modem {
 // Interface proxy for org::freedesktop::ModemManager1::Modem::Modem3gpp.
 class Modem3gppProxy final : public Modem3gppProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -1258,12 +1262,12 @@ class Modem3gppProxy final : public Modem3gppProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace Modem
@@ -1351,6 +1355,7 @@ namespace Modem {
 // Interface proxy for org::freedesktop::ModemManager1::Modem::ModemCdma.
 class ModemCdmaProxy final : public ModemCdmaProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -1548,12 +1553,12 @@ class ModemCdmaProxy final : public ModemCdmaProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace Modem
@@ -1641,6 +1646,7 @@ namespace Modem {
 // Interface proxy for org::freedesktop::ModemManager1::Modem::Signal.
 class SignalProxy final : public SignalProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -1845,12 +1851,12 @@ class SignalProxy final : public SignalProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace Modem
@@ -1918,6 +1924,7 @@ namespace Modem {
 // Interface proxy for org::freedesktop::ModemManager1::Modem::Simple.
 class SimpleProxy final : public SimpleProxyInterface {
  public:
+
   SimpleProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const std::string& service_name,
@@ -2036,11 +2043,11 @@ class SimpleProxy final : public SimpleProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace Modem
@@ -2333,6 +2340,7 @@ namespace ModemManager1 {
 // Interface proxy for org::freedesktop::ModemManager1::Modem.
 class ModemProxy final : public ModemProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -3146,12 +3154,12 @@ class ModemProxy final : public ModemProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace ModemManager1
@@ -3286,6 +3294,7 @@ namespace ModemManager1 {
 // Interface proxy for org::freedesktop::ModemManager1::Sim.
 class SimProxy final : public SimProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -3632,12 +3641,12 @@ class SimProxy final : public SimProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace ModemManager1
@@ -3716,6 +3725,7 @@ namespace freedesktop {
 // Interface proxy for org::freedesktop::ModemManager1.
 class ModemManager1Proxy final : public ModemManager1ProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -3898,12 +3908,12 @@ class ModemManager1Proxy final : public ModemManager1ProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   const dbus::ObjectPath object_path_{"/org/freedesktop/ModemManager1"};
   dbus::ObjectProxy* dbus_object_proxy_;
   std::unique_ptr<PropertySet> property_set_;
-
 };
 
 }  // namespace freedesktop
@@ -3953,6 +3963,7 @@ namespace DBus {
 // Interface proxy for org::freedesktop::DBus::ObjectManager.
 class ObjectManagerProxy final : public ObjectManagerProxyInterface {
  public:
+
   ObjectManagerProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const std::string& service_name,
@@ -4034,11 +4045,11 @@ class ObjectManagerProxy final : public ObjectManagerProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace DBus
@@ -4116,6 +4127,7 @@ namespace DBus {
 // Interface proxy for org::freedesktop::DBus::Properties.
 class PropertiesProxy final : public PropertiesProxyInterface {
  public:
+
   PropertiesProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const std::string& service_name,
@@ -4263,11 +4275,11 @@ class PropertiesProxy final : public PropertiesProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace DBus

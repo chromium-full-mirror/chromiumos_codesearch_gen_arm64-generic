@@ -4,6 +4,7 @@
 //  - org.chromium.bluetooth.BluetoothAdmin
 //  - org.chromium.bluetooth.BluetoothGatt
 //  - org.chromium.bluetooth.BluetoothQA
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DIAGNOSTICS_OUT_DEFAULT_GEN_INCLUDE_DIAGNOSTICS_DBUS_BINDINGS_FLOSS_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DIAGNOSTICS_OUT_DEFAULT_GEN_INCLUDE_DIAGNOSTICS_DBUS_BINDINGS_FLOSS_DBUS_PROXIES_H
 #include <memory>
@@ -71,6 +72,7 @@ namespace bluetooth {
 // Interface proxy for org::chromium::bluetooth::BatteryManager.
 class BatteryManagerProxy final : public BatteryManagerProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -142,11 +144,11 @@ class BatteryManagerProxy final : public BatteryManagerProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.bluetooth"};
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace bluetooth
@@ -452,6 +454,7 @@ namespace bluetooth {
 // Interface proxy for org::chromium::bluetooth::Bluetooth.
 class BluetoothProxy final : public BluetoothProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -1211,11 +1214,11 @@ class BluetoothProxy final : public BluetoothProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.bluetooth"};
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace bluetooth
@@ -1256,6 +1259,7 @@ namespace bluetooth {
 // Interface proxy for org::chromium::bluetooth::BluetoothAdmin.
 class BluetoothAdminProxy final : public BluetoothAdminProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -1323,11 +1327,11 @@ class BluetoothAdminProxy final : public BluetoothAdminProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.bluetooth"};
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace bluetooth
@@ -1374,6 +1378,7 @@ namespace bluetooth {
 // is exposed to connected Bluetooth Low Energy (LE) devices.
 class BluetoothGattProxy final : public BluetoothGattProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -1445,11 +1450,11 @@ class BluetoothGattProxy final : public BluetoothGattProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.bluetooth"};
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace bluetooth
@@ -1490,6 +1495,7 @@ namespace bluetooth {
 // Interface proxy for org::chromium::bluetooth::BluetoothQA.
 class BluetoothQAProxy final : public BluetoothQAProxyInterface {
  public:
+
   class PropertySet : public dbus::PropertySet {
    public:
     PropertySet(dbus::ObjectProxy* object_proxy,
@@ -1557,11 +1563,11 @@ class BluetoothQAProxy final : public BluetoothQAProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.bluetooth"};
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace bluetooth
@@ -1574,7 +1580,8 @@ namespace bluetooth {
 
 class ObjectManagerProxy : public dbus::ObjectManager::Interface {
  public:
-  ObjectManagerProxy(const scoped_refptr<dbus::Bus>& bus)
+  ObjectManagerProxy(
+      const scoped_refptr<dbus::Bus>& bus)
       : bus_{bus},
         dbus_object_manager_{bus->GetObjectManager(
             "org.chromium.bluetooth",
@@ -1717,6 +1724,7 @@ class ObjectManagerProxy : public dbus::ObjectManager::Interface {
   }
 
  private:
+
   void OnPropertyChanged(const dbus::ObjectPath& /* object_path */,
                          const std::string& /* interface_name */,
                          const std::string& /* property_name */) {}

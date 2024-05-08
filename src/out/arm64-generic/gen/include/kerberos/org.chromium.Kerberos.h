@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.Kerberos
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_KERBEROS_OUT_DEFAULT_GEN_INCLUDE_KERBEROS_ORG_CHROMIUM_KERBEROS_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_KERBEROS_OUT_DEFAULT_GEN_INCLUDE_KERBEROS_ORG_CHROMIUM_KERBEROS_H
 #include <memory>
@@ -174,6 +175,7 @@ class KerberosAdaptor {
   }
 
  private:
+
   using SignalKerberosFilesChangedType = brillo::dbus_utils::DBusSignal<
       std::string /*principal_name*/>;
   std::weak_ptr<SignalKerberosFilesChangedType> signal_KerberosFilesChanged_;
@@ -187,4 +189,5 @@ class KerberosAdaptor {
 
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_KERBEROS_OUT_DEFAULT_GEN_INCLUDE_KERBEROS_ORG_CHROMIUM_KERBEROS_H

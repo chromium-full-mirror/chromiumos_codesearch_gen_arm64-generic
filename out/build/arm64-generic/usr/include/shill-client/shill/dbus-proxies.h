@@ -6,6 +6,7 @@
 //  - org.chromium.flimflam.Service
 //  - org.chromium.flimflam.Task
 //  - org.chromium.flimflam.ThirdPartyVpn
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_CLIENT_OUT_DEFAULT_GEN_INCLUDE_SHILL_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_CLIENT_OUT_DEFAULT_GEN_INCLUDE_SHILL_DBUS_PROXIES_H
 #include <memory>
@@ -202,6 +203,7 @@ namespace flimflam {
 // Interface proxy for org::chromium::flimflam::Device.
 class DeviceProxy final : public DeviceProxyInterface {
  public:
+
   DeviceProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const dbus::ObjectPath& object_path) :
@@ -633,11 +635,11 @@ class DeviceProxy final : public DeviceProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.flimflam"};
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace flimflam
@@ -716,6 +718,7 @@ namespace flimflam {
 // Interface proxy for org::chromium::flimflam::IPConfig.
 class IPConfigProxy final : public IPConfigProxyInterface {
  public:
+
   IPConfigProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const dbus::ObjectPath& object_path) :
@@ -873,11 +876,11 @@ class IPConfigProxy final : public IPConfigProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.flimflam"};
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace flimflam
@@ -1451,6 +1454,7 @@ namespace flimflam {
 // Interface proxy for org::chromium::flimflam::Manager.
 class ManagerProxy final : public ManagerProxyInterface {
  public:
+
   ManagerProxy(const scoped_refptr<dbus::Bus>& bus) :
       bus_{bus},
       dbus_object_proxy_{
@@ -2924,11 +2928,11 @@ class ManagerProxy final : public ManagerProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.flimflam"};
   const dbus::ObjectPath object_path_{"/"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace flimflam
@@ -3010,6 +3014,7 @@ namespace flimflam {
 // Interface proxy for org::chromium::flimflam::Profile.
 class ProfileProxy final : public ProfileProxyInterface {
  public:
+
   ProfileProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const dbus::ObjectPath& object_path) :
@@ -3172,11 +3177,11 @@ class ProfileProxy final : public ProfileProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.flimflam"};
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace flimflam
@@ -3363,6 +3368,7 @@ namespace flimflam {
 // Interface proxy for org::chromium::flimflam::Service.
 class ServiceProxy final : public ServiceProxyInterface {
  public:
+
   ServiceProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const dbus::ObjectPath& object_path) :
@@ -3819,11 +3825,11 @@ class ServiceProxy final : public ServiceProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.flimflam"};
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace flimflam
@@ -3878,6 +3884,7 @@ namespace flimflam {
 // Interface proxy for org::chromium::flimflam::Task.
 class TaskProxy final : public TaskProxyInterface {
  public:
+
   TaskProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const dbus::ObjectPath& object_path) :
@@ -3968,11 +3975,11 @@ class TaskProxy final : public TaskProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.flimflam"};
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace flimflam
@@ -4045,6 +4052,7 @@ namespace flimflam {
 // Interface proxy for org::chromium::flimflam::ThirdPartyVpn.
 class ThirdPartyVpnProxy final : public ThirdPartyVpnProxyInterface {
  public:
+
   ThirdPartyVpnProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const dbus::ObjectPath& object_path) :
@@ -4186,11 +4194,11 @@ class ThirdPartyVpnProxy final : public ThirdPartyVpnProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.flimflam"};
   dbus::ObjectPath object_path_;
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace flimflam

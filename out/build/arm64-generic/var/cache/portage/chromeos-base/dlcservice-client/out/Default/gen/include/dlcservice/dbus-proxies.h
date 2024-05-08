@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.DlcServiceInterface
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DLCSERVICE_CLIENT_OUT_DEFAULT_GEN_INCLUDE_DLCSERVICE_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DLCSERVICE_CLIENT_OUT_DEFAULT_GEN_INCLUDE_DLCSERVICE_DBUS_PROXIES_H
 #include <memory>
@@ -205,6 +206,7 @@ namespace chromium {
 // Interface proxy for org::chromium::DlcServiceInterface.
 class DlcServiceInterfaceProxy final : public DlcServiceInterfaceProxyInterface {
  public:
+
   DlcServiceInterfaceProxy(const scoped_refptr<dbus::Bus>& bus) :
       bus_{bus},
       dbus_object_proxy_{
@@ -620,11 +622,11 @@ class DlcServiceInterfaceProxy final : public DlcServiceInterfaceProxyInterface 
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.DlcService"};
   const dbus::ObjectPath object_path_{"/org/chromium/DlcService"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium

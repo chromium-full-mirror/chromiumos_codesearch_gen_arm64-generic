@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.flimflam.ThirdPartyVpn
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_OUT_DEFAULT_GEN_INCLUDE_DBUS_BINDINGS_ORG_CHROMIUM_FLIMFLAM_THIRDPARTYVPN_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_OUT_DEFAULT_GEN_INCLUDE_DBUS_BINDINGS_ORG_CHROMIUM_FLIMFLAM_THIRDPARTYVPN_H
 #include <memory>
@@ -99,6 +100,7 @@ class ThirdPartyVpnAdaptor {
   }
 
  private:
+
   using SignalOnPacketReceivedType = brillo::dbus_utils::DBusSignal<
       std::vector<uint8_t> /*ip_packet*/>;
   std::weak_ptr<SignalOnPacketReceivedType> signal_OnPacketReceived_;
@@ -113,4 +115,5 @@ class ThirdPartyVpnAdaptor {
 }  // namespace flimflam
 }  // namespace chromium
 }  // namespace org
+
 #endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_OUT_DEFAULT_GEN_INCLUDE_DBUS_BINDINGS_ORG_CHROMIUM_FLIMFLAM_THIRDPARTYVPN_H

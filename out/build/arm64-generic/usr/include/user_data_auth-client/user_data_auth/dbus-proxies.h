@@ -2,6 +2,7 @@
 //  - org.chromium.UserDataAuthInterface
 //  - org.chromium.CryptohomePkcs11Interface
 //  - org.chromium.CryptohomeMiscInterface
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CRYPTOHOME_CLIENT_OUT_DEFAULT_GEN_INCLUDE_USER_DATA_AUTH_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_CRYPTOHOME_CLIENT_OUT_DEFAULT_GEN_INCLUDE_USER_DATA_AUTH_DBUS_PROXIES_H
 #include <memory>
@@ -574,6 +575,7 @@ namespace chromium {
 // Interface proxy for org::chromium::UserDataAuthInterface.
 class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterface {
  public:
+
   UserDataAuthInterfaceProxy(const scoped_refptr<dbus::Bus>& bus) :
       bus_{bus},
       dbus_object_proxy_{
@@ -1973,11 +1975,11 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.UserDataAuth"};
   const dbus::ObjectPath object_path_{"/org/chromium/UserDataAuth"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium
@@ -2052,6 +2054,7 @@ namespace chromium {
 // Interface proxy for org::chromium::CryptohomePkcs11Interface.
 class CryptohomePkcs11InterfaceProxy final : public CryptohomePkcs11InterfaceProxyInterface {
  public:
+
   CryptohomePkcs11InterfaceProxy(const scoped_refptr<dbus::Bus>& bus) :
       bus_{bus},
       dbus_object_proxy_{
@@ -2201,11 +2204,11 @@ class CryptohomePkcs11InterfaceProxy final : public CryptohomePkcs11InterfacePro
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.UserDataAuth"};
   const dbus::ObjectPath object_path_{"/org/chromium/UserDataAuth"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium
@@ -2316,6 +2319,7 @@ namespace chromium {
 // Interface proxy for org::chromium::CryptohomeMiscInterface.
 class CryptohomeMiscInterfaceProxy final : public CryptohomeMiscInterfaceProxyInterface {
  public:
+
   CryptohomeMiscInterfaceProxy(const scoped_refptr<dbus::Bus>& bus) :
       bus_{bus},
       dbus_object_proxy_{
@@ -2558,11 +2562,11 @@ class CryptohomeMiscInterfaceProxy final : public CryptohomeMiscInterfaceProxyIn
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   const std::string service_name_{"org.chromium.UserDataAuth"};
   const dbus::ObjectPath object_path_{"/org/chromium/UserDataAuth"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace chromium

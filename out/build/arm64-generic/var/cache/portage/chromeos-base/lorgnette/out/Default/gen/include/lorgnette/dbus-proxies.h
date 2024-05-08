@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.lorgnette.Manager
+
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_LORGNETTE_OUT_DEFAULT_GEN_INCLUDE_LORGNETTE_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_LORGNETTE_OUT_DEFAULT_GEN_INCLUDE_LORGNETTE_DBUS_PROXIES_H
 #include <memory>
@@ -281,6 +282,7 @@ namespace lorgnette {
 // Interface proxy for org::chromium::lorgnette::Manager.
 class ManagerProxy final : public ManagerProxyInterface {
  public:
+
   ManagerProxy(
       const scoped_refptr<dbus::Bus>& bus,
       const std::string& service_name) :
@@ -823,11 +825,11 @@ class ManagerProxy final : public ManagerProxyInterface {
   }
 
  private:
+
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
   const dbus::ObjectPath object_path_{"/org/chromium/lorgnette/Manager"};
   dbus::ObjectProxy* dbus_object_proxy_;
-
 };
 
 }  // namespace lorgnette
