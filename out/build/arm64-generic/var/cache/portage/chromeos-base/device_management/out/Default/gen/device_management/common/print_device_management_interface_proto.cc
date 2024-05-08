@@ -4,7 +4,7 @@
 
 // THIS CODE IS GENERATED.
 // Generated with command:
-// ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r272/work/device_management-0.0.1/libhwsec-foundation/utility/proto_print.py
+// ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r273/work/device_management-0.0.1/libhwsec-foundation/utility/proto_print.py
 // --subdir common --proto-include device_management/proto_bindings --output-dir
 // /build/arm64-generic/var/cache/portage/chromeos-base/device_management/out/Default/gen/device_management/common
 // /build/arm64-generic/usr/include/chromeos/dbus/device_management/device_management_interface.proto
